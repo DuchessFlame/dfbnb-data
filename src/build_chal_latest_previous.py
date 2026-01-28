@@ -10,11 +10,21 @@ TSV_DIR = REPO_ROOT / "tsv"
 DIST_DIR = REPO_ROOT / "dist"
 
 # Match: CHAL_Export_Dec_2025.tsv (month as 3 letters)
-CHAL_RE = re.compile(r"^CHAL_Export_([A-Za-z]{3})_(\d{4})\.tsv$")
+CHAL_RE = re.compile(r"^CHAL_Export_([A-Za-z]+)_(\d{4})\.tsv$")
 
 MONTHS = {
-    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
-    "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12
+    "jan": 1, "january": 1,
+    "feb": 2, "february": 2,
+    "mar": 3, "march": 3,
+    "apr": 4, "april": 4,
+    "may": 5,
+    "jun": 6, "june": 6,
+    "jul": 7, "july": 7,
+    "aug": 8, "august": 8,
+    "sep": 9, "september": 9,
+    "oct": 10, "october": 10,
+    "nov": 11, "november": 11,
+    "dec": 12, "december": 12,
 }
 
 @dataclass(frozen=True)
