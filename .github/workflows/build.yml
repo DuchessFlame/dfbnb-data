@@ -1,13 +1,33 @@
-name: DFBNB Test Workflow
+name: DFBNB Build – CHAL
 
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Say hello
-        run: echo "Workflow is running"
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build CHAL latest / previous JSON
+        run: |
+          python src/build_chal_latest_previous.py
+          echo "---- dist listing ----"
+          ls -la dist
+          echo "---- manifest ----"
+          cat dist/manifest.json
+
+      - name: Upload dist as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dfbnb-dist
+          path: dist/
