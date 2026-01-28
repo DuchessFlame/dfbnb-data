@@ -53,11 +53,33 @@ def pick_latest_previous(files: List[ChalFile]) -> Tuple[ChalFile, ChalFile]:
     return files_sorted[-1], files_sorted[-2]
 
 def load_tsv_rows(tsv_path: Path) -> Tuple[List[str], List[dict]]:
-    with tsv_path.open("r", encoding="utf-8-sig", newline="") as f:
-        reader = csv.DictReader(f, delimiter="\t")
-        rows = list(reader)
-        cols = reader.fieldnames or []
-    return cols, rows
+    """
+    Load TSV files robustly. FO76 exports may be UTF-8 or Windows-1252 (ANSI).
+    """
+    encodings_to_try = [
+        "utf-8-sig",
+        "utf-8",
+        "cp1252",
+        "latin-1",
+    ]
+
+    last_error = None
+
+    for enc in encodings_to_try:
+        try:
+            with tsv_path.open("r", encoding=enc, newline="") as f:
+                reader = csv.DictReader(f, delimiter="\t")
+                rows = list(reader)
+                cols = reader.fieldnames or []
+                return cols, rows
+        except UnicodeDecodeError as e:
+            last_error = e
+            continue
+
+    raise SystemExit(
+        f"Failed to decode TSV file {tsv_path.name} using encodings {encodings_to_try}. "
+        f"Last error: {last_error}"
+    )
 
 def write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
