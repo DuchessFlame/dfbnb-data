@@ -2,8 +2,11 @@ name: DFBNB Build – CHAL
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -26,8 +29,14 @@ jobs:
           echo "---- manifest ----"
           cat dist/manifest.json
 
-      - name: Upload dist as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dfbnb-dist
-          path: dist/
+      - name: Commit dist outputs to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/manifest.json dist/chal_latest.json dist/chal_previous.json
+
+          git diff --cached --quiet && echo "No dist changes to commit" && exit 0
+
+          git commit -m "Update CHAL dist outputs"
+          git push
