@@ -1,0 +1,76 @@
+name: Update Camp Titles Manifest
+
+on:
+  push:
+    paths:
+      - "tsv/**.tsv"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-manifest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build manifest from newest TSVs
+        run: |
+          set -e
+
+          mkdir -p dist
+
+          newest() {
+            ls -t $1 2>/dev/null | head -n 1
+          }
+
+          CMPT=$(newest "tsv/CMPT*.tsv")
+          COBJ=$(newest "tsv/COBJ*.tsv")
+          LVLI=$(newest "tsv/LVLI*.tsv")
+          GLOB=$(newest "tsv/GLOB*.tsv")
+          GMRW=$(newest "tsv/GMRW*.tsv")
+
+          if [ -z "$CMPT" ] || [ -z "$COBJ" ] || [ -z "$LVLI" ] || [ -z "$GLOB" ] || [ -z "$GMRW" ]; then
+            echo "Missing one or more TSV types in /tsv"
+            echo "CMPT=$CMPT"
+            echo "COBJ=$COBJ"
+            echo "LVLI=$LVLI"
+            echo "GLOB=$GLOB"
+            echo "GMRW=$GMRW"
+            exit 1
+          fi
+
+          REPO="${GITHUB_REPOSITORY}"
+          BASE="https://raw.githubusercontent.com/${REPO}/main"
+          NOW=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
+
+          cat > dist/camp_titles_manifest.json <<EOF
+          {
+            "generatedAt": "${NOW}",
+            "tsv": {
+              "cmpt": "${BASE}/${CMPT}",
+              "cobj": "${BASE}/${COBJ}",
+              "lvli": "${BASE}/${LVLI}",
+              "glob": "${BASE}/${GLOB}",
+              "gmrw": "${BASE}/${GMRW}"
+            }
+          }
+          EOF
+
+      - name: Commit manifest
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/camp_titles_manifest.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Auto-update camp titles manifest"
+          git push
