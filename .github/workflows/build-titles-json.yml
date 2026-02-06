@@ -1,0 +1,51 @@
+name: Build Titles JSON
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tsv/**"
+      - "src/**"
+      - ".github/workflows/build-titles-json.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build JSON
+        run: |
+          python src/build_titles_json.py \
+            --cmpt tsv/CMPT_Export_March_2026.tsv \
+            --plyt tsv/PLYT_Export_March_2026.tsv \
+            --book tsv/BOOK_Export_March_2026.tsv \
+            --cobj tsv/COBJ_Export_March_2026.tsv \
+            --glob tsv/GLOB_Export_March_2026.tsv \
+            --gmrw tsv/GMRW_Export_March_2026.tsv \
+            --lvli tsv/LVLI_Export_March_2026.tsv \
+            --seasons tsv/fallout76_seasons.tsv \
+            --outdir dist
+
+      - name: Commit dist
+        run: |
+          if git status --porcelain | grep -q "^ M dist/"; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/
+            git commit -m "Update titles JSON"
+            git push
+          else
+            echo "No dist changes."
+          fi
