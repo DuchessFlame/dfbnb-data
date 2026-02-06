@@ -12,6 +12,14 @@ from typing import Any, Dict, List, Optional, Tuple
 
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
 
+# Manual release-year overrides
+# ONLY add entries for titles you know the real year for
+# Everything else is automatic
+MANUAL_RELEASE_YEAR = {
+  ("player", "007A95CA"): 2022,
+  ("player", "0081ABCD"): 2023,
+}
+
 RE_HAS_ENTITLEMENT = re.compile(r"\bHasEntitlement\(", re.IGNORECASE)
 RE_SCORE_SEASON = re.compile(r"\bSCORE_S(\d+)\b", re.IGNORECASE)
 RE_BARE_SEASON = re.compile(r"\bS(\d{1,2})\b")
@@ -500,3 +508,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
