@@ -31,7 +31,7 @@ jobs:
 
       - name: Build titles JSON
         run: |
-          python scripts/build_titles.py
+         python src/build_titles.py
 
       - name: Commit generated JSON
         run: |
