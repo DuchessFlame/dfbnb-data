@@ -31,16 +31,12 @@ jobs:
 
       - name: Build titles JSON
         run: |
-         python src/build_titles.py
+          python src/build_titles.py
 
-      - name: Commit generated JSON
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dist/titles_data.json dist/titles_manifest.json
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Build titles JSON"
-            git push
-          fi
+      - name: Upload dist outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: titles-dist
+          path: |
+            dist/titles_data.json
+            dist/titles_manifest.json
