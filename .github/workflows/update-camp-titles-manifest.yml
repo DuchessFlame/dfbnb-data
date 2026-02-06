@@ -1,76 +1,46 @@
-name: Update Camp Titles Manifest
+name: Build Titles JSON
 
 on:
+  workflow_dispatch:
   push:
     paths:
-      - "tsv/**.tsv"
-  workflow_dispatch:
+      - "tsv/**"
+      - "scripts/**"
+      - ".github/workflows/build_titles.yml"
 
 permissions:
   contents: write
 
 jobs:
-  build-manifest:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Build manifest from newest TSVs
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
         run: |
-          set -e
+          python -m pip install --upgrade pip
+          pip install pandas
 
-          mkdir -p dist
-
-          newest() {
-            ls -t $1 2>/dev/null | head -n 1
-          }
-
-          CMPT=$(newest "tsv/CMPT*.tsv")
-          COBJ=$(newest "tsv/COBJ*.tsv")
-          LVLI=$(newest "tsv/LVLI*.tsv")
-          GLOB=$(newest "tsv/GLOB*.tsv")
-          GMRW=$(newest "tsv/GMRW*.tsv")
-
-          if [ -z "$CMPT" ] || [ -z "$COBJ" ] || [ -z "$LVLI" ] || [ -z "$GLOB" ] || [ -z "$GMRW" ]; then
-            echo "Missing one or more TSV types in /tsv"
-            echo "CMPT=$CMPT"
-            echo "COBJ=$COBJ"
-            echo "LVLI=$LVLI"
-            echo "GLOB=$GLOB"
-            echo "GMRW=$GMRW"
-            exit 1
-          fi
-
-          REPO="${GITHUB_REPOSITORY}"
-          BASE="https://raw.githubusercontent.com/${REPO}/main"
-          NOW=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
-
-          cat > dist/camp_titles_manifest.json <<EOF
-          {
-            "generatedAt": "${NOW}",
-            "tsv": {
-              "cmpt": "${BASE}/${CMPT}",
-              "cobj": "${BASE}/${COBJ}",
-              "lvli": "${BASE}/${LVLI}",
-              "glob": "${BASE}/${GLOB}",
-              "gmrw": "${BASE}/${GMRW}"
-            }
-          }
-          EOF
-
-      - name: Commit manifest
+      - name: Build titles JSON
         run: |
-          set -e
+          python scripts/build_titles.py
+
+      - name: Commit generated JSON
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add dist/camp_titles_manifest.json
+          git add dist/titles_data.json dist/titles_manifest.json
           if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
+            echo "No changes to commit"
+          else
+            git commit -m "Build titles JSON"
+            git push
           fi
-
-          git commit -m "Auto-update camp titles manifest"
-          git push
