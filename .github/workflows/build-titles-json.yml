@@ -28,14 +28,8 @@ jobs:
       - name: Build JSON
         run: |
           python src/build_titles_json.py \
-            --cmpt tsv/CMPT_Export_March_2026.tsv \
-            --plyt tsv/PLYT_Export_March_2026.tsv \
-            --book tsv/BOOK_Export_March_2026.tsv \
-            --cobj tsv/COBJ_Export_March_2026.tsv \
-            --glob tsv/GLOB_Export_March_2026.tsv \
-            --gmrw tsv/GMRW_Export_March_2026.tsv \
-            --lvli tsv/LVLI_Export_March_2026.tsv \
-            --seasons tsv/fallout76_seasons.tsv \
+            --tsv-root tsv/May_2026 \
+            --seasons tsv/May_2026/SEASONS.tsv \
             --outdir dist
 
       - name: Commit dist
