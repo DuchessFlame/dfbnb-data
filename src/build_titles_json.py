@@ -78,7 +78,7 @@ def safe_float(s: str, default: Optional[float] = None) -> Optional[float]:
 
 def read_tsv_rows(path: str) -> List[Dict[str, str]]:
     with open(path, "r", encoding="utf-8", errors="replace", newline="") as f:
-        reader = csv.DictReader(f, delimiter="\\t")
+        reader = csv.DictReader(f, delimiter="\t")
         return [row for row in reader]
 
 
@@ -575,7 +575,9 @@ def main() -> int:
 
     os.makedirs(args.outdir, exist_ok=True)
 
-    seasons = seasons_map(args.seasons)
+    seasons = {}
+    if args.seasons and os.path.isfile(args.seasons):
+        seasons = seasons_map(args.seasons)
 
     cmpt_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.cmpt], "FormID")
     plyt_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.plyt], "FormID")
