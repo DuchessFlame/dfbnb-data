@@ -12,14 +12,6 @@ from typing import Any, Dict, List, Optional, Tuple
 
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
 
-# Manual release-year overrides
-# ONLY add entries for titles you know the real year for
-# Everything else is automatic
-MANUAL_RELEASE_YEAR = {
-  ("player", "007A95CA"): 2022,
-  ("player", "0081ABCD"): 2023,
-}
-
 RE_HAS_ENTITLEMENT = re.compile(r"\bHasEntitlement\(", re.IGNORECASE)
 RE_SCORE_SEASON = re.compile(r"\bSCORE_S(\d+)\b", re.IGNORECASE)
 RE_BARE_SEASON = re.compile(r"\bS(\d{1,2})\b")
@@ -49,7 +41,7 @@ def now_iso() -> str:
     return dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
 
 def starts_cut(edid: str) -> bool:
-    e = (edid or "").upper()
+    e = (edid or "").strip().upper()
     return any(e.startswith(p) for p in CUT_PREFIXES)
 
 def extract_conditions(row: Dict[str, str]) -> List[str]:
@@ -75,23 +67,40 @@ def seasons_map(seasons_path: Optional[str]) -> Dict[int, str]:
             m[n] = name
     return m
 
+def _norm_key(s: str) -> str:
+    # aggressive normalize so "Zen", "zen", "Zen " all match
+    s = (s or "").strip().lower()
+    s = re.sub(r"\s+", " ", s)
+    s = re.sub(r"[^a-z0-9 ]+", "", s)
+    return s
+
 def book_tradeable_map(book_rows: List[Dict[str, str]]) -> Dict[str, bool]:
     """
-    Key = EDID from BOOK
-    Value = True if tradeable, False if NonPlayerTradeable keyword exists
+    Keys:
+      - BOOK.EDID (normalized)
+      - BOOK.FULL (normalized)  <-- this is what lets "Zen"/"Boiled"/etc work
+    Value:
+      - False if keyword contains NonPlayerTradeable
+      - True otherwise
     """
     out: Dict[str, bool] = {}
-    # BOOK headers: FormID, EDID, FULL, DESC, KeywordCount, KW1..KWN
     for r in book_rows:
         edid = (r.get("EDID") or "").strip()
-        if not edid:
-            continue
+        full = (r.get("FULL") or "").strip()
+
         kw_count = safe_int(r.get("KeywordCount", "0"))
-        kws = []
+        kws: List[str] = []
         for i in range(1, kw_count + 1):
             kws.append((r.get(f"KW{i}") or "").strip())
-        non_trade = any("NonPlayerTradeable" in k for k in kws if k)
-        out[edid] = (not non_trade)
+
+        non_trade = any("nonplayertradeable" in (k or "").lower() for k in kws if k)
+        is_tradeable = (not non_trade)
+
+        if edid:
+            out[_norm_key(edid)] = is_tradeable
+        if full:
+            out[_norm_key(full)] = is_tradeable
+
     return out
 
 def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
@@ -104,6 +113,7 @@ def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
         edid = (r.get("EDID") or "").strip()
         if not edid:
             continue
+
         token = edid.split("_", 1)[0]
         pq = (r.get("ParentQuest") or "").strip()
         if token and pq:
@@ -145,7 +155,7 @@ def find_glob_drop_rate(glob_rows: List[Dict[str, str]], token: Optional[str], t
     if token:
         needles.append(token)
     for w in title_words:
-        if w and len(w) >= 4:
+        if w and len(w) >= 3:
             needles.append(w)
     if not needles:
         return None
@@ -331,14 +341,33 @@ def git_show_json(rev: str, path: str) -> Optional[dict]:
         return None
 
 def main() -> int:
+   def merge_rows_by_key(row_sets: List[List[Dict[str, str]]], key_field: str) -> List[Dict[str, str]]:
+    """
+    Merge multiple TSV exports for the same record type.
+    Later files win on field values, but we keep one row per key.
+    """
+    merged: Dict[str, Dict[str, str]] = {}
+    for rows in row_sets:
+        for r in rows:
+            k = (r.get(key_field) or "").strip()
+            if not k:
+                continue
+            if k not in merged:
+                merged[k] = dict(r)
+            else:
+                merged[k].update({kk: vv for kk, vv in r.items() if vv is not None})
+    return list(merged.values())
+
+
+def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cmpt", required=True)
-    ap.add_argument("--plyt", required=True)
-    ap.add_argument("--book", required=True)
-    ap.add_argument("--cobj", required=True)
-    ap.add_argument("--glob", required=True)
-    ap.add_argument("--gmrw", required=True)
-    ap.add_argument("--lvli", required=True)
+    ap.add_argument("--cmpt", action="append", required=True)
+    ap.add_argument("--plyt", action="append", required=True)
+    ap.add_argument("--book", action="append", required=True)
+    ap.add_argument("--cobj", action="append", required=True)
+    ap.add_argument("--glob", action="append", required=True)
+    ap.add_argument("--gmrw", action="append", required=True)
+    ap.add_argument("--lvli", action="append", required=True)
     ap.add_argument("--seasons", required=False, default=None)
     ap.add_argument("--outdir", required=True)
     args = ap.parse_args()
@@ -347,13 +376,13 @@ def main() -> int:
 
     seasons = seasons_map(args.seasons)
 
-    cmpt_rows = read_tsv_rows(args.cmpt)
-    plyt_rows = read_tsv_rows(args.plyt)
-    book_rows = read_tsv_rows(args.book)
-    cobj_rows = read_tsv_rows(args.cobj)
-    glob_rows = read_tsv_rows(args.glob)
-    gmrw_rows = read_tsv_rows(args.gmrw)
-    lvli_rows = read_tsv_rows(args.lvli)
+    cmpt_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.cmpt], "FormID")
+    plyt_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.plyt], "FormID")
+    book_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.book], "FormID")
+    cobj_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.cobj], "FormID")
+    glob_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.glob], "FormID")
+    gmrw_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.gmrw], "FormID")
+    lvli_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.lvli], "FormID")
 
     tradeable_by_book_edid = book_tradeable_map(book_rows)
     gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
@@ -381,10 +410,14 @@ def main() -> int:
             lvli_rows=lvli_rows,
         )
 
-        # Tradeable uses BOOK keywords lookup when possible
-        tradeable = None
-        if edid in tradeable_by_book_edid:
-            tradeable = tradeable_by_book_edid[edid]
+        # Camp default NON-tradeable unless BOOK proves otherwise (by EDID or display title)
+        tradeable = False
+        k_edid = _norm_key(edid)
+        k_title = _norm_key(title)
+        if k_edid in tradeable_by_book_edid:
+            tradeable = tradeable_by_book_edid[k_edid]
+        elif k_title in tradeable_by_book_edid:
+            tradeable = tradeable_by_book_edid[k_title]
 
         camp_items.append({
             "formId": form_id,
@@ -392,6 +425,15 @@ def main() -> int:
             "title": title,
             "isPrefix": (is_prefix == "1" or is_prefix.lower() == "true"),
             "isSuffix": (is_suffix == "1" or is_suffix.lower() == "true"),
+            "affixType": (
+                "Prefix/Suffix"
+                if ((is_prefix == "1" or is_prefix.lower() == "true") and (is_suffix == "1" or is_suffix.lower() == "true"))
+                else "Prefix"
+                if (is_prefix == "1" or is_prefix.lower() == "true")
+                else "Suffix"
+                if (is_suffix == "1" or is_suffix.lower() == "true")
+                else "—"
+            ),
             "conditions": conds,
             "condCount": len(conds),
             "howToObtain": how,
@@ -414,7 +456,6 @@ def main() -> int:
 
         conds = extract_conditions(r)
 
-        # display title: prefer male if present
         title_display = title_m or title_f
 
         how, dr, sn, unlock_type = compute_unlock_and_rates(
@@ -429,9 +470,14 @@ def main() -> int:
             lvli_rows=lvli_rows,
         )
 
-        tradeable = None
-        if edid in tradeable_by_book_edid:
-            tradeable = tradeable_by_book_edid[edid]
+        # Player default Tradeable unless BOOK says NonPlayerTradeable (by EDID or display title)
+        tradeable = True
+        k_edid = _norm_key(edid)
+        k_title = _norm_key(title_display)
+        if k_edid in tradeable_by_book_edid:
+            tradeable = tradeable_by_book_edid[k_edid]
+        elif k_title in tradeable_by_book_edid:
+            tradeable = tradeable_by_book_edid[k_title]
 
         player_items.append({
             "formId": form_id,
@@ -441,6 +487,15 @@ def main() -> int:
             "title": title_display,
             "isPrefix": (is_prefix == "1" or is_prefix.lower() == "true"),
             "isSuffix": (is_suffix == "1" or is_suffix.lower() == "true"),
+            "affixType": (
+                "Prefix/Suffix"
+                if ((is_prefix == "1" or is_prefix.lower() == "true") and (is_suffix == "1" or is_suffix.lower() == "true"))
+                else "Prefix"
+                if (is_prefix == "1" or is_prefix.lower() == "true")
+                else "Suffix"
+                if (is_suffix == "1" or is_suffix.lower() == "true")
+                else "—"
+            ),
             "conditions": conds,
             "condCount": len(conds),
             "howToObtain": how,
@@ -451,7 +506,6 @@ def main() -> int:
             "cutContent": starts_cut(edid),
         })
 
-    # sort ABC for "ALL" consumption later (JS can bucket cut content)
     camp_items.sort(key=lambda x: (x.get("cutContent", False), (x.get("title") or "").lower()))
     player_items.sort(key=lambda x: (x.get("cutContent", False), (x.get("title") or "").lower()))
 
@@ -467,7 +521,6 @@ def main() -> int:
     with open(player_path, "w", encoding="utf-8") as f:
         json.dump(player_json, f, ensure_ascii=False, separators=(",", ":"), indent=2)
 
-    # Patch log (diff prev dist in git)
     prev_camp = git_show_json("HEAD^", "dist/titles_camp.json")
     prev_player = git_show_json("HEAD^", "dist/titles_player.json")
 
@@ -489,13 +542,13 @@ def main() -> int:
             "patchlog": {"file": "titles_patchlog.json"},
         },
         "sources": {
-            "cmpt": os.path.basename(args.cmpt),
-            "plyt": os.path.basename(args.plyt),
-            "book": os.path.basename(args.book),
-            "cobj": os.path.basename(args.cobj),
-            "glob": os.path.basename(args.glob),
-            "gmrw": os.path.basename(args.gmrw),
-            "lvli": os.path.basename(args.lvli),
+            "cmpt": [os.path.basename(p) for p in args.cmpt],
+            "plyt": [os.path.basename(p) for p in args.plyt],
+            "book": [os.path.basename(p) for p in args.book],
+            "cobj": [os.path.basename(p) for p in args.cobj],
+            "glob": [os.path.basename(p) for p in args.glob],
+            "gmrw": [os.path.basename(p) for p in args.gmrw],
+            "lvli": [os.path.basename(p) for p in args.lvli],
             "seasons": os.path.basename(args.seasons) if args.seasons else None,
         },
     }
@@ -508,4 +561,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
