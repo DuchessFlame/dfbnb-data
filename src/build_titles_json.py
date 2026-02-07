@@ -13,8 +13,11 @@ from typing import Any, Dict, List, Optional, Tuple
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
 
 RE_HAS_ENTITLEMENT = re.compile(r"\bHasEntitlement\(", re.IGNORECASE)
-RE_SCORE_SEASON = re.compile(r"\bSCORE_S(\d+)\b", re.IGNORECASE)
-RE_BARE_SEASON = re.compile(r"\bS(\d{1,2})\b")
+# Season markers appear in multiple shapes in conditions/EDIDs:
+#   SCORE_S7, Score_S7, score_s7
+#   S7 (bare)
+RE_SCORE_SEASON = re.compile(r"\bSCORE[_-]?S(\d+)\b", re.IGNORECASE)
+RE_BARE_SEASON = re.compile(r"\bS(\d{1,2})\b", re.IGNORECASE)
 RE_ATX = re.compile(r"\bATX_", re.IGNORECASE)
 RE_QUEST_COMPLETED = re.compile(r"\bGetQuestCompleted\(", re.IGNORECASE)
 RE_QUEST_NAME_IN_QUOTES = re.compile(r'"([^"]+)"')
@@ -261,14 +264,24 @@ def compute_unlock_and_rates(
     # ENTITLEMENT (SCORE season vs ATX)
     if RE_HAS_ENTITLEMENT.search(joined):
         # Season
+        # Season can appear as SCORE_S7 / Score_S7 or as a bare S7 token
         sm = RE_SCORE_SEASON.search(joined)
-        season_num = safe_int(sm.group(1), 0) if sm else 0
+        if sm:
+            season_num = safe_int(sm.group(1), 0)
+        else:
+            bm = RE_BARE_SEASON.search(joined)
+            season_num = safe_int(bm.group(1), 0) if bm else 0
+
         if season_num:
             sname = seasons.get(season_num, "Unknown")
+
+            # Your rules:
+            # - Player titles: "Unlock via the Season {#} - {season name} Scoreboard"
+            # - Camp titles:  "Unlocks when you claim the Gameboard or Framed Art from Season {#} - {season name}"
             if kind == "player":
-                return f"Claim from the Season {season_num} - {sname} Scoreboard.", "100%", season_num, "season"
-            # camp: placeholder reward name until we wire the exact reward item mapping later in JS
-            return f"Claim the reward item from Season {season_num} - {sname}.", "100%", season_num, "season"
+                return f"Unlock via the Season {season_num} - {sname} Scoreboard.", "100%", season_num, "season"
+
+            return f"Unlocks when you claim the Gameboard or Framed Art from Season {season_num} - {sname}.", "100%", season_num, "season"
 
         # ATX
         if RE_ATX.search(joined):
