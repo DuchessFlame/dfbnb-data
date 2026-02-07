@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import csv
 import datetime as dt
+import glob
 import json
 import os
 import re
@@ -22,6 +23,25 @@ RE_ATX = re.compile(r"\bATX_", re.IGNORECASE)
 RE_QUEST_COMPLETED = re.compile(r"\bGetQuestCompleted\(", re.IGNORECASE)
 RE_QUEST_NAME_IN_QUOTES = re.compile(r'"([^"]+)"')
 RE_COBJ_REF = re.compile(r"\[COBJ:[0-9A-F]{8}\]", re.IGNORECASE)
+
+def _autofill_paths(tsv_root: Optional[str], provided: Optional[List[str]], patterns: List[str]) -> List[str]:
+    """
+    If provided is empty, auto-discover TSVs under tsv_root using glob patterns.
+    Patterns should be relative to tsv_root, for example: ["**/*BOOK*.tsv"].
+    """
+    if provided:
+        return provided
+
+    if not tsv_root:
+        return []
+
+    hits: List[str] = []
+    for pat in patterns:
+        hits.extend(glob.glob(os.path.join(tsv_root, pat), recursive=True))
+
+    # Keep stable order
+    hits = sorted(set(hits))
+    return hits
 
 def read_tsv_rows(path: str) -> List[Dict[str, str]]:
     with open(path, "r", encoding="utf-8", errors="replace", newline="") as f:
@@ -353,8 +373,7 @@ def git_show_json(rev: str, path: str) -> Optional[dict]:
     except Exception:
         return None
 
-def main() -> int:
-   def merge_rows_by_key(row_sets: List[List[Dict[str, str]]], key_field: str) -> List[Dict[str, str]]:
+def merge_rows_by_key(row_sets: List[List[Dict[str, str]]], key_field: str) -> List[Dict[str, str]]:
     """
     Merge multiple TSV exports for the same record type.
     Later files win on field values, but we keep one row per key.
@@ -371,19 +390,47 @@ def main() -> int:
                 merged[k].update({kk: vv for kk, vv in r.items() if vv is not None})
     return list(merged.values())
 
-
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cmpt", action="append", required=True)
-    ap.add_argument("--plyt", action="append", required=True)
-    ap.add_argument("--book", action="append", required=True)
-    ap.add_argument("--cobj", action="append", required=True)
-    ap.add_argument("--glob", action="append", required=True)
-    ap.add_argument("--gmrw", action="append", required=True)
-    ap.add_argument("--lvli", action="append", required=True)
+
+    ap.add_argument(
+        "--tsv-root",
+        required=False,
+        default=None,
+        help="Folder containing TSV exports. If set, missing inputs auto-discover TSVs under this folder.",
+    )
+    ap.add_argument("--cmpt", action="append", required=False)
+    ap.add_argument("--plyt", action="append", required=False)
+    ap.add_argument("--book", action="append", required=False)
+    ap.add_argument("--cobj", action="append", required=False)
+    ap.add_argument("--glob", action="append", required=False)
+    ap.add_argument("--gmrw", action="append", required=False)
+    ap.add_argument("--lvli", action="append", required=False)
     ap.add_argument("--seasons", required=False, default=None)
     ap.add_argument("--outdir", required=True)
+
     args = ap.parse_args()
+
+    # Auto-discover TSVs if a root folder is provided and the user did not supply explicit --cmpt/--book/etc.
+    args.cmpt = _autofill_paths(args.tsv_root, args.cmpt, ["**/*CMPT*.tsv"])
+    args.plyt = _autofill_paths(args.tsv_root, args.plyt, ["**/*PLYT*.tsv"])
+    args.book = _autofill_paths(args.tsv_root, args.book, ["**/*BOOK*.tsv"])
+    args.cobj = _autofill_paths(args.tsv_root, args.cobj, ["**/*COBJ*.tsv"])
+    args.glob = _autofill_paths(args.tsv_root, args.glob, ["**/*GLOB*.tsv"])
+    args.gmrw = _autofill_paths(args.tsv_root, args.gmrw, ["**/*GMRW*.tsv"])
+    args.lvli = _autofill_paths(args.tsv_root, args.lvli, ["**/*LVLI*.tsv"])
+
+    # Validate required inputs after autofill
+    missing = []
+    if not args.cmpt: missing.append("--cmpt (or auto via --tsv-root)")
+    if not args.plyt: missing.append("--plyt (or auto via --tsv-root)")
+    if not args.book: missing.append("--book (or auto via --tsv-root)")
+    if not args.cobj: missing.append("--cobj (or auto via --tsv-root)")
+    if not args.glob: missing.append("--glob (or auto via --tsv-root)")
+    if not args.gmrw: missing.append("--gmrw (or auto via --tsv-root)")
+    if not args.lvli: missing.append("--lvli (or auto via --tsv-root)")
+    if missing:
+        raise SystemExit("Missing required TSV inputs: " + ", ".join(missing))
 
     os.makedirs(args.outdir, exist_ok=True)
 
@@ -445,7 +492,7 @@ def main() -> int:
                 if (is_prefix == "1" or is_prefix.lower() == "true")
                 else "Suffix"
                 if (is_suffix == "1" or is_suffix.lower() == "true")
-                else "—"
+                else "-"
             ),
             "conditions": conds,
             "condCount": len(conds),
@@ -507,7 +554,7 @@ def main() -> int:
                 if (is_prefix == "1" or is_prefix.lower() == "true")
                 else "Suffix"
                 if (is_suffix == "1" or is_suffix.lower() == "true")
-                else "—"
+                else "-"
             ),
             "conditions": conds,
             "condCount": len(conds),
