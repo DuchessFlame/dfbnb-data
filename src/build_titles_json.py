@@ -451,13 +451,28 @@ def main() -> int:
     cobj_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.cobj], "FormID")
     glob_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.glob], "FormID")
     gmrw_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.gmrw], "FormID")
-    lvli_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.lvli], "FormID")
+    # LVLI exports come in two flavors:
+    #  - LVLI_Export_*.tsv (definitions, has EntryIndex / LVOV_ChanceNone / LVLI_EDID / LVLI_FormID)
+    #  - LVLI_Export_*_ReferencedBy.tsv (reference map, has ReferencedByCount / Ref1..RefN)
+    lvli_rows: List[Dict[str, str]] = []      # definitions
+    lvli_ref_rows: List[Dict[str, str]] = []  # referenced-by
+
+    for p in args.lvli:
+        rows = read_tsv_rows(p)
+        if not rows:
+            continue
+
+        headers = set(rows[0].keys())
+        if "ReferencedByCount" in headers:
+            lvli_ref_rows.extend(rows)
+        else:
+            lvli_rows.extend(rows)
 
     print("[titles] CMPT rows:", len(cmpt_rows), file=sys.stderr)
     print("[titles] PLYT rows:", len(plyt_rows), file=sys.stderr)
 
     if len(plyt_rows) == 0:
-        raise SystemExit("PLYT rows = 0. Player titles export missing/empty or not being matched by autodiscovery.")
+            raise SystemExit("PLYT rows = 0. Player titles export missing/empty or not being matched by autodiscovery.")
 
     tradeable_by_book_edid = book_tradeable_map(book_rows)
     gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
@@ -530,7 +545,6 @@ def main() -> int:
         is_suffix = (r.get("PTSU - Is Suffix") or "").strip()
 
         conds = extract_conditions(r)
-
         title_display = title_m or title_f
 
         how, dr, sn, unlock_type = compute_unlock_and_rates(
@@ -545,14 +559,14 @@ def main() -> int:
             lvli_rows=lvli_rows,
         )
 
-    # Player default NON-tradeable unless BOOK proves otherwise (by EDID or display title)
-    tradeable = False
-    k_edid = _norm_key(edid)
-    k_title = _norm_key(title_display)
-    if k_edid in tradeable_by_book_edid:
-        tradeable = tradeable_by_book_edid[k_edid]
-    elif k_title in tradeable_by_book_edid:
-        tradeable = tradeable_by_book_edid[k_title]
+        # Player default NON-tradeable unless BOOK proves otherwise (by EDID or display title)
+        tradeable = False
+        k_edid = _norm_key(edid)
+        k_title = _norm_key(title_display)
+        if k_edid in tradeable_by_book_edid:
+            tradeable = tradeable_by_book_edid[k_edid]
+        elif k_title in tradeable_by_book_edid:
+            tradeable = tradeable_by_book_edid[k_title]
 
         player_items.append({
             "formId": form_id,
