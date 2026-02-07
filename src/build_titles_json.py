@@ -77,10 +77,62 @@ def safe_float(s: str, default: Optional[float] = None) -> Optional[float]:
 
 
 def read_tsv_rows(path: str) -> List[Dict[str, str]]:
+    """
+    Read TSV rows and add 'alias' keys so downstream logic can use stable names.
+
+    Your March 2026 exports use prefixed headers like COBJ_FormID, LVLI_FormID, etc.
+    The generator logic expects plain 'FormID'/'EDID' in many places.
+
+    This function preserves original keys AND adds these aliases when missing:
+      - FormID: from <TYPE>_FormID (COBJ_FormID, LVLI_FormID, BOOK_FormID, etc)
+      - EDID:   from <TYPE>_EDID (COBJ_EDID, LVLI_EDID, etc)
+      - FULL:   from <TYPE>_FULL when present
+    """
+    alias_formid_keys = (
+        "CMPT_FormID", "PLYT_FormID", "BOOK_FormID", "COBJ_FormID",
+        "GLOB_FormID", "GMRW_FormID", "LVLI_FormID", "CHAL_FormID",
+    )
+    alias_edid_keys = (
+        "CMPT_EDID", "PLYT_EDID", "BOOK_EDID", "COBJ_EDID",
+        "GLOB_EDID", "GMRW_EDID", "LVLI_EDID", "CHAL_EDID",
+    )
+    alias_full_keys = (
+        "CMPT_FULL", "PLYT_FULL", "BOOK_FULL", "COBJ_FULL",
+        "GLOB_FULL", "GMRW_FULL", "LVLI_FULL", "CHAL_FULL",
+    )
+
     with open(path, "r", encoding="utf-8", errors="replace", newline="") as f:
         reader = csv.DictReader(f, delimiter="\t")
-        return [row for row in reader]
+        out: List[Dict[str, str]] = []
+        for row in reader:
+            r = dict(row)
 
+            # FormID alias
+            if not (r.get("FormID") or "").strip():
+                for k in alias_formid_keys:
+                    v = (r.get(k) or "").strip()
+                    if v:
+                        r["FormID"] = v
+                        break
+
+            # EDID alias
+            if not (r.get("EDID") or "").strip():
+                for k in alias_edid_keys:
+                    v = (r.get(k) or "").strip()
+                    if v:
+                        r["EDID"] = v
+                        break
+
+            # FULL alias (not always used, but handy)
+            if not (r.get("FULL") or "").strip():
+                for k in alias_full_keys:
+                    v = (r.get(k) or "").strip()
+                    if v:
+                        r["FULL"] = v
+                        break
+
+            out.append(r)
+        return out
 
 def merge_rows_by_key(row_sets: List[List[Dict[str, str]]], key_field: str) -> List[Dict[str, str]]:
     merged: Dict[str, Dict[str, str]] = {}
@@ -234,25 +286,62 @@ def glob_drop_rate_by_edid(glob_rows: List[Dict[str, str]], glob_edid: str) -> O
         return f"{pct:.3f}%"
     return None
 
+def _glob_formid_from_lvli_global_field(s: str) -> Optional[str]:
+    # Example field: "0089EA90:SpawnChance_Cnone_ActivityCampTitle:GLOB"
+    s = (s or "").strip()
+    if not s:
+        return None
+    m = re.match(r"^([0-9A-Fa-f]{8}):", s)
+    return m.group(1).upper() if m else None
+
+
+def glob_drop_rate_by_formid(glob_rows: List[Dict[str, str]], glob_formid: str) -> Optional[str]:
+    """
+    Your rule:
+      pct = 100 - FLTV
+    (So FLTV 98 => 2%, FLTV 95 => 5%, etc)
+    """
+    glob_formid = (glob_formid or "").strip().upper()
+    if not glob_formid:
+        return None
+
+    for r in glob_rows:
+        if (r.get("FormID") or "").strip().upper() != glob_formid:
+            continue
+        fv = safe_float(r.get("FLTV") or "", None)
+        if fv is None:
+            return None
+        pct = 100.0 - fv
+        if pct < 0:
+            return None
+        if abs(pct - round(pct)) < 1e-6:
+            return f"{int(round(pct))}%"
+        return f"{pct:.3f}%"
+    return None
+
+
 def lvli_drop_rate_from_cobj_lvli(
     cobj_rows: List[Dict[str, str]],
     lvli_rows: List[Dict[str, str]],
+    glob_rows: List[Dict[str, str]],
     cobj_formid: str
 ) -> Optional[str]:
     """
-    Strict fallback (robust parsing):
-      1) Find exact COBJ row by FormID
-      2) Scan Ref* fields for:
-         - [LVLI:XXXXXXXX]  (preferred)
-         - an EDID-like token (fallback)
-      3) Find LVLI row by FormID OR EDID
-      4) DropRate = 100 - LVOV_ChanceNone
+    BOOK-type COBJ path for titles:
+      COBJ(FormID) -> GNAM_FormID (BOOK FormID) -> find LVLI entries referencing that BOOK in LVLO_Reference
+
+    Drop-rate priority (your rule):
+      1) if LVOG_ChanceNoneGlobal (entry) exists OR LVLG_ChanceNoneGlobal (list) exists:
+           look up that GLOB FormID -> pct = 100 - FLTV
+      2) else use LVOV_ChanceNone:
+           if 0 => 100%
+           else pct = 100 - LVOV
     """
     cobj_formid = (cobj_formid or "").strip().upper()
     if not cobj_formid:
         return None
 
-    # 1) Find exact COBJ row by FormID
+    # 1) Find exact COBJ row
     cand = None
     for r in cobj_rows:
         if (r.get("FormID") or "").strip().upper() == cobj_formid:
@@ -261,56 +350,42 @@ def lvli_drop_rate_from_cobj_lvli(
     if not cand:
         return None
 
-    # 2) Scan Ref* fields for LVLI FormID or LVLI EDID
-    lvli_formid = None
-    lvli_edid = None
-
-    for k, v in cand.items():
-        if not k or not v:
-            continue
-        if not str(k).startswith("Ref"):
-            continue
-
-        s = str(v)
-
-        # Preferred: [LVLI:XXXXXXXX]
-        for typ, fid in RE_FORM_REF.findall(s):
-            if typ.upper() == "LVLI":
-                lvli_formid = fid.upper()
-                break
-        if lvli_formid:
-            break
-
-        # Fallback: EDID-like token (kept strict-ish)
-        m = re.search(r"\b([A-Za-z0-9_]{6,})\b", s)
-        if m:
-            cand_edid = m.group(1).strip()
-            if cand_edid.upper() not in ("NONE", "NULL", "FALSE", "TRUE"):
-                lvli_edid = cand_edid
-
-    # 3) Find LVLI by FormID or EDID
-    lvli = None
-
-    if lvli_formid:
-        for r in lvli_rows:
-            if (r.get("FormID") or "").strip().upper() == lvli_formid:
-                lvli = r
-                break
-
-    if not lvli and lvli_edid:
-        for r in lvli_rows:
-            if (r.get("EDID") or "").strip() == lvli_edid:
-                lvli = r
-                break
-            if (r.get("LVLI_EDID") or "").strip() == lvli_edid:
-                lvli = r
-                break
-
-    if not lvli:
+    # 2) BOOK FormID from GNAM_FormID
+    book_formid = (cand.get("GNAM_FormID") or "").strip().upper()
+    if not book_formid or not re.fullmatch(r"[0-9A-F]{8}", book_formid):
         return None
 
-    # 4) ChanceNone -> DropRate
-    chance_none = safe_float(lvli.get("LVOV_ChanceNone") or "", None)
+    # 3) Find LVLI row(s) referencing that BOOK
+    matches = [r for r in lvli_rows if book_formid in (r.get("LVLO_Reference") or "")]
+    if not matches:
+        return None
+
+    # Prefer a match that has a global override (entry global first, then list global)
+    def _rank(row: Dict[str, str]) -> Tuple[int, str]:
+        eg = (row.get("LVOG_ChanceNoneGlobal") or "").strip()
+        lg = (row.get("LVLG_ChanceNoneGlobal") or "").strip()
+        if eg:
+            return (0, eg)
+        if lg:
+            return (1, lg)
+        return (2, "")
+
+    matches.sort(key=_rank)
+    best = matches[0]
+
+    # 4) Global override first
+    eg = (best.get("LVOG_ChanceNoneGlobal") or "").strip()
+    lg = (best.get("LVLG_ChanceNoneGlobal") or "").strip()
+    glob_field = eg or lg
+    if glob_field:
+        gfid = _glob_formid_from_lvli_global_field(glob_field)
+        if gfid:
+            dr = glob_drop_rate_by_formid(glob_rows, gfid)
+            if dr:
+                return dr
+
+    # 5) Fallback: LVOV_ChanceNone
+    chance_none = safe_float(best.get("LVOV_ChanceNone") or "", None)
     if chance_none is None:
         return None
     if abs(chance_none) < 1e-9:
@@ -504,12 +579,12 @@ def compute_unlock_and_rates(
 
         return "Unlocked via account entitlement.", "N/A", None, "entitlement", extra
 
-    # --- COBJ proxy -> Event/Activity ---
-    # --- COBJ proxy -> Event/Activity ---
+    # --- COBJ proxy (can mean: event/activity BOOK drop OR challenge unlock via GNAM) ---
     if RE_COBJ_REF.search(joined):
         token = cobj_token_from_condition(conds)
         extra["cobjToken"] = token
 
+        # Resolve Event/Activity label from GMRW token (still used for the BOOK-drop version)
         label_kind = None
         label_name = None
         if token and token in gmrw_by_token:
@@ -517,34 +592,61 @@ def compute_unlock_and_rates(
             if parsed:
                 label_kind, label_name = parsed
 
-        if label_kind and label_name:
-            how = f"Complete the {label_kind}: {label_name}"
-            extra.update({"eventActivityKind": label_kind, "eventActivityName": label_name})
-        else:
-            how = "Complete the Event/Activity: (unknown)"
+        how_event = f"Complete the {label_kind}: {label_name}" if (label_kind and label_name) else "Complete the Event/Activity: (unknown)"
 
-        # Drop Rate (your rule)
-        # 1) Try to find matching GLOB entry (unique match only)
-        dr = None
+        # Pull COBJ FormID from the condition text
+        cobj_formid = None
+        for c in conds:
+            if "[COBJ:" in c:
+                cobj_formid = parse_cobj_formid_from_condition(c)
+                if cobj_formid:
+                    break
+        if not cobj_formid:
+            return how_event, "N/A", None, "event_activity", extra
 
-        # If you want hard-coded globals for known buckets, you can add them here.
-        # Example (Activity Camp Title):
-        if kind == "camp" and label_kind == "Activity":
-            dr = glob_drop_rate_by_edid(glob_rows, "SpawnChance_Cnone_ActivityCampTitle")
+        extra["cobjFormId"] = cobj_formid
 
-        # 2) If not found in GLOB, follow strict chain: COBJ FormID -> Ref1/Ref2 -> LVLI -> ChanceNone
-        if not dr:
-            cobj_formid = None
-            for c in conds:
-                if "[COBJ:" in c:
-                    cobj_formid = parse_cobj_formid_from_condition(c)
-                    if cobj_formid:
-                        break
-            if cobj_formid:
-                extra["cobjFormId"] = cobj_formid
-                dr = lvli_drop_rate_from_cobj_lvli(cobj_rows, lvli_rows, cobj_formid)
+        # Locate the COBJ row so we can inspect GNAM_* (BOOK vs CHAL)
+        cobj_row = None
+        for rr in cobj_rows:
+            if (rr.get("FormID") or "").strip().upper() == cobj_formid:
+                cobj_row = rr
+                break
 
-        return how, (dr or "N/A"), None, "event_activity", extra
+        if cobj_row:
+            gnam_edid = (cobj_row.get("GNAM_EDID") or "").strip()
+            gnam_full = (cobj_row.get("GNAM_FULL") or "").strip()
+            gnam_form = (cobj_row.get("GNAM_FormID") or "").strip().upper()
+
+            extra.update({
+                "cobjGNAM_EDID": gnam_edid,
+                "cobjGNAM_FULL": gnam_full,
+                "cobjGNAM_FormID": gnam_form,
+            })
+
+            # --- COBJ GNAM -> CHALLENGE unlock ---
+            # Example: GNAM_EDID = Challenge_Lifetime_... and GNAM_FULL = "Build decorative furnishings..."
+            if gnam_edid.startswith("Challenge_") or (gnam_form and gnam_full and "CHAL:" in gnam_full):
+                # Resolve CHAL by EDID (strip "Challenge_" prefix if your CHAL export omits it)
+                chal_key = gnam_edid
+                if chal_key not in chal_by_edid and chal_key.startswith("Challenge_"):
+                    chal_key = chal_key[len("Challenge_"):]
+
+                row = chal_by_edid.get(chal_key) or chal_by_edid.get(gnam_edid)
+                if row:
+                    full = (row.get("FULL") or "").strip() or gnam_full or chal_key
+                    cnam = (row.get("CNAM") or "").strip() or "Challenge"
+                    extra.update({"chalEdid": (row.get("EDID") or "").strip(), "chalCNAM": cnam, "chalFULL": full})
+                    if cnam.lower() == "challenge":
+                        return f"Complete the Challenge {full}", "100%", None, "challenge", extra
+                    return f"Complete the {cnam} Challenge {full}", "100%", None, "challenge", extra
+
+                # If CHAL row not found, still treat as challenge unlock
+                return f"Complete the Challenge {gnam_full or gnam_edid}", "100%", None, "challenge", extra
+
+        # --- Otherwise: treat as BOOK-drop event/activity title recipe ---
+        dr = lvli_drop_rate_from_cobj_lvli(cobj_rows, lvli_rows, glob_rows, cobj_formid)
+        return how_event, (dr or "N/A"), None, "event_activity", extra
 
     # --- HasLearnedRecipe without [COBJ:] ---
     if "HasLearnedRecipe(" in joined:
