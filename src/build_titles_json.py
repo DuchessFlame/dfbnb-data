@@ -190,7 +190,7 @@ def cobj_token_from_condition(conds: List[str]) -> Optional[str]:
     for s in conds:
         if "[COBJ:" not in s:
             continue
-        m = re.search(r"\\(([^)\\s]+)", s)
+        m = re.search(r"\(([^)\s]+)", s)
         if not m:
             continue
         arg = m.group(1)
@@ -356,7 +356,7 @@ def compute_unlock_and_rates(
         for c in conds:
             if "IsTrueForConditionForm" not in c:
                 continue
-            m = re.search(r"IsTrueForConditionForm\\(\\s*([^\\s\\)]+)", c, flags=re.IGNORECASE)
+            m = re.search(r"IsTrueForConditionForm\(\s*([^\s\)]+)", c, flags=re.IGNORECASE)
             if not m:
                 continue
             arg = m.group(1).strip()
