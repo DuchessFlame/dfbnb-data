@@ -28,8 +28,8 @@ jobs:
       - name: Build JSON
         run: |
           python src/build_titles_json.py \
-            --tsv-root tsv/May_2026 \
-            --seasons tsv/May_2026/SEASONS.tsv \
+            --tsv-root tsv \
+            --seasons tsv/fallout76_seasons.tsv \
             --outdir dist
 
       - name: Commit dist
