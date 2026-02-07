@@ -234,12 +234,19 @@ def glob_drop_rate_by_edid(glob_rows: List[Dict[str, str]], glob_edid: str) -> O
         return f"{pct:.3f}%"
     return None
 
-def lvli_drop_rate_from_cobj_lvli(cobj_rows: List[Dict[str, str]], lvli_rows: List[Dict[str, str]], cobj_formid: str) -> Optional[str]:
+def lvli_drop_rate_from_cobj_lvli(
+    cobj_rows: List[Dict[str, str]],
+    lvli_rows: List[Dict[str, str]],
+    cobj_formid: str
+) -> Optional[str]:
     """
-    Strict fallback:
-      COBJ (by exact FormID) -> Ref1/Ref2 contains LVLI -> LVLI.LVOV_ChanceNone
-      DropRate = 100 - ChanceNone
-      If ChanceNone == 0 => 100%
+    Strict fallback (robust parsing):
+      1) Find exact COBJ row by FormID
+      2) Scan Ref* fields for:
+         - [LVLI:XXXXXXXX]  (preferred)
+         - an EDID-like token (fallback)
+      3) Find LVLI row by FormID OR EDID
+      4) DropRate = 100 - LVOV_ChanceNone
     """
     cobj_formid = (cobj_formid or "").strip().upper()
     if not cobj_formid:
@@ -254,41 +261,67 @@ def lvli_drop_rate_from_cobj_lvli(cobj_rows: List[Dict[str, str]], lvli_rows: Li
     if not cand:
         return None
 
-    # 2) Pull LVLI EDID out of Ref1/Ref2 (or any Ref# if present)
+    # 2) Scan Ref* fields for LVLI FormID or LVLI EDID
+    lvli_formid = None
     lvli_edid = None
+
     for k, v in cand.items():
         if not k or not v:
             continue
-        if not k.startswith("Ref"):
+        if not str(k).startswith("Ref"):
             continue
+
         s = str(v)
 
-        # try to grab an EDID-looking token that includes QuestReward_Titles
-        if "QuestReward_Titles" in s:
-            m = re.search(r'(QuestReward_Titles[^ \t"]+)', s)
-            lvli_edid = (m.group(1) if m else "QuestReward_Titles").strip()
+        # Preferred: [LVLI:XXXXXXXX]
+        for typ, fid in RE_FORM_REF.findall(s):
+            if typ.upper() == "LVLI":
+                lvli_formid = fid.upper()
+                break
+        if lvli_formid:
             break
 
-    if not lvli_edid:
+        # Fallback: EDID-like token (kept strict-ish)
+        m = re.search(r"\b([A-Za-z0-9_]{6,})\b", s)
+        if m:
+            cand_edid = m.group(1).strip()
+            if cand_edid.upper() not in ("NONE", "NULL", "FALSE", "TRUE"):
+                lvli_edid = cand_edid
+
+    # 3) Find LVLI by FormID or EDID
+    lvli = None
+
+    if lvli_formid:
+        for r in lvli_rows:
+            if (r.get("FormID") or "").strip().upper() == lvli_formid:
+                lvli = r
+                break
+
+    if not lvli and lvli_edid:
+        for r in lvli_rows:
+            if (r.get("EDID") or "").strip() == lvli_edid:
+                lvli = r
+                break
+            if (r.get("LVLI_EDID") or "").strip() == lvli_edid:
+                lvli = r
+                break
+
+    if not lvli:
         return None
 
-    # 3) Find LVLI by EDID and read LVOV_ChanceNone
-    for r in lvli_rows:
-        if (r.get("LVLI_EDID") or "").strip() != lvli_edid:
-            continue
-        chance_none = safe_float(r.get("LVOV_ChanceNone") or "", None)
-        if chance_none is None:
-            return None
-        if abs(chance_none) < 1e-9:
-            return "100%"
-        pct = 100.0 - chance_none
-        if pct < 0:
-            return None
-        if abs(pct - round(pct)) < 1e-6:
-            return f"{int(round(pct))}%"
-        return f"{pct:.3f}%"
+    # 4) ChanceNone -> DropRate
+    chance_none = safe_float(lvli.get("LVOV_ChanceNone") or "", None)
+    if chance_none is None:
+        return None
+    if abs(chance_none) < 1e-9:
+        return "100%"
 
-    return None
+    pct = 100.0 - chance_none
+    if pct < 0:
+        return None
+    if abs(pct - round(pct)) < 1e-6:
+        return f"{int(round(pct))}%"
+    return f"{pct:.3f}%"
 
 def prettify_token_words(token: str) -> str:
     s = token.replace("_", " ").strip()
