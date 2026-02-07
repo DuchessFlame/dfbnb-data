@@ -111,12 +111,10 @@ def book_tradeable_map(book_rows: List[Dict[str, str]]) -> Dict[str, bool]:
         edid = (r.get("EDID") or "").strip()
         full = (r.get("FULL") or "").strip()
 
-        kw_count = safe_int(r.get("KeywordCount", "0"))
-        kws: List[str] = []
-        for i in range(1, kw_count + 1):
-            kws.append((r.get(f"KW{i}") or "").strip())
-
-        non_trade = any("nonplayertradeable" in (k or "").lower() for k in kws if k)
+        # Keywords columns vary between exports. Do not rely on KeywordCount/KW1..KWn.
+        # Rule: if ANY cell in the row contains "NonPlayerTradeable" then it is NON-tradeable.
+        row_blob = " ".join(str(v) for v in r.values() if v)
+        non_trade = "nonplayertradeable" in row_blob.lower()
         is_tradeable = (not non_trade)
 
         if edid:
@@ -530,14 +528,14 @@ def main() -> int:
             lvli_rows=lvli_rows,
         )
 
-        # Player default Tradeable unless BOOK says NonPlayerTradeable (by EDID or display title)
-        tradeable = True
-        k_edid = _norm_key(edid)
-        k_title = _norm_key(title_display)
-        if k_edid in tradeable_by_book_edid:
-            tradeable = tradeable_by_book_edid[k_edid]
-        elif k_title in tradeable_by_book_edid:
-            tradeable = tradeable_by_book_edid[k_title]
+    # Player default NON-tradeable unless BOOK proves otherwise (by EDID or display title)
+    tradeable = False
+    k_edid = _norm_key(edid)
+    k_title = _norm_key(title_display)
+    if k_edid in tradeable_by_book_edid:
+        tradeable = tradeable_by_book_edid[k_edid]
+    elif k_title in tradeable_by_book_edid:
+        tradeable = tradeable_by_book_edid[k_title]
 
         player_items.append({
             "formId": form_id,
