@@ -8,6 +8,7 @@ import glob
 import json
 import os
 import re
+import sys
 import subprocess
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -411,12 +412,22 @@ def main() -> int:
 
     # Auto-discover TSVs if a root folder is provided and the user did not supply explicit --cmpt/--book/etc.
     args.cmpt = _autofill_paths(args.tsv_root, args.cmpt, ["**/*CMPT*.tsv"])
-    args.plyt = _autofill_paths(args.tsv_root, args.plyt, ["**/*PLYT*.tsv"])
+    args.plyt = _autofill_paths(args.tsv_root, args.plyt, ["**/*PLYT*.tsv", "**/*Player*Title*.tsv", "**/*PlayerTitles*.tsv"])
     args.book = _autofill_paths(args.tsv_root, args.book, ["**/*BOOK*.tsv"])
     args.cobj = _autofill_paths(args.tsv_root, args.cobj, ["**/*COBJ*.tsv"])
     args.glob = _autofill_paths(args.tsv_root, args.glob, ["**/*GLOB*.tsv"])
     args.gmrw = _autofill_paths(args.tsv_root, args.gmrw, ["**/*GMRW*.tsv"])
     args.lvli = _autofill_paths(args.tsv_root, args.lvli, ["**/*LVLI*.tsv"])
+
+    print("[titles] tsv-root:", args.tsv_root, file=sys.stderr)
+    print("[titles] CMPT files:", args.cmpt, file=sys.stderr)
+    print("[titles] PLYT files:", args.plyt, file=sys.stderr)
+    print("[titles] BOOK files:", args.book, file=sys.stderr)
+    print("[titles] COBJ files:", args.cobj, file=sys.stderr)
+    print("[titles] GLOB files:", args.glob, file=sys.stderr)
+    print("[titles] GMRW files:", args.gmrw, file=sys.stderr)
+    print("[titles] LVLI files:", args.lvli, file=sys.stderr)
+    print("[titles] SEASONS file:", args.seasons, file=sys.stderr)
 
     # Validate required inputs after autofill
     missing = []
@@ -441,6 +452,12 @@ def main() -> int:
     glob_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.glob], "FormID")
     gmrw_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.gmrw], "FormID")
     lvli_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.lvli], "FormID")
+
+    print("[titles] CMPT rows:", len(cmpt_rows), file=sys.stderr)
+    print("[titles] PLYT rows:", len(plyt_rows), file=sys.stderr)
+
+    if len(plyt_rows) == 0:
+        raise SystemExit("PLYT rows = 0. Player titles export missing/empty or not being matched by autodiscovery.")
 
     tradeable_by_book_edid = book_tradeable_map(book_rows)
     gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
