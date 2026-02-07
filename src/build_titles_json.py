@@ -263,8 +263,8 @@ def lvli_drop_rate_from_cobj_lvli(cobj_rows: List[Dict[str, str]], lvli_rows: Li
             continue
         if "QuestReward_Titles" in v:
             m = re.search(r'(QuestReward_Titles[^ \t"]+)', v)
-        lvli_edid = (m.group(1) if m else "QuestReward_Titles").strip()
-        break
+            lvli_edid = (m.group(1) if m else "QuestReward_Titles").strip()
+            break
     if not lvli_edid:
         lvli_edid = "QuestReward_Titles"
 
@@ -291,7 +291,7 @@ def prettify_token_words(token: str) -> str:
 
 
 def parse_entitlement_edid_from_condition(cond: str) -> Optional[str]:
-    m = re.search(r"HasEntitlement\\(\\s*([^\\s\\)]+)", cond, flags=re.IGNORECASE)
+    m = re.search(r"HasEntitlement\(\s*([^\s\)]+)", cond, flags=re.IGNORECASE)
     if not m:
         return None
     return m.group(1).strip()
