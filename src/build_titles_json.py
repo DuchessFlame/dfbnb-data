@@ -48,7 +48,7 @@ RE_IS_TRUE_CNDF = re.compile(r"\bIsTrueForConditionForm\(", re.IGNORECASE)
 RE_QUEST_COMPLETED = re.compile(r"\bGetQuestCompleted\(", re.IGNORECASE)
 RE_NUM_TIMES_COMPLETED = re.compile(r"\bGetNumTimesCompletedQuest\(", re.IGNORECASE)
 
-RE_SCORE_SEASON = re.compile(r"\bSCORE[_-]?S(\d+)\b", re.IGNORECASE)
+RE_SCORE_SEASON = re.compile(r"\bSCORE[_-]?S(\d+)(?:\b|_)", re.IGNORECASE)
 RE_MINISEASON = re.compile(r"\bSCORE_MiniSeason\b", re.IGNORECASE)
 RE_ATX = re.compile(r"\bATX_", re.IGNORECASE)
 RE_COMMUNITY = re.compile(r"\bCommunity_", re.IGNORECASE)
@@ -214,74 +214,81 @@ def parse_parentquest_label(pq: str) -> Optional[Tuple[str, str]]:
         return None
     return kind, name
 
-
-def find_glob_drop_rate(glob_rows: List[Dict[str, str]], token: Optional[str], title_words: List[str]) -> Optional[str]:
-    needles: List[str] = []
-    if token:
-        needles.append(token)
-    for w in title_words:
-        if w and len(w) >= 3:
-            needles.append(w)
-    if not needles:
+def glob_drop_rate_by_edid(glob_rows: List[Dict[str, str]], glob_edid: str) -> Optional[str]:
+    """Strict: match GLOB.EDID exactly, DropRate = 100 - FLTV"""
+    glob_edid = (glob_edid or "").strip()
+    if not glob_edid:
         return None
 
     for r in glob_rows:
-        edid = (r.get("EDID") or "")
-        refs_count = safe_int(r.get("ReferencedByCount", "0"))
-        hay = [edid]
-        for i in range(1, min(refs_count, 40) + 1):
-            hay.append(r.get(f"Ref{i}", "") or "")
-        blob_l = " ".join(hay).lower()
-        if not any(n.lower() in blob_l for n in needles):
+        if (r.get("EDID") or "").strip() != glob_edid:
             continue
-
         fv = safe_float(r.get("FLTV") or "", None)
         if fv is None:
-            continue
+            return None
         pct = 100.0 - fv
         if pct < 0:
-            continue
+            return None
         if abs(pct - round(pct)) < 1e-6:
             return f"{int(round(pct))}%"
         return f"{pct:.3f}%"
     return None
 
+def lvli_drop_rate_from_cobj_lvli(cobj_rows: List[Dict[str, str]], lvli_rows: List[Dict[str, str]], cobj_formid: str) -> Optional[str]:
+    """
+    Strict fallback:
+      COBJ (by exact FormID) -> Ref1/Ref2 contains LVLI -> LVLI.LVOV_ChanceNone
+      DropRate = 100 - ChanceNone
+      If ChanceNone == 0 => 100%
+    """
+    cobj_formid = (cobj_formid or "").strip().upper()
+    if not cobj_formid:
+        return None
 
-def lvli_drop_rate_from_cobj_lvli(cobj_rows: List[Dict[str, str]], lvli_rows: List[Dict[str, str]], cobj_token: str) -> Optional[str]:
+    # 1) Find exact COBJ row by FormID
     cand = None
     for r in cobj_rows:
-        edid = (r.get("COBJ_EDID") or "").strip()
-        if edid.startswith(cobj_token + "_"):
+        if (r.get("FormID") or "").strip().upper() == cobj_formid:
             cand = r
             break
     if not cand:
         return None
 
+    # 2) Pull LVLI EDID out of Ref1/Ref2 (or any Ref# if present)
     lvli_edid = None
-    for _, v in cand.items():
-        if not v:
+    for k, v in cand.items():
+        if not k or not v:
             continue
-        if "QuestReward_Titles" in v:
-            m = re.search(r'(QuestReward_Titles[^ \t"]+)', v)
+        if not k.startswith("Ref"):
+            continue
+        s = str(v)
+
+        # try to grab an EDID-looking token that includes QuestReward_Titles
+        if "QuestReward_Titles" in s:
+            m = re.search(r'(QuestReward_Titles[^ \t"]+)', s)
             lvli_edid = (m.group(1) if m else "QuestReward_Titles").strip()
             break
-    if not lvli_edid:
-        lvli_edid = "QuestReward_Titles"
 
+    if not lvli_edid:
+        return None
+
+    # 3) Find LVLI by EDID and read LVOV_ChanceNone
     for r in lvli_rows:
         if (r.get("LVLI_EDID") or "").strip() != lvli_edid:
             continue
         chance_none = safe_float(r.get("LVOV_ChanceNone") or "", None)
         if chance_none is None:
             return None
+        if abs(chance_none) < 1e-9:
+            return "100%"
         pct = 100.0 - chance_none
         if pct < 0:
             return None
         if abs(pct - round(pct)) < 1e-6:
             return f"{int(round(pct))}%"
         return f"{pct:.3f}%"
-    return None
 
+    return None
 
 def prettify_token_words(token: str) -> str:
     s = token.replace("_", " ").strip()
@@ -313,6 +320,11 @@ def parse_chal_formid_from_condition(cond: str) -> Optional[str]:
             return fid.upper()
     return None
 
+def parse_cobj_formid_from_condition(cond: str) -> Optional[str]:
+    for typ, fid in RE_FORM_REF.findall(cond):
+        if typ.upper() == "COBJ":
+            return fid.upper()
+    return None
 
 def compute_unlock_and_rates(
     kind: str,
@@ -460,6 +472,7 @@ def compute_unlock_and_rates(
         return "Unlocked via account entitlement.", "N/A", None, "entitlement", extra
 
     # --- COBJ proxy -> Event/Activity ---
+    # --- COBJ proxy -> Event/Activity ---
     if RE_COBJ_REF.search(joined):
         token = cobj_token_from_condition(conds)
         extra["cobjToken"] = token
@@ -477,10 +490,26 @@ def compute_unlock_and_rates(
         else:
             how = "Complete the Event/Activity: (unknown)"
 
-        title_words = [w for w in re.split(r"[^A-Za-z0-9]+", title_display) if w]
-        dr = find_glob_drop_rate(glob_rows, token, title_words)
-        if not dr and token:
-            dr = lvli_drop_rate_from_cobj_lvli(cobj_rows, lvli_rows, token)
+        # Drop Rate (your rule)
+        # 1) Try to find matching GLOB entry (unique match only)
+        dr = None
+
+        # If you want hard-coded globals for known buckets, you can add them here.
+        # Example (Activity Camp Title):
+        if kind == "camp" and label_kind == "Activity":
+            dr = glob_drop_rate_by_edid(glob_rows, "SpawnChance_Cnone_ActivityCampTitle")
+
+        # 2) If not found in GLOB, follow strict chain: COBJ FormID -> Ref1/Ref2 -> LVLI -> ChanceNone
+        if not dr:
+            cobj_formid = None
+            for c in conds:
+                if "[COBJ:" in c:
+                    cobj_formid = parse_cobj_formid_from_condition(c)
+                    if cobj_formid:
+                        break
+            if cobj_formid:
+                extra["cobjFormId"] = cobj_formid
+                dr = lvli_drop_rate_from_cobj_lvli(cobj_rows, lvli_rows, cobj_formid)
 
         return how, (dr or "N/A"), None, "event_activity", extra
 
@@ -531,7 +560,6 @@ def build_patchlog(prev: Optional[dict], curr: dict) -> dict:
         "removedFormIds": removed[:500],
         "changedFormIds": changed[:500],
     }
-
 
 def main() -> int:
     ap = argparse.ArgumentParser()
