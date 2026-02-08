@@ -664,24 +664,35 @@ def compute_unlock_and_rates(
 
             e_upper = (season_edid or "").upper()
             framed = ("ENDOFSEASONART" in e_upper)
+            quoted_name = None
             if not framed:
-                # quoted fallback
+                # quoted fallback (do NOT treat "Framed ... Gameboard" as Framed Art)
                 for c in conds:
                     if "HasEntitlement" in c and (season_edid or "") in c:
                         m = RE_QUOTED.search(c)
-                        if m and "framed" in m.group(1).lower():
-                            framed = True
+                        if m:
+                            quoted_name = m.group(1)
+                            q = quoted_name.lower()
+                            # Only count as Framed Art if it explicitly says "framed art"
+                            # and is NOT a gameboard/corkboard item.
+                            if ("framed art" in q) and ("gameboard" not in q) and ("corkboard" not in q):
+                                framed = True
                             break
 
             if framed:
                 return f"Unlocks when you claim the Framed Art from Season {season_num} - {sname}.", "100%", season_num, "season", extra
+
+            # If the entitlement is the title itself (CAMPTitles_*), it's a normal season-board claim,
+            # not "claim the Gameboard" item.
+            if "CAMPTITLES" in e_upper and "GAMEBOARD" not in e_upper and "CORKBOARD" not in e_upper:
+                return f"Unlocks when you claim this reward from Season {season_num} - {sname}.", "100%", season_num, "season", extra
 
             # Gameboard bucket (includes CorkBoard etc)
             return f"Unlocks when you claim the Gameboard from Season {season_num} - {sname}.", "100%", season_num, "season", extra
 
         # ATX standard
         if any(RE_ATX.search(e) for e in ent_edids):
-            return "Can be purchased with certain bundles from the Atom Shop.", "N/A", None, "atx", extra
+            return "Can be purchased with certain bundles from the Atom Shop.", "100%", None, "atx", extra
 
         return "Unlocked via account entitlement.", "N/A", None, "entitlement", extra
 
