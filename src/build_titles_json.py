@@ -892,7 +892,7 @@ def main() -> int:
 
         how, dr, sn, unlock_type, extra = compute_unlock_and_rates(
             kind="camp",
-            title_display=title_display,
+            title_display=title,
             edid=edid,
             conds=conds,
             seasons=seasons,
