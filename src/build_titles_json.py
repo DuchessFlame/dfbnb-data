@@ -211,20 +211,15 @@ def book_tradeable_map(book_rows: List[Dict[str, str]]) -> Dict[str, bool]:
             out[_norm_key(full)] = is_tradeable
     return out
 
-
 def _gmrw_parentquest_from_row(row: Dict[str, str]) -> str:
     """
-    Preferred:
-      - ParentQuestDisplay (new exporter)
-      - ParentQuest        (older exporter)
-    Fallback rule:
-      - If ANAM/ParentQuest is empty, scan Ref* fields for "Event:" or "Activity:"
+    Rule (strict):
+      - If we reach GMRW, derive Event/Activity from THIS ROW'S Ref* values first.
+        This is treated as authoritative (ANAM/ParentQuest can be wrong).
+      - Only if no Ref* contains Event:/Activity: do we fall back to ParentQuestDisplay/ParentQuest.
     """
-    pq = (row.get("ParentQuestDisplay") or row.get("ParentQuest") or "").strip()
-    if pq:
-        return pq
 
-    # Fallback: "refs on that row" contain Event:/Activity: text
+    # Authoritative: scan Ref* fields for "Event:" or "Activity:"
     for k, v in row.items():
         if not k.startswith("Ref"):
             continue
@@ -234,8 +229,12 @@ def _gmrw_parentquest_from_row(row: Dict[str, str]) -> str:
         if ("Event:" in s) or ("Activity:" in s):
             return s
 
-    return ""
+    # Fallback only if refs have no label
+    pq = (row.get("ParentQuestDisplay") or row.get("ParentQuest") or "").strip()
+    if pq:
+        return pq
 
+    return ""
 
 def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
     out: Dict[str, str] = {}
