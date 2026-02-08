@@ -30,13 +30,22 @@ jobs:
 
       - name: Commit dist outputs (if changed)
         run: |
-          git status --porcelain
+          set -e
+
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
+
             git add dist/titles_camp_generator.json dist/titles_player_generator.json
             git commit -m "Build titles generator JSON"
-            git push
+
+            # Remote may have moved (other workflow, manual commit, etc.)
+            # Rebase onto latest remote main, then push.
+            git fetch origin main
+            git rebase origin/main
+
+            git push origin HEAD:main
           else
             echo "No changes to commit."
           fi
+
