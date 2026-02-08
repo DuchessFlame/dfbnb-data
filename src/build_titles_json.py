@@ -219,25 +219,31 @@ def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
         if not edid:
             continue
         token = edid.split("_", 1)[0]
-        pq = (r.get("ParentQuest") or "").strip()
+
+        # New exporter writes ParentQuestDisplay/ParentQuestLink.
+        # Keep backward compatibility with older TSVs that used ParentQuest.
+        pq = (r.get("ParentQuestDisplay") or r.get("ParentQuest") or "").strip()
+
         if token and pq:
             out[token] = pq
     return out
 
-
 def gmrw_parentquest_by_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
     """
-    Strict: map GMRW FormID -> ParentQuest
+    Strict: map GMRW FormID -> ParentQuest (display)
     Used for BOOK -> LVLI -> (ReferencedBy) -> GMRW resolution.
     """
     out: Dict[str, str] = {}
     for r in gmrw_rows:
         fid = (r.get("FormID") or "").strip().upper()
-        pq = (r.get("ParentQuest") or "").strip()
+
+        # New exporter writes ParentQuestDisplay/ParentQuestLink.
+        # Keep backward compatibility with older TSVs that used ParentQuest.
+        pq = (r.get("ParentQuestDisplay") or r.get("ParentQuest") or "").strip()
+
         if fid and pq:
             out[fid] = pq
     return out
-
 
 def _extract_formids_from_ref_fields(row: Dict[str, str], suffix: str) -> List[str]:
     """
