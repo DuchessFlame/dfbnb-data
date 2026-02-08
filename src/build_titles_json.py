@@ -304,37 +304,56 @@ def book_lvli_gmrw_parentquest(
     lvli_refby_rows: List[Dict[str, str]],
     gmrw_by_formid: Dict[str, str],
     book_formid: str
-) -> Optional[str]:
+) -> Tuple[Optional[str], Dict[str, Any]]:
     """
     Strict path:
-      BOOK(FormID) -> BOOK.Ref* :LVLI -> LVLI_ReferencedBy.Ref* :GMRW -> GMRW.ParentQuest
-    Returns the ParentQuest string (raw), or None if any hop fails.
+      BOOK(FormID) -> BOOK.Ref* :LVLI -> LVLI_ReferencedBy.Ref* :GMRW -> GMRW.Ref* contains "Event:"/"Activity:"
+    Returns (parentquest_string_or_None, debug_dict)
     """
+    dbg: Dict[str, Any] = {
+        "bookFormId": (book_formid or "").strip().upper(),
+        "bookFound": False,
+        "lvliIds": [],
+        "lvliPicked": None,
+        "lvliRefByFound": False,
+        "gmrwIds": [],
+        "gmrwPicked": None,
+        "gmrwLabelFound": False,
+    }
+
     book_row = _find_row_by_formid(book_rows, book_formid)
     if not book_row:
-        return None
+        return None, dbg
+    dbg["bookFound"] = True
 
     lvli_ids = _extract_formids_from_ref_fields(book_row, ":LVLI")
+    dbg["lvliIds"] = lvli_ids
     if not lvli_ids:
-        return None
+        return None, dbg
 
-    # Use the first LVLI that references this BOOK (deterministic order from BOOK export)
     lvli_id = lvli_ids[0]
+    dbg["lvliPicked"] = lvli_id
+
     lvli_refby = None
     for r in lvli_refby_rows:
         if (r.get("LVLI_FormID") or "").strip().upper() == lvli_id:
             lvli_refby = r
             break
     if not lvli_refby:
-        return None
+        return None, dbg
+    dbg["lvliRefByFound"] = True
 
     gmrw_ids = _extract_formids_from_ref_fields(lvli_refby, ":GMRW")
+    dbg["gmrwIds"] = gmrw_ids
     if not gmrw_ids:
-        return None
+        return None, dbg
 
-    # Use the first GMRW ref deterministically
     gmrw_id = gmrw_ids[0]
-    return gmrw_by_formid.get(gmrw_id)
+    dbg["gmrwPicked"] = gmrw_id
+
+    pq = gmrw_by_formid.get(gmrw_id)
+    dbg["gmrwLabelFound"] = bool(pq)
+    return pq, dbg
 
 def chal_maps(chal_rows: List[Dict[str, str]]) -> Tuple[Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]:
     by_id: Dict[str, Dict[str, str]] = {}
@@ -767,7 +786,9 @@ def compute_unlock_and_rates(
 
                         # If GNAM is a BOOK FormID, resolve Event/Activity via BOOK -> LVLI -> GMRW
             if gnam_form and re.fullmatch(r"[0-9A-F]{8}", gnam_form):
-                pq = book_lvli_gmrw_parentquest(book_rows, lvli_refby_rows, gmrw_by_formid, gnam_form)
+                pq, pq_dbg = book_lvli_gmrw_parentquest(book_rows, lvli_refby_rows, gmrw_by_formid, gnam_form)
+                extra["bookLvliGmrw"] = pq_dbg
+
                 if pq:
                     parsed = parse_parentquest_label(pq)
                     if parsed:
