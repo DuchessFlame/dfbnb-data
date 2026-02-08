@@ -225,6 +225,87 @@ def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
     return out
 
 
+def gmrw_parentquest_by_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
+    """
+    Strict: map GMRW FormID -> ParentQuest
+    Used for BOOK -> LVLI -> (ReferencedBy) -> GMRW resolution.
+    """
+    out: Dict[str, str] = {}
+    for r in gmrw_rows:
+        fid = (r.get("FormID") or "").strip().upper()
+        pq = (r.get("ParentQuest") or "").strip()
+        if fid and pq:
+            out[fid] = pq
+    return out
+
+
+def _extract_formids_from_ref_fields(row: Dict[str, str], suffix: str) -> List[str]:
+    """
+    Rows store refs like: "006313AF:QuestReward_...:GMRW" or "0004718C:Something:LVLI"
+    This returns the leading 8-hex FormID for matching suffix, preserving order.
+    """
+    out: List[str] = []
+    for k, v in row.items():
+        if not k.startswith("Ref"):
+            continue
+        s = (v or "").strip()
+        if not s:
+            continue
+        if not s.endswith(suffix):
+            continue
+        m = re.match(r"^([0-9A-Fa-f]{8}):", s)
+        if not m:
+            continue
+        out.append(m.group(1).upper())
+    return out
+
+
+def _find_row_by_formid(rows: List[Dict[str, str]], formid: str) -> Optional[Dict[str, str]]:
+    fid = (formid or "").strip().upper()
+    if not fid:
+        return None
+    for r in rows:
+        if (r.get("FormID") or "").strip().upper() == fid:
+            return r
+    return None
+
+def book_lvli_gmrw_parentquest(
+    book_rows: List[Dict[str, str]],
+    lvli_refby_rows: List[Dict[str, str]],
+    gmrw_by_formid: Dict[str, str],
+    book_formid: str
+) -> Optional[str]:
+    """
+    Strict path:
+      BOOK(FormID) -> BOOK.Ref* :LVLI -> LVLI_ReferencedBy.Ref* :GMRW -> GMRW.ParentQuest
+    Returns the ParentQuest string (raw), or None if any hop fails.
+    """
+    book_row = _find_row_by_formid(book_rows, book_formid)
+    if not book_row:
+        return None
+
+    lvli_ids = _extract_formids_from_ref_fields(book_row, ":LVLI")
+    if not lvli_ids:
+        return None
+
+    # Use the first LVLI that references this BOOK (deterministic order from BOOK export)
+    lvli_id = lvli_ids[0]
+    lvli_refby = None
+    for r in lvli_refby_rows:
+        if (r.get("LVLI_FormID") or "").strip().upper() == lvli_id:
+            lvli_refby = r
+            break
+    if not lvli_refby:
+        return None
+
+    gmrw_ids = _extract_formids_from_ref_fields(lvli_refby, ":GMRW")
+    if not gmrw_ids:
+        return None
+
+    # Use the first GMRW ref deterministically
+    gmrw_id = gmrw_ids[0]
+    return gmrw_by_formid.get(gmrw_id)
+
 def chal_maps(chal_rows: List[Dict[str, str]]) -> Tuple[Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]:
     by_id: Dict[str, Dict[str, str]] = {}
     by_edid: Dict[str, Dict[str, str]] = {}
@@ -373,16 +454,37 @@ def lvli_drop_rate_from_cobj_lvli(
     matches.sort(key=_rank)
     best = matches[0]
 
-    # 4) Global override first
-    eg = (best.get("LVOG_ChanceNoneGlobal") or "").strip()
-    lg = (best.get("LVLG_ChanceNoneGlobal") or "").strip()
-    glob_field = eg or lg
-    if glob_field:
+    # 4) Global override first (global-first rule, order matters)
+    # Priority:
+    #   1) LVOG_ChanceNoneGlobal
+    #   2) LVOC_ChanceNoneCurve containing a :GLOB reference
+    #   3) LVLG_ChanceNoneGlobal
+    #   4) LVCT_ChanceNoneCurve containing a :GLOB reference
+    candidates: List[str] = []
+
+    lvog = (best.get("LVOG_ChanceNoneGlobal") or "").strip()
+    if lvog:
+        candidates.append(lvog)
+
+    lvoc = (best.get("LVOC_ChanceNoneCurve") or "").strip()
+    if lvoc and ":GLOB" in lvoc:
+        candidates.append(lvoc)
+
+    lvlg = (best.get("LVLG_ChanceNoneGlobal") or "").strip()
+    if lvlg:
+        candidates.append(lvlg)
+
+    lvct = (best.get("LVCT_ChanceNoneCurve") or "").strip()
+    if lvct and ":GLOB" in lvct:
+        candidates.append(lvct)
+
+    for glob_field in candidates:
         gfid = _glob_formid_from_lvli_global_field(glob_field)
-        if gfid:
-            dr = glob_drop_rate_by_formid(glob_rows, gfid)
-            if dr:
-                return dr
+        if not gfid:
+            continue
+        dr = glob_drop_rate_by_formid(glob_rows, gfid)
+        if dr:
+            return dr
 
     # 5) Fallback: LVOV_ChanceNone
     chance_none = safe_float(best.get("LVOV_ChanceNone") or "", None)
@@ -441,12 +543,16 @@ def compute_unlock_and_rates(
     conds: List[str],
     seasons: Dict[int, str],
     gmrw_by_token: Dict[str, str],
+    gmrw_by_formid: Dict[str, str],
+    book_rows: List[Dict[str, str]],
+    lvli_refby_rows: List[Dict[str, str]],
     glob_rows: List[Dict[str, str]],
     cobj_rows: List[Dict[str, str]],
     lvli_rows: List[Dict[str, str]],
     chal_by_id: Dict[str, Dict[str, str]],
     chal_by_edid: Dict[str, Dict[str, str]],
 ) -> Tuple[str, str, Optional[int], str, Dict[str, Any]]:
+
     extra: Dict[str, Any] = {}
 
     if not conds:
@@ -584,15 +690,9 @@ def compute_unlock_and_rates(
         token = cobj_token_from_condition(conds)
         extra["cobjToken"] = token
 
-        # Resolve Event/Activity label from GMRW token (still used for the BOOK-drop version)
-        label_kind = None
-        label_name = None
-        if token and token in gmrw_by_token:
-            parsed = parse_parentquest_label(gmrw_by_token[token])
-            if parsed:
-                label_kind, label_name = parsed
-
-        how_event = f"Complete the {label_kind}: {label_name}" if (label_kind and label_name) else "Complete the Event/Activity: (unknown)"
+        # Strict BOOK -> LVLI -> GMRW ParentQuest resolution (no token guessing)
+        how_event = "Complete the Event/Activity: (unknown)"
+        how_from_parentquest = None
 
         # Pull COBJ FormID from the condition text
         cobj_formid = None
@@ -618,6 +718,16 @@ def compute_unlock_and_rates(
             gnam_full = (cobj_row.get("GNAM_FULL") or "").strip()
             gnam_form = (cobj_row.get("GNAM_FormID") or "").strip().upper()
 
+                        # If GNAM is a BOOK FormID, resolve Event/Activity via BOOK -> LVLI -> GMRW
+            if gnam_form and re.fullmatch(r"[0-9A-F]{8}", gnam_form):
+                pq = book_lvli_gmrw_parentquest(book_rows, lvli_refby_rows, gmrw_by_formid, gnam_form)
+                if pq:
+                    parsed = parse_parentquest_label(pq)
+                    if parsed:
+                        lk, ln = parsed
+                        how_from_parentquest = f"Complete the {lk}: {ln}"
+                        how_event = how_from_parentquest
+
             extra.update({
                 "cobjGNAM_EDID": gnam_edid,
                 "cobjGNAM_FULL": gnam_full,
@@ -627,12 +737,10 @@ def compute_unlock_and_rates(
             # --- COBJ GNAM -> CHALLENGE unlock ---
             # Example: GNAM_EDID = Challenge_Lifetime_... and GNAM_FULL = "Build decorative furnishings..."
             if gnam_edid.startswith("Challenge_") or (gnam_form and gnam_full and "CHAL:" in gnam_full):
-                # Resolve CHAL by EDID (strip "Challenge_" prefix if your CHAL export omits it)
+                               # Resolve CHAL strictly by EDID as exported (no prefix stripping)
                 chal_key = gnam_edid
-                if chal_key not in chal_by_edid and chal_key.startswith("Challenge_"):
-                    chal_key = chal_key[len("Challenge_"):]
+                row = chal_by_edid.get(chal_key)
 
-                row = chal_by_edid.get(chal_key) or chal_by_edid.get(gnam_edid)
                 if row:
                     full = (row.get("FULL") or "").strip() or gnam_full or chal_key
                     cnam = (row.get("CNAM") or "").strip() or "Challenge"
@@ -750,19 +858,22 @@ def main() -> int:
     gmrw_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.gmrw], "FormID")
     chal_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.chal], "FormID")
 
-    # LVLI split (defs vs referenced-by). We only need defs for LVOV_ChanceNone.
+    # LVLI split (defs vs referenced-by).
     lvli_rows: List[Dict[str, str]] = []
+    lvli_refby_rows: List[Dict[str, str]] = []
     for p in args.lvli:
         rows = read_tsv_rows(p)
         if not rows:
             continue
         headers = set(rows[0].keys())
         if "ReferencedByCount" in headers:
+            lvli_refby_rows.extend(rows)
             continue
         lvli_rows.extend(rows)
 
     tradeable_by_book = book_tradeable_map(book_rows)
     gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
+    gmrw_by_formid = gmrw_parentquest_by_formid_map(gmrw_rows)
     chal_by_id, chal_by_edid = chal_maps(chal_rows)
 
     # CAMP
@@ -781,11 +892,14 @@ def main() -> int:
 
         how, dr, sn, unlock_type, extra = compute_unlock_and_rates(
             kind="camp",
-            title_display=title,
+            title_display=title_display,
             edid=edid,
             conds=conds,
             seasons=seasons,
             gmrw_by_token=gmrw_by_token,
+            gmrw_by_formid=gmrw_by_formid,
+            book_rows=book_rows,
+            lvli_refby_rows=lvli_refby_rows,
             glob_rows=glob_rows,
             cobj_rows=cobj_rows,
             lvli_rows=lvli_rows,
@@ -842,6 +956,9 @@ def main() -> int:
             conds=conds,
             seasons=seasons,
             gmrw_by_token=gmrw_by_token,
+            gmrw_by_formid=gmrw_by_formid,
+            book_rows=book_rows,
+            lvli_refby_rows=lvli_refby_rows,
             glob_rows=glob_rows,
             cobj_rows=cobj_rows,
             lvli_rows=lvli_rows,
