@@ -1042,11 +1042,31 @@ def main() -> int:
 
     camp_path = os.path.join(args.outdir, "titles_camp.json")
     player_path = os.path.join(args.outdir, "titles_player.json")
+    data_path = os.path.join(args.outdir, "titles_data.json")
 
     with open(camp_path, "w", encoding="utf-8") as f:
         json.dump(camp_json, f, ensure_ascii=False, separators=(",", ":"), indent=2)
     with open(player_path, "w", encoding="utf-8") as f:
         json.dump(player_json, f, ensure_ascii=False, separators=(",", ":"), indent=2)
+
+    # Back-compat: combined file for older pages that still fetch titles_data.json
+    combined_items = []
+    for it in camp_items:
+        x = dict(it)
+        x["titleType"] = "camp"
+        combined_items.append(x)
+    for it in player_items:
+        x = dict(it)
+        x["titleType"] = "player"
+        combined_items.append(x)
+
+    combined_json = {
+        "generatedAt": now_iso(),
+        "type": "titles_combined",
+        "items": combined_items,
+    }
+    with open(data_path, "w", encoding="utf-8") as f:
+        json.dump(combined_json, f, ensure_ascii=False, separators=(",", ":"), indent=2)
 
     prev_camp = git_show_json("HEAD^", "dist/titles_camp.json")
     prev_player = git_show_json("HEAD^", "dist/titles_player.json")
