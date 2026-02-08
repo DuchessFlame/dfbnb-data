@@ -215,31 +215,51 @@ def _gmrw_parentquest_from_row(row: Dict[str, str]) -> str:
     """
     STRICT RULE:
       - Ignore ANAM / Record / ParentQuest / ParentQuestDisplay entirely.
-      - ONLY scan Ref* columns.
-      - ONLY accept labels inside double quotes:
+      - ONLY scan Ref* columns (Ref1, Ref2, Ref3...) IN ORDER.
+      - Prefer quoted labels:
             "Event: ..."
             "Activity: ..."
+            "Bounty Hunting: ..."
+      - Fallback: if a ref is a QUST ref and has a quoted FULL, allow it,
+        BUT SKIP cut-content quests (EditorID starts with ZZZ/ZZZZ/CUT/DEL/POST).
     """
 
     quoted_label_re = re.compile(
-        r'"(?P<label>(Event|Activity)\s*:\s*[^"]+)"',
+        r'"(?P<label>(Event|Activity|Bounty\s*Hunting)\s*:\s*[^"]+)"',
         re.IGNORECASE
     )
 
-    for k, v in row.items():
-        if not k.startswith("Ref"):
-            continue
+    quoted_any_re = re.compile(r'"(?P<label>[^"]+)"')
 
-        s = (v or "").strip()
+    def _ref_keys_in_order(d: Dict[str, str]) -> List[str]:
+        keys = [k for k in d.keys() if k.startswith("Ref")]
+        def _n(k: str) -> int:
+            m = re.match(r"Ref(\d+)$", k)
+            return int(m.group(1)) if m else 10**9
+        keys.sort(key=_n)
+        return keys
+
+    for k in _ref_keys_in_order(row):
+        s = (row.get(k) or "").strip()
         if not s:
             continue
 
+        # 1) Preferred: quoted "Event:" / "Activity:" / "Bounty Hunting:"
         m = quoted_label_re.search(s)
-        if not m:
-            continue
+        if m:
+            return m.group(0).strip()
 
-        # Return only the quoted label text, no EDID, no [QUST]
-        return m.group(0).strip()
+        # 2) Fallback: QUST ref with quoted FULL (but skip cut-content quest EDIDs)
+        # Expected shape: 00824A46:zzzBurn_BountyHunt_Public_Test:"Event: ...":QUST
+        if s.endswith(":QUST"):
+            parts = s.split(":", 3)  # FormID, EDID, "FULL", QUST
+            quest_edid = parts[1].strip() if len(parts) >= 2 else ""
+            if quest_edid and starts_cut(quest_edid):
+                continue  # ignore zzz/cut quest refs
+
+            m2 = quoted_any_re.search(s)
+            if m2:
+                return f"\"{m2.group('label').strip()}\""
 
     return ""
 
@@ -255,14 +275,20 @@ def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
             out[token] = pq
     return out
 
-
 def gmrw_parentquest_by_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
     """
     Strict: map GMRW FormID -> ParentQuest (display text when available)
     Used for BOOK -> LVLI -> (ReferencedBy) -> GMRW resolution.
+
+    IMPORTANT:
+      - Ignore CUT/ZZZ/etc GMRW rows here so ref-path resolution doesn't pick cut content.
     """
     out: Dict[str, str] = {}
     for r in gmrw_rows:
+        edid = (r.get("EDID") or "").strip()
+        if edid and starts_cut(edid):
+            continue
+
         fid = (r.get("FormID") or "").strip().upper()
         pq = _gmrw_parentquest_from_row(r)
         if fid and pq:
@@ -388,19 +414,26 @@ def parse_parentquest_label(pq: str) -> Optional[Tuple[str, str]]:
         label = m.group(1).strip()  # "Event: X" / "Activity: Y"
     else:
         # Fallback: plain text contains Event:/Activity: without quotes
-        m2 = re.search(r"\b(Event|Activity)\s*:\s*([^\r\n|]+)", pq)
+        m2 = re.search(r"\b(Event|Activity|Bounty\s*Hunting)\s*:\s*([^\r\n|]+)", pq)
         if not m2:
             return None
         label = f"{m2.group(1)}: {m2.group(2).strip()}"
 
-    if ":" not in label:
+    # Normal: "Event: X" / "Activity: Y"
+    if ":" in label:
+        left, right = label.split(":", 1)
+        kind = left.strip()
+        name = right.strip()
+        if not kind or not name:
+            return None
+        return kind, name
+
+    # Fallback: quoted FULL from a QUST ref, e.g. "Lucky Strike"
+    # Treat it as a quest name.
+    label = label.strip()
+    if not label:
         return None
-    left, right = label.split(":", 1)
-    kind = left.strip()
-    name = right.strip()
-    if not kind or not name:
-        return None
-    return kind, name
+    return "Quest", label
 
 def glob_drop_rate_by_edid(glob_rows: List[Dict[str, str]], glob_edid: str) -> Optional[str]:
     """Strict: match GLOB.EDID exactly, DropRate = 100 - FLTV"""
@@ -591,6 +624,38 @@ def parse_cobj_formid_from_condition(cond: str) -> Optional[str]:
             return fid.upper()
     return None
 
+
+def parse_cndf_formid_from_condition(cond: str) -> Optional[str]:
+    m = re.search(r"\[CNDF:([0-9A-Fa-f]{8})\]", cond or "")
+    if not m:
+        return None
+    return m.group(1).upper()
+
+
+def extract_cndf_conditions_and_refs(cndf_row: Dict[str, str]) -> Tuple[List[str], List[str]]:
+    """
+    CNDF TSV format:
+      ConditionCount, Cond01..Cond25
+      ReferencedByCount, Ref01..Ref25
+    Values are already pretty human-readable in your fixed export.
+    """
+    conds: List[str] = []
+    refs: List[str] = []
+
+    n_cond = safe_int((cndf_row.get("ConditionCount") or "").strip(), 0)
+    for i in range(1, min(n_cond, 25) + 1):
+        v = (cndf_row.get(f"Cond{i:02d}") or "").strip()
+        if v:
+            conds.append(v)
+
+    n_ref = safe_int((cndf_row.get("ReferencedByCount") or "").strip(), 0)
+    for i in range(1, min(n_ref, 25) + 1):
+        v = (cndf_row.get(f"Ref{i:02d}") or "").strip()
+        if v:
+            refs.append(v)
+
+    return conds, refs
+
 def compute_unlock_and_rates(
     kind: str,
     title_display: str,
@@ -606,6 +671,7 @@ def compute_unlock_and_rates(
     lvli_rows: List[Dict[str, str]],
     chal_by_id: Dict[str, Dict[str, str]],
     chal_by_edid: Dict[str, Dict[str, str]],
+    cndf_by_id: Dict[str, Dict[str, str]],
 ) -> Tuple[str, str, Optional[int], str, Dict[str, Any]]:
 
     extra: Dict[str, Any] = {}
@@ -614,6 +680,23 @@ def compute_unlock_and_rates(
         return "Unlocked by Default", "100%", None, "default", extra
 
     joined = " ".join(conds)
+
+        # Expand CNDF if present in any condition line (attach into debug/extra)
+    cndf_formid = None
+    for c in conds:
+        if "[CNDF:" in c:
+            cndf_formid = parse_cndf_formid_from_condition(c)
+            if cndf_formid:
+                break
+
+    if cndf_formid:
+        extra["cndfFormId"] = cndf_formid
+        row = cndf_by_id.get(cndf_formid)
+        if row:
+            extra["cndfEdid"] = (row.get("EDID") or "").strip()
+            cc, rr = extract_cndf_conditions_and_refs(row)
+            extra["cndfConditions"] = cc
+            extra["cndfRefs"] = rr
 
     # --- Challenges: HasCompletedChallenge -> CHAL by FormID ---
     if RE_HAS_COMPLETED_CHAL.search(joined):
@@ -885,6 +968,7 @@ def main() -> int:
     ap.add_argument("--gmrw", action="append", required=False)
     ap.add_argument("--lvli", action="append", required=False)
     ap.add_argument("--chal", action="append", required=False)
+    ap.add_argument("--cndf", action="append", required=False)
 
     ap.add_argument("--seasons", required=False, default=None)
     ap.add_argument("--outdir", required=True)
@@ -899,6 +983,7 @@ def main() -> int:
     args.gmrw = _autofill_paths(args.tsv_root, args.gmrw, ["**/*GMRW*.tsv"])
     args.lvli = _autofill_paths(args.tsv_root, args.lvli, ["**/*LVLI*.tsv"])
     args.chal = _autofill_paths(args.tsv_root, args.chal, ["**/*CHAL*.tsv"])
+    args.cndf = _autofill_paths(args.tsv_root, args.cndf, ["**/*CNDF*.tsv"])
 
     missing = []
     if not args.cmpt: missing.append("--cmpt (or auto via --tsv-root)")
@@ -909,6 +994,7 @@ def main() -> int:
     if not args.gmrw: missing.append("--gmrw (or auto via --tsv-root)")
     if not args.lvli: missing.append("--lvli (or auto via --tsv-root)")
     if not args.chal: missing.append("--chal (or auto via --tsv-root)")
+    if not args.cndf: missing.append("--cndf (or auto via --tsv-root)")
     if missing:
         raise SystemExit("Missing required TSV inputs: " + ", ".join(missing))
 
@@ -925,6 +1011,7 @@ def main() -> int:
     glob_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.glob], "FormID")
     gmrw_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.gmrw], "FormID")
     chal_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.chal], "FormID")
+    cndf_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.cndf], "FormID")
 
     # LVLI split (defs vs referenced-by).
     lvli_rows: List[Dict[str, str]] = []
@@ -939,10 +1026,18 @@ def main() -> int:
             continue
         lvli_rows.extend(rows)
 
+    # build lookup maps AFTER all TSVs are loaded
     tradeable_by_book = book_tradeable_map(book_rows)
     gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
     gmrw_by_formid = gmrw_parentquest_by_formid_map(gmrw_rows)
     chal_by_id, chal_by_edid = chal_maps(chal_rows)
+
+    # CNDF
+    cndf_by_id: Dict[str, Dict[str, str]] = {}
+    for r in cndf_rows:
+        fid = (r.get("FormID") or "").strip().upper()
+        if fid:
+            cndf_by_id[fid] = r
 
     # CAMP
     camp_items: List[Dict[str, Any]] = []
@@ -973,6 +1068,7 @@ def main() -> int:
             lvli_rows=lvli_rows,
             chal_by_id=chal_by_id,
             chal_by_edid=chal_by_edid,
+            cndf_by_id=cndf_by_id,
         )
 
         tradeable = False  # camp default
@@ -1032,6 +1128,7 @@ def main() -> int:
             lvli_rows=lvli_rows,
             chal_by_id=chal_by_id,
             chal_by_edid=chal_by_edid,
+            cndf_by_id=cndf_by_id,
         )
 
         tradeable = False  # player default
