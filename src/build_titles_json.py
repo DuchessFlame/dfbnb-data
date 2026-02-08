@@ -212,6 +212,31 @@ def book_tradeable_map(book_rows: List[Dict[str, str]]) -> Dict[str, bool]:
     return out
 
 
+def _gmrw_parentquest_from_row(row: Dict[str, str]) -> str:
+    """
+    Preferred:
+      - ParentQuestDisplay (new exporter)
+      - ParentQuest        (older exporter)
+    Fallback rule:
+      - If ANAM/ParentQuest is empty, scan Ref* fields for "Event:" or "Activity:"
+    """
+    pq = (row.get("ParentQuestDisplay") or row.get("ParentQuest") or "").strip()
+    if pq:
+        return pq
+
+    # Fallback: "refs on that row" contain Event:/Activity: text
+    for k, v in row.items():
+        if not k.startswith("Ref"):
+            continue
+        s = (v or "").strip()
+        if not s:
+            continue
+        if ("Event:" in s) or ("Activity:" in s):
+            return s
+
+    return ""
+
+
 def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
     out: Dict[str, str] = {}
     for r in gmrw_rows:
@@ -219,28 +244,21 @@ def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
         if not edid:
             continue
         token = edid.split("_", 1)[0]
-
-        # New exporter writes ParentQuestDisplay/ParentQuestLink.
-        # Keep backward compatibility with older TSVs that used ParentQuest.
-        pq = (r.get("ParentQuestDisplay") or r.get("ParentQuest") or "").strip()
-
+        pq = _gmrw_parentquest_from_row(r)
         if token and pq:
             out[token] = pq
     return out
 
+
 def gmrw_parentquest_by_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
     """
-    Strict: map GMRW FormID -> ParentQuest (display)
+    Strict: map GMRW FormID -> ParentQuest (display text when available)
     Used for BOOK -> LVLI -> (ReferencedBy) -> GMRW resolution.
     """
     out: Dict[str, str] = {}
     for r in gmrw_rows:
         fid = (r.get("FormID") or "").strip().upper()
-
-        # New exporter writes ParentQuestDisplay/ParentQuestLink.
-        # Keep backward compatibility with older TSVs that used ParentQuest.
-        pq = (r.get("ParentQuestDisplay") or r.get("ParentQuest") or "").strip()
-
+        pq = _gmrw_parentquest_from_row(r)
         if fid and pq:
             out[fid] = pq
     return out
@@ -338,12 +356,18 @@ def cobj_token_from_condition(conds: List[str]) -> Optional[str]:
             return token
     return None
 
-
 def parse_parentquest_label(pq: str) -> Optional[Tuple[str, str]]:
+    # Preferred format: quoted label somewhere in the string
     m = RE_QUOTED.search(pq)
-    if not m:
-        return None
-    label = m.group(1).strip()  # "Event: X" / "Activity: Y"
+    if m:
+        label = m.group(1).strip()  # "Event: X" / "Activity: Y"
+    else:
+        # Fallback: plain text contains Event:/Activity: without quotes
+        m2 = re.search(r"\b(Event|Activity)\s*:\s*([^\r\n|]+)", pq)
+        if not m2:
+            return None
+        label = f"{m2.group(1)}: {m2.group(2).strip()}"
+
     if ":" not in label:
         return None
     left, right = label.split(":", 1)
