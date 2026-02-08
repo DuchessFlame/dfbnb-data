@@ -239,7 +239,7 @@ def _gmrw_parentquest_from_row(row: Dict[str, str]) -> str:
             continue
 
         # Return only the quoted label text, no EDID, no [QUST]
-        return m.group("label").strip()
+        return m.group(0).strip()
 
     return ""
 
