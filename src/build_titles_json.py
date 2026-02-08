@@ -213,26 +213,33 @@ def book_tradeable_map(book_rows: List[Dict[str, str]]) -> Dict[str, bool]:
 
 def _gmrw_parentquest_from_row(row: Dict[str, str]) -> str:
     """
-    Rule (strict):
-      - If we reach GMRW, derive Event/Activity from THIS ROW'S Ref* values first.
-        This is treated as authoritative (ANAM/ParentQuest can be wrong).
-      - Only if no Ref* contains Event:/Activity: do we fall back to ParentQuestDisplay/ParentQuest.
+    STRICT RULE:
+      - Ignore ANAM / Record / ParentQuest / ParentQuestDisplay entirely.
+      - ONLY scan Ref* columns.
+      - ONLY accept labels inside double quotes:
+            "Event: ..."
+            "Activity: ..."
     """
 
-    # Authoritative: scan Ref* fields for "Event:" or "Activity:"
+    quoted_label_re = re.compile(
+        r'"(?P<label>(Event|Activity)\s*:\s*[^"]+)"',
+        re.IGNORECASE
+    )
+
     for k, v in row.items():
         if not k.startswith("Ref"):
             continue
+
         s = (v or "").strip()
         if not s:
             continue
-        if ("Event:" in s) or ("Activity:" in s):
-            return s
 
-    # Fallback only if refs have no label
-    pq = (row.get("ParentQuestDisplay") or row.get("ParentQuest") or "").strip()
-    if pq:
-        return pq
+        m = quoted_label_re.search(s)
+        if not m:
+            continue
+
+        # Return only the quoted label text, no EDID, no [QUST]
+        return m.group("label").strip()
 
     return ""
 
