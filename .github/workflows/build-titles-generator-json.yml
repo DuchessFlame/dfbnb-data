@@ -1,0 +1,42 @@
+name: Build Titles Generator JSON
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tsv/**"
+      - "src/**"
+      - ".github/workflows/build-titles-generator-json.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build generator JSON
+        run: |
+          python src/build_titles_generator_json.py
+
+      - name: Commit dist outputs (if changed)
+        run: |
+          git status --porcelain
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/titles_camp_generator.json dist/titles_player_generator.json
+            git commit -m "Build titles generator JSON"
+            git push
+          else
+            echo "No changes to commit."
+          fi
