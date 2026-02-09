@@ -698,6 +698,31 @@ def compute_unlock_and_rates(
             extra["cndfConditions"] = cc
             extra["cndfRefs"] = rr
 
+            # If CNDF expands to multiple HasCompletedChallenge requirements,
+            # generate a human-readable "Complete these challenges" list.
+            chal_names: List[str] = []
+            for s in cc:
+                if "HasCompletedChallenge" not in s:
+                    continue
+                m = RE_QUOTED.search(s)
+                if m:
+                    chal_names.append(m.group(1).strip())
+
+            # De-dupe while preserving order
+            if chal_names:
+                seen = set()
+                ordered: List[str] = []
+                for n in chal_names:
+                    if n in seen:
+                        continue
+                    seen.add(n)
+                    ordered.append(n)
+
+                # Only use list-style output when it’s actually a list
+                if len(ordered) >= 2:
+                    how = "Complete the following challenges to unlock this camp title:\n" + "\n".join(f"- {n}" for n in ordered)
+                    return how, "100%", None, "challenge", extra
+
     # --- Challenges: HasCompletedChallenge -> CHAL by FormID ---
     if RE_HAS_COMPLETED_CHAL.search(joined):
         chal_fid = None
