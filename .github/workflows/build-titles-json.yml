@@ -36,6 +36,13 @@ jobs:
         run: |
           cp dist/titles_patchlog.json dist/patchlog_latest_titles.json
 
+      - name: Build patchlog manifest
+        run: |
+          python src/build_patchlog_manifest.py \
+            --out dist/patchlog_manifest.json \
+            --base-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/dist" \
+            --titles-feed patchlog_latest_titles.json
+
       - name: Append patchlog history (append-only)
         run: |
           python src/append_patchlog_history.py \
