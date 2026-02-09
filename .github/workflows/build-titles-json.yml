@@ -7,6 +7,8 @@ on:
       - "tsv/**"
       - "src/**"
       - ".github/workflows/build-titles-json.yml"
+  schedule:
+    - cron: "17 */6 * * *"
 
 permissions:
   contents: write
@@ -36,11 +38,12 @@ jobs:
         run: |
           cp dist/titles_patchlog.json dist/patchlog_latest_titles.json
 
-      - name: Build patchlog manifest
+      - name: Build patchlog manifest (from guide_index.tsv)
         run: |
-          python src/build_patchlog_manifest.py \
+          python src/build_patchlog_manifest_from_guide_index.py \
+            --guide-index tsv/guide_index.tsv \
             --out dist/patchlog_manifest.json \
-            --base-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/dist" \
+            --dist-base-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/dist" \
             --titles-feed patchlog_latest_titles.json
 
       - name: Append patchlog history (append-only)
