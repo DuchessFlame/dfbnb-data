@@ -48,19 +48,41 @@ def pick(row: Dict[str, str], *keys: str) -> str:
 
     return ""
 
-
 def open_text_fallback(path: str) -> TextIO:
     """
     guide_index.tsv often comes from Excel/Windows.
-    Try UTF-8 (with BOM), then fall back to cp1252.
+    Probe a chunk so decode errors happen here (not later in csv).
+    Try UTF-8 (with BOM), then UTF-16, then fall back to cp1252.
     """
+    # 1) UTF-8 (with BOM)
     try:
         f = open(path, "r", encoding="utf-8-sig", newline="")
-        f.read(0)
+        f.read(4096)     # force decode
+        f.seek(0)
         return f
     except UnicodeDecodeError:
-        return open(path, "r", encoding="cp1252", newline="")
+        try:
+            f.close()
+        except Exception:
+            pass
 
+    # 2) UTF-16 (common Excel save)
+    try:
+        f = open(path, "r", encoding="utf-16", newline="")
+        f.read(4096)     # force decode
+        f.seek(0)
+        return f
+    except UnicodeDecodeError:
+        try:
+            f.close()
+        except Exception:
+            pass
+
+    # 3) Windows-1252 fallback
+    f = open(path, "r", encoding="cp1252", newline="")
+    f.read(4096)         # should always decode
+    f.seek(0)
+    return f
 
 def main() -> None:
     ap = argparse.ArgumentParser()
