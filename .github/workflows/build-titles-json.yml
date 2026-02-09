@@ -32,10 +32,14 @@ jobs:
             --seasons tsv/fallout76_seasons.tsv \
             --outdir dist
 
+      - name: Stage patchlog latest (titles -> generic)
+        run: |
+          cp dist/titles_patchlog.json dist/patchlog_latest_titles.json
+
       - name: Append patchlog history (append-only)
         run: |
           python src/append_patchlog_history.py \
-            --latest dist/titles_patchlog.json \
+            --latest dist/patchlog_latest_titles.json \
             --history dist/patchlog_history.json \
             --kind titles
 
