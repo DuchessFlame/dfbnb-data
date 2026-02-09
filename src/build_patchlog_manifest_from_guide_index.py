@@ -48,42 +48,6 @@ def pick(row: Dict[str, str], *keys: str) -> str:
 
     return ""
 
-def open_text_fallback(path: str) -> TextIO:
-    """
-    guide_index.tsv often comes from Excel/Windows.
-    Probe a chunk so decode errors happen here (not later in csv).
-    Try UTF-8 (with BOM), then UTF-16, then fall back to cp1252.
-    """
-    # 1) UTF-8 (with BOM)
-    try:
-        f = open(path, "r", encoding="utf-8-sig", newline="")
-        f.read(4096)     # force decode
-        f.seek(0)
-        return f
-    except UnicodeDecodeError:
-        try:
-            f.close()
-        except Exception:
-            pass
-
-    # 2) UTF-16 (common Excel save)
-    try:
-        f = open(path, "r", encoding="utf-16", newline="")
-        f.read(4096)     # force decode
-        f.seek(0)
-        return f
-    except UnicodeDecodeError:
-        try:
-            f.close()
-        except Exception:
-            pass
-
-    # 3) Windows-1252 fallback
-    f = open(path, "r", encoding="cp1252", newline="")
-    f.read(4096)         # should always decode
-    f.seek(0)
-    return f
-
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--guide-index", required=True)
@@ -97,32 +61,47 @@ def main() -> None:
 
     by_page: Dict[str, Dict[str, str]] = {}
 
-    with open_text_fallback(args.guide_index) as f:
-        reader = csv.DictReader(f, delimiter="\t")
-        for row in reader:
-            url = pick(row, "url", "URL")
-            template = pick(row, "template", "Template").lower()
-            tags = pick(row, "tags", "Tags").lower()
+    # Read TSV as raw bytes, then decode safely (Excel-proof)
+    raw = open(args.guide_index, "rb").read()
 
-            path = norm_path(url)
-            if not path:
-                continue
+    text = None
+    for enc in ("utf-8-sig", "utf-16", "cp1252"):
+        try:
+            text = raw.decode(enc)
+            break
+        except UnicodeDecodeError:
+            continue
 
-            # Rule: include ONLY pages that should show Titles patch logs.
-            is_titles_page = (
-                "/titles/" in path
-                or "/collectables/player-titles/" in path
-                or "/camp/camp-titles/" in path
-                or "titles" in template
-                or "titles" in tags
-            )
-            if not is_titles_page:
-                continue
+    if text is None:
+        raise RuntimeError("Unable to decode guide_index.tsv with known encodings")
 
-            by_page[path] = {"url": titles_feed_url, "label": "titles"}
+    import io
+    f = io.StringIO(text)
+    reader = csv.DictReader(f, delimiter="\t")
+
+    for row in reader:
+        url = pick(row, "url", "URL")
+        template = pick(row, "template", "Template").lower()
+        tags = pick(row, "tags", "Tags").lower()
+
+        path = norm_path(url)
+        if not path:
+            continue
+
+        # Rule: include ONLY pages that should show Titles patch logs.
+        is_titles_page = (
+            "/titles/" in path
+            or "/collectables/player-titles/" in path
+            or "/camp/camp-titles/" in path
+            or "titles" in template
+            or "titles" in tags
+        )
+        if not is_titles_page:
+            continue
+
+        by_page[path] = {"url": titles_feed_url, "label": "titles"}
 
     write_json(args.out, {"byPage": by_page})
-
 
 if __name__ == "__main__":
     main()
