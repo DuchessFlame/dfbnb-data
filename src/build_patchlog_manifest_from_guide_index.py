@@ -4,8 +4,7 @@ import csv
 import json
 import os
 import sys
-from typing import Dict, Any
-
+from typing import Dict, Any, TextIO
 
 def norm_path(p: str) -> str:
     p = (p or "").strip()
@@ -49,6 +48,22 @@ def pick(row: Dict[str, str], *keys: str) -> str:
 
     return ""
 
+def bump_csv_field_limit() -> None:
+    """
+    Fix for: csv.Error: field larger than field limit (131072)
+    Some rows (usually tags) can be huge. Raise the limit as high as possible.
+    """
+    # Some Python builds/platforms overflow on gigantic values, so step down safely.
+    target = getattr(sys, "maxsize", 2**31 - 1)
+    while True:
+        try:
+            csv.field_size_limit(target)
+            return
+        except (OverflowError, ValueError):
+            target = target // 2
+            if target < 1024 * 1024:  # 1MB floor (if we hit this, something is very wrong)
+                csv.field_size_limit(1024 * 1024)
+                return
 
 def bump_csv_field_limit() -> None:
     """
@@ -100,7 +115,11 @@ def main() -> None:
     text = decode_bytes(raw)
 
     # DictReader wants a text file-like object
+    # IMPORTANT: must happen BEFORE DictReader reads headers/rows
+    bump_csv_field_limit()
+
     import io
+
     f = io.StringIO(text)
 
     reader = csv.DictReader(f, delimiter="\t")
