@@ -3,7 +3,8 @@ import argparse
 import csv
 import json
 import os
-from typing import Dict, Any, TextIO
+import sys
+from typing import Dict, Any
 
 
 def norm_path(p: str) -> str:
@@ -48,6 +49,37 @@ def pick(row: Dict[str, str], *keys: str) -> str:
 
     return ""
 
+
+def bump_csv_field_limit() -> None:
+    """
+    Python's csv module has a default max field size. Your TSV can contain
+    very large cells (e.g., tags), which trips the limit and crashes the workflow.
+    This raises the limit as high as the platform will allow.
+    """
+    # Start big. If it's too big for this build, step down until accepted.
+    target = 1024 * 1024 * 64  # 64 MB
+    while True:
+        try:
+            csv.field_size_limit(target)
+            return
+        except (OverflowError, ValueError):
+            # Some platforms reject huge integers here. Step down.
+            target = target // 2
+            if target < 1024 * 128:  # 128 KB floor, should never hit in practice
+                # If we get here, something is deeply weird, but don't silently pass.
+                raise RuntimeError("Unable to raise csv.field_size_limit to a usable value")
+
+
+def decode_bytes(raw: bytes) -> str:
+    # Try common encodings seen in TSV exports (Excel-proof)
+    for enc in ("utf-8-sig", "utf-16", "cp1252", "utf-8"):
+        try:
+            return raw.decode(enc)
+        except UnicodeDecodeError:
+            continue
+    raise RuntimeError("Unable to decode guide_index.tsv with known encodings")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--guide-index", required=True)
@@ -56,27 +88,21 @@ def main() -> None:
     ap.add_argument("--titles-feed", default="patchlog_latest_titles.json")
     args = ap.parse_args()
 
+    # Critical fix for: csv.Error: field larger than field limit
+    bump_csv_field_limit()
+
     dist_base = (args.dist_base_url or "").rstrip("/")
     titles_feed_url = f"{dist_base}/{args.titles_feed}"
 
     by_page: Dict[str, Dict[str, str]] = {}
 
-    # Read TSV as raw bytes, then decode safely (Excel-proof)
     raw = open(args.guide_index, "rb").read()
+    text = decode_bytes(raw)
 
-    text = None
-    for enc in ("utf-8-sig", "utf-16", "cp1252"):
-        try:
-            text = raw.decode(enc)
-            break
-        except UnicodeDecodeError:
-            continue
-
-    if text is None:
-        raise RuntimeError("Unable to decode guide_index.tsv with known encodings")
-
+    # DictReader wants a text file-like object
     import io
     f = io.StringIO(text)
+
     reader = csv.DictReader(f, delimiter="\t")
 
     for row in reader:
@@ -102,6 +128,7 @@ def main() -> None:
         by_page[path] = {"url": titles_feed_url, "label": "titles"}
 
     write_json(args.out, {"byPage": by_page})
+
 
 if __name__ == "__main__":
     main()
