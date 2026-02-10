@@ -64,18 +64,32 @@ def bump_csv_field_limit() -> None:
                 csv.field_size_limit(1024 * 1024)
                 return
 
-
 def decode_bytes(raw: bytes) -> str:
     """
-    guide_index.tsv is not always clean UTF-8. Try common encodings.
+    guide_index.tsv is not always clean UTF-8 (Excel exports often contain cp1252 bytes like 0x96).
+    IMPORTANT: Never "guess" utf-16 unless there is a BOM, because random bytes can decode as utf-16 garbage.
     """
-    for enc in ("utf-8-sig", "utf-16", "cp1252", "utf-8"):
-        try:
-            return raw.decode(enc)
-        except UnicodeDecodeError:
-            continue
-    raise RuntimeError("Unable to decode guide_index.tsv with known encodings (utf-8-sig/utf-16/cp1252/utf-8)")
+    raw = raw or b""
 
+    # Only treat as UTF-16 if a BOM is present
+    if raw.startswith(b"\xff\xfe") or raw.startswith(b"\xfe\xff"):
+        return raw.decode("utf-16")
+
+    # Best effort order for your exports:
+    # 1) UTF-8 (with optional BOM)
+    try:
+        return raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        pass
+
+    # 2) Windows-1252 (common for “smart punctuation” from Excel/Word)
+    try:
+        return raw.decode("cp1252")
+    except UnicodeDecodeError:
+        pass
+
+    # 3) Last resort: keep structure (tabs/newlines) even if some chars are mangled
+    return raw.decode("utf-8", errors="replace")
 
 def feed_url(dist_base_url: str, filename: str) -> str:
     dist = (dist_base_url or "").rstrip("/")
