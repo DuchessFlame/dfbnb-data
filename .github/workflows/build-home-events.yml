@@ -1,0 +1,39 @@
+name: Build Home Events JSON
+
+on:
+  push:
+    paths:
+      - "src/home/events.tsv"
+      - "tools/build-home-events-json.mjs"
+      - ".github/workflows/build-home-events.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build home-events.json
+        run: node tools/build-home-events-json.mjs
+
+      - name: Commit dist changes
+        run: |
+          if git status --porcelain | grep -q "^ M dist/home-events.json\|^?? dist/home-events.json"; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/home-events.json
+            git commit -m "Build dist/home-events.json"
+            git push
+          else
+            echo "No changes to commit."
+          fi
