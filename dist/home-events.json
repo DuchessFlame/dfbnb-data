@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "timezone": "Australia/Perth",
+  "generatedAt": "2026-02-11T06:23:46.399Z",
+  "minerva": {
+    "timezone": "Australia/Perth",
+    "anchor": {
+      "startDate": "2026-09-14",
+      "location": "Foundation",
+      "inventoryList": 1
+    },
+    "rules": {
+      "cycleWeeks": 4,
+      "weekStartWeekday": "MON",
+      "normalDurationDays": 2,
+      "bigSaleDurationDays": 4,
+      "locationOrder": [
+        "Foundation",
+        "The Whitespring",
+        "Fort Atlas",
+        "The Crater"
+      ],
+      "bigSaleEvery": 4
+    }
+  },
+  "events": [
+    {
+      "id": "double-xp-feb",
+      "title": "Double XP Weekend",
+      "type": "seasonal",
+      "startDate": "2026-02-14",
+      "endDate": "2026-02-18",
+      "url": "/df/events/",
+      "badge": "Double XP",
+      "notes": "Bonus XP across all modes",
+      "sort": 10
+    },
+    {
+      "id": "fasnacht-2026",
+      "title": "Fasnacht Parade",
+      "type": "seasonal",
+      "startDate": "2026-02-25",
+      "endDate": "2026-03-03",
+      "url": "/df/seasonal-events/fasnacht/",
+      "badge": "Fasnacht",
+      "notes": "Limited-time seasonal event",
+      "sort": 20
+    },
+    {
+      "id": "mothman-equinox",
+      "title": "Mothman Equinox",
+      "type": "seasonal",
+      "startDate": "2026-03-10",
+      "endDate": "2026-03-17",
+      "url": "/df/seasonal-events/mothman-equinox/",
+      "badge": "Mothman",
+      "notes": "Cult event with ritual rewards",
+      "sort": 30
+    },
+    {
+      "id": "minerva-week",
+      "title": "Minerva Sale",
+      "type": "vendor",
+      "startDate": "2026-02-20",
+      "endDate": "2026-02-24",
+      "url": "/df/minerva/",
+      "badge": "Minerva",
+      "notes": "Minerva limited bullion sale",
+      "sort": 40
+    }
+  ]
+}
