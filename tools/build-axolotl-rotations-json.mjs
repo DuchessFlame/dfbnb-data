@@ -166,7 +166,7 @@ function main() {
     generatedAt: new Date().toISOString(),
 
     timezone: "America/New_York",
-    rollover: { timeLocal: "00:00:00" },
+       rollover: { timeLocal: "12:00:00" },
 
     months
   };

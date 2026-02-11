@@ -94,12 +94,14 @@ function buildEvents(tsvRows) {
 // Minerva deterministic config (anchor-based, no scraping)
 // You compute dates at runtime, so the JSON only needs the anchor and rules.
 const minervaConfig = {
-  timezone: "Australia/Perth",
+  timezone: "America/New_York",
+  rollover: { timeLocal: "12:00:00" },
   anchor: {
-    startDate: "2026-09-14",
-    location: "Foundation",
-    inventoryList: 1,
+    startDate: "2026-02-05",
+    location: "Whitespring Resort",
+    inventoryList: 24,
   },
+
   rules: {
     cycleWeeks: 4,
     // weeks 1-3 Mon->Wed; week 4 Thu->Mon
@@ -125,7 +127,8 @@ function main() {
 
   const payload = {
     schemaVersion: 1,
-    timezone: "Australia/Perth",
+    timezone: "America/New_York",
+    rollover: { timeLocal: "12:00:00" },
     generatedAt: new Date().toISOString(),
     minerva: minervaConfig,
     events,
