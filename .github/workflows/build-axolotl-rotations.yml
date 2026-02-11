@@ -3,7 +3,7 @@ name: Build Axolotl Rotations JSON
 on:
   push:
     paths:
-      - "src/home/axolotl-rotations.tsv"
+      - "tsv/**"
       - "tools/build-axolotl-rotations-json.mjs"
       - ".github/workflows/build-axolotl-rotations.yml"
   workflow_dispatch: {}
