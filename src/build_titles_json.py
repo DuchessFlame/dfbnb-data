@@ -91,14 +91,17 @@ def read_tsv_rows(path: str) -> List[Dict[str, str]]:
     alias_formid_keys = (
         "CMPT_FormID", "PLYT_FormID", "BOOK_FormID", "COBJ_FormID",
         "GLOB_FormID", "GMRW_FormID", "LVLI_FormID", "CHAL_FormID",
+        "ENTM_FormID",
     )
     alias_edid_keys = (
         "CMPT_EDID", "PLYT_EDID", "BOOK_EDID", "COBJ_EDID",
         "GLOB_EDID", "GMRW_EDID", "LVLI_EDID", "CHAL_EDID",
+        "ENTM_EDID",
     )
     alias_full_keys = (
         "CMPT_FULL", "PLYT_FULL", "BOOK_FULL", "COBJ_FULL",
         "GLOB_FULL", "GMRW_FULL", "LVLI_FULL", "CHAL_FULL",
+        "ENTM_FULL",
     )
 
     with open(path, "r", encoding="utf-8", errors="replace", newline="") as f:
@@ -187,6 +190,80 @@ def seasons_map(seasons_path: Optional[str]) -> Dict[int, str]:
             m[n] = name
     return m
 
+
+def _norm_dds_path(p: str) -> str:
+    """
+    Normalize FO76 archive paths for case-insensitive matching later.
+    Output: lowercase + forward slashes, no duplicate slashes.
+    """
+    if not p:
+        return ""
+    p = str(p).strip().replace("\\", "/")
+    while "//" in p:
+        p = p.replace("//", "/")
+    return p.lower()
+
+def _join_dds_path(folder: str, filename: str) -> str:
+    folder = _norm_dds_path(folder)
+    filename = _norm_dds_path(filename)
+    if not folder and not filename:
+        return ""
+    if folder and not folder.endswith("/"):
+        folder += "/"
+    return _norm_dds_path(folder + filename)
+
+def entm_storefront_dds_index(entm_rows: List[Dict[str, str]]) -> Dict[str, List[str]]:
+    """
+    Map ENTM EDID (lowercased) -> list of resolved DDS paths (lowercased).
+    Uses:
+      ETIP = folder
+      ETDI and/or ETUI = filename (.dds)
+    """
+    idx: Dict[str, List[str]] = {}
+    for r in entm_rows:
+        edid = (r.get("EDID") or "").strip()
+        if not edid:
+            continue
+
+        etip = (r.get("ETIP") or "").strip()
+        etui = (r.get("ETUI") or "").strip()
+        etdi = (r.get("ETDI") or "").strip()
+
+        paths: List[str] = []
+
+        # Preferred: ETIP + ETDI (FO76 Storefront Preview Image), but keep ETUI as fallback
+        if etip and etdi:
+            paths.append(_join_dds_path(etip, etdi))
+        if etip and etui and _norm_dds_path(etui) != _norm_dds_path(etdi):
+            paths.append(_join_dds_path(etip, etui))
+
+        # Fallback: if exporter already included folders in ETDI/ETUI
+        if not etip:
+            if etdi:
+                paths.append(_norm_dds_path(etdi))
+            if etui and _norm_dds_path(etui) != _norm_dds_path(etdi):
+                paths.append(_norm_dds_path(etui))
+
+        # De-dupe preserving order
+        seen = set()
+        out: List[str] = []
+        for p in paths:
+            p = _norm_dds_path(p)
+            if not p or p in seen:
+                continue
+            seen.add(p)
+            out.append(p)
+
+        if out:
+            idx[edid.lower()] = out
+
+    return idx
+
+def _formid8_lower(s: str) -> str:
+    s = (s or "").strip().lower().replace("0x", "")
+    if len(s) > 8:
+        s = s[-8:]
+    return s.zfill(8)
 
 def _norm_key(s: str) -> str:
     s = (s or "").strip().lower()
@@ -993,6 +1070,7 @@ def main() -> int:
     ap.add_argument("--lvli", action="append", required=False)
     ap.add_argument("--chal", action="append", required=False)
     ap.add_argument("--cndf", action="append", required=False)
+    ap.add_argument("--entm", action="append", required=False)
 
     ap.add_argument("--seasons", required=False, default=None)
     ap.add_argument("--outdir", required=True)
@@ -1008,6 +1086,7 @@ def main() -> int:
     args.lvli = _autofill_paths(args.tsv_root, args.lvli, ["**/*LVLI*.tsv"])
     args.chal = _autofill_paths(args.tsv_root, args.chal, ["**/*CHAL*.tsv"])
     args.cndf = _autofill_paths(args.tsv_root, args.cndf, ["**/*CNDF*.tsv"])
+    args.entm = _autofill_paths(args.tsv_root, args.entm, ["**/*ENTM*.tsv"])
 
     missing = []
     if not args.cmpt: missing.append("--cmpt (or auto via --tsv-root)")
@@ -1019,6 +1098,8 @@ def main() -> int:
     if not args.lvli: missing.append("--lvli (or auto via --tsv-root)")
     if not args.chal: missing.append("--chal (or auto via --tsv-root)")
     if not args.cndf: missing.append("--cndf (or auto via --tsv-root)")
+    # ENTM is optional for pure title JSON, but required for images manifest
+    if not args.entm: print("[WARN] No ENTM TSV provided; titles_images_manifest.json will be empty.", file=sys.stderr)
     if missing:
         raise SystemExit("Missing required TSV inputs: " + ", ".join(missing))
 
@@ -1249,6 +1330,7 @@ def main() -> int:
             "camp": {"file": "titles_camp.json", "count": len(camp_items)},
             "player": {"file": "titles_player.json", "count": len(player_items)},
             "patchlog": {"file": "titles_patchlog.json"},
+            "imagesManifest": {"file": "titles_images_manifest.json", "count": len(images_tasks)},
         },
         "sources": {
             "cmpt": [os.path.basename(p) for p in args.cmpt],
@@ -1259,6 +1341,8 @@ def main() -> int:
             "gmrw": [os.path.basename(p) for p in args.gmrw],
             "lvli": [os.path.basename(p) for p in args.lvli],
             "chal": [os.path.basename(p) for p in args.chal],
+            "cndf": [os.path.basename(p) for p in args.cndf],
+            "entm": [os.path.basename(p) for p in args.entm] if args.entm else [],
             "seasons": os.path.basename(args.seasons) if args.seasons else None,
         },
     }
