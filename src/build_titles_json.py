@@ -488,13 +488,104 @@ def glob_drop_rate_by_formid(glob_rows: List[Dict[str, str]], glob_formid: str) 
         return f"{pct:.3f}%"
     return None
 
-
 def lvli_drop_rate_from_cobj_lvli(
     cobj_rows: List[Dict[str, str]],
-    lvli_rows: List[Dict[str, str]],
+    lvli_entry_rows: List[Dict[str, str]],
+    lvli_list_rows: List[Dict[str, str]],
     glob_rows: List[Dict[str, str]],
     cobj_formid: str
 ) -> Optional[str]:
+    """
+    COBJ(FormID) -> GNAM_FormID (BOOK FormID)
+      -> find LVLI entry rows (LVLI_Entries.tsv) where LVLO_Reference contains that BOOK
+      -> apply global-first rule using entry-level globals/curves first
+      -> if no entry global, allow list-level globals/curves (LVLI_List.tsv) by LVLI_FormID
+      -> else fallback to LVOV_ChanceNoneValue (LVLI_Entries.tsv)
+    """
+    cobj_formid = (cobj_formid or "").strip().upper()
+    if not cobj_formid:
+        return None
+
+    # 1) Find exact COBJ row
+    cand = None
+    for r in cobj_rows:
+        if (r.get("FormID") or "").strip().upper() == cobj_formid:
+            cand = r
+            break
+    if not cand:
+        return None
+
+    # 2) BOOK FormID from GNAM_FormID
+    book_formid = (cand.get("GNAM_FormID") or "").strip().upper()
+    if not book_formid or not re.fullmatch(r"[0-9A-F]{8}", book_formid):
+        return None
+
+    # 3) Find LVLI entry row(s) referencing that BOOK
+    matches = [r for r in lvli_entry_rows if book_formid in ((r.get("LVLO_Reference") or "").upper())]
+    if not matches:
+        return None
+
+    # Prefer a match that has an entry-level global override
+    def _rank(row: Dict[str, str]) -> int:
+        eg = (row.get("LVOG_ChanceNoneGlobal") or "").strip()
+        return 0 if eg else 1
+
+    matches.sort(key=_rank)
+    best = matches[0]
+
+    # Helper: list row by LVLI_FormID (for LVLG/LVCT fallback)
+    lvli_fid = (best.get("LVLI_FormID") or best.get("FormID") or "").strip().upper()
+    list_row = None
+    if lvli_fid:
+        for lr in lvli_list_rows:
+            if (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper() == lvli_fid:
+                list_row = lr
+                break
+
+    # 4) Global override first (global-first rule, order matters)
+    candidates: List[str] = []
+
+    # Entry-level
+    lvog = (best.get("LVOG_ChanceNoneGlobal") or "").strip()
+    if lvog:
+        candidates.append(lvog)
+
+    lvoc = (best.get("LVOC_ChanceNoneCurve") or "").strip()
+    if lvoc and ":GLOB" in lvoc.upper():
+        candidates.append(lvoc)
+
+    # List-level fallback
+    if list_row:
+        lvlg = (list_row.get("LVLG_ChanceNoneGlobal") or "").strip()
+        if lvlg:
+            candidates.append(lvlg)
+
+        lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
+        if lvct and ":GLOB" in lvct.upper():
+            candidates.append(lvct)
+
+    for glob_field in candidates:
+        gfid = _glob_formid_from_lvli_global_field(glob_field)
+        if not gfid:
+            continue
+        dr = glob_drop_rate_by_formid(glob_rows, gfid)
+        if dr:
+            return dr
+
+    # 5) Fallback: LVOV_ChanceNoneValue (new export name)
+    chance_none = safe_float(best.get("LVOV_ChanceNoneValue") or "", None)
+    if chance_none is None:
+        return None
+    if abs(chance_none) < 1e-9:
+        return "100%"
+
+    pct = 100.0 - chance_none
+    if pct < 0:
+        return None
+    if abs(pct - round(pct)) < 1e-6:
+        return f"{int(round(pct))}%"
+    return f"{pct:.3f}%"
+
     """
     BOOK-type COBJ path for titles:
       COBJ(FormID) -> GNAM_FormID (BOOK FormID) -> find LVLI entries referencing that BOOK in LVLO_Reference
@@ -668,7 +759,8 @@ def compute_unlock_and_rates(
     lvli_refby_rows: List[Dict[str, str]],
     glob_rows: List[Dict[str, str]],
     cobj_rows: List[Dict[str, str]],
-    lvli_rows: List[Dict[str, str]],
+    lvli_entry_rows: List[Dict[str, str]],
+    lvli_list_rows: List[Dict[str, str]],
     chal_by_id: Dict[str, Dict[str, str]],
     chal_by_edid: Dict[str, Dict[str, str]],
     cndf_by_id: Dict[str, Dict[str, str]],
@@ -929,7 +1021,7 @@ def compute_unlock_and_rates(
                 return f"Complete the Challenge {gnam_full or gnam_edid}", "100%", None, "challenge", extra
 
         # --- Otherwise: treat as BOOK-drop event/activity title recipe ---
-        dr = lvli_drop_rate_from_cobj_lvli(cobj_rows, lvli_rows, glob_rows, cobj_formid)
+        dr = lvli_drop_rate_from_cobj_lvli(cobj_rows, lvli_entry_rows, lvli_list_rows, glob_rows, cobj_formid)
         return how_event, (dr or "N/A"), None, "event_activity", extra
 
     # --- HasLearnedRecipe without [COBJ:] ---
@@ -1038,18 +1130,30 @@ def main() -> int:
     chal_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.chal], "FormID")
     cndf_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.cndf], "FormID")
 
-    # LVLI split (defs vs referenced-by).
-    lvli_rows: List[Dict[str, str]] = []
+    # LVLI split (List vs Entries vs Referenced-by).
+    lvli_list_rows: List[Dict[str, str]] = []
+    lvli_entry_rows: List[Dict[str, str]] = []
     lvli_refby_rows: List[Dict[str, str]] = []
+
     for p in args.lvli:
         rows = read_tsv_rows(p)
         if not rows:
             continue
+
         headers = set(rows[0].keys())
+
+        # Refs file: LVLI_Refs.tsv
         if "ReferencedByCount" in headers:
             lvli_refby_rows.extend(rows)
             continue
-        lvli_rows.extend(rows)
+
+        # Entries file: LVLI_Entries.tsv
+        if ("EntryIndex" in headers) or ("LVLO_Reference" in headers):
+            lvli_entry_rows.extend(rows)
+            continue
+
+        # List file: LVLI_List.tsv (everything else)
+        lvli_list_rows.extend(rows)
 
     # build lookup maps AFTER all TSVs are loaded
     tradeable_by_book = book_tradeable_map(book_rows)
@@ -1090,7 +1194,8 @@ def main() -> int:
             lvli_refby_rows=lvli_refby_rows,
             glob_rows=glob_rows,
             cobj_rows=cobj_rows,
-            lvli_rows=lvli_rows,
+            lvli_entry_rows=lvli_entry_rows,
+            lvli_list_rows=lvli_list_rows,
             chal_by_id=chal_by_id,
             chal_by_edid=chal_by_edid,
             cndf_by_id=cndf_by_id,
