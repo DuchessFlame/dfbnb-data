@@ -96,21 +96,32 @@ function buildEvents(tsvRows) {
 const minervaConfig = {
   timezone: "America/New_York",
   rollover: { timeLocal: "12:00:00" },
-  anchor: {
-    startDate: "2026-02-05",
-    location: "Whitespring Resort",
-    inventoryList: 24,
-  },
+anchor: {
+  startDate: "2026-02-05",
+  location: "The Whitespring",
+  inventoryList: 24,
+},
 
-  rules: {
-    cycleWeeks: 4,
-    // weeks 1-3 Mon->Wed; week 4 Thu->Mon
-    weekStartWeekday: "MON",
-    normalDurationDays: 2, // inclusive Mon..Wed is 3 days; we store durations as inclusive range in runtime.
-    bigSaleDurationDays: 4, // inclusive Thu..Mon is 5 days
-    locationOrder: ["Foundation", "The Whitespring", "Fort Atlas", "The Crater"],
-    bigSaleEvery: 4,
-  },
+rules: {
+  cycleWeeks: 4,
+  weekStartWeekday: "MON",
+
+  // Inclusive day counts
+  normalDurationDays: 3,   // Mon..Wed
+  bigSaleDurationDays: 5,  // Thu..Mon
+
+  // Real location rotation
+  locationOrder: ["Foundation", "The Crater", "Fort Atlas", "The Whitespring"],
+
+  // Big Sale lists are divisible by 4 (4,8,12,16,20,24)
+  bigSaleEvery: 4,
+
+  // Start-to-start gaps (days)
+  normalStartGapDays: 7,     // Mon -> Mon
+  preBigSaleGapDays: 10,     // Mon -> Thu
+  postBigSaleGapDays: 11,    // Thu -> next Mon week
+},
+
 };
 
 function main() {
