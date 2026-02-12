@@ -1320,6 +1320,62 @@ def main() -> int:
         "camp": build_patchlog(prev_camp, camp_json),
         "player": build_patchlog(prev_player, player_json),
     }
+
+    # ============================================================
+    # NEW: titles_images_manifest.json (ENTM storefront DDS tasks)
+    # ============================================================
+    images_tasks: List[Dict[str, Any]] = []
+
+    def _add_image_tasks(title_type: str, items: List[Dict[str, Any]]) -> None:
+        for it in items:
+            edid = (it.get("edid") or "").strip()
+            formid = _formid8_lower(it.get("formId") or "")
+
+            dbg = it.get("debug") or {}
+            ent_edids = dbg.get("entitlementEdids") or []
+            if not isinstance(ent_edids, list):
+                ent_edids = [str(ent_edids)] if ent_edids else []
+
+            dds_paths: List[str] = []
+            for e in ent_edids:
+                e2 = (str(e) or "").strip()
+                if not e2:
+                    continue
+                dds_paths.extend(entm_dds_by_edid.get(e2.lower(), []))
+
+            # de-dupe paths
+            seen = set()
+            dds_out: List[str] = []
+            for p in dds_paths:
+                p2 = _norm_dds_path(p)
+                if not p2 or p2 in seen:
+                    continue
+                seen.add(p2)
+                dds_out.append(p2)
+
+            if not dds_out:
+                continue
+
+            images_tasks.append({
+                "titleType": title_type,
+                "formId": formid,
+                "edid": edid,
+                "entitlementEdids": [str(x) for x in ent_edids if str(x).strip()],
+                "ddsPaths": dds_out,
+            })
+
+    _add_image_tasks("camp", camp_items)
+    _add_image_tasks("player", player_items)
+
+    images_manifest = {
+        "generatedAt": now_iso(),
+        "tasks": images_tasks,
+    }
+
+    images_manifest_path = os.path.join(args.outdir, "titles_images_manifest.json")
+    with open(images_manifest_path, "w", encoding="utf-8") as f:
+        json.dump(images_manifest, f, ensure_ascii=False, separators=(",", ":"), indent=2)
+
     patchlog_path = os.path.join(args.outdir, "titles_patchlog.json")
     with open(patchlog_path, "w", encoding="utf-8") as f:
         json.dump(patchlog, f, ensure_ascii=False, separators=(",", ":"), indent=2)
