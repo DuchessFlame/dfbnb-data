@@ -586,99 +586,6 @@ def lvli_drop_rate_from_cobj_lvli(
         return f"{int(round(pct))}%"
     return f"{pct:.3f}%"
 
-    """
-    BOOK-type COBJ path for titles:
-      COBJ(FormID) -> GNAM_FormID (BOOK FormID) -> find LVLI entries referencing that BOOK in LVLO_Reference
-
-    Drop-rate priority (your rule):
-      1) if LVOG_ChanceNoneGlobal (entry) exists OR LVLG_ChanceNoneGlobal (list) exists:
-           look up that GLOB FormID -> pct = 100 - FLTV
-      2) else use LVOV_ChanceNone:
-           if 0 => 100%
-           else pct = 100 - LVOV
-    """
-    cobj_formid = (cobj_formid or "").strip().upper()
-    if not cobj_formid:
-        return None
-
-    # 1) Find exact COBJ row
-    cand = None
-    for r in cobj_rows:
-        if (r.get("FormID") or "").strip().upper() == cobj_formid:
-            cand = r
-            break
-    if not cand:
-        return None
-
-    # 2) BOOK FormID from GNAM_FormID
-    book_formid = (cand.get("GNAM_FormID") or "").strip().upper()
-    if not book_formid or not re.fullmatch(r"[0-9A-F]{8}", book_formid):
-        return None
-
-    # 3) Find LVLI row(s) referencing that BOOK
-    matches = [r for r in lvli_rows if book_formid in (r.get("LVLO_Reference") or "")]
-    if not matches:
-        return None
-
-    # Prefer a match that has a global override (entry global first, then list global)
-    def _rank(row: Dict[str, str]) -> Tuple[int, str]:
-        eg = (row.get("LVOG_ChanceNoneGlobal") or "").strip()
-        lg = (row.get("LVLG_ChanceNoneGlobal") or "").strip()
-        if eg:
-            return (0, eg)
-        if lg:
-            return (1, lg)
-        return (2, "")
-
-    matches.sort(key=_rank)
-    best = matches[0]
-
-    # 4) Global override first (global-first rule, order matters)
-    # Priority:
-    #   1) LVOG_ChanceNoneGlobal
-    #   2) LVOC_ChanceNoneCurve containing a :GLOB reference
-    #   3) LVLG_ChanceNoneGlobal
-    #   4) LVCT_ChanceNoneCurve containing a :GLOB reference
-    candidates: List[str] = []
-
-    lvog = (best.get("LVOG_ChanceNoneGlobal") or "").strip()
-    if lvog:
-        candidates.append(lvog)
-
-    lvoc = (best.get("LVOC_ChanceNoneCurve") or "").strip()
-    if lvoc and ":GLOB" in lvoc:
-        candidates.append(lvoc)
-
-    lvlg = (best.get("LVLG_ChanceNoneGlobal") or "").strip()
-    if lvlg:
-        candidates.append(lvlg)
-
-    lvct = (best.get("LVCT_ChanceNoneCurve") or "").strip()
-    if lvct and ":GLOB" in lvct:
-        candidates.append(lvct)
-
-    for glob_field in candidates:
-        gfid = _glob_formid_from_lvli_global_field(glob_field)
-        if not gfid:
-            continue
-        dr = glob_drop_rate_by_formid(glob_rows, gfid)
-        if dr:
-            return dr
-
-    # 5) Fallback: LVOV_ChanceNone
-    chance_none = safe_float(best.get("LVOV_ChanceNone") or "", None)
-    if chance_none is None:
-        return None
-    if abs(chance_none) < 1e-9:
-        return "100%"
-
-    pct = 100.0 - chance_none
-    if pct < 0:
-        return None
-    if abs(pct - round(pct)) < 1e-6:
-        return f"{int(round(pct))}%"
-    return f"{pct:.3f}%"
-
 def prettify_token_words(token: str) -> str:
     s = token.replace("_", " ").strip()
     s = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", s)
@@ -1254,8 +1161,9 @@ def main() -> int:
             book_rows=book_rows,
             lvli_refby_rows=lvli_refby_rows,
             glob_rows=glob_rows,
-            cobj_rows=cobj_rows,
-            lvli_rows=lvli_rows,
+             cobj_rows=cobj_rows,
+            lvli_entry_rows=lvli_entry_rows,
+            lvli_list_rows=lvli_list_rows,
             chal_by_id=chal_by_id,
             chal_by_edid=chal_by_edid,
             cndf_by_id=cndf_by_id,
