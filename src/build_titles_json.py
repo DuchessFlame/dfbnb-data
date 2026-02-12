@@ -1116,7 +1116,16 @@ def main() -> int:
     glob_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.glob], "FormID")
     gmrw_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.gmrw], "FormID")
     chal_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.chal], "FormID")
-    cndf_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.cndf], "FormID")
+      cndf_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.cndf], "FormID")
+
+    # ------------------------------------------------------------
+    # NEW: ENTM storefront DDS index (safe even if ENTM TSV missing)
+    # ------------------------------------------------------------
+    entm_dds_by_edid: Dict[str, List[str]] = {}
+
+    if args.entm:
+        entm_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.entm], "FormID")
+        entm_dds_by_edid = entm_storefront_dds_index(entm_rows)
 
     # LVLI split (List vs Entries vs Referenced-by).
     lvli_list_rows: List[Dict[str, str]] = []
