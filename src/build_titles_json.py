@@ -668,13 +668,25 @@ def prettify_token_words(token: str) -> str:
     s = re.sub(r"\\s+", " ", s).strip()
     return s
 
-
 def parse_entitlement_edid_from_condition(cond: str) -> Optional[str]:
     m = re.search(r"HasEntitlement\(\s*([^\s\)]+)", cond, flags=re.IGNORECASE)
     if not m:
         return None
     return m.group(1).strip()
 
+
+def storefront_webp_url_from_extra(extra: Dict[str, Any]) -> Optional[str]:
+    """
+    Deterministic storefront WEBP URL:
+      /wp-content/uploads/storefront/<entitlement_edid_lower>.webp
+    Uses the first entitlementEdid when present.
+    """
+    ent = extra.get("entitlementEdids")
+    if isinstance(ent, list) and ent:
+        edid = str(ent[0]).strip()
+        if edid:
+            return "/wp-content/themes/dfbnb-child/site-data/json/uploads/fo76/storefront/" + edid.lower() + ".webp"
+    return None
 
 def parse_quest_name_from_condition(cond: str) -> Optional[str]:
     m = RE_QUOTED.search(cond)
@@ -756,7 +768,7 @@ def compute_unlock_and_rates(
 
     joined = " ".join(conds)
 
-        # Expand CNDF if present in any condition line (attach into debug/extra)
+    # Expand CNDF if present in any condition line (attach into debug/extra)
     cndf_formid = None
     for c in conds:
         if "[CNDF:" in c:
@@ -1204,10 +1216,13 @@ def main() -> int:
         elif k_title in tradeable_by_book:
             tradeable = tradeable_by_book[k_title]
 
+        image_url = storefront_webp_url_from_extra(extra)
+
         camp_items.append({
             "formId": form_id,
             "edid": edid,
             "title": title,
+            "imageUrl": image_url,
             "isPrefix": is_prefix,
             "isSuffix": is_suffix,
             "affixType": ("Prefix/Suffix" if (is_prefix and is_suffix) else "Prefix" if is_prefix else "Suffix" if is_suffix else "-"),
@@ -1265,10 +1280,13 @@ def main() -> int:
         elif k_title in tradeable_by_book:
             tradeable = tradeable_by_book[k_title]
 
+        image_url = storefront_webp_url_from_extra(extra)
+
         player_items.append({
             "formId": form_id,
             "edid": edid,
             "titleMale": title_m,
+            "imageUrl": image_url,
             "titleFemale": title_f,
             "title": title_display,
             "isPrefix": is_prefix,
