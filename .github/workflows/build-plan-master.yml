@@ -1,0 +1,51 @@
+name: Build plan master JSON
+
+on:
+  push:
+    paths:
+      - "src/plan-system/**"
+      - ".github/workflows/build-plan-master.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"  # daily 06:00 UTC (optional safety rebuild)
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-plan-master
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install (none)
+        run: |
+          node -v
+          npm -v
+
+      - name: Build dist/plan_master.json
+        run: |
+          mkdir -p dist
+          node src/plan-system/build-plan-master.mjs
+
+      - name: Commit dist output
+        run: |
+          if git diff --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/plan_master.json
+          git commit -m "Build plan_master.json"
+          git push
