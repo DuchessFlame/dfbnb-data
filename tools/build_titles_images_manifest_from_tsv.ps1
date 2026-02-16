@@ -1,15 +1,17 @@
 # build_titles_images_manifest_from_tsv.ps1
-# Builds dist\titles_images_manifest.json from an xEdit TSV export using ETIP + ETDI only.
-# Output format: [{ entitlement: "...", dds: "ATX\...\file.dds" }, ...]
+# Build titles_images_manifest.json in the EXACT format extract_titles_storefront_images_local.py expects:
+# { "tasks": [ { "entitlementEdids": [...], "ddsPaths": [...] } ] }
+#
+# Uses ETIP + ETDI only (ignores condition fields entirely).
 
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $TsvPath = "C:\Users\Duche\OneDrive\GitHub\dfbnb-data\ENTM_Export_March_2026.tsv"
 $OutPath = "C:\Users\Duche\OneDrive\GitHub\dfbnb-data\dist\titles_images_manifest.json"
 
-if (!(Test-Path $TsvPath)) { throw "TSV not found: $TsvPath" }
+if (!(Test-Path -LiteralPath $TsvPath)) { throw "TSV not found: $TsvPath" }
 
-# Read header and find column indexes
 $lines = Get-Content -LiteralPath $TsvPath -Encoding Default
 if ($lines.Count -lt 2) { throw "TSV looks empty: $TsvPath" }
 
@@ -25,21 +27,21 @@ $iEDID = ColIndex "EDID"
 $iETIP = ColIndex "ETIP"
 $iETDI = ColIndex "ETDI"
 
-function NormSlashes([string]$p) {
+function NormRel([string]$p) {
   if ([string]::IsNullOrWhiteSpace($p)) { return "" }
-  $p = $p.Trim().Replace("/", "\")
-  $p = $p -replace "^[.\\]+", ""
+  $p = $p.Trim().Replace("\", "/")
+  $p = $p -replace "^/+", ""
   return $p
 }
 
-$items = New-Object System.Collections.Generic.List[object]
+# Build one task per title: entitlementEdids=[edid], ddsPaths=["textures/.../file.dds"]
+$tasks = New-Object System.Collections.Generic.List[object]
 
 for ($i = 1; $i -lt $lines.Count; $i++) {
   $line = $lines[$i]
   if ([string]::IsNullOrWhiteSpace($line)) { continue }
 
   $parts = $line.Split("`t")
-
   if ($parts.Count -le $iETDI) { continue }
 
   $edid = ($parts[$iEDID]).Trim()
@@ -52,24 +54,31 @@ for ($i = 1; $i -lt $lines.Count; $i++) {
 
   $ent = $edid.ToLowerInvariant()
 
-  # Combine ETIP + ETDI, then strip leading "Textures\"
-  $dds = (NormSlashes $etip) + (NormSlashes $etdi)
+  $path = (NormRel $etip) + (NormRel $etdi)
 
-  if ($dds.ToLowerInvariant().StartsWith("textures\")) {
-    $dds = $dds.Substring(9)  # length of "Textures\"
+  # Ensure it is "textures/..." style (converter normalizes this)
+  $pathLower = $path.ToLowerInvariant()
+  if ($pathLower.StartsWith("textures/")) {
+    $path = $path  # keep
+  } else {
+    # if TSV already stripped "Textures/", add it back
+    $path = "Textures/" + $path
   }
 
-  $items.Add([PSCustomObject]@{
-    entitlement = $ent
-    dds         = $dds
+  # Normalize to forward slashes and lowercase-ish matching behavior
+  $path = $path.Replace("\", "/")
+
+  $tasks.Add([PSCustomObject]@{
+    entitlementEdids = @($ent)
+    ddsPaths         = @($path)
   })
 }
 
-# Ensure output folder exists
+$manifestObj = [PSCustomObject]@{ tasks = $tasks }
+
 $outDir = Split-Path -Parent $OutPath
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 
-# Write JSON
-$items | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $OutPath -Encoding UTF8
+$manifestObj | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $OutPath -Encoding UTF8
 
-Write-Host "OK: wrote $($items.Count) entries to $OutPath"
+Write-Host "OK: wrote $($tasks.Count) tasks to $OutPath"

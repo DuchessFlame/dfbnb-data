@@ -39,6 +39,11 @@ Write-Host "Export dir:      $exportDir"
 Write-Host "Output folder:   $outStorefront"
 Write-Host ""
 
+# Rebuild manifest from TSV (ETIP+ETDI only) every run, so it's deterministic.
+$manifestBuilder = Join-Path $PSScriptRoot "build_titles_images_manifest_from_tsv.ps1"
+Assert-Path $manifestBuilder "Manifest builder"
+powershell -ExecutionPolicy Bypass -File $manifestBuilder
+
 # Quick sanity: confirm you actually have DDS files under extracted root
 $ddsCount = (Get-ChildItem -LiteralPath $extractedRoot -Recurse -File -Filter "*.dds" -ErrorAction SilentlyContinue | Measure-Object).Count
 Write-Host "DDS files found under extracted root: $ddsCount"
