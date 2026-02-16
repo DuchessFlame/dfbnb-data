@@ -10,7 +10,7 @@ $manifest = "C:\Users\Duche\OneDrive\GitHub\dfbnb-data\dist\titles_images_manife
 # IMPORTANT:
 # This should be the folder that CONTAINS "textures\..."
 # Example: <root>\textures\<...dds>
-$extractedRoot = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data"
+$extractedRoot = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\textures"
 
 $toolsDir = "C:\Users\Duche\OneDrive\GitHub\fo76-tools"
 
