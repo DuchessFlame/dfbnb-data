@@ -33,6 +33,24 @@ function parseTSV(tsvText) {
   return rows;
 }
 
+function normaliseDate(d) {
+  const v = (d ?? "").trim();
+
+  // Already ISO
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+
+  // Match d/m/yyyy or dd/mm/yyyy
+  const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(v);
+  if (m) {
+    const day = m[1].padStart(2, "0");
+    const month = m[2].padStart(2, "0");
+    const year = m[3];
+    return `${year}-${month}-${day}`;
+  }
+
+  return v;
+}
+
 function isValidISODate(d) {
   return /^\d{4}-\d{2}-\d{2}$/.test(d);
 }
@@ -57,8 +75,11 @@ function buildEvents(tsvRows) {
     const id = required(r, "Id", "events.tsv");
     const title = required(r, "Title", `events.tsv:${id}`);
     const type = required(r, "Type", `events.tsv:${id}`);
-    const start = required(r, "StartDate", `events.tsv:${id}`);
-    const end = required(r, "EndDate", `events.tsv:${id}`);
+    const startRaw = required(r, "StartDate", `events.tsv:${id}`);
+    const endRaw = required(r, "EndDate", `events.tsv:${id}`);
+
+    const start = normaliseDate(startRaw);
+    const end = normaliseDate(endRaw);
     const url = (r.Url ?? "").trim();
     const badge = (r.Badge ?? "").trim();
     const notes = (r.Notes ?? "").trim();
