@@ -445,17 +445,46 @@ def book_lvli_gmrw_parentquest(
         return None, dbg
     dbg["lvliRefByFound"] = True
 
-    gmrw_ids = _extract_formids_from_ref_fields(lvli_refby, ":GMRW")
-    dbg["gmrwIds"] = gmrw_ids
-    if not gmrw_ids:
-        return None, dbg
+        # Follow ref-by chain until we hit a GMRW (some lists are referenced by another LVLI first)
+    seen_lvli = set()
+    current = lvli_refby
 
-    gmrw_id = gmrw_ids[0]
-    dbg["gmrwPicked"] = gmrw_id
+    while True:
+        # 1) Try GMRW refs at this level
+        gmrw_ids = _extract_formids_from_ref_fields(current, ":GMRW")
+        if gmrw_ids:
+            dbg["gmrwIds"] = gmrw_ids
+            gmrw_id = gmrw_ids[0]
+            dbg["gmrwPicked"] = gmrw_id
 
-    pq = gmrw_by_formid.get(gmrw_id)
-    dbg["gmrwLabelFound"] = bool(pq)
-    return pq, dbg
+            pq = gmrw_by_formid.get(gmrw_id)
+            dbg["gmrwLabelFound"] = bool(pq)
+            return pq, dbg
+
+        # 2) Otherwise try LVLI refs (chain)
+        next_lvli_ids = _extract_formids_from_ref_fields(current, ":LVLI")
+        if not next_lvli_ids:
+            dbg["gmrwIds"] = []
+            return None, dbg
+
+        next_lvli = next_lvli_ids[0].upper()
+        if next_lvli in seen_lvli:
+            dbg["gmrwIds"] = []
+            return None, dbg
+
+        seen_lvli.add(next_lvli)
+
+        # Find the next ref-by row and continue
+        nxt = None
+        for r in lvli_refby_rows:
+            if (r.get("LVLI_FormID") or "").strip().upper() == next_lvli:
+                nxt = r
+                break
+        if not nxt:
+            dbg["gmrwIds"] = []
+            return None, dbg
+
+        current = nxt
 
 def chal_maps(chal_rows: List[Dict[str, str]]) -> Tuple[Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]:
     by_id: Dict[str, Dict[str, str]] = {}
