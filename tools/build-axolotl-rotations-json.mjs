@@ -101,6 +101,23 @@ function extractMonthIndex(row) {
   return null;
 }
 
+// Month index -> image URL shown on homepage
+const AXO_MONTH_IMAGES = {
+  "1":  "https://cdn.streamelements.com/uploads/01kdej8na6cc2gz0q3heam70f8.png", // Charcoal
+  "2":  "https://cdn.streamelements.com/uploads/01kdej8n6v5bzz07v6a704vg2f.png", // Pink
+  "3":  "https://cdn.streamelements.com/uploads/01kdej8p2cwcevdem3rjgb6ckx.png", // Brown (Clay)
+  "4":  "https://cdn.streamelements.com/uploads/01kdej8mr4kyt32bvh911768ww.png", // Dotted
+  "5":  "https://cdn.streamelements.com/uploads/01kdej8p4w3g8k3kkhffs8xvx4.png", // Purple
+  "6":  "https://cdn.streamelements.com/uploads/01kdej8p3d4k5p7khnpemgvyhd.png", // Banded
+  "7":  "https://cdn.streamelements.com/uploads/01kdej8p0wy2qvhfefqefax2fm.png", // Scaled
+  "8":  "https://cdn.streamelements.com/uploads/01key7rqv3dc3yh8nabts235r8.webp", // Striped
+  "9":  "https://cdn.streamelements.com/uploads/01kdej8n6s3gj5fzwxwcfr1xpa.png", // Shadow
+  "10": "https://cdn.streamelements.com/uploads/01kdej8p1fr3d8thseydq7t56d.png", // Spotted
+  "11": "https://cdn.streamelements.com/uploads/01kdej8nx04tykm9tebknkx1mq.png", // Speckled
+  "12": "https://cdn.streamelements.com/uploads/01kdej8payhzwde401rgns4x60.png"  // Stone
+};
+
+
 function extractRegions(row) {
   const regions = new Set();
 
@@ -120,6 +137,7 @@ function extractRegions(row) {
 
   return Array.from(regions);
 }
+
 
 function main() {
   const repoRoot = process.cwd();
@@ -147,11 +165,13 @@ function main() {
     const name = prettyFromFishRef(r.LVLO_Reference);
     const regions = extractRegions(r);
 
-    months[String(idx)] = {
-      name: name || "TBA",
-      regions,
-      image: null
-    };
+const key = String(idx);
+
+months[key] = {
+  name: name || "TBA",
+  regions,
+  image: AXO_MONTH_IMAGES[key] || null
+};
   }
 
   const found = Object.keys(months).length;
