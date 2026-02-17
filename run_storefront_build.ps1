@@ -10,7 +10,7 @@ $manifest = "C:\Users\Duche\OneDrive\GitHub\dfbnb-data\dist\titles_images_manife
 # IMPORTANT:
 # This should be the folder that CONTAINS "textures\..."
 # Example: <root>\textures\<...dds>
-$extractedRoot = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data"
+$extractedRoot = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\textures"
 
 $toolsDir = "C:\Users\Duche\OneDrive\GitHub\fo76-tools"
 
@@ -38,6 +38,11 @@ Write-Host "Tools dir:       $toolsDir"
 Write-Host "Export dir:      $exportDir"
 Write-Host "Output folder:   $outStorefront"
 Write-Host ""
+
+# Rebuild manifest from TSV (ETIP+ETDI only) every run, so it's deterministic.
+$manifestBuilder = Join-Path $PSScriptRoot "build_titles_images_manifest_from_tsv.ps1"
+Assert-Path $manifestBuilder "Manifest builder"
+powershell -ExecutionPolicy Bypass -File $manifestBuilder
 
 # Quick sanity: confirm you actually have DDS files under extracted root
 $ddsCount = (Get-ChildItem -LiteralPath $extractedRoot -Recurse -File -Filter "*.dds" -ErrorAction SilentlyContinue | Measure-Object).Count
