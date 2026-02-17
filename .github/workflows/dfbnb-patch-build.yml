@@ -1,13 +1,15 @@
 name: DFBNB Patch Build
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
   push:
     paths:
       - "tsv/**"
       - "src/**"
       - "tools/**"
       - ".github/workflows/dfbnb-patch-build.yml"
+  schedule:
+    - cron: "17 */6 * * *"
 
 permissions:
   contents: write

@@ -6,8 +6,6 @@ on:
       - "src/plan-system/**"
       - ".github/workflows/build-plan-master.yml"
   workflow_dispatch:
-  schedule:
-    - cron: "0 6 * * *"  # daily 06:00 UTC (optional safety rebuild)
 
 permissions:
   contents: write
