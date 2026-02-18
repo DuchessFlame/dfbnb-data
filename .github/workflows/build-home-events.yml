@@ -1,11 +1,12 @@
 name: Build Home Events JSON
 
 on:
+  push:
     paths:
       - "src/home/events.tsv"
       - "tools/build-home-events-json.mjs"
       - ".github/workflows/build-home-events.yml"
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 permissions:
   contents: write
