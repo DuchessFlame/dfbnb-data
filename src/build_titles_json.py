@@ -133,6 +133,28 @@ def read_tsv_rows(path: str) -> List[Dict[str, str]]:
                         r["FULL"] = v
                         break
 
+                                    # Condition aliases (CondCount, Cond1..CondN)
+            # Some exports use prefixed headers like PLYT_CondCount / PLYT_Cond1 etc.
+            if not (r.get("CondCount") or "").strip():
+                for k, v in r.items():
+                    if k.endswith("_CondCount"):
+                        vv = (v or "").strip()
+                        if vv:
+                            r["CondCount"] = vv
+                            break
+
+            # Alias any <TYPE>_CondN -> CondN
+            for k, v in list(r.items()):
+                m = re.match(r"^[A-Z]+_Cond(\d+)$", str(k))
+                if not m:
+                    continue
+                n = m.group(1)
+                base_key = f"Cond{n}"
+                if not (r.get(base_key) or "").strip():
+                    vv = (v or "").strip()
+                    if vv:
+                        r[base_key] = vv
+
             out.append(r)
         return out
 
