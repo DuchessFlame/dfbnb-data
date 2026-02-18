@@ -1270,7 +1270,7 @@ def main() -> int:
     player_items: List[Dict[str, Any]] = []
     for r in plyt_rows:
         form_id = (r.get("FormID") or "").strip()
-        edid = (r.get("EDID - Editor ID") or "").strip()
+        edid = (r.get("EDID - Editor ID") or r.get("EDID") or "").strip()
         title_m = (r.get("ANAM - Male Title") or "").strip()
         title_f = (r.get("BNAM - Female Title") or "").strip()
         title_display = title_m or title_f
