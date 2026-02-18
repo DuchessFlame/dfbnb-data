@@ -8,8 +8,11 @@ on:
       - "tsv/GMRW_Export_*.tsv"
       - "tsv/LVLI_Export_*_LVLI_List.tsv"
       - "tsv/LVLI_Export_*_LVLI_Entries.tsv"
+      - "tsv/LVLI_Export_*_LVLI_Refs.tsv"
+      - "tsv/GLOB_Export_*.tsv"
+      - "tsv/CURV_Export_*.tsv"
       - "tsv/guide_index.tsv"
-      - "scripts/build_events_rewards_json.py"
+      - "build_events_rewards_json.py"
 
 jobs:
   build:
