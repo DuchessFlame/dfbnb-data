@@ -1,0 +1,35 @@
+name: Build Events Rewards JSON
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tsv/QUEST_Export_*.tsv"
+      - "tsv/GMRW_Export_*.tsv"
+      - "tsv/LVLI_Export_*_LVLI_List.tsv"
+      - "tsv/LVLI_Export_*_LVLI_Entries.tsv"
+      - "tsv/guide_index.tsv"
+      - "scripts/build_events_rewards_json.py"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build dist JSON
+        run: python scripts/build_events_rewards_json.py
+
+      - name: Commit dist output
+        run: |
+          git config user.name "dfbnb-bot"
+          git config user.email "dfbnb-bot@users.noreply.github.com"
+          git add dist/events_rewards.json
+          git commit -m "Build events_rewards.json" || echo "No changes to commit"
+          git push
