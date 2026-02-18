@@ -55,6 +55,26 @@ function isValidISODate(d) {
   return /^\d{4}-\d{2}-\d{2}$/.test(d);
 }
 
+function normaliseTime12h(t, fallback) {
+  const v = (t ?? "").trim();
+  const fb = (fallback ?? "").trim();
+
+  if (!v) return fb || "12:00 PM";
+
+  // "H:MM AM/PM" or "HH:MM AM/PM"
+  const m = /^(\d{1,2}):(\d{2})\s*([AP]M)$/i.exec(v);
+  if (!m) return fb || "12:00 PM";
+
+  const hh = Number(m[1]);
+  const mm = Number(m[2]);
+  const ap = m[3].toUpperCase();
+
+  if (hh < 1 || hh > 12) return fb || "12:00 PM";
+  if (mm < 0 || mm > 59) return fb || "12:00 PM";
+
+  return `${hh}:${String(mm).padStart(2, "0")} ${ap}`;
+}
+
 function required(row, field, ctx) {
   const v = (row[field] ?? "").trim();
   if (!v) throw new Error(`${ctx}: missing required field "${field}"`);
@@ -75,11 +95,15 @@ function buildEvents(tsvRows) {
     const id = required(r, "Id", "events.tsv");
     const title = required(r, "Title", `events.tsv:${id}`);
     const type = required(r, "Type", `events.tsv:${id}`);
-    const startRaw = required(r, "StartDate", `events.tsv:${id}`);
+   const startRaw = required(r, "StartDate", `events.tsv:${id}`);
     const endRaw = required(r, "EndDate", `events.tsv:${id}`);
 
     const start = normaliseDate(startRaw);
     const end = normaliseDate(endRaw);
+
+    const startTime = normaliseTime12h(r.StartTime, "12:00 PM");
+    const endTime = normaliseTime12h(r.EndTime, "12:00 PM");
+
     const url = (r.Url ?? "").trim();
     const badge = (r.Badge ?? "").trim();
     const notes = (r.Notes ?? "").trim();
@@ -92,7 +116,9 @@ function buildEvents(tsvRows) {
       title,
       type,
       startDate: start,
+      startTime,
       endDate: end,
+      endTime,
       url: url || null,
       badge: badge || null,
       notes: notes || null,
@@ -158,7 +184,7 @@ function main() {
   const events = buildEvents(rows);
 
   const payload = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     timezone: "America/New_York",
     rollover: { timeLocal: "12:00:00" },
     generatedAt: new Date().toISOString(),
