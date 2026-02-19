@@ -290,72 +290,126 @@ def extract_entry_conditions(entry_row: dict) -> List[str]:
     return conds
 
 # ----------------------------
-# LVLI chance engine (best-effort based on TSV fields)
+# LVLI chance engine (rng-76 style, exact mode where inputs exist)
 # ----------------------------
+
+def resolve_int_value(value_str: str) -> Optional[int]:
+    v = parse_float(value_str)
+    if v is None:
+        return None
+    return int(round(v))
+
 def resolve_percent_value(value_str: str) -> Optional[float]:
     v = parse_float(value_str)
     if v is None:
         return None
-    # treat as percent already
-    return max(0.0, min(100.0, v))
+    return max(0.0, min(100.0, float(v)))
 
-def resolve_chancenone_from_entry(row: dict, glob: Dict[str, float], curves: Dict[str, Curve]) -> float:
-    """
-    Entry chanceNone in percent.
-    Priority: LVOG (global) -> LVOC (curve, indexed by LVOG global value) -> LVOV (value) -> 0
-    """
-    g = (row.get("LVOG_ChanceNoneGlobal") or "").strip()
-    c = (row.get("LVOC_ChanceNoneCurve") or "").strip()
-    v = (row.get("LVOV_ChanceNoneValue") or "").strip()
+def resolve_from_global(formid: str, glob: Dict[str, float]) -> Optional[float]:
+    if not formid:
+        return None
+    if re.fullmatch(r"[0-9A-Fa-f]{8}", formid):
+        return glob.get(formid.upper())
+    return None
 
-    # global
-    if g and re.fullmatch(r"[0-9A-Fa-f]{8}", g):
-        gv = glob.get(g.upper())
-        if gv is not None:
-            return max(0.0, min(100.0, float(gv)))
+def resolve_from_curve(curve_id: str, indexer: float, curves: Dict[str, Curve]) -> Optional[float]:
+    # Requires actual curve points. If your CURV export doesn't include points, this will return None.
+    if not curve_id:
+        return None
+    if not re.fullmatch(r"[0-9A-Fa-f]{8}", curve_id):
+        return None
+    c = curves.get(curve_id.upper())
+    if not c or not c.pts:
+        return None
+    return float(curve_lookup(c, float(indexer)))
 
-    # curve: indexer is LVOG global value per rng-76
-    if c and re.fullmatch(r"[0-9A-Fa-f]{8}", c):
-        curve = curves.get(c.upper())
-        if curve:
-            idx = 0.0
-            if g and re.fullmatch(r"[0-9A-Fa-f]{8}", g):
-                gv = glob.get(g.upper())
-                if gv is not None:
-                    idx = float(gv)
-            return max(0.0, min(100.0, float(curve_lookup(curve, idx))))
+def resolve_list_chancenone_pct(lrow: dict, glob: Dict[str, float], curves: Dict[str, Curve]) -> float:
+    # Priority (rng-76): LVLG/LVCT overrides LVCV
+    g = (lrow.get("LVLG_ChanceNoneGlobal") or "").strip()
+    c = (lrow.get("LVCT_ChanceNoneCurve") or "").strip()
+    v = (lrow.get("LVCV_ChanceNoneValue") or "").strip()
 
-    # value
+    gv = resolve_from_global(g, glob)
+    if gv is not None:
+        return max(0.0, min(100.0, float(gv)))
+
+    if c:
+        idx = float(gv) if gv is not None else 0.0
+        cv = resolve_from_curve(c, idx, curves)
+        if cv is not None:
+            return max(0.0, min(100.0, float(cv)))
+
     vv = resolve_percent_value(v)
     if vv is not None:
         return vv
 
     return 0.0
 
-def resolve_list_chancenone_from_list(row: dict, glob: Dict[str, float], curves: Dict[str, Curve]) -> float:
-    """
-    List chanceNone in percent.
-    Priority per your TSV: LVLG global -> LVCT curve (indexed by LVLG global value) -> fallback
-    """
-    g = (row.get("LVLG_ChanceNoneGlobal") or "").strip()
-    c = (row.get("LVCT_ChanceNoneCurve") or "").strip()
+def resolve_entry_chancenone_pct(erow: dict, glob: Dict[str, float], curves: Dict[str, Curve]) -> float:
+    # Priority (rng-76): LVOG/LVOC overrides LVOV
+    g = (erow.get("LVOG_ChanceNoneGlobal") or "").strip()
+    c = (erow.get("LVOC_ChanceNoneCurve") or "").strip()
+    v = (erow.get("LVOV_ChanceNoneValue") or "").strip()
 
-    if g and re.fullmatch(r"[0-9A-Fa-f]{8}", g):
-        gv = glob.get(g.upper())
-        if gv is not None:
-            return max(0.0, min(100.0, float(gv)))
+    gv = resolve_from_global(g, glob)
+    if gv is not None:
+        return max(0.0, min(100.0, float(gv)))
 
-    if c and re.fullmatch(r"[0-9A-Fa-f]{8}", c):
-        curve = curves.get(c.upper())
-        if curve:
-            idx = 0.0
-            if g and re.fullmatch(r"[0-9A-Fa-f]{8}", g):
-                gv = glob.get(g.upper())
-                if gv is not None:
-                    idx = float(gv)
-            return max(0.0, min(100.0, float(curve_lookup(curve, idx))))
+    if c:
+        idx = float(gv) if gv is not None else 0.0
+        cv = resolve_from_curve(c, idx, curves)
+        if cv is not None:
+            return max(0.0, min(100.0, float(cv)))
 
-    return FALLBACK_LIST_CHANCENONE
+    vv = resolve_percent_value(v)
+    if vv is not None:
+        return vv
+
+    return 0.0
+
+def resolve_list_maximum(lrow: dict, glob: Dict[str, float], curves: Dict[str, Curve]) -> int:
+    # Priority: LVMG/LVMT overrides LVMV
+    g = (lrow.get("LVMG_MaxGlobal") or "").strip()
+    c = (lrow.get("LVMT_MaxCurve") or "").strip()
+    v = (lrow.get("LVMV_MaxValue") or "").strip()
+
+    gv = resolve_from_global(g, glob)
+    if gv is not None:
+        return max(0, int(round(gv)))
+
+    if c:
+        idx = float(gv) if gv is not None else 0.0
+        cv = resolve_from_curve(c, idx, curves)
+        if cv is not None:
+            return max(0, int(round(cv)))
+
+    vv = resolve_int_value(v)
+    if vv is not None:
+        return max(0, vv)
+
+    return 0  # default max=0
+
+def resolve_entry_quantity(erow: dict, glob: Dict[str, float], curves: Dict[str, Curve]) -> int:
+    # Priority: LVIG/LVIT overrides LVIV
+    g = (erow.get("LVIG_QuantityGlobal") or "").strip()
+    c = (erow.get("LVIT_QuantityCurve") or "").strip()
+    v = (erow.get("LVIV_Quantity") or "").strip()
+
+    gv = resolve_from_global(g, glob)
+    if gv is not None:
+        return max(0, int(round(gv)))
+
+    if c:
+        idx = float(gv) if gv is not None else 0.0
+        cv = resolve_from_curve(c, idx, curves)
+        if cv is not None:
+            return max(0, int(round(cv)))
+
+    vv = resolve_int_value(v)
+    if vv is not None:
+        return max(0, vv)
+
+    return 1  # FO76 default for quantity is usually 1
 
 def parse_flags_int(s: str) -> int:
     try:
@@ -372,8 +426,15 @@ class LvliEntryChance:
     hard_conditions: List[str]
     entry_chancenone_pct: float
     sublist_empty_chance: Optional[float]
+    apriori_chance: float  # chance before sublist non-empty is applied
 
-class LvliEngine:
+class Rng76LvliEngine:
+    """
+    rng-76 style evaluator (as exact as inputs allow).
+    - Non-RNG conditions are treated as hard gates (state dependent), except GetRandomPercent converted to probability.
+    - Curves require actual curve points; if missing, curve-based values become unresolved and fall back to 0/default.
+    """
+
     def __init__(self, lvli_list: Dict[str, dict], lvli_entries: Dict[str, List[dict]], glob: Dict[str, float], curves: Dict[str, Curve]):
         self.lvli_list = lvli_list
         self.lvli_entries = lvli_entries
@@ -389,7 +450,7 @@ class LvliEngine:
         if lvli_formid in self._empty_cache:
             return self._empty_cache[lvli_formid]
         if lvli_formid in self._stack:
-            # cycle guard: assume empty chance 0 (non-empty) to avoid infinite recursion
+            # cycle guard: assume non-empty to avoid infinite recursion
             return 0.0
 
         self._stack.add(lvli_formid)
@@ -397,119 +458,218 @@ class LvliEngine:
         lrow = self.lvli_list.get(lvli_formid, {})
         flags = parse_flags_int(lrow.get("LVLF_Flags") or "0")
 
-        list_cn = resolve_list_chancenone_from_list(lrow, self.glob, self.curves) / 100.0
-        list_self = FALLBACK_LIST_SELF_CHANCE * (1.0 - list_cn)  # best-effort
+        list_cn = resolve_list_chancenone_pct(lrow, self.glob, self.curves) / 100.0
+        list_self = (1.0 - list_cn)  # list conditionChance not exported -> assume 1.0
 
         entries = self.lvli_entries.get(lvli_formid, [])
+        if not entries:
+            out = 1.0
+            self._stack.remove(lvli_formid)
+            self._empty_cache[lvli_formid] = out
+            return out
 
-        # Compute entry chances (not aggregated) depending on mode (best-effort)
-        entry_chances = []
-        if flags & (1 << 2):  # All
-            # max not available -> assume max=0 (independent collection)
-            for e in entries:
-                ch = self._entry_path_chance(list_self, e)
-                entry_chances.append(ch)
-            # empty if none of the entries yield something
-            empty = 1.0
-            for ch in entry_chances:
-                empty *= (1.0 - ch)
-            out = max(0.0, min(1.0, empty))
-        elif flags & (1 << 6):  # First entry where conditions match
-            # We only model probabilistic gates; unknown conditions treated as "pass" but recorded.
-            # Probability: P(first success occurs) => cascade of (fail prior) * (success current)
-            empty = 1.0
-            for e in entries:
-                ch = self._entry_path_chance(list_self, e)
-                # chance current selected = ch * (prob no previous selected)
-                empty *= (1.0 - ch)
-            out = max(0.0, min(1.0, empty))
-        else:
-            # Non-All uniform pick (best-effort)
-            n = len(entries)
-            if n == 0:
-                out = 1.0
+        is_all = bool(flags & (1 << 2))
+        is_first = bool(flags & (1 << 6))
+        is_for_each = bool(flags & (1 << 1))
+
+        # Build per-entry "self chance" (apriori w/out sublist), and sublist non-empty multiplier
+        entry_self = []
+        entry_sub_nonempty = []
+        for erow in entries:
+            cn_pct = resolve_entry_chancenone_pct(erow, self.glob, self.curves)
+            entry_presence = 1.0 - (cn_pct / 100.0)
+
+            conds = extract_entry_conditions(erow)
+            cond_mult, _, _ = condition_probability(conds)
+
+            apriori = list_self * entry_presence * cond_mult
+
+            token = (erow.get("LVLO_Reference") or "").strip()
+            sub_nonempty = 1.0
+            if token:
+                it = parse_item_token(token)
+                if it and it.get("sig") == "LVLI":
+                    sub_empty = self.list_empty_chance(it["formid"])
+                    sub_nonempty = 1.0 - sub_empty
+
+            entry_self.append(apriori)
+            entry_sub_nonempty.append(sub_nonempty)
+
+        # Apply list mode logic
+        if is_all:
+            max_count = resolve_list_maximum(lrow, self.glob, self.curves)
+
+            if max_count <= 0:
+                # maximum=0 => independent collection across all entries
+                empty = 1.0
+                for i in range(len(entries)):
+                    ch = entry_self[i] * entry_sub_nonempty[i]
+                    empty *= (1.0 - ch)
+                out = max(0.0, min(1.0, (1.0 - list_self) + list_self * empty))
+
+            elif max_count == 1:
+                # cascading "first successful entry wins" across ordered entries
+                empty_after = 1.0
+                for i in range(len(entries)):
+                    ch = entry_self[i] * entry_sub_nonempty[i]
+                    empty_after *= (1.0 - ch)
+                out = max(0.0, min(1.0, (1.0 - list_self) + list_self * empty_after))
+
             else:
-                uniform = list_self / n
-                total = 0.0
-                for e in entries:
-                    total += self._entry_path_chance(uniform, e)
-                out = max(0.0, min(1.0, 1.0 - total))
+                # maximum > 1 : exact combinatorial (rng-76 bit-pattern approach)
+                # This can be expensive for large lists. We do exact math anyway.
+                n = len(entries)
+
+                # First M entries are always "consulted"; their chance is independent.
+                # For i >= M, selection depends on previous picks. We compute "sum" of exactly M picked combinations.
+                # Define Qi = entry_self[i] * entry_sub_nonempty[i] (chance entry produces something when consulted)
+                Q = [max(0.0, min(1.0, entry_self[i] * entry_sub_nonempty[i])) for i in range(n)]
+
+                # Probability that < M items succeeded among first i entries can be computed via DP:
+                # dp[k] = P(exactly k successes so far)
+                dp = [0.0] * (max_count + 1)
+                dp[0] = 1.0
+
+                for i in range(n):
+                    qi = Q[i]
+                    # update backwards
+                    for k in range(min(i, max_count), -1, -1):
+                        stay = dp[k] * (1.0 - qi)
+                        take = 0.0
+                        if k > 0:
+                            take = dp[k - 1] * qi
+                        dp[k] = stay + take
+                    # dp[max_count] accumulates probability of already having max successes (stop condition),
+                    # but for empty chance we only need probability of 0 successes after all entries consulted until stop.
+                    # Exact early-stop modeling is complex; rng-76’s bit-pattern approach effectively counts combinations.
+                    # DP here approximates without early-stop ordering effects for M>1.
+                    # We keep the most accurate feasible math without exploding runtime.
+
+                # empty means 0 successes
+                empty_after = dp[0]
+                out = max(0.0, min(1.0, (1.0 - list_self) + list_self * empty_after))
+
+        elif is_first:
+            # First entry where conditions match.
+            # With only probabilistic conditions modeled (RandomPercent), treat as cascading chance of selection.
+            empty_after = 1.0
+            for i in range(len(entries)):
+                ch = entry_self[i] * entry_sub_nonempty[i]
+                empty_after *= (1.0 - ch)
+            out = max(0.0, min(1.0, (1.0 - list_self) + list_self * empty_after))
+
+        else:
+            # Non-All: uniform pick once among entries (rng-76 "uniform pick" case)
+            n = len(entries)
+            uniform = list_self / n
+            total = 0.0
+            for i in range(n):
+                total += uniform * (entry_self[i] / list_self if list_self > 0 else 0.0) * entry_sub_nonempty[i]
+            empty_after = max(0.0, min(1.0, 1.0 - total))
+            out = max(0.0, min(1.0, (1.0 - list_self) + list_self * empty_after))
 
         self._stack.remove(lvli_formid)
         self._empty_cache[lvli_formid] = out
         return out
 
-    def _entry_path_chance(self, base_weight: float, entry_row: dict) -> float:
-        cn_pct = resolve_chancenone_from_entry(entry_row, self.glob, self.curves)
-        entry_presence = 1.0 - (cn_pct / 100.0)
-
-        conds = extract_entry_conditions(entry_row)
-        cond_mult, _, _ = condition_probability(conds)
-
-        # sublist handling: if entry item token is LVLI, incorporate its non-empty chance
-        token = (entry_row.get("LVLO_Reference") or entry_row.get("LVLO") or entry_row.get("Item") or "").strip()
-        sub_nonempty = 1.0
-        if token:
-            item = parse_item_token(token)
-            if item and item.get("sig") == "LVLI":
-                sub_empty = self.list_empty_chance(item["formid"])
-                sub_nonempty = 1.0 - sub_empty
-
-        ch = base_weight * entry_presence * cond_mult * sub_nonempty
-        return max(0.0, min(1.0, ch))
-
     def expand_lvli(self, lvli_formid: str) -> List[LvliEntryChance]:
+        """
+        Return per-entry chances for UI rows (Titles-style).
+        For All max=0: independent per entry.
+        For All max=1: cascading apriori based on previous failures.
+        For Non-All: uniform base weight.
+        For First: cascading similar to max=1 selection.
+        """
         lvli_formid = (lvli_formid or "").upper()
         lrow = self.lvli_list.get(lvli_formid, {})
         flags = parse_flags_int(lrow.get("LVLF_Flags") or "0")
 
-        list_cn = resolve_list_chancenone_from_list(lrow, self.glob, self.curves) / 100.0
-        list_self = FALLBACK_LIST_SELF_CHANCE * (1.0 - list_cn)
+        list_cn = resolve_list_chancenone_pct(lrow, self.glob, self.curves) / 100.0
+        list_self = (1.0 - list_cn)
 
         entries = self.lvli_entries.get(lvli_formid, [])
         out: List[LvliEntryChance] = []
+        if not entries:
+            return out
 
-        if flags & (1 << 2):  # All
-            base_weight = list_self
-            for e in entries:
-                out.append(self._expand_entry(base_weight, e))
+        is_all = bool(flags & (1 << 2))
+        is_first = bool(flags & (1 << 6))
+        max_count = resolve_list_maximum(lrow, self.glob, self.curves) if is_all else 0
+
+        # Base weights
+        if is_all and max_count == 1:
+            # cascading base: previous empty product
+            prev_empty = 1.0
+            for erow in entries:
+                cn_pct = resolve_entry_chancenone_pct(erow, self.glob, self.curves)
+                entry_presence = 1.0 - (cn_pct / 100.0)
+                conds = extract_entry_conditions(erow)
+                cond_mult, prob_notes, hard = condition_probability(conds)
+
+                apriori = list_self * prev_empty * entry_presence * cond_mult
+
+                token = (erow.get("LVLO_Reference") or "").strip()
+                item = parse_item_token(token) if token else None
+
+                sub_empty = None
+                sub_nonempty = 1.0
+                if item and item.get("sig") == "LVLI":
+                    sub_empty = self.list_empty_chance(item["formid"])
+                    sub_nonempty = 1.0 - sub_empty
+
+                chance = apriori * sub_nonempty
+                chance = max(0.0, min(1.0, chance))
+
+                out.append(LvliEntryChance(
+                    entry_ref=(erow.get("LVLO_Reference") or token or ""),
+                    base_item_token=token,
+                    chance=chance,
+                    prob_notes=prob_notes,
+                    hard_conditions=hard,
+                    entry_chancenone_pct=cn_pct,
+                    sublist_empty_chance=sub_empty,
+                    apriori_chance=apriori
+                ))
+
+                prev_empty *= (1.0 - (list_self * entry_presence * cond_mult * sub_nonempty))
+
         else:
-            # Uniform pick best-effort for non-all and first modes
-            n = len(entries) if entries else 1
-            base_weight = list_self / n
-            for e in entries:
-                out.append(self._expand_entry(base_weight, e))
+            # Independent or uniform
+            n = len(entries)
+            base_weight = list_self if (is_all or is_first) else (list_self / n if n else 0.0)
+
+            for erow in entries:
+                cn_pct = resolve_entry_chancenone_pct(erow, self.glob, self.curves)
+                entry_presence = 1.0 - (cn_pct / 100.0)
+                conds = extract_entry_conditions(erow)
+                cond_mult, prob_notes, hard = condition_probability(conds)
+
+                apriori = base_weight * entry_presence * cond_mult
+
+                token = (erow.get("LVLO_Reference") or "").strip()
+                item = parse_item_token(token) if token else None
+
+                sub_empty = None
+                sub_nonempty = 1.0
+                if item and item.get("sig") == "LVLI":
+                    sub_empty = self.list_empty_chance(item["formid"])
+                    sub_nonempty = 1.0 - sub_empty
+
+                chance = apriori * sub_nonempty
+                chance = max(0.0, min(1.0, chance))
+
+                out.append(LvliEntryChance(
+                    entry_ref=(erow.get("LVLO_Reference") or token or ""),
+                    base_item_token=token,
+                    chance=chance,
+                    prob_notes=prob_notes,
+                    hard_conditions=hard,
+                    entry_chancenone_pct=cn_pct,
+                    sublist_empty_chance=sub_empty,
+                    apriori_chance=apriori
+                ))
 
         return out
-
-    def _expand_entry(self, base_weight: float, entry_row: dict) -> LvliEntryChance:
-        cn_pct = resolve_chancenone_from_entry(entry_row, self.glob, self.curves)
-        entry_presence = 1.0 - (cn_pct / 100.0)
-
-        conds = extract_entry_conditions(entry_row)
-        cond_mult, prob_notes, hard = condition_probability(conds)
-
-        token = (entry_row.get("LVLO_Reference") or entry_row.get("LVLO") or entry_row.get("Item") or "").strip()
-        item = parse_item_token(token) if token else None
-
-        sub_empty = None
-        sub_nonempty = 1.0
-        if item and item.get("sig") == "LVLI":
-            sub_empty = self.list_empty_chance(item["formid"])
-            sub_nonempty = 1.0 - sub_empty
-
-        chance = base_weight * entry_presence * cond_mult * sub_nonempty
-        chance = max(0.0, min(1.0, chance))
-
-        return LvliEntryChance(
-            entry_ref=(entry_row.get("LVLO_Reference") or token or ""),
-            base_item_token=(token or ""),
-            chance=chance,
-            prob_notes=prob_notes,
-            hard_conditions=hard,
-            entry_chancenone_pct=cn_pct,
-            sublist_empty_chance=sub_empty
-        )
 
 # ----------------------------
 # Load GMRW grouped by FormID
@@ -590,6 +750,11 @@ def main():
         raise FileNotFoundError("Missing tsv/guide_index.tsv")
 
     GLOB_TSV = pick_latest_tsv("GLOB_Export_")
+    # Prefer CURV points TSV if present (required for curve interpolation)
+curv_points_candidates = sorted(TSV_DIR.glob("CURV_Export_*POINTS*.tsv"))
+if curv_points_candidates:
+    CURV_TSV = curv_points_candidates[-1]
+else:
     CURV_TSV = pick_latest_tsv("CURV_Export_")
 
     guides = load_guides(GUIDE_INDEX_TSV)
@@ -602,7 +767,7 @@ def main():
     glob_vals = load_glob_values(GLOB_TSV)
     curves = load_curves(CURV_TSV)
 
-    engine = LvliEngine(lvli_list, lvli_entries, glob_vals, curves)
+   engine = Rng76LvliEngine(lvli_list, lvli_entries, glob_vals, curves)
 
     out = {
         "generatedAt": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
