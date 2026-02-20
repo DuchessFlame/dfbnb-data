@@ -1242,14 +1242,11 @@ def main() -> int:
             lvli_entry_rows.extend(rows)
             continue
 
-        # List file: LVLI_List.tsv (everything else)
-        lvli_list_rows.extend(rows)
-
     # build lookup maps AFTER all TSVs are loaded
-gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
-gmrw_by_formid = gmrw_parentquest_by_any_ref_formid_map(gmrw_rows)
-gmrw_by_ref_formid = gmrw_by_formid
-    gmrw_by_ref_formid = gmrw_parentquest_by_any_ref_formid_map(gmrw_rows)
+    tradeable_by_book = book_tradeable_map(book_rows)
+    gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
+    gmrw_by_formid = gmrw_parentquest_by_any_ref_formid_map(gmrw_rows)
+    gmrw_by_ref_formid = gmrw_by_formid
     chal_by_id, chal_by_edid = chal_maps(chal_rows)
 
     # CNDF
