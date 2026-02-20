@@ -119,36 +119,32 @@ def match_guide_url(guides, quest_full_name: str):
         return ""
 
     def score(g):
-        # Prefer reward checklist pages when multiple entries match the same event name.
-        # Works across templates: checklist, event-checklist, public-event-checklist, etc.
         t = (g.get("template") or "").lower()
         title = norm(g.get("title") or "")
         menu = norm(g.get("menuTitle") or "")
         slug = norm(g.get("slug") or "")
 
         is_checklist = ("checklist" in t) or ("reward checklist" in title) or ("reward checklist" in menu) or ("reward checklist" in slug)
-        is_guide = ("guide" in t) or (" guide" in title) or (" guide" in menu) or (slug.endswith(" guide"))
+        is_guide = ("guide" in t) or (" guide" in title) or (" guide" in menu) or slug.endswith(" guide")
 
         if is_checklist:
             return 300
         if is_guide:
             return 200
-        return 100  # category-hub or other
+        return 100
 
-    # Exact key matches first (but pick best among duplicates)
     exact = [g for g in guides if g.get("k") == key]
     if exact:
         exact.sort(key=score, reverse=True)
         return exact[0].get("url") or ""
 
-    # Fuzzy contains matches next (again pick best)
     fuzzy = [g for g in guides if g.get("k") and (g["k"] in key or key in g["k"])]
     if fuzzy:
         fuzzy.sort(key=score, reverse=True)
         return fuzzy[0].get("url") or ""
 
     return ""
-
+    
 # ----------------------------
 # GLOB + CURV resolution
 # ----------------------------
