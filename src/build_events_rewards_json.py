@@ -120,7 +120,7 @@ def match_guide_url(guides, quest_full_name: str):
 
     def score(g):
         # Prefer reward checklist pages when multiple entries match the same event name.
-        # URL is the strongest signal, because templates/titles vary (Reward vs Rewards, Event Checklist, etc).
+        # URL is the strongest signal because titles/templates vary.
         t = (g.get("template") or "").lower()
         url = (g.get("url") or "").lower()
 
@@ -128,24 +128,27 @@ def match_guide_url(guides, quest_full_name: str):
         menu = norm(g.get("menuTitle") or "")
         slug = norm(g.get("slug") or "")
 
-        # Strong signals: URL path
+        # Strongest: URL contains reward(s)-checklist
         if "reward-checklist" in url or "rewards-checklist" in url:
             return 500
 
-        # Next: template contains checklist
+        # Next: template indicates checklist
         if "checklist" in t:
             return 400
 
-        # Next: title/menu/slug contains checklist wording (cover Reward/Rewards)
-        if ("reward checklist" in title) or ("rewards checklist" in title) or ("reward checklist" in menu) or ("rewards checklist" in menu) or ("reward checklist" in slug) or ("rewards checklist" in slug):
+        # Next: wording in title/menu/slug (cover reward vs rewards)
+        if (
+            ("reward checklist" in title) or ("rewards checklist" in title) or
+            ("reward checklist" in menu)  or ("rewards checklist" in menu)  or
+            ("reward checklist" in slug)  or ("rewards checklist" in slug)
+        ):
             return 350
 
         # Next: guide pages
         if "guide" in t or (" guide" in title) or (" guide" in menu) or slug.endswith(" guide"):
             return 200
 
-        # Otherwise: hub/other
-        return 100
+        return 100  # category-hub or other
 
     # Exact key matches first, but choose best among duplicates
     exact = [g for g in guides if g.get("k") == key]
