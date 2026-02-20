@@ -1042,6 +1042,36 @@ def compute_unlock_and_rates(
                         how_from_parentquest = f"Complete the {lk}: {ln}"
                         how_event = how_from_parentquest
 
+                                    # Fallback: resolve via LVLI that references this COBJ (COBJ "Referenced By" list),
+            # then map LVLI FormID -> GMRW ParentQuestDisplay.
+            if not how_from_parentquest:
+                lvli_formid = None
+
+                # COBJ export provides LVLI refs in ReferencedBy_Flat and Ref_* columns.
+                # We accept the first LVLI we find.
+                for k, v in cobj_row.items():
+                    if not v:
+                        continue
+                    s = str(v)
+                    if "LVLI:" in s and "[" in s and "]" in s:
+                        m = re.search(r"\[([0-9A-F]{8})\]", s, re.IGNORECASE)
+                        if m:
+                            lvli_formid = m.group(1).upper()
+                            break
+
+                extra["cobjReferencedByLvli"] = lvli_formid
+
+                if lvli_formid:
+                    pq2 = gmrw_by_ref_formid.get(lvli_formid)
+                    extra["cobjLvliToGmrwParentQuest"] = pq2
+
+                    if pq2:
+                        parsed2 = parse_parentquest_label(pq2)
+                        if parsed2:
+                            lk2, ln2 = parsed2
+                            how_from_parentquest = f"Complete the {lk2}: {ln2}"
+                            how_event = how_from_parentquest
+
             extra.update({
                 "cobjGNAM_EDID": gnam_edid,
                 "cobjGNAM_FULL": gnam_full,
@@ -1217,6 +1247,7 @@ def main() -> int:
     tradeable_by_book = book_tradeable_map(book_rows)
     gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
     gmrw_by_formid = gmrw_parentquest_by_formid_map(gmrw_rows)
+    gmrw_by_ref_formid = gmrw_parentquest_by_any_ref_formid_map(gmrw_rows)
     chal_by_id, chal_by_edid = chal_maps(chal_rows)
 
     # CNDF
@@ -1396,6 +1427,28 @@ def main() -> int:
         "camp": build_patchlog(prev_camp, camp_json),
         "player": build_patchlog(prev_player, player_json),
     }
+
+    def gmrw_parentquest_by_any_ref_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
+    """
+    Build a lookup of any 8-hex FormID mentioned anywhere in a GMRW row -> ParentQuestDisplay.
+    This lets us resolve LVLI-based reward sources even when the COBJ uses 'Referenced By' LVLI refs.
+    """
+    out: Dict[str, str] = {}
+    hex_re = re.compile(r"\b[0-9A-F]{8}\b", re.IGNORECASE)
+
+    for r in gmrw_rows:
+        pq = (r.get("ParentQuestDisplay") or "").strip()
+        if not pq:
+            continue
+
+        # Scan the whole row for FormIDs (cheap: only ~2.6k rows)
+        for v in r.values():
+            if not v:
+                continue
+            for m in hex_re.findall(str(v)):
+                out[m.upper()] = pq
+
+    return out
 
     # ============================================================
     # NEW: titles_images_manifest.json (ENTM storefront DDS tasks)
