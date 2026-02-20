@@ -373,26 +373,6 @@ def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
             out[token] = pq
     return out
 
-def gmrw_parentquest_by_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
-    """
-    Strict: map GMRW FormID -> ParentQuest (display text when available)
-    Used for BOOK -> LVLI -> (ReferencedBy) -> GMRW resolution.
-
-    IMPORTANT:
-      - Ignore CUT/ZZZ/etc GMRW rows here so ref-path resolution doesn't pick cut content.
-    """
-    out: Dict[str, str] = {}
-    for r in gmrw_rows:
-        edid = (r.get("EDID") or "").strip()
-        if edid and starts_cut(edid):
-            continue
-
-        fid = (r.get("FormID") or "").strip().upper()
-        pq = _gmrw_parentquest_from_row(r)
-        if fid and pq:
-            out[fid] = pq
-    return out
-
     def gmrw_parentquest_by_any_ref_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
     """
     Map any 8-hex FormID mentioned anywhere in a GMRW row -> ParentQuest label.
