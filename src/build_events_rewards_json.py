@@ -119,6 +119,7 @@ def match_guide_url(guides, quest_full_name: str):
         return ""
 
     def score(g):
+        # Prefer reward checklist pages when multiple entries match the same event name.
         t = (g.get("template") or "").lower()
         title = norm(g.get("title") or "")
         menu = norm(g.get("menuTitle") or "")
@@ -131,13 +132,15 @@ def match_guide_url(guides, quest_full_name: str):
             return 300
         if is_guide:
             return 200
-        return 100
+        return 100  # category-hub or other
 
+    # Exact key matches first, but choose best among duplicates
     exact = [g for g in guides if g.get("k") == key]
     if exact:
         exact.sort(key=score, reverse=True)
         return exact[0].get("url") or ""
 
+    # Fuzzy contains matches next, again choose best
     fuzzy = [g for g in guides if g.get("k") and (g["k"] in key or key in g["k"])]
     if fuzzy:
         fuzzy.sort(key=score, reverse=True)
