@@ -373,7 +373,8 @@ def gmrw_parentquest_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
             out[token] = pq
     return out
 
-    def gmrw_parentquest_by_any_ref_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
+
+def gmrw_parentquest_by_any_ref_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
     """
     Map any 8-hex FormID mentioned anywhere in a GMRW row -> ParentQuest label.
     Used for resolving COBJ ReferencedBy LVLI chains.
