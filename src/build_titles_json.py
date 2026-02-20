@@ -54,7 +54,7 @@ RE_COMMUNITY = re.compile(r"\bCommunity_", re.IGNORECASE)
 
 RE_FORM_REF = re.compile(r"\[([A-Z]{4}):([0-9A-F]{8})\]", re.IGNORECASE)
 RE_QUOTED = re.compile(r'"([^"]+)"')
-RE_COBJ_REF = re.compile(r"\[COBJ:[0-9A-F]{8}\]", re.IGNORECASE)
+RE_COBJ_REF = re.compile(r"(?:\[COBJ:|COBJ:)([0-9A-F]{8})(?:\]?)", re.IGNORECASE)
 
 
 def now_iso() -> str:
@@ -519,13 +519,12 @@ def chal_maps(chal_rows: List[Dict[str, str]]) -> Tuple[Dict[str, Dict[str, str]
         if fid:
             by_id[fid] = r
         if edid:
-            by_edid[edid] = r
+            by_edid[edid.lower()] = r  # case-insensitive lookup
     return by_id, by_edid
-
 
 def cobj_token_from_condition(conds: List[str]) -> Optional[str]:
     for s in conds:
-        if "[COBJ:" not in s:
+        if ("[COBJ:" not in s) and ("COBJ:" not in s):
             continue
         m = re.search(r"\(([^)\s]+)", s)
         if not m:
@@ -758,9 +757,16 @@ def parse_chal_formid_from_condition(cond: str) -> Optional[str]:
     return None
 
 def parse_cobj_formid_from_condition(cond: str) -> Optional[str]:
+    # 1) Prefer [COBJ:XXXXXXXX] style (RE_FORM_REF)
     for typ, fid in RE_FORM_REF.findall(cond):
         if typ.upper() == "COBJ":
             return fid.upper()
+
+    # 2) Support COBJ:XXXXXXXX without brackets
+    m = re.search(r"\bCOBJ:([0-9A-Fa-f]{8})\b", cond or "")
+    if m:
+        return m.group(1).upper()
+
     return None
 
 
@@ -824,10 +830,10 @@ def compute_unlock_and_rates(
     # Expand CNDF if present in any condition line (attach into debug/extra)
     cndf_formid = None
     for c in conds:
-        if "[CNDF:" in c:
-            cndf_formid = parse_cndf_formid_from_condition(c)
-            if cndf_formid:
-                break
+    if ("[COBJ:" in c) or ("COBJ:" in c):
+        cobj_formid = parse_cobj_formid_from_condition(c)
+        if cobj_formid:
+            break
 
     if cndf_formid:
         extra["cndfFormId"] = cndf_formid
@@ -891,8 +897,8 @@ def compute_unlock_and_rates(
             arg = m.group(1).strip()
             if arg.endswith("_ConditionForm"):
                 chal_edid = arg[:-len("_ConditionForm")]
-                if chal_edid in chal_by_edid:
-                    row = chal_by_edid[chal_edid]
+                if chal_edid.lower() in chal_by_edid:
+                    row = chal_by_edid[chal_edid.lower()]
                     full = (row.get("FULL") or "").strip() or chal_edid
                     cnam = (row.get("CNAM") or "").strip() or "Challenge"
                     extra.update({"chalEdid": chal_edid, "chalCNAM": cnam, "chalFULL": full})
