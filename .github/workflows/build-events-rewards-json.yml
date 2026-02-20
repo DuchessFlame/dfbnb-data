@@ -9,11 +9,12 @@ on:
       - "tsv/LVLI_Export_*_LVLI_List.tsv"
       - "tsv/LVLI_Export_*_LVLI_Entries.tsv"
       - "tsv/LVLI_Export_*_LVLI_Refs.tsv"
+      - "tsv/LVLI_Export_*_LVLI_Math.tsv"
       - "tsv/GLOB_Export_*.tsv"
       - "tsv/CURV_Export_*.tsv"
       - "tsv/CURV_Export_*POINTS*.tsv"
       - "tsv/guide_index.tsv"
-      - "build_events_rewards_json.py"
+      - "src/build_events_rewards_json.py"
 
 jobs:
   build:
@@ -28,7 +29,9 @@ jobs:
           python-version: "3.11"
 
       - name: Build dist JSON
-        run: python build_events_rewards_json.py
+        run: |
+          python src/build_events_rewards_json.py
+          test -f dist/events_rewards.json
 
       - name: Commit dist output
         run: |
