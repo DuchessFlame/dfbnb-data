@@ -393,6 +393,28 @@ def gmrw_parentquest_by_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str,
             out[fid] = pq
     return out
 
+    def gmrw_parentquest_by_any_ref_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
+    """
+    Build a lookup of any 8-hex FormID mentioned anywhere in a GMRW row -> ParentQuestDisplay.
+    This lets us resolve LVLI-based reward sources even when the COBJ uses 'Referenced By' LVLI refs.
+    """
+    out: Dict[str, str] = {}
+    hex_re = re.compile(r"\b[0-9A-F]{8}\b", re.IGNORECASE)
+
+    for r in gmrw_rows:
+        pq = (r.get("ParentQuestDisplay") or "").strip()
+        if not pq:
+            continue
+
+        # Scan the whole row for FormIDs (cheap: only ~2.6k rows)
+        for v in r.values():
+            if not v:
+                continue
+            for m in hex_re.findall(str(v)):
+                out[m.upper()] = pq
+
+    return out
+
 def _extract_formids_from_ref_fields(row: Dict[str, str], suffix: str) -> List[str]:
     """
     Rows store refs like: "006313AF:QuestReward_...:GMRW" or "0004718C:Something:LVLI"
