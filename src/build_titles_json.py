@@ -830,10 +830,10 @@ def compute_unlock_and_rates(
     # Expand CNDF if present in any condition line (attach into debug/extra)
     cndf_formid = None
     for c in conds:
-    if ("[COBJ:" in c) or ("COBJ:" in c):
-        cobj_formid = parse_cobj_formid_from_condition(c)
-        if cobj_formid:
-            break
+        if "[CNDF:" in c:
+            cndf_formid = parse_cndf_formid_from_condition(c)
+            if cndf_formid:
+                break
 
     if cndf_formid:
         extra["cndfFormId"] = cndf_formid
@@ -1016,11 +1016,11 @@ def compute_unlock_and_rates(
 
         # Pull COBJ FormID from the condition text
         cobj_formid = None
-        for c in conds:
-            if "[COBJ:" in c:
-                cobj_formid = parse_cobj_formid_from_condition(c)
-                if cobj_formid:
-                    break
+       for c in conds:
+    if ("[COBJ:" in c) or ("COBJ:" in c):
+        cobj_formid = parse_cobj_formid_from_condition(c)
+        if cobj_formid:
+            break
         if not cobj_formid:
             return how_event, "N/A", None, "event_activity", extra
 
