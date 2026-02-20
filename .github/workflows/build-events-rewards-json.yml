@@ -11,6 +11,7 @@ on:
       - "tsv/LVLI_Export_*_LVLI_Refs.tsv"
       - "tsv/GLOB_Export_*.tsv"
       - "tsv/CURV_Export_*.tsv"
+      - "tsv/CURV_Export_*POINTS*.tsv"
       - "tsv/guide_index.tsv"
       - "build_events_rewards_json.py"
 
@@ -27,7 +28,7 @@ jobs:
           python-version: "3.11"
 
       - name: Build dist JSON
-        run: python scripts/build_events_rewards_json.py
+        run: python build_events_rewards_json.py
 
       - name: Commit dist output
         run: |
