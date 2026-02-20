@@ -728,8 +728,8 @@ def parse_entitlement_edid_from_condition(cond: str) -> Optional[str]:
 
 def storefront_webp_url_from_extra(extra: Dict[str, Any]) -> Optional[str]:
     """
-    Deterministic storefront WEBP URL:
-      /wp-content/uploads/storefront/<entitlement_edid_lower>.webp
+    Deterministic storefront WEBP URL (source of truth is the WebP generator output folder):
+      /wp-content/themes/dfbnb-child/site-data/json/uploads/fo76/storefront/<entitlement_edid_lower>.webp
     Uses the first entitlementEdid when present.
     """
     ent = extra.get("entitlementEdids")
