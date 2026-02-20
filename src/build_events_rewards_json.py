@@ -120,19 +120,32 @@ def match_guide_url(guides, quest_full_name: str):
 
     def score(g):
         # Prefer reward checklist pages when multiple entries match the same event name.
+        # URL is the strongest signal, because templates/titles vary (Reward vs Rewards, Event Checklist, etc).
         t = (g.get("template") or "").lower()
+        url = (g.get("url") or "").lower()
+
         title = norm(g.get("title") or "")
         menu = norm(g.get("menuTitle") or "")
         slug = norm(g.get("slug") or "")
 
-        is_checklist = ("checklist" in t) or ("reward checklist" in title) or ("reward checklist" in menu) or ("reward checklist" in slug)
-        is_guide = ("guide" in t) or (" guide" in title) or (" guide" in menu) or slug.endswith(" guide")
+        # Strong signals: URL path
+        if "reward-checklist" in url or "rewards-checklist" in url:
+            return 500
 
-        if is_checklist:
-            return 300
-        if is_guide:
+        # Next: template contains checklist
+        if "checklist" in t:
+            return 400
+
+        # Next: title/menu/slug contains checklist wording (cover Reward/Rewards)
+        if ("reward checklist" in title) or ("rewards checklist" in title) or ("reward checklist" in menu) or ("rewards checklist" in menu) or ("reward checklist" in slug) or ("rewards checklist" in slug):
+            return 350
+
+        # Next: guide pages
+        if "guide" in t or (" guide" in title) or (" guide" in menu) or slug.endswith(" guide"):
             return 200
-        return 100  # category-hub or other
+
+        # Otherwise: hub/other
+        return 100
 
     # Exact key matches first, but choose best among duplicates
     exact = [g for g in guides if g.get("k") == key]
@@ -902,6 +915,15 @@ def main():
         # prune empty groups
         event_obj["groups"] = {k: v for k, v in event_obj["groups"].items() if v}
         out["events"].append(event_obj)
+
+       # Diagnostics: guideUrl quality
+    events_out = out.get("events", [])
+    cnt_total = len(events_out)
+    cnt_blank = sum(1 for e in events_out if not (e.get("guideUrl") or "").strip())
+    cnt_reward_checklist = sum(1 for e in events_out if ("reward-checklist" in (e.get("guideUrl") or "")) or ("rewards-checklist" in (e.get("guideUrl") or "")))
+    cnt_any_checklist = sum(1 for e in events_out if "checklist" in (e.get("guideUrl") or ""))
+
+    print(f"guideUrl stats: total={cnt_total} blank={cnt_blank} reward(s)-checklist={cnt_reward_checklist} checklist(any)={cnt_any_checklist}")
 
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     OUT_JSON.write_text(json.dumps(out, indent=2), encoding="utf-8")
