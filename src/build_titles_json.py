@@ -395,18 +395,17 @@ def gmrw_parentquest_by_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str,
 
     def gmrw_parentquest_by_any_ref_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
     """
-    Build a lookup of any 8-hex FormID mentioned anywhere in a GMRW row -> ParentQuestDisplay.
-    This lets us resolve LVLI-based reward sources even when the COBJ uses 'Referenced By' LVLI refs.
+    Map any 8-hex FormID mentioned anywhere in a GMRW row -> ParentQuest label.
+    Used for resolving COBJ ReferencedBy LVLI chains.
     """
     out: Dict[str, str] = {}
     hex_re = re.compile(r"\b[0-9A-F]{8}\b", re.IGNORECASE)
 
     for r in gmrw_rows:
-        pq = (r.get("ParentQuestDisplay") or "").strip()
+        pq = _gmrw_parentquest_from_row(r)
         if not pq:
             continue
 
-        # Scan the whole row for FormIDs (cheap: only ~2.6k rows)
         for v in r.values():
             if not v:
                 continue
@@ -1449,28 +1448,6 @@ def main() -> int:
         "camp": build_patchlog(prev_camp, camp_json),
         "player": build_patchlog(prev_player, player_json),
     }
-
-    def gmrw_parentquest_by_any_ref_formid_map(gmrw_rows: List[Dict[str, str]]) -> Dict[str, str]:
-    """
-    Build a lookup of any 8-hex FormID mentioned anywhere in a GMRW row -> ParentQuestDisplay.
-    This lets us resolve LVLI-based reward sources even when the COBJ uses 'Referenced By' LVLI refs.
-    """
-    out: Dict[str, str] = {}
-    hex_re = re.compile(r"\b[0-9A-F]{8}\b", re.IGNORECASE)
-
-    for r in gmrw_rows:
-        pq = (r.get("ParentQuestDisplay") or "").strip()
-        if not pq:
-            continue
-
-        # Scan the whole row for FormIDs (cheap: only ~2.6k rows)
-        for v in r.values():
-            if not v:
-                continue
-            for m in hex_re.findall(str(v)):
-                out[m.upper()] = pq
-
-    return out
 
     # ============================================================
     # NEW: titles_images_manifest.json (ENTM storefront DDS tasks)
