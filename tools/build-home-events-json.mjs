@@ -101,8 +101,8 @@ function buildEvents(tsvRows) {
     const start = normaliseDate(startRaw);
     const end = normaliseDate(endRaw);
 
-    const startTime = normaliseTime12h(r.StartTime, "12:00 PM");
-    const endTime = normaliseTime12h(r.EndTime, "12:00 PM");
+  const startTime = normaliseTime12h(r.StartTime, "12:00 PM");
+const endTime = normaliseTime12h(r.EndTime, startTime || "12:00 PM");
 
     const url = (r.Url ?? "").trim();
     const badge = (r.Badge ?? "").trim();

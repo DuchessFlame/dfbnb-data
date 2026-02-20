@@ -750,12 +750,13 @@ def main():
         raise FileNotFoundError("Missing tsv/guide_index.tsv")
 
     GLOB_TSV = pick_latest_tsv("GLOB_Export_")
+
     # Prefer CURV points TSV if present (required for curve interpolation)
-curv_points_candidates = sorted(TSV_DIR.glob("CURV_Export_*POINTS*.tsv"))
-if curv_points_candidates:
-    CURV_TSV = curv_points_candidates[-1]
-else:
-    CURV_TSV = pick_latest_tsv("CURV_Export_")
+    curv_points_candidates = sorted(TSV_DIR.glob("CURV_Export_*POINTS*.tsv"))
+    if curv_points_candidates:
+        CURV_TSV = curv_points_candidates[-1]
+    else:
+        CURV_TSV = pick_latest_tsv("CURV_Export_")
 
     guides = load_guides(GUIDE_INDEX_TSV)
     gmrw_by_id = load_gmrw(GMRW_TSV)
@@ -767,7 +768,7 @@ else:
     glob_vals = load_glob_values(GLOB_TSV)
     curves = load_curves(CURV_TSV)
 
-   engine = Rng76LvliEngine(lvli_list, lvli_entries, glob_vals, curves)
+    engine = Rng76LvliEngine(lvli_list, lvli_entries, glob_vals, curves)
 
     out = {
         "generatedAt": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
