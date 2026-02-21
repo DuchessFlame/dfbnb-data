@@ -40,7 +40,7 @@ Write-Host "Output folder:   $outStorefront"
 Write-Host ""
 
 # Rebuild manifest from TSV (ETIP+ETDI only) every run, so it's deterministic.
-$manifestBuilder = Join-Path $PSScriptRoot "build_titles_images_manifest_from_tsv.ps1"
+$manifestBuilder = Join-Path $repoRoot "build_titles_images_manifest_from_tsv.py"
 Assert-Path $manifestBuilder "Manifest builder"
 powershell -ExecutionPolicy Bypass -File $manifestBuilder
 
