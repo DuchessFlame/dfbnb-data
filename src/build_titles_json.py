@@ -478,7 +478,7 @@ def book_lvli_gmrw_parentquest(
 
     while True:
         # 1) Try GMRW refs at this level
-        gmrw_ids = _extract_formids_from_ref_fields(current, ":GMRW")
+        gmrw_ids = _extract_formids_from_ref_fields(current, "GMRW:")
         if gmrw_ids:
             dbg["gmrwIds"] = gmrw_ids
             gmrw_id = gmrw_ids[0]
@@ -489,7 +489,7 @@ def book_lvli_gmrw_parentquest(
             return pq, dbg
 
         # 2) Otherwise try LVLI refs (chain)
-        next_lvli_ids = _extract_formids_from_ref_fields(current, ":LVLI")
+        next_lvli_ids = _extract_formids_from_ref_fields(current, "LVLI:")
         if not next_lvli_ids:
             dbg["gmrwIds"] = []
             return None, dbg
