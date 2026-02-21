@@ -15,7 +15,7 @@ $extractedRoot = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Websit
 $toolsDir = "C:\Users\Duche\OneDrive\GitHub\fo76-tools"
 
 # Export dir (python will create/use "storefront" under here)
-$exportDir = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76"
+$exportDir = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads"
 $outStorefront = Join-Path $exportDir "storefront"
 
 $pyScript = Join-Path $PSScriptRoot "src\extract_titles_storefront_images_local.py"

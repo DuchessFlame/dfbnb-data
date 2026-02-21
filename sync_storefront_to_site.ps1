@@ -1,55 +1,52 @@
 # sync_storefront_to_site.ps1
-# Upload local storefront webps to /wp-content/uploads/storefront using WinSCP.
+# Upload local storefront webps to /wp-content/uploads/storefront using Windows OpenSSH sftp.exe
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$local  = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\storefront"
-# Locate WinSCP.com (auto-detect common install paths)
-$winscpCandidates = @(
-  "C:\Program Files (x86)\WinSCP\WinSCP.com",
-  "C:\Program Files\WinSCP\WinSCP.com"
-)
+# Local build output (must match run_storefront_build.ps1 output)
+$local  = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\storefront"
 
-$winscp = $winscpCandidates | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
-
-if (-not $winscp) {
-  throw "WinSCP.com not found. Install WinSCP, or set `$winscp to the correct full path."
-}
+# Remote target
 $remote = "/wp-content/uploads/storefront"
 
-# EDIT THESE
-$sftpHost = "YOUR_SFTP_HOST"
-$port = 22
-$user = "YOUR_SFTP_USER"
-$pass = "YOUR_SFTP_PASSWORD"
+# WP Engine SFTP details
+$sftpHost = "buffsnbrew1.sftp.wpengine.com"
+$port     = 2222
+$user     = "buffsnbrew1-nav"
 
 function Assert-Path($p, $label) {
   if (-not (Test-Path -LiteralPath $p)) { throw "$label not found: $p" }
 }
 
-Assert-Path $local  "Local storefront folder"
-Assert-Path $winscp "WinSCP.com"
+Assert-Path $local "Local storefront folder"
 
-$scriptPath = Join-Path $env:TEMP "winscp_storefront_sync.txt"
-$logPath    = Join-Path $env:TEMP "winscp_storefront_sync.log"
+# Ensure sftp.exe exists (Windows OpenSSH Client feature)
+$sftpExe = (Get-Command sftp.exe -ErrorAction SilentlyContinue)?.Source
+if (-not $sftpExe) {
+  throw "sftp.exe not found. Install Windows optional feature: OpenSSH Client."
+}
 
-Write-Host "=== Storefront sync ==="
+Write-Host "=== Storefront sync (sftp.exe) ==="
 Write-Host "Local:  $local"
 Write-Host "Remote: $remote"
-Write-Host "Host:   $($sftpHost):$($port)"
+Write-Host "Host:   $sftpHost:$port"
+Write-Host "User:   $user"
 Write-Host ""
+
+# Build SFTP batch commands
+$batchPath = Join-Path $env:TEMP "sftp_storefront_sync.txt"
 
 @"
-option batch on
-option confirm off
-open sftp://$user`:$pass@$sftpHost`:$port/
-synchronize remote "$local" "$remote"
-exit
-"@ | Set-Content -Encoding ASCII -LiteralPath $scriptPath
+mkdir $remote
+cd $remote
+lcd $local
+mput *.webp
+bye
+"@ | Set-Content -Encoding ASCII -LiteralPath $batchPath
 
-& $winscp "/script=$scriptPath" "/log=$logPath"
+# Run SFTP. This will prompt for your password unless you have key auth set up.
+& $sftpExe -P $port -b $batchPath "$user@$sftpHost"
 
 Write-Host ""
-Write-Host "WinSCP log: $logPath"
 Write-Host "=== Done ==="
