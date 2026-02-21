@@ -39,6 +39,7 @@ from typing import Any, Dict, List, Optional, Tuple
 # ============================================================
 
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
+CUT_SUFFIXES = ("_COPY01",)
 
 RE_HAS_ENTITLEMENT = re.compile(r"\bHasEntitlement\(", re.IGNORECASE)
 RE_HAS_COMPLETED_CHAL = re.compile(r"\bHasCompletedChallenge\(", re.IGNORECASE)
@@ -185,7 +186,9 @@ def _autofill_paths(tsv_root: Optional[str], provided: Optional[List[str]], patt
 
 def starts_cut(edid: str) -> bool:
     e = (edid or "").strip().upper()
-    return any(e.startswith(p) for p in CUT_PREFIXES)
+    if any(e.startswith(p) for p in CUT_PREFIXES):
+        return True
+    return any(e.endswith(s) for s in CUT_SUFFIXES)
 
 
 def extract_conditions(row: Dict[str, str]) -> List[str]:
@@ -952,7 +955,7 @@ def compute_unlock_and_rates(
             tok2 = re.sub(r"^\\d{4}_", "", tok2)  # drop leading year
             name = prettify_token_words(tok2)
             extra.update({"miniSeasonRaw": tok2, "miniSeasonName": name})
-            return f"Claim from the Mini Season - {name}", "100%", None, "miniseason", extra
+            return f"Unlock via the {name} Mini Season.", "100%", None, "miniseason", extra
 
         # SCORE season
         season_num: Optional[int] = None
@@ -1003,7 +1006,7 @@ def compute_unlock_and_rates(
         if any(RE_ATX.search(e) for e in ent_edids):
             return "Can be purchased with certain bundles from the Atom Shop.", "100%", None, "atx", extra
 
-        return "Unlocked via account entitlement.", "N/A", None, "entitlement", extra
+        return "Unlocked via account entitlement.", "100%", None, "entitlement", extra
 
     # --- COBJ proxy (can mean: event/activity BOOK drop OR challenge unlock via GNAM) ---
     if RE_COBJ_REF.search(joined):
