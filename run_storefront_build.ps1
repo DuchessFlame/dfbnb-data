@@ -45,12 +45,13 @@ $repoRoot = $PSScriptRoot
 $tsvRoot  = Join-Path $repoRoot "tsv"
 $distDir  = Join-Path $repoRoot "dist"
 
-$builder = Join-Path $repoRoot "build_titles_json.py"
+$builder = Join-Path $repoRoot "src\build_titles_json.py"
 Assert-Path $builder "Titles builder"
 Assert-Path $tsvRoot "TSV root"
 
-$py = (Get-Command python -ErrorAction SilentlyContinue)?.Source
-if (-not $py) { throw "python not found. Install Python or add it to PATH." }
+$pyCmd = Get-Command python -ErrorAction SilentlyContinue
+if (-not $pyCmd) { throw "python not found. Install Python or add it to PATH." }
+$py = $pyCmd.Source
 
 python $builder --tsv-root "$tsvRoot" --outdir "$distDir"
 
