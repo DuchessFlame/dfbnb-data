@@ -5,7 +5,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # Local build output (must match run_storefront_build.ps1 output)
-$local  = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\storefront"
+$local = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\storefront"
 
 # Remote target
 $remote = "/wp-content/uploads/storefront"
@@ -35,12 +35,12 @@ Write-Host "User:   $user"
 Write-Host ""
 
 # Build SFTP batch commands
-$batchPath = Join-Path $env:TEMP "sftp_storefront_sync.txt"
+$batchPath = Join-Path $env:TEMP ("sftp_storefront_sync_" + [Guid]::NewGuid().ToString("N") + ".txt")
 
 @"
 mkdir $remote
 cd $remote
-lcd $local
+lcd "$local"
 mput *.webp
 bye
 "@ | Set-Content -Encoding ASCII -LiteralPath $batchPath
