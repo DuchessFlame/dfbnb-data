@@ -10,12 +10,12 @@ $manifest = "C:\Users\Duche\OneDrive\GitHub\dfbnb-data\dist\titles_images_manife
 # IMPORTANT:
 # This should be the folder that CONTAINS "textures\..."
 # Example: <root>\textures\<...dds>
-$extractedRoot = "C:\Users\Duche\OneDrive\GitHub\fo76-tools"
+$extractedRoot = "C:\Users\Duche\OneDrive\GitHub\fo76-tools\textures"
 
 $toolsDir = "C:\Users\Duche\OneDrive\GitHub\fo76-tools"
 
 # Export dir (python will create/use "storefront" under here)
-$exportDir = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads"
+$exportDir = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76"
 $outStorefront = Join-Path $exportDir "storefront"
 
 $pyScript = Join-Path $PSScriptRoot "src\extract_titles_storefront_images_local.py"
@@ -39,10 +39,20 @@ Write-Host "Export dir:      $exportDir"
 Write-Host "Output folder:   $outStorefront"
 Write-Host ""
 
-# Rebuild manifest from TSV (ETIP+ETDI only) every run, so it's deterministic.
-$manifestBuilder = Join-Path $repoRoot "build_titles_images_manifest_from_tsv.py"
-Assert-Path $manifestBuilder "Manifest builder"
-powershell -ExecutionPolicy Bypass -File $manifestBuilder
+# Rebuild titles + titles_images_manifest.json every run (deterministic).
+# This produces dist\titles_images_manifest.json in the format the extractor expects ("tasks": ...).
+$repoRoot = $PSScriptRoot
+$tsvRoot  = Join-Path $repoRoot "tsv"
+$distDir  = Join-Path $repoRoot "dist"
+
+$builder = Join-Path $repoRoot "build_titles_json.py"
+Assert-Path $builder "Titles builder"
+Assert-Path $tsvRoot "TSV root"
+
+$py = (Get-Command python -ErrorAction SilentlyContinue)?.Source
+if (-not $py) { throw "python not found. Install Python or add it to PATH." }
+
+python $builder --tsv-root "$tsvRoot" --outdir "$distDir"
 
 # Quick sanity: confirm you actually have DDS files under extracted root
 $ddsCount = (Get-ChildItem -LiteralPath $extractedRoot -Recurse -File -Filter "*.dds" -ErrorAction SilentlyContinue | Measure-Object).Count
