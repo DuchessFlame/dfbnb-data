@@ -737,7 +737,7 @@ def storefront_webp_url_from_extra(extra: Dict[str, Any]) -> Optional[str]:
     if isinstance(ent, list) and ent:
         edid = str(ent[0]).strip()
         if edid:
-            return "/wp-content/themes/dfbnb-child/site-data/json/uploads/fo76/storefront/" + edid.lower() + ".webp"
+            return "/wp-content/uploads/storefront/" + edid.lower() + ".webp"
     return None
 
 def parse_quest_name_from_condition(cond: str) -> Optional[str]:
@@ -866,7 +866,7 @@ def compute_unlock_and_rates(
 
                 # Only use list-style output when it’s actually a list
                 if len(ordered) >= 2:
-                    how = "Complete the following challenges to unlock this camp title:\n" + "\n".join(f"- {n}" for n in ordered)
+                    how = "Complete the following challenges to unlock this title:\n" + "\n".join(f"- {n}" for n in ordered)
                     return how, "100%", None, "challenge", extra
 
     # --- Challenges: HasCompletedChallenge -> CHAL by FormID ---
