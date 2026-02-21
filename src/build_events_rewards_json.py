@@ -150,19 +150,14 @@ def match_guide_url(guides, quest_full_name: str):
 
         return 100  # category-hub or other
 
-    # Exact key matches first, but choose best among duplicates
-    exact = [g for g in guides if g.get("k") == key]
-    if exact:
-        exact.sort(key=score, reverse=True)
-        return exact[0].get("url") or ""
+    # Consider exact + fuzzy together, then pick the highest score overall.
+    # This prevents category-hub exact matches from beating reward-checklist pages.
+    candidates = [g for g in guides if g.get("k") and (g["k"] == key or g["k"] in key or key in g["k"])]
+    if not candidates:
+        return ""
 
-    # Fuzzy contains matches next, again choose best
-    fuzzy = [g for g in guides if g.get("k") and (g["k"] in key or key in g["k"])]
-    if fuzzy:
-        fuzzy.sort(key=score, reverse=True)
-        return fuzzy[0].get("url") or ""
-
-    return ""
+    candidates.sort(key=lambda g: (score(g), 1 if g.get("k") == key else 0), reverse=True)
+    return candidates[0].get("url") or ""
     
 # ----------------------------
 # GLOB + CURV resolution
