@@ -1071,7 +1071,7 @@ def compute_unlock_and_rates(
                 extra["cobjReferencedByLvli"] = lvli_formid
 
                 if lvli_formid:
-                    pq2 = gmrw_by_ref_formid.get(lvli_formid)
+                    pq2 = gmrw_by_formid.get(lvli_formid)
                     extra["cobjLvliToGmrwParentQuest"] = pq2
 
                     if pq2:
