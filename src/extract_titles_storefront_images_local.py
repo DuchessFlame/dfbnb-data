@@ -112,7 +112,7 @@ def build_filename_index(extracted_root: Path) -> Dict[str, Path]:
     return idx
 
     if __name__ == "__main__":
-    raise SystemExit(main())
+        raise SystemExit(main())
 
 def _alt_dds_candidates(p: str) -> List[str]:
     """
