@@ -1,53 +1,75 @@
-# sync_storefront_to_site.ps1
-# Upload local storefront webps to /wp-content/uploads/storefront using Windows OpenSSH sftp.exe
+param(
+    [Parameter(Mandatory=$true)]
+    [ValidateSet("titles-camp","titles-player")]
+    [string]$Target
+)
 
-Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-# Local build output (must match run_storefront_build.ps1 output)
-$local = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\storefront"
+# Local upload source (single storage location)
+$localBase = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\storefront"
+$local = Join-Path $localBase $Target
 
-# Remote target
-$remote = "/wp-content/uploads/storefront"
+if (-not (Test-Path -LiteralPath $local)) {
+    Write-Host "Local folder not found: $local"
+    exit 1
+}
 
 # WP Engine SFTP details
 $sftpHost = "buffsnbrew1.sftp.wpengine.com"
-$port     = 2222
-$user     = "buffsnbrew1-nav"
+$port = 2222
+$user = "buffsnbrew1-nav"
 
-function Assert-Path($p, $label) {
-  if (-not (Test-Path -LiteralPath $p)) { throw "$label not found: $p" }
+# Remote folder
+$remote = "/wp-content/uploads/storefront/$Target/"
+
+# WinSCP.com path
+$winscp = "D:\WinSCP\WinSCP.com"
+if (-not (Test-Path -LiteralPath $winscp)) {
+    Write-Host "WinSCP.com not found at: $winscp"
+    exit 1
 }
 
-Assert-Path $local "Local storefront folder"
-
-# Ensure sftp.exe exists (Windows OpenSSH Client feature)
-$sftpCmd = Get-Command sftp.exe -ErrorAction SilentlyContinue
-$sftpExe = if ($sftpCmd) { $sftpCmd.Source } else { $null }
-if (-not $sftpExe) {
-  throw "sftp.exe not found. Install Windows optional feature: OpenSSH Client."
-}
-
-Write-Host "=== Storefront sync (sftp.exe) ==="
+Write-Host ""
+Write-Host "=== Storefront upload (WinSCP) ==="
+Write-Host "Target: $Target"
 Write-Host "Local:  $local"
 Write-Host "Remote: $remote"
-Write-Host "Host: ${sftpHost}:$port"
+Write-Host "Host:   ${sftpHost}:$port"
 Write-Host "User:   $user"
 Write-Host ""
 
-# Build SFTP batch commands
-$batchPath = Join-Path $env:TEMP ("sftp_storefront_sync_" + [Guid]::NewGuid().ToString("N") + ".txt")
+# WinSCP script file (password will be prompted in PowerShell, not stored long-term)
+$scriptPath = Join-Path $env:TEMP ("winscp_storefront_" + $Target + ".txt")
 
-@"
-mkdir $remote
-cd $remote
+# Prompt in PowerShell so there is no "WinSCP password prompt timeout" issue
+$secure = Read-Host "Enter SFTP password for $user" -AsSecureString
+$sftpPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+  [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
+)
+
+$winScpScript = @"
+option batch continue
+option confirm off
+open sftp://${user}@${sftpHost}:$port/ -password="$sftpPassword"
+
+cd /wp-content/uploads/storefront/$Target
+
+rm *.webp
+
+option batch abort
+
 lcd "$local"
-mput *.webp
-bye
-"@ | Set-Content -Encoding ASCII -LiteralPath $batchPath
+put -nopreservetime *.webp
+exit
+"@
 
-# Run SFTP. This will prompt for your password unless you have key auth set up.
-& $sftpExe -P $port -b $batchPath "$user@$sftpHost"
+Set-Content -LiteralPath $scriptPath -Value $winScpScript -Encoding ASCII
+
+# Run WinSCP (it will prompt for password)
+& $winscp /script="$scriptPath"
+
+Remove-Item -LiteralPath $scriptPath -ErrorAction SilentlyContinue
 
 Write-Host ""
 Write-Host "=== Done ==="

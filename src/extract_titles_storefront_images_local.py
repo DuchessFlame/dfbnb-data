@@ -300,11 +300,14 @@ def main() -> int:
         ent_total = len(ent_edids)
 
         for i, ent in enumerate(ent_edids):
-            ent_lower = (str(ent) or "").strip().lower()
-            if not ent_lower:
-                continue
+ent_lower = (str(ent) or "").strip().lower()
+if not ent_lower:
+    continue
 
-            out_webp = out_store / f"{ent_lower}.webp"
+# Normalize storefront filename to match site convention (no "_entm_" token)
+ent_file = ent_lower.replace("_entm_", "_")
+
+out_webp = out_store / f"{ent_file}.webp"
             if out_webp.exists():
                 skipped += 1
                 continue

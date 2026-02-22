@@ -730,21 +730,31 @@ def parse_entitlement_edid_from_condition(cond: str) -> Optional[str]:
     return m.group(1).strip()
 
 
-def storefront_webp_url_from_extra(extra: Dict[str, Any]) -> Optional[str]:
+def storefront_webp_url_from_extra(kind: str, extra: Dict[str, Any]) -> Optional[str]:
     """
     Storefront WEBP URL for Titles pages.
 
-    IMPORTANT:
-    - Many titles are unlocked by claiming other entitlements (gameboards, framed art, plushies, bundles).
-    - We only want to show an image when the entitlement is actually a title entitlement:
-        Camp titles  -> entitlement contains "camptitles"
-        Player titles -> entitlement contains "playertitles"
-    - If no title entitlement exists, return None (no image).
+    Uploads:
+      /wp-content/uploads/storefront/titles-camp/<ent>.webp
+      /wp-content/uploads/storefront/titles-player/<ent>.webp
+
+    NOTE:
+      We normalize entitlement filenames by removing "_ENTM_" token so they match your
+      uploaded storefront filenames (no entm in the webp filename).
     """
     img_ent = (extra.get("imageEntitlementEdid") or "").strip()
-    if img_ent:
-        return "/wp-content/uploads/storefront/" + img_ent.lower() + ".webp"
-    return None
+    if not img_ent:
+        return None
+
+    if kind == "camp":
+        folder = "titles-camp"
+    elif kind == "player":
+        folder = "titles-player"
+    else:
+        return None
+
+    ent = img_ent.lower().replace("_entm_", "_")
+    return "/wp-content/uploads/storefront/" + folder + "/" + ent + ".webp"
 
 def parse_quest_name_from_condition(cond: str) -> Optional[str]:
     m = RE_QUOTED.search(cond)
@@ -942,17 +952,51 @@ def compute_unlock_and_rates(
                 ent_edids.append(ee)
         extra["entitlementEdids"] = ent_edids
 
-                # Pick a storefront image entitlement that is actually a TITLE entitlement.
-        # Do NOT use bundle items, gameboards, framed art, plushies, etc.
+                # Pick ONLY real title entitlements.
+        # Must contain camptitle or playertitle.
+        # Reject gameboards, framed art, plushies, bundles, icons.
+
+        def _is_valid_title_entitlement(edid: str, kind: str) -> bool:
+            if not edid:
+                return False
+
+            e = edid.lower()
+
+            # normalize common noise
+            e = e.replace("_entm_", "_")
+
+            # must contain correct title keyword
+            if kind == "camp":
+                if "camptitle" not in e:
+                    return False
+            elif kind == "player":
+                if "playertitle" not in e:
+                    return False
+            else:
+                return False
+
+            # reject non-title storefront items
+            blacklist = [
+                "gameboard",
+                "corkboard",
+                "framed",
+                "plushie",
+                "icon",
+                "bundle"
+            ]
+
+            for bad in blacklist:
+                if bad in e:
+                    return False
+
+            return True
+
         img_ent = ""
         for e in ent_edids:
-            e_l = (e or "").lower()
-            if kind == "camp" and "camptitles" in e_l:
+            if _is_valid_title_entitlement(e, kind):
                 img_ent = e
                 break
-            if kind == "player" and "playertitles" in e_l:
-                img_ent = e
-                break
+
         extra["imageEntitlementEdid"] = img_ent
 
         # Priority: Community -> MiniSeason -> SCORE season -> ATX -> other
@@ -1323,7 +1367,7 @@ def main() -> int:
         elif k_title in tradeable_by_book:
             tradeable = tradeable_by_book[k_title]
 
-        image_url = storefront_webp_url_from_extra(extra)
+        image_url = storefront_webp_url_from_extra("camp", extra)
 
         camp_items.append({
             "formId": form_id,
@@ -1387,7 +1431,7 @@ def main() -> int:
         elif k_title in tradeable_by_book:
             tradeable = tradeable_by_book[k_title]
 
-        image_url = storefront_webp_url_from_extra(extra)
+        image_url = storefront_webp_url_from_extra("player", extra)
 
         player_items.append({
             "formId": form_id,
@@ -1464,9 +1508,13 @@ def main() -> int:
             edid = (it.get("edid") or "").strip()
 
             dbg = it.get("debug") or {}
-            ent_edids = dbg.get("entitlementEdids") or []
-            if not isinstance(ent_edids, list):
-                ent_edids = [str(ent_edids)] if ent_edids else []
+
+            # Only use the selected title image entitlement
+            img_ent = dbg.get("imageEntitlementEdid")
+            if not img_ent:
+                continue
+
+            ent_edids = [img_ent]
 
             dds_paths: List[str] = []
             for e in ent_edids:
