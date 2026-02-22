@@ -22,7 +22,8 @@ function Assert-Path($p, $label) {
 Assert-Path $local "Local storefront folder"
 
 # Ensure sftp.exe exists (Windows OpenSSH Client feature)
-$sftpExe = (Get-Command sftp.exe -ErrorAction SilentlyContinue)?.Source
+$sftpCmd = Get-Command sftp.exe -ErrorAction SilentlyContinue
+$sftpExe = if ($sftpCmd) { $sftpCmd.Source } else { $null }
 if (-not $sftpExe) {
   throw "sftp.exe not found. Install Windows optional feature: OpenSSH Client."
 }
@@ -30,7 +31,7 @@ if (-not $sftpExe) {
 Write-Host "=== Storefront sync (sftp.exe) ==="
 Write-Host "Local:  $local"
 Write-Host "Remote: $remote"
-Write-Host "Host:   $sftpHost:$port"
+Write-Host "Host: ${sftpHost}:$port"
 Write-Host "User:   $user"
 Write-Host ""
 
