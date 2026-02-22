@@ -111,6 +111,44 @@ def build_filename_index(extracted_root: Path) -> Dict[str, Path]:
             idx[name] = f
     return idx
 
+    if __name__ == "__main__":
+    raise SystemExit(main())
+
+def _alt_dds_candidates(p: str) -> List[str]:
+    """
+    Generate common filename variants seen in ENTM exports.
+    Keeps folder path the same, only tweaks the basename.
+
+    - remove '_entm_' from filename
+    - swap '*_both_*' <-> '*_prefix_suffix_*' (S24 titles)
+    """
+    p = norm_rel_path(p)
+    if not p.endswith(".dds"):
+        return [p]
+
+    if "/" not in p:
+        return [p]
+
+    folder, name = p.rsplit("/", 1)
+    cands = [p]
+
+    if "_entm_" in name:
+        cands.append(folder + "/" + name.replace("_entm_", "_"))
+
+    cands.append(folder + "/" + name.replace("playertitles_both_", "playertitles_prefix_suffix_"))
+    cands.append(folder + "/" + name.replace("playertitles_prefix_suffix_", "playertitles_both_"))
+    cands.append(folder + "/" + name.replace("camptitles_both_", "camptitles_prefix_suffix_"))
+    cands.append(folder + "/" + name.replace("camptitles_prefix_suffix_", "camptitles_both_"))
+
+    out: List[str] = []
+    seen = set()
+    for x in cands:
+        x = norm_rel_path(x)
+        if x and x not in seen:
+            seen.add(x)
+            out.append(x)
+    return out
+
 def choose_dds_for_entitlement(
     ent_idx: int,
     ent_total: int,
@@ -283,7 +321,7 @@ def main() -> int:
                 if chosen_dds:
                     chosen_key = candidate_name
 
-                      if not chosen_dds:
+            if not chosen_dds:
                 # DEBUG: show what paths we tried for the first few misses
                 if len(missing_examples) < 5:
                     tried = []
@@ -318,42 +356,3 @@ def main() -> int:
             print(f"  - {m}")
 
     return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
-
-def _alt_dds_candidates(p: str) -> List[str]:
-    """
-    Generate common filename variants seen in ENTM exports.
-    Keeps folder path the same, only tweaks the basename.
-
-    - remove '_entm_' from filename
-    - swap '*_both_*' <-> '*_prefix_suffix_*' (S24 titles)
-    """
-    p = norm_rel_path(p)
-    if not p.endswith(".dds"):
-        return [p]
-
-    if "/" not in p:
-        return [p]
-
-    folder, name = p.rsplit("/", 1)
-    cands = [p]
-
-    if "_entm_" in name:
-        cands.append(folder + "/" + name.replace("_entm_", "_"))
-
-    cands.append(folder + "/" + name.replace("playertitles_both_", "playertitles_prefix_suffix_"))
-    cands.append(folder + "/" + name.replace("playertitles_prefix_suffix_", "playertitles_both_"))
-    cands.append(folder + "/" + name.replace("camptitles_both_", "camptitles_prefix_suffix_"))
-    cands.append(folder + "/" + name.replace("camptitles_prefix_suffix_", "camptitles_both_"))
-
-    out: List[str] = []
-    seen = set()
-    for x in cands:
-        x = norm_rel_path(x)
-        if x and x not in seen:
-            seen.add(x)
-            out.append(x)
-    return out
