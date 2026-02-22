@@ -732,15 +732,18 @@ def parse_entitlement_edid_from_condition(cond: str) -> Optional[str]:
 
 def storefront_webp_url_from_extra(extra: Dict[str, Any]) -> Optional[str]:
     """
-    Deterministic storefront WEBP URL (source of truth is the WebP generator output folder):
-      /wp-content/themes/dfbnb-child/site-data/json/uploads/fo76/storefront/<entitlement_edid_lower>.webp
-    Uses the first entitlementEdid when present.
+    Storefront WEBP URL for Titles pages.
+
+    IMPORTANT:
+    - Many titles are unlocked by claiming other entitlements (gameboards, framed art, plushies, bundles).
+    - We only want to show an image when the entitlement is actually a title entitlement:
+        Camp titles  -> entitlement contains "camptitles"
+        Player titles -> entitlement contains "playertitles"
+    - If no title entitlement exists, return None (no image).
     """
-    ent = extra.get("entitlementEdids")
-    if isinstance(ent, list) and ent:
-        edid = str(ent[0]).strip()
-        if edid:
-            return "/wp-content/uploads/storefront/" + edid.lower() + ".webp"
+    img_ent = (extra.get("imageEntitlementEdid") or "").strip()
+    if img_ent:
+        return "/wp-content/uploads/storefront/" + img_ent.lower() + ".webp"
     return None
 
 def parse_quest_name_from_condition(cond: str) -> Optional[str]:
@@ -938,6 +941,19 @@ def compute_unlock_and_rates(
             if ee:
                 ent_edids.append(ee)
         extra["entitlementEdids"] = ent_edids
+
+                # Pick a storefront image entitlement that is actually a TITLE entitlement.
+        # Do NOT use bundle items, gameboards, framed art, plushies, etc.
+        img_ent = ""
+        for e in ent_edids:
+            e_l = (e or "").lower()
+            if kind == "camp" and "camptitles" in e_l:
+                img_ent = e
+                break
+            if kind == "player" and "playertitles" in e_l:
+                img_ent = e
+                break
+        extra["imageEntitlementEdid"] = img_ent
 
         # Priority: Community -> MiniSeason -> SCORE season -> ATX -> other
         if any(RE_COMMUNITY.search(e) for e in ent_edids):
