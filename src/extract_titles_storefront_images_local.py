@@ -111,7 +111,12 @@ def build_filename_index(extracted_root: Path) -> Dict[str, Path]:
             idx[name] = f
     return idx
 
-def choose_dds_for_entitlement(ent_idx: int, ent_total: int, dds_paths: List[str], dds_index: Dict[str, Path]) -> Tuple[Optional[str], Optional[Path]]:
+def choose_dds_for_entitlement(
+    ent_idx: int,
+    ent_total: int,
+    dds_paths: List[str],
+    dds_index: Dict[str, Path]
+) -> Tuple[Optional[str], Optional[Path]]:
     """
     Deterministic pairing rules:
 
@@ -122,26 +127,39 @@ def choose_dds_for_entitlement(ent_idx: int, ent_total: int, dds_paths: List[str
     Else:
       - Try the DDS at same index if it exists
       - Else try all DDS candidates in order
-    """
-    normed = [norm_rel_path(p) for p in dds_paths if p]
 
-    if ent_total == len(normed) and ent_idx < len(normed):
-        primary = normed[ent_idx]
-        if primary in dds_index:
-            return primary, dds_index[primary]
-        for p in normed:
-            if p in dds_index:
-                return p, dds_index[p]
+    Variants are used as fallback without breaking index pairing.
+    """
+    base_normed: List[str] = [norm_rel_path(p) for p in dds_paths if p]
+
+    def _try_variants(p: str) -> Tuple[Optional[str], Optional[Path]]:
+        for v in _alt_dds_candidates(p):
+            if v in dds_index:
+                return v, dds_index[v]
         return None, None
 
-    if ent_idx < len(normed):
-        primary = normed[ent_idx]
-        if primary in dds_index:
-            return primary, dds_index[primary]
+    # 1) Strict index pairing if counts match
+    if ent_total == len(base_normed) and ent_idx < len(base_normed):
+        k, fp = _try_variants(base_normed[ent_idx])
+        if fp:
+            return k, fp
+        for p in base_normed:
+            k2, fp2 = _try_variants(p)
+            if fp2:
+                return k2, fp2
+        return None, None
 
-    for p in normed:
-        if p in dds_index:
-            return p, dds_index[p]
+    # 2) Try same-index if present
+    if ent_idx < len(base_normed):
+        k, fp = _try_variants(base_normed[ent_idx])
+        if fp:
+            return k, fp
+
+    # 3) Try all candidates in order
+    for p in base_normed:
+        k, fp = _try_variants(p)
+        if fp:
+            return k, fp
 
     return None, None
 
@@ -265,7 +283,14 @@ def main() -> int:
                 if chosen_dds:
                     chosen_key = candidate_name
 
-            if not chosen_dds:
+                      if not chosen_dds:
+                # DEBUG: show what paths we tried for the first few misses
+                if len(missing_examples) < 5:
+                    tried = []
+                    for p in dds_paths:
+                        tried.extend(_alt_dds_candidates(p))
+                    tried = tried[:10]
+                    print(f"[MISS] {ent_lower} tried: " + " | ".join(tried))
                 missing += 1
                 if len(missing_examples) < 25:
                     missing_examples.append(f"{ent_lower} -> (no extracted match)")
@@ -297,3 +322,38 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+def _alt_dds_candidates(p: str) -> List[str]:
+    """
+    Generate common filename variants seen in ENTM exports.
+    Keeps folder path the same, only tweaks the basename.
+
+    - remove '_entm_' from filename
+    - swap '*_both_*' <-> '*_prefix_suffix_*' (S24 titles)
+    """
+    p = norm_rel_path(p)
+    if not p.endswith(".dds"):
+        return [p]
+
+    if "/" not in p:
+        return [p]
+
+    folder, name = p.rsplit("/", 1)
+    cands = [p]
+
+    if "_entm_" in name:
+        cands.append(folder + "/" + name.replace("_entm_", "_"))
+
+    cands.append(folder + "/" + name.replace("playertitles_both_", "playertitles_prefix_suffix_"))
+    cands.append(folder + "/" + name.replace("playertitles_prefix_suffix_", "playertitles_both_"))
+    cands.append(folder + "/" + name.replace("camptitles_both_", "camptitles_prefix_suffix_"))
+    cands.append(folder + "/" + name.replace("camptitles_prefix_suffix_", "camptitles_both_"))
+
+    out: List[str] = []
+    seen = set()
+    for x in cands:
+        x = norm_rel_path(x)
+        if x and x not in seen:
+            seen.add(x)
+            out.append(x)
+    return out
