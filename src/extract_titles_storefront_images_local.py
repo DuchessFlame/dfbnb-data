@@ -52,7 +52,6 @@ def load_manifest(path: Path) -> dict:
     except Exception as e:
         die(f"Failed to parse manifest JSON: {path}\n{e}")
 
-
 def build_extracted_dds_index(extracted_textures_root: Path) -> Dict[str, Path]:
     """
     Scan extracted_textures_root (which should be ...\\textures) and build a map:
@@ -63,6 +62,7 @@ def build_extracted_dds_index(extracted_textures_root: Path) -> Dict[str, Path]:
         die(f"Extracted textures folder does not exist: {extracted_textures_root}")
 
     root = extracted_textures_root
+
     # If user passed ...\\textures, then relative paths are "atx/...".
     # We add "textures/" prefix to make it match manifest style.
     index: Dict[str, Path] = {}
@@ -79,7 +79,7 @@ def build_extracted_dds_index(extracted_textures_root: Path) -> Dict[str, Path]:
         except Exception:
             continue
 
-        rel = f.relative_to(root).as_posix()  # can be "textures/textures/atx/..." if root is higher
+        rel = f.relative_to(root).as_posix()
         rel = rel.replace("\\", "/").lower()
 
         # Strip redundant leading "textures/" segments so we end up with exactly one.
@@ -110,9 +110,6 @@ def build_filename_index(extracted_root: Path) -> Dict[str, Path]:
         if name not in idx:
             idx[name] = f
     return idx
-
-    if __name__ == "__main__":
-        raise SystemExit(main())
 
 def _alt_dds_candidates(p: str) -> List[str]:
     """
@@ -356,3 +353,6 @@ def main() -> int:
             print(f"  - {m}")
 
     return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())
