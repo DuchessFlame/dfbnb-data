@@ -1579,11 +1579,11 @@ def main() -> int:
             "chal": [os.path.basename(p) for p in args.chal],
             "cndf": [os.path.basename(p) for p in args.cndf],
             "entm": [os.path.basename(p) for p in args.entm] if args.entm else [],
-                      "seasons": os.path.basename(args.seasons) if args.seasons else None,
+            "seasons": os.path.basename(args.seasons) if args.seasons else None,
         },
     }
 
-        # ------------------------------------------------------------
+    # ------------------------------------------------------------
     # Storefront index (which WEBP files exist) for the website UI.
     # ------------------------------------------------------------
     from pathlib import Path
