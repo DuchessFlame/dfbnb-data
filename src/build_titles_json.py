@@ -1579,9 +1579,29 @@ def main() -> int:
             "chal": [os.path.basename(p) for p in args.chal],
             "cndf": [os.path.basename(p) for p in args.cndf],
             "entm": [os.path.basename(p) for p in args.entm] if args.entm else [],
-            "seasons": os.path.basename(args.seasons) if args.seasons else None,
+                      "seasons": os.path.basename(args.seasons) if args.seasons else None,
         },
     }
+
+        # ------------------------------------------------------------
+    # Storefront index (which WEBP files exist) for the website UI.
+    # ------------------------------------------------------------
+    from pathlib import Path
+
+    storefront_root = Path("export/storefront")
+    titles_player_dir = storefront_root / "titles-player"
+    titles_camp_dir = storefront_root / "titles-camp"
+
+    def list_webps(directory: Path) -> List[str]:
+        if not directory.exists():
+            return []
+        return sorted([p.name for p in directory.glob("*.webp")])
+
+    manifest["storefront"] = {
+        "titlesPlayer": list_webps(titles_player_dir),
+        "titlesCamp": list_webps(titles_camp_dir),
+    }
+    
     manifest_path = os.path.join(args.outdir, "titles_manifest.json")
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, separators=(",", ":"), indent=2)
