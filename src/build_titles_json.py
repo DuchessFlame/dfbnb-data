@@ -1582,24 +1582,33 @@ def main() -> int:
             "seasons": os.path.basename(args.seasons) if args.seasons else None,
         },
     }
-
+    
+        # ------------------------------------------------------------
+    # Storefront index (derived from images_tasks instead of filesystem)
+    # CI-safe: does not depend on export/storefront existing.
     # ------------------------------------------------------------
-    # Storefront index (which WEBP files exist) for the website UI.
-    # ------------------------------------------------------------
-    from pathlib import Path
 
-    storefront_root = Path("export/storefront")
-    titles_player_dir = storefront_root / "titles-player"
-    titles_camp_dir = storefront_root / "titles-camp"
+    titles_player_webps: List[str] = []
+    titles_camp_webps: List[str] = []
 
-    def list_webps(directory: Path) -> List[str]:
-        if not directory.exists():
-            return []
-        return sorted([p.name for p in directory.glob("*.webp")])
+    for task in images_tasks:
+        ent_ids = task.get("entitlementEdids") or []
+        if not ent_ids:
+            continue
+
+        # Normalize entitlement -> filename
+        ent = str(ent_ids[0]).strip().lower().replace("_entm_", "_")
+        filename = f"{ent}.webp"
+
+        tt = (task.get("titleType") or "").strip().lower()
+        if tt == "player":
+            titles_player_webps.append(filename)
+        elif tt == "camp":
+            titles_camp_webps.append(filename)
 
     manifest["storefront"] = {
-        "titlesPlayer": list_webps(titles_player_dir),
-        "titlesCamp": list_webps(titles_camp_dir),
+        "titlesPlayer": sorted(set(titles_player_webps)),
+        "titlesCamp": sorted(set(titles_camp_webps)),
     }
     
     manifest_path = os.path.join(args.outdir, "titles_manifest.json")
