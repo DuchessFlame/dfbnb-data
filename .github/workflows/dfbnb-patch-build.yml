@@ -86,10 +86,29 @@ jobs:
         run: |
           node tools/build-axolotl-rotations-json.mjs
 
-      # Home events
+            # Home events
       - name: Build home events JSON
         run: |
           node tools/build-home-events-json.mjs
+
+      # Curves JSON (index + lazy chunks)
+      - name: Build curves JSON
+        shell: bash
+        run: |
+          mkdir -p dist
+
+          CURV_POINTS_TSV="$(ls -1 tsv/CURV_Export_*_POINTS.tsv 2>/dev/null | sort | tail -n 1)"
+          if [ -z "$CURV_POINTS_TSV" ]; then
+            echo "ERROR: No CURV_Export_*_POINTS.tsv found in tsv/"
+            exit 1
+          fi
+
+          echo "Using CURV points TSV: $CURV_POINTS_TSV"
+
+          CURV_POINTS_TSV="$CURV_POINTS_TSV" \
+          CURV_OUT_DIR="dist/curves" \
+          CURV_CHUNK_MAX_CURVES="200" \
+          node scripts/build_curves_json.mjs
 
       # ---------- Commit dist once ----------
       - name: Commit dist outputs (if changed)
