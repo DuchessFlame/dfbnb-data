@@ -1,0 +1,37 @@
+name: Build Curves JSON
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tsv/CURV_Export_*_POINTS.tsv"
+      - "scripts/build_curves_json.mjs"
+      - ".github/workflows/build-curves-json.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build curves
+        run: |
+          node scripts/build_curves_json.mjs
+        env:
+          CURV_POINTS_TSV: tsv/CURV_Export_March_2026_POINTS.tsv
+          CURV_OUT_DIR: dist/curves
+          CURV_CHUNK_MAX_CURVES: "200"
+
+      - name: Commit dist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/curves
+          git commit -m "Build curves JSON" || echo "No changes to commit"
+          git push
