@@ -587,12 +587,21 @@ def glob_drop_rate_by_edid(glob_rows: List[Dict[str, str]], glob_edid: str) -> O
     return None
 
 def _glob_formid_from_lvli_global_field(s: str) -> Optional[str]:
-    # Example field: "0089EA90:SpawnChance_Cnone_ActivityCampTitle:GLOB"
     s = (s or "").strip()
     if not s:
         return None
+
+    # Format A: "0089EA90:Something:GLOB"
     m = re.match(r"^([0-9A-Fa-f]{8}):", s)
-    return m.group(1).upper() if m else None
+    if m:
+        return m.group(1).upper()
+
+    # Format B: "Name [GLOB:0085AD24]"
+    m2 = re.search(r"\[GLOB:([0-9A-Fa-f]{8})\]", s)
+    if m2:
+        return m2.group(1).upper()
+
+    return None
 
 
 def glob_drop_rate_by_formid(glob_rows: List[Dict[str, str]], glob_formid: str) -> Optional[str]:
