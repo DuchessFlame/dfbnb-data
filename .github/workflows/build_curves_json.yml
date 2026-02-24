@@ -5,12 +5,13 @@ on:
   push:
     paths:
       - "tsv/CURV_Export_*_POINTS.tsv"
-      - "scripts/build_curves_json.mjs"
-      - ".github/workflows/build-curves-json.yml"
+      - "tools/build_curves_json.mjs"
+      - ".github/workflows/build_curves_json.yml"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,17 +21,35 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Build curves
-        run: node tools/build_curves_json.mjs
-        env:
-          CURV_POINTS_TSV: tsv/CURV_Export_March_2026_POINTS.tsv
-          CURV_OUT_DIR: dist/curves
-          CURV_CHUNK_MAX_CURVES: "200"
+      - name: Locate latest CURV points TSV
+        shell: bash
+        run: |
+          FILE=$(ls -1 tsv/CURV_Export_*_POINTS.tsv 2>/dev/null | sort | tail -n 1)
+          if [ -z "$FILE" ]; then
+            echo "ERROR: No CURV_Export_*_POINTS.tsv found in tsv/"
+            exit 1
+          fi
+          echo "CURV_POINTS_TSV=$FILE" >> $GITHUB_ENV
+          echo "Using CURV points TSV: $FILE"
+
+      - name: Build curves JSON
+        shell: bash
+        run: |
+          mkdir -p dist
+          CURV_POINTS_TSV="${CURV_POINTS_TSV}" \
+          CURV_OUT_DIR="dist/curves" \
+          CURV_CHUNK_MAX_CURVES="200" \
+          node tools/build_curves_json.mjs
 
       - name: Commit dist
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dist/curves
-          git commit -m "Build curves JSON" || echo "No changes to commit"
-          git push
+          if git status --porcelain dist/curves | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/curves
+            git commit -m "Build curves JSON"
+            git push
+          else
+            echo "No dist/curves changes."
+          fi
