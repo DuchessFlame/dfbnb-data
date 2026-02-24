@@ -21,8 +21,7 @@ jobs:
           node-version: "20"
 
       - name: Build curves
-        run: |
-          node scripts/build_curves_json.mjs
+        run: node scripts/build_curves_json.mjs
         env:
           CURV_POINTS_TSV: tsv/CURV_Export_March_2026_POINTS.tsv
           CURV_OUT_DIR: dist/curves
