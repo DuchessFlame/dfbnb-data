@@ -428,6 +428,52 @@ def _find_row_by_formid(rows: List[Dict[str, str]], formid: str) -> Optional[Dic
             return r
     return None
 
+    def lvli_to_gmrw_parentquest(
+    lvli_refby_rows: List[Dict[str, str]],
+    gmrw_by_formid: Dict[str, str],
+    start_lvli_formid: str
+) -> Optional[str]:
+    """
+    Follow LVLI_Refs chain:
+      LVLI(FormID) -> LVLI_Refs.Ref* :GMRW (or :LVLI chaining) -> GMRW parent quest label.
+    Returns the same quoted label string that _gmrw_parentquest_from_row() produces.
+    """
+    start = (start_lvli_formid or "").strip().upper()
+    if not start:
+        return None
+
+    # Find LVLI ref-by row for this LVLI
+    def _find_lvli_refby(fid: str) -> Optional[Dict[str, str]]:
+        for r in lvli_refby_rows:
+            if (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper() == fid:
+                return r
+        return None
+
+    current = _find_lvli_refby(start)
+    if not current:
+        return None
+
+    seen = set()
+    while current:
+        # 1) If this LVLI is referenced by a GMRW, use the first one
+        gmrw_ids = _extract_formids_from_ref_fields(current, ":GMRW")
+        if gmrw_ids:
+            return gmrw_by_formid.get(gmrw_ids[0])
+
+        # 2) Otherwise follow LVLI chaining (LVLI referenced by another LVLI)
+        next_lvli_ids = _extract_formids_from_ref_fields(current, ":LVLI")
+        if not next_lvli_ids:
+            return None
+
+        nxt = next_lvli_ids[0].upper()
+        if nxt in seen:
+            return None
+        seen.add(nxt)
+
+        current = _find_lvli_refby(nxt)
+
+    return None
+
 def book_lvli_gmrw_parentquest(
     book_rows: List[Dict[str, str]],
     lvli_refby_rows: List[Dict[str, str]],
@@ -1142,9 +1188,9 @@ def compute_unlock_and_rates(
 
                 extra["cobjReferencedByLvli"] = lvli_formid
 
-                if lvli_formid:
-                    pq2 = gmrw_by_formid.get(lvli_formid)
-                    extra["cobjLvliToGmrwParentQuest"] = pq2
+               if lvli_formid:
+    pq2 = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, lvli_formid)
+    extra["cobjLvliToGmrwParentQuest"] = pq2
 
                     if pq2:
                         parsed2 = parse_parentquest_label(pq2)
