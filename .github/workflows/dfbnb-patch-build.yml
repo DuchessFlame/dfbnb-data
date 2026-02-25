@@ -108,7 +108,7 @@ jobs:
           CURV_POINTS_TSV="$CURV_POINTS_TSV" \
           CURV_OUT_DIR="dist/curves" \
           CURV_CHUNK_MAX_CURVES="200" \
-          node scripts/build_curves_json.mjs
+          node tools/build_curves_json.mjs
 
       # ---------- Commit dist once ----------
       - name: Commit dist outputs (if changed)
