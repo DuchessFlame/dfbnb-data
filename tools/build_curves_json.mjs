@@ -18,6 +18,10 @@ const INPUT = process.env.CURV_POINTS_TSV || "tsv/CURV_Export_March_2026_POINTS.
 const OUT_DIR = process.env.CURV_OUT_DIR || "dist/curves";
 const CHUNK_MAX_CURVES = Number(process.env.CURV_CHUNK_MAX_CURVES || 200);
 
+// Needed for perk-cards cross-reference output
+const CURV_TSV = process.env.CURV_TSV || "tsv/CURV_Export_March_2026.tsv";
+const PCRD_TSV = process.env.PCRD_TSV || "tsv/PCRD_Export_March_2026.tsv";
+
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
 function readText(filePath) { return fs.readFileSync(filePath, "utf8"); }
 function writeJson(filePath, data) {
@@ -87,6 +91,45 @@ function groupBy(arr, fn) {
   }, {});
 }
 
+function isRejectedEdid(edid) {
+  const s = String(edid || "").trim();
+  if (!s) return false;
+
+  const u = s.toUpperCase();
+
+  // Filter out cut/post stuff early (matches your naming patterns)
+  // Examples: "DEL POST ...", "DEL_POST_...", "ZZZ_...", "CUT_..."
+  if (u.startsWith("DEL")) return true;
+  if (u.startsWith("CUT")) return true;
+  if (u.startsWith("ZZZ")) return true;
+
+  return false;
+}
+
+function extractFormIdsFromRef(refText) {
+  const s = String(refText || "").trim();
+  if (!s) return [];
+
+  const out = [];
+
+  // Format A: "0089EA90:Something:GLOB"
+  const m = /^([0-9A-Fa-f]{8}):/.exec(s);
+  if (m) out.push(m[1].toUpperCase());
+
+  // Format B: "Name [GLOB:0085AD24]" or "[PERK:01234567]" etc
+  const re = /\[[A-Z0-9_]+:([0-9A-Fa-f]{8})\]/g;
+  let mm;
+  while ((mm = re.exec(s)) !== null) out.push(mm[1].toUpperCase());
+
+  // De-dupe
+  return Array.from(new Set(out));
+}
+
+function pushIfFormId(set, s) {
+  const id = normalizeFormId(s);
+  if (id) set.add(id);
+}
+
 function titleCaseCategory(id) {
   const map = {
     legendaryperks: "Legendary Perks",
@@ -120,6 +163,9 @@ function build() {
     const jsonPath = (r.JsonPath || r.jsonpath || r.Path || "").trim();
 
     if (!formId || x === null || y === null) continue;
+
+    // Stop CUT / DEL / ZZZ at the source
+    if (isRejectedEdid(edid)) continue;
 
     let curve = curvesMap.get(formId);
     if (!curve) {
@@ -204,6 +250,112 @@ function build() {
 
   writeJson(path.join(OUT_DIR, "meta.json"), meta);
   writeJson(path.join(OUT_DIR, "index.json"), { meta, categories, chunks: chunkIndex, curves: indexCurves });
+
+  // =========================================================
+  // PERK CARDS INDEX (rock-solid: PCRD link-set FormIDs vs CURV Ref# FormIDs)
+  // Output: dist/curves/perk_cards.json
+  // =========================================================
+
+  const absCurv = path.resolve(CURV_TSV);
+  const absPcrd = path.resolve(PCRD_TSV);
+
+  if (fs.existsSync(absCurv) && fs.existsSync(absPcrd)) {
+    const curvRows = parseTSV(readText(absCurv)).rows;
+    const pcrdRows = parseTSV(readText(absPcrd)).rows;
+
+    // Build: CURV_FormID -> referenced FormIDs (from Ref1..RefN)
+    const curvRefMap = new Map(); // curvId -> Set<FormID>
+    for (const r of curvRows) {
+      const curvId = normalizeFormId(r.CURV_FormID || r.FormID || r.formid);
+      const curvEdid = String(r.CURV_EDID || r.EDID || r.edid || "").trim();
+
+      if (!curvId) continue;
+      if (isRejectedEdid(curvEdid)) continue;
+
+      const refs = new Set();
+      const refCount = Number(r.ReferencedByCount || 0);
+
+      // Scan Ref1..RefN (don’t trust count blindly, scan keys too)
+      for (const [k, v] of Object.entries(r)) {
+        if (!/^Ref\d+$/.test(k)) continue;
+        for (const fid of extractFormIdsFromRef(v)) refs.add(fid);
+      }
+
+      if (refCount === 0 && refs.size === 0) continue;
+      curvRefMap.set(curvId, refs);
+    }
+
+    // Quick lookup for curve stubs (from indexCurves we just built)
+    const curveStubById = new Map(indexCurves.map(c => [c.id, c]));
+
+    // Build perk groups
+    const perkGroups = [];
+
+    for (const r of pcrdRows) {
+      const pcrdFormId = normalizeFormId(r.PCRD_FormID);
+      const pcrdEdid = String(r.PCRD_EDID || "").trim();
+      const pcrdName = String(r.MNAM_Name || r.PCRD_EDID || "").trim();
+
+      if (!pcrdFormId) continue;
+
+      // Build “link set” of IDs for this perk card
+      const linkSet = new Set();
+      pushIfFormId(linkSet, r.PCRD_FormID);
+      pushIfFormId(linkSet, r.PCDV_GLOB_FormID);
+
+      // Rank PERKs (up to 12 in your export)
+      for (let i = 1; i <= 12; i++) {
+        pushIfFormId(linkSet, r[`RankPERK_${i}_FormID`]);
+      }
+
+      // Find all curves whose CURV ref-set intersects this perk’s linkSet
+      const curveIds = [];
+      for (const [curvId, refSet] of curvRefMap.entries()) {
+        let hit = false;
+        for (const fid of linkSet) {
+          if (refSet.has(fid)) { hit = true; break; }
+        }
+        if (!hit) continue;
+        if (curveStubById.has(curvId)) curveIds.push(curvId);
+      }
+
+      // If no curves, skip (keeps perk list clean)
+      if (!curveIds.length) continue;
+
+      // Curves ABC by EDID (fallback to id)
+      const curves = curveIds
+        .map(id => curveStubById.get(id))
+        .filter(Boolean)
+        .sort((a, b) => (a.edid || "").localeCompare(b.edid || "") || a.id.localeCompare(b.id));
+
+      perkGroups.push({
+        pcrdFormId,
+        pcrdEdid,
+        name: pcrdName || pcrdEdid || pcrdFormId,
+        curves
+      });
+    }
+
+    // Perks ABC by display name
+    perkGroups.sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
+
+    // Limit chunks to only categories used by perk curves (keeps file smaller)
+    const usedCats = new Set();
+    for (const g of perkGroups) for (const c of g.curves) usedCats.add(c.category);
+
+    const perkChunks = {};
+    for (const cat of usedCats) perkChunks[cat] = chunkIndex[cat] || [];
+
+    writeJson(path.join(OUT_DIR, "perk_cards.json"), {
+      meta,
+      perks: perkGroups,
+      chunks: perkChunks
+    });
+
+    console.log(`[build_curves_json] perk_cards.json: ${perkGroups.length} perks`);
+  } else {
+    console.log(`[build_curves_json] perk_cards.json skipped (missing CURV_TSV or PCRD_TSV)`);
+  }
 
   console.log(`[build_curves_json] OK`);
   console.log(`- input: ${INPUT}`);
