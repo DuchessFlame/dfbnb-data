@@ -428,7 +428,7 @@ def _find_row_by_formid(rows: List[Dict[str, str]], formid: str) -> Optional[Dic
             return r
     return None
 
-    def lvli_to_gmrw_parentquest(
+def lvli_to_gmrw_parentquest(
     lvli_refby_rows: List[Dict[str, str]],
     gmrw_by_formid: Dict[str, str],
     start_lvli_formid: str
