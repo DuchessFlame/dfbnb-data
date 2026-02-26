@@ -308,19 +308,47 @@ function build() {
         pushIfFormId(linkSet, r[`RankPERK_${i}_FormID`]);
       }
 
-      // Find all curves whose CURV ref-set intersects this perk’s linkSet
-      const curveIds = [];
-      for (const [curvId, refSet] of curvRefMap.entries()) {
-        let hit = false;
-        for (const fid of linkSet) {
-          if (refSet.has(fid)) { hit = true; break; }
-        }
-        if (!hit) continue;
-        if (curveStubById.has(curvId)) curveIds.push(curvId);
-      }
+// Find all curves whose CURV ref-set intersects this perk’s linkSet
+const curveIdsSet = new Set();
 
-      // If no curves, skip (keeps perk list clean)
-      if (!curveIds.length) continue;
+for (const [curvId, refSet] of curvRefMap.entries()) {
+  let hit = false;
+  for (const fid of linkSet) {
+    if (refSet.has(fid)) { hit = true; break; }
+  }
+  if (!hit) continue;
+  if (curveStubById.has(curvId)) curveIdsSet.add(curvId);
+}
+
+// ---------------------------------------------------------
+// Fallback: name-prefix match for Perks curves
+// Why: most perk-related curves in your POINTS TSV live under /json/Perks/
+// but CURV_Export ReferencedBy does NOT reliably include PERK/PCRD refs.
+// Example curve EDIDs: CapCollectorBonus, JunkShieldScaleBonus, NerdRageBonus, etc.
+// ---------------------------------------------------------
+
+const normWord = (s) => String(s || "")
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, "");
+
+const perkKey = normWord(pcrdName || pcrdEdid || "");
+if (perkKey) {
+  // Prefer matching against curves categorized as "perks"
+  // (category comes from JsonPath: .../json/Perks/...)
+  for (const stub of indexCurves) {
+    if (!stub || stub.category !== "perks") continue;
+    const cKey = normWord(stub.edid || "");
+    if (!cKey) continue;
+
+    // Starts-with match: "CapCollector" -> "CapCollectorBonus"
+    if (cKey.startsWith(perkKey)) curveIdsSet.add(stub.id);
+  }
+}
+
+// If no curves at all, skip (keeps perk list clean)
+if (!curveIdsSet.size) continue;
+
+const curveIds = Array.from(curveIdsSet);
 
       // Curves ABC by EDID (fallback to id)
       const curves = curveIds
