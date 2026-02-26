@@ -1188,9 +1188,13 @@ def compute_unlock_and_rates(
 
                 extra["cobjReferencedByLvli"] = lvli_formid
 
-               if lvli_formid:
-    pq2 = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, lvli_formid)
-    extra["cobjLvliToGmrwParentQuest"] = pq2
+                if lvli_formid:
+                    pq2 = lvli_to_gmrw_parentquest(
+                        lvli_refby_rows,
+                        gmrw_by_formid,
+                        lvli_formid
+                    )
+                    extra["cobjLvliToGmrwParentQuest"] = pq2
 
                     if pq2:
                         parsed2 = parse_parentquest_label(pq2)
