@@ -116,9 +116,14 @@ jobs:
           if git status --porcelain dist/ | grep -q .; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
+
             git add dist/
             git commit -m "Patch build: update dist outputs"
-            git push
+
+            git fetch origin main
+            git pull --rebase origin main
+
+            git push origin main
           else
             echo "No dist changes."
           fi

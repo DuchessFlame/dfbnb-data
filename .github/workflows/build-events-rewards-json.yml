@@ -3,6 +3,10 @@ name: Build Events Rewards JSON
 permissions:
   contents: write
 
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
 on:
   workflow_dispatch:
   push:
@@ -26,6 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: true
 
       - name: Setup Python
@@ -42,6 +47,13 @@ jobs:
         run: |
           git config user.name "dfbnb-bot"
           git config user.email "dfbnb-bot@users.noreply.github.com"
+
           git add dist/events_rewards.json dist/events_rewards_by_page.json dist/patchlog_latest_df_events.json
-          git commit -m "Build events rewards + by-page + patchlog" || echo "No changes to commit"
-          git push
+          git diff --cached --quiet && echo "No dist changes to commit" && exit 0
+
+          git commit -m "Build events rewards + by-page + patchlog"
+
+          git fetch origin main
+          git pull --rebase origin main
+
+          git push origin main
