@@ -37,11 +37,11 @@ jobs:
         run: |
           python src/build_events_rewards_json.py
           test -f dist/events_rewards.json
-
+          
       - name: Commit dist output
         run: |
           git config user.name "dfbnb-bot"
           git config user.email "dfbnb-bot@users.noreply.github.com"
-          git add dist/events_rewards.json
-          git commit -m "Build events_rewards.json" || echo "No changes to commit"
+          git add dist/events_rewards.json dist/events_rewards_by_page.json dist/patchlog_latest_df_events.json
+          git commit -m "Build events rewards + by-page + patchlog" || echo "No changes to commit"
           git push
