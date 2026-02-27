@@ -1191,21 +1191,80 @@ def compute_unlock_and_rates(
                                     # Fallback: resolve via LVLI that references this COBJ (COBJ "Referenced By" list),
             # then map LVLI FormID -> GMRW ParentQuestDisplay.
             if not how_from_parentquest:
-                lvli_formid = None
+                # Collect all LVLI candidates and skip cut-content lists (DEL/CUT/POST/ZZZ/ZZZZ)
+                lvli_candidates: List[str] = []
 
-                # COBJ export provides LVLI refs in ReferencedBy_Flat and Ref_* columns.
-                # We accept the first LVLI we find.
+                # Helper: try to get LVLI EDID from:
+                #  1) the string itself (often "SomeEdid [LVLI:DEADBEEF]")
+                #  2) lvli_list_rows lookup by FormID
+                def _lvli_edid_for(fid8: str, s: str = "") -> str:
+                    # (1) parse "EDID [LVLI:XXXXXXXX]" if present
+                    if s:
+                        m_ed = re.search(r"\b([A-Za-z0-9_]+)\s*\[LVLI:[0-9A-Fa-f]{8}\]", s)
+                        if m_ed:
+                            return (m_ed.group(1) or "").strip()
+
+                    # (2) lookup in LVLI list rows
+                    f = (fid8 or "").strip().upper()
+                    if not f:
+                        return ""
+                    for rr in lvli_list_rows:
+                        rr_f = (rr.get("LVLI_FormID") or rr.get("FormID") or "").strip().upper()
+                        if rr_f == f:
+                            return (rr.get("LVLI_EDID") or rr.get("EDID") or "").strip()
+                    return ""
+
+                # Pull candidates from any field containing [LVLI:XXXXXXXX]
                 for k, v in cobj_row.items():
                     if not v:
                         continue
                     s = str(v)
-                    if "LVLI:" in s and "[" in s and "]" in s:
-                        m = re.search(r"\[([0-9A-F]{8})\]", s, re.IGNORECASE)
-                        if m:
-                            lvli_formid = m.group(1).upper()
-                            break
+
+                    # Match [LVLI:XXXXXXXX] (preferred)
+                    for m in re.finditer(r"\[LVLI:([0-9A-Fa-f]{8})\]", s):
+                        fid = m.group(1).upper()
+                        lvli_candidates.append(fid)
+
+                    # Also support odd legacy shapes like "[XXXXXXXX]" when LVLI: token is present
+                    if "LVLI:" in s:
+                        m2 = re.search(r"\[([0-9A-Fa-f]{8})\]", s)
+                        if m2:
+                            lvli_candidates.append(m2.group(1).upper())
+
+                # De-dupe preserving order
+                seen = set()
+                lvli_candidates = [x for x in lvli_candidates if not (x in seen or seen.add(x))]
+
+                # Filter out cut-content LVLIs by EDID
+                filtered: List[str] = []
+                for fid in lvli_candidates:
+                    ed = _lvli_edid_for(fid)
+                    if ed and starts_cut(ed):
+                        continue
+                    filtered.append(fid)
+
+                extra["cobjLvliCandidatesAll"] = lvli_candidates
+                extra["cobjLvliCandidatesFiltered"] = filtered
+
+                # Pick the first LVLI that resolves a ParentQuest label; otherwise keep first filtered
+                lvli_formid = None
+                pq2 = None
+
+                for fid in filtered:
+                    pq_try = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, fid)
+                    if not pq_try:
+                        pq_try = gmrw_by_formid.get(fid)
+                    if pq_try:
+                        lvli_formid = fid
+                        pq2 = pq_try
+                        break
+
+                if not lvli_formid and filtered:
+                    lvli_formid = filtered[0]
 
                 extra["cobjReferencedByLvli"] = lvli_formid
+                if pq2:
+                    extra["cobjLvliToGmrwParentQuest"] = pq2
 
                 if lvli_formid:
                     pq2 = lvli_to_gmrw_parentquest(
