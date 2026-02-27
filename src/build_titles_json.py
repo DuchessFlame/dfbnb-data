@@ -940,43 +940,61 @@ def compute_unlock_and_rates(
                     how = "Complete the following challenges to unlock this title:\n" + "\n".join(f"- {n}" for n in ordered)
                     return how, "100%", None, "challenge", extra
 
-# --- Challenges: HasCompletedChallenge -> CHAL by FormID ---
-if RE_HAS_COMPLETED_CHAL.search(joined):
-    chal_fid = None
-    for c in conds:
-        if "HasCompletedChallenge" not in c:
-            continue
-        chal_fid = parse_chal_formid_from_condition(c) or chal_fid
-    if chal_fid and chal_fid in chal_by_id:
-        row = chal_by_id[chal_fid]
-        full = (row.get("FULL") or "").strip() or (row.get("EDID") or "").strip()
-        cnam = (row.get("CNAM") or "").strip() or "Challenge"
-        extra.update({"chalFormId": chal_fid, "chalEdid": (row.get("EDID") or "").strip(), "chalCNAM": cnam, "chalFULL": full})
+    # --- Challenges: HasCompletedChallenge -> CHAL by FormID ---
+    if RE_HAS_COMPLETED_CHAL.search(joined):
+        chal_fid = None
+        for c in conds:
+            if "HasCompletedChallenge" not in c:
+                continue
+            chal_fid = parse_chal_formid_from_condition(c) or chal_fid
 
-        if cnam.lower() == "challenge":
-            return f"Complete the Challenge: {full}", "100%", None, "challenge", extra
-        return f"Complete the {cnam} Challenge: {full}", "100%", None, "challenge", extra
-    return "Complete the Challenge.", "100%", None, "challenge", extra
+        if chal_fid and chal_fid in chal_by_id:
+            row = chal_by_id[chal_fid]
+            full = (row.get("FULL") or "").strip() or (row.get("EDID") or "").strip()
+            cnam = (row.get("CNAM") or "").strip() or "Challenge"
+            extra.update({
+                "chalFormId": chal_fid,
+                "chalEdid": (row.get("EDID") or "").strip(),
+                "chalCNAM": cnam,
+                "chalFULL": full
+            })
+
+            if cnam.lower() == "challenge":
+                return f"Complete the Challenge: {full}", "100%", None, "challenge", extra
+            return f"Complete the {cnam} Challenge: {full}", "100%", None, "challenge", extra
+
+        return "Complete the Challenge.", "100%", None, "challenge", extra
 
     # --- CNDF-based challenge: IsTrueForConditionForm(Challenge_*_ConditionForm) -> CHAL by EDID ---
     if RE_IS_TRUE_CNDF.search(joined):
         for c in conds:
             if "IsTrueForConditionForm" not in c:
                 continue
+
             m = re.search(r"IsTrueForConditionForm\(\s*([^\s\)]+)", c, flags=re.IGNORECASE)
             if not m:
                 continue
+
             arg = m.group(1).strip()
-            if arg.endswith("_ConditionForm"):
-                chal_edid = arg[:-len("_ConditionForm")]
-                if chal_edid.lower() in chal_by_edid:
-                    row = chal_by_edid[chal_edid.lower()]
-                    full = (row.get("FULL") or "").strip() or chal_edid
-                    cnam = (row.get("CNAM") or "").strip() or "Challenge"
-                    extra.update({"chalEdid": chal_edid, "chalCNAM": cnam, "chalFULL": full})
-if cnam.lower() == "challenge":
-    return f"Complete the Challenge: {full}", "100%", None, "challenge", extra
-return f"Complete the {cnam} Challenge: {full}", "100%", None, "challenge", extra
+            if not arg.endswith("_ConditionForm"):
+                continue
+
+            chal_edid = arg[:-len("_ConditionForm")]
+            row = chal_by_edid.get(chal_edid.lower())
+            if not row:
+                continue
+
+            full = (row.get("FULL") or "").strip() or chal_edid
+            cnam = (row.get("CNAM") or "").strip() or "Challenge"
+            extra.update({
+                "chalEdid": chal_edid,
+                "chalCNAM": cnam,
+                "chalFULL": full
+            })
+
+            if cnam.lower() == "challenge":
+                return f"Complete the Challenge: {full}", "100%", None, "challenge", extra
+            return f"Complete the {cnam} Challenge: {full}", "100%", None, "challenge", extra
         # else: fall through (IsTrueForConditionForm used for other things)
 
     # --- Quests ---
@@ -1189,26 +1207,26 @@ return f"Complete the {cnam} Challenge: {full}", "100%", None, "challenge", extr
 
                 extra["cobjReferencedByLvli"] = lvli_formid
 
-if lvli_formid:
-    pq2 = lvli_to_gmrw_parentquest(
-        lvli_refby_rows,
-        gmrw_by_formid,
-        lvli_formid
-    )
+                if lvli_formid:
+                    pq2 = lvli_to_gmrw_parentquest(
+                        lvli_refby_rows,
+                        gmrw_by_formid,
+                        lvli_formid
+                    )
 
-    # Extra fallback: if LVLI_Refs has no :GMRW refs, try resolving directly from the LVLI FormID
-    # using the "any ref formid -> parentquest" map.
-    if not pq2:
-        pq2 = gmrw_by_formid.get(lvli_formid)
+                    # Extra fallback: if LVLI_Refs has no :GMRW refs, try resolving directly from the LVLI FormID
+                    # using the "any ref formid -> parentquest" map.
+                    if not pq2:
+                        pq2 = gmrw_by_formid.get(lvli_formid)
 
-    extra["cobjLvliToGmrwParentQuest"] = pq2
+                    extra["cobjLvliToGmrwParentQuest"] = pq2
 
-    if pq2:
-        parsed2 = parse_parentquest_label(pq2)
-        if parsed2:
-            lk2, ln2 = parsed2
-            how_from_parentquest = f"Complete the {lk2}: {ln2}"
-            how_event = how_from_parentquest
+                    if pq2:
+                        parsed2 = parse_parentquest_label(pq2)
+                        if parsed2:
+                            lk2, ln2 = parsed2
+                            how_from_parentquest = f"Complete the {lk2}: {ln2}"
+                            how_event = how_from_parentquest
 
             extra.update({
                 "cobjGNAM_EDID": gnam_edid,
