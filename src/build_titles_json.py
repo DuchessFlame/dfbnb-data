@@ -1315,12 +1315,12 @@ def compute_unlock_and_rates(
                     extra["cobjLvliToGmrwParentQuest"] = pq2
 
                 if lvli_formid:
-                   pq2 = lvli_to_gmrw_parentquest(
-    lvli_refby_rows,
-    gmrw_by_formid,
-    lvli_formid,
-    lvli_list_rows
-)
+                    pq2 = lvli_to_gmrw_parentquest(
+                        lvli_refby_rows,
+                        gmrw_by_formid,
+                        lvli_formid,
+                        lvli_list_rows
+                    )
 
                     # Extra fallback: if LVLI_Refs has no :GMRW refs, try resolving directly from the LVLI FormID
                     # using the "any ref formid -> parentquest" map.
