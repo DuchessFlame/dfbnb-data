@@ -2,13 +2,19 @@ name: Build Titles JSON Camp Title Manifest
 
 on:
   workflow_dispatch:
+
+  push:
     paths:
       - "tsv/**"
       - "src/**"
       - ".github/workflows/update-camp-titles-manifest.yml"
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -17,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
