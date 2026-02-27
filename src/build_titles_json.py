@@ -431,46 +431,81 @@ def _find_row_by_formid(rows: List[Dict[str, str]], formid: str) -> Optional[Dic
 def lvli_to_gmrw_parentquest(
     lvli_refby_rows: List[Dict[str, str]],
     gmrw_by_formid: Dict[str, str],
-    start_lvli_formid: str
+    start_lvli_formid: str,
+    lvli_list_rows: Optional[List[Dict[str, str]]] = None,
 ) -> Optional[str]:
     """
-    Follow LVLI_Refs chain:
-      LVLI(FormID) -> LVLI_Refs.Ref* :GMRW (or :LVLI chaining) -> GMRW parent quest label.
-    Returns the same quoted label string that _gmrw_parentquest_from_row() produces.
+    Recursive/BFS resolution:
+
+      Start LVLI
+        -> check if referenced by GMRW (Ref* endswith :GMRW)
+        -> otherwise enqueue all parent LVLIs (Ref* endswith :LVLI)
+        -> repeat breadth-first until a GMRW label is found.
+
+    Rules:
+      - Skip cut-content LVLIs (DEL/CUT/POST/ZZZ/ZZZZ) when we can resolve EDID.
+      - Prefer nearest resolvable parent (BFS).
+      - Return the quoted ParentQuest label string from gmrw_by_formid.
     """
     start = (start_lvli_formid or "").strip().upper()
     if not start:
         return None
 
+    # Build quick lookup: LVLI FormID -> EDID (for cut filtering)
+    lvli_edid_by_formid: Dict[str, str] = {}
+    if lvli_list_rows:
+        for r in lvli_list_rows:
+            fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+            if not fid:
+                continue
+            ed = (r.get("LVLI_EDID") or r.get("EDID") or "").strip()
+            if ed:
+                lvli_edid_by_formid[fid] = ed
+
+    def _is_cut_lvli(fid8: str) -> bool:
+        ed = lvli_edid_by_formid.get((fid8 or "").strip().upper(), "")
+        return bool(ed) and starts_cut(ed)
+
     # Find LVLI ref-by row for this LVLI
     def _find_lvli_refby(fid: str) -> Optional[Dict[str, str]]:
+        f = (fid or "").strip().upper()
+        if not f:
+            return None
         for r in lvli_refby_rows:
-            if (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper() == fid:
+            if (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper() == f:
                 return r
         return None
 
-    current = _find_lvli_refby(start)
-    if not current:
-        return None
+    # BFS queue
+    queue: List[str] = [start]
+    seen: set = set([start])
 
-    seen = set()
-    while current:
-        # 1) If this LVLI is referenced by a GMRW, use the first one
-        gmrw_ids = _extract_formids_from_ref_fields(current, ":GMRW")
-        if gmrw_ids:
-            return gmrw_by_formid.get(gmrw_ids[0])
+    while queue:
+        cur = queue.pop(0)
 
-        # 2) Otherwise follow LVLI chaining (LVLI referenced by another LVLI)
-        next_lvli_ids = _extract_formids_from_ref_fields(current, ":LVLI")
-        if not next_lvli_ids:
-            return None
+        # Skip cut lists if we can identify them
+        if _is_cut_lvli(cur):
+            continue
 
-        nxt = next_lvli_ids[0].upper()
-        if nxt in seen:
-            return None
-        seen.add(nxt)
+        refby = _find_lvli_refby(cur)
+        if not refby:
+            continue
 
-        current = _find_lvli_refby(nxt)
+        # 1) If referenced by a GMRW, return the first resolvable label
+        gmrw_ids = _extract_formids_from_ref_fields(refby, ":GMRW")
+        for gid in gmrw_ids:
+            pq = gmrw_by_formid.get(gid)
+            if pq:
+                return pq
+
+        # 2) Otherwise enqueue ALL parent LVLIs (not just the first)
+        parent_lvli_ids = _extract_formids_from_ref_fields(refby, ":LVLI")
+        for pid in parent_lvli_ids:
+            pid = (pid or "").strip().upper()
+            if not pid or pid in seen:
+                continue
+            seen.add(pid)
+            queue.append(pid)
 
     return None
 
@@ -506,8 +541,21 @@ def book_lvli_gmrw_parentquest(
     if not lvli_ids:
         return None, dbg
 
-    lvli_id = lvli_ids[0]
-    dbg["lvliPicked"] = lvli_id
+    # Try ALL LVLI candidates from the BOOK refs (BFS up the chain)
+    pq = None
+    picked_lvli = None
+    picked_gmrw = None
+
+    for lvli_id in lvli_ids:
+        pq_try = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, lvli_id)
+        if pq_try:
+            pq = pq_try
+            picked_lvli = lvli_id
+            break
+
+    dbg["lvliPicked"] = picked_lvli
+    dbg["gmrwLabelFound"] = bool(pq)
+    return pq, dbg
 
     lvli_refby = None
     for r in lvli_refby_rows:
@@ -1251,7 +1299,7 @@ def compute_unlock_and_rates(
                 pq2 = None
 
                 for fid in filtered:
-                    pq_try = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, fid)
+                    pq_try = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, fid, lvli_list_rows)
                     if not pq_try:
                         pq_try = gmrw_by_formid.get(fid)
                     if pq_try:
@@ -1267,11 +1315,12 @@ def compute_unlock_and_rates(
                     extra["cobjLvliToGmrwParentQuest"] = pq2
 
                 if lvli_formid:
-                    pq2 = lvli_to_gmrw_parentquest(
-                        lvli_refby_rows,
-                        gmrw_by_formid,
-                        lvli_formid
-                    )
+                   pq2 = lvli_to_gmrw_parentquest(
+    lvli_refby_rows,
+    gmrw_by_formid,
+    lvli_formid,
+    lvli_list_rows
+)
 
                     # Extra fallback: if LVLI_Refs has no :GMRW refs, try resolving directly from the LVLI FormID
                     # using the "any ref formid -> parentquest" map.
@@ -1454,6 +1503,9 @@ def main() -> int:
         if ("EntryIndex" in headers) or ("LVLO_Reference" in headers):
             lvli_entry_rows.extend(rows)
             continue
+
+        # List file: LVLI_List.tsv (everything else LVLI-ish)
+        lvli_list_rows.extend(rows)
 
     # build lookup maps AFTER all TSVs are loaded
     tradeable_by_book = book_tradeable_map(book_rows)
