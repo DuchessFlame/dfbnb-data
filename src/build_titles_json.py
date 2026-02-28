@@ -516,25 +516,20 @@ def book_lvli_gmrw_parentquest(
     book_formid: str,
     lvli_list_rows: Optional[List[Dict[str, str]]] = None,
 ) -> Tuple[Optional[str], Dict[str, Any]]:
-    """
-    Strict path:
-      BOOK(FormID) -> BOOK.Ref* :LVLI -> LVLI_ReferencedBy.Ref* :GMRW -> GMRW.Ref* contains "Event:"/"Activity:"
-    Returns (parentquest_string_or_None, debug_dict)
-    """
+
     dbg: Dict[str, Any] = {
         "bookFormId": (book_formid or "").strip().upper(),
         "bookFound": False,
         "lvliIds": [],
+        "lvliIdsFiltered": [],
         "lvliPicked": None,
-        "lvliRefByFound": False,
-        "gmrwIds": [],
-        "gmrwPicked": None,
         "gmrwLabelFound": False,
     }
 
     book_row = _find_row_by_formid(book_rows, book_formid)
     if not book_row:
         return None, dbg
+
     dbg["bookFound"] = True
 
     lvli_ids = _extract_formids_from_ref_fields(book_row, ":LVLI")
@@ -542,90 +537,38 @@ def book_lvli_gmrw_parentquest(
     if not lvli_ids:
         return None, dbg
 
-# Build quick lookup: LVLI FormID -> EDID (for cut filtering)
-lvli_edid_by_formid: Dict[str, str] = {}
-if lvli_list_rows:
-    for r in lvli_list_rows:
-        fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
-        if not fid:
-            continue
-        ed = (r.get("LVLI_EDID") or r.get("EDID") or "").strip()
-        if ed:
-            lvli_edid_by_formid[fid] = ed
+    # Build EDID lookup for cut filtering
+    lvli_edid_by_formid: Dict[str, str] = {}
+    if lvli_list_rows:
+        for r in lvli_list_rows:
+            fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+            if not fid:
+                continue
+            ed = (r.get("LVLI_EDID") or r.get("EDID") or "").strip()
+            if ed:
+                lvli_edid_by_formid[fid] = ed
 
-def _is_cut_lvli(fid8: str) -> bool:
-    ed = lvli_edid_by_formid.get((fid8 or "").strip().upper(), "")
-    return bool(ed) and starts_cut(ed)
+    def _is_cut_lvli(fid8: str) -> bool:
+        ed = lvli_edid_by_formid.get((fid8 or "").strip().upper(), "")
+        return bool(ed) and starts_cut(ed)
 
-# Filter LVLI candidates: skip DEL/CUT/POST/ZZZ if we can identify them
-lvli_ids_filtered: List[str] = []
-for fid in lvli_ids:
-    if _is_cut_lvli(fid):
-        continue
-    lvli_ids_filtered.append(fid)
+    lvli_ids_filtered = [fid for fid in lvli_ids if not _is_cut_lvli(fid)]
+    dbg["lvliIdsFiltered"] = lvli_ids_filtered
 
-dbg["lvliIdsFiltered"] = lvli_ids_filtered
-
-# Try ALL LVLI candidates from the BOOK refs (BFS up the chain)
-pq = None
-picked_lvli = None
-
-for lvli_id in (lvli_ids_filtered or lvli_ids):
-    pq_try = lvli_to_gmrw_parentquest(
-        lvli_refby_rows,
-        gmrw_by_formid,
-        lvli_id,
-        lvli_list_rows
-    )
-    if pq_try:
-        pq = pq_try
-        picked_lvli = lvli_id
-        break
-
-    dbg["lvliPicked"] = picked_lvli
-    dbg["gmrwLabelFound"] = bool(pq)
-    return pq, dbg
-
-        # Follow ref-by chain until we hit a GMRW (some lists are referenced by another LVLI first)
-    seen_lvli = set()
-    current = lvli_refby
-
-    while True:
-        # 1) Try GMRW refs at this level
-        gmrw_ids = _extract_formids_from_ref_fields(current, ":GMRW")
-        if gmrw_ids:
-            dbg["gmrwIds"] = gmrw_ids
-            gmrw_id = gmrw_ids[0]
-            dbg["gmrwPicked"] = gmrw_id
-
-            pq = gmrw_by_formid.get(gmrw_id)
-            dbg["gmrwLabelFound"] = bool(pq)
+    # Try filtered first, fallback to original if needed
+    for lvli_id in (lvli_ids_filtered or lvli_ids):
+        pq = lvli_to_gmrw_parentquest(
+            lvli_refby_rows,
+            gmrw_by_formid,
+            lvli_id,
+            lvli_list_rows,
+        )
+        if pq:
+            dbg["lvliPicked"] = lvli_id
+            dbg["gmrwLabelFound"] = True
             return pq, dbg
 
-        # 2) Otherwise try LVLI refs (chain)
-        next_lvli_ids = _extract_formids_from_ref_fields(current, ":LVLI")
-        if not next_lvli_ids:
-            dbg["gmrwIds"] = []
-            return None, dbg
-
-        next_lvli = next_lvli_ids[0].upper()
-        if next_lvli in seen_lvli:
-            dbg["gmrwIds"] = []
-            return None, dbg
-
-        seen_lvli.add(next_lvli)
-
-        # Find the next ref-by row and continue
-        nxt = None
-        for r in lvli_refby_rows:
-            if (r.get("LVLI_FormID") or "").strip().upper() == next_lvli:
-                nxt = r
-                break
-        if not nxt:
-            dbg["gmrwIds"] = []
-            return None, dbg
-
-        current = nxt
+    return None, dbg
 
 def chal_maps(chal_rows: List[Dict[str, str]]) -> Tuple[Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]:
     by_id: Dict[str, Dict[str, str]] = {}
