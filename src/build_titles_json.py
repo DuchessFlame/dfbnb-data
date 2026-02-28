@@ -1213,13 +1213,15 @@ def compute_unlock_and_rates(
             cut_idx = tok2.upper().find("_ENTM_")
             if cut_idx != -1:
                 tok2 = tok2[:cut_idx]
-            tok2 = re.sub(r"^\\d{4}_", "", tok2)  # drop leading year
-            name = prettify_token_words(tok2)
-            extra.update({"miniSeasonRaw": tok2, "miniSeasonName": name})
+            # Capture year BEFORE stripping it
             year = None
             my = re.match(r"^(\d{4})_", tok2)
             if my:
                 year = my.group(1)
+
+            tok2 = re.sub(r"^\\d{4}_", "", tok2)  # drop leading year
+            name = prettify_token_words(tok2)
+            extra.update({"miniSeasonRaw": tok2, "miniSeasonName": name, "miniSeasonYear": year})
 
             if year:
                 return f"Purchase with tickets from the\n{name} Mini Season board ({year}).", "100%", None, "miniseason", extra
@@ -1249,7 +1251,9 @@ def compute_unlock_and_rates(
                             claimed = clean_full(m.group(1))
                             break
 
-                if claimed:
+                # If the quoted name is just the title itself (Player Title Prefix/Suffix),
+                # use ticket wording instead. Use "claim X" only when X is a different reward.
+                if claimed and ("player title" not in claimed.lower()):
                     return (
                         f"Claim the {claimed} reward from the\n{sname} Scoreboard (Season {season_num}).",
                         "100%",
@@ -1492,15 +1496,23 @@ def compute_unlock_and_rates(
                 row = chal_by_edid.get(chal_key)
 
                 if row:
-                    full = (row.get("FULL") or "").strip() or gnam_full or chal_key
+                    chal_edid2 = (row.get("EDID") or "").strip()
+                    full = clean_full(row.get("FULL")) or clean_full(gnam_full) or clean_full(chal_edid2) or clean_full(chal_key) or "Challenge"
                     cnam = (row.get("CNAM") or "").strip() or "Challenge"
-                    extra.update({"chalEdid": (row.get("EDID") or "").strip(), "chalCNAM": cnam, "chalFULL": full})
+
+                    # Drill Complex counters for GNAM-routed challenges too
+                    mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid2, flags=re.IGNORECASE)
+                    if mcount:
+                        full = f"{full} x{mcount.group(1)}"
+
+                    extra.update({"chalEdid": chal_edid2, "chalCNAM": cnam, "chalFULL": full})
                     if cnam.lower() == "challenge":
-                        return f"Complete the Challenge {full}", "100%", None, "challenge", extra
-                    return f"Complete the {cnam} Challenge {full}", "100%", None, "challenge", extra
+                        return f"Complete the Challenge:\n{full}", "100%", None, "challenge", extra
+                    return f"Complete the {cnam} Challenge:\n{full}", "100%", None, "challenge", extra
 
                 # If CHAL row not found, still treat as challenge unlock
-                return f"Complete the Challenge {gnam_full or gnam_edid}", "100%", None, "challenge", extra
+                fallback_full = clean_full(gnam_full) or clean_full(gnam_edid) or "Challenge"
+                return f"Complete the Challenge:\n{fallback_full}", "100%", None, "challenge", extra
 
         # --- Otherwise: treat as BOOK-drop event/activity title recipe ---
         prefer_lvli = None
