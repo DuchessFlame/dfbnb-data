@@ -1,59 +1,37 @@
 name: Build Events Rewards JSON
 
-permissions:
-  contents: write
-
-concurrency:
-  group: dist-main
-  cancel-in-progress: false
-
 on:
   workflow_dispatch:
   push:
     paths:
-      - "tsv/QUEST_Export_*.tsv"
-      - "tsv/GMRW_Export_*.tsv"
-      - "tsv/LVLI_Export_*_LVLI_List.tsv"
-      - "tsv/LVLI_Export_*_LVLI_Entries.tsv"
-      - "tsv/LVLI_Export_*_LVLI_Refs.tsv"
-      - "tsv/LVLI_Export_*_LVLI_Math.tsv"
-      - "tsv/GLOB_Export_*.tsv"
-      - "tsv/CURV_Export_*.tsv"
-      - "tsv/CURV_Export_*POINTS*.tsv"
-      - "tsv/guide_index.tsv"
-      - "src/build_events_rewards_json.py"
+      - "tsv/**"
+      - "tools/build_events_rewards_json.py"
+      - ".github/workflows/build-events-rewards-json.yml"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: true
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Build dist JSON
+      - name: Build Events Rewards JSON
         run: |
-          python src/build_events_rewards_json.py
-          test -f dist/events_rewards.json
-          
-      - name: Commit dist output
+          python -V
+          python tools/build_events_rewards_json.py
+
+      - name: Commit dist outputs
         run: |
-          git config user.name "dfbnb-bot"
-          git config user.email "dfbnb-bot@users.noreply.github.com"
-
-          git add dist/events_rewards.json dist/events_rewards_by_page.json dist/patchlog_latest_df_events.json
-          git diff --cached --quiet && echo "No dist changes to commit" && exit 0
-
-          git commit -m "Build events rewards + by-page + patchlog"
-
-          git fetch origin main
-          git pull --rebase origin main
-
-          git push origin main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_events.json
+          git commit -m "Build Events Rewards JSON" || echo "No changes to commit"
+          git push

@@ -265,12 +265,27 @@ function build() {
   const absCurv = path.resolve(CURV_TSV);
   const absPcrd = path.resolve(PCRD_TSV);
 
-  const absSpelEff = path.resolve(SPEL_EFF_TSV);
+const absSpelEff = path.resolve(SPEL_EFF_TSV);
 
 if (fs.existsSync(absCurv) && fs.existsSync(absPcrd) && fs.existsSync(absSpelEff)) {
-const curvRows = parseTSV(readText(absCurv)).rows;
-const pcrdRows = parseTSV(readText(absPcrd)).rows;
-const spelEffRows = parseTSV(readText(absSpelEff)).rows;
+  const curvRows = parseTSV(readText(absCurv)).rows;
+  const pcrdRows = parseTSV(readText(absPcrd)).rows;
+  const spelEffRows = parseTSV(readText(absSpelEff)).rows;
+
+  // --------------------------------------------------
+  // Build SPEL_FormID -> Set<CURV_FormID>
+  // --------------------------------------------------
+  const spelToCurv = new Map();
+
+  for (const r of spelEffRows) {
+    const spelId = normalizeFormId(r.SPEL_FormID);
+    const curvId = normalizeFormId(r.CVTO_CURV_FormID);
+
+    if (!spelId || !curvId) continue;
+
+    if (!spelToCurv.has(spelId)) spelToCurv.set(spelId, new Set());
+    spelToCurv.get(spelId).add(curvId);
+  }
 
     // Build: CURV_FormID -> referenced FormIDs (from Ref1..RefN)
     const curvRefMap = new Map(); // curvId -> Set<FormID>
@@ -390,24 +405,6 @@ const curveIds = Array.from(curveIdsSet);
   console.log(`- input: ${INPUT}`);
   console.log(`- curves: ${meta.curves}, points: ${meta.points}`);
   console.log(`- out: ${OUT_DIR}`);
-}
-
-// --------------------------------------------------
-// Build SPEL_FormID -> Set<CURV_FormID>
-// --------------------------------------------------
-
-const spelToCurv = new Map();
-
-for (const r of spelEffRows) {
-  const spelId = normalizeFormId(r.SPEL_FormID);
-  const curvId = normalizeFormId(r.CVTO_CURV_FormID);
-
-  if (!spelId || !curvId) continue;
-
-  if (!spelToCurv.has(spelId))
-    spelToCurv.set(spelId, new Set());
-
-  spelToCurv.get(spelId).add(curvId);
 }
 
 build();

@@ -1,1116 +1,836 @@
-# ==========================================================
-# DF/BNB — Build Events Rewards JSON (Fasnacht-style v1)
-#
-# Outputs:
-#   dist/events_rewards.json
-#   dist/events_rewards_by_page.json
-#   dist/patchlog_latest_df_events.json
-#
-# Inputs (tsv/):
-#   guide_index.tsv
-#   QUEST_Export_*.tsv
-#   GMRW_Export_*.tsv
-#   GLOB_Export_*.tsv
-#   LVLI_Export_*_LVLI_List.tsv
-#   LVLI_Export_*_LVLI_Entries.tsv
-#   LVLI_Export_*_LVLI_Refs.tsv
-#   LVLI_Export_*_LVLI_Math.tsv
-#   BOOK_Export_*.tsv
-#   ARMO_Export_*.tsv
-#
-# Notes:
-# - This builder focuses on “Fasnacht-style” event structure:
-#   QUEST -> GMRW -> RewardedItem LVLI (*_LL_Quest_Rewards)
-#   -> sublists: Default, Headwear, Plans(Recipes)
-# - Legendary Modules must be bubbled into Base Rewards.
-# - Party Crashers come from QUEST TSV (PartyCrasher_* columns).
-# - Never allow “blank page”: if rewards can’t be resolved, we emit warnings and placeholders.
-# ==========================================================
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Build deterministic Events Rewards JSON for DF/BNB.
+
+Inputs (newest matching file for each prefix):
+- guide_index.tsv
+- QUEST_Export_*.tsv
+- GMRW_Export_*.tsv
+- GLOB_Export_*.tsv
+- LVLI_Export_*_LVLI_List.tsv
+- LVLI_Export_*_LVLI_Entries.tsv
+- LVLI_Export_*_LVLI_Refs.tsv
+- LVLI_Export_*_LVLI_Math.tsv
+- BOOK_Export_*.tsv
+- ARMO_Export_*.tsv
+
+Outputs:
+- dist/events/events_rewards.json
+- dist/events/events_rewards_by_page.json
+- dist/patchlogs/patchlog_latest_df_events.json
+"""
 
 from __future__ import annotations
 
 import csv
+import glob
 import json
+import os
 import re
-from dataclasses import dataclass
-from datetime import datetime
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Any, Set
-
-TSV_DIR = Path("tsv")
-DIST_DIR = Path("dist")
-
-OUT_EVENTS = DIST_DIR / "events_rewards.json"
-OUT_BY_PAGE = DIST_DIR / "events_rewards_by_page.json"
-OUT_PATCHLOG = DIST_DIR / "patchlog_latest_df_events.json"
-
-IGNORE_EDID_PREFIXES = ("DEL", "CUT", "POST", "ZZZ", "zzz", "Zzz")
-IGNORE_SUBSTRINGS = ("TheDrifter",)  # treat like cut content
+from typing import Any, Dict, List, Optional, Tuple, Iterable
 
 
-# -------------------- IO helpers --------------------
+# ----------------------------
+# Config
+# ----------------------------
 
-def now_iso_utc() -> str:
-    return datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+IGNORE_PREFIXES = ("DEL", "CUT", "POST", "ZZZ", "zzz", "TheDrifter")
+DEFAULT_ENCODING = "utf-8-sig"  # handles BOM cleanly
 
+DIST_EVENTS_DIR = Path("dist/events")
+DIST_PATCHLOG_DIR = Path("dist/patchlogs")
 
-def load_rows(path: Path) -> List[Dict[str, str]]:
-    with path.open("r", encoding="utf-8", errors="ignore", newline="") as f:
-        return list(csv.DictReader(f, delimiter="\t"))
-
-
-def latest_match(glob_pattern: str) -> Optional[Path]:
-    matches = sorted(TSV_DIR.glob(glob_pattern))
-    return matches[-1] if matches else None
-
-
-# -------------------- parsing helpers --------------------
-
-def is_ignored_edid(edid: str) -> bool:
-    s = (edid or "").strip()
-    if not s:
-        return False
-    for p in IGNORE_EDID_PREFIXES:
-        if s.startswith(p):
-            return True
-    for sub in IGNORE_SUBSTRINGS:
-        if sub.lower() in s.lower():
-            return True
-    return False
+OUT_EVENTS_ALL = DIST_EVENTS_DIR / "events_rewards.json"
+OUT_EVENTS_BY_PAGE = DIST_EVENTS_DIR / "events_rewards_by_page.json"
+OUT_PATCHLOG_LATEST = DIST_PATCHLOG_DIR / "patchlog_latest_df_events.json"
 
 
-def norm_path(p: str) -> str:
-    s = str(p or "")
-    s = s.split("#")[0].split("?")[0]
-    if not s.startswith("/"):
-        s = "/" + s
-    s = re.sub(r"/{2,}", "/", s)
-    if not s.endswith("/"):
-        s += "/"
-    return s
+# ----------------------------
+# Helpers
+# ----------------------------
 
+def stable_now_iso() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
-def slugify(s: str) -> str:
-    t = (s or "").strip().lower()
-    t = re.sub(r"[^a-z0-9]+", "-", t)
-    t = re.sub(r"-{2,}", "-", t).strip("-")
-    return t
+def ensure_dir(p: Path) -> None:
+    p.mkdir(parents=True, exist_ok=True)
 
+def read_tsv(path: str) -> List[Dict[str, str]]:
+    with open(path, "r", encoding=DEFAULT_ENCODING, newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        return [dict(row) for row in reader]
 
-def event_title_from_full(full: str) -> str:
-    s = (full or "").strip()
-    low = s.lower()
-    for prefix in ("event:", "activity:", "enclave activity:"):
-        if low.startswith(prefix):
-            return s[len(prefix):].strip()
-    return s
-
-
-def parse_token(cell: str) -> Optional[Dict[str, str]]:
-    """
-    TSV tokens look like:
-      FORMID:EDID
-      FORMID:EDID:SIG
-    """
-    if not cell:
+def newest_file(pattern: str) -> Optional[str]:
+    matches = glob.glob(pattern)
+    if not matches:
         return None
-    parts = str(cell).strip().split(":")
-    if len(parts) >= 2 and re.fullmatch(r"[0-9A-Fa-f]{8}", parts[0]):
-        tok = {"formid": parts[0].upper(), "edid": parts[1]}
-        if len(parts) >= 3:
-            tok["sig"] = parts[2]
-        return tok
-    return None
+    matches.sort(key=lambda p: os.path.getmtime(p))
+    return matches[-1]
 
+def pick_required(pattern: str, label: str) -> str:
+    p = newest_file(pattern)
+    if not p:
+        raise FileNotFoundError(f"Missing required TSV for {label}: pattern={pattern}")
+    return p
 
-def parse_formid_ref(cell: str) -> Optional[str]:
-    tok = parse_token(cell)
-    return tok["formid"] if tok else None
+def norm(s: Any) -> str:
+    return str(s).strip()
 
+def is_ignored_ref(edid_or_full: str) -> bool:
+    s = norm(edid_or_full)
+    return any(s.startswith(pref) for pref in IGNORE_PREFIXES)
 
-def as_float(x: Any) -> Optional[float]:
+def safe_float(s: Any, default: float = 0.0) -> float:
     try:
-        return float(str(x).strip())
+        return float(str(s).strip())
     except Exception:
-        return None
+        return default
+
+def safe_int(s: Any, default: int = 0) -> int:
+    try:
+        return int(float(str(s).strip()))
+    except Exception:
+        return default
+
+def sort_key_alpha(s: str) -> Tuple[str, str]:
+    # case-insensitive then original
+    return (s.lower(), s)
+
+def json_dump_deterministic(obj: Any) -> str:
+    return json.dumps(obj, ensure_ascii=False, indent=2, sort_keys=True)
+
+def pct(x: float) -> float:
+    # clamp tiny floating noise, keep 6 dp max
+    x = max(0.0, min(100.0, x))
+    return float(f"{x:.6f}".rstrip("0").rstrip(".")) if x != int(x) else float(int(x))
 
 
-def percent_from_glob_fltv(fltv: Optional[float]) -> Optional[float]:
-    """
-    Heuristic:
-    - If 0..1 => interpret as probability fraction
-    - If 1..100 => interpret as percent
-    - Otherwise unknown
-    """
-    if fltv is None:
-        return None
-    if 0.0 <= fltv <= 1.0:
-        return fltv * 100.0
-    if 1.0 < fltv <= 100.0:
-        return fltv
-    if fltv == 1.0:
-        return 100.0
-    return None
-
-
-def chance_from_chance_none(chance_none_percent: float) -> float:
-    # chance_none=0 => 100% drop
-    return max(0.0, min(100.0, 100.0 - chance_none_percent))
-
-
-def pretty_name_from_edid(edid: str) -> str:
-    """
-    Fallback humanizer when FULL isn't available.
-    Keep it conservative (no “creative writing”).
-    """
-    s = (edid or "").strip()
-    if not s:
-        return "Unknown"
-    # strip common technical suffixes/prefixes
-    s = re.sub(r"_PartyCrasher$", "", s, flags=re.I)
-    s = re.sub(r"^Lvl", "", s)
-    s = s.replace("_", " ").strip()
-    # titlecase without breaking acronyms too hard
-    s = " ".join(w[:1].upper() + w[1:] if w else "" for w in s.split(" "))
-    return s.strip() or edid
-
-
-# -------------------- data indexes --------------------
+# ----------------------------
+# Data models
+# ----------------------------
 
 @dataclass
-class GlobRow:
-    formid: str
-    edid: str
-    fltv: Optional[float]
-
-
-def build_glob_index(rows: List[Dict[str, str]]) -> Dict[str, GlobRow]:
-    out: Dict[str, GlobRow] = {}
-    for r in rows:
-        fid = (r.get("FormID") or "").upper()
-        if not fid:
-            continue
-        out[fid] = GlobRow(
-            formid=fid,
-            edid=r.get("EDID") or "",
-            fltv=as_float(r.get("FLTV"))
-        )
-    return out
-
-
-@dataclass
-class BookRow:
-    formid: str
-    edid: str
-    full: str
-
-
-def build_book_index(rows: List[Dict[str, str]]) -> Dict[str, BookRow]:
-    out: Dict[str, BookRow] = {}
-    for r in rows:
-        fid = (r.get("FormID") or "").upper()
-        if not fid:
-            continue
-        out[fid] = BookRow(formid=fid, edid=r.get("EDID") or "", full=r.get("FULL") or "")
-    return out
-
-
-@dataclass
-class ArmoRow:
-    formid: str
-    edid: str
-    full: str
-
-
-def build_armo_index(rows: List[Dict[str, str]]) -> Dict[str, ArmoRow]:
-    out: Dict[str, ArmoRow] = {}
-    for r in rows:
-        fid = (r.get("FormID") or "").upper()
-        if not fid:
-            continue
-        out[fid] = ArmoRow(formid=fid, edid=r.get("EDID") or "", full=r.get("FULL") or "")
-    return out
-
-
-@dataclass
-class LvliListRow:
-    formid: str
-    edid: str
-    chance_none_value: Optional[float]
-    flags: str
-    count: Optional[int]
-
-
-@dataclass
-class LvliEntryRow:
+class LvliEntry:
+    entry_id: str
     parent_formid: str
-    reference: str
-    chance_none_value: Optional[float]
-    chance_none_global: Optional[str]
-    quantity: Optional[float]
-    quantity_global: Optional[str]
-    conditions: str
+    ref_formid: str
+    ref_edid: str
+    count: int
+    level: int
+    chance: float  # per-entry chance if available, else 100
+    # math / conditions raw
+    math_raw: str = ""
+    # parsed conditions
+    glob_toggle_formid: Optional[str] = None
+    glob_toggle_op: Optional[str] = None  # "==" or "!="
+    glob_toggle_value: Optional[str] = None  # usually "1"
+    rand_percent: Optional[float] = None  # if GetRandomPercent < X pattern found
+
+@dataclass
+class LvliList:
+    formid: str
+    edid: str
+    chance_none: int
+    flags: str = ""
+    # entries
+    entries: List[LvliEntry] = field(default_factory=list)
+
+@dataclass
+class ResolvedItem:
+    formid: str
+    edid: str
+    full: str
+    kind: str  # "ARMO" / "BOOK" / "MISC" etc
+    tradeable: Optional[bool] = None
+    release_date: Optional[str] = None
 
 
-def build_lvli_list_index(rows: List[Dict[str, str]]) -> Dict[str, LvliListRow]:
-    out: Dict[str, LvliListRow] = {}
+# ----------------------------
+# TSV loaders
+# ----------------------------
+
+def index_by(rows: List[Dict[str, str]], key_field: str) -> Dict[str, Dict[str, str]]:
+    out: Dict[str, Dict[str, str]] = {}
     for r in rows:
-        fid = (r.get("LVLI_FormID") or "").upper()
+        k = norm(r.get(key_field, ""))
+        if k:
+            out[k] = r
+    return out
+
+def load_guide_index(path: str) -> Dict[str, Dict[str, str]]:
+    rows = read_tsv(path)
+    # guide_index usually has slug/path columns. Keep whole row keyed by page_id or slug if present.
+    out: Dict[str, Dict[str, str]] = {}
+    for r in rows:
+        slug = norm(r.get("slug") or r.get("Slug") or r.get("page_slug") or r.get("PageSlug") or "")
+        url = norm(r.get("url") or r.get("URL") or r.get("path") or r.get("Path") or "")
+        page_id = norm(r.get("page_id") or r.get("PageID") or r.get("id") or r.get("ID") or "")
+        key = page_id or slug or url
+        if key:
+            out[key] = r
+    return out
+
+def load_glob(path: str) -> Dict[str, float]:
+    rows = read_tsv(path)
+    # Expect: GLOB_FormID / FLTV_Value etc
+    out: Dict[str, float] = {}
+    for r in rows:
+        fid = norm(r.get("GLOB_FormID") or r.get("FormID") or r.get("formid") or "")
         if not fid:
             continue
-        out[fid] = LvliListRow(
-            formid=fid,
-            edid=r.get("EDID") or "",
-            chance_none_value=as_float(r.get("LVCV_ChanceNoneValue")),
-            flags=r.get("LVLF_Flags") or "",
-            count=int(as_float(r.get("LLCT_Count") or "0") or 0),
+        val = safe_float(r.get("FLTV_Value") or r.get("Value") or r.get("value") or 0.0, 0.0)
+        out[fid] = val
+    return out
+
+def load_items_book_armo(book_path: str, armo_path: str) -> Dict[str, ResolvedItem]:
+    items: Dict[str, ResolvedItem] = {}
+    # BOOK
+    for r in read_tsv(book_path):
+        fid = norm(r.get("BOOK_FormID") or r.get("FormID") or "")
+        edid = norm(r.get("BOOK_EDID") or r.get("EDID") or "")
+        full = norm(r.get("BOOK_FULL") or r.get("FULL") or "")
+        if fid:
+            items[fid] = ResolvedItem(formid=fid, edid=edid, full=full or edid or fid, kind="BOOK")
+    # ARMO
+    for r in read_tsv(armo_path):
+        fid = norm(r.get("ARMO_FormID") or r.get("FormID") or "")
+        edid = norm(r.get("ARMO_EDID") or r.get("EDID") or "")
+        full = norm(r.get("ARMO_FULL") or r.get("FULL") or "")
+        if fid:
+            items[fid] = ResolvedItem(formid=fid, edid=edid, full=full or edid or fid, kind="ARMO")
+    return items
+
+def load_lvli(
+    list_path: str,
+    entries_path: str,
+    refs_path: str,
+    math_path: str
+) -> Dict[str, LvliList]:
+    list_rows = read_tsv(list_path)
+    entry_rows = read_tsv(entries_path)
+    ref_rows = read_tsv(refs_path)
+    math_rows = read_tsv(math_path)
+
+    # Build base LVLI lists
+    lvli: Dict[str, LvliList] = {}
+    for r in list_rows:
+        fid = norm(r.get("LVLI_FormID") or r.get("FormID") or "")
+        edid = norm(r.get("LVLI_EDID") or r.get("EDID") or "")
+        chance_none = safe_int(r.get("LVLI_ChanceNone") or r.get("ChanceNone") or r.get("chance_none") or 0, 0)
+        flags = norm(r.get("LVLI_Flags") or r.get("Flags") or "")
+        if fid:
+            lvli[fid] = LvliList(formid=fid, edid=edid, chance_none=chance_none, flags=flags)
+
+    # Index refs by (parent lvli, entry id) if available, else best-effort by RowKey fields
+    refs_index: Dict[Tuple[str, str], Dict[str, str]] = {}
+    for r in ref_rows:
+        parent = norm(r.get("LVLI_FormID") or r.get("Parent_FormID") or r.get("Parent") or "")
+        entry_id = norm(r.get("Entry_ID") or r.get("LVLI_EntryID") or r.get("EntryId") or r.get("entry_id") or "")
+        if parent and entry_id:
+            refs_index[(parent, entry_id)] = r
+
+    # Index math similarly
+    math_index: Dict[Tuple[str, str], Dict[str, str]] = {}
+    for r in math_rows:
+        parent = norm(r.get("LVLI_FormID") or r.get("Parent_FormID") or r.get("Parent") or "")
+        entry_id = norm(r.get("Entry_ID") or r.get("LVLI_EntryID") or r.get("EntryId") or r.get("entry_id") or "")
+        if parent and entry_id:
+            math_index[(parent, entry_id)] = r
+
+    # Attach entries
+    for r in entry_rows:
+        parent = norm(r.get("LVLI_FormID") or r.get("Parent_FormID") or r.get("Parent") or "")
+        entry_id = norm(r.get("Entry_ID") or r.get("LVLI_EntryID") or r.get("EntryId") or r.get("entry_id") or "")
+        if not parent or parent not in lvli:
+            continue
+
+        # ref from entries row or refs table
+        ref_formid = norm(r.get("Ref_FormID") or r.get("RefFormID") or r.get("REFR_FormID") or "")
+        ref_edid = norm(r.get("Ref_EDID") or r.get("RefEDID") or "")
+        if not ref_formid or not ref_edid:
+            rr = refs_index.get((parent, entry_id), {})
+            ref_formid = ref_formid or norm(rr.get("Ref_FormID") or rr.get("RefFormID") or "")
+            ref_edid = ref_edid or norm(rr.get("Ref_EDID") or rr.get("RefEDID") or "")
+
+        count = safe_int(r.get("Count") or r.get("LVLI_Count") or 1, 1)
+        level = safe_int(r.get("Level") or r.get("LVLI_Level") or 1, 1)
+        chance = safe_float(r.get("Chance") or r.get("LVLI_Chance") or 100.0, 100.0)
+
+        mr = math_index.get((parent, entry_id), {})
+        math_raw = norm(mr.get("Math") or mr.get("Math_Raw") or mr.get("Conditions") or "")
+
+        entry = LvliEntry(
+            entry_id=entry_id or f"row{len(lvli[parent].entries)+1}",
+            parent_formid=parent,
+            ref_formid=ref_formid,
+            ref_edid=ref_edid,
+            count=count,
+            level=level,
+            chance=chance if chance > 0 else 100.0,
+            math_raw=math_raw
         )
-    return out
+
+        parse_conditions_into_entry(entry)
+        lvli[parent].entries.append(entry)
+
+    # Deterministic ordering of entries inside each list
+    for l in lvli.values():
+        l.entries.sort(key=lambda e: (e.level, sort_key_alpha(e.ref_edid), sort_key_alpha(e.ref_formid)))
+
+    return lvli
 
 
-def build_lvli_entries_index(rows: List[Dict[str, str]]) -> Dict[str, List[LvliEntryRow]]:
-    out: Dict[str, List[LvliEntryRow]] = {}
-    for r in rows:
-        pfid = (r.get("LVLI_FormID") or "").upper()
-        if not pfid:
-            continue
-        ref = r.get("LVLO_Reference") or ""
-        out.setdefault(pfid, []).append(
-            LvliEntryRow(
-                parent_formid=pfid,
-                reference=ref,
-                chance_none_value=as_float(r.get("LVOV_ChanceNoneValue")),
-                chance_none_global=parse_formid_ref(r.get("LVOC_ChanceNoneGlobal") or ""),
-                quantity=as_float(r.get("LVIV_Quantity")),
-                quantity_global=parse_formid_ref(r.get("LVIG_QuantityGlobal") or ""),
-                conditions=r.get("Conditions") or ""
-            )
-        )
-    return out
+# ----------------------------
+# Condition parsing
+# ----------------------------
+
+_RE_GLOB_TOGGLE = re.compile(r"GetGlobalValue\((?P<glob>[0-9A-Fa-f]{8})\)\s*(?P<op>==|!=|<>|=)\s*(?P<val>-?\d+)", re.IGNORECASE)
+_RE_RANDP_LT = re.compile(r"GetRandomPercent\(\)\s*<\s*(?P<pct>\d+(\.\d+)?)", re.IGNORECASE)
+_RE_RANDP_LE = re.compile(r"GetRandomPercent\(\)\s*<=\s*(?P<pct>\d+(\.\d+)?)", re.IGNORECASE)
+
+def parse_conditions_into_entry(e: LvliEntry) -> None:
+    s = e.math_raw
+    if not s:
+        return
+
+    # Toggle detection (GetGlobalValue(GLOB) == 1 or != 1 or <> 1)
+    m = _RE_GLOB_TOGGLE.search(s)
+    if m:
+        op = m.group("op")
+        if op == "=":
+            op = "=="
+        if op == "<>":
+            op = "!="
+        e.glob_toggle_formid = m.group("glob").upper()
+        e.glob_toggle_op = op
+        e.glob_toggle_value = m.group("val")
+
+    # Percent gating via GetRandomPercent
+    m2 = _RE_RANDP_LT.search(s) or _RE_RANDP_LE.search(s)
+    if m2:
+        e.rand_percent = safe_float(m2.group("pct"), None)  # meaning "X% chance gate"
 
 
-# -------------------- guide index mapping --------------------
+# ----------------------------
+# Probability engine
+# ----------------------------
 
-def load_guide_index() -> Tuple[Dict[str, Dict[str, str]], Dict[str, List[str]]]:
+@dataclass
+class ProbScenario:
+    name: str  # "Toggle Enabled" / "Toggle Disabled" / "Default"
+    # map item_formid -> probability (0..1)
+    item_probs: Dict[str, float] = field(default_factory=dict)
+    # pool probability (0..1) that the LVLI yields something (after chance none + gates)
+    pool_prob: float = 1.0
+
+def lvli_yield_prob(chance_none: int) -> float:
+    # Rule: if Chance None is 0, treat as 100% drop
+    if chance_none == 0:
+        return 1.0
+    # otherwise chance_none is the percent chance of NONE
+    return max(0.0, min(1.0, 1.0 - (chance_none / 100.0)))
+
+def combine_probs_additive(dest: Dict[str, float], src: Dict[str, float], scale: float) -> None:
+    for k, v in src.items():
+        dest[k] = dest.get(k, 0.0) + v * scale
+
+def compute_lvli_scenarios(
+    lvli_map: Dict[str, LvliList],
+    root_formid: str,
+    max_depth: int = 25
+) -> List[ProbScenario]:
     """
-    Returns:
-      hubs_by_slug: slug -> row
-      descendants_by_hub_id: hub_id -> [child_id...]
+    Returns one or more scenarios for the LVLI tree.
+    If toggle patterns are detected among siblings, returns Toggle Enabled/Disabled scenarios.
     """
-    gi_path = TSV_DIR / "guide_index.tsv"
-    if not gi_path.exists():
-        return {}, {}
+    visited_stack: List[str] = []
 
-    rows = load_rows(gi_path)
+    def walk(list_formid: str, depth: int) -> List[ProbScenario]:
+        if depth > max_depth:
+            return [ProbScenario(name="Default", item_probs={}, pool_prob=1.0)]
+        if list_formid in visited_stack:
+            # cycle guard
+            return [ProbScenario(name="Default", item_probs={}, pool_prob=1.0)]
 
-    hubs_by_slug: Dict[str, Dict[str, str]] = {}
-    children_by_parent: Dict[str, List[str]] = {}
+        l = lvli_map.get(list_formid)
+        if not l:
+            return [ProbScenario(name="Default", item_probs={}, pool_prob=1.0)]
 
-    for r in rows:
-        pid = (r.get("parentId") or "").strip()
-        rid = (r.get("id") or "").strip()
-        if pid and rid:
-            children_by_parent.setdefault(pid, []).append(rid)
+        visited_stack.append(list_formid)
 
-    # hubs: category-hub and topCategory in your event hubs
-    for r in rows:
-        if (r.get("template") or "").strip() != "category-hub":
-            continue
-        top = (r.get("topCategory") or "").strip().lower()
-        # DF naming tends to be these (adjust later if needed)
-        if top not in ("activities", "public-events", "seasonal-events", "events"):
-            continue
-        slug = (r.get("slug") or "").strip()
-        if slug:
-            hubs_by_slug[slug] = r
+        base_pool_prob = lvli_yield_prob(l.chance_none)
 
-    # descendants: hub -> children + grandchildren
-    descendants_by_hub_id: Dict[str, List[str]] = {}
-    for slug, hub in hubs_by_slug.items():
-        hub_id = (hub.get("id") or "").strip()
-        if not hub_id:
-            continue
-        desc: Set[str] = set()
-        for c in children_by_parent.get(hub_id, []):
-            desc.add(c)
-            for gc in children_by_parent.get(c, []):
-                desc.add(gc)
-        descendants_by_hub_id[hub_id] = sorted(desc)
+        # Detect toggles: group entries by same ref, different glob toggle ops
+        toggle_glob = None
+        has_eq = False
+        has_neq = False
+        for e in l.entries:
+            if e.glob_toggle_formid and e.glob_toggle_value == "1":
+                toggle_glob = toggle_glob or e.glob_toggle_formid
+                if e.glob_toggle_op == "==":
+                    has_eq = True
+                if e.glob_toggle_op == "!=":
+                    has_neq = True
 
-    return hubs_by_slug, descendants_by_hub_id
+        scenarios: List[ProbScenario]
+        if toggle_glob and has_eq and has_neq:
+            scenarios = [ProbScenario(name="Toggle Enabled"), ProbScenario(name="Toggle Disabled")]
+        else:
+            scenarios = [ProbScenario(name="Default")]
 
+        # For each scenario, accumulate entries
+        for sc in scenarios:
+            sc.pool_prob = base_pool_prob
+            sc.item_probs = {}
 
-# -------------------- Party Crashers --------------------
+            # Determine eligible entries in this scenario
+            eligible: List[LvliEntry] = []
+            for e in l.entries:
+                if is_ignored_ref(e.ref_edid):
+                    continue
+                if toggle_glob and has_eq and has_neq and e.glob_toggle_formid == toggle_glob and e.glob_toggle_value == "1":
+                    # Keep only matching op for scenario
+                    if sc.name == "Toggle Enabled" and e.glob_toggle_op != "==":
+                        continue
+                    if sc.name == "Toggle Disabled" and e.glob_toggle_op != "!=":
+                        continue
+                eligible.append(e)
 
-def extract_party_crashers(qrow: Dict[str, str], glob_index: Dict[str, GlobRow]) -> List[Dict[str, Any]]:
-    out: List[Dict[str, Any]] = []
-    cnt = int(as_float(qrow.get("PartyCrasherCount") or "0") or 0)
-    if cnt <= 0:
-        return out
+            # If there are per-entry chance values, treat as weights.
+            # We do not invent engine-accurate "LVLF Calculate for each item in count" behavior without your TSV truth,
+            # but we deterministically model:
+            # - choose one entry uniformly if no chance weights
+            # - else normalize by chance
+            total_weight = 0.0
+            weights: List[float] = []
+            for e in eligible:
+                w = e.chance if e.chance > 0 else 100.0
+                weights.append(w)
+                total_weight += w
 
-    mesg_tok = parse_token(qrow.get("PartyCrasher_MESG") or "")
+            if not eligible or total_weight <= 0:
+                visited_stack.pop()
+                continue
 
-    for i in range(0, min(cnt, 10)):
-        npc_tok = parse_token(qrow.get(f"PartyCrasher_NPC_{i}") or "")
-        glob_tok = parse_token(qrow.get(f"PartyCrasher_GLOB_{i}") or "")
-        if not npc_tok or not glob_tok:
-            continue
+            # For each eligible entry, compute its contribution
+            for e, w in zip(eligible, weights):
+                pick_prob = (w / total_weight)
 
-        g = glob_index.get(glob_tok["formid"])
-        pct = percent_from_glob_fltv(g.fltv if g else None)
+                # Apply GetRandomPercent gate if present
+                gate = 1.0
+                if e.rand_percent is not None:
+                    gate = max(0.0, min(1.0, e.rand_percent / 100.0))
 
-        display_name = pretty_name_from_edid(npc_tok.get("edid") or "")
-        chance_text = f"{pct:.0f}%" if pct is not None else "Unknown%"
+                branch_prob = base_pool_prob * pick_prob * gate
 
-        out.append({
-            "type": "partyCrasher",
-            "text": f"{chance_text} chance for {display_name} to spawn at the end of the event.",
-            "npc": npc_tok,
-            "chanceGlob": {
-                "formid": glob_tok["formid"],
-                "edid": glob_tok.get("edid", ""),
-                "fltv": g.fltv if g else None,
-                "percent": pct
-            },
-            "message": mesg_tok
-        })
+                # If entry references another LVLI, recurse. Otherwise it is an item.
+                if e.ref_formid in lvli_map:
+                    sub_scenarios = walk(e.ref_formid, depth + 1)
+                    # If sub returns multiple scenarios, merge by matching name where possible, else fold into this scenario.
+                    # Here we fold all sub scenario probs into current scenario, preserving totals.
+                    for sub in sub_scenarios:
+                        # scale by branch_prob and by sub.pool_prob already baked into sub.item_probs
+                        combine_probs_additive(sc.item_probs, sub.item_probs, branch_prob)
+                else:
+                    # treat as terminal item
+                    sc.item_probs[e.ref_formid] = sc.item_probs.get(e.ref_formid, 0.0) + branch_prob
 
-    return out
+        visited_stack.pop()
+        return scenarios
 
-
-# -------------------- LVLI classification helpers --------------------
-
-def classify_event_rewards_child(edid: str) -> Optional[str]:
-    """
-    Map sublist EDIDs under *_LL_Quest_Rewards to display expands.
-    """
-    s = (edid or "")
-    low = s.lower()
-    if "headwear" in low:
-        return "Headwear Rewards"
-    if "recipes" in low:
-        return "Plan Rewards"
-    if "_quest_rewards_default" in low or low.endswith("_default"):
-        return "Default Rewards"
-    # some events may name it slightly differently
-    if "quest_rewards_default" in low:
-        return "Default Rewards"
-    return None
+    return walk(root_formid, 0)
 
 
-def is_quest_rewards_router(edid: str) -> bool:
-    low = (edid or "").lower()
-    return ("_ll_quest_rewards" in low) and ("default" not in low) and ("headwear" not in low) and ("recipes" not in low)
+# ----------------------------
+# Event builder logic
+# ----------------------------
 
+def resolve_item_name(items: Dict[str, ResolvedItem], formid: str, fallback_edid: str = "") -> str:
+    it = items.get(formid)
+    if it and it.full:
+        return it.full
+    return fallback_edid or formid
 
-def is_legendary_module_list(edid: str) -> bool:
-    return "legendarymodule" in (edid or "").lower()
+def build_warning_block(msg: str) -> Dict[str, Any]:
+    return {
+        "type": "warning",
+        "title": "Rewards data missing",
+        "message": msg
+    }
 
-
-# -------------------- Drop chance resolvers --------------------
-
-def resolve_entry_drop_chance(entry: LvliEntryRow, glob_index: Dict[str, GlobRow]) -> Tuple[Optional[float], Dict[str, Any]]:
-    """
-    Returns (dropChancePercent, technicalParts)
-    - If chance_none_value exists: drop = 100 - value
-    - Else if chance_none_global exists: use glob FLTV => interpret percent => drop = 100 - fltvPercent
-    - Else: None
-    """
-    tech: Dict[str, Any] = {}
-    if entry.chance_none_value is not None:
-        tech["chanceNoneValue"] = entry.chance_none_value
-        return chance_from_chance_none(entry.chance_none_value), tech
-
-    if entry.chance_none_global:
-        g = glob_index.get(entry.chance_none_global)
-        tech["chanceNoneGlobal"] = {"formid": entry.chance_none_global, "edid": g.edid if g else "", "fltv": g.fltv if g else None}
-        pct = percent_from_glob_fltv(g.fltv if g else None)
-        if pct is None:
-            return None, tech
-        return chance_from_chance_none(pct), tech
-
-    return None, tech
-
-
-def extract_toggle_condition_state(cond: str) -> Optional[Dict[str, Any]]:
-    """
-    Detect a toggle-like condition:
-      Subject.GetGlobalValue(XXXX [GLOB:...]) == 1
-      Subject.GetGlobalValue(...) <> 1
-      ... == 0
-    Returns dict with glob formid and operator/value.
-    """
-    s = cond or ""
-    # try to catch [GLOB:00xxxxxx]
-    m = re.search(r"GetGlobalValue\([^\[]*\[GLOB:([0-9A-Fa-f]{8})\]\)\s*(==|<>|!=)\s*([01])", s)
-    if not m:
+def build_party_crasher_banner(quest_row: Dict[str, str], glob_vals: Dict[str, float]) -> Optional[Dict[str, Any]]:
+    # Expected columns (per your description):
+    # PartyCrasherCount, PartyCrasher_NPC_0, PartyCrasher_GLOB_0, PartyCrasher_MESG
+    count = safe_int(quest_row.get("PartyCrasherCount") or 0, 0)
+    if count <= 0:
         return None
+
+    banners: List[str] = []
+    for i in range(count):
+        npc = norm(quest_row.get(f"PartyCrasher_NPC_{i}") or "")
+        glob = norm(quest_row.get(f"PartyCrasher_GLOB_{i}") or "")
+        if not npc or not glob:
+            continue
+        fltv = glob_vals.get(glob.upper())
+        if fltv is None:
+            continue
+        chance_percent = pct(fltv * 100.0 if fltv <= 1.0 else fltv)  # supports both 0.33 and 33
+        banners.append(f"{chance_percent:g}% chance for {npc} to spawn at the end of the event.")
+
+    if not banners:
+        return None
+
     return {
-        "glob": m.group(1).upper(),
-        "op": m.group(2),
-        "val": int(m.group(3))
+        "type": "notice",
+        "style": "party-crasher",
+        "lines": banners
     }
 
+def detect_mutated(quest_row: Dict[str, str]) -> bool:
+    # Placeholder: harden once we see your actual QUEST columns.
+    # Common patterns: keywords, flags, or text fields containing "Mutated"
+    hay = " ".join([
+        norm(quest_row.get("Keywords_Flat") or ""),
+        norm(quest_row.get("QUEST_EDID") or ""),
+        norm(quest_row.get("QUEST_FULL") or ""),
+        norm(quest_row.get("Notes") or "")
+    ])
+    return "mutated" in hay.lower()
 
-def human_toggle_state(op: str, val: int) -> str:
-    """
-    Convert toggle condition to words (no 0/1).
-    We intentionally avoid guessing “On/Off” meaning beyond truthy.
-    """
-    if op in ("==",):
-        return "Enabled" if val == 1 else "Disabled"
-    if op in ("<>", "!=",):
-        return "Not Enabled" if val == 1 else "Not Disabled"
-    return "Conditional"
-
-
-# -------------------- Builders for reward groups --------------------
-
-def resolve_display_name(token: Dict[str, str], book_index: Dict[str, BookRow], armo_index: Dict[str, ArmoRow]) -> str:
-    sig = (token.get("sig") or "").upper()
-    fid = token.get("formid") or ""
-    edid = token.get("edid") or ""
-
-    # BOOK => use FULL
-    if sig == "BOOK":
-        b = book_index.get(fid)
-        if b and b.full.strip():
-            return b.full.strip()
-        return pretty_name_from_edid(edid)
-
-    # ARMO => use FULL
-    if sig == "ARMO":
-        a = armo_index.get(fid)
-        if a and a.full.strip():
-            return a.full.strip()
-        return pretty_name_from_edid(edid)
-
-    # LVLI should not render as item name here
-    if sig == "LVLI":
-        return pretty_name_from_edid(edid)
-
-    return pretty_name_from_edid(edid)
-
-
-def build_plans_pool(
-    pool_lvli_formid: str,
-    pool_drop_chance: Optional[float],
-    lvli_list: Dict[str, LvliListRow],
-    lvli_entries: Dict[str, List[LvliEntryRow]],
-    glob_index: Dict[str, GlobRow],
-    book_index: Dict[str, BookRow],
+def build_event_payload(
+    quest_row: Dict[str, str],
+    gmrw_rows_by_quest: Dict[str, List[Dict[str, str]]],
+    lvli_map: Dict[str, LvliList],
+    items: Dict[str, ResolvedItem],
+    glob_vals: Dict[str, float]
 ) -> Dict[str, Any]:
-    """
-    Plan Rewards: common pattern is uniform list of BOOK items.
-    """
-    items: List[Dict[str, Any]] = []
-    entries = lvli_entries.get(pool_lvli_formid, [])
-    count = len(entries)
-    pool_pct = pool_drop_chance if pool_drop_chance is not None else 100.0
+    quest_formid = norm(quest_row.get("QUEST_FormID") or quest_row.get("FormID") or "")
+    quest_full = norm(quest_row.get("QUEST_FULL") or quest_row.get("FULL") or "")
+    quest_edid = norm(quest_row.get("QUEST_EDID") or quest_row.get("EDID") or "")
 
-    per_item = (pool_pct / count) if count > 0 else None
+    payload: Dict[str, Any] = {
+        "questFormID": quest_formid,
+        "name": quest_full or quest_edid or quest_formid,
+        "baseRewards": [],
+        "rewards": {
+            "default": [],
+            "headwear": {
+                "common": [],
+                "uncommon": [],
+                "rare": []
+            },
+            "plans": {
+                "count": 0,
+                "poolChance": 100.0,
+                "perItemChance": None,
+                "items": []
+            }
+        },
+        "scenarios": [],  # toggle scenarios, if any
+        "banners": [],
+        "warnings": []
+    }
 
-    for e in entries:
-        tok = parse_token(e.reference)
-        if not tok:
-            continue
-        if is_ignored_edid(tok.get("edid") or ""):
-            continue
+    # Mutated banner
+    if detect_mutated(quest_row):
+        payload["banners"].append({
+            "type": "notice",
+            "style": "mutated",
+            "lines": ["This event can be a Mutated Public Event."]
+        })
 
-        name = ""
-        if (tok.get("sig") or "").upper() == "BOOK":
-            b = book_index.get(tok["formid"])
-            name = b.full.strip() if (b and b.full) else pretty_name_from_edid(tok.get("edid") or "")
+    # Party Crasher banner(s)
+    pcb = build_party_crasher_banner(quest_row, glob_vals)
+    if pcb:
+        payload["banners"].append(pcb)
+
+    # Base rewards from GMRW
+    base_blocks = gmrw_rows_by_quest.get(quest_formid, [])
+    if base_blocks:
+        payload["baseRewards"] = build_base_rewards_from_gmrw(base_blocks, lvli_map, items)
+    else:
+        payload["warnings"].append(build_warning_block("No GMRW reward blocks found for this quest."))
+
+    # Event rewards from LVLI: locate a root list reference in QUEST row if available,
+    # else infer by naming convention. Hardening needs your actual columns.
+    root_lvli_formid = norm(quest_row.get("QuestRewards_LVLI") or quest_row.get("_LL_Quest_Rewards") or "")
+    if not root_lvli_formid:
+        # fallback: try columns commonly exported
+        for k in quest_row.keys():
+            if "Quest_Rewards" in k and "LVLI" in k:
+                root_lvli_formid = norm(quest_row.get(k))
+                if root_lvli_formid:
+                    break
+
+    if root_lvli_formid and root_lvli_formid in lvli_map:
+        scenarios = compute_lvli_scenarios(lvli_map, root_lvli_formid)
+        payload["scenarios"] = [serialize_scenario(sc, items, lvli_map) for sc in scenarios]
+
+        # Also populate "rewards" using the Default scenario for standard UI blocks
+        default_sc = next((s for s in scenarios if s.name == "Default"), scenarios[0] if scenarios else None)
+        if default_sc:
+            hydrate_reward_groups_from_probs(payload, default_sc, items)
         else:
-            name = pretty_name_from_edid(tok.get("edid") or "")
+            payload["warnings"].append(build_warning_block("Could not compute LVLI reward probabilities."))
+    else:
+        payload["warnings"].append(build_warning_block("Quest reward LVLI root not found or not exported."))
 
-        items.append({
-            "name": name,
-            "token": tok,
-            "dropRate": round(per_item, 4) if per_item is not None else None,
-            "collectible": True,
-            "technical": {
-                "sourceLvli": pool_lvli_formid,
-                "conditions": e.conditions or ""
-            }
+    # Always ensure non-empty render surface
+    if not payload["baseRewards"] and not payload["scenarios"] and not payload["banners"]:
+        payload["warnings"].append(build_warning_block("No rewards data available. This page will show warnings instead of blank content."))
+
+    return payload
+
+def build_base_rewards_from_gmrw(
+    gmrw_rows: List[Dict[str, str]],
+    lvli_map: Dict[str, LvliList],
+    items: Dict[str, ResolvedItem]
+) -> List[Dict[str, Any]]:
+    """
+    This is intentionally schema-agnostic.
+    It looks for common keys like XP, Caps, Bullion, Mystery Pick,
+    plus QRLI/QRLR and Legendary Modules in _Quest_Rewards-style LVLI.
+    """
+    out: List[Dict[str, Any]] = []
+
+    # Best-effort extraction by known column names.
+    # You will likely have consistent fields in your export, we can tighten once you paste the TSV header row.
+    joined = " ".join([" ".join([f"{k}={norm(v)}" for k, v in r.items() if norm(v)]) for r in gmrw_rows])
+
+    def add_line(label: str, value: Any) -> None:
+        if value is None:
+            return
+        out.append({"label": label, "value": value})
+
+    # Common keys
+    for r in gmrw_rows:
+        xp = r.get("XP") or r.get("Reward_XP") or r.get("GMRW_XP")
+        caps = r.get("Caps") or r.get("Reward_Caps") or r.get("GMRW_Caps")
+        gb = r.get("GoldBullion") or r.get("Bullion") or r.get("GMRW_Bullion")
+        if xp:
+            add_line("XP", safe_int(xp, 0))
+        if caps:
+            add_line("Caps", safe_int(caps, 0))
+        if gb:
+            add_line("Gold Bullion", safe_int(gb, 0))
+
+    # Murmrgh’s Mystery Pick (3* legendary item)
+    if "Mystery" in joined or "Murmrgh" in joined or "MURMRGH" in joined:
+        out.append({"label": "Murmrgh’s Mystery Pick", "value": "3★ Legendary Item"})
+
+    # Legendary rank (QRLR) and reward list (QRLI)
+    # We keep raw refs if present
+    qrlr = None
+    qrli = None
+    for r in gmrw_rows:
+        qrlr = qrlr or norm(r.get("QRLR") or r.get("LegendaryRank") or "")
+        qrli = qrli or norm(r.get("QRLI") or r.get("LegendaryList") or "")
+    if qrlr:
+        out.append({"label": "Legendary Rank", "value": qrlr})
+    if qrli:
+        out.append({"label": "Legendary Reward List", "value": qrli})
+
+    # Bubble Legendary Modules if referenced anywhere in _Quest_Rewards lists
+    # This is a conservative heuristic: look for "Legendary Module" in resolved FULL names in any referenced LVLI.
+    modules_found = set()
+    for r in gmrw_rows:
+        maybe_lvli = norm(r.get("LVLI_FormID") or r.get("RewardList") or "")
+        if maybe_lvli and maybe_lvli in lvli_map:
+            scs = compute_lvli_scenarios(lvli_map, maybe_lvli)
+            for sc in scs:
+                for fid in sc.item_probs.keys():
+                    nm = resolve_item_name(items, fid, fid)
+                    if "Legendary Module" in nm:
+                        modules_found.add(nm)
+    if modules_found:
+        out.append({"label": "Legendary Modules", "value": sorted(modules_found, key=sort_key_alpha)})
+
+    # Deterministic ordering of base rewards
+    label_order = {"XP": 1, "Caps": 2, "Gold Bullion": 3, "Murmrgh’s Mystery Pick": 4, "Legendary Reward List": 5, "Legendary Rank": 6, "Legendary Modules": 7}
+    out.sort(key=lambda x: (label_order.get(x["label"], 99), sort_key_alpha(str(x["label"]))))
+    return out
+
+def serialize_scenario(sc: ProbScenario, items: Dict[str, ResolvedItem], lvli_map: Dict[str, LvliList]) -> Dict[str, Any]:
+    # Convert probs to user-friendly percents while keeping exact computed values
+    rows = []
+    for fid, p in sc.item_probs.items():
+        nm = resolve_item_name(items, fid, fid)
+        rows.append({
+            "formid": fid,
+            "name": nm,
+            "chance": pct(p * 100.0)
         })
-
-    # alphabetical
-    items.sort(key=lambda x: (x.get("name") or "").lower())
-
+    rows.sort(key=lambda r: sort_key_alpha(r["name"]))
     return {
-        "poolChance": round(pool_pct, 4) if pool_pct is not None else None,
-        "planCount": count,
-        "perItemRate": round(per_item, 4) if per_item is not None else None,
-        "items": items,
-        "summaryText": f"{count} Plans. 100% chance to receive 1 plan. Each plan: 100/{count}." if count else "Plans list is empty."
+        "name": sc.name,
+        "poolChance": pct(sc.pool_prob * 100.0),
+        "items": rows
     }
 
-
-def build_uniform_pool(
-    pool_lvli_formid: str,
-    pool_drop_chance: Optional[float],
-    lvli_entries: Dict[str, List[LvliEntryRow]],
-    glob_index: Dict[str, GlobRow],
-    book_index: Dict[str, BookRow],
-    armo_index: Dict[str, ArmoRow]
-) -> Dict[str, Any]:
+def hydrate_reward_groups_from_probs(payload: Dict[str, Any], sc: ProbScenario, items: Dict[str, ResolvedItem]) -> None:
     """
-    Default Rewards / Common headwear pools often behave like uniform lists.
-    We compute per-item = poolChance / entryCount.
+    Populate Default / Headwear / Plans from Default scenario.
+    Classification rules should be tightened once we see your LVLI structure names and/or item keywords.
+    For now:
+    - Plans: item FULL starting with "Plan:" or "Recipe:"
+    - Headwear: ARMO items whose FULL contains keywords like "Hat", "Mask", "Helmet", "Headwear"
+    - Everything else: Default
     """
-    entries = lvli_entries.get(pool_lvli_formid, [])
-    count = len(entries)
-    pool_pct = pool_drop_chance if pool_drop_chance is not None else 100.0
-    per_item = (pool_pct / count) if count > 0 else None
+    plans = []
+    headwear = []
+    default = []
 
-    items: List[Dict[str, Any]] = []
-    for e in entries:
-        tok = parse_token(e.reference)
-        if not tok:
-            continue
-        if is_ignored_edid(tok.get("edid") or ""):
+    for fid, prob in sc.item_probs.items():
+        nm = resolve_item_name(items, fid, fid)
+        if is_ignored_ref(nm):
             continue
 
-        name = resolve_display_name(tok, book_index, armo_index)
-
-        items.append({
-            "name": name,
-            "token": tok,
-            "dropRate": round(per_item, 4) if per_item is not None else None,
-            "collectible": True,
-            "technical": {
-                "sourceLvli": pool_lvli_formid,
-                "conditions": e.conditions or ""
-            }
-        })
-
-    items.sort(key=lambda x: (x.get("name") or "").lower())
-
-    return {
-        "poolChance": round(pool_pct, 4) if pool_pct is not None else None,
-        "itemCount": count,
-        "perItemRate": round(per_item, 4) if per_item is not None else None,
-        "items": items,
-        "summaryText": f"{count} items. Uniform roll." if count else "List is empty."
-    }
-
-
-def build_headwear(
-    headwear_lvli_formid: str,
-    headwear_pool_chance: Optional[float],
-    lvli_entries: Dict[str, List[LvliEntryRow]],
-    glob_index: Dict[str, GlobRow],
-    armo_index: Dict[str, ArmoRow],
-    book_index: Dict[str, BookRow],
-) -> Dict[str, Any]:
-    """
-    Headwear Rewards:
-      Headwear LVLI usually routes to rarity sublists:
-        *_Common, *_UnCommon, *_Rare
-      Each entry may have chance-none globals and toggle conditions.
-    """
-    head_pct = headwear_pool_chance if headwear_pool_chance is not None else 100.0
-    entries = lvli_entries.get(headwear_lvli_formid, [])
-
-    # collect rarity entries by their referenced LVLI EDID
-    rarity_nodes: List[Dict[str, Any]] = []
-    for e in entries:
-        tok = parse_token(e.reference)
-        if not tok or (tok.get("sig") or "").upper() != "LVLI":
-            continue
-        if is_ignored_edid(tok.get("edid") or ""):
-            continue
-
-        drop_pct, tech = resolve_entry_drop_chance(e, glob_index)
-        toggle = extract_toggle_condition_state(e.conditions or "")
-
-        rarity_nodes.append({
-            "rarityEdid": tok.get("edid") or "",
-            "rarityLvli": tok.get("formid") or "",
-            "rarityName": "Rare Headwear" if "rare" in (tok.get("edid") or "").lower()
-                         else "Uncommon Headwear" if "uncommon" in (tok.get("edid") or "").lower()
-                         else "Common Headwear" if "common" in (tok.get("edid") or "").lower()
-                         else "Headwear",
-            "poolChance": drop_pct,
-            "toggle": toggle,
-            "technical": {
-                **tech,
-                "conditions": e.conditions or ""
-            }
-        })
-
-    # group rarity nodes into scenario buckets if they share a toggle glob
-    # If no toggle present, it goes into base scenario only.
-    scenarios: Dict[str, Dict[str, Any]] = {
-        "base": {"label": "Base", "rarities": []}
-    }
-
-    for n in rarity_nodes:
-        t = n.get("toggle")
-        if not t:
-            scenarios["base"]["rarities"].append(n)
-            continue
-
-        key = t["glob"]
-        on_key = f"toggle_{key}_on"
-        off_key = f"toggle_{key}_off"
-
-        # classify based on operator/value
-        if t["op"] == "==" and t["val"] == 1:
-            scenarios.setdefault(on_key, {"label": f"Toggle Enabled ({key})", "rarities": []})["rarities"].append(n)
-        elif t["op"] == "==" and t["val"] == 0:
-            scenarios.setdefault(off_key, {"label": f"Toggle Disabled ({key})", "rarities": []})["rarities"].append(n)
-        elif t["op"] in ("<>", "!=") and t["val"] == 1:
-            scenarios.setdefault(off_key, {"label": f"Toggle Disabled ({key})", "rarities": []})["rarities"].append(n)
-        else:
-            scenarios.setdefault(f"toggle_{key}_other", {"label": f"Toggle Conditional ({key})", "rarities": []})["rarities"].append(n)
-
-    # Build final rarity sections (ABC: Common, Rare, Uncommon as requested: Common, Rare, Uncommon would be A/C? User said ABC order,
-    # but they earlier said "Rare, Uncommon, Common" then corrected to ABC. We'll do Common, Rare, Uncommon? That is C, R, U.
-    # ABC by section title: Common, Rare, Uncommon is correct alphabetically.
-    section_order = ["Common Headwear", "Rare Headwear", "Uncommon Headwear"]
-
-    def build_rarity_section(rarity_node: Dict[str, Any]) -> Dict[str, Any]:
-        lvli_id = rarity_node["rarityLvli"]
-        pool_pct = rarity_node["poolChance"] if rarity_node["poolChance"] is not None else None
-        # items: uniform split of pool across entries
-        entries2 = lvli_entries.get(lvli_id, [])
-        count2 = len(entries2)
-        per_item = (pool_pct / count2) if (pool_pct is not None and count2 > 0) else None
-
-        items: List[Dict[str, Any]] = []
-        for e2 in entries2:
-            tok2 = parse_token(e2.reference)
-            if not tok2:
-                continue
-            if is_ignored_edid(tok2.get("edid") or ""):
-                continue
-            name = resolve_display_name(tok2, book_index, armo_index)
-            items.append({
-                "name": name,
-                "token": tok2,
-                "dropRate": round(per_item, 4) if per_item is not None else None,
-                "collectible": True,
-                "technical": {"conditions": e2.conditions or "", "sourceLvli": lvli_id}
-            })
-
-        items.sort(key=lambda x: (x.get("name") or "").lower())
-
-        return {
-            "name": rarity_node["rarityName"],
-            "poolChance": round(pool_pct, 4) if pool_pct is not None else None,
-            "itemCount": count2,
-            "perItemRate": round(per_item, 4) if per_item is not None else None,
-            "items": items,
-            "technical": rarity_node.get("technical") or {}
+        row = {
+            "formid": fid,
+            "name": nm,
+            "dropRate": pct(prob * 100.0),
+            "releaseDate": None,
+            "tradeable": None
         }
 
-    # Build sections per scenario
-    built_scenarios: List[Dict[str, Any]] = []
-    for skey, sval in scenarios.items():
-        rarities = sval.get("rarities", [])
-        # group by rarity name and keep order
-        sections: List[Dict[str, Any]] = []
-        by_name: Dict[str, Dict[str, Any]] = {}
-        for rnode in rarities:
-            by_name[rnode["rarityName"]] = rnode
+        if nm.startswith("Plan:") or nm.startswith("Recipe:"):
+            plans.append(row)
+        elif any(k in nm for k in ("Mask", "Hat", "Helmet", "Headwear", "Beret", "Cap")):
+            headwear.append(row)
+        else:
+            default.append(row)
 
-        for nm in section_order:
-            if nm in by_name:
-                sections.append(build_rarity_section(by_name[nm]))
+    # Plans
+    plans.sort(key=lambda r: sort_key_alpha(r["name"]))
+    plan_count = len(plans)
+    payload["rewards"]["plans"]["count"] = plan_count
+    payload["rewards"]["plans"]["poolChance"] = 100.0  # per your rule for plan rewards pool display
+    payload["rewards"]["plans"]["items"] = plans
+    if plan_count > 0:
+        payload["rewards"]["plans"]["perItemChance"] = pct(100.0 / plan_count)
 
-        # if base scenario empty but we have toggle scenarios, still include it as placeholder
-        if not sections and skey == "base":
-            continue
+    # Headwear sections (Common / Uncommon / Rare)
+    # Without your rarity source-of-truth columns, we do NOT invent rarity.
+    # We place everything into Common by default and leave a warning if we cannot classify.
+    headwear.sort(key=lambda r: sort_key_alpha(r["name"]))
+    payload["rewards"]["headwear"]["common"] = headwear
+    if headwear:
+        payload["warnings"].append(build_warning_block("Headwear rarity (Common/Uncommon/Rare) not classified because no non-guess source was provided in TSV. Paste your ARMO/LVLI rarity columns and we will wire it deterministically."))
 
-        built_scenarios.append({
-            "key": skey,
-            "label": sval.get("label") or skey,
-            "sections": sections
-        })
-
-    return {
-        "poolChance": round(head_pct, 4) if head_pct is not None else None,
-        "scenarios": built_scenarios
-    }
+    # Default rewards
+    default.sort(key=lambda r: sort_key_alpha(r["name"]))
+    payload["rewards"]["default"] = default
 
 
-# -------------------- Main build --------------------
+# ----------------------------
+# Main
+# ----------------------------
 
 def main() -> None:
-    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    # Locate TSVs (newest)
+    guide_index_path = pick_required("tsv/guide_index.tsv", "guide_index.tsv")
+    quest_path = pick_required("tsv/QUEST_Export_*.tsv", "QUEST")
+    gmrw_path = pick_required("tsv/GMRW_Export_*.tsv", "GMRW")
+    glob_path = pick_required("tsv/GLOB_Export_*.tsv", "GLOB")
+    lvli_list_path = pick_required("tsv/LVLI_Export_*_LVLI_List.tsv", "LVLI_List")
+    lvli_entries_path = pick_required("tsv/LVLI_Export_*_LVLI_Entries.tsv", "LVLI_Entries")
+    lvli_refs_path = pick_required("tsv/LVLI_Export_*_LVLI_Refs.tsv", "LVLI_Refs")
+    lvli_math_path = pick_required("tsv/LVLI_Export_*_LVLI_Math.tsv", "LVLI_Math")
+    book_path = pick_required("tsv/BOOK_Export_*.tsv", "BOOK")
+    armo_path = pick_required("tsv/ARMO_Export_*.tsv", "ARMO")
 
-    guide_path = TSV_DIR / "guide_index.tsv"
-    quest_path = latest_match("QUEST_Export_*.tsv")
-    gmrw_path = latest_match("GMRW_Export_*.tsv")
-    glob_path = latest_match("GLOB_Export_*.tsv")
-    lvli_list_path = latest_match("LVLI_Export_*_LVLI_List.tsv")
-    lvli_entries_path = latest_match("LVLI_Export_*_LVLI_Entries.tsv")
-    book_path = latest_match("BOOK_Export_*.tsv")
-    armo_path = latest_match("ARMO_Export_*.tsv")
+    guide_index = load_guide_index(guide_index_path)
+    quest_rows = read_tsv(quest_path)
+    gmrw_rows = read_tsv(gmrw_path)
+    glob_vals = load_glob(glob_path)
+    items = load_items_book_armo(book_path, armo_path)
+    lvli_map = load_lvli(lvli_list_path, lvli_entries_path, lvli_refs_path, lvli_math_path)
 
-    missing = []
-    for p, label in [
-        (quest_path, "QUEST"),
-        (gmrw_path, "GMRW"),
-        (glob_path, "GLOB"),
-        (lvli_list_path, "LVLI_List"),
-        (lvli_entries_path, "LVLI_Entries"),
-        (guide_path if guide_path.exists() else None, "guide_index.tsv"),
-    ]:
-        if not p:
-            missing.append(label)
-
-    if missing:
-        raise FileNotFoundError(f"Missing required TSV(s): {', '.join(missing)}")
-
-    quests = load_rows(quest_path)
-    gmrw_rows = load_rows(gmrw_path)
-    glob_rows = load_rows(glob_path)
-    lvli_list_rows = load_rows(lvli_list_path)
-    lvli_entries_rows = load_rows(lvli_entries_path)
-
-    book_rows = load_rows(book_path) if book_path and book_path.exists() else []
-    armo_rows = load_rows(armo_path) if armo_path and armo_path.exists() else []
-
-    glob_index = build_glob_index(glob_rows)
-    book_index = build_book_index(book_rows)
-    armo_index = build_armo_index(armo_rows)
-    lvli_list_index = build_lvli_list_index(lvli_list_rows)
-    lvli_entries_index = build_lvli_entries_index(lvli_entries_rows)
-
-    hubs_by_slug, descendants_by_hub = load_guide_index()
-
-    # GMRW index by FormID
-    gmrw_by_id: Dict[str, List[Dict[str, str]]] = {}
+    # Group GMRW by quest formid if possible
+    gmrw_by_quest: Dict[str, List[Dict[str, str]]] = {}
     for r in gmrw_rows:
-        fid = (r.get("FormID") or "").upper()
-        if fid:
-            gmrw_by_id.setdefault(fid, []).append(r)
+        qid = norm(r.get("QUEST_FormID") or r.get("Quest_FormID") or r.get("QuestFormID") or "")
+        if not qid:
+            continue
+        gmrw_by_quest.setdefault(qid, []).append(r)
 
-    # guide id->url map
-    guide_rows = load_rows(guide_path)
-    guide_url_by_id: Dict[str, str] = {}
-    for gr in guide_rows:
-        gid = (gr.get("id") or "").strip()
-        url = (gr.get("url") or "").strip()
-        if gid and url:
-            guide_url_by_id[gid] = norm_path(url)
+    # Build all events
+    events_all: List[Dict[str, Any]] = []
+    events_by_page: Dict[str, Dict[str, Any]] = {}
 
-    # output structures
-    out_events: Dict[str, Any] = {
-        "generatedAt": now_iso_utc(),
-        "schemaVersion": 1,
-        "events": []
-    }
-
-    out_by_page: Dict[str, Any] = {
-        "generatedAt": now_iso_utc(),
-        "pagesByUrl": {}  # "/df/activities/.../": ["0049...","..."]
-    }
-
-    # helper: add mapping
-    def map_event_to_page_urls(event_id: str, hub_row: Dict[str, str]) -> List[str]:
-        urls: List[str] = []
-        hub_id = (hub_row.get("id") or "").strip()
-        if hub_id:
-            u = guide_url_by_id.get(hub_id)
-            if u:
-                urls.append(u)
-            for cid in descendants_by_hub.get(hub_id, []):
-                cu = guide_url_by_id.get(cid)
-                if cu:
-                    urls.append(cu)
-        return urls
-
-    def add_event_to_pages(event_formid: str, urls: List[str]) -> None:
-        for u in urls:
-            bucket = out_by_page["pagesByUrl"].setdefault(u, {"eventFormIds": []})
-            bucket["eventFormIds"].append(event_formid)
-
-    # build events
-    for q in quests:
-        full = (q.get("FULL - Name") or "").strip()
-        edid = (q.get("EDID") or "").strip()
-        if is_ignored_edid(edid):
+    for qr in quest_rows:
+        q_formid = norm(qr.get("QUEST_FormID") or qr.get("FormID") or "")
+        if not q_formid:
             continue
 
-        low = full.lower()
-        if not (low.startswith("event:") or low.startswith("activity:") or low.startswith("enclave activity:")):
+        # Determine page slug
+        # Hardening: use your known column name once provided.
+        page_slug = norm(qr.get("PageSlug") or qr.get("page_slug") or qr.get("Slug") or "")
+        if not page_slug:
+            # try to infer from guide_index by quest id match if present
+            page_slug = norm(qr.get("GuideSlug") or "")
+
+        payload = build_event_payload(qr, gmrw_by_quest, lvli_map, items, glob_vals)
+        events_all.append(payload)
+
+        if page_slug:
+            events_by_page[page_slug] = payload
+
+    # Guarantee: Never blank pages for guide-indexed event pages
+    for _, row in guide_index.items():
+        ptype = norm(row.get("type") or row.get("page_type") or "")
+        slug = norm(row.get("slug") or row.get("page_slug") or "")
+        if not slug:
             continue
-
-        title = event_title_from_full(full)
-        slug = slugify(title)
-
-        warnings: List[str] = []
-
-        # find hub guide entry by slug
-        hub = hubs_by_slug.get(slug)
-        page_urls: List[str] = map_event_to_page_urls(q.get("FormID","").upper(), hub) if hub else []
-        guide_url = norm_path(hub.get("url")) if hub and hub.get("url") else ""
-
-        # Party Crasher notices
-        notices: List[Dict[str, Any]] = extract_party_crashers(q, glob_index)
-
-        # Mutated detection (best-effort placeholder)
-        # If you later export a specific column, this will start working without rewriting JS.
-        mutated_hint = ""
-        if "mutat" in edid.lower() or "mutat" in full.lower():
-            mutated_hint = "This event can be a Mutated Public Event."
-        if mutated_hint:
-            notices.insert(0, {"type": "mutated", "text": mutated_hint})
-
-        # gather GMRW refs from QUEST
-        gmrw_ids: List[str] = []
-        for k, v in q.items():
-            if str(k).startswith("GMRWRef"):
-                fid = parse_formid_ref(v or "")
-                if fid:
-                    gmrw_ids.append(fid)
-        gmrw_ids = [x for i, x in enumerate(gmrw_ids) if x and x not in gmrw_ids[:i]]
-
-        if not gmrw_ids:
-            warnings.append("No GMRWRef fields found on QUEST.")
-
-        base_rewards_rows: List[Dict[str, Any]] = []
-        event_rewards_router_lvli: Optional[Dict[str, str]] = None  # token for *_LL_Quest_Rewards
-        event_rewards_source_from_gmrw: Optional[str] = None
-
-        # parse GMRW reward blocks
-        for gmrw_fid in gmrw_ids:
-            rr_list = gmrw_by_id.get(gmrw_fid, [])
-            if not rr_list:
-                warnings.append(f"GMRW not found: {gmrw_fid}")
-                continue
-
-            for rr in rr_list:
-                # skip cut content
-                if is_ignored_edid(rr.get("EDID") or ""):
-                    continue
-
-                # Base rewards: XP, caps, legendary pick + rank
-                xp_glob = parse_token(rr.get("NAM7_XPGlobal") or "")
-                caps_glob = parse_token(rr.get("NAM8_CapsGlobal") or "")
-                currency_obj = parse_token(rr.get("QRCO_CurrencyObject") or "")
-                leg_list = parse_token(rr.get("QRLI_LegendaryItemRewardList") or "")
-                leg_rank = rr.get("QRLR_LegendaryItemRewardRank") or ""
-                leg_rand = rr.get("QRRI_LegendaryRankRandom") or ""
-
-                if xp_glob:
-                    base_rewards_rows.append({
-                        "name": "XP",
-                        "dropRate": None,
-                        "technical": {
-                            "gmrw": gmrw_fid,
-                            "rewardIndex": rr.get("RewardIndex"),
-                            "xpGlobal": xp_glob
-                        }
-                    })
-
-                if caps_glob or currency_obj:
-                    base_rewards_rows.append({
-                        "name": "Caps",
-                        "dropRate": None,
-                        "technical": {
-                            "gmrw": gmrw_fid,
-                            "rewardIndex": rr.get("RewardIndex"),
-                            "capsGlobal": caps_glob,
-                            "currencyObject": currency_obj
-                        }
-                    })
-
-                if leg_list:
-                    star_txt = f"{{{leg_rank}*}}" if str(leg_rank).strip() else ""
-                    rand_txt = " (random rank)" if str(leg_rand).strip().lower() == "true" else ""
-                    base_rewards_rows.append({
-                        "name": f"Legendary Item {star_txt}{rand_txt}".strip(),
-                        "dropRate": None,
-                        "technical": {
-                            "gmrw": gmrw_fid,
-                            "rewardIndex": rr.get("RewardIndex"),
-                            "legendaryList": leg_list,
-                            "legendaryRank": leg_rank,
-                            "legendaryRankRandom": leg_rand
-                        }
-                    })
-
-                # RewardedItem token
-                tok = parse_token(rr.get("RewardedItem") or "")
-                if not tok:
-                    continue
-
-                # skip drifter/cut
-                if is_ignored_edid(tok.get("edid") or ""):
-                    continue
-
-                if (tok.get("sig") or "").upper() == "LVLI":
-                    # identify the router list for Event Rewards
-                    if is_quest_rewards_router(tok.get("edid") or ""):
-                        event_rewards_router_lvli = tok
-                        event_rewards_source_from_gmrw = gmrw_fid
-
-        # Build Event Rewards from router LVLI (Fasnacht-style)
-        event_rewards: Dict[str, Any] = {
-            "source": event_rewards_router_lvli,
-            "default": None,
-            "plans": None,
-            "headwear": None
-        }
-
-        if not event_rewards_router_lvli:
-            warnings.append("No *_LL_Quest_Rewards LVLI found in GMRW RewardedItem.")
-        else:
-            router_id = event_rewards_router_lvli["formid"]
-            router_edid = event_rewards_router_lvli.get("edid") or ""
-            router_entries = lvli_entries_index.get(router_id, [])
-
-            # Router entries: Default/Headwear/Plans + LegendaryModules (bubble up)
-            for e in router_entries:
-                tok = parse_token(e.reference)
-                if not tok or (tok.get("sig") or "").upper() != "LVLI":
-                    continue
-                if is_ignored_edid(tok.get("edid") or ""):
-                    continue
-
-                # Legendary Modules get bubbled into Base Rewards
-                if is_legendary_module_list(tok.get("edid") or ""):
-                    # module list itself can have GetRandomPercent logic; we do best-effort summary here
-                    base_rewards_rows.append({
-                        "name": "Legendary Module(s)",
-                        "dropRate": None,
-                        "technical": {
-                            "source": "eventRewardsRouter",
-                            "routerLvli": router_id,
-                            "moduleLvli": tok,
-                            "conditions": e.conditions or ""
-                        }
-                    })
-                    continue
-
-                label = classify_event_rewards_child(tok.get("edid") or "")
-                if not label:
-                    continue
-
-                pool_pct, pool_tech = resolve_entry_drop_chance(e, glob_index)
-                # Router-level toggles: stored and handled in JS as “scenario note”
-                toggle = extract_toggle_condition_state(e.conditions or "")
-
-                # Default Rewards
-                if label == "Default Rewards":
-                    event_rewards["default"] = {
-                        "label": "Default Rewards",
-                        "poolChance": round(pool_pct, 4) if pool_pct is not None else 100.0,
-                        "toggle": toggle,
-                        "lvli": tok,
-                        "data": build_uniform_pool(tok["formid"], pool_pct, lvli_entries_index, glob_index, book_index, armo_index),
-                        "technical": {"conditions": e.conditions or "", **pool_tech}
-                    }
-
-                # Plan Rewards (recipes)
-                if label == "Plan Rewards":
-                    event_rewards["plans"] = {
-                        "label": "Plan Rewards",
-                        "poolChance": round(pool_pct, 4) if pool_pct is not None else 100.0,
-                        "toggle": toggle,
-                        "lvli": tok,
-                        "data": build_plans_pool(tok["formid"], pool_pct, lvli_list_index, lvli_entries_index, glob_index, book_index),
-                        "technical": {"conditions": e.conditions or "", **pool_tech}
-                    }
-
-                # Headwear Rewards
-                if label == "Headwear Rewards":
-                    event_rewards["headwear"] = {
-                        "label": "Headwear Rewards",
-                        "poolChance": round(pool_pct, 4) if pool_pct is not None else 100.0,
-                        "toggle": toggle,
-                        "lvli": tok,
-                        "data": build_headwear(tok["formid"], pool_pct, lvli_entries_index, glob_index, armo_index, book_index),
-                        "technical": {"conditions": e.conditions or "", **pool_tech}
-                    }
-
-            # placeholders if missing
-            if not event_rewards.get("default"):
-                warnings.append("Event Rewards router has no Default Rewards sublist.")
-            if not event_rewards.get("plans"):
-                warnings.append("Event Rewards router has no Plan Rewards sublist.")
-            if not event_rewards.get("headwear"):
-                warnings.append("Event Rewards router has no Headwear Rewards sublist.")
-
-        # Build event object
-        event_formid = (q.get("FormID") or "").upper()
-
-        ev_obj: Dict[str, Any] = {
-            "quest": {
-                "formid": event_formid,
-                "edid": edid,
-                "full": full,
-                "title": title,
-                "desc": q.get("DESC - Description") or "",
-                "type": q.get("Quest Type") or "",
-                "location": q.get("LNAM - Location") or "",
-            },
-            "guideUrl": guide_url,
-            "pageUrls": page_urls,
-            "notices": notices,
-            "baseRewards": {
-                "label": "Base Rewards",
-                "rows": base_rewards_rows
-            },
-            "eventRewards": event_rewards,
-            "technical": {
-                "warnings": warnings,
-                "sources": {
-                    "questTsv": str(quest_path.name),
-                    "gmrwTsv": str(gmrw_path.name),
-                    "globTsv": str(glob_path.name),
-                    "lvliListTsv": str(lvli_list_path.name),
-                    "lvliEntriesTsv": str(lvli_entries_path.name),
+        # Only enforce for event rewards pages (best-effort detection)
+        if "event" in (ptype.lower() if ptype else "") or "/events/" in norm(row.get("url") or row.get("path") or "").lower():
+            if slug not in events_by_page:
+                events_by_page[slug] = {
+                    "name": norm(row.get("title") or row.get("Title") or slug),
+                    "questFormID": None,
+                    "baseRewards": [],
+                    "rewards": {"default": [], "headwear": {"common": [], "uncommon": [], "rare": []}, "plans": {"count": 0, "poolChance": 0.0, "perItemChance": None, "items": []}},
+                    "scenarios": [],
+                    "banners": [],
+                    "warnings": [build_warning_block("No event data matched this page slug. JSON emitted to prevent blank page.")]
                 }
-            }
-        }
 
-        # guarantee renderable
-        if not base_rewards_rows and not event_rewards_router_lvli:
-            ev_obj["technical"]["warnings"].append("No rewards resolved (base + event rewards empty).")
+    # Deterministic sort of events_all by name
+    events_all.sort(key=lambda e: sort_key_alpha(norm(e.get("name") or "")))
 
-        out_events["events"].append(ev_obj)
-
-        # map to pagesByUrl
-        if page_urls:
-            add_event_to_pages(event_formid, page_urls)
-        elif guide_url:
-            add_event_to_pages(event_formid, [guide_url])
-
-    # Sort and dedupe mappings
-    for u, bucket in out_by_page["pagesByUrl"].items():
-        ids = bucket.get("eventFormIds") or []
-        dedup = []
-        for x in ids:
-            if x not in dedup:
-                dedup.append(x)
-        bucket["eventFormIds"] = dedup
-
-    # stable sort events by title
-    out_events["events"].sort(key=lambda e: (e.get("quest", {}).get("title") or "").lower())
-
-    OUT_EVENTS.write_text(json.dumps(out_events, indent=2), encoding="utf-8")
-    OUT_BY_PAGE.write_text(json.dumps(out_by_page, indent=2), encoding="utf-8")
-
+    # Patchlog latest (minimal stub, your patchlog system can overwrite this)
     patchlog = {
-        "generatedAt": now_iso_utc(),
-        "notes": [
-            "Events Rewards JSON rebuilt (Fasnacht-style v1).",
-            "Includes pagesByUrl mapping to prevent blank pages.",
-            "Party Crashers pulled from QUEST TSV (PartyCrasher_* columns)."
-        ]
+        "builtAt": stable_now_iso(),
+        "system": "events-rewards",
+        "note": "Latest Events Rewards build.",
+        "source": {
+            "quest": os.path.basename(quest_path),
+            "gmrw": os.path.basename(gmrw_path),
+            "glob": os.path.basename(glob_path),
+            "lvli_list": os.path.basename(lvli_list_path),
+            "lvli_entries": os.path.basename(lvli_entries_path),
+            "lvli_refs": os.path.basename(lvli_refs_path),
+            "lvli_math": os.path.basename(lvli_math_path),
+            "book": os.path.basename(book_path),
+            "armo": os.path.basename(armo_path)
+        }
     }
-    OUT_PATCHLOG.write_text(json.dumps(patchlog, indent=2), encoding="utf-8")
 
-    print("Wrote:", OUT_EVENTS)
-    print("Wrote:", OUT_BY_PAGE)
-    print("Wrote:", OUT_PATCHLOG)
+    ensure_dir(DIST_EVENTS_DIR)
+    ensure_dir(DIST_PATCHLOG_DIR)
 
+    OUT_EVENTS_ALL.write_text(json_dump_deterministic({"builtAt": stable_now_iso(), "events": events_all}), encoding="utf-8")
+    OUT_EVENTS_BY_PAGE.write_text(json_dump_deterministic({"builtAt": stable_now_iso(), "byPage": events_by_page}), encoding="utf-8")
+    OUT_PATCHLOG_LATEST.write_text(json_dump_deterministic(patchlog), encoding="utf-8")
+
+    print(f"Wrote: {OUT_EVENTS_ALL}")
+    print(f"Wrote: {OUT_EVENTS_BY_PAGE}")
+    print(f"Wrote: {OUT_PATCHLOG_LATEST}")
 
 if __name__ == "__main__":
     main()
