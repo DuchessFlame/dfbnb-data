@@ -537,10 +537,10 @@ def book_lvli_gmrw_parentquest(
         return None, dbg
     dbg["bookFound"] = True
 
-lvli_ids = _extract_formids_from_ref_fields(book_row, ":LVLI")
-dbg["lvliIds"] = lvli_ids
-if not lvli_ids:
-    return None, dbg
+    lvli_ids = _extract_formids_from_ref_fields(book_row, ":LVLI")
+    dbg["lvliIds"] = lvli_ids
+    if not lvli_ids:
+        return None, dbg
 
 # Build quick lookup: LVLI FormID -> EDID (for cut filtering)
 lvli_edid_by_formid: Dict[str, str] = {}
@@ -585,15 +585,6 @@ for lvli_id in (lvli_ids_filtered or lvli_ids):
     dbg["lvliPicked"] = picked_lvli
     dbg["gmrwLabelFound"] = bool(pq)
     return pq, dbg
-
-    lvli_refby = None
-    for r in lvli_refby_rows:
-        if (r.get("LVLI_FormID") or "").strip().upper() == lvli_id:
-            lvli_refby = r
-            break
-    if not lvli_refby:
-        return None, dbg
-    dbg["lvliRefByFound"] = True
 
         # Follow ref-by chain until we hit a GMRW (some lists are referenced by another LVLI first)
     seen_lvli = set()
