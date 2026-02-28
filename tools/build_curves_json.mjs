@@ -331,17 +331,28 @@ const normWord = (s) => String(s || "")
   .toLowerCase()
   .replace(/[^a-z0-9]+/g, "");
 
-const perkKey = normWord(pcrdName || pcrdEdid || "");
+function cleanPerkKey(s) {
+  return normWord(s)
+    .replace(/perk$/i, "")
+    .replace(/card$/i, "")
+    .replace(/^zzz/i, "");
+}
+
+const perkKey = cleanPerkKey(pcrdName || pcrdEdid || "");
+
 if (perkKey) {
-  // Prefer matching against curves categorized as "perks"
-  // (category comes from JsonPath: .../json/Perks/...)
   for (const stub of indexCurves) {
-    if (!stub || stub.category !== "perks") continue;
-    const cKey = normWord(stub.edid || "");
+    if (!stub) continue;
+
+    const cKeyRaw = stub.edid || "";
+    const cKey = normWord(cKeyRaw);
+
     if (!cKey) continue;
 
-    // Starts-with match: "CapCollector" -> "CapCollectorBonus"
-    if (cKey.startsWith(perkKey)) curveIdsSet.add(stub.id);
+    // match if curve EDID contains perk name
+    if (cKey.includes(perkKey)) {
+      curveIdsSet.add(stub.id);
+    }
   }
 }
 
