@@ -33,7 +33,12 @@ function parseTSV(tsvText) {
   const lines = tsvText.split(/\r?\n/).filter(Boolean);
   if (!lines.length) return { header: [], rows: [] };
 
-  const header = lines[0].split("\t").map(h => h.trim());
+  const header = lines[0].split("\t").map((h, i) => {
+  let s = (h ?? "").trim();
+  // Strip UTF-8 BOM if present (common in xEdit TSV exports)
+  if (i === 0) s = s.replace(/^\uFEFF/, "");
+  return s;
+});
   const rows = [];
 
   for (let i = 1; i < lines.length; i++) {
