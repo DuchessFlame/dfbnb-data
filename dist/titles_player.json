@@ -1,5 +1,5 @@
 {
-  "generatedAt":"2026-02-28T11:57:07Z",
+  "generatedAt":"2026-02-28T12:18:37Z",
   "type":"player_titles",
   "items":[
     {
@@ -260,6 +260,14 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"008A45BD",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"00437FE8",
+          "entryMatches":0,
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"00437FE8",
           "bookFound":false,
@@ -357,6 +365,14 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"008A632E",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"00805ABA",
+          "entryMatches":0,
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"00805ABA",
           "bookFound":false,
@@ -425,25 +441,20 @@
       "debug":{
         "cobjToken":"MOON",
         "cobjFormId":"0085B1F4",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B1F6",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006A3C51",
             "0085B1F2"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006A3C51"
+          ],
+          "pickedLvliFormId":"006A3C51",
+          "pickedParentQuest":"\"Event: Beasts of Burden\""
         },
-        "cobjLvliCandidatesAll":[
-          "006A3C51",
-          "0085B1F2"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "006A3C51"
-        ],
-        "cobjReferencedByLvli":"006A3C51",
-        "cobjLvliToGmrwParentQuest":"\"Event: Beasts of Burden\"",
+        "bookLvliPickedViaEntries":"006A3C51",
         "cobjGNAM_EDID":"MOON_PlayerTitle_Recipe_Suffix_Beast",
         "cobjGNAM_FULL":"Player Title: Beast",
         "cobjGNAM_FormID":"0085B1F6"
@@ -521,7 +532,7 @@
         "Top:Subject.HasLearnedRecipe(FFZ17_PlayerTitle_co_CondProxy_Prefix_Boiled [COBJ:0085B27D]) = 1.000000"
       ],
       "condCount":1,
-      "howToObtain":"Complete the Event/Activity: (unknown)",
+      "howToObtain":"Complete the Event: Tea Time",
       "dropRate":"10%",
       "tradeable":false,
       "unlockType":"event_activity",
@@ -530,21 +541,20 @@
       "debug":{
         "cobjToken":"FFZ17",
         "cobjFormId":"0085B27D",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B280",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006127FA",
             "0085B27C"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006127FA"
+          ],
+          "pickedLvliFormId":"006127FA",
+          "pickedParentQuest":"\"Event: Tea Time\""
         },
-        "cobjLvliCandidatesAll":[
-          "0085B27C"
-        ],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
+        "bookLvliPickedViaEntries":"006127FA",
         "cobjGNAM_EDID":"FFZ17_PlayerTitle_Recipe_Prefix_Boiled",
         "cobjGNAM_FULL":"Player Title: Boiled",
         "cobjGNAM_FormID":"0085B280"
@@ -600,25 +610,20 @@
       "debug":{
         "cobjToken":"E09C",
         "cobjFormId":"0085B2A9",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B2AB",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006772EB",
             "0085B2A8"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006772EB"
+          ],
+          "pickedLvliFormId":"006772EB",
+          "pickedParentQuest":"\"Event: Tunnel Of Love\""
         },
-        "cobjLvliCandidatesAll":[
-          "006772EB",
-          "0085B2A8"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "006772EB"
-        ],
-        "cobjReferencedByLvli":"006772EB",
-        "cobjLvliToGmrwParentQuest":"\"Event: Tunnel Of Love\"",
+        "bookLvliPickedViaEntries":"006772EB",
         "cobjGNAM_EDID":"E09C_PlayerTitle_Recipe_Suffix_Bride",
         "cobjGNAM_FULL":"Player Title: Bride",
         "cobjGNAM_FormID":"0085B2AB"
@@ -647,18 +652,19 @@
       "debug":{
         "cobjToken":"FFZ10",
         "cobjFormId":"0085B1DD",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B1DE",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
             "006127F9"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "006127F9"
           ],
-          "lvliPicked":"006127F9",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"006127F9",
+          "pickedParentQuest":"\"Event: The Path to Enlightenment\""
         },
+        "bookLvliPickedViaEntries":"006127F9",
         "cobjGNAM_EDID":"FFZ10_PlayerTitle_Recipe_Prefix_Bright",
         "cobjGNAM_FULL":"Player Title: Bright",
         "cobjGNAM_FormID":"0085B1DE"
@@ -875,6 +881,14 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"008A632F",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"007CF773",
+          "entryMatches":0,
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"007CF773",
           "bookFound":false,
@@ -936,18 +950,19 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B2459",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B244B",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "00553EDD"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "00553EDD"
           ],
-          "lvliPicked":"00553EDD",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"00553EDD",
+          "pickedParentQuest":"\"Event: Grahm's Meat-Cook\""
         },
+        "bookLvliPickedViaEntries":"00553EDD",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Carnivore",
         "cobjGNAM_FULL":"Player Title: Carnivore",
         "cobjGNAM_FormID":"007B244B"
@@ -1003,28 +1018,21 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B2458",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B2444",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":6,
+          "candidateLvliFormIdsAll":[
+            "0046A3B1",
             "0085AD28"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
+            "0046A3B1",
             "0085AD28"
           ],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "pickedLvliFormId":"0046A3B1",
+          "pickedParentQuest":"\"Event: Free Range\""
         },
-        "cobjLvliCandidatesAll":[
-          "0046A3B1",
-          "0085AD28"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "0046A3B1",
-          "0085AD28"
-        ],
-        "cobjReferencedByLvli":"0046A3B1",
-        "cobjLvliToGmrwParentQuest":"\"Event: Free Range\"",
+        "bookLvliPickedViaEntries":"0046A3B1",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_CattleRustler",
         "cobjGNAM_FULL":"Player Title: Cattle Rustler",
         "cobjGNAM_FormID":"007B2444"
@@ -1080,18 +1088,19 @@
       "debug":{
         "cobjToken":"Storm",
         "cobjFormId":"0085AD5E",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085AD5F",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
             "007720B8"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "007720B8"
           ],
-          "lvliPicked":"007720B8",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"007720B8",
+          "pickedParentQuest":"\"Event: Dangerous Pastimes\""
         },
+        "bookLvliPickedViaEntries":"007720B8",
         "cobjGNAM_EDID":"Storm_E01_PlayerTitle_Recipe_Prefix_Charged",
         "cobjGNAM_FULL":"Player Title: Charged",
         "cobjGNAM_FormID":"0085AD5F"
@@ -1470,18 +1479,19 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B2454",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B2450",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "00621C2B"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "00621C2B"
           ],
-          "lvliPicked":"00621C2B",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"00621C2B",
+          "pickedParentQuest":"\"Event: The Mothman Equinox\""
         },
+        "bookLvliPickedViaEntries":"00621C2B",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Cultist",
         "cobjGNAM_FULL":"Player Title: Cultist",
         "cobjGNAM_FormID":"007B2450"
@@ -1682,6 +1692,14 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"008A45BC",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"00437FE5",
+          "entryMatches":0,
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"00437FE5",
           "bookFound":false,
@@ -2094,6 +2112,14 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"008A45BE",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"00437FEC",
+          "entryMatches":0,
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"00437FEC",
           "bookFound":false,
@@ -2133,25 +2159,20 @@
       "debug":{
         "cobjToken":"E08B",
         "cobjFormId":"0085B1E4",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B1E5",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "00647B2D",
             "0085B1E3"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "00647B2D"
+          ],
+          "pickedLvliFormId":"00647B2D",
+          "pickedParentQuest":"\"Event: Eviction Notice\""
         },
-        "cobjLvliCandidatesAll":[
-          "00647B2D",
-          "0085B1E3"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "00647B2D"
-        ],
-        "cobjReferencedByLvli":"00647B2D",
-        "cobjLvliToGmrwParentQuest":"\"Event: Eviction Notice\"",
+        "bookLvliPickedViaEntries":"00647B2D",
         "cobjGNAM_EDID":"E08B_PlayerTitle_Recipe_Prefix_Evicted",
         "cobjGNAM_FULL":"Player Title: Evicted",
         "cobjGNAM_FormID":"0085B1E5"
@@ -2341,6 +2362,18 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B245A",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"007B2443",
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "007B2463"
+          ],
+          "candidateLvliFormIdsFiltered":[
+            "007B2463"
+          ],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"007B2443",
           "bookFound":true,
@@ -2416,25 +2449,20 @@
       "debug":{
         "cobjToken":"MTNS06",
         "cobjFormId":"0085B0C0",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B0C2",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006127FD",
             "0085B0BF"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006127FD"
+          ],
+          "pickedLvliFormId":"006127FD",
+          "pickedParentQuest":"\"Event: Uranium Fever\""
         },
-        "cobjLvliCandidatesAll":[
-          "006127FD",
-          "0085B0BF"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "006127FD"
-        ],
-        "cobjReferencedByLvli":"006127FD",
-        "cobjLvliToGmrwParentQuest":"\"Event: Uranium Fever\"",
+        "bookLvliPickedViaEntries":"006127FD",
         "cobjGNAM_EDID":"MTNS06_PlayerTitle_Recipe_Prefix_Feverish",
         "cobjGNAM_FULL":"Player Title: Feverish",
         "cobjGNAM_FormID":"0085B0C2"
@@ -2678,18 +2706,19 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007A96DB",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007A96D9",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "007AD259"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "007AD259"
           ],
-          "lvliPicked":"007AD259",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"007AD259",
+          "pickedParentQuest":"\"Event: The Big Bloom\""
         },
+        "bookLvliPickedViaEntries":"007AD259",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Gardener",
         "cobjGNAM_FULL":"Player Title: Gardener",
         "cobjGNAM_FormID":"007A96D9"
@@ -2960,18 +2989,19 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B2457",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B2447",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "005A5E0D"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "005A5E0D"
           ],
-          "lvliPicked":"005A5E0D",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"005A5E0D",
+          "pickedParentQuest":"\"Event: Fasnacht Day\""
         },
+        "bookLvliPickedViaEntries":"005A5E0D",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Prefix_Glowing",
         "cobjGNAM_FULL":"Player Title: Glowing",
         "cobjGNAM_FormID":"007B2447"
@@ -3022,18 +3052,19 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B245D",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B2446",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "0076DA80"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "0076DA80"
           ],
-          "lvliPicked":"0076DA80",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"0076DA80",
+          "pickedParentQuest":"\"Event: Mischief Night\""
         },
+        "bookLvliPickedViaEntries":"0076DA80",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Goblin",
         "cobjGNAM_FULL":"Player Title: Goblin",
         "cobjGNAM_FormID":"007B2446"
@@ -3113,18 +3144,19 @@
       "debug":{
         "cobjToken":"SFS08",
         "cobjFormId":"0085B0BB",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B0BC",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
             "00612804"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "00612804"
           ],
-          "lvliPicked":"00612804",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"00612804",
+          "pickedParentQuest":"\"Event: Heart of the Swamp\""
         },
+        "bookLvliPickedViaEntries":"00612804",
         "cobjGNAM_EDID":"SFS08_PlayerTitle_Recipe_Prefix_Green",
         "cobjGNAM_FULL":"Player Title: Green",
         "cobjGNAM_FormID":"0085B0BC"
@@ -3153,25 +3185,20 @@
       "debug":{
         "cobjToken":"E09C",
         "cobjFormId":"0085B2AA",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B2AC",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006772EB",
             "0085B2A8"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006772EB"
+          ],
+          "pickedLvliFormId":"006772EB",
+          "pickedParentQuest":"\"Event: Tunnel Of Love\""
         },
-        "cobjLvliCandidatesAll":[
-          "006772EB",
-          "0085B2A8"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "006772EB"
-        ],
-        "cobjReferencedByLvli":"006772EB",
-        "cobjLvliToGmrwParentQuest":"\"Event: Tunnel Of Love\"",
+        "bookLvliPickedViaEntries":"006772EB",
         "cobjGNAM_EDID":"E09C_PlayerTitle_Recipe_Suffix_Groom",
         "cobjGNAM_FULL":"Player Title: Groom",
         "cobjGNAM_FormID":"0085B2AC"
@@ -3364,25 +3391,20 @@
       "debug":{
         "cobjToken":"MTNM03",
         "cobjFormId":"0085B254",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B252",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006127FB",
             "0085B256"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006127FB"
+          ],
+          "pickedLvliFormId":"006127FB",
+          "pickedParentQuest":"\"Event: Guided Meditation\""
         },
-        "cobjLvliCandidatesAll":[
-          "006127FB",
-          "0085B256"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "006127FB"
-        ],
-        "cobjReferencedByLvli":"006127FB",
-        "cobjLvliToGmrwParentQuest":"\"Event: Guided Meditation\"",
+        "bookLvliPickedViaEntries":"006127FB",
         "cobjGNAM_EDID":"MTNM03_PlayerTitle_Recipe_Suffix_Guru",
         "cobjGNAM_FULL":"Player Title: Guru",
         "cobjGNAM_FormID":"0085B252"
@@ -3440,18 +3462,19 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B2453",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B244E",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "0046D28F"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "0046D28F"
           ],
-          "lvliPicked":"0046D28F",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"0046D28F",
+          "pickedParentQuest":"\"Event: Campfire Tales\""
         },
+        "bookLvliPickedViaEntries":"0046D28F",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_HappyCamper",
         "cobjGNAM_FULL":"Player Title: Happy Camper",
         "cobjGNAM_FormID":"007B244E"
@@ -3556,28 +3579,21 @@
       "debug":{
         "cobjToken":"E01B",
         "cobjFormId":"0085AD29",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085AD2B",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "0046A3B1",
             "0085AD28"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
+            "0046A3B1",
             "0085AD28"
           ],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "pickedLvliFormId":"0046A3B1",
+          "pickedParentQuest":"\"Event: Free Range\""
         },
-        "cobjLvliCandidatesAll":[
-          "0046A3B1",
-          "0085AD28"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "0046A3B1",
-          "0085AD28"
-        ],
-        "cobjReferencedByLvli":"0046A3B1",
-        "cobjLvliToGmrwParentQuest":"\"Event: Free Range\"",
+        "bookLvliPickedViaEntries":"0046A3B1",
         "cobjGNAM_EDID":"E01B_PlayerTitle_Recipe_Prefix_Suffix_Herd",
         "cobjGNAM_FULL":"Player Title: Herd",
         "cobjGNAM_FormID":"0085AD2B"
@@ -3904,18 +3920,19 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B2456",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B2451",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "00620E7F"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "00620E7F"
           ],
-          "lvliPicked":"00620E7F",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"00620E7F",
+          "pickedParentQuest":"\"Event: Invaders From Beyond\""
         },
+        "bookLvliPickedViaEntries":"00620E7F",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Invader",
         "cobjGNAM_FULL":"Player Title: Invader",
         "cobjGNAM_FormID":"007B2451"
@@ -4130,25 +4147,20 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B2455",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B244D",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":6,
+          "candidateLvliFormIdsAll":[
+            "00647B2D",
             "0085B1E3"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "00647B2D"
+          ],
+          "pickedLvliFormId":"00647B2D",
+          "pickedParentQuest":"\"Event: Eviction Notice\""
         },
-        "cobjLvliCandidatesAll":[
-          "00647B2D",
-          "0085B1E3"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "00647B2D"
-        ],
-        "cobjReferencedByLvli":"00647B2D",
-        "cobjLvliToGmrwParentQuest":"\"Event: Eviction Notice\"",
+        "bookLvliPickedViaEntries":"00647B2D",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Landlord",
         "cobjGNAM_FULL":"Player Title: Landlord",
         "cobjGNAM_FormID":"007B244D"
@@ -4255,6 +4267,14 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"008A6330",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"007CF758",
+          "entryMatches":0,
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"007CF758",
           "bookFound":false,
@@ -4352,18 +4372,19 @@
       "debug":{
         "cobjToken":"FF06",
         "cobjFormId":"0085B200",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B1FF",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
             "006127F8"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "006127F8"
           ],
-          "lvliPicked":"006127F8",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"006127F8",
+          "pickedParentQuest":"\"Event: Feed the People\""
         },
+        "bookLvliPickedViaEntries":"006127F8",
         "cobjGNAM_EDID":"FF06_PlayerTitle_Recipe_Suffix_Mama",
         "cobjGNAM_FULL":"Player Title: Mama",
         "cobjGNAM_FormID":"0085B1FF"
@@ -4392,19 +4413,20 @@
       "debug":{
         "cobjToken":"SFS09",
         "cobjFormId":"0085AD1E",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085AD20",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "0085AD25",
             "0085B2AF"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "0085AD25"
           ],
-          "lvliPicked":"0085AD25",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"0085AD25",
+          "pickedParentQuest":"\"Event: Project Paradise\""
         },
+        "bookLvliPickedViaEntries":"0085AD25",
         "cobjGNAM_EDID":"SFS09_PlayerTitle_Recipe_Suffix_Manager",
         "cobjGNAM_FULL":"Player Title: Manager",
         "cobjGNAM_FormID":"0085AD20"
@@ -4514,18 +4536,19 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B245E",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B244F",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "005A5E0D"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "005A5E0D"
           ],
-          "lvliPicked":"005A5E0D",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"005A5E0D",
+          "pickedParentQuest":"\"Event: Fasnacht Day\""
         },
+        "bookLvliPickedViaEntries":"005A5E0D",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Prefix_Masked",
         "cobjGNAM_FULL":"Player Title: Masked",
         "cobjGNAM_FormID":"007B244F"
@@ -4608,25 +4631,20 @@
       "debug":{
         "cobjToken":"MOON",
         "cobjFormId":"0085B1F3",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B1F5",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006A3C51",
             "0085B1F2"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006A3C51"
+          ],
+          "pickedLvliFormId":"006A3C51",
+          "pickedParentQuest":"\"Event: Beasts of Burden\""
         },
-        "cobjLvliCandidatesAll":[
-          "006A3C51",
-          "0085B1F2"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "006A3C51"
-        ],
-        "cobjReferencedByLvli":"006A3C51",
-        "cobjLvliToGmrwParentQuest":"\"Event: Beasts of Burden\"",
+        "bookLvliPickedViaEntries":"006A3C51",
         "cobjGNAM_EDID":"MOON_PlayerTitle_Recipe_Prefix_MoonaLisa",
         "cobjGNAM_FULL":"Player Title: Moona Lisa's",
         "cobjGNAM_FormID":"0085B1F5"
@@ -4711,18 +4729,19 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B245C",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B2445",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
             "0067F389"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "0067F389"
           ],
-          "lvliPicked":"0067F389",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"0067F389",
+          "pickedParentQuest":"\"Event: Line in the Sand\""
         },
+        "bookLvliPickedViaEntries":"0067F389",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Prefix_Mutated",
         "cobjGNAM_FULL":"Player Title: Mutated",
         "cobjGNAM_FormID":"007B2445"
@@ -4834,6 +4853,14 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"008A6331",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"008006DD",
+          "entryMatches":0,
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"008006DD",
           "bookFound":false,
@@ -5025,6 +5052,18 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"008AA952",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"008AA950",
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
+            "008833D8"
+          ],
+          "candidateLvliFormIdsFiltered":[
+            "008833D8"
+          ],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"008AA950",
           "bookFound":true,
@@ -5653,19 +5692,26 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B2452",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B2449",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":10,
+          "candidateLvliFormIdsAll":[
+            "0053B786",
+            "0053B785",
+            "0053B787",
             "0085AD25",
             "0085B2AF"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
+            "0053B786",
+            "0053B785",
+            "0053B787",
             "0085AD25"
           ],
-          "lvliPicked":"0085AD25",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"0053B786",
+          "pickedParentQuest":"\"Event: Project Paradise\""
         },
+        "bookLvliPickedViaEntries":"0053B786",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Researcher",
         "cobjGNAM_FULL":"Player Title: Researcher",
         "cobjGNAM_FormID":"007B2449"
@@ -5763,25 +5809,20 @@
       "debug":{
         "cobjToken":"MOON",
         "cobjFormId":"0085B594",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B592",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "0069FB64",
             "0085B595"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "0069FB64"
+          ],
+          "pickedLvliFormId":"0069FB64",
+          "pickedParentQuest":"\"Event: Safe and Sound\""
         },
-        "cobjLvliCandidatesAll":[
-          "0069FB64",
-          "0085B595"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "0069FB64"
-        ],
-        "cobjReferencedByLvli":"0069FB64",
-        "cobjLvliToGmrwParentQuest":"\"Event: Safe and Sound\"",
+        "bookLvliPickedViaEntries":"0069FB64",
         "cobjGNAM_EDID":"MOON_PlayerTitle_Recipe_Prefix_Rigged",
         "cobjGNAM_FULL":"Player Title: Rigged",
         "cobjGNAM_FormID":"0085B592"
@@ -5868,25 +5909,20 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B245B",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B2448",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":6,
+          "candidateLvliFormIdsAll":[
+            "00582152",
             "0085AD35"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "00582152"
+          ],
+          "pickedLvliFormId":"00582152",
+          "pickedParentQuest":"\"Event: Radiation Rumble\""
         },
-        "cobjLvliCandidatesAll":[
-          "00582152",
-          "0085AD35"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "00582152"
-        ],
-        "cobjReferencedByLvli":"00582152",
-        "cobjLvliToGmrwParentQuest":"\"Event: Radiation Rumble\"",
+        "bookLvliPickedViaEntries":"00582152",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Rumbler",
         "cobjGNAM_FULL":"Player Title: Rumbler",
         "cobjGNAM_FormID":"007B2448"
@@ -6099,25 +6135,20 @@
       "debug":{
         "cobjToken":"E05",
         "cobjFormId":"0085AD32",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085AD33",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "00582152",
             "0085AD35"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "00582152"
+          ],
+          "pickedLvliFormId":"00582152",
+          "pickedParentQuest":"\"Event: Radiation Rumble\""
         },
-        "cobjLvliCandidatesAll":[
-          "00582152",
-          "0085AD35"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "00582152"
-        ],
-        "cobjReferencedByLvli":"00582152",
-        "cobjLvliToGmrwParentQuest":"\"Event: Radiation Rumble\"",
+        "bookLvliPickedViaEntries":"00582152",
         "cobjGNAM_EDID":"E05_PlayerTitle_Recipe_Suffix_Scavenger",
         "cobjGNAM_FULL":"Player Title: Scavenger",
         "cobjGNAM_FormID":"0085AD33"
@@ -6339,25 +6370,20 @@
       "debug":{
         "cobjToken":"E09D",
         "cobjFormId":"0085B2B1",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B2B3",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "0065E293",
             "0085B2B0"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "0065E293"
+          ],
+          "pickedLvliFormId":"0065E293",
+          "pickedParentQuest":"\"Event: Most Wanted\""
         },
-        "cobjLvliCandidatesAll":[
-          "0065E293",
-          "0085B2B0"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "0065E293"
-        ],
-        "cobjReferencedByLvli":"0065E293",
-        "cobjLvliToGmrwParentQuest":"\"Event: Most Wanted\"",
+        "bookLvliPickedViaEntries":"0065E293",
         "cobjGNAM_EDID":"E09D_PlayerTitle_Recipe_Prefix_Sharpshooter",
         "cobjGNAM_FULL":"Player Title: Sharpshooter",
         "cobjGNAM_FormID":"0085B2B3"
@@ -6386,28 +6412,21 @@
       "debug":{
         "cobjToken":"E01B",
         "cobjFormId":"0085AD2A",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085AD2C",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "0046A3B1",
             "0085AD28"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
+            "0046A3B1",
             "0085AD28"
           ],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "pickedLvliFormId":"0046A3B1",
+          "pickedParentQuest":"\"Event: Free Range\""
         },
-        "cobjLvliCandidatesAll":[
-          "0046A3B1",
-          "0085AD28"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "0046A3B1",
-          "0085AD28"
-        ],
-        "cobjReferencedByLvli":"0046A3B1",
-        "cobjLvliToGmrwParentQuest":"\"Event: Free Range\"",
+        "bookLvliPickedViaEntries":"0046A3B1",
         "cobjGNAM_EDID":"E01B_PlayerTitle_Recipe_Prefix_Suffix_Shepherd",
         "cobjGNAM_FULL":"Player Title: Shepherd",
         "cobjGNAM_FormID":"0085AD2C"
@@ -6436,18 +6455,19 @@
       "debug":{
         "cobjToken":"E08A",
         "cobjFormId":"0085B1E0",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B1E1",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
             "0063E385"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "0063E385"
           ],
-          "lvliPicked":"0063E385",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"0063E385",
+          "pickedParentQuest":"\"Event: Moonshine Jamboree\""
         },
+        "bookLvliPickedViaEntries":"0063E385",
         "cobjGNAM_EDID":"E08A_PlayerTitle_Recipe_Suffix_Shiner",
         "cobjGNAM_FULL":"Player Title: Shiner",
         "cobjGNAM_FormID":"0085B1E1"
@@ -6673,6 +6693,18 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007A96DA",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"007A96D8",
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "007B2465"
+          ],
+          "candidateLvliFormIdsFiltered":[
+            "007B2465"
+          ],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"007A96D8",
           "bookFound":true,
@@ -6860,18 +6892,19 @@
       "debug":{
         "cobjToken":"BoSr01",
         "cobjFormId":"0085B260",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B261",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
             "006127F5"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "006127F5"
           ],
-          "lvliPicked":"006127F5",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"006127F5",
+          "pickedParentQuest":"\"Event: Line in the Sand\""
         },
+        "bookLvliPickedViaEntries":"006127F5",
         "cobjGNAM_EDID":"BoSr01_PlayerTitle_Recipe_Prefix_Stalwart",
         "cobjGNAM_FULL":"Player Title: Stalwart",
         "cobjGNAM_FormID":"0085B261"
@@ -6929,25 +6962,20 @@
       "debug":{
         "cobjToken":"FFZ17",
         "cobjFormId":"0085B27F",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B282",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006127FA",
             "0085B27C"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006127FA"
+          ],
+          "pickedLvliFormId":"006127FA",
+          "pickedParentQuest":"\"Event: Tea Time\""
         },
-        "cobjLvliCandidatesAll":[
-          "006127FA",
-          "0085B27C"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "006127FA"
-        ],
-        "cobjReferencedByLvli":"006127FA",
-        "cobjLvliToGmrwParentQuest":"\"Event: Tea Time\"",
+        "bookLvliPickedViaEntries":"006127FA",
         "cobjGNAM_EDID":"FFZ17_PlayerTitle_Recipe_Suffix_Steeped",
         "cobjGNAM_FULL":"Player Title: Steeped",
         "cobjGNAM_FormID":"0085B282"
@@ -7088,18 +7116,19 @@
       "debug":{
         "cobjToken":"TWZ05",
         "cobjFormId":"0085B1FB",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B1FC",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
             "00612805"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "00612805"
           ],
-          "lvliPicked":"00612805",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"00612805",
+          "pickedParentQuest":"\"Event: Swarm of Suitors\""
         },
+        "bookLvliPickedViaEntries":"00612805",
         "cobjGNAM_EDID":"TWZ05_PlayerTitle_Recipe_Suffix_Suitor",
         "cobjGNAM_FULL":"Player Title: Suitor",
         "cobjGNAM_FormID":"0085B1FC"
@@ -7155,6 +7184,18 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B2460",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"007B244C",
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "007B2464"
+          ],
+          "candidateLvliFormIdsFiltered":[
+            "007B2464"
+          ],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"007B244C",
           "bookFound":true,
@@ -7284,18 +7325,19 @@
       "debug":{
         "cobjToken":"SFS09",
         "cobjFormId":"0085AD1F",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085AD21",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
             "0085AD1D"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "0085AD1D"
           ],
-          "lvliPicked":"0085AD1D",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"0085AD1D",
+          "pickedParentQuest":"\"Event: Project Paradise\""
         },
+        "bookLvliPickedViaEntries":"0085AD1D",
         "cobjGNAM_EDID":"SFS09_PlayerTitle_Recipe_Suffix_Tamer",
         "cobjGNAM_FULL":"Player Title: Tamer",
         "cobjGNAM_FormID":"0085AD21"
@@ -7344,25 +7386,20 @@
       "debug":{
         "cobjToken":"MOON",
         "cobjFormId":"0085B593",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B591",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "0069FB64",
             "0085B595"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "0069FB64"
+          ],
+          "pickedLvliFormId":"0069FB64",
+          "pickedParentQuest":"\"Event: Safe and Sound\""
         },
-        "cobjLvliCandidatesAll":[
-          "0069FB64",
-          "0085B595"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "0069FB64"
-        ],
-        "cobjReferencedByLvli":"0069FB64",
-        "cobjLvliToGmrwParentQuest":"\"Event: Safe and Sound\"",
+        "bookLvliPickedViaEntries":"0069FB64",
         "cobjGNAM_EDID":"MOON_PlayerTitle_Recipe_Suffix_Tech",
         "cobjGNAM_FULL":"Player Title: Tech",
         "cobjGNAM_FormID":"0085B591"
@@ -7776,6 +7813,26 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"008AA953",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"008AA951",
+          "entryMatches":10,
+          "candidateLvliFormIdsAll":[
+            "0089740B",
+            "0089740D",
+            "0089740E",
+            "0089740C",
+            "0089740A"
+          ],
+          "candidateLvliFormIdsFiltered":[
+            "0089740B",
+            "0089740D",
+            "0089740E",
+            "0089740C",
+            "0089740A"
+          ],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"008AA951",
           "bookFound":true,
@@ -7869,25 +7926,20 @@
       "debug":{
         "cobjToken":"MTNS06",
         "cobjFormId":"0085B0C1",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B0C3",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006127FD",
             "0085B0BF"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006127FD"
+          ],
+          "pickedLvliFormId":"006127FD",
+          "pickedParentQuest":"\"Event: Uranium Fever\""
         },
-        "cobjLvliCandidatesAll":[
-          "006127FD",
-          "0085B0BF"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "006127FD"
-        ],
-        "cobjReferencedByLvli":"006127FD",
-        "cobjLvliToGmrwParentQuest":"\"Event: Uranium Fever\"",
+        "bookLvliPickedViaEntries":"006127FD",
         "cobjGNAM_EDID":"MTNS06_PlayerTitle_Recipe_Prefix_Suffix_Uranium",
         "cobjGNAM_FULL":"Player Title: Uranium",
         "cobjGNAM_FormID":"0085B0C3"
@@ -7994,25 +8046,20 @@
       "debug":{
         "cobjToken":"E09D",
         "cobjFormId":"0085B2B2",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B2B4",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "0065E293",
             "0085B2B0"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "0065E293"
+          ],
+          "pickedLvliFormId":"0065E293",
+          "pickedParentQuest":"\"Event: Most Wanted\""
         },
-        "cobjLvliCandidatesAll":[
-          "0065E293",
-          "0085B2B0"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "0065E293"
-        ],
-        "cobjReferencedByLvli":"0065E293",
-        "cobjLvliToGmrwParentQuest":"\"Event: Most Wanted\"",
+        "bookLvliPickedViaEntries":"0065E293",
         "cobjGNAM_EDID":"E09D_PlayerTitle_Recipe_Prefix_Wanted",
         "cobjGNAM_FULL":"Player Title: Wanted",
         "cobjGNAM_FormID":"0085B2B4"
@@ -8205,18 +8252,19 @@
       "debug":{
         "cobjToken":"FFZ17",
         "cobjFormId":"0085B27E",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B281",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
             "006127FA"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
             "006127FA"
           ],
-          "lvliPicked":"006127FA",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"006127FA",
+          "pickedParentQuest":"\"Event: Tea Time\""
         },
+        "bookLvliPickedViaEntries":"006127FA",
         "cobjGNAM_EDID":"FFZ17_PlayerTitle_Recipe_Prefix_WorldsLargest",
         "cobjGNAM_FULL":"Player Title: Worlds Largest",
         "cobjGNAM_FormID":"0085B281"
@@ -8256,7 +8304,7 @@
         "Top:Subject.HasLearnedRecipe(MTNM03_PlayerTitle_co_CondProxy_Prefix_Zen [COBJ:0085B255]) = 1.000000"
       ],
       "condCount":1,
-      "howToObtain":"Complete the Event/Activity: (unknown)",
+      "howToObtain":"Complete the Event: Guided Meditation",
       "dropRate":"10%",
       "tradeable":false,
       "unlockType":"event_activity",
@@ -8265,25 +8313,20 @@
       "debug":{
         "cobjToken":"MTNM03",
         "cobjFormId":"0085B255",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"0085B253",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "006127FB",
             "0085B256"
           ],
-          "lvliIdsFiltered":[],
-          "lvliPicked":null,
-          "gmrwLabelFound":false
+          "candidateLvliFormIdsFiltered":[
+            "006127FB"
+          ],
+          "pickedLvliFormId":"006127FB",
+          "pickedParentQuest":"\"Event: Guided Meditation\""
         },
-        "cobjLvliCandidatesAll":[
-          "0085B251",
-          "0085B256"
-        ],
-        "cobjLvliCandidatesFiltered":[
-          "0085B251"
-        ],
-        "cobjReferencedByLvli":"0085B251",
-        "cobjLvliToGmrwParentQuest":null,
+        "bookLvliPickedViaEntries":"006127FB",
         "cobjGNAM_EDID":"MTNM03_PlayerTitle_Recipe_Prefix_Zen",
         "cobjGNAM_FULL":"Player Title: Zen",
         "cobjGNAM_FormID":"0085B253"
@@ -8341,18 +8384,21 @@
       "debug":{
         "cobjToken":"PlayerTitle",
         "cobjFormId":"007B245F",
-        "bookLvliGmrw":{
+        "bookLvliGmrwViaEntries":{
           "bookFormId":"007B244A",
-          "bookFound":true,
-          "lvliIds":[
+          "entryMatches":4,
+          "candidateLvliFormIdsAll":[
+            "005380CC",
             "0085AD1D"
           ],
-          "lvliIdsFiltered":[
+          "candidateLvliFormIdsFiltered":[
+            "005380CC",
             "0085AD1D"
           ],
-          "lvliPicked":"0085AD1D",
-          "gmrwLabelFound":true
+          "pickedLvliFormId":"005380CC",
+          "pickedParentQuest":"\"Event: Project Paradise\""
         },
+        "bookLvliPickedViaEntries":"005380CC",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Zookeeper",
         "cobjGNAM_FULL":"Player Title: Zookeeper",
         "cobjGNAM_FormID":"007B244A"
@@ -8770,6 +8816,16 @@
       "debug":{
         "cobjToken":"zzz",
         "cobjFormId":"0085B12E",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"0085B130",
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
+            "0085B134"
+          ],
+          "candidateLvliFormIdsFiltered":[],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"0085B130",
           "bookFound":true,
@@ -9253,6 +9309,16 @@
       "debug":{
         "cobjToken":"zzz",
         "cobjFormId":"0085B12F",
+        "bookLvliGmrwViaEntries":{
+          "bookFormId":"0085B131",
+          "entryMatches":2,
+          "candidateLvliFormIdsAll":[
+            "0085B134"
+          ],
+          "candidateLvliFormIdsFiltered":[],
+          "pickedLvliFormId":null,
+          "pickedParentQuest":null
+        },
         "bookLvliGmrw":{
           "bookFormId":"0085B131",
           "bookFound":true,
