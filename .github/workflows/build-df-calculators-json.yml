@@ -1,0 +1,39 @@
+name: Build DF Calculators JSON
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tsv/FLST_Export_*_*.tsv"
+      - "tsv/ARMO_BOD2_Export_*_*.tsv"
+      - "tsv/COBJ_Export_*_*.tsv"
+      - "scripts/build_df_calculators_json.mjs"
+      - ".github/workflows/build-df-calculators-json.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build calculators JSON
+        run: node scripts/build_df_calculators_json.mjs
+        env:
+          FLST_TSV: tsv/FLST_Export_March_2026.tsv
+          ARMO_BOD2_TSV: tsv/ARMO_BOD2_Export_March_2026.tsv
+          COBJ_TSV: tsv/COBJ_Export_March_2026.tsv
+          OUT_DIR: dist/calculators
+
+      - name: Commit dist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/calculators/*.json
+          git commit -m "Build DF calculators JSON" || echo "No changes"
+          git push
