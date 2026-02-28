@@ -513,7 +513,8 @@ def book_lvli_gmrw_parentquest(
     book_rows: List[Dict[str, str]],
     lvli_refby_rows: List[Dict[str, str]],
     gmrw_by_formid: Dict[str, str],
-    book_formid: str
+    book_formid: str,
+    lvli_list_rows: Optional[List[Dict[str, str]]] = None,
 ) -> Tuple[Optional[str], Dict[str, Any]]:
     """
     Strict path:
@@ -536,22 +537,50 @@ def book_lvli_gmrw_parentquest(
         return None, dbg
     dbg["bookFound"] = True
 
-    lvli_ids = _extract_formids_from_ref_fields(book_row, ":LVLI")
-    dbg["lvliIds"] = lvli_ids
-    if not lvli_ids:
-        return None, dbg
+lvli_ids = _extract_formids_from_ref_fields(book_row, ":LVLI")
+dbg["lvliIds"] = lvli_ids
+if not lvli_ids:
+    return None, dbg
 
-    # Try ALL LVLI candidates from the BOOK refs (BFS up the chain)
-    pq = None
-    picked_lvli = None
-    picked_gmrw = None
+# Build quick lookup: LVLI FormID -> EDID (for cut filtering)
+lvli_edid_by_formid: Dict[str, str] = {}
+if lvli_list_rows:
+    for r in lvli_list_rows:
+        fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+        if not fid:
+            continue
+        ed = (r.get("LVLI_EDID") or r.get("EDID") or "").strip()
+        if ed:
+            lvli_edid_by_formid[fid] = ed
 
-    for lvli_id in lvli_ids:
-        pq_try = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, lvli_id)
-        if pq_try:
-            pq = pq_try
-            picked_lvli = lvli_id
-            break
+def _is_cut_lvli(fid8: str) -> bool:
+    ed = lvli_edid_by_formid.get((fid8 or "").strip().upper(), "")
+    return bool(ed) and starts_cut(ed)
+
+# Filter LVLI candidates: skip DEL/CUT/POST/ZZZ if we can identify them
+lvli_ids_filtered: List[str] = []
+for fid in lvli_ids:
+    if _is_cut_lvli(fid):
+        continue
+    lvli_ids_filtered.append(fid)
+
+dbg["lvliIdsFiltered"] = lvli_ids_filtered
+
+# Try ALL LVLI candidates from the BOOK refs (BFS up the chain)
+pq = None
+picked_lvli = None
+
+for lvli_id in (lvli_ids_filtered or lvli_ids):
+    pq_try = lvli_to_gmrw_parentquest(
+        lvli_refby_rows,
+        gmrw_by_formid,
+        lvli_id,
+        lvli_list_rows
+    )
+    if pq_try:
+        pq = pq_try
+        picked_lvli = lvli_id
+        break
 
     dbg["lvliPicked"] = picked_lvli
     dbg["gmrwLabelFound"] = bool(pq)
@@ -1226,7 +1255,13 @@ def compute_unlock_and_rates(
 
                         # If GNAM is a BOOK FormID, resolve Event/Activity via BOOK -> LVLI -> GMRW
             if gnam_form and re.fullmatch(r"[0-9A-F]{8}", gnam_form):
-                pq, pq_dbg = book_lvli_gmrw_parentquest(book_rows, lvli_refby_rows, gmrw_by_formid, gnam_form)
+                pq, pq_dbg = book_lvli_gmrw_parentquest(
+                book_rows,
+                lvli_refby_rows,
+                gmrw_by_formid,
+                gnam_form,
+                lvli_list_rows
+            )
                 extra["bookLvliGmrw"] = pq_dbg
 
                 if pq:
