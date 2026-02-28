@@ -11,6 +11,35 @@ import subprocess
 import sys
 from typing import Any, Dict, List, Optional, Tuple
 
+def load_release_overrides(tsv_root: Optional[str]) -> Dict[str, str]:
+    if not tsv_root:
+        return {}
+    path = os.path.join(tsv_root, "title_release_overrides.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return {k.upper(): v for k, v in data.items()}
+    except Exception:
+        return {}
+
+
+def load_previous_release_dates(path: str) -> Dict[str, str]:
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        items = data.get("items", [])
+        return {
+            str(x.get("formId")).upper(): x.get("releaseDate")
+            for x in items
+            if x.get("formId") and x.get("releaseDate")
+        }
+    except Exception:
+        return {}
+
 # ============================================================
 # DF/BNB Titles JSON Builder (Camp + Player) — v2
 #
@@ -60,6 +89,60 @@ RE_COBJ_REF = re.compile(r"(?:\[COBJ:|COBJ:)([0-9A-F]{8})(?:\]?)", re.IGNORECASE
 
 def now_iso() -> str:
     return dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+
+    def today_ymd_utc() -> str:
+    return dt.datetime.utcnow().strftime("%Y-%m-%d")
+
+
+def load_release_overrides(tsv_root: Optional[str]) -> Dict[str, str]:
+    """
+    Optional overrides file:
+      tsv/title_release_overrides.json
+
+    Format:
+      { "00ABCDEF": "2023-06-20", "00112233": "2020-04-14" }
+
+    Keys are FormID (8 hex). Values are YYYY-MM-DD.
+    """
+    if not tsv_root:
+        return {}
+    path = os.path.join(tsv_root, "title_release_overrides.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        out: Dict[str, str] = {}
+        for k, v in (data or {}).items():
+            kk = (str(k) or "").strip().upper()
+            vv = (str(v) or "").strip()
+            if re.fullmatch(r"[0-9A-F]{8}", kk) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", vv):
+                out[kk] = vv
+        return out
+    except Exception:
+        return {}
+
+
+def load_previous_release_dates(dist_path: str) -> Dict[str, str]:
+    """
+    Read an existing dist JSON (titles_camp.json / titles_player.json) and return:
+      { FORMID8: "YYYY-MM-DD" }
+    """
+    if not dist_path or not os.path.exists(dist_path):
+        return {}
+    try:
+        with open(dist_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        items = data.get("items") or []
+        out: Dict[str, str] = {}
+        for it in items:
+            fid = (str(it.get("formId") or "")).strip().upper()
+            rd = (str(it.get("releaseDate") or "")).strip()
+            if re.fullmatch(r"[0-9A-F]{8}", fid) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", rd):
+                out[fid] = rd
+        return out
+    except Exception:
+        return {}
 
 
 def safe_int(s: str, default: int = 0) -> int:
@@ -1622,6 +1705,19 @@ def main() -> int:
 
     os.makedirs(args.outdir, exist_ok=True)
 
+        # ------------------------------------------------------------
+    # Release dates
+    # - If item already existed in dist, keep its releaseDate
+    # - Else if override exists, use override
+    # - Else assign today's date (UTC)
+    # ------------------------------------------------------------
+    overrides = load_release_overrides(args.tsv_root)
+
+    prev_camp_release = load_previous_release_dates(os.path.join(args.outdir, "titles_camp.json"))
+    prev_player_release = load_previous_release_dates(os.path.join(args.outdir, "titles_player.json"))
+
+    today_str = today_ymd_utc()
+
     seasons = {}
     if args.seasons and os.path.isfile(args.seasons):
         seasons = seasons_map(args.seasons)
@@ -1725,6 +1821,17 @@ def main() -> int:
 
         image_url = storefront_webp_url_from_extra("camp", extra)
 
+                fid8 = (form_id or "").strip().upper()
+
+        if fid8 in prev_camp_release:
+            release_date = prev_camp_release[fid8]
+        elif fid8 in overrides:
+            release_date = overrides[fid8]
+        else:
+            release_date = today_str
+
+        release_year = int(release_date[:4])
+
         camp_items.append({
             "formId": form_id,
             "edid": edid,
@@ -1737,6 +1844,8 @@ def main() -> int:
             "condCount": len(conds),
             "howToObtain": how,
             "dropRate": dr,
+            "releaseDate": release_date,
+            "releaseYear": release_year,
             "tradeable": tradeable,
             "unlockType": unlock_type,
             "seasonNumber": sn,
@@ -1789,6 +1898,17 @@ def main() -> int:
 
         image_url = storefront_webp_url_from_extra("player", extra)
 
+                fid8 = (form_id or "").strip().upper()
+
+        if fid8 in prev_player_release:
+            release_date = prev_player_release[fid8]
+        elif fid8 in overrides:
+            release_date = overrides[fid8]
+        else:
+            release_date = today_str
+
+        release_year = int(release_date[:4])
+
         player_items.append({
             "formId": form_id,
             "edid": edid,
@@ -1803,6 +1923,8 @@ def main() -> int:
             "condCount": len(conds),
             "howToObtain": how,
             "dropRate": dr,
+            "releaseDate": release_date,
+            "releaseYear": release_year,
             "tradeable": tradeable,
             "unlockType": unlock_type,
             "seasonNumber": sn,

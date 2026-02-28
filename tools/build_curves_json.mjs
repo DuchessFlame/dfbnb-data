@@ -19,7 +19,6 @@ const OUT_DIR = process.env.CURV_OUT_DIR || "dist/curves";
 const CHUNK_MAX_CURVES = Number(process.env.CURV_CHUNK_MAX_CURVES || 200);
 
 // Needed for perk-cards cross-reference output
-const CURV_TSV  = process.env.CURV_TSV  || "tsv/CURV_Export_March_2026.tsv";
 const PCRD_TSV  = process.env.PCRD_TSV  || "tsv/PCRD_Export_March_2026.tsv";
 const SPEL_EFF_TSV = process.env.SPEL_EFF_TSV || "tsv/SPEL_Export_March_2026_EFFECTS.tsv";
 
@@ -262,13 +261,10 @@ function build() {
   // Output: dist/curves/perk_cards.json
   // =========================================================
 
-  const absCurv = path.resolve(CURV_TSV);
-  const absPcrd = path.resolve(PCRD_TSV);
-
+const absPcrd = path.resolve(PCRD_TSV);
 const absSpelEff = path.resolve(SPEL_EFF_TSV);
 
-if (fs.existsSync(absCurv) && fs.existsSync(absPcrd) && fs.existsSync(absSpelEff)) {
-  const curvRows = parseTSV(readText(absCurv)).rows;
+if (fs.existsSync(absPcrd) && fs.existsSync(absSpelEff)) {
   const pcrdRows = parseTSV(readText(absPcrd)).rows;
   const spelEffRows = parseTSV(readText(absSpelEff)).rows;
 
@@ -280,34 +276,11 @@ if (fs.existsSync(absCurv) && fs.existsSync(absPcrd) && fs.existsSync(absSpelEff
   for (const r of spelEffRows) {
     const spelId = normalizeFormId(r.SPEL_FormID);
     const curvId = normalizeFormId(r.CVTO_CURV_FormID);
-
     if (!spelId || !curvId) continue;
 
     if (!spelToCurv.has(spelId)) spelToCurv.set(spelId, new Set());
     spelToCurv.get(spelId).add(curvId);
   }
-
-    // Build: CURV_FormID -> referenced FormIDs (from Ref1..RefN)
-    const curvRefMap = new Map(); // curvId -> Set<FormID>
-    for (const r of curvRows) {
-      const curvId = normalizeFormId(r.CURV_FormID || r.FormID || r.formid);
-      const curvEdid = String(r.CURV_EDID || r.EDID || r.edid || "").trim();
-
-      if (!curvId) continue;
-      if (isRejectedEdid(curvEdid)) continue;
-
-      const refs = new Set();
-      const refCount = Number(r.ReferencedByCount || 0);
-
-      // Scan Ref1..RefN (don’t trust count blindly, scan keys too)
-      for (const [k, v] of Object.entries(r)) {
-        if (!/^Ref\d+$/.test(k)) continue;
-        for (const fid of extractFormIdsFromRef(v)) refs.add(fid);
-      }
-
-      if (refCount === 0 && refs.size === 0) continue;
-      curvRefMap.set(curvId, refs);
-    }
 
     // Quick lookup for curve stubs (from indexCurves we just built)
     const curveStubById = new Map(indexCurves.map(c => [c.id, c]));
@@ -398,7 +371,7 @@ const curveIds = Array.from(curveIdsSet);
 
     console.log(`[build_curves_json] perk_cards.json: ${perkGroups.length} perks`);
   } else {
-    console.log(`[build_curves_json] perk_cards.json skipped (missing CURV_TSV or PCRD_TSV)`);
+    console.log(`[build_curves_json] perk_cards.json skipped (missing PCRD_TSV or SPEL_EFF_TSV)`);
   }
 
   console.log(`[build_curves_json] OK`);
