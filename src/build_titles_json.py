@@ -509,7 +509,8 @@ def lvli_to_gmrw_parentquest(
 
     return None
 
-    def book_to_gmrw_parentquest_via_lvli_entries(
+
+def book_to_gmrw_parentquest_via_lvli_entries(
     book_formid: str,
     lvli_entry_rows: List[Dict[str, str]],
     lvli_refby_rows: List[Dict[str, str]],
@@ -1860,8 +1861,8 @@ def main() -> int:
             "seasons": os.path.basename(args.seasons) if args.seasons else None,
         },
     }
-    
-        # ------------------------------------------------------------
+
+    # ------------------------------------------------------------
     # Storefront index (derived from images_tasks instead of filesystem)
     # CI-safe: does not depend on export/storefront existing.
     # ------------------------------------------------------------
