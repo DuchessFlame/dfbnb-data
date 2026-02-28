@@ -19,8 +19,9 @@ const OUT_DIR = process.env.CURV_OUT_DIR || "dist/curves";
 const CHUNK_MAX_CURVES = Number(process.env.CURV_CHUNK_MAX_CURVES || 200);
 
 // Needed for perk-cards cross-reference output
-const CURV_TSV = process.env.CURV_TSV || "tsv/CURV_Export_March_2026.tsv";
-const PCRD_TSV = process.env.PCRD_TSV || "tsv/PCRD_Export_March_2026.tsv";
+const CURV_TSV  = process.env.CURV_TSV  || "tsv/CURV_Export_March_2026.tsv";
+const PCRD_TSV  = process.env.PCRD_TSV  || "tsv/PCRD_Export_March_2026.tsv";
+const SPEL_EFF_TSV = process.env.SPEL_EFF_TSV || "tsv/SPEL_Export_March_2026_EFFECTS.tsv";
 
 function ensureDir(p) { fs.mkdirSync(p, { recursive: true }); }
 function readText(filePath) { return fs.readFileSync(filePath, "utf8"); }
@@ -264,9 +265,12 @@ function build() {
   const absCurv = path.resolve(CURV_TSV);
   const absPcrd = path.resolve(PCRD_TSV);
 
-  if (fs.existsSync(absCurv) && fs.existsSync(absPcrd)) {
-    const curvRows = parseTSV(readText(absCurv)).rows;
-    const pcrdRows = parseTSV(readText(absPcrd)).rows;
+  const absSpelEff = path.resolve(SPEL_EFF_TSV);
+
+if (fs.existsSync(absCurv) && fs.existsSync(absPcrd) && fs.existsSync(absSpelEff)) {
+const curvRows = parseTSV(readText(absCurv)).rows;
+const pcrdRows = parseTSV(readText(absPcrd)).rows;
+const spelEffRows = parseTSV(readText(absSpelEff)).rows;
 
     // Build: CURV_FormID -> referenced FormIDs (from Ref1..RefN)
     const curvRefMap = new Map(); // curvId -> Set<FormID>
@@ -313,55 +317,36 @@ function build() {
         pushIfFormId(linkSet, r[`RankPERK_${i}_FormID`]);
       }
 
-// Find all curves whose CURV ref-set intersects this perk’s linkSet
+// --------------------------------------------------
+// Deterministic chain:
+// PCRD → Rank PERK FormIDs → SPEL → CURV
+// --------------------------------------------------
+
 const curveIdsSet = new Set();
 
-for (const [curvId, refSet] of curvRefMap.entries()) {
-  let hit = false;
-  for (const fid of linkSet) {
-    if (refSet.has(fid)) { hit = true; break; }
-  }
-  if (!hit) continue;
-  if (curveStubById.has(curvId)) curveIdsSet.add(curvId);
-}
+// Collect all possible SPEL FormIDs from this perk
+const spelCandidates = new Set();
 
-// ---------------------------------------------------------
-// Fallback: name-prefix match for Perks curves
-// Why: most perk-related curves in your POINTS TSV live under /json/Perks/
-// but CURV_Export ReferencedBy does NOT reliably include PERK/PCRD refs.
-// Example curve EDIDs: CapCollectorBonus, JunkShieldScaleBonus, NerdRageBonus, etc.
-// ---------------------------------------------------------
-
-const normWord = (s) => String(s || "")
-  .toLowerCase()
-  .replace(/[^a-z0-9]+/g, "");
-
-function cleanPerkKey(s) {
-  return normWord(s)
-    .replace(/perk$/i, "")
-    .replace(/card$/i, "")
-    .replace(/^zzz/i, "");
-}
-
-const perkKey = cleanPerkKey(pcrdName || pcrdEdid || "");
-
-if (perkKey) {
-  for (const stub of indexCurves) {
-    if (!stub) continue;
-
-    const cKeyRaw = stub.edid || "";
-    const cKey = normWord(cKeyRaw);
-
-    if (!cKey) continue;
-
-    // match if curve EDID contains perk name
-    if (cKey.includes(perkKey)) {
-      curveIdsSet.add(stub.id);
-    }
+// Rank PERK FormIDs already pushed into linkSet earlier
+for (const fid of linkSet) {
+  // If this FormID is a spell and exists in spelToCurv, use it
+  if (spelToCurv.has(fid)) {
+    spelCandidates.add(fid);
   }
 }
 
-// If no curves at all, skip (keeps perk list clean)
+// Now collect curves from those spells
+for (const spelId of spelCandidates) {
+  const curvSet = spelToCurv.get(spelId);
+  if (!curvSet) continue;
+
+  for (const curvId of curvSet) {
+    if (curveStubById.has(curvId))
+      curveIdsSet.add(curvId);
+  }
+}
+
+// If no curves found, skip perk
 if (!curveIdsSet.size) continue;
 
 const curveIds = Array.from(curveIdsSet);
@@ -405,6 +390,24 @@ const curveIds = Array.from(curveIdsSet);
   console.log(`- input: ${INPUT}`);
   console.log(`- curves: ${meta.curves}, points: ${meta.points}`);
   console.log(`- out: ${OUT_DIR}`);
+}
+
+// --------------------------------------------------
+// Build SPEL_FormID -> Set<CURV_FormID>
+// --------------------------------------------------
+
+const spelToCurv = new Map();
+
+for (const r of spelEffRows) {
+  const spelId = normalizeFormId(r.SPEL_FormID);
+  const curvId = normalizeFormId(r.CVTO_CURV_FormID);
+
+  if (!spelId || !curvId) continue;
+
+  if (!spelToCurv.has(spelId))
+    spelToCurv.set(spelId, new Set());
+
+  spelToCurv.get(spelId).add(curvId);
 }
 
 build();
