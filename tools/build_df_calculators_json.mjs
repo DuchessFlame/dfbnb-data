@@ -58,16 +58,11 @@ function isJunkEdid(edidRaw) {
   const edid = safeText(edidRaw).toUpperCase();
   if (!edid) return true;
 
-  // Prefix junk
-  if (edid.startsWith("DEL")) return true;
-  if (edid.startsWith("POST")) return true;
-  if (edid.startsWith("CUT")) return true;
-  if (edid.startsWith("ZZZ")) return true;
-
-  // Token junk anywhere
-  if (edid.includes("NONPLAYABLE")) return true;
-  if (edid.includes("CAMPPETS")) return true;
-
+  // Your rule: ignore if it CONTAINS these tokens anywhere
+  const badTokens = ["NONPLAYABLE", "CAMPPETS", "DEL", "POST", "CUT", "ZZZ"];
+  for (const t of badTokens) {
+    if (edid.includes(t)) return true;
+  }
   return false;
 }
 
@@ -230,15 +225,13 @@ function buildOutfitInspirationJson(armoPath, outPath) {
 
 function buildBigBloomCraftingJson(cobjPath, outPath) {
   const { rows } = parseTSV(readText(cobjPath));
+
   const recs = rows.map(upperKeyed)
     .filter(r => {
       const edid = safeText(r.COBJ_EDID);
       if (!edid) return false;
-
-      // Big Bloom namespace (as proven by your sample)
       if (edid.startsWith("SSE_")) return true;
       if (edid.startsWith("workshop_co_Tinkers_SSE_")) return true;
-
       return false;
     })
     .map(r => ({
@@ -254,24 +247,108 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
       planName: safeText(r.GNAM_FULL),
 
       recipeKeywords: safeText(r.FNAM_Keywords),
-      components: parseFVPA(r.FVPA)
+      components: parseFVPA(r.FVPA),
+      category: ""
     }));
 
-  // Categorize by COBJ_EDID prefix
   function categoryFor(edid) {
     const u = String(edid || "");
     if (u.startsWith("workshop_co_Tinkers_SSE_")) return "Hybrid Flowers";
-    if (u.startsWith("SSE_workshop_co_")) return "CAMP / Workshop";
-    if (u.startsWith("SSE_co_Headwear_")) return "Headwear";
-    if (u.startsWith("SSE_co_Clothes_")) return "Outfits";
-    if (u.startsWith("SSE_co_meal_")) return "Food / Drink";
+    if (u.startsWith("SSE_workshop_co_")) return "Flower Pots / Displays";
+    if (u.startsWith("SSE_co_Headwear_")) return "Flower Crowns / Headwear";
+    if (u.startsWith("SSE_co_Clothes_")) return "Apparel";
+    if (u.startsWith("SSE_co_meal_")) return "Food";
     if (u.startsWith("SSE_co_mod_")) return "Weapon Mods";
     return "Other";
   }
 
   for (const r of recs) r.category = categoryFor(r.cobjEdid);
 
-  // Sort stable
+  // --- Build a deterministic index for recursion ---
+  // Key by craftedName (case-insensitive). This matches FVPA's "Name:qty" format.
+  // If you later add FVPA component IDs, you can switch this to FormID-based matching.
+  const recipeByCraftedName = new Map();
+  for (const r of recs) {
+    const key = safeText(r.craftedName).toLowerCase();
+    if (!key) continue;
+    // If duplicates exist, keep the first stable one (deterministic)
+    if (!recipeByCraftedName.has(key)) recipeByCraftedName.set(key, r);
+  }
+
+  function addToTotals(mapObj, name, qty) {
+    const k = safeText(name);
+    if (!k || !qty) return;
+    mapObj[k] = (mapObj[k] || 0) + qty;
+  }
+
+  function mergeTotals(dst, src, mult = 1) {
+    for (const [k, v] of Object.entries(src)) addToTotals(dst, k, v * mult);
+  }
+
+  // Recursively resolve:
+  // - direct: immediate FVPA
+  // - intermediate: craftable sub-items needed (and how many)
+  // - base: non-craftable leaf components
+  // - craftOrder: steps in dependency order
+  function resolveRecipe(rootRecipe) {
+    const visiting = new Set();
+    const visited = new Set();
+
+    const intermediate = {};
+    const base = {};
+    const craftOrder = []; // dependency-first order
+
+    function walk(recipe, mult) {
+      const key = safeText(recipe.craftedName).toLowerCase();
+      if (!key) return;
+
+      if (visiting.has(key)) {
+        // Cycle guard: treat cycle edge as base leaf to avoid infinite recursion.
+        addToTotals(base, recipe.craftedName, mult);
+        return;
+      }
+
+      visiting.add(key);
+
+      for (const comp of recipe.components || []) {
+        const compName = safeText(comp.name);
+        const compQty = Number(comp.qty || 0);
+        if (!compName || !compQty) continue;
+
+        const dep = recipeByCraftedName.get(compName.toLowerCase());
+        if (dep) {
+          // It's craftable: count as intermediate and recurse into its components
+          addToTotals(intermediate, dep.craftedName, compQty * mult);
+          walk(dep, compQty * mult);
+        } else {
+          // It's a leaf/base component
+          addToTotals(base, compName, compQty * mult);
+        }
+      }
+
+      visiting.delete(key);
+
+      if (!visited.has(key)) {
+        visited.add(key);
+        craftOrder.push(recipe.craftedName);
+      }
+    }
+
+    walk(rootRecipe, 1);
+
+    return {
+      direct: (rootRecipe.components || []).map(c => ({ name: c.name, qty: c.qty })),
+      intermediate,
+      base,
+      craftOrder
+    };
+  }
+
+  for (const r of recs) {
+    r.resolution = resolveRecipe(r);
+  }
+
+  // Stable sort for UI dropdown/grouping
   recs.sort((a, b) =>
     a.category.localeCompare(b.category) ||
     a.craftedName.localeCompare(b.craftedName, undefined, { sensitivity: "base" })
@@ -280,7 +357,12 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
   const out = {
     generatedAt: new Date().toISOString(),
     kind: "big_bloom_crafting",
-    recipes: recs
+    recipes: recs,
+    index: {
+      byCraftedNameLower: Object.fromEntries(
+        Array.from(recipeByCraftedName.entries()).map(([k, v]) => [k, v.cobjEdid])
+      )
+    }
   };
 
   ensureDir(path.dirname(outPath));
