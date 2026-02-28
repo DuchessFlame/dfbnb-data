@@ -509,6 +509,79 @@ def lvli_to_gmrw_parentquest(
 
     return None
 
+    def book_to_gmrw_parentquest_via_lvli_entries(
+    book_formid: str,
+    lvli_entry_rows: List[Dict[str, str]],
+    lvli_refby_rows: List[Dict[str, str]],
+    gmrw_by_formid: Dict[str, str],
+    lvli_list_rows: Optional[List[Dict[str, str]]] = None,
+) -> Tuple[Optional[str], Optional[str], Dict[str, Any]]:
+    """
+    Resolve ParentQuest for BOOK-based rewards by scanning LVLI_Entries where LVLO_Reference references the BOOK.
+
+    Returns:
+      (parentQuestLabel, pickedLvliFormId, debug)
+    """
+    dbg: Dict[str, Any] = {
+        "bookFormId": (book_formid or "").strip().upper(),
+        "entryMatches": 0,
+        "candidateLvliFormIdsAll": [],
+        "candidateLvliFormIdsFiltered": [],
+        "pickedLvliFormId": None,
+        "pickedParentQuest": None,
+    }
+
+    bf = (book_formid or "").strip().upper()
+    if not bf or not re.fullmatch(r"[0-9A-F]{8}", bf):
+        return None, None, dbg
+
+    # Find all LVLI_Entries rows that reference the BOOK
+    matches = [r for r in lvli_entry_rows if bf in ((r.get("LVLO_Reference") or "").upper())]
+    dbg["entryMatches"] = len(matches)
+    if not matches:
+        return None, None, dbg
+
+    # Collect LVLI FormIDs from those matches
+    cand_ids: List[str] = []
+    for r in matches:
+        fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+        if fid and re.fullmatch(r"[0-9A-F]{8}", fid):
+            cand_ids.append(fid)
+
+    # De-dupe preserving order
+    seen = set()
+    cand_ids = [x for x in cand_ids if not (x in seen or seen.add(x))]
+    dbg["candidateLvliFormIdsAll"] = cand_ids
+
+    # Optional cut filtering via LVLI list EDIDs
+    lvli_edid_by_formid: Dict[str, str] = {}
+    if lvli_list_rows:
+        for rr in lvli_list_rows:
+            fid = (rr.get("LVLI_FormID") or rr.get("FormID") or "").strip().upper()
+            if not fid:
+                continue
+            ed = (rr.get("LVLI_EDID") or rr.get("EDID") or "").strip()
+            if ed:
+                lvli_edid_by_formid[fid] = ed
+
+    def _is_cut(fid8: str) -> bool:
+        ed = lvli_edid_by_formid.get((fid8 or "").strip().upper(), "")
+        return bool(ed) and starts_cut(ed)
+
+    filtered = [fid for fid in cand_ids if not _is_cut(fid)]
+    dbg["candidateLvliFormIdsFiltered"] = filtered
+
+    # Prefer the first LVLI that resolves to a parent quest via ref-by BFS
+    for fid in (filtered or cand_ids):
+        pq = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, fid, lvli_list_rows)
+        if pq:
+            dbg["pickedLvliFormId"] = fid
+            dbg["pickedParentQuest"] = pq
+            return pq, fid, dbg
+
+    # Nothing resolved
+    return None, (filtered[0] if filtered else (cand_ids[0] if cand_ids else None)), dbg
+
 def book_lvli_gmrw_parentquest(
     book_rows: List[Dict[str, str]],
     lvli_refby_rows: List[Dict[str, str]],
@@ -690,7 +763,8 @@ def lvli_drop_rate_from_cobj_lvli(
     lvli_entry_rows: List[Dict[str, str]],
     lvli_list_rows: List[Dict[str, str]],
     glob_rows: List[Dict[str, str]],
-    cobj_formid: str
+    cobj_formid: str,
+    prefer_lvli_formid: Optional[str] = None,
 ) -> Optional[str]:
     """
     COBJ(FormID) -> GNAM_FormID (BOOK FormID)
@@ -718,9 +792,22 @@ def lvli_drop_rate_from_cobj_lvli(
         return None
 
     # 3) Find LVLI entry row(s) referencing that BOOK
-    matches = [r for r in lvli_entry_rows if book_formid in ((r.get("LVLO_Reference") or "").upper())]
-    if not matches:
+    matches_all = [r for r in lvli_entry_rows if book_formid in ((r.get("LVLO_Reference") or "").upper())]
+    if not matches_all:
         return None
+
+    prefer = (prefer_lvli_formid or "").strip().upper()
+    if prefer and re.fullmatch(r"[0-9A-F]{8}", prefer):
+        matches = []
+        for r in matches_all:
+            fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+            if fid == prefer:
+                matches.append(r)
+        # If preferred LVLI had no match, fall back to all matches
+        if not matches:
+            matches = matches_all
+    else:
+        matches = matches_all
 
     # Prefer a match that has an entry-level global override
     def _rank(row: Dict[str, str]) -> int:
@@ -912,10 +999,9 @@ def compute_unlock_and_rates(
     # Expand CNDF if present in any condition line (attach into debug/extra)
     cndf_formid = None
     for c in conds:
-        if ("[COBJ:" in c) or ("COBJ:" in c):
-            cndf_formid = parse_cndf_formid_from_condition(c)
-            if cndf_formid:
-                break
+        cndf_formid = parse_cndf_formid_from_condition(c)
+        if cndf_formid:
+            break
 
     if cndf_formid:
         extra["cndfFormId"] = cndf_formid
@@ -1187,16 +1273,37 @@ def compute_unlock_and_rates(
             gnam_full = (cobj_row.get("GNAM_FULL") or "").strip()
             gnam_form = (cobj_row.get("GNAM_FormID") or "").strip().upper()
 
-                        # If GNAM is a BOOK FormID, resolve Event/Activity via BOOK -> LVLI -> GMRW
+            # If GNAM is a BOOK FormID, resolve Event/Activity via:
+            #   (1) BOOK -> LVLI_Entries (LVLO_Reference) -> LVLI -> GMRW
+            #   (2) fallback to BOOK row Ref* -> LVLI -> GMRW (older shape)
             if gnam_form and re.fullmatch(r"[0-9A-F]{8}", gnam_form):
-                pq, pq_dbg = book_lvli_gmrw_parentquest(
-                book_rows,
-                lvli_refby_rows,
-                gmrw_by_formid,
-                gnam_form,
-                lvli_list_rows
-            )
-                extra["bookLvliGmrw"] = pq_dbg
+
+                pq = None
+
+                # (1) Preferred: scan LVLI_Entries for BOOK refs
+                pq_a, picked_lvli_a, dbg_a = book_to_gmrw_parentquest_via_lvli_entries(
+                    gnam_form,
+                    lvli_entry_rows,
+                    lvli_refby_rows,
+                    gmrw_by_formid,
+                    lvli_list_rows
+                )
+                extra["bookLvliGmrwViaEntries"] = dbg_a
+                if pq_a:
+                    pq = pq_a
+                    extra["bookLvliPickedViaEntries"] = picked_lvli_a
+
+                # (2) Fallback: older BOOK.Ref* -> LVLI links
+                if not pq:
+                    pq_b, dbg_b = book_lvli_gmrw_parentquest(
+                        book_rows,
+                        lvli_refby_rows,
+                        gmrw_by_formid,
+                        gnam_form,
+                        lvli_list_rows
+                    )
+                    extra["bookLvliGmrw"] = dbg_b
+                    pq = pq_b
 
                 if pq:
                     parsed = parse_parentquest_label(pq)
@@ -1330,7 +1437,14 @@ def compute_unlock_and_rates(
                 return f"Complete the Challenge {gnam_full or gnam_edid}", "100%", None, "challenge", extra
 
         # --- Otherwise: treat as BOOK-drop event/activity title recipe ---
-        dr = lvli_drop_rate_from_cobj_lvli(cobj_rows, lvli_entry_rows, lvli_list_rows, glob_rows, cobj_formid)
+        prefer_lvli = None
+        if isinstance(extra.get("bookLvliPickedViaEntries"), str):
+            prefer_lvli = extra.get("bookLvliPickedViaEntries")
+
+        dr = lvli_drop_rate_from_cobj_lvli(
+            cobj_rows, lvli_entry_rows, lvli_list_rows, glob_rows, cobj_formid,
+            prefer_lvli_formid=prefer_lvli
+        )
         return how_event, (dr or "N/A"), None, "event_activity", extra
 
     # --- HasLearnedRecipe without [COBJ:] ---
