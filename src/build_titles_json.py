@@ -874,7 +874,19 @@ def lvli_drop_rate_from_cobj_lvli(
 def prettify_token_words(token: str) -> str:
     s = token.replace("_", " ").strip()
     s = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", s)
-    s = re.sub(r"\\s+", " ", s).strip()
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
+def clean_full(full: Optional[str]) -> str:
+    s = (full or "").strip()
+
+    # Remove surrounding quotes if present
+    if len(s) >= 2 and s.startswith('"') and s.endswith('"'):
+        s = s[1:-1].strip()
+
+    # Collapse whitespace
+    s = re.sub(r"\s+", " ", s).strip()
     return s
 
 def parse_entitlement_edid_from_condition(cond: str) -> Optional[str]:
@@ -1048,20 +1060,28 @@ def compute_unlock_and_rates(
 
         if chal_fid and chal_fid in chal_by_id:
             row = chal_by_id[chal_fid]
-            full = (row.get("FULL") or "").strip() or (row.get("EDID") or "").strip()
+
+            chal_edid = (row.get("EDID") or "").strip()
+            full = clean_full(row.get("FULL")) or clean_full(chal_edid) or "Challenge"
             cnam = (row.get("CNAM") or "").strip() or "Challenge"
+
+            # Drill Complex counters: Enc02_01 / Enc02_05 / Enc02_76 => x1/x5/x76
+            mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid, flags=re.IGNORECASE)
+            if mcount:
+                full = f"{full} x{mcount.group(1)}"
+
             extra.update({
                 "chalFormId": chal_fid,
-                "chalEdid": (row.get("EDID") or "").strip(),
+                "chalEdid": chal_edid,
                 "chalCNAM": cnam,
                 "chalFULL": full
             })
 
             if cnam.lower() == "challenge":
-                return f"Complete the Challenge: {full}", "100%", None, "challenge", extra
-            return f"Complete the {cnam} Challenge: {full}", "100%", None, "challenge", extra
+                return f"Complete the Challenge:\n{full}", "100%", None, "challenge", extra
+            return f"Complete the {cnam} Challenge:\n{full}", "100%", None, "challenge", extra
 
-        return "Complete the Challenge.", "100%", None, "challenge", extra
+        return "Complete the Challenge:", "100%", None, "challenge", extra
 
     # --- CNDF-based challenge: IsTrueForConditionForm(Challenge_*_ConditionForm) -> CHAL by EDID ---
     if RE_IS_TRUE_CNDF.search(joined):
@@ -1082,7 +1102,11 @@ def compute_unlock_and_rates(
             if not row:
                 continue
 
-            full = (row.get("FULL") or "").strip() or chal_edid
+            full = clean_full(row.get("FULL")) or clean_full(chal_edid) or chal_edid
+
+            mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid, flags=re.IGNORECASE)
+            if mcount:
+                full = f"{full} x{mcount.group(1)}"
             cnam = (row.get("CNAM") or "").strip() or "Challenge"
             extra.update({
                 "chalEdid": chal_edid,
@@ -1091,8 +1115,8 @@ def compute_unlock_and_rates(
             })
 
             if cnam.lower() == "challenge":
-                return f"Complete the Challenge: {full}", "100%", None, "challenge", extra
-            return f"Complete the {cnam} Challenge: {full}", "100%", None, "challenge", extra
+                return f"Complete the Challenge:\n{full}", "100%", None, "challenge", extra
+            return f"Complete the {cnam} Challenge:\n{full}", "100%", None, "challenge", extra
         # else: fall through (IsTrueForConditionForm used for other things)
 
     # --- Quests ---
@@ -1100,18 +1124,18 @@ def compute_unlock_and_rates(
         for c in conds:
             if "GetNumTimesCompletedQuest" not in c:
                 continue
-            qname = parse_quest_name_from_condition(c) or "Unknown Quest"
+            qname = clean_full(parse_quest_name_from_condition(c)) or "Unknown Quest"
             n = parse_rhs_number(c)
             if n is None:
-                return f"Complete the Quest: {qname}", "100%", None, "quest", extra
+                return f"Complete the Quest:\n{qname}", "100%", None, "quest", extra
             n_int = int(round(n))
             if n_int <= 1:
-                return f"Complete the Quest: {qname}", "100%", None, "quest", extra
-            return f"Complete the Quest: {qname} ({n_int} times)", "100%", None, "quest", extra
+                return f"Complete the Quest:\n{qname}", "100%", None, "quest", extra
+            return f"Complete the Quest:\n{qname} ({n_int} times)", "100%", None, "quest", extra
 
     if RE_QUEST_COMPLETED.search(joined):
-        qname = parse_quest_name_from_condition(joined) or "Unknown Quest"
-        return f"Complete the Quest: {qname}", "100%", None, "quest", extra
+        qname = clean_full(parse_quest_name_from_condition(joined)) or "Unknown Quest"
+        return f"Complete the Quest:\n{qname}", "100%", None, "quest", extra
 
     # --- Entitlements ---
     if RE_HAS_ENTITLEMENT.search(joined):
@@ -1172,6 +1196,11 @@ def compute_unlock_and_rates(
         extra["imageEntitlementEdid"] = img_ent
 
         # Priority: Community -> MiniSeason -> SCORE season -> ATX -> other
+
+        # Bethesda data issue: House Finalist should be treated as Community acquisition
+        if any("HOUSEFINALIST" in (e or "").upper() for e in ent_edids):
+            return "Awarded through a Bethesda community event or promotion.", "N/A", None, "community", extra
+
         if any(RE_COMMUNITY.search(e) for e in ent_edids):
             return "Awarded through a Bethesda community event or promotion.", "N/A", None, "community", extra
 
@@ -1187,7 +1216,15 @@ def compute_unlock_and_rates(
             tok2 = re.sub(r"^\\d{4}_", "", tok2)  # drop leading year
             name = prettify_token_words(tok2)
             extra.update({"miniSeasonRaw": tok2, "miniSeasonName": name})
-            return f"Unlock via the {name} Mini Season.", "100%", None, "miniseason", extra
+            year = None
+            my = re.match(r"^(\d{4})_", tok2)
+            if my:
+                year = my.group(1)
+
+            if year:
+                return f"Purchase with tickets from the\n{name} Mini Season board ({year}).", "100%", None, "miniseason", extra
+
+            return f"Purchase with tickets from the\n{name} Mini Season board.", "100%", None, "miniseason", extra
 
         # SCORE season
         season_num: Optional[int] = None
@@ -1204,7 +1241,30 @@ def compute_unlock_and_rates(
             extra.update({"seasonNumber": season_num, "seasonName": sname})
 
             if kind == "player":
-                return f"Unlock via the Season {season_num} - {sname} Scoreboard.", "100%", season_num, "season", extra
+                claimed = None
+                for c in conds:
+                    if "HasEntitlement" in c and (season_edid or "") in c:
+                        m = RE_QUOTED.search(c)
+                        if m:
+                            claimed = clean_full(m.group(1))
+                            break
+
+                if claimed:
+                    return (
+                        f"Claim the {claimed} reward from the\n{sname} Scoreboard (Season {season_num}).",
+                        "100%",
+                        season_num,
+                        "season",
+                        extra
+                    )
+
+                return (
+                    f"Purchase with tickets from the\n{sname} Scoreboard (Season {season_num}).",
+                    "100%",
+                    season_num,
+                    "season",
+                    extra
+                )
 
             e_upper = (season_edid or "").upper()
             framed = ("ENDOFSEASONART" in e_upper)
@@ -1236,7 +1296,12 @@ def compute_unlock_and_rates(
 
         # ATX standard
         if any(RE_ATX.search(e) for e in ent_edids):
-            return "Can be purchased with certain bundles from the Atom Shop.", "100%", None, "atx", extra
+
+            # Fallout 1st titles: free claim for members
+            if any(("ATX_F1_" in (e or "").upper()) for e in ent_edids):
+                return "Free to claim from the Atom Shop\nfor Fallout 1st members.", "N/A", None, "atx", extra
+
+            return "Can be purchased with certain bundles from the Atom Shop.", "N/A", None, "atx", extra
 
         return "Unlocked via account entitlement.", "100%", None, "entitlement", extra
 
