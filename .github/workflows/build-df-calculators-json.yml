@@ -1,3 +1,28 @@
+      - name: Pick newest TSVs
+        shell: bash
+        run: |
+          set -e
+
+          newest() {
+            ls -1t "$1" 2>/dev/null | head -n 1
+          }
+
+          FLST_TSV="$(newest "tsv/FLST_Export_*.tsv")"
+          ARMO_TSV="$(newest "tsv/ARMO_*Export_*.tsv")"
+          COBJ_TSV="$(newest "tsv/COBJ_Export_*.tsv")"
+
+          if [ -z "$FLST_TSV" ]; then echo "Missing FLST TSV (tsv/FLST_Export_*.tsv)"; exit 1; fi
+          if [ -z "$ARMO_TSV" ]; then echo "Missing ARMO TSV (tsv/ARMO_*Export_*.tsv)"; exit 1; fi
+          if [ -z "$COBJ_TSV" ]; then echo "Missing COBJ TSV (tsv/COBJ_Export_*.tsv)"; exit 1; fi
+
+          echo "FLST_TSV=$FLST_TSV" >> $GITHUB_ENV
+          echo "ARMO_BOD2_TSV=$ARMO_TSV" >> $GITHUB_ENV
+          echo "COBJ_TSV=$COBJ_TSV" >> $GITHUB_ENV
+
+          echo "Using:"
+          echo "  FLST_TSV=$FLST_TSV"
+          echo "  ARMO_BOD2_TSV=$ARMO_TSV"
+          echo "  COBJ_TSV=$COBJ_TSV"
 name: Build DF Calculators JSON
 
 on:
@@ -7,8 +32,15 @@ on:
       - "tsv/FLST_Export_*_*.tsv"
       - "tsv/ARMO_BOD2_Export_*_*.tsv"
       - "tsv/COBJ_Export_*_*.tsv"
-      - "scripts/build_df_calculators_json.mjs"
+      - "tools/build_df_calculators_json.mjs"
       - ".github/workflows/build-df-calculators-json.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -16,6 +48,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -23,17 +57,26 @@ jobs:
           node-version: "20"
 
       - name: Build calculators JSON
-        run: node scripts/build_df_calculators_json.mjs
+        run: node tools/build_df_calculators_json.mjs
         env:
           FLST_TSV: tsv/FLST_Export_March_2026.tsv
-          ARMO_BOD2_TSV: tsv/ARMO_BOD2_Export_March_2026.tsv
+          ARMO_BOD2_TSV: tsv/ARMO_Export_March_2026.tsv
           COBJ_TSV: tsv/COBJ_Export_March_2026.tsv
           OUT_DIR: dist/calculators
 
-      - name: Commit dist
+      - name: Commit dist changes
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dist/calculators/*.json
-          git commit -m "Build DF calculators JSON" || echo "No changes"
-          git push
+          if git status --porcelain dist/calculators/ | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+
+            git add dist/calculators/*.json
+            git commit -m "Build dist/calculators JSON"
+
+            git fetch origin main
+            git pull --rebase origin main
+
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
