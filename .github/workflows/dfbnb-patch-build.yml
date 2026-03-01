@@ -89,7 +89,9 @@ jobs:
 
       # --- PLAN MASTER ---
       - name: Build Plan Master JSON
-        run: python src/build_plan_master_json.py
+        run: |
+          mkdir -p dist
+          node src/plan-system/build-plan-master.mjs
 
       # --- AXOLOTL ---
       - name: Build Axolotl Rotations JSON
