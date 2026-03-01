@@ -19,8 +19,13 @@ def newest(pattern):
     return files[-1]
 
 def read_tsv(path):
-    with open(path, encoding="utf-8-sig") as f:
-        return list(csv.DictReader(f, delimiter="\t"))
+    # Try UTF-8 (with BOM), then fall back to Windows-1252 for “é”/smart quotes etc.
+    try:
+        with open(path, encoding="utf-8-sig", newline="") as f:
+            return list(csv.DictReader(f, delimiter="\t"))
+    except UnicodeDecodeError:
+        with open(path, encoding="cp1252", errors="replace", newline="") as f:
+            return list(csv.DictReader(f, delimiter="\t"))
 
 def pct(x):
     return round(float(x) * 100, 6)

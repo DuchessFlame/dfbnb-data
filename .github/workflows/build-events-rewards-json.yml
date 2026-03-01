@@ -28,7 +28,7 @@ jobs:
       - name: Build Events Rewards JSON
         run: |
           python -V
-          python tools/build_events_rewards_json.py
+          python src/build_events_rewards_json.py
 
       - name: Commit dist outputs
         shell: bash
