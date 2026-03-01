@@ -279,21 +279,47 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
       category: ""
     }));
 
-  function categoryFor(edid) {
-    const u = String(edid || "");
-    if (u.startsWith("workshop_co_Tinkers_SSE_")) return "Hybrid Flowers";
-    if (u.startsWith("SSE_workshop_co_")) return "Flower Pots / Displays";
-    if (u.startsWith("SSE_co_Headwear_")) return "Flower Crowns / Headwear";
-    if (u.startsWith("SSE_co_Clothes_")) return "Apparel";
-    if (u.startsWith("SSE_co_meal_")) return "Food";
-    if (u.startsWith("SSE_co_mod_")) return "Weapon Mods";
+  const HYBRIDS = new Set([
+    "Candykill",
+    "Embergold",
+    "Gigablossom",
+    "Glorybell",
+    "Green Invader",
+    "Seesprout",
+    "Starlace"
+  ].map(s => s.toLowerCase()));
+
+  const APPAREL = new Set([
+    "Flower Suit",
+    "Flower-Printed Sundress",
+    "Wasteland Florist Apron",
+    "Wasteland Florist Sunhat"
+  ].map(s => s.toLowerCase()));
+
+  const FOOD = new Set([
+    "Black-Eyed Susan's Soothin'",
+    "Gamma Green Tea"
+  ].map(s => s.toLowerCase()));
+
+  function categoryForCraftedName(name) {
+    const n = safeText(name).trim();
+    const nl = n.toLowerCase();
+
+    if (!n) return "Other";
+    if (HYBRIDS.has(nl)) return "Hybrid Flowers";
+    if (n.startsWith("Flower Crown -")) return "Flower Crowns / Headwear";
+    if (n.startsWith("Pot o'")) return "Flower Pots / Displays";
+    if (nl.includes("glazed pot")) return "Flower Pots / Displays";
+    if (nl.includes("tube") || nl.includes("display")) return "Flower Pots / Displays";
+    if (APPAREL.has(nl)) return "Apparel";
+    if (FOOD.has(nl)) return "Food";
     return "Other";
   }
 
-  for (const r of recs) r.category = categoryFor(r.cobjEdid);
+  for (const r of recs) r.category = categoryForCraftedName(r.craftedName);
 
   for (const r of recs) {
-    const key = safeText(r.craftedName);
+    const key = safeText(r.craftedName).toLowerCase();
     if (key && imageMap[key]) {
       r.image = imageMap[key];
     }
