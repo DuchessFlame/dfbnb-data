@@ -7,6 +7,7 @@ on:
     paths:
       - "tsv/**"
       - "tools/**"
+      - "src/**"
       - ".github/workflows/dfbnb-patch-build.yml"
 
 permissions:
@@ -34,10 +35,10 @@ jobs:
 
       # --- TITLES ---
       - name: Build Titles JSON
-        run: python tools/build_titles_json.py
+        run: python src/build_titles_json.py
 
       - name: Build Titles Generator JSON
-        run: python tools/build_titles_generator_json.py
+        run: python src/build_titles_generator_json.py
 
       # --- CURVES ---
       - name: Build Curves JSON
@@ -45,7 +46,7 @@ jobs:
 
       # --- EVENTS REWARDS ---
       - name: Build Events Rewards JSON
-        run: python tools/build_events_rewards_json.py
+        run: python src/build_events_rewards_json.py
 
       # --- DF CALCULATORS ---
       - name: Build DF Calculators JSON
@@ -53,15 +54,21 @@ jobs:
 
       # --- PLAN MASTER ---
       - name: Build Plan Master JSON
-        run: python tools/build_plan_master_json.py
+        run: python src/build_plan_master_json.py
 
       # --- AXOLOTL ---
       - name: Build Axolotl Rotations JSON
-        run: python tools/build_axolotl_rotations_json.py
+        run: node tools/build-axolotl-rotations-json.mjs
 
       # --- HOME EVENTS ---
       - name: Build Home Events JSON
-        run: python tools/build_home_events_json.py
+        run: node tools/build-home-events-json.mjs
+
+      - name: Sanity check dist outputs
+        run: |
+          ls -la dist || true
+          test -f dist/titles/index.json && echo "OK titles/index.json" || (echo "Missing titles/index.json" && exit 1)
+          test -f dist/curves/index.json && echo "OK curves/index.json" || (echo "Missing curves/index.json" && exit 1)
 
       # --- COMMIT ONCE ---
       - name: Commit & Push
