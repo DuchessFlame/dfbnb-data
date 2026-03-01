@@ -238,12 +238,28 @@ function loadBigBloomImageMap() {
 function buildBigBloomCraftingJson(cobjPath, outPath) {
   const { rows } = parseTSV(readText(cobjPath));
 
+  // Attach image URLs (keyed by Created Object FULL name)
+  // We also use this as an "allow list" so Big Bloom doesn't accidentally ingest the whole game.
+  const imageMap = loadBigBloomImageMap();
+
+  const imageKeys = new Set(Object.keys(imageMap).map(k => safeText(k).toLowerCase()).filter(Boolean));
+
   const recs = rows.map(upperKeyed)
     .filter(r => {
       const edid = safeText(r.COBJ_EDID);
+      const craftedName = safeText(r.CNAM_FULL) || safeText(r.CNAM_EDID);
+
+      // Always require an EDID
       if (!edid) return false;
+
+      // NEW RULE: if the crafted item name exists in big_bloom_images.json, include it
+      // (this is the deterministic "these are the Big Bloom recipes" filter)
+      if (craftedName && imageKeys.has(craftedName.toLowerCase())) return true;
+
+      // Legacy fallback (keeps your old behavior working if you ever use SSE_ prefixed EDIDs)
       if (edid.startsWith("SSE_")) return true;
       if (edid.startsWith("workshop_co_Tinkers_SSE_")) return true;
+
       return false;
     })
     .map(r => ({
@@ -275,9 +291,6 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
   }
 
   for (const r of recs) r.category = categoryFor(r.cobjEdid);
-
-    // Attach image URLs (keyed by Created Object FULL name)
-  const imageMap = loadBigBloomImageMap();
 
   for (const r of recs) {
     const key = safeText(r.craftedName);
