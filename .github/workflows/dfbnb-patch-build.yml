@@ -53,8 +53,39 @@ jobs:
         run: python src/build_events_rewards_json.py
 
       # --- DF CALCULATORS ---
+      - name: Pick newest TSVs (DF Calculators)
+        shell: bash
+        run: |
+          set -e
+
+          newest() {
+            ls -1t $1 2>/dev/null | head -n 1
+          }
+
+          FLST_TSV="$(newest "tsv/FLST_Export_*.tsv")"
+          ARMO_TSV="$(newest "tsv/ARMO_Export_*.tsv")"
+          COBJ_TSV="$(newest "tsv/COBJ_Export_*.tsv")"
+
+          if [ -z "$FLST_TSV" ]; then echo "Missing FLST TSV (tsv/FLST_Export_*.tsv)"; exit 1; fi
+          if [ -z "$ARMO_TSV" ]; then echo "Missing ARMO TSV (tsv/ARMO_Export_*.tsv)"; exit 1; fi
+          if [ -z "$COBJ_TSV" ]; then echo "Missing COBJ TSV (tsv/COBJ_Export_*.tsv)"; exit 1; fi
+
+          echo "FLST_TSV=$FLST_TSV" >> $GITHUB_ENV
+          echo "ARMO_BOD2_TSV=$ARMO_TSV" >> $GITHUB_ENV
+          echo "COBJ_TSV=$COBJ_TSV" >> $GITHUB_ENV
+
+          echo "Using:"
+          echo "  FLST_TSV=$FLST_TSV"
+          echo "  ARMO_BOD2_TSV=$ARMO_TSV"
+          echo "  COBJ_TSV=$COBJ_TSV"
+
       - name: Build DF Calculators JSON
         run: node tools/build_df_calculators_json.mjs
+        env:
+          FLST_TSV: ${{ env.FLST_TSV }}
+          ARMO_BOD2_TSV: ${{ env.ARMO_BOD2_TSV }}
+          COBJ_TSV: ${{ env.COBJ_TSV }}
+          OUT_DIR: dist/calculators
 
       # --- PLAN MASTER ---
       - name: Build Plan Master JSON
