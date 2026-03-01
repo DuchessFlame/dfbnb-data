@@ -2,11 +2,13 @@ name: Build Events Rewards JSON
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "tsv/**"
-      - "tools/build_events_rewards_json.py"
-      - ".github/workflows/build-events-rewards-json.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -29,9 +31,22 @@ jobs:
           python tools/build_events_rewards_json.py
 
       - name: Commit dist outputs
+        shell: bash
         run: |
+          set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
           git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_events.json
-          git commit -m "Build Events Rewards JSON" || echo "No changes to commit"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build Events Rewards JSON"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

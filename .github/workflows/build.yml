@@ -34,6 +34,7 @@ jobs:
           cat dist/manifest.json
 
       - name: Commit dist outputs to repo
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -45,5 +46,4 @@ jobs:
 
           git fetch origin main
           git pull --rebase origin main
-
           git push origin main

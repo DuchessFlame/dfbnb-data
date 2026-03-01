@@ -2,13 +2,6 @@ name: Build DF Calculators JSON
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "tsv/FLST_Export_*.tsv"
-      - "tsv/ARMO_Export_*.tsv"
-      - "tsv/COBJ_Export_*.tsv"
-      - "tools/build_df_calculators_json.mjs"
-      - ".github/workflows/build-df-calculators-json.yml"
 
 permissions:
   contents: write
@@ -66,12 +59,15 @@ jobs:
           OUT_DIR: dist/calculators
 
       - name: Commit dist changes
+        shell: bash
         run: |
           if git status --porcelain dist/calculators/ | grep -q .; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
 
             git add dist/calculators/*.json
+            git diff --cached --quiet && echo "No changes staged." && exit 0
+
             git commit -m "Build dist/calculators JSON"
 
             git fetch origin main

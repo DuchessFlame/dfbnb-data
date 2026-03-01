@@ -2,11 +2,6 @@ name: Build Titles JSON
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "tsv/**"
-      - "src/**"
-      - ".github/workflows/build-titles-json.yml"
 
 permissions:
   contents: write
@@ -64,12 +59,9 @@ jobs:
             git add dist/
             git commit -m "Update dist outputs"
 
-            # Make sure we're up to date before pushing
             git fetch origin main
             git pull --rebase origin main
-
             git push origin main
           else
             echo "No dist changes."
           fi
-

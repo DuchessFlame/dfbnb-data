@@ -3,127 +3,79 @@ name: DFBNB Patch Build
 on:
   workflow_dispatch:
   push:
+    branches: [ main ]
     paths:
       - "tsv/**"
-      - "src/**"
       - "tools/**"
       - ".github/workflows/dfbnb-patch-build.yml"
-  schedule:
-    - cron: "17 */6 * * *"
 
 permissions:
   contents: write
 
-concurrency:
-  group: dfbnb-patch-build
-  cancel-in-progress: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout (full history)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # ---------- Python ----------
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install Python deps
-        run: |
-          python -m pip install --upgrade pip
-          pip install pandas
-
-      # Titles JSON (full pipeline: titles + patchlog manifest + history)
-      - name: Build Titles JSON
-        run: |
-          python src/build_titles_json.py \
-            --tsv-root tsv \
-            --seasons tsv/fallout76_seasons.tsv \
-            --outdir dist
-
-          cp dist/titles_patchlog.json dist/patchlog_latest_titles.json
-
-          python src/build_patchlog_manifest_from_guide_index.py \
-            --guide-index tsv/guide_index.tsv \
-            --out dist/patchlog_manifest.json \
-            --dist-base-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/dist" \
-            --titles-feed patchlog_latest_titles.json
-
-          python src/append_patchlog_history.py \
-            --latest dist/patchlog_latest_titles.json \
-            --history dist/patchlog_history.json \
-            --kind titles
-
-      # Titles generator JSON
-      - name: Build Titles Generator JSON
-        run: |
-          python src/build_titles_generator_json.py
-
-      # CHAL latest/previous
-      - name: Build CHAL latest/previous JSON
-        run: |
-          python src/build_chal_latest_previous.py
-
-      # ---------- Node ----------
-      - name: Set up Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      # Plan master
-      - name: Build plan master JSON
+      # --- TITLES ---
+      - name: Build Titles JSON
+        run: python tools/build_titles_json.py
+
+      - name: Build Titles Generator JSON
+        run: python tools/build_titles_generator_json.py
+
+      # --- CURVES ---
+      - name: Build Curves JSON
+        run: node tools/build_curves_json.mjs
+
+      # --- EVENTS REWARDS ---
+      - name: Build Events Rewards JSON
+        run: python tools/build_events_rewards_json.py
+
+      # --- DF CALCULATORS ---
+      - name: Build DF Calculators JSON
+        run: node tools/build_df_calculators_json.mjs
+
+      # --- PLAN MASTER ---
+      - name: Build Plan Master JSON
+        run: python tools/build_plan_master_json.py
+
+      # --- AXOLOTL ---
+      - name: Build Axolotl Rotations JSON
+        run: python tools/build_axolotl_rotations_json.py
+
+      # --- HOME EVENTS ---
+      - name: Build Home Events JSON
+        run: python tools/build_home_events_json.py
+
+      # --- COMMIT ONCE ---
+      - name: Commit & Push
         run: |
-          mkdir -p dist
-          node src/plan-system/build-plan-master.mjs
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
 
-      # Axolotl rotations
-      - name: Build axolotl rotations JSON
-        run: |
-          node tools/build-axolotl-rotations-json.mjs
+          git add dist/
 
-            # Home events
-      - name: Build home events JSON
-        run: |
-          node tools/build-home-events-json.mjs
-
-      # Curves JSON (index + lazy chunks)
-      - name: Build curves JSON
-        shell: bash
-        run: |
-          mkdir -p dist
-
-          CURV_POINTS_TSV="$(ls -1 tsv/CURV_Export_*_POINTS.tsv 2>/dev/null | sort | tail -n 1)"
-          if [ -z "$CURV_POINTS_TSV" ]; then
-            echo "ERROR: No CURV_Export_*_POINTS.tsv found in tsv/"
-            exit 1
-          fi
-
-          echo "Using CURV points TSV: $CURV_POINTS_TSV"
-
-          CURV_POINTS_TSV="$CURV_POINTS_TSV" \
-          CURV_OUT_DIR="dist/curves" \
-          CURV_CHUNK_MAX_CURVES="200" \
-          node tools/build_curves_json.mjs
-
-      # ---------- Commit dist once ----------
-      - name: Commit dist outputs (if changed)
-        run: |
-          if git status --porcelain dist/ | grep -q .; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-
-            git add dist/
-            git commit -m "Patch build: update dist outputs"
-
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "DFBNB Patch Build update"
             git fetch origin main
             git pull --rebase origin main
-
             git push origin main
-          else
-            echo "No dist changes."
           fi

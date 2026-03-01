@@ -1,11 +1,6 @@
 name: Build Axolotl Rotations JSON
 
 on:
-  push:
-    paths:
-      - "src/axolotl/rotations.tsv"
-      - "tools/build-axolotl-rotations.mjs"
-      - ".github/workflows/build-axolotl-rotations.yml"
   workflow_dispatch:
 
 permissions:
@@ -33,16 +28,18 @@ jobs:
         run: node tools/build-axolotl-rotations-json.mjs
 
       - name: Commit dist changes
+        shell: bash
         run: |
           if git status --porcelain | grep -q "^ M dist/axolotl-rotations.json\|^?? dist/axolotl-rotations.json"; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add dist/axolotl-rotations.json
+            git diff --cached --quiet && echo "No changes staged." && exit 0
+
             git commit -m "Build dist/axolotl-rotations.json"
 
             git fetch origin main
             git pull --rebase origin main
-
             git push origin main
           else
             echo "No changes to commit."

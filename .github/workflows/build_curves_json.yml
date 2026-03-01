@@ -2,13 +2,8 @@ name: Build Curve Tables JSON
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "tsv/CURV_Export_*_POINTS.tsv"
-      - "tools/build_curves_json.mjs"
-      - ".github/workflows/build_curves_json.yml"
 
-    permissions:
+permissions:
   contents: write
 
 concurrency:
@@ -61,7 +56,6 @@ jobs:
 
             git fetch origin main
             git pull --rebase origin main
-
             git push origin main
           else
             echo "No dist/curves changes."

@@ -1,11 +1,6 @@
 name: Build Home Events JSON
 
 on:
-  push:
-    paths:
-      - "src/home/events.tsv"
-      - "tools/build-home-events-json.mjs"
-      - ".github/workflows/build-home-events.yml"
   workflow_dispatch:
 
 permissions:
@@ -33,16 +28,18 @@ jobs:
         run: node tools/build-home-events-json.mjs
 
       - name: Commit dist changes
+        shell: bash
         run: |
           if git status --porcelain | grep -q "^ M dist/home-events.json\|^?? dist/home-events.json"; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add dist/home-events.json
+            git diff --cached --quiet && echo "No changes staged." && exit 0
+
             git commit -m "Build dist/home-events.json"
 
             git fetch origin main
             git pull --rebase origin main
-
             git push origin main
           else
             echo "No changes to commit."

@@ -1,16 +1,10 @@
-name: Build Titles JSON Camp Title Manifest
+name: Update Camp Titles Manifest (dist commit)
 
 on:
   workflow_dispatch:
 
-  push:
-    paths:
-      - "tsv/**"
-      - "src/**"
-      - ".github/workflows/update-camp-titles-manifest.yml"
-
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: dist-main
@@ -36,14 +30,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas
 
-      - name: Build titles JSON
+      - name: Build titles (manifest)
         run: |
           python src/build_titles.py
 
-      - name: Upload dist outputs
-        uses: actions/upload-artifact@v4
-        with:
-          name: titles-dist
-          path: |
-            dist/titles_data.json
-            dist/titles_manifest.json
+      - name: Commit dist outputs (manifest + data)
+        shell: bash
+        run: |
+          if git status --porcelain dist/ | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+
+            # Keep it explicit so it doesn't accidentally commit unrelated dist stuff
+            git add dist/titles_manifest.json dist/titles_data.json 2>/dev/null || true
+
+            git diff --cached --quiet && echo "No manifest/data changes staged." && exit 0
+
+            git commit -m "Update camp titles manifest"
+            git fetch origin main
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No dist changes."
+          fi
