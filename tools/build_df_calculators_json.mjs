@@ -223,6 +223,18 @@ function buildOutfitInspirationJson(armoPath, outPath) {
      COBJ_FormID, COBJ_EDID, CNAM_FULL, GNAM_FULL, FNAM_Keywords, FVPA
    ========================================================= */
 
+   // --- Optional image overrides for Big Bloom ---
+function loadBigBloomImageMap() {
+  const imgPath = path.join("tsv", "big_bloom_images.json");
+  if (!fs.existsSync(imgPath)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(imgPath, "utf8"));
+  } catch (e) {
+    console.error("Failed to parse big_bloom_images.json:", e);
+    return {};
+  }
+}
+
 function buildBigBloomCraftingJson(cobjPath, outPath) {
   const { rows } = parseTSV(readText(cobjPath));
 
@@ -263,6 +275,16 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
   }
 
   for (const r of recs) r.category = categoryFor(r.cobjEdid);
+
+    // Attach image URLs (keyed by Created Object FULL name)
+  const imageMap = loadBigBloomImageMap();
+
+  for (const r of recs) {
+    const key = safeText(r.craftedName);
+    if (key && imageMap[key]) {
+      r.image = imageMap[key];
+    }
+  }
 
   // --- Build a deterministic index for recursion ---
   // Key by craftedName (case-insensitive). This matches FVPA's "Name:qty" format.
