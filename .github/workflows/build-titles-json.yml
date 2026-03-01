@@ -2,6 +2,14 @@ name: Build Titles JSON
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "tsv/**"
+      - "src/build_titles_json.py"
+      - "src/build_patchlog_manifest_from_guide_index.py"
+      - "src/append_patchlog_history.py"
+      - ".github/workflows/build-titles-json.yml"
 
 permissions:
   contents: write
@@ -13,8 +21,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout (full history)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -24,12 +33,25 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Build JSON
+      - name: Build Titles JSON
         run: |
           python src/build_titles_json.py \
             --tsv-root tsv \
             --seasons tsv/fallout76_seasons.tsv \
             --outdir dist
+
+      - name: Show dist outputs (debug)
+        run: |
+          echo "---- dist listing ----"
+          ls -la dist || true
+          echo "---- dist *.json ----"
+          find dist -maxdepth 1 -type f -name "*.json" -print -exec wc -c {} \; || true
+
+      - name: Sanity check Titles outputs exist
+        run: |
+          test -f dist/titles_camp.json || (echo "Missing dist/titles_camp.json" && exit 1)
+          test -f dist/titles_player.json || (echo "Missing dist/titles_player.json" && exit 1)
+          test -f dist/titles_patchlog.json || (echo "Missing dist/titles_patchlog.json" && exit 1)
 
       - name: Stage patchlog latest (titles -> generic)
         run: |
@@ -50,6 +72,13 @@ jobs:
             --history dist/patchlog_history.json \
             --kind titles
 
+      - name: Show git status (debug)
+        run: |
+          echo "---- git status ----"
+          git status --porcelain
+          echo "---- dist status ----"
+          git status --porcelain dist/ || true
+
       - name: Commit dist
         run: |
           if git status --porcelain dist/ | grep -q .; then
@@ -57,11 +86,11 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
 
             git add dist/
-            git commit -m "Update dist outputs"
+            git commit -m "Update Titles dist outputs"
 
             git fetch origin main
             git pull --rebase origin main
             git push origin main
           else
-            echo "No dist changes."
+            echo "No dist changes to commit."
           fi
