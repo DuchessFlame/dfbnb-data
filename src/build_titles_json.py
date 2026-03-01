@@ -71,10 +71,14 @@ def load_release_overrides(tsv_root: Optional[str]) -> Dict[str, str]:
     Optional overrides file:
       tsv/title_release_overrides.json
 
-    Format:
-      { "00ABCDEF": "2023-06-20", "00112233": "2020-04-14" }
+    Accepts either:
+      - "YYYY" (interpreted as "YYYY-01-01")
+      - "YYYY-MM-DD"
 
-    Keys are FormID (8 hex). Values are YYYY-MM-DD.
+    Format examples:
+      { "00ABCDEF": "2024", "00112233": "2020-04-14" }
+
+    Keys are FormID (8 hex). Values become YYYY-MM-DD.
     """
     if not tsv_root:
         return {}
@@ -84,12 +88,25 @@ def load_release_overrides(tsv_root: Optional[str]) -> Dict[str, str]:
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
+
         out: Dict[str, str] = {}
         for k, v in (data or {}).items():
             kk = (str(k) or "").strip().upper()
             vv = (str(v) or "").strip()
-            if re.fullmatch(r"[0-9A-F]{8}", kk) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", vv):
+
+            if not re.fullmatch(r"[0-9A-F]{8}", kk):
+                continue
+
+            # Allow YYYY -> YYYY-01-01
+            if re.fullmatch(r"\d{4}", vv):
+                out[kk] = f"{vv}-01-01"
+                continue
+
+            # Allow full date
+            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", vv):
                 out[kk] = vv
+                continue
+
         return out
     except Exception:
         return {}
@@ -1060,7 +1077,7 @@ def compute_unlock_and_rates(
     extra: Dict[str, Any] = {}
 
     if not conds:
-        return "Unlocked by Default", "100%", None, "default", extra
+        return "Unlocked by Default", "N/A", None, "default", extra
 
     joined = " ".join(conds)
 
@@ -1103,7 +1120,7 @@ def compute_unlock_and_rates(
                 # Only use list-style output when it’s actually a list
                 if len(ordered) >= 2:
                     how = "Complete the following challenges to unlock this title:\n" + "\n".join(f"- {n}" for n in ordered)
-                    return how, "100%", None, "challenge", extra
+                    return how, "N/A", None, "challenge", extra
 
     # --- Challenges: HasCompletedChallenge -> CHAL by FormID ---
     if RE_HAS_COMPLETED_CHAL.search(joined):
@@ -1133,10 +1150,10 @@ def compute_unlock_and_rates(
             })
 
             if cnam.lower() == "challenge":
-                return f"Complete the Challenge:\n{full}", "100%", None, "challenge", extra
-            return f"Complete the {cnam} Challenge:\n{full}", "100%", None, "challenge", extra
+                return f"Complete the Challenge:\n{full}", "N/A", None, "challenge", extra
+            return f"Complete the {cnam} Challenge:\n{full}", "N/A", None, "challenge", extra
 
-        return "Complete the Challenge:", "100%", None, "challenge", extra
+        return "Complete the Challenge:", "N/A", None, "challenge", extra
 
     # --- CNDF-based challenge: IsTrueForConditionForm(Challenge_*_ConditionForm) -> CHAL by EDID ---
     if RE_IS_TRUE_CNDF.search(joined):
@@ -1170,8 +1187,8 @@ def compute_unlock_and_rates(
             })
 
             if cnam.lower() == "challenge":
-                return f"Complete the Challenge:\n{full}", "100%", None, "challenge", extra
-            return f"Complete the {cnam} Challenge:\n{full}", "100%", None, "challenge", extra
+                return f"Complete the Challenge:\n{full}", "N/A", None, "challenge", extra
+            return f"Complete the {cnam} Challenge:\n{full}", "N/A", None, "challenge", extra
         # else: fall through (IsTrueForConditionForm used for other things)
 
     # --- Quests ---
@@ -1182,15 +1199,15 @@ def compute_unlock_and_rates(
             qname = clean_full(parse_quest_name_from_condition(c)) or "Unknown Quest"
             n = parse_rhs_number(c)
             if n is None:
-                return f"Complete the Quest:\n{qname}", "100%", None, "quest", extra
+                return f"Complete the Quest:\n{qname}", "N/A", None, "quest", extra
             n_int = int(round(n))
             if n_int <= 1:
-                return f"Complete the Quest:\n{qname}", "100%", None, "quest", extra
-            return f"Complete the Quest:\n{qname} ({n_int} times)", "100%", None, "quest", extra
+                return f"Complete the Quest:\n{qname}", "N/A", None, "quest", extra
+            return f"Complete the Quest:\n{qname} ({n_int} times)", "N/A", None, "quest", extra
 
     if RE_QUEST_COMPLETED.search(joined):
         qname = clean_full(parse_quest_name_from_condition(joined)) or "Unknown Quest"
-        return f"Complete the Quest:\n{qname}", "100%", None, "quest", extra
+        return f"Complete the Quest:\n{qname}", "N/A", None, "quest", extra
 
     # --- Entitlements ---
     if RE_HAS_ENTITLEMENT.search(joined):
@@ -1279,9 +1296,9 @@ def compute_unlock_and_rates(
             extra.update({"miniSeasonRaw": tok2, "miniSeasonName": name, "miniSeasonYear": year})
 
             if year:
-                return f"Purchase with tickets from the\n{name} Mini Season board ({year}).", "100%", None, "miniseason", extra
+                return f"Purchase with tickets from the {name} Mini Season board.", "N/A", None, "miniseason", extra
 
-            return f"Purchase with tickets from the\n{name} Mini Season board.", "100%", None, "miniseason", extra
+            return f"Purchase with tickets from the {name} Mini Season board.", "N/A", None, "miniseason", extra
 
         # SCORE season
         season_num: Optional[int] = None
@@ -1310,16 +1327,16 @@ def compute_unlock_and_rates(
                 # use ticket wording instead. Use "claim X" only when X is a different reward.
                 if claimed and ("player title" not in claimed.lower()):
                     return (
-                        f"Claim the {claimed} reward from the\n{sname} Scoreboard (Season {season_num}).",
-                        "100%",
+                        f"Unlocked if you have claimed the {sname} Season {season_num} Scoreboard.",
+                        "N/A",
                         season_num,
                         "season",
                         extra
                     )
 
                 return (
-                    f"Purchase with tickets from the\n{sname} Scoreboard (Season {season_num}).",
-                    "100%",
+                    f"Purchase with tickets from the {sname} Scoreboard (Season {season_num}).",
+                    "N/A",
                     season_num,
                     "season",
                     extra
@@ -1343,15 +1360,15 @@ def compute_unlock_and_rates(
                             break
 
             if framed:
-                return f"Unlocks when you claim the Framed Art from Season {season_num} - {sname}.", "100%", season_num, "season", extra
+                return f"Unlocked if you have claimed the {sname} Season {season_num} Framed Art.", "N/A", season_num, "season", extra
 
             # If the entitlement is the title itself (CAMPTitles_*), it's a normal season-board claim,
             # not "claim the Gameboard" item.
             if "CAMPTITLES" in e_upper and "GAMEBOARD" not in e_upper and "CORKBOARD" not in e_upper:
-                return f"Unlocks when you claim this reward from Season {season_num} - {sname}.", "100%", season_num, "season", extra
+                return f"Unlocked if you have claimed the {sname} Season {season_num} Scoreboard.", "N/A", season_num, "season", extra
 
             # Gameboard bucket (includes CorkBoard etc)
-            return f"Unlocks when you claim the Gameboard from Season {season_num} - {sname}.", "100%", season_num, "season", extra
+            return f"Unlocked if you have claimed the {sname} Season {season_num} Gameboard.", "N/A", season_num, "season", extra
 
         # ATX standard
         if any(RE_ATX.search(e) for e in ent_edids):
@@ -1362,7 +1379,7 @@ def compute_unlock_and_rates(
 
             return "Can be purchased with certain bundles from the Atom Shop.", "N/A", None, "atx", extra
 
-        return "Unlocked via account entitlement.", "100%", None, "entitlement", extra
+        return "Unlocked via account entitlement.", "N/A", None, "entitlement", extra
 
     # --- COBJ proxy (can mean: event/activity BOOK drop OR challenge unlock via GNAM) ---
     if RE_COBJ_REF.search(joined):
@@ -1562,12 +1579,12 @@ def compute_unlock_and_rates(
 
                     extra.update({"chalEdid": chal_edid2, "chalCNAM": cnam, "chalFULL": full})
                     if cnam.lower() == "challenge":
-                        return f"Complete the Challenge:\n{full}", "100%", None, "challenge", extra
-                    return f"Complete the {cnam} Challenge:\n{full}", "100%", None, "challenge", extra
+                        return f"Complete the Challenge:\n{full}", "N/A", None, "challenge", extra
+                    return f"Complete the {cnam} Challenge:\n{full}", "N/A", None, "challenge", extra
 
                 # If CHAL row not found, still treat as challenge unlock
                 fallback_full = clean_full(gnam_full) or clean_full(gnam_edid) or "Challenge"
-                return f"Complete the Challenge:\n{fallback_full}", "100%", None, "challenge", extra
+                return f"Complete the Challenge:\n{fallback_full}", "N/A", None, "challenge", extra
 
         # --- Otherwise: treat as BOOK-drop event/activity title recipe ---
         prefer_lvli = None
@@ -1582,7 +1599,7 @@ def compute_unlock_and_rates(
 
     # --- HasLearnedRecipe without [COBJ:] ---
     if "HasLearnedRecipe(" in joined:
-        return "Unlocks after learning the required plan.", "100%", None, "learned", extra
+        return "Unlocks after learning the required plan.", "N/A", None, "learned", extra
 
     return "Unlock condition present (unclassified).", "N/A", None, "other", extra
 
