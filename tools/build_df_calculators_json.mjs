@@ -37,6 +37,25 @@ function stripQuotes(s) {
   return String(s ?? "").replace(/"/g, "").trim();
 }
 
+// Return the first non-empty value from a list of possible column names
+function pickCol(row, keys) {
+  for (const k of keys) {
+    if (!k) continue;
+    const v = safeText(row[k]);
+    if (v) return v;
+  }
+  return "";
+}
+
+// Extract a human-readable FULL name from common xEdit-ish strings:
+// e.g. SSE_ARMO_Headwear_Whatever "Flower Crown - Carnal Weeper" [ARMO:007ACE88]
+function extractQuotedName(s) {
+  const t = safeText(s);
+  if (!t) return "";
+  const m = t.match(/"([^"]+)"/);
+  return m ? safeText(m[1]) : "";
+}
+
 function splitPipe(s) {
   const t = safeText(s);
   if (!t) return [];
@@ -246,38 +265,77 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
 
   const recs = rows.map(upperKeyed)
     .filter(r => {
-      const edid = safeText(r.COBJ_EDID);
-      const craftedName = safeText(r.CNAM_FULL) || safeText(r.CNAM_EDID);
+      // Be tolerant: different exports name these columns differently
+      const edid = pickCol(r, [
+        "COBJ_EDID",
+        "EDID",
+        "EDID - Editor ID",
+        "Editor ID"
+      ]);
+
+      // Try several likely sources for the crafted item display name
+      const cnamFull = pickCol(r, [
+        "CNAM_FULL",
+        "CNAM - Created Object",
+        "CNAM",
+        "Created Object",
+        "Created Object FULL"
+      ]);
+
+      const craftedName =
+        safeText(pickCol(r, ["CNAM_FULL"])) ||
+        extractQuotedName(cnamFull) ||
+        safeText(pickCol(r, ["HNAM - Build Group Name", "HNAM_BuildGroupName", "Build Group Name"])) ||
+        safeText(pickCol(r, ["CNAM_EDID"])) ||
+        safeText(cnamFull);
 
       // Always require an EDID
       if (!edid) return false;
 
       // NEW RULE: if the crafted item name exists in big_bloom_images.json, include it
-      // (this is the deterministic "these are the Big Bloom recipes" filter)
       if (craftedName && imageKeys.has(craftedName.toLowerCase())) return true;
 
-      // Legacy fallback (keeps your old behavior working if you ever use SSE_ prefixed EDIDs)
+      // Legacy fallback
       if (edid.startsWith("SSE_")) return true;
       if (edid.startsWith("workshop_co_Tinkers_SSE_")) return true;
 
       return false;
     })
-    .map(r => ({
-      cobjFormId: safeText(r.COBJ_FormID),
-      cobjEdid: safeText(r.COBJ_EDID),
+    .map(r => {
+      const cobjEdid = pickCol(r, ["COBJ_EDID", "EDID", "EDID - Editor ID", "Editor ID"]);
 
-      craftedFormId: safeText(r.CNAM_FormID),
-      craftedEdid: safeText(r.CNAM_EDID),
-      craftedName: safeText(r.CNAM_FULL) || safeText(r.CNAM_EDID),
+      const cnamFullRaw = pickCol(r, ["CNAM_FULL", "CNAM - Created Object", "CNAM", "Created Object"]);
+      const cnamEdid = pickCol(r, ["CNAM_EDID", "CNAM_EDID - Editor ID", "CNAM - EDID", "Created Object EDID"]);
+      const craftedName =
+        safeText(pickCol(r, ["CNAM_FULL"])) ||
+        extractQuotedName(cnamFullRaw) ||
+        safeText(pickCol(r, ["HNAM - Build Group Name", "HNAM_BuildGroupName", "Build Group Name"])) ||
+        safeText(cnamEdid) ||
+        safeText(cnamFullRaw);
 
-      planFormId: safeText(r.GNAM_FormID),
-      planEdid: safeText(r.GNAM_EDID),
-      planName: safeText(r.GNAM_FULL),
+      const gnamFullRaw = pickCol(r, ["GNAM_FULL", "GNAM - Learn Recipe from", "GNAM", "Learn Recipe from"]);
+      const planName =
+        safeText(pickCol(r, ["GNAM_FULL"])) ||
+        extractQuotedName(gnamFullRaw) ||
+        safeText(gnamFullRaw);
 
-      recipeKeywords: safeText(r.FNAM_Keywords),
-      components: parseFVPA(r.FVPA),
-      category: ""
-    }));
+      return {
+        cobjFormId: pickCol(r, ["COBJ_FormID", "FormID", "Form ID", "Record Header FormID"]),
+        cobjEdid: cobjEdid,
+
+        craftedFormId: pickCol(r, ["CNAM_FormID"]),
+        craftedEdid: cnamEdid,
+        craftedName: craftedName,
+
+        planFormId: pickCol(r, ["GNAM_FormID"]),
+        planEdid: pickCol(r, ["GNAM_EDID"]),
+        planName: planName,
+
+        recipeKeywords: pickCol(r, ["FNAM_Keywords", "FNAM - Category", "FNAM", "Category"]),
+        components: parseFVPA(pickCol(r, ["FVPA", "FVPA - Components (sorted)", "Components", "Components (sorted)"])),
+        category: ""
+      };
+    });
 
   const HYBRIDS = new Set([
     "Candykill",
@@ -318,10 +376,17 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
 
   for (const r of recs) r.category = categoryForCraftedName(r.craftedName);
 
+  // Case-insensitive image lookup
+  const imageMapLower = {};
+  for (const [k, v] of Object.entries(imageMap || {})) {
+    const kk = safeText(k).toLowerCase();
+    if (kk) imageMapLower[kk] = v;
+  }
+
   for (const r of recs) {
     const key = safeText(r.craftedName).toLowerCase();
-    if (key && imageMap[key]) {
-      r.image = imageMap[key];
+    if (key && imageMapLower[key]) {
+      r.image = imageMapLower[key];
     }
   }
 
