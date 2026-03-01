@@ -30,6 +30,15 @@ def read_tsv(path):
 def pct(x):
     return round(float(x) * 100, 6)
 
+def pick(row, *keys, default=""):
+    """Return the first non-empty value for any of the given keys."""
+    for k in keys:
+        if k in row:
+            v = row.get(k)
+            if v is not None and str(v).strip() != "":
+                return v
+    return default
+
 # --------------------------------------------------
 # Load TSVs (REAL exported column names)
 # --------------------------------------------------
@@ -48,12 +57,35 @@ GUIDE = read_tsv(newest("tsv/guide_index.tsv"))
 # Indexing
 # --------------------------------------------------
 
-glob_vals = {r["FormID"]: float(r["FLTV"]) for r in GLOB if r.get("FLTV")}
+glob_vals = {}
+for r in GLOB:
+    fid = pick(r, "GLOB_FormID", "FormID")
+    fltv = pick(r, "GLOB_FLTV", "FLTV")
+    if fid and fltv:
+        try:
+            glob_vals[fid] = float(fltv)
+        except ValueError:
+            pass
 
-book_names = {r["FormID"]: r["FULL"] for r in BOOK}
-armo_names = {r["FormID"]: r["FULL"] for r in ARMO}
+book_names = {}
+for r in BOOK:
+    fid = pick(r, "BOOK_FormID", "FormID")
+    full = pick(r, "BOOK_FULL", "FULL")
+    if fid and full:
+        book_names[fid] = full
 
-gmrw_by_id = {r["FormID"]: r for r in GMRW}
+armo_names = {}
+for r in ARMO:
+    fid = pick(r, "ARMO_FormID", "FormID")
+    full = pick(r, "ARMO_FULL", "FULL")
+    if fid and full:
+        armo_names[fid] = full
+
+gmrw_by_id = {}
+for r in GMRW:
+    fid = pick(r, "GMRW_FormID", "FormID")
+    if fid:
+        gmrw_by_id[fid] = r
 
 lvli_math_by_entry = {}
 for r in LVLI_MATH:
@@ -112,8 +144,8 @@ events = []
 by_page = {}
 
 for q in QUEST:
-    qid = q["FormID"]
-    name = q["FULL - Name"] or q["EDID"]
+    qid = pick(q, "QUEST_FormID", "FormID")
+    name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name", "FULL", "EDID", "QUEST_EDID", default=qid)
 
     event = {
         "questFormID": qid,
