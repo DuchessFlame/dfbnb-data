@@ -49,7 +49,7 @@ RE_QUEST_COMPLETED = re.compile(r"\bGetQuestCompleted\(", re.IGNORECASE)
 RE_NUM_TIMES_COMPLETED = re.compile(r"\bGetNumTimesCompletedQuest\(", re.IGNORECASE)
 
 RE_SCORE_SEASON = re.compile(r"\bSCORE[_-]?S(\d+)(?:\b|_)", re.IGNORECASE)
-RE_MINISEASON = re.compile(r"\bSCORE_MiniSeason\b", re.IGNORECASE)
+RE_MINISEASON = re.compile(r"\bSCORE_MiniSeason(?:\b|_)", re.IGNORECASE)
 RE_ATX = re.compile(r"\bATX_", re.IGNORECASE)
 RE_COMMUNITY = re.compile(r"\bCommunity_", re.IGNORECASE)
 
@@ -363,7 +363,7 @@ def _formid8_lower(s: str) -> str:
 
 def _norm_key(s: str) -> str:
     s = (s or "").strip().lower()
-    s = re.sub(r"\\s+", " ", s)
+    s = re.sub(r"\s+", " ", s)
     s = re.sub(r"[^a-z0-9 ]+", "", s)
     return s
 
@@ -1000,7 +1000,7 @@ def parse_quest_name_from_condition(cond: str) -> Optional[str]:
 
 
 def parse_rhs_number(cond: str) -> Optional[float]:
-    m = re.search(r"=\\s*([0-9]+(?:\\.[0-9]+)?)", cond)
+    m = re.search(r"=\s*([0-9]+(?:\.[0-9]+)?)", cond)
     return safe_float(m.group(1), None) if m else None
 
 
@@ -1197,6 +1197,7 @@ def compute_unlock_and_rates(
             if "GetNumTimesCompletedQuest" not in c:
                 continue
             qname = clean_full(parse_quest_name_from_condition(c)) or "Unknown Quest"
+            qname = qname.replace('"', "").strip()
             n = parse_rhs_number(c)
             if n is None:
                 return f"Complete the Quest:\n{qname}", "N/A", None, "quest", extra
@@ -1207,6 +1208,7 @@ def compute_unlock_and_rates(
 
     if RE_QUEST_COMPLETED.search(joined):
         qname = clean_full(parse_quest_name_from_condition(joined)) or "Unknown Quest"
+        qname = qname.replace('"', "").strip()
         return f"Complete the Quest:\n{qname}", "N/A", None, "quest", extra
 
     # --- Entitlements ---
@@ -1291,7 +1293,7 @@ def compute_unlock_and_rates(
             if my:
                 year = my.group(1)
 
-            tok2 = re.sub(r"^\\d{4}_", "", tok2)  # drop leading year
+            tok2 = re.sub(r"^\d{4}_", "", tok2)  # drop leading year
             name = prettify_token_words(tok2)
             extra.update({"miniSeasonRaw": tok2, "miniSeasonName": name, "miniSeasonYear": year})
 
@@ -1323,11 +1325,35 @@ def compute_unlock_and_rates(
                             claimed = clean_full(m.group(1))
                             break
 
-                # If the quoted name is just the title itself (Player Title Prefix/Suffix),
-                # use ticket wording instead. Use "claim X" only when X is a different reward.
-                if claimed and ("player title" not in claimed.lower()):
+                # Player titles:
+                # - If the entitlement gate is a non-title reward (Gameboard/Corkboard/Framed Art),
+                #   then the title unlocks after claiming that reward.
+                # - Otherwise, treat SCORE_S# PlayerTitles as ticket purchases from the season board.
+                se = (season_edid or "").lower()
+                cl = (claimed or "").lower()
+
+                is_gameboard_gate = (
+                    ("gameboard" in se) or ("corkboard" in se) or
+                    ("gameboard" in cl) or ("corkboard" in cl)
+                )
+
+                is_framed_art_gate = (
+                    ("endofseasonart" in se) or
+                    (("framed art" in cl) and (not is_gameboard_gate))
+                )
+
+                if is_framed_art_gate:
                     return (
-                        f"Unlocked if you have claimed the {sname} Season {season_num} Scoreboard.",
+                        f"Unlocked if you have claimed the {sname} Season {season_num} Framed Art.",
+                        "N/A",
+                        season_num,
+                        "season",
+                        extra
+                    )
+
+                if is_gameboard_gate:
+                    return (
+                        f"Unlocked if you have claimed the {sname} Season {season_num} Gameboard.",
                         "N/A",
                         season_num,
                         "season",
