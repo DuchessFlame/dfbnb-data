@@ -85,8 +85,15 @@ ARMO = read_tsv(newest("tsv/ARMO_Export_*.tsv"))
 GLOB = read_tsv(newest("tsv/GLOB_Export_*.tsv"))
 GUIDE = read_tsv(newest("tsv/guide_index.tsv"))
 
+# Optional: Party Crasher creature name resolution (FormID -> CREA_FULL)
+# Safe fallback if CREA export is not present.
+try:
+    CREA = read_tsv(newest("tsv/CREA_Export_*.tsv"))
+except FileNotFoundError:
+    CREA = []
+
 # --------------------------------------------------
-# Indexing: GLOB / BOOK / ARMO / GMRW / LVLI
+# Indexing: GLOB / BOOK / ARMO / CREA / GMRW / LVLI
 # --------------------------------------------------
 
 glob_vals = {}
@@ -112,6 +119,45 @@ for r in ARMO:
     full = pick(r, "ARMO_FULL", "FULL")
     if fid and full:
         armo_names[fid] = full
+
+crea_names = {}
+for r in CREA:
+    fid = pick(r, "CREA_FormID", "FormID")
+    full = pick(r, "CREA_FULL", "FULL")
+    if fid and full:
+        crea_names[fid] = full
+
+def humanize_party_crasher_name(raw: str) -> str:
+    """
+    raw is usually 'FORMID:EDID' or EDID. Prefer CREA_FULL via FORMID.
+    Fall back to de-EDID'ing common patterns into readable names.
+    """
+    s = (raw or "").strip()
+    if not s:
+        return "Party Crasher"
+
+    formid = s.split(":")[0] if ":" in s else ""
+    if formid and formid in crea_names:
+        return crea_names[formid].strip()
+
+    edid = s.split(":", 1)[1] if ":" in s else s
+
+    # Common cleanups
+    edid = re.sub(r"^Lvl", "", edid)
+    edid = re.sub(r"_?PartyCrasher$", "", edid)
+    edid = re.sub(r"_", " ", edid).strip()
+
+    # Insert spaces before capitals (very conservative)
+    edid = re.sub(r"(?<!^)(?=[A-Z])", " ", edid).strip()
+
+    # Fix some known FO76-ish casing
+    edid = edid.replace("Scorch Beast", "Scorchbeast")
+    edid = edid.replace("Mirelurk Queen", "Mirelurk Queen")
+    edid = edid.replace("Wendigo Colossus", "Wendigo Colossus")
+    edid = edid.replace("Deathclaw", "Deathclaw")
+    edid = edid.replace("Bigfoot", "Bigfoot")
+
+    return edid if edid else "Party Crasher"
 
 gmrw_by_id = {}
 for r in GMRW:
@@ -295,15 +341,29 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
         # --------------------
         count = int(q.get("PartyCrasherCount") or 0)
         for i in range(count):
-            npc = q.get(f"PartyCrasher_NPC_{i}")
-            glob = q.get(f"PartyCrasher_GLOB_{i}")
-            if npc and glob in glob_vals:
-                chance = pct(glob_vals[glob])
-                event["banners"].append({
-                    "type": "notice",
-                    "style": "party-crasher",
-                    "lines": [f"{chance}% chance for {npc} to spawn at the end of the event."]
-                })
+            npc_raw = q.get(f"PartyCrasher_NPC_{i}")
+            glob_raw = q.get(f"PartyCrasher_GLOB_{i}")
+
+            if not npc_raw or not glob_raw:
+                continue
+
+            # GLOB may be exported as "FORMID:GLOB_EDID" in some TSVs
+            glob_fid = glob_raw.split(":")[0] if ":" in str(glob_raw) else str(glob_raw)
+
+            if glob_fid not in glob_vals:
+                continue
+
+            chance = pct(glob_vals[glob_fid])
+            npc_name = humanize_party_crasher_name(npc_raw)
+
+            event["banners"].append({
+                "type": "notice",
+                "style": "party-crasher",
+                "lines": [
+                    f"Party Crasher: {npc_name}",
+                    f"{chance}% chance to spawn at the end of the event."
+                ]
+            })
 
         # --------------------
         # Base Rewards + Item Pools (GMRW)
