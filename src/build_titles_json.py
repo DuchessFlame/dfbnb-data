@@ -272,20 +272,35 @@ def extract_conditions(row: Dict[str, str]) -> List[str]:
             out.append(v)
     return out
 
-
 def seasons_map(seasons_path: Optional[str]) -> Dict[int, str]:
     if not seasons_path or not os.path.exists(seasons_path):
         return {}
-    rows = read_tsv_rows(seasons_path)
+
+    # Robust parse: handle TSV, CSV, and UTF-8 BOM.
+    # Your file SHOULD be TSV, but CI or editors sometimes save it differently.
+    try:
+        with open(seasons_path, "r", encoding="utf-8-sig", errors="replace", newline="") as f:
+            head = f.readline()
+            f.seek(0)
+
+            # Detect delimiter from header line
+            delim = "\t" if "\t" in head else ("," if "," in head else "\t")
+
+            reader = csv.DictReader(f, delimiter=delim)
+            rows = [dict(r) for r in reader]
+    except Exception:
+        # Fallback to existing TSV reader
+        rows = read_tsv_rows(seasons_path)
+
     m: Dict[int, str] = {}
     for r in rows:
-        sn = r.get("SeasonNumber") or r.get("Season") or r.get("Number") or ""
-        name = r.get("SeasonName") or r.get("Name") or r.get("ScoreboardName") or ""
+        sn = (r.get("SeasonNumber") or r.get("Season") or r.get("Number") or "").strip()
+        name = (r.get("SeasonName") or r.get("Name") or r.get("ScoreboardName") or "").strip()
         n = safe_int(sn, 0)
         if n and name:
             m[n] = name
-    return m
 
+    return m
 
 def _norm_dds_path(p: str) -> str:
     """
@@ -1344,7 +1359,7 @@ def compute_unlock_and_rates(
 
                 if is_framed_art_gate:
                     return (
-                        f"Unlocked if you have claimed the {sname} Season {season_num} Framed Art.",
+                        f"Unlocked if you have claimed the {sname} (Season {season_num}) Framed Art.",
                         "N/A",
                         season_num,
                         "season",
@@ -1353,20 +1368,20 @@ def compute_unlock_and_rates(
 
                 if is_gameboard_gate:
                     return (
-                        f"Unlocked if you have claimed the {sname} Season {season_num} Gameboard.",
+                        f"Unlocked if you have claimed the {sname} (Season {season_num}) Gameboard.",
                         "N/A",
                         season_num,
-                        "season",
+                        "season_score",
                         extra
                     )
 
-                return (
-                    f"Purchase with tickets from the {sname} Scoreboard (Season {season_num}).",
-                    "N/A",
-                    season_num,
-                    "season",
-                    extra
-                )
+                    return (
+                        f"Purchase with tickets from the {sname} Scoreboard (Season {season_num})",
+                        "N/A",
+                        season_num,
+                        "season_score",
+                        extra
+                    )
 
             e_upper = (season_edid or "").upper()
             framed = ("ENDOFSEASONART" in e_upper)
