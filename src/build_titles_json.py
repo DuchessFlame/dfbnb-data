@@ -59,11 +59,11 @@ RE_COBJ_REF = re.compile(r"(?:\[COBJ:|COBJ:)([0-9A-F]{8})(?:\]?)", re.IGNORECASE
 
 
 def now_iso() -> str:
-    return dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+    return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat()
 
 
 def today_ymd_utc() -> str:
-    return dt.datetime.utcnow().strftime("%Y-%m-%d")
+    return dt.datetime.now(dt.UTC).strftime("%Y-%m-%d")
 
 
 def load_release_overrides(tsv_root: Optional[str]) -> Dict[str, str]:
@@ -272,20 +272,35 @@ def extract_conditions(row: Dict[str, str]) -> List[str]:
             out.append(v)
     return out
 
-
 def seasons_map(seasons_path: Optional[str]) -> Dict[int, str]:
     if not seasons_path or not os.path.exists(seasons_path):
         return {}
-    rows = read_tsv_rows(seasons_path)
+
+    # Robust parse: handle TSV, CSV, and UTF-8 BOM.
+    # Your file SHOULD be TSV, but CI or editors sometimes save it differently.
+    try:
+        with open(seasons_path, "r", encoding="utf-8-sig", errors="replace", newline="") as f:
+            head = f.readline()
+            f.seek(0)
+
+            # Detect delimiter from header line
+            delim = "\t" if "\t" in head else ("," if "," in head else "\t")
+
+            reader = csv.DictReader(f, delimiter=delim)
+            rows = [dict(r) for r in reader]
+    except Exception:
+        # Fallback to existing TSV reader
+        rows = read_tsv_rows(seasons_path)
+
     m: Dict[int, str] = {}
     for r in rows:
-        sn = r.get("SeasonNumber") or r.get("Season") or r.get("Number") or ""
-        name = r.get("SeasonName") or r.get("Name") or r.get("ScoreboardName") or ""
+        sn = (r.get("SeasonNumber") or r.get("Season") or r.get("Number") or "").strip()
+        name = (r.get("SeasonName") or r.get("Name") or r.get("ScoreboardName") or "").strip()
         n = safe_int(sn, 0)
         if n and name:
             m[n] = name
-    return m
 
+    return m
 
 def _norm_dds_path(p: str) -> str:
     """
@@ -375,7 +390,17 @@ def book_tradeable_map(book_rows: List[Dict[str, str]]) -> Dict[str, bool]:
         full = (r.get("FULL") or "").strip()
 
         row_blob = " ".join(str(v) for v in r.values() if v)
-        non_trade = "nonplayertradeable" in row_blob.lower()
+        blob = row_blob.lower()
+
+        # Bethesda naming is inconsistent across exports:
+        # - NonPlayerTradeable (common)
+        # - NonPlayerTradable (also common)
+        # Also treat UnsellableObject as non-tradeable
+        non_trade = (
+            ("nonplayertradeable" in blob) or
+            ("nonplayertradable" in blob) or
+            ("unsellableobject" in blob)
+        )
         is_tradeable = not non_trade
 
         if edid:
@@ -500,294 +525,301 @@ def _find_row_by_formid(rows: List[Dict[str, str]], formid: str) -> Optional[Dic
             return r
     return None
 
-def lvli_to_gmrw_parentquest(
-    lvli_refby_rows: List[Dict[str, str]],
-    gmrw_by_formid: Dict[str, str],
-    start_lvli_formid: str,
-    lvli_list_rows: Optional[List[Dict[str, str]]] = None,
+def lvli_drop_rate_from_cobj_lvli(
+    cobj_rows: List[Dict[str, str]],
+    lvli_entry_rows: List[Dict[str, str]],
+    lvli_list_rows: List[Dict[str, str]],
+    glob_rows: List[Dict[str, str]],
+    cobj_formid: str,
+    prefer_lvli_formid: Optional[str] = None,
 ) -> Optional[str]:
     """
-    Recursive/BFS resolution:
+    COBJ(FormID) -> GNAM_FormID (BOOK FormID)
+      -> find LVLI entry rows (LVLI_Entries.tsv) where LVLO_Reference contains that BOOK
+      -> apply global-first rule using entry-level globals/curves first
+      -> if no entry global, allow list-level globals/curves (LVLI_List.tsv) by LVLI_FormID
+      -> else fallback to LVOV_ChanceNoneValue (LVLI_Entries.tsv)
 
-      Start LVLI
-        -> check if referenced by GMRW (Ref* endswith :GMRW)
-        -> otherwise enqueue all parent LVLIs (Ref* endswith :LVLI)
-        -> repeat breadth-first until a GMRW label is found.
-
-    Rules:
-      - Skip cut-content LVLIs (DEL/CUT/POST/ZZZ/ZZZZ) when we can resolve EDID.
-      - Prefer nearest resolvable parent (BFS).
-      - Return the quoted ParentQuest label string from gmrw_by_formid.
+    PLUS: Tier-family support:
+      - Tier_01/02/03
+      - Reward_1/2/3
+      - Bad/Good/Best
+    Outputs multi-line tier text using:
+      Tier 1 - 5%
+      Tier 2 - 10%
+      Tier 3 - 0%
     """
-    start = (start_lvli_formid or "").strip().upper()
-    if not start:
+    cobj_formid = (cobj_formid or "").strip().upper()
+    if not cobj_formid:
         return None
 
-    # Build quick lookup: LVLI FormID -> EDID (for cut filtering)
-    lvli_edid_by_formid: Dict[str, str] = {}
-    if lvli_list_rows:
-        for r in lvli_list_rows:
-            fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
-            if not fid:
-                continue
-            ed = (r.get("LVLI_EDID") or r.get("EDID") or "").strip()
-            if ed:
-                lvli_edid_by_formid[fid] = ed
+    # 1) Find exact COBJ row
+    cand = None
+    for r in cobj_rows:
+        if (r.get("FormID") or "").strip().upper() == cobj_formid:
+            cand = r
+            break
+    if not cand:
+        return None
 
-    def _is_cut_lvli(fid8: str) -> bool:
-        ed = lvli_edid_by_formid.get((fid8 or "").strip().upper(), "")
-        return bool(ed) and starts_cut(ed)
+    # 2) BOOK FormID from GNAM_FormID
+    book_formid = (cand.get("GNAM_FormID") or "").strip().upper()
+    if not book_formid or not re.fullmatch(r"[0-9A-F]{8}", book_formid):
+        return None
 
-    # Find LVLI ref-by row for this LVLI
-    def _find_lvli_refby(fid: str) -> Optional[Dict[str, str]]:
-        f = (fid or "").strip().upper()
+    # 3) Find LVLI entry row(s) referencing that BOOK
+    matches_all = [r for r in lvli_entry_rows if book_formid in ((r.get("LVLO_Reference") or "").upper())]
+    if not matches_all:
+        return None
+
+    # ------------------------------------------------------------
+    # Tier-family support (Tier_01/02/03, Reward_1/2/3, Bad/Good/Best)
+    # ------------------------------------------------------------
+
+    def _lvli_edid_for(fid8: str) -> str:
+        f = (fid8 or "").strip().upper()
         if not f:
+            return ""
+        for lr in lvli_list_rows:
+            rr_f = (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper()
+            if rr_f == f:
+                return (lr.get("LVLI_EDID") or lr.get("EDID") or "").strip()
+        return ""
+
+    def _tier_info_from_edid(edid: str) -> Optional[Tuple[str, str, int]]:
+        """
+        Returns (family_key, tier_label, tier_order)
+
+        family_key: EDID normalized with the tier token stripped, for grouping.
+        tier_label: "Tier 1" / "Bad" / etc.
+        tier_order: sorting key
+        """
+        e = (edid or "").strip()
+        if not e:
             return None
-        for r in lvli_refby_rows:
-            if (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper() == f:
-                return r
+        el = e.lower()
+
+        # Bad/Good/Best style
+        if "bad" in el or "good" in el or "best" in el:
+            for lab, order in (("bad", 1), ("good", 2), ("best", 3)):
+                if re.search(rf"(?:^|[_\-]){lab}(?:$|[_\-])", el):
+                    fam = re.sub(rf"([_\-]){lab}([_\-]|$)", r"\1", el)
+                    fam = re.sub(r"[_\-]+$", "", fam)
+                    fam = re.sub(r"[_\-]+", "_", fam).strip("_")
+                    return (fam, lab.capitalize(), order)
+
+        # Numeric tier/reward style (Tier_01, Tier02, Reward_3, Quest_Reward_3, etc)
+        m_all = list(re.finditer(r"(tier|reward)[_\-]*(0?\d{1,2})\b", el))
+        if m_all:
+            m = m_all[-1]  # use the last tier token
+            n = int(m.group(2).lstrip("0") or "0")
+            if n <= 0:
+                return None
+            fam = el[:m.start()] + el[m.end():]
+            fam = re.sub(r"[_\-]+", "_", fam).strip("_")
+            return (fam, f"Tier {n}", n)
+
         return None
 
-    # BFS queue
-    queue: List[str] = [start]
-    seen: set = set([start])
+    def _compute_rate_for_entry_row(entry_row: Dict[str, str], lvli_fid: str) -> Optional[str]:
+        # Helper: list row lookup
+        list_row = None
+        for lr in lvli_list_rows:
+            rr_f = (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper()
+            if rr_f == lvli_fid:
+                list_row = lr
+                break
 
-    while queue:
-        cur = queue.pop(0)
+        # Global-first rule (entry-level then list-level)
+        candidates: List[str] = []
 
-        # Skip cut lists if we can identify them
-        if _is_cut_lvli(cur):
-            continue
+        lvog = (entry_row.get("LVOG_ChanceNoneGlobal") or "").strip()
+        if lvog:
+            candidates.append(lvog)
 
-        refby = _find_lvli_refby(cur)
-        if not refby:
-            continue
+        lvoc = (entry_row.get("LVOC_ChanceNoneCurve") or "").strip()
+        if lvoc and ":GLOB" in lvoc.upper():
+            candidates.append(lvoc)
 
-        # 1) If referenced by a GMRW, return the first resolvable label
-        gmrw_ids = _extract_formids_from_ref_fields(refby, ":GMRW")
-        for gid in gmrw_ids:
-            pq = gmrw_by_formid.get(gid)
-            if pq:
-                return pq
+        if list_row:
+            lvlg = (list_row.get("LVLG_ChanceNoneGlobal") or "").strip()
+            if lvlg:
+                candidates.append(lvlg)
 
-        # 2) Otherwise enqueue ALL parent LVLIs (not just the first)
-        parent_lvli_ids = _extract_formids_from_ref_fields(refby, ":LVLI")
-        for pid in parent_lvli_ids:
-            pid = (pid or "").strip().upper()
-            if not pid or pid in seen:
+            lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
+            if lvct and ":GLOB" in lvct.upper():
+                candidates.append(lvct)
+
+        for glob_field in candidates:
+            gfid = _glob_formid_from_lvli_global_field(glob_field)
+            if not gfid:
                 continue
-            seen.add(pid)
-            queue.append(pid)
+            dr2 = glob_drop_rate_by_formid(glob_rows, gfid)
+            if dr2:
+                return dr2
 
-    return None
-
-
-def book_to_gmrw_parentquest_via_lvli_entries(
-    book_formid: str,
-    lvli_entry_rows: List[Dict[str, str]],
-    lvli_refby_rows: List[Dict[str, str]],
-    gmrw_by_formid: Dict[str, str],
-    lvli_list_rows: Optional[List[Dict[str, str]]] = None,
-) -> Tuple[Optional[str], Optional[str], Dict[str, Any]]:
-    """
-    Resolve ParentQuest for BOOK-based rewards by scanning LVLI_Entries where LVLO_Reference references the BOOK.
-
-    Returns:
-      (parentQuestLabel, pickedLvliFormId, debug)
-    """
-    dbg: Dict[str, Any] = {
-        "bookFormId": (book_formid or "").strip().upper(),
-        "entryMatches": 0,
-        "candidateLvliFormIdsAll": [],
-        "candidateLvliFormIdsFiltered": [],
-        "pickedLvliFormId": None,
-        "pickedParentQuest": None,
-    }
-
-    bf = (book_formid or "").strip().upper()
-    if not bf or not re.fullmatch(r"[0-9A-F]{8}", bf):
-        return None, None, dbg
-
-    # Find all LVLI_Entries rows that reference the BOOK
-    matches = [r for r in lvli_entry_rows if bf in ((r.get("LVLO_Reference") or "").upper())]
-    dbg["entryMatches"] = len(matches)
-    if not matches:
-        return None, None, dbg
-
-    # Collect LVLI FormIDs from those matches
-    cand_ids: List[str] = []
-    for r in matches:
-        fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
-        if fid and re.fullmatch(r"[0-9A-F]{8}", fid):
-            cand_ids.append(fid)
-
-    # De-dupe preserving order
-    seen = set()
-    cand_ids = [x for x in cand_ids if not (x in seen or seen.add(x))]
-    dbg["candidateLvliFormIdsAll"] = cand_ids
-
-    # Optional cut filtering via LVLI list EDIDs
-    lvli_edid_by_formid: Dict[str, str] = {}
-    if lvli_list_rows:
-        for rr in lvli_list_rows:
-            fid = (rr.get("LVLI_FormID") or rr.get("FormID") or "").strip().upper()
-            if not fid:
-                continue
-            ed = (rr.get("LVLI_EDID") or rr.get("EDID") or "").strip()
-            if ed:
-                lvli_edid_by_formid[fid] = ed
-
-    def _is_cut(fid8: str) -> bool:
-        ed = lvli_edid_by_formid.get((fid8 or "").strip().upper(), "")
-        return bool(ed) and starts_cut(ed)
-
-    filtered = [fid for fid in cand_ids if not _is_cut(fid)]
-    dbg["candidateLvliFormIdsFiltered"] = filtered
-
-    # Prefer the first LVLI that resolves to a parent quest via ref-by BFS
-    for fid in (filtered or cand_ids):
-        pq = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, fid, lvli_list_rows)
-        if pq:
-            dbg["pickedLvliFormId"] = fid
-            dbg["pickedParentQuest"] = pq
-            return pq, fid, dbg
-
-    # Nothing resolved
-    return None, (filtered[0] if filtered else (cand_ids[0] if cand_ids else None)), dbg
-
-def book_lvli_gmrw_parentquest(
-    book_rows: List[Dict[str, str]],
-    lvli_refby_rows: List[Dict[str, str]],
-    gmrw_by_formid: Dict[str, str],
-    book_formid: str,
-    lvli_list_rows: Optional[List[Dict[str, str]]] = None,
-) -> Tuple[Optional[str], Dict[str, Any]]:
-
-    dbg: Dict[str, Any] = {
-        "bookFormId": (book_formid or "").strip().upper(),
-        "bookFound": False,
-        "lvliIds": [],
-        "lvliIdsFiltered": [],
-        "lvliPicked": None,
-        "gmrwLabelFound": False,
-    }
-
-    book_row = _find_row_by_formid(book_rows, book_formid)
-    if not book_row:
-        return None, dbg
-
-    dbg["bookFound"] = True
-
-    lvli_ids = _extract_formids_from_ref_fields(book_row, ":LVLI")
-    dbg["lvliIds"] = lvli_ids
-    if not lvli_ids:
-        return None, dbg
-
-    # Build EDID lookup for cut filtering
-    lvli_edid_by_formid: Dict[str, str] = {}
-    if lvli_list_rows:
-        for r in lvli_list_rows:
-            fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
-            if not fid:
-                continue
-            ed = (r.get("LVLI_EDID") or r.get("EDID") or "").strip()
-            if ed:
-                lvli_edid_by_formid[fid] = ed
-
-    def _is_cut_lvli(fid8: str) -> bool:
-        ed = lvli_edid_by_formid.get((fid8 or "").strip().upper(), "")
-        return bool(ed) and starts_cut(ed)
-
-    lvli_ids_filtered = [fid for fid in lvli_ids if not _is_cut_lvli(fid)]
-    dbg["lvliIdsFiltered"] = lvli_ids_filtered
-
-    # Try filtered first, fallback to original if needed
-    for lvli_id in (lvli_ids_filtered or lvli_ids):
-        pq = lvli_to_gmrw_parentquest(
-            lvli_refby_rows,
-            gmrw_by_formid,
-            lvli_id,
-            lvli_list_rows,
-        )
-        if pq:
-            dbg["lvliPicked"] = lvli_id
-            dbg["gmrwLabelFound"] = True
-            return pq, dbg
-
-    return None, dbg
-
-def chal_maps(chal_rows: List[Dict[str, str]]) -> Tuple[Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]:
-    by_id: Dict[str, Dict[str, str]] = {}
-    by_edid: Dict[str, Dict[str, str]] = {}
-    for r in chal_rows:
-        fid = (r.get("FormID") or "").strip().upper()
-        edid = (r.get("EDID") or "").strip()
-        if fid:
-            by_id[fid] = r
-        if edid:
-            by_edid[edid.lower()] = r  # case-insensitive lookup
-    return by_id, by_edid
-
-def cobj_token_from_condition(conds: List[str]) -> Optional[str]:
-    for s in conds:
-        if ("[COBJ:" not in s) and ("COBJ:" not in s):
-            continue
-        m = re.search(r"\(([^)\s]+)", s)
-        if not m:
-            continue
-        arg = m.group(1)
-        token = arg.split("_", 1)[0]
-        if token:
-            return token
-    return None
-
-def parse_parentquest_label(pq: str) -> Optional[Tuple[str, str]]:
-    # Preferred format: quoted label somewhere in the string
-    m = RE_QUOTED.search(pq)
-    if m:
-        label = m.group(1).strip()  # "Event: X" / "Activity: Y"
-    else:
-        # Fallback: plain text contains Event:/Activity: without quotes
-        m2 = re.search(r"\b(Event|Activity|Bounty\s*Hunting)\s*:\s*([^\r\n|]+)", pq)
-        if not m2:
+        # Fallback: LVOV ChanceNoneValue on the entry row
+        chance_none = safe_float(entry_row.get("LVOV_ChanceNoneValue") or "", None)
+        if chance_none is None:
             return None
-        label = f"{m2.group(1)}: {m2.group(2).strip()}"
+        if abs(chance_none) < 1e-9:
+            return "100%"
 
-    # Normal: "Event: X" / "Activity: Y"
-    if ":" in label:
-        left, right = label.split(":", 1)
-        kind = left.strip()
-        name = right.strip()
-        if not kind or not name:
-            return None
-        return kind, name
-
-    # Fallback: quoted FULL from a QUST ref, e.g. "Lucky Strike"
-    # Treat it as a quest name.
-    label = label.strip()
-    if not label:
-        return None
-    return "Quest", label
-
-def glob_drop_rate_by_edid(glob_rows: List[Dict[str, str]], glob_edid: str) -> Optional[str]:
-    """Strict: match GLOB.EDID exactly, DropRate = 100 - FLTV"""
-    glob_edid = (glob_edid or "").strip()
-    if not glob_edid:
-        return None
-
-    for r in glob_rows:
-        if (r.get("EDID") or "").strip() != glob_edid:
-            continue
-        fv = safe_float(r.get("FLTV") or "", None)
-        if fv is None:
-            return None
-        pct = 100.0 - fv
+        pct = 100.0 - chance_none
         if pct < 0:
             return None
         if abs(pct - round(pct)) < 1e-6:
             return f"{int(round(pct))}%"
         return f"{pct:.3f}%"
-    return None
+
+    # Group matches by LVLI FormID (only those LVLIs that contain THIS BOOK)
+    by_lvli: Dict[str, List[Dict[str, str]]] = {}
+    for r in matches_all:
+        fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+        if not fid or not re.fullmatch(r"[0-9A-F]{8}", fid):
+            continue
+        by_lvli.setdefault(fid, []).append(r)
+
+    # Detect tier family among matched LVLIs
+    tier_hits: List[Tuple[str, str, int, str]] = []
+    for fid in by_lvli.keys():
+        ed = _lvli_edid_for(fid)
+        info = _tier_info_from_edid(ed)
+        if not info:
+            continue
+        fam, lab, order = info
+        tier_hits.append((fam, lab, order, fid))
+
+    if tier_hits:
+        # Choose the family key that appears most among the matched LVLIs
+        fam_counts: Dict[str, int] = {}
+        for fam, _lab, _ord, _fid in tier_hits:
+            fam_counts[fam] = fam_counts.get(fam, 0) + 1
+        best_family = sorted(fam_counts.items(), key=lambda x: (-x[1], x[0]))[0][0]
+
+        # Discover all tiers in that family from LVLI_List
+        family_tiers: Dict[int, Tuple[str, str]] = {}
+        family_named: Dict[str, str] = {}
+
+        for lr in lvli_list_rows:
+            fid = (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper()
+            ed = (lr.get("LVLI_EDID") or lr.get("EDID") or "").strip()
+            info = _tier_info_from_edid(ed)
+            if not info:
+                continue
+            fam, lab, order = info
+            if fam != best_family:
+                continue
+
+            if lab.lower().startswith("tier "):
+                family_tiers[order] = (lab, fid)
+            else:
+                family_named[lab] = fid
+
+        parts: List[str] = []
+
+        # Bad/Good/Best format
+        if family_named:
+            for lab in ("Bad", "Good", "Best"):
+                fid = family_named.get(lab)
+                if not fid:
+                    continue
+                if fid not in by_lvli:
+                    parts.append(f"{lab} - 0%")
+                    continue
+                entry_row = by_lvli[fid][0]
+                dr = _compute_rate_for_entry_row(entry_row, fid) or "N/A"
+                parts.append(f"{lab} - {dr}")
+            if parts:
+                return "\n".join(parts)
+
+        # Numeric tiers
+        if family_tiers:
+            for order in sorted(family_tiers.keys()):
+                lab, fid = family_tiers[order]
+                if fid not in by_lvli:
+                    parts.append(f"{lab} - 0%")
+                    continue
+                entry_row = by_lvli[fid][0]
+                dr = _compute_rate_for_entry_row(entry_row, fid) or "N/A"
+                parts.append(f"{lab} - {dr}")
+            if parts:
+                return "\n".join(parts)
+
+    # ------------------------------------------------------------
+    # Original single-rate logic (unchanged)
+    # ------------------------------------------------------------
+
+    prefer = (prefer_lvli_formid or "").strip().upper()
+    if prefer and re.fullmatch(r"[0-9A-F]{8}", prefer):
+        matches = []
+        for r in matches_all:
+            fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+            if fid == prefer:
+                matches.append(r)
+        if not matches:
+            matches = matches_all
+    else:
+        matches = matches_all
+
+    # Prefer a match that has an entry-level global override
+    def _rank(row: Dict[str, str]) -> int:
+        eg = (row.get("LVOG_ChanceNoneGlobal") or "").strip()
+        return 0 if eg else 1
+
+    matches.sort(key=_rank)
+    best = matches[0]
+
+    # Helper: list row by LVLI_FormID (for LVLG/LVCT fallback)
+    lvli_fid = (best.get("LVLI_FormID") or best.get("FormID") or "").strip().upper()
+    list_row = None
+    if lvli_fid:
+        for lr in lvli_list_rows:
+            if (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper() == lvli_fid:
+                list_row = lr
+                break
+
+    # Global override first (global-first rule, order matters)
+    candidates: List[str] = []
+
+    lvog = (best.get("LVOG_ChanceNoneGlobal") or "").strip()
+    if lvog:
+        candidates.append(lvog)
+
+    lvoc = (best.get("LVOC_ChanceNoneCurve") or "").strip()
+    if lvoc and ":GLOB" in lvoc.upper():
+        candidates.append(lvoc)
+
+    if list_row:
+        lvlg = (list_row.get("LVLG_ChanceNoneGlobal") or "").strip()
+        if lvlg:
+            candidates.append(lvlg)
+
+        lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
+        if lvct and ":GLOB" in lvct.upper():
+            candidates.append(lvct)
+
+    for glob_field in candidates:
+        gfid = _glob_formid_from_lvli_global_field(glob_field)
+        if not gfid:
+            continue
+        dr = glob_drop_rate_by_formid(glob_rows, gfid)
+        if dr:
+            return dr
+
+    # Fallback: LVOV_ChanceNoneValue
+    chance_none = safe_float(best.get("LVOV_ChanceNoneValue") or "", None)
+    if chance_none is None:
+        return None
+    if abs(chance_none) < 1e-9:
+        return "100%"
+
+    pct = 100.0 - chance_none
+    if pct < 0:
+        return None
+    if abs(pct - round(pct)) < 1e-6:
+        return f"{int(round(pct))}%"
+    return f"{pct:.3f}%"
 
 def _glob_formid_from_lvli_global_field(s: str) -> Optional[str]:
     s = (s or "").strip()
@@ -830,118 +862,6 @@ def glob_drop_rate_by_formid(glob_rows: List[Dict[str, str]], glob_formid: str) 
             return f"{int(round(pct))}%"
         return f"{pct:.3f}%"
     return None
-
-def lvli_drop_rate_from_cobj_lvli(
-    cobj_rows: List[Dict[str, str]],
-    lvli_entry_rows: List[Dict[str, str]],
-    lvli_list_rows: List[Dict[str, str]],
-    glob_rows: List[Dict[str, str]],
-    cobj_formid: str,
-    prefer_lvli_formid: Optional[str] = None,
-) -> Optional[str]:
-    """
-    COBJ(FormID) -> GNAM_FormID (BOOK FormID)
-      -> find LVLI entry rows (LVLI_Entries.tsv) where LVLO_Reference contains that BOOK
-      -> apply global-first rule using entry-level globals/curves first
-      -> if no entry global, allow list-level globals/curves (LVLI_List.tsv) by LVLI_FormID
-      -> else fallback to LVOV_ChanceNoneValue (LVLI_Entries.tsv)
-    """
-    cobj_formid = (cobj_formid or "").strip().upper()
-    if not cobj_formid:
-        return None
-
-    # 1) Find exact COBJ row
-    cand = None
-    for r in cobj_rows:
-        if (r.get("FormID") or "").strip().upper() == cobj_formid:
-            cand = r
-            break
-    if not cand:
-        return None
-
-    # 2) BOOK FormID from GNAM_FormID
-    book_formid = (cand.get("GNAM_FormID") or "").strip().upper()
-    if not book_formid or not re.fullmatch(r"[0-9A-F]{8}", book_formid):
-        return None
-
-    # 3) Find LVLI entry row(s) referencing that BOOK
-    matches_all = [r for r in lvli_entry_rows if book_formid in ((r.get("LVLO_Reference") or "").upper())]
-    if not matches_all:
-        return None
-
-    prefer = (prefer_lvli_formid or "").strip().upper()
-    if prefer and re.fullmatch(r"[0-9A-F]{8}", prefer):
-        matches = []
-        for r in matches_all:
-            fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
-            if fid == prefer:
-                matches.append(r)
-        # If preferred LVLI had no match, fall back to all matches
-        if not matches:
-            matches = matches_all
-    else:
-        matches = matches_all
-
-    # Prefer a match that has an entry-level global override
-    def _rank(row: Dict[str, str]) -> int:
-        eg = (row.get("LVOG_ChanceNoneGlobal") or "").strip()
-        return 0 if eg else 1
-
-    matches.sort(key=_rank)
-    best = matches[0]
-
-    # Helper: list row by LVLI_FormID (for LVLG/LVCT fallback)
-    lvli_fid = (best.get("LVLI_FormID") or best.get("FormID") or "").strip().upper()
-    list_row = None
-    if lvli_fid:
-        for lr in lvli_list_rows:
-            if (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper() == lvli_fid:
-                list_row = lr
-                break
-
-    # 4) Global override first (global-first rule, order matters)
-    candidates: List[str] = []
-
-    # Entry-level
-    lvog = (best.get("LVOG_ChanceNoneGlobal") or "").strip()
-    if lvog:
-        candidates.append(lvog)
-
-    lvoc = (best.get("LVOC_ChanceNoneCurve") or "").strip()
-    if lvoc and ":GLOB" in lvoc.upper():
-        candidates.append(lvoc)
-
-    # List-level fallback
-    if list_row:
-        lvlg = (list_row.get("LVLG_ChanceNoneGlobal") or "").strip()
-        if lvlg:
-            candidates.append(lvlg)
-
-        lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
-        if lvct and ":GLOB" in lvct.upper():
-            candidates.append(lvct)
-
-    for glob_field in candidates:
-        gfid = _glob_formid_from_lvli_global_field(glob_field)
-        if not gfid:
-            continue
-        dr = glob_drop_rate_by_formid(glob_rows, gfid)
-        if dr:
-            return dr
-
-    # 5) Fallback: LVOV_ChanceNoneValue (new export name)
-    chance_none = safe_float(best.get("LVOV_ChanceNoneValue") or "", None)
-    if chance_none is None:
-        return None
-    if abs(chance_none) < 1e-9:
-        return "100%"
-
-    pct = 100.0 - chance_none
-    if pct < 0:
-        return None
-    if abs(pct - round(pct)) < 1e-6:
-        return f"{int(round(pct))}%"
-    return f"{pct:.3f}%"
 
 def prettify_token_words(token: str) -> str:
     s = token.replace("_", " ").strip()
@@ -1003,6 +923,24 @@ def parse_rhs_number(cond: str) -> Optional[float]:
     m = re.search(r"=\s*([0-9]+(?:\.[0-9]+)?)", cond)
     return safe_float(m.group(1), None) if m else None
 
+    def chal_maps(chal_rows: List[Dict[str, str]]) -> Tuple[Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]:
+    """
+    Build lookups:
+      - by_id:  FormID (8-hex uppercase) -> row
+      - by_edid: EDID (lowercase) -> row
+    """
+    by_id: Dict[str, Dict[str, str]] = {}
+    by_edid: Dict[str, Dict[str, str]] = {}
+
+    for r in (chal_rows or []):
+        fid = (r.get("FormID") or "").strip().upper()
+        edid = (r.get("EDID") or "").strip()
+        if fid and re.fullmatch(r"[0-9A-F]{8}", fid):
+            by_id[fid] = r
+        if edid:
+            by_edid[edid.lower()] = r
+
+    return by_id, by_edid
 
 def parse_chal_formid_from_condition(cond: str) -> Optional[str]:
     for typ, fid in RE_FORM_REF.findall(cond):
@@ -1141,6 +1079,22 @@ def compute_unlock_and_rates(
             mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid, flags=re.IGNORECASE)
             if mcount:
                 full = f"{full} x{mcount.group(1)}"
+            else:
+                # Generic challenge target count (Lifetime kills etc) => xN
+                target = None
+                for k in ("TargetCount", "Target Count", "DATA - Target Count", "CTDA - Comparison Value"):
+                    v = (row.get(k) or "").strip() if isinstance(row.get(k), str) else row.get(k)
+                    if v is None:
+                        continue
+                    try:
+                        # allow "5.000000" etc
+                        target = int(float(str(v).strip()))
+                        break
+                    except Exception:
+                        pass
+
+                if target and target > 1:
+                    full = f"{full} x{target}"
 
             extra.update({
                 "chalFormId": chal_fid,
@@ -1179,6 +1133,20 @@ def compute_unlock_and_rates(
             mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid, flags=re.IGNORECASE)
             if mcount:
                 full = f"{full} x{mcount.group(1)}"
+            else:
+                target = None
+                for k in ("TargetCount", "Target Count", "DATA - Target Count", "CTDA - Comparison Value"):
+                    v = (row.get(k) or "").strip() if isinstance(row.get(k), str) else row.get(k)
+                    if v is None:
+                        continue
+                    try:
+                        target = int(float(str(v).strip()))
+                        break
+                    except Exception:
+                        pass
+
+                if target and target > 1:
+                    full = f"{full} x{target}"
             cnam = (row.get("CNAM") or "").strip() or "Challenge"
             extra.update({
                 "chalEdid": chal_edid,
@@ -1305,7 +1273,29 @@ def compute_unlock_and_rates(
         # SCORE season
         season_num: Optional[int] = None
         season_edid: Optional[str] = None
+
+        def _is_player_title_entitlement(ed: str) -> bool:
+            s = (ed or "").lower()
+            return ("playertitle" in s) and ("gameboard" not in s) and ("corkboard" not in s) and ("endofseasonart" not in s)
+
+        def _is_camp_title_entitlement(ed: str) -> bool:
+            s = (ed or "").lower()
+            return ("camptitle" in s) and ("gameboard" not in s) and ("corkboard" not in s) and ("endofseasonart" not in s)
+
+        # Prefer the entitlement that is actually the title, not the gameboard/framed art gate.
+        preferred = None
         for e in ent_edids:
+            if kind == "player" and _is_player_title_entitlement(e):
+                preferred = e
+                break
+            if kind == "camp" and _is_camp_title_entitlement(e):
+                preferred = e
+                break
+
+        search_list = [preferred] if preferred else []
+        search_list += [e for e in ent_edids if e and e != preferred]
+
+        for e in search_list:
             m = RE_SCORE_SEASON.search(e)
             if m:
                 season_num = safe_int(m.group(1), 0)
@@ -1320,15 +1310,11 @@ def compute_unlock_and_rates(
                 claimed = None
                 for c in conds:
                     if "HasEntitlement" in c and (season_edid or "") in c:
-                        m = RE_QUOTED.search(c)
-                        if m:
-                            claimed = clean_full(m.group(1))
+                        mq = RE_QUOTED.search(c)
+                        if mq:
+                            claimed = clean_full(mq.group(1))
                             break
 
-                # Player titles:
-                # - If the entitlement gate is a non-title reward (Gameboard/Corkboard/Framed Art),
-                #   then the title unlocks after claiming that reward.
-                # - Otherwise, treat SCORE_S# PlayerTitles as ticket purchases from the season board.
                 se = (season_edid or "").lower()
                 cl = (claimed or "").lower()
 
@@ -1344,57 +1330,41 @@ def compute_unlock_and_rates(
 
                 if is_framed_art_gate:
                     return (
-                        f"Unlocked if you have claimed the {sname} Season {season_num} Framed Art.",
+                        f"Unlocked if you have claimed the {sname} (Season {season_num}) Framed Art.",
                         "N/A",
                         season_num,
-                        "season",
+                        "season_score",
                         extra
                     )
 
                 if is_gameboard_gate:
                     return (
-                        f"Unlocked if you have claimed the {sname} Season {season_num} Gameboard.",
+                        f"Unlocked if you have claimed the {sname} (Season {season_num}) Gameboard.",
                         "N/A",
                         season_num,
-                        "season",
+                        "season_score",
                         extra
                     )
 
                 return (
-                    f"Purchase with tickets from the {sname} Scoreboard (Season {season_num}).",
+                    f"Purchase with tickets from the {sname} Scoreboard (Season {season_num})",
                     "N/A",
                     season_num,
-                    "season",
+                    "season_score",
                     extra
                 )
 
+            # Camp titles
             e_upper = (season_edid or "").upper()
             framed = ("ENDOFSEASONART" in e_upper)
-            quoted_name = None
-            if not framed:
-                # quoted fallback (do NOT treat "Framed ... Gameboard" as Framed Art)
-                for c in conds:
-                    if "HasEntitlement" in c and (season_edid or "") in c:
-                        m = RE_QUOTED.search(c)
-                        if m:
-                            quoted_name = m.group(1)
-                            q = quoted_name.lower()
-                            # Only count as Framed Art if it explicitly says "framed art"
-                            # and is NOT a gameboard/corkboard item.
-                            if ("framed art" in q) and ("gameboard" not in q) and ("corkboard" not in q):
-                                framed = True
-                            break
 
             if framed:
-                return f"Unlocked if you have claimed the {sname} Season {season_num} Framed Art.", "N/A", season_num, "season", extra
+                return f"Unlocked if you have claimed the {sname} (Season {season_num}) Framed Art.", "N/A", season_num, "season_score", extra
 
-            # If the entitlement is the title itself (CAMPTitles_*), it's a normal season-board claim,
-            # not "claim the Gameboard" item.
             if "CAMPTITLES" in e_upper and "GAMEBOARD" not in e_upper and "CORKBOARD" not in e_upper:
-                return f"Unlocked if you have claimed the {sname} Season {season_num} Scoreboard.", "N/A", season_num, "season", extra
+                return f"Unlocked if you have claimed the {sname} (Season {season_num}) Scoreboard.", "N/A", season_num, "season_score", extra
 
-            # Gameboard bucket (includes CorkBoard etc)
-            return f"Unlocked if you have claimed the {sname} Season {season_num} Gameboard.", "N/A", season_num, "season", extra
+            return f"Unlocked if you have claimed the {sname} (Season {season_num}) Gameboard.", "N/A", season_num, "season_score", extra
 
         # ATX standard
         if any(RE_ATX.search(e) for e in ent_edids):
@@ -1404,6 +1374,10 @@ def compute_unlock_and_rates(
                 return "Free to claim from the Atom Shop\nfor Fallout 1st members.", "N/A", None, "atx", extra
 
             return "Can be purchased with certain bundles from the Atom Shop.", "N/A", None, "atx", extra
+
+        # PTS titles: special rule
+        if any(str(e).upper().startswith("PTS_") for e in ent_edids):
+            return "Log into the PTS and play for 15 minutes.", "N/A", None, "pts", extra
 
         return "Unlocked via account entitlement.", "N/A", None, "entitlement", extra
 
@@ -1479,6 +1453,42 @@ def compute_unlock_and_rates(
                         lk, ln = parsed
                         how_from_parentquest = f"Complete the {lk}: {ln}"
                         how_event = how_from_parentquest
+
+                                        # ------------------------------------------------------------
+                # Party Crasher creature drops (no GMRW parent quest)
+                # If the BOOK is only referenced by LLD_Creature_*_PartyCrasher lists,
+                # show: "Drops from Party Crasher Creatures."
+                # ------------------------------------------------------------
+                if not how_from_parentquest:
+                    try:
+                        # Candidate LVLIs come from the LVLI_Entries scan debug
+                        cand_ids = []
+                        dbg_a = extra.get("bookLvliGmrwViaEntries") or {}
+                        for k in ("candidateLvliFormIdsFiltered", "candidateLvliFormIdsAll"):
+                            v = dbg_a.get(k)
+                            if isinstance(v, list):
+                                cand_ids.extend([str(x).strip().upper() for x in v if str(x).strip()])
+
+                        # De-dupe preserving order
+                        seen = set()
+                        cand_ids = [x for x in cand_ids if not (x in seen or seen.add(x))]
+
+                        # Map FormID -> EDID via LVLI list rows
+                        edids = []
+                        for fid in cand_ids:
+                            for lr in lvli_list_rows:
+                                rr_f = (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper()
+                                if rr_f == fid:
+                                    ed = (lr.get("LVLI_EDID") or lr.get("EDID") or "").strip()
+                                    if ed:
+                                        edids.append(ed)
+                                    break
+
+                        blob = " ".join(edids).lower()
+                        if ("partycrasher" in blob) and ("lld_creature" in blob):
+                            how_event = "Drops from Party Crasher Creatures."
+                    except Exception:
+                        pass
 
                                     # Fallback: resolve via LVLI that references this COBJ (COBJ "Referenced By" list),
             # then map LVLI FormID -> GMRW ParentQuestDisplay.
