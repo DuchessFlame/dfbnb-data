@@ -282,9 +282,11 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
         "Created Object FULL"
       ]);
 
+      // CNAM_FULL in your TSV often contains: EDID "Display Name" [FORM:ID]
+      // We MUST extract the quoted display name first so it matches big_bloom_images.json keys.
       const craftedName =
-        safeText(pickCol(r, ["CNAM_FULL"])) ||
         extractQuotedName(cnamFull) ||
+        safeText(pickCol(r, ["CNAM_FULL"])) ||
         safeText(pickCol(r, ["HNAM - Build Group Name", "HNAM_BuildGroupName", "Build Group Name"])) ||
         safeText(pickCol(r, ["CNAM_EDID"])) ||
         safeText(cnamFull);
@@ -306,9 +308,10 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
 
       const cnamFullRaw = pickCol(r, ["CNAM_FULL", "CNAM - Created Object", "CNAM", "Created Object"]);
       const cnamEdid = pickCol(r, ["CNAM_EDID", "CNAM_EDID - Editor ID", "CNAM - EDID", "Created Object EDID"]);
+      // Same rule as the filter: extract the quoted display name first.
       const craftedName =
-        safeText(pickCol(r, ["CNAM_FULL"])) ||
         extractQuotedName(cnamFullRaw) ||
+        safeText(pickCol(r, ["CNAM_FULL"])) ||
         safeText(pickCol(r, ["HNAM - Build Group Name", "HNAM_BuildGroupName", "Build Group Name"])) ||
         safeText(cnamEdid) ||
         safeText(cnamFullRaw);
