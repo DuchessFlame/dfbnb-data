@@ -993,24 +993,190 @@ def extract_cndf_conditions_and_refs(cndf_row: Dict[str, str]) -> Tuple[List[str
 
     return conds, refs
 
-def cobj_token_from_condition(conds: List[str]) -> str:
-    """Best-effort token extraction for COBJ conditions (debug only)."""
-    if not conds:
+# ------------------------------------------------------------
+# Missing helper functions (restored)
+# ------------------------------------------------------------
+
+def parse_parentquest_label(pq: str) -> Optional[Tuple[str, str]]:
+    if not pq:
+        return None
+    s = str(pq).strip()
+    if len(s) >= 2 and s.startswith('"') and s.endswith('"'):
+        s = s[1:-1].strip()
+    s = re.sub(r"\s+", " ", s).strip()
+    if ":" not in s:
+        return None
+    kind, rest = s.split(":", 1)
+    kind = kind.strip()
+    name = rest.strip()
+    if not kind or not name:
+        return None
+    k_norm = kind.lower()
+    if k_norm.startswith("event"):
+        return ("Event", name)
+    if k_norm.startswith("activity"):
+        return ("Activity", name)
+    if k_norm.startswith("bounty"):
+        return ("Bounty Hunting", name)
+    return (kind, name)
+
+
+def _lvli_edid_by_formid(lvli_list_rows: List[Dict[str, str]], lvli_formid: str) -> str:
+    fid = (lvli_formid or "").strip().upper()
+    if not fid:
         return ""
-
-    # Prefer explicit COBJ formid extraction
-    for c in conds:
-        fid = parse_cobj_formid_from_condition(c or "")
-        if fid:
-            return fid.upper()
-
-    # Fallback: regex capture
-    joined = " ".join(str(x) for x in conds if x)
-    m = RE_COBJ_REF.search(joined)
-    if m:
-        return m.group(1).upper()
-
+    for r in lvli_list_rows or []:
+        rf = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+        if rf == fid:
+            return (r.get("LVLI_EDID") or r.get("EDID") or "").strip()
     return ""
+
+
+def lvli_to_gmrw_parentquest(
+    lvli_refby_rows: List[Dict[str, str]],
+    gmrw_by_formid: Dict[str, str],
+    lvli_formid: str,
+    lvli_list_rows: List[Dict[str, str]],
+) -> Optional[str]:
+    fid = (lvli_formid or "").strip().upper()
+    if not fid:
+        return None
+
+    ed = _lvli_edid_by_formid(lvli_list_rows, fid)
+    if ed and starts_cut(ed):
+        return None
+
+    row = None
+    for r in lvli_refby_rows or []:
+        rf = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+        if rf == fid:
+            row = r
+            break
+    if not row:
+        return None
+
+    keys = [k for k in row.keys() if str(k).startswith("Ref")]
+    def _n(k: str) -> int:
+        m = re.match(r"Ref(\d+)$", str(k))
+        return int(m.group(1)) if m else 10**9
+    keys.sort(key=_n)
+
+    for k in keys:
+        s = (row.get(k) or "").strip()
+        if not s or (not s.endswith(":GMRW")):
+            continue
+        m = re.match(r"^([0-9A-Fa-f]{8}):", s)
+        if not m:
+            continue
+        gfid = m.group(1).upper()
+        pq = gmrw_by_formid.get(gfid)
+        if pq:
+            return pq
+
+    return None
+
+
+def book_lvli_gmrw_parentquest(
+    book_rows: List[Dict[str, str]],
+    lvli_refby_rows: List[Dict[str, str]],
+    gmrw_by_formid: Dict[str, str],
+    book_formid: str,
+    lvli_list_rows: List[Dict[str, str]],
+) -> Tuple[Optional[str], Dict[str, Any]]:
+    dbg: Dict[str, Any] = {}
+    bfid = (book_formid or "").strip().upper()
+    if not bfid:
+        return None, dbg
+
+    brow = None
+    for r in book_rows or []:
+        rf = (r.get("FormID") or "").strip().upper()
+        if rf == bfid:
+            brow = r
+            break
+    if not brow:
+        return None, dbg
+
+    lvli_ids: List[str] = []
+    if "_extract_formids_from_ref_fields" in globals():
+        lvli_ids = _extract_formids_from_ref_fields(brow, ":LVLI")
+    else:
+        for k, v in brow.items():
+            if not str(k).startswith("Ref"):
+                continue
+            s = (v or "").strip()
+            if not s.endswith(":LVLI"):
+                continue
+            m = re.match(r"^([0-9A-Fa-f]{8}):", s)
+            if m:
+                lvli_ids.append(m.group(1).upper())
+
+    seen = set()
+    lvli_ids = [x for x in lvli_ids if not (x in seen or seen.add(x))]
+    dbg["candidateLvliFormIdsAll"] = lvli_ids
+
+    filtered: List[str] = []
+    for fid in lvli_ids:
+        ed = _lvli_edid_by_formid(lvli_list_rows, fid)
+        if ed and starts_cut(ed):
+            continue
+        filtered.append(fid)
+    dbg["candidateLvliFormIdsFiltered"] = filtered
+
+    for fid in filtered:
+        pq = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, fid, lvli_list_rows)
+        if pq:
+            dbg["pickedLvliFormId"] = fid
+            dbg["pickedParentQuest"] = pq
+            return pq, dbg
+
+    return None, dbg
+
+
+def book_to_gmrw_parentquest_via_lvli_entries(
+    book_formid: str,
+    lvli_entry_rows: List[Dict[str, str]],
+    lvli_refby_rows: List[Dict[str, str]],
+    gmrw_by_formid: Dict[str, str],
+    lvli_list_rows: List[Dict[str, str]],
+) -> Tuple[Optional[str], Optional[str], Dict[str, Any]]:
+    dbg: Dict[str, Any] = {}
+    bfid = (book_formid or "").strip().upper()
+    if not bfid:
+        return None, None, dbg
+
+    cand: List[str] = []
+    for r in lvli_entry_rows or []:
+        ref = (r.get("LVLO_Reference") or "").upper()
+        if not ref or (bfid not in ref):
+            continue
+        fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+        if fid and re.fullmatch(r"[0-9A-F]{8}", fid):
+            cand.append(fid)
+
+    seen = set()
+    cand = [x for x in cand if not (x in seen or seen.add(x))]
+    dbg["candidateLvliFormIdsAll"] = cand
+
+    filtered: List[str] = []
+    for fid in cand:
+        ed = _lvli_edid_by_formid(lvli_list_rows, fid)
+        if ed and starts_cut(ed):
+            continue
+        filtered.append(fid)
+    dbg["candidateLvliFormIdsFiltered"] = filtered
+
+    for fid in filtered:
+        pq = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, fid, lvli_list_rows)
+        if not pq:
+            pq = gmrw_by_formid.get(fid)
+        if pq:
+            dbg["pickedLvliFormId"] = fid
+            dbg["pickedParentQuest"] = pq
+            return pq, fid, dbg
+
+    return None, None, dbg
+
 
 def compute_unlock_and_rates(
     kind: str,
