@@ -923,7 +923,7 @@ def parse_rhs_number(cond: str) -> Optional[float]:
     m = re.search(r"=\s*([0-9]+(?:\.[0-9]+)?)", cond)
     return safe_float(m.group(1), None) if m else None
 
-    def chal_maps(chal_rows: List[Dict[str, str]]) -> Tuple[Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]:
+def chal_maps(chal_rows: List[Dict[str, str]]) -> Tuple[Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]:
     """
     Build lookups:
       - by_id:  FormID (8-hex uppercase) -> row
