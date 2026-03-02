@@ -19,7 +19,7 @@ $port = 2222
 $user = "buffsnbrew1-nav"
 
 # NOTE: remote folder under uploads/season_images/ (matches your FileZilla folder)
-$remote = "/wp-content/uploads/season_images/$Target/"
+$remote = "/wp-content/uploads/season_images/"
 
 $winscp = "D:\WinSCP\WinSCP.com"
 if (-not (Test-Path -LiteralPath $winscp)) {
@@ -46,7 +46,7 @@ option batch continue
 option confirm off
 open sftp://${user}@${sftpHost}:$port/ -password="$sftpPassword"
 
-cd /wp-content/uploads/season_images/$Target
+cd /wp-content/uploads/season_images
 
 rm *.webp
 

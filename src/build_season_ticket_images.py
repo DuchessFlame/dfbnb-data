@@ -52,7 +52,7 @@ def main() -> int:
     ap.add_argument("--entm-tsv", required=True)
     ap.add_argument("--out-manifest", required=True)
     ap.add_argument("--out-season-json", required=True)
-    ap.add_argument("--img-url-root", default="/wp-content/uploads/season_images/season-ticket/")
+    ap.add_argument("--img-url-root", default="/wp-content/uploads/season_images/")
     args = ap.parse_args()
 
     season_path = Path(args.season_json)
