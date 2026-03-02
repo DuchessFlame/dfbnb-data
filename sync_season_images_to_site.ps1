@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory=$true)]
-  [ValidateSet("season-ticket")]
+  [ValidateSet("season-ticket","utility")]
   [string]$Target
 )
 
@@ -19,7 +19,12 @@ $port = 2222
 $user = "buffsnbrew1-nav"
 
 # NOTE: remote folder under uploads/season_images/ (matches your FileZilla folder)
-$remote = "/wp-content/uploads/season_images/"
+$remoteBase = "/wp-content/uploads/season_images/"
+$remoteSub = "season-ticket"
+if ($Target -eq "utility") {
+  $remoteSub = "utility"
+}
+$remote     = $remoteBase + $remoteSub
 
 $winscp = "D:\WinSCP\WinSCP.com"
 if (-not (Test-Path -LiteralPath $winscp)) {
@@ -46,7 +51,7 @@ option batch continue
 option confirm off
 open sftp://${user}@${sftpHost}:$port/ -password="$sftpPassword"
 
-cd /wp-content/uploads/season_images
+cd $remote
 
 rm *.webp
 
