@@ -880,30 +880,214 @@ def lvli_drop_rate_from_cobj_lvli(
         return None
 
     # 3) Find LVLI entry row(s) referencing that BOOK
-    matches_all = [r for r in lvli_entry_rows if book_formid in ((r.get("LVLO_Reference") or "").upper())]
-    if not matches_all:
+matches_all = [r for r in lvli_entry_rows if book_formid in ((r.get("LVLO_Reference") or "").upper())]
+if not matches_all:
+    return None
+
+# ------------------------------------------------------------
+# Tier-family support (Tier_01/02/03, Reward_1/2/3, Bad/Good/Best)
+# Uses TSV data (LVLI_List + LVLI_Entries + GLOB) to compute per-tier rates.
+# ------------------------------------------------------------
+
+def _lvli_edid_for(fid8: str) -> str:
+    f = (fid8 or "").strip().upper()
+    if not f:
+        return ""
+    for lr in lvli_list_rows:
+        rr_f = (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper()
+        if rr_f == f:
+            return (lr.get("LVLI_EDID") or lr.get("EDID") or "").strip()
+    return ""
+
+def _tier_info_from_edid(edid: str) -> Optional[Tuple[str, str, int]]:
+    """
+    Returns (family_key, tier_label, tier_order)
+    family_key: EDID normalized with the tier token stripped, for grouping.
+    tier_label: "Tier 1" / "Bad" / etc.
+    tier_order: sorting key
+    """
+    e = (edid or "").strip()
+    if not e:
         return None
+    el = e.lower()
 
-    prefer = (prefer_lvli_formid or "").strip().upper()
-    if prefer and re.fullmatch(r"[0-9A-F]{8}", prefer):
-        matches = []
-        for r in matches_all:
-            fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
-            if fid == prefer:
-                matches.append(r)
-        # If preferred LVLI had no match, fall back to all matches
-        if not matches:
-            matches = matches_all
-    else:
+    # Bad/Good/Best style
+    if "bad" in el or "good" in el or "best" in el:
+        # Prefer a clear suffix hit
+        for lab, order in (("bad", 1), ("good", 2), ("best", 3)):
+            if re.search(rf"(?:^|[_\-]){lab}(?:$|[_\-])", el):
+                fam = re.sub(rf"([_\-]){lab}([_\-]|$)", r"\1", el)
+                fam = re.sub(r"[_\-]+$", "", fam)
+                return (fam, lab.capitalize(), order)
+
+    # Numeric tier/reward style (Tier_01, Tier02, Reward_3, Quest_Reward_3, etc)
+    m_all = list(re.finditer(r"(tier|reward)[_\-]*(0?\d{1,2})\b", el))
+    if m_all:
+        m = m_all[-1]  # use the last tier token
+        n = int(m.group(2).lstrip("0") or "0")
+        if n <= 0:
+            return None
+        # Strip only this matched token for family grouping
+        fam = el[:m.start()] + el[m.end():]
+        fam = re.sub(r"[_\-]+", "_", fam).strip("_")
+        return (fam, f"Tier {n}", n)
+
+    return None
+
+def _compute_rate_for_entry_row(best_row: Dict[str, str], lvli_fid: str) -> Optional[str]:
+    # Helper: list row lookup
+    list_row = None
+    for lr in lvli_list_rows:
+        rr_f = (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper()
+        if rr_f == lvli_fid:
+            list_row = lr
+            break
+
+    # Global-first rule (entry-level then list-level)
+    candidates: List[str] = []
+
+    lvog = (best_row.get("LVOG_ChanceNoneGlobal") or "").strip()
+    if lvog:
+        candidates.append(lvog)
+
+    lvoc = (best_row.get("LVOC_ChanceNoneCurve") or "").strip()
+    if lvoc and ":GLOB" in lvoc.upper():
+        candidates.append(lvoc)
+
+    if list_row:
+        lvlg = (list_row.get("LVLG_ChanceNoneGlobal") or "").strip()
+        if lvlg:
+            candidates.append(lvlg)
+
+        lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
+        if lvct and ":GLOB" in lvct.upper():
+            candidates.append(lvct)
+
+    for glob_field in candidates:
+        gfid = _glob_formid_from_lvli_global_field(glob_field)
+        if not gfid:
+            continue
+        dr2 = glob_drop_rate_by_formid(glob_rows, gfid)
+        if dr2:
+            return dr2
+
+    # Fallback: ChanceNone value on the entry row
+    chance_none = safe_float(best_row.get("LVOV_ChanceNoneValue") or "", None)
+    if chance_none is None:
+        return None
+    if abs(chance_none) < 1e-9:
+        return "100%"
+    pct = 100.0 - chance_none
+    if pct < 0:
+        return None
+    if abs(pct - round(pct)) < 1e-6:
+        return f"{int(round(pct))}%"
+    return f"{pct:.3f}%"
+
+# Group matches by LVLI FormID
+by_lvli: Dict[str, List[Dict[str, str]]] = {}
+for r in matches_all:
+    fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+    if not fid or not re.fullmatch(r"[0-9A-F]{8}", fid):
+        continue
+    by_lvli.setdefault(fid, []).append(r)
+
+# Detect the best tier family among matched LVLIs
+tier_hits: List[Tuple[str, str, int, str]] = []  # (family_key, label, order, lvli_fid)
+for fid in by_lvli.keys():
+    ed = _lvli_edid_for(fid)
+    info = _tier_info_from_edid(ed)
+    if not info:
+        continue
+    fam, lab, order = info
+    tier_hits.append((fam, lab, order, fid))
+
+# If we detected a tier family, expand to include tiers where the BOOK is absent (0%)
+if tier_hits:
+    # Pick the most common family key in matches
+    fam_counts: Dict[str, int] = {}
+    for fam, _lab, _ord, _fid in tier_hits:
+        fam_counts[fam] = fam_counts.get(fam, 0) + 1
+    best_family = sorted(fam_counts.items(), key=lambda x: (-x[1], x[0]))[0][0]
+
+    # Build family tier map by scanning ALL LVLI_List rows (so we can include missing tiers)
+    family_tiers: Dict[int, Tuple[str, str]] = {}  # order -> (label, lvli_fid)
+    family_named: Dict[str, str] = {}              # label -> lvli_fid (for Bad/Good/Best)
+
+    for lr in lvli_list_rows:
+        fid = (lr.get("LVLI_FormID") or lr.get("FormID") or "").strip().upper()
+        ed = (lr.get("LVLI_EDID") or lr.get("EDID") or "").strip()
+        info = _tier_info_from_edid(ed)
+        if not info:
+            continue
+        fam, lab, order = info
+        if fam != best_family:
+            continue
+
+        # Numeric tiers
+        if lab.lower().startswith("tier "):
+            family_tiers[order] = (lab, fid)
+        else:
+            # Bad/Good/Best labels
+            family_named[lab] = fid
+
+    # Compute per-tier rates where present; 0% if BOOK not present in that tier LVLI
+    parts: List[str] = []
+
+    if family_named:
+        # Stable order: Bad, Good, Best if present
+        for lab in ("Bad", "Good", "Best"):
+            fid = family_named.get(lab)
+            if not fid:
+                continue
+            if fid not in by_lvli:
+                parts.append(f"{lab} - 0%")
+                continue
+            # pick the first matching entry row for this LVLI
+            best_row = by_lvli[fid][0]
+            dr = _compute_rate_for_entry_row(best_row, fid) or "N/A"
+            parts.append(f"{lab} - {dr}")
+
+        if parts:
+            return "\n".join(parts)
+
+    if family_tiers:
+        for order in sorted(family_tiers.keys()):
+            lab, fid = family_tiers[order]
+            if fid not in by_lvli:
+                parts.append(f"{lab} - 0%")
+                continue
+            best_row = by_lvli[fid][0]
+            dr = _compute_rate_for_entry_row(best_row, fid) or "N/A"
+            parts.append(f"{lab} - {dr}")
+
+        if parts:
+            return "\n".join(parts)
+
+# ------------------------------------------------------------
+# Original single-rate logic continues below
+# ------------------------------------------------------------
+
+prefer = (prefer_lvli_formid or "").strip().upper()
+if prefer and re.fullmatch(r"[0-9A-F]{8}", prefer):
+    matches = []
+    for r in matches_all:
+        fid = (r.get("LVLI_FormID") or r.get("FormID") or "").strip().upper()
+        if fid == prefer:
+            matches.append(r)
+    # If preferred LVLI had no match, fall back to all matches
+    if not matches:
         matches = matches_all
+else:
+    matches = matches_all
 
-    # Prefer a match that has an entry-level global override
-    def _rank(row: Dict[str, str]) -> int:
-        eg = (row.get("LVOG_ChanceNoneGlobal") or "").strip()
-        return 0 if eg else 1
+# Prefer a match that has an entry-level global override
+def _rank(row: Dict[str, str]) -> int:
+    eg = (row.get("LVOG_ChanceNoneGlobal") or "").strip()
+    return 0 if eg else 1
 
-    matches.sort(key=_rank)
-    best = matches[0]
+matches.sort(key=_rank)
+best = matches[0]
 
     # Helper: list row by LVLI_FormID (for LVLG/LVCT fallback)
     lvli_fid = (best.get("LVLI_FormID") or best.get("FormID") or "").strip().upper()
