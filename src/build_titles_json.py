@@ -59,11 +59,11 @@ RE_COBJ_REF = re.compile(r"(?:\[COBJ:|COBJ:)([0-9A-F]{8})(?:\]?)", re.IGNORECASE
 
 
 def now_iso() -> str:
-    return dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+    return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat()
 
 
 def today_ymd_utc() -> str:
-    return dt.datetime.utcnow().strftime("%Y-%m-%d")
+    return dt.datetime.now(dt.UTC).strftime("%Y-%m-%d")
 
 
 def load_release_overrides(tsv_root: Optional[str]) -> Dict[str, str]:
