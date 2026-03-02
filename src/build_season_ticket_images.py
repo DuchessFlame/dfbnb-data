@@ -31,6 +31,65 @@ def strip_prefixes(name: str) -> str:
     s = s.strip().strip('"').strip()
     return s
 
+    _QTY_TAIL_RE = re.compile(r"\s*x\s*\d+\s*$", re.IGNORECASE)   # "Re-Roller x5" -> "Re-Roller"
+_LEADING_NUM_RE = re.compile(r"^\d+\s+")                     # "200 Atoms" -> "Atoms"
+
+def strip_quantity(name: str) -> str:
+    s = (name or "").strip()
+    s = _QTY_TAIL_RE.sub("", s).strip()
+    s = _LEADING_NUM_RE.sub("", s).strip()
+    return s
+
+def utility_image_url(raw_name: str) -> str:
+    """
+    Deterministic overrides for shared utility/currency items.
+    Returns full WP URL path or "" if not a known utility item.
+    """
+    root = "/wp-content/uploads/season_images/utility/"
+    base = norm(strip_quantity(strip_prefixes(raw_name)))
+
+    # Currencies
+    if base == "atoms":
+        return root + "score_currency_atoms.webp"
+    if base == "bullion":
+        return root + "score_currency_bullion.webp"
+    if base == "caps":
+        return root + "score_currency_caps.webp"
+    if base in ("perk coin", "perk coins"):
+        return root + "score_currency_perkcoin.webp"
+    if base in ("legendary scrip", "scrip"):
+        return root + "score_currency_scrip.webp"
+    if base == "stamps":
+        return root + "score_currency_stamps.webp"
+
+    # Common utilities (add more whenever you want)
+    if base in ("legendary module", "legendary modules"):
+        return root + "score_game_legendarymodule.webp"
+    if base in ("carry weight booster", "carryweight booster"):
+        return root + "score_utility_carryweight.webp"
+    if base in ("improved bait",):
+        return root + "score_utility_improvedbait.webp"
+    if base in ("superb bait", "superb bait", "superb-bait"):
+        return root + "score_utility_superbait.webp"  # matches your existing filename
+    if base in ("re-roller", "reroller", "re roller"):
+        return root + "score_utility_reroller.webp"
+    if base in ("score booster", "scorebooster"):
+        return root + "score_utility_scorebooster.webp"
+    if base in ("lunchbox", "lunch box", "lunchboxes", "lunch boxes"):
+        return root + "atx_store_lunchbox001.webp"
+    if base in ("banner",):
+        return root + "score_coen_utility_banner.webp"
+    if base in ("magazine and book box", "magazine book box", "magazinebookbox"):
+        return root + "score_utility_magazinebookbox.webp"
+    if base in ("mystery bobblehead", "mysterybobblehead"):
+        return root + "score_utility_mysterybobblehead.webp"
+    if base in ("basic repair kit", "repair kit", "repairkit"):
+        return root + "atx_utility_repairkit_basic.webp"
+    if base in ("sugar-free nukashine", "sugar free nukashine", "nukashine sugarfree"):
+        return root + "score_item_nukashine_sugarfree.webp"
+
+    return ""
+
 def to_dds_path(etip: str, etdi: str) -> str:
     # ENTM gives: ETIP="Textures/ATX/Storefront/Player/PlayerIcons/"
     #             ETDI="ATX_PlayerIcon_S24_SpaceCow.dds"
@@ -102,10 +161,23 @@ def main() -> int:
         if not raw_name:
             continue
 
-        n0 = norm(raw_name)
-        n1 = norm(strip_prefixes(raw_name))
+        # 1) Deterministic utility/currency icons (season-agnostic)
+        # If this hits, we DO NOT want ENTM season storefront images.
+        u = utility_image_url(raw_name)
+        if u:
+            it["imageUrl"] = u
+            continue
 
-        hit = by_name.get(n0) or by_name.get(n1)
+        # 2) ENTM match (season-specific storefront images)
+        base0 = raw_name
+        base1 = strip_prefixes(raw_name)
+        base2 = strip_quantity(base1)
+
+        n0 = norm(base0)
+        n1 = norm(base1)
+        n2 = norm(base2)
+
+        hit = by_name.get(n0) or by_name.get(n1) or by_name.get(n2)
 
         # If still not found, try a “contains” pass (safe, but only if unique)
         if not hit:
