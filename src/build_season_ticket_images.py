@@ -139,6 +139,14 @@ def main() -> int:
                 continue
             rows.append(r)
 
+    # Hard override for specific Player Icons that fuzzy match sometimes skips
+    ICON_EDID_OVERRIDES = {
+        "space cow": "SCORE_S24_ENTM_PlayerIcon_SpaceCow",
+        "alien patch": "SCORE_S24_ENTM_PlayerIcon_AlienPatch",
+        "abduction icon": "SCORE_S24_ENTM_PlayerIcon_UFOAbduction",
+        "guinevere in space icon": "SCORE_S24_ENTM_PlayerIcon_SpaceGuinevere",
+    }
+
     by_name: Dict[str, dict] = {}
     for r in rows:
         full = norm(r.get("FULL") or "")
@@ -172,7 +180,18 @@ def main() -> int:
         n1 = norm(base1)
         n2 = norm(base2)
 
-        hit = by_name.get(n0) or by_name.get(n1) or by_name.get(n2)
+        # First check hard EDID overrides
+        override_key = n1
+        override_edid = ICON_EDID_OVERRIDES.get(override_key)
+
+        hit = None
+        if override_edid:
+            for r in rows:
+                if (r.get("EDID") or "").strip().lower() == override_edid.lower():
+                    hit = r
+                    break
+        else:
+            hit = by_name.get(n0) or by_name.get(n1) or by_name.get(n2)
 
         if not hit and n1:
             candidates = []
