@@ -63,14 +63,48 @@ function splitPipe(s) {
 }
 
 function parseFVPA(fvpaRaw) {
-  // Example: "Nuclear Material:1 | Glorybell:1 | Seesprout:1 | Candykill:2"
+  // Supports simple exports like:
+  //   "Cloth:3 | Embergold:5"
+  // And also xEdit-ish exports like:
+  //   c_Cloth "Cloth" [CMPO:001223C7]:3 | SSE_Tier2_Embergold_MiscItem "Embergold" [MISC:007ACA4D]:5
+  //
+  // Output names must be clean display names so dependency matching works.
+
   const t = safeText(fvpaRaw);
   if (!t) return [];
-  return t.split("|").map(x => x.trim()).filter(Boolean).map(part => {
-    const m = part.match(/^(.+?):\s*(\d+)\s*$/);
-    if (!m) return { name: part, qty: 1 };
-    return { name: m[1].trim(), qty: parseInt(m[2], 10) };
-  });
+
+  return t
+    .split("|")
+    .map(x => x.trim())
+    .filter(Boolean)
+    .map(part => {
+      // Pull qty from the end: ":5" (allow trailing junk like quotes/spaces)
+      const qtyMatch = part.match(/:\s*(\d+)\s*$/);
+      const qty = qtyMatch ? parseInt(qtyMatch[1], 10) : 1;
+
+      // Name is everything before the last ":<qty>"
+      let nameRaw = qtyMatch ? part.slice(0, qtyMatch.index).trim() : part.trim();
+
+      // If name contains a quoted display name, prefer that
+      const quoted = extractQuotedName(nameRaw);
+      if (quoted) nameRaw = quoted;
+
+      // Strip surrounding quotes if it's like "Cloth"
+      nameRaw = nameRaw.replace(/^"+|"+$/g, "").replace(/^'+|'+$/g, "").trim();
+
+      // Strip trailing [FORM:ID] if it survived
+      nameRaw = nameRaw.replace(/\s*\[[^\]]+\]\s*$/g, "").trim();
+
+      // If it still looks like "EDID Name" with EDID token first, keep last chunk after first space
+      // (Conservative: only do this when we see an EDID-ish token)
+      const tok = nameRaw.split(/\s+/);
+      if (tok.length >= 2 && /^[A-Za-z0-9_]+$/.test(tok[0]) && tok[0].includes("_")) {
+        nameRaw = nameRaw.slice(tok[0].length).trim();
+      }
+
+      return { name: nameRaw || part.trim(), qty };
+    })
+    .filter(x => safeText(x.name) && Number(x.qty) > 0);
 }
 
 function isJunkEdid(edidRaw) {
