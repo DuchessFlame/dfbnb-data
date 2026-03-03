@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-build_events_rewards_json.py
+build_events_rewards_json.py (UPDATED mockup schema)
 
 Builds:
 - dist/events/events_rewards.json
@@ -14,7 +14,17 @@ Key goals:
 - events_rewards_by_page.json MUST contain keys for both:
     - guide slug (e.g. "a-real-blast-reward-checklist")
     - guide url path without trailing slash (e.g. "/df/activities/a-real-blast/a-real-blast-reward-checklist")
-  so the frontend can resolve even if the template does not provide a slug dataset attribute.
+
+Schema goals (mockup phase):
+- Keep front-facing event name from guide_index.tsv
+- Store real in-game quest name in "gameName"
+- Replace fixed "Default/Headwear/Plans" with dynamic "pools" built from GMRW Rewarded Items:
+    - Anything RewardedItem that is LVLI becomes its own expand/pool
+    - Anything NOT LVLI becomes a "free reward" line above the expands
+- Leave hooks for CURV and LVLI linkage:
+    - include xpCurveTableFormID on free rewards when present
+    - include lvliFormID on pools always
+    - include lvliEdid when available (from LVLI list TSV), else blank
 """
 
 import csv
@@ -40,7 +50,6 @@ def newest(pattern: str) -> str:
     return files[-1]
 
 def read_tsv(path: str):
-    # UTF-8 (with BOM) then CP1252 fallback for windows exports/smart quotes
     try:
         with open(path, encoding="utf-8-sig", newline="") as f:
             return list(csv.DictReader(f, delimiter="\t"))
@@ -61,8 +70,9 @@ def pct(x) -> float:
 
 def norm_name(s: str) -> str:
     s = (s or "").lower()
-    s = re.sub(r"\(.*?\)", "", s)            # drop parenthetical
-    s = re.sub(r"[^a-z0-9]+", "", s)         # alnum only
+    s = re.sub(r"\(.*?\)", "", s)
+    s = re.sub(r"<.*?>", "", s)               # drop alias fragments like <Alias=...>
+    s = re.sub(r"[^a-z0-9]+", "", s)
     return s.strip()
 
 def strip_trailing_slash(p: str) -> str:
@@ -70,6 +80,52 @@ def strip_trailing_slash(p: str) -> str:
     if p != "/" and p.endswith("/"):
         p = p[:-1]
     return p
+
+def parse_ref(ref: str):
+    """
+    "003D7FAB:LVLI" -> ("003D7FAB","LVLI")
+    "00012345" -> ("00012345","")
+    """
+    s = (ref or "").strip()
+    if not s:
+        return ("", "")
+    if ":" in s:
+        a, b = s.split(":", 1)
+        return (a.strip(), b.strip())
+    return (s, "")
+
+def title_case_words(s: str) -> str:
+    return " ".join(w.capitalize() if w else w for w in s.split())
+
+def prettify_lvli_label(edid: str) -> str:
+    """
+    Very lightweight "gap filler" naming:
+    - strips common prefixes
+    - turns underscores into spaces
+    - title-cases
+    - a couple targeted swaps
+    """
+    t = (edid or "").strip()
+    if not t:
+        return ""
+
+    # common prefixes to strip
+    t = re.sub(r"^(LLS?|RA_LL|RA_LLS|RA|LL|QuestReward|Quest_Reward|Rewards)_+", "", t, flags=re.IGNORECASE)
+    t = re.sub(r"^LL_", "", t, flags=re.IGNORECASE)
+    t = t.replace("__", "_")
+    t = t.replace("_", " ").strip()
+    t = re.sub(r"\s+", " ", t)
+
+    # a few common-sense renames
+    t = re.sub(r"\bPublic Events\b", "Public Event Rewards", t, flags=re.IGNORECASE)
+    t = re.sub(r"\bPublic Event Rewards Rewards\b", "Public Event Rewards", t, flags=re.IGNORECASE)
+    t = re.sub(r"\bQuest Reward\b", "Event Rewards", t, flags=re.IGNORECASE)
+
+    t = title_case_words(t)
+
+    # final tidy
+    t = t.replace(" Ll ", " LL ")
+    return t.strip()
 
 # --------------------------------------------------
 # Load TSVs (newest exports)
@@ -85,15 +141,24 @@ ARMO = read_tsv(newest("tsv/ARMO_Export_*.tsv"))
 GLOB = read_tsv(newest("tsv/GLOB_Export_*.tsv"))
 GUIDE = read_tsv(newest("tsv/guide_index.tsv"))
 
-# Optional: Party Crasher creature name resolution (FormID -> CREA_FULL)
-# Safe fallback if CREA export is not present.
+# Optional: Party Crasher creature name resolution
 try:
     CREA = read_tsv(newest("tsv/CREA_Export_*.tsv"))
 except FileNotFoundError:
     CREA = []
 
+# Optional: CURV exports (placeholder wiring)
+try:
+    CURV = read_tsv(newest("tsv/CURV_Export_*.tsv"))
+except FileNotFoundError:
+    CURV = []
+try:
+    CURV_POINTS = read_tsv(newest("tsv/CURV_Export_*_POINTS.tsv"))
+except FileNotFoundError:
+    CURV_POINTS = []
+
 # --------------------------------------------------
-# Indexing: GLOB / BOOK / ARMO / CREA / GMRW / LVLI
+# Indexing: GLOB / BOOK / ARMO / CREA / LVLI list / CURV
 # --------------------------------------------------
 
 glob_vals = {}
@@ -127,11 +192,27 @@ for r in CREA:
     if fid and full:
         crea_names[fid] = full
 
+lvli_edid_by_formid = {}
+for r in LVLI_LIST:
+    fid = pick(r, "LVLI_FormID", "FormID")
+    edid = pick(r, "LVLI_EDID", "EDID")
+    if fid and edid:
+        lvli_edid_by_formid[fid] = edid
+
+curv_by_formid = {}
+for r in CURV:
+    fid = pick(r, "CURV_FormID", "FormID")
+    edid = pick(r, "CURV_EDID", "EDID")
+    if fid:
+        curv_by_formid[fid] = {"formid": fid, "edid": edid}
+
+curv_points_by_formid = defaultdict(list)
+for r in CURV_POINTS:
+    fid = pick(r, "CURV_FormID", "FormID")
+    if fid:
+        curv_points_by_formid[fid].append(r)
+
 def humanize_party_crasher_name(raw: str) -> str:
-    """
-    raw is usually 'FORMID:EDID' or EDID. Prefer CREA_FULL via FORMID.
-    Fall back to de-EDID'ing common patterns into readable names.
-    """
     s = (raw or "").strip()
     if not s:
         return "Party Crasher"
@@ -141,33 +222,31 @@ def humanize_party_crasher_name(raw: str) -> str:
         return crea_names[formid].strip()
 
     edid = s.split(":", 1)[1] if ":" in s else s
-
-    # Common cleanups
     edid = re.sub(r"^Lvl", "", edid)
     edid = re.sub(r"_?PartyCrasher$", "", edid)
     edid = re.sub(r"_", " ", edid).strip()
-
-    # Insert spaces before capitals (very conservative)
     edid = re.sub(r"(?<!^)(?=[A-Z])", " ", edid).strip()
-
-    # Fix some known FO76-ish casing
-    edid = edid.replace("Scorch Beast", "Scorchbeast")
-    edid = edid.replace("Mirelurk Queen", "Mirelurk Queen")
-    edid = edid.replace("Wendigo Colossus", "Wendigo Colossus")
-    edid = edid.replace("Deathclaw", "Deathclaw")
-    edid = edid.replace("Bigfoot", "Bigfoot")
-
     return edid if edid else "Party Crasher"
 
-gmrw_by_id = {}
+def resolve_name_for_formid(formid: str) -> str:
+    return book_names.get(formid) or armo_names.get(formid) or formid
+
+# --------------------------------------------------
+# GMRW indexing (IMPORTANT: many rows per FormID)
+# --------------------------------------------------
+
+gmrw_rows_by_id = defaultdict(list)
 for r in GMRW:
-    fid = pick(r, "GMRW_FormID", "FormID")
+    fid = pick(r, "FormID", "GMRW_FormID")
     if fid:
-        gmrw_by_id[fid] = r
+        gmrw_rows_by_id[fid].append(r)
+
+# --------------------------------------------------
+# LVLI probability engine (uses resolved math TSV)
+# --------------------------------------------------
 
 lvli_math_by_entry = {}
 for r in LVLI_MATH:
-    # (list_id, entry_index) -> resolved math row
     try:
         key = (r["LVLI_FormID"], r["EntryIndex"])
     except KeyError:
@@ -178,10 +257,6 @@ lvli_entries_by_list = defaultdict(list)
 for r in LVLI_ENTRIES:
     if "LVLI_FormID" in r:
         lvli_entries_by_list[r["LVLI_FormID"]].append(r)
-
-# --------------------------------------------------
-# LVLI probability engine (uses resolved math TSV)
-# --------------------------------------------------
 
 _lvli_cache = {}
 
@@ -243,7 +318,6 @@ for r in GUIDE:
     url = strip_trailing_slash(r.get("url") or "")
     title = (r.get("title") or "").strip()
 
-    # event title is usually "X Reward Checklist"
     base_title = title
     if base_title.lower().endswith(" reward checklist"):
         base_title = base_title[: -len(" reward checklist")].strip()
@@ -262,7 +336,7 @@ for p in reward_pages:
         reward_pages_by_key[p["eventKey"]].append(p)
 
 # --------------------------------------------------
-# Quest indexing (by normalized name)
+# Quest indexing + aliases
 # --------------------------------------------------
 
 quest_by_key = defaultdict(list)
@@ -271,38 +345,21 @@ for q in QUEST:
     name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name", "FULL", "QUEST_FULL", "EDID", "QUEST_EDID", default=qid)
     quest_by_key[norm_name(name)].append(q)
 
-# --------------------------------------------------
-# Known name aliases (guide front name -> in-file prefix variants)
-# These are for cases like:
-#   "A Real Blast" (front name)
-#   "Enclave Activity: A Real Blast ..." (file name)
-# --------------------------------------------------
-
 EVENT_KEY_ALIASES = {
-    # guide eventKey -> list of acceptable quest "key" prefixes (normalized)
     "arealblast": ["enclaveactivityarealblast"],
     "botsonparade": ["enclaveactivitybotsonparade"],
     "droppedconnection": ["enclaveactivitydroppedconnection"],
 }
 
 def find_quest_candidates_for_key(event_key: str):
-    """
-    Returns a deterministic list of QUEST rows that match this guide event key.
-    Matching order:
-      1) exact normalized match
-      2) known aliases (prefix match)
-      3) containment match (event_key contained anywhere in quest key), last resort
-    """
     event_key = (event_key or "").strip()
     if not event_key:
         return []
 
-    # 1) exact match
     c = list(quest_by_key.get(event_key, []))
     if c:
         return c
 
-    # 2) alias prefix match (safe for Enclave Activity names)
     alias_prefixes = EVENT_KEY_ALIASES.get(event_key, [])
     if alias_prefixes:
         matches = []
@@ -314,7 +371,6 @@ def find_quest_candidates_for_key(event_key: str):
         if matches:
             return matches
 
-    # 3) containment fallback
     matches = []
     for qkey, rows in quest_by_key.items():
         if event_key in qkey:
@@ -322,43 +378,48 @@ def find_quest_candidates_for_key(event_key: str):
     return matches
 
 # --------------------------------------------------
-# Event builder
+# Event builder (dynamic GMRW pools)
 # --------------------------------------------------
 
-def resolve_name_for_formid(formid: str) -> str:
-    return (
-        book_names.get(formid)
-        or armo_names.get(formid)
-        or formid
-    )
+def add_free(free, label, value, meta=None):
+    if value is None:
+        return
+    if isinstance(value, str) and value.strip() == "":
+        return
+    row = {"label": label, "value": value}
+    if meta:
+        row["meta"] = meta
+    free.append(row)
 
-def classify_reward(name: str) -> str:
-    # Very rough classification, can be upgraded later.
-    if name.startswith("Plan:") or name.startswith("Recipe:"):
-        return "plan"
-    if "mask" in name.lower() or "hat" in name.lower() or "hood" in name.lower():
-        return "headwear"
-    return "default"
+def merge_conditions(*conds):
+    parts = []
+    for c in conds:
+        s = (c or "").strip()
+        if s:
+            parts.append(s)
+    # de-dupe, keep order
+    out = []
+    seen = set()
+    for p in parts:
+        if p in seen:
+            continue
+        seen.add(p)
+        out.append(p)
+    return out
 
 events = []
 by_page = {}
 
-# Only build events that actually have a reward-checklist page.
-# This makes the dist deterministic AND keeps the frontend from trying to show 2,000 irrelevant quests.
 for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
-    # Find a matching QUEST row
-    candidates = quest_by_key.get(key, [])
+    candidates = find_quest_candidates_for_key(key)
+
     if not candidates:
-        # Still emit a stub so the page doesn't go blank
         event = {
             "questFormID": "",
             "name": pages[0]["eventTitle"] or "Event",
-            "baseRewards": [],
-            "rewards": {
-                "default": [],
-                "headwear": {"common": [], "rare": [], "uncommon": []},
-                "plans": {"count": 0, "poolChance": 0, "perItemChance": None, "items": []}
-            },
+            "gameName": "",
+            "freeRewards": [],
+            "pools": [],
             "banners": [],
             "scenarios": [],
             "warnings": [{
@@ -367,22 +428,18 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
             }]
         }
     else:
-        # If multiple candidates, take first deterministically by FormID
         candidates.sort(key=lambda r: pick(r, "QUEST_FormID", "FormID"))
         q = candidates[0]
+
         qid = pick(q, "QUEST_FormID", "FormID")
-        name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name", "FULL", "QUEST_FULL", "EDID", "QUEST_EDID", default=qid)
+        game_name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name", "FULL", "QUEST_FULL", "EDID", "QUEST_EDID", default=qid)
 
         event = {
             "questFormID": qid,
-            "name": pages[0]["eventTitle"] or name,
-            "gameName": name,
-            "baseRewards": [],
-            "rewards": {
-                "default": [],
-                "headwear": {"common": [], "rare": [], "uncommon": []},
-                "plans": {"count": 0, "poolChance": 100, "perItemChance": None, "items": []}
-            },
+            "name": pages[0]["eventTitle"] or game_name,
+            "gameName": game_name,
+            "freeRewards": [],
+            "pools": [],
             "banners": [],
             "scenarios": []
         }
@@ -398,9 +455,7 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
             if not npc_raw or not glob_raw:
                 continue
 
-            # GLOB may be exported as "FORMID:GLOB_EDID" in some TSVs
             glob_fid = glob_raw.split(":")[0] if ":" in str(glob_raw) else str(glob_raw)
-
             if glob_fid not in glob_vals:
                 continue
 
@@ -417,59 +472,88 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
             })
 
         # --------------------
-        # Base Rewards + Item Pools (GMRW)
+        # GMRW (dynamic pools per LVLI)
         # --------------------
+        pool_seen = set()
+
         for i in range(10):
             ref = q.get(f"GMRWRef{i}")
             if not ref:
                 continue
-            g = gmrw_by_id.get(ref)
-            if not g:
+
+            rows = gmrw_rows_by_id.get(ref, [])
+            if not rows:
                 continue
 
-            # XP/Caps globals (optional)
-            xp_glob = g.get("NAM7_XPGlobal")
+            # "free rewards" are pulled from the FIRST row we see for that GMRW FormID
+            r0 = rows[0]
+
+            xp_glob = (r0.get("NAM7_XPGlobal") or "").strip()
             if xp_glob in glob_vals:
-                event["baseRewards"].append({"label": "XP", "value": glob_vals[xp_glob]})
+                add_free(event["freeRewards"], "XP", glob_vals[xp_glob], meta={"source": "GMRW", "gmrwFormID": ref, "globFormID": xp_glob})
 
-            caps_glob = g.get("NAM8_CapsGlobal")
+            caps_glob = (r0.get("NAM8_CapsGlobal") or "").strip()
             if caps_glob in glob_vals:
-                event["baseRewards"].append({"label": "Caps", "value": glob_vals[caps_glob]})
+                add_free(event["freeRewards"], "Caps", glob_vals[caps_glob], meta={"source": "GMRW", "gmrwFormID": ref, "globFormID": caps_glob})
 
-            # Root rewarded item LVLI
-            root = (g.get("RewardedItem") or "").strip()
-            if root and ":LVLI" in root:
-                root_id = root.split(":")[0]
-                probs = compute_lvli(root_id)
+            # Curve hook (placeholder: store the CURV formid + EDID if present)
+            xpct = (r0.get("XPCT_XPCurveTable") or "").strip()
+            if xpct:
+                add_free(event["freeRewards"], "XP Curve Table", xpct, meta={"source": "GMRW", "gmrwFormID": ref, "curve": curv_by_formid.get(xpct) or {"formid": xpct}})
 
-                for fid, chance in probs.items():
-                    chance_pct = pct(chance)
-                    nm = resolve_name_for_formid(fid)
+            # Legendary hook (placeholder)
+            qrlr = (r0.get("QRLR_LegendaryItemRewardRank") or "").strip()
+            if qrlr:
+                add_free(event["freeRewards"], "Legendary Reward Rank", qrlr, meta={"source": "GMRW", "gmrwFormID": ref})
 
-                    row = {"formid": fid, "name": nm, "dropRate": chance_pct}
+            # Now build pools per RewardedItem LVLI
+            for rr in rows:
+                rewarded = (rr.get("RewardedItem") or "").strip()
+                if not rewarded:
+                    continue
 
-                    kind = classify_reward(nm)
-                    if kind == "plan":
-                        event["rewards"]["plans"]["items"].append(row)
-                    elif kind == "headwear":
-                        event["rewards"]["headwear"]["common"].append(row)
-                    else:
-                        event["rewards"]["default"].append(row)
+                formid, kind = parse_ref(rewarded)
+                count = (rr.get("RewardedItemCount") or rr.get("RewardedItemCount".lower()) or "").strip() or "1"
 
-        # --------------------
-        # Plans UI rule: if the pool is "1 plan guaranteed", show per-item % cleanly.
-        # NOTE: Right now we do NOT know poolChance deterministically from these TSVs,
-        # so we keep poolChance at 100 and derive per item.
-        # When you add poolChance later, set per item = poolChance / n instead.
-        # --------------------
-        plans = event["rewards"]["plans"]["items"]
-        if plans:
-            n = len(plans)
-            event["rewards"]["plans"]["count"] = n
-            per = round(100 / n, 6)
-            event["rewards"]["plans"]["perItemChance"] = per
-            for p in plans:
-                p["dropRate"] = per
+                conds = merge_conditions(rr.get("Conditions"), rr.get("ConditionGlobs"))
+
+                if kind.upper() == "LVLI":
+                    lvli_edid = lvli_edid_by_formid.get(formid, "")
+                    label = prettify_lvli_label(lvli_edid) or prettify_lvli_label(rewarded.replace(":", "_"))
+
+                    pool_key = (ref, formid, rr.get("RewardIndex") or "", rr.get("RewardedItemIndex") or "")
+                    if pool_key in pool_seen:
+                        continue
+                    pool_seen.add(pool_key)
+
+                    probs = compute_lvli(formid)
+                    items = []
+                    for fid, ch in probs.items():
+                        items.append({
+                            "formid": fid,
+                            "name": resolve_name_for_formid(fid),
+                            "dropRate": pct(ch)
+                        })
+                    items.sort(key=lambda x: (x["name"] or "", x["formid"] or ""))
+
+                    event["pools"].append({
+                        "title": label or "Reward Pool",
+                        "lvliFormID": formid,
+                        "lvliEdid": lvli_edid,
+                        "sourceGmrwFormID": ref,
+                        "rewardIndex": rr.get("RewardIndex"),
+                        "rewardedItemIndex": rr.get("RewardedItemIndex"),
+                        "count": count,
+                        "conditions": conds,
+                        "items": items,
+                    })
+                else:
+                    # non-LVLI rewarded items: show as "free" lines (mockup)
+                    nm = resolve_name_for_formid(formid) if formid else rewarded
+                    add_free(event["freeRewards"], "Guaranteed Reward", f"{nm} x{count}", meta={"source": "GMRW", "gmrwFormID": ref, "rewardedItem": rewarded, "conditions": conds})
+
+        # Sort pools for deterministic output
+        event["pools"].sort(key=lambda p: (p.get("title") or "", p.get("lvliFormID") or ""))
 
     # Attach to by_page for every guide page pointing at this event
     for p in pages:
