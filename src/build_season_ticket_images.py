@@ -212,6 +212,10 @@ def main() -> int:
         it["storefrontEntitlement"] = edid
         it["imageUrl"] = (args.img_url_root.rstrip("/") + "/" + entitlement_to_webp_name(edid))
 
+        # Optional: attach ENTM description (for showing above image on the Season Ticket page)
+        desc = (hit.get("DESC") or "").strip()
+        if desc:
+            it["description"] = desc
         ent_list.append(edid)
         dds_list.append(dds)
         matched += 1
