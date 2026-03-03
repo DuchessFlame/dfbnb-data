@@ -80,7 +80,7 @@ function parseFVPA(fvpaRaw) {
     .map(part => {
       // Pull qty from the end: ":5" (allow trailing junk like quotes/spaces)
       const qtyMatch = part.match(/:\s*(\d+)\s*$/);
-      const qty = qtyMatch ? parseInt(qtyMatch[1], 10) : 1;
+      let qty = qtyMatch ? parseInt(qtyMatch[1], 10) : 1;
 
       // Name is everything before the last ":<qty>"
       let nameRaw = qtyMatch ? part.slice(0, qtyMatch.index).trim() : part.trim();
@@ -88,6 +88,14 @@ function parseFVPA(fvpaRaw) {
       // If name contains a quoted display name, prefer that
       const quoted = extractQuotedName(nameRaw);
       if (quoted) nameRaw = quoted;
+
+      // Some exports accidentally include ":<qty>" inside the quoted name (e.g. "Embergold:5").
+      // If so, split it so recursion can match craftable items properly.
+      const embedded = nameRaw.match(/^(.*?):\s*(\d+)\s*$/);
+      if (embedded) {
+        nameRaw = embedded[1].trim();
+        if (!qtyMatch) qty = parseInt(embedded[2], 10) || qty;
+      }
 
       // Strip surrounding quotes if it's like "Cloth"
       nameRaw = nameRaw.replace(/^"+|"+$/g, "").replace(/^'+|'+$/g, "").trim();

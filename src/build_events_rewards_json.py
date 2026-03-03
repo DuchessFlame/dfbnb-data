@@ -98,24 +98,6 @@ def title_case_words(s: str) -> str:
     return " ".join(w.capitalize() if w else w for w in s.split())
 
 def prettify_lvli_label(edid: str) -> str:
-
-    def parse_randompercent_multiplier(conditions_text: str) -> float:
-    """
-    Extract simple RNG conditions like:
-      Subject.GetRandomPercent <= 10
-    Returns multiplier in [0,1]. If none found, returns 1.
-    If multiple found, multiplies them.
-    """
-    s = (conditions_text or "")
-    mult = 1.0
-    for m in re.finditer(r"GetRandomPercent\s*<=\s*(\d+)", s, flags=re.IGNORECASE):
-        try:
-            n = int(m.group(1))
-            n = max(0, min(100, n))
-            mult *= (n / 100.0)
-        except ValueError:
-            pass
-    return mult
     """
     Very lightweight "gap filler" naming:
     - strips common prefixes
@@ -144,6 +126,27 @@ def prettify_lvli_label(edid: str) -> str:
     # final tidy
     t = t.replace(" Ll ", " LL ")
     return t.strip()
+
+
+def parse_randompercent_multiplier(conditions_text: str) -> float:
+    """
+    Extract simple RNG conditions like:
+      Subject.GetRandomPercent <= 10
+    Returns multiplier in [0,1]. If none found, returns 1.
+    If multiple found, multiplies them.
+    """
+    s = (conditions_text or "")
+    mult = 1.0
+
+    for m in re.finditer(r"GetRandomPercent\s*<=\s*(\d+)", s, flags=re.IGNORECASE):
+        try:
+            n = int(m.group(1))
+            n = max(0, min(100, n))
+            mult *= (n / 100.0)
+        except ValueError:
+            pass
+
+    return mult
 
 # --------------------------------------------------
 # Load TSVs (newest exports)
