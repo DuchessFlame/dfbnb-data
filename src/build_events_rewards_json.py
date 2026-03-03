@@ -272,6 +272,56 @@ for q in QUEST:
     quest_by_key[norm_name(name)].append(q)
 
 # --------------------------------------------------
+# Known name aliases (guide front name -> in-file prefix variants)
+# These are for cases like:
+#   "A Real Blast" (front name)
+#   "Enclave Activity: A Real Blast ..." (file name)
+# --------------------------------------------------
+
+EVENT_KEY_ALIASES = {
+    # guide eventKey -> list of acceptable quest "key" prefixes (normalized)
+    "arealblast": ["enclaveactivityarealblast"],
+    "botsonparade": ["enclaveactivitybotsonparade"],
+    "droppedconnection": ["enclaveactivitydroppedconnection"],
+}
+
+def find_quest_candidates_for_key(event_key: str):
+    """
+    Returns a deterministic list of QUEST rows that match this guide event key.
+    Matching order:
+      1) exact normalized match
+      2) known aliases (prefix match)
+      3) containment match (event_key contained anywhere in quest key), last resort
+    """
+    event_key = (event_key or "").strip()
+    if not event_key:
+        return []
+
+    # 1) exact match
+    c = list(quest_by_key.get(event_key, []))
+    if c:
+        return c
+
+    # 2) alias prefix match (safe for Enclave Activity names)
+    alias_prefixes = EVENT_KEY_ALIASES.get(event_key, [])
+    if alias_prefixes:
+        matches = []
+        for qkey, rows in quest_by_key.items():
+            for pref in alias_prefixes:
+                if qkey.startswith(pref):
+                    matches.extend(rows)
+                    break
+        if matches:
+            return matches
+
+    # 3) containment fallback
+    matches = []
+    for qkey, rows in quest_by_key.items():
+        if event_key in qkey:
+            matches.extend(rows)
+    return matches
+
+# --------------------------------------------------
 # Event builder
 # --------------------------------------------------
 
@@ -325,7 +375,8 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
 
         event = {
             "questFormID": qid,
-            "name": name,
+            "name": pages[0]["eventTitle"] or name,
+            "gameName": name,
             "baseRewards": [],
             "rewards": {
                 "default": [],
