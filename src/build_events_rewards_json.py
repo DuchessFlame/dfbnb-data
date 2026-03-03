@@ -98,6 +98,24 @@ def title_case_words(s: str) -> str:
     return " ".join(w.capitalize() if w else w for w in s.split())
 
 def prettify_lvli_label(edid: str) -> str:
+
+    def parse_randompercent_multiplier(conditions_text: str) -> float:
+    """
+    Extract simple RNG conditions like:
+      Subject.GetRandomPercent <= 10
+    Returns multiplier in [0,1]. If none found, returns 1.
+    If multiple found, multiplies them.
+    """
+    s = (conditions_text or "")
+    mult = 1.0
+    for m in re.finditer(r"GetRandomPercent\s*<=\s*(\d+)", s, flags=re.IGNORECASE):
+        try:
+            n = int(m.group(1))
+            n = max(0, min(100, n))
+            mult *= (n / 100.0)
+        except ValueError:
+            pass
+    return mult
     """
     Very lightweight "gap filler" naming:
     - strips common prefixes
@@ -279,18 +297,20 @@ def compute_lvli(list_id: str):
             continue
 
         sub = (math.get("SubLVLI_FormID") or "").strip()
-        list_presence = float(math.get("ListPresenceChance") or 1)
         list_none = float(math.get("ListChanceNoneResolved") or 0)
         entry_presence = float(math.get("EntryPresenceChance") or 1)
         entry_none = float(math.get("EntryChanceNoneResolved") or 0)
         cond_rand = float(math.get("EntryCondChance_RandomPercent") or 1)
 
+        # Weighting within the list (your math export already resolves this)
+        apriori = float(math.get("EntryAprioriChance_NoSublist") or 1)
+
         chance = (
-            list_presence *
             (1 - list_none) *
             entry_presence *
             (1 - entry_none) *
-            cond_rand
+            cond_rand *
+            apriori
         )
 
         if sub:
@@ -526,13 +546,20 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
                         continue
                     pool_seen.add(pool_key)
 
+                    # Pool-level chance from GMRW row conditions (ex: GetRandomPercent <= 10)
+                    cond_text = " | ".join(conds)
+                    cond_mult = parse_randompercent_multiplier(cond_text)  # 0..1
+                    pool_chance_pct = pct(cond_mult)
+
                     probs = compute_lvli(formid)
                     items = []
                     for fid, ch in probs.items():
+                        # Final drop rate includes the pool conditional
+                        final = ch * cond_mult
                         items.append({
                             "formid": fid,
                             "name": resolve_name_for_formid(fid),
-                            "dropRate": pct(ch)
+                            "dropRate": pct(final)
                         })
                     items.sort(key=lambda x: (x["name"] or "", x["formid"] or ""))
 
@@ -545,6 +572,7 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
                         "rewardedItemIndex": rr.get("RewardedItemIndex"),
                         "count": count,
                         "conditions": conds,
+                        "poolChance": pool_chance_pct,
                         "items": items,
                     })
                 else:
