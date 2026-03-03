@@ -1177,6 +1177,24 @@ def book_to_gmrw_parentquest_via_lvli_entries(
 
     return None, None, dbg
 
+def cobj_token_from_condition(conds: List[str]) -> str:
+    """Best-effort token extraction for COBJ conditions (debug only)."""
+    if not conds:
+        return ""
+
+    # Prefer explicit COBJ formid extraction
+    for c in conds:
+        fid = parse_cobj_formid_from_condition(c or "")
+        if fid:
+            return fid.upper()
+
+    # Fallback: regex capture
+    joined = " ".join(str(x) for x in conds if x)
+    m = RE_COBJ_REF.search(joined)
+    if m:
+        return m.group(1).upper()
+
+    return ""
 
 def compute_unlock_and_rates(
     kind: str,
