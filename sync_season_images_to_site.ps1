@@ -18,13 +18,16 @@ $sftpHost = "buffsnbrew1.sftp.wpengine.com"
 $port = 2222
 $user = "buffsnbrew1-nav"
 
-# NOTE: remote folder under uploads/season_images/ (matches your FileZilla folder)
-$remoteBase = "/wp-content/uploads/season_images/"
-$remoteSub = "season-ticket"
+# Remote folder(s) that already exist on the server (FileZilla)
+$remoteBase = "/wp-content/uploads/season_images"
+
+# season-ticket uploads go directly into /season_images (no extra subfolder)
+# utility uploads go into /season_images/utility
 if ($Target -eq "utility") {
-  $remoteSub = "utility"
+  $remote = $remoteBase + "/utility"
+} else {
+  $remote = $remoteBase
 }
-$remote     = $remoteBase + $remoteSub
 
 $winscp = "D:\WinSCP\WinSCP.com"
 if (-not (Test-Path -LiteralPath $winscp)) {
