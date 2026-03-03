@@ -143,8 +143,8 @@ def main() -> int:
     ICON_EDID_OVERRIDES = {
         "space cow": "SCORE_S24_ENTM_PlayerIcon_SpaceCow",
         "alien patch": "SCORE_S24_ENTM_PlayerIcon_AlienPatch",
-        "abduction icon": "SCORE_S24_ENTM_PlayerIcon_UFOAbduction",
-        "guinevere in space icon": "SCORE_S24_ENTM_PlayerIcon_SpaceGuinevere",
+        "abduction": "SCORE_S24_ENTM_PlayerIcon_UFOAbduction",
+        "guinevere in space": "SCORE_S24_ENTM_PlayerIcon_SpaceGuinevere",
     }
 
     by_name: Dict[str, dict] = {}
