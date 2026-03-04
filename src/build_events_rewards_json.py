@@ -509,6 +509,16 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
             })
 
         # --------------------
+        # Invaders Event Take Over (from QUEST export)
+        # --------------------
+        if str(q.get("InvadersTakeOver") or "0").strip() == "1":
+            event["banners"].append({
+                "type": "notice",
+                "style": "invaders",
+                "lines": ["Invaders Event Take Over: Yes."]
+            })
+
+        # --------------------
         # GMRW (dynamic pools per LVLI)
         # --------------------
         pool_seen = set()
