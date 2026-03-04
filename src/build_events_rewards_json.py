@@ -159,6 +159,12 @@ LVLI_ENTRIES = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Entries.tsv"))
 LVLI_MATH = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Math.tsv"))
 BOOK = read_tsv(newest("tsv/BOOK_Export_*.tsv"))
 ARMO = read_tsv(newest("tsv/ARMO_Export_*.tsv"))
+
+# Optional: MISC item name resolution
+try:
+    MISC = read_tsv(newest("tsv/MISC_Export_*.tsv"))
+except FileNotFoundError:
+    MISC = []
 GLOB = read_tsv(newest("tsv/GLOB_Export_*.tsv"))
 GUIDE = read_tsv(newest("tsv/guide_index.tsv"))
 
@@ -206,6 +212,13 @@ for r in ARMO:
     if fid and full:
         armo_names[fid] = full
 
+misc_names = {}
+for r in MISC:
+    fid = pick(r, "FormID")
+    full = pick(r, "FULL")
+    if fid and full:
+        misc_names[fid] = full
+
 crea_names = {}
 for r in CREA:
     fid = pick(r, "CREA_FormID", "FormID")
@@ -250,7 +263,7 @@ def humanize_party_crasher_name(raw: str) -> str:
     return edid if edid else "Party Crasher"
 
 def resolve_name_for_formid(formid: str) -> str:
-    return book_names.get(formid) or armo_names.get(formid) or formid
+    return book_names.get(formid) or armo_names.get(formid) or misc_names.get(formid) or formid
 
 # --------------------------------------------------
 # GMRW indexing (IMPORTANT: many rows per FormID)
@@ -504,7 +517,7 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
             if not ref:
                 continue
 
-          gmrw_lookup_key = ref.split(":")[0] if ":" in ref else ref
+            gmrw_lookup_key = ref.split(":")[0] if ":" in ref else ref
             rows = gmrw_rows_by_id.get(gmrw_lookup_key, [])
             if not rows:
                 continue
