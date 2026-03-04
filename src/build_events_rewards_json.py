@@ -504,7 +504,8 @@ for key, pages in sorted(reward_pages_by_key.items(), key=lambda kv: kv[0]):
             if not ref:
                 continue
 
-            rows = gmrw_rows_by_id.get(ref, [])
+          gmrw_lookup_key = ref.split(":")[0] if ":" in ref else ref
+            rows = gmrw_rows_by_id.get(gmrw_lookup_key, [])
             if not rows:
                 continue
 
