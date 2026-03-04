@@ -145,6 +145,8 @@ def main() -> int:
         "alien patch": "SCORE_S24_ENTM_PlayerIcon_AlienPatch",
         "abduction": "SCORE_S24_ENTM_PlayerIcon_UFOAbduction",
         "guinevere in space": "SCORE_S24_ENTM_PlayerIcon_SpaceGuinevere",
+        # TSV has typo "Beckly" instead of "Beckley" so fuzzy match fails
+        "taxidermy beast of beckley": "SCORE_S24_ENTM_CAMP_FloorDecor_TaxidermyBeast",
     }
 
     by_name: Dict[str, dict] = {}
