@@ -83,6 +83,7 @@ def strip_trailing_slash(p: str) -> str:
 
 def parse_ref(ref: str):
     """
+    "003D7FAB:LL_Armor_EnclaveScoutUniform_Any_Urban:LVLI" -> ("003D7FAB","LVLI")
     "003D7FAB:LVLI" -> ("003D7FAB","LVLI")
     "00012345" -> ("00012345","")
     """
@@ -90,8 +91,8 @@ def parse_ref(ref: str):
     if not s:
         return ("", "")
     if ":" in s:
-        a, b = s.split(":", 1)
-        return (a.strip(), b.strip())
+        parts = s.split(":")
+        return (parts[0].strip(), parts[-1].strip())
     return (s, "")
 
 def title_case_words(s: str) -> str:
