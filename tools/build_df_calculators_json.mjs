@@ -70,7 +70,10 @@ function parseFVPA(fvpaRaw) {
   //
   // Output names must be clean display names so dependency matching works.
 
-  const t = safeText(fvpaRaw);
+  // Strip surrounding quotes from the whole FVPA string first.
+  // xEdit sometimes wraps the entire cell value in double-quotes:
+  //   "\"Cloth:3 | Embergold:5\"" -> "Cloth:3 | Embergold:5"
+  let t = safeText(fvpaRaw).replace(/^"+|"+$/g, "").trim();
   if (!t) return [];
 
   return t
