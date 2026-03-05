@@ -85,9 +85,21 @@ def parse_ref(ref):
 def title_case_words(s):
     return " ".join(w.capitalize() if w else w for w in s.split())
 
+LVLI_LABEL_OVERRIDES = {
+    # key: lowercase substring match → display label
+    "enclave_plasmagun": "Enclave Plasma Gun Mod Boxes",
+    "enclaveplasmagun":  "Enclave Plasma Gun Mod Boxes",
+    "plasmagun_all":     "Enclave Plasma Gun Mod Boxes",
+    "rewards_activit":   "Activity Rewards",
+    "rewards_enclave":   "Enclave Activity Rewards",
+}
+
 def prettify_lvli_label(edid):
     t = (edid or "").strip()
     if not t: return ""
+    tl = t.lower()
+    for substr, label in LVLI_LABEL_OVERRIDES.items():
+        if substr in tl: return label
     t = re.sub(r"^(LLS?|RA_LL|RA_LLS|RA|LL|QuestReward|Quest_Reward|Rewards)_+", "", t, flags=re.IGNORECASE)
     t = re.sub(r"^LL_", "", t, flags=re.IGNORECASE)
     t = t.replace("__", "_").replace("_", " ").strip()
@@ -124,6 +136,12 @@ GUIDE        = read_tsv(newest("tsv/guide_index.tsv"))
 
 try:    MISC = read_tsv(newest("tsv/MISC_Export_*.tsv"))
 except FileNotFoundError: MISC = []
+try:    WEAP = read_tsv(newest("tsv/WEAP_Export_*.tsv"))
+except FileNotFoundError: WEAP = []
+try:    ALCH = read_tsv(newest("tsv/ALCH_Export_*.tsv"))
+except FileNotFoundError: ALCH = []
+try:    AMMO = read_tsv(newest("tsv/AMMO_Export_*.tsv"))
+except FileNotFoundError: AMMO = []
 try:    CREA = read_tsv(newest("tsv/CREA_Export_*.tsv"))
 except FileNotFoundError: CREA = []
 try:    CURV = read_tsv(newest("tsv/CURV_Export_*.tsv"))
@@ -165,17 +183,55 @@ for r in ARMO:
 
 misc_names = {}
 for r in MISC:
-    fid = pick(r, "FormID"); full = pick(r, "FULL")
+    # MISC TSVs use various column name conventions across exports
+    fid  = pick(r, "MISC_FormID", "FormID", "FormId")
+    full = pick(r, "MISC_FULL", "FULL - Name", "FULL", "Name")
     if fid and full: misc_names[fid] = full
+
+weap_names = {}
+for r in WEAP:
+    fid  = pick(r, "WEAP_FormID", "FormID")
+    full = pick(r, "WEAP_FULL", "FULL - Name", "FULL")
+    if fid and full: weap_names[fid] = full
+
+alch_names = {}
+for r in ALCH:
+    fid  = pick(r, "ALCH_FormID", "FormID")
+    full = pick(r, "ALCH_FULL", "FULL - Name", "FULL")
+    if fid and full: alch_names[fid] = full
+
+ammo_names = {}
+for r in AMMO:
+    fid  = pick(r, "AMMO_FormID", "FormID")
+    full = pick(r, "AMMO_FULL", "FULL - Name", "FULL")
+    if fid and full: ammo_names[fid] = full
 
 crea_names = {}
 for r in CREA:
-    fid = pick(r, "CREA_FormID", "FormID")
+    fid  = pick(r, "CREA_FormID", "FormID")
     full = pick(r, "CREA_FULL", "FULL")
     if fid and full: crea_names[fid] = full
 
+# Friendly display names for hardcoded known FormIDs
+KNOWN_FID_NAMES = {
+    "0000000F": "Caps",
+    "005652F9": "Legendary Module",
+    "005A5443": "Treasury Note",
+    "007FDC33": "Improved Bait",
+    "003F7410": "Legendary Scrip",
+    "0072D4FC": "Bobblehead Crate",
+}
+
 def resolve_name_for_formid(formid):
-    return book_names.get(formid) or armo_names.get(formid) or misc_names.get(formid) or formid
+    if not formid: return formid
+    return (KNOWN_FID_NAMES.get(formid)
+         or book_names.get(formid)
+         or armo_names.get(formid)
+         or misc_names.get(formid)
+         or weap_names.get(formid)
+         or alch_names.get(formid)
+         or ammo_names.get(formid)
+         or formid)
 
 # --------------------------------------------------
 # Index: LVLI
@@ -472,7 +528,8 @@ def build_base_rewards(gmrw_rows):
             "poolTypes":     pool_types,
             "titles":        titles,
             "conditions":    [c for r in rows for c in
-                              (r.get("TierConditions") or r.get("Conditions") or "").split("|")
+                              (r.get("TierConditions") or r.get("TierConditionFunc")
+                               or r.get("Conditions") or "").split("|")
                               if c.strip()],
         })
     return {"tiers": tiers}
@@ -545,6 +602,11 @@ EVENT_KEY_ALIASES = {
     "droppedconnection": ["enclaveactivitydroppedconnection"],
 }
 
+# Enclave activity quest FormIDs — used to detect enclave events and inject
+# the shared activities LVLI (008A9106) when it isn't already in GMRW rewards.
+ENCLAVE_QUEST_FIDS = set()  # populated from alias keys at runtime
+ENCLAVE_ACTIVITIES_LVLI = "008A9106"
+
 def find_quest_candidates_for_key(event_key):
     event_key = (event_key or "").strip()
     if not event_key: return []
@@ -615,6 +677,19 @@ for key, pages in sorted(reward_pages_by_key.items()):
                           f"{pct(glob_vals[glob_fid])}% chance to spawn at the end of the event."]
             })
 
+        # Flag enclave activities based on quest key aliases
+        is_enclave_activity = any(
+            key in norm_name(game_name or "")
+            for key in ["enclaveactivity", "enclave_activity"]
+        ) or any(
+            "enclave" in alias
+            for aliases in EVENT_KEY_ALIASES.values()
+            for alias in aliases
+            if norm_name(game_name or "") in alias or alias in norm_name(game_name or "")
+        )
+        if is_enclave_activity:
+            event["isEnclaveActivity"] = True
+
         # GMRW
         gmrw_rows = get_gmrw_rows_for_quest(q)
         if gmrw_rows:
@@ -648,7 +723,11 @@ for key, pages in sorted(reward_pages_by_key.items()):
             if not rewarded: continue
             formid, kind = parse_ref(rewarded)
             count = (rr.get("RewardedItemCount") or "").strip() or "1"
-            conds = merge_conditions(rr.get("Conditions"), rr.get("ConditionGlobs"))
+            conds = merge_conditions(
+                rr.get("Conditions"),
+                rr.get("TierConditionFunc"),
+                rr.get("ConditionGlobs"),
+            )
 
             if kind.upper() == "LVLI":
                 pool_key = (formid, rr.get("RewardIndex") or "")
@@ -677,6 +756,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
                     "title": label or "Reward Pool", "lvliFormID": formid, "lvliEdid": lvli_edid,
                     "tier": tier_label, "count": count, "conditions": conds,
                     "poolChance": pct(cond_mult), "poolTypes": pt, "items": items,
+                    "itemCount": len(items),
                 })
             else:
                 nm = resolve_name_for_formid(formid) if formid else rewarded
@@ -686,6 +766,33 @@ for key, pages in sorted(reward_pages_by_key.items()):
                                "name": nm, "qty": count, "isPlan": is_plan, "isUnique": not is_plan})
 
         event["pools"].sort(key=lambda p: (p.get("title") or "", p.get("lvliFormID") or ""))
+
+        # For enclave activities: ensure the shared activities LVLI 008A9106 is present
+        if event.get("isEnclaveActivity"):
+            has_act = any(p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI for p in event["pools"])
+            if not has_act:
+                act_edid  = lvli_edid_by_formid.get(ENCLAVE_ACTIVITIES_LVLI, "")
+                act_probs = compute_lvli(ENCLAVE_ACTIVITIES_LVLI)
+                act_items = sorted([
+                    {
+                        "formid": fid,
+                        "name": resolve_name_for_formid(fid),
+                        "dropRate": pct(ch),
+                        "qty": 1,
+                        "isPlan": resolve_name_for_formid(fid).startswith(("Plan:", "Recipe:")),
+                    }
+                    for fid, ch in act_probs.items()
+                ], key=lambda x: (x["name"] or "", x["formid"] or ""))
+                pt, ttl = classify_pool(ENCLAVE_ACTIVITIES_LVLI)
+                event["pools"].append({
+                    "title": "Enclave Activity Rewards",
+                    "lvliFormID": ENCLAVE_ACTIVITIES_LVLI,
+                    "lvliEdid": act_edid,
+                    "tier": "", "count": "1", "conditions": [],
+                    "poolChance": 100.0, "poolTypes": pt, "items": act_items,
+                    "itemCount": len(act_items),
+                    "isEnclaveActivities": True,
+                })
 
     for p in pages:
         if p["slug"]: by_page[p["slug"]] = event
