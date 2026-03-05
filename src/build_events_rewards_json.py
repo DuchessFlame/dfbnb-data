@@ -221,6 +221,9 @@ def compute_lvli(list_id):
                 results[k] = results.get(k, 0) + v * chance
         else:
             ref = (e.get("LVLO_Reference") or "").strip()
+            qty_raw = (e.get("LVLO_Count") or e.get("Count") or "1").strip()
+            try: qty = int(float(qty_raw))
+            except (ValueError, TypeError): qty = 1
             if ":" in ref:
                 fid = ref.split(":")[0]
                 results[fid] = results.get(fid, 0) + chance
@@ -468,6 +471,9 @@ def build_base_rewards(gmrw_rows):
             "lvliFormID":    lvli_fid,
             "poolTypes":     pool_types,
             "titles":        titles,
+            "conditions":    [c for r in rows for c in
+                              (r.get("TierConditions") or r.get("Conditions") or "").split("|")
+                              if c.strip()],
         })
     return {"tiers": tiers}
 
@@ -577,9 +583,12 @@ for key, pages in sorted(reward_pages_by_key.items()):
         game_name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name",
                          "FULL", "QUEST_FULL", "EDID", "QUEST_EDID", default=qid)
 
+        is_public = str(q.get("IsPublicEvent") or q.get("PublicEvent") or "0").strip() == "1"
+
         event = {
             "questFormID": qid, "name": pages[0]["eventTitle"] or game_name,
-            "gameName": game_name, "freeRewards": [], "baseRewards": {"tiers": []},
+            "gameName": game_name, "isPublicEvent": is_public,
+            "freeRewards": [], "baseRewards": {"tiers": []},
             "pools": [], "banners": [], "scenarios": [],
         }
 
@@ -649,7 +658,17 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 cond_mult = parse_randompercent_multiplier(" | ".join(conds))
                 probs     = compute_lvli(formid)
                 items     = sorted([
-                    {"formid": fid, "name": resolve_name_for_formid(fid), "dropRate": pct(ch * cond_mult)}
+                    {
+                        "formid": fid,
+                        "name": resolve_name_for_formid(fid),
+                        "dropRate": pct(ch * cond_mult),
+                        "qty": 1,
+                        "isPlan": any(
+                            n.startswith(("Plan:", "Recipe:"))
+                            for n in [resolve_name_for_formid(fid)]
+                            if n
+                        ),
+                    }
                     for fid, ch in probs.items()
                 ], key=lambda x: (x["name"] or "", x["formid"] or ""))
                 pt, ttl   = classify_pool(formid)
@@ -660,8 +679,10 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 })
             else:
                 nm = resolve_name_for_formid(formid) if formid else rewarded
+                is_plan = nm.startswith(("Plan:", "Recipe:")) if nm else False
                 add_free(event["freeRewards"], "Guaranteed Reward", f"{nm} x{count}",
-                         meta={"source": "GMRW", "rewardedItem": rewarded, "conditions": conds})
+                         meta={"source": "GMRW", "rewardedItem": rewarded, "conditions": conds,
+                               "name": nm, "qty": count, "isPlan": is_plan, "isUnique": not is_plan})
 
         event["pools"].sort(key=lambda p: (p.get("title") or "", p.get("lvliFormID") or ""))
 
