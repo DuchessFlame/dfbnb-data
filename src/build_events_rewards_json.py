@@ -588,6 +588,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
         event = {
             "questFormID": qid, "name": pages[0]["eventTitle"] or game_name,
             "gameName": game_name, "isPublicEvent": is_public,
+            "description": pick(q, "DESC - Description", "DESC", default=""),
             "freeRewards": [], "baseRewards": {"tiers": []},
             "pools": [], "banners": [], "scenarios": [],
         }
