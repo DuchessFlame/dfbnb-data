@@ -52,6 +52,10 @@ jobs:
       - name: Build Events Rewards JSON
         run: python src/build_events_rewards_json.py
 
+      # --- CHALLENGES ---
+      - name: Build Challenges JSON
+        run: python src/build_challenges_json.py
+
       # --- DF CALCULATORS ---
       - name: Pick newest TSVs (DF Calculators)
         shell: bash
@@ -107,6 +111,7 @@ jobs:
           test -f dist/titles_camp.json && echo "OK titles_camp.json" || (echo "Missing titles_camp.json" && exit 1)
           test -f dist/titles_player.json && echo "OK titles_player.json" || (echo "Missing titles_player.json" && exit 1)
           test -f dist/curves/index.json && echo "OK curves/index.json" || (echo "Missing curves/index.json" && exit 1)
+          test -f dist/challenges/challenges.json && echo "OK challenges/challenges.json" || (echo "Missing challenges/challenges.json" && exit 1)
 
       # --- COMMIT ONCE ---
       - name: Commit & Push
