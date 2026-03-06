@@ -44,6 +44,31 @@ function listFilesRecursive(dir) {
   return out;
 }
 
+// Sort TSV filenames by the date encoded in their name rather than file mtime.
+// Git checkouts give every file the same mtime, making mtime-based sorting
+// unreliable in GitHub Actions. Filename date sorting is stable and correct.
+// Handles patterns like: FISH_Export_March_2026.tsv  LVLI_Export_Feb_2026_LVLI_Entries.tsv
+const MONTH_ORDER = {
+  jan:1, january:1, feb:2, february:2, mar:3, march:3,
+  apr:4, april:4, may:5, jun:6, june:6, jul:7, july:7,
+  aug:8, august:8, sep:9, september:9, oct:10, october:10,
+  nov:11, november:11, dec:12, december:12
+};
+
+function filenameDateScore(filepath) {
+  const name = path.basename(filepath).toLowerCase();
+  // Extract year (4 digits)
+  const yearM = name.match(/(20\d{2})/);
+  const year = yearM ? Number(yearM[1]) : 0;
+  // Extract month name
+  let month = 0;
+  for (const [key, val] of Object.entries(MONTH_ORDER)) {
+    if (name.includes(key)) { month = val; break; }
+  }
+  return year * 100 + month;
+}
+
+
 function pickLatestLvliEntriesTsv(repoRoot) {
   const tsvRoot = path.join(repoRoot, "tsv");
   if (!fs.existsSync(tsvRoot)) {
@@ -60,7 +85,7 @@ function pickLatestLvliEntriesTsv(repoRoot) {
   }
 
   // Choose newest by file modified time.
-  matches.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs);
+  matches.sort((a, b) => filenameDateScore(b) - filenameDateScore(a));
   return matches[0];
 }
 
@@ -80,7 +105,7 @@ function pickLatestFishTsv(repoRoot) {
   const matches = all.filter((p) => /FISH_Export_.*\.tsv$/i.test(path.basename(p)));
   if (!matches.length) return null;
 
-  matches.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs);
+  matches.sort((a, b) => filenameDateScore(b) - filenameDateScore(a));
   return matches[0];
 }
 
