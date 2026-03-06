@@ -1,4 +1,59 @@
 {
+  "_notes": {
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets).",
+    "how_to_update_each_season": [
+      "1. Update 'seasonNumber' to the new season number (e.g. 25).",
+      "2. Update 'seasonName' to the new season name (e.g. 'New Season Name').",
+      "3. Update 'unlockRequiredCount' — the number of items a player must claim to unlock Bonus Page 2.",
+      "4. Update 'unlockRankRequired' — the rank the player must reach to unlock Bonus Page 2.",
+      "5. Update 'unlockLineText' — the human-readable string shown for the unlock requirement.",
+      "6. WIPE the 'items' array and replace with all items from the new season.",
+      "7. For each item, follow the item schema below. Add 'tallyCategory' to any item that matches a tally category.",
+      "8. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "9. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "10. The tally table in the calculator counts items from pages 1-10 and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "11. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{seasonNum}_P{pageNum}_{snake_name} or S{seasonNum}_B{bonusNum}_{snake_name}",
+      "page": "STRING - Page number. Use '1'-'10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "name": "STRING - Display name shown in the calculator.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - Set true if this item is exclusive to Fallout First members. When the user has NOT toggled 'Fallout First Member' on, these items are hidden and excluded from all counts.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table shown below 'Total Ticket Cost'. See valid values below.",
+      "kind": "STRING (optional) - Used for titles/icons: 'playerIcon', 'campTitlePrefix', 'campTitleSuffix', 'playerTitlePrefix', 'playerTitleSuffix', 'playerTitlePrefixSuffix'.",
+      "value": "STRING (optional) - The title/icon label value when 'kind' is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description shown in expanded detail panel."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles (includes all CAMP title prefixes/suffixes and player title prefixes/suffixes)",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters (includes any S.C.O.R.E. Boost % items)",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table in the JS counts how many items in the visible list (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes."
+  },
   "seasonNumber": 24,
   "seasonName": "Cryptids From Beyond the Cosmos",
   "unlockRequiredCount": 59,
@@ -13,7 +68,8 @@
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S24_ENTM_Account_ScoreBoost_1",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_account_scoreboost_1.webp",
-      "description": "Gain 5% bonus S.C.O.R.E. when you complete challenges for the rest of Season 24!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -"
+      "description": "Gain 5% bonus S.C.O.R.E. when you complete challenges for the rest of Season 24!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
+      "tallyCategory": "score_booster"
     },
     {
       "id": "S24_P01_ufo_fishing_bobber_mod",
@@ -39,7 +95,8 @@
       "page": "1",
       "name": "200 Atoms",
       "cost": 20,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P01_bloody_space_suit",
@@ -55,7 +112,8 @@
       "page": "1",
       "name": "Superb Bait x5",
       "cost": 0,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_superbait.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_superbait.webp",
+      "tallyCategory": "superb_bait"
     },
     {
       "id": "S24_P01_space_cow_icon",
@@ -66,7 +124,8 @@
       "value": "Space Cow",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_SpaceCow",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_spacecow.webp",
-      "description": "Moooooving along a new frontier.    - UNLOCKS A PLAYER ICON. -"
+      "description": "Moooooving along a new frontier.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S24_P02_alien_ammo_box",
@@ -88,14 +147,16 @@
       "value": "Alien",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_Alien",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_alien.webp",
-      "description": "Unlocks the C.A.M.P. Title Prefix \"Alien\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -"
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Alien\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P02_improved_bait_x5",
       "page": "2",
       "name": "Improved Bait x5",
       "cost": 0,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_improvedbait.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_improvedbait.webp",
+      "tallyCategory": "improved_bait"
     },
     {
       "id": "S24_P02_alien_warning_signs",
@@ -111,7 +172,8 @@
       "page": "2",
       "name": "Repair Kit",
       "cost": 10,
-      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
     },
     {
       "id": "S24_P02_starlight_drive_in_marquee",
@@ -128,7 +190,8 @@
       "name": "200 Atoms",
       "cost": 20,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P02_alien_patch_icon",
@@ -139,7 +202,8 @@
       "value": "Alien Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_AlienPatch",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_alienpatch.webp",
-      "description": "They're amongst us, in the stars and in Appalachia.    - UNLOCKS A PLAYER ICON. -"
+      "description": "They're amongst us, in the stars and in Appalachia.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S24_P03_alien_aid_box",
@@ -157,14 +221,16 @@
       "name": "S.C.O.R.E. Booster x3",
       "cost": 20,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_scorebooster.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_scorebooster.webp",
+      "tallyCategory": "score_booster"
     },
     {
       "id": "S24_P03_gold_bullion_x",
       "page": "3",
       "name": "Gold Bullion",
       "cost": 0,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
     },
     {
       "id": "S24_P03_flatwoods_monster_patch_icon",
@@ -175,7 +241,8 @@
       "value": "Flatwoods Monster Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_FlatwoodsMonsterPatch",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_flatwoodsmonsterpatch.webp",
-      "description": "Time to play.    - UNLOCKS A PLAYER ICON. -"
+      "description": "Time to play.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S24_P03_abduction_icon",
@@ -187,7 +254,8 @@
       "value": "Abduction",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_UFOAbduction",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_ufoabduction.webp",
-      "description": "They're taking them to the Mooon.    - UNLOCKS A PLAYER ICON. -"
+      "description": "They're taking them to the Mooon.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S24_P03_bigfoot_stein_display",
@@ -207,14 +275,16 @@
       "value": "Alien",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_Alien",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_alien.webp",
-      "description": "Unlocks the C.A.M.P. Title Prefix \"Alien\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -"
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Alien\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P03_200_atoms",
       "page": "3",
       "name": "200 Atoms",
       "cost": 20,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P04_healing_arch",
@@ -232,14 +302,16 @@
       "name": "200 Atoms",
       "cost": 20,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P04_lunchbox_x3",
       "page": "4",
       "name": "Lunchbox x3",
       "cost": 20,
-      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
     },
     {
       "id": "S24_P04_score_boost_10",
@@ -249,14 +321,16 @@
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S24_ENTM_Account_ScoreBoost_3",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_account_scoreboost_3.webp",
-      "description": "Gain another 10% bonus S.C.O.R.E. when you complete challenges for the rest of Season 24!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E.. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -"
+      "description": "Gain another 10% bonus S.C.O.R.E. when you complete challenges for the rest of Season 24!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E.. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
+      "tallyCategory": "score_booster"
     },
     {
       "id": "S24_P04_legendary_scrip_x100",
       "page": "4",
       "name": "Legendary Scrip x100",
       "cost": 25,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
     },
     {
       "id": "S24_P04_suffix_retreat",
@@ -267,7 +341,8 @@
       "value": "Retreat",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Suffix_Retreat",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_suffix_retreat.webp",
-      "description": "Unlocks the C.A.M.P. Title Suffix \"Retreat\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -"
+      "description": "Unlocks the C.A.M.P. Title Suffix \"Retreat\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P04_alien_scrap_box",
@@ -288,21 +363,24 @@
       "value": "Space",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Space",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_space.webp",
-      "description": "Unlocks the Player Title Prefix \"Space\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -"
+      "description": "Unlocks the Player Title Prefix \"Space\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P04_legendary_module_x3",
       "page": "4",
       "name": "Legendary Module x3",
       "cost": 0,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
     },
     {
       "id": "S24_P04_stamps_x10",
       "page": "4",
       "name": "Stamps x10",
       "cost": 25,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
     },
     {
       "id": "S24_P05_fur_carpet",
@@ -336,14 +414,16 @@
       "id": "S24_P05_nuclear_keycard_x5",
       "page": "5",
       "name": "Nuclear Keycard x5",
-      "cost": 15
+      "cost": 15,
+      "tallyCategory": "nuclear_keycard"
     },
     {
       "id": "S24_P05_carry_weight_booster_x5",
       "page": "5",
       "name": "Carry Weight Booster x5",
       "cost": 15,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
     },
     {
       "id": "S24_P05_prefix_suffix_bigfoot",
@@ -354,7 +434,8 @@
       "value": "Bigfoot",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Both_Bigfoot",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_both_bigfoot.webp",
-      "description": "Unlocks the Player Title Prefix & Suffix \"Bigfoot\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -"
+      "description": "Unlocks the Player Title Prefix & Suffix \"Bigfoot\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P05_re_roller_x5",
@@ -362,14 +443,16 @@
       "name": "Re-Roller x5",
       "cost": 15,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp",
+      "tallyCategory": "re_roller"
     },
     {
       "id": "S24_P05_repair_kit",
       "page": "5",
       "name": "Repair Kit",
       "cost": 15,
-      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
     },
     {
       "id": "S24_P05_legendary_scrip_x100",
@@ -377,14 +460,16 @@
       "name": "Legendary Scrip x100",
       "cost": 0,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
     },
     {
       "id": "S24_P05_200_atoms",
       "page": "5",
       "name": "200 Atoms",
       "cost": 20,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P06_daring_devil_pip_boy_paint",
@@ -404,7 +489,8 @@
       "value": "Smiling Man Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_SmilingManPatch",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_smilingmanpatch.webp",
-      "description": "A big smile that somehow feels Cold.    - UNLOCKS A PLAYER ICON. -"
+      "description": "A big smile that somehow feels Cold.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S24_P06_ranger_obsidian_paint",
@@ -425,7 +511,8 @@
       "value": "Extraterrestrial",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Suffix_Extraterrestrial",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_suffix_extraterrestrial.webp",
-      "description": "Unlocks the Player Title Suffix \"Extraterrestrial\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -"
+      "description": "Unlocks the Player Title Suffix \"Extraterrestrial\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P06_alien_display",
@@ -443,21 +530,24 @@
       "name": "200 Atoms",
       "cost": 20,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P06_legendary_module_x10",
       "page": "6",
       "name": "Legendary Module x10",
       "cost": 25,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
     },
     {
       "id": "S24_P06_mystery_bobblehead_x3",
       "page": "6",
       "name": "Mystery Bobblehead x3",
       "cost": 15,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_mysterybobblehead.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_mysterybobblehead.webp",
+      "tallyCategory": "mystery_bobblehead"
     },
     {
       "id": "S24_P06_mystery_magazine_package_x3",
@@ -465,14 +555,16 @@
       "name": "Mystery Magazine Package x3",
       "cost": 15,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_magazinebookbox.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_magazinebookbox.webp",
+      "tallyCategory": "mystery_magazine"
     },
     {
       "id": "S24_P06_gold_bullion_x100",
       "page": "6",
       "name": "Gold Bullion x100",
       "cost": 15,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
     },
     {
       "id": "S24_P07_phoropter",
@@ -488,7 +580,8 @@
       "page": "7",
       "name": "Re-Roller x5",
       "cost": 25,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp",
+      "tallyCategory": "re_roller"
     },
     {
       "id": "S24_P07_score_boost_10",
@@ -498,14 +591,16 @@
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S24_ENTM_Account_ScoreBoost_3",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_account_scoreboost_3.webp",
-      "description": "Gain another 10% bonus S.C.O.R.E. when you complete challenges for the rest of Season 24!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E.. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -"
+      "description": "Gain another 10% bonus S.C.O.R.E. when you complete challenges for the rest of Season 24!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E.. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
+      "tallyCategory": "score_booster"
     },
     {
       "id": "S24_P07_200_atoms",
       "page": "7",
       "name": "200 Atoms",
       "cost": 20,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P07_prefix_rip",
@@ -516,7 +611,8 @@
       "value": "Rip",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Rip",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_rip.webp",
-      "description": "Unlocks the Player Title Prefix \"Rip\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -"
+      "description": "Unlocks the Player Title Prefix \"Rip\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P07_prefix_bigfoots",
@@ -528,7 +624,8 @@
       "value": "Bigfoot's",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_Bigfoots",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_bigfoots.webp",
-      "description": "Unlocks the C.A.M.P. Title Prefix \"Bigfoot's\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -"
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Bigfoot's\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P07_unknown_origins_curio_cabinet",
@@ -545,7 +642,8 @@
       "page": "7",
       "name": "Sugar-Free Nukashine",
       "cost": 25,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_item_nukashine_sugarfree.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_item_nukashine_sugarfree.webp",
+      "tallyCategory": "nukashine"
     },
     {
       "id": "S24_P07_carry_weight_booster_x5",
@@ -553,7 +651,8 @@
       "name": "Carry Weight Booster x5",
       "cost": 25,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
     },
     {
       "id": "S24_P07_jersey_devil_patch_icon",
@@ -564,7 +663,8 @@
       "value": "Jersey Devil Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_JerseyDevilPatch",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_jerseydevilpatch.webp",
-      "description": "This patch appears Once in a Blue Moon.    - UNLOCKS A PLAYER ICON. -"
+      "description": "This patch appears Once in a Blue Moon.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S24_P08_200_atoms",
@@ -572,21 +672,24 @@
       "name": "200 Atoms",
       "cost": 20,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P08_stamps_x10",
       "page": "8",
       "name": "Stamps x10",
       "cost": 15,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
     },
     {
       "id": "S24_P08_perk_coin_x50",
       "page": "8",
       "name": "Perk Coin x50",
       "cost": 15,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp",
+      "tallyCategory": "perk_coins"
     },
     {
       "id": "S24_P08_rip_daring_cosmos_photomode_logo",
@@ -626,7 +729,8 @@
       "value": "Mothman Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_MothmanPatch",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_mothmanpatch.webp",
-      "description": "This patch will help you find His Light.    - UNLOCKS A PLAYER ICON. -"
+      "description": "This patch will help you find His Light.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S24_P08_prefix_guineveres",
@@ -637,14 +741,16 @@
       "value": "Guinevere's",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Guinevere",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_guinevere.webp",
-      "description": "Unlocks the Player Title Prefix \"Guinevere's\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -"
+      "description": "Unlocks the Player Title Prefix \"Guinevere's\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P08_scouts_banner_x5",
       "page": "8",
       "name": "Scout's Banner x5",
       "cost": 0,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_coen_utility_banner.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_coen_utility_banner.webp",
+      "tallyCategory": "scouts_banner"
     },
     {
       "id": "S24_P08_repair_kit",
@@ -652,7 +758,8 @@
       "name": "Repair Kit",
       "cost": 25,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
     },
     {
       "id": "S24_P09_weather_station_alien_invasion",
@@ -673,7 +780,8 @@
       "value": "Cryptid Hunter",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Both_CryptidHunter",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_both_cryptidhunter.webp",
-      "description": "Unlocks the Player Title Prefix & Suffix \"Cryptid Hunter\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -"
+      "description": "Unlocks the Player Title Prefix & Suffix \"Cryptid Hunter\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P09_grafton_monster_patch_icon",
@@ -684,7 +792,8 @@
       "value": "Grafton Monster Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_GraftonMonsterPatch",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_graftonmonsterpatch.webp",
-      "description": "Don't forget to pick one up for Grafton Day!    - UNLOCKS A PLAYER ICON. -"
+      "description": "Don't forget to pick one up for Grafton Day!    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S24_P09_re_roller_x5",
@@ -692,14 +801,16 @@
       "name": "Re-Roller x5",
       "cost": 0,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp",
+      "tallyCategory": "re_roller"
     },
     {
       "id": "S24_P09_mystery_magazine_package_x3",
       "page": "9",
       "name": "Mystery Magazine Package x3",
       "cost": 0,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_magazinebookbox.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_magazinebookbox.webp",
+      "tallyCategory": "mystery_magazine"
     },
     {
       "id": "S24_P09_abduction_stein",
@@ -715,7 +826,8 @@
       "page": "9",
       "name": "Caps x5000",
       "cost": 25,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
     },
     {
       "id": "S24_P09_interstellar_daring_power_armor_paint",
@@ -731,7 +843,8 @@
       "page": "9",
       "name": "200 Atoms",
       "cost": 20,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P09_legendary_module_x10",
@@ -739,7 +852,8 @@
       "name": "Legendary Module x10",
       "cost": 25,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
     },
     {
       "id": "S24_P10_space_glasses",
@@ -756,7 +870,8 @@
       "name": "200 Atoms",
       "cost": 20,
       "isFirst": true,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_P10_prefix_interstellar",
@@ -768,14 +883,16 @@
       "value": "Interstellar",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Interstellar",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_interstellar.webp",
-      "description": "Unlocks the Player Title Prefix \"Interstellar\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -"
+      "description": "Unlocks the Player Title Prefix \"Interstellar\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_P10_carry_weight_booster_x5",
       "page": "10",
       "name": "Carry Weight Booster x5",
       "cost": 30,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
     },
     {
       "id": "S24_P10_rip_daring_ammo_construction_appliance",
@@ -830,7 +947,8 @@
       "value": "Terrestrial",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Suffix_Terrestrial",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_suffix_terrestrial.webp",
-      "description": "Unlocks the Player Title Suffix \"Terrestrial\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -"
+      "description": "Unlocks the Player Title Suffix \"Terrestrial\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_B01_prefix_rip_darings",
@@ -841,7 +959,8 @@
       "value": "Rip Daring's",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_RipDarings",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_ripdarings.webp",
-      "description": "Unlocks the C.A.M.P. Title Prefix \"Rip Daring's\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -"
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Rip Daring's\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_B01_glowing_cat",
@@ -870,7 +989,8 @@
       "value": "Guinevere in Space",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_SpaceGuinevere",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_spaceguinevere.webp",
-      "description": "In space, no one will hear Rip scream post-treatment!    - UNLOCKS A PLAYER ICON. -"
+      "description": "In space, no one will hear Rip scream post-treatment!    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S24_B01_prefix_armed",
@@ -881,7 +1001,8 @@
       "value": "Armed",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Armed",
       "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_armed.webp",
-      "description": "Unlocks the Player Title Prefix \"Armed\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -"
+      "description": "Unlocks the Player Title Prefix \"Armed\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S24_B01_mountain_retreat_home",
@@ -906,77 +1027,88 @@
       "page": "B1",
       "name": "Stamps x10",
       "cost": 75,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
     },
     {
       "id": "S24_B02_scouts_banner_x5",
       "page": "B2",
       "name": "Scout's Banner x5",
       "cost": 75,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_coen_utility_banner.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_coen_utility_banner.webp",
+      "tallyCategory": "scouts_banner"
     },
     {
       "id": "S24_B02_caps_x5000",
       "page": "B2",
       "name": "Caps x5000",
       "cost": 75,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
     },
     {
       "id": "S24_B02_perk_coin_x25",
       "page": "B2",
       "name": "Perk Coin x25",
       "cost": 75,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp",
+      "tallyCategory": "perk_coins"
     },
     {
       "id": "S24_B02_score_booster_x3",
       "page": "B2",
       "name": "S.C.O.R.E. Booster x3",
       "cost": 125,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_scorebooster.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_scorebooster.webp",
+      "tallyCategory": "score_booster"
     },
     {
       "id": "S24_B02_lunchbox_x5",
       "page": "B2",
       "name": "Lunchbox x5",
       "cost": 75,
-      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
     },
     {
       "id": "S24_B02_100_atoms",
       "page": "B2",
       "name": "100 Atoms",
       "cost": 250,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     },
     {
       "id": "S24_B02_superb_bait_x5",
       "page": "B2",
       "name": "Superb Bait x5",
       "cost": 75,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_superbait.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_superbait.webp",
+      "tallyCategory": "superb_bait"
     },
     {
       "id": "S24_B02_stamps_x10",
       "page": "B2",
       "name": "Stamps x10",
       "cost": 75,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
     },
     {
       "id": "S24_B02_gold_bullion_x100",
       "page": "B2",
       "name": "Gold Bullion x100",
       "cost": 75,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
     },
     {
       "id": "S24_B02_re_roller_x5",
       "page": "B2",
       "name": "Re-Roller x5",
       "cost": 125,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp",
+      "tallyCategory": "re_roller"
     }
   ]
 }
