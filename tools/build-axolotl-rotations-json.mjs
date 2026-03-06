@@ -64,6 +64,77 @@ function pickLatestLvliEntriesTsv(repoRoot) {
   return matches[0];
 }
 
+/**
+ * Find the newest FISH_Export_*.tsv in tsv/ and return its path, or null if absent.
+ * The FISH TSV has columns: FormID, EDID, FULL, ...
+ * The FULL column is the human-readable in-game display name (e.g. "Clay Axolotl").
+ * This takes precedence over deriving a name from the EDID string.
+ * To regenerate: export FISH records from xEdit as a TSV and drop it in tsv/.
+ */
+function pickLatestFishTsv(repoRoot) {
+  const tsvRoot = path.join(repoRoot, "tsv");
+  if (!fs.existsSync(tsvRoot)) return null;
+
+  const all = listFilesRecursive(tsvRoot);
+  // Match: FISH_Export_March_2026.tsv (or similar)
+  const matches = all.filter((p) => /FISH_Export_.*\.tsv$/i.test(path.basename(p)));
+  if (!matches.length) return null;
+
+  matches.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs);
+  return matches[0];
+}
+
+/**
+ * Build a Map<edid_lowercase, displayName> from the FISH TSV.
+ *
+ * The display name we want is NOT in the FULL column (which is blank for fish records).
+ * It lives in the FIRL column — this is what xEdit labels "FIRI / Item Reward".
+ * The TSV exporter outputs it as the full xEdit reference string, e.g.:
+ *
+ *   Fishing_Fish_Meal_Small_Raw_Axolotl03_BrownAxolotl "Clay Axolotl" [ALCH:008006CF]
+ *
+ * We extract the display name from the double-quoted segment.
+ *
+ * Column name note: xEdit calls this field FIRI; the TSV exporter writes it as FIRL.
+ * They are the same field at the same position. The script accepts either header name
+ * so it works regardless of which xEdit version produced the export.
+ *
+ * Usage: fishNames.get("fishing_fish_small_axolotl03_brownaxolotl") => "Clay Axolotl"
+ */
+function buildFishNameMap(fishTsvPath) {
+  if (!fishTsvPath || !fs.existsSync(fishTsvPath)) return new Map();
+
+  const tsv = readTextLatin1(fishTsvPath);
+  const rows = parseTSV(tsv);
+  const map = new Map();
+
+  for (const r of rows) {
+    const edid = String(r.EDID || "").trim();
+    if (!edid) continue;
+
+    // The item-reward field may be exported as FIRL or FIRI depending on xEdit version.
+    const rewardRef = String(r.FIRL || r.FIRI || "").trim();
+
+    if (rewardRef) {
+      // Reference format: EDID "Display Name" [TYPE:FormID]
+      // Extract the double-quoted display name.
+      const m = rewardRef.match(/"([^"]+)"/);
+      if (m && m[1]) {
+        map.set(edid.toLowerCase(), m[1].trim());
+        continue;
+      }
+    }
+
+    // Fallback: use FULL if it happens to be populated (rare for FISH records).
+    const full = String(r.FULL || "").trim();
+    if (full) {
+      map.set(edid.toLowerCase(), full);
+    }
+  }
+
+  return map;
+}
+
 function prettyFromLocRegion(keyword) {
   // LocRegionForestFloodlands -> Forest Floodlands
   let s = String(keyword || "").trim();
@@ -72,17 +143,27 @@ function prettyFromLocRegion(keyword) {
   return s || "";
 }
 
-function prettyFromFishRef(lvloRef) {
-  // Example:
+function prettyFromFishRef(lvloRef, fishNames) {
+  // Example LVLO_Reference value:
   // 0080070C:Fishing_Fish_Small_Axolotl01_CharcoalAxolotl:FISH
   const ref = String(lvloRef || "");
   const m = ref.match(/:([^:]+):FISH\b/i);
   if (!m) return "";
 
-  const edid = m[1]; // Fishing_Fish_Small_Axolotl01_CharcoalAxolotl
+  const edid = m[1]; // e.g. Fishing_Fish_Small_Axolotl03_BrownAxolotl
+
+  // Prefer the in-game display name from the FISH TSV (FULL column).
+  // This is important because EDID and display name can differ —
+  // e.g. EDID "BrownAxolotl" has FULL "Clay Axolotl" in game.
+  if (fishNames && fishNames.size > 0) {
+    const fromFish = fishNames.get(edid.toLowerCase());
+    if (fromFish) return fromFish;
+  }
+
+  // Fallback: derive a readable name from the EDID's last segment.
+  // CharcoalAxolotl -> Charcoal Axolotl
   const parts = edid.split("_");
   const last = parts[parts.length - 1] || "";
-  // CharcoalAxolotl -> Charcoal Axolotl
   return last.replace(/([a-z])([A-Z])/g, "$1 $2").trim();
 }
 
@@ -146,6 +227,18 @@ function main() {
 
   const entriesPath = pickLatestLvliEntriesTsv(repoRoot);
 
+  // Load the FISH TSV to get accurate in-game display names (FULL column).
+  // Fish EDID names can differ from their display names — e.g. EDID "BrownAxolotl"
+  // has the in-game FULL name "Clay Axolotl". Without this lookup the wrong name
+  // would be shown on the website.
+  const fishTsvPath = pickLatestFishTsv(repoRoot);
+  const fishNames = buildFishNameMap(fishTsvPath);
+  if (fishTsvPath) {
+    console.log(`Source FISH TSV:        ${fishTsvPath} (${fishNames.size} named fish)`);
+  } else {
+    console.warn("WARNING: No FISH_Export_*.tsv found — fish names will be derived from EDID (may be inaccurate).");
+  }
+
   const tsv = readTextLatin1(entriesPath);
   const rows = parseTSV(tsv);
 
@@ -162,7 +255,7 @@ function main() {
     const idx = extractMonthIndex(r);
     if (!idx || idx < 1 || idx > 12) continue;
 
-    const name = prettyFromFishRef(r.LVLO_Reference);
+    const name = prettyFromFishRef(r.LVLO_Reference, fishNames);
     const regions = extractRegions(r);
 
 const key = String(idx);
@@ -194,7 +287,7 @@ months[key] = {
   ensureDir(outDir);
   fs.writeFileSync(outPath, JSON.stringify(payload, null, 2) + "\n", "utf8");
 
-  console.log(`Source LVLI Entries: ${entriesPath}`);
+  console.log(`Source LVLI Entries:    ${entriesPath}`);
   console.log(`Wrote ${outPath} (${Object.keys(months).length} months)`);
 }
 
