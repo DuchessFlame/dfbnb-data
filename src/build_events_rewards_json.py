@@ -112,9 +112,18 @@ def prettify_lvli_label(edid):
 
 def parse_randompercent_multiplier(conditions_text):
     mult = 1.0
-    for m in re.finditer(r"GetRandomPercent\s*<=\s*(\d+)", conditions_text or "", flags=re.IGNORECASE):
+    # Match "GetRandomPercent <= N" (standard <= format)
+    for m in re.finditer(r"GetRandomPercent\s*<=\s*(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
         try:
-            n = max(0, min(100, int(m.group(1))))
+            n = max(0, min(100, float(m.group(1))))
+            mult *= n / 100.0
+        except ValueError:
+            pass
+    # Match raw GMRW Conditions format: "GetRandomPercent <flags> <value>"
+    # e.g. "GetRandomPercent 10100000 10.000000"
+    for m in re.finditer(r"GetRandomPercent\s+\d+\s+(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
+        try:
+            n = max(0, min(100, float(m.group(1))))
             mult *= n / 100.0
         except ValueError:
             pass
@@ -633,7 +642,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
     if not candidates:
         event = {
             "questFormID": "", "name": pages[0]["eventTitle"] or "Event",
-            "gameName": "", "freeRewards": [], "baseRewards": {"tiers": []},
+            "gameName": "", "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
             "pools": [], "banners": [], "scenarios": [],
             "warnings": [{"title": "Missing QUEST match",
                           "message": f"No QUEST row matched guide title '{pages[0]['eventTitle']}'."}]
@@ -651,7 +660,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
             "questFormID": qid, "name": pages[0]["eventTitle"] or game_name,
             "gameName": game_name, "isPublicEvent": is_public,
             "description": pick(q, "DESC - Description", "DESC", default=""),
-            "freeRewards": [], "baseRewards": {"tiers": []},
+            "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
             "pools": [], "banners": [], "scenarios": [],
         }
 
@@ -728,6 +737,17 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 rr.get("TierConditionFunc"),
                 rr.get("ConditionGlobs"),
             )
+            # Also synthesise "GetRandomPercent <= N" from split func/value columns
+            # so parse_randompercent_multiplier can always find it
+            tier_func  = (rr.get("TierConditionFunc")  or "").strip()
+            tier_val   = (rr.get("TierConditionValue")  or "").strip()
+            if tier_func.lower() == "getrandompercent" and tier_val:
+                try:
+                    synth = f"GetRandomPercent <= {float(tier_val):.6f}"
+                    if synth not in conds:
+                        conds = list(conds) + [synth]
+                except (ValueError, TypeError):
+                    pass
 
             if kind.upper() == "LVLI":
                 pool_key = (formid, rr.get("RewardIndex") or "")
@@ -761,9 +781,22 @@ for key, pages in sorted(reward_pages_by_key.items()):
             else:
                 nm = resolve_name_for_formid(formid) if formid else rewarded
                 is_plan = nm.startswith(("Plan:", "Recipe:")) if nm else False
-                add_free(event["freeRewards"], "Guaranteed Reward", f"{nm} x{count}",
-                         meta={"source": "GMRW", "rewardedItem": rewarded, "conditions": conds,
-                               "name": nm, "qty": count, "isPlan": is_plan, "isUnique": not is_plan})
+                cond_mult_item = parse_randompercent_multiplier(" | ".join(conds)) if conds else 1.0
+                if cond_mult_item < 1.0:
+                    # Conditional drop (e.g. GetRandomPercent) — goes to conditionalRewards
+                    event["conditionalRewards"].append({
+                        "formid":     formid,
+                        "name":       nm,
+                        "qty":        count,
+                        "poolChance": round(cond_mult_item * 100, 6),
+                        "isPlan":     is_plan,
+                        "conditions": conds,
+                        "source":     "GMRW",
+                    })
+                else:
+                    add_free(event["freeRewards"], "Guaranteed Reward", f"{nm} x{count}",
+                             meta={"source": "GMRW", "rewardedItem": rewarded, "conditions": conds,
+                                   "name": nm, "qty": count, "isPlan": is_plan, "isUnique": not is_plan})
 
         event["pools"].sort(key=lambda p: (p.get("title") or "", p.get("lvliFormID") or ""))
 
