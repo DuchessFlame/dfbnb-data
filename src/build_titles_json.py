@@ -630,7 +630,10 @@ def lvli_drop_rate_from_cobj_lvli(
                 list_row = lr
                 break
 
-        # Global-first rule (entry-level then list-level)
+        # Global-first rule (entry-level then list-level).
+        # NOTE: LVOC/LVCT curves are included regardless of whether they contain
+        # ":GLOB" — the old guard was too strict and caused N/A when Bethesda stored
+        # curve references as plain FormIDs or bracket notation.
         candidates: List[str] = []
 
         lvog = (entry_row.get("LVOG_ChanceNoneGlobal") or "").strip()
@@ -638,7 +641,7 @@ def lvli_drop_rate_from_cobj_lvli(
             candidates.append(lvog)
 
         lvoc = (entry_row.get("LVOC_ChanceNoneCurve") or "").strip()
-        if lvoc and ":GLOB" in lvoc.upper():
+        if lvoc:
             candidates.append(lvoc)
 
         if list_row:
@@ -647,7 +650,7 @@ def lvli_drop_rate_from_cobj_lvli(
                 candidates.append(lvlg)
 
             lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
-            if lvct and ":GLOB" in lvct.upper():
+            if lvct:
                 candidates.append(lvct)
 
         for glob_field in candidates:
@@ -658,8 +661,16 @@ def lvli_drop_rate_from_cobj_lvli(
             if dr2:
                 return dr2
 
-        # Fallback: LVOV ChanceNoneValue on the entry row
-        chance_none = safe_float(entry_row.get("LVOV_ChanceNoneValue") or "", None)
+        # Fallback: LVOV ChanceNoneValue on the entry row.
+        raw_cn = (entry_row.get("LVOV_ChanceNoneValue") or "").strip()
+
+        # Blank/missing ChanceNone means the engine treats it as 0, i.e. the item
+        # always appears when its tier list is selected (100% within that tier).
+        # Returning None here was causing spurious "N/A" for Best/Tier-3 drops.
+        if not raw_cn:
+            return "100%"
+
+        chance_none = safe_float(raw_cn, None)
         if chance_none is None:
             return None
         if abs(chance_none) < 1e-9:
@@ -787,7 +798,7 @@ def lvli_drop_rate_from_cobj_lvli(
         candidates.append(lvog)
 
     lvoc = (best.get("LVOC_ChanceNoneCurve") or "").strip()
-    if lvoc and ":GLOB" in lvoc.upper():
+    if lvoc:  # was: "if lvoc and ':GLOB' in lvoc.upper()" — too strict
         candidates.append(lvoc)
 
     if list_row:
@@ -796,7 +807,7 @@ def lvli_drop_rate_from_cobj_lvli(
             candidates.append(lvlg)
 
         lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
-        if lvct and ":GLOB" in lvct.upper():
+        if lvct:  # was: "if lvct and ':GLOB' in lvct.upper()" — too strict
             candidates.append(lvct)
 
     for glob_field in candidates:
@@ -807,8 +818,13 @@ def lvli_drop_rate_from_cobj_lvli(
         if dr:
             return dr
 
-    # Fallback: LVOV_ChanceNoneValue
-    chance_none = safe_float(best.get("LVOV_ChanceNoneValue") or "", None)
+    # Fallback: LVOV_ChanceNoneValue.
+    # Blank/missing = engine treats as 0 = item always drops (100%).
+    raw_cn = (best.get("LVOV_ChanceNoneValue") or "").strip()
+    if not raw_cn:
+        return "100%"
+
+    chance_none = safe_float(raw_cn, None)
     if chance_none is None:
         return None
     if abs(chance_none) < 1e-9:
@@ -835,6 +851,16 @@ def _glob_formid_from_lvli_global_field(s: str) -> Optional[str]:
     m2 = re.search(r"\[GLOB:([0-9A-Fa-f]{8})\]", s)
     if m2:
         return m2.group(1).upper()
+
+    # Format C: bare 8-hex FormID (e.g. curve reference without type annotation)
+    m3 = re.fullmatch(r"[0-9A-Fa-f]{8}", s)
+    if m3:
+        return s.upper()
+
+    # Format D: any 8-hex FormID embedded in a longer string (bracket notation etc.)
+    m4 = re.search(r"\b([0-9A-Fa-f]{8})\b", s)
+    if m4:
+        return m4.group(1).upper()
 
     return None
 
