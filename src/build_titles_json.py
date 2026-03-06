@@ -2077,10 +2077,11 @@ def main() -> int:
 
         fid8 = (form_id or "").strip().upper()
 
-        if fid8 in prev_camp_release:
-            release_date = prev_camp_release[fid8]
-        elif fid8 in overrides:
+        # Priority: overrides (explicit manual) > prev dist (persistence) > today (new)
+        if fid8 in overrides:
             release_date = overrides[fid8]
+        elif fid8 in prev_camp_release:
+            release_date = prev_camp_release[fid8]
         else:
             release_date = today_str
 
@@ -2154,10 +2155,11 @@ def main() -> int:
 
         fid8 = (form_id or "").strip().upper()
 
-        if fid8 in prev_player_release:
-            release_date = prev_player_release[fid8]
-        elif fid8 in overrides:
+        # Priority: overrides (explicit manual) > prev dist (persistence) > today (new)
+        if fid8 in overrides:
             release_date = overrides[fid8]
+        elif fid8 in prev_player_release:
+            release_date = prev_player_release[fid8]
         else:
             release_date = today_str
 
