@@ -77,6 +77,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -562,6 +563,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -1038,6 +1040,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -6178,6 +6181,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -11315,22 +11319,21 @@
           "meta": {
             "source": "GMRW"
           }
-        },
+        }
+      ],
+      "conditionalRewards": [
         {
-          "label": "Guaranteed Reward",
-          "value": "Plan: Operative Underarmor Style x1",
-          "meta": {
-            "source": "GMRW",
-            "rewardedItem": "0089D6AB:recipe_mod_armor_UnderArmor_style_Enclave:BOOK",
-            "conditions": [
-              "GetRandomPercent 10100000 5.000000",
-              "GetRandomPercent"
-            ],
-            "name": "Plan: Operative Underarmor Style",
-            "qty": "1",
-            "isPlan": true,
-            "isUnique": false
-          }
+          "formid": "0089D6AB",
+          "name": "Plan: Operative Underarmor Style",
+          "qty": "1",
+          "poolChance": 0.25,
+          "isPlan": true,
+          "conditions": [
+            "GetRandomPercent 10100000 5.000000",
+            "GetRandomPercent",
+            "GetRandomPercent <= 5.000000"
+          ],
+          "source": "GMRW"
         }
       ],
       "baseRewards": {
@@ -16475,288 +16478,289 @@
           "count": "1",
           "conditions": [
             "GetRandomPercent 10100000 10.000000",
-            "GetRandomPercent"
+            "GetRandomPercent",
+            "GetRandomPercent <= 10.000000"
           ],
-          "poolChance": 100.0,
+          "poolChance": 1.0,
           "poolTypes": [],
           "items": [
             {
               "formid": "0031D59D",
               "name": "Enclave Plasma Gun Aligned Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D581",
               "name": "Enclave Plasma Gun Aligned Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D588",
               "name": "Enclave Plasma Gun Aligned Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D596",
               "name": "Enclave Plasma Gun Aligned Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58F",
               "name": "Enclave Plasma Gun Aligned Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D599",
               "name": "Enclave Plasma Gun Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E3",
               "name": "Enclave Plasma Gun Bruising Grip",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EB",
               "name": "Enclave Plasma Gun Calibrated Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DE",
               "name": "Enclave Plasma Gun Comfort Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D57D",
               "name": "Enclave Plasma Gun Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E2",
               "name": "Enclave Plasma Gun Forceful Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E8",
               "name": "Enclave Plasma Gun Gamma Wave Emitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293F7",
               "name": "Enclave Plasma Gun Long Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293FB",
               "name": "Enclave Plasma Gun Long Recon Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293F3",
               "name": "Enclave Plasma Gun Long Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329403",
               "name": "Enclave Plasma Gun Medium Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293FF",
               "name": "Enclave Plasma Gun Medium Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DF",
               "name": "Enclave Plasma Gun Precise Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EA",
               "name": "Enclave Plasma Gun Refined Beta Wave Tuner",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329405",
               "name": "Enclave Plasma Gun Reflex Sight",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E9",
               "name": "Enclave Plasma Gun Severe Beta Wave Tuner",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0032940C",
               "name": "Enclave Plasma Gun Short Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329410",
               "name": "Enclave Plasma Gun Short Recon Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329408",
               "name": "Enclave Plasma Gun Short Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D592",
               "name": "Enclave Plasma Gun Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58B",
               "name": "Enclave Plasma Gun Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D59C",
               "name": "Enclave Plasma Gun Stabilized Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D580",
               "name": "Enclave Plasma Gun Stabilized Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D587",
               "name": "Enclave Plasma Gun Stabilized Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D595",
               "name": "Enclave Plasma Gun Stabilized Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58E",
               "name": "Enclave Plasma Gun Stabilized Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E0",
               "name": "Enclave Plasma Gun Stabilized Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D59A",
               "name": "Enclave Plasma Gun True Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EE",
               "name": "Enclave Plasma Gun True Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D57E",
               "name": "Enclave Plasma Gun True Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D585",
               "name": "Enclave Plasma Gun True Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D593",
               "name": "Enclave Plasma Gun True Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58C",
               "name": "Enclave Plasma Gun True Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DC",
               "name": "Enclave Plasma Gun True Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293ED",
               "name": "Enclave Plasma Gun Vicious Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             }
@@ -16833,22 +16837,21 @@
           "meta": {
             "source": "GMRW"
           }
-        },
+        }
+      ],
+      "conditionalRewards": [
         {
-          "label": "Guaranteed Reward",
-          "value": "Plan: Operative Underarmor Style x1",
-          "meta": {
-            "source": "GMRW",
-            "rewardedItem": "0089D6AB:recipe_mod_armor_UnderArmor_style_Enclave:BOOK",
-            "conditions": [
-              "GetRandomPercent 10100000 5.000000",
-              "GetRandomPercent"
-            ],
-            "name": "Plan: Operative Underarmor Style",
-            "qty": "1",
-            "isPlan": true,
-            "isUnique": false
-          }
+          "formid": "0089D6AB",
+          "name": "Plan: Operative Underarmor Style",
+          "qty": "1",
+          "poolChance": 0.25,
+          "isPlan": true,
+          "conditions": [
+            "GetRandomPercent 10100000 5.000000",
+            "GetRandomPercent",
+            "GetRandomPercent <= 5.000000"
+          ],
+          "source": "GMRW"
         }
       ],
       "baseRewards": {
@@ -21993,288 +21996,289 @@
           "count": "1",
           "conditions": [
             "GetRandomPercent 10100000 10.000000",
-            "GetRandomPercent"
+            "GetRandomPercent",
+            "GetRandomPercent <= 10.000000"
           ],
-          "poolChance": 100.0,
+          "poolChance": 1.0,
           "poolTypes": [],
           "items": [
             {
               "formid": "0031D59D",
               "name": "Enclave Plasma Gun Aligned Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D581",
               "name": "Enclave Plasma Gun Aligned Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D588",
               "name": "Enclave Plasma Gun Aligned Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D596",
               "name": "Enclave Plasma Gun Aligned Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58F",
               "name": "Enclave Plasma Gun Aligned Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D599",
               "name": "Enclave Plasma Gun Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E3",
               "name": "Enclave Plasma Gun Bruising Grip",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EB",
               "name": "Enclave Plasma Gun Calibrated Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DE",
               "name": "Enclave Plasma Gun Comfort Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D57D",
               "name": "Enclave Plasma Gun Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E2",
               "name": "Enclave Plasma Gun Forceful Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E8",
               "name": "Enclave Plasma Gun Gamma Wave Emitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293F7",
               "name": "Enclave Plasma Gun Long Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293FB",
               "name": "Enclave Plasma Gun Long Recon Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293F3",
               "name": "Enclave Plasma Gun Long Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329403",
               "name": "Enclave Plasma Gun Medium Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293FF",
               "name": "Enclave Plasma Gun Medium Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DF",
               "name": "Enclave Plasma Gun Precise Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EA",
               "name": "Enclave Plasma Gun Refined Beta Wave Tuner",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329405",
               "name": "Enclave Plasma Gun Reflex Sight",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E9",
               "name": "Enclave Plasma Gun Severe Beta Wave Tuner",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0032940C",
               "name": "Enclave Plasma Gun Short Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329410",
               "name": "Enclave Plasma Gun Short Recon Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329408",
               "name": "Enclave Plasma Gun Short Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D592",
               "name": "Enclave Plasma Gun Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58B",
               "name": "Enclave Plasma Gun Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D59C",
               "name": "Enclave Plasma Gun Stabilized Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D580",
               "name": "Enclave Plasma Gun Stabilized Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D587",
               "name": "Enclave Plasma Gun Stabilized Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D595",
               "name": "Enclave Plasma Gun Stabilized Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58E",
               "name": "Enclave Plasma Gun Stabilized Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E0",
               "name": "Enclave Plasma Gun Stabilized Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D59A",
               "name": "Enclave Plasma Gun True Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EE",
               "name": "Enclave Plasma Gun True Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D57E",
               "name": "Enclave Plasma Gun True Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D585",
               "name": "Enclave Plasma Gun True Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D593",
               "name": "Enclave Plasma Gun True Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58C",
               "name": "Enclave Plasma Gun True Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DC",
               "name": "Enclave Plasma Gun True Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293ED",
               "name": "Enclave Plasma Gun Vicious Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             }
@@ -22291,6 +22295,7 @@
       "name": "Atlantic City Expos",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -22309,6 +22314,7 @@
       "name": "Atlantic City Expos",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -22360,6 +22366,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -27464,6 +27471,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -32628,6 +32636,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -37812,6 +37821,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -42951,6 +42961,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -48090,6 +48101,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -53214,6 +53226,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -54500,6 +54513,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -55813,22 +55827,21 @@
           "meta": {
             "source": "GMRW"
           }
-        },
+        }
+      ],
+      "conditionalRewards": [
         {
-          "label": "Guaranteed Reward",
-          "value": "Plan: Operative Underarmor Style x1",
-          "meta": {
-            "source": "GMRW",
-            "rewardedItem": "0089D6AB:recipe_mod_armor_UnderArmor_style_Enclave:BOOK",
-            "conditions": [
-              "GetRandomPercent 10100000 5.000000",
-              "GetRandomPercent"
-            ],
-            "name": "Plan: Operative Underarmor Style",
-            "qty": "1",
-            "isPlan": true,
-            "isUnique": false
-          }
+          "formid": "0089D6AB",
+          "name": "Plan: Operative Underarmor Style",
+          "qty": "1",
+          "poolChance": 0.25,
+          "isPlan": true,
+          "conditions": [
+            "GetRandomPercent 10100000 5.000000",
+            "GetRandomPercent",
+            "GetRandomPercent <= 5.000000"
+          ],
+          "source": "GMRW"
         }
       ],
       "baseRewards": {
@@ -60973,288 +60986,289 @@
           "count": "1",
           "conditions": [
             "GetRandomPercent 10100000 10.000000",
-            "GetRandomPercent"
+            "GetRandomPercent",
+            "GetRandomPercent <= 10.000000"
           ],
-          "poolChance": 100.0,
+          "poolChance": 1.0,
           "poolTypes": [],
           "items": [
             {
               "formid": "0031D59D",
               "name": "Enclave Plasma Gun Aligned Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D581",
               "name": "Enclave Plasma Gun Aligned Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D588",
               "name": "Enclave Plasma Gun Aligned Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D596",
               "name": "Enclave Plasma Gun Aligned Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58F",
               "name": "Enclave Plasma Gun Aligned Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D599",
               "name": "Enclave Plasma Gun Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E3",
               "name": "Enclave Plasma Gun Bruising Grip",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EB",
               "name": "Enclave Plasma Gun Calibrated Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DE",
               "name": "Enclave Plasma Gun Comfort Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D57D",
               "name": "Enclave Plasma Gun Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E2",
               "name": "Enclave Plasma Gun Forceful Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E8",
               "name": "Enclave Plasma Gun Gamma Wave Emitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293F7",
               "name": "Enclave Plasma Gun Long Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293FB",
               "name": "Enclave Plasma Gun Long Recon Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293F3",
               "name": "Enclave Plasma Gun Long Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329403",
               "name": "Enclave Plasma Gun Medium Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293FF",
               "name": "Enclave Plasma Gun Medium Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DF",
               "name": "Enclave Plasma Gun Precise Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EA",
               "name": "Enclave Plasma Gun Refined Beta Wave Tuner",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329405",
               "name": "Enclave Plasma Gun Reflex Sight",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E9",
               "name": "Enclave Plasma Gun Severe Beta Wave Tuner",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0032940C",
               "name": "Enclave Plasma Gun Short Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329410",
               "name": "Enclave Plasma Gun Short Recon Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329408",
               "name": "Enclave Plasma Gun Short Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D592",
               "name": "Enclave Plasma Gun Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58B",
               "name": "Enclave Plasma Gun Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D59C",
               "name": "Enclave Plasma Gun Stabilized Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D580",
               "name": "Enclave Plasma Gun Stabilized Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D587",
               "name": "Enclave Plasma Gun Stabilized Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D595",
               "name": "Enclave Plasma Gun Stabilized Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58E",
               "name": "Enclave Plasma Gun Stabilized Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E0",
               "name": "Enclave Plasma Gun Stabilized Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D59A",
               "name": "Enclave Plasma Gun True Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EE",
               "name": "Enclave Plasma Gun True Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D57E",
               "name": "Enclave Plasma Gun True Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D585",
               "name": "Enclave Plasma Gun True Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D593",
               "name": "Enclave Plasma Gun True Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58C",
               "name": "Enclave Plasma Gun True Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DC",
               "name": "Enclave Plasma Gun True Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293ED",
               "name": "Enclave Plasma Gun Vicious Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             }
@@ -61331,22 +61345,21 @@
           "meta": {
             "source": "GMRW"
           }
-        },
+        }
+      ],
+      "conditionalRewards": [
         {
-          "label": "Guaranteed Reward",
-          "value": "Plan: Operative Underarmor Style x1",
-          "meta": {
-            "source": "GMRW",
-            "rewardedItem": "0089D6AB:recipe_mod_armor_UnderArmor_style_Enclave:BOOK",
-            "conditions": [
-              "GetRandomPercent 10100000 5.000000",
-              "GetRandomPercent"
-            ],
-            "name": "Plan: Operative Underarmor Style",
-            "qty": "1",
-            "isPlan": true,
-            "isUnique": false
-          }
+          "formid": "0089D6AB",
+          "name": "Plan: Operative Underarmor Style",
+          "qty": "1",
+          "poolChance": 0.25,
+          "isPlan": true,
+          "conditions": [
+            "GetRandomPercent 10100000 5.000000",
+            "GetRandomPercent",
+            "GetRandomPercent <= 5.000000"
+          ],
+          "source": "GMRW"
         }
       ],
       "baseRewards": {
@@ -66491,288 +66504,289 @@
           "count": "1",
           "conditions": [
             "GetRandomPercent 10100000 10.000000",
-            "GetRandomPercent"
+            "GetRandomPercent",
+            "GetRandomPercent <= 10.000000"
           ],
-          "poolChance": 100.0,
+          "poolChance": 1.0,
           "poolTypes": [],
           "items": [
             {
               "formid": "0031D59D",
               "name": "Enclave Plasma Gun Aligned Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D581",
               "name": "Enclave Plasma Gun Aligned Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D588",
               "name": "Enclave Plasma Gun Aligned Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D596",
               "name": "Enclave Plasma Gun Aligned Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58F",
               "name": "Enclave Plasma Gun Aligned Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D599",
               "name": "Enclave Plasma Gun Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E3",
               "name": "Enclave Plasma Gun Bruising Grip",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EB",
               "name": "Enclave Plasma Gun Calibrated Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DE",
               "name": "Enclave Plasma Gun Comfort Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D57D",
               "name": "Enclave Plasma Gun Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E2",
               "name": "Enclave Plasma Gun Forceful Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E8",
               "name": "Enclave Plasma Gun Gamma Wave Emitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293F7",
               "name": "Enclave Plasma Gun Long Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293FB",
               "name": "Enclave Plasma Gun Long Recon Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293F3",
               "name": "Enclave Plasma Gun Long Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329403",
               "name": "Enclave Plasma Gun Medium Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293FF",
               "name": "Enclave Plasma Gun Medium Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DF",
               "name": "Enclave Plasma Gun Precise Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EA",
               "name": "Enclave Plasma Gun Refined Beta Wave Tuner",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329405",
               "name": "Enclave Plasma Gun Reflex Sight",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E9",
               "name": "Enclave Plasma Gun Severe Beta Wave Tuner",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0032940C",
               "name": "Enclave Plasma Gun Short Night Vision Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329410",
               "name": "Enclave Plasma Gun Short Recon Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "00329408",
               "name": "Enclave Plasma Gun Short Scope",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D592",
               "name": "Enclave Plasma Gun Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58B",
               "name": "Enclave Plasma Gun Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D59C",
               "name": "Enclave Plasma Gun Stabilized Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D580",
               "name": "Enclave Plasma Gun Stabilized Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D587",
               "name": "Enclave Plasma Gun Stabilized Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D595",
               "name": "Enclave Plasma Gun Stabilized Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58E",
               "name": "Enclave Plasma Gun Stabilized Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293E0",
               "name": "Enclave Plasma Gun Stabilized Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D59A",
               "name": "Enclave Plasma Gun True Automatic Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293EE",
               "name": "Enclave Plasma Gun True Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D57E",
               "name": "Enclave Plasma Gun True Flamer Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D585",
               "name": "Enclave Plasma Gun True Short Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D593",
               "name": "Enclave Plasma Gun True Sniper Barrel",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "0031D58C",
               "name": "Enclave Plasma Gun True Splitter",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293DC",
               "name": "Enclave Plasma Gun True Stock",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             },
             {
               "formid": "003293ED",
               "name": "Enclave Plasma Gun Vicious Capacitor",
-              "dropRate": 100.0,
+              "dropRate": 1.0,
               "qty": 1,
               "isPlan": false
             }
@@ -66865,6 +66879,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -72003,6 +72018,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -77083,6 +77099,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -77126,6 +77143,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -77151,6 +77169,7 @@
       "name": "Caravans: Milepost Zero",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -77169,6 +77188,7 @@
       "name": "Caravans: Milepost Zero",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -77220,6 +77240,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -82310,6 +82331,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -87385,6 +87407,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -92454,6 +92477,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -97505,6 +97529,7 @@
       "name": "Daily Ops",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -97523,6 +97548,7 @@
       "name": "Daily Ops",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -97543,6 +97569,7 @@
       "isPublicEvent": false,
       "description": "Some settlers require help with their thrill-seeking activities.",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -97557,6 +97584,7 @@
       "isPublicEvent": false,
       "description": "Some settlers require help with their thrill-seeking activities.",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -97616,6 +97644,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -102713,6 +102742,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -107818,6 +107848,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -113391,6 +113422,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -118911,6 +118943,7 @@
       "isPublicEvent": false,
       "description": "Manages robot waitstaff when event is not running",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -118925,6 +118958,7 @@
       "isPublicEvent": false,
       "description": "Manages robot waitstaff when event is not running",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -118984,6 +119018,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -120002,6 +120037,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -121006,6 +121042,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -126209,6 +126246,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -131381,6 +131419,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -131395,6 +131434,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -131440,6 +131480,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -131926,6 +131967,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -132379,6 +132421,7 @@
       "name": "Fasnacht Day Parade",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -132397,6 +132440,7 @@
       "name": "Fasnacht Day Parade",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -132469,6 +132513,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -132807,6 +132852,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -133139,6 +133185,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -138257,6 +138304,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -143382,6 +143430,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -148528,6 +148577,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -153637,6 +153687,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -154659,6 +154710,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -155663,6 +155715,7 @@
       "name": "Gearing Up",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155681,6 +155734,7 @@
       "name": "Gearing Up",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155699,6 +155753,7 @@
       "name": "Gleaming Depths Stage 1",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155717,6 +155772,7 @@
       "name": "Gleaming Depths Stage 1",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155735,6 +155791,7 @@
       "name": "Gleaming Depths Stage 2",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155753,6 +155810,7 @@
       "name": "Gleaming Depths Stage 2",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155771,6 +155829,7 @@
       "name": "Gleaming Depths Stage 3",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155789,6 +155848,7 @@
       "name": "Gleaming Depths Stage 3",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155807,6 +155867,7 @@
       "name": "Gleaming Depths Stage 4",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155825,6 +155886,7 @@
       "name": "Gleaming Depths Stage 4",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155843,6 +155905,7 @@
       "name": "Gleaming Depths Stage 5",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155861,6 +155924,7 @@
       "name": "Gleaming Depths Stage 5",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -155912,6 +155976,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -161016,6 +161081,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -166120,6 +166186,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -166571,6 +166638,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -166989,6 +167057,7 @@
       "name": "Halloween Scorched",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -167007,6 +167076,7 @@
       "name": "Halloween Scorched",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -167058,6 +167128,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -167480,6 +167551,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -167869,6 +167941,7 @@
       "name": "Holiday Scorched",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -167887,6 +167960,7 @@
       "name": "Holiday Scorched",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -167967,6 +168041,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -168601,6 +168676,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -169206,6 +169282,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -174310,6 +174387,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -179429,6 +179507,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -184582,6 +184661,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -189770,6 +189850,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -191720,6 +191801,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -193642,6 +193724,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -198788,6 +198871,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -203912,6 +203996,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -204357,6 +204442,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -204771,6 +204857,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -204785,6 +204872,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -204830,6 +204918,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -209934,6 +210023,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -215007,6 +215097,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -215021,6 +215112,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -215058,6 +215150,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -215794,6 +215887,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -216683,6 +216777,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -236992,6 +237087,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -257347,6 +257443,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -258299,6 +258396,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -259083,6 +259181,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -259906,6 +260005,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -260764,6 +260864,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -262687,6 +262788,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -264519,6 +264621,7 @@
       "name": "Mutated Public Events",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -264537,6 +264640,7 @@
       "name": "Mutated Public Events",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -264722,6 +264826,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -265788,6 +265893,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -266689,6 +266795,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -266703,6 +266810,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -266755,6 +266863,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -271846,6 +271955,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -276897,6 +277007,7 @@
       "name": "Powering Up Power Station",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -276915,6 +277026,7 @@
       "name": "Powering Up Power Station",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -276982,6 +277094,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -282109,6 +282222,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -287343,6 +287457,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -290065,6 +290180,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -292664,6 +292780,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -297768,6 +297885,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -302885,6 +303003,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -312023,6 +312142,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -321230,6 +321350,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -326522,6 +326643,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -331747,6 +331869,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -333111,6 +333234,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -334529,6 +334653,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -335043,6 +335168,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -335457,6 +335583,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -335471,6 +335598,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -335485,6 +335613,7 @@
       "isPublicEvent": false,
       "description": "Willow requires assistance in ending an infestation.",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -335499,6 +335628,7 @@
       "isPublicEvent": false,
       "description": "Willow requires assistance in ending an infestation.",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -335544,6 +335674,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -336166,6 +336297,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -336793,22 +336925,21 @@
           "meta": {
             "source": "GMRW"
           }
-        },
+        }
+      ],
+      "conditionalRewards": [
         {
-          "label": "Guaranteed Reward",
-          "value": "Plan: Brotherhood Civvies x1",
-          "meta": {
-            "source": "GMRW",
-            "rewardedItem": "00606C94:Recipe_Clothes_BrotherhoodCivvies:BOOK",
-            "conditions": [
-              "GetRandomPercent 11000000 85.000000,\"HasLearnedRecipe 10000000 0.000000\"",
-              "GetRandomPercent"
-            ],
-            "name": "Plan: Brotherhood Civvies",
-            "qty": "1",
-            "isPlan": true,
-            "isUnique": false
-          }
+          "formid": "00606C94",
+          "name": "Plan: Brotherhood Civvies",
+          "qty": "1",
+          "poolChance": 72.25,
+          "isPlan": true,
+          "conditions": [
+            "GetRandomPercent 11000000 85.000000,\"HasLearnedRecipe 10000000 0.000000\"",
+            "GetRandomPercent",
+            "GetRandomPercent <= 85.000000"
+          ],
+          "source": "GMRW"
         }
       ],
       "baseRewards": {
@@ -341901,22 +342032,21 @@
           "meta": {
             "source": "GMRW"
           }
-        },
+        }
+      ],
+      "conditionalRewards": [
         {
-          "label": "Guaranteed Reward",
-          "value": "Plan: Brotherhood Civvies x1",
-          "meta": {
-            "source": "GMRW",
-            "rewardedItem": "00606C94:Recipe_Clothes_BrotherhoodCivvies:BOOK",
-            "conditions": [
-              "GetRandomPercent 11000000 85.000000,\"HasLearnedRecipe 10000000 0.000000\"",
-              "GetRandomPercent"
-            ],
-            "name": "Plan: Brotherhood Civvies",
-            "qty": "1",
-            "isPlan": true,
-            "isUnique": false
-          }
+          "formid": "00606C94",
+          "name": "Plan: Brotherhood Civvies",
+          "qty": "1",
+          "poolChance": 72.25,
+          "isPlan": true,
+          "conditions": [
+            "GetRandomPercent 11000000 85.000000,\"HasLearnedRecipe 10000000 0.000000\"",
+            "GetRandomPercent",
+            "GetRandomPercent <= 85.000000"
+          ],
+          "source": "GMRW"
         }
       ],
       "baseRewards": {
@@ -347025,6 +347155,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -348189,6 +348320,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -349332,6 +349464,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -349684,6 +349817,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -350117,6 +350251,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -352669,6 +352804,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -355146,6 +355282,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -355540,6 +355677,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -355928,6 +356066,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -356266,6 +356405,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -356571,6 +356711,7 @@
       "name": "The Pitt Expos",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -356589,6 +356730,7 @@
       "name": "The Pitt Expos",
       "gameName": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -356609,6 +356751,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -356623,6 +356766,7 @@
       "isPublicEvent": false,
       "description": "",
       "freeRewards": [],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": []
       },
@@ -356668,6 +356812,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -357103,6 +357248,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -357720,6 +357866,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
@@ -358359,6 +358506,7 @@
           }
         }
       ],
+      "conditionalRewards": [],
       "baseRewards": {
         "tiers": [
           {
