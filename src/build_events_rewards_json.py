@@ -671,39 +671,34 @@ ENCLAVE_ACTIVITIES_LVLI = "008A9106"
 # Falls back gracefully if the file is missing.
 # --------------------------------------------------
 
-def _load_region_location_xlsx(path="tsv/events_region_location.xlsx"):
+def _load_region_location_tsv(path="tsv/events_region_location.tsv"):
     """
-    Reads events_region_location.xlsx and returns a dict:
+    Reads events_region_location.tsv and returns a dict:
       { norm_name(activity_name): [ {"region": str, "location": str}, ... ] }
-    Row 1 = header, Row 2 = warning note (skipped), Row 3+ = data.
+    Columns: "Activity / Event Name", "Region", "Location / LCTN"
     """
     from collections import defaultdict
     out = defaultdict(list)
     try:
-        import openpyxl
-        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-        ws = wb.active
-        for i, row in enumerate(ws.iter_rows(values_only=True)):
-            if i < 2: continue          # skip header + warning row
-            name, region, location = (str(row[0] or "").strip(),
-                                      str(row[1] or "").strip(),
-                                      str(row[2] or "").strip())
+        rows = read_tsv(path)
+        for row in rows:
+            name     = str(row.get("Activity / Event Name") or "").strip()
+            region   = str(row.get("Region") or "").strip()
+            location = str(row.get("Location / LCTN") or "").strip()
             if not name: continue
-            # Strip leading "Activity: " so norm_name matches event_key
-            bare = re.sub(r"^activity:\s*", "", name, flags=re.IGNORECASE).strip()
+            # Strip leading prefix so norm_name matches the event_key from the guide slug
+            bare = re.sub(r"^(enclave\s+)?activity:\s*", "", name, flags=re.IGNORECASE).strip()
+            bare = re.sub(r"^event:\s*", "", bare, flags=re.IGNORECASE).strip()
             key  = norm_name(bare)
             if key:
                 out[key].append({"region": region, "location": location})
-        wb.close()
     except FileNotFoundError:
-        print(f"[WARN] Region/location xlsx not found at {path} — region data will be empty.")
-    except ImportError:
-        print("[WARN] openpyxl not installed — region data will be empty. Run: pip install openpyxl")
+        print(f"[WARN] Region/location TSV not found at {path} — region data will be empty.")
     except Exception as e:
-        print(f"[WARN] Could not read region/location xlsx: {e}")
+        print(f"[WARN] Could not read region/location TSV: {e}")
     return dict(out)
 
-ACTIVITY_REGION_LOCATIONS = _load_region_location_xlsx()
+ACTIVITY_REGION_LOCATIONS = _load_region_location_tsv()
 
 # Maps known regional sub-LVLI EDID substrings to region display names.
 # Used to tag items in regional schematic pools with their region.

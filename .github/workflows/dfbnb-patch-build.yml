@@ -8,6 +8,7 @@ on:
       - "tsv/**"
       - "tools/**"
       - "src/**"
+      - "data/**"
       - ".github/workflows/dfbnb-patch-build.yml"
 
 permissions:
@@ -33,6 +34,11 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas
+
       # --- TITLES ---
       - name: Build Titles JSON
         run: |
@@ -41,12 +47,50 @@ jobs:
             --seasons tsv/fallout76_seasons.tsv \
             --outdir dist
 
+      - name: Stage patchlog latest (titles -> generic)
+        run: cp dist/titles_patchlog.json dist/patchlog_latest_titles.json
+
+      - name: Build patchlog manifest (from guide_index.tsv)
+        run: |
+          python src/build_patchlog_manifest_from_guide_index.py \
+            --guide-index tsv/guide_index.tsv \
+            --out dist/patchlog_manifest.json \
+            --dist-base-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/dist" \
+            --titles-feed patchlog_latest_titles.json
+
+      - name: Append patchlog history (append-only)
+        run: |
+          python src/append_patchlog_history.py \
+            --latest dist/patchlog_latest_titles.json \
+            --history dist/patchlog_history.json \
+            --kind titles
+
       - name: Build Titles Generator JSON
         run: python src/build_titles_generator_json.py
 
+      - name: Build Camp Titles Manifest
+        run: python src/build_titles.py
+
       # --- CURVES ---
+      - name: Locate latest CURV points TSV
+        shell: bash
+        run: |
+          FILE=$(ls -1 tsv/CURV_Export_*_POINTS.tsv 2>/dev/null | sort | tail -n 1)
+          if [ -z "$FILE" ]; then
+            echo "ERROR: No CURV_Export_*_POINTS.tsv found in tsv/"
+            exit 1
+          fi
+          echo "CURV_POINTS_TSV=$FILE" >> $GITHUB_ENV
+          echo "Using CURV points TSV: $FILE"
+
       - name: Build Curves JSON
-        run: node tools/build_curves_json.mjs
+        shell: bash
+        run: |
+          mkdir -p dist/curves
+          CURV_POINTS_TSV="${CURV_POINTS_TSV}" \
+          CURV_OUT_DIR="dist/curves" \
+          CURV_CHUNK_MAX_CURVES="200" \
+          node tools/build_curves_json.mjs
 
       # --- EVENTS REWARDS ---
       - name: Build Events Rewards JSON
@@ -55,6 +99,10 @@ jobs:
       # --- CHALLENGES ---
       - name: Build Challenges JSON
         run: python src/build_challenges_json.py
+
+      # --- CHAL LATEST / PREVIOUS ---
+      - name: Build CHAL Latest/Previous JSON
+        run: python src/build_chal_latest_previous.py
 
       # --- DF CALCULATORS ---
       - name: Pick newest TSVs (DF Calculators)
@@ -68,6 +116,7 @@ jobs:
 
           FLST_TSV="$(newest "tsv/FLST_Export_*.tsv")"
           ARMO_TSV="$(newest "tsv/ARMO_Export_*.tsv")"
+          ENTM_TSV="$(newest "tsv/ENTM_Export_*.tsv")"
           COBJ_TSV="$(newest "tsv/COBJ_Export_*.tsv")"
 
           if [ -z "$FLST_TSV" ]; then echo "Missing FLST TSV (tsv/FLST_Export_*.tsv)"; exit 1; fi
@@ -76,11 +125,13 @@ jobs:
 
           echo "FLST_TSV=$FLST_TSV" >> $GITHUB_ENV
           echo "ARMO_BOD2_TSV=$ARMO_TSV" >> $GITHUB_ENV
+          echo "ENTM_TSV=$ENTM_TSV" >> $GITHUB_ENV
           echo "COBJ_TSV=$COBJ_TSV" >> $GITHUB_ENV
 
           echo "Using:"
           echo "  FLST_TSV=$FLST_TSV"
           echo "  ARMO_BOD2_TSV=$ARMO_TSV"
+          echo "  ENTM_TSV=$ENTM_TSV"
           echo "  COBJ_TSV=$COBJ_TSV"
 
       - name: Build DF Calculators JSON
@@ -88,8 +139,20 @@ jobs:
         env:
           FLST_TSV: ${{ env.FLST_TSV }}
           ARMO_BOD2_TSV: ${{ env.ARMO_BOD2_TSV }}
+          ENTM_TSV: ${{ env.ENTM_TSV }}
           COBJ_TSV: ${{ env.COBJ_TSV }}
           OUT_DIR: dist/calculators
+
+      # --- ARMOUR DATA ---
+      - name: Build Armour Data JSON
+        run: python build_armour_json.py --data-dir data --out dist/armour.json
+
+      # --- CAMP ITEMS ---
+      - name: Build Camp Items JSON
+        run: |
+          python src/build_camp_items_json.py \
+            --tsv-root tsv \
+            --outdir dist
 
       # --- PLAN MASTER ---
       - name: Build Plan Master JSON
@@ -105,13 +168,19 @@ jobs:
       - name: Build Home Events JSON
         run: node tools/build-home-events-json.mjs
 
+      # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |
           ls -la dist || true
-          test -f dist/titles_camp.json && echo "OK titles_camp.json" || (echo "Missing titles_camp.json" && exit 1)
-          test -f dist/titles_player.json && echo "OK titles_player.json" || (echo "Missing titles_player.json" && exit 1)
-          test -f dist/curves/index.json && echo "OK curves/index.json" || (echo "Missing curves/index.json" && exit 1)
-          test -f dist/challenges/challenges.json && echo "OK challenges/challenges.json" || (echo "Missing challenges/challenges.json" && exit 1)
+          test -f dist/titles_camp.json          && echo "OK titles_camp.json"          || (echo "MISSING titles_camp.json" && exit 1)
+          test -f dist/titles_player.json        && echo "OK titles_player.json"        || (echo "MISSING titles_player.json" && exit 1)
+          test -f dist/titles_manifest.json      && echo "OK titles_manifest.json"      || (echo "MISSING titles_manifest.json" && exit 1)
+          test -f dist/curves/index.json         && echo "OK curves/index.json"         || (echo "MISSING curves/index.json" && exit 1)
+          test -f dist/challenges/challenges.json && echo "OK challenges/challenges.json" || (echo "MISSING challenges/challenges.json" && exit 1)
+          test -f dist/chal_latest.json          && echo "OK chal_latest.json"          || (echo "MISSING chal_latest.json" && exit 1)
+          test -f dist/armour.json               && echo "OK armour.json"               || (echo "MISSING armour.json" && exit 1)
+          test -f dist/collectrons.json          && echo "OK collectrons.json"          || (echo "MISSING collectrons.json" && exit 1)
+          test -f dist/resource_producers.json   && echo "OK resource_producers.json"   || (echo "MISSING resource_producers.json" && exit 1)
 
       # --- COMMIT ONCE ---
       - name: Commit & Push
