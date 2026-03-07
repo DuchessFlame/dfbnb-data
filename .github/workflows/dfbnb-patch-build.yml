@@ -145,7 +145,7 @@ jobs:
 
       # --- ARMOUR DATA ---
       - name: Build Armour Data JSON
-        run: python build_armour_json.py --data-dir data --out dist/armour.json
+        run: python src/build_armour_json.py --data-dir data --out dist/armour.json
 
       # --- CAMP ITEMS ---
       - name: Build Camp Items JSON
