@@ -295,6 +295,56 @@ def compute_lvli(list_id):
     _lvli_cache[list_id] = results
     return results
 
+def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None):
+    """
+    Like compute_lvli but returns a list of dicts with {formid, chance, region, lctn}
+    so that items in regional schematic pools can be tagged with their source region.
+    Only resolves one level of sub-LVLI for region detection; deeper levels fall back
+    to standard compute_lvli for performance.
+    """
+    if seen is None: seen = set()
+    if list_id in seen or depth > 8: return []
+    seen = seen | {list_id}
+    results = []
+    for e in lvli_entries_by_list.get(list_id, []):
+        idx = e.get("EntryIndex")
+        if idx is None: continue
+        math = lvli_math_by_entry.get((list_id, idx))
+        if not math: continue
+        sub        = (math.get("SubLVLI_FormID") or "").strip()
+        list_none  = float(math.get("ListChanceNoneResolved") or 0)
+        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        entry_none = float(math.get("EntryChanceNoneResolved") or 0)
+        cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
+        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
+        if sub:
+            # Detect region from sub-LVLI EDID
+            sub_edid = lvli_edid_by_formid.get(sub, "").lower()
+            region = inherited_region
+            for substr, rname in REGION_BY_SUBLVLI_EDID.items():
+                if substr in sub_edid:
+                    region = rname
+                    break
+            for item in compute_lvli_with_region(sub, depth + 1, seen, region):
+                results.append({
+                    "formid": item["formid"],
+                    "chance": item["chance"] * chance,
+                    "region": item["region"] or inherited_region,
+                    "lctn":   item["lctn"],
+                })
+        else:
+            ref = (e.get("LVLO_Reference") or "").strip()
+            if ":" in ref:
+                fid = ref.split(":")[0]
+                results.append({
+                    "formid": fid,
+                    "chance": chance,
+                    "region": inherited_region,
+                    "lctn":   None,
+                })
+    return results
+
 # --------------------------------------------------
 # Index: CURV / XP at level 50
 # --------------------------------------------------
@@ -616,6 +666,58 @@ EVENT_KEY_ALIASES = {
 ENCLAVE_QUEST_FIDS = set()  # populated from alias keys at runtime
 ENCLAVE_ACTIVITIES_LVLI = "008A9106"
 
+# --------------------------------------------------
+# Activity region / location — read from xlsx
+# Falls back gracefully if the file is missing.
+# --------------------------------------------------
+
+def _load_region_location_xlsx(path="tsv/events_region_location.xlsx"):
+    """
+    Reads events_region_location.xlsx and returns a dict:
+      { norm_name(activity_name): [ {"region": str, "location": str}, ... ] }
+    Row 1 = header, Row 2 = warning note (skipped), Row 3+ = data.
+    """
+    from collections import defaultdict
+    out = defaultdict(list)
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+        ws = wb.active
+        for i, row in enumerate(ws.iter_rows(values_only=True)):
+            if i < 2: continue          # skip header + warning row
+            name, region, location = (str(row[0] or "").strip(),
+                                      str(row[1] or "").strip(),
+                                      str(row[2] or "").strip())
+            if not name: continue
+            # Strip leading "Activity: " so norm_name matches event_key
+            bare = re.sub(r"^activity:\s*", "", name, flags=re.IGNORECASE).strip()
+            key  = norm_name(bare)
+            if key:
+                out[key].append({"region": region, "location": location})
+        wb.close()
+    except FileNotFoundError:
+        print(f"[WARN] Region/location xlsx not found at {path} — region data will be empty.")
+    except ImportError:
+        print("[WARN] openpyxl not installed — region data will be empty. Run: pip install openpyxl")
+    except Exception as e:
+        print(f"[WARN] Could not read region/location xlsx: {e}")
+    return dict(out)
+
+ACTIVITY_REGION_LOCATIONS = _load_region_location_xlsx()
+
+# Maps known regional sub-LVLI EDID substrings to region display names.
+# Used to tag items in regional schematic pools with their region.
+REGION_BY_SUBLVLI_EDID = {
+    "regionforest":        "Forest",
+    "regionashheap":       "Ash Heap",
+    "regioncranberrybog":  "Cranberry Bog",
+    "regionmire":          "Mire",
+    "regionsavagedivide":  "Savage Divide",
+    "regiontoxicvalley":   "Toxic Valley",
+    "regionskylinevalley": "Skyline Valley",
+    "regionburningsprings":"Burning Springs",
+}
+
 def find_quest_candidates_for_key(event_key):
     event_key = (event_key or "").strip()
     if not event_key: return []
@@ -642,7 +744,8 @@ for key, pages in sorted(reward_pages_by_key.items()):
     if not candidates:
         event = {
             "questFormID": "", "name": pages[0]["eventTitle"] or "Event",
-            "gameName": "", "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
+            "gameName": "", "freeRewards": [], "conditionalRewards": [],
+            "baseRewards": {"tiers": []}, "regionLocations": ACTIVITY_REGION_LOCATIONS.get(key, []),
             "pools": [], "banners": [], "scenarios": [],
             "warnings": [{"title": "Missing QUEST match",
                           "message": f"No QUEST row matched guide title '{pages[0]['eventTitle']}'."}]
@@ -660,6 +763,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
             "questFormID": qid, "name": pages[0]["eventTitle"] or game_name,
             "gameName": game_name, "isPublicEvent": is_public,
             "description": pick(q, "DESC - Description", "DESC", default=""),
+            "regionLocations": ACTIVITY_REGION_LOCATIONS.get(key, []),
             "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
             "pools": [], "banners": [], "scenarios": [],
         }
@@ -756,35 +860,74 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 lvli_edid = lvli_edid_by_formid.get(formid, "")
                 label     = prettify_lvli_label(lvli_edid) or prettify_lvli_label(rewarded.replace(":", "_"))
                 cond_mult = parse_randompercent_multiplier(" | ".join(conds))
-                probs     = compute_lvli(formid)
-                items     = sorted([
-                    {
-                        "formid": fid,
-                        "name": resolve_name_for_formid(fid),
-                        "dropRate": pct(ch * cond_mult),
-                        "qty": 1,
-                        "isPlan": any(
-                            n.startswith(("Plan:", "Recipe:"))
-                            for n in [resolve_name_for_formid(fid)]
-                            if n
-                        ),
-                    }
-                    for fid, ch in probs.items()
-                ], key=lambda x: (x["name"] or "", x["formid"] or ""))
-                pt, ttl   = classify_pool(formid)
-                event["pools"].append({
+                lvli_edid_lower = lvli_edid.lower()
+
+                # Detect special pool types for JS routing
+                is_regional_schematics = (
+                    "rewards_activities_regionalschematics" in lvli_edid_lower
+                    or "regional_schematics" in lvli_edid_lower
+                    or "regionalschematics" in lvli_edid_lower
+                )
+                is_progression_items = (
+                    "rewards_activities_progressionitems" in lvli_edid_lower
+                    or "progression_items" in lvli_edid_lower
+                    or "progressionitems" in lvli_edid_lower
+                )
+
+                if is_regional_schematics:
+                    # Use region-aware walk so each item gets a region tag
+                    region_items_raw = compute_lvli_with_region(formid)
+                    seen_fids = {}
+                    for ri in region_items_raw:
+                        fid2 = ri["formid"]
+                        ch2  = ri["chance"] * cond_mult
+                        if fid2 not in seen_fids or ch2 > seen_fids[fid2]["dropRate"] / 100:
+                            nm2 = resolve_name_for_formid(fid2)
+                            seen_fids[fid2] = {
+                                "formid":   fid2,
+                                "name":     nm2,
+                                "dropRate": pct(ch2),
+                                "qty":      1,
+                                "isPlan":   any(n.startswith(("Plan:", "Recipe:")) for n in [nm2] if n),
+                                "region":   ri["region"] or "",
+                                "lctn":     ri["lctn"] or "",
+                            }
+                    items = sorted(seen_fids.values(),
+                                   key=lambda x: (x["name"] or "", x["formid"] or ""))
+                else:
+                    probs = compute_lvli(formid)
+                    items = sorted([
+                        {
+                            "formid": fid,
+                            "name": resolve_name_for_formid(fid),
+                            "dropRate": pct(ch * cond_mult),
+                            "qty": 1,
+                            "isPlan": any(
+                                n.startswith(("Plan:", "Recipe:"))
+                                for n in [resolve_name_for_formid(fid)]
+                                if n
+                            ),
+                        }
+                        for fid, ch in probs.items()
+                    ], key=lambda x: (x["name"] or "", x["formid"] or ""))
+
+                pt, ttl = classify_pool(formid)
+                pool_entry = {
                     "title": label or "Reward Pool", "lvliFormID": formid, "lvliEdid": lvli_edid,
                     "tier": tier_label, "count": count, "conditions": conds,
                     "poolChance": pct(cond_mult), "poolTypes": pt, "items": items,
                     "itemCount": len(items),
-                })
+                }
+                if is_regional_schematics: pool_entry["isRegionalSchematics"] = True
+                if is_progression_items:   pool_entry["isProgressionItems"]   = True
+                event["pools"].append(pool_entry)
             else:
                 nm = resolve_name_for_formid(formid) if formid else rewarded
                 is_plan = nm.startswith(("Plan:", "Recipe:")) if nm else False
                 cond_mult_item = parse_randompercent_multiplier(" | ".join(conds)) if conds else 1.0
                 if cond_mult_item < 1.0:
                     # Conditional drop (e.g. GetRandomPercent) — goes to conditionalRewards
-                    event["conditionalRewards"].append({
+                    cond_entry = {
                         "formid":     formid,
                         "name":       nm,
                         "qty":        count,
@@ -792,7 +935,21 @@ for key, pages in sorted(reward_pages_by_key.items()):
                         "isPlan":     is_plan,
                         "conditions": conds,
                         "source":     "GMRW",
-                    })
+                    }
+                    # Detect player/camp title and add kind + affix fields
+                    edid_parts = rewarded.split(":") if ":" in rewarded else []
+                    item_edid  = edid_parts[1] if len(edid_parts) > 1 else ""
+                    title_result = book_edid_to_title(item_edid) if item_edid else None
+                    if title_result:
+                        kind_str, td = title_result
+                        cond_entry["kind"] = "player_title" if kind_str == "player" else "camp_title"
+                        if td.get("isPrefix"): cond_entry["affix"] = "Prefix"
+                        elif td.get("isSuffix"): cond_entry["affix"] = "Suffix"
+                    # Mark non-tradeable for BOOKs (plans/titles are never tradeable)
+                    item_sig = edid_parts[-1].upper() if edid_parts else ""
+                    if item_sig == "BOOK" or is_plan or title_result:
+                        cond_entry["tradeable"] = False
+                    event["conditionalRewards"].append(cond_entry)
                 else:
                     add_free(event["freeRewards"], "Guaranteed Reward", f"{nm} x{count}",
                              meta={"source": "GMRW", "rewardedItem": rewarded, "conditions": conds,
