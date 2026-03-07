@@ -841,10 +841,28 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 rr.get("TierConditionFunc"),
                 rr.get("ConditionGlobs"),
             )
-            # Also synthesise "GetRandomPercent <= N" from split func/value columns
-            # so parse_randompercent_multiplier can always find it
             tier_func  = (rr.get("TierConditionFunc")  or "").strip()
             tier_val   = (rr.get("TierConditionValue")  or "").strip()
+
+            # Compute cond_mult BEFORE synthesis to avoid double-counting.
+            # When TierConditionFunc/Value exist, use them directly.
+            # The raw Conditions column (e.g. "GetRandomPercent 10100000 5.0") and the
+            # synthesised canonical form both match the regex — running both through
+            # parse_randompercent_multiplier multiplies the penalty twice.
+            if tier_func.lower() == "getrandompercent" and tier_val:
+                try:
+                    _cond_mult_canon = max(0.0, min(1.0, float(tier_val) / 100.0))
+                except (ValueError, TypeError):
+                    _cond_mult_canon = 1.0
+            else:
+                _raw_for_mult = " | ".join(
+                    c for c in [rr.get("Conditions"), rr.get("ConditionGlobs")]
+                    if (c or "").strip()
+                )
+                _cond_mult_canon = parse_randompercent_multiplier(_raw_for_mult)
+
+            # Synthesise canonical "GetRandomPercent <= N" into conds for display only
+            # (does NOT feed back into cond_mult — that's already computed above).
             if tier_func.lower() == "getrandompercent" and tier_val:
                 try:
                     synth = f"GetRandomPercent <= {float(tier_val):.6f}"
@@ -859,7 +877,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 pool_seen.add(pool_key)
                 lvli_edid = lvli_edid_by_formid.get(formid, "")
                 label     = prettify_lvli_label(lvli_edid) or prettify_lvli_label(rewarded.replace(":", "_"))
-                cond_mult = parse_randompercent_multiplier(" | ".join(conds))
+                cond_mult = _cond_mult_canon  # pre-computed above, avoids double-counting
                 lvli_edid_lower = lvli_edid.lower()
 
                 # Detect special pool types for JS routing
@@ -930,7 +948,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
             else:
                 nm = resolve_name_for_formid(formid) if formid else rewarded
                 is_plan = nm.startswith(("Plan:", "Recipe:")) if nm else False
-                cond_mult_item = parse_randompercent_multiplier(" | ".join(conds)) if conds else 1.0
+                cond_mult_item = _cond_mult_canon  # pre-computed above, avoids double-counting
                 if cond_mult_item < 1.0:
                     # Conditional drop (e.g. GetRandomPercent) — goes to conditionalRewards
                     cond_entry = {
@@ -965,6 +983,10 @@ for key, pages in sorted(reward_pages_by_key.items()):
 
         # For enclave activities: ensure the shared activities LVLI 008A9106 is present
         if event.get("isEnclaveActivity"):
+            # If 008A9106 was already added by the GMRW loop (without the flag), stamp it now.
+            for _p in event["pools"]:
+                if _p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI:
+                    _p["isEnclaveActivities"] = True
             has_act = any(p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI for p in event["pools"])
             if not has_act:
                 act_edid  = lvli_edid_by_formid.get(ENCLAVE_ACTIVITIES_LVLI, "")
