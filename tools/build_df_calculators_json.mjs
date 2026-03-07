@@ -238,7 +238,28 @@ function deriveArmorSetKey(edidRaw, fullRaw) {
   return s;
 }
 
-function buildOutfitInspirationJson(armoPath, outPath) {
+function buildPipboySkinItems(entmPath) {
+  if (!entmPath || !fs.existsSync(entmPath)) return [];
+  const { rows } = parseTSV(readText(entmPath));
+  return rows.map(upperKeyed)
+    .filter(r => {
+      const edid = safeText(r.EDID).toUpperCase();
+      return edid.includes("SKIN_PIPBOY") || edid.includes("PIPBOYSKIN");
+    })
+    .map(r => ({
+      formId:     safeText(r.FORMID),
+      edid:       safeText(r.EDID),
+      full:       safeText(r.NNAM) || safeText(r.FULL),
+      flags:      ["43"],
+      flagLabels: ["Pipboy"],
+      keywords:   [],
+      type:       "PIPBOY",
+      armorSetKey: ""
+    }))
+    .filter(it => it.edid && it.full);
+}
+
+function buildOutfitInspirationJson(armoPath, outPath, entmPath) {
   const { rows } = parseTSV(readText(armoPath));
   const items = rows.map(upperKeyed)
     .map(r => {
@@ -271,10 +292,13 @@ function buildOutfitInspirationJson(armoPath, outPath) {
     if (it.type === "ARMOR") it.armorSetKey = deriveArmorSetKey(it.edid, it.full);
   }
 
+  const pipboyItems = buildPipboySkinItems(entmPath);
+  const allItems = [...items, ...pipboyItems];
+
   const out = {
     generatedAt: new Date().toISOString(),
     kind: "outfit_inspiration",
-    items
+    items: allItems
   };
 
   ensureDir(path.dirname(outPath));
@@ -572,6 +596,7 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
 
 const FLST_TSV = process.env.FLST_TSV || "";
 const ARMO_TSV = process.env.ARMO_BOD2_TSV || "";
+const ENTM_TSV = process.env.ENTM_TSV || "";
 const COBJ_TSV = process.env.COBJ_TSV || "";
 
 const OUT_DIR = process.env.OUT_DIR || "dist/calculators";
@@ -584,7 +609,7 @@ if (!FLST_TSV || !ARMO_TSV || !COBJ_TSV) {
 ensureDir(OUT_DIR);
 
 buildBuildInspirationJson(FLST_TSV, path.join(OUT_DIR, "build_inspiration.json"));
-buildOutfitInspirationJson(ARMO_TSV, path.join(OUT_DIR, "outfit_inspiration.json"));
+buildOutfitInspirationJson(ARMO_TSV, path.join(OUT_DIR, "outfit_inspiration.json"), ENTM_TSV);
 buildBigBloomCraftingJson(COBJ_TSV, path.join(OUT_DIR, "big_bloom_crafting.json"));
 
 console.log("Built calculators JSON into:", OUT_DIR);
