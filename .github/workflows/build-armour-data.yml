@@ -1,15 +1,13 @@
 name: Build Armour Data
 
 on:
-  # Run manually from the Actions tab — upload new TSVs first, then trigger this
   workflow_dispatch:
 
-  # Or automatically when TSV files are pushed to the data/ folder
   push:
     paths:
-      - 'data/COBJ_*.tsv'
-      - 'data/BOOK_*.tsv'
-      - 'build_armour_json.py'
+      - 'tsv/COBJ_*.tsv'
+      - 'tsv/BOOK_*.tsv'
+      - 'src/build_armour_json.py'
 
 jobs:
   build:
@@ -24,8 +22,19 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Check data files exist
+        run: |
+          if [ ! -d "tsv" ]; then
+            echo "ERROR: tsv/ directory not found."
+            exit 1
+          fi
+          echo "Found TSV files:"
+          ls -lh tsv/*.tsv 2>/dev/null || { echo "ERROR: No .tsv files in tsv/"; exit 1; }
+
       - name: Run build script
-        run: python build_armour_json.py --data-dir data --out dist/armour.json
+        run: |
+          mkdir -p dist
+          python src/build_armour_json.py --data-dir tsv --out dist/armour.json
 
       - name: Commit and push dist/armour.json
         run: |
