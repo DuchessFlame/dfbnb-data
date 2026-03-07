@@ -1,0 +1,36 @@
+name: Build Armour Data
+
+on:
+  # Run manually from the Actions tab — upload new TSVs first, then trigger this
+  workflow_dispatch:
+
+  # Or automatically when TSV files are pushed to the data/ folder
+  push:
+    paths:
+      - 'data/COBJ_*.tsv'
+      - 'data/BOOK_*.tsv'
+      - 'build_armour_json.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run build script
+        run: python build_armour_json.py --data-dir data --out dist/armour.json
+
+      - name: Commit and push dist/armour.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/armour.json
+          git diff --cached --quiet || git commit -m "chore: rebuild armour.json [skip ci]"
+          git push
