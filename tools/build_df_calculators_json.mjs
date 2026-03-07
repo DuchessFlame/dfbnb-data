@@ -299,6 +299,15 @@ function loadBigBloomImageMap() {
   }
 }
 
+// CondProxy items have an empty CNAM_FULL in the TSV, so craftedName and components
+// can't be derived automatically. Override them here keyed by COBJ_EDID.
+const CONDPROXY_OVERRIDES = {
+  "SSE_workshop_co_CondProxy_Displays_SmallGlazedPot":  { craftedName: "Small Glazed Pot",  components: [{ name: "Ceramic", qty: 3 }] },
+  "SSE_workshop_co_CondProxy_Displays_MediumGlazedPot": { craftedName: "Medium Glazed Pot", components: [{ name: "Ceramic", qty: 3 }] },
+  "SSE_workshop_co_CondProxy_Displays_LargeGlazedPot":  { craftedName: "Large Glazed Pot",  components: [{ name: "Ceramic", qty: 3 }] },
+  "workshop_co_CondProxy_HoneyBeastTube":               { craftedName: "Honey Beast Tube",  components: [{ name: "Aluminum", qty: 10 }] },
+};
+
 function buildBigBloomCraftingJson(cobjPath, outPath) {
   const { rows } = parseTSV(readText(cobjPath));
 
@@ -306,7 +315,15 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
   // We also use this as an "allow list" so Big Bloom doesn't accidentally ingest the whole game.
   const imageMap = loadBigBloomImageMap();
 
-  const imageKeys = new Set(Object.keys(imageMap).map(k => safeText(k).toLowerCase()).filter(Boolean));
+  // Also always include CondProxy override names so their entries pass the filter.
+  const condproxyNames = new Set(
+    Object.values(CONDPROXY_OVERRIDES).map(v => v.craftedName.toLowerCase())
+  );
+
+  const imageKeys = new Set([
+    ...Object.keys(imageMap).map(k => safeText(k).toLowerCase()).filter(Boolean),
+    ...condproxyNames
+  ]);
 
   const recs = rows.map(upperKeyed)
     .filter(r => {
@@ -329,12 +346,14 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
 
       // CNAM_FULL in your TSV often contains: EDID "Display Name" [FORM:ID]
       // We MUST extract the quoted display name first so it matches big_bloom_images.json keys.
+      // CondProxy items have empty CNAM_FULL — fall back to the CONDPROXY_OVERRIDES name.
       const craftedName =
         extractQuotedName(cnamFull) ||
         safeText(pickCol(r, ["CNAM_FULL"])) ||
         safeText(pickCol(r, ["HNAM - Build Group Name", "HNAM_BuildGroupName", "Build Group Name"])) ||
         safeText(pickCol(r, ["CNAM_EDID"])) ||
-        safeText(cnamFull);
+        safeText(cnamFull) ||
+        (CONDPROXY_OVERRIDES[edid] ? CONDPROXY_OVERRIDES[edid].craftedName : "");
 
       // Always require an EDID
       if (!edid) return false;
@@ -354,12 +373,14 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
       const cnamFullRaw = pickCol(r, ["CNAM_FULL", "CNAM - Created Object", "CNAM", "Created Object"]);
       const cnamEdid = pickCol(r, ["CNAM_EDID", "CNAM_EDID - Editor ID", "CNAM - EDID", "Created Object EDID"]);
       // Same rule as the filter: extract the quoted display name first.
+      // CondProxy items have empty CNAM_FULL — fall back to the CONDPROXY_OVERRIDES name.
       const craftedName =
         extractQuotedName(cnamFullRaw) ||
         safeText(pickCol(r, ["CNAM_FULL"])) ||
         safeText(pickCol(r, ["HNAM - Build Group Name", "HNAM_BuildGroupName", "Build Group Name"])) ||
         safeText(cnamEdid) ||
-        safeText(cnamFullRaw);
+        safeText(cnamFullRaw) ||
+        (CONDPROXY_OVERRIDES[cobjEdid] ? CONDPROXY_OVERRIDES[cobjEdid].craftedName : "");
 
       const gnamFullRaw = pickCol(r, ["GNAM_FULL", "GNAM - Learn Recipe from", "GNAM", "Learn Recipe from"]);
       const planName =
@@ -380,7 +401,9 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
         planName: planName,
 
         recipeKeywords: pickCol(r, ["FNAM_Keywords", "FNAM - Category", "FNAM", "Category"]),
-        components: parseFVPA(pickCol(r, ["FVPA", "FVPA - Components (sorted)", "Components", "Components (sorted)"])),
+        components: (CONDPROXY_OVERRIDES[cobjEdid] && CONDPROXY_OVERRIDES[cobjEdid].components)
+          ? CONDPROXY_OVERRIDES[cobjEdid].components
+          : parseFVPA(pickCol(r, ["FVPA", "FVPA - Components (sorted)", "Components", "Components (sorted)"])),
         category: ""
       };
     });
