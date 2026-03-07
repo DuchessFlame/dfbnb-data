@@ -896,6 +896,12 @@ for key, pages in sorted(reward_pages_by_key.items()):
                                    key=lambda x: (x["name"] or "", x["formid"] or ""))
                 else:
                     probs = compute_lvli(formid)
+                    # Normalise: if apriori=1.0 for all entries (common xEdit export gap),
+                    # compute_lvli returns 1.0 per item for equal-weight pick-one lists.
+                    # Dividing by total restores the correct per-slot probability.
+                    _total = sum(probs.values())
+                    if _total > 1.001:
+                        probs = {k: v / _total for k, v in probs.items()}
                     items = sorted([
                         {
                             "formid": fid,

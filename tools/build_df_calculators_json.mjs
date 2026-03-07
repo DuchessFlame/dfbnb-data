@@ -336,24 +336,24 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
       ]);
 
       // Try several likely sources for the crafted item display name
-      const cnamFull = pickCol(r, [
+      // Strip outer quotes from cnamFull — xEdit exports "" for empty fields which is truthy in JS
+      const cnamFull = stripQuotes(pickCol(r, [
         "CNAM_FULL",
         "CNAM - Created Object",
         "CNAM",
         "Created Object",
         "Created Object FULL"
-      ]);
+      ]));
 
       // CNAM_FULL in your TSV often contains: EDID "Display Name" [FORM:ID]
       // We MUST extract the quoted display name first so it matches big_bloom_images.json keys.
       // CondProxy items have empty CNAM_FULL — fall back to the CONDPROXY_OVERRIDES name.
       const craftedName =
         extractQuotedName(cnamFull) ||
-        safeText(pickCol(r, ["CNAM_FULL"])) ||
-        safeText(pickCol(r, ["HNAM - Build Group Name", "HNAM_BuildGroupName", "Build Group Name"])) ||
-        safeText(pickCol(r, ["CNAM_EDID"])) ||
         safeText(cnamFull) ||
-        (CONDPROXY_OVERRIDES[edid] ? CONDPROXY_OVERRIDES[edid].craftedName : "");
+        safeText(pickCol(r, ["HNAM - Build Group Name", "HNAM_BuildGroupName", "Build Group Name"])) ||
+        stripQuotes(pickCol(r, ["CNAM_EDID"])) ||
+        (CONDPROXY_OVERRIDES[stripQuotes(edid)] ? CONDPROXY_OVERRIDES[stripQuotes(edid)].craftedName : "");
 
       // Always require an EDID
       if (!edid) return false;
@@ -370,17 +370,17 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
     .map(r => {
       const cobjEdid = pickCol(r, ["COBJ_EDID", "EDID", "EDID - Editor ID", "Editor ID"]);
 
-      const cnamFullRaw = pickCol(r, ["CNAM_FULL", "CNAM - Created Object", "CNAM", "Created Object"]);
-      const cnamEdid = pickCol(r, ["CNAM_EDID", "CNAM_EDID - Editor ID", "CNAM - EDID", "Created Object EDID"]);
+      // Strip outer quotes from cnamFullRaw — xEdit exports "" for empty fields which is truthy in JS
+      const cnamFullRaw = stripQuotes(pickCol(r, ["CNAM_FULL", "CNAM - Created Object", "CNAM", "Created Object"]));
+      const cnamEdid = stripQuotes(pickCol(r, ["CNAM_EDID", "CNAM_EDID - Editor ID", "CNAM - EDID", "Created Object EDID"]));
       // Same rule as the filter: extract the quoted display name first.
       // CondProxy items have empty CNAM_FULL — fall back to the CONDPROXY_OVERRIDES name.
       const craftedName =
         extractQuotedName(cnamFullRaw) ||
-        safeText(pickCol(r, ["CNAM_FULL"])) ||
+        safeText(cnamFullRaw) ||
         safeText(pickCol(r, ["HNAM - Build Group Name", "HNAM_BuildGroupName", "Build Group Name"])) ||
         safeText(cnamEdid) ||
-        safeText(cnamFullRaw) ||
-        (CONDPROXY_OVERRIDES[cobjEdid] ? CONDPROXY_OVERRIDES[cobjEdid].craftedName : "");
+        (CONDPROXY_OVERRIDES[stripQuotes(cobjEdid)] ? CONDPROXY_OVERRIDES[stripQuotes(cobjEdid)].craftedName : "");
 
       const gnamFullRaw = pickCol(r, ["GNAM_FULL", "GNAM - Learn Recipe from", "GNAM", "Learn Recipe from"]);
       const planName =
@@ -401,8 +401,8 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
         planName: planName,
 
         recipeKeywords: pickCol(r, ["FNAM_Keywords", "FNAM - Category", "FNAM", "Category"]),
-        components: (CONDPROXY_OVERRIDES[cobjEdid] && CONDPROXY_OVERRIDES[cobjEdid].components)
-          ? CONDPROXY_OVERRIDES[cobjEdid].components
+        components: (CONDPROXY_OVERRIDES[stripQuotes(cobjEdid)] && CONDPROXY_OVERRIDES[stripQuotes(cobjEdid)].components)
+          ? CONDPROXY_OVERRIDES[stripQuotes(cobjEdid)].components
           : parseFVPA(pickCol(r, ["FVPA", "FVPA - Components (sorted)", "Components", "Components (sorted)"])),
         category: ""
       };
