@@ -886,6 +886,23 @@ for key, pages in sorted(reward_pages_by_key.items()):
                     or "progression_items" in lvli_edid_lower
                     or "progressionitems" in lvli_edid_lower
                 )
+                # Enclave routing flags — stamp the MAIN enclave pools so JS can
+                # route them to their dedicated expands without EDID string matching.
+                # Conditional pools sharing the same EDID keywords (Last Bastion chest,
+                # Gatling Plasma plans) are distinguished by cond_mult < 1.0 and must
+                # NOT get these flags — they route to Unique Event Rewards instead.
+                is_enclave_armour = (
+                    cond_mult >= 1.0 and (
+                        "scoutuniform" in lvli_edid_lower
+                        or "scout_uniform" in lvli_edid_lower
+                        or "scoutarmor" in lvli_edid_lower
+                    )
+                )
+                is_enclave_plasma = (
+                    "enclave_plasmagun" in lvli_edid_lower
+                    or "enclaveplasmagun" in lvli_edid_lower
+                    or "plasmagun_all" in lvli_edid_lower
+                )
 
                 if is_regional_schematics:
                     # Use region-aware walk so each item gets a region tag
@@ -939,6 +956,8 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 }
                 if is_regional_schematics: pool_entry["isRegionalSchematics"] = True
                 if is_progression_items:   pool_entry["isProgressionItems"]   = True
+                if is_enclave_armour:      pool_entry["isEnclaveArmour"]      = True
+                if is_enclave_plasma:      pool_entry["isEnclavePlasmaGun"]   = True
                 event["pools"].append(pool_entry)
             else:
                 nm = resolve_name_for_formid(formid) if formid else rewarded
