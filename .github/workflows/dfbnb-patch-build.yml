@@ -149,6 +149,14 @@ jobs:
       - name: Build Armour Data JSON
         run: python src/build_armour_json.py --data-dir tsv --out dist/armour.json
 
+      # --- COLLECTABLES ---
+      - name: Build Collectables JSON
+        run: |
+          python src/build_collectables_json.py \
+            --tsv-root tsv \
+            --seasons tsv/fallout76_seasons.tsv \
+            --outdir dist
+
       # --- CAMP ITEMS ---
       - name: Build Camp Items JSON
         run: |
@@ -183,6 +191,10 @@ jobs:
           test -f dist/armour.json               && echo "OK armour.json"               || (echo "MISSING armour.json" && exit 1)
           test -f dist/collectrons.json          && echo "OK collectrons.json"          || (echo "MISSING collectrons.json" && exit 1)
           test -f dist/resource_producers.json   && echo "OK resource_producers.json"   || (echo "MISSING resource_producers.json" && exit 1)
+          test -f dist/collectables_bobbleheads.json && echo "OK collectables_bobbleheads.json" || (echo "MISSING collectables_bobbleheads.json" && exit 1)
+          test -f dist/collectables_plushies.json    && echo "OK collectables_plushies.json"    || (echo "MISSING collectables_plushies.json" && exit 1)
+          test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
+          test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
 
       # --- COMMIT ONCE ---
       - name: Commit & Push
