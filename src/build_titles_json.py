@@ -27,7 +27,8 @@ from typing import Any, Dict, List, Optional, Tuple
 #   - SCORE_S#:
 #       Camp: Framed Art if EndOfSeasonArt (or "Framed" in FULL), else Gameboard (includes CorkBoard)
 #       Player: "Unlock via the Season {#} - {SeasonName} Scoreboard."
-#   - ATX_* -> "Can be purchased with certain bundles from the Atom Shop." (DropRate N/A)
+#   - ATX_* -> "Part of the {BundleName} which can be purchased from the Atom Shop." (DropRate N/A)
+#              Falls back to generic text if no bundle mapping in tsv/title_bundles.json
 # - COBJ proxy (any condition with [COBJ:]):
 #   - how: "Complete the Event: X" / "Complete the Activity: Y" using GMRW.ParentQuest quoted label
 #   - drop: GLOB first (100 - FLTV), LVLI fallback (100 - LVOV_ChanceNone)
@@ -108,6 +109,30 @@ def load_release_overrides(tsv_root: Optional[str]) -> Dict[str, str]:
                 continue
 
         return out
+    except Exception:
+        return {}
+
+
+def load_title_bundles(tsv_root: Optional[str]) -> Dict[str, str]:
+    """
+    Optional bundle-name overrides file:
+      tsv/title_bundles.json
+
+    Format:
+      { "Abandoned": "The Abandoned Bundle", "Cat": "Cat Pets Bundle", ... }
+
+    Keys are player-title display names.  Values are the bundle/DLC name
+    shown in the "How to Obtain" box.
+    """
+    if not tsv_root:
+        return {}
+    path = os.path.join(tsv_root, "title_bundles.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return {str(k).strip(): str(v).strip() for k, v in (data or {}).items() if k and v}
     except Exception:
         return {}
 
@@ -227,6 +252,32 @@ def read_tsv_rows(path: str) -> List[Dict[str, str]]:
                     vv = (v or "").strip()
                     if vv:
                         r[base_key] = vv
+
+            # -------------------------------------------------------------------
+            # LVLI field aliases — newer xEdit exports prefix these columns with
+            # "LVLI_" (e.g. LVLI_LVLO_Reference, LVLI_EntryIndex, etc.).
+            # We alias them back to the bare names the pipeline logic expects.
+            # -------------------------------------------------------------------
+            _lvli_field_aliases = (
+                # Entries file fields
+                "LVLO_Reference",
+                "EntryIndex",
+                "LVOG_ChanceNoneGlobal",
+                "LVOC_ChanceNoneCurve",
+                "LVOV_ChanceNoneValue",
+                "LVOV_ChanceNone",
+                # List file fields
+                "LVLG_ChanceNoneGlobal",
+                "LVCT_ChanceNoneCurve",
+                # Refs file classification field
+                "ReferencedByCount",
+            )
+            for bare in _lvli_field_aliases:
+                if not (r.get(bare) or "").strip():
+                    candidate = "LVLI_" + bare
+                    vv = (r.get(candidate) or "").strip()
+                    if vv:
+                        r[bare] = vv
 
             out.append(r)
         return out
@@ -1089,15 +1140,30 @@ def lvli_to_gmrw_parentquest(
 
     for k in keys:
         s = (row.get(k) or "").strip()
-        if not s or (not s.endswith(":GMRW")):
+        if not s:
             continue
-        m = re.match(r"^([0-9A-Fa-f]{8}):", s)
-        if not m:
+        # Accept both "XXXXXXXX:Edid:GMRW" (old) and "[GMRW:XXXXXXXX]" (new export format)
+        gfid = None
+        if s.endswith(":GMRW"):
+            m = re.match(r"^([0-9A-Fa-f]{8}):", s)
+            if m:
+                gfid = m.group(1).upper()
+        if gfid is None:
+            # Try bracket notation: anything ending with [GMRW:XXXXXXXX] or containing it
+            m2 = re.search(r"\[GMRW:([0-9A-Fa-f]{8})\]", s, re.IGNORECASE)
+            if m2:
+                gfid = m2.group(1).upper()
+        if gfid is None:
             continue
-        gfid = m.group(1).upper()
         pq = gmrw_by_formid.get(gfid)
         if pq:
             return pq
+
+    # Fallback: check gmrw_by_formid using the LVLI FormID itself
+    # (works when the GMRW row directly references the LVLI)
+    pq = gmrw_by_formid.get(fid)
+    if pq:
+        return pq
 
     return None
 
@@ -1239,6 +1305,7 @@ def compute_unlock_and_rates(
     chal_by_id: Dict[str, Dict[str, str]],
     chal_by_edid: Dict[str, Dict[str, str]],
     cndf_by_id: Dict[str, Dict[str, str]],
+    title_bundles: Optional[Dict[str, str]] = None,
 ) -> Tuple[str, str, Optional[int], str, Dict[str, Any]]:
 
     extra: Dict[str, Any] = {}
@@ -1602,6 +1669,10 @@ def compute_unlock_and_rates(
             if any(("ATX_F1_" in (e or "").upper()) for e in ent_edids):
                 return "Free to claim from the Atom Shop\nfor Fallout 1st members.", "N/A", None, "atx", extra
 
+            # Look up specific bundle name if available
+            bundle = (title_bundles or {}).get(title_display, "")
+            if bundle:
+                return f"Part of the {bundle} which can be purchased from the Atom Shop.", "N/A", None, "atx", extra
             return "Can be purchased with certain bundles from the Atom Shop.", "N/A", None, "atx", extra
 
         # PTS titles: special rule
@@ -1966,6 +2037,7 @@ def main() -> int:
     # - Else assign today's date (UTC)
     # ------------------------------------------------------------
     overrides = load_release_overrides(args.tsv_root)
+    title_bundles = load_title_bundles(args.tsv_root)
 
     prev_camp_release = load_previous_release_dates(os.path.join(args.outdir, "titles_camp.json"))
     prev_player_release = load_previous_release_dates(os.path.join(args.outdir, "titles_player.json"))
@@ -2006,17 +2078,42 @@ def main() -> int:
         headers = set(rows[0].keys())
 
         # Refs file: LVLI_Refs.tsv
-        if "ReferencedByCount" in headers:
+        # Substring match handles prefixed headers (e.g. LVLI_ReferencedByCount)
+        # from newer xEdit exports that prefix all type-specific columns.
+        if any("ReferencedByCount" in h for h in headers):
             lvli_refby_rows.extend(rows)
             continue
 
         # Entries file: LVLI_Entries.tsv
-        if ("EntryIndex" in headers) or ("LVLO_Reference" in headers):
+        # Same prefix-tolerant check for EntryIndex / LVLO_Reference
+        if any("EntryIndex" in h or "LVLO_Reference" in h for h in headers):
             lvli_entry_rows.extend(rows)
             continue
 
         # List file: LVLI_List.tsv (everything else LVLI-ish)
         lvli_list_rows.extend(rows)
+
+    # --- LVLI bucket diagnostics (always emit so CI logs are searchable) ---
+    print(
+        f"[LVLI split] list_rows={len(lvli_list_rows)} "
+        f"entry_rows={len(lvli_entry_rows)} "
+        f"refby_rows={len(lvli_refby_rows)}",
+        file=sys.stderr,
+    )
+    if not lvli_refby_rows:
+        print(
+            "[LVLI WARN] lvli_refby_rows is EMPTY — event/activity name resolution will "
+            "show '(unknown)'. Check that LVLI_Refs.tsv is present and its headers contain "
+            "'ReferencedByCount' (exact or prefixed as LVLI_ReferencedByCount).",
+            file=sys.stderr,
+        )
+    if not lvli_entry_rows:
+        print(
+            "[LVLI WARN] lvli_entry_rows is EMPTY — drop-rate calculation will fall back to N/A. "
+            "Check that LVLI_Entries.tsv is present and its headers contain "
+            "'EntryIndex' or 'LVLO_Reference'.",
+            file=sys.stderr,
+        )
 
     # build lookup maps AFTER all TSVs are loaded
     tradeable_by_book = book_tradeable_map(book_rows)
@@ -2063,6 +2160,7 @@ def main() -> int:
             chal_by_id=chal_by_id,
             chal_by_edid=chal_by_edid,
             cndf_by_id=cndf_by_id,
+            title_bundles=title_bundles,
         )
 
         tradeable = False  # camp default
@@ -2141,6 +2239,7 @@ def main() -> int:
             chal_by_id=chal_by_id,
             chal_by_edid=chal_by_edid,
             cndf_by_id=cndf_by_id,
+            title_bundles=title_bundles,
         )
 
         tradeable = False  # player default
