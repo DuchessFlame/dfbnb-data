@@ -4,9 +4,12 @@ Build collectables JSON dist files for Fallout 76.
 
 Takes xEdit TSV exports and builds JSON distributions for:
 - Bobbleheads (from ALCH + GLOB)
-- Plushies (from KYWD + MISC)
+- Plushies (from keyword_refs.json + MISC)
 - Notes (from BOOK)
 - Manifest (summary counts)
+
+Plushie data comes from keyword_refs.json (produced by extract_keyword_refs.py),
+NOT the raw KYWD TSV (which is 457 MB and too large for GitHub).
 
 Usage:
     python build_collectables_json.py --tsv-root <path> --seasons <path> --outdir <path>
@@ -98,68 +101,6 @@ def read_tsv_rows(path):
         return rows
     except Exception as e:
         raise RuntimeError(f"Could not read {path}: {e}")
-
-
-def read_tsv_row_by_formid(path, target_formid):
-    """
-    Streaming reader for huge TSV files.
-    Reads line-by-line and returns only the row matching target_formid.
-    Returns row as dict, or None if not found.
-    Uses UTF-8 with error replacement for speed.
-    """
-    try:
-        # Try UTF-8 with error replacement (fastest)
-        with open(path, 'r', encoding='utf-8', errors='replace') as f:
-            header_line = f.readline().strip()
-            columns = header_line.split('\t')
-
-            # Find FormID column index
-            formid_idx = None
-            for i, col in enumerate(columns):
-                if col == 'FormID':
-                    formid_idx = i
-                    break
-
-            if formid_idx is None:
-                return None
-
-            for line in f:
-                fields = line.rstrip('\n').split('\t')
-                if len(fields) > formid_idx and fields[formid_idx] == target_formid:
-                    # Found it, build dict
-                    row = {}
-                    for i, col in enumerate(columns):
-                        row[col] = fields[i] if i < len(fields) else ""
-                    return row
-
-        return None
-    except Exception:
-        # Fallback to latin1
-        try:
-            with open(path, 'r', encoding='latin1') as f:
-                header_line = f.readline().strip()
-                columns = header_line.split('\t')
-
-                formid_idx = None
-                for i, col in enumerate(columns):
-                    if col == 'FormID':
-                        formid_idx = i
-                        break
-
-                if formid_idx is None:
-                    return None
-
-                for line in f:
-                    fields = line.rstrip('\n').split('\t')
-                    if len(fields) > formid_idx and fields[formid_idx] == target_formid:
-                        row = {}
-                        for i, col in enumerate(columns):
-                            row[col] = fields[i] if i < len(fields) else ""
-                        return row
-
-            return None
-        except Exception:
-            return None
 
 
 def starts_cut(edid):
@@ -424,22 +365,24 @@ def build_bobbleheads(alch_path, glob_rows):
     return groups, bobbleheads_cut
 
 
-def build_plushies(kywd_formid, kywd_path, misc_rows, seasons, gmrw_pq_map):
+def build_plushies(keyword_refs_data, misc_rows, seasons, gmrw_pq_map):
     """
-    Build plushies list from KYWD + MISC rows.
+    Build plushies list from keyword_refs.json + MISC rows.
 
-    kywd_formid: "006A57A2" - the PlushiesKeyword FormID
-    kywd_path: path to KYWD TSV (will be streamed for single FormID)
+    keyword_refs_data: parsed keyword_refs.json dict
     misc_rows: all MISC rows
     seasons: {season_num: season_name}
     gmrw_pq_map: {prefix: "Event: Name"}
 
     Returns (live_items, cut_items).
     """
-    # Stream KYWD to get the single row for plushies keyword
-    kywd_row = read_tsv_row_by_formid(kywd_path, kywd_formid)
+    PLUSHIES_KEYWORD = "006A57A2"
 
-    if not kywd_row:
+    keywords = keyword_refs_data.get("keywords", {})
+    kw_data = keywords.get(PLUSHIES_KEYWORD)
+    if not kw_data:
+        print(f"  WARNING: PlushiesKeyword ({PLUSHIES_KEYWORD}) not found in keyword_refs.json",
+              file=sys.stderr)
         return [], []
 
     # Build MISC lookup: FormID -> {edid, full}
@@ -451,14 +394,12 @@ def build_plushies(kywd_formid, kywd_path, misc_rows, seasons, gmrw_pq_map):
         if formid:
             misc_lookup[formid] = {'edid': edid, 'full': full}
 
-    # Extract all Ref* fields from KYWD row (skip RefCount)
+    # Extract MISC FormIDs from keyword refs
     plushie_formids = []
-    for key, value in kywd_row.items():
-        if re.match(r'^Ref\d+$', key) and value.strip():
-            # Extract FormID from format like "006A57C0:ATX_Plushie_Alien_Misc:MISC"
-            parts = value.split(':')
-            if parts and re.fullmatch(r'[0-9A-Fa-f]{8}', parts[0]):
-                plushie_formids.append(parts[0])
+    for ref in kw_data.get("refs", []):
+        fid = ref.get("formId", "").strip()
+        if fid and re.fullmatch(r'[0-9A-Fa-f]{8}', fid):
+            plushie_formids.append(fid)
 
     # Build plushies
     plushies_live = []
@@ -627,9 +568,11 @@ def main():
     alch_files = list(tsv_root.glob('ALCH_Export*.tsv'))
     glob_files = list(tsv_root.glob('GLOB_Export*.tsv'))
     book_files = list(tsv_root.glob('BOOK_Export*.tsv'))
-    kywd_files = list(tsv_root.glob('KYWD_Export*.tsv'))
     misc_files = list(tsv_root.glob('MISC_Export*.tsv'))
     gmrw_files = list(tsv_root.glob('GMRW_Export*.tsv'))
+
+    # keyword_refs.json (produced by extract_keyword_refs.py) replaces the raw KYWD TSV
+    keyword_refs_files = list(tsv_root.glob('keyword_refs.json'))
 
     if not alch_files:
         print("ERROR: No ALCH_Export*.tsv files found", file=sys.stderr)
@@ -640,8 +583,9 @@ def main():
     if not book_files:
         print("ERROR: No BOOK_Export*.tsv files found", file=sys.stderr)
         sys.exit(1)
-    if not kywd_files:
-        print("ERROR: No KYWD_Export*.tsv files found", file=sys.stderr)
+    if not keyword_refs_files:
+        print("ERROR: No keyword_refs.json found in tsv root", file=sys.stderr)
+        print("  Run extract_keyword_refs.py locally first to create it from your KYWD export.", file=sys.stderr)
         sys.exit(1)
     if not misc_files:
         print("ERROR: No MISC_Export*.tsv files found", file=sys.stderr)
@@ -654,11 +598,11 @@ def main():
     alch_path = sorted(alch_files, key=lambda p: p.name)[-1]
     glob_path = sorted(glob_files, key=lambda p: p.name)[-1]
     book_path = sorted(book_files, key=lambda p: p.name)[-1]
-    kywd_path = sorted(kywd_files, key=lambda p: p.name)[-1]
     misc_path = sorted(misc_files, key=lambda p: p.name)[-1]
     gmrw_path = sorted(gmrw_files, key=lambda p: p.name)[-1]
+    keyword_refs_path = keyword_refs_files[0]
     print(f"  Using ALCH: {alch_path.name}", file=sys.stderr)
-    print(f"  Using KYWD: {kywd_path.name}", file=sys.stderr)
+    print(f"  Using keyword_refs: {keyword_refs_path.name}", file=sys.stderr)
     print(f"  Using MISC: {misc_path.name}", file=sys.stderr)
 
     print("Loading seasons...")
@@ -679,13 +623,19 @@ def main():
     gmrw_pq_map = gmrw_parentquest_map(gmrw_rows)
     print(f"  Built event map with {len(gmrw_pq_map)} events")
 
+    print("Loading keyword_refs.json...")
+    with open(keyword_refs_path, 'r', encoding='utf-8') as f:
+        keyword_refs_data = json.load(f)
+    kw_count = len(keyword_refs_data.get("keywords", {}))
+    print(f"  Loaded {kw_count} keywords from {keyword_refs_data.get('source', '?')}")
+
     # Build bobbleheads (streams ALCH file)
     print("Building bobbleheads...")
     bobblehead_groups, bobblehead_cut = build_bobbleheads(alch_path, glob_rows)
 
-    # Build plushies
+    # Build plushies (from keyword_refs.json + MISC)
     print("Building plushies...")
-    plushies, plushies_cut = build_plushies('006A57A2', kywd_path, misc_rows, seasons, gmrw_pq_map)
+    plushies, plushies_cut = build_plushies(keyword_refs_data, misc_rows, seasons, gmrw_pq_map)
 
     # Build notes (streams BOOK file)
     print("Building notes...")

@@ -12,7 +12,6 @@ on:
       - "src/**"
       - "data/**"
       - ".github/workflows/dfbnb-patch-build.yml"
-      - ".github/workflows/dfbnb-minerva-build.yml"
 
 permissions:
   contents: write
@@ -179,25 +178,6 @@ jobs:
       - name: Build Home Events JSON
         run: node tools/build-home-events-json.mjs
 
-      # --- MINERVA ---
-      - name: Locate latest BOOK Export TSV (Minerva)
-        shell: bash
-        run: |
-          FILE=$(ls -1t tsv/BOOK_Export_*.tsv 2>/dev/null | head -n 1)
-          if [ -z "$FILE" ]; then
-            echo "ERROR: No BOOK_Export_*.tsv found in tsv/"
-            exit 1
-          fi
-          echo "BOOK_TSV=$FILE" >> $GITHUB_ENV
-          echo "Using BOOK TSV: $FILE"
-
-      - name: Build Minerva Plans JSON
-        shell: bash
-        run: |
-          mkdir -p dist/minerva
-          python src/build_minerva.py "$BOOK_TSV" > dist/minerva/minerva_plans.json
-          echo "Built dist/minerva/minerva_plans.json"
-
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |
@@ -215,7 +195,6 @@ jobs:
           test -f dist/collectables_plushies.json    && echo "OK collectables_plushies.json"    || (echo "MISSING collectables_plushies.json" && exit 1)
           test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
           test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
-          test -f dist/minerva/minerva_plans.json    && echo "OK minerva/minerva_plans.json"    || (echo "MISSING minerva/minerva_plans.json" && exit 1)
 
       # --- COMMIT ONCE ---
       - name: Commit & Push

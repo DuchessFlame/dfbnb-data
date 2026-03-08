@@ -5,28 +5,30 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "tsv/**"
+      - "tsv/ALCH_Export*.tsv"
+      - "tsv/GLOB_Export*.tsv"
+      - "tsv/BOOK_Export*.tsv"
+      - "tsv/MISC_Export*.tsv"
+      - "tsv/GMRW_Export*.tsv"
+      - "tsv/keyword_refs.json"
+      - "tsv/fallout76_seasons.tsv"
       - "src/build_collectables_json.py"
       - ".github/workflows/build-collectables-json.yml"
 
 permissions:
   contents: write
 
-concurrency:
-  group: build-collectables-json-main
-  cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout (full history)
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -38,39 +40,25 @@ jobs:
             --seasons tsv/fallout76_seasons.tsv \
             --outdir dist
 
-      - name: Show dist outputs (debug)
+      - name: Sanity check outputs
         run: |
-          echo "---- dist listing ----"
-          ls -la dist/collectables_*.json || true
-          echo "---- file sizes ----"
-          find dist -maxdepth 1 -type f -name "collectables_*.json" -print -exec wc -c {} \; || true
+          test -f dist/collectables_bobbleheads.json && echo "OK collectables_bobbleheads.json" || (echo "MISSING collectables_bobbleheads.json" && exit 1)
+          test -f dist/collectables_plushies.json    && echo "OK collectables_plushies.json"    || (echo "MISSING collectables_plushies.json" && exit 1)
+          test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
+          test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
 
-      - name: Sanity check outputs exist
+      - name: Commit & Push
         run: |
-          test -f dist/collectables_bobbleheads.json || (echo "Missing collectables_bobbleheads.json" && exit 1)
-          test -f dist/collectables_plushies.json || (echo "Missing collectables_plushies.json" && exit 1)
-          test -f dist/collectables_notes.json || (echo "Missing collectables_notes.json" && exit 1)
-          test -f dist/collectables_manifest.json || (echo "Missing collectables_manifest.json" && exit 1)
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
 
-      - name: Show git status (debug)
-        run: |
-          echo "---- git status ----"
-          git status --porcelain
-          echo "---- dist status ----"
-          git status --porcelain dist/ || true
+          git add dist/
 
-      - name: Commit dist
-        run: |
-          if git status --porcelain dist/ | grep -q .; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-
-            git add dist/
-            git commit -m "Update Collectables dist outputs"
-
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build collectables JSON update"
             git fetch origin main
             git pull --rebase origin main
             git push origin main
-          else
-            echo "No dist changes to commit."
           fi
