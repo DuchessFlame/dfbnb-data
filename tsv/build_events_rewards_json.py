@@ -825,7 +825,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
                           "message": f"No QUEST row matched guide title '{pages[0]['eventTitle']}'."}]
         }
     else:
-        candidates.sort(key=lambda r: pick(r, "QUEST_FormID", "FormID"))
+        candidates.sort(key=_quest_sort_key)
         q         = candidates[0]
         qid       = pick(q, "QUEST_FormID", "FormID")
         game_name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name",
