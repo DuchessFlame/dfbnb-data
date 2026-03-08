@@ -60,7 +60,7 @@ def pick(row, *keys, default=""):
     return default
 
 def pct(x):
-    return round(float(x) * 100, 6)
+    return round(max(0.0, float(x)) * 100, 6)
 
 def norm_name(s):
     s = (s or "").lower()
@@ -504,17 +504,39 @@ for r in GMRW:
 
 def get_gmrw_rows_for_quest(q):
     qid  = pick(q, "QUEST_FormID", "FormID")
-    rows = gmrw_rows_by_parent.get(qid, [])
-    if rows: return rows
-    # Legacy fallback: GMRWRef0-9 on QUEST row
-    seen, all_rows = set(), []
+    seen_fids = set()   # tracks GMRW FormIDs already pulled via a source
+    all_rows = []
+    # 1) GMRW rows parented directly to this quest — add ALL rows (multiple per FormID)
+    parent_rows = gmrw_rows_by_parent.get(qid, [])
+    all_rows.extend(parent_rows)
+    for r in parent_rows:
+        seen_fids.add((r.get("FormID") or "").strip())
+    # 2) Legacy fallback: GMRWRef0-9 on QUEST row
     for i in range(10):
         ref = q.get(f"GMRWRef{i}")
         if not ref: continue
         gmrw_fid = ref.split(":")[0] if ":" in ref else ref
-        if gmrw_fid in seen: continue
-        seen.add(gmrw_fid)
+        if gmrw_fid in seen_fids: continue
+        seen_fids.add(gmrw_fid)
         all_rows.extend(gmrw_rows_by_id.get(gmrw_fid, []))
+    # 3) Cross-quest mapping: some events have GMRW rewards parented to a different quest
+    cross_gmrw_fids = CROSS_QUEST_GMRW.get(qid, [])
+    for gmrw_fid in cross_gmrw_fids:
+        if gmrw_fid in seen_fids: continue
+        seen_fids.add(gmrw_fid)
+        all_rows.extend(gmrw_rows_by_id.get(gmrw_fid, []))
+    # 4) Ref1 fallback: some GMRW rows have no ParentQuestLink but Ref1 points to the quest
+    if not all_rows:
+        for gmrw_fid, gmrw_list in gmrw_rows_by_id.items():
+            for r in gmrw_list:
+                for ri in range(1, 6):
+                    ref_col = r.get(f"Ref{ri}", "")
+                    if ref_col and qid in ref_col:
+                        if gmrw_fid not in seen_fids:
+                            seen_fids.add(gmrw_fid)
+                            all_rows.extend(gmrw_rows_by_id.get(gmrw_fid, []))
+                if all_rows: break
+            if all_rows: break
     return all_rows
 
 # --------------------------------------------------
@@ -654,11 +676,56 @@ for q in QUEST:
     name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name",
                 "FULL", "QUEST_FULL", "EDID", "QUEST_EDID", default=qid)
     quest_by_key[norm_name(name)].append(q)
+    # Also index by EDID so alias lookups can match EDID-based keys
+    edid = pick(q, "QUEST_EDID", "EDID", default="")
+    edid_key = norm_name(edid)
+    if edid_key and edid_key != norm_name(name):
+        quest_by_key[edid_key].append(q)
 
 EVENT_KEY_ALIASES = {
     "arealblast":        ["enclaveactivityarealblast"],
     "botsonparade":      ["enclaveactivitybotsonparade"],
     "droppedconnection": ["enclaveactivitydroppedconnection"],
+    # Guide title → QUEST name mismatches
+    "fasnachtdayparade": ["fasnachtday", "eventfasnachtday", "e01ffasnacht"],
+    "gearingup":         ["gearinup", "eventgearinup", "burne01gear"],
+    "oneviolentnight":   ["eventoneviolentnight", "mtns04night"],
+    "encryptid":         ["eventencryptid", "e01bencryptid"],
+    "distinguishedguests": ["eventdistinguishedguests", "mtnm04guest"],
+    "lodebaring":        ["eventlodebaring", "mtr08lode"],
+    "meatweek":          ["eventgrahmsmeatcook", "e02ameatbbq", "meatcook"],
+    "seismicactivity":   ["eventseismicactivity", "e09alauncher"],
+    "sinkholesolutions": ["eventsinkholesolutions", "burne02sinkhole"],
+    "campfiretales":     ["eventcampfiretales", "e01ctales"],
+    "treasurehunter":    ["seasonaltreasurehunter", "e04treasurehunter"],
+    "poweringuppowerstation": ["poweringupthundermt", "poweringup", "mtr07power", "mtr07earth", "earthmover"],
+    "caravansmilepostzero":   ["milecaravanintro", "milepostzero"],
+    # Daily Ops → two modes (Uplink + Decryption)
+    "dailyops":          ["dailyopsmode01quest", "dailyopsmode02quest"],
+    # Holiday Scorched → Spotlight quest
+    "holidayscorched":   ["spotlightholiday2018"],
+    # Gleaming Depths — each stage maps to a raid encounter module quest
+    "gleamingdepthsstage1": ["rd01enc01bot", "rd01questrewardenc01"],
+    "gleamingdepthsstage2": ["rd01enc02drill", "rd01questrewardenc02"],
+    "gleamingdepthsstage3": ["rd01enc04encladesquad", "rd01enc04enclavesquad", "rd01questrewardenc03"],
+    "gleamingdepthsstage4": ["rd01enc05researchlab", "rd01questrewardenc04"],
+    "gleamingdepthsstage5": ["rd01enc06scorchtongue", "rd01questrewardenc05"],
+    # The Pitt Expeditions — two missions
+    "thepittexpos":      ["xpdpitt01mission", "xpdpitt02mission", "thepittuniondues", "thepittfromashestofire"],
+    # Atlantic City Expeditions — placeholder (no expedition quests in current TSV)
+    "atlanticcityexpos": ["xpdac"],
+}
+
+# Explicit cross-quest GMRW mappings: some events have their GMRW rewards
+# parented to a DIFFERENT quest (e.g. a region boss quest that aggregates
+# sub-event rewards). Map event quest FormID → list of GMRW FormIDs.
+CROSS_QUEST_GMRW = {
+    # Dangerous Pastimes — GMRW lives under Neurological Warfare (006AD506)
+    "00733DB5": ["0077082C"],  # QuestReward_Storm_DangerousPastimes_Stage9000
+    # Gearing Up — main rewards also live under Neurological Warfare
+    "007F1E8A": ["0080A089"],  # Burn_E01_QuestReward_GearinUp
+    # Sinkhole Solutions — GMRW 00837FEB has no parent, Ref1 points to quest
+    "0080BFD0": ["00837FEB"],  # Burn_E02_QuestReward_Sinkhole
 }
 
 # Enclave activity quest FormIDs — used to detect enclave events and inject
@@ -713,18 +780,54 @@ REGION_BY_SUBLVLI_EDID = {
     "regionburningsprings":"Burning Springs",
 }
 
+def _quest_has_gmrw(q):
+    """Return True if this quest row has at least one non-empty GMRWRef."""
+    for i in range(10):
+        ref = (q.get(f"GMRWRef{i}") or "").strip()
+        if ref: return True
+    return False
+
+def _quest_sort_key(q):
+    """Sort key that prefers quests with GMRWRefs and penalises Master/CUT quests."""
+    edid = (q.get("QUEST_EDID") or q.get("EDID") or "").lower()
+    is_master_or_cut = ("_master" in edid or "cut_" in edid or edid.endswith("_misc"))
+    has_gmrw = _quest_has_gmrw(q)
+    # Also check if GMRW rows exist via parent link
+    qid = pick(q, "QUEST_FormID", "FormID")
+    has_gmrw_parent = bool(gmrw_rows_by_parent.get(qid))
+    # Priority: (0) has GMRWRef + not master, (1) has GMRW parent, (2) has GMRWRef, (3) not master, (4) rest
+    score = 0
+    if has_gmrw and not is_master_or_cut: score = 0
+    elif has_gmrw_parent: score = 1
+    elif has_gmrw: score = 2
+    elif not is_master_or_cut: score = 3
+    else: score = 4
+    return (score, edid)
+
 def find_quest_candidates_for_key(event_key):
     event_key = (event_key or "").strip()
     if not event_key: return []
+    # Always collect from ALL sources: direct match + aliases + substring
     c = list(quest_by_key.get(event_key, []))
-    if c: return c
+    # Always try aliases too (even when direct match exists)
     for pref in EVENT_KEY_ALIASES.get(event_key, []):
         for qkey, rows in quest_by_key.items():
             if qkey.startswith(pref): c.extend(rows)
-    if c: return c
-    for qkey, rows in quest_by_key.items():
-        if event_key in qkey: c.extend(rows)
-    return c
+    # Substring fallback only when both direct + alias came up empty
+    if not c:
+        for qkey, rows in quest_by_key.items():
+            if event_key in qkey: c.extend(rows)
+    # Deduplicate by FormID
+    seen = set()
+    deduped = []
+    for q in c:
+        fid = pick(q, "QUEST_FormID", "FormID")
+        if fid not in seen:
+            seen.add(fid)
+            deduped.append(q)
+    # Sort so quests with actual reward data come first
+    deduped.sort(key=_quest_sort_key)
+    return deduped
 
 # --------------------------------------------------
 # Event builder
@@ -746,7 +849,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
                           "message": f"No QUEST row matched guide title '{pages[0]['eventTitle']}'."}]
         }
     else:
-        candidates.sort(key=lambda r: pick(r, "QUEST_FormID", "FormID"))
+        candidates.sort(key=_quest_sort_key)
         q         = candidates[0]
         qid       = pick(q, "QUEST_FormID", "FormID")
         game_name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name",
@@ -805,6 +908,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
 
         # freeRewards (legacy / base tier only, for backward compat)
         pool_seen = set()
+        free_seen = set()   # dedup: track (label, value) pairs already added
         for rr in gmrw_rows:
             tier_label = (rr.get("TierLabel") or "").strip()
 
@@ -812,19 +916,25 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
                 if xpct:
                     xpv = xp_at_level(xpct.split(":")[0])
-                    if xpv is not None:
+                    if xpv is not None and ("XP", xpv) not in free_seen:
+                        free_seen.add(("XP", xpv))
                         add_free(event["freeRewards"], "XP", xpv,
                                  meta={"source": "GMRW", "curveFormID": xpct.split(":")[0]})
                 caps_ref = (rr.get("NAM8_CapsGlobal") or "").strip()
                 if caps_ref:
                     fid = caps_ref.split(":")[0]
                     if fid in glob_vals:
-                        add_free(event["freeRewards"], "Caps", int(glob_vals[fid]),
-                                 meta={"source": "GMRW", "globFormID": fid})
+                        cv = int(glob_vals[fid])
+                        if ("Caps", cv) not in free_seen:
+                            free_seen.add(("Caps", cv))
+                            add_free(event["freeRewards"], "Caps", cv,
+                                     meta={"source": "GMRW", "globFormID": fid})
                 qrlr = (rr.get("QRLR_LegendaryItemRewardRank") or "").strip()
                 if qrlr and qrlr not in ("0", ""):
-                    add_free(event["freeRewards"], "Legendary Reward Rank", qrlr,
-                             meta={"source": "GMRW"})
+                    if ("Legendary Reward Rank", qrlr) not in free_seen:
+                        free_seen.add(("Legendary Reward Rank", qrlr))
+                        add_free(event["freeRewards"], "Legendary Reward Rank", qrlr,
+                                 meta={"source": "GMRW"})
 
             # Pools (all tiers)
             rewarded = (rr.get("RewardedItem") or "").strip()
