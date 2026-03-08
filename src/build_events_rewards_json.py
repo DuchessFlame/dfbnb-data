@@ -728,6 +728,44 @@ CROSS_QUEST_GMRW = {
     "0080BFD0": ["00837FEB"],  # Burn_E02_QuestReward_Sinkhole
 }
 
+# Container-based seasonal events: rewards come from opening containers
+# (pails, gifts, treat bags) not from GMRW quest rewards. Map event key to
+# a list of {"title": ..., "lvliFormID": ...} pool defs that should be injected
+# when GMRW returns nothing useful.
+CONTAINER_LOOT_EVENTS = {
+    "treasurehunter": {
+        "description": "Rewards from Mole Miner Pails (found/crafted). Tiers represent pail quality.",
+        "pools": [
+            {"title": "Ornate Mole Miner Pail (Found)",   "lvliFormID": "005D805A", "tier": ""},
+            {"title": "Regular Mole Miner Pail (Found)",   "lvliFormID": "005D8054", "tier": ""},
+            {"title": "Dusty Mole Miner Pail (Found)",     "lvliFormID": "005D8056", "tier": ""},
+            {"title": "Ornate Mole Miner Pail (Crafted)",  "lvliFormID": "005D8053", "tier": ""},
+            {"title": "Regular Mole Miner Pail (Crafted)", "lvliFormID": "005D8059", "tier": ""},
+            {"title": "Dusty Mole Miner Pail (Crafted)",   "lvliFormID": "005D8055", "tier": ""},
+        ],
+    },
+    "holidayscorched": {
+        "description": "Rewards from Holiday Gifts dropped by Holiday Scorched. Tiers represent gift quality.",
+        "pools": [
+            {"title": "Large Holiday Gift (Found)",   "lvliFormID": "005DCA88", "tier": ""},
+            {"title": "Medium Holiday Gift (Found)",  "lvliFormID": "005DCA8A", "tier": ""},
+            {"title": "Small Holiday Gift (Found)",   "lvliFormID": "005DCA89", "tier": ""},
+            {"title": "Large Holiday Gift (Crafted)",  "lvliFormID": "005DCA85", "tier": ""},
+            {"title": "Medium Holiday Gift (Crafted)", "lvliFormID": "005DCA87", "tier": ""},
+            {"title": "Small Holiday Gift (Crafted)",  "lvliFormID": "005DCA86", "tier": ""},
+        ],
+    },
+    "halloweenscorched": {
+        "description": "Rewards from Spooky Treat Bags dropped by Spooky Scorched.",
+        "pools": [
+            {"title": "Spooky Treat Bag",  "lvliFormID": "0062038D", "tier": ""},
+        ],
+    },
+}
+
+# Events that were cut or have no in-game rewards — suppress warnings.
+CUT_EVENTS = {"caravansmilepostzero"}
+
 # Enclave activity quest FormIDs — used to detect enclave events and inject
 # the shared activities LVLI (008A9106) when it isn't already in GMRW rewards.
 ENCLAVE_QUEST_FIDS = set()  # populated from alias keys at runtime
@@ -839,7 +877,18 @@ by_page = {}
 for key, pages in sorted(reward_pages_by_key.items()):
     candidates = find_quest_candidates_for_key(key)
 
-    if not candidates:
+    # Skip cut/removed events entirely
+    if key in CUT_EVENTS:
+        event = {
+            "questFormID": "", "name": pages[0]["eventTitle"] or "Event",
+            "gameName": "", "freeRewards": [], "conditionalRewards": [],
+            "baseRewards": {"tiers": []}, "regionLocations": [],
+            "pools": [], "banners": [], "scenarios": [],
+            "isCutContent": True,
+            "warnings": [{"title": "Cut Content",
+                          "message": f"'{pages[0]['eventTitle']}' was cut from the game and has no reward data."}]
+        }
+    elif not candidates:
         event = {
             "questFormID": "", "name": pages[0]["eventTitle"] or "Event",
             "gameName": "", "freeRewards": [], "conditionalRewards": [],
@@ -1135,6 +1184,51 @@ for key, pages in sorted(reward_pages_by_key.items()):
                     "itemCount": len(act_items),
                     "isEnclaveActivities": True,
                 })
+
+    # Container-based seasonal events: inject LVLI pools when GMRW yields none
+    if key in CONTAINER_LOOT_EVENTS and not event.get("pools"):
+        cle = CONTAINER_LOOT_EVENTS[key]
+        if cle.get("description"):
+            event["containerLootDescription"] = cle["description"]
+        event["isContainerLoot"] = True
+        for pool_def in cle.get("pools", []):
+            formid = pool_def["lvliFormID"]
+            lvli_edid = lvli_edid_by_formid.get(formid, "")
+            probs = compute_lvli(formid)
+            _total = sum(probs.values())
+            if _total > 1.001:
+                probs = {k: v / _total for k, v in probs.items()}
+            items = sorted([
+                {
+                    "formid": fid,
+                    "name": resolve_name_for_formid(fid),
+                    "dropRate": pct(ch),
+                    "qty": 1,
+                    "isPlan": any(
+                        n.startswith(("Plan:", "Recipe:"))
+                        for n in [resolve_name_for_formid(fid)]
+                        if n
+                    ),
+                }
+                for fid, ch in probs.items()
+            ], key=lambda x: (x["name"] or "", x["formid"] or ""))
+            pt, ttl = classify_pool(formid)
+            event["pools"].append({
+                "title": pool_def["title"],
+                "lvliFormID": formid,
+                "lvliEdid": lvli_edid,
+                "tier": pool_def.get("tier", ""),
+                "count": "1",
+                "conditions": [],
+                "poolChance": 100.0,
+                "poolTypes": pt,
+                "items": items,
+                "itemCount": len(items),
+                "isContainerLoot": True,
+            })
+        # Remove the "Missing QUEST match" warning since we now have data
+        event["warnings"] = [w for w in event.get("warnings", [])
+                             if w.get("title") != "Missing QUEST match"]
 
     for p in pages:
         if p["slug"]: by_page[p["slug"]] = event
