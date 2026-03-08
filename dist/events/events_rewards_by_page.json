@@ -987,7 +987,7 @@
     "always-vigilant-reward-checklist": {
       "questFormID": "000A73DC",
       "name": "Always Vigilant",
-      "gameName": "Event: Always Vigilant",
+      "gameName": "Activity: Always Vigilant",
       "isPublicEvent": false,
       "description": "Defend Rover while he repairs the communications uplink!",
       "regionLocations": [
@@ -6150,7 +6150,7 @@
     "/df/activities/always-vigilant/always-vigilant-reward-checklist": {
       "questFormID": "000A73DC",
       "name": "Always Vigilant",
-      "gameName": "Event: Always Vigilant",
+      "gameName": "Activity: Always Vigilant",
       "isPublicEvent": false,
       "description": "Defend Rover while he repairs the communications uplink!",
       "regionLocations": [
@@ -11313,7 +11313,7 @@
     "a-real-blast-reward-checklist": {
       "questFormID": "0000D053",
       "name": "A Real Blast",
-      "gameName": "Enclave Event: A Real Blast - <Alias=TargetLocationActual>",
+      "gameName": "Enclave Activity: A Real Blast - <Alias=TargetLocationActual>",
       "isPublicEvent": false,
       "description": "Activate MODUS' lures, draw in the \"pests,\" and wipe them out.",
       "regionLocations": [
@@ -16556,7 +16556,8 @@
               "isPlan": false
             }
           ],
-          "itemCount": 7
+          "itemCount": 7,
+          "isEnclaveActivities": true
         },
         {
           "title": "Enclave Plasma Gun Mod Boxes",
@@ -16858,12 +16859,13 @@
         }
       ],
       "banners": [],
-      "scenarios": []
+      "scenarios": [],
+      "isEnclaveActivity": true
     },
     "/df/activities/a-real-blast/a-real-blast-reward-checklist": {
       "questFormID": "0000D053",
       "name": "A Real Blast",
-      "gameName": "Enclave Event: A Real Blast - <Alias=TargetLocationActual>",
+      "gameName": "Enclave Activity: A Real Blast - <Alias=TargetLocationActual>",
       "isPublicEvent": false,
       "description": "Activate MODUS' lures, draw in the \"pests,\" and wipe them out.",
       "regionLocations": [
@@ -22106,7 +22108,8 @@
               "isPlan": false
             }
           ],
-          "itemCount": 7
+          "itemCount": 7,
+          "isEnclaveActivities": true
         },
         {
           "title": "Enclave Plasma Gun Mod Boxes",
@@ -22408,7 +22411,8 @@
         }
       ],
       "banners": [],
-      "scenarios": []
+      "scenarios": [],
+      "isEnclaveActivity": true
     },
     "atlantic-city-expos-reward-checklist": {
       "questFormID": "",
@@ -22453,7 +22457,7 @@
     "awol-armaments-reward-checklist": {
       "questFormID": "0052BDF7",
       "name": "AWOL Armaments",
-      "gameName": "Event: AWOL Armaments",
+      "gameName": "Activity: AWOL Armaments",
       "isPublicEvent": false,
       "description": "Defend against waves of robots.",
       "regionLocations": [
@@ -27564,7 +27568,7 @@
     "/df/activities/awol-armaments/awol-armaments-reward-checklist": {
       "questFormID": "0052BDF7",
       "name": "AWOL Armaments",
-      "gameName": "Event: AWOL Armaments",
+      "gameName": "Activity: AWOL Armaments",
       "isPublicEvent": false,
       "description": "Defend against waves of robots.",
       "regionLocations": [
@@ -32675,7 +32679,7 @@
     "back-on-the-beat-reward-checklist": {
       "questFormID": "0015D682",
       "name": "Back on the Beat",
-      "gameName": "Event: Back on the Beat",
+      "gameName": "Activity: Back on the Beat",
       "isPublicEvent": false,
       "description": "Defend Steelheart as he patrols the streets of Morgantown.",
       "regionLocations": [
@@ -37866,7 +37870,7 @@
     "/df/activities/back-on-the-beat/back-on-the-beat-reward-checklist": {
       "questFormID": "0015D682",
       "name": "Back on the Beat",
-      "gameName": "Event: Back on the Beat",
+      "gameName": "Activity: Back on the Beat",
       "isPublicEvent": false,
       "description": "Defend Steelheart as he patrols the streets of Morgantown.",
       "regionLocations": [
@@ -43057,7 +43061,7 @@
     "battle-bot-reward-checklist": {
       "questFormID": "00331AB2",
       "name": "Battle Bot",
-      "gameName": "Event: Battle Bot",
+      "gameName": "Activity: Battle Bots",
       "isPublicEvent": false,
       "description": "Pre-war Security Robots are still on patrol. Be wary of crossing their paths.",
       "regionLocations": [],
@@ -48198,7 +48202,7 @@
     "/df/activities/battle-bot/battle-bot-reward-checklist": {
       "questFormID": "00331AB2",
       "name": "Battle Bot",
-      "gameName": "Event: Battle Bot",
+      "gameName": "Activity: Battle Bots",
       "isPublicEvent": false,
       "description": "Pre-war Security Robots are still on patrol. Be wary of crossing their paths.",
       "regionLocations": [],
@@ -53341,7 +53345,7 @@
       "name": "Beasts of Burden",
       "gameName": "Event: Beasts of Burden",
       "isPublicEvent": false,
-      "description": "Help Luca infiltrate a cultist camp and retrieve his stolen cargo! [Recommended Level: 50]",
+      "description": "Help Luca infiltrate a cultist camp and retrieve his stolen cargo!",
       "regionLocations": [
         {
           "region": "Cranberry Bog",
@@ -54617,7 +54621,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/public-events/beasts-of-burden/beasts-of-burden-reward-checklist": {
@@ -54625,7 +54638,7 @@
       "name": "Beasts of Burden",
       "gameName": "Event: Beasts of Burden",
       "isPublicEvent": false,
-      "description": "Help Luca infiltrate a cultist camp and retrieve his stolen cargo! [Recommended Level: 50]",
+      "description": "Help Luca infiltrate a cultist camp and retrieve his stolen cargo!",
       "regionLocations": [
         {
           "region": "Cranberry Bog",
@@ -55901,13 +55914,22 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "bots-on-parade-reward-checklist": {
       "questFormID": "0000D02C",
       "name": "Bots on Parade",
-      "gameName": "Enclave Event: Bots on Parade",
+      "gameName": "Enclave Activity: Bots on Parade",
       "isPublicEvent": false,
       "description": "Build and protect MODUS' automated patrol.",
       "regionLocations": [
@@ -61137,7 +61159,8 @@
               "isPlan": false
             }
           ],
-          "itemCount": 7
+          "itemCount": 7,
+          "isEnclaveActivities": true
         },
         {
           "title": "Enclave Plasma Gun Mod Boxes",
@@ -61439,12 +61462,13 @@
         }
       ],
       "banners": [],
-      "scenarios": []
+      "scenarios": [],
+      "isEnclaveActivity": true
     },
     "/df/activities/bots-on-parade/bots-on-parade-reward-checklist": {
       "questFormID": "0000D02C",
       "name": "Bots on Parade",
-      "gameName": "Enclave Event: Bots on Parade",
+      "gameName": "Enclave Activity: Bots on Parade",
       "isPublicEvent": false,
       "description": "Build and protect MODUS' automated patrol.",
       "regionLocations": [
@@ -66674,7 +66698,8 @@
               "isPlan": false
             }
           ],
-          "itemCount": 7
+          "itemCount": 7,
+          "isEnclaveActivities": true
         },
         {
           "title": "Enclave Plasma Gun Mod Boxes",
@@ -66976,12 +67001,13 @@
         }
       ],
       "banners": [],
-      "scenarios": []
+      "scenarios": [],
+      "isEnclaveActivity": true
     },
     "breach-and-clear-reward-checklist": {
       "questFormID": "0006A378",
       "name": "Breach and Clear",
-      "gameName": "Event: Breach and Clear",
+      "gameName": "Activity: Breach and Clear",
       "isPublicEvent": false,
       "description": "Clear the work site, then grab as much as you can carry.",
       "regionLocations": [
@@ -72134,7 +72160,7 @@
     "/df/activities/breach-and-clear/breach-and-clear-reward-checklist": {
       "questFormID": "0006A378",
       "name": "Breach and Clear",
-      "gameName": "Event: Breach and Clear",
+      "gameName": "Activity: Breach and Clear",
       "isPublicEvent": false,
       "description": "Clear the work site, then grab as much as you can carry.",
       "regionLocations": [
@@ -77427,7 +77453,7 @@
     "census-violence-reward-checklist": {
       "questFormID": "0052808B",
       "name": "Census Violence",
-      "gameName": "Event: Census Violence",
+      "gameName": "Activity: Census Violence",
       "isPublicEvent": false,
       "description": "There's only one way to fix the incorrect Census tally... murder.",
       "regionLocations": [
@@ -82556,7 +82582,7 @@
     "/df/activities/census-violence/census-violence-reward-checklist": {
       "questFormID": "0052808B",
       "name": "Census Violence",
-      "gameName": "Event: Census Violence",
+      "gameName": "Activity: Census Violence",
       "isPublicEvent": false,
       "description": "There's only one way to fix the incorrect Census tally... murder.",
       "regionLocations": [
@@ -87685,7 +87711,7 @@
     "collision-course-reward-checklist": {
       "questFormID": "002D64EE",
       "name": "Collision Course",
-      "gameName": "Event: Collision Course",
+      "gameName": "Activity: Collision Course",
       "isPublicEvent": false,
       "description": "Fight the Scorched to claim a Cargobot supply drop.",
       "regionLocations": [
@@ -92761,7 +92787,7 @@
     "/df/activities/collision-course/collision-course-reward-checklist": {
       "questFormID": "002D64EE",
       "name": "Collision Course",
-      "gameName": "Event: Collision Course",
+      "gameName": "Activity: Collision Course",
       "isPublicEvent": false,
       "description": "Fight the Scorched to claim a Cargobot supply drop.",
       "regionLocations": [
@@ -97879,7 +97905,7 @@
       "name": "Dangerous Pastimes",
       "gameName": "Event: Dangerous Pastimes",
       "isPublicEvent": false,
-      "description": "Some settlers require help with their thrill-seeking activities. [Recommended Level: 50]",
+      "description": "Some settlers require help with their thrill-seeking activities.",
       "regionLocations": [
         {
           "region": "Skyline Valley",
@@ -97900,7 +97926,7 @@
       "name": "Dangerous Pastimes",
       "gameName": "Event: Dangerous Pastimes",
       "isPublicEvent": false,
-      "description": "Some settlers require help with their thrill-seeking activities. [Recommended Level: 50]",
+      "description": "Some settlers require help with their thrill-seeking activities.",
       "regionLocations": [
         {
           "region": "Skyline Valley",
@@ -97919,7 +97945,7 @@
     "death-blossoms-reward-checklist": {
       "questFormID": "00036191",
       "name": "Death Blossoms",
-      "gameName": "Event: Death Blossoms",
+      "gameName": "Activity: Death Blossoms",
       "isPublicEvent": false,
       "description": "Protect blossoming corpse flowers from the frenzied creatures of the forest.",
       "regionLocations": [
@@ -103039,7 +103065,7 @@
     "/df/activities/death-blossoms/death-blossoms-reward-checklist": {
       "questFormID": "00036191",
       "name": "Death Blossoms",
-      "gameName": "Event: Death Blossoms",
+      "gameName": "Activity: Death Blossoms",
       "isPublicEvent": false,
       "description": "Protect blossoming corpse flowers from the frenzied creatures of the forest.",
       "regionLocations": [
@@ -108159,7 +108185,7 @@
     "distant-thunder-reward-checklist": {
       "questFormID": "0031307F",
       "name": "Distant Thunder",
-      "gameName": "Event: Distant Thunder",
+      "gameName": "Activity: Distant Thunder",
       "isPublicEvent": false,
       "description": "The artillery battery at Fort Defiance is ready to deal a blow to the Scorched.",
       "regionLocations": [
@@ -113747,7 +113773,7 @@
     "/df/activities/distant-thunder/distant-thunder-reward-checklist": {
       "questFormID": "0031307F",
       "name": "Distant Thunder",
-      "gameName": "Event: Distant Thunder",
+      "gameName": "Activity: Distant Thunder",
       "isPublicEvent": false,
       "description": "The artillery battery at Fort Defiance is ready to deal a blow to the Scorched.",
       "regionLocations": [
@@ -121427,7 +121453,7 @@
     "dropped-connection-reward-checklist": {
       "questFormID": "00003AF2",
       "name": "Dropped Connection",
-      "gameName": "Enclave Event: Dropped Connection - <Alias=ParentLocation>",
+      "gameName": "Enclave Activity: Dropped Connection - <Alias=ParentLocation>",
       "isPublicEvent": false,
       "description": "Orient MODUS' dishes to call in a resource drop from the Kovac-Muldoon.",
       "regionLocations": [
@@ -126573,15 +126599,79 @@
             }
           ],
           "itemCount": 9
+        },
+        {
+          "title": "Enclave Activity Rewards",
+          "lvliFormID": "008A9106",
+          "lvliEdid": "RA_LL_Rewards_EnclaveActivities",
+          "tier": "",
+          "count": "1",
+          "conditions": [],
+          "poolChance": 100.0,
+          "poolTypes": [],
+          "items": [
+            {
+              "formid": "007B23BE",
+              "name": "Plan: Gatling Plasma Accelerated Nozzle",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23C0",
+              "name": "Plan: Gatling Plasma Calibrated Capacitor",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23BF",
+              "name": "Plan: Gatling Plasma Gamma Wave Emitter",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23BB",
+              "name": "Plan: Gatling Plasma Large Core Receptacle",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23BC",
+              "name": "Plan: Gatling Plasma Stinging Core Receptacle",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23BD",
+              "name": "Plan: Gatling Plasma Swift Core Receptacle",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "002E46A0",
+              "name": "Urban Scout Armor Chest Piece",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": false
+            }
+          ],
+          "itemCount": 7,
+          "isEnclaveActivities": true
         }
       ],
       "banners": [],
-      "scenarios": []
+      "scenarios": [],
+      "isEnclaveActivity": true
     },
     "/df/activities/dropped-connection/dropped-connection-reward-checklist": {
       "questFormID": "00003AF2",
       "name": "Dropped Connection",
-      "gameName": "Enclave Event: Dropped Connection - <Alias=ParentLocation>",
+      "gameName": "Enclave Activity: Dropped Connection - <Alias=ParentLocation>",
       "isPublicEvent": false,
       "description": "Orient MODUS' dishes to call in a resource drop from the Kovac-Muldoon.",
       "regionLocations": [
@@ -131727,10 +131817,74 @@
             }
           ],
           "itemCount": 9
+        },
+        {
+          "title": "Enclave Activity Rewards",
+          "lvliFormID": "008A9106",
+          "lvliEdid": "RA_LL_Rewards_EnclaveActivities",
+          "tier": "",
+          "count": "1",
+          "conditions": [],
+          "poolChance": 100.0,
+          "poolTypes": [],
+          "items": [
+            {
+              "formid": "007B23BE",
+              "name": "Plan: Gatling Plasma Accelerated Nozzle",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23C0",
+              "name": "Plan: Gatling Plasma Calibrated Capacitor",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23BF",
+              "name": "Plan: Gatling Plasma Gamma Wave Emitter",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23BB",
+              "name": "Plan: Gatling Plasma Large Core Receptacle",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23BC",
+              "name": "Plan: Gatling Plasma Stinging Core Receptacle",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "007B23BD",
+              "name": "Plan: Gatling Plasma Swift Core Receptacle",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": true
+            },
+            {
+              "formid": "002E46A0",
+              "name": "Urban Scout Armor Chest Piece",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": false
+            }
+          ],
+          "itemCount": 7,
+          "isEnclaveActivities": true
         }
       ],
       "banners": [],
-      "scenarios": []
+      "scenarios": [],
+      "isEnclaveActivity": true
     },
     "encryptid-reward-checklist": {
       "questFormID": "00416654",
@@ -131779,7 +131933,7 @@
       "name": "Eviction Notice",
       "gameName": "Event: Eviction Notice",
       "isPublicEvent": false,
-      "description": "A Foundation Outpost has been attacked by Super Mutants and needs help. [Recommended Level: 50]",
+      "description": "A Foundation Outpost has been attacked by Super Mutants and needs help.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -132272,7 +132426,7 @@
       "name": "Eviction Notice",
       "gameName": "Event: Eviction Notice",
       "isPublicEvent": false,
-      "description": "A Foundation Outpost has been attacked by Super Mutants and needs help. [Recommended Level: 50]",
+      "description": "A Foundation Outpost has been attacked by Super Mutants and needs help.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -133493,7 +133647,7 @@
     "fertile-soil-reward-checklist": {
       "questFormID": "0000FFED",
       "name": "Fertile Soil",
-      "gameName": "Event: Fertile Soil",
+      "gameName": "Activity: Fertile Soil",
       "isPublicEvent": false,
       "description": "The Mr. Farmhands have malfunctioned and are now hostile. They must be dealt with!",
       "regionLocations": [
@@ -138618,7 +138772,7 @@
     "/df/activities/fertile-soil/fertile-soil-reward-checklist": {
       "questFormID": "0000FFED",
       "name": "Fertile Soil",
-      "gameName": "Event: Fertile Soil",
+      "gameName": "Activity: Fertile Soil",
       "isPublicEvent": false,
       "description": "The Mr. Farmhands have malfunctioned and are now hostile. They must be dealt with!",
       "regionLocations": [
@@ -143743,7 +143897,7 @@
     "fly-swatter-reward-checklist": {
       "questFormID": "00029183",
       "name": "Fly Swatter",
-      "gameName": "Event: Fly Swatter",
+      "gameName": "Activity: Fly Swatter",
       "isPublicEvent": false,
       "description": "Shoot down a damaged Vertibot to claim salvage.",
       "regionLocations": [
@@ -148904,7 +149058,7 @@
     "/df/activities/fly-swatter/fly-swatter-reward-checklist": {
       "questFormID": "00029183",
       "name": "Fly Swatter",
-      "gameName": "Event: Fly Swatter",
+      "gameName": "Activity: Fly Swatter",
       "isPublicEvent": false,
       "description": "Shoot down a damaged Vertibot to claim salvage.",
       "regionLocations": [
@@ -154067,7 +154221,7 @@
       "name": "Free Range",
       "gameName": "Event: Free Range",
       "isPublicEvent": false,
-      "description": "Guide a pack of abandoned Brahmin back home. [Recommended Level: 35]",
+      "description": "Guide a pack of abandoned Brahmin back home.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -155079,7 +155233,24 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "invaders",
+          "lines": [
+            "Invaders Event Take Over",
+            "This event can be taken over by Invaders from Beyond."
+          ]
+        },
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/public-events/free-range/free-range-reward-checklist": {
@@ -155087,7 +155258,7 @@
       "name": "Free Range",
       "gameName": "Event: Free Range",
       "isPublicEvent": false,
-      "description": "Guide a pack of abandoned Brahmin back home. [Recommended Level: 35]",
+      "description": "Guide a pack of abandoned Brahmin back home.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -156099,7 +156270,24 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "invaders",
+          "lines": [
+            "Invaders Event Take Over",
+            "This event can be taken over by Invaders from Beyond."
+          ]
+        },
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "gearing-up-reward-checklist": {
@@ -156345,7 +156533,7 @@
     "grafton-day-reward-checklist": {
       "questFormID": "0025C0F4",
       "name": "Grafton Day",
-      "gameName": "Event: Grafton Day",
+      "gameName": "Activity: Grafton Day",
       "isPublicEvent": false,
       "description": "Attend the Grafton Day parade.",
       "regionLocations": [
@@ -161456,7 +161644,7 @@
     "/df/activities/grafton-day/grafton-day-reward-checklist": {
       "questFormID": "0025C0F4",
       "name": "Grafton Day",
-      "gameName": "Event: Grafton Day",
+      "gameName": "Activity: Grafton Day",
       "isPublicEvent": false,
       "description": "Attend the Grafton Day parade.",
       "regionLocations": [
@@ -166569,7 +166757,7 @@
       "name": "Guided Meditation",
       "gameName": "Event: Guided Meditation",
       "isPublicEvent": false,
-      "description": "Prevent Discordant Forces from interrupting your Guided Meditation. [Recommended Level: 25]",
+      "description": "Prevent Discordant Forces from interrupting your Guided Meditation.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -167010,7 +167198,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Enc Wendigo Colossus01",
+            "34.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/public-events/guided-meditation/guided-meditation-reward-checklist": {
@@ -167018,7 +167215,7 @@
       "name": "Guided Meditation",
       "gameName": "Event: Guided Meditation",
       "isPublicEvent": false,
-      "description": "Prevent Discordant Forces from interrupting your Guided Meditation. [Recommended Level: 25]",
+      "description": "Prevent Discordant Forces from interrupting your Guided Meditation.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -167459,7 +167656,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Enc Wendigo Colossus01",
+            "34.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "halloween-scorched-reward-checklist": {
@@ -167507,7 +167713,7 @@
       "name": "Heart of the Swamp",
       "gameName": "Event: Heart of the Swamp",
       "isPublicEvent": false,
-      "description": "Destroy the infested heart of the swamp before it spreads. [Recommended Level: 35]",
+      "description": "Destroy the infested heart of the swamp before it spreads.",
       "regionLocations": [
         {
           "region": "The Mire",
@@ -167944,7 +168150,7 @@
       "name": "Heart of the Swamp",
       "gameName": "Event: Heart of the Swamp",
       "isPublicEvent": false,
-      "description": "Destroy the infested heart of the swamp before it spreads. [Recommended Level: 35]",
+      "description": "Destroy the infested heart of the swamp before it spreads.",
       "regionLocations": [
         {
           "region": "The Mire",
@@ -169065,7 +169271,16 @@
           "itemCount": 1
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/seasonal-events/invaders-from-beyond/invaders-from-beyond-reward-checklist": {
@@ -169717,13 +169932,22 @@
           "itemCount": 1
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "irrational-fear-reward-checklist": {
       "questFormID": "00275BC5",
       "name": "Irrational Fear",
-      "gameName": "Event: Irrational Fear",
+      "gameName": "Activity: Irrational Fear",
       "isPublicEvent": false,
       "description": "Help protect Beckham while he harvests honey.",
       "regionLocations": [
@@ -174834,7 +175058,7 @@
     "/df/activities/irrational-fear/irrational-fear-reward-checklist": {
       "questFormID": "00275BC5",
       "name": "Irrational Fear",
-      "gameName": "Event: Irrational Fear",
+      "gameName": "Activity: Irrational Fear",
       "isPublicEvent": false,
       "description": "Help protect Beckham while he harvests honey.",
       "regionLocations": [
@@ -179945,7 +180169,7 @@
     "its-a-trap-reward-checklist": {
       "questFormID": "00304A39",
       "name": "It's a Trap",
-      "gameName": "Event: It's a Trap",
+      "gameName": "Activity: It's a Trap",
       "isPublicEvent": false,
       "description": "Use the lure at <Alias=ParentLocation> to trap a Scorchbeast on the ground and defeat it!",
       "regionLocations": [
@@ -185129,7 +185353,7 @@
     "/df/activities/its-a-trap/its-a-trap-reward-checklist": {
       "questFormID": "00304A39",
       "name": "It's a Trap",
-      "gameName": "Event: It's a Trap",
+      "gameName": "Activity: It's a Trap",
       "isPublicEvent": false,
       "description": "Use the lure at <Alias=ParentLocation> to trap a Scorchbeast on the ground and defeat it!",
       "regionLocations": [
@@ -190315,7 +190539,7 @@
       "name": "Jail Break",
       "gameName": "Event: Jail Break",
       "isPublicEvent": false,
-      "description": "Help the prison warden with a jail break. [Recommended Level: 15]",
+      "description": "Help the prison warden with a jail break.",
       "regionLocations": [
         {
           "region": "Toxic Valley",
@@ -192272,7 +192496,7 @@
       "name": "Jail Break",
       "gameName": "Event: Jail Break",
       "isPublicEvent": false,
-      "description": "Help the prison warden with a jail break. [Recommended Level: 15]",
+      "description": "Help the prison warden with a jail break.",
       "regionLocations": [
         {
           "region": "Toxic Valley",
@@ -194227,7 +194451,7 @@
     "leader-of-the-pack-reward-checklist": {
       "questFormID": "00095360",
       "name": "Leader of the Pack",
-      "gameName": "Event: Leader of the Pack",
+      "gameName": "Activity: Leader of the Pack",
       "isPublicEvent": false,
       "description": "Hunt wolf packs in the forest.",
       "regionLocations": [
@@ -199380,7 +199604,7 @@
     "/df/activities/leader-of-the-pack/leader-of-the-pack-reward-checklist": {
       "questFormID": "00095360",
       "name": "Leader of the Pack",
-      "gameName": "Event: Leader of the Pack",
+      "gameName": "Activity: Leader of the Pack",
       "isPublicEvent": false,
       "description": "Hunt wolf packs in the forest.",
       "regionLocations": [
@@ -204535,7 +204759,7 @@
       "name": "Line in the Sand",
       "gameName": "Event: Line in the Sand",
       "isPublicEvent": false,
-      "description": "Scorched are amassing! But Fort Defiance's defenses are online. [Recommended Level: 40]",
+      "description": "Scorched are amassing! But Fort Defiance's defenses are online.",
       "regionLocations": [
         {
           "region": "Cranberry Bog",
@@ -204970,7 +205194,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "invaders",
+          "lines": [
+            "Invaders Event Take Over",
+            "This event can be taken over by Invaders from Beyond."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/public-events/line-in-the-sand/line-in-the-sand-reward-checklist": {
@@ -204978,7 +205211,7 @@
       "name": "Line in the Sand",
       "gameName": "Event: Line in the Sand",
       "isPublicEvent": false,
-      "description": "Scorched are amassing! But Fort Defiance's defenses are online. [Recommended Level: 40]",
+      "description": "Scorched are amassing! But Fort Defiance's defenses are online.",
       "regionLocations": [
         {
           "region": "Cranberry Bog",
@@ -205413,7 +205646,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "invaders",
+          "lines": [
+            "Invaders Event Take Over",
+            "This event can be taken over by Invaders from Beyond."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "lode-baring-reward-checklist": {
@@ -205469,7 +205711,7 @@
     "manhunt-reward-checklist": {
       "questFormID": "0010E200",
       "name": "Manhunt",
-      "gameName": "Event: Manhunt",
+      "gameName": "Activity: Manhunt",
       "isPublicEvent": false,
       "description": "Help recapture Mad Dog Malone.",
       "regionLocations": [
@@ -210580,7 +210822,7 @@
     "/df/activities/manhunt/manhunt-reward-checklist": {
       "questFormID": "0010E200",
       "name": "Manhunt",
-      "gameName": "Event: Manhunt",
+      "gameName": "Activity: Manhunt",
       "isPublicEvent": false,
       "description": "Help recapture Mad Dog Malone.",
       "regionLocations": [
@@ -217209,7 +217451,7 @@
     "monster-mash-reward-checklist": {
       "questFormID": "0002443A",
       "name": "Monster Mash",
-      "gameName": "Event: Monster Mash",
+      "gameName": "Activity: Monster Mash",
       "isPublicEvent": false,
       "description": "Wear a pinata mask, get candy, turn it in for prizes, and avoid being beaten to a pulp!",
       "regionLocations": [
@@ -237525,7 +237767,7 @@
     "/df/activities/monster-mash/monster-mash-reward-checklist": {
       "questFormID": "0002443A",
       "name": "Monster Mash",
-      "gameName": "Event: Monster Mash",
+      "gameName": "Activity: Monster Mash",
       "isPublicEvent": false,
       "description": "Wear a pinata mask, get candy, turn it in for prizes, and avoid being beaten to a pulp!",
       "regionLocations": [
@@ -257843,7 +258085,7 @@
       "name": "Moonshine Jamboree",
       "gameName": "Event: Moonshine Jamboree",
       "isPublicEvent": false,
-      "description": "Help Moonshiner Ned defend the stills and make some moonshine. [Recommended Level: 50]",
+      "description": "Help Moonshiner Ned defend the stills and make some moonshine.",
       "regionLocations": [
         {
           "region": "The Mire",
@@ -258785,7 +259027,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/public-events/moonshine-jamboree/moonshine-jamboree-reward-checklist": {
@@ -258793,7 +259044,7 @@
       "name": "Moonshine Jamboree",
       "gameName": "Event: Moonshine Jamboree",
       "isPublicEvent": false,
-      "description": "Help Moonshiner Ned defend the stills and make some moonshine. [Recommended Level: 50]",
+      "description": "Help Moonshiner Ned defend the stills and make some moonshine.",
       "regionLocations": [
         {
           "region": "The Mire",
@@ -259735,7 +259986,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "most-wanted-reward-checklist": {
@@ -260556,7 +260816,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Storm  Region Boss  Storm Boss",
+            "34.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/public-events/most-wanted/most-wanted-reward-checklist": {
@@ -261377,7 +261646,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Storm  Region Boss  Storm Boss",
+            "34.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "mothman-equinox-reward-checklist": {
@@ -263293,7 +263571,16 @@
           "itemCount": 1
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/seasonal-events/mothman-equinox/mothman-equinox-reward-checklist": {
@@ -265209,7 +265496,16 @@
           "itemCount": 1
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "mutated-public-events-reward-checklist": {
@@ -265257,7 +265553,7 @@
       "name": "Neurological Warfare",
       "gameName": "Event: Neurological Warfare",
       "isPublicEvent": false,
-      "description": "Something is happening at the Weather Station, you should go check it out. [Recommended Level: 50]",
+      "description": "Something is happening at the Weather Station, you should go check it out.",
       "regionLocations": [
         {
           "region": "Skyline Valley",
@@ -266330,7 +266626,7 @@
       "name": "Neurological Warfare",
       "gameName": "Event: Neurological Warfare",
       "isPublicEvent": false,
-      "description": "Something is happening at the Weather Station, you should go check it out. [Recommended Level: 50]",
+      "description": "Something is happening at the Weather Station, you should go check it out.",
       "regionLocations": [
         {
           "region": "Skyline Valley",
@@ -267443,7 +267739,7 @@
     "patrol-duty-reward-checklist": {
       "questFormID": "0005A243",
       "name": "Patrol Duty",
-      "gameName": "Event: Patrol Duty",
+      "gameName": "Activity: Patrol Duty",
       "isPublicEvent": false,
       "description": "Assist the Warden and his men with their rounds.",
       "regionLocations": [
@@ -272541,7 +272837,7 @@
     "/df/activities/patrol-duty/patrol-duty-reward-checklist": {
       "questFormID": "0005A243",
       "name": "Patrol Duty",
-      "gameName": "Event: Patrol Duty",
+      "gameName": "Activity: Patrol Duty",
       "isPublicEvent": false,
       "description": "Assist the Warden and his men with their rounds.",
       "regionLocations": [
@@ -277679,7 +277975,7 @@
     "project-beanstalk-reward-checklist": {
       "questFormID": "0004695C",
       "name": "Project Beanstalk",
-      "gameName": "Event: Project Beanstalk",
+      "gameName": "Activity: Project Beanstalk",
       "isPublicEvent": false,
       "description": "Protect Pharmabot JD-7E while he maintains the fields!",
       "regionLocations": [
@@ -282813,7 +283109,7 @@
     "/df/activities/project-beanstalk/project-beanstalk-reward-checklist": {
       "questFormID": "0004695C",
       "name": "Project Beanstalk",
-      "gameName": "Event: Project Beanstalk",
+      "gameName": "Activity: Project Beanstalk",
       "isPublicEvent": false,
       "description": "Protect Pharmabot JD-7E while he maintains the fields!",
       "regionLocations": [
@@ -287949,7 +288245,7 @@
       "name": "Project Paradise",
       "gameName": "Event: Project Paradise",
       "isPublicEvent": false,
-      "description": "Attract friendly creatures to the three habitats and defend them from predators. [Recommended Level: 50]",
+      "description": "Attract friendly creatures to the three habitats and defend them from predators.",
       "regionLocations": [
         {
           "region": "Forest",
@@ -290678,7 +290974,7 @@
       "name": "Project Paradise",
       "gameName": "Event: Project Paradise",
       "isPublicEvent": false,
-      "description": "Attract friendly creatures to the three habitats and defend them from predators. [Recommended Level: 50]",
+      "description": "Attract friendly creatures to the three habitats and defend them from predators.",
       "regionLocations": [
         {
           "region": "Forest",
@@ -293405,7 +293701,7 @@
     "protest-march-reward-checklist": {
       "questFormID": "0000418B",
       "name": "Protest March",
-      "gameName": "Event: Protest March",
+      "gameName": "Activity: Protest March",
       "isPublicEvent": false,
       "description": "Put down the protest march riot in Grafton.",
       "regionLocations": [
@@ -298516,7 +298812,7 @@
     "/df/activities/protest-march/protest-march-reward-checklist": {
       "questFormID": "0000418B",
       "name": "Protest March",
-      "gameName": "Event: Protest March",
+      "gameName": "Activity: Protest March",
       "isPublicEvent": false,
       "description": "Put down the protest march riot in Grafton.",
       "regionLocations": [
@@ -303629,7 +303925,7 @@
       "name": "Radiation Rumble",
       "gameName": "Event: Radiation Rumble",
       "isPublicEvent": false,
-      "description": "Help the scavengers at Emmett Mountain Disposal Site. [Recommended Level: 40]",
+      "description": "Help the scavengers at Emmett Mountain Disposal Site.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -312774,7 +313070,7 @@
       "name": "Radiation Rumble",
       "gameName": "Event: Radiation Rumble",
       "isPublicEvent": false,
-      "description": "Help the scavengers at Emmett Mountain Disposal Site. [Recommended Level: 40]",
+      "description": "Help the scavengers at Emmett Mountain Disposal Site.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -321917,7 +322213,7 @@
     "riding-shotgun-reward-checklist": {
       "questFormID": "00560B13",
       "name": "Riding Shotgun",
-      "gameName": "Event: Riding Shotgun",
+      "gameName": "Activity: Riding Shotgun",
       "isPublicEvent": false,
       "description": "Guide the Blue Ridge Caravan Co. through the Big Bend Tunnel",
       "regionLocations": [
@@ -327216,7 +327512,7 @@
     "/df/activities/riding-shotgun/riding-shotgun-reward-checklist": {
       "questFormID": "00560B13",
       "name": "Riding Shotgun",
-      "gameName": "Event: Riding Shotgun",
+      "gameName": "Activity: Riding Shotgun",
       "isPublicEvent": false,
       "description": "Guide the Blue Ridge Caravan Co. through the Big Bend Tunnel",
       "regionLocations": [
@@ -332517,7 +332813,7 @@
       "name": "Safe and Sound",
       "gameName": "Event: Safe and Sound",
       "isPublicEvent": false,
-      "description": "Blue Ridge needs help retaking one of their pitstops. [Recommended Level: 50]",
+      "description": "Blue Ridge needs help retaking one of their pitstops.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -333871,7 +334167,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/public-events/safe-and-sound/safe-and-sound-reward-checklist": {
@@ -333879,7 +334184,7 @@
       "name": "Safe and Sound",
       "gameName": "Event: Safe and Sound",
       "isPublicEvent": false,
-      "description": "Blue Ridge needs help retaking one of their pitstops. [Recommended Level: 50]",
+      "description": "Blue Ridge needs help retaking one of their pitstops.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -335233,7 +335538,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "scorched-earth-reward-checklist": {
@@ -335241,7 +335555,7 @@
       "name": "Scorched Earth",
       "gameName": "Event: Scorched Earth",
       "isPublicEvent": false,
-      "description": "Defeat the Scorchbeast Queen that is terrorizing the Cranberry Bog. [Recommended Level: 50]",
+      "description": "Defeat the Scorchbeast Queen that is terrorizing the Cranberry Bog.",
       "regionLocations": [
         {
           "region": "Cranberry Bog",
@@ -335762,7 +336076,7 @@
       "name": "Scorched Earth",
       "gameName": "Event: Scorched Earth",
       "isPublicEvent": false,
-      "description": "Defeat the Scorchbeast Queen that is terrorizing the Cranberry Bog. [Recommended Level: 50]",
+      "description": "Defeat the Scorchbeast Queen that is terrorizing the Cranberry Bog.",
       "regionLocations": [
         {
           "region": "Cranberry Bog",
@@ -336325,7 +336639,7 @@
       "name": "Sinkhole Solutions",
       "gameName": "Event: Sinkhole Solutions",
       "isPublicEvent": false,
-      "description": "Willow requires assistance in ending an infestation. [Recommended Level: 50]",
+      "description": "Willow requires assistance in ending an infestation.",
       "regionLocations": [
         {
           "region": "Burning Springs",
@@ -336346,7 +336660,7 @@
       "name": "Sinkhole Solutions",
       "gameName": "Event: Sinkhole Solutions",
       "isPublicEvent": false,
-      "description": "Willow requires assistance in ending an infestation. [Recommended Level: 50]",
+      "description": "Willow requires assistance in ending an infestation.",
       "regionLocations": [
         {
           "region": "Burning Springs",
@@ -337623,7 +337937,7 @@
     "surface-to-air-reward-checklist": {
       "questFormID": "0034608A",
       "name": "Surface to Air",
-      "gameName": "Event: Surface to Air",
+      "gameName": "Activity: Surface to Air",
       "isPublicEvent": false,
       "description": "Repair and defend an ASAM against a Scorchbeast attack.",
       "regionLocations": [
@@ -342757,7 +343071,7 @@
     "/df/activities/surface-to-air/surface-to-air-reward-checklist": {
       "questFormID": "0034608A",
       "name": "Surface to Air",
-      "gameName": "Event: Surface to Air",
+      "gameName": "Activity: Surface to Air",
       "isPublicEvent": false,
       "description": "Repair and defend an ASAM against a Scorchbeast attack.",
       "regionLocations": [
@@ -347893,7 +348207,7 @@
       "name": "Swarm of Suitors",
       "gameName": "Event: Swarm of Suitors",
       "isPublicEvent": false,
-      "description": "Stop the Mirelurk swarm. [Recommended Level: 20]",
+      "description": "Stop the Mirelurk swarm.",
       "regionLocations": [
         {
           "region": "Toxic Valley",
@@ -349047,7 +349361,16 @@
           "itemCount": 2
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Mirelurk Queen",
+            "34.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/public-events/swarm-of-suitors/swarm-of-suitors-reward-checklist": {
@@ -349055,7 +349378,7 @@
       "name": "Swarm of Suitors",
       "gameName": "Event: Swarm of Suitors",
       "isPublicEvent": false,
-      "description": "Stop the Mirelurk swarm. [Recommended Level: 20]",
+      "description": "Stop the Mirelurk swarm.",
       "regionLocations": [
         {
           "region": "Toxic Valley",
@@ -350209,7 +350532,16 @@
           "itemCount": 2
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Mirelurk Queen",
+            "34.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "tea-time-reward-checklist": {
@@ -350559,7 +350891,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Scorch Beast",
+            "34.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/public-events/tea-time/tea-time-reward-checklist": {
@@ -350909,7 +351250,16 @@
           "itemCount": 24
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Scorch Beast",
+            "34.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "test-your-metal-reward-checklist": {
@@ -350917,7 +351267,7 @@
       "name": "Test Your Metal",
       "gameName": "Event: Test Your Metal",
       "isPublicEvent": false,
-      "description": "Help the Brotherhood of Steel team survive the Metal Dome. [Recommended Level: 50]",
+      "description": "Help the Brotherhood of Steel team survive the Metal Dome.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -353476,7 +353826,7 @@
       "name": "Test Your Metal",
       "gameName": "Event: Test Your Metal",
       "isPublicEvent": false,
-      "description": "Help the Brotherhood of Steel team survive the Metal Dome. [Recommended Level: 50]",
+      "description": "Help the Brotherhood of Steel team survive the Metal Dome.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -356419,7 +356769,16 @@
           "itemCount": 34
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "/df/seasonal-events/the-big-bloom/the-big-bloom-reward-checklist": {
@@ -356811,7 +357170,16 @@
           "itemCount": 34
         }
       ],
-      "banners": [],
+      "banners": [
+        {
+          "type": "notice",
+          "style": "party-crasher",
+          "lines": [
+            "Party Crasher: Bigfoot",
+            "33.0% chance to spawn at the end of the event."
+          ]
+        }
+      ],
       "scenarios": []
     },
     "the-path-to-enlightenment-reward-checklist": {
@@ -358465,7 +358833,7 @@
       "name": "Uranium Fever",
       "gameName": "Event: Uranium Fever",
       "isPublicEvent": false,
-      "description": "Protect Uranium Extractors while they collect valuable nuclear material. [Recommended Level: 25]",
+      "description": "Protect Uranium Extractors while they collect valuable nuclear material.",
       "regionLocations": [
         {
           "region": "Savage Divide",
@@ -359111,7 +359479,7 @@
       "name": "Uranium Fever",
       "gameName": "Event: Uranium Fever",
       "isPublicEvent": false,
-      "description": "Protect Uranium Extractors while they collect valuable nuclear material. [Recommended Level: 25]",
+      "description": "Protect Uranium Extractors while they collect valuable nuclear material.",
       "regionLocations": [
         {
           "region": "Savage Divide",
