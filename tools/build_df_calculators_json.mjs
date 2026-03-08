@@ -131,53 +131,135 @@ function isJunkEdid(edidRaw) {
 }
 
 /* =========================================================
-   1) BUILD INSPIRATION (FLST BestBuildsTagCategories_*)
+   1) BUILD INSPIRATION
+   Supports two input formats:
+
+   A) Legacy FLST export (single file) — columns:
+        FLST_EDID, FLST_FULL, Entry_EDID, Entry_FULL
+
+   B) New KYWD two-file export:
+        kywd main  — FormID, EDID, FULL_Name, …
+        kywd refs  — KeywordFormID, KeywordEDID, RefIndex,
+                     RefFormID, RefEDID, RefSignature
+      The refs table joins each keyword to its parent FLST.
    ========================================================= */
 
-function buildBuildInspirationJson(flstPath, outPath) {
-  const { rows } = parseTSV(readText(flstPath));
-  const best = rows
-    .map(upperKeyed)
-    .filter(r => safeText(r.FLST_EDID).startsWith("BestBuildsTagCategories_"));
+function buildBuildInspirationJson(kywdOrFlstPath, kywd_refs_path_or_outPath, outPathOrUndefined) {
+  // Detect which overload was called:
+  //   2-arg legacy : buildBuildInspirationJson(flstPath, outPath)
+  //   3-arg new    : buildBuildInspirationJson(kywd_main, kywd_refs, outPath)
+  let outPath;
+  let categories;
 
-  // Group by list
-  const byList = new Map();
-  for (const r of best) {
-    const id = safeText(r.FLST_EDID);
-    if (!byList.has(id)) byList.set(id, []);
-    byList.get(id).push(r);
+  const isNewFormat = outPathOrUndefined !== undefined;
+
+  if (isNewFormat) {
+    // ── New KYWD two-file format ─────────────────────────────────────────
+    const kywd_main_path  = kywdOrFlstPath;
+    const kywd_refs_path  = kywd_refs_path_or_outPath;
+    outPath               = outPathOrUndefined;
+
+    const { rows: kywd_rows } = parseTSV(readText(kywd_main_path));
+    const { rows: refs_rows  } = parseTSV(readText(kywd_refs_path));
+
+    // Build a lookup: EDID -> keyword row (for display names)
+    const kywd_by_edid = new Map();
+    for (const r of kywd_rows.map(upperKeyed)) {
+      const edid = safeText(r.EDID);
+      if (edid) kywd_by_edid.set(edid, r);
+    }
+
+    // Filter refs to only rows that link a keyword into a BestBuildsTagCategories_* FLST,
+    // sorted by RefIndex so tags come out in game-list order.
+    const best_refs = refs_rows
+      .map(upperKeyed)
+      .filter(r =>
+        safeText(r.RefSignature).toUpperCase() === "FLST" &&
+        safeText(r.RefEDID).startsWith("BestBuildsTagCategories_")
+      )
+      .sort((a, b) => Number(a.RefIndex) - Number(b.RefIndex));
+
+    // Group refs by the FLST they point at (i.e. by category)
+    const byList = new Map();
+    for (const r of best_refs) {
+      const listEdid = safeText(r.RefEDID);
+      if (!byList.has(listEdid)) byList.set(listEdid, []);
+      byList.get(listEdid).push(r);
+    }
+
+    categories = [];
+    for (const [listEdid, listRefs] of byList.entries()) {
+      // Derive a human label from the EDID suffix
+      // e.g. BestBuildsTagCategories_Biomes -> BIOMES
+      const label = listEdid.replace(/^BestBuildsTagCategories_/, "").toUpperCase();
+
+      const tags = listRefs
+        .map(r => {
+          const edid = safeText(r.KeywordEDID);
+          if (!edid) return null;
+          const kywd = kywd_by_edid.get(edid);
+
+          // Prefer FULL_Name from the KYWD record, then NNAM_DisplayName,
+          // then fall back to the last _-delimited EDID segment.
+          let tagLabel =
+            safeText(kywd?.FULL_Name) ||
+            safeText(kywd?.NNAM_DisplayName) ||
+            "";
+          if (!tagLabel) {
+            const parts = edid.split("_");
+            tagLabel = parts[parts.length - 1] || edid;
+          }
+          tagLabel = tagLabel.replace(/_/g, " ").trim();
+          return { edid, label: tagLabel };
+        })
+        .filter(Boolean);
+
+      // Stable sort A–Z by label
+      tags.sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+
+      categories.push({ id: listEdid, label, tags });
+    }
+
+  } else {
+    // ── Legacy FLST single-file format ──────────────────────────────────
+    outPath = kywd_refs_path_or_outPath;
+    const { rows } = parseTSV(readText(kywdOrFlstPath));
+    const best = rows
+      .map(upperKeyed)
+      .filter(r => safeText(r.FLST_EDID).startsWith("BestBuildsTagCategories_"));
+
+    const byList = new Map();
+    for (const r of best) {
+      const id = safeText(r.FLST_EDID);
+      if (!byList.has(id)) byList.set(id, []);
+      byList.get(id).push(r);
+    }
+
+    categories = [];
+    for (const [listEdid, listRows] of byList.entries()) {
+      const flstFull = safeText(listRows[0]?.FLST_FULL);
+      const label = flstFull ? flstFull : listEdid.replace(/^BestBuildsTagCategories_/, "").toUpperCase();
+
+      const tags = listRows
+        .filter(r => safeText(r.Entry_EDID))
+        .map(r => {
+          const edid = safeText(r.Entry_EDID);
+          const full = safeText(r.Entry_FULL);
+          let tagLabel = full;
+          if (!tagLabel) {
+            const parts = edid.split("_");
+            tagLabel = parts.length ? parts[parts.length - 1] : edid;
+          }
+          tagLabel = tagLabel.replace(/_/g, " ").trim();
+          return { edid, label: tagLabel };
+        });
+
+      tags.sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+      categories.push({ id: listEdid, label, tags });
+    }
   }
 
-  const categories = [];
-  for (const [listEdid, listRows] of byList.entries()) {
-    // Label: prefer FLST_FULL, fallback from EDID suffix
-    const flstFull = safeText(listRows[0]?.FLST_FULL);
-    const label = flstFull ? flstFull : listEdid.replace(/^BestBuildsTagCategories_/, "").toUpperCase();
-
-    // Tags: use Entry_FULL if present, else derive from Entry_EDID
-    const tags = listRows
-      .filter(r => safeText(r.Entry_EDID))
-      .map(r => {
-        const edid = safeText(r.Entry_EDID);
-        const full = safeText(r.Entry_FULL);
-        let tagLabel = full;
-        if (!tagLabel) {
-          // BestBuilds_KeywordTag_Weathers_Gusty -> Gusty
-          const parts = edid.split("_");
-          tagLabel = parts.length ? parts[parts.length - 1] : edid;
-        }
-        // Normalize: underscores -> spaces, Title Case-ish
-        tagLabel = tagLabel.replace(/_/g, " ").trim();
-        return { edid, label: tagLabel };
-      });
-
-    // Stable sort A–Z by label
-    tags.sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
-
-    categories.push({ id: listEdid, label, tags });
-  }
-
-  // Stable sort categories by label
+  // Stable sort categories by label (both paths)
   categories.sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
 
   const out = {
@@ -600,21 +682,50 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
    MAIN
    ========================================================= */
 
-const FLST_TSV = process.env.FLST_TSV || "";
+// Build inspiration input — three accepted formats, checked in priority order:
+//   1. FLST_ENTRIES_TSV  — new three-file split: use the *_Entries file
+//                          (columns: FLST_FormID, FLST_EDID, FLST_FULL,
+//                           EntryIndex, Entry_Sig, Entry_FormID, Entry_EDID, Entry_FULL)
+//   2. KYWD_TSV + KYWD_REFS_TSV — KYWD two-file format from last export
+//   3. FLST_TSV          — legacy single-file FLST export (original format)
+const FLST_ENTRIES_TSV = process.env.FLST_ENTRIES_TSV || "";
+const KYWD_TSV         = process.env.KYWD_TSV         || "";
+const KYWD_REFS_TSV    = process.env.KYWD_REFS_TSV    || "";
+const FLST_TSV         = process.env.FLST_TSV         || "";
+
 const ARMO_TSV = process.env.ARMO_BOD2_TSV || "";
 const ENTM_TSV = process.env.ENTM_TSV || "";
 const COBJ_TSV = process.env.COBJ_TSV || "";
 
 const OUT_DIR = process.env.OUT_DIR || "dist/calculators";
 
-if (!FLST_TSV || !ARMO_TSV || !COBJ_TSV) {
-  console.error("Missing env vars. Required: FLST_TSV, ARMO_BOD2_TSV, COBJ_TSV (and optional OUT_DIR).");
+const hasBuildInput = FLST_ENTRIES_TSV || (KYWD_TSV && KYWD_REFS_TSV) || FLST_TSV;
+if (!hasBuildInput || !ARMO_TSV || !COBJ_TSV) {
+  console.error(
+    "Missing env vars.\n" +
+    "  Build inspiration (pick one):\n" +
+    "    FLST_ENTRIES_TSV              — new three-file split (Entries file)\n" +
+    "    KYWD_TSV + KYWD_REFS_TSV      — KYWD two-file format\n" +
+    "    FLST_TSV                      — legacy single-file FLST\n" +
+    "  Always required: ARMO_BOD2_TSV, COBJ_TSV\n" +
+    "  Optional:        ENTM_TSV, OUT_DIR"
+  );
   process.exit(1);
 }
 
 ensureDir(OUT_DIR);
 
-buildBuildInspirationJson(FLST_TSV, path.join(OUT_DIR, "build_inspiration.json"));
+if (FLST_ENTRIES_TSV) {
+  // New three-file split: Entries file has the same columns as the legacy FLST,
+  // so the original 2-arg function handles it directly.
+  buildBuildInspirationJson(FLST_ENTRIES_TSV, path.join(OUT_DIR, "build_inspiration.json"));
+} else if (KYWD_TSV && KYWD_REFS_TSV) {
+  // KYWD two-file format
+  buildBuildInspirationJson(KYWD_TSV, KYWD_REFS_TSV, path.join(OUT_DIR, "build_inspiration.json"));
+} else {
+  // Legacy single FLST file
+  buildBuildInspirationJson(FLST_TSV, path.join(OUT_DIR, "build_inspiration.json"));
+}
 buildOutfitInspirationJson(ARMO_TSV, path.join(OUT_DIR, "outfit_inspiration.json"), ENTM_TSV);
 buildBigBloomCraftingJson(COBJ_TSV, path.join(OUT_DIR, "big_bloom_crafting.json"));
 
