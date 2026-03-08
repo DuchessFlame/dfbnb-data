@@ -197,26 +197,27 @@ function buildBuildInspirationJson(flstPath, outPath) {
      BOD2_FirstPersonFlags, BOD2_FirstPersonFlagLabels, Keywords_EDID_Flat
    ========================================================= */
 
-function classifyArmoItem(edid, keywordsFlat) {
+function classifyArmoItem(edid, keywordsFlat, flagLabels) {
   const upEdid = safeText(edid).toUpperCase();
   const kw = safeText(keywordsFlat);
+  const labs = Array.isArray(flagLabels) ? flagLabels : [];
 
-  // Underarmor stacks with armor
+  // Keyword-based (most reliable when present)
   if (kw.includes("ObjectTypeUnderarmor") || kw.includes("ObjectTypeUnderArmor")) return "UNDERARMOR";
-
-  // Armor sets (light/medium/heavy)
   if (kw.includes("ArmorLight") || kw.includes("ArmorMedium") || kw.includes("ArmorHeavy")) return "ARMOR";
-
-  // Outfits
   if (kw.includes("ArmorOutfit") || upEdid.includes("OUTFIT")) return "OUTFIT";
 
-  // Headwear
+  // Flag-label fallback (handles items with empty keywords)
+  const hasU = labs.some(l => l.startsWith("[U]"));
+  const hasA = labs.some(l => l.startsWith("[A]"));
+  if (hasU && !hasA) return "UNDERARMOR";
+  if (hasA && !hasU) return "ARMOR";
+  // Mixed [U]+[A] = power armor skeleton, skip
+  if (hasU && hasA) return "OTHER";
+
+  // EDID-based
   if (upEdid.includes("HEADWEAR")) return "HEADWEAR";
-
-  // Clothes (general)
   if (upEdid.includes("CLOTHES")) return "CLOTHES";
-
-  // Backpack (best effort)
   if (kw.toLowerCase().includes("backpack") || upEdid.includes("BACKPACK")) return "BACKPACK";
 
   return "OTHER";
@@ -238,25 +239,30 @@ function deriveArmorSetKey(edidRaw, fullRaw) {
   return s;
 }
 
-function buildPipboySkinItems(entmPath) {
+function buildEntmSkinItems(entmPath) {
   if (!entmPath || !fs.existsSync(entmPath)) return [];
   const { rows } = parseTSV(readText(entmPath));
-  return rows.map(upperKeyed)
-    .filter(r => {
-      const edid = safeText(r.EDID).toUpperCase();
-      return edid.includes("SKIN_PIPBOY") || edid.includes("PIPBOYSKIN");
-    })
-    .map(r => ({
-      formId:     safeText(r.FORMID),
-      edid:       safeText(r.EDID),
-      full:       safeText(r.NNAM) || safeText(r.FULL),
-      flags:      ["43"],
-      flagLabels: ["Pipboy"],
-      keywords:   [],
-      type:       "PIPBOY",
-      armorSetKey: ""
-    }))
-    .filter(it => it.edid && it.full);
+  const items = [];
+  for (const r of rows.map(upperKeyed)) {
+    const edid = safeText(r.EDID).toUpperCase();
+    const name = safeText(r.NNAM) || safeText(r.FULL);
+    if (!name) continue;
+
+    if (edid.includes("SKIN_PIPBOY") || edid.includes("PIPBOYSKIN")) {
+      items.push({
+        formId: safeText(r.FORMID), edid: safeText(r.EDID), full: name,
+        flags: ["43"], flagLabels: ["Pipboy"],
+        keywords: [], type: "PIPBOY", armorSetKey: ""
+      });
+    } else if (edid.includes("ENTM_SKIN_BACKPACK") || edid.includes("SKIN_BACKPACK")) {
+      items.push({
+        formId: safeText(r.FORMID), edid: safeText(r.EDID), full: name,
+        flags: ["46"], flagLabels: ["Backpack"],
+        keywords: [], type: "BACKPACK", armorSetKey: ""
+      });
+    }
+  }
+  return items;
 }
 
 function buildOutfitInspirationJson(armoPath, outPath, entmPath) {
@@ -275,7 +281,7 @@ function buildOutfitInspirationJson(armoPath, outPath, entmPath) {
         formId, edid, full,
         flags, flagLabels: labels,
         keywords,
-        type: classifyArmoItem(edid, r.Keywords_EDID_Flat),
+        type: classifyArmoItem(edid, r.Keywords_EDID_Flat, labels),
         armorSetKey: ""
       };
     })
@@ -292,7 +298,7 @@ function buildOutfitInspirationJson(armoPath, outPath, entmPath) {
     if (it.type === "ARMOR") it.armorSetKey = deriveArmorSetKey(it.edid, it.full);
   }
 
-  const pipboyItems = buildPipboySkinItems(entmPath);
+  const pipboyItems = buildEntmSkinItems(entmPath);
   const allItems = [...items, ...pipboyItems];
 
   const out = {
