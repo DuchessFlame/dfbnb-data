@@ -208,13 +208,13 @@ function classifyArmoItem(edid, keywordsFlat) {
   if (kw.includes("ArmorLight") || kw.includes("ArmorMedium") || kw.includes("ArmorHeavy")) return "ARMOR";
 
   // Outfits
-  if (kw.includes("ArmorOutfit") || upEdid.includes("_OUTFIT_")) return "OUTFIT";
+  if (kw.includes("ArmorOutfit") || upEdid.includes("OUTFIT")) return "OUTFIT";
 
   // Headwear
-  if (upEdid.includes("_HEADWEAR_")) return "HEADWEAR";
+  if (upEdid.includes("HEADWEAR")) return "HEADWEAR";
 
   // Clothes (general)
-  if (upEdid.includes("_CLOTHES_")) return "CLOTHES";
+  if (upEdid.includes("CLOTHES")) return "CLOTHES";
 
   // Backpack (best effort)
   if (kw.toLowerCase().includes("backpack") || upEdid.includes("BACKPACK")) return "BACKPACK";
@@ -284,7 +284,7 @@ function buildOutfitInspirationJson(armoPath, outPath, entmPath) {
     // Only your pools
     .filter(it => {
       const up = it.edid.toUpperCase();
-      return up.includes("_HEADWEAR_") || up.includes("_CLOTHES_") || up.includes("_OUTFIT_") || it.type === "UNDERARMOR" || it.type === "ARMOR" || it.type === "BACKPACK";
+      return up.includes("HEADWEAR") || up.includes("CLOTHES") || up.includes("OUTFIT") || it.type === "UNDERARMOR" || it.type === "ARMOR" || it.type === "BACKPACK";
     });
 
   // Add armorSetKey only for ARMOR type
