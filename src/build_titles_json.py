@@ -27,8 +27,7 @@ from typing import Any, Dict, List, Optional, Tuple
 #   - SCORE_S#:
 #       Camp: Framed Art if EndOfSeasonArt (or "Framed" in FULL), else Gameboard (includes CorkBoard)
 #       Player: "Unlock via the Season {#} - {SeasonName} Scoreboard."
-#   - ATX_* -> "Part of the {BundleName} which can be purchased from the Atom Shop." (DropRate N/A)
-#              Falls back to generic text if no bundle mapping in tsv/title_bundles.json
+#   - ATX_* -> "Can be purchased with certain bundles from the Atom Shop." (DropRate N/A)
 # - COBJ proxy (any condition with [COBJ:]):
 #   - how: "Complete the Event: X" / "Complete the Activity: Y" using GMRW.ParentQuest quoted label
 #   - drop: GLOB first (100 - FLTV), LVLI fallback (100 - LVOV_ChanceNone)
@@ -109,30 +108,6 @@ def load_release_overrides(tsv_root: Optional[str]) -> Dict[str, str]:
                 continue
 
         return out
-    except Exception:
-        return {}
-
-
-def load_title_bundles(tsv_root: Optional[str]) -> Dict[str, str]:
-    """
-    Optional bundle-name overrides file:
-      tsv/title_bundles.json
-
-    Format:
-      { "Abandoned": "The Abandoned Bundle", "Cat": "Cat Pets Bundle", ... }
-
-    Keys are player-title display names.  Values are the bundle/DLC name
-    shown in the "How to Obtain" box.
-    """
-    if not tsv_root:
-        return {}
-    path = os.path.join(tsv_root, "title_bundles.json")
-    if not os.path.exists(path):
-        return {}
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        return {str(k).strip(): str(v).strip() for k, v in (data or {}).items() if k and v}
     except Exception:
         return {}
 
@@ -462,24 +437,41 @@ def book_tradeable_map(book_rows: List[Dict[str, str]]) -> Dict[str, bool]:
 
 def _gmrw_parentquest_from_row(row: Dict[str, str]) -> str:
     """
-    STRICT RULE:
-      - Ignore ANAM / Record / ParentQuest / ParentQuestDisplay entirely.
-      - ONLY scan Ref* columns (Ref1, Ref2, Ref3...) IN ORDER.
-      - Prefer quoted labels:
-            "Event: ..."
-            "Activity: ..."
-            "Bounty Hunting: ..."
-      - Fallback: if a ref is a QUST ref and has a quoted FULL, allow it,
-        BUT SKIP cut-content quests (EditorID starts with ZZZ/ZZZZ/CUT/DEL/POST).
+    Resolve the ParentQuest display label from a GMRW row.
+
+    NEW export format (March 2026+):
+      - ParentQuestDisplay column contains the label directly, e.g. "Event: Project Paradise"
+      - Ref* columns contain "referenced by" backlinks (QUST records), no quoted labels.
+    OLD export format (pre-2026):
+      - Ref* columns contained refs with embedded quoted labels, e.g.
+        '006313AF:QuestReward_...:"Event: X":GMRW'
+
+    Priority:
+      1. ParentQuestDisplay column (new format, most reliable)
+      2. Ref* columns with embedded "Event:" / "Activity:" labels (old format)
+      3. Ref* QUST refs with any quoted FULL (old format fallback)
     """
 
+    _event_label_re = re.compile(
+        r"^(Event|Activity|Bounty\s*Hunting)\s*:",
+        re.IGNORECASE
+    )
     quoted_label_re = re.compile(
         r'"(?P<label>(Event|Activity|Bounty\s*Hunting)\s*:\s*[^"]+)"',
         re.IGNORECASE
     )
-
     quoted_any_re = re.compile(r'"(?P<label>[^"]+)"')
 
+    # ---------------------------------------------------------------
+    # Priority 1: ParentQuestDisplay column (new March 2026 format).
+    # ---------------------------------------------------------------
+    pqd = (row.get("ParentQuestDisplay") or "").strip()
+    if pqd and _event_label_re.search(pqd):
+        return f'"{pqd}"'
+
+    # ---------------------------------------------------------------
+    # Priority 2+3: Scan Ref* columns (old format compatibility).
+    # ---------------------------------------------------------------
     def _ref_keys_in_order(d: Dict[str, str]) -> List[str]:
         keys = [k for k in d.keys() if k.startswith("Ref")]
         def _n(k: str) -> int:
@@ -493,22 +485,20 @@ def _gmrw_parentquest_from_row(row: Dict[str, str]) -> str:
         if not s:
             continue
 
-        # 1) Preferred: quoted "Event:" / "Activity:" / "Bounty Hunting:"
+        # Preferred: quoted "Event:" / "Activity:" label embedded in ref string
         m = quoted_label_re.search(s)
         if m:
             return m.group(0).strip()
 
-        # 2) Fallback: QUST ref with quoted FULL (but skip cut-content quest EDIDs)
-        # Expected shape: 00824A46:zzzBurn_BountyHunt_Public_Test:"Event: ...":QUST
+        # Fallback: QUST ref with any quoted FULL (skip cut-content quests)
         if s.endswith(":QUST"):
-            parts = s.split(":", 3)  # FormID, EDID, "FULL", QUST
+            parts = s.split(":", 3)
             quest_edid = parts[1].strip() if len(parts) >= 2 else ""
             if quest_edid and starts_cut(quest_edid):
-                continue  # ignore zzz/cut quest refs
-
+                continue
             m2 = quoted_any_re.search(s)
             if m2:
-                return f"\"{m2.group('label').strip()}\""
+                return f'"{m2.group("label").strip()}"'
 
     return ""
 
@@ -583,6 +573,7 @@ def lvli_drop_rate_from_cobj_lvli(
     glob_rows: List[Dict[str, str]],
     cobj_formid: str,
     prefer_lvli_formid: Optional[str] = None,
+    lvli_parent_map: Optional[Dict[str, set]] = None,
 ) -> Optional[str]:
     """
     COBJ(FormID) -> GNAM_FormID (BOOK FormID)
@@ -641,9 +632,14 @@ def lvli_drop_rate_from_cobj_lvli(
         """
         Returns (family_key, tier_label, tier_order)
 
-        family_key: EDID normalized with the tier token stripped, for grouping.
-        tier_label: "Tier 1" / "Bad" / etc.
-        tier_order: sorting key
+        family_key: EDID normalized with the tier/alt token stripped, for grouping.
+        tier_label: "Tier 1" / "Mutated Tier 1" / "Bad" / etc.
+        tier_order: sorting key (regular tiers 1-99, mutated/alt tiers 101-199)
+
+        Supported patterns:
+          - Bad/Good/Best          -> orders 1/2/3
+          - Quest_Reward_N or Tier_N or Reward_N  -> "Tier N",   order = N
+          - Quest_Reward_Alt_N or Reward_Alt_N    -> "Mutated Tier N", order = N + 100
         """
         e = (edid or "").strip()
         if not e:
@@ -658,6 +654,21 @@ def lvli_drop_rate_from_cobj_lvli(
                     fam = re.sub(r"[_\-]+$", "", fam)
                     fam = re.sub(r"[_\-]+", "_", fam).strip("_")
                     return (fam, lab.capitalize(), order)
+
+        # ----------------------------------------------------------------
+        # Mutated/Alt tier style: reward_alt_N or tier_alt_N
+        # e.g. SFS09_Habitat_LL_Quest_Reward_Alt_1 -> "Mutated Tier 1", order=101
+        # Family key is the same as the regular tier (alt token stripped),
+        # so Reward_1 and Reward_Alt_1 group together under the same event.
+        # ----------------------------------------------------------------
+        m_alt_all = list(re.finditer(r"(tier|reward)[_\-]*alt[_\-]*(0?\d{1,2})\b", el))
+        if m_alt_all:
+            m = m_alt_all[-1]
+            n = int(m.group(2).lstrip("0") or "0")
+            if n > 0:
+                fam = el[:m.start()] + el[m.end():]
+                fam = re.sub(r"[_\-]+", "_", fam).strip("_")
+                return (fam, f"Mutated Tier {n}", n + 100)
 
         # Numeric tier/reward style (Tier_01, Tier02, Reward_3, Quest_Reward_3, etc)
         m_all = list(re.finditer(r"(tier|reward)[_\-]*(0?\d{1,2})\b", el))
@@ -742,9 +753,26 @@ def lvli_drop_rate_from_cobj_lvli(
             continue
         by_lvli.setdefault(fid, []).append(r)
 
-    # Detect tier family among matched LVLIs
+    # Detect tier family among matched LVLIs.
+    # If a directly-matched LVLI is itself a sub-list (no tier pattern on its own EDID),
+    # look one level up via lvli_parent_map to find the tier-patterned parent.
+    # The entry rows from the sub-list are carried forward for rate computation.
+    _pm = lvli_parent_map or {}
+    resolved_by_lvli: Dict[str, List[Dict[str, str]]] = dict(by_lvli)
+    for direct_fid, entry_rows in list(by_lvli.items()):
+        ed = _lvli_edid_for(direct_fid)
+        if _tier_info_from_edid(ed) is not None:
+            continue  # already has tier pattern, no parent lookup needed
+        for parent_fid in _pm.get(direct_fid, set()):
+            parent_ed = _lvli_edid_for(parent_fid)
+            if _tier_info_from_edid(parent_ed) is None:
+                continue  # parent also has no tier pattern
+            # Parent has tier pattern — add it using sub-list's entry rows for rate
+            if parent_fid not in resolved_by_lvli:
+                resolved_by_lvli[parent_fid] = entry_rows
+
     tier_hits: List[Tuple[str, str, int, str]] = []
-    for fid in by_lvli.keys():
+    for fid in resolved_by_lvli.keys():
         ed = _lvli_edid_for(fid)
         info = _tier_info_from_edid(ed)
         if not info:
@@ -786,23 +814,23 @@ def lvli_drop_rate_from_cobj_lvli(
                 fid = family_named.get(lab)
                 if not fid:
                     continue
-                if fid not in by_lvli:
+                if fid not in resolved_by_lvli:
                     parts.append(f"{lab} - 0%")
                     continue
-                entry_row = by_lvli[fid][0]
+                entry_row = resolved_by_lvli[fid][0]
                 dr = _compute_rate_for_entry_row(entry_row, fid) or "N/A"
                 parts.append(f"{lab} - {dr}")
             if parts:
                 return "\n".join(parts)
 
-        # Numeric tiers
+        # Numeric tiers (including Mutated Tier N from Alt lists)
         if family_tiers:
             for order in sorted(family_tiers.keys()):
                 lab, fid = family_tiers[order]
-                if fid not in by_lvli:
+                if fid not in resolved_by_lvli:
                     parts.append(f"{lab} - 0%")
                     continue
-                entry_row = by_lvli[fid][0]
+                entry_row = resolved_by_lvli[fid][0]
                 dr = _compute_rate_for_entry_row(entry_row, fid) or "N/A"
                 parts.append(f"{lab} - {dr}")
             if parts:
@@ -1231,6 +1259,7 @@ def book_to_gmrw_parentquest_via_lvli_entries(
     lvli_refby_rows: List[Dict[str, str]],
     gmrw_by_formid: Dict[str, str],
     lvli_list_rows: List[Dict[str, str]],
+    lvli_parent_map: Optional[Dict[str, set]] = None,
 ) -> Tuple[Optional[str], Optional[str], Dict[str, Any]]:
     dbg: Dict[str, Any] = {}
     bfid = (book_formid or "").strip().upper()
@@ -1266,6 +1295,20 @@ def book_to_gmrw_parentquest_via_lvli_entries(
             dbg["pickedLvliFormId"] = fid
             dbg["pickedParentQuest"] = pq
             return pq, fid, dbg
+
+    # Sub-list parent lookup: if direct LVLI has no GMRW mapping,
+    # check if it is a sub-list (entry) of a tier-patterned LVLI that IS in the GMRW map.
+    _pm = lvli_parent_map or {}
+    for fid in filtered:
+        for parent_fid in _pm.get(fid, set()):
+            pq = lvli_to_gmrw_parentquest(lvli_refby_rows, gmrw_by_formid, parent_fid, lvli_list_rows)
+            if not pq:
+                pq = gmrw_by_formid.get(parent_fid)
+            if pq:
+                dbg["pickedLvliFormId"] = fid
+                dbg["pickedLvliParentFormId"] = parent_fid
+                dbg["pickedParentQuest"] = pq
+                return pq, fid, dbg
 
     return None, None, dbg
 
@@ -1305,7 +1348,7 @@ def compute_unlock_and_rates(
     chal_by_id: Dict[str, Dict[str, str]],
     chal_by_edid: Dict[str, Dict[str, str]],
     cndf_by_id: Dict[str, Dict[str, str]],
-    title_bundles: Optional[Dict[str, str]] = None,
+    lvli_parent_map: Optional[Dict[str, set]] = None,
 ) -> Tuple[str, str, Optional[int], str, Dict[str, Any]]:
 
     extra: Dict[str, Any] = {}
@@ -1669,10 +1712,6 @@ def compute_unlock_and_rates(
             if any(("ATX_F1_" in (e or "").upper()) for e in ent_edids):
                 return "Free to claim from the Atom Shop\nfor Fallout 1st members.", "N/A", None, "atx", extra
 
-            # Look up specific bundle name if available
-            bundle = (title_bundles or {}).get(title_display, "")
-            if bundle:
-                return f"Part of the {bundle} which can be purchased from the Atom Shop.", "N/A", None, "atx", extra
             return "Can be purchased with certain bundles from the Atom Shop.", "N/A", None, "atx", extra
 
         # PTS titles: special rule
@@ -1728,7 +1767,8 @@ def compute_unlock_and_rates(
                     lvli_entry_rows,
                     lvli_refby_rows,
                     gmrw_by_formid,
-                    lvli_list_rows
+                    lvli_list_rows,
+                    lvli_parent_map=lvli_parent_map,
                 )
                 extra["bookLvliGmrwViaEntries"] = dbg_a
                 if pq_a:
@@ -1929,7 +1969,8 @@ def compute_unlock_and_rates(
 
         dr = lvli_drop_rate_from_cobj_lvli(
             cobj_rows, lvli_entry_rows, lvli_list_rows, glob_rows, cobj_formid,
-            prefer_lvli_formid=prefer_lvli
+            prefer_lvli_formid=prefer_lvli,
+            lvli_parent_map=lvli_parent_map,
         )
         return how_event, (dr or "N/A"), None, "event_activity", extra
 
@@ -2037,7 +2078,6 @@ def main() -> int:
     # - Else assign today's date (UTC)
     # ------------------------------------------------------------
     overrides = load_release_overrides(args.tsv_root)
-    title_bundles = load_title_bundles(args.tsv_root)
 
     prev_camp_release = load_previous_release_dates(os.path.join(args.outdir, "titles_camp.json"))
     prev_player_release = load_previous_release_dates(os.path.join(args.outdir, "titles_player.json"))
@@ -2092,6 +2132,28 @@ def main() -> int:
 
         # List file: LVLI_List.tsv (everything else LVLI-ish)
         lvli_list_rows.extend(rows)
+
+    # -----------------------------------------------------------------------
+    # LVLI parent map: child LVLI FormID -> set of parent LVLI FormIDs
+    # Used to resolve sub-list chaining (e.g. BOOK -> sub-list -> tier list).
+    # -----------------------------------------------------------------------
+    lvli_parent_map: Dict[str, set] = {}
+    _hex8_colon_re = re.compile(r"([0-9A-F]{8})[^:]*:[^:]+:LVLI", re.IGNORECASE)
+    for _r in lvli_entry_rows:
+        _ref = (_r.get("LVLO_Reference") or "").strip()
+        if not _ref or ":LVLI" not in _ref.upper():
+            continue
+        _parent_fid = (_r.get("LVLI_FormID") or _r.get("FormID") or "").strip().upper()
+        if not _parent_fid or not re.fullmatch(r"[0-9A-F]{8}", _parent_fid):
+            continue
+        for _m in _hex8_colon_re.finditer(_ref):
+            _child_fid = _m.group(1).upper()
+            lvli_parent_map.setdefault(_child_fid, set()).add(_parent_fid)
+
+    print(
+        f"[LVLI parent map] {len(lvli_parent_map)} child->parent relationships built",
+        file=sys.stderr,
+    )
 
     # --- LVLI bucket diagnostics (always emit so CI logs are searchable) ---
     print(
@@ -2160,7 +2222,7 @@ def main() -> int:
             chal_by_id=chal_by_id,
             chal_by_edid=chal_by_edid,
             cndf_by_id=cndf_by_id,
-            title_bundles=title_bundles,
+            lvli_parent_map=lvli_parent_map,
         )
 
         tradeable = False  # camp default
@@ -2233,13 +2295,13 @@ def main() -> int:
             book_rows=book_rows,
             lvli_refby_rows=lvli_refby_rows,
             glob_rows=glob_rows,
-             cobj_rows=cobj_rows,
+            cobj_rows=cobj_rows,
             lvli_entry_rows=lvli_entry_rows,
             lvli_list_rows=lvli_list_rows,
             chal_by_id=chal_by_id,
             chal_by_edid=chal_by_edid,
             cndf_by_id=cndf_by_id,
-            title_bundles=title_bundles,
+            lvli_parent_map=lvli_parent_map,
         )
 
         tradeable = False  # player default
