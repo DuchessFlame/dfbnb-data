@@ -4,12 +4,12 @@ Build collectables JSON dist files for Fallout 76.
 
 Takes xEdit TSV exports and builds JSON distributions for:
 - Bobbleheads (from ALCH + GLOB)
-- Plushies (from keyword_refs.json + MISC)
+- Plushies (from KYWD_Refs TSV + MISC)
 - Notes (from BOOK)
 - Manifest (summary counts)
 
-Plushie data comes from keyword_refs.json (produced by extract_keyword_refs.py),
-NOT the raw KYWD TSV (which is 457 MB and too large for GitHub).
+Plushie data comes from the normalized KYWD_Export_*_Refs.tsv produced by the
+split xEdit KYWD export script (ExportKYWDToTSV.pas).
 
 Usage:
     python build_collectables_json.py --tsv-root <path> --seasons <path> --outdir <path>
@@ -365,11 +365,11 @@ def build_bobbleheads(alch_path, glob_rows):
     return groups, bobbleheads_cut
 
 
-def build_plushies(keyword_refs_data, misc_rows, seasons, gmrw_pq_map):
+def build_plushies(kywd_refs_rows, misc_rows, seasons, gmrw_pq_map):
     """
-    Build plushies list from keyword_refs.json + MISC rows.
+    Build plushies list from KYWD_Refs TSV + MISC rows.
 
-    keyword_refs_data: parsed keyword_refs.json dict
+    kywd_refs_rows: all rows from KYWD_Export_*_Refs.tsv
     misc_rows: all MISC rows
     seasons: {season_num: season_name}
     gmrw_pq_map: {prefix: "Event: Name"}
@@ -378,12 +378,16 @@ def build_plushies(keyword_refs_data, misc_rows, seasons, gmrw_pq_map):
     """
     PLUSHIES_KEYWORD = "006A57A2"
 
-    keywords = keyword_refs_data.get("keywords", {})
-    kw_data = keywords.get(PLUSHIES_KEYWORD)
-    if not kw_data:
-        print(f"  WARNING: PlushiesKeyword ({PLUSHIES_KEYWORD}) not found in keyword_refs.json",
+    # Filter refs TSV for PlushiesKeyword rows
+    plushie_refs = [r for r in kywd_refs_rows
+                    if r.get('KeywordFormID', '').strip().upper() == PLUSHIES_KEYWORD]
+
+    if not plushie_refs:
+        print(f"  WARNING: PlushiesKeyword ({PLUSHIES_KEYWORD}) not found in KYWD_Refs TSV",
               file=sys.stderr)
         return [], []
+
+    print(f"  Found {len(plushie_refs)} PlushiesKeyword refs", file=sys.stderr)
 
     # Build MISC lookup: FormID -> {edid, full}
     misc_lookup = {}
@@ -394,10 +398,10 @@ def build_plushies(keyword_refs_data, misc_rows, seasons, gmrw_pq_map):
         if formid:
             misc_lookup[formid] = {'edid': edid, 'full': full}
 
-    # Extract MISC FormIDs from keyword refs
+    # Extract MISC FormIDs from refs
     plushie_formids = []
-    for ref in kw_data.get("refs", []):
-        fid = ref.get("formId", "").strip()
+    for ref in plushie_refs:
+        fid = ref.get('RefFormID', '').strip()
         if fid and re.fullmatch(r'[0-9A-Fa-f]{8}', fid):
             plushie_formids.append(fid)
 
@@ -571,8 +575,8 @@ def main():
     misc_files = list(tsv_root.glob('MISC_Export*.tsv'))
     gmrw_files = list(tsv_root.glob('GMRW_Export*.tsv'))
 
-    # keyword_refs.json (produced by extract_keyword_refs.py) replaces the raw KYWD TSV
-    keyword_refs_files = list(tsv_root.glob('keyword_refs.json'))
+    # KYWD_Export_*_Refs.tsv (normalized refs from split xEdit KYWD export)
+    kywd_refs_files = list(tsv_root.glob('KYWD_Export*_Refs.tsv'))
 
     if not alch_files:
         print("ERROR: No ALCH_Export*.tsv files found", file=sys.stderr)
@@ -583,9 +587,9 @@ def main():
     if not book_files:
         print("ERROR: No BOOK_Export*.tsv files found", file=sys.stderr)
         sys.exit(1)
-    if not keyword_refs_files:
-        print("ERROR: No keyword_refs.json found in tsv root", file=sys.stderr)
-        print("  Run extract_keyword_refs.py locally first to create it from your KYWD export.", file=sys.stderr)
+    if not kywd_refs_files:
+        print("ERROR: No KYWD_Export*_Refs.tsv files found", file=sys.stderr)
+        print("  Run the ExportKYWDToTSV.pas xEdit script to generate the split KYWD files.", file=sys.stderr)
         sys.exit(1)
     if not misc_files:
         print("ERROR: No MISC_Export*.tsv files found", file=sys.stderr)
@@ -600,9 +604,9 @@ def main():
     book_path = sorted(book_files, key=lambda p: p.name)[-1]
     misc_path = sorted(misc_files, key=lambda p: p.name)[-1]
     gmrw_path = sorted(gmrw_files, key=lambda p: p.name)[-1]
-    keyword_refs_path = keyword_refs_files[0]
+    kywd_refs_path = sorted(kywd_refs_files, key=lambda p: p.name)[-1]
     print(f"  Using ALCH: {alch_path.name}", file=sys.stderr)
-    print(f"  Using keyword_refs: {keyword_refs_path.name}", file=sys.stderr)
+    print(f"  Using KYWD Refs: {kywd_refs_path.name}", file=sys.stderr)
     print(f"  Using MISC: {misc_path.name}", file=sys.stderr)
 
     print("Loading seasons...")
@@ -623,19 +627,17 @@ def main():
     gmrw_pq_map = gmrw_parentquest_map(gmrw_rows)
     print(f"  Built event map with {len(gmrw_pq_map)} events")
 
-    print("Loading keyword_refs.json...")
-    with open(keyword_refs_path, 'r', encoding='utf-8') as f:
-        keyword_refs_data = json.load(f)
-    kw_count = len(keyword_refs_data.get("keywords", {}))
-    print(f"  Loaded {kw_count} keywords from {keyword_refs_data.get('source', '?')}")
+    print("Loading KYWD Refs...")
+    kywd_refs_rows = read_tsv_rows(kywd_refs_path)
+    print(f"  Loaded {len(kywd_refs_rows)} KYWD ref rows")
 
     # Build bobbleheads (streams ALCH file)
     print("Building bobbleheads...")
     bobblehead_groups, bobblehead_cut = build_bobbleheads(alch_path, glob_rows)
 
-    # Build plushies (from keyword_refs.json + MISC)
+    # Build plushies (from KYWD_Refs TSV + MISC)
     print("Building plushies...")
-    plushies, plushies_cut = build_plushies(keyword_refs_data, misc_rows, seasons, gmrw_pq_map)
+    plushies, plushies_cut = build_plushies(kywd_refs_rows, misc_rows, seasons, gmrw_pq_map)
 
     # Build notes (streams BOOK file)
     print("Building notes...")
