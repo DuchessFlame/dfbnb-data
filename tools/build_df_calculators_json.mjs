@@ -340,83 +340,180 @@ function extractArmorSetDisplayName(full) {
   return s.trim();
 }
 
-function buildEntmSkinItems(entmPath) {
+// Extract pip-boy skins from ENTM (they are NOT in COBJ).
+function buildEntmPipboySkins(entmPath) {
   if (!entmPath || !fs.existsSync(entmPath)) return [];
   const { rows } = parseTSV(readText(entmPath));
   const items = [];
   for (const r of rows.map(upperKeyed)) {
     const edid = safeText(r.EDID).toUpperCase();
     const name = safeText(r.NNAM) || safeText(r.FULL);
-    if (!name) continue;
-
+    if (!name || isJunkEdid(safeText(r.EDID))) continue;
     if (edid.includes("SKIN_PIPBOY") || edid.includes("PIPBOYSKIN")) {
       items.push({
         formId: safeText(r.FORMID), edid: safeText(r.EDID), full: name,
         flags: ["43"], flagLabels: ["Pipboy"],
         keywords: [], type: "PIPBOY", armorSetKey: ""
       });
-    } else if (edid.includes("ENTM_SKIN_BACKPACK") || edid.includes("SKIN_BACKPACK")) {
-      items.push({
-        formId: safeText(r.FORMID), edid: safeText(r.EDID), full: name,
-        flags: ["46"], flagLabels: ["Backpack"],
-        keywords: [], type: "BACKPACK", armorSetKey: ""
-      });
     }
   }
   return items;
 }
 
-function buildOutfitInspirationJson(armoPath, outPath, entmPath) {
-  const { rows } = parseTSV(readText(armoPath));
-  const items = rows.map(upperKeyed)
-    .map(r => {
-      const formId = safeText(r.ARMO_FormID);
-      const edid = safeText(r.ARMO_EDID);
-      const full = safeText(r.ARMO_FULL);
+// Build the outfit inspiration JSON.
+// Primary source: COBJ — every craftable outfit/armour/backpack/flair item.
+// COBJ CNAM_EDID is cross-referenced against ARMO SLOTS to get BOD2 flag labels,
+// which drive slot classification. COBJ CNAM_FULL is the player-visible name.
+// Pip-boy skins are not in COBJ so they still come from ENTM.
+// Rings have no COBJ recipe so they come directly from ARMO SLOTS.
+function buildOutfitInspirationJson(armoPath, outPath, entmPath, cobjPath) {
+  // Build ARMO SLOTS lookup map: ARMO_EDID -> { full, flags, flagLabels }
+  const { rows: armoRows } = parseTSV(readText(armoPath));
+  const slotsMap = new Map();
+  for (const r of armoRows.map(upperKeyed)) {
+    const edid = safeText(r.ARMO_EDID);
+    if (!edid) continue;
+    const flagLabels = splitPipe(r.BOD2_FirstPersonFlagLabels).map(x => x.trim()).filter(Boolean);
+    const flags = splitPipe(r.BOD2_FirstPersonFlags).map(x => x.trim()).filter(Boolean);
+    slotsMap.set(edid, { full: safeText(r.ARMO_FULL), flags, flagLabels });
+  }
 
-      const flags = splitPipe(r.BOD2_FirstPersonFlags).map(x => x.trim()).filter(Boolean);
-      const labels = splitPipe(r.BOD2_FirstPersonFlagLabels).map(x => x.trim()).filter(Boolean);
-      const keywords = splitPipe(r.Keywords_EDID_Flat);
+  // Classify an item from its flag labels + EDID
+  function classify(cnamEdid, flagLabels) {
+    const upEdid = (cnamEdid || "").toUpperCase();
+    const labs = flagLabels || [];
+    const hasU = labs.some(l => l.startsWith("[U]"));
+    const hasA = labs.some(l => l.startsWith("[A]"));
+    if (hasU && hasA) return "OTHER";
+    if (hasU) return "UNDERARMOR";
+    if (hasA) return "ARMOR";
+    // Coverall flag = definitive clothes/outfit slot (flag 57)
+    if (labs.includes("Coverall")) return "CLOTHES";
+    // Head/face flags = headwear (even if EDID says "Clothes_*")
+    const HEAD_FLAGS = ["Hair Top","Scalp","Hair Long","Headband","Eyes","EyeOfRa","Beard","Mouth","Neck","FaceGen Head"];
+    if (labs.some(l => HEAD_FLAGS.includes(l)) || upEdid.includes("HEADWEAR")) return "HEADWEAR";
+    // EDID-based fallbacks
+    if (upEdid.includes("CLOTHES") || upEdid.includes("OUTFIT")) return "CLOTHES";
+    if (labs.includes("Backpack")) return "BACKPACK";
+    if (labs.includes("Pipboy"))   return "PIPBOY";
+    if (labs.includes("Ring") && !labs.some(l =>
+      l === "BODY" || l.startsWith("[U]") || l.startsWith("[A]"))) return "RING";
+    return "OTHER";
+  }
 
-      return {
-        formId, edid, full,
-        flags, flagLabels: labels,
-        keywords,
-        type: classifyArmoItem(edid, r.Keywords_EDID_Flat, labels),
-        armorSetKey: ""
-      };
-    })
-    // Must have EDID and not junk
-    .filter(it => it.edid && !isJunkEdid(it.edid))
-    // Must have a real player-facing display name (no empty or EDID-like FULL)
-    .filter(it => {
-      const f = it.full.trim();
-      if (!f) return false;
-      // Reject if name has underscores but no spaces (EDID leaked as display name)
-      if (f.includes("_") && !f.includes(" ")) return false;
-      return true;
-    })
-    // Only your pools
-    .filter(it => {
-      const up = it.edid.toUpperCase();
-      return up.includes("HEADWEAR") || up.includes("CLOTHES") || up.includes("OUTFIT") ||
-        it.type === "UNDERARMOR" || it.type === "ARMOR" ||
-        it.type === "BACKPACK"   || it.type === "RING";
+  // Parse COBJ - use as primary source
+  const { rows: cobjRows } = parseTSV(readText(cobjPath));
+  const items = [];
+  const seenCobjEdid = new Set();
+  const MOD_KEYWORDS = ["EFFECT","LINING","REPAIR","PLATED","INSULATED","REFRIGERATED",
+    "CAPACITY","PILLAGER","GROCER","CHEMIST","MISCFLAIR","SOUVENIR","DISPLAY","DEPRECATED"];
+
+  for (const r of cobjRows.map(upperKeyed)) {
+    const cobjEdid = stripQuotes(r.COBJ_EDID);
+    const cnamEdid = stripQuotes(r.CNAM_EDID);
+    const cnamFull = stripQuotes(r.CNAM_FULL);
+    const upCobj = cobjEdid.toUpperCase();
+
+    if (!cobjEdid || isJunkEdid(cobjEdid)) continue;
+    if (seenCobjEdid.has(cobjEdid)) continue;
+
+    // Backpack skins: COBJ_EDID contains CO_ARMOR_BACKPACK or CO_MOD_BACKPACK (skin mods)
+    const isBackpackSkin = upCobj.includes("CO_ARMOR_BACKPACK") ||
+      (upCobj.includes("CO_MOD_BACKPACK") && !MOD_KEYWORDS.some(k => upCobj.includes(k)));
+    if (isBackpackSkin) {
+      const name = cnamFull;
+      if (name && !name.toLowerCase().startsWith("plan:")) {
+        seenCobjEdid.add(cobjEdid);
+        items.push({
+          formId: "", edid: cobjEdid, full: name,
+          flags: ["54"], flagLabels: ["Backpack"],
+          keywords: [], type: "BACKPACK", armorSetKey: ""
+        });
+      } else { seenCobjEdid.add(cobjEdid); }
+      continue;
+    }
+
+    // Backpack Flair L (Flair1)
+    if (upCobj.includes("FLAIR1") || upCobj.match(/_FLAIR_1[^0-9]/)) {
+      const name = cnamFull;
+      seenCobjEdid.add(cobjEdid);
+      if (name) items.push({
+        formId: "", edid: cobjEdid, full: name,
+        flags: ["55"], flagLabels: ["Flair L"],
+        keywords: [], type: "FLAIR_L", armorSetKey: ""
+      });
+      continue;
+    }
+
+    // Backpack Flair R (Flair2)
+    if (upCobj.includes("FLAIR2") || upCobj.match(/_FLAIR_2[^0-9]/)) {
+      const name = cnamFull;
+      seenCobjEdid.add(cobjEdid);
+      if (name) items.push({
+        formId: "", edid: cobjEdid, full: name,
+        flags: ["56"], flagLabels: ["Flair R"],
+        keywords: [], type: "FLAIR_R", armorSetKey: ""
+      });
+      continue;
+    }
+
+    // Wearable items: resolve via ARMO SLOTS cross-reference
+    if (!cnamEdid || !cnamFull) continue;
+    const slot = slotsMap.get(cnamEdid);
+    if (!slot) continue; // not an ARMO record
+
+    const type = classify(cnamEdid, slot.flagLabels);
+    if (type === "OTHER" || type === "BACKPACK" || type === "PIPBOY") {
+      seenCobjEdid.add(cobjEdid); continue;
+    }
+
+    const f = cnamFull.trim();
+    if (!f || (f.includes("_") && !f.includes(" "))) { seenCobjEdid.add(cobjEdid); continue; }
+
+    // Skip items with no BOD2 slot data - they can't fill any display slot
+    if (!slot.flagLabels.length && !["RING"].includes(type)) { seenCobjEdid.add(cobjEdid); continue; }
+
+    seenCobjEdid.add(cobjEdid);
+    items.push({
+      formId: "", edid: cnamEdid, full: f,
+      flags: slot.flags, flagLabels: slot.flagLabels,
+      keywords: [], type, armorSetKey: ""
     });
+  }
 
-  // Add armorSetKey and setName for ARMOR type
+  // Rings: only 2 in game (Wedding Ring, Old Ring), no COBJ recipe — pull from ARMO SLOTS
+  for (const r of armoRows.map(upperKeyed)) {
+    const edid = safeText(r.ARMO_EDID);
+    const full = safeText(r.ARMO_FULL);
+    if (!edid || isJunkEdid(edid)) continue;
+    const flagLabels = splitPipe(r.BOD2_FirstPersonFlagLabels).map(x => x.trim()).filter(Boolean);
+    if (!flagLabels.includes("Ring")) continue;
+    if (flagLabels.some(l => l.startsWith("[U]") || l.startsWith("[A]") || l === "BODY")) continue;
+    const f = full.trim();
+    if (!f || (f.includes("_") && !f.includes(" "))) continue;
+    items.push({
+      formId: safeText(r.ARMO_FormID), edid, full: f,
+      flags: splitPipe(r.BOD2_FirstPersonFlags).map(x => x.trim()).filter(Boolean),
+      flagLabels, keywords: [], type: "RING", armorSetKey: ""
+    });
+  }
+
+  // Set name/key for ARMOR
   for (const it of items) {
     if (it.type === "ARMOR") {
       const setDisplayName = extractArmorSetDisplayName(it.full);
-      // setName is the display label shown in the calculator (e.g. "Leather")
       it.setName = setDisplayName || it.full;
-      // armorSetKey is used for same-set compatibility matching
       it.armorSetKey = setDisplayName || deriveArmorSetKey(it.edid, it.full);
     }
   }
 
-  const pipboyItems = buildEntmSkinItems(entmPath);
+  // Pip-boy skins from ENTM (not in COBJ)
+  const pipboyItems = buildEntmPipboySkins(entmPath);
   const allItems = [...items, ...pipboyItems];
+
+  const typeCounts = {};
+  for (const it of allItems) typeCounts[it.type] = (typeCounts[it.type] || 0) + 1;
+  console.log("outfit_inspiration item counts:", typeCounts);
 
   const out = {
     generatedAt: new Date().toISOString(),
@@ -427,6 +524,7 @@ function buildOutfitInspirationJson(armoPath, outPath, entmPath) {
   ensureDir(path.dirname(outPath));
   fs.writeFileSync(outPath, JSON.stringify(out, null, 2));
 }
+
 
 /* =========================================================
    3) BIG BLOOM REWARD CRAFTING (COBJ)
@@ -448,42 +546,12 @@ function loadBigBloomImageMap() {
 
 // CondProxy items have an empty CNAM_FULL in the TSV, so craftedName and components
 // can't be derived automatically. Override them here keyed by COBJ_EDID.
-//
-// Also used for skin/mod items whose COBJ only stores the mod materials, not the
-// base weapon that must be crafted first. Add those here so the resolver can build
-// the correct full crafting chain (e.g. Combat Knife → Garden Trowel Knife).
 const CONDPROXY_OVERRIDES = {
   "SSE_workshop_co_CondProxy_Displays_SmallGlazedPot":  { craftedName: "Small Glazed Pot",  components: [{ name: "Ceramic", qty: 3 }] },
   "SSE_workshop_co_CondProxy_Displays_MediumGlazedPot": { craftedName: "Medium Glazed Pot", components: [{ name: "Ceramic", qty: 3 }] },
   "SSE_workshop_co_CondProxy_Displays_LargeGlazedPot":  { craftedName: "Large Glazed Pot",  components: [{ name: "Ceramic", qty: 3 }] },
   "workshop_co_CondProxy_HoneyBeastTube":               { craftedName: "Honey Beast Tube",  components: [{ name: "Aluminum", qty: 10 }] },
-
-  // Skin mod — the TSV only records the skin materials; base weapon must also be crafted.
-  "SSE_co_mod_CombatKnife_Melee_GardenTrowel": {
-    craftedName: "Garden Trowel Knife",
-    components: [
-      { name: "Combat Knife", qty: 1 },
-      { name: "Steel",        qty: 1 },
-      { name: "Wood",         qty: 1 },
-    ]
-  },
 };
-
-// Base weapon / item recipes referenced by skin overrides above.
-// These are NOT Big Bloom rewards and won't appear in the dropdown, but they are
-// loaded into the dependency resolver so crafting chains show the full step list.
-const SKIN_WEAPON_PREREQS = [
-  {
-    craftedName: "Combat Knife",
-    cobjEdid:    "co_Weapon_Melee_Knife",
-    components:  [
-      { name: "Adhesive", qty: 1 },
-      { name: "Rubber",   qty: 3 },
-      { name: "Steel",    qty: 2 },
-      { name: "Screw",    qty: 1 },
-    ]
-  },
-];
 
 function buildBigBloomCraftingJson(cobjPath, outPath) {
   const { rows } = parseTSV(readText(cobjPath));
@@ -649,14 +717,6 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
     if (!recipeByCraftedName.has(key)) recipeByCraftedName.set(key, r);
   }
 
-  // Register skin weapon prereqs into the resolver map so dependency chains can
-  // reference them (e.g. "Combat Knife" inside Garden Trowel Knife's components).
-  // These are NOT added to recs and will NOT appear in the dropdown.
-  for (const prereq of SKIN_WEAPON_PREREQS) {
-    const key = safeText(prereq.craftedName).toLowerCase();
-    if (key && !recipeByCraftedName.has(key)) recipeByCraftedName.set(key, prereq);
-  }
-
   function addToTotals(mapObj, name, qty) {
     const k = safeText(name);
     if (!k || !qty) return;
@@ -740,12 +800,9 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
     generatedAt: new Date().toISOString(),
     kind: "big_bloom_crafting",
     recipes: recs,
-    // Base weapon/item recipes needed to resolve skin crafting chains.
-    // Not shown in the dropdown — loaded into the resolver map only.
-    prereqRecipes: SKIN_WEAPON_PREREQS,
     index: {
       byCraftedNameLower: Object.fromEntries(
-        Array.from(recipeByCraftedName.entries()).map(([k, v]) => [k, v.cobjEdid || ""])
+        Array.from(recipeByCraftedName.entries()).map(([k, v]) => [k, v.cobjEdid])
       )
     }
   };
@@ -802,7 +859,7 @@ if (FLST_ENTRIES_TSV) {
   // Legacy single FLST file
   buildBuildInspirationJson(FLST_TSV, path.join(OUT_DIR, "build_inspiration.json"));
 }
-buildOutfitInspirationJson(ARMO_TSV, path.join(OUT_DIR, "outfit_inspiration.json"), ENTM_TSV);
+buildOutfitInspirationJson(ARMO_TSV, path.join(OUT_DIR, "outfit_inspiration.json"), ENTM_TSV, COBJ_TSV);
 buildBigBloomCraftingJson(COBJ_TSV, path.join(OUT_DIR, "big_bloom_crafting.json"));
 
 console.log("Built calculators JSON into:", OUT_DIR);

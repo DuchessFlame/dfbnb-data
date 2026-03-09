@@ -650,7 +650,8 @@ def main():
     bobbleheads_data = {
         "generatedAt": generated_at,
         "type": "bobbleheads",
-        "groups": bobblehead_groups
+        "groups": bobblehead_groups,
+        "cutContent": bobblehead_cut
     }
     bobbleheads_file = outdir / "collectables_bobbleheads.json"
     with open(bobbleheads_file, 'w', encoding='utf-8') as f:
