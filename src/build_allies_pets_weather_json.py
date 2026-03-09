@@ -774,11 +774,11 @@ def build_fridges():
 print("\nBuilding JSON files…")
 
 save_json("weather_stations.json", build_weather_stations())
-save_json("repair_bots.json",      build_repair_bots())
+save_json("repair-bots.json",      build_repair_bots())
 save_json("allies.json",           build_allies())
 save_json("pets.json",             build_pets())
-save_json("pet_furniture.json",    build_pet_furniture())
-save_json("pet_apparel.json",      build_pet_apparel())
+save_json("pet-furniture.json",    build_pet_furniture())
+save_json("pet-apparel.json",      build_pet_apparel())
 save_json("cryos.json",            build_cryos())
 save_json("fridges.json",          build_fridges())
 

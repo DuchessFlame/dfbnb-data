@@ -448,12 +448,42 @@ function loadBigBloomImageMap() {
 
 // CondProxy items have an empty CNAM_FULL in the TSV, so craftedName and components
 // can't be derived automatically. Override them here keyed by COBJ_EDID.
+//
+// Also used for skin/mod items whose COBJ only stores the mod materials, not the
+// base weapon that must be crafted first. Add those here so the resolver can build
+// the correct full crafting chain (e.g. Combat Knife → Garden Trowel Knife).
 const CONDPROXY_OVERRIDES = {
   "SSE_workshop_co_CondProxy_Displays_SmallGlazedPot":  { craftedName: "Small Glazed Pot",  components: [{ name: "Ceramic", qty: 3 }] },
   "SSE_workshop_co_CondProxy_Displays_MediumGlazedPot": { craftedName: "Medium Glazed Pot", components: [{ name: "Ceramic", qty: 3 }] },
   "SSE_workshop_co_CondProxy_Displays_LargeGlazedPot":  { craftedName: "Large Glazed Pot",  components: [{ name: "Ceramic", qty: 3 }] },
   "workshop_co_CondProxy_HoneyBeastTube":               { craftedName: "Honey Beast Tube",  components: [{ name: "Aluminum", qty: 10 }] },
+
+  // Skin mod — the TSV only records the skin materials; base weapon must also be crafted.
+  "SSE_co_mod_CombatKnife_Melee_GardenTrowel": {
+    craftedName: "Garden Trowel Knife",
+    components: [
+      { name: "Combat Knife", qty: 1 },
+      { name: "Steel",        qty: 1 },
+      { name: "Wood",         qty: 1 },
+    ]
+  },
 };
+
+// Base weapon / item recipes referenced by skin overrides above.
+// These are NOT Big Bloom rewards and won't appear in the dropdown, but they are
+// loaded into the dependency resolver so crafting chains show the full step list.
+const SKIN_WEAPON_PREREQS = [
+  {
+    craftedName: "Combat Knife",
+    cobjEdid:    "co_Weapon_Melee_Knife",
+    components:  [
+      { name: "Adhesive", qty: 1 },
+      { name: "Rubber",   qty: 3 },
+      { name: "Steel",    qty: 2 },
+      { name: "Screw",    qty: 1 },
+    ]
+  },
+];
 
 function buildBigBloomCraftingJson(cobjPath, outPath) {
   const { rows } = parseTSV(readText(cobjPath));
@@ -619,6 +649,14 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
     if (!recipeByCraftedName.has(key)) recipeByCraftedName.set(key, r);
   }
 
+  // Register skin weapon prereqs into the resolver map so dependency chains can
+  // reference them (e.g. "Combat Knife" inside Garden Trowel Knife's components).
+  // These are NOT added to recs and will NOT appear in the dropdown.
+  for (const prereq of SKIN_WEAPON_PREREQS) {
+    const key = safeText(prereq.craftedName).toLowerCase();
+    if (key && !recipeByCraftedName.has(key)) recipeByCraftedName.set(key, prereq);
+  }
+
   function addToTotals(mapObj, name, qty) {
     const k = safeText(name);
     if (!k || !qty) return;
@@ -702,9 +740,12 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
     generatedAt: new Date().toISOString(),
     kind: "big_bloom_crafting",
     recipes: recs,
+    // Base weapon/item recipes needed to resolve skin crafting chains.
+    // Not shown in the dropdown — loaded into the resolver map only.
+    prereqRecipes: SKIN_WEAPON_PREREQS,
     index: {
       byCraftedNameLower: Object.fromEntries(
-        Array.from(recipeByCraftedName.entries()).map(([k, v]) => [k, v.cobjEdid])
+        Array.from(recipeByCraftedName.entries()).map(([k, v]) => [k, v.cobjEdid || ""])
       )
     }
   };
