@@ -295,6 +295,8 @@ def build_weather_stations():
             "obtainSource": source,
             "seasonNumber": season_num,
             "howToObtain":  f"Season {season_num} Scoreboard" if season_num else "Atom Shop",
+            "dropRate":     "—",
+            "tradeable":    not bool(season_num),
             "imageUrl":     image_url,
             "imageCarousel": carousel,
             "cutContent":   is_cut(acti_edid),
@@ -354,6 +356,8 @@ def build_repair_bots():
             "obtainSource": source,
             "howToObtain":  "Atom Shop",
             "dropRate":     "—",
+            "seasonNumber": None,
+            "tradeable":    True,
             "imageUrl":     image_url,
             "imageCarousel": carousel,
             "xalgFlags":    furn.get("XALG_Flags", ""),
@@ -444,6 +448,8 @@ def build_allies():
             "obtainSource":     source,
             "howToObtain":      obtain,
             "dropRate":         "—",
+            "seasonNumber":     None,
+            "tradeable":        (source != "Scoreboard"),
             "imageUrl":         img,
             "imageCarousel":    carousel,
             "xalgFlags":        xalg,
@@ -515,23 +521,41 @@ def build_pets():
 
         desc      = clean_desc(entm.get("DESC", "")) if entm else ""
         entm_id   = entm["FormID"] if entm else ""
+        entm_full = entm.get("FULL", "").strip() if entm else ""
         carousel  = ecil_images(entm, "camp-pets") if entm else []
-        img       = carousel[0] if carousel else ""
 
-        # Pet image = first carousel, Home image = second (if present)
+        # Pet image = first carousel (the actual pet), Home image = second (bed/house)
         pet_img  = carousel[0] if len(carousel) > 0 else ""
         home_img = carousel[1] if len(carousel) > 1 else ""
+
+        # Season number from FURN EDID (e.g. SCORE_S19_CAMPPets_...)
+        season_m   = re.match(r"SCORE_S(\d+)_", furn_edid, re.IGNORECASE)
+        season_num = int(season_m.group(1)) if season_m else None
+
+        # Scoreboard items (SCORE_*) are non-tradeable; ATX_ Atom Shop items are tradeable
+        if season_num:
+            source    = "Scoreboard"
+            how       = f"Season {season_num} Scoreboard"
+            tradeable = False
+        else:
+            how       = source  # "Atom Shop"
+            tradeable = True
 
         items.append({
             "formId":       furn_id,
             "entmFormId":   entm_id,
             "edid":         furn_edid,
-            "displayName":  furn_full or furn_edid,
+            # displayName = the actual pet name (ENTM FULL), e.g. "German Shepherd"
+            "displayName":  entm_full or furn_full or furn_edid,
+            # homeName = the furniture item name (FURN FULL), e.g. "German Shepherd House"
+            "homeName":     furn_full,
             "description":  desc,
             "animalType":   animal,
             "obtainSource": source,
-            "howToObtain":  source,
-            "dropRate":     "—",
+            "howToObtain":  how,
+            "dropRate":     "1–3 Star Legendary",
+            "seasonNumber": season_num,
+            "tradeable":    tradeable,
             "imageUrl":     pet_img,
             "homeImageUrl": home_img,
             "imageCarousel": carousel,
@@ -575,19 +599,32 @@ def build_pet_furniture():
 
         desc      = clean_desc(entm.get("DESC", "")) if entm else ""
         entm_id   = entm["FormID"] if entm else ""
+        entm_full = entm.get("FULL", "").strip() if entm else ""
         carousel  = ecil_images(entm, "camp-pets") if entm else []
         img       = carousel[0] if carousel else ""
+
+        season_m   = re.match(r"SCORE_S(\d+)_", furn_edid, re.IGNORECASE)
+        season_num = int(season_m.group(1)) if season_m else None
+        if season_num:
+            source    = "Scoreboard"
+            how       = f"Season {season_num} Scoreboard"
+            tradeable = False
+        else:
+            how       = source
+            tradeable = True
 
         items.append({
             "formId":       furn_id,
             "entmFormId":   entm_id,
             "edid":         furn_edid,
-            "displayName":  furn_full or furn_edid,
+            "displayName":  entm_full or furn_full or furn_edid,
             "description":  desc,
             "animalType":   animal,
             "obtainSource": source,
-            "howToObtain":  source,
+            "howToObtain":  how,
             "dropRate":     "—",
+            "seasonNumber": season_num,
+            "tradeable":    tradeable,
             "imageUrl":     img,
             "imageCarousel": carousel,
             "xalgFlags":    xalg,
@@ -638,21 +675,29 @@ def build_pet_apparel():
         animal   = PET_APPAREL_ANIMAL.get(entm_id, "other")
         carousel = ecil_images(entm, "camp-pets")
         img      = carousel[0] if carousel else ""
+        edid     = entm.get("EDID", "")
+
+        season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
+        season_num = int(season_m.group(1)) if season_m else None
+        # Apparel is craftable — non-tradeable if scoreboard, tradeable if ATX
+        tradeable  = (season_num is None)
 
         items.append({
             "formId":       entm_id,
             "entmFormId":   entm_id,
-            "edid":         entm.get("EDID", ""),
+            "edid":         edid,
             "displayName":  display,
             "description":  desc,
             "animalType":   animal,
             "obtainSource": source,
             "howToObtain":  "Craft at Armor Workbench",
             "dropRate":     "—",
+            "seasonNumber": season_num,
+            "tradeable":    tradeable,
             "imageUrl":     img,
             "imageCarousel": carousel,
             "xalgFlags":    xalg,
-            "cutContent":   is_cut(entm.get("EDID", "")),
+            "cutContent":   is_cut(edid),
         })
 
     items.sort(key=lambda x: x["displayName"])
@@ -688,22 +733,30 @@ def build_cryos():
         carousel = ecil_images(entm, "camp-utility")
         img      = carousel[0] if carousel else ""
         gv       = CRYO_GOLDVENDOR.get(entm_id, "")
+        edid     = entm.get("EDID", "")
+
+        season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
+        season_num = int(season_m.group(1)) if season_m else None
+        how        = f"Season {season_num} Scoreboard" if season_num else ("Gold Bullion vendor" if gv else "Atom Shop")
+        tradeable  = not bool(season_num)
 
         items.append({
             "formId":         entm_id,
             "entmFormId":     entm_id,
             "goldVendorFormId": gv,
-            "edid":           entm.get("EDID", ""),
+            "edid":           edid,
             "displayName":    display,
             "description":    desc,
-            "obtainSource":   source,
-            "howToObtain":    "Gold Bullion vendor" if gv else "Atom Shop",
+            "obtainSource":   "Scoreboard" if season_num else source,
+            "howToObtain":    how,
             "dropRate":       "—",
+            "seasonNumber":   season_num,
+            "tradeable":      tradeable,
             "imageUrl":       img,
             "imageCarousel":  carousel,
             "spoilageReduction": "100% (no spoilage)",
             "xalgFlags":      xalg,
-            "cutContent":     is_cut(entm.get("EDID", "")),
+            "cutContent":     is_cut(edid),
         })
 
     items.sort(key=lambda x: x["displayName"])
@@ -756,6 +809,8 @@ def build_fridges():
             "obtainSource": source,
             "howToObtain":  source,
             "dropRate":     "—",
+            "seasonNumber": None,
+            "tradeable":    True,
             "imageUrl":     img,
             "imageCarousel": carousel,
             "spoilageReduction": "-50%",
