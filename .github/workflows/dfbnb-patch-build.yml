@@ -120,21 +120,25 @@ jobs:
           ARMO_TSV="$(newest "tsv/ARMO_Export_*.tsv")"
           ENTM_TSV="$(newest "tsv/ENTM_Export_*.tsv")"
           COBJ_TSV="$(newest "tsv/COBJ_Export_*.tsv")"
+          FURN_TSV="$(newest "tsv/FURN_Export_*_FURN.tsv")"
 
           if [ -z "$FLST_ENTRIES_TSV" ]; then echo "Missing FLST Entries TSV (tsv/FLST_Export_*_Entries.tsv)"; exit 1; fi
           if [ -z "$ARMO_TSV" ]; then echo "Missing ARMO TSV (tsv/ARMO_Export_*.tsv)"; exit 1; fi
           if [ -z "$COBJ_TSV" ]; then echo "Missing COBJ TSV (tsv/COBJ_Export_*.tsv)"; exit 1; fi
+          if [ -z "$FURN_TSV" ]; then echo "Missing FURN TSV (tsv/FURN_Export_*_FURN.tsv)"; exit 1; fi
 
           echo "FLST_ENTRIES_TSV=$FLST_ENTRIES_TSV" >> $GITHUB_ENV
           echo "ARMO_BOD2_TSV=$ARMO_TSV" >> $GITHUB_ENV
           echo "ENTM_TSV=$ENTM_TSV" >> $GITHUB_ENV
           echo "COBJ_TSV=$COBJ_TSV" >> $GITHUB_ENV
+          echo "FURN_TSV=$FURN_TSV" >> $GITHUB_ENV
 
           echo "Using:"
           echo "  FLST_ENTRIES_TSV=$FLST_ENTRIES_TSV"
           echo "  ARMO_BOD2_TSV=$ARMO_TSV"
           echo "  ENTM_TSV=$ENTM_TSV"
           echo "  COBJ_TSV=$COBJ_TSV"
+          echo "  FURN_TSV=$FURN_TSV"
 
       - name: Build DF Calculators JSON
         run: node tools/build_df_calculators_json.mjs
@@ -164,6 +168,18 @@ jobs:
             --tsv-root tsv \
             --outdir dist
 
+      # --- ALLIES · PETS · WEATHER · CRYOS · REPAIR BOTS ---
+      - name: Build Allies / Pets / Weather JSON
+        run: |
+          python src/build_allies_pets_weather_json.py \
+            --tsv-dir tsv \
+            --out-dir dist
+        env:
+          COBJ_TSV:         ${{ env.COBJ_TSV }}
+          ENTM_TSV:         ${{ env.ENTM_TSV }}
+          FURN_TSV:         ${{ env.FURN_TSV }}
+          FLST_ENTRIES_TSV: ${{ env.FLST_ENTRIES_TSV }}
+
       # --- PLAN MASTER ---
       - name: Build Plan Master JSON
         run: |
@@ -191,6 +207,14 @@ jobs:
           test -f dist/armour.json               && echo "OK armour.json"               || (echo "MISSING armour.json" && exit 1)
           test -f dist/collectrons.json          && echo "OK collectrons.json"          || (echo "MISSING collectrons.json" && exit 1)
           test -f dist/resource_producers.json   && echo "OK resource_producers.json"   || (echo "MISSING resource_producers.json" && exit 1)
+          test -f dist/weather_stations.json     && echo "OK weather_stations.json"     || (echo "MISSING weather_stations.json" && exit 1)
+          test -f dist/allies.json               && echo "OK allies.json"               || (echo "MISSING allies.json" && exit 1)
+          test -f dist/pets.json                 && echo "OK pets.json"                 || (echo "MISSING pets.json" && exit 1)
+          test -f dist/pet_furniture.json        && echo "OK pet_furniture.json"        || (echo "MISSING pet_furniture.json" && exit 1)
+          test -f dist/pet_apparel.json          && echo "OK pet_apparel.json"          || (echo "MISSING pet_apparel.json" && exit 1)
+          test -f dist/cryos.json                && echo "OK cryos.json"                || (echo "MISSING cryos.json" && exit 1)
+          test -f dist/fridges.json              && echo "OK fridges.json"              || (echo "MISSING fridges.json" && exit 1)
+          test -f dist/repair_bots.json          && echo "OK repair_bots.json"          || (echo "MISSING repair_bots.json" && exit 1)
           test -f dist/collectables_bobbleheads.json && echo "OK collectables_bobbleheads.json" || (echo "MISSING collectables_bobbleheads.json" && exit 1)
           test -f dist/collectables_plushies.json    && echo "OK collectables_plushies.json"    || (echo "MISSING collectables_plushies.json" && exit 1)
           test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
