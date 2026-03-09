@@ -553,7 +553,32 @@ const CONDPROXY_OVERRIDES = {
   "SSE_workshop_co_CondProxy_Displays_MediumGlazedPot": { craftedName: "Medium Glazed Pot", components: [{ name: "Ceramic", qty: 3 }] },
   "SSE_workshop_co_CondProxy_Displays_LargeGlazedPot":  { craftedName: "Large Glazed Pot",  components: [{ name: "Ceramic", qty: 3 }] },
   "workshop_co_CondProxy_HoneyBeastTube":               { craftedName: "Honey Beast Tube",  components: [{ name: "Aluminum", qty: 10 }] },
+
+  // Skin mod — TSV only records skin materials; base weapon must also be crafted first.
+  "SSE_co_mod_CombatKnife_Melee_GardenTrowel": {
+    craftedName: "Garden Trowel Knife",
+    components: [
+      { name: "Combat Knife", qty: 1 },
+      { name: "Steel",        qty: 1 },
+      { name: "Wood",         qty: 1 },
+    ]
+  },
 };
+
+// Base weapon recipes referenced as prerequisites by skin overrides above.
+// NOT added to the dropdown — only loaded into the resolver so dependency chains work.
+const SKIN_WEAPON_PREREQS = [
+  {
+    craftedName: "Combat Knife",
+    cobjEdid:    "co_Weapon_Melee_Knife",
+    components:  [
+      { name: "Adhesive", qty: 1 },
+      { name: "Rubber",   qty: 3 },
+      { name: "Steel",    qty: 2 },
+      { name: "Screw",    qty: 1 },
+    ]
+  },
+];
 
 function buildBigBloomCraftingJson(cobjPath, outPath) {
   const { rows } = parseTSV(readText(cobjPath));
@@ -719,6 +744,13 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
     if (!recipeByCraftedName.has(key)) recipeByCraftedName.set(key, r);
   }
 
+  // Register skin weapon prereqs so the resolver can expand their crafting chains.
+  // These are NOT in recs and will NOT appear in the dropdown.
+  for (const prereq of SKIN_WEAPON_PREREQS) {
+    const key = safeText(prereq.craftedName).toLowerCase();
+    if (key && !recipeByCraftedName.has(key)) recipeByCraftedName.set(key, prereq);
+  }
+
   function addToTotals(mapObj, name, qty) {
     const k = safeText(name);
     if (!k || !qty) return;
@@ -802,6 +834,7 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
     generatedAt: new Date().toISOString(),
     kind: "big_bloom_crafting",
     recipes: recs,
+    prereqRecipes: SKIN_WEAPON_PREREQS,
     index: {
       byCraftedNameLower: Object.fromEntries(
         Array.from(recipeByCraftedName.entries()).map(([k, v]) => [k, v.cobjEdid])
