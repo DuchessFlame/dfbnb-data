@@ -123,7 +123,7 @@ function isJunkEdid(edidRaw) {
   if (!edid) return true;
 
   // Your rule: ignore if it CONTAINS these tokens anywhere
-  const badTokens = ["NONPLAYABLE", "CAMPPETS", "DEL", "POST", "CUT", "ZZZ"];
+  const badTokens = ["NONPLAYABLE", "NOTPLAYABLE", "CAMPPETS", "DEL", "POST", "CUT", "ZZZ"];
   for (const t of badTokens) {
     if (edid.includes(t)) return true;
   }
@@ -302,6 +302,11 @@ function classifyArmoItem(edid, keywordsFlat, flagLabels) {
   if (upEdid.includes("CLOTHES")) return "CLOTHES";
   if (kw.toLowerCase().includes("backpack") || upEdid.includes("BACKPACK")) return "BACKPACK";
 
+  // Ring: flagLabels contains Ring but no body/armour/underarmour slots
+  if (labs.includes("Ring") && !labs.some(l =>
+    l === "BODY" || l === "Coverall" || l.startsWith("[U]") || l.startsWith("[A]")
+  )) return "RING";
+
   return "OTHER";
 }
 
@@ -319,6 +324,20 @@ function deriveArmorSetKey(edidRaw, fullRaw) {
   s = s.replace(/_(Chest|Torso|Helmet|Head)\b/i, "");
   s = s.replace(/_ARMO_/i, "_");
   return s;
+}
+
+// Strip body-part suffixes from an armour FULL name to get the set display name.
+// e.g. "Leather Left Leg" → "Leather",  "Marine Armor Chest Piece" → "Marine Armor"
+function extractArmorSetDisplayName(full) {
+  let s = safeText(full).trim();
+  if (!s) return s;
+  s = s.replace(/\s+chest\s+piece\s*$/i, "");
+  s = s.replace(/\s+(arm|leg)\s+(left|right)\s*$/i, "");
+  s = s.replace(/\s+(left|right)\s+(arm|leg)\s*$/i, "");
+  s = s.replace(/\s+(torso|chest|helmet|head)\s*$/i, "");
+  s = s.replace(/\s+(left|right)\s*$/i, "");
+  s = s.replace(/\s+(arm|leg)\s*$/i, "");
+  return s.trim();
 }
 
 function buildEntmSkinItems(entmPath) {
@@ -369,15 +388,31 @@ function buildOutfitInspirationJson(armoPath, outPath, entmPath) {
     })
     // Must have EDID and not junk
     .filter(it => it.edid && !isJunkEdid(it.edid))
+    // Must have a real player-facing display name (no empty or EDID-like FULL)
+    .filter(it => {
+      const f = it.full.trim();
+      if (!f) return false;
+      // Reject if name has underscores but no spaces (EDID leaked as display name)
+      if (f.includes("_") && !f.includes(" ")) return false;
+      return true;
+    })
     // Only your pools
     .filter(it => {
       const up = it.edid.toUpperCase();
-      return up.includes("HEADWEAR") || up.includes("CLOTHES") || up.includes("OUTFIT") || it.type === "UNDERARMOR" || it.type === "ARMOR" || it.type === "BACKPACK";
+      return up.includes("HEADWEAR") || up.includes("CLOTHES") || up.includes("OUTFIT") ||
+        it.type === "UNDERARMOR" || it.type === "ARMOR" ||
+        it.type === "BACKPACK"   || it.type === "RING";
     });
 
-  // Add armorSetKey only for ARMOR type
+  // Add armorSetKey and setName for ARMOR type
   for (const it of items) {
-    if (it.type === "ARMOR") it.armorSetKey = deriveArmorSetKey(it.edid, it.full);
+    if (it.type === "ARMOR") {
+      const setDisplayName = extractArmorSetDisplayName(it.full);
+      // setName is the display label shown in the calculator (e.g. "Leather")
+      it.setName = setDisplayName || it.full;
+      // armorSetKey is used for same-set compatibility matching
+      it.armorSetKey = setDisplayName || deriveArmorSetKey(it.edid, it.full);
+    }
   }
 
   const pipboyItems = buildEntmSkinItems(entmPath);

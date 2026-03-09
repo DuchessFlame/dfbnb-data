@@ -34,13 +34,15 @@ jobs:
           }
 
           FLST_TSV="$(newest "tsv/FLST_Export_*.tsv")"
-          ARMO_TSV="$(newest "tsv/ARMO_Export_*.tsv")"
+          # Prefer the dedicated SLOTS file; fall back to any ARMO export
+          ARMO_TSV="$(newest "tsv/ARMO_Export_*_SLOTS.tsv" 2>/dev/null || newest "tsv/ARMO_Export_*.tsv")"
           ENTM_TSV="$(newest "tsv/ENTM_Export_*.tsv")"
           COBJ_TSV="$(newest "tsv/COBJ_Export_*.tsv")"
 
           if [ -z "$FLST_TSV" ]; then echo "Missing FLST TSV (tsv/FLST_Export_*.tsv)"; exit 1; fi
-          if [ -z "$ARMO_TSV" ]; then echo "Missing ARMO TSV (tsv/ARMO_Export_*.tsv)"; exit 1; fi
+          if [ -z "$ARMO_TSV" ]; then echo "Missing ARMO TSV (tsv/ARMO_Export_*_SLOTS.tsv or tsv/ARMO_Export_*.tsv)"; exit 1; fi
           if [ -z "$COBJ_TSV" ]; then echo "Missing COBJ TSV (tsv/COBJ_Export_*.tsv)"; exit 1; fi
+          if [ -z "$ENTM_TSV" ]; then echo "Warning: no ENTM TSV found (tsv/ENTM_Export_*.tsv) — backpack & pip-boy skins will be missing"; fi
 
           echo "FLST_TSV=$FLST_TSV" >> $GITHUB_ENV
           echo "ENTM_TSV=$ENTM_TSV" >> $GITHUB_ENV
