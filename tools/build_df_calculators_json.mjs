@@ -544,6 +544,24 @@ function loadBigBloomImageMap() {
   }
 }
 
+// Weapon skin mods require the base weapon to be crafted first at a chosen level.
+// The base weapon has level-gated component requirements not visible in the skin COBJ.
+// Inject them here keyed by COBJ_EDID.
+const WEAPON_PREREQ_DATA = {
+  "SSE_co_mod_CombatKnife_Melee_GardenTrowel": {
+    name: "Combat Knife",
+    levels: [
+      { level:  1, components: [{ name: "Adhesive", qty:  1 }, { name: "Rubber", qty:  2 }, { name: "Screw", qty:  1 }, { name: "Steel", qty:  3 }] },
+      { level:  5, components: [{ name: "Adhesive", qty:  2 }, { name: "Rubber", qty:  2 }, { name: "Screw", qty:  1 }, { name: "Steel", qty:  4 }] },
+      { level: 10, components: [{ name: "Adhesive", qty:  2 }, { name: "Rubber", qty:  3 }, { name: "Screw", qty:  1 }, { name: "Steel", qty:  5 }] },
+      { level: 20, components: [{ name: "Adhesive", qty:  3 }, { name: "Rubber", qty:  6 }, { name: "Screw", qty:  3 }, { name: "Steel", qty:  7 }] },
+      { level: 30, components: [{ name: "Adhesive", qty:  5 }, { name: "Rubber", qty:  9 }, { name: "Screw", qty:  5 }, { name: "Steel", qty:  9 }] },
+      { level: 40, components: [{ name: "Adhesive", qty:  6 }, { name: "Rubber", qty: 12 }, { name: "Screw", qty:  7 }, { name: "Steel", qty: 12 }] },
+      { level: 50, components: [{ name: "Adhesive", qty:  8 }, { name: "Rubber", qty: 15 }, { name: "Screw", qty:  9 }, { name: "Steel", qty: 14 }] },
+    ]
+  }
+};
+
 // CondProxy items have an empty CNAM_FULL in the TSV, so craftedName and components
 // can't be derived automatically. Override them here keyed by COBJ_EDID.
 const CONDPROXY_OVERRIDES = {
@@ -649,6 +667,8 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
         components: (CONDPROXY_OVERRIDES[stripQuotes(cobjEdid)] && CONDPROXY_OVERRIDES[stripQuotes(cobjEdid)].components)
           ? CONDPROXY_OVERRIDES[stripQuotes(cobjEdid)].components
           : parseFVPA(pickCol(r, ["FVPA", "FVPA - Components (sorted)", "Components", "Components (sorted)"])),
+        // Weapon skin mods: attach base weapon level requirements as a prerequisite
+        ...(WEAPON_PREREQ_DATA[stripQuotes(cobjEdid)] ? { prerequisite: WEAPON_PREREQ_DATA[stripQuotes(cobjEdid)] } : {}),
         category: ""
       };
     });
