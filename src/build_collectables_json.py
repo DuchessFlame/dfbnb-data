@@ -50,26 +50,42 @@ class HTMLStripper(HTMLParser):
 
 def strip_html_to_text(html):
     """
-    Strip HTML tags from text, decode entities, preserve line breaks.
+    Strip HTML tags from text, decode entities, preserve and restore line breaks.
+
+    The xEdit TSV export (CleanCell) replaces actual newlines with spaces,
+    so multiple consecutive spaces in the DESC are used as paragraph/line breaks
+    by the game engine. We restore these to real newlines for display.
     """
     if not html:
         return ""
 
-    # Replace common HTML tags with newlines
+    # Replace common HTML block tags with newlines before stripping
     html = re.sub(r'<br\s*/?>', '\n', html, flags=re.IGNORECASE)
     html = re.sub(r'</p>', '\n', html, flags=re.IGNORECASE)
     html = re.sub(r'<p[^>]*>', '\n', html, flags=re.IGNORECASE)
 
-    # Strip all HTML tags
+    # Strip all remaining HTML tags (font, size, etc.)
     text = re.sub(r'<[^>]+>', '', html)
 
     # Decode HTML entities
     text = unescape(text)
 
-    # Collapse excessive whitespace but preserve intentional line breaks
+    # The game engine uses multiple spaces as paragraph separators
+    # (because actual newlines were flattened by CleanCell in xEdit export).
+    # Convert 2+ consecutive spaces to a single newline.
+    text = re.sub(r'  +', '\n', text)
+
+    # Clean up each line
     lines = text.split('\n')
     lines = [line.strip() for line in lines]
-    lines = [line for line in lines if line]  # Remove empty lines
+
+    # Remove leading/trailing blank lines but keep intentional internal blank lines
+    # (a blank line between paragraphs is meaningful)
+    while lines and not lines[0]:
+        lines.pop(0)
+    while lines and not lines[-1]:
+        lines.pop()
+
     text = '\n'.join(lines)
 
     return text
@@ -137,6 +153,125 @@ def starts_cut_notes(edid):
         return True
 
     return False
+
+
+def is_alias_template_name(full):
+    """
+    Check if the FULL name is an unresolved alias template.
+    Names like '<Alias=MissileSilo> Launch Code Solution' are runtime aliases
+    that are meaningless in a static checklist — exclude them.
+    """
+    f = (full or "").strip()
+    return f.startswith('<Alias=') or f.startswith('<alias=')
+
+
+def can_note_be_collected(btof):
+    """
+    Parse the BTOF (Book Take Flags) field to determine collectability.
+
+    BTOF = 0 (or empty, or all-zero string) → note can be picked up.
+    BTOF = 1 or 01 → note is a fixed environment prop, cannot be taken.
+
+    The xEdit export may represent the flag as:
+      - '' (empty) — no flag set
+      - '1' or '01' — Can't be Taken flag set
+      - A 64-character binary/hex zero string — flags = 0 (can be taken)
+    """
+    b = (btof or '').strip()
+    if not b:
+        return True
+
+    # Try decimal integer
+    try:
+        return int(b) == 0
+    except ValueError:
+        pass
+
+    # Try hexadecimal (handles '01', long hex strings)
+    try:
+        return int(b, 16) == 0
+    except ValueError:
+        pass
+
+    # Unknown format — assume collectable
+    return True
+
+
+def derive_location_from_edid(edid):
+    """
+    Fallback: derive a readable location hint from the EDID when no
+    REFR cell name is available in the refs data.
+
+    Strips common quest/lore prefixes and splits CamelCase.
+    e.g. 'W05_Lore_FS_AutomatedSwitch' -> 'FS Automated Switch'
+    """
+    if not edid:
+        return "Unknown Location"
+
+    e = edid
+
+    # Strip common leading quest/prefix tokens (longest first to avoid partial matches)
+    STRIP_PREFIXES = [
+        'W05_Lore_', 'EN07_Lore_', 'MQ_Lore_',
+        'W05_', 'EN07_', 'MQ_', 'SB_', 'BS_',
+    ]
+    for prefix in STRIP_PREFIXES:
+        if e.startswith(prefix):
+            e = e[len(prefix):]
+            break
+
+    # Split on underscores
+    parts = e.split('_')
+
+    # Insert space before uppercase letters that follow lowercase letters (CamelCase split)
+    result_parts = []
+    for part in parts:
+        spaced = re.sub(r'([a-z])([A-Z])', r'\1 \2', part)
+        # Also split sequences like 'Silo02' -> 'Silo 02'
+        spaced = re.sub(r'([A-Za-z])(\d)', r'\1 \2', spaced)
+        result_parts.append(spaced)
+
+    return ' '.join(result_parts)
+
+
+def location_from_refs(row):
+    """
+    Parse the Ref columns to find the best physical location for a note.
+
+    The updated xEdit script stores refs as: FormID:EDID:SIG:CellName
+    For REFR records, CellName is the FULL name of the containing CELL
+    (interior) or worldspace (exterior).
+
+    Returns the first non-empty CellName found, or None.
+    """
+    try:
+        ref_count = int(row.get('ReferencedByCount', 0) or 0)
+    except (ValueError, TypeError):
+        return None
+
+    for k in range(1, ref_count + 1):
+        ref_val = (row.get(f'Ref{k}', '') or '').strip()
+        if not ref_val:
+            continue
+
+        # Format: FormID:EDID:SIG:CellName
+        # Split on ':' — FormID is 8 hex chars, EDID has no colons,
+        # SIG is 4 chars, CellName is the remainder.
+        parts = ref_val.split(':', 3)  # max 4 parts
+
+        if len(parts) < 3:
+            continue
+
+        sig = parts[2].strip().upper()
+        if sig != 'REFR':
+            continue
+
+        if len(parts) >= 4:
+            cell_name = parts[3].strip()
+            if cell_name:
+                return cell_name
+
+    return None
 
 
 def convert_duration_to_text(seconds):
@@ -495,6 +630,14 @@ def build_notes(book_path):
     Filters for rows where DESC contains <font face= (identifies notes).
 
     Returns (live_items, cut_items).
+
+    Location resolution priority:
+      1. REFR ref CellName from updated xEdit export (FormID:EDID:REFR:CellName)
+      2. Fallback: derive from EDID (CamelCase split, prefix stripping)
+
+    canCollect:
+      Derived from BTOF field. BTOF != 0 means the note is a fixed environment
+      prop that cannot be picked up.
     """
     print("  Streaming BOOK file...", file=sys.stderr)
     notes_live = []
@@ -522,10 +665,20 @@ def build_notes(book_path):
 
                 is_cut = starts_cut_notes(edid)
 
-                # Location: derive from EDID by replacing underscores with spaces
-                location = edid.replace('_', ' ')
+                # Filter out unresolved alias template names
+                # e.g. '<Alias=MissileSilo> Launch Code Solution'
+                if is_alias_template_name(full):
+                    is_cut = True
 
-                # Contents: strip HTML tags, decode entities
+                # Location: prefer REFR cell name from refs, fall back to EDID parse
+                location = location_from_refs(row)
+                if not location:
+                    location = derive_location_from_edid(edid)
+
+                # Collectability from BTOF flag
+                collect = can_note_be_collected(btof)
+
+                # Contents: strip HTML tags, decode entities, restore paragraph breaks
                 contents = strip_html_to_text(desc)
 
                 item = {
@@ -534,7 +687,7 @@ def build_notes(book_path):
                     "name": full,
                     "location": location,
                     "contents": contents,
-                    "contentsRaw": desc,
+                    "canCollect": collect,
                     "btof": btof,
                     "isCut": is_cut
                 }
@@ -711,7 +864,7 @@ def main():
     print("\n=== Summary ===")
     print(f"Bobbleheads: {bobblehead_count} live ({bobblehead_groups_map}), {len(bobblehead_cut)} cut")
     print(f"Plushies: {len(plushies)} live, {len(plushies_cut)} cut")
-    print(f"Notes: {len(notes)} live, {len(notes_cut)} cut")
+    print(f"Notes: {len(notes)} live, {len(notes_cut)} cut (includes {sum(1 for n in notes_cut if is_alias_template_name(n.get('name',''))) } alias-template exclusions)")
 
 
 if __name__ == '__main__':
