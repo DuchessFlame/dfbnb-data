@@ -258,15 +258,21 @@ def parse_ext_cell_location(edid):
     """
     Convert a raw CELL EDID (exterior cell) into a human-readable location name.
 
-    e.g. 'ClarksburgExt05'    -> 'Clarksburg'
-         'MonongahExt01NE'    -> 'Monongah'
-         'SavageDivideExt03'  -> 'Savage Divide'
-         'AppalachiaExt01'    -> ''  (generic worldspace, returns empty)
+    e.g. 'ClarksburgExt05'       -> 'Clarksburg'
+         'MonongahExt01NE'       -> 'Monongah'
+         'SavageDivideExt03'     -> 'Savage Divide'
+         'CampMcClintockExt04'   -> 'Camp McClintock'
+         'AppalachiaExt01'       -> ''  (generic worldspace, returns empty)
+         '[CELL:00050B2C]'       -> ''  (no EDID available)
     """
     if not edid:
         return ''
 
     e = edid.strip()
+
+    # Raw FormID bracket string — no EDID available for this cell
+    if e.startswith('['):
+        return ''
 
     # Strip trailing direction/number/Ext suffixes (repeat up to 4 times for compound suffixes)
     for _ in range(4):
@@ -278,10 +284,12 @@ def parse_ext_cell_location(edid):
     if not e:
         return ''
 
-    # CamelCase split
+    # CamelCase split — preserve Mc/Mac prefixes (McClintock, MacDonald)
     e = re.sub(r'([a-z])([A-Z])', r'\1 \2', e)
     e = re.sub(r'([A-Z]+)([A-Z][a-z])', r'\1 \2', e)
-    e = e.strip()
+    # Rejoin "Mc X" / "Mac X" that got split
+    e = re.sub(r'\b(Mc|Mac) ([A-Z])', r'\1\2', e)
+    e = re.sub(r'  +', ' ', e).strip()
 
     # Drop generic worldspace names that don't help the user
     if e.lower() in ('appalachia', 'wasteland', 'commonwealth', 'commonwealth exterior'):
@@ -347,7 +355,7 @@ def resolve_note_location(formid, edid, locations):
 
         # No usable physical location -> check quest
         if quest_name:
-            return f"Quest: {quest_name}"
+            return "Quest: " + re.sub(r'  +', ' ', quest_name).strip()
 
         # Physical location was empty or test cell
         if loc_name and not is_test_cell_name(loc_name) and loc_name.lower() != 'appalachia':
