@@ -357,7 +357,7 @@ def build_repair_bots():
             "howToObtain":  "Atom Shop",
             "dropRate":     "—",
             "seasonNumber": None,
-            "tradeable":    False,  # CAMP FURN skins are account-bound
+            "tradeable":    False,  # account-bound CAMP skin
             "imageUrl":     image_url,
             "imageCarousel": carousel,
             "xalgFlags":    furn.get("XALG_Flags", ""),
@@ -532,14 +532,14 @@ def build_pets():
         season_m   = re.match(r"SCORE_S(\d+)_", furn_edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
 
-        # Scoreboard items (SCORE_*) are non-tradeable; ATX_ Atom Shop items are tradeable
+        # All CAMP pets are account-bound (FURN items placed via workshop menu),
+        # regardless of source — neither ATX nor scoreboard pets are tradeable.
         if season_num:
             source    = "Scoreboard"
             how       = f"Season {season_num} Scoreboard"
-            tradeable = False
         else:
             how       = source  # "Atom Shop"
-            tradeable = True
+        tradeable = False  # account-bound CAMP FURN
 
         items.append({
             "formId":       furn_id,
@@ -553,7 +553,7 @@ def build_pets():
             "animalType":   animal,
             "obtainSource": source,
             "howToObtain":  how,
-            "dropRate":     "1–3 Star Legendary",
+            "dropRate":     "—",  # pets have no obtain drop rate — the "1-3 Legendary" is CAMP generation, not a drop
             "seasonNumber": season_num,
             "tradeable":    tradeable,
             "imageUrl":     pet_img,
@@ -605,13 +605,13 @@ def build_pet_furniture():
 
         season_m   = re.match(r"SCORE_S(\d+)_", furn_edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
+        # CAMP pet idle furniture — also account-bound, never tradeable
         if season_num:
             source    = "Scoreboard"
             how       = f"Season {season_num} Scoreboard"
-            tradeable = False
         else:
             how       = source
-            tradeable = True
+        tradeable = False  # account-bound CAMP FURN
 
         items.append({
             "formId":       furn_id,
@@ -810,7 +810,7 @@ def build_fridges():
             "howToObtain":  source,
             "dropRate":     "—",
             "seasonNumber": None,
-            "tradeable":    False,  # CAMP FURN items are account-bound
+            "tradeable":    False,  # account-bound CAMP item
             "imageUrl":     img,
             "imageCarousel": carousel,
             "spoilageReduction": "-50%",
