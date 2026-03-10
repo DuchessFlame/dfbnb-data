@@ -76,6 +76,7 @@ COBJ_PATH = _resolve_tsv("COBJ_TSV",         "COBJ_Export_*.tsv",         "COBJ_
 ENTM_PATH = _resolve_tsv("ENTM_TSV",         "ENTM_Export_*.tsv",         "ENTM_Export.tsv")
 FURN_PATH = _resolve_tsv("FURN_TSV",         "FURN_Export_*_FURN.tsv",    "FURN_Export_FURN.tsv")
 FLST_PATH = _resolve_tsv("FLST_ENTRIES_TSV", "FLST_Export_*_Entries.tsv", "FLST_Export_Entries.tsv")
+BOOK_PATH = _resolve_tsv("BOOK_TSV",         "BOOK_Export_*.tsv",         "BOOK_Export.tsv")
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -158,11 +159,13 @@ print(f"  COBJ: {COBJ_PATH}")
 print(f"  ENTM: {ENTM_PATH}")
 print(f"  FURN: {FURN_PATH}")
 print(f"  FLST: {FLST_PATH}")
+print(f"  BOOK: {BOOK_PATH}")
 
 cobj_rows      = load_tsv(COBJ_PATH)
 entm_rows      = load_tsv(ENTM_PATH)
 furn_rows      = load_tsv(FURN_PATH)
 flst_entries   = load_tsv(FLST_PATH)
+book_rows      = load_tsv(BOOK_PATH)
 
 # ---------------------------------------------------------------------------
 # Build lookup maps
@@ -187,6 +190,80 @@ furn_by_id = {r["FURN_FormID"]: r for r in furn_rows}
 flst_by_list = {}
 for r in flst_entries:
     flst_by_list.setdefault(r["FLST_FormID"], []).append(r)
+
+# ---------------------------------------------------------------------------
+# BOOK: tradeable-via-plan lookups
+# A BOOK (plan) is non-tradeable if any of its ReferencedBy Ref columns
+# contains "Untradable" or "Untradeable" — these are untradeable leveled lists
+# (e.g. LL_DailyOps_Rewards_HighLVL_Chase_RareUntradable).
+# ---------------------------------------------------------------------------
+
+book_by_id: dict = {}
+for r in book_rows:
+    ref_vals = [r.get(f"Ref{i}", "") for i in range(1, 44)]
+    is_untrad = any("Untradable" in v or "Untradeable" in v for v in ref_vals)
+    book_by_id[r["FormID"]] = {
+        "full":          r.get("FULL", ""),
+        "edid":          r.get("EDID", ""),
+        "is_untradeable": is_untrad,
+    }
+
+# COBJ: CNAM FormID → {gnam_fid, gnam_full} (direct crafted-item → plan-book)
+# Only rows with a non-empty GNAM_FormID are stored.
+cobj_gnam_by_cnam: dict = {}
+# CondProxy COBJs (used by GoldVendor / scoreboard unlock proxy):
+#   EDID: SCORE_workshop_CondProxy_co_Category<Type>_<NameToken>_GoldVendor
+# Indexed by lower-case <NameToken> stripped of the GoldVendor suffix.
+condproxy_gnam_by_token: dict = {}
+
+for r in cobj_rows:
+    gnam = r.get("GNAM_FormID", "").strip().strip('"')
+    if not gnam:
+        continue
+    gnam_full = r.get("GNAM_FULL", "").strip().strip('"')
+    cnam = r.get("CNAM_FormID", "").strip().strip('"')
+    cobj_edid = r.get("COBJ_EDID", "").strip().strip('"')
+
+    if cnam:
+        cobj_gnam_by_cnam.setdefault(cnam, {"gnam_fid": gnam, "gnam_full": gnam_full})
+
+    if "CondProxy" in cobj_edid:
+        token = re.sub(
+            r"^.*?CondProxy_co_Category\w+_", "", cobj_edid, flags=re.IGNORECASE
+        )
+        token = re.sub(r"_GoldVendor.*$", "", token, flags=re.IGNORECASE).lower()
+        if token:
+            condproxy_gnam_by_token.setdefault(token, {"gnam_fid": gnam, "gnam_full": gnam_full})
+
+
+def plan_for_cnam(cnam_id: str) -> tuple[str, str]:
+    """Return (gnam_fid, gnam_full) for a craftable-item FormID, or ('','')."""
+    r = cobj_gnam_by_cnam.get(cnam_id, {})
+    return r.get("gnam_fid", ""), r.get("gnam_full", "")
+
+
+def plan_for_condproxy_token(edid_hint: str) -> tuple[str, str]:
+    """
+    Return (gnam_fid, gnam_full) by matching the EDID hint against
+    CondProxy name tokens.  Tries progressively shorter suffix matches.
+    """
+    key = edid_hint.lower()
+    # Direct lookup
+    if key in condproxy_gnam_by_token:
+        r = condproxy_gnam_by_token[key]
+        return r["gnam_fid"], r["gnam_full"]
+    # Substring search (e.g. "acboardwalk" inside a longer token)
+    for token, r in condproxy_gnam_by_token.items():
+        if key and key in token:
+            return r["gnam_fid"], r["gnam_full"]
+    return "", ""
+
+
+def tradeable_from_plan(gnam_fid: str) -> bool:
+    """True only if a plan book exists AND is not in an untradeable leveled list."""
+    if not gnam_fid:
+        return False
+    return not book_by_id.get(gnam_fid, {}).get("is_untradeable", True)
 
 
 def get_entm_for_cobj(cobj_row):
@@ -277,6 +354,20 @@ def build_weather_stations():
         if season_num:
             source = "Scoreboard"
 
+        # Plan lookup: match ENTM EDID suffix against CondProxy tokens
+        # e.g. ENTM "...WeatherStation_ACBoardwalk..." → CondProxy token "weathermachine_acboardwalk"
+        _ws_edid_key = re.sub(
+            r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_CAMP_Utility_WeatherStation_",
+            "", edid, flags=re.IGNORECASE
+        ).lower()
+        _ws_gnam_fid, _ws_plan_name = plan_for_condproxy_token(_ws_edid_key)
+        # Also try the raw EDID suffix after stripping the prefix
+        if not _ws_gnam_fid:
+            _ws_gnam_fid, _ws_plan_name = plan_for_condproxy_token(
+                re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_", "", edid, flags=re.IGNORECASE).lower()
+            )
+        _ws_tradeable = tradeable_from_plan(_ws_gnam_fid)
+
         items.append({
             "formId":       entm_id,
             "entmFormId":   entm_id,
@@ -288,7 +379,8 @@ def build_weather_stations():
             "seasonNumber": season_num,
             "howToObtain":  f"Season {season_num} Scoreboard" if season_num else "Atom Shop",
             "dropRate":     "—",
-            "tradeable":    False,  # account-bound CAMP item
+            "tradeable":    _ws_tradeable,
+            "planName":     _ws_plan_name,
             "imageUrl":     image_url,
             "imageCarousel": carousel,
             "cutContent":   False,
@@ -360,7 +452,8 @@ def build_repair_bots():
             "howToObtain":  f"Season {season_num} Scoreboard" if season_num else "Atom Shop",
             "dropRate":     "—",
             "seasonNumber": season_num,
-            "tradeable":    False,  # account-bound CAMP skin
+            "tradeable":    False,  # no plan book exists — account-bound CAMP skin
+            "planName":     "",
             "imageUrl":     image_url,
             "imageCarousel": carousel,
             "xalgFlags":    xalg_raw,
@@ -470,25 +563,40 @@ def build_allies():
         if xalg:
             source = xalg_to_source(xalg) or source
 
+        # Tradeable via plan: check CondProxy GNAM for this ally's name.
+        # CondProxy EDID pattern: *_co_CategoryAlly_<NameToken>_GoldVendor
+        # FURN EDID pattern:      *_CAMP_Ally_<NameToken>_*_FURN (or similar)
+        _ally_furn_edid = furn.get("FURN_EDID", "")
+        _ally_token = re.sub(
+            r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?CAMP_(?:Ally_)?", "",
+            _ally_furn_edid, flags=re.IGNORECASE
+        )
+        _ally_token = re.sub(r"_(?:FURN|Table|Chair|Workbench|Bar|Stage|Shrine|Console|"
+                             r"Radio|Guitar|Stove|Box|Boxes|Bag|Cauldron|Spaceship|Desk).*$",
+                             "", _ally_token, flags=re.IGNORECASE).lower().replace("_", "")
+        _ally_gnam_fid, _ally_plan_name = plan_for_condproxy_token(_ally_token)
+        _ally_tradeable = tradeable_from_plan(_ally_gnam_fid)
+
         items.append({
             "formId":           furn_id or cobj_id,
             "cobjFormId":       cobj_id,
             "entmFormId":       entm_id,
             "furnFormId":       furn_id,
-            "edid":             furn.get("FURN_EDID", ""),
+            "edid":             _ally_furn_edid,
             "displayName":      display,
             "description":      desc,
             "obtainSource":     source,
             "howToObtain":      obtain,
             "dropRate":         "—",
             "seasonNumber":     None,
-            "tradeable":        (source != "Scoreboard"),
+            "tradeable":        _ally_tradeable,
+            "planName":         _ally_plan_name,
             "imageUrl":         img,
             "imageCarousel":    carousel,
             "xalgFlags":        xalg,
             "buffsAndFunctions": "",   # Populated manually in the JSON
             "inventory":        "",    # Populated manually in the JSON
-            "cutContent":       is_cut(furn.get("FURN_EDID", "")),
+            "cutContent":       is_cut(_ally_furn_edid),
         })
 
     items.sort(key=lambda x: x["displayName"])
@@ -588,7 +696,8 @@ def build_pets():
             "howToObtain":  how,
             "dropRate":     "—",  # pets have no obtain drop rate — the "1-3 Legendary" is CAMP generation, not a drop
             "seasonNumber": season_num,
-            "tradeable":    tradeable,
+            "tradeable":    False,  # no plan books exist for pet spawn furniture — account-bound
+            "planName":     "",
             "imageUrl":     pet_img,
             "homeImageUrl": home_img,
             "imageCarousel": carousel,
@@ -646,6 +755,10 @@ def build_pet_furniture():
             how       = source
         tradeable = False  # account-bound CAMP FURN
 
+        # Tradeable via plan: check if FURN has a COBJ with a GNAM book
+        _pf_gnam_fid, _pf_plan_name = plan_for_cnam(furn_id)
+        _pf_tradeable = tradeable_from_plan(_pf_gnam_fid)
+
         items.append({
             "formId":       furn_id,
             "entmFormId":   entm_id,
@@ -657,7 +770,8 @@ def build_pet_furniture():
             "howToObtain":  how,
             "dropRate":     "—",
             "seasonNumber": season_num,
-            "tradeable":    tradeable,
+            "tradeable":    _pf_tradeable,
+            "planName":     _pf_plan_name,
             "imageUrl":     img,
             "imageCarousel": carousel,
             "xalgFlags":    xalg,
@@ -715,6 +829,16 @@ def build_pet_apparel():
         # Apparel is craftable — non-tradeable if scoreboard, tradeable if ATX
         tradeable  = (season_num is None)
 
+        # Tradeable via plan: look up the ARMO CNAM for this ENTM via COBJ EDID suffix,
+        # then check if that COBJ has a GNAM plan book.
+        # All current pet apparel items have no COBJ GNAM → non-tradeable.
+        _ap_edid_suffix = re.sub(
+            r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_(?:Apparel_)?",
+            "", edid, flags=re.IGNORECASE
+        ).lower()
+        _ap_gnam_fid, _ap_plan_name = plan_for_condproxy_token(_ap_edid_suffix)
+        _ap_tradeable = tradeable_from_plan(_ap_gnam_fid)
+
         items.append({
             "formId":       entm_id,
             "entmFormId":   entm_id,
@@ -726,7 +850,8 @@ def build_pet_apparel():
             "howToObtain":  "Craft at Armor Workbench",
             "dropRate":     "—",
             "seasonNumber": season_num,
-            "tradeable":    tradeable,
+            "tradeable":    _ap_tradeable,  # False for all current items (no plan books exist)
+            "planName":     _ap_plan_name,
             "imageUrl":     img,
             "imageCarousel": carousel,
             "xalgFlags":    xalg,
@@ -773,6 +898,14 @@ def build_cryos():
         how        = f"Season {season_num} Scoreboard" if season_num else ("Gold Bullion vendor" if gv else "Atom Shop")
         tradeable  = not bool(season_num)
 
+        # Tradeable via plan: match ENTM EDID suffix against CondProxy tokens
+        _cryo_key = re.sub(
+            r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_CAMP_Utility_",
+            "", edid, flags=re.IGNORECASE
+        ).lower()
+        _cryo_gnam_fid, _cryo_plan_name = plan_for_condproxy_token(_cryo_key)
+        _cryo_tradeable = tradeable_from_plan(_cryo_gnam_fid)
+
         items.append({
             "formId":         entm_id,
             "entmFormId":     entm_id,
@@ -784,7 +917,8 @@ def build_cryos():
             "howToObtain":    how,
             "dropRate":       "—",
             "seasonNumber":   season_num,
-            "tradeable":      tradeable,
+            "tradeable":      _cryo_tradeable,
+            "planName":       _cryo_plan_name,
             "imageUrl":       img,
             "imageCarousel":  carousel,
             "spoilageReduction": "100% (no spoilage)",
@@ -851,7 +985,8 @@ def build_fridges():
             "howToObtain":  source,
             "dropRate":     "—",
             "seasonNumber": None,
-            "tradeable":    False,  # account-bound CAMP item
+            "tradeable":    False,  # no plan books exist for fridge skins — account-bound
+            "planName":     "",
             "imageUrl":     img,
             "imageCarousel": carousel,
             "spoilageReduction": "-50%",

@@ -8,6 +8,7 @@ on:
       - 'tsv/ENTM_Export_*.tsv'
       - 'tsv/FURN_Export_*_FURN.tsv'
       - 'tsv/FLST_Export_*_Entries.tsv'
+      - 'tsv/BOOK_Export_*.tsv'
       - 'src/build_allies_pets_weather_json.py'
 
 jobs:
@@ -37,16 +38,19 @@ jobs:
           ENTM=$(pick_newest "tsv/ENTM_Export_*.tsv")
           FURN=$(pick_newest "tsv/FURN_Export_*_FURN.tsv")
           FLST=$(pick_newest "tsv/FLST_Export_*_Entries.tsv")
+          BOOK=$(pick_newest "tsv/BOOK_Export_*.tsv")
 
           echo "COBJ_TSV=$COBJ"           >> $GITHUB_ENV
           echo "ENTM_TSV=$ENTM"           >> $GITHUB_ENV
           echo "FURN_TSV=$FURN"           >> $GITHUB_ENV
           echo "FLST_ENTRIES_TSV=$FLST"   >> $GITHUB_ENV
+          echo "BOOK_TSV=$BOOK"           >> $GITHUB_ENV
 
           echo "  COBJ: $COBJ"
           echo "  ENTM: $ENTM"
           echo "  FURN: $FURN"
           echo "  FLST: $FLST"
+          echo "  BOOK: $BOOK"
 
       - name: Build JSON files
         run: |
