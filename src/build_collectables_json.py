@@ -234,6 +234,129 @@ def derive_location_from_edid(edid):
     return ' '.join(result_parts)
 
 
+# Test cell name patterns (match PAS IsTestCellName)
+_TEST_CELL_PATTERNS = re.compile(
+    r'quick\s+test|test\s+cell|test\s+combat|test\s+outsource|test\s+muck'
+    r'|debugmatt|76\s+qa|^qa$|dev\s+room',
+    re.IGNORECASE
+)
+
+def is_test_cell_name(name):
+    """Return True if the location name looks like a developer test/debug cell."""
+    if not name:
+        return False
+    n = name.strip()
+    if re.search(r'(?i)(test|debug)', n):
+        return True
+    return bool(_TEST_CELL_PATTERNS.search(n))
+
+
+# Exterior cell EDID suffixes to strip before CamelCase splitting
+_EXT_SUFFIX = re.compile(r'(?i)Ext\d*([NSEW]{1,2}\d*)?$|\d+[NSEW]{0,2}$')
+
+def parse_ext_cell_location(edid):
+    """
+    Convert a raw CELL EDID (exterior cell) into a human-readable location name.
+
+    e.g. 'ClarksburgExt05'    -> 'Clarksburg'
+         'MonongahExt01NE'    -> 'Monongah'
+         'SavageDivideExt03'  -> 'Savage Divide'
+         'AppalachiaExt01'    -> ''  (generic worldspace, returns empty)
+    """
+    if not edid:
+        return ''
+
+    e = edid.strip()
+
+    # Strip trailing direction/number/Ext suffixes (repeat up to 4 times for compound suffixes)
+    for _ in range(4):
+        prev = e
+        e = _EXT_SUFFIX.sub('', e).rstrip('_').strip()
+        if e == prev:
+            break
+
+    if not e:
+        return ''
+
+    # CamelCase split
+    e = re.sub(r'([a-z])([A-Z])', r'\1 \2', e)
+    e = re.sub(r'([A-Z]+)([A-Z][a-z])', r'\1 \2', e)
+    e = e.strip()
+
+    # Drop generic worldspace names that don't help the user
+    if e.lower() in ('appalachia', 'wasteland', 'commonwealth', 'commonwealth exterior'):
+        return ''
+
+    return e
+
+
+def load_book_locations(path):
+    """
+    Load BOOK_*_Locations.tsv and return a dict:
+      { FormID -> {loc_name, loc_source, quest_name} }
+    """
+    result = {}
+    try:
+        with open(path, 'r', encoding='utf-8', errors='replace') as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            for row in reader:
+                fid = row.get('BOOK_FormID', '').strip()
+                if not fid:
+                    continue
+                result[fid] = {
+                    'loc_name':   row.get('LocationName',   '').strip(),
+                    'loc_source': row.get('LocationSource', '').strip(),
+                    'quest_name': row.get('QuestName',      '').strip(),
+                }
+    except Exception as e:
+        print(f"  WARNING: Could not load locations file: {e}", file=sys.stderr)
+    return result
+
+
+def resolve_note_location(formid, edid, locations):
+    """
+    Resolve the best display location string for a note.
+
+    Priority:
+      1. Locations TSV (physical REFR placement)
+         - ExtCell source  -> parse CELL EDID -> readable name
+                              -> "Not near a named location" if no useful parse
+         - CellFULL/NameParse -> use directly unless it's "Appalachia"
+         - "Appalachia"    -> "Not near a named location"
+      2. Quest-given (QUST ref, no physical location)
+         -> "Quest: <quest name>"
+      3. Fallback: derive from EDID (CamelCase split, prefix stripping)
+    """
+    loc_data = locations.get(formid) if locations else None
+
+    if loc_data:
+        loc_name   = loc_data['loc_name']
+        loc_source = loc_data['loc_source']
+        quest_name = loc_data['quest_name']
+
+        if loc_source == 'ExtCell':
+            parsed = parse_ext_cell_location(loc_name)
+            return parsed if parsed else "Not near a named location"
+
+        if loc_source in ('CellFULL', 'NameParse', 'CellEDID'):
+            if not loc_name or loc_name.lower() in ('appalachia',):
+                pass  # fall through to quest / EDID fallback
+            elif not is_test_cell_name(loc_name):
+                return loc_name
+            # test cell name with no other data -> fall through
+
+        # No usable physical location -> check quest
+        if quest_name:
+            return f"Quest: {quest_name}"
+
+        # Physical location was empty or test cell
+        if loc_name and not is_test_cell_name(loc_name) and loc_name.lower() != 'appalachia':
+            return loc_name
+
+    # Last resort: EDID-based derivation
+    return derive_location_from_edid(edid)
+
+
 def location_from_refs(row):
     """
     Parse the Ref columns to find the best physical location for a note.
@@ -622,7 +745,7 @@ def build_plushies(kywd_refs_rows, misc_rows, seasons, gmrw_pq_map):
     return plushies_live, plushies_cut
 
 
-def build_notes(book_path):
+def build_notes(book_path, locations=None):
     """
     Build notes list from BOOK TSV.
     Streams BOOK file to avoid OOM on large files.
@@ -670,10 +793,8 @@ def build_notes(book_path):
                 if is_alias_template_name(full):
                     is_cut = True
 
-                # Location: prefer REFR cell name from refs, fall back to EDID parse
-                location = location_from_refs(row)
-                if not location:
-                    location = derive_location_from_edid(edid)
+                # Location: use locations TSV (physical cell + quest), fall back to EDID
+                location = resolve_note_location(formid, edid, locations)
 
                 # Collectability from BTOF flag
                 collect = can_note_be_collected(btof)
@@ -681,11 +802,18 @@ def build_notes(book_path):
                 # Contents: strip HTML tags, decode entities, restore paragraph breaks
                 contents = strip_html_to_text(desc)
 
+                # Quest-given detection (from locations TSV)
+                loc_data   = (locations or {}).get(formid, {})
+                quest_name = loc_data.get('quest_name', '')
+                quest_given = bool(quest_name)
+
                 item = {
                     "formId": formid,
                     "edid": edid,
                     "name": full,
                     "location": location,
+                    "questGiven": quest_given,
+                    "questName": quest_name,
                     "contents": contents,
                     "canCollect": collect,
                     "btof": btof,
@@ -751,10 +879,16 @@ def main():
         print("ERROR: No GMRW_Export*.tsv files found", file=sys.stderr)
         sys.exit(1)
 
+    # Locations TSV (companion file from updated BOOK export script)
+    # Pattern: BOOK_Export_*_Locations.tsv
+    loc_files = list(tsv_root.glob('BOOK_Export*_Locations.tsv'))
+
     # When multiple exports exist, pick the latest by filename (sorted descending)
     alch_path = sorted(alch_files, key=lambda p: p.name)[-1]
     glob_path = sorted(glob_files, key=lambda p: p.name)[-1]
-    book_path = sorted(book_files, key=lambda p: p.name)[-1]
+    # Exclude *_Locations.tsv from main BOOK file selection
+    book_files_main = [p for p in book_files if not p.name.endswith('_Locations.tsv')]
+    book_path = sorted(book_files_main, key=lambda p: p.name)[-1]
     misc_path = sorted(misc_files, key=lambda p: p.name)[-1]
     gmrw_path = sorted(gmrw_files, key=lambda p: p.name)[-1]
     kywd_refs_path = sorted(kywd_refs_files, key=lambda p: p.name)[-1]
@@ -793,8 +927,18 @@ def main():
     plushies, plushies_cut = build_plushies(kywd_refs_rows, misc_rows, seasons, gmrw_pq_map)
 
     # Build notes (streams BOOK file)
+    # Load locations TSV if available
+    book_locations = {}
+    if loc_files:
+        loc_path = sorted(loc_files, key=lambda p: p.name)[-1]
+        print(f"Loading locations from {loc_path.name}...")
+        book_locations = load_book_locations(loc_path)
+        print(f"  Loaded {len(book_locations)} location entries")
+    else:
+        print("  NOTE: No BOOK_Export*_Locations.tsv found -- location data will use EDID fallback only", file=sys.stderr)
+
     print("Building notes...")
-    notes, notes_cut = build_notes(book_path)
+    notes, notes_cut = build_notes(book_path, locations=book_locations)
 
     # Generate timestamp
     generated_at = datetime.now(timezone.utc).isoformat()
