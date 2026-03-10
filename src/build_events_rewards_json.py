@@ -138,8 +138,20 @@ GMRW         = read_tsv(newest("tsv/GMRW_Export_*.tsv"))
 LVLI_LIST    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_List.tsv"))
 LVLI_ENTRIES = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Entries.tsv"))
 LVLI_MATH    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Math.tsv"))
-BOOK         = read_tsv(newest("tsv/BOOK_Export_*.tsv"))
-ARMO         = read_tsv(newest("tsv/ARMO_Export_*.tsv"))
+# BOOK: exclude Locations sub-export (has no FULL column)
+_book_files = [f for f in glob.glob("tsv/BOOK_Export_*.tsv")
+               if "_Locations" not in f]
+if not _book_files:
+    raise FileNotFoundError("tsv/BOOK_Export_*.tsv (non-Locations)")
+_book_files.sort(key=lambda x: os.path.getmtime(x))
+BOOK         = read_tsv(_book_files[-1])
+# ARMO: exclude SLOTS sub-export (has no ARMO_FULL column)
+_armo_files = [f for f in glob.glob("tsv/ARMO_Export_*.tsv")
+               if "_SLOTS" not in f]
+if not _armo_files:
+    raise FileNotFoundError("tsv/ARMO_Export_*.tsv (non-SLOTS)")
+_armo_files.sort(key=lambda x: os.path.getmtime(x))
+ARMO         = read_tsv(_armo_files[-1])
 GLOB         = read_tsv(newest("tsv/GLOB_Export_*.tsv"))
 GUIDE        = read_tsv(newest("tsv/guide_index.tsv"))
 
@@ -231,26 +243,87 @@ KNOWN_FID_NAMES = {
     "0072D4FC": "Bobblehead Crate",
 }
 
-def resolve_name_for_formid(formid):
+def humanize_edid(edid):
+    """Convert an EDID like 'DLC04_HandMadeGun' or 'CombatShotgun' to a readable name."""
+    if not edid:
+        return edid
+    s = edid
+    # Strip common prefixes
+    for pfx in ["LL_Weapon_", "LL_Armor_", "LPI_Weapon_", "LPI_Armor_",
+                 "LL_", "LPI_", "DLC04_", "DLC05_", "DLC06_", "POST_"]:
+        if s.startswith(pfx):
+            s = s[len(pfx):]
+    # Split CamelCase and underscores into words
+    s = re.sub(r"_", " ", s)
+    s = re.sub(r"([a-z])([A-Z])", r"\1 \2", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+# Build EDID-to-name index from all loaded TSVs (for items without FULL names)
+edid_to_name = {}
+for r in BOOK:
+    edid = pick(r, "BOOK_EDID", "EDID")
+    full = pick(r, "BOOK_FULL", "FULL")
+    if edid and full:
+        edid_to_name[edid] = full
+for r in ARMO:
+    edid = pick(r, "ARMO_EDID", "EDID")
+    full = pick(r, "ARMO_FULL", "FULL")
+    if edid and full:
+        edid_to_name[edid] = full
+for r in MISC:
+    edid = pick(r, "MISC_EDID", "EDID")
+    full = pick(r, "MISC_FULL", "FULL - Name", "FULL", "Name")
+    if edid and full:
+        edid_to_name[edid] = full
+for r in WEAP:
+    edid = pick(r, "WEAP_EDID", "EDID")
+    full = pick(r, "WEAP_FULL", "FULL - Name", "FULL")
+    if edid and full:
+        edid_to_name[edid] = full
+for r in ALCH:
+    edid = pick(r, "ALCH_EDID", "EDID")
+    full = pick(r, "ALCH_FULL", "FULL - Name", "FULL")
+    if edid and full:
+        edid_to_name[edid] = full
+for r in AMMO:
+    edid = pick(r, "AMMO_EDID", "EDID")
+    full = pick(r, "AMMO_FULL", "FULL - Name", "FULL")
+    if edid and full:
+        edid_to_name[edid] = full
+
+def resolve_name_for_formid(formid, edid=None):
     if not formid: return formid
-    return (KNOWN_FID_NAMES.get(formid)
+    name = (KNOWN_FID_NAMES.get(formid)
          or book_names.get(formid)
          or armo_names.get(formid)
          or misc_names.get(formid)
          or weap_names.get(formid)
          or alch_names.get(formid)
-         or ammo_names.get(formid)
-         or formid)
+         or ammo_names.get(formid))
+    if name:
+        return name
+    # Try EDID-based lookup
+    if edid:
+        name = edid_to_name.get(edid)
+        if name:
+            return name
+        # Humanize EDID as last resort
+        return humanize_edid(edid)
+    return formid
 
 # --------------------------------------------------
 # Index: LVLI
 # --------------------------------------------------
 
 lvli_edid_by_formid = {}
+lvli_list_by_formid = {}
 for r in LVLI_LIST:
     fid = pick(r, "LVLI_FormID", "FormID")
     edid = pick(r, "LVLI_EDID", "EDID")
-    if fid and edid: lvli_edid_by_formid[fid] = edid
+    if fid:
+        lvli_list_by_formid[fid] = r
+        if edid: lvli_edid_by_formid[fid] = edid
 
 lvli_math_by_entry = {}
 for r in LVLI_MATH:
@@ -346,6 +419,641 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
     return results
 
 # --------------------------------------------------
+# Activity Events: Helper functions
+# --------------------------------------------------
+
+def parse_lvlf_flags(flags_str):
+    """
+    Parse LVLF_Flags column. Returns dict with flag booleans.
+    xEdit exports flags as binary strings of varying length (e.g. "001", "11", "00101",
+    or 64-char zero-padded). All are parsed as binary (base-2).
+    """
+    flags_str = (flags_str or "").strip()
+    if not flags_str:
+        return {"use_all": False, "for_each": False, "level_filter": False, "first_match": False}
+
+    # All flag strings from xEdit are binary (base-2)
+    try:
+        if all(c in "01" for c in flags_str):
+            flags_int = int(flags_str, 2)
+        else:
+            flags_int = int(flags_str)
+    except ValueError:
+        flags_int = 0
+
+    return {
+        "use_all":       bool(flags_int & 4),    # bit 2
+        "for_each":      bool(flags_int & 2),    # bit 1
+        "level_filter":  bool(flags_int & 1),    # bit 0
+        "first_match":   bool(flags_int & 64),   # bit 6
+    }
+
+def resolve_lvli_items_deep(list_id, depth=0, seen=None):
+    """
+    Resolve an LVLI to leaf items with full quantity/probability tracking.
+    Returns list of dicts: {formid, name, qty, dropRate, edid, sig, conditions}
+    Recurses deeply (max 50 levels) and preserves individual entry probabilities.
+    Applies normalization for pick-one lists where xEdit apriori values are 1.0.
+    """
+    if seen is None:
+        seen = set()
+    if list_id in seen or depth > 50:
+        return []
+    seen = seen | {list_id}
+
+    # Check if this list is Use All (each entry fires independently)
+    list_row = lvli_list_by_formid.get(list_id)
+    flags = parse_lvlf_flags(pick(list_row, "LVLF_Flags", default="") if list_row else "")
+    is_use_all = flags["use_all"]
+
+    items = []
+    for entry in lvli_entries_by_list.get(list_id, []):
+        idx = entry.get("EntryIndex")
+        if idx is None:
+            continue
+
+        math = lvli_math_by_entry.get((list_id, idx))
+        if not math:
+            continue
+
+        # Extract probability components
+        list_none  = float(math.get("ListChanceNoneResolved") or 0)
+        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        entry_none = float(math.get("EntryChanceNoneResolved") or 0)
+        cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
+        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+
+        drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
+
+        # Get quantity (try multiple columns)
+        qty = 1
+        qty_raw = entry.get("LVIV_Quantity") or entry.get("LVLO_Count") or entry.get("Count") or "1"
+        try:
+            qty = int(float(qty_raw))
+        except (ValueError, TypeError):
+            qty = 1
+
+        # Check for quantity global override
+        qty_glob_ref = (entry.get("LVIG_QuantityGlobal") or "").strip()
+        if qty_glob_ref:
+            glob_fid = qty_glob_ref.split(":")[0] if ":" in qty_glob_ref else qty_glob_ref
+            if glob_fid in glob_vals:
+                qty = int(glob_vals[glob_fid])
+
+        # Collect conditions from Cond1-Cond10
+        conditions = []
+        for i in range(1, 11):
+            cond_key = f"Cond{i}"
+            if cond_key in entry:
+                cond_val = (entry.get(cond_key) or "").strip()
+                if cond_val:
+                    conditions.append(cond_val)
+
+        sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
+        ref = (entry.get("LVLO_Reference") or "").strip()
+        ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
+
+        if sub_lvli:
+            # Recurse into sub-LVLI and apply parent drop rate
+            sub_items = resolve_lvli_items_deep(sub_lvli, depth + 1, seen)
+            for sub_item in sub_items:
+                items.append({
+                    "formid": sub_item["formid"],
+                    "name": sub_item["name"],
+                    "qty": sub_item["qty"],
+                    "dropRate": sub_item["dropRate"] * drop_rate,
+                    "edid": sub_item["edid"],
+                    "sig": sub_item.get("sig", ""),
+                    "conditions": conditions + (sub_item.get("conditions") or []),
+                })
+        else:
+            # Leaf item
+            if ":" in ref:
+                fid = ref.split(":")[0]
+                edid = ref.split(":")[1] if len(ref.split(":")) > 1 else ""
+                name = resolve_name_for_formid(fid, edid)
+                items.append({
+                    "formid": fid,
+                    "name": name,
+                    "qty": qty,
+                    "dropRate": drop_rate,
+                    "edid": edid,
+                    "sig": ref_sig,
+                    "conditions": conditions,
+                })
+
+    # Normalize for pick-one lists: if NOT Use All and total dropRate > 1.0
+    if not is_use_all and items:
+        total_rate = sum(item["dropRate"] for item in items)
+        if total_rate > 1.001:
+            for item in items:
+                item["dropRate"] = item["dropRate"] / total_rate
+
+    return items
+
+def decompose_activities_lvli(formid):
+    """
+    Takes the RA_LL_Rewards_Activities LVLI (Use All list) and routes each sub-entry
+    to the correct bucket based on EDID patterns.
+    Returns dict of reward buckets.
+    """
+    buckets = {
+        "caps": {"items": [], "dropRate": 0.0, "qty": 0},
+        "legendary_items": {"items": [], "dropRate": 0.0},
+        "scrip": {"items": []},
+        "u_mine_it_maps": {"items": [], "dropRate": 0.0},
+        "regional_schematics": None,
+        "progression_items": None,
+        "chems": [],
+    }
+
+    entries = lvli_entries_by_list.get(formid, [])
+    for entry in entries:
+        idx = entry.get("EntryIndex")
+        if idx is None:
+            continue
+
+        math = lvli_math_by_entry.get((formid, idx))
+        if not math:
+            continue
+
+        # Get the sub-LVLI reference
+        ref = (entry.get("LVLO_Reference") or "").strip()
+        if not ":" in ref:
+            continue
+
+        ref_fid = ref.split(":")[0]
+        ref_edid = ref.split(":")[1] if len(ref.split(":")) > 1 else ""
+        ref_edid_lower = ref_edid.lower()
+
+        # Collect parent-level conditions (Cond1-Cond10 on the Activities entry)
+        parent_conditions = []
+        for i in range(1, 11):
+            cond_key = f"Cond{i}"
+            cond_val = (entry.get(cond_key) or "").strip()
+            if cond_val:
+                parent_conditions.append(cond_val)
+
+        # Collect parent-level ChanceNone GLOB/Curve
+        chance_none_glob = (entry.get("LVOC_ChanceNoneCurve") or "").strip()
+        if not chance_none_glob:
+            chance_none_glob = (entry.get("LVOG_ChanceNoneGlobal") or "").strip()
+
+        # Route based on EDID pattern
+        if "_caps" in ref_edid_lower:
+            # Caps bucket
+            sub_items = resolve_lvli_items_deep(ref_fid)
+            if sub_items:
+                for item in sub_items:
+                    buckets["caps"]["items"].append(item)
+                    buckets["caps"]["qty"] = item.get("qty", 0)
+                    buckets["caps"]["dropRate"] = item.get("dropRate", 0.0)
+
+        elif "_legendaryitems" in ref_edid_lower:
+            # Legendary items bucket
+            sub_items = resolve_lvli_items_deep(ref_fid)
+            for item in sub_items:
+                buckets["legendary_items"]["items"].append(item)
+                if not buckets["legendary_items"]["dropRate"]:
+                    buckets["legendary_items"]["dropRate"] = item.get("dropRate", 0.0)
+
+        elif "_scrip" in ref_edid_lower:
+            # Scrip bucket
+            sub_items = resolve_lvli_items_deep(ref_fid)
+            for item in sub_items:
+                buckets["scrip"]["items"].append(item)
+
+        elif "_umineitmap" in ref_edid_lower or "_umineitmaps" in ref_edid_lower:
+            # U-Mine-It Maps bucket — capture parent conditions + ChanceNone GLOB
+            sub_items = resolve_lvli_items_deep(ref_fid)
+            for item in sub_items:
+                buckets["u_mine_it_maps"]["items"].append(item)
+                if not buckets["u_mine_it_maps"]["dropRate"]:
+                    buckets["u_mine_it_maps"]["dropRate"] = item.get("dropRate", 0.0)
+            buckets["u_mine_it_maps"]["conditions"] = parent_conditions
+            if chance_none_glob:
+                buckets["u_mine_it_maps"]["chanceNoneGlob"] = chance_none_glob
+
+        elif "_regionalschematics" in ref_edid_lower:
+            # Regional Schematics bucket
+            if buckets["regional_schematics"] is None:
+                buckets["regional_schematics"] = {"items": []}
+            sub_items = resolve_lvli_items_deep(ref_fid)
+            buckets["regional_schematics"]["items"].extend(sub_items)
+
+        elif "_progressionitems" in ref_edid_lower:
+            # Progression Items bucket (GrabBag)
+            if buckets["progression_items"] is None:
+                buckets["progression_items"] = {"items": []}
+            sub_items = resolve_lvli_items_deep(ref_fid)
+            buckets["progression_items"]["items"].extend(sub_items)
+
+        elif "ll_chems_stimpak" in ref_edid_lower or "_chems_" in ref_edid_lower:
+            # Chems bucket
+            sub_items = resolve_lvli_items_deep(ref_fid)
+            if sub_items:
+                for item in sub_items:
+                    item["conditions"] = parent_conditions + (item.get("conditions") or [])
+                buckets["chems"].extend(sub_items)
+            else:
+                # Fallback: LL_Chems_Stimpak has empty ref in TSV (xEdit export gap)
+                # The actual item is Stimpak (ALCH 00023736)
+                buckets["chems"].append({
+                    "formid": "00023736", "name": "Stimpak",
+                    "qty": 1, "dropRate": 1.0, "edid": "Stimpak",
+                    "sig": "ALCH", "conditions": parent_conditions,
+                })
+
+    return buckets
+
+def resolve_region_grabbag(grabbag_formid, activity_region_names):
+    """
+    Resolve QuestReward_LLS_AllRegions_GrabBag into per-region item lists.
+    activity_region_names: list of display names like ["The Mire", "Ash Heap"]
+    Returns {"availableRegions": [...], "byRegion": {...}}
+    """
+    # Map EDID substrings → display name
+    region_map = {
+        "forest":        "Forest",
+        "toxicvalley":   "Toxic Valley",
+        "savagedivide":  "Savage Divide",
+        "ashheap":       "Ash Heap",
+        "mire":          "The Mire",
+        "cranberrybog":  "Cranberry Bog",
+        "skylinevalley": "Skyline Valley",
+        "burningsprings":"Burning Springs",
+    }
+
+    # Build a normalised set for matching: "themire" → "The Mire", "ashheap" → "Ash Heap"
+    norm_to_display = {}
+    for display_name in activity_region_names:
+        norm = display_name.lower().replace(" ", "").replace("the", "")
+        norm_to_display[norm] = display_name
+    # Also add un-stripped versions
+    for display_name in activity_region_names:
+        norm_to_display[display_name.lower().replace(" ", "")] = display_name
+
+    by_region = {}
+    available = []
+
+    entries = lvli_entries_by_list.get(grabbag_formid, [])
+    for entry in entries:
+        ref = (entry.get("LVLO_Reference") or "").strip()
+        if ":" not in ref:
+            continue
+
+        ref_fid = ref.split(":")[0]
+        ref_edid = ref.split(":")[1] if len(ref.split(":")) > 1 else ""
+        ref_edid_lower = ref_edid.lower()
+
+        # Detect region from EDID
+        detected_display = None
+        for edid_key, display_name in region_map.items():
+            if edid_key in ref_edid_lower:
+                # Check if this region is in our activity regions
+                norm_key = display_name.lower().replace(" ", "").replace("the", "")
+                norm_key2 = display_name.lower().replace(" ", "")
+                if norm_key in norm_to_display or norm_key2 in norm_to_display:
+                    detected_display = display_name
+                break
+
+        if detected_display:
+            if detected_display not in available:
+                available.append(detected_display)
+            # Resolve the region GrabBag entries
+            region_entries = lvli_entries_by_list.get(ref_fid, [])
+            region_items = []
+            # Count entries per sub-LVLI for weighting
+            ref_counts = defaultdict(int)
+            for re_entry in region_entries:
+                re_ref = (re_entry.get("LVLO_Reference") or "").strip()
+                if re_ref:
+                    ref_counts[re_ref] += 1
+
+            total_entries = len(region_entries)
+            seen_refs = set()
+            for re_entry in region_entries:
+                re_ref = (re_entry.get("LVLO_Reference") or "").strip()
+                if not re_ref or ":" not in re_ref:
+                    continue
+                re_fid = re_ref.split(":")[0]
+                re_edid = re_ref.split(":")[1] if len(re_ref.split(":")) > 1 else ""
+                re_sig = re_ref.split(":")[-1] if re_ref.count(":") >= 2 else ""
+
+                # Determine category from EDID
+                re_edid_lower = re_edid.lower()
+                if "weapon" in re_edid_lower:
+                    category = "Weapon"
+                elif "armor" in re_edid_lower or "armour" in re_edid_lower:
+                    category = "Armor"
+                elif "schematic" in re_edid_lower or "recipe" in re_edid_lower:
+                    category = "Schematic"
+                else:
+                    category = "Other"
+
+                # Weight = count of this ref / total entries (duplicate entries = weighting)
+                weight = ref_counts[re_ref] / total_entries if total_entries > 0 else 0
+
+                # Only add once per unique ref (weight captures duplicates)
+                if re_ref in seen_refs:
+                    continue
+                seen_refs.add(re_ref)
+
+                if re_sig.upper() == "LVLI":
+                    # Resolve sub-LVLI to leaf items
+                    sub_items = resolve_lvli_items_deep(re_fid)
+                    for si in sub_items:
+                        region_items.append({
+                            "name": si.get("name", ""),
+                            "formid": si.get("formid", ""),
+                            "edid": si.get("edid", ""),
+                            "dropRate": round(weight * 100, 2),
+                            "qty": si.get("qty", 1),
+                            "category": category,
+                            "conditions": si.get("conditions", []),
+                        })
+                else:
+                    # Direct item reference
+                    name = resolve_name_for_formid(re_fid)
+                    region_items.append({
+                        "name": name,
+                        "formid": re_fid,
+                        "edid": re_edid,
+                        "dropRate": round(weight * 100, 2),
+                        "qty": 1,
+                        "category": category,
+                        "conditions": [],
+                    })
+
+            by_region[detected_display] = region_items
+
+    return {
+        "availableRegions": available,
+        "byRegion": by_region,
+    }
+
+def build_activity_data(gmrw_rows, event_key, region_locations):
+    """
+    Main function to build activityData JSON for an activity event.
+    Processes GMRW rows and builds structured reward data.
+    """
+    activity_data = {
+        "baseRewards": {
+            "xp": None,
+            "xpFormID": None,
+            "caps": None,
+            "capsFormID": None,
+            "legendaryItems": {"rank": None, "dropRate": 0.0, "conditions": []},
+            "legendaryModules": None,
+            "legendaryScrip": {"items": [], "expectedValue": 0.0},
+            "treasuryNotes": None,
+            "uMineItMaps": {"dropRate": None, "conditions": []},
+        },
+        "chemRewards": [],
+        "uniqueEventRewards": [],
+        "regionRewards": {"availableRegions": [], "byRegion": {}},
+        "planRewards": [],
+    }
+
+    # Extract region display names from region_locations (e.g., "The Mire", "Ash Heap")
+    activity_region_names = list(dict.fromkeys(
+        loc.get("region", "").strip()
+        for loc in region_locations
+        if loc.get("region", "").strip()
+    ))
+
+    # Process GMRW rows
+    for rr in gmrw_rows:
+        # XP
+        xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
+        if xpct and not activity_data["baseRewards"]["xp"]:
+            xpv = xp_at_level(xpct)
+            if xpv is not None:
+                activity_data["baseRewards"]["xp"] = xpv
+                activity_data["baseRewards"]["xpFormID"] = xpct.split(":")[0]
+
+        # Caps
+        caps_ref = (rr.get("NAM8_CapsGlobal") or "").strip()
+        if caps_ref and not activity_data["baseRewards"]["caps"]:
+            caps_fid = caps_ref.split(":")[0]
+            if caps_fid in glob_vals:
+                activity_data["baseRewards"]["caps"] = int(glob_vals[caps_fid])
+                activity_data["baseRewards"]["capsFormID"] = caps_fid
+
+        # Legendary Rank
+        qrlr = (rr.get("QRLR_LegendaryItemRewardRank") or "").strip()
+        if qrlr and qrlr not in ("0", ""):
+            activity_data["baseRewards"]["legendaryItems"]["rank"] = int(qrlr)
+
+        # RewardedItem LVLI
+        rewarded = (rr.get("RewardedItem") or "").strip()
+        if not rewarded:
+            continue
+
+        formid, kind = parse_ref(rewarded)
+        if kind.upper() != "LVLI":
+            continue
+
+        lvli_edid = lvli_edid_by_formid.get(formid, "")
+        lvli_edid_lower = lvli_edid.lower()
+
+        # Decompose activities list
+        if "rewards_activities" in lvli_edid_lower or "ra_ll_rewards" in lvli_edid_lower:
+            buckets = decompose_activities_lvli(formid)
+
+            # Process caps
+            if buckets["caps"]["items"]:
+                for item in buckets["caps"]["items"]:
+                    activity_data["baseRewards"]["caps"] = item.get("qty", 0)
+
+            # Process legendary items — the LVLI drop rate is structural, not the actual
+            # chance. Legendary items are always awarded at the rank from GMRW.
+            # Don't override rank set from GMRW QRLR field.
+            if buckets["legendary_items"]["items"]:
+                # If GMRW didn't set rank, try to infer from the entry structure
+                if not activity_data["baseRewards"]["legendaryItems"]["rank"]:
+                    activity_data["baseRewards"]["legendaryItems"]["rank"] = 1
+                # Legendary items are always awarded — dropRate is not from LVLI
+                activity_data["baseRewards"]["legendaryItems"]["dropRate"] = None
+
+            # Process scrip
+            if buckets["scrip"]["items"]:
+                qty_counts = defaultdict(float)
+                for item in buckets["scrip"]["items"]:
+                    qty_counts[item.get("qty", 0)] += item.get("dropRate", 0.0)
+
+                for qty, drop_rate in sorted(qty_counts.items()):
+                    activity_data["baseRewards"]["legendaryScrip"]["items"].append({
+                        "qty": qty,
+                        "dropRate": pct(drop_rate),
+                    })
+
+            # Process U-Mine-It Maps
+            if buckets["u_mine_it_maps"]["items"]:
+                for item in buckets["u_mine_it_maps"]["items"]:
+                    activity_data["baseRewards"]["uMineItMaps"]["dropRate"] = pct(item.get("dropRate", 0.0))
+                # Use parent-level conditions from the activities entry
+                umap_conds = buckets["u_mine_it_maps"].get("conditions", [])
+                if umap_conds:
+                    activity_data["baseRewards"]["uMineItMaps"]["conditions"] = umap_conds
+                # Include ChanceNone GLOB reference if present
+                umap_glob = buckets["u_mine_it_maps"].get("chanceNoneGlob", "")
+                if umap_glob:
+                    activity_data["baseRewards"]["uMineItMaps"]["chanceNoneGlob"] = umap_glob
+
+            # Calculate scrip expected value
+            scrip_items = activity_data["baseRewards"]["legendaryScrip"]["items"]
+            if scrip_items:
+                ev = sum(s["qty"] * s["dropRate"] / 100 for s in scrip_items)
+                activity_data["baseRewards"]["legendaryScrip"]["expectedValue"] = round(ev, 2)
+
+            # Process chems
+            for item in buckets["chems"]:
+                activity_data["chemRewards"].append({
+                    "name": item.get("name", ""),
+                    "formid": item.get("formid", ""),
+                    "dropRate": pct(item.get("dropRate", 0.0)),
+                    "qty": item.get("qty", 1),
+                    "conditions": item.get("conditions", []),
+                })
+
+            # Process regional schematics → Plan Rewards
+            # Only include BOOK items (plans/recipes), not weapons/armor from deeper resolution
+            if buckets["regional_schematics"] and buckets["regional_schematics"]["items"]:
+                seen_plans = set()
+                for item in buckets["regional_schematics"]["items"]:
+                    sig = item.get("sig", "").upper()
+                    name = item.get("name", "")
+                    edid = item.get("edid", "")
+                    # Filter: only BOOKs, or items whose EDID/name indicates a plan/recipe
+                    is_book = sig == "BOOK"
+                    is_plan_edid = any(kw in edid.lower() for kw in ["recipe", "plan", "schematic"]) if edid else False
+                    is_plan_name = name.startswith(("Plan:", "Recipe:"))
+                    if not (is_book or is_plan_edid or is_plan_name):
+                        continue
+                    # Dedup by formid
+                    fid = item.get("formid", "")
+                    if fid in seen_plans:
+                        continue
+                    seen_plans.add(fid)
+                    activity_data["planRewards"].append({
+                        "name": name,
+                        "formid": fid,
+                        "edid": edid,
+                        "dropRate": pct(item.get("dropRate", 0.0)),
+                        "qty": item.get("qty", 1),
+                        "isPlan": True,
+                    })
+
+            # Process progression items → Region Rewards
+            if buckets["progression_items"] and buckets["progression_items"]["items"]:
+                # The progression items chain goes: ProgressionItems → AllRegions_GrabBag
+                # Find the GrabBag LVLI by looking at sub-entries
+                prog_formid = None
+                for pe in lvli_entries_by_list.get(formid, []):
+                    pe_ref = (pe.get("LVLO_Reference") or "").strip()
+                    if "_progressionitems" in pe_ref.lower():
+                        prog_fid = pe_ref.split(":")[0]
+                        # Now find the GrabBag inside the ProgressionItems LVLI
+                        for sub_e in lvli_entries_by_list.get(prog_fid, []):
+                            sub_ref = (sub_e.get("LVLO_Reference") or "").strip()
+                            if "grabbag" in sub_ref.lower() or "allregions" in sub_ref.lower():
+                                prog_formid = sub_ref.split(":")[0]
+                                break
+                        break
+
+                if prog_formid:
+                    region_data = resolve_region_grabbag(prog_formid, activity_region_names)
+                    activity_data["regionRewards"] = region_data
+
+        # Handle quest rewards (titles/books)
+        elif "_questrewards" in lvli_edid_lower or "_ll_quest" in lvli_edid_lower:
+            sub_items = resolve_lvli_items_deep(formid)
+            for item in sub_items:
+                edid_str = item.get("edid", "")
+                sig_str = item.get("sig", "").upper()
+                # Try title lookup (BOOK → PLYT/CMPT)
+                title_result = book_edid_to_title(edid_str) if edid_str else None
+                if title_result:
+                    kind_str, td = title_result
+                    display_name = td.get("title", "")
+                    kind_type = "player_title" if kind_str == "player" else "camp_title"
+                    kind_prefix = "Player Title" if kind_str == "player" else "Camp Title"
+                    # Get ChanceNone GLOB if present on the entry
+                    chance_glob = (
+                        lvli_entries_by_list.get(formid, [{}])[0].get("LVOG_ChanceNoneGlobal") or ""
+                    ).strip()
+                    chance_conds = list(item.get("conditions", []))
+                    if chance_glob:
+                        glob_edid = chance_glob.split(":")[1] if ":" in chance_glob else chance_glob
+                        chance_conds.append(f"ChanceNone GLOB: {glob_edid}")
+                    activity_data["uniqueEventRewards"].append({
+                        "name": f"{kind_prefix}: {display_name}" if display_name else item.get("name", ""),
+                        "formid": item.get("formid", ""),
+                        "edid": edid_str,
+                        "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
+                        "qty": item.get("qty", 1),
+                        "kind": kind_type,
+                        "conditions": chance_conds,
+                    })
+                elif sig_str == "BOOK" or "recipe" in edid_str.lower():
+                    # Non-title BOOK quest reward (plan) → UER
+                    activity_data["uniqueEventRewards"].append({
+                        "name": item.get("name", ""),
+                        "formid": item.get("formid", ""),
+                        "edid": edid_str,
+                        "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
+                        "qty": item.get("qty", 1),
+                        "kind": "plan",
+                        "conditions": item.get("conditions", []),
+                    })
+                else:
+                    # Other quest reward → UER
+                    activity_data["uniqueEventRewards"].append({
+                        "name": item.get("name", ""),
+                        "formid": item.get("formid", ""),
+                        "edid": edid_str,
+                        "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
+                        "qty": item.get("qty", 1),
+                        "kind": None,
+                        "conditions": item.get("conditions", []),
+                    })
+
+        # All other LVLI - resolve to unique event rewards
+        else:
+            sub_items = resolve_lvli_items_deep(formid)
+            for item in sub_items:
+                is_plan = (item.get("name") or "").startswith(("Plan:", "Recipe:"))
+                activity_data["uniqueEventRewards"].append({
+                    "name": item.get("name", ""),
+                    "formid": item.get("formid", ""),
+                    "edid": item.get("edid", ""),
+                    "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
+                    "qty": item.get("qty", 1),
+                    "kind": "plan" if is_plan else None,
+                    "conditions": item.get("conditions", []),
+                })
+                if is_plan:
+                    activity_data["planRewards"].append({
+                        "name": item.get("name", ""),
+                        "formid": item.get("formid", ""),
+                        "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
+                        "qty": item.get("qty", 1),
+                    })
+
+    # Sort plan rewards alphabetically
+    activity_data["planRewards"].sort(key=lambda x: (x.get("name") or "").lower())
+
+    # Sort unique event rewards: titles first, then others
+    def _uer_sort_key(item):
+        kind = item.get("kind") or ""
+        is_title = "title" in kind
+        return (0 if is_title else 1, (item.get("name") or "").lower())
+    activity_data["uniqueEventRewards"].sort(key=_uer_sort_key)
+
+    return activity_data
+
+# --------------------------------------------------
 # Index: CURV / XP at level 50
 # --------------------------------------------------
 
@@ -391,10 +1099,20 @@ for r in CMPT:
         }
 
 def book_edid_to_title(book_edid):
-    s = book_edid.replace("_Recipe_", "_").replace("Title_", "Titles_")
+    # Remove _Recipe_ from BOOK EDID to match PLYT/CMPT EDIDs
+    base = book_edid.replace("_Recipe_", "_")
+    # Try PLYT (player titles): "PlayerTitle_Prefix_X" → "PlayerTitles_Prefix_X"
+    s = base.replace("Title_", "Titles_")
     if s in plyt_by_edid: return ("player", plyt_by_edid[s])
-    s2 = book_edid.replace("_Recipe_", "_").replace("CAMPTitle_", "CAMPTitles_")
+    # Try CMPT (camp titles): "CampTitle_Prefix_X" → "CAMPTitles_Prefix_X"
+    # Handle case variations: CampTitle_, CAMPTitle_, camptitle_
+    s2 = re.sub(r"(?i)CampTitle_", "CAMPTitles_", base)
     if s2 in cmpt_by_edid: return ("camp", cmpt_by_edid[s2])
+    # Also try just replacing Title_ → Titles_ on the base (handles CampTitle_ → CampTitles_)
+    s3 = base.replace("Title_", "Titles_")
+    # Normalize case: try upper-casing CAMP prefix
+    s3 = re.sub(r"(?i)^camptitles_", "CAMPTitles_", s3)
+    if s3 in cmpt_by_edid: return ("camp", cmpt_by_edid[s3])
     return None
 
 # --------------------------------------------------
@@ -954,6 +1672,26 @@ for key, pages in sorted(reward_pages_by_key.items()):
         gmrw_rows = get_gmrw_rows_for_quest(q)
         if gmrw_rows:
             event["baseRewards"] = build_base_rewards(gmrw_rows)
+
+        # Detect if this is an activity event
+        is_activity = False
+        quest_edid = pick(q, "QUEST_EDID", "EDID", default="").lower()
+        # Activities use RA_LL_Rewards_Activities or similar patterns
+        for rr in gmrw_rows:
+            rewarded = (rr.get("RewardedItem") or "").strip()
+            if "rewards_activities" in rewarded.lower() or "ra_ll_rewards" in rewarded.lower():
+                is_activity = True
+                break
+        # Also check URL slug pattern
+        if not is_activity:
+            for p in pages:
+                if "/activit" in (p.get("url") or "").lower():
+                    is_activity = True
+                    break
+
+        if is_activity:
+            event["type"] = "activity"
+            event["activityData"] = build_activity_data(gmrw_rows, key, event.get("regionLocations", []))
 
         # freeRewards (legacy / base tier only, for backward compat)
         pool_seen = set()
