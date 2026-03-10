@@ -55,22 +55,16 @@ def _newest_glob(pattern):
     return matches[-1] if matches else None
 
 
-def _resolve_tsv(env_var, glob_pattern, fallback_name, exclude=None):
-    """Resolve a TSV path via env var → glob → bare fallback.
-    exclude: optional substring — any candidate whose name contains this (case-insensitive)
-             is skipped (e.g. exclude='_Locations' to avoid picking BOOK Locations exports).
-    """
-    def _ok(path_obj):
-        return exclude is None or exclude.lower() not in Path(path_obj).name.lower()
-
+def _resolve_tsv(env_var, glob_pattern, fallback_name):
+    """Resolve a TSV path via env var → glob → bare fallback."""
     v = os.environ.get(env_var, "").strip()
-    if v and Path(v).exists() and _ok(v):
+    if v and Path(v).exists():
         return Path(v)
-    candidates = [p for p in sorted(glob.glob(str(TSV_DIR / glob_pattern))) if _ok(p)]
-    if candidates:
-        return Path(candidates[-1])
+    found = _newest_glob(str(TSV_DIR / glob_pattern))
+    if found:
+        return Path(found)
     fallback = TSV_DIR / fallback_name
-    if fallback.exists() and _ok(fallback):
+    if fallback.exists():
         return fallback
     raise FileNotFoundError(
         f"Cannot find TSV for {env_var}. "
@@ -82,7 +76,7 @@ COBJ_PATH = _resolve_tsv("COBJ_TSV",         "COBJ_Export_*.tsv",         "COBJ_
 ENTM_PATH = _resolve_tsv("ENTM_TSV",         "ENTM_Export_*.tsv",         "ENTM_Export.tsv")
 FURN_PATH = _resolve_tsv("FURN_TSV",         "FURN_Export_*_FURN.tsv",    "FURN_Export_FURN.tsv")
 FLST_PATH = _resolve_tsv("FLST_ENTRIES_TSV", "FLST_Export_*_Entries.tsv", "FLST_Export_Entries.tsv")
-BOOK_PATH = _resolve_tsv("BOOK_TSV",         "BOOK_Export_*.tsv",         "BOOK_Export.tsv",   exclude="_Locations")
+BOOK_PATH = _resolve_tsv("BOOK_TSV",         "BOOK_Export_*.tsv",         "BOOK_Export.tsv")
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -659,10 +653,10 @@ def build_pets():
         entm = find_entm_for_cobj_id(furn_id)  # reuse ECIL scanner
         # Also try direct EDID-based lookup
         if not entm:
-            suffix = re.sub(r"^(?:SCORE_S\d+_)?CAMPPets_SpawnFurniture_", "", furn_edid, flags=re.IGNORECASE)
+            suffix = re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?CAMPPets_SpawnFurniture_(?:Cat_|Dog_|RadHog_)?", "", furn_edid, flags=re.IGNORECASE)
             for candidate in entm_rows:
                 cedid = candidate.get("EDID", "")
-                if suffix.lower() in cedid.lower() and "pets" in cedid.lower():
+                if suffix.lower() in cedid.lower() and "camppets" in cedid.lower():
                     entm = candidate
                     break
 
@@ -738,10 +732,10 @@ def build_pet_furniture():
 
         entm = find_entm_for_cobj_id(furn_id)
         if not entm:
-            suffix = re.sub(r"^(?:SCORE_S\d+_)?CAMPPets_IdleFurniture_", "", furn_edid, flags=re.IGNORECASE)
+            suffix = re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?CAMPPets_(?:IdleFurniture|Furniture)_(?:Cat_|Dog_|RadHog_)?", "", furn_edid, flags=re.IGNORECASE)
             for candidate in entm_rows:
                 cedid = candidate.get("EDID", "")
-                if suffix.lower() in cedid.lower() and "pets" in cedid.lower():
+                if suffix.lower() in cedid.lower() and "camppets" in cedid.lower():
                     entm = candidate
                     break
 
