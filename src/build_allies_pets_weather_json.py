@@ -357,7 +357,7 @@ def build_repair_bots():
             "howToObtain":  "Atom Shop",
             "dropRate":     "—",
             "seasonNumber": None,
-            "tradeable":    True,
+            "tradeable":    False,  # CAMP FURN skins are account-bound
             "imageUrl":     image_url,
             "imageCarousel": carousel,
             "xalgFlags":    furn.get("XALG_Flags", ""),
@@ -810,7 +810,7 @@ def build_fridges():
             "howToObtain":  source,
             "dropRate":     "—",
             "seasonNumber": None,
-            "tradeable":    True,
+            "tradeable":    False,  # CAMP FURN items are account-bound
             "imageUrl":     img,
             "imageCarousel": carousel,
             "spoilageReduction": "-50%",
