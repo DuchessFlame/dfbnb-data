@@ -252,81 +252,50 @@ for entm in entm_rows:
 
 
 def build_weather_stations():
-    entries = flst_by_list.get(WEATHER_FLST, [])
+    """Build weather station list directly from ENTM records (no FLST needed)."""
     items = []
 
-    for entry in sorted(entries, key=lambda r: int(r.get("EntryIndex", 0))):
-        acti_id   = entry["Entry_FormID"]
-        acti_edid = entry["Entry_EDID"]
-        acti_full = entry["Entry_FULL"]
+    for entm in entm_rows:
+        edid = entm.get("EDID", "")
+        # Only WeatherStation ENTM records, not WeatherVane, not cut content
+        if "WeatherStation" not in edid:
+            continue
+        if is_cut(edid):
+            continue
 
-        # Match ENTM by EDID suffix
-        m = _ACTI_PREFIX_RE.match(acti_edid)
-        suffix = m.group(1).lower() if m else None
-        entm = entm_by_suffix.get(suffix) if suffix else None
-
-        desc        = clean_desc(entm.get("DESC", ""))        if entm else ""
-        entm_id     = entm["FormID"]                          if entm else ""
-        display     = entm.get("FULL", acti_full)             if entm else acti_full
-        nnam        = entm.get("NNAM", "")                    if entm else ""
-        xalg_flag   = entm.get("XALG", "")                   if entm else ""
-        source      = xalg_to_source(xalg_flag) or "Atom Shop"
-
-        # Carousel images from ECIL
-        carousel = ecil_images(entm, "camp-utility") if entm else []
+        entm_id   = entm["FormID"]
+        display   = entm.get("FULL", "").strip() or edid
+        nnam      = entm.get("NNAM", "").strip()
+        desc      = clean_desc(entm.get("DESC", ""))
+        xalg_flag = entm.get("XALG", "")
+        source    = xalg_to_source(xalg_flag) or "Atom Shop"
+        carousel  = ecil_images(entm, "camp-utility")
         image_url = carousel[0] if carousel else ""
 
-        # Obtain source label
-        if "scoreboard" in acti_edid.lower() or acti_edid.upper().startswith("SCORE_"):
+        season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
+        season_num = int(season_m.group(1)) if season_m else None
+        if season_num:
             source = "Scoreboard"
-            season_m = re.match(r"SCORE_S(\d+)_", acti_edid, re.IGNORECASE)
-            season_num = int(season_m.group(1)) if season_m else None
-        else:
-            season_num = None
 
         items.append({
-            "formId":       acti_id,
-            "actiFormId":   acti_id,
+            "formId":       entm_id,
             "entmFormId":   entm_id,
-            "edid":         acti_edid,
-            "displayName":  display or acti_full,
+            "edid":         edid,
+            "displayName":  display,
             "shortName":    nnam,
             "description":  desc,
             "obtainSource": source,
             "seasonNumber": season_num,
             "howToObtain":  f"Season {season_num} Scoreboard" if season_num else "Atom Shop",
             "dropRate":     "—",
-            "tradeable":    not bool(season_num),
+            "tradeable":    False,  # account-bound CAMP item
             "imageUrl":     image_url,
             "imageCarousel": carousel,
-            "cutContent":   is_cut(acti_edid),
+            "cutContent":   False,
         })
 
-    # Sort A-Z
     items.sort(key=lambda x: x["displayName"])
     return {"items": items}
-
-
-# ---------------------------------------------------------------------------
-# REPAIR BOTS
-# ---------------------------------------------------------------------------
-# 4 ENTM skins, each maps to a FURN pod.
-# ENTM → COBJ → FURN (pod)
-# Base COBJ: 007AE545 builds the station via LVLI
-
-REPAIR_BOT_ENTM_IDS = [
-    "007AE546",   # Enclave
-    "0082BED5",   # Company
-    "0084920E",   # Santa's Helper
-    "008571F1",   # Emergency Technician
-]
-
-REPAIR_BOT_FURN_IDS = {
-    "007AE546": "007AE499",   # Enclave pod FURN
-    "0082BED5": "008109D1",   # Company pod FURN
-    "0084920E": "0084920C",   # Santa's Helper FURN
-    "008571F1": "00884077",   # Emergency Tech FURN
-}
 
 
 def build_repair_bots():
@@ -404,6 +373,7 @@ ALLY_COBJ_FURN = {
 _ally_entm_cache = {}
 
 def find_entm_for_cobj_id(cobj_id):
+    """Find ENTM by checking if cobj_id appears in ECIL fields (works for pets/furniture)."""
     if cobj_id in _ally_entm_cache:
         return _ally_entm_cache[cobj_id]
     for entm in entm_rows:
@@ -416,12 +386,41 @@ def find_entm_for_cobj_id(cobj_id):
     return None
 
 
+# ---------------------------------------------------------------------------
+# Ally ENTM lookup: match by ETDI prefix vs FURN EDID
+# ENTM ETDI = "SCORE_S16_CAMP_Ally_Adelaide.dds"
+# FURN EDID = "SCORE_S16_CAMP_Ally_Adelaide_Table_FURN"
+# The ETDI base (without .dds) is a leading prefix of the FURN EDID (case-insensitive).
+# ---------------------------------------------------------------------------
+_ally_entm_by_etdi: dict = {}
+for _entm in entm_rows:
+    _etdi = _entm.get("ETDI", "").strip()
+    if _etdi and "CAMP_Ally" in _entm.get("EDID", ""):
+        _base = re.sub(r"\.dds$", "", _etdi, flags=re.IGNORECASE).lower()
+        _ally_entm_by_etdi[_base] = _entm
+
+
+def find_ally_entm_for_furn(furn_edid: str):
+    """Find ally ENTM by matching ETDI base as prefix of the FURN EDID."""
+    key = furn_edid.lower()
+    # Try progressively shorter prefixes of the furn edid to find a match
+    for etdi_base, entm in _ally_entm_by_etdi.items():
+        if key.startswith(etdi_base):
+            return entm
+    return None
+
+
 def build_allies():
     items = []
     for cobj_id, meta in ALLY_COBJ_FURN.items():
         furn_id  = meta["furn"]
         furn     = furn_by_id.get(furn_id, {})
-        entm     = find_entm_for_cobj_id(cobj_id)
+        # Try ETDI-prefix match first (works for all premium/scoreboard allies)
+        furn_edid_val = furn.get("FURN_EDID", "")
+        entm = find_ally_entm_for_furn(furn_edid_val) if furn_edid_val else None
+        # Fallback to ECIL scan for unusual entries
+        if not entm:
+            entm = find_entm_for_cobj_id(cobj_id)
 
         display  = meta["name"]
         obtain   = meta["obtain"]
@@ -769,15 +768,23 @@ def build_cryos():
 
 FRIDGE_ENTM_IDS = [
     # Upright fridge skins
-    "0056B910",  # Blood Spattered
-    "005DBDBD",  # Beer Barrel
-    "005F56CB",  # Vault-Tec
-    "00692CCB",  # Meat Locker
-    "006F7E74",  # Sugar Bombs
-    "007703CC",  # Camping Cooler
-    "007DC658",  # Gone Fission Camping Cooler
-    "0082F826",  # Pink Modern Home
-    # Chest/cooler style
+    "0055FA66",  # Refrigerator (base)
+    "0055FA5F",  # Bloody Arktos Refrigerator
+    "0055FA60",  # Nuka-Cola Refrigerator
+    "0055FA61",  # Stainless Steel Refrigerator
+    "0056B910",  # Blood Spattered Refrigerator
+    "005DBDBD",  # Beer Barrel Fridge
+    "005F56CB",  # Vault-Tec Refrigerator
+    "00692CCB",  # The Meat Locker
+    "006F7E74",  # Sugar Bombs Refrigerator
+    "007703CC",  # Camping Cooler (S17 Score)
+    "007DC658",  # Gone Fission Camping Cooler (S21 Score)
+    "0082F826",  # Pink Modern Home Refrigerator (S22 Score)
+    # Keg / barrel style
+    "0058BCF9",  # Beer Keg
+    "00773E31",  # Beer Mystery Machine
+    "00795285",  # Blue Ridge Beer Keg Set (S18 Score)
+    # Chest / cooler style
     "005A18C6",  # The Cooler
     "005A1B8B",  # Nuka-Cola Cooler
     "005A3584",  # The Ice Box
