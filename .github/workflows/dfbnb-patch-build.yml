@@ -169,6 +169,14 @@ jobs:
             --outdir dist
 
       # --- ALLIES · PETS · WEATHER · CRYOS · REPAIR BOTS ---
+      - name: Pick BOOK TSV (Allies/Pets/Weather)
+        shell: bash
+        run: |
+          BOOK=$(ls tsv/BOOK_Export_*.tsv 2>/dev/null | grep -iv '_locations' | sort | tail -n 1)
+          if [ -z "$BOOK" ]; then echo "ERROR: No BOOK_Export_*.tsv (non-Locations) found in tsv/"; exit 1; fi
+          echo "BOOK_TSV=$BOOK" >> $GITHUB_ENV
+          echo "Using BOOK TSV: $BOOK"
+
       - name: Build Allies / Pets / Weather JSON
         run: |
           python src/build_allies_pets_weather_json.py \
@@ -179,6 +187,7 @@ jobs:
           ENTM_TSV:         ${{ env.ENTM_TSV }}
           FURN_TSV:         ${{ env.FURN_TSV }}
           FLST_ENTRIES_TSV: ${{ env.FLST_ENTRIES_TSV }}
+          BOOK_TSV:         ${{ env.BOOK_TSV }}
 
       # --- PLAN MASTER ---
       - name: Build Plan Master JSON

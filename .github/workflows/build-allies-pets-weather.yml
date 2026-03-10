@@ -9,6 +9,7 @@ on:
       - 'tsv/FURN_Export_*_FURN.tsv'
       - 'tsv/FLST_Export_*_Entries.tsv'
       - 'tsv/BOOK_Export_*.tsv'
+      - '!tsv/BOOK_Export_*_Locations.tsv'
       - 'src/build_allies_pets_weather_json.py'
 
 jobs:
@@ -38,7 +39,7 @@ jobs:
           ENTM=$(pick_newest "tsv/ENTM_Export_*.tsv")
           FURN=$(pick_newest "tsv/FURN_Export_*_FURN.tsv")
           FLST=$(pick_newest "tsv/FLST_Export_*_Entries.tsv")
-          BOOK=$(pick_newest "tsv/BOOK_Export_*.tsv")
+          BOOK=$(ls tsv/BOOK_Export_*.tsv 2>/dev/null | grep -iv '_locations' | sort | tail -n 1)
 
           echo "COBJ_TSV=$COBJ"           >> $GITHUB_ENV
           echo "ENTM_TSV=$ENTM"           >> $GITHUB_ENV
