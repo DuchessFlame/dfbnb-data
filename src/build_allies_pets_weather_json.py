@@ -298,6 +298,28 @@ def build_weather_stations():
     return {"items": items}
 
 
+# ---------------------------------------------------------------------------
+# REPAIR BOTS
+# ---------------------------------------------------------------------------
+# Source: ENTM_Export_March_2026.tsv — all ATX_ENTM_CAMP_Utility_RepairBot_* records.
+# All four skins are Atom Shop (XALG flag 000000001 = Premium/ATX).
+# No base/default repair bot exists as a separate ENTM entry.
+# Add new FormIDs here as new skins are released.
+
+REPAIR_BOT_ENTM_IDS = [
+    "007AE546",  # Enclave Repair Bot
+    "0082BED5",  # Company Repair Bot
+    "0084920E",  # Santa's Helper Repair Bot
+    "008571F1",  # Emergency Technician Repair Bot
+]
+
+# ENTM FormID → FURN FormID.
+# Repair bot source (Atom Shop) is resolved directly from the ENTM XALG flag,
+# so FURN lookup is not required for source detection. The dict is kept for
+# completeness in case FURN records are needed in future (e.g. for plan FormIDs).
+REPAIR_BOT_FURN_IDS: dict = {}
+
+
 def build_repair_bots():
     items = []
     for entm_id in REPAIR_BOT_ENTM_IDS:
@@ -305,9 +327,21 @@ def build_repair_bots():
         if not entm:
             continue
 
+        # FURN lookup kept for forward-compat; currently no FURN IDs are mapped.
         furn_id  = REPAIR_BOT_FURN_IDS.get(entm_id, "")
         furn     = furn_by_id.get(furn_id, {})
-        source   = xalg_to_source(furn.get("XALG_Flags", "")) or "Atom Shop"
+
+        # Source: prefer FURN XALG_Flags if a FURN exists, otherwise fall back
+        # to the ENTM XALG field. All current skins are Atom Shop.
+        xalg_raw = furn.get("XALG_Flags", "") or entm.get("XALG", "")
+        source   = xalg_to_source(xalg_raw) or "Atom Shop"
+
+        # Season number from EDID (none currently, kept for future scoreboards)
+        edid       = entm.get("EDID", "")
+        season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
+        season_num = int(season_m.group(1)) if season_m else None
+        if season_num:
+            source = "Scoreboard"
 
         desc      = clean_desc(entm.get("DESC", ""))
         display   = entm.get("FULL", "")
@@ -318,19 +352,19 @@ def build_repair_bots():
             "formId":       furn_id or entm_id,
             "entmFormId":   entm_id,
             "furnFormId":   furn_id,
-            "edid":         entm.get("EDID", ""),
+            "edid":         edid,
             "furnEdid":     furn.get("FURN_EDID", ""),
             "displayName":  display,
             "description":  desc,
             "obtainSource": source,
-            "howToObtain":  "Atom Shop",
+            "howToObtain":  f"Season {season_num} Scoreboard" if season_num else "Atom Shop",
             "dropRate":     "—",
-            "seasonNumber": None,
+            "seasonNumber": season_num,
             "tradeable":    False,  # account-bound CAMP skin
             "imageUrl":     image_url,
             "imageCarousel": carousel,
-            "xalgFlags":    furn.get("XALG_Flags", ""),
-            "cutContent":   is_cut(entm.get("EDID", "")),
+            "xalgFlags":    xalg_raw,
+            "cutContent":   is_cut(edid),
         })
 
     items.sort(key=lambda x: x["displayName"])

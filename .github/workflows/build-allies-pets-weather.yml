@@ -1,0 +1,70 @@
+name: Build Allies / Pets / Weather JSON
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tsv/COBJ_Export_*.tsv'
+      - 'tsv/ENTM_Export_*.tsv'
+      - 'tsv/FURN_Export_*_FURN.tsv'
+      - 'tsv/FLST_Export_*_Entries.tsv'
+      - 'src/build_allies_pets_weather_json.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Pick newest TSV exports
+        id: pick_tsvs
+        run: |
+          pick_newest() {
+            local pattern="$1"
+            local result
+            result=$(ls $pattern 2>/dev/null | sort | tail -n 1)
+            echo "$result"
+          }
+
+          COBJ=$(pick_newest "tsv/COBJ_Export_*.tsv")
+          ENTM=$(pick_newest "tsv/ENTM_Export_*.tsv")
+          FURN=$(pick_newest "tsv/FURN_Export_*_FURN.tsv")
+          FLST=$(pick_newest "tsv/FLST_Export_*_Entries.tsv")
+
+          echo "COBJ_TSV=$COBJ"           >> $GITHUB_ENV
+          echo "ENTM_TSV=$ENTM"           >> $GITHUB_ENV
+          echo "FURN_TSV=$FURN"           >> $GITHUB_ENV
+          echo "FLST_ENTRIES_TSV=$FLST"   >> $GITHUB_ENV
+
+          echo "  COBJ: $COBJ"
+          echo "  ENTM: $ENTM"
+          echo "  FURN: $FURN"
+          echo "  FLST: $FLST"
+
+      - name: Build JSON files
+        run: |
+          mkdir -p dist
+          python src/build_allies_pets_weather_json.py \
+            --tsv-dir tsv \
+            --out-dir dist
+
+      - name: Commit updated JSON
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild allies/pets/weather/cryos/fridges/repair-bots JSON [skip ci]"
+          file_pattern: |
+            dist/weather_stations.json
+            dist/allies.json
+            dist/pets.json
+            dist/pet-furniture.json
+            dist/pet-apparel.json
+            dist/cryos.json
+            dist/fridges.json
+            dist/repair-bots.json
