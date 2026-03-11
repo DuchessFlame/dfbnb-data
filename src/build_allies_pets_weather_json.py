@@ -330,11 +330,16 @@ for entm in entm_rows:
 
 def build_weather_stations():
     """Build weather station list directly from ENTM records (no FLST needed)."""
+    # Atlantic City Fog has a Gold Bullion plan but the CondProxy token regex
+    # mislabels it — hardcode tradeable status here keyed by ENTM FormID.
+    WEATHER_TRADEABLE = {
+        "0073ABA6": True,   # Weather Control Station (Atlantic City Fog) — Gold Bullion plan
+    }
+
     items = []
 
     for entm in entm_rows:
         edid = entm.get("EDID", "")
-        # Only WeatherStation ENTM records, not WeatherVane, not cut content
         if "WeatherStation" not in edid:
             continue
         if is_cut(edid):
@@ -346,27 +351,32 @@ def build_weather_stations():
         desc      = clean_desc(entm.get("DESC", ""))
         xalg_flag = entm.get("XALG", "")
         source    = xalg_to_source(xalg_flag) or "Atom Shop"
+
+        # Use ETDI for the icon image (not ECIL_1 which has _C1 suffix)
+        _etdi     = entm.get("ETDI", "").strip()
         carousel  = ecil_images(entm, "camp-utility")
-        image_url = carousel[0] if carousel else ""
+        image_url = storefront_img_url(_etdi, "camp-utility") if _etdi else (carousel[0] if carousel else "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
         if season_num:
             source = "Scoreboard"
 
-        # Plan lookup: match ENTM EDID suffix against CondProxy tokens
-        # e.g. ENTM "...WeatherStation_ACBoardwalk..." → CondProxy token "weathermachine_acboardwalk"
-        _ws_edid_key = re.sub(
-            r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_CAMP_Utility_WeatherStation_",
-            "", edid, flags=re.IGNORECASE
-        ).lower()
-        _ws_gnam_fid, _ws_plan_name = plan_for_condproxy_token(_ws_edid_key)
-        # Also try the raw EDID suffix after stripping the prefix
-        if not _ws_gnam_fid:
-            _ws_gnam_fid, _ws_plan_name = plan_for_condproxy_token(
-                re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_", "", edid, flags=re.IGNORECASE).lower()
-            )
-        _ws_tradeable = tradeable_from_plan(_ws_gnam_fid)
+        # Tradeable: hardcoded map wins, then CondProxy plan lookup fallback
+        if entm_id in WEATHER_TRADEABLE:
+            _ws_tradeable = WEATHER_TRADEABLE[entm_id]
+            _ws_plan_name = "Plan: Weather Control Station (Atlantic City Fog)" if entm_id == "0073ABA6" else ""
+        else:
+            _ws_edid_key = re.sub(
+                r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_CAMP_Utility_WeatherStation_",
+                "", edid, flags=re.IGNORECASE
+            ).lower()
+            _ws_gnam_fid, _ws_plan_name = plan_for_condproxy_token(_ws_edid_key)
+            if not _ws_gnam_fid:
+                _ws_gnam_fid, _ws_plan_name = plan_for_condproxy_token(
+                    re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_", "", edid, flags=re.IGNORECASE).lower()
+                )
+            _ws_tradeable = tradeable_from_plan(_ws_gnam_fid)
 
         items.append({
             "formId":       entm_id,
@@ -377,12 +387,14 @@ def build_weather_stations():
             "description":  desc,
             "obtainSource": source,
             "seasonNumber": season_num,
-            "howToObtain":  f"Season {season_num} Scoreboard" if season_num else "Atom Shop",
+            "howToObtain":  f"Season {season_num} Scoreboard" if season_num else
+                            ("Gold Bullion Vendor" if entm_id == "0073ABA6" else "Atom Shop"),
             "dropRate":     "—",
             "tradeable":    _ws_tradeable,
             "planName":     _ws_plan_name,
             "imageUrl":     image_url,
             "imageCarousel": carousel,
+            "buildInfo":    "Power Required: Yes\nShares Limit With: All Weather Control Stations",
             "cutContent":   False,
         })
 
