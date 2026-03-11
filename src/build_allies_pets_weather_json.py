@@ -316,7 +316,7 @@ _ACTI_PREFIX_RE = re.compile(
     re.IGNORECASE
 )
 _ENTM_PREFIX_RE = re.compile(
-    r"^(?:SCORE_S\d+_)?ATX_ENTM_CAMP_Utility_WeatherStation_(.+)$",
+    r"^(?:SCORE_S\d+_)?(?:ATX_)?ENTM_CAMP_Utility_WeatherStation_(.+)$",
     re.IGNORECASE
 )
 
@@ -332,8 +332,45 @@ def build_weather_stations():
     """Build weather station list directly from ENTM records (no FLST needed)."""
     # Atlantic City Fog has a Gold Bullion plan but the CondProxy token regex
     # mislabels it — hardcode tradeable status here keyed by ENTM FormID.
+    # The plan (0075FF95) has NonPlayerTradable keyword — plan is NOT tradeable.
     WEATHER_TRADEABLE = {
-        "0073ABA6": True,   # Weather Control Station (Atlantic City Fog) — Gold Bullion plan
+        "0073ABA6": False,  # Weather Control Station (Atlantic City Fog) — Gold Bullion plan, NonPlayerTradable
+    }
+
+    # ── Fishing condition mapping ──
+    # Derived from CNDF fishing conditions cross-referenced with KYWD_Refs on WTHR records.
+    # Fishing_IsCampRainyWeather_Condition checks: s_wt_StormMistyRainy, s_wt_StormRain,
+    #   s_wt_StormRainOcclusion, ATX_Weather_WeatherTypeKW_ThunderStorm
+    # Fishing_IsCampGlowingWeather_Condition checks: s_wt_StormRad, s_wt_StormNuke
+    # Fishing_IsCampSandstormWeather_Condition checks: s_wt_Sandstorm
+    # Fishing_IsCampAnyFallbackWeather_Condition: any active CAMP weather (all stations)
+    #
+    # ENTM EDID suffix → fishing condition label (empty = generic CAMP weather only)
+    WEATHER_FISHING_CONDITION = {
+        "standard_clear":           "",                         # No specific fishing condition
+        "standard_radstorm":        "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
+        "snowman_snow":             "Rainy (Rain Occlusion)",   # WTHR has s_wt_StormRainOcclusion
+        "xpdacboardwalk":           "",                         # AC Fog — no fishing keyword
+        "thunderstorm":             "Rainy (Thunderstorm)",     # WTHR has s_wt_StormMistyRainy + ThunderStorm KW
+        "storm_skylinevalley":      "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
+        "mothman":                  "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
+        "halloween":                "",                         # No specific fishing condition
+        "fallfoliage":              "",                         # No specific fishing condition
+        "nukezone":                 "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
+        "snowaurora":               "Rainy (Rain Occlusion)",   # WTHR has s_wt_StormRainOcclusion
+        "verdantpollen":            "",                         # No specific fishing condition
+        "fireworks":                "",                         # No specific fishing condition
+        "standard_lightrain":       "Rainy (Misty/Rainy)",      # WTHR has s_wt_StormMistyRainy + s_wt_StormRainOcclusion
+        "burningnight":             "",                         # No specific fishing condition
+        "burningsandstorm":         "Sandstorm",                # WTHR has s_wt_Sandstorm
+        "outwaste":                 "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
+        "invasion":                 "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
+    }
+
+    # ── How to Obtain — richer per-station detail ──
+    # Keyed by ENTM FormID for items that need more detail than EDID-prefix classification.
+    WEATHER_HOW_TO_OBTAIN = {
+        "0073ABA6": "Season 15 Scoreboard / Gold Bullion (Samuel, Tier 10)",  # Atlantic City Fog
     }
 
     items = []
@@ -355,17 +392,21 @@ def build_weather_stations():
         # Use ETDI for the icon image (not ECIL_1 which has _C1 suffix)
         _etdi     = entm.get("ETDI", "").strip()
         carousel  = ecil_images(entm, "camp-utility")
-        image_url = storefront_img_url(_etdi, "camp-utility") if _etdi else (carousel[0] if carousel else "")
+        image_url = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
         if season_num:
             source = "Scoreboard"
 
-        # Tradeable: hardcoded map wins, then CondProxy plan lookup fallback
-        if entm_id in WEATHER_TRADEABLE:
-            _ws_tradeable = WEATHER_TRADEABLE[entm_id]
-            _ws_plan_name = "Plan: Weather Control Station (Atlantic City Fog)" if entm_id == "0073ABA6" else ""
+        # Tradeable: ALL weather stations are non-tradeable.
+        # They are entitlement-based items (Atom Shop / Scoreboard / Gold Bullion).
+        # AC Fog plan (0075FF95) explicitly has NonPlayerTradable keyword.
+        # The CondProxy lookup can false-positive on some stations (e.g. Halloween,
+        # Mothman), so we hardcode False for all and only look up plan names.
+        _ws_tradeable = False
+        if entm_id == "0073ABA6":
+            _ws_plan_name = "Plan: Weather Control Station (Atlantic City Fog)"
         else:
             _ws_edid_key = re.sub(
                 r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_CAMP_Utility_WeatherStation_",
@@ -376,26 +417,39 @@ def build_weather_stations():
                 _ws_gnam_fid, _ws_plan_name = plan_for_condproxy_token(
                     re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_", "", edid, flags=re.IGNORECASE).lower()
                 )
-            _ws_tradeable = tradeable_from_plan(_ws_gnam_fid)
+
+        # ── Fishing condition from EDID suffix lookup ──
+        _suffix_m = _ENTM_PREFIX_RE.match(edid)
+        _edid_suffix = _suffix_m.group(1).lower() if _suffix_m else ""
+        _fishing = WEATHER_FISHING_CONDITION.get(_edid_suffix, "")
+
+        # ── How to Obtain — use richer detail if available ──
+        if entm_id in WEATHER_HOW_TO_OBTAIN:
+            _how = WEATHER_HOW_TO_OBTAIN[entm_id]
+        elif season_num:
+            _how = f"Season {season_num} Scoreboard"
+        else:
+            _how = "Atom Shop"
 
         items.append({
-            "formId":       entm_id,
-            "entmFormId":   entm_id,
-            "edid":         edid,
-            "displayName":  display,
-            "shortName":    nnam,
-            "description":  desc,
-            "obtainSource": source,
-            "seasonNumber": season_num,
-            "howToObtain":  f"Season {season_num} Scoreboard" if season_num else
-                            ("Gold Bullion Vendor" if entm_id == "0073ABA6" else "Atom Shop"),
-            "dropRate":     "—",
-            "tradeable":    _ws_tradeable,
-            "planName":     _ws_plan_name,
-            "imageUrl":     image_url,
-            "imageCarousel": carousel,
-            "buildInfo":    "Power Required: Yes\nShares Limit With: All Weather Control Stations",
-            "cutContent":   False,
+            "formId":               entm_id,
+            "entmFormId":           entm_id,
+            "edid":                 edid,
+            "displayName":          display,
+            "shortName":            nnam,
+            "description":          desc,
+            "obtainSource":         source,
+            "seasonNumber":         season_num,
+            "howToObtain":          _how,
+            "dropRate":             "—",
+            "tradeable":            _ws_tradeable,
+            "planName":             _ws_plan_name,
+            "imageUrl":             image_url,
+            "imageCarousel":        carousel,
+            "buildInfo":            "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: 2\nFlamingo Units: 1",
+            "craftingRequirements": "Circuitry ×2\nRubber ×2\nSteel ×4\nScrew ×2",
+            "fishingCondition":     _fishing,
+            "cutContent":           False,
         })
 
     items.sort(key=lambda x: x["displayName"])
@@ -451,7 +505,7 @@ def build_repair_bots():
         display   = entm.get("FULL", "")
         _etdi     = entm.get("ETDI", "").strip()
         carousel  = ecil_images(entm, "camp-utility")
-        image_url = storefront_img_url(_etdi, "camp-utility") if _etdi else (carousel[0] if carousel else "")
+        image_url = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
 
         items.append({
             "formId":       furn_id or entm_id,
@@ -582,7 +636,7 @@ def build_allies():
         # Use ETDI for the primary icon image (not ECIL_1 which has _C1 suffix)
         _etdi    = entm.get("ETDI", "").strip() if entm else ""
         carousel = ecil_images(entm, "camp-allies") if entm else []
-        img      = storefront_img_url(_etdi, "camp-allies") if _etdi else (carousel[0] if carousel else "")
+        img      = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-allies") if _etdi else "")
 
         # Use FURN XALG to refine source if available
         xalg = furn.get("XALG_Flags", "")
@@ -754,7 +808,7 @@ def build_pets():
 
         # Use ETDI for primary pet image, second carousel image for bed/home
         _etdi    = entm.get("ETDI", "").strip() if entm else ""
-        pet_img  = storefront_img_url(_etdi, "camp-pets") if _etdi else (carousel[0] if carousel else "")
+        pet_img  = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-pets") if _etdi else "")
         home_img = carousel[1] if len(carousel) > 1 else (carousel[0] if carousel else "")
 
         # Season number: check FURN EDID first, then ENTM EDID
@@ -816,7 +870,7 @@ def build_pet_furniture():
 
         # Use ETDI for primary image (icon), ECIL for carousel
         _etdi = entm.get("ETDI", "").strip()
-        img   = storefront_img_url(_etdi, "camp-pets") if _etdi else (carousel[0] if carousel else "")
+        img   = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-pets") if _etdi else "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
@@ -891,7 +945,7 @@ def build_pet_apparel():
         # Pet apparel imageUrl uses ETDI (the icon .dds), NOT the ECIL_1 carousel image.
         # ECIL_1 has a _C1 suffix which maps to a different file than the uploaded texture icon.
         _etdi    = entm.get("ETDI", "").strip()
-        img      = storefront_img_url(_etdi, "camp-pets") if _etdi else (carousel[0] if carousel else "")
+        img      = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-pets") if _etdi else "")
         edid     = entm.get("EDID", "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
@@ -960,7 +1014,7 @@ def build_cryos():
         source   = xalg_to_source(xalg) or "Atom Shop"
         _etdi    = entm.get("ETDI", "").strip()
         carousel = ecil_images(entm, "camp-utility")
-        img      = storefront_img_url(_etdi, "camp-utility") if _etdi else (carousel[0] if carousel else "")
+        img      = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
         gv       = CRYO_GOLDVENDOR.get(entm_id, "")
         edid     = entm.get("EDID", "")
 
@@ -1046,7 +1100,7 @@ def build_fridges():
         source   = xalg_to_source(xalg) or "Atom Shop"
         _etdi    = entm.get("ETDI", "").strip()
         carousel = ecil_images(entm, "camp-utility")
-        img      = storefront_img_url(_etdi, "camp-utility") if _etdi else (carousel[0] if carousel else "")
+        img      = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
