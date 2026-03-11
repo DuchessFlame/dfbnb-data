@@ -609,11 +609,6 @@ def build_allies():
 # 18 pet spawn furniture records from CAMPPets_SpawnFurniture* FURNs
 # Each pet is a FURN (spawn bed/house) + associated ENTM
 
-# Known pet spawn FURN → ENTM mapping patterns (EDID suffix matching)
-# FURN EDID: CAMPPets_SpawnFurniture_Cat_Bed_GreyTabby
-# ENTM EDID: ATX_ENTM_CAMP_Pets_SpawnFurniture_Cat_Bed_GreyTabby (hypothetical)
-# We'll match by collecting all FURN rows with CAMPPets_SpawnFurniture in EDID
-
 PET_ANIMAL_MAP = {
     "_cat_": "cat", "_cats_": "cat",
     "_dog_": "dog", "_dogs_": "dog",
@@ -630,6 +625,121 @@ def animal_from_edid(edid):
     if "mongrel" in s: return "dog"
     if "rooter"  in s: return "radhog"
     return "other"
+
+
+# ---------------------------------------------------------------------------
+# CAMPPets ENTM lookup maps (replaces broken ECIL FormID scan)
+#
+# The old find_entm_for_cobj_id() searched ECIL_* columns for a FormID match,
+# but ECIL_* contains .dds filenames — it never matched anything for pets.
+#
+# Fix: build two keyed dicts from ENTM EDIDs and look up by normalized EDID.
+#
+# --- Spawn-furniture pets ---
+# ENTM EDID pattern: {season?}_{ATX?}_ENTM_CAMP_CAMPPets_{Animal?}_{Token}
+# FURN EDID pattern: {season?}_{ATX?}_CAMPPets_SpawnFurniture_{Animal}_{BedType}_{Token}
+# Key: "{animal}_{token_normed}"  or just "{token_normed}" when ENTM has no animal prefix
+#
+# --- Idle furniture ---
+# ENTM EDID pattern: {season?}_{ATX?}_ENTM_CAMP_CAMPPets_{Idle?}Furniture_{RadHog?}_{Token}
+# FURN EDID pattern: {season?}_{ATX?}_CAMPPets_{Idle?}Furniture_{Cat|Dog|RadHog?}_{Token}
+# Key: full suffix after IdleFurniture_, Cat_/Dog_ stripped but RadHog_ kept
+#      (RadHog items have the animal in both FURN and ENTM EDID; Cat/Dog do not)
+# ---------------------------------------------------------------------------
+
+# --- Spawn-pet lookup: {animal}_{token} → ENTM ---
+_pet_spawn_entm: dict = {}   # "{animal}_{token}" or "{token}" → ENTM
+
+for _e in entm_rows:
+    _edid = _e.get("EDID", "")
+    if "CAMPPets" not in _edid or is_cut(_edid):
+        continue
+    # Match the "ENTM_CAMP_CAMPPets_{Animal?}_{Token}" portion
+    _m = re.match(
+        r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_CAMP_CAMPPets_"
+        r"(?:(Cat|Dog|RadHog|Radhog)_)?(.+)$",
+        _edid, re.IGNORECASE
+    )
+    if not _m:
+        continue
+    _animal = (_m.group(1) or "").lower()  # "" when absent (e.g. Lykoi)
+    _token  = _m.group(2).lower().replace("_", "")
+    if _animal:
+        _pet_spawn_entm[f"{_animal}_{_token}"] = _e
+    # Also index without animal as fallback (handles Lykoi, future anomalies)
+    _pet_spawn_entm.setdefault(_token, _e)
+
+
+def find_pet_spawn_entm(furn_edid: str):
+    """
+    Find the ENTM for a SpawnFurniture FURN via animal+token matching.
+
+    FURN: SCORE_S19_CAMPPets_SpawnFurniture_Cat_Bed_BlackCat
+      → animal=cat, token=blackcat → key "cat_blackcat"
+    ENTM: SCORE_S19_ENTM_CAMP_CAMPPets_Cat_BlackCat → key "cat_blackcat"  ✓
+    """
+    # Strip leading prefix, then extract animal and token after SpawnFurniture
+    m = re.match(
+        r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?CAMPPets_SpawnFurniture_"
+        r"(?:(Cat|Dog|RadHog)_)?\w+_(.+)$",
+        furn_edid, re.IGNORECASE
+    )
+    if not m:
+        return None
+    animal = (m.group(1) or "").lower()
+    token  = m.group(2).lower().replace("_", "")
+    # Try animal-qualified key first (prevents RoboPaw Cat matching Dog RoboPaw)
+    if animal:
+        hit = _pet_spawn_entm.get(f"{animal}_{token}")
+        if hit:
+            return hit
+    # Fallback: token-only (handles ENTMs without explicit animal prefix, e.g. Lykoi)
+    return _pet_spawn_entm.get(token)
+
+
+# --- Idle-furniture lookup: normalized_suffix → ENTM ---
+_pet_idle_entm: dict = {}   # normalized_suffix_no_underscores → ENTM
+
+for _e in entm_rows:
+    _edid = _e.get("EDID", "")
+    if "CAMPPets" not in _edid or is_cut(_edid):
+        continue
+    _m = re.match(
+        r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_CAMP_CAMPPets_(?:Idle)?Furniture_(.+)$",
+        _edid, re.IGNORECASE
+    )
+    if not _m:
+        continue
+    # Key = full suffix as-is (e.g. "RadHog_ScratchingPost", "KnickKnackTable",
+    #       "CatcutsScratchingPost"), lowercased and underscores removed
+    _key = _m.group(1).lower().replace("_", "")
+    _pet_idle_entm[_key] = _e
+
+
+def find_pet_idle_entm(furn_edid: str):
+    """
+    Find the ENTM for an IdleFurniture FURN via normalized suffix matching.
+
+    Strategy:
+      - Strip the FURN prefix: {season?}_{ATX?}_CAMPPets_{Idle?}Furniture_
+      - Strip leading Cat_ or Dog_ (these animals are NOT in the ENTM suffix)
+      - Keep RadHog_ (it IS in the ENTM suffix, disambiguates from cat scratching posts)
+      - Compare lowercased, underscores removed
+
+    Examples:
+      ATX_CAMPPets_IdleFurniture_RadHog_ScratchingPost  → key "radhogscratchingpost" ✓
+      SCORE_S19_CAMPPets_IdleFurniture_Cat_CatcutsScratchingPost → key "catcutsscratchingpost" ✓
+      CAMPPets_IdleFurniture_Cat_KnickKnackTable         → key "knickknacktable" ✓
+    """
+    m = re.match(
+        r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?CAMPPets_(?:Idle)?Furniture_"
+        r"(?:(?:Cat|Dog)_)?(.+)$",
+        furn_edid, re.IGNORECASE
+    )
+    if not m:
+        return None
+    key = m.group(1).lower().replace("_", "")
+    return _pet_idle_entm.get(key)
 
 
 def build_pets():
@@ -649,16 +759,8 @@ def build_pets():
         source    = xalg_to_source(xalg) or "Atom Shop"
         animal    = animal_from_edid(furn_edid)
 
-        # Try to find ENTM for this FURN
-        entm = find_entm_for_cobj_id(furn_id)  # reuse ECIL scanner
-        # Also try direct EDID-based lookup
-        if not entm:
-            suffix = re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?CAMPPets_SpawnFurniture_(?:Cat_|Dog_|RadHog_)?", "", furn_edid, flags=re.IGNORECASE)
-            for candidate in entm_rows:
-                cedid = candidate.get("EDID", "")
-                if suffix.lower() in cedid.lower() and "camppets" in cedid.lower():
-                    entm = candidate
-                    break
+        # Use EDID-based lookup (ECIL columns contain .dds paths, not FormIDs)
+        entm = find_pet_spawn_entm(furn_edid)
 
         desc      = clean_desc(entm.get("DESC", "")) if entm else ""
         entm_id   = entm["FormID"] if entm else ""
@@ -673,20 +775,18 @@ def build_pets():
         season_m   = re.match(r"SCORE_S(\d+)_", furn_edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
 
-        # All CAMP pets are account-bound (FURN items placed via workshop menu),
-        # regardless of source — neither ATX nor scoreboard pets are tradeable.
         if season_num:
             source    = "Scoreboard"
             how       = f"Season {season_num} Scoreboard"
         else:
             how       = source  # "Atom Shop"
-        tradeable = False  # account-bound CAMP FURN
 
         items.append({
             "formId":       furn_id,
             "entmFormId":   entm_id,
             "edid":         furn_edid,
-            # displayName = the actual pet name (ENTM FULL), e.g. "German Shepherd"
+            # displayName = the actual pet name from ENTM (e.g. "Farm Cat", "Bombay Cat")
+            # furn_full fallback is used only if ENTM lookup fails
             "displayName":  entm_full or furn_full or furn_edid,
             # homeName = the furniture item name (FURN FULL), e.g. "German Shepherd House"
             "homeName":     furn_full,
@@ -694,9 +794,9 @@ def build_pets():
             "animalType":   animal,
             "obtainSource": source,
             "howToObtain":  how,
-            "dropRate":     "—",  # pets have no obtain drop rate — the "1-3 Legendary" is CAMP generation, not a drop
+            "dropRate":     "—",
             "seasonNumber": season_num,
-            "tradeable":    False,  # no plan books exist for pet spawn furniture — account-bound
+            "tradeable":    False,  # account-bound CAMP FURN — no plan books
             "planName":     "",
             "imageUrl":     pet_img,
             "homeImageUrl": home_img,
@@ -730,14 +830,8 @@ def build_pet_furniture():
         source    = xalg_to_source(xalg) or "Atom Shop"
         animal    = animal_from_edid(furn_edid)
 
-        entm = find_entm_for_cobj_id(furn_id)
-        if not entm:
-            suffix = re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?CAMPPets_(?:IdleFurniture|Furniture)_(?:Cat_|Dog_|RadHog_)?", "", furn_edid, flags=re.IGNORECASE)
-            for candidate in entm_rows:
-                cedid = candidate.get("EDID", "")
-                if suffix.lower() in cedid.lower() and "camppets" in cedid.lower():
-                    entm = candidate
-                    break
+        # Use EDID-based idle-furniture ENTM lookup (ECIL contains .dds, not FormIDs)
+        entm = find_pet_idle_entm(furn_edid)
 
         desc      = clean_desc(entm.get("DESC", "")) if entm else ""
         entm_id   = entm["FormID"] if entm else ""
@@ -821,7 +915,10 @@ def build_pet_apparel():
         source   = xalg_to_source(xalg) or "Atom Shop"
         animal   = PET_APPAREL_ANIMAL.get(entm_id, "other")
         carousel = ecil_images(entm, "camp-pets")
-        img      = carousel[0] if carousel else ""
+        # Pet apparel imageUrl uses ETDI (the icon .dds), NOT the ECIL_1 carousel image.
+        # ECIL_1 has a _C1 suffix which maps to a different file than the uploaded texture icon.
+        _etdi    = entm.get("ETDI", "").strip()
+        img      = storefront_img_url(_etdi, "camp-pets") if _etdi else (carousel[0] if carousel else "")
         edid     = entm.get("EDID", "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
