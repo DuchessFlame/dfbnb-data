@@ -1,5 +1,5 @@
 {
-  "generatedAt":"2026-03-12T06:59:34+00:00",
+  "generatedAt":"2026-03-12T07:27:05+00:00",
   "type":"player_titles",
   "items":[
     {
@@ -2798,7 +2798,7 @@
         "Top:Subject.HasLearnedRecipe(PlayerTitle_co_CondProxy_Suffix_Gardener [COBJ:007A96DB]) = 1.000000"
       ],
       "condCount":1,
-      "howToObtain":"Complete the Event: The Big Bloom",
+      "howToObtain":"Complete the Event: The Big Bloom\nRequires learning the following plans first:\n- Plan: Flower Crown - Carnal Weeper\n- Plan: Flower Crown - Crystalcup\n- Plan: Flower Crown - Radlily",
       "dropRate":"100%",
       "releaseDate":"2026-03-01",
       "releaseYear":2026,
@@ -2823,7 +2823,17 @@
         "bookLvliPickedViaEntries":"007AD259",
         "cobjGNAM_EDID":"PlayerTitle_Recipe_Suffix_Gardener",
         "cobjGNAM_FULL":"Player Title: Gardener",
-        "cobjGNAM_FormID":"007A96D9"
+        "cobjGNAM_FormID":"007A96D9",
+        "lvliExtraConditions":[
+          "Subject.HasLearnedRecipe(00 00 00, 00 00, SSE_co_Headwear_FlowerCrown_CarnalWeeper [COBJ:007ACE9E], 00 00 00 00, -1) 10000000 1.000000",
+          "Subject.HasLearnedRecipe(00 00 00, 00 00, SSE_co_Headwear_FlowerCrown_Crystalcup [COBJ:007ACEA0], 00 00 00 00, -1) 10000000 1.000000",
+          "Subject.HasLearnedRecipe(00 00 00, 00 00, SSE_co_Headwear_FlowerCrown_Radlily [COBJ:007ACE9F], 00 00 00 00, -1) 10000000 1.000000"
+        ],
+        "lvliExtraPlanNames":[
+          "Plan: Flower Crown - Carnal Weeper",
+          "Plan: Flower Crown - Crystalcup",
+          "Plan: Flower Crown - Radlily"
+        ]
       }
     },
     {
