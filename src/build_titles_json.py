@@ -98,6 +98,8 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
     "sfs09_playertitles_suffix_tamer": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
     "playertitles_suffix_researcher": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
     "sfs09_playertitles_suffix_manager": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
+    # Spooky Scorched — sub-list ChanceNone=80 on parent entry (20% drop)
+    "playertitles_prefix_spooky": "20%",
 }
 
 
@@ -965,6 +967,19 @@ def lvli_drop_rate_from_cobj_lvli(
     # Blank/missing = engine treats as 0 = item always drops (100%).
     raw_cn = (best.get("LVOV_ChanceNoneValue") or "").strip()
     if not raw_cn:
+        # Before returning 100%, check if the BOOK's LVLI is a sub-list
+        # referenced from a parent with a non-zero ChanceNone.
+        # Example: Spooky title — BOOK has ChanceNone=0 in its sub-list,
+        # but the sub-list entry in the parent has ChanceNone=80 (20% drop).
+        if lvli_fid:
+            for _er in lvli_entry_rows:
+                _ref = (_er.get("LVLO_Reference") or "").upper()
+                if lvli_fid not in _ref or ":LVLI" not in _ref:
+                    continue
+                _parent_fid = (_er.get("LVLI_FormID") or _er.get("FormID") or "").strip().upper()
+                _parent_dr = _compute_rate_for_entry_row(_er, _parent_fid)
+                if _parent_dr and _parent_dr != "100%":
+                    return _parent_dr
         return "100%"
 
     chance_none = safe_float(raw_cn, None)
