@@ -401,7 +401,7 @@ def build_weather_stations():
     # ── How to Obtain — richer per-station detail ──
     # Keyed by ENTM FormID for items that need more detail than EDID-prefix classification.
     WEATHER_HOW_TO_OBTAIN = {
-        "0073ABA6": "Season 15 Scoreboard / Gold Bullion (Samuel, Tier 10)",  # Atlantic City Fog
+        "0073ABA6": "Gold Bullion - Samuel - Cautious - 1250 Bullion",  # Atlantic City Fog
     }
 
     items = []
@@ -460,7 +460,7 @@ def build_weather_stations():
         elif season_num:
             _how = f"Season {season_num} Scoreboard"
         else:
-            _how = "Atom Shop"
+            _how = f"Atom Shop - {display} - 1200 atoms"
 
         # ── Build Information — PowerRequired read from ACTI PRPS ──
         # The ACTI EDID for weather stations follows the pattern:
@@ -574,7 +574,7 @@ def build_repair_bots():
             "displayName":  display,
             "description":  desc,
             "obtainSource": source,
-            "howToObtain":  f"Season {season_num} Scoreboard" if season_num else "Atom Shop",
+            "howToObtain":  f"Season {season_num} Scoreboard" if season_num else f"Atom Shop - {display} - 1200 atoms",
             "dropRate":     "—",
             "seasonNumber": season_num,
             "tradeable":    False,  # no plan book exists — account-bound CAMP skin
@@ -877,7 +877,7 @@ def build_pets():
             source = "Scoreboard"
             how    = f"Season {season_num} Scoreboard"
         else:
-            how    = source
+            how    = f"Atom Shop - {entm_full or furn_full or furn_edid} - 1200 atoms"
 
         items.append({
             "formId":        furn_id,
@@ -936,7 +936,7 @@ def build_pet_furniture():
             source = "Scoreboard"
             how    = f"Season {season_num} Scoreboard"
         else:
-            how    = source
+            how    = f"Atom Shop - {display} - 1200 atoms"
 
         items.append({
             "formId":        entm_id,
@@ -1080,7 +1080,7 @@ def build_cryos():
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
-        how        = f"Season {season_num} Scoreboard" if season_num else ("Gold Bullion vendor" if gv else "Atom Shop")
+        how        = f"Season {season_num} Scoreboard" if season_num else ("Gold Bullion - Samuel - Cautious - 1250 Bullion" if gv else f"Atom Shop - {display} - 1200 atoms")
         tradeable  = not bool(season_num)
 
         # Tradeable via plan: match ENTM EDID suffix against CondProxy tokens
@@ -1168,7 +1168,7 @@ def build_fridges():
             source = "Scoreboard"
             how    = f"Season {season_num} Scoreboard"
         else:
-            how = source
+            how = f"Atom Shop - {display} - 1200 atoms"
 
         items.append({
             "formId":        entm_id,
