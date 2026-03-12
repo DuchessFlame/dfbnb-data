@@ -76,6 +76,9 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
     # Treasure Hunter — title drops from Crafted Mole Miner Pails only
     "playertitles_suffix_surveyor":
         "Open Crafted Mole Miner Pails during the Treasure Hunter seasonal event",
+    # Spooky Scorched — title drops from Crafted Spooky Treat Bags only
+    "playertitles_prefix_spooky":
+        "Open Crafted Spooky Treat Bags during the Spooky Scorched seasonal event",
     # Mutated — shared reward list across all mutated public events
     "playertitles_prefix_mutated":
         "Complete any Mutated Public Event",
@@ -101,8 +104,9 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
     "sfs09_playertitles_suffix_tamer": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
     "playertitles_suffix_researcher": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
     "sfs09_playertitles_suffix_manager": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
-    # Spooky Scorched — sub-list ChanceNone=80 on parent entry (20% drop)
-    "playertitles_prefix_spooky": "20%",
+    # Spooky Scorched — same sub-list bug as Holiday/Treasure Hunter, same tier structure
+    "playertitles_prefix_spooky":
+        "Loot Tier 1 - 0%\nLoot Tier 2 - 0%\nLoot Tier 3 - 0%\nCrafted Tier 1 - 5%\nCrafted Tier 2 - 10%\nCrafted Tier 3 - 25%",
 }
 
 
@@ -849,8 +853,7 @@ def lvli_drop_rate_from_cobj_lvli(
             if fam != best_family:
                 continue
 
-            lab_lo = lab.lower()
-            if lab_lo.startswith("tier ") or lab_lo.startswith("mutated tier "):
+            if lab.lower().startswith("tier "):
                 family_tiers[order] = (lab, fid)
             else:
                 family_named[lab] = fid
