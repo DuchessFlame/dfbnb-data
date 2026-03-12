@@ -51,17 +51,19 @@ OUT_DIR = Path(args.out_dir)
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def _newest_glob(pattern):
+def _newest_glob(pattern, exclude_suffix=None):
     matches = sorted(glob.glob(pattern))
+    if exclude_suffix:
+        matches = [m for m in matches if not m.lower().endswith(exclude_suffix.lower())]
     return matches[-1] if matches else None
 
 
-def _resolve_tsv(env_var, glob_pattern, fallback_name):
+def _resolve_tsv(env_var, glob_pattern, fallback_name, exclude_suffix=None):
     """Resolve a TSV path via env var → glob → bare fallback."""
     v = os.environ.get(env_var, "").strip()
     if v and Path(v).exists():
         return Path(v)
-    found = _newest_glob(str(TSV_DIR / glob_pattern))
+    found = _newest_glob(str(TSV_DIR / glob_pattern), exclude_suffix=exclude_suffix)
     if found:
         return Path(found)
     fallback = TSV_DIR / fallback_name
@@ -77,7 +79,8 @@ COBJ_PATH = _resolve_tsv("COBJ_TSV",         "COBJ_Export_*.tsv",         "COBJ_
 ENTM_PATH = _resolve_tsv("ENTM_TSV",         "ENTM_Export_*.tsv",         "ENTM_Export.tsv")
 FURN_PATH = _resolve_tsv("FURN_TSV",         "FURN_Export_*_FURN.tsv",    "FURN_Export_FURN.tsv")
 FLST_PATH = _resolve_tsv("FLST_ENTRIES_TSV", "FLST_Export_*_Entries.tsv", "FLST_Export_Entries.tsv")
-BOOK_PATH = _resolve_tsv("BOOK_TSV",         "BOOK_Export_*.tsv",         "BOOK_Export.tsv")
+BOOK_PATH = _resolve_tsv("BOOK_TSV",         "BOOK_Export_*.tsv",         "BOOK_Export.tsv",
+                         exclude_suffix="_locations.tsv")
 ACTI_PATH = _resolve_tsv("ACTI_TSV",         "ACTI_Export_*_ACTI.tsv",    "ACTI_Export_ACTI.tsv")
 
 # ---------------------------------------------------------------------------
