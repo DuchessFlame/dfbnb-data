@@ -17,6 +17,7 @@ Inputs (from data/tsv/ in the repo):
   ENTM_Export.tsv
   FURN_Export_FURN.tsv
   FLST_Export_Entries.tsv
+  ACTI_Export_ACTI.tsv
 
 Usage:
   python build_allies_pets_weather_json.py [--tsv-dir data/tsv] [--out-dir dist]
@@ -77,6 +78,7 @@ ENTM_PATH = _resolve_tsv("ENTM_TSV",         "ENTM_Export_*.tsv",         "ENTM_
 FURN_PATH = _resolve_tsv("FURN_TSV",         "FURN_Export_*_FURN.tsv",    "FURN_Export_FURN.tsv")
 FLST_PATH = _resolve_tsv("FLST_ENTRIES_TSV", "FLST_Export_*_Entries.tsv", "FLST_Export_Entries.tsv")
 BOOK_PATH = _resolve_tsv("BOOK_TSV",         "BOOK_Export_*.tsv",         "BOOK_Export.tsv")
+ACTI_PATH = _resolve_tsv("ACTI_TSV",         "ACTI_Export_*_ACTI.tsv",    "ACTI_Export_ACTI.tsv")
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -160,12 +162,14 @@ print(f"  ENTM: {ENTM_PATH}")
 print(f"  FURN: {FURN_PATH}")
 print(f"  FLST: {FLST_PATH}")
 print(f"  BOOK: {BOOK_PATH}")
+print(f"  ACTI: {ACTI_PATH}")
 
 cobj_rows      = load_tsv(COBJ_PATH)
 entm_rows      = load_tsv(ENTM_PATH)
 furn_rows      = load_tsv(FURN_PATH)
 flst_entries   = load_tsv(FLST_PATH)
 book_rows      = load_tsv(BOOK_PATH)
+acti_rows      = load_tsv(ACTI_PATH)
 
 # ---------------------------------------------------------------------------
 # Build lookup maps
@@ -185,6 +189,9 @@ for r in cobj_rows:
 
 # FURN by FormID
 furn_by_id = {r["FURN_FormID"]: r for r in furn_rows}
+
+# ACTI by EDID — used to pull PRPS properties (e.g. PowerRequired) for weather stations
+acti_by_edid = {r["ACTI_EDID"]: r for r in acti_rows}
 
 # FLST entries by FLST FormID
 flst_by_list = {}
@@ -299,6 +306,27 @@ def xalg_source_from_furn(form_id):
     """Get obtain source from FURN XALG flags."""
     furn = furn_by_id.get(form_id, {})
     return xalg_to_source(furn.get("XALG_Flags", ""))
+
+
+def acti_prps_value(acti_edid: str, av_name: str) -> str:
+    """
+    Return the float value (as a string) for a named Actor Value from an ACTI
+    record's PRPS properties, or '' if not found.
+
+    The ACTI TSV stores properties as dynamic column groups:
+      Prop_1_AV | Prop_1_Val | Prop_1_Curve
+      Prop_2_AV | Prop_2_Val | Prop_2_Curve  …
+
+    We scan all Prop_N_AV columns for a case-insensitive match on av_name.
+    """
+    row = acti_by_edid.get(acti_edid, {})
+    if not row:
+        return ""
+    prop_count = int(row.get("PropCount", 0) or 0)
+    for i in range(1, prop_count + 1):
+        if row.get(f"Prop_{i}_AV", "").strip().lower() == av_name.lower():
+            return row.get(f"Prop_{i}_Val", "").strip()
+    return ""
 
 
 # ---------------------------------------------------------------------------
@@ -431,6 +459,33 @@ def build_weather_stations():
         else:
             _how = "Atom Shop"
 
+        # ── Build Information — PowerRequired read from ACTI PRPS ──
+        # The ACTI EDID for weather stations follows the pattern:
+        #   ATX_Weather_WeatherStation_<Suffix>  (or SCORE_S##_ prefix)
+        # We derive it from the ENTM EDID by swapping the ENTM prefix.
+        _acti_suffix    = re.sub(
+            r"^(?:SCORE_S\d+_)?(?:ATX_)?ENTM_CAMP_Utility_WeatherStation_",
+            "", edid, flags=re.IGNORECASE
+        )
+        _season_prefix_m = re.match(r"^(SCORE_S\d+_)", edid, re.IGNORECASE)
+        _season_prefix   = _season_prefix_m.group(1) if _season_prefix_m else ""
+        _acti_edid       = f"{_season_prefix}ATX_Weather_WeatherStation_{_acti_suffix}"
+
+        _power_raw = acti_prps_value(_acti_edid, "PowerRequired")
+        try:
+            _power_val = str(int(float(_power_raw))) if _power_raw else "—"
+        except (ValueError, TypeError):
+            _power_val = _power_raw or "—"
+
+        # Build limit and flamingo units are workshop-system globals with no
+        # per-record game field — these are the only values that stay hardcoded.
+        _build_info = (
+            f"Build Limit per Camp: 1\n"
+            f"Build Limit per Workshop: 0\n"
+            f"Power Required: {_power_val}\n"
+            f"Flamingo Units: 1"
+        )
+
         items.append({
             "formId":               entm_id,
             "entmFormId":           entm_id,
@@ -446,7 +501,7 @@ def build_weather_stations():
             "planName":             _ws_plan_name,
             "imageUrl":             image_url,
             "imageCarousel":        carousel,
-            "buildInfo":            "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: 2\nFlamingo Units: 1",
+            "buildInfo":            _build_info,
             "craftingRequirements": "Circuitry ×2\nRubber ×2\nSteel ×4\nScrew ×2",
             "fishingCondition":     _fishing,
             "cutContent":           False,
