@@ -1005,6 +1005,8 @@ def build_pet_apparel():
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
+        if season_num:
+            source = "Scoreboard"
         # Apparel is craftable — non-tradeable if scoreboard, tradeable if ATX
         tradeable  = (season_num is None)
 
