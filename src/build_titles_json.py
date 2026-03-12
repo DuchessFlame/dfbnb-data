@@ -76,6 +76,9 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
     # Treasure Hunter — title drops from Crafted Mole Miner Pails only
     "playertitles_suffix_surveyor":
         "Open Crafted Mole Miner Pails during the Treasure Hunter seasonal event",
+    # Mutated — shared reward list across all mutated public events
+    "playertitles_prefix_mutated":
+        "Complete any Mutated Public Event",
 }
 
 # ---- Manual dropRate overrides (keyed by PLYT/CMPT EDID, lower-cased) ----
