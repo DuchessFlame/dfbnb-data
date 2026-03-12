@@ -61,6 +61,7 @@ RE_COBJ_REF = re.compile(r"(?:\[COBJ:|COBJ:)([0-9A-F]{8})(?:\]?)", re.IGNORECASE
 # These titles have multi-path unlock conditions that the auto-resolver
 # cannot distinguish (Primary vs Shutdown ARIC-4 paths in Project Paradise).
 HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
+    # Project Paradise — Primary vs Shutdown ARIC-4 paths
     "playertitles_suffix_zookeeper":
         "Complete the Event: Project Paradise\nCondition: Keep all 3 animals alive",
     "sfs09_playertitles_suffix_tamer":
@@ -69,6 +70,27 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
         "Complete the Event: Project Paradise\nCondition: Shut down ARIC-4 (any number of animals alive)",
     "sfs09_playertitles_suffix_manager":
         "Complete the Event: Project Paradise\nCondition: Shut down ARIC-4 (any number of animals alive)",
+    # Holiday Scorched — title drops from Crafted Holiday Gifts only
+    "playertitles_prefix_festive":
+        "Open Crafted Holiday Gifts during the Holiday Scorched seasonal event",
+    # Treasure Hunter — title drops from Crafted Mole Miner Pails only
+    "playertitles_suffix_surveyor":
+        "Open Crafted Mole Miner Pails during the Treasure Hunter seasonal event",
+}
+
+# ---- Manual dropRate overrides (keyed by PLYT/CMPT EDID, lower-cased) ----
+# Use when the auto-resolver computes incorrect rates (e.g. reading LVOV
+# instead of LVOC GLOB, or using sub-list entry instead of parent entry).
+DROP_RATE_OVERRIDES: Dict[str, str] = {
+    # Holiday Scorched — ChanceNone on parent tier entries, not sub-list BOOK entry
+    "playertitles_prefix_festive":
+        "Loot Tier 1 - 0%\nLoot Tier 2 - 0%\nLoot Tier 3 - 0%\nCrafted Tier 1 - 5%\nCrafted Tier 2 - 10%\nCrafted Tier 3 - 25%",
+    # Treasure Hunter — same sub-list bug, same rates as Holiday Scorched
+    "playertitles_suffix_surveyor":
+        "Loot Tier 1 - 0%\nLoot Tier 2 - 0%\nLoot Tier 3 - 0%\nCrafted Tier 1 - 5%\nCrafted Tier 2 - 10%\nCrafted Tier 3 - 25%",
+    # Radiation Rumble — RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
+    "playertitles_suffix_rumbler": "10%",
+    "e05_playertitles_suffix_scavenger": "10%",
 }
 
 
@@ -2305,10 +2327,12 @@ def main() -> int:
             lvli_parent_map=lvli_parent_map,
         )
 
-        # Apply manual howToObtain overrides (e.g. Project Paradise multi-path titles)
+        # Apply manual overrides (howToObtain + dropRate)
         _edid_lower = edid.lower()
         if _edid_lower in HOW_TO_OBTAIN_OVERRIDES:
             how = HOW_TO_OBTAIN_OVERRIDES[_edid_lower]
+        if _edid_lower in DROP_RATE_OVERRIDES:
+            dr = DROP_RATE_OVERRIDES[_edid_lower]
 
         tradeable = False  # camp default
         k_edid = _norm_key(edid)
@@ -2389,10 +2413,12 @@ def main() -> int:
             lvli_parent_map=lvli_parent_map,
         )
 
-        # Apply manual howToObtain overrides (e.g. Project Paradise multi-path titles)
+        # Apply manual overrides (howToObtain + dropRate)
         _edid_lower = edid.lower()
         if _edid_lower in HOW_TO_OBTAIN_OVERRIDES:
             how = HOW_TO_OBTAIN_OVERRIDES[_edid_lower]
+        if _edid_lower in DROP_RATE_OVERRIDES:
+            dr = DROP_RATE_OVERRIDES[_edid_lower]
 
         tradeable = False  # player default
         k_edid = _norm_key(edid)
