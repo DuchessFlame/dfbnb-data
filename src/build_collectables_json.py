@@ -298,17 +298,17 @@ def parse_ext_cell_location(edid):
     return e
 
 
-def load_locations_tsv(path, formid_col='BOOK_FormID'):
+def load_book_locations(path):
     """
-    Generic loader for *_Locations.tsv files (BOOK or KEYM).
-    Returns { FormID -> {loc_name, loc_source, quest_name} }
+    Load BOOK_*_Locations.tsv and return a dict:
+      { FormID -> {loc_name, loc_source, quest_name} }
     """
     result = {}
     try:
         with open(path, 'r', encoding='utf-8', errors='replace') as f:
             reader = csv.DictReader(f, delimiter='\t')
             for row in reader:
-                fid = row.get(formid_col, '').strip()
+                fid = row.get('BOOK_FormID', '').strip()
                 if not fid:
                     continue
                 result[fid] = {
@@ -317,13 +317,8 @@ def load_locations_tsv(path, formid_col='BOOK_FormID'):
                     'quest_name': row.get('QuestName',      '').strip(),
                 }
     except Exception as e:
-        print(f"  WARNING: Could not load locations file {path}: {e}", file=sys.stderr)
+        print(f"  WARNING: Could not load locations file: {e}", file=sys.stderr)
     return result
-
-
-def load_book_locations(path):
-    """Load BOOK_*_Locations.tsv. Wrapper around load_locations_tsv."""
-    return load_locations_tsv(path, formid_col='BOOK_FormID')
 
 
 def resolve_note_location(formid, edid, locations):
@@ -519,10 +514,78 @@ def gmrw_parentquest_map(gmrw_rows):
     return event_map
 
 
+# ---------------------------------------------------------------------------
+# Mystery Bobblehead Box — known obtain sources.
+# Keys are EDID substrings found in the box's referenced-by LVLI records.
+# Values are the human-readable labels shown in the "How to Obtain" box.
+# The Drifter entry (P62_LLS_Drifter) is cut content and is intentionally
+# excluded from this map.
+# ---------------------------------------------------------------------------
+_MBB_FORMID = '0072D4FC'
+
+_MBB_REF_LABELS = {
+    'MTRz05_LL_02_ProspectorMine':       'U Mine It Maps – Prospector',
+    'MTRz05_LL_03_ExcavatorMine':        'U Mine It Maps – Excavator',
+    'XPD_LLV_ExpeditionVendor_Giuseppe': 'Purchased from Giuseppe the Stamp Vendor',
+    'SCORE_COEN_Utility_BobbleheadBox':  'Purchased from the Scoreboard with Tickets',
+    'RD01_LLS_Raids_Rewards':            'Gleaming Depths Raid Rewards',
+    'RA_LL_Rewards_PublicEvents':        'Public Event Rewards',
+}
+
+# Ordered display list used when no ref data is available in the TSV.
+_MBB_FALLBACK_SOURCES = [
+    'U Mine It Maps – Prospector',
+    'U Mine It Maps – Excavator',
+    'Purchased from Giuseppe the Stamp Vendor',
+    'Gleaming Depths Raid Rewards',
+    'Public Event Rewards',
+    'Purchased from the Scoreboard with Tickets',
+]
+
+
+def _parse_mbb_sources_from_refs(row):
+    """
+    Try to read Mystery Bobblehead Box obtain sources from the ALCH TSV
+    Refs_Flat / Ref_N columns.  Returns a list of label strings, or []
+    if the columns are empty (common when the ALCH script does not export
+    referenced-by data for this item).
+    """
+    refs_flat = row.get('Refs_Flat', '').strip().strip('"')
+    sources = []
+    seen = set()
+
+    if refs_flat:
+        edids = [r.strip() for r in refs_flat.split('|')]
+    else:
+        edids = []
+        for i in range(1, 31):
+            val = row.get(f'Ref_{i}', '').strip().strip('"')
+            if val:
+                # Format may be FormID:EDID:SIG or just EDID
+                parts = val.split(':')
+                edids.append(parts[1] if len(parts) >= 2 else parts[0])
+
+    for edid in edids:
+        for pattern, label in _MBB_REF_LABELS.items():
+            if pattern.lower() in edid.lower() and label not in seen:
+                seen.add(label)
+                sources.append(label)
+                break
+
+    return sources
+
+
 def build_bobbleheads(alch_path, glob_rows):
     """
     Build bobbleheads list from ALCH TSV + GLOB rows.
     Streams ALCH file to avoid OOM on large files.
+
+    Each item carries:
+      formId, edid, name, group, tradeable, mysteryBoxSources, isCut
+
+    tradeable       -- True unless the NonPlayerTradable keyword is present.
+    mysteryBoxSources -- ordered list of how to obtain the Mystery Bobblehead
+                        Box (parsed from the box's ref columns, or fallback).
 
     Returns (groups, cut_items).
     groups: [{name, items: [...]}, ...]
@@ -544,6 +607,7 @@ def build_bobbleheads(alch_path, glob_rows):
     print("  Streaming ALCH file...", file=sys.stderr)
     bobbleheads_live = []
     bobbleheads_cut = []
+    mbb_sources = []  # populated if we find the Mystery Box row
 
     try:
         with open(alch_path, 'r', encoding='utf-8', errors='replace') as f:
@@ -554,25 +618,36 @@ def build_bobbleheads(alch_path, glob_rows):
                 if count % 1000 == 0:
                     print(f"    Read {count} ALCH rows...", file=sys.stderr)
 
-                edid = row.get('ALCH_EDID', '').strip() or row.get('EDID', '').strip()
+                edid   = row.get('ALCH_EDID', '').strip().strip('"') or row.get('EDID', '').strip().strip('"')
+                formid = row.get('ALCH_FormID', '').strip().strip('"') or row.get('FormID', '').strip().strip('"')
+
+                # Capture Mystery Bobblehead Box row for obtain-source parsing
+                if formid.upper() == _MBB_FORMID.upper() or 'BobbleheadBox' in edid:
+                    parsed = _parse_mbb_sources_from_refs(row)
+                    mbb_sources = parsed if parsed else _MBB_FALLBACK_SOURCES
+                    continue  # Box itself is not a collectible row
 
                 if 'bobble' not in edid.lower():
                     continue
 
-                formid = row.get('ALCH_FormID', '').strip() or row.get('FormID', '').strip()
-                full = row.get('FULL', '').strip()
+                full = row.get('FULL', '').strip().strip('"')
 
                 is_cut = starts_cut(edid)
+
+                # Tradeable: absence of NonPlayerTradable keyword
+                kw_flat = row.get('Keywords_Flat', '').strip()
+                tradeable = 'NonPlayerTradable' not in kw_flat
 
                 # Determine group
                 group = "Glowing Bobbleheads" if "Glowing" in edid else "Bobbleheads"
 
                 item = {
-                    "formId": formid,
-                    "edid": edid,
-                    "name": full,
-                    "group": group,
-                    "isCut": is_cut
+                    "formId":   formid,
+                    "edid":     edid,
+                    "name":     full,
+                    "group":    group,
+                    "tradeable": tradeable,
+                    "isCut":    is_cut,
                 }
 
                 if is_cut:
@@ -583,6 +658,14 @@ def build_bobbleheads(alch_path, glob_rows):
     except Exception as e:
         print(f"  ERROR reading ALCH: {e}", file=sys.stderr)
         return [], []
+
+    # If we never found the MBB row (e.g. filtered export), use fallback
+    if not mbb_sources:
+        mbb_sources = _MBB_FALLBACK_SOURCES
+
+    # Attach MBB sources to every live item
+    for item in bobbleheads_live:
+        item["mysteryBoxSources"] = mbb_sources
 
     # Group live bobbleheads
     groups_dict = {}
@@ -605,6 +688,7 @@ def build_bobbleheads(alch_path, glob_rows):
                 "items": groups_dict[group_name]
             })
 
+    print(f"  MBB sources: {mbb_sources}", file=sys.stderr)
     return groups, bobbleheads_cut
 
 
@@ -1057,142 +1141,70 @@ def build_holotapes(book_path, misc_rows, locations=None):
     return live, cut
 
 
-def classify_keym_model(model):
+def build_keys(misc_rows):
     """
-    Classify a KEYM record by its 3D model file path.
+    Build keys list from MISC TSV.
+    Filters for rows where EDID or FULL contains 'Key' or 'Keycard'.
 
-    Returns one of: 'key', 'keycard', 'holotape'
+    Excludes false positives (miscmod, whiskey, turkey, monkey, keyboard, etc.).
 
-    Rules (evaluated in order):
-      holotape  — model path contains 'holotape'
-      keycard   — model path contains 'generickeycard', 'governmentid',
-                  'hornwrightid', 'congressionalid', '/idcard', 'nametag',
-                  or 'lowpoly_government_id'
-      key       — everything else (key01/key02/key_chain/nuclearkey/
-                  note_lowpoly/noteripped/unknown models all fall here)
+    Note: Most keys in FO76 are KEYM records.
+    A future KEYM export will greatly expand this list.
 
-    Note-model KEYM items (Note_LowPoly, NoteRipped) are kept as 'key'
-    because they are KEYM records — not BOOK records — so they do not
-    appear on the Notes page and belong here instead.
+    Returns (live_items, cut_items).
     """
-    m = (model or '').lower().replace('\\', '/')
+    print("  Building keys from MISC...", file=sys.stderr)
+    live = []
+    cut = []
 
-    if 'holotape' in m:
-        return 'holotape'
+    # Words that contain 'key' but aren't actual keys
+    FALSE_POSITIVES = (
+        'MISCMOD', 'WHISKEY', 'TURKEY', 'DONKEY', 'MONKEY',
+        'KEYBOARD', 'JANGLES', 'HOCKEY',
+    )
 
-    if ('generickeycard' in m
-            or 'governmentid' in m
-            or 'hornwrightid' in m
-            or 'congressionalid' in m
-            or '/idcard' in m
-            or 'nametag' in m
-            or 'lowpoly_government_id' in m):
-        return 'keycard'
-
-    # Catches key01/key02/key03/key_chain/nuclearkey/flat keys/
-    # note_lowpoly/noteripped/severed hand/empty model — all → key
-    return 'key'
-
-
-def build_keys(keym_rows, keym_locations=None):
-    """
-    Build keys list from KEYM TSV rows exported by ExportKEYMToTSV.pas.
-
-    Returns (groups, cut_items, holotape_items) where:
-
-      groups: [
-          {"name": "Keys",     "items": [...]},
-          {"name": "Keycards", "items": [...]}
-      ]
-
-      cut_items:      list of cut/deleted items (all model types except holotape)
-      holotape_items: KEYM records whose model is a holotape prop — caller
-                      should merge these into the holotapes JSON
-
-    Each item dict carries:
-      formId, edid, name, location, contents, canCollect,
-      questOnly, questName, isCut
-
-    questOnly is True when the item has no physical world placement
-    (loc_source is empty) but is referenced by a quest (quest_name != '').
-    These items are grouped separately in the UI as "Quest Items".
-    """
-    keys_live     = []
-    keycards_live = []
-    cut_items     = []
-    holotape_items = []
-
-    for row in keym_rows:
+    for row in misc_rows:
+        edid = row.get('EDID', '').strip()
+        full = row.get('FULL', '').strip()
         formid = row.get('FormID', '').strip()
-        edid   = row.get('EDID',   '').strip()
-        full   = row.get('FULL',   '').strip()
-        model  = row.get('Model',  '').strip()
-        desc   = row.get('DESC',   '').strip()
 
-        # Skip nameless records
+        edid_upper = edid.upper()
+        full_upper = (full or '').upper()
+
+        # Must contain 'Key' or 'Keycard' in EDID or name
+        has_key = ('KEY' in edid_upper or 'KEY' in full_upper or
+                   'KEYCARD' in edid_upper or 'KEYCARD' in full_upper)
+        if not has_key:
+            continue
+
+        # Exclude false positives
+        combined = edid_upper + ' ' + full_upper
+        if any(fp in combined for fp in FALSE_POSITIVES):
+            continue
+
         if not full:
             continue
 
-        is_cut     = starts_cut(edid)
-        item_type  = classify_keym_model(model)
-
-        # Location resolution — same pipeline as notes/magazines
-        location = resolve_note_location(formid, edid, keym_locations)
-
-        # questOnly: no physical location (loc_source empty) but has quest reference
-        loc_data   = (keym_locations or {}).get(formid, {})
-        loc_source = loc_data.get('loc_source', '')
-        quest_name = loc_data.get('quest_name', '')
-        quest_only = (loc_source == '') and bool(quest_name)
-
-        contents = strip_html_to_text(desc) if desc else ''
+        is_cut = starts_cut(edid)
 
         item = {
-            "formId":     formid,
-            "edid":       edid,
-            "name":       full,
-            "location":   location,
-            "contents":   contents,
+            "formId": formid,
+            "edid": edid,
+            "name": full,
+            "location": derive_location_from_edid(edid),
+            "contents": "",
             "canCollect": True,
-            "questOnly":  quest_only,
-            "questName":  quest_name if quest_only else '',
-            "isCut":      is_cut,
+            "isCut": is_cut
         }
 
-        # Holotape-model records go to the holotapes JSON, not keys
-        if item_type == 'holotape':
-            # Strip keys-specific fields before handing off
-            ht_item = {k: v for k, v in item.items()
-                       if k not in ('questOnly', 'questName')}
-            holotape_items.append(ht_item)
-            continue
-
         if is_cut:
-            cut_items.append(item)
-            continue
-
-        if item_type == 'keycard':
-            keycards_live.append(item)
+            cut.append(item)
         else:
-            keys_live.append(item)
+            live.append(item)
 
-    keys_live.sort(key=lambda x: x['name'])
-    keycards_live.sort(key=lambda x: x['name'])
-    holotape_items.sort(key=lambda x: x['name'])
-
-    groups = []
-    if keys_live:
-        groups.append({"name": "Keys",     "items": keys_live})
-    if keycards_live:
-        groups.append({"name": "Keycards", "items": keycards_live})
-
-    keys_total     = len(keys_live)
-    keycards_total = len(keycards_live)
-    print(f"  Found {keys_total} live keys, {keycards_total} live keycards, "
-          f"{len(holotape_items)} holotape-model items, {len(cut_items)} cut",
-          file=sys.stderr)
-
-    return groups, cut_items, holotape_items
+    live.sort(key=lambda x: x['name'])
+    print(f"  Found {len(live)} live keys, {len(cut)} cut", file=sys.stderr)
+    return live, cut
 
 
 def main():
@@ -1312,41 +1324,9 @@ def main():
     print("Building holotapes...")
     holotapes, holotapes_cut = build_holotapes(book_path, misc_rows, locations=book_locations)
 
-    # Build keys (from KEYM export)
+    # Build keys (from MISC)
     print("Building keys...")
-    keym_files     = list(tsv_root.glob('KEYM_Export*.tsv'))
-    keym_loc_files = list(tsv_root.glob('KEYM_Export*_Locations.tsv'))
-
-    if not keym_files:
-        print("  WARNING: No KEYM_Export*.tsv found -- keys checklist will be empty.", file=sys.stderr)
-        print("  Run ExportKEYMToTSV.pas in xEdit to generate KEYM data.", file=sys.stderr)
-        key_groups, keys_cut, keym_holotapes = [], [], []
-    else:
-        keym_files_main = [p for p in keym_files if not p.name.endswith('_Locations.tsv')]
-        keym_path = sorted(keym_files_main, key=lambda p: p.name)[-1]
-        print(f"  Using KEYM: {keym_path.name}", file=sys.stderr)
-        keym_rows = read_tsv_rows(keym_path)
-        print(f"  Loaded {len(keym_rows)} KEYM rows", file=sys.stderr)
-
-        keym_locations = {}
-        if keym_loc_files:
-            keym_loc_path = sorted(keym_loc_files, key=lambda p: p.name)[-1]
-            print(f"  Using KEYM Locations: {keym_loc_path.name}", file=sys.stderr)
-            keym_locations = load_locations_tsv(keym_loc_path, formid_col='KEYM_FormID')
-            print(f"  Loaded {len(keym_locations)} KEYM location entries", file=sys.stderr)
-        else:
-            print("  NOTE: No KEYM_Export*_Locations.tsv found -- location data will use EDID fallback only",
-                  file=sys.stderr)
-
-        key_groups, keys_cut, keym_holotapes = build_keys(keym_rows, keym_locations)
-
-    # Merge holotape-model KEYM records into holotapes list
-    if keym_holotapes:
-        keym_ht_live  = [it for it in keym_holotapes if not it['isCut']]
-        keym_ht_cut   = [it for it in keym_holotapes if it['isCut']]
-        holotapes     = sorted(holotapes + keym_ht_live,    key=lambda x: x['name'])
-        holotapes_cut = sorted(holotapes_cut + keym_ht_cut, key=lambda x: x['name'])
-        print(f"  Merged {len(keym_ht_live)} holotape-model KEYM items into holotapes list", file=sys.stderr)
+    keys, keys_cut = build_keys(misc_rows)
 
     # Generate timestamp
     generated_at = datetime.now(timezone.utc).isoformat()
@@ -1421,13 +1401,11 @@ def main():
         json.dump(holotapes_data, f, indent=2, ensure_ascii=False)
     print(f"Wrote {holotapes_file}")
 
-    # Write keys JSON  (groups structure: Keys / Keycards)
-    key_total         = sum(len(g['items']) for g in key_groups)
-    key_groups_map    = {g['name']: len(g['items']) for g in key_groups}
+    # Write keys JSON
     keys_data = {
         "generatedAt": generated_at,
         "type": "keys",
-        "groups": key_groups,
+        "items": keys,
         "cutContent": keys_cut
     }
     keys_file = outdir / "collectables_keys.json"
@@ -1468,8 +1446,7 @@ def main():
                 "cut": len(holotapes_cut)
             },
             "keys": {
-                "total": key_total,
-                "groups": key_groups_map,
+                "total": len(keys),
                 "cut": len(keys_cut)
             }
         }
@@ -1487,7 +1464,7 @@ def main():
     print(f"Holotape Games: {len(holotape_games)} live, {len(holotape_games_cut)} cut")
     print(f"Magazines: {len(magazines)} live, {len(magazines_cut)} cut")
     print(f"Holotapes: {len(holotapes)} live, {len(holotapes_cut)} cut")
-    print(f"Keys: {key_total} live ({key_groups_map}), {len(keys_cut)} cut")
+    print(f"Keys: {len(keys)} live, {len(keys_cut)} cut")
 
 
 if __name__ == '__main__':
