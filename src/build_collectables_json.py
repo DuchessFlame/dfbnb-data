@@ -298,17 +298,17 @@ def parse_ext_cell_location(edid):
     return e
 
 
-def load_book_locations(path):
+def load_locations_tsv(path, formid_col='BOOK_FormID'):
     """
-    Load BOOK_*_Locations.tsv and return a dict:
-      { FormID -> {loc_name, loc_source, quest_name} }
+    Generic loader for *_Locations.tsv files (BOOK or KEYM).
+    Returns { FormID -> {loc_name, loc_source, quest_name} }
     """
     result = {}
     try:
         with open(path, 'r', encoding='utf-8', errors='replace') as f:
             reader = csv.DictReader(f, delimiter='\t')
             for row in reader:
-                fid = row.get('BOOK_FormID', '').strip()
+                fid = row.get(formid_col, '').strip()
                 if not fid:
                     continue
                 result[fid] = {
@@ -317,8 +317,13 @@ def load_book_locations(path):
                     'quest_name': row.get('QuestName',      '').strip(),
                 }
     except Exception as e:
-        print(f"  WARNING: Could not load locations file: {e}", file=sys.stderr)
+        print(f"  WARNING: Could not load locations file {path}: {e}", file=sys.stderr)
     return result
+
+
+def load_book_locations(path):
+    """Load BOOK_*_Locations.tsv. Wrapper around load_locations_tsv."""
+    return load_locations_tsv(path, formid_col='BOOK_FormID')
 
 
 def resolve_note_location(formid, edid, locations):
@@ -1052,70 +1057,142 @@ def build_holotapes(book_path, misc_rows, locations=None):
     return live, cut
 
 
-def build_keys(misc_rows):
+def classify_keym_model(model):
     """
-    Build keys list from MISC TSV.
-    Filters for rows where EDID or FULL contains 'Key' or 'Keycard'.
+    Classify a KEYM record by its 3D model file path.
 
-    Excludes false positives (miscmod, whiskey, turkey, monkey, keyboard, etc.).
+    Returns one of: 'key', 'keycard', 'holotape'
 
-    Note: Most keys in FO76 are KEYM records.
-    A future KEYM export will greatly expand this list.
+    Rules (evaluated in order):
+      holotape  — model path contains 'holotape'
+      keycard   — model path contains 'generickeycard', 'governmentid',
+                  'hornwrightid', 'congressionalid', '/idcard', 'nametag',
+                  or 'lowpoly_government_id'
+      key       — everything else (key01/key02/key_chain/nuclearkey/
+                  note_lowpoly/noteripped/unknown models all fall here)
 
-    Returns (live_items, cut_items).
+    Note-model KEYM items (Note_LowPoly, NoteRipped) are kept as 'key'
+    because they are KEYM records — not BOOK records — so they do not
+    appear on the Notes page and belong here instead.
     """
-    print("  Building keys from MISC...", file=sys.stderr)
-    live = []
-    cut = []
+    m = (model or '').lower().replace('\\', '/')
 
-    # Words that contain 'key' but aren't actual keys
-    FALSE_POSITIVES = (
-        'MISCMOD', 'WHISKEY', 'TURKEY', 'DONKEY', 'MONKEY',
-        'KEYBOARD', 'JANGLES', 'HOCKEY',
-    )
+    if 'holotape' in m:
+        return 'holotape'
 
-    for row in misc_rows:
-        edid = row.get('EDID', '').strip()
-        full = row.get('FULL', '').strip()
+    if ('generickeycard' in m
+            or 'governmentid' in m
+            or 'hornwrightid' in m
+            or 'congressionalid' in m
+            or '/idcard' in m
+            or 'nametag' in m
+            or 'lowpoly_government_id' in m):
+        return 'keycard'
+
+    # Catches key01/key02/key03/key_chain/nuclearkey/flat keys/
+    # note_lowpoly/noteripped/severed hand/empty model — all → key
+    return 'key'
+
+
+def build_keys(keym_rows, keym_locations=None):
+    """
+    Build keys list from KEYM TSV rows exported by ExportKEYMToTSV.pas.
+
+    Returns (groups, cut_items, holotape_items) where:
+
+      groups: [
+          {"name": "Keys",     "items": [...]},
+          {"name": "Keycards", "items": [...]}
+      ]
+
+      cut_items:      list of cut/deleted items (all model types except holotape)
+      holotape_items: KEYM records whose model is a holotape prop — caller
+                      should merge these into the holotapes JSON
+
+    Each item dict carries:
+      formId, edid, name, location, contents, canCollect,
+      questOnly, questName, isCut
+
+    questOnly is True when the item has no physical world placement
+    (loc_source is empty) but is referenced by a quest (quest_name != '').
+    These items are grouped separately in the UI as "Quest Items".
+    """
+    keys_live     = []
+    keycards_live = []
+    cut_items     = []
+    holotape_items = []
+
+    for row in keym_rows:
         formid = row.get('FormID', '').strip()
+        edid   = row.get('EDID',   '').strip()
+        full   = row.get('FULL',   '').strip()
+        model  = row.get('Model',  '').strip()
+        desc   = row.get('DESC',   '').strip()
 
-        edid_upper = edid.upper()
-        full_upper = (full or '').upper()
-
-        # Must contain 'Key' or 'Keycard' in EDID or name
-        has_key = ('KEY' in edid_upper or 'KEY' in full_upper or
-                   'KEYCARD' in edid_upper or 'KEYCARD' in full_upper)
-        if not has_key:
-            continue
-
-        # Exclude false positives
-        combined = edid_upper + ' ' + full_upper
-        if any(fp in combined for fp in FALSE_POSITIVES):
-            continue
-
+        # Skip nameless records
         if not full:
             continue
 
-        is_cut = starts_cut(edid)
+        is_cut     = starts_cut(edid)
+        item_type  = classify_keym_model(model)
+
+        # Location resolution — same pipeline as notes/magazines
+        location = resolve_note_location(formid, edid, keym_locations)
+
+        # questOnly: no physical location (loc_source empty) but has quest reference
+        loc_data   = (keym_locations or {}).get(formid, {})
+        loc_source = loc_data.get('loc_source', '')
+        quest_name = loc_data.get('quest_name', '')
+        quest_only = (loc_source == '') and bool(quest_name)
+
+        contents = strip_html_to_text(desc) if desc else ''
 
         item = {
-            "formId": formid,
-            "edid": edid,
-            "name": full,
-            "location": derive_location_from_edid(edid),
-            "contents": "",
+            "formId":     formid,
+            "edid":       edid,
+            "name":       full,
+            "location":   location,
+            "contents":   contents,
             "canCollect": True,
-            "isCut": is_cut
+            "questOnly":  quest_only,
+            "questName":  quest_name if quest_only else '',
+            "isCut":      is_cut,
         }
 
-        if is_cut:
-            cut.append(item)
-        else:
-            live.append(item)
+        # Holotape-model records go to the holotapes JSON, not keys
+        if item_type == 'holotape':
+            # Strip keys-specific fields before handing off
+            ht_item = {k: v for k, v in item.items()
+                       if k not in ('questOnly', 'questName')}
+            holotape_items.append(ht_item)
+            continue
 
-    live.sort(key=lambda x: x['name'])
-    print(f"  Found {len(live)} live keys, {len(cut)} cut", file=sys.stderr)
-    return live, cut
+        if is_cut:
+            cut_items.append(item)
+            continue
+
+        if item_type == 'keycard':
+            keycards_live.append(item)
+        else:
+            keys_live.append(item)
+
+    keys_live.sort(key=lambda x: x['name'])
+    keycards_live.sort(key=lambda x: x['name'])
+    holotape_items.sort(key=lambda x: x['name'])
+
+    groups = []
+    if keys_live:
+        groups.append({"name": "Keys",     "items": keys_live})
+    if keycards_live:
+        groups.append({"name": "Keycards", "items": keycards_live})
+
+    keys_total     = len(keys_live)
+    keycards_total = len(keycards_live)
+    print(f"  Found {keys_total} live keys, {keycards_total} live keycards, "
+          f"{len(holotape_items)} holotape-model items, {len(cut_items)} cut",
+          file=sys.stderr)
+
+    return groups, cut_items, holotape_items
 
 
 def main():
@@ -1235,9 +1312,41 @@ def main():
     print("Building holotapes...")
     holotapes, holotapes_cut = build_holotapes(book_path, misc_rows, locations=book_locations)
 
-    # Build keys (from MISC)
+    # Build keys (from KEYM export)
     print("Building keys...")
-    keys, keys_cut = build_keys(misc_rows)
+    keym_files     = list(tsv_root.glob('KEYM_Export*.tsv'))
+    keym_loc_files = list(tsv_root.glob('KEYM_Export*_Locations.tsv'))
+
+    if not keym_files:
+        print("  WARNING: No KEYM_Export*.tsv found -- keys checklist will be empty.", file=sys.stderr)
+        print("  Run ExportKEYMToTSV.pas in xEdit to generate KEYM data.", file=sys.stderr)
+        key_groups, keys_cut, keym_holotapes = [], [], []
+    else:
+        keym_files_main = [p for p in keym_files if not p.name.endswith('_Locations.tsv')]
+        keym_path = sorted(keym_files_main, key=lambda p: p.name)[-1]
+        print(f"  Using KEYM: {keym_path.name}", file=sys.stderr)
+        keym_rows = read_tsv_rows(keym_path)
+        print(f"  Loaded {len(keym_rows)} KEYM rows", file=sys.stderr)
+
+        keym_locations = {}
+        if keym_loc_files:
+            keym_loc_path = sorted(keym_loc_files, key=lambda p: p.name)[-1]
+            print(f"  Using KEYM Locations: {keym_loc_path.name}", file=sys.stderr)
+            keym_locations = load_locations_tsv(keym_loc_path, formid_col='KEYM_FormID')
+            print(f"  Loaded {len(keym_locations)} KEYM location entries", file=sys.stderr)
+        else:
+            print("  NOTE: No KEYM_Export*_Locations.tsv found -- location data will use EDID fallback only",
+                  file=sys.stderr)
+
+        key_groups, keys_cut, keym_holotapes = build_keys(keym_rows, keym_locations)
+
+    # Merge holotape-model KEYM records into holotapes list
+    if keym_holotapes:
+        keym_ht_live  = [it for it in keym_holotapes if not it['isCut']]
+        keym_ht_cut   = [it for it in keym_holotapes if it['isCut']]
+        holotapes     = sorted(holotapes + keym_ht_live,    key=lambda x: x['name'])
+        holotapes_cut = sorted(holotapes_cut + keym_ht_cut, key=lambda x: x['name'])
+        print(f"  Merged {len(keym_ht_live)} holotape-model KEYM items into holotapes list", file=sys.stderr)
 
     # Generate timestamp
     generated_at = datetime.now(timezone.utc).isoformat()
@@ -1312,11 +1421,13 @@ def main():
         json.dump(holotapes_data, f, indent=2, ensure_ascii=False)
     print(f"Wrote {holotapes_file}")
 
-    # Write keys JSON
+    # Write keys JSON  (groups structure: Keys / Keycards)
+    key_total         = sum(len(g['items']) for g in key_groups)
+    key_groups_map    = {g['name']: len(g['items']) for g in key_groups}
     keys_data = {
         "generatedAt": generated_at,
         "type": "keys",
-        "items": keys,
+        "groups": key_groups,
         "cutContent": keys_cut
     }
     keys_file = outdir / "collectables_keys.json"
@@ -1357,7 +1468,8 @@ def main():
                 "cut": len(holotapes_cut)
             },
             "keys": {
-                "total": len(keys),
+                "total": key_total,
+                "groups": key_groups_map,
                 "cut": len(keys_cut)
             }
         }
@@ -1375,7 +1487,7 @@ def main():
     print(f"Holotape Games: {len(holotape_games)} live, {len(holotape_games_cut)} cut")
     print(f"Magazines: {len(magazines)} live, {len(magazines_cut)} cut")
     print(f"Holotapes: {len(holotapes)} live, {len(holotapes_cut)} cut")
-    print(f"Keys: {len(keys)} live, {len(keys_cut)} cut")
+    print(f"Keys: {key_total} live ({key_groups_map}), {len(keys_cut)} cut")
 
 
 if __name__ == '__main__':
