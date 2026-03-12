@@ -91,6 +91,13 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
     # Radiation Rumble — RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
     "playertitles_suffix_rumbler": "10%",
     "e05_playertitles_suffix_scavenger": "10%",
+    # Project Paradise — RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
+    # Sub-list nesting prevents auto-resolver from propagating the GLOB rate
+    # to individual tiers; same 10% applies across all reward tiers.
+    "playertitles_suffix_zookeeper": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
+    "sfs09_playertitles_suffix_tamer": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
+    "playertitles_suffix_researcher": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
+    "sfs09_playertitles_suffix_manager": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
 }
 
 
@@ -844,6 +851,27 @@ def lvli_drop_rate_from_cobj_lvli(
 
         parts: List[str] = []
 
+        # Helper: when a tier FID isn't in resolved_by_lvli, try to find
+        # the sub-list entry in that tier's LVLI entries and compute the
+        # rate from the GLOB/ChanceNone on that entry.  This handles the
+        # case where a BOOK lives in a nested sub-list whose parent-map
+        # chain didn't fully propagate to all tier parents.
+        _sublist_fids = set(by_lvli.keys())
+
+        def _fallback_rate_for_tier(tier_fid: str) -> str:
+            """Try to compute rate from sub-list entry in the tier list."""
+            for er in lvli_entry_rows:
+                parent = (er.get("LVLI_FormID") or er.get("FormID") or "").strip().upper()
+                if parent != tier_fid:
+                    continue
+                ref = (er.get("LVLO_Reference") or "").upper()
+                for sl_fid in _sublist_fids:
+                    if sl_fid in ref:
+                        dr = _compute_rate_for_entry_row(er, tier_fid)
+                        if dr:
+                            return dr
+            return "0%"
+
         # Bad/Good/Best format
         if family_named:
             for lab in ("Bad", "Good", "Best"):
@@ -851,7 +879,7 @@ def lvli_drop_rate_from_cobj_lvli(
                 if not fid:
                     continue
                 if fid not in resolved_by_lvli:
-                    parts.append(f"{lab} - 0%")
+                    parts.append(f"{lab} - {_fallback_rate_for_tier(fid)}")
                     continue
                 entry_row = resolved_by_lvli[fid][0]
                 dr = _compute_rate_for_entry_row(entry_row, fid) or "N/A"
@@ -864,7 +892,7 @@ def lvli_drop_rate_from_cobj_lvli(
             for order in sorted(family_tiers.keys()):
                 lab, fid = family_tiers[order]
                 if fid not in resolved_by_lvli:
-                    parts.append(f"{lab} - 0%")
+                    parts.append(f"{lab} - {_fallback_rate_for_tier(fid)}")
                     continue
                 entry_row = resolved_by_lvli[fid][0]
                 dr = _compute_rate_for_entry_row(entry_row, fid) or "N/A"
