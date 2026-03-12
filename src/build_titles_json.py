@@ -1962,6 +1962,72 @@ def compute_unlock_and_rates(
                 fallback_full = clean_full(gnam_full) or clean_full(gnam_edid) or "Challenge"
                 return f"Complete the Challenge:\n{fallback_full}", "N/A", None, "challenge", extra
 
+        # --- LVLI entry extra conditions ---
+        # Some titles have additional prerequisites gated at the LVLI entry level
+        # rather than the PLYT/CMPT record itself (e.g. "Gardener" requires learning
+        # 3 flower crown plans before it can drop from The Big Bloom). Surface these
+        # so the player knows the full unlock requirement.
+        #
+        # Name resolution chain: condition COBJ FormID -> COBJ row GNAM_FormID
+        #   -> BOOK FormID -> BOOK FULL (e.g. "Plan: Flower Crown - Carnal Weeper")
+        #
+        # Filtering rules (applied per condition string):
+        #   - Skip anything containing "condproxy" (the "already claimed" exclusion gate)
+        #   - Skip conditions with flag 00000000 (not-equal / OR exclusion gate)
+        #   - Keep positive HasLearnedRecipe conditions with flag 10000000 (AND = 1)
+        _gnam_for_extra = (extra.get("cobjGNAM_FormID") or "").strip().upper()
+        if _gnam_for_extra and re.fullmatch(r"[0-9A-F]{8}", _gnam_for_extra):
+            _lvli_extra_raw: List[str] = []
+            for _erow in lvli_entry_rows:
+                if _gnam_for_extra not in (_erow.get("LVLO_Reference") or "").upper():
+                    continue
+                for _ec in extract_conditions(_erow):
+                    _ec_lo = _ec.lower()
+                    if "condproxy" in _ec_lo:
+                        continue
+                    if " 00000000 " in _ec:  # not-equal / OR exclusion gate
+                        continue
+                    if re.search(r"haslearnedrecipe\(", _ec_lo):
+                        _lvli_extra_raw.append(_ec)
+                if _lvli_extra_raw:
+                    break  # only use the matching entry row (all 3 conditions are on it)
+
+            if _lvli_extra_raw:
+                extra["lvliExtraConditions"] = _lvli_extra_raw
+                _plan_names: List[str] = []
+
+                # Build a quick BOOK FormID -> FULL lookup (used for name resolution below)
+                _book_full_by_fid: Dict[str, str] = {}
+                for _br in book_rows:
+                    _bfid = (_br.get("FormID") or "").strip().upper()
+                    _bfull = (_br.get("FULL") or "").strip()
+                    if _bfid and _bfull:
+                        _book_full_by_fid[_bfid] = _bfull
+
+                for _ec in _lvli_extra_raw:
+                    _name: Optional[str] = None
+                    _cobj_fid = parse_cobj_formid_from_condition(_ec)
+                    if _cobj_fid:
+                        # COBJ row -> GNAM_FormID (the BOOK this recipe teaches)
+                        for _cr in cobj_rows:
+                            if (_cr.get("FormID") or "").strip().upper() == _cobj_fid:
+                                _book_fid = (_cr.get("GNAM_FormID") or "").strip().upper()
+                                if _book_fid:
+                                    _name = _book_full_by_fid.get(_book_fid)
+                                # Final fallback: GNAM_FULL if xEdit embedded it
+                                if not _name:
+                                    _name = (_cr.get("GNAM_FULL") or "").strip() or None
+                                break
+                    if _name:
+                        _plan_names.append(_name)
+
+                if _plan_names:
+                    extra["lvliExtraPlanNames"] = _plan_names
+                    how_event += (
+                        "\nRequires learning the following plans first:\n"
+                        + "\n".join(f"- {n}" for n in _plan_names)
+                    )
+
         # --- Otherwise: treat as BOOK-drop event/activity title recipe ---
         prefer_lvli = None
         if isinstance(extra.get("bookLvliPickedViaEntries"), str):

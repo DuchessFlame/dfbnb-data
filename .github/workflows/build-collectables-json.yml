@@ -42,10 +42,14 @@ jobs:
 
       - name: Sanity check outputs
         run: |
-          test -f dist/collectables_bobbleheads.json && echo "OK collectables_bobbleheads.json" || (echo "MISSING collectables_bobbleheads.json" && exit 1)
-          test -f dist/collectables_plushies.json    && echo "OK collectables_plushies.json"    || (echo "MISSING collectables_plushies.json" && exit 1)
-          test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
-          test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
+          test -f dist/collectables_bobbleheads.json    && echo "OK collectables_bobbleheads.json"    || (echo "MISSING collectables_bobbleheads.json" && exit 1)
+          test -f dist/collectables_plushies.json       && echo "OK collectables_plushies.json"       || (echo "MISSING collectables_plushies.json" && exit 1)
+          test -f dist/collectables_notes.json          && echo "OK collectables_notes.json"          || (echo "MISSING collectables_notes.json" && exit 1)
+          test -f dist/collectables_holotape_games.json && echo "OK collectables_holotape_games.json" || (echo "MISSING collectables_holotape_games.json" && exit 1)
+          test -f dist/collectables_magazines.json      && echo "OK collectables_magazines.json"      || (echo "MISSING collectables_magazines.json" && exit 1)
+          test -f dist/collectables_holotapes.json      && echo "OK collectables_holotapes.json"      || (echo "MISSING collectables_holotapes.json" && exit 1)
+          test -f dist/collectables_keys.json           && echo "OK collectables_keys.json"           || (echo "MISSING collectables_keys.json" && exit 1)
+          test -f dist/collectables_manifest.json       && echo "OK collectables_manifest.json"       || (echo "MISSING collectables_manifest.json" && exit 1)
 
       - name: Commit & Push
         run: |

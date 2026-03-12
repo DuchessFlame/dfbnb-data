@@ -556,32 +556,8 @@ def build_bobbleheads(alch_path, glob_rows):
 
                 formid = row.get('ALCH_FormID', '').strip() or row.get('FormID', '').strip()
                 full = row.get('FULL', '').strip()
-                mgef_edid = row.get('MGEF_EDID', '').strip()
-                mgef_full = row.get('MGEF_FULL', '').strip()
-                magnitude_str = row.get('EFIT_Magnitude', '').strip() or "0"
-                duration_str = row.get('EFIT_Duration', '').strip() or "0"
-                magg_formid = row.get('MAGG_GLOB_FormID', '').strip()
 
                 is_cut = starts_cut(edid)
-
-                # Determine magnitude
-                magnitude = 0
-                try:
-                    magnitude = float(magnitude_str)
-                except ValueError:
-                    pass
-
-                # Check if magnitude references a GLOB
-                if magg_formid and magg_formid in glob_lookup:
-                    magnitude = glob_lookup[magg_formid]
-
-                # Convert duration
-                duration_text = convert_duration_to_text(duration_str)
-
-                # Build buff string
-                effect_name = mgef_full if mgef_full else mgef_edid
-                magnitude_str_final = f"{int(magnitude)}" if magnitude == int(magnitude) else f"{magnitude}"
-                buff = f"{effect_name}: +{magnitude_str_final}% for {duration_text}"
 
                 # Determine group
                 group = "Glowing Bobbleheads" if "Glowing" in edid else "Bobbleheads"
@@ -591,10 +567,6 @@ def build_bobbleheads(alch_path, glob_rows):
                     "edid": edid,
                     "name": full,
                     "group": group,
-                    "buff": buff,
-                    "effectName": effect_name,
-                    "magnitude": magnitude_str_final,
-                    "duration": duration_text,
                     "isCut": is_cut
                 }
 
@@ -843,6 +815,309 @@ def build_notes(book_path, locations=None):
     return notes_live, notes_cut
 
 
+def build_holotape_games(book_path, locations=None):
+    """
+    Build holotape games list from BOOK TSV.
+    Filters for rows where EDID contains 'Magazine_Holotape_'.
+
+    Holotape games are magazine-type BOOK records. They spawn at random
+    magazine locations throughout Appalachia.
+
+    Returns (live_items, cut_items).
+    """
+    print("  Streaming BOOK file for holotape games...", file=sys.stderr)
+    live = []
+    cut = []
+
+    try:
+        with open(book_path, 'r', encoding='utf-8', errors='replace') as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            for row in reader:
+                edid = row.get('EDID', '').strip()
+
+                if 'Magazine_Holotape_' not in edid:
+                    continue
+
+                formid = row.get('FormID', '').strip()
+                full = row.get('FULL', '').strip()
+
+                # Skip nameless items (e.g. CharGen duplicates)
+                if not full:
+                    continue
+
+                is_cut = starts_cut(edid)
+
+                item = {
+                    "formId": formid,
+                    "edid": edid,
+                    "name": full,
+                    "isCut": is_cut
+                }
+
+                if is_cut:
+                    cut.append(item)
+                else:
+                    live.append(item)
+
+    except Exception as e:
+        print(f"  ERROR reading BOOK for holotape games: {e}", file=sys.stderr)
+        return [], []
+
+    live.sort(key=lambda x: x['name'])
+    return live, cut
+
+
+def build_magazines(book_path, locations=None):
+    """
+    Build magazines list from BOOK TSV.
+    Filters for rows where EDID contains 'Magazine_' but NOT 'Magazine_Holotape_'.
+    Includes BACKUP_ variants.
+
+    Returns (live_items, cut_items).
+    """
+    print("  Streaming BOOK file for magazines...", file=sys.stderr)
+    live = []
+    cut = []
+
+    try:
+        with open(book_path, 'r', encoding='utf-8', errors='replace') as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            for row in reader:
+                edid = row.get('EDID', '').strip()
+                edid_upper = edid.upper()
+
+                # Must contain 'Magazine_' somewhere in EDID
+                if 'MAGAZINE_' not in edid_upper:
+                    continue
+
+                # Exclude holotape games
+                if 'MAGAZINE_HOLOTAPE_' in edid_upper:
+                    continue
+
+                formid = row.get('FormID', '').strip()
+                full = row.get('FULL', '').strip()
+                desc = row.get('DESC', '').strip()
+                btof = row.get('BTOF', '').strip()
+
+                if not full:
+                    continue
+
+                is_cut = starts_cut(edid)
+
+                # Location
+                location = resolve_note_location(formid, edid, locations)
+
+                # Collectability
+                collect = can_note_be_collected(btof)
+
+                # Contents — strip HTML if present
+                contents = strip_html_to_text(desc) if desc else ""
+
+                item = {
+                    "formId": formid,
+                    "edid": edid,
+                    "name": full,
+                    "location": location,
+                    "contents": contents,
+                    "canCollect": collect,
+                    "isCut": is_cut
+                }
+
+                if is_cut:
+                    cut.append(item)
+                else:
+                    live.append(item)
+
+    except Exception as e:
+        print(f"  ERROR reading BOOK for magazines: {e}", file=sys.stderr)
+        return [], []
+
+    live.sort(key=lambda x: x['name'])
+    return live, cut
+
+
+def build_holotapes(book_path, misc_rows, locations=None):
+    """
+    Build holotapes list from BOOK + MISC TSVs.
+
+    From BOOK: rows where EDID contains 'Holotape' but NOT 'Magazine_Holotape_'
+    (these are audio holotapes, not holotape games).
+
+    From MISC: rows where EDID or FULL contains 'Holotape'
+    (some quest holotapes are MISC objects).
+
+    Note: Most audio holotapes in FO76 are NOTE records.
+    A future NOTE export will greatly expand this list.
+
+    Returns (live_items, cut_items).
+    """
+    print("  Building holotapes from BOOK + MISC...", file=sys.stderr)
+    live = []
+    cut = []
+    seen_formids = set()
+
+    # 1. BOOK holotapes (EDID contains 'Holotape' but not a game)
+    try:
+        with open(book_path, 'r', encoding='utf-8', errors='replace') as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            for row in reader:
+                edid = row.get('EDID', '').strip()
+                full = row.get('FULL', '').strip()
+                edid_upper = edid.upper()
+
+                # Must contain 'Holotape' in EDID or FULL
+                has_holotape = ('HOLOTAPE' in edid_upper or
+                                'HOLOTAPE' in (full or '').upper())
+                if not has_holotape:
+                    continue
+
+                # Exclude holotape games
+                if 'MAGAZINE_HOLOTAPE_' in edid_upper:
+                    continue
+
+                # Exclude magazines
+                if 'MAGAZINE_' in edid_upper:
+                    continue
+
+                # Exclude notes (already handled by build_notes)
+                desc = row.get('DESC', '').strip()
+                if '<font face=' in desc:
+                    continue
+
+                formid = row.get('FormID', '').strip()
+                if not full or formid in seen_formids:
+                    continue
+                seen_formids.add(formid)
+
+                btof = row.get('BTOF', '').strip()
+                is_cut = starts_cut(edid)
+
+                location = resolve_note_location(formid, edid, locations)
+                collect = can_note_be_collected(btof)
+                contents = strip_html_to_text(desc) if desc else ""
+
+                item = {
+                    "formId": formid,
+                    "edid": edid,
+                    "name": full,
+                    "location": location,
+                    "contents": contents,
+                    "canCollect": collect,
+                    "isCut": is_cut
+                }
+
+                if is_cut:
+                    cut.append(item)
+                else:
+                    live.append(item)
+
+    except Exception as e:
+        print(f"  ERROR reading BOOK for holotapes: {e}", file=sys.stderr)
+
+    # 2. MISC holotape objects
+    for row in misc_rows:
+        edid = row.get('EDID', '').strip()
+        full = row.get('FULL', '').strip()
+        edid_upper = edid.upper()
+
+        has_holotape = ('HOLOTAPE' in edid_upper or
+                        'HOLOTAPE' in (full or '').upper())
+        if not has_holotape:
+            continue
+
+        formid = row.get('FormID', '').strip()
+        if not full or formid in seen_formids:
+            continue
+        seen_formids.add(formid)
+
+        is_cut = starts_cut(edid)
+
+        item = {
+            "formId": formid,
+            "edid": edid,
+            "name": full,
+            "location": derive_location_from_edid(edid),
+            "contents": "",
+            "canCollect": True,
+            "isCut": is_cut
+        }
+
+        if is_cut:
+            cut.append(item)
+        else:
+            live.append(item)
+
+    live.sort(key=lambda x: x['name'])
+    print(f"  Found {len(live)} live holotapes, {len(cut)} cut", file=sys.stderr)
+    return live, cut
+
+
+def build_keys(misc_rows):
+    """
+    Build keys list from MISC TSV.
+    Filters for rows where EDID or FULL contains 'Key' or 'Keycard'.
+
+    Excludes false positives (miscmod, whiskey, turkey, monkey, keyboard, etc.).
+
+    Note: Most keys in FO76 are KEYM records.
+    A future KEYM export will greatly expand this list.
+
+    Returns (live_items, cut_items).
+    """
+    print("  Building keys from MISC...", file=sys.stderr)
+    live = []
+    cut = []
+
+    # Words that contain 'key' but aren't actual keys
+    FALSE_POSITIVES = (
+        'MISCMOD', 'WHISKEY', 'TURKEY', 'DONKEY', 'MONKEY',
+        'KEYBOARD', 'JANGLES', 'HOCKEY',
+    )
+
+    for row in misc_rows:
+        edid = row.get('EDID', '').strip()
+        full = row.get('FULL', '').strip()
+        formid = row.get('FormID', '').strip()
+
+        edid_upper = edid.upper()
+        full_upper = (full or '').upper()
+
+        # Must contain 'Key' or 'Keycard' in EDID or name
+        has_key = ('KEY' in edid_upper or 'KEY' in full_upper or
+                   'KEYCARD' in edid_upper or 'KEYCARD' in full_upper)
+        if not has_key:
+            continue
+
+        # Exclude false positives
+        combined = edid_upper + ' ' + full_upper
+        if any(fp in combined for fp in FALSE_POSITIVES):
+            continue
+
+        if not full:
+            continue
+
+        is_cut = starts_cut(edid)
+
+        item = {
+            "formId": formid,
+            "edid": edid,
+            "name": full,
+            "location": derive_location_from_edid(edid),
+            "contents": "",
+            "canCollect": True,
+            "isCut": is_cut
+        }
+
+        if is_cut:
+            cut.append(item)
+        else:
+            live.append(item)
+
+    live.sort(key=lambda x: x['name'])
+    print(f"  Found {len(live)} live keys, {len(cut)} cut", file=sys.stderr)
+    return live, cut
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Build collectables JSON dist files for Fallout 76'
@@ -948,6 +1223,22 @@ def main():
     print("Building notes...")
     notes, notes_cut = build_notes(book_path, locations=book_locations)
 
+    # Build holotape games (from BOOK)
+    print("Building holotape games...")
+    holotape_games, holotape_games_cut = build_holotape_games(book_path, locations=book_locations)
+
+    # Build magazines (from BOOK)
+    print("Building magazines...")
+    magazines, magazines_cut = build_magazines(book_path, locations=book_locations)
+
+    # Build holotapes (from BOOK + MISC)
+    print("Building holotapes...")
+    holotapes, holotapes_cut = build_holotapes(book_path, misc_rows, locations=book_locations)
+
+    # Build keys (from MISC)
+    print("Building keys...")
+    keys, keys_cut = build_keys(misc_rows)
+
     # Generate timestamp
     generated_at = datetime.now(timezone.utc).isoformat()
 
@@ -985,6 +1276,54 @@ def main():
         json.dump(notes_data, f, indent=2, ensure_ascii=False)
     print(f"Wrote {notes_file}")
 
+    # Write holotape games JSON
+    holotape_games_data = {
+        "generatedAt": generated_at,
+        "type": "holotape-games",
+        "items": holotape_games,
+        "cutContent": holotape_games_cut
+    }
+    holotape_games_file = outdir / "collectables_holotape_games.json"
+    with open(holotape_games_file, 'w', encoding='utf-8') as f:
+        json.dump(holotape_games_data, f, indent=2, ensure_ascii=False)
+    print(f"Wrote {holotape_games_file}")
+
+    # Write magazines JSON
+    magazines_data = {
+        "generatedAt": generated_at,
+        "type": "magazines",
+        "items": magazines,
+        "cutContent": magazines_cut
+    }
+    magazines_file = outdir / "collectables_magazines.json"
+    with open(magazines_file, 'w', encoding='utf-8') as f:
+        json.dump(magazines_data, f, indent=2, ensure_ascii=False)
+    print(f"Wrote {magazines_file}")
+
+    # Write holotapes JSON
+    holotapes_data = {
+        "generatedAt": generated_at,
+        "type": "holotapes",
+        "items": holotapes,
+        "cutContent": holotapes_cut
+    }
+    holotapes_file = outdir / "collectables_holotapes.json"
+    with open(holotapes_file, 'w', encoding='utf-8') as f:
+        json.dump(holotapes_data, f, indent=2, ensure_ascii=False)
+    print(f"Wrote {holotapes_file}")
+
+    # Write keys JSON
+    keys_data = {
+        "generatedAt": generated_at,
+        "type": "keys",
+        "items": keys,
+        "cutContent": keys_cut
+    }
+    keys_file = outdir / "collectables_keys.json"
+    with open(keys_file, 'w', encoding='utf-8') as f:
+        json.dump(keys_data, f, indent=2, ensure_ascii=False)
+    print(f"Wrote {keys_file}")
+
     # Write manifest
     bobblehead_count = sum(len(g['items']) for g in bobblehead_groups)
     bobblehead_groups_map = {g['name']: len(g['items']) for g in bobblehead_groups}
@@ -1004,6 +1343,22 @@ def main():
             "notes": {
                 "total": len(notes),
                 "cut": len(notes_cut)
+            },
+            "holotape_games": {
+                "total": len(holotape_games),
+                "cut": len(holotape_games_cut)
+            },
+            "magazines": {
+                "total": len(magazines),
+                "cut": len(magazines_cut)
+            },
+            "holotapes": {
+                "total": len(holotapes),
+                "cut": len(holotapes_cut)
+            },
+            "keys": {
+                "total": len(keys),
+                "cut": len(keys_cut)
             }
         }
     }
@@ -1017,6 +1372,10 @@ def main():
     print(f"Bobbleheads: {bobblehead_count} live ({bobblehead_groups_map}), {len(bobblehead_cut)} cut")
     print(f"Plushies: {len(plushies)} live, {len(plushies_cut)} cut")
     print(f"Notes: {len(notes)} live, {len(notes_cut)} cut (includes {sum(1 for n in notes_cut if is_alias_template_name(n.get('name',''))) } alias-template exclusions)")
+    print(f"Holotape Games: {len(holotape_games)} live, {len(holotape_games_cut)} cut")
+    print(f"Magazines: {len(magazines)} live, {len(magazines_cut)} cut")
+    print(f"Holotapes: {len(holotapes)} live, {len(holotapes_cut)} cut")
+    print(f"Keys: {len(keys)} live, {len(keys_cut)} cut")
 
 
 if __name__ == '__main__':
