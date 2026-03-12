@@ -1421,7 +1421,7 @@ def compute_unlock_and_rates(
             else:
                 # Generic challenge target count (Lifetime kills etc) => xN
                 target = None
-                for k in ("TargetCount", "Target Count", "DATA - Target Count", "CTDA - Comparison Value"):
+                for k in ("TNAM", "TargetCount", "Target Count", "DATA - Target Count", "CTDA - Comparison Value"):
                     v = (row.get(k) or "").strip() if isinstance(row.get(k), str) else row.get(k)
                     if v is None:
                         continue
@@ -1474,7 +1474,7 @@ def compute_unlock_and_rates(
                 full = f"{full} x{mcount.group(1)}"
             else:
                 target = None
-                for k in ("TargetCount", "Target Count", "DATA - Target Count", "CTDA - Comparison Value"):
+                for k in ("TNAM", "TargetCount", "Target Count", "DATA - Target Count", "CTDA - Comparison Value"):
                     v = (row.get(k) or "").strip() if isinstance(row.get(k), str) else row.get(k)
                     if v is None:
                         continue
