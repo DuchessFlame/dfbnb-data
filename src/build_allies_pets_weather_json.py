@@ -83,6 +83,28 @@ BOOK_PATH = _resolve_tsv("BOOK_TSV",         "BOOK_Export_*.tsv",         "BOOK_
                          exclude_suffix="_locations.tsv")
 ACTI_PATH = _resolve_tsv("ACTI_TSV",         "ACTI_Export_*_ACTI.tsv",    "ACTI_Export_ACTI.tsv")
 
+# Seasons TSV — optional, falls back gracefully if missing
+_SEASONS_PATH = TSV_DIR / "fallout76_seasons.tsv"
+
+# Build SeasonNumber -> SeasonName lookup
+# e.g. {1: "The Legendary Run", 19: "The Distant Reborn", ...}
+SEASON_NAMES: dict = {}
+if _SEASONS_PATH.exists():
+    with open(_SEASONS_PATH, encoding="utf-8", errors="replace", newline="") as _sf:
+        for _row in csv.DictReader(_sf, delimiter="\t"):
+            _num  = _row.get("SeasonNumber", "").strip()
+            _name = _row.get("SeasonName",   "").strip()
+            if _num.isdigit() and _name:
+                SEASON_NAMES[int(_num)] = _name
+
+
+def scoreboard_how(season_num):
+    """Return the full howToObtain string for a scoreboard item."""
+    name = SEASON_NAMES.get(season_num, "")
+    if name:
+        return f"Purchase with tickets from the {name} Scoreboard (Season {season_num})"
+    return f"Purchase with tickets from the Season {season_num} Scoreboard"
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -458,7 +480,7 @@ def build_weather_stations():
         if entm_id in WEATHER_HOW_TO_OBTAIN:
             _how = WEATHER_HOW_TO_OBTAIN[entm_id]
         elif season_num:
-            _how = f"Season {season_num} Scoreboard"
+            _how = scoreboard_how(season_num)
         else:
             _how = f"Atom Shop - {display} - 1200 atoms"
 
@@ -574,7 +596,7 @@ def build_repair_bots():
             "displayName":  display,
             "description":  desc,
             "obtainSource": source,
-            "howToObtain":  f"Season {season_num} Scoreboard" if season_num else f"Atom Shop - {display} - 1200 atoms",
+            "howToObtain":  scoreboard_how(season_num) if season_num else f"Atom Shop - {display} - 1200 atoms",
             "dropRate":     "—",
             "seasonNumber": season_num,
             "tradeable":    False,  # no plan book exists — account-bound CAMP skin
@@ -708,7 +730,7 @@ def build_allies():
         season_num      = int(season_m.group(1)) if season_m else None
         if season_num:
             source = "Scoreboard"
-            obtain = f"Season {season_num} Scoreboard"
+            obtain = scoreboard_how(season_num)
 
         # Tradeable via plan
         _ally_token = re.sub(
@@ -875,7 +897,7 @@ def build_pets():
 
         if season_num:
             source = "Scoreboard"
-            how    = f"Season {season_num} Scoreboard"
+            how    = scoreboard_how(season_num)
         else:
             how    = f"Atom Shop - {entm_full or furn_full or furn_edid} - 1200 atoms"
 
@@ -934,7 +956,7 @@ def build_pet_furniture():
         season_num = int(season_m.group(1)) if season_m else None
         if season_num:
             source = "Scoreboard"
-            how    = f"Season {season_num} Scoreboard"
+            how    = scoreboard_how(season_num)
         else:
             how    = f"Atom Shop - {display} - 1200 atoms"
 
@@ -1080,7 +1102,7 @@ def build_cryos():
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
-        how        = f"Season {season_num} Scoreboard" if season_num else ("Gold Bullion - Samuel - Cautious - 1250 Bullion" if gv else f"Atom Shop - {display} - 1200 atoms")
+        how        = scoreboard_how(season_num) if season_num else ("Gold Bullion - Samuel - Cautious - 1250 Bullion" if gv else f"Atom Shop - {display} - 1200 atoms")
         tradeable  = not bool(season_num)
 
         # Tradeable via plan: match ENTM EDID suffix against CondProxy tokens
@@ -1166,7 +1188,7 @@ def build_fridges():
         season_num = int(season_m.group(1)) if season_m else None
         if season_num:
             source = "Scoreboard"
-            how    = f"Season {season_num} Scoreboard"
+            how    = scoreboard_how(season_num)
         else:
             how = f"Atom Shop - {display} - 1200 atoms"
 
