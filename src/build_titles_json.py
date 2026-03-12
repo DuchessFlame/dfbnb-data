@@ -849,7 +849,8 @@ def lvli_drop_rate_from_cobj_lvli(
             if fam != best_family:
                 continue
 
-            if lab.lower().startswith("tier "):
+            lab_lo = lab.lower()
+            if lab_lo.startswith("tier ") or lab_lo.startswith("mutated tier "):
                 family_tiers[order] = (lab, fid)
             else:
                 family_named[lab] = fid
