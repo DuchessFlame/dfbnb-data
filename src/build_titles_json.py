@@ -57,6 +57,20 @@ RE_FORM_REF = re.compile(r"\[([A-Z]{4}):([0-9A-F]{8})\]", re.IGNORECASE)
 RE_QUOTED = re.compile(r'"([^"]+)"')
 RE_COBJ_REF = re.compile(r"(?:\[COBJ:|COBJ:)([0-9A-F]{8})(?:\]?)", re.IGNORECASE)
 
+# ---- Manual howToObtain overrides (keyed by PLYT/CMPT EDID, lower-cased) ----
+# These titles have multi-path unlock conditions that the auto-resolver
+# cannot distinguish (Primary vs Shutdown ARIC-4 paths in Project Paradise).
+HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
+    "playertitles_suffix_zookeeper":
+        "Complete the Event: Project Paradise\nCondition: Keep all 3 animals alive",
+    "sfs09_playertitles_suffix_tamer":
+        "Complete the Event: Project Paradise\nCondition: Keep all 3 animals alive",
+    "playertitles_suffix_researcher":
+        "Complete the Event: Project Paradise\nCondition: Shut down ARIC-4 (any number of animals alive)",
+    "sfs09_playertitles_suffix_manager":
+        "Complete the Event: Project Paradise\nCondition: Shut down ARIC-4 (any number of animals alive)",
+}
+
 
 def now_iso() -> str:
     return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat()
@@ -2291,6 +2305,11 @@ def main() -> int:
             lvli_parent_map=lvli_parent_map,
         )
 
+        # Apply manual howToObtain overrides (e.g. Project Paradise multi-path titles)
+        _edid_lower = edid.lower()
+        if _edid_lower in HOW_TO_OBTAIN_OVERRIDES:
+            how = HOW_TO_OBTAIN_OVERRIDES[_edid_lower]
+
         tradeable = False  # camp default
         k_edid = _norm_key(edid)
         k_title = _norm_key(title)
@@ -2369,6 +2388,11 @@ def main() -> int:
             cndf_by_id=cndf_by_id,
             lvli_parent_map=lvli_parent_map,
         )
+
+        # Apply manual howToObtain overrides (e.g. Project Paradise multi-path titles)
+        _edid_lower = edid.lower()
+        if _edid_lower in HOW_TO_OBTAIN_OVERRIDES:
+            how = HOW_TO_OBTAIN_OVERRIDES[_edid_lower]
 
         tradeable = False  # player default
         k_edid = _norm_key(edid)
