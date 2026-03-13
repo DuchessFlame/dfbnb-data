@@ -203,6 +203,10 @@ jobs:
       - name: Build Home Events JSON
         run: node tools/build-home-events-json.mjs
 
+      # --- BUNDLES ---
+      - name: Build Bundles JSON
+        run: python src/build_bundles.py
+
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |
@@ -228,6 +232,7 @@ jobs:
           test -f dist/collectables_plushies.json    && echo "OK collectables_plushies.json"    || (echo "MISSING collectables_plushies.json" && exit 1)
           test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
           test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
+          test -f dist/bundles.json                  && echo "OK bundles.json"                  || (echo "MISSING bundles.json" && exit 1)
 
       # --- COMMIT ONCE ---
       - name: Commit & Push
