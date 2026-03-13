@@ -61,6 +61,7 @@ RE_COBJ_REF = re.compile(r"(?:\[COBJ:|COBJ:)([0-9A-F]{8})(?:\]?)", re.IGNORECASE
 # These titles have multi-path unlock conditions that the auto-resolver
 # cannot distinguish (Primary vs Shutdown ARIC-4 paths in Project Paradise).
 HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
+    # ---- Player Titles ----
     # Project Paradise — Primary vs Shutdown ARIC-4 paths
     "playertitles_suffix_zookeeper":
         "Complete the Event: Project Paradise\nCondition: Keep all 3 animals alive",
@@ -76,12 +77,56 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
     # Treasure Hunter — title drops from Crafted Mole Miner Pails only
     "playertitles_suffix_surveyor":
         "Open Crafted Mole Miner Pails during the Treasure Hunter seasonal event",
-    # Spooky Scorched — title drops from Crafted Spooky Treat Bags only
-    "playertitles_prefix_spooky":
-        "Open Crafted Spooky Treat Bags during the Spooky Scorched seasonal event",
-    # Mutated — shared reward list across all mutated public events
-    "playertitles_prefix_mutated":
-        "Complete any Mutated Public Event",
+
+    # ---- CAMP Titles: Activities ----
+    "camptitles_suffix_array":
+        "Complete the Activity: Always Vigilant",
+    "camptitles_suffix_battery":
+        "Complete the Activity: Distant Thunder",
+    "camptitles_suffix_crashsite":
+        "Complete the Activity: Fly Swatter",
+    "camptitles_suffix_bulwark":
+        "Complete the Activity: AWOL Armaments",
+    "camptitles_suffix_archive":
+        "Complete the Activity: Census Violence",
+    "camptitles_suffix_apiary":
+        "Complete the Activity: Irrational Fear",
+    "camptitles_prefix_fugitives":
+        "Complete the Activity: Manhunt",
+    "camptitles_prefix_leaders":
+        "Complete the Activity: Leader of the Pack",
+    "camptitles_lifetime_prefix_homestead":
+        "Complete the Activity: Project Beanstalk",
+    "camptitles_lifetime_both_precinct":
+        "Complete the Activity: Back on the Beat",
+    "camptitles_lifetime_both_forge":
+        "Complete the Activity: Breach and Clear",
+    "camptitles_lifetime_suffix_laboratory":
+        "Complete the Activity: Fertile Soil",
+    "camptitles_lifetime_prefix_electric":
+        "Complete the Activity: Powering Up",
+    "camptitles_lifetime_prefix_excavator":
+        "Complete the Activity: Lucky Strike",
+
+    # ---- CAMP Titles: Events ----
+    "camptitles_lifetime_both_chapel":
+        "Complete the Event: The Mothman Equinox",
+    "camptitles_lifetime_both_junkyard":
+        "Complete the Event: Neurological Warfare",
+    "camptitles_lifetime_suffix_hideout":
+        "Complete the Event: Bounty Hunting: Head Hunt",
+    "camptitles_lifetime_both_sinkhole":
+        "Complete the Event: Sinkhole Solutions",
+
+    # ---- CAMP Titles: Challenges ----
+    "camptitles_lifetime_suffix_cove":
+        "Complete the Challenge: Catch Any Local Legend",
+    "camptitles_lifetime_suffix_cryptidhunter":
+        "Complete the Challenge: Kill Different Kinds of Cryptids",
+    "camptitles_lifetime_both_workshop":
+        "Complete the Challenge: Claim a Workshop",
+    "camptitles_lifetime_suffix_settlement":
+        "Complete the Challenge: Deploy C.A.M.P.s to settle Appalachia",
 }
 
 # ---- Manual dropRate overrides (keyed by PLYT/CMPT EDID, lower-cased) ----
@@ -97,16 +142,6 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
     # Radiation Rumble — RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
     "playertitles_suffix_rumbler": "10%",
     "e05_playertitles_suffix_scavenger": "10%",
-    # Project Paradise — RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
-    # Sub-list nesting prevents auto-resolver from propagating the GLOB rate
-    # to individual tiers; same 10% applies across all reward tiers.
-    "playertitles_suffix_zookeeper": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
-    "sfs09_playertitles_suffix_tamer": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
-    "playertitles_suffix_researcher": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
-    "sfs09_playertitles_suffix_manager": "Tier 1 - 10%\nTier 2 - 10%\nTier 3 - 10%",
-    # Spooky Scorched — same sub-list bug as Holiday/Treasure Hunter, same tier structure
-    "playertitles_prefix_spooky":
-        "Loot Tier 1 - 0%\nLoot Tier 2 - 0%\nLoot Tier 3 - 0%\nCrafted Tier 1 - 5%\nCrafted Tier 2 - 10%\nCrafted Tier 3 - 25%",
 }
 
 
@@ -860,27 +895,6 @@ def lvli_drop_rate_from_cobj_lvli(
 
         parts: List[str] = []
 
-        # Helper: when a tier FID isn't in resolved_by_lvli, try to find
-        # the sub-list entry in that tier's LVLI entries and compute the
-        # rate from the GLOB/ChanceNone on that entry.  This handles the
-        # case where a BOOK lives in a nested sub-list whose parent-map
-        # chain didn't fully propagate to all tier parents.
-        _sublist_fids = set(by_lvli.keys())
-
-        def _fallback_rate_for_tier(tier_fid: str) -> str:
-            """Try to compute rate from sub-list entry in the tier list."""
-            for er in lvli_entry_rows:
-                parent = (er.get("LVLI_FormID") or er.get("FormID") or "").strip().upper()
-                if parent != tier_fid:
-                    continue
-                ref = (er.get("LVLO_Reference") or "").upper()
-                for sl_fid in _sublist_fids:
-                    if sl_fid in ref:
-                        dr = _compute_rate_for_entry_row(er, tier_fid)
-                        if dr:
-                            return dr
-            return "0%"
-
         # Bad/Good/Best format
         if family_named:
             for lab in ("Bad", "Good", "Best"):
@@ -888,7 +902,7 @@ def lvli_drop_rate_from_cobj_lvli(
                 if not fid:
                     continue
                 if fid not in resolved_by_lvli:
-                    parts.append(f"{lab} - {_fallback_rate_for_tier(fid)}")
+                    parts.append(f"{lab} - 0%")
                     continue
                 entry_row = resolved_by_lvli[fid][0]
                 dr = _compute_rate_for_entry_row(entry_row, fid) or "N/A"
@@ -901,7 +915,7 @@ def lvli_drop_rate_from_cobj_lvli(
             for order in sorted(family_tiers.keys()):
                 lab, fid = family_tiers[order]
                 if fid not in resolved_by_lvli:
-                    parts.append(f"{lab} - {_fallback_rate_for_tier(fid)}")
+                    parts.append(f"{lab} - 0%")
                     continue
                 entry_row = resolved_by_lvli[fid][0]
                 dr = _compute_rate_for_entry_row(entry_row, fid) or "N/A"
@@ -974,19 +988,6 @@ def lvli_drop_rate_from_cobj_lvli(
     # Blank/missing = engine treats as 0 = item always drops (100%).
     raw_cn = (best.get("LVOV_ChanceNoneValue") or "").strip()
     if not raw_cn:
-        # Before returning 100%, check if the BOOK's LVLI is a sub-list
-        # referenced from a parent with a non-zero ChanceNone.
-        # Example: Spooky title — BOOK has ChanceNone=0 in its sub-list,
-        # but the sub-list entry in the parent has ChanceNone=80 (20% drop).
-        if lvli_fid:
-            for _er in lvli_entry_rows:
-                _ref = (_er.get("LVLO_Reference") or "").upper()
-                if lvli_fid not in _ref or ":LVLI" not in _ref:
-                    continue
-                _parent_fid = (_er.get("LVLI_FormID") or _er.get("FormID") or "").strip().upper()
-                _parent_dr = _compute_rate_for_entry_row(_er, _parent_fid)
-                if _parent_dr and _parent_dr != "100%":
-                    return _parent_dr
         return "100%"
 
     chance_none = safe_float(raw_cn, None)
@@ -1786,6 +1787,18 @@ def compute_unlock_and_rates(
             if framed:
                 return f"Unlocked if you have claimed the {sname} (Season {season_num}) Framed Art.", "N/A", season_num, "season_score", extra
 
+            # Direct title ENTM (e.g. S24: SCORE_S24_ENTM_CAMPTitles_Prefix_Alien)
+            # — purchased with tickets, same as player titles from S19+
+            if "_ENTM_CAMPTITLE" in e_upper and "GAMEBOARD" not in e_upper and "WALLDE" not in e_upper:
+                return (
+                    f"Purchase with tickets from the {sname} Scoreboard (Season {season_num})",
+                    "N/A",
+                    season_num,
+                    "season_score",
+                    extra
+                )
+
+            # Older seasons: gate on a Gameboard/Corkboard wall decoration
             if "CAMPTITLES" in e_upper and "GAMEBOARD" not in e_upper and "CORKBOARD" not in e_upper:
                 return f"Unlocked if you have claimed the {sname} (Season {season_num}) Scoreboard.", "N/A", season_num, "season_score", extra
 
