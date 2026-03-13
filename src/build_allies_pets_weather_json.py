@@ -105,6 +105,10 @@ def scoreboard_how(season_num):
         return f"Purchase with tickets from the {name} Scoreboard (Season {season_num})"
     return f"Purchase with tickets from the Season {season_num} Scoreboard"
 
+
+# Standard Atom Shop howToObtain string used across all builders.
+ATX_HOW = "Can be purchased with certain bundles from the Atom Shop."
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -457,19 +461,13 @@ def build_weather_stations():
         # AC Fog plan (0075FF95) explicitly has NonPlayerTradable keyword.
         # The CondProxy lookup can false-positive on some stations (e.g. Halloween,
         # Mothman), so we hardcode False for all and only look up plan names.
-        _ws_tradeable = False
+        # Plan name: only AC Fog has a confirmed purchasable plan book (BOOK FormID 0075FF95).
+        # All other weather stations are entitlement-based with no player-purchasable plan.
+        # CondProxy token lookups false-positive on some stations — hard-clear for non-AC-Fog.
         if entm_id == "0073ABA6":
             _ws_plan_name = "Plan: Weather Control Station (Atlantic City Fog)"
         else:
-            _ws_edid_key = re.sub(
-                r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_CAMP_Utility_WeatherStation_",
-                "", edid, flags=re.IGNORECASE
-            ).lower()
-            _ws_gnam_fid, _ws_plan_name = plan_for_condproxy_token(_ws_edid_key)
-            if not _ws_gnam_fid:
-                _ws_gnam_fid, _ws_plan_name = plan_for_condproxy_token(
-                    re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_", "", edid, flags=re.IGNORECASE).lower()
-                )
+            _ws_plan_name = ""
 
         # ── Fishing condition from EDID suffix lookup ──
         _suffix_m = _ENTM_PREFIX_RE.match(edid)
@@ -482,7 +480,7 @@ def build_weather_stations():
         elif season_num:
             _how = scoreboard_how(season_num)
         else:
-            _how = f"Atom Shop - {display} - 1200 atoms"
+            _how = ATX_HOW
 
         # ── Build Information — PowerRequired read from ACTI PRPS ──
         # The ACTI EDID for weather stations follows the pattern:
@@ -521,7 +519,7 @@ def build_weather_stations():
             "obtainSource":         source,
             "seasonNumber":         season_num,
             "howToObtain":          _how,
-            "dropRate":             "—",
+            "dropRate":             "N/A",
             "tradeable":            _ws_tradeable,
             "planName":             _ws_plan_name,
             "imageUrl":             image_url,
@@ -596,8 +594,8 @@ def build_repair_bots():
             "displayName":  display,
             "description":  desc,
             "obtainSource": source,
-            "howToObtain":  scoreboard_how(season_num) if season_num else f"Atom Shop - {display} - 1200 atoms",
-            "dropRate":     "—",
+            "howToObtain":  scoreboard_how(season_num) if season_num else ATX_HOW,
+            "dropRate":     "N/A",
             "seasonNumber": season_num,
             "tradeable":    False,  # no plan book exists — account-bound CAMP skin
             "planName":     "",
@@ -731,6 +729,8 @@ def build_allies():
         if season_num:
             source = "Scoreboard"
             obtain = scoreboard_how(season_num)
+        elif obtain == "Atom Shop":
+            obtain = ATX_HOW
 
         # Tradeable via plan
         _ally_token = re.sub(
@@ -753,7 +753,7 @@ def build_allies():
             "description":      desc,
             "obtainSource":     source,
             "howToObtain":      obtain,
-            "dropRate":         "—",
+            "dropRate":         "N/A",
             "seasonNumber":     season_num,
             "tradeable":        _ally_tradeable,
             "planName":         _ally_plan_name,
@@ -899,7 +899,7 @@ def build_pets():
             source = "Scoreboard"
             how    = scoreboard_how(season_num)
         else:
-            how    = f"Atom Shop - {entm_full or furn_full or furn_edid} - 1200 atoms"
+            how    = ATX_HOW
 
         items.append({
             "formId":        furn_id,
@@ -911,7 +911,7 @@ def build_pets():
             "animalType":    animal,
             "obtainSource":  source,
             "howToObtain":   how,
-            "dropRate":      "—",
+            "dropRate":      "N/A",
             "seasonNumber":  season_num,
             "tradeable":     False,
             "planName":      "",
@@ -958,7 +958,7 @@ def build_pet_furniture():
             source = "Scoreboard"
             how    = scoreboard_how(season_num)
         else:
-            how    = f"Atom Shop - {display} - 1200 atoms"
+            how    = ATX_HOW
 
         items.append({
             "formId":        entm_id,
@@ -969,7 +969,7 @@ def build_pet_furniture():
             "animalType":    animal,
             "obtainSource":  source,
             "howToObtain":   how,
-            "dropRate":      "—",
+            "dropRate":      "N/A",
             "seasonNumber":  season_num,
             "tradeable":     False,
             "planName":      "",
@@ -1022,10 +1022,11 @@ def build_pet_apparel():
         source   = xalg_to_source(xalg) or "Atom Shop"
         animal   = PET_APPAREL_ANIMAL.get(entm_id, "other")
         carousel = ecil_images(entm, "camp-pets")
-        # Pet apparel imageUrl uses ETDI (the icon .dds), NOT the ECIL_1 carousel image.
-        # ECIL_1 has a _C1 suffix which maps to a different file than the uploaded texture icon.
+        # Pet apparel imageUrl: ETDI is the reliable base icon filename.
+        # ECIL_1 has a _C1 suffix which does NOT match the uploaded texture icon.
+        # ETDI must take priority; fall back to ECIL carousel only if ETDI is missing.
         _etdi    = entm.get("ETDI", "").strip()
-        img      = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-pets") if _etdi else "")
+        img      = storefront_img_url(_etdi, "camp-pets") if _etdi else (carousel[0] if carousel else "")
         edid     = entm.get("EDID", "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
@@ -1054,7 +1055,7 @@ def build_pet_apparel():
             "animalType":   animal,
             "obtainSource": source,
             "howToObtain":  "Craft at Armor Workbench",
-            "dropRate":     "—",
+            "dropRate":     "N/A",
             "seasonNumber": season_num,
             "tradeable":    _ap_tradeable,  # False for all current items (no plan books exist)
             "planName":     _ap_plan_name,
@@ -1102,7 +1103,7 @@ def build_cryos():
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
-        how        = scoreboard_how(season_num) if season_num else ("Gold Bullion - Samuel - Cautious - 1250 Bullion" if gv else f"Atom Shop - {display} - 1200 atoms")
+        how        = scoreboard_how(season_num) if season_num else ("Gold Bullion - Samuel - Cautious - 1250 Bullion" if gv else ATX_HOW)
         tradeable  = not bool(season_num)
 
         # Tradeable via plan: match ENTM EDID suffix against CondProxy tokens
@@ -1122,7 +1123,7 @@ def build_cryos():
             "description":    desc,
             "obtainSource":   "Scoreboard" if season_num else source,
             "howToObtain":    how,
-            "dropRate":       "—",
+            "dropRate":       "N/A",
             "seasonNumber":   season_num,
             "tradeable":      _cryo_tradeable,
             "planName":       _cryo_plan_name,
@@ -1190,7 +1191,7 @@ def build_fridges():
             source = "Scoreboard"
             how    = scoreboard_how(season_num)
         else:
-            how = f"Atom Shop - {display} - 1200 atoms"
+            how = ATX_HOW
 
         items.append({
             "formId":        entm_id,
@@ -1200,7 +1201,7 @@ def build_fridges():
             "description":   desc,
             "obtainSource":  source,
             "howToObtain":   how,
-            "dropRate":      "—",
+            "dropRate":      "N/A",
             "seasonNumber":  season_num,
             "tradeable":     False,
             "planName":      "",
