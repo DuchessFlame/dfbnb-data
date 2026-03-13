@@ -1,0 +1,61 @@
+name: Build Drop Rates JSON
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build Drop Rates JSON
+        run: |
+          python -V
+          python src/build_drop_rates.py
+
+      - name: Show dist outputs (debug)
+        run: |
+          echo "---- drop_rates.json ----"
+          ls -la dist/drop_rates.json || true
+          wc -c dist/drop_rates.json || true
+
+      - name: Sanity check output exists
+        run: |
+          test -f dist/drop_rates.json || (echo "Missing dist/drop_rates.json" && exit 1)
+
+      - name: Commit dist outputs
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/drop_rates.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build dist/drop_rates.json"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

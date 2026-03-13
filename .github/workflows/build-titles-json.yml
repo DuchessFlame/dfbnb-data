@@ -7,6 +7,8 @@ on:
     paths:
       - "tsv/**"
       - "src/build_titles_json.py"
+      - "src/build_drop_rates.py"
+      - "src/rng76.py"
       - "src/build_patchlog_manifest_from_guide_index.py"
       - "src/append_patchlog_history.py"
       - ".github/workflows/build-titles-json.yml"
@@ -19,7 +21,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Step 1: Build shared drop rates first
+  drop-rates:
+    uses: ./.github/workflows/build-drop-rates.yml
+
+  # Step 2: Build titles using the shared JSON
   build:
+    needs: drop-rates
     runs-on: ubuntu-latest
 
     steps:
@@ -27,11 +35,23 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          ref: main
+
+      - name: Pull latest (includes drop_rates.json from previous job)
+        run: git pull origin main
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
+
+      - name: Verify drop_rates.json exists
+        run: |
+          if [ -f dist/drop_rates.json ]; then
+            echo "drop_rates.json found ($(wc -c < dist/drop_rates.json) bytes)"
+          else
+            echo "Warning: dist/drop_rates.json not found — script will use fallback"
+          fi
 
       - name: Build Titles JSON
         run: |

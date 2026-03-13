@@ -5,12 +5,12 @@ Build REHO (Raid Expo Hunts Ops) reward checklist JSON.
 Generates dist/reho/reho_rewards_by_page.json with reward data for 10 specific
 Fallout 76 reward checklist pages, reading from:
 - dist/events/events_rewards.json (for Daily Ops, Expos, Raids)
-- TSV files in tsv/ symlink (for Bounty Hunts)
+- dist/drop_rates.json (for Bounty Hunts — pre-computed by build_drop_rates.py)
 
 Usage:
   python3 build_reho_json.py
 
-Run from /sessions/intelligent-great-thompson/mnt/tsv/
+Requires: build_drop_rates.py and build_events_rewards_json.py to run first.
 """
 
 import json
@@ -156,30 +156,28 @@ class REHOBuilder:
         self.tsv_path = self.base_path / "tsv"
         self.dist_path = self.base_path / "dist"
         self.events_rewards_path = self.dist_path / "events" / "events_rewards.json"
+        self.drop_rates_path = self.dist_path / "drop_rates.json"
         self.events_data = {}
         self.tiers_map = {}
         self.quest_data = {}
         self.gmrw_data = {}
-        self.glob_data = {}
 
-        # LVLI resolution data for bounty hunts
-        self.lvli_list_data = {}
-        self.lvli_entries_data = defaultdict(list)
-        self.lvli_math_data = {}
-        self.book_names = {}
-        self.misc_names = {}
-        self.keym_names = {}
-        self.lvli_cache = {}
+        # Pre-computed drop rates from build_drop_rates.py
+        self.drop_rates = {}
+        self.globs = {}
 
     def run(self):
         """Build the REHO JSON file."""
         print("Building REHO reward checklist JSON...")
 
+        # Load shared drop rates JSON (replaces all LVLI/GLOB/item-name loading)
+        self._load_drop_rates()
+
         # Load events rewards data
         self._load_events_rewards()
 
-        # Load TSV data for bounty hunts
-        self._load_bounty_hunt_data()
+        # Load minimal QUEST/GMRW data for bounty hunt metadata
+        self._load_bounty_hunt_metadata()
 
         # Build output structure
         output = {"byPage": {}}
@@ -207,6 +205,23 @@ class REHOBuilder:
         print(f"✓ Wrote {output_file}")
         print(f"✓ Total pages: {len(output['byPage']) // 2}")
 
+    # ------------------------------------------------------------------
+    # DATA LOADING (slimmed — uses shared drop_rates.json)
+    # ------------------------------------------------------------------
+
+    def _load_drop_rates(self):
+        """Load the shared drop_rates.json produced by build_drop_rates.py."""
+        if not self.drop_rates_path.exists():
+            print(f"  Warning: {self.drop_rates_path} not found — bounty hunts will have no items")
+            return
+
+        with open(self.drop_rates_path) as f:
+            data = json.load(f)
+
+        self.drop_rates = data.get("pools", {})
+        self.globs = data.get("globs", {})
+        print(f"  Loaded drop_rates.json: {len(self.drop_rates)} pools, {len(self.globs)} globs")
+
     def _load_events_rewards(self):
         """Load the events_rewards.json file."""
         if not self.events_rewards_path.exists():
@@ -220,45 +235,8 @@ class REHOBuilder:
             self.events_data[event["questFormID"]] = event
             self.events_data[event["name"]] = event
 
-    def _load_bounty_hunt_data(self):
-        """Load TSV data needed for bounty hunts."""
-        # Load QUEST data
-        quest_file = self.tsv_path / "QUEST_Export_March_2026.tsv"
-        if quest_file.exists():
-            with open(quest_file, encoding="utf-8") as f:
-                reader = csv.DictReader(f, delimiter="\t")
-                for row in reader:
-                    formid = row.get("FormID", "").strip()
-                    if formid in ("007D6A80", "007EBDF4"):
-                        self.quest_data[formid] = row
-
-        # Load GMRW data
-        gmrw_file = self.tsv_path / "GMRW_Export_March_2026.tsv"
-        if gmrw_file.exists():
-            with open(gmrw_file, encoding="utf-8") as f:
-                reader = csv.DictReader(f, delimiter="\t")
-                for row in reader:
-                    formid = row.get("FormID", "").strip()
-                    if formid in ("007D6A81", "007EBDEE"):
-                        self.gmrw_data[formid] = row
-
-        # Load GLOB data for XP and Caps
-        glob_file = self.tsv_path / "GLOB_Export_March_2026.tsv"
-        if glob_file.exists():
-            with open(glob_file, encoding="utf-8") as f:
-                reader = csv.DictReader(f, delimiter="\t")
-                for row in reader:
-                    formid = row.get("FormID", "").strip()
-                    if formid in ("007D6A68", "007EBDED", "007D6A67"):
-                        self.glob_data[formid] = row
-
-        # Load LVLI data for bounty hunt item resolution
-        self._load_lvli_data()
-        # Load item name data (BOOK, MISC, KEYM)
-        self._load_item_names()
-
-    def _load_lvli_data(self):
-        """Load LVLI TSV data for bounty hunt resolution."""
+    def _load_bounty_hunt_metadata(self):
+        """Load minimal QUEST/GMRW data for bounty hunt page metadata."""
         def read_tsv(path):
             try:
                 with open(path, encoding="utf-8-sig", newline="") as f:
@@ -267,76 +245,67 @@ class REHOBuilder:
                 with open(path, encoding="cp1252", errors="replace", newline="") as f:
                     return list(csv.DictReader(f, delimiter="\t"))
 
-        # Load LVLI List data
-        lvli_list_files = glob.glob(str(self.tsv_path / "LVLI_Export_*_LVLI_List.tsv"))
-        if lvli_list_files:
-            lvli_list_file = sorted(lvli_list_files)[-1]
-            for row in read_tsv(lvli_list_file):
-                formid = row.get("FormID", "").strip()
-                if formid:
-                    self.lvli_list_data[formid] = row
+        # Load QUEST data (only bounty hunt quests)
+        quest_files = glob.glob(str(self.tsv_path / "QUEST_Export_*.tsv"))
+        if quest_files:
+            quest_files.sort(key=lambda x: os.path.getmtime(x))
+            for row in read_tsv(quest_files[-1]):
+                formid = (row.get("FormID") or "").strip()
+                if formid in ("007D6A80", "007EBDF4"):
+                    self.quest_data[formid] = row
 
-        # Load LVLI Entries data
-        lvli_entries_files = glob.glob(str(self.tsv_path / "LVLI_Export_*_LVLI_Entries.tsv"))
-        if lvli_entries_files:
-            lvli_entries_file = sorted(lvli_entries_files)[-1]
-            for row in read_tsv(lvli_entries_file):
-                formid = row.get("LVLI_FormID", "").strip()
-                if formid:
-                    self.lvli_entries_data[formid].append(row)
+        # Load GMRW data (only bounty hunt GMRW)
+        gmrw_files = glob.glob(str(self.tsv_path / "GMRW_Export_*.tsv"))
+        if gmrw_files:
+            gmrw_files.sort(key=lambda x: os.path.getmtime(x))
+            for row in read_tsv(gmrw_files[-1]):
+                formid = (row.get("FormID") or "").strip()
+                if formid in ("007D6A81", "007EBDEE"):
+                    self.gmrw_data[formid] = row
 
-        # Load LVLI Math data
-        lvli_math_files = glob.glob(str(self.tsv_path / "LVLI_Export_*_LVLI_Math.tsv"))
-        if lvli_math_files:
-            lvli_math_file = sorted(lvli_math_files)[-1]
-            for row in read_tsv(lvli_math_file):
-                lvli_fid = row.get("LVLI_FormID", "").strip()
-                entry_idx = row.get("EntryIndex", "").strip()
-                if lvli_fid and entry_idx:
-                    key = (lvli_fid, entry_idx)
-                    self.lvli_math_data[key] = row
+    # ------------------------------------------------------------------
+    # ITEM RESOLUTION (from shared JSON instead of raw TSV)
+    # ------------------------------------------------------------------
 
-    def _load_item_names(self):
-        """Load item name data from BOOK, MISC, and KEYM exports."""
-        def read_tsv(path):
-            try:
-                with open(path, encoding="utf-8-sig", newline="") as f:
-                    return list(csv.DictReader(f, delimiter="\t"))
-            except UnicodeDecodeError:
-                with open(path, encoding="cp1252", errors="replace", newline="") as f:
-                    return list(csv.DictReader(f, delimiter="\t"))
+    def _resolve_lvli_items_from_json(self, lvli_formid: str) -> List[Dict[str, Any]]:
+        """
+        Look up pre-resolved LVLI items from drop_rates.json.
 
-        # Load BOOK names
-        book_files = glob.glob(str(self.tsv_path / "BOOK_Export_*.tsv"))
-        if book_files:
-            book_file = sorted(book_files)[-1]
-            for row in read_tsv(book_file):
-                formid = row.get("FormID", "").strip()
-                full = row.get("FULL - Name", row.get("FULL", "")).strip()
-                if formid and full:
-                    self.book_names[formid] = full
+        Replaces the old _resolve_lvli_items() which duplicated the full
+        rng-76 LVLI tree walker. Items come back with 0-1 drop rates.
+        """
+        pool = self.drop_rates.get(lvli_formid)
+        if not pool:
+            return []
 
-        # Load MISC names
-        misc_files = glob.glob(str(self.tsv_path / "MISC_Export_*.tsv"))
-        if misc_files:
-            misc_file = sorted(misc_files)[-1]
-            for row in read_tsv(misc_file):
-                formid = row.get("FormID", "").strip()
-                full = row.get("FULL - Name", row.get("FULL", "")).strip()
-                if formid and full:
-                    self.misc_names[formid] = full
+        return [
+            {
+                "formid":   item["formid"],
+                "name":     item["name"],
+                "qty":      item.get("qty", 1),
+                "dropRate": item["dropRate"],
+                "edid":     item.get("edid", ""),
+                "sig":      item.get("sig", ""),
+            }
+            for item in pool.get("items", [])
+        ]
 
-        # Load KEYM names (keys like Activation Keycard)
-        all_keym = glob.glob(str(self.tsv_path / "KEYM_Export_*.tsv"))
-        keym_files = [f for f in all_keym
-                      if not any(s in os.path.basename(f) for s in ("_Locations", "_Refs", "_KYWD"))]
-        if keym_files:
-            keym_file = sorted(keym_files)[-1]
-            for row in read_tsv(keym_file):
-                formid = row.get("FormID", "").strip()
-                full = row.get("FULL - Name", row.get("FULL", "")).strip()
-                if formid and full:
-                    self.keym_names[formid] = full
+    def _resolve_item_name(self, formid: str, edid: str, sig: str) -> str:
+        """Resolve a FormID to a display name using drop_rates.json pools."""
+        # Check all pools for this formid in their items
+        for pool in self.drop_rates.values():
+            for item in pool.get("items", []):
+                if item.get("formid") == formid:
+                    name = item.get("name", "")
+                    if name and name != formid:
+                        return name
+        if edid:
+            return edid
+        return formid
+
+    # ------------------------------------------------------------------
+    # EVENT-BASED PAGES (unchanged — reads from events_rewards.json)
+    # ------------------------------------------------------------------
 
     def _build_from_events(self, slug: str, config: Dict[str, Any]) -> Dict[str, Any]:
         """Build page data from existing events_rewards.json."""
@@ -470,112 +439,6 @@ class REHOBuilder:
         secs = seconds % 60
         return f"{minutes}:{secs:02d}"
 
-    def _resolve_lvli_items(self, lvli_formid: str, depth: int = 0, seen: Optional[set] = None) -> List[Dict[str, Any]]:
-        """Resolve LVLI FormID to a list of items with drop rates and names."""
-        if seen is None:
-            seen = set()
-        if lvli_formid in seen or depth > 50:
-            return []
-        seen = seen | {lvli_formid}
-
-        if lvli_formid in self.lvli_cache:
-            return self.lvli_cache[lvli_formid]
-
-        items = []
-        entries = self.lvli_entries_data.get(lvli_formid, [])
-
-        for entry in entries:
-            idx = entry.get("EntryIndex", "").strip()
-            if not idx:
-                continue
-
-            math = self.lvli_math_data.get((lvli_formid, idx))
-            if not math:
-                continue
-
-            ref = entry.get("LVLO_Reference", "").strip()
-            if not ref:
-                continue
-
-            list_none = float(math.get("ListChanceNoneResolved", 0) or 0)
-            entry_pres = float(math.get("EntryPresenceChance", 1) or 1)
-            entry_none = float(math.get("EntryChanceNoneResolved", 0) or 0)
-
-            cond_rand = 1.0
-            cond_str = entry.get("Cond1", "").strip() if entry else ""
-            if "GetRandomPercent" in cond_str:
-                match = re.search(r"GetRandomPercent.*?(\d+(?:\.\d+)?)", cond_str)
-                if match:
-                    try:
-                        pct = float(match.group(1))
-                        cond_rand = max(0, min(100, pct)) / 100.0
-                    except (ValueError, AttributeError):
-                        cond_rand = 1.0
-
-            apriori = float(math.get("EntryAprioriChance_NoSublist", 1) or 1)
-
-            list_none = max(0, min(1, list_none))
-            entry_none = max(0, min(1, entry_none))
-            drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
-            drop_rate = max(0, drop_rate)
-
-            qty_raw = entry.get("LVIV_Quantity", entry.get("LVLO_Count", entry.get("Count", "1"))).strip()
-            try:
-                qty = int(float(qty_raw))
-            except (ValueError, TypeError):
-                qty = 1
-
-            ref_parts = ref.split(":")
-            if len(ref_parts) < 1:
-                continue
-
-            fid = ref_parts[0].strip()
-            edid = ref_parts[1].strip() if len(ref_parts) > 1 else ""
-            sig = ref_parts[2].upper().strip() if len(ref_parts) > 2 else ""
-
-            sub_lvli_fid = math.get("SubLVLI_FormID", "").strip()
-            if sub_lvli_fid:
-                sub_items = self._resolve_lvli_items(sub_lvli_fid, depth + 1, seen)
-                for sub_item in sub_items:
-                    items.append({
-                        "formid": sub_item["formid"],
-                        "name": sub_item["name"],
-                        "qty": sub_item["qty"],
-                        "dropRate": sub_item["dropRate"] * drop_rate,
-                        "edid": sub_item["edid"],
-                        "sig": sub_item["sig"],
-                    })
-            else:
-                name = self._resolve_item_name(fid, edid, sig)
-                items.append({
-                    "formid": fid,
-                    "name": name,
-                    "qty": qty,
-                    "dropRate": drop_rate,
-                    "edid": edid,
-                    "sig": sig,
-                })
-
-        total_rate = sum(item["dropRate"] for item in items) if items else 0
-        if total_rate > 1.001 and items:
-            for item in items:
-                item["dropRate"] = item["dropRate"] / total_rate if total_rate > 0 else 0
-
-        self.lvli_cache[lvli_formid] = items
-        return items
-
-    def _resolve_item_name(self, formid: str, edid: str, sig: str) -> str:
-        """Resolve a FormID to a display name."""
-        if formid in self.misc_names:
-            return self.misc_names[formid]
-        if formid in self.book_names:
-            return self.book_names[formid]
-        if formid in self.keym_names:
-            return self.keym_names[formid]
-        if edid:
-            return edid
-        return formid
-
     def _merge_duplicate_pools(self, pools: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Merge pools with the same lvliFormID (mutually exclusive conditions)."""
         seen = {}
@@ -596,8 +459,12 @@ class REHOBuilder:
 
         return merged
 
+    # ------------------------------------------------------------------
+    # BOUNTY HUNT PAGES (slimmed — uses drop_rates.json)
+    # ------------------------------------------------------------------
+
     def _build_bountyhunt_page(self, slug: str, config: Dict[str, Any]) -> Dict[str, Any]:
-        """Build a bounty hunt page from TSV data."""
+        """Build a bounty hunt page using pre-computed drop rates."""
         quest_id = config["questFormID"]
         gmrw_id = config["gmrwFormID"]
         root_lvli_id = config["lvliFormID"]
@@ -608,29 +475,31 @@ class REHOBuilder:
 
         gmrw_info = self.gmrw_data.get(gmrw_id, {})
 
+        # XP and Caps from shared globs
         xp_value = "varies"
         caps_value = "5000"
 
         xp_glob_id = config.get("xpGlobID")
-        if xp_glob_id and xp_glob_id in self.glob_data:
-            xp_info = self.glob_data[xp_glob_id]
-            xp_value = xp_info.get("Value", "varies")
+        if xp_glob_id and xp_glob_id in self.globs:
+            xp_value = str(int(self.globs[xp_glob_id].get("value", 0))) or "varies"
 
         caps_glob_id = config.get("capsGlobID")
-        if caps_glob_id and caps_glob_id in self.glob_data:
-            caps_info = self.glob_data[caps_glob_id]
-            caps_value = caps_info.get("Value", "5000")
+        if caps_glob_id and caps_glob_id in self.globs:
+            caps_value = str(int(self.globs[caps_glob_id].get("value", 5000)))
 
-        lvli_items = self._resolve_lvli_items(root_lvli_id)
+        # Get items from shared drop_rates.json (replaces _resolve_lvli_items)
+        lvli_items = self._resolve_lvli_items_from_json(root_lvli_id)
 
         items_list = []
         for item in lvli_items:
+            dr = item["dropRate"]
+            dr_pct = round(dr * 100, 2) if dr <= 1.0 else round(dr, 2)
             items_list.append({
                 "formid": item["formid"],
                 "name": item["name"],
                 "qty": item["qty"],
-                "dropRate": round(item["dropRate"] * 100, 2),
-                "dropRatePercent": f"{round(item['dropRate'] * 100, 2)}%",
+                "dropRate": dr_pct,
+                "dropRatePercent": f"{dr_pct}%",
                 "edid": item["edid"],
                 "sig": item["sig"],
             })
