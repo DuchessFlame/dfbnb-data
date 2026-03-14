@@ -7,32 +7,36 @@
       "id": "003BCC25",
       "edid": "CHR_BarterBuyCurve",
       "category": "vendors",
-      "xMin": 1.0,
-      "xMax": 100.0,
+      "xMin": 1,
+      "xMax": 100,
       "yMin": 1.5,
       "yMax": 2.5,
       "desc": "Vendor: CHR value.",
       "xLabel": "Player Level",
       "yLabel": "Bonus Value",
+      "softCap": {
+        "x": 60,
+        "y": 1.6
+      },
       "points": [
         {
-          "x": 1.0,
+          "x": 1,
           "y": 2.5
         },
         {
-          "x": 15.0,
-          "y": 2.0
+          "x": 15,
+          "y": 2
         },
         {
-          "x": 30.0,
+          "x": 30,
           "y": 1.75
         },
         {
-          "x": 60.0,
+          "x": 60,
           "y": 1.6
         },
         {
-          "x": 100.0,
+          "x": 100,
           "y": 1.5
         }
       ],
@@ -95,7 +99,7 @@
         },
         {
           "x": 15,
-          "y": 2.0
+          "y": 2
         },
         {
           "x": 16,
@@ -437,42 +441,42 @@
           "x": 100,
           "y": 1.5
         }
-      ],
-      "softCap": {
-        "x": 60.0,
-        "y": 1.6
-      }
+      ]
     },
     {
       "id": "003BCC26",
       "edid": "CHR_BarterSellCurve",
       "category": "vendors",
-      "xMin": 1.0,
-      "xMax": 100.0,
+      "xMin": 1,
+      "xMax": 100,
       "yMin": 0.1,
       "yMax": 0.3,
       "desc": "Vendor: CHR value.",
       "xLabel": "Player Level",
       "yLabel": "Multiplier",
+      "softCap": {
+        "x": 60,
+        "y": 0.28
+      },
       "points": [
         {
-          "x": 1.0,
+          "x": 1,
           "y": 0.1
         },
         {
-          "x": 15.0,
+          "x": 15,
           "y": 0.18
         },
         {
-          "x": 30.0,
+          "x": 30,
           "y": 0.25
         },
         {
-          "x": 60.0,
+          "x": 60,
           "y": 0.28
         },
         {
-          "x": 100.0,
+          "x": 100,
           "y": 0.3
         }
       ],
@@ -877,11 +881,7 @@
           "x": 100,
           "y": 0.3
         }
-      ],
-      "softCap": {
-        "x": 60.0,
-        "y": 0.28
-      }
+      ]
     }
   ]
 }
