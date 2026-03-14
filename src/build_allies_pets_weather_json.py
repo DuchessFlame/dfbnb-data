@@ -464,6 +464,7 @@ def build_weather_stations():
         # Plan name: only AC Fog has a confirmed purchasable plan book (BOOK FormID 0075FF95).
         # All other weather stations are entitlement-based with no player-purchasable plan.
         # CondProxy token lookups false-positive on some stations — hard-clear for non-AC-Fog.
+        _ws_tradeable = False
         if entm_id == "0073ABA6":
             _ws_plan_name = "Plan: Weather Control Station (Atlantic City Fog)"
         else:

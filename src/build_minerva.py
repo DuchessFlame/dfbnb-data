@@ -42,9 +42,9 @@ def get_minerva_lists(row):
     for val in row.values():
         if not val:
             continue
-        m = re.search(r'BS02_SpecialVendor_Minerva_LLS_GoldVendor_(\d+)', val)
-        if m:
-            lists.add(int(m.group(1)))
+        # findall catches ALL list refs in a single field (search only finds the first)
+        for num in re.findall(r'BS02_SpecialVendor_Minerva_LLS_GoldVendor_(\d+)', val):
+            lists.add(int(num))
     return sorted(lists)
 
 def main():
