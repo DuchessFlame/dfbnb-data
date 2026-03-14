@@ -173,6 +173,90 @@ try:    PLYT = read_tsv(newest("tsv/PLYT_Export_*.tsv"))
 except FileNotFoundError: PLYT = []
 try:    CMPT = read_tsv(newest("tsv/CMPT_Export_*.tsv"))
 except FileNotFoundError: CMPT = []
+try:    WEAP_OT = read_tsv(newest("tsv/WEAP_Export_*_ObjectTemplate.tsv"))
+except FileNotFoundError: WEAP_OT = []
+
+# --------------------------------------------------
+# Index: WEAP Object Template (mod slots for named/unique weapons)
+# --------------------------------------------------
+
+# Map weapon FormID → list of mod slot dicts [{label, value, includeIndex}]
+# Used to display weapon breakdowns like:
+#   Appearance: Lawbringer | 1★ Adrenal | 2★ Rapid | 3★ Swift
+#   Receiver: Standard | Grip: Standard | Sights: Iron Sights | Barrel: Long
+
+# Slot labels inferred from OMOD EDID keywords or attach point index
+_MOD_SLOT_LABELS = {
+    "appearance": "Appearance",
+    "paint":      "Appearance",
+    "weapon_paint": "Appearance",
+    "legendary1":   "Legendary 1★",
+    "legendary_weapon1": "Legendary 1★",
+    "legendary2":   "Legendary 2★",
+    "legendary_weapon2": "Legendary 2★",
+    "legendary3":   "Legendary 3★",
+    "legendary_weapon3": "Legendary 3★",
+    "legendary4":   "Legendary 4★",
+    "legendary_weapon4": "Legendary 4★",
+    "legendary5":   "Legendary 5★",
+    "legendary_weapon5": "Legendary 5★",
+    "receiver":  "Receiver",
+    "grip":      "Grip",
+    "scope":     "Sights",
+    "ironsights": "Sights",
+    "sights":    "Sights",
+    "barrel":    "Barrel",
+    "magazine":  "Magazine",
+    "muzzle":    "Muzzle",
+    "stock":     "Stock",
+}
+
+def _classify_mod_slot(mod_ref_str):
+    """Classify a mod OMOD reference string into a human-readable slot label + value."""
+    if not mod_ref_str:
+        return None, None
+    # mod_ref_str looks like: ATX_mod_44_Weapon_Paint_Lawbringer "Lawbringer" [OMOD:008599F7]
+    # or: mod_Legendary_Weapon1_Adrenal "Adrenal" [OMOD:0080F549]
+    parts = mod_ref_str.strip()
+    # Extract quoted display name
+    display_name = ""
+    m = re.search(r'"([^"]+)"', parts)
+    if m:
+        display_name = m.group(1)
+    # Extract EDID (everything before the first quote or bracket)
+    edid = re.split(r'["\[]', parts)[0].strip()
+    edid_lower = edid.lower()
+
+    # Match slot label from EDID keywords
+    label = None
+    for keyword, slot_label in _MOD_SLOT_LABELS.items():
+        if keyword in edid_lower:
+            label = slot_label
+            break
+    if not label:
+        label = "Mod"
+
+    value = display_name or edid
+    return label, value
+
+weap_mod_slots_by_formid = defaultdict(list)
+for r in WEAP_OT:
+    fid = pick(r, "WEAP_FormID", "FormID")
+    mod_ref = pick(r, "Include_Mod", "Mod")
+    if not fid or not mod_ref:
+        continue
+    label, value = _classify_mod_slot(mod_ref)
+    if label and value:
+        inc_idx = int(pick(r, "IncludeIndex", default="0") or 0)
+        weap_mod_slots_by_formid[fid].append({
+            "label": label,
+            "value": value,
+            "includeIndex": inc_idx,
+        })
+
+# Sort each weapon's mods by include index
+for fid in weap_mod_slots_by_formid:
+    weap_mod_slots_by_formid[fid].sort(key=lambda x: x["includeIndex"])
 
 # --------------------------------------------------
 # Index: GLOB
@@ -248,11 +332,13 @@ def humanize_edid(edid):
     if not edid:
         return edid
     s = edid
-    # Strip common prefixes
+    # Strip common prefixes (including all DLC prefixes like DLC03_, DLC04_, etc.)
     for pfx in ["LL_Weapon_", "LL_Armor_", "LPI_Weapon_", "LPI_Armor_",
-                 "LL_", "LPI_", "DLC04_", "DLC05_", "DLC06_", "POST_"]:
+                 "LL_", "LPI_", "POST_"]:
         if s.startswith(pfx):
             s = s[len(pfx):]
+    # Strip DLC0N_ prefixes generically (DLC01_, DLC02_, DLC03_, etc.)
+    s = re.sub(r"^DLC\d+_", "", s)
     # Split CamelCase and underscores into words
     s = re.sub(r"_", " ", s)
     s = re.sub(r"([a-z])([A-Z])", r"\1 \2", s)
@@ -300,7 +386,8 @@ def resolve_name_for_formid(formid, edid=None):
          or misc_names.get(formid)
          or weap_names.get(formid)
          or alch_names.get(formid)
-         or ammo_names.get(formid))
+         or ammo_names.get(formid)
+         or crea_names.get(formid))
     if name:
         return name
     # Try EDID-based lookup
@@ -542,10 +629,14 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "conditions": conditions,
                 })
 
-    # Normalize for pick-one lists: if NOT Use All and total dropRate > 1.0
+    # Normalize for pick-one lists.  A pick-one list selects exactly one
+    # entry, so the individual probabilities MUST sum to 1.0 (100%).
+    # xEdit exports often report apriori=1.0 for every entry making the
+    # raw total equal to the entry count — we normalise unconditionally
+    # whenever the total deviates from 1.0 by more than a tiny epsilon.
     if not is_use_all and items:
         total_rate = sum(item["dropRate"] for item in items)
-        if total_rate > 1.001:
+        if total_rate > 0 and abs(total_rate - 1.0) > 0.0001:
             for item in items:
                 item["dropRate"] = item["dropRate"] / total_rate
 
@@ -740,9 +831,18 @@ def resolve_region_grabbag(grabbag_formid, activity_region_names):
                 re_edid = re_ref.split(":")[1] if len(re_ref.split(":")) > 1 else ""
                 re_sig = re_ref.split(":")[-1] if re_ref.count(":") >= 2 else ""
 
-                # Determine category from EDID
+                # Determine category from actual item signature first, then EDID
                 re_edid_lower = re_edid.lower()
-                if "weapon" in re_edid_lower:
+                re_sig_upper = re_sig.upper() if re_sig else ""
+                if re_sig_upper == "AMMO":
+                    category = "Ammo"
+                elif re_sig_upper == "WEAP":
+                    category = "Weapon"
+                elif re_sig_upper in ("ARMO",):
+                    category = "Armor"
+                elif re_sig_upper == "BOOK":
+                    category = "Schematic"
+                elif "weapon" in re_edid_lower:
                     category = "Weapon"
                 elif "armor" in re_edid_lower or "armour" in re_edid_lower:
                     category = "Armor"
@@ -763,13 +863,25 @@ def resolve_region_grabbag(grabbag_formid, activity_region_names):
                     # Resolve sub-LVLI to leaf items
                     sub_items = resolve_lvli_items_deep(re_fid)
                     for si in sub_items:
+                        # Determine category from actual leaf item signature
+                        si_sig = si.get("sig", "").upper()
+                        if si_sig == "AMMO":
+                            si_cat = "Ammo"
+                        elif si_sig == "WEAP":
+                            si_cat = "Weapon"
+                        elif si_sig in ("ARMO",):
+                            si_cat = "Armor"
+                        elif si_sig == "BOOK":
+                            si_cat = "Schematic"
+                        else:
+                            si_cat = category  # fallback to parent EDID-based category
                         region_items.append({
                             "name": si.get("name", ""),
                             "formid": si.get("formid", ""),
                             "edid": si.get("edid", ""),
                             "dropRate": round(weight * 100, 2),
                             "qty": si.get("qty", 1),
-                            "category": category,
+                            "category": si_cat,
                             "conditions": si.get("conditions", []),
                         })
                 else:
@@ -1023,26 +1135,45 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         else:
             sub_items = resolve_lvli_items_deep(formid)
             for item in sub_items:
-                is_plan = (item.get("name") or "").startswith(("Plan:", "Recipe:"))
+                dr = item.get("dropRate", 0.0)
+                item_name = item.get("name", "")
+                # Skip items with zero/negligible drop rate
+                if dr <= 0.0:
+                    continue
+                # Skip items whose name didn't resolve (still raw FormID hex)
+                if re.fullmatch(r"[0-9A-Fa-f]{8}", item_name):
+                    continue
+                is_plan = item_name.startswith(("Plan:", "Recipe:"))
                 activity_data["uniqueEventRewards"].append({
-                    "name": item.get("name", ""),
+                    "name": item_name,
                     "formid": item.get("formid", ""),
                     "edid": item.get("edid", ""),
-                    "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
+                    "dropRate": pct(dr) if dr < 1.0 else None,
                     "qty": item.get("qty", 1),
                     "kind": "plan" if is_plan else None,
                     "conditions": item.get("conditions", []),
                 })
                 if is_plan:
                     activity_data["planRewards"].append({
-                        "name": item.get("name", ""),
+                        "name": item_name,
                         "formid": item.get("formid", ""),
-                        "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
+                        "dropRate": pct(dr) if dr < 1.0 else None,
                         "qty": item.get("qty", 1),
                     })
 
     # Sort plan rewards alphabetically
     activity_data["planRewards"].sort(key=lambda x: (x.get("name") or "").lower())
+
+    # Attach weapon mod-slot breakdowns (from WEAP Object Template TSV)
+    for uer_item in activity_data["uniqueEventRewards"]:
+        fid = uer_item.get("formid", "")
+        if fid and fid in weap_mod_slots_by_formid:
+            slots = weap_mod_slots_by_formid[fid]
+            # Strip the includeIndex (internal sorting key) before emitting
+            uer_item["modSlots"] = [
+                {"label": s["label"], "value": s["value"]}
+                for s in slots
+            ]
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):
@@ -1823,11 +1954,11 @@ for key, pages in sorted(reward_pages_by_key.items()):
                                    key=lambda x: (x["name"] or "", x["formid"] or ""))
                 else:
                     probs = compute_lvli(formid)
-                    # Normalise: if apriori=1.0 for all entries (common xEdit export gap),
-                    # compute_lvli returns 1.0 per item for equal-weight pick-one lists.
-                    # Dividing by total restores the correct per-slot probability.
+                    # Normalise: pick-one lists must sum to 1.0 (100%).
+                    # xEdit exports often give apriori=1.0 for every entry, so
+                    # we normalise whenever the total deviates from 1.0.
                     _total = sum(probs.values())
-                    if _total > 1.001:
+                    if _total > 0 and abs(_total - 1.0) > 0.0001:
                         probs = {k: v / _total for k, v in probs.items()}
                     items = sorted([
                         {
@@ -1934,7 +2065,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
             lvli_edid = lvli_edid_by_formid.get(formid, "")
             probs = compute_lvli(formid)
             _total = sum(probs.values())
-            if _total > 1.001:
+            if _total > 0 and abs(_total - 1.0) > 0.0001:
                 probs = {k: v / _total for k, v in probs.items()}
             items = sorted([
                 {

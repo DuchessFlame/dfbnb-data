@@ -635,10 +635,10 @@ class Rng76Resolver:
                         "conditions": conditions,
                     })
 
-        # Pick-one normalisation
+        # Pick-one normalisation — always normalise to 1.0 for pick-one lists
         if not is_use_all and items:
             total = sum(it["dropRate"] for it in items)
-            if total > 1.001:
+            if total > 0 and abs(total - 1.0) > 0.0001:
                 for it in items:
                     it["dropRate"] = it["dropRate"] / total
 
