@@ -846,8 +846,15 @@ def build_notes(book_path, locations=None):
 
                 desc = row.get('DESC', '').strip()
 
-                # Filter for notes: DESC must contain <font face=
-                if '<font face=' not in desc:
+                # Filter for notes: DESC must contain HTML formatting tags.
+                # Most notes use <font face=, but some use <font size= or <p> tags
+                # without <font face=.
+                has_html = ('<font face=' in desc or
+                            '<font size=' in desc or
+                            '<font size' in desc.lower() or
+                            '<p align=' in desc or
+                            '<p>' in desc)
+                if not has_html:
                     continue
 
                 formid = row.get('FormID', '').strip()
@@ -1025,18 +1032,23 @@ def build_magazines(book_path, locations=None):
     return live, cut
 
 
-def build_holotapes(book_path, misc_rows, locations=None):
+def build_holotapes(book_path, misc_rows, note_formids=None, locations=None):
     """
     Build holotapes list from BOOK + MISC TSVs.
 
-    From BOOK: rows where EDID contains 'Holotape' but NOT 'Magazine_Holotape_'
+    From BOOK: rows where EDID or FULL contains 'Holotape' but NOT 'Magazine_Holotape_'
     (these are audio holotapes, not holotape games).
+
+    Also from BOOK: rows that are NOT captured as notes (no <font tag in DESC),
+    NOT plans/recipes, NOT magazines, NOT player titles, NOT holotape games,
+    and have a non-empty name. These are typically holotape transcripts stored as
+    plain-text BOOK records.
 
     From MISC: rows where EDID or FULL contains 'Holotape'
     (some quest holotapes are MISC objects).
 
-    Note: Most audio holotapes in FO76 are NOTE records.
-    A future NOTE export will greatly expand this list.
+    note_formids: set of FormIDs already captured by build_notes, to avoid
+    double-counting items that appear in both lists.
 
     Returns (live_items, cut_items).
     """
@@ -1044,38 +1056,73 @@ def build_holotapes(book_path, misc_rows, locations=None):
     live = []
     cut = []
     seen_formids = set()
+    note_formids = note_formids or set()
 
-    # 1. BOOK holotapes (EDID contains 'Holotape' but not a game)
+    # Patterns that identify plans/recipes (EDID or FULL)
+    _PLAN_PREFIXES = ('RECIPE', 'RECIPE_')
+    _PLAN_NAME_PREFIXES = ('PLAN:', 'RECIPE:')
+
+    # 1. BOOK holotapes — two-pass approach:
+    #    Pass A: explicit 'Holotape' in EDID/FULL (high confidence)
+    #    Pass B: plain-text BOOK records that aren't notes/plans/magazines (holotape transcripts)
+    book_a_count = 0
+    book_b_count = 0
+
     try:
         with open(book_path, 'r', encoding='utf-8', errors='replace') as f:
             reader = csv.DictReader(f, delimiter='\t')
             for row in reader:
                 edid = row.get('EDID', '').strip()
                 full = row.get('FULL', '').strip()
-                edid_upper = edid.upper()
-
-                # Must contain 'Holotape' in EDID or FULL
-                has_holotape = ('HOLOTAPE' in edid_upper or
-                                'HOLOTAPE' in (full or '').upper())
-                if not has_holotape:
-                    continue
-
-                # Exclude holotape games
-                if 'MAGAZINE_HOLOTAPE_' in edid_upper:
-                    continue
-
-                # Exclude magazines
-                if 'MAGAZINE_' in edid_upper:
-                    continue
-
-                # Exclude notes (already handled by build_notes)
-                desc = row.get('DESC', '').strip()
-                if '<font face=' in desc:
-                    continue
-
                 formid = row.get('FormID', '').strip()
+                desc = row.get('DESC', '').strip()
+                edid_upper = edid.upper()
+                full_upper = (full or '').upper()
+
                 if not full or formid in seen_formids:
                     continue
+
+                # Skip if already captured as a note
+                if formid in note_formids:
+                    continue
+
+                # --- Always exclude these categories ---
+                # Holotape games (Magazine_Holotape_)
+                if 'MAGAZINE_HOLOTAPE_' in edid_upper:
+                    continue
+                # Magazines (Magazine_ or PerkMag)
+                if 'MAGAZINE_' in edid_upper or edid_upper.startswith('PERKMAG'):
+                    continue
+                # Plans and recipes
+                if any(edid_upper.startswith(p) for p in _PLAN_PREFIXES):
+                    continue
+                if any(full_upper.startswith(p) for p in _PLAN_NAME_PREFIXES):
+                    continue
+                # Player titles
+                if 'PLAYERTITLE' in edid_upper:
+                    continue
+                # Camp titles
+                if 'CAMPTITLE' in edid_upper:
+                    continue
+                # Test/debug records
+                if edid_upper.startswith('TEST') or edid_upper.startswith('DEBUG'):
+                    continue
+
+                # --- Pass A: explicit holotape match ---
+                has_holotape = ('HOLOTAPE' in edid_upper or
+                                'HOLOTAPE' in full_upper)
+
+                # --- Pass B: plain-text BOOK records (not HTML-formatted notes) ---
+                # These are holotape transcripts: BOOK records with plain text DESC,
+                # no HTML formatting (<font, <p tags), not plans/mags/titles.
+                has_html = ('<font' in desc.lower() or
+                            '<p ' in desc.lower() or
+                            '<p>' in desc.lower())
+                is_plain_text_book = bool(desc) and not has_html
+
+                if not has_holotape and not is_plain_text_book:
+                    continue
+
                 seen_formids.add(formid)
 
                 btof = row.get('BTOF', '').strip()
@@ -1100,10 +1147,19 @@ def build_holotapes(book_path, misc_rows, locations=None):
                 else:
                     live.append(item)
 
+                if has_holotape:
+                    book_a_count += 1
+                else:
+                    book_b_count += 1
+
     except Exception as e:
         print(f"  ERROR reading BOOK for holotapes: {e}", file=sys.stderr)
 
+    print(f"    BOOK explicit holotape match: {book_a_count}", file=sys.stderr)
+    print(f"    BOOK plain-text transcripts: {book_b_count}", file=sys.stderr)
+
     # 2. MISC holotape objects
+    misc_count = 0
     for row in misc_rows:
         edid = row.get('EDID', '').strip()
         full = row.get('FULL', '').strip()
@@ -1135,38 +1191,151 @@ def build_holotapes(book_path, misc_rows, locations=None):
             cut.append(item)
         else:
             live.append(item)
+        misc_count += 1
+
+    print(f"    MISC holotape objects: {misc_count}", file=sys.stderr)
 
     live.sort(key=lambda x: x['name'])
-    print(f"  Found {len(live)} live holotapes, {len(cut)} cut", file=sys.stderr)
+    print(f"  Found {len(live)} live holotapes, {len(cut)} cut (total)", file=sys.stderr)
     return live, cut
 
 
-def build_keys(misc_rows):
+def load_keym_locations(path):
     """
-    Build keys list from MISC TSV.
-    Filters for rows where EDID or FULL contains 'Key' or 'Keycard'.
+    Load KEYM_*_Locations.tsv and return a dict:
+      { FormID -> {loc_name, loc_source, quest_name} }
+    Same format as load_book_locations but keyed on KEYM_FormID.
+    """
+    result = {}
+    try:
+        with open(path, 'r', encoding='utf-8', errors='replace') as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            for row in reader:
+                fid = row.get('KEYM_FormID', '').strip()
+                if not fid:
+                    continue
+                result[fid] = {
+                    'loc_name':   row.get('LocationName',   '').strip(),
+                    'loc_source': row.get('LocationSource', '').strip(),
+                    'quest_name': row.get('QuestName',      '').strip(),
+                }
+    except Exception as e:
+        print(f"  WARNING: Could not load KEYM locations file: {e}", file=sys.stderr)
+    return result
 
-    Excludes false positives (miscmod, whiskey, turkey, monkey, keyboard, etc.).
 
-    Note: Most keys in FO76 are KEYM records.
-    A future KEYM export will greatly expand this list.
+def _clean_alias_tags(s):
+    """Strip <Alias=...> tags from quest location strings."""
+    return re.sub(r'<[Aa]lias=[^>]*>', '', s).strip()
+
+
+def resolve_keym_location(formid, edid, locations):
+    """
+    Resolve the best display location string for a key.
+    Uses the same priority as resolve_note_location.
+    """
+    loc_data = locations.get(formid) if locations else None
+
+    if loc_data:
+        loc_name   = loc_data['loc_name']
+        loc_source = loc_data['loc_source']
+        quest_name = loc_data['quest_name']
+
+        if loc_source == 'ExtCell':
+            parsed = parse_ext_cell_location(loc_name)
+            return parsed if parsed else "Not near a named location"
+
+        if loc_source in ('CellFULL', 'NameParse', 'CellEDID'):
+            if not loc_name or loc_name.lower() in ('appalachia',):
+                pass  # fall through
+            elif not is_test_cell_name(loc_name):
+                return loc_name
+
+        if quest_name:
+            cleaned = _clean_alias_tags(quest_name)
+            return "Quest: " + re.sub(r'  +', ' ', cleaned).strip()
+
+        if loc_name and not is_test_cell_name(loc_name) and loc_name.lower() != 'appalachia':
+            return loc_name
+
+    return derive_location_from_edid(edid)
+
+
+def build_keys(keym_rows, misc_rows, keym_locations=None):
+    """
+    Build keys list from KEYM TSV + MISC TSV.
+
+    Primary source: KEYM records (the dedicated key record type in FO76).
+    Secondary source: MISC records where EDID or FULL contains 'Key' or 'Keycard'.
+
+    Excludes false positives from MISC (miscmod, whiskey, turkey, monkey, keyboard, etc.).
 
     Returns (live_items, cut_items).
     """
-    print("  Building keys from MISC...", file=sys.stderr)
+    print("  Building keys from KEYM + MISC...", file=sys.stderr)
     live = []
     cut = []
+    seen_formids = set()
 
+    # 1. KEYM records (primary source — all KEYM records are keys)
+    for row in keym_rows:
+        edid = row.get('EDID', '').strip()
+        full = row.get('FULL', '').strip()
+        formid = row.get('FormID', '').strip()
+
+        if not full or formid in seen_formids:
+            continue
+        seen_formids.add(formid)
+
+        edid_upper = edid.upper()
+
+        is_cut = starts_cut(edid)
+
+        # Mark test/debug items as cut
+        if edid_upper.startswith('TEST') or edid_upper.startswith('DEBUG'):
+            is_cut = True
+
+        location = resolve_keym_location(formid, edid, keym_locations)
+
+        # If location resolves to a test cell or debug quest, mark as cut
+        if (is_test_cell_name(location) or
+            re.search(r'(?i)\btest', location) or
+            re.search(r'(?i)\bdebug', location)):
+            is_cut = True
+
+        item = {
+            "formId": formid,
+            "edid": edid,
+            "name": full,
+            "location": location,
+            "contents": "",
+            "canCollect": True,
+            "isCut": is_cut
+        }
+
+        if is_cut:
+            cut.append(item)
+        else:
+            live.append(item)
+
+    print(f"    KEYM: {len(live)} live, {len(cut)} cut", file=sys.stderr)
+
+    # 2. MISC key-like objects (secondary — catches quest keys stored as MISC)
     # Words that contain 'key' but aren't actual keys
     FALSE_POSITIVES = (
         'MISCMOD', 'WHISKEY', 'TURKEY', 'DONKEY', 'MONKEY',
         'KEYBOARD', 'JANGLES', 'HOCKEY',
     )
 
+    misc_live = 0
+    misc_cut = 0
     for row in misc_rows:
         edid = row.get('EDID', '').strip()
         full = row.get('FULL', '').strip()
         formid = row.get('FormID', '').strip()
+
+        if not full or formid in seen_formids:
+            continue
 
         edid_upper = edid.upper()
         full_upper = (full or '').upper()
@@ -1182,9 +1351,7 @@ def build_keys(misc_rows):
         if any(fp in combined for fp in FALSE_POSITIVES):
             continue
 
-        if not full:
-            continue
-
+        seen_formids.add(formid)
         is_cut = starts_cut(edid)
 
         item = {
@@ -1199,11 +1366,15 @@ def build_keys(misc_rows):
 
         if is_cut:
             cut.append(item)
+            misc_cut += 1
         else:
             live.append(item)
+            misc_live += 1
+
+    print(f"    MISC: {misc_live} live, {misc_cut} cut", file=sys.stderr)
 
     live.sort(key=lambda x: x['name'])
-    print(f"  Found {len(live)} live keys, {len(cut)} cut", file=sys.stderr)
+    print(f"  Found {len(live)} live keys, {len(cut)} cut (total)", file=sys.stderr)
     return live, cut
 
 
@@ -1231,6 +1402,10 @@ def main():
     # KYWD_Export_*_Refs.tsv (normalized refs from split xEdit KYWD export)
     kywd_refs_files = list(tsv_root.glob('KYWD_Export*_Refs.tsv'))
 
+    # KEYM_Export*.tsv (key records — dedicated key record type)
+    keym_files = [p for p in tsv_root.glob('KEYM_Export*.tsv')
+                  if not p.name.endswith('_Locations.tsv')]
+
     if not alch_files:
         print("ERROR: No ALCH_Export*.tsv files found", file=sys.stderr)
         sys.exit(1)
@@ -1250,10 +1425,15 @@ def main():
     if not gmrw_files:
         print("ERROR: No GMRW_Export*.tsv files found", file=sys.stderr)
         sys.exit(1)
+    if not keym_files:
+        print("WARNING: No KEYM_Export*.tsv files found — keys will only come from MISC", file=sys.stderr)
 
     # Locations TSV (companion file from updated BOOK export script)
     # Pattern: BOOK_Export_*_Locations.tsv
     loc_files = list(tsv_root.glob('BOOK_Export*_Locations.tsv'))
+
+    # KEYM Locations TSV
+    keym_loc_files = list(tsv_root.glob('KEYM_Export*_Locations.tsv'))
 
     # When multiple exports exist, pick the latest by filename (sorted descending)
     alch_path = sorted(alch_files, key=lambda p: p.name)[-1]
@@ -1264,9 +1444,12 @@ def main():
     misc_path = sorted(misc_files, key=lambda p: p.name)[-1]
     gmrw_path = sorted(gmrw_files, key=lambda p: p.name)[-1]
     kywd_refs_path = sorted(kywd_refs_files, key=lambda p: p.name)[-1]
+    keym_path = sorted(keym_files, key=lambda p: p.name)[-1] if keym_files else None
     print(f"  Using ALCH: {alch_path.name}", file=sys.stderr)
     print(f"  Using KYWD Refs: {kywd_refs_path.name}", file=sys.stderr)
     print(f"  Using MISC: {misc_path.name}", file=sys.stderr)
+    if keym_path:
+        print(f"  Using KEYM: {keym_path.name}", file=sys.stderr)
 
     print("Loading seasons...")
     seasons = seasons_map(args.seasons)
@@ -1279,6 +1462,21 @@ def main():
     print("Loading MISC...")
     misc_rows = read_tsv_rows(misc_path)
     print(f"  Loaded {len(misc_rows)} MISC rows")
+
+    keym_rows = []
+    keym_locations = {}
+    if keym_path:
+        print("Loading KEYM...")
+        keym_rows = read_tsv_rows(keym_path)
+        print(f"  Loaded {len(keym_rows)} KEYM rows")
+
+        if keym_loc_files:
+            keym_loc_path = sorted(keym_loc_files, key=lambda p: p.name)[-1]
+            print(f"Loading KEYM locations from {keym_loc_path.name}...")
+            keym_locations = load_keym_locations(keym_loc_path)
+            print(f"  Loaded {len(keym_locations)} KEYM location entries")
+        else:
+            print("  NOTE: No KEYM_Export*_Locations.tsv found — key locations will use EDID fallback", file=sys.stderr)
 
     print("Loading GMRW...")
     gmrw_rows = read_tsv_rows(gmrw_path)
@@ -1320,13 +1518,30 @@ def main():
     print("Building magazines...")
     magazines, magazines_cut = build_magazines(book_path, locations=book_locations)
 
-    # Build holotapes (from BOOK + MISC)
-    print("Building holotapes...")
-    holotapes, holotapes_cut = build_holotapes(book_path, misc_rows, locations=book_locations)
+    # Collect FormIDs from notes + magazines so holotapes can avoid double-counting
+    note_formids = set()
+    for n in notes:
+        note_formids.add(n.get('formId', ''))
+    for n in notes_cut:
+        note_formids.add(n.get('formId', ''))
+    for m in magazines:
+        note_formids.add(m.get('formId', ''))
+    for m in magazines_cut:
+        note_formids.add(m.get('formId', ''))
+    for g in holotape_games:
+        note_formids.add(g.get('formId', ''))
+    for g in holotape_games_cut:
+        note_formids.add(g.get('formId', ''))
 
-    # Build keys (from MISC)
+    # Build holotapes (from BOOK + MISC, excluding items already in notes)
+    print("Building holotapes...")
+    holotapes, holotapes_cut = build_holotapes(book_path, misc_rows,
+                                                note_formids=note_formids,
+                                                locations=book_locations)
+
+    # Build keys (from KEYM + MISC)
     print("Building keys...")
-    keys, keys_cut = build_keys(misc_rows)
+    keys, keys_cut = build_keys(keym_rows, misc_rows, keym_locations=keym_locations)
 
     # Generate timestamp
     generated_at = datetime.now(timezone.utc).isoformat()
