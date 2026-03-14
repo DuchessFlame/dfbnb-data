@@ -346,12 +346,13 @@ function buildEntmPipboySkins(entmPath) {
   const { rows } = parseTSV(readText(entmPath));
   const items = [];
   for (const r of rows.map(upperKeyed)) {
-    const edid = safeText(r.EDID).toUpperCase();
-    const name = safeText(r.NNAM) || safeText(r.FULL);
-    if (!name || isJunkEdid(safeText(r.EDID))) continue;
+    const edidRaw = pickCol(r, ["EDID", "EDID - Editor ID", "Editor ID"]);
+    const edid = edidRaw.toUpperCase();
+    const name = pickCol(r, ["NNAM", "NNAM - Name", "NNAM_DisplayName"]) || pickCol(r, ["FULL", "FULL - Name", "FULL_Name"]);
+    if (!name || isJunkEdid(edidRaw)) continue;
     if (edid.includes("SKIN_PIPBOY") || edid.includes("PIPBOYSKIN")) {
       items.push({
-        formId: safeText(r.FORMID), edid: safeText(r.EDID), full: name,
+        formId: pickCol(r, ["FORMID", "FormID", "Form ID", "Record Header FormID"]), edid: edidRaw, full: name,
         flags: ["43"], flagLabels: ["Pipboy"],
         keywords: [], type: "PIPBOY", armorSetKey: ""
       });
@@ -368,14 +369,16 @@ function buildEntmPipboySkins(entmPath) {
 // Rings have no COBJ recipe so they come directly from ARMO SLOTS.
 function buildOutfitInspirationJson(armoPath, outPath, entmPath, cobjPath) {
   // Build ARMO SLOTS lookup map: ARMO_EDID -> { full, flags, flagLabels }
+  // Use pickCol with fallback column names so re-exported TSVs still work.
   const { rows: armoRows } = parseTSV(readText(armoPath));
   const slotsMap = new Map();
   for (const r of armoRows.map(upperKeyed)) {
-    const edid = safeText(r.ARMO_EDID);
+    const edid = pickCol(r, ["ARMO_EDID", "EDID", "EDID - Editor ID", "Editor ID"]);
     if (!edid) continue;
-    const flagLabels = splitPipe(r.BOD2_FirstPersonFlagLabels).map(x => x.trim()).filter(Boolean);
-    const flags = splitPipe(r.BOD2_FirstPersonFlags).map(x => x.trim()).filter(Boolean);
-    slotsMap.set(edid, { full: safeText(r.ARMO_FULL), flags, flagLabels });
+    const flagLabels = splitPipe(pickCol(r, ["BOD2_FirstPersonFlagLabels", "BOD2 - Biped Body Template\\First Person Flags - Labels", "BOD2_FirstPersonFlags_Labels", "First Person Flag Labels"])).map(x => x.trim()).filter(Boolean);
+    const flags = splitPipe(pickCol(r, ["BOD2_FirstPersonFlags", "BOD2 - Biped Body Template\\First Person Flags", "First Person Flags"])).map(x => x.trim()).filter(Boolean);
+    const full = pickCol(r, ["ARMO_FULL", "FULL", "FULL - Name", "FULL_Name"]);
+    slotsMap.set(edid, { full, flags, flagLabels });
   }
 
   // Classify an item from its flag labels + EDID
@@ -411,9 +414,9 @@ function buildOutfitInspirationJson(armoPath, outPath, entmPath, cobjPath) {
     "CAPACITY","PILLAGER","GROCER","CHEMIST","MISCFLAIR","SOUVENIR","DISPLAY","DEPRECATED"];
 
   for (const r of cobjRows.map(upperKeyed)) {
-    const cobjEdid = stripQuotes(r.COBJ_EDID);
-    const cnamEdid = stripQuotes(r.CNAM_EDID);
-    const cnamFull = stripQuotes(r.CNAM_FULL);
+    const cobjEdid = stripQuotes(pickCol(r, ["COBJ_EDID", "EDID", "EDID - Editor ID", "Editor ID"]));
+    const cnamEdid = stripQuotes(pickCol(r, ["CNAM_EDID", "CNAM - Created Object\\EDID", "CNAM_EDID - Editor ID", "CNAM - EDID", "Created Object EDID"]));
+    const cnamFull = stripQuotes(pickCol(r, ["CNAM_FULL", "CNAM - Created Object\\FULL", "CNAM - Created Object", "CNAM", "Created Object", "Created Object FULL"]));
     const upCobj = cobjEdid.toUpperCase();
 
     if (!cobjEdid || isJunkEdid(cobjEdid)) continue;
@@ -485,17 +488,17 @@ function buildOutfitInspirationJson(armoPath, outPath, entmPath, cobjPath) {
 
   // Rings: only 2 in game (Wedding Ring, Old Ring), no COBJ recipe — pull from ARMO SLOTS
   for (const r of armoRows.map(upperKeyed)) {
-    const edid = safeText(r.ARMO_EDID);
-    const full = safeText(r.ARMO_FULL);
+    const edid = pickCol(r, ["ARMO_EDID", "EDID", "EDID - Editor ID", "Editor ID"]);
+    const full = pickCol(r, ["ARMO_FULL", "FULL", "FULL - Name", "FULL_Name"]);
     if (!edid || isJunkEdid(edid)) continue;
-    const flagLabels = splitPipe(r.BOD2_FirstPersonFlagLabels).map(x => x.trim()).filter(Boolean);
+    const flagLabels = splitPipe(pickCol(r, ["BOD2_FirstPersonFlagLabels", "BOD2 - Biped Body Template\\First Person Flags - Labels", "BOD2_FirstPersonFlags_Labels", "First Person Flag Labels"])).map(x => x.trim()).filter(Boolean);
     if (!flagLabels.includes("Ring")) continue;
     if (flagLabels.some(l => l.startsWith("[U]") || l.startsWith("[A]") || l === "BODY")) continue;
     const f = full.trim();
     if (!f || (f.includes("_") && !f.includes(" "))) continue;
     items.push({
-      formId: safeText(r.ARMO_FormID), edid, full: f,
-      flags: splitPipe(r.BOD2_FirstPersonFlags).map(x => x.trim()).filter(Boolean),
+      formId: pickCol(r, ["ARMO_FormID", "FormID", "Form ID", "Record Header FormID"]), edid, full: f,
+      flags: splitPipe(pickCol(r, ["BOD2_FirstPersonFlags", "BOD2 - Biped Body Template\\First Person Flags", "First Person Flags"])).map(x => x.trim()).filter(Boolean),
       flagLabels, keywords: [], type: "RING", armorSetKey: ""
     });
   }
