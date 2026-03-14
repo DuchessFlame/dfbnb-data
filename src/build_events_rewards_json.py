@@ -236,10 +236,19 @@ def _classify_mod_slot(mod_ref_str):
     if not label:
         label = "Mod"
 
-    value = display_name or edid
+    if display_name:
+        value = display_name
+    else:
+        # Humanize raw EDID: strip mod_ prefix and common boilerplate, title-case
+        h = re.sub(r"^mod_", "", edid, flags=re.IGNORECASE)
+        h = re.sub(r"\s*\[OMOD:[0-9A-Fa-f]+\]", "", h)
+        h = h.replace("_", " ").strip()
+        value = h if h else edid
     return label, value
 
-weap_mod_slots_by_formid = defaultdict(list)
+# Group OT rows by (FormID, CombinationIndex), then pick the best combo per weapon.
+# "Best" = the combination with the most legendary slots (i.e. the named/unique variant).
+_weap_combos = defaultdict(lambda: defaultdict(list))  # {fid: {combo_idx: [slots]}}
 for r in WEAP_OT:
     fid = pick(r, "WEAP_FormID", "FormID")
     mod_ref = pick(r, "Include_Mod", "Mod")
@@ -247,16 +256,27 @@ for r in WEAP_OT:
         continue
     label, value = _classify_mod_slot(mod_ref)
     if label and value:
+        combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
         inc_idx = int(pick(r, "IncludeIndex", default="0") or 0)
-        weap_mod_slots_by_formid[fid].append({
+        _weap_combos[fid][combo_idx].append({
             "label": label,
             "value": value,
             "includeIndex": inc_idx,
         })
 
-# Sort each weapon's mods by include index
-for fid in weap_mod_slots_by_formid:
-    weap_mod_slots_by_formid[fid].sort(key=lambda x: x["includeIndex"])
+weap_mod_slots_by_formid = {}
+for fid, combos in _weap_combos.items():
+    # Pick the combination with the most legendary slots
+    best_combo_idx = max(
+        combos.keys(),
+        key=lambda ci: sum(1 for s in combos[ci] if "Legendary" in s["label"])
+    )
+    best_slots = combos[best_combo_idx]
+    # Only keep weapons that have at least one legendary slot (i.e. named/unique weapons)
+    has_legendary = any("Legendary" in s["label"] for s in best_slots)
+    if has_legendary:
+        best_slots.sort(key=lambda x: x["includeIndex"])
+        weap_mod_slots_by_formid[fid] = best_slots
 
 # --------------------------------------------------
 # Index: GLOB
