@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
   SFTP sync for bundle images to WP Engine.
-  Called by run_bundle_images.ps1 after building WEBPs,
+  Called by run_bundle_images.ps1 after building AVIFs,
   or run standalone to re-upload.
 
 .USAGE
@@ -55,12 +55,16 @@ $lines = @(
     "",
     ("cd " + $RemoteFolder),
     "",
+    "# Remove old WebP files (transition cleanup - harmless once all files are AVIF)",
     "rm *.webp",
+    "",
+    "# Remove existing AVIF files before uploading fresh set",
+    "rm *.avif",
     "",
     "option batch abort",
     "",
     ("lcd `"" + $Local + "`""),
-    "put -nopreservetime *.webp",
+    "put -nopreservetime *.avif",
     "exit"
 )
 

@@ -28,7 +28,7 @@ jobs:
       - name: Build Challenges JSON
         run: |
           python -V
-          python src/build_challenges_json.py
+          python src/build_challenges_json_v3.py
 
       - name: Commit dist outputs
         shell: bash

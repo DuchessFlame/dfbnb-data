@@ -18,11 +18,8 @@ $sftpHost = "buffsnbrew1.sftp.wpengine.com"
 $port = 2222
 $user = "buffsnbrew1-nav"
 
-# Remote folder(s) that already exist on the server (FileZilla)
 $remoteBase = "/wp-content/uploads/season_images"
 
-# season-ticket uploads go directly into /season_images (no extra subfolder)
-# utility uploads go into /season_images/utility
 if ($Target -eq "utility") {
   $remote = $remoteBase + "/utility"
 } else {
@@ -56,12 +53,16 @@ open sftp://${user}@${sftpHost}:$port/ -password="$sftpPassword"
 
 cd $remote
 
+# Remove old WebP files (transition cleanup - harmless once all files are AVIF)
 rm *.webp
+
+# Remove existing AVIF files before uploading fresh set
+rm *.avif
 
 option batch abort
 
 lcd "$local"
-put -nopreservetime *.webp
+put -nopreservetime *.avif
 exit
 "@
 

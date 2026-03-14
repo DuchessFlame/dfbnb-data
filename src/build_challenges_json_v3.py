@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-build_challenges_json.py  (v3 — unified challenges + mini-seasons)
+build_challenges_json.py  (v4 — challenges + seasons + quests + encounters)
 
 Reads game-data TSVs and outputs an enriched JSON consumed by
-df-bnb-challenges.js for BOTH /df/challenges/* and /df/seasons/* pages.
+df-bnb-challenges.js for:
+    /df/challenges/*          — lifetime / daily / weekly challenges
+    /df/seasons/*             — mini-season challenge checklists
+    /df/quests/*              — quest checklists (main, side, daily pipboy)
+    /df/random-encounters/*   — random encounter cards
 
 Outputs:
     dist/challenges/challenges.json
 
 Cross-references:
     CHAL  — challenge records (conditions, META/SUB hierarchy)
+    QUEST — quest records (quests, events, random encounters)
     GMRW  — game reward records (XP, caps, items)
     ENTM  — entitlements (Atom Shop items, images)
     BOOK  — notes / holotapes
@@ -21,6 +26,7 @@ Cross-references:
     guide_index.tsv — site guide pages for hyperlinking
 """
 
+import copy
 import csv
 import glob
 import json
@@ -94,6 +100,8 @@ COBJ = read_tsv(_cobj_path) if _cobj_path else []
 _misc_path = newest("tsv/MISC_Export_*.tsv")
 MISC = read_tsv(_misc_path) if _misc_path else []
 
+QUEST = read_tsv(newest("tsv/QUEST_Export_*.tsv"))
+
 _guide_path = "tsv/guide_index.tsv"
 GUIDE_INDEX = read_tsv(_guide_path) if os.path.exists(_guide_path) else []
 
@@ -105,6 +113,7 @@ print(f"  KYWD: {len(KYWD)} rows")
 print(f"  COBJ: {len(COBJ)} rows")
 print(f"  MISC: {len(MISC)} rows")
 print(f"  FLST: {len(FLST_ENTRIES)} entries")
+print(f"  QUEST: {len(QUEST)} rows")
 print(f"  Guide Index: {len(GUIDE_INDEX)} rows")
 
 # ==================================================================
@@ -510,7 +519,8 @@ for item in all_items:
     if item["is_sub"]:
         base = edid_base(item["edid"])
         parent = meta_map.get(base)
-        if parent: parent["children"].append(item)
+        if parent and parent is not item:  # avoid META that is also flagged SUB
+            parent["children"].append(item)
 
 print(f"  Total items: {len(all_items)}")
 print(f"  META parents: {len(meta_map)}")
@@ -598,6 +608,445 @@ for key in pages:
     pages[key].sort(key=sort_key)
 
 # ==================================================================
+# QUEST / RANDOM ENCOUNTER PROCESSING
+# ==================================================================
+
+print("[quests] Processing QUEST TSV...")
+
+# ---- EDID prefix → DLC/content label (for public-facing names) ----
+DLC_LABELS = {
+    "BS01": "Steel Dawn",
+    "BS02": "Steel Reign",
+    "BS_RE": "Steel Dawn / Steel Reign",
+    "W05": "Wastelanders",
+    "W05_RE": "Wastelanders",
+    "Storm": "Skyline Valley",
+    "Storm_RE": "Skyline Valley",
+    "Burn": "Burning Springs",
+    "Burn_RE": "Burning Springs",
+    "MOON": "Moonshine Jamboree / Skyline Drive",
+    "AC": "Atlantic City",
+    "XPD": "Expeditions",
+    "EN": "Enclave",
+    "FS": "Free States",
+    "MTN": "Top of the World",
+    "MTR": "Fire Breathers",
+    "BoS": "Brotherhood of Steel",
+    "RS": "Responders",
+    "RSVP": "Responders",
+    "GHL": "Ghoulification",
+    "P62": "Gleaming Depths",
+    "COMP": "Companions",
+    "NWOT": "Night of the Wendigo",
+    "SHEL": "Shelters",
+    "QDL": "Duchess Lessons",
+    "TW": "Events",
+    "RD01": "Gleaming Depths",
+}
+
+def get_dlc_label(edid):
+    """Return a DLC/content pack label from the EDID prefix."""
+    for prefix, label in sorted(DLC_LABELS.items(), key=lambda x: -len(x[0])):
+        if edid.startswith(prefix):
+            return label
+    return ""
+
+# ---- Random Encounter classification ----
+
+# Map EDID region codes to region display names
+REGION_CODES = {
+    "KMK": "Skyline Valley", "CMB": "Cranberry Bog", "MP": "The Mire",
+    "TS": "Toxic Valley", "DWD": "Savage Divide", "JM": "The Forest",
+    "MJP": "Ash Heap", "MD": "Savage Divide", "MT": "Burning Springs",
+    "BB": "The Forest", "SM": "Savage Divide", "PS": "The Forest",
+    "CT": "Cranberry Bog", "GR": "Burning Springs", "GO": "Burning Springs",
+    "RK": "Skyline Valley", "LD": "Burning Springs", "OB": "The Forest",
+    "MOON": "Skyline Drive", "AF": "The Forest", "ZW": "Ash Heap",
+    "JP": "The Forest", "BG": "Cranberry Bog",
+}
+
+RE_CATEGORY_MAP = {
+    "Assault": "re-assault",
+    "Camp": "re-camp",
+    "Travel": "re-travel",
+    "Object": "re-object",
+    "Scene": "re-scene",
+    "WhitespringAssault": "re-whitespring-external",
+    "Mining": "re-object",  # mining encounters go with objects
+}
+
+def classify_random_encounter(edid):
+    """Return (category_slug, region_name) or (None, None) if not an RE."""
+    e = str(edid or "")
+    # Strip DLC prefixes to get to RE_ part
+    clean = re.sub(r"^(Burn|BS|W05|Storm|COMP)_", "", e)
+    if not clean.startswith("RE_"):
+        return None, None
+    # Parse: RE_CategorySuffix
+    after_re = clean[3:]  # everything after RE_
+    # WhitespringAssault special case
+    if after_re.startswith("WhitespringAssault"):
+        return "re-whitespring-external", "Whitespring"
+    # Standard categories
+    for cat_name, slug in RE_CATEGORY_MAP.items():
+        if after_re.startswith(cat_name):
+            rest = after_re[len(cat_name):]
+            # Extract region code (first 2-4 uppercase letters)
+            m = re.match(r"([A-Z]{2,4})", rest)
+            region = REGION_CODES.get(m.group(1), "") if m else ""
+            # Special: Zetan encounters
+            if "_Zetan" in e or after_re.startswith(cat_name + "_Zetan"):
+                return "re-limited-invaders", "Limited Time"
+            return slug, region
+    return None, None
+
+def classify_hub_re(edid):
+    """Check if this is a Whitespring Refuge (Hub) random encounter."""
+    return "HubRE" in str(edid or "")
+
+def is_random_encounter(edid):
+    """Quick check if EDID is any kind of random encounter."""
+    e = str(edid or "")
+    return ("_RE_" in e or e.startswith("RE_") or "HubRE" in e)
+
+def is_template(edid, full):
+    """Check if this is a template/test entry."""
+    e = str(edid or "").upper()
+    f = str(full or "")
+    return ("TEMPLATE" in e or f.startswith("[Template") or
+            f.startswith("TEMPLATE") or "_Test" in e and f.startswith("["))
+
+# ---- Quest classification ----
+
+# Quest types we include on the quest checklist
+QUEST_TYPES_MAIN = {"Primary"}
+QUEST_TYPES_SIDE = {"Side Quest"}
+QUEST_TYPES_SECONDARY = {"Secondary"}
+QUEST_TYPES_MISC = {"Miscellaneous"}
+QUEST_TYPES_DAILY = {"Daily"}
+QUEST_TYPES_EXPEDITION = {"Expedition"}
+
+# Quest types that are NOT quests (events, activities)
+QUEST_TYPES_SKIP = {"Event", "Public Event", "Module", "Server", "Caravan", "Daily Ops", "Raid"}
+
+def is_internal_quest(edid, full):
+    """Filter out internal/debug quests."""
+    e = str(edid or "")
+    f = str(full or "")
+    if e.startswith(("zzz", "ZZZ", "CUT", "DEL", "test_", "Test_", "Debug")):
+        return True
+    if f.startswith("[") or not f.strip():
+        return True
+    if "Template" in e and ("Template" in f or f.startswith("[")):
+        return True
+    # Dialogue-only quests
+    if "Dialogue" in e and ("Dialogue" in f or "Bot Dialogue" in f):
+        return True
+    return False
+
+def is_expo_repeatable(edid, full):
+    """Check if an Expedition is a repeatable Expo (not a questline)."""
+    e = str(edid or "")
+    f = str(full or "")
+    # Actual questlines have "Mission" in EDID and specific story names
+    # Templates and test missions
+    if "Template" in e or "Test" in e:
+        return True
+    # The repeatable expedition missions have "Mission" but we include those
+    # since user said include if unsure
+    return False
+
+def quest_line_prefix(edid):
+    """Extract the quest line prefix from an EDID for grouping.
+    E.g. BS01_MQ01_Trust -> BS01, W05_MQ_001P_Wayward -> W05_MQ,
+    Storm_MQ01 -> Storm_MQ, COMP_Quest_Intro_Full_Beckett -> COMP_Beckett"""
+    e = str(edid or "")
+    # Companion quests group by NPC name
+    if e.startswith("COMP_"):
+        # Extract companion name: COMP_Quest_..._Beckett, COMP_RQ_..._Beckett
+        m = re.search(r"_(Beckett|Astronaut|Raider|Scavenger|Wanderer|Hunter|Beggar)", e)
+        if m:
+            return f"COMP_{m.group(1)}"
+        return "COMP_Radiant"
+    # Standard pattern: PREFIX_MQ/SQ/etc
+    m = re.match(r"^([A-Za-z]+\d{2})_", e)
+    if m:
+        return m.group(1)
+    # Prefix without number: Storm_MQ, W05_MQ
+    m = re.match(r"^([A-Za-z0-9]+_(?:MQ|SQ|MQS|MQR|MQA))", e)
+    if m:
+        return m.group(1)
+    # Broader prefix
+    m = re.match(r"^([A-Za-z]+\d*)_", e)
+    if m:
+        return m.group(1)
+    return e
+
+def quest_sort_order(edid):
+    """Extract a numeric sort key from EDID for ordering quest parts."""
+    e = str(edid or "")
+    # Find MQ01, SQ02, MQ_001P, Lesson02 etc
+    nums = re.findall(r"(\d+)", e)
+    if nums:
+        return int(nums[-1])
+    return 0
+
+# ---- Process QUEST rows ----
+
+QUEST_LINE_NAMES = {
+    # Main quest lines
+    "76CharGen": "Vault 76 / Reclamation Day",
+    "RS": "Responders",
+    "RSVP": "Responders",
+    "EN01": "Enclave: Bunker Buster",
+    "EN02": "Enclave: One of Us",
+    "EN05": "Enclave: Officer on Deck",
+    "EN06": "Enclave: Race for the Presidency",
+    "EN07": "Enclave: I Am Become Death",
+    "FS01": "Free States: Early Warnings",
+    "FS02": "Free States: Reassembly Required",
+    "FS03": "Free States: Coming to Fruition",
+    "MTNL01": "Top of the World: Key To the Past",
+    "MTNM01": "Top of the World: Flavors of Mayhem",
+    "MTNS01": "Top of the World: Signal Strength",
+    "MTN": "Top of the World",
+    "MTR01": "Fire Breathers",
+    "MTR06": "Fire Breathers: Into the Fire",
+    "BoS": "Brotherhood of Steel (Legacy)",
+    "BS01": "Steel Dawn",
+    "BS02": "Steel Reign",
+    "W05_MQ": "Wastelanders: Main",
+    "W05_MQS": "Wastelanders: Foundation",
+    "W05_MQR": "Wastelanders: Crater",
+    "W05_MQA": "Wastelanders: Secrets Revealed",
+    "Storm_MQ": "Skyline Valley",
+    "AC_MQ": "Atlantic City: Main",
+    "AC_SQ": "Atlantic City: Side Quests",
+    "BURN_SQ": "Burning Springs",
+    "Burn_MQ": "Burning Springs: Main",
+    "Burn_SQ": "Burning Springs: Side",
+    "GHL00": "Ghoulification",
+    "P62": "Gleaming Depths",
+    "QDL": "Duchess Lessons",
+    "XPD_Pitt": "The Pitt",
+    "XPD_AC": "Atlantic City Expeditions",
+    "XPD_RTTP": "The Pitt Expeditions",
+    "COMP_Beckett": "Ally: Beckett",
+    "COMP_Astronaut": "Ally: Commander Daguerre",
+    "COMP_Radiant": "Companion: Radiant Quests",
+    "COMP_Raider": "Ally: Raider Punk",
+    "COMP_Scavenger": "Ally: Scavenger",
+    "COMP_Wanderer": "Ally: Settler Wanderer",
+    "COMP_Hunter": "Ally: Hunter",
+    "COMP_Beggar": "Ally: Beggar",
+    "NWOT": "Night of the Wendigo",
+    "SHEL": "Shelters",
+    "MQ": "Main Quest: Overseer",
+    "GQ": "Global Quests",
+    "MILE": "Milestones",
+    "MTR04": "Daily: Camden Park",
+    "Moon_SQ": "Moonshine Jamboree: Costa Business",
+    "MOON_SQ": "Moonshine Jamboree: Costa Business",
+    "NPE": "New Player Quests",
+    "Fishing": "Fishing",
+    "RD01": "Gleaming Depths Raid",
+}
+
+def get_quest_line_name(prefix):
+    """Get a human-friendly quest line name from the prefix."""
+    if prefix in QUEST_LINE_NAMES:
+        return QUEST_LINE_NAMES[prefix]
+    # Try shorter prefixes
+    for length in range(len(prefix), 1, -1):
+        short = prefix[:length]
+        if short in QUEST_LINE_NAMES:
+            return QUEST_LINE_NAMES[short]
+    # Fallback: humanize the prefix
+    name = re.sub(r"([a-z])([A-Z])", r"\1 \2", prefix)
+    name = name.replace("_", " ").strip()
+    return name or prefix
+
+
+quest_items = []         # for quest checklist pages
+daily_quest_items = []   # for daily pipboy quests page
+encounter_items = []     # for random encounter pages
+
+re_pages = defaultdict(list)   # slug -> list of encounter items
+quest_groups = defaultdict(list)  # quest_line_prefix -> list of quest items
+
+for row in QUEST:
+    edid = pick(row, "EDID")
+    full = pick(row, "FULL - Name", "FULL")
+    desc = pick(row, "DESC - Description", "DESC")
+    quest_type = pick(row, "Quest Type")
+    location = pick(row, "LNAM - Location", "LNAM")
+
+    # Skip empty/internal/template
+    if is_internal_quest(edid, full):
+        continue
+    if is_template(edid, full):
+        continue
+    if is_cut(edid):
+        continue
+
+    # Resolve rewards from GMRWRef columns
+    rewards = []
+    for i in range(10):
+        ref = pick(row, f"GMRWRef{i}")
+        if ref:
+            fid = ref.split(":")[0]
+            for label in get_rewards_for_gmrw(fid):
+                if label not in rewards:
+                    rewards.append(label)
+
+    dlc_label = get_dlc_label(edid)
+
+    item = {
+        "form_id": pick(row, "FormID"),
+        "edid": edid,
+        "full": full,
+        "desc": desc,
+        "quest_type": quest_type,
+        "location": location,
+        "rewards": rewards,
+        "reward_unknown": len(rewards) == 0,
+        "dlc_label": dlc_label,
+        "is_cut": False,
+        "record_type": "quest",  # quest or encounter
+    }
+
+    # ---- Random Encounters ----
+    if is_random_encounter(edid):
+        # Hub RE → Whitespring Refuge
+        if classify_hub_re(edid):
+            item["record_type"] = "encounter"
+            item["encounter_category"] = "re-whitespring-refuge"
+            item["encounter_region"] = "Whitespring Refuge"
+            item["has_vendor_inventory"] = False
+            re_pages["re-whitespring-refuge"].append(item)
+            continue
+
+        cat, region = classify_random_encounter(edid)
+        if cat:
+            item["record_type"] = "encounter"
+            item["encounter_category"] = cat
+            item["encounter_region"] = region
+            # Travel and Camp encounters may have vendor NPCs
+            item["has_vendor_inventory"] = cat in ("re-travel", "re-camp")
+            item["vendor_inventory"] = []  # placeholder for LVLI data
+            re_pages[cat].append(item)
+            continue
+
+    # ---- Skip event/activity types ----
+    if quest_type in QUEST_TYPES_SKIP:
+        continue
+
+    # ---- Daily quests → daily pipboy page ----
+    if quest_type in QUEST_TYPES_DAILY:
+        item["record_type"] = "quest"
+        daily_quest_items.append(item)
+        continue
+
+    # ---- Expedition quests ----
+    if quest_type in QUEST_TYPES_EXPEDITION:
+        if is_expo_repeatable(edid, full):
+            continue
+        item["record_type"] = "quest"
+        prefix = quest_line_prefix(edid)
+        quest_groups[prefix].append(item)
+        quest_items.append(item)
+        continue
+
+    # ---- Main / Side / Secondary / Misc quests ----
+    if quest_type in (QUEST_TYPES_MAIN | QUEST_TYPES_SIDE | QUEST_TYPES_SECONDARY | QUEST_TYPES_MISC):
+        item["record_type"] = "quest"
+        prefix = quest_line_prefix(edid)
+        quest_groups[prefix].append(item)
+        quest_items.append(item)
+        continue
+
+    # ---- "None" type that isn't RE — skip (dialogue, creature, etc.) ----
+
+# Sort quest groups internally by EDID sort order
+for prefix in quest_groups:
+    quest_groups[prefix].sort(key=lambda q: quest_sort_order(q["edid"]))
+
+# Sort encounter pages by name
+for slug in re_pages:
+    re_pages[slug].sort(key=lambda e: str(e.get("full") or "").lower())
+
+# Sort daily quests by name
+daily_quest_items.sort(key=lambda q: str(q.get("full") or "").lower())
+
+# ---- Build quest checklist page structure ----
+# Group quests by type then by quest line
+
+def build_quest_page_groups(quest_type_set, items):
+    """Build groups for a quest type."""
+    groups = []
+    seen_prefixes = set()
+    for item in items:
+        if item["quest_type"] not in quest_type_set:
+            continue
+        prefix = quest_line_prefix(item["edid"])
+        if prefix in seen_prefixes:
+            continue
+        seen_prefixes.add(prefix)
+        group_items = quest_groups.get(prefix, [])
+        # Only include items of the right type in this group
+        typed_items = [q for q in group_items if q["quest_type"] in quest_type_set]
+        if typed_items:
+            groups.append({
+                "group_name": get_quest_line_name(prefix),
+                "group_prefix": prefix,
+                "dlc_label": typed_items[0].get("dlc_label", ""),
+                "items": typed_items,
+            })
+    return groups
+
+quest_page_structure = {
+    "main_questlines": build_quest_page_groups(QUEST_TYPES_MAIN, quest_items),
+    "side_quests": build_quest_page_groups(QUEST_TYPES_SIDE, quest_items),
+    "secondary_quests": build_quest_page_groups(QUEST_TYPES_SECONDARY, quest_items),
+    "miscellaneous_quests": build_quest_page_groups(QUEST_TYPES_MISC, quest_items),
+    "expedition_quests": build_quest_page_groups(QUEST_TYPES_EXPEDITION, quest_items),
+}
+
+# ---- Build encounter page structure ----
+# Whitespring page gets two sections: External + The Refuge
+
+whitespring_page = {
+    "external": re_pages.get("re-whitespring-external", []),
+    "the_refuge": re_pages.get("re-whitespring-refuge", []),
+}
+
+encounter_page_structure = {
+    "re-assault": {"title": "Assault Encounters", "items": re_pages.get("re-assault", [])},
+    "re-camp": {"title": "CAMP Encounters", "items": re_pages.get("re-camp", [])},
+    "re-travel": {"title": "Travel Encounters", "items": re_pages.get("re-travel", [])},
+    "re-object": {"title": "Object Encounters", "items": re_pages.get("re-object", [])},
+    "re-scene": {"title": "Scene Encounters", "items": re_pages.get("re-scene", [])},
+    "re-whitespring": {"title": "Whitespring Random Encounters", "sections": whitespring_page},
+    "re-limited-invaders": {"title": "Invaders from Beyond", "items": re_pages.get("re-limited-invaders", [])},
+}
+
+print(f"  Quest items: {len(quest_items)}")
+print(f"  Daily pipboy quests: {len(daily_quest_items)}")
+print(f"  Quest line groups: {len(quest_groups)}")
+for qt_key, groups in quest_page_structure.items():
+    total = sum(len(g["items"]) for g in groups)
+    print(f"    {qt_key}: {len(groups)} groups, {total} quests")
+print(f"  Encounter pages:")
+for slug, data in encounter_page_structure.items():
+    if "sections" in data:
+        ext = len(data["sections"].get("external", []))
+        ref = len(data["sections"].get("the_refuge", []))
+        print(f"    {slug}: External={ext}, The Refuge={ref}")
+    else:
+        print(f"    {slug}: {len(data.get('items', []))} encounters")
+
+
+# ==================================================================
 # Output
 # ==================================================================
 
@@ -606,20 +1055,41 @@ page_meta = {}
 for key, items in pages.items():
     page_meta[key] = {"count": len(items), "has_meta": any(it["is_meta"] for it in items)}
 
+# Add quest and encounter page meta
+page_meta["quest:fallout-76-quests-checklist"] = {
+    "count": len(quest_items),
+    "has_quest_groups": True,
+}
+page_meta["quest:daily-pipboy-quests"] = {
+    "count": len(daily_quest_items),
+}
+for slug, data in encounter_page_structure.items():
+    if "sections" in data:
+        count = sum(len(v) for v in data["sections"].values())
+    else:
+        count = len(data.get("items", []))
+    page_meta[f"encounter:{slug}"] = {"count": count}
+
 output = {
-    "generated": "build_challenges_json.py v3",
-    "challenges": dict(buckets),
+    "generated": "build_challenges_json.py v4",
     "pages": {k: {"items": v} for k, v in pages.items()},
     "page_meta": page_meta,
     "season_slugs": sorted(season_buckets.keys()),
     "patch_log": [],
+    # Quest pages
+    "quest_pages": {
+        "fallout-76-quests-checklist": quest_page_structure,
+        "daily-pipboy-quests": {"items": daily_quest_items},
+    },
+    # Random encounter pages
+    "encounter_pages": encounter_page_structure,
 }
 
 out_path = DIST_DIR / "challenges.json"
 with open(out_path, "w", encoding="utf-8") as f:
-    json.dump(output, f, ensure_ascii=False, indent=2)
+    json.dump(copy.deepcopy(output), f, ensure_ascii=False, indent=2)
 
 print(f"[challenges] Written: {out_path} ({out_path.stat().st_size:,} bytes)")
 for k, v in sorted(page_meta.items()):
-    print(f"    {k}: {v['count']} items")
+    print(f"    {k}: {v['count']} items" if 'count' in v else f"    {k}: {v}")
 print("[challenges] Done.")

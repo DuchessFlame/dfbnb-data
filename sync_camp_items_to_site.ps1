@@ -7,7 +7,7 @@ param(
 <#
 .SYNOPSIS
   SFTP sync for camp item images to WP Engine.
-  Called by run_camp_items_images.ps1 after building WEBPs.
+  Called by run_camp_items_images.ps1 after building AVIFs.
 
 .USAGE
   .\sync_camp_items_to_site.ps1 -Target collectrons
@@ -16,7 +16,6 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-# Local upload source (already prepared by run_camp_items_images.ps1)
 $LocalBase = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\storefront"
 $Local = Join-Path $LocalBase $Target
 
@@ -26,12 +25,10 @@ if (-not (Test-Path -LiteralPath $Local)) {
     exit 1
 }
 
-# WP Engine SFTP details
 $SftpHost = "buffsnbrew1.sftp.wpengine.com"
 $Port     = 2222
 $User     = "buffsnbrew1-nav"
 
-# Remote folder — maps to WP uploads on the site
 $RemoteFolder = "/wp-content/uploads/storefront/$Target/"
 
 $WinSCP = "D:\WinSCP\WinSCP.com"
@@ -51,7 +48,6 @@ Write-Host ""
 
 $ScriptPath = Join-Path $env:TEMP ("winscp_camp_items_" + $Target + ".txt")
 
-# Prompt for password in PowerShell (avoids WinSCP timeout on prompt)
 $Secure = Read-Host "Enter SFTP password for $User" -AsSecureString
 $SftpPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
     [Runtime.InteropServices.Marshal]::SecureStringToBSTR($Secure)
@@ -64,12 +60,16 @@ open sftp://${User}@${SftpHost}:$Port/ -password="$SftpPassword"
 
 cd $RemoteFolder
 
+# Remove old WebP files (transition cleanup — harmless once all files are AVIF)
 rm *.webp
+
+# Remove existing AVIF files before uploading fresh set
+rm *.avif
 
 option batch abort
 
 lcd "$Local"
-put -nopreservetime *.webp
+put -nopreservetime *.avif
 exit
 "@
 
