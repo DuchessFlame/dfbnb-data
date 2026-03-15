@@ -8,8 +8,8 @@
       "description": "Restore uplink functionality to monitor for enemy activity and eliminate all resistance!",
       "pools": [
         {
-          "title": "Double Mutation Bonus",
-          "poolId": "double-mutation-bonus",
+          "title": "Daily Ops Repeatable Double Mutation Rewards",
+          "poolId": "daily-ops-repeatable-double-mutation-rewards",
           "lvliFormID": "0061F72A",
           "lvliEdid": "LL_DailyOps_Repeatable_DoubleMutation_Rewards",
           "tier": "",
@@ -53,8 +53,8 @@
           "itemCount": 4
         },
         {
-          "title": "Repeatable Quest Rewards",
-          "poolId": "repeatable-quest-rewards",
+          "title": "Daily Ops Repeatable Quest Rewards",
+          "poolId": "daily-ops-repeatable-quest-rewards",
           "lvliFormID": "005CBA06",
           "lvliEdid": "LL_DailyOps_Repeatable_Quest_Rewards",
           "tier": "",
@@ -479,11 +479,11 @@
           "itemCount": 59
         },
         {
-          "title": "Bonus Currency: Elder Tier",
-          "poolId": "bonus-currency-elder-tier",
+          "title": "Daily Ops Rewards Additional Currency Tier03",
+          "poolId": "daily-ops-rewards-additional-currency-tier03",
           "lvliFormID": "005DBD10",
           "lvliEdid": "LL_DailyOps_Rewards_AdditionalCurrency_Tier03",
-          "tier": "elder",
+          "tier": "",
           "poolChance": 100.0,
           "conditions": [
             "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
@@ -517,11 +517,11 @@
           "itemCount": 3
         },
         {
-          "title": "Chase Rewards: Knight Tier",
-          "poolId": "chase-rewards-knight-tier",
+          "title": "Daily Ops Rewards Chase Tier01",
+          "poolId": "daily-ops-rewards-chase-tier01",
           "lvliFormID": "005CB9FF",
           "lvliEdid": "LL_DailyOps_Rewards_Chase_Tier01",
-          "tier": "knight",
+          "tier": "",
           "poolChance": 100.0,
           "conditions": [
             "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
@@ -2536,11 +2536,11 @@
           "itemCount": 286
         },
         {
-          "title": "Chase Rewards: Paladin Tier",
-          "poolId": "chase-rewards-paladin-tier",
+          "title": "Daily Ops Rewards Chase Tier02",
+          "poolId": "daily-ops-rewards-chase-tier02",
           "lvliFormID": "005DBD0F",
           "lvliEdid": "LL_DailyOps_Rewards_Chase_Tier02",
-          "tier": "paladin",
+          "tier": "",
           "poolChance": 100.0,
           "conditions": [
             "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
@@ -4555,11 +4555,11 @@
           "itemCount": 286
         },
         {
-          "title": "Chase Rewards: Elder Tier",
-          "poolId": "chase-rewards-elder-tier",
+          "title": "Daily Ops Rewards Chase Tier03",
+          "poolId": "daily-ops-rewards-chase-tier03",
           "lvliFormID": "005DBD0D",
           "lvliEdid": "LL_DailyOps_Rewards_Chase_Tier03",
-          "tier": "elder",
+          "tier": "",
           "poolChance": 100.0,
           "conditions": [
             "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
@@ -6574,8 +6574,32 @@
           "itemCount": 286
         },
         {
-          "title": "Activation Keycard",
-          "poolId": "activation-keycard",
+          "title": "Restricted Legendary Module 1-3",
+          "poolId": "restricted-legendary-module-1-3",
+          "lvliFormID": "00612800",
+          "lvliEdid": "RESTRICTED_LL_LegendaryModule_1-3",
+          "tier": "",
+          "poolChance": 100.0,
+          "conditions": [
+            "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
+            "GetValue",
+            "005CB976:DailyOps_Timer_Tier_High:GLOB"
+          ],
+          "conditionSummary": "",
+          "items": [
+            {
+              "formid": "005652F9",
+              "name": "Legendary Module",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": false
+            }
+          ],
+          "itemCount": 1
+        },
+        {
+          "title": "Rewards The Drifter Activation Key Card",
+          "poolId": "rewards-the-drifter-activation-key-card",
           "lvliFormID": "00824D11",
           "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
           "tier": "",
@@ -6593,30 +6617,6 @@
             {
               "formid": "00824D0E",
               "name": "Drifter Activation Card",
-              "dropRate": 100.0,
-              "qty": 1,
-              "isPlan": false
-            }
-          ],
-          "itemCount": 1
-        },
-        {
-          "title": "Legendary Modules: Elder Tier",
-          "poolId": "legendary-modules-elder-tier",
-          "lvliFormID": "00612800",
-          "lvliEdid": "RESTRICTED_LL_LegendaryModule_1-3",
-          "tier": "elder",
-          "poolChance": 100.0,
-          "conditions": [
-            "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
-            "GetValue",
-            "005CB976:DailyOps_Timer_Tier_High:GLOB"
-          ],
-          "conditionSummary": "",
-          "items": [
-            {
-              "formid": "005652F9",
-              "name": "Legendary Module",
               "dropRate": 100.0,
               "qty": 1,
               "isPlan": false
@@ -6654,8 +6654,8 @@
       "description": "Restore uplink functionality to monitor for enemy activity and eliminate all resistance!",
       "pools": [
         {
-          "title": "Double Mutation Bonus",
-          "poolId": "double-mutation-bonus",
+          "title": "Daily Ops Repeatable Double Mutation Rewards",
+          "poolId": "daily-ops-repeatable-double-mutation-rewards",
           "lvliFormID": "0061F72A",
           "lvliEdid": "LL_DailyOps_Repeatable_DoubleMutation_Rewards",
           "tier": "",
@@ -6699,8 +6699,8 @@
           "itemCount": 4
         },
         {
-          "title": "Repeatable Quest Rewards",
-          "poolId": "repeatable-quest-rewards",
+          "title": "Daily Ops Repeatable Quest Rewards",
+          "poolId": "daily-ops-repeatable-quest-rewards",
           "lvliFormID": "005CBA06",
           "lvliEdid": "LL_DailyOps_Repeatable_Quest_Rewards",
           "tier": "",
@@ -7125,11 +7125,11 @@
           "itemCount": 59
         },
         {
-          "title": "Bonus Currency: Elder Tier",
-          "poolId": "bonus-currency-elder-tier",
+          "title": "Daily Ops Rewards Additional Currency Tier03",
+          "poolId": "daily-ops-rewards-additional-currency-tier03",
           "lvliFormID": "005DBD10",
           "lvliEdid": "LL_DailyOps_Rewards_AdditionalCurrency_Tier03",
-          "tier": "elder",
+          "tier": "",
           "poolChance": 100.0,
           "conditions": [
             "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
@@ -7163,11 +7163,11 @@
           "itemCount": 3
         },
         {
-          "title": "Chase Rewards: Knight Tier",
-          "poolId": "chase-rewards-knight-tier",
+          "title": "Daily Ops Rewards Chase Tier01",
+          "poolId": "daily-ops-rewards-chase-tier01",
           "lvliFormID": "005CB9FF",
           "lvliEdid": "LL_DailyOps_Rewards_Chase_Tier01",
-          "tier": "knight",
+          "tier": "",
           "poolChance": 100.0,
           "conditions": [
             "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
@@ -9182,11 +9182,11 @@
           "itemCount": 286
         },
         {
-          "title": "Chase Rewards: Paladin Tier",
-          "poolId": "chase-rewards-paladin-tier",
+          "title": "Daily Ops Rewards Chase Tier02",
+          "poolId": "daily-ops-rewards-chase-tier02",
           "lvliFormID": "005DBD0F",
           "lvliEdid": "LL_DailyOps_Rewards_Chase_Tier02",
-          "tier": "paladin",
+          "tier": "",
           "poolChance": 100.0,
           "conditions": [
             "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
@@ -11201,11 +11201,11 @@
           "itemCount": 286
         },
         {
-          "title": "Chase Rewards: Elder Tier",
-          "poolId": "chase-rewards-elder-tier",
+          "title": "Daily Ops Rewards Chase Tier03",
+          "poolId": "daily-ops-rewards-chase-tier03",
           "lvliFormID": "005DBD0D",
           "lvliEdid": "LL_DailyOps_Rewards_Chase_Tier03",
-          "tier": "elder",
+          "tier": "",
           "poolChance": 100.0,
           "conditions": [
             "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
@@ -13220,8 +13220,32 @@
           "itemCount": 286
         },
         {
-          "title": "Activation Keycard",
-          "poolId": "activation-keycard",
+          "title": "Restricted Legendary Module 1-3",
+          "poolId": "restricted-legendary-module-1-3",
+          "lvliFormID": "00612800",
+          "lvliEdid": "RESTRICTED_LL_LegendaryModule_1-3",
+          "tier": "",
+          "poolChance": 100.0,
+          "conditions": [
+            "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
+            "GetValue",
+            "005CB976:DailyOps_Timer_Tier_High:GLOB"
+          ],
+          "conditionSummary": "",
+          "items": [
+            {
+              "formid": "005652F9",
+              "name": "Legendary Module",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": false
+            }
+          ],
+          "itemCount": 1
+        },
+        {
+          "title": "Rewards The Drifter Activation Key Card",
+          "poolId": "rewards-the-drifter-activation-key-card",
           "lvliFormID": "00824D11",
           "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
           "tier": "",
@@ -13239,30 +13263,6 @@
             {
               "formid": "00824D0E",
               "name": "Drifter Activation Card",
-              "dropRate": 100.0,
-              "qty": 1,
-              "isPlan": false
-            }
-          ],
-          "itemCount": 1
-        },
-        {
-          "title": "Legendary Modules: Elder Tier",
-          "poolId": "legendary-modules-elder-tier",
-          "lvliFormID": "00612800",
-          "lvliEdid": "RESTRICTED_LL_LegendaryModule_1-3",
-          "tier": "elder",
-          "poolChance": 100.0,
-          "conditions": [
-            "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
-            "GetValue",
-            "005CB976:DailyOps_Timer_Tier_High:GLOB"
-          ],
-          "conditionSummary": "",
-          "items": [
-            {
-              "formid": "005652F9",
-              "name": "Legendary Module",
               "dropRate": 100.0,
               "qty": 1,
               "isPlan": false
@@ -13300,8 +13300,8 @@
       "description": "Aid Billy Beltbuckles in committing tax fraud.",
       "pools": [
         {
-          "title": "Activation Keycard",
-          "poolId": "activation-keycard",
+          "title": "Rewards The Drifter Activation Key Card",
+          "poolId": "rewards-the-drifter-activation-key-card",
           "lvliFormID": "00824D11",
           "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
           "tier": "",
@@ -13324,8 +13324,8 @@
           "itemCount": 1
         },
         {
-          "title": "Mission Rewards (All Optionals)",
-          "poolId": "mission-rewards-all-optionals",
+          "title": "Xpd Ac Mission01 Reward Mission",
+          "poolId": "xpd-ac-mission01-reward-mission",
           "lvliFormID": "006D3A68",
           "lvliEdid": "XPD_AC_LL_Mission01_Reward_Mission",
           "tier": "",
@@ -13697,8 +13697,8 @@
           "itemCount": 51
         },
         {
-          "title": "Repeatable Mission Rewards",
-          "poolId": "repeatable-mission-rewards",
+          "title": "Xpd Mission Reward Repeatable",
+          "poolId": "xpd-mission-reward-repeatable",
           "lvliFormID": "006371C0",
           "lvliEdid": "XPD_LL_Mission_Reward_Repeatable",
           "tier": "",
@@ -14073,8 +14073,8 @@
       "description": "Aid Billy Beltbuckles in committing tax fraud.",
       "pools": [
         {
-          "title": "Activation Keycard",
-          "poolId": "activation-keycard",
+          "title": "Rewards The Drifter Activation Key Card",
+          "poolId": "rewards-the-drifter-activation-key-card",
           "lvliFormID": "00824D11",
           "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
           "tier": "",
@@ -14097,8 +14097,8 @@
           "itemCount": 1
         },
         {
-          "title": "Mission Rewards (All Optionals)",
-          "poolId": "mission-rewards-all-optionals",
+          "title": "Xpd Ac Mission01 Reward Mission",
+          "poolId": "xpd-ac-mission01-reward-mission",
           "lvliFormID": "006D3A68",
           "lvliEdid": "XPD_AC_LL_Mission01_Reward_Mission",
           "tier": "",
@@ -14470,8 +14470,8 @@
           "itemCount": 51
         },
         {
-          "title": "Repeatable Mission Rewards",
-          "poolId": "repeatable-mission-rewards",
+          "title": "Xpd Mission Reward Repeatable",
+          "poolId": "xpd-mission-reward-repeatable",
           "lvliFormID": "006371C0",
           "lvliEdid": "XPD_LL_Mission_Reward_Repeatable",
           "tier": "",
@@ -14846,8 +14846,8 @@
       "description": "Fly to the Foundry and help the Union stave off annihilation.",
       "pools": [
         {
-          "title": "Activation Keycard",
-          "poolId": "activation-keycard",
+          "title": "Rewards The Drifter Activation Key Card",
+          "poolId": "rewards-the-drifter-activation-key-card",
           "lvliFormID": "00824D11",
           "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
           "tier": "",
@@ -14870,8 +14870,8 @@
           "itemCount": 1
         },
         {
-          "title": "Repeatable Mission Rewards",
-          "poolId": "repeatable-mission-rewards",
+          "title": "Xpd Mission Reward Repeatable",
+          "poolId": "xpd-mission-reward-repeatable",
           "lvliFormID": "006371C0",
           "lvliEdid": "XPD_LL_Mission_Reward_Repeatable",
           "tier": "",
@@ -15233,8 +15233,8 @@
           "itemCount": 50
         },
         {
-          "title": "Mission Rewards (All Optionals)",
-          "poolId": "mission-rewards-all-optionals",
+          "title": "Xpd Pitt Mission Reward Mission",
+          "poolId": "xpd-pitt-mission-reward-mission",
           "lvliFormID": "00674DC2",
           "lvliEdid": "XPD_Pitt_LL_Mission_Reward_Mission",
           "tier": "",
@@ -15570,8 +15570,8 @@
       "description": "Fly to the Foundry and help the Union stave off annihilation.",
       "pools": [
         {
-          "title": "Activation Keycard",
-          "poolId": "activation-keycard",
+          "title": "Rewards The Drifter Activation Key Card",
+          "poolId": "rewards-the-drifter-activation-key-card",
           "lvliFormID": "00824D11",
           "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
           "tier": "",
@@ -15594,8 +15594,8 @@
           "itemCount": 1
         },
         {
-          "title": "Repeatable Mission Rewards",
-          "poolId": "repeatable-mission-rewards",
+          "title": "Xpd Mission Reward Repeatable",
+          "poolId": "xpd-mission-reward-repeatable",
           "lvliFormID": "006371C0",
           "lvliEdid": "XPD_LL_Mission_Reward_Repeatable",
           "tier": "",
@@ -15957,8 +15957,8 @@
           "itemCount": 50
         },
         {
-          "title": "Mission Rewards (All Optionals)",
-          "poolId": "mission-rewards-all-optionals",
+          "title": "Xpd Pitt Mission Reward Mission",
+          "poolId": "xpd-pitt-mission-reward-mission",
           "lvliFormID": "00674DC2",
           "lvliEdid": "XPD_Pitt_LL_Mission_Reward_Mission",
           "tier": "",
@@ -16294,8 +16294,8 @@
       "description": "[Module quest for Guardian Bot encounter]",
       "pools": [
         {
-          "title": "Stage 1 Rewards",
-          "poolId": "stage-1-rewards",
+          "title": "Raids Rewards Enc01",
+          "poolId": "raids-rewards-enc01",
           "lvliFormID": "007965E1",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc01",
           "tier": "",
@@ -17437,8 +17437,8 @@
           "itemCount": 161
         },
         {
-          "title": "Speed Run Trophy: Stage 1",
-          "poolId": "speed-run-trophy-stage-1",
+          "title": "Raids Rewards Enc01 Trophies",
+          "poolId": "raids-rewards-enc01-trophies",
           "lvliFormID": "007B310E",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc01_Trophies",
           "tier": "",
@@ -17477,8 +17477,8 @@
       "description": "[Module quest for Guardian Bot encounter]",
       "pools": [
         {
-          "title": "Stage 1 Rewards",
-          "poolId": "stage-1-rewards",
+          "title": "Raids Rewards Enc01",
+          "poolId": "raids-rewards-enc01",
           "lvliFormID": "007965E1",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc01",
           "tier": "",
@@ -18620,8 +18620,8 @@
           "itemCount": 161
         },
         {
-          "title": "Speed Run Trophy: Stage 1",
-          "poolId": "speed-run-trophy-stage-1",
+          "title": "Raids Rewards Enc01 Trophies",
+          "poolId": "raids-rewards-enc01-trophies",
           "lvliFormID": "007B310E",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc01_Trophies",
           "tier": "",
@@ -18660,8 +18660,8 @@
       "description": "[Module quest for the Drill Complex encounter]",
       "pools": [
         {
-          "title": "Stage 2 Rewards",
-          "poolId": "stage-2-rewards",
+          "title": "Raids Rewards Enc02",
+          "poolId": "raids-rewards-enc02",
           "lvliFormID": "007965E2",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc02",
           "tier": "",
@@ -19817,8 +19817,8 @@
           "itemCount": 163
         },
         {
-          "title": "Speed Run Trophy: Stage 2",
-          "poolId": "speed-run-trophy-stage-2",
+          "title": "Raids Rewards Enc02 Trophies",
+          "poolId": "raids-rewards-enc02-trophies",
           "lvliFormID": "007B310F",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc02_Trophies",
           "tier": "",
@@ -19857,8 +19857,8 @@
       "description": "[Module quest for the Drill Complex encounter]",
       "pools": [
         {
-          "title": "Stage 2 Rewards",
-          "poolId": "stage-2-rewards",
+          "title": "Raids Rewards Enc02",
+          "poolId": "raids-rewards-enc02",
           "lvliFormID": "007965E2",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc02",
           "tier": "",
@@ -21014,8 +21014,8 @@
           "itemCount": 163
         },
         {
-          "title": "Speed Run Trophy: Stage 2",
-          "poolId": "speed-run-trophy-stage-2",
+          "title": "Raids Rewards Enc02 Trophies",
+          "poolId": "raids-rewards-enc02-trophies",
           "lvliFormID": "007B310F",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc02_Trophies",
           "tier": "",
@@ -21054,8 +21054,8 @@
       "description": "[Module quest for Enclave Squad encounter]",
       "pools": [
         {
-          "title": "Stage 3 Rewards",
-          "poolId": "stage-3-rewards",
+          "title": "Raids Rewards Enc03",
+          "poolId": "raids-rewards-enc03",
           "lvliFormID": "007965E3",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc03",
           "tier": "",
@@ -22225,8 +22225,8 @@
           "itemCount": 165
         },
         {
-          "title": "Speed Run Trophy: Stage 3",
-          "poolId": "speed-run-trophy-stage-3",
+          "title": "Raids Rewards Enc03 Trophies",
+          "poolId": "raids-rewards-enc03-trophies",
           "lvliFormID": "007B3110",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc03_Trophies",
           "tier": "",
@@ -22265,8 +22265,8 @@
       "description": "[Module quest for Enclave Squad encounter]",
       "pools": [
         {
-          "title": "Stage 3 Rewards",
-          "poolId": "stage-3-rewards",
+          "title": "Raids Rewards Enc03",
+          "poolId": "raids-rewards-enc03",
           "lvliFormID": "007965E3",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc03",
           "tier": "",
@@ -23436,8 +23436,8 @@
           "itemCount": 165
         },
         {
-          "title": "Speed Run Trophy: Stage 3",
-          "poolId": "speed-run-trophy-stage-3",
+          "title": "Raids Rewards Enc03 Trophies",
+          "poolId": "raids-rewards-enc03-trophies",
           "lvliFormID": "007B3110",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc03_Trophies",
           "tier": "",
@@ -23476,8 +23476,8 @@
       "description": "[Module quest for Enclave Research Lab encounter]",
       "pools": [
         {
-          "title": "Stage 4 Rewards",
-          "poolId": "stage-4-rewards",
+          "title": "Raids Rewards Enc04",
+          "poolId": "raids-rewards-enc04",
           "lvliFormID": "007965E4",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc04",
           "tier": "",
@@ -24661,8 +24661,8 @@
           "itemCount": 167
         },
         {
-          "title": "Speed Run Trophy: Stage 4",
-          "poolId": "speed-run-trophy-stage-4",
+          "title": "Raids Rewards Enc04 Trophies",
+          "poolId": "raids-rewards-enc04-trophies",
           "lvliFormID": "007B3111",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc04_Trophies",
           "tier": "",
@@ -24701,8 +24701,8 @@
       "description": "[Module quest for Enclave Research Lab encounter]",
       "pools": [
         {
-          "title": "Stage 4 Rewards",
-          "poolId": "stage-4-rewards",
+          "title": "Raids Rewards Enc04",
+          "poolId": "raids-rewards-enc04",
           "lvliFormID": "007965E4",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc04",
           "tier": "",
@@ -25886,8 +25886,8 @@
           "itemCount": 167
         },
         {
-          "title": "Speed Run Trophy: Stage 4",
-          "poolId": "speed-run-trophy-stage-4",
+          "title": "Raids Rewards Enc04 Trophies",
+          "poolId": "raids-rewards-enc04-trophies",
           "lvliFormID": "007B3111",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc04_Trophies",
           "tier": "",
@@ -25926,32 +25926,8 @@
       "description": "[Module quest for Scorchtongue encounter]",
       "pools": [
         {
-          "title": "Activation Keycard",
-          "poolId": "activation-keycard",
-          "lvliFormID": "00824D11",
-          "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
-          "tier": "",
-          "poolChance": 100.0,
-          "conditions": [
-            "IsActivePlayer 10000000 1.000000,\"GetRandomPercent 10100100\"",
-            "IsActivePlayer",
-            "0081FD76:P62_LCP_TheDrifter_KeycardChance_RAIDS:GLOB"
-          ],
-          "conditionSummary": "Must be an active participant",
-          "items": [
-            {
-              "formid": "00824D0E",
-              "name": "Drifter Activation Card",
-              "dropRate": 100.0,
-              "qty": 1,
-              "isPlan": false
-            }
-          ],
-          "itemCount": 1
-        },
-        {
-          "title": "Stage 5 Rewards",
-          "poolId": "stage-5-rewards",
+          "title": "Raids Rewards Enc05",
+          "poolId": "raids-rewards-enc05",
           "lvliFormID": "007965E5",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc05",
           "tier": "",
@@ -27142,8 +27118,8 @@
           "itemCount": 168
         },
         {
-          "title": "Speed Run Trophy: Stage 5",
-          "poolId": "speed-run-trophy-stage-5",
+          "title": "Raids Rewards Enc05 Trophies",
+          "poolId": "raids-rewards-enc05-trophies",
           "lvliFormID": "007B3112",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc05_Trophies",
           "tier": "",
@@ -27160,6 +27136,30 @@
               "dropRate": 100.0,
               "qty": 1,
               "isPlan": true
+            }
+          ],
+          "itemCount": 1
+        },
+        {
+          "title": "Rewards The Drifter Activation Key Card",
+          "poolId": "rewards-the-drifter-activation-key-card",
+          "lvliFormID": "00824D11",
+          "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
+          "tier": "",
+          "poolChance": 100.0,
+          "conditions": [
+            "IsActivePlayer 10000000 1.000000,\"GetRandomPercent 10100100\"",
+            "IsActivePlayer",
+            "0081FD76:P62_LCP_TheDrifter_KeycardChance_RAIDS:GLOB"
+          ],
+          "conditionSummary": "Must be an active participant",
+          "items": [
+            {
+              "formid": "00824D0E",
+              "name": "Drifter Activation Card",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": false
             }
           ],
           "itemCount": 1
@@ -27182,32 +27182,8 @@
       "description": "[Module quest for Scorchtongue encounter]",
       "pools": [
         {
-          "title": "Activation Keycard",
-          "poolId": "activation-keycard",
-          "lvliFormID": "00824D11",
-          "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
-          "tier": "",
-          "poolChance": 100.0,
-          "conditions": [
-            "IsActivePlayer 10000000 1.000000,\"GetRandomPercent 10100100\"",
-            "IsActivePlayer",
-            "0081FD76:P62_LCP_TheDrifter_KeycardChance_RAIDS:GLOB"
-          ],
-          "conditionSummary": "Must be an active participant",
-          "items": [
-            {
-              "formid": "00824D0E",
-              "name": "Drifter Activation Card",
-              "dropRate": 100.0,
-              "qty": 1,
-              "isPlan": false
-            }
-          ],
-          "itemCount": 1
-        },
-        {
-          "title": "Stage 5 Rewards",
-          "poolId": "stage-5-rewards",
+          "title": "Raids Rewards Enc05",
+          "poolId": "raids-rewards-enc05",
           "lvliFormID": "007965E5",
           "lvliEdid": "RD01_LL_Raids_Rewards_Enc05",
           "tier": "",
@@ -28398,8 +28374,8 @@
           "itemCount": 168
         },
         {
-          "title": "Speed Run Trophy: Stage 5",
-          "poolId": "speed-run-trophy-stage-5",
+          "title": "Raids Rewards Enc05 Trophies",
+          "poolId": "raids-rewards-enc05-trophies",
           "lvliFormID": "007B3112",
           "lvliEdid": "RD01_LLS_Raids_Rewards_Enc05_Trophies",
           "tier": "",
@@ -28416,6 +28392,30 @@
               "dropRate": 100.0,
               "qty": 1,
               "isPlan": true
+            }
+          ],
+          "itemCount": 1
+        },
+        {
+          "title": "Rewards The Drifter Activation Key Card",
+          "poolId": "rewards-the-drifter-activation-key-card",
+          "lvliFormID": "00824D11",
+          "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
+          "tier": "",
+          "poolChance": 100.0,
+          "conditions": [
+            "IsActivePlayer 10000000 1.000000,\"GetRandomPercent 10100100\"",
+            "IsActivePlayer",
+            "0081FD76:P62_LCP_TheDrifter_KeycardChance_RAIDS:GLOB"
+          ],
+          "conditionSummary": "Must be an active participant",
+          "items": [
+            {
+              "formid": "00824D0E",
+              "name": "Drifter Activation Card",
+              "dropRate": 100.0,
+              "qty": 1,
+              "isPlan": false
             }
           ],
           "itemCount": 1
@@ -28451,8 +28451,8 @@
               "formid": "00853B61",
               "name": "BOUNTY Legendary Items Rank1",
               "qty": 1,
-              "dropRate": 14.29,
-              "dropRatePercent": "14.29%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Rank1",
               "sig": "LGDI"
             },
@@ -28460,8 +28460,8 @@
               "formid": "00853B63",
               "name": "BOUNTY Legendary Items Rank2",
               "qty": 1,
-              "dropRate": 14.29,
-              "dropRatePercent": "14.29%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Rank2",
               "sig": "LGDI"
             },
@@ -28469,8 +28469,8 @@
               "formid": "00853B62",
               "name": "BOUNTY Legendary Items Rank3",
               "qty": 1,
-              "dropRate": 14.29,
-              "dropRatePercent": "14.29%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Rank3",
               "sig": "LGDI"
             },
@@ -28478,8 +28478,8 @@
               "formid": "00417C46",
               "name": "Legendary Items Weapons Melee Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Melee_Rank1",
               "sig": "LGDI"
             },
@@ -28487,8 +28487,8 @@
               "formid": "00417C42",
               "name": "Legendary Items Weapons Ranged Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Ranged_Rank1",
               "sig": "LGDI"
             },
@@ -28496,8 +28496,8 @@
               "formid": "00417C4B",
               "name": "Legendary Items Armor Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Armor_Rank1",
               "sig": "LGDI"
             },
@@ -28505,8 +28505,8 @@
               "formid": "00853D1B",
               "name": "BOUNTY Legendary Items Weapons Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Rank1",
               "sig": "LGDI"
             },
@@ -28514,8 +28514,8 @@
               "formid": "00853D1E",
               "name": "BOUNTY Legendary Items Armor Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Armor_Rank1",
               "sig": "LGDI"
             },
@@ -28523,8 +28523,8 @@
               "formid": "00417C47",
               "name": "Legendary Items Weapons Melee Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Melee_Rank2",
               "sig": "LGDI"
             },
@@ -28532,8 +28532,8 @@
               "formid": "00417C43",
               "name": "Legendary Items Weapons Ranged Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Ranged_Rank2",
               "sig": "LGDI"
             },
@@ -28541,8 +28541,8 @@
               "formid": "00417C40",
               "name": "Legendary Items Armor Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Armor_Rank2",
               "sig": "LGDI"
             },
@@ -28550,8 +28550,8 @@
               "formid": "00853D1C",
               "name": "BOUNTY Legendary Items Weapons Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Rank2",
               "sig": "LGDI"
             },
@@ -28559,8 +28559,8 @@
               "formid": "00853D1F",
               "name": "BOUNTY Legendary Items Armor Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Armor_Rank2",
               "sig": "LGDI"
             },
@@ -28568,8 +28568,8 @@
               "formid": "00417C48",
               "name": "Legendary Items Weapons Melee Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Melee_Rank3",
               "sig": "LGDI"
             },
@@ -28577,8 +28577,8 @@
               "formid": "00417C44",
               "name": "Legendary Items Weapons Ranged Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Ranged_Rank3",
               "sig": "LGDI"
             },
@@ -28586,8 +28586,8 @@
               "formid": "00417C41",
               "name": "Legendary Items Armor Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Armor_Rank3",
               "sig": "LGDI"
             },
@@ -28595,8 +28595,8 @@
               "formid": "00853D1D",
               "name": "BOUNTY Legendary Items Weapons Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Rank3",
               "sig": "LGDI"
             },
@@ -28604,8 +28604,8 @@
               "formid": "00853D20",
               "name": "BOUNTY Legendary Items Armor Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Armor_Rank3",
               "sig": "LGDI"
             },
@@ -28613,8 +28613,8 @@
               "formid": "008206C6",
               "name": "Wanted Poster",
               "qty": 1,
-              "dropRate": 14.29,
-              "dropRatePercent": "14.29%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "Burn_Bounty_WantedPoster",
               "sig": "MISC"
             }
@@ -28653,8 +28653,8 @@
               "formid": "00853B61",
               "name": "BOUNTY Legendary Items Rank1",
               "qty": 1,
-              "dropRate": 14.29,
-              "dropRatePercent": "14.29%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Rank1",
               "sig": "LGDI"
             },
@@ -28662,8 +28662,8 @@
               "formid": "00853B63",
               "name": "BOUNTY Legendary Items Rank2",
               "qty": 1,
-              "dropRate": 14.29,
-              "dropRatePercent": "14.29%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Rank2",
               "sig": "LGDI"
             },
@@ -28671,8 +28671,8 @@
               "formid": "00853B62",
               "name": "BOUNTY Legendary Items Rank3",
               "qty": 1,
-              "dropRate": 14.29,
-              "dropRatePercent": "14.29%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Rank3",
               "sig": "LGDI"
             },
@@ -28680,8 +28680,8 @@
               "formid": "00417C46",
               "name": "Legendary Items Weapons Melee Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Melee_Rank1",
               "sig": "LGDI"
             },
@@ -28689,8 +28689,8 @@
               "formid": "00417C42",
               "name": "Legendary Items Weapons Ranged Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Ranged_Rank1",
               "sig": "LGDI"
             },
@@ -28698,8 +28698,8 @@
               "formid": "00417C4B",
               "name": "Legendary Items Armor Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Armor_Rank1",
               "sig": "LGDI"
             },
@@ -28707,8 +28707,8 @@
               "formid": "00853D1B",
               "name": "BOUNTY Legendary Items Weapons Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Rank1",
               "sig": "LGDI"
             },
@@ -28716,8 +28716,8 @@
               "formid": "00853D1E",
               "name": "BOUNTY Legendary Items Armor Rank1",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Armor_Rank1",
               "sig": "LGDI"
             },
@@ -28725,8 +28725,8 @@
               "formid": "00417C47",
               "name": "Legendary Items Weapons Melee Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Melee_Rank2",
               "sig": "LGDI"
             },
@@ -28734,8 +28734,8 @@
               "formid": "00417C43",
               "name": "Legendary Items Weapons Ranged Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Ranged_Rank2",
               "sig": "LGDI"
             },
@@ -28743,8 +28743,8 @@
               "formid": "00417C40",
               "name": "Legendary Items Armor Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Armor_Rank2",
               "sig": "LGDI"
             },
@@ -28752,8 +28752,8 @@
               "formid": "00853D1C",
               "name": "BOUNTY Legendary Items Weapons Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Rank2",
               "sig": "LGDI"
             },
@@ -28761,8 +28761,8 @@
               "formid": "00853D1F",
               "name": "BOUNTY Legendary Items Armor Rank2",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Armor_Rank2",
               "sig": "LGDI"
             },
@@ -28770,8 +28770,8 @@
               "formid": "00417C48",
               "name": "Legendary Items Weapons Melee Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Melee_Rank3",
               "sig": "LGDI"
             },
@@ -28779,8 +28779,8 @@
               "formid": "00417C44",
               "name": "Legendary Items Weapons Ranged Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Weapons_Ranged_Rank3",
               "sig": "LGDI"
             },
@@ -28788,8 +28788,8 @@
               "formid": "00417C41",
               "name": "Legendary Items Armor Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "LegendaryItems_Armor_Rank3",
               "sig": "LGDI"
             },
@@ -28797,8 +28797,8 @@
               "formid": "00853D1D",
               "name": "BOUNTY Legendary Items Weapons Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Rank3",
               "sig": "LGDI"
             },
@@ -28806,8 +28806,8 @@
               "formid": "00853D20",
               "name": "BOUNTY Legendary Items Armor Rank3",
               "qty": 1,
-              "dropRate": 2.86,
-              "dropRatePercent": "2.86%",
+              "dropRate": 20.0,
+              "dropRatePercent": "20.0%",
               "edid": "BOUNTY_LegendaryItems_Armor_Rank3",
               "sig": "LGDI"
             },
@@ -28815,8 +28815,8 @@
               "formid": "008206C6",
               "name": "Wanted Poster",
               "qty": 1,
-              "dropRate": 14.29,
-              "dropRatePercent": "14.29%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "Burn_Bounty_WantedPoster",
               "sig": "MISC"
             }
@@ -28882,8 +28882,8 @@
               "formid": "00853D20",
               "name": "BOUNTY Legendary Items Armor Rank3",
               "qty": 1,
-              "dropRate": 33.33,
-              "dropRatePercent": "33.33%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Armor_Rank3",
               "sig": "LGDI"
             },
@@ -28891,8 +28891,8 @@
               "formid": "0085DCD4",
               "name": "BOUNTY Legendary Items Weapons Melee Rank3",
               "qty": 1,
-              "dropRate": 33.33,
-              "dropRatePercent": "33.33%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Melee_Rank3",
               "sig": "LGDI"
             },
@@ -28900,8 +28900,8 @@
               "formid": "0085DCD7",
               "name": "BOUNTY Legendary Items Weapons Ranged Rank3",
               "qty": 1,
-              "dropRate": 33.33,
-              "dropRatePercent": "33.33%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Ranged_Rank3",
               "sig": "LGDI"
             },
@@ -28909,8 +28909,8 @@
               "formid": "00884073",
               "name": "LTT Legendary Items Armor Rank4",
               "qty": 1,
-              "dropRate": 25.0,
-              "dropRatePercent": "25.0%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "LTT_LegendaryItems_Armor_Rank4",
               "sig": "LGDI"
             },
@@ -28918,8 +28918,8 @@
               "formid": "00884074",
               "name": "LTT Legendary Items Power Armor Rank4",
               "qty": 1,
-              "dropRate": 25.0,
-              "dropRatePercent": "25.0%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "LTT_LegendaryItems_PowerArmor_Rank4",
               "sig": "LGDI"
             },
@@ -28927,8 +28927,8 @@
               "formid": "00884075",
               "name": "LTT Legendary Items Weapons Melee Rank4",
               "qty": 1,
-              "dropRate": 25.0,
-              "dropRatePercent": "25.0%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "LTT_LegendaryItems_Weapons_Melee_Rank4",
               "sig": "LGDI"
             },
@@ -28936,8 +28936,8 @@
               "formid": "00884076",
               "name": "LTT Legendary Items Weapons Ranged Rank4",
               "qty": 1,
-              "dropRate": 25.0,
-              "dropRatePercent": "25.0%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "LTT_LegendaryItems_Weapons_Ranged_Rank4",
               "sig": "LGDI"
             },
@@ -29048,8 +29048,8 @@
               "formid": "00853D20",
               "name": "BOUNTY Legendary Items Armor Rank3",
               "qty": 1,
-              "dropRate": 33.33,
-              "dropRatePercent": "33.33%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Armor_Rank3",
               "sig": "LGDI"
             },
@@ -29057,8 +29057,8 @@
               "formid": "0085DCD4",
               "name": "BOUNTY Legendary Items Weapons Melee Rank3",
               "qty": 1,
-              "dropRate": 33.33,
-              "dropRatePercent": "33.33%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Melee_Rank3",
               "sig": "LGDI"
             },
@@ -29066,8 +29066,8 @@
               "formid": "0085DCD7",
               "name": "BOUNTY Legendary Items Weapons Ranged Rank3",
               "qty": 1,
-              "dropRate": 33.33,
-              "dropRatePercent": "33.33%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "BOUNTY_LegendaryItems_Weapons_Ranged_Rank3",
               "sig": "LGDI"
             },
@@ -29075,8 +29075,8 @@
               "formid": "00884073",
               "name": "LTT Legendary Items Armor Rank4",
               "qty": 1,
-              "dropRate": 25.0,
-              "dropRatePercent": "25.0%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "LTT_LegendaryItems_Armor_Rank4",
               "sig": "LGDI"
             },
@@ -29084,8 +29084,8 @@
               "formid": "00884074",
               "name": "LTT Legendary Items Power Armor Rank4",
               "qty": 1,
-              "dropRate": 25.0,
-              "dropRatePercent": "25.0%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "LTT_LegendaryItems_PowerArmor_Rank4",
               "sig": "LGDI"
             },
@@ -29093,8 +29093,8 @@
               "formid": "00884075",
               "name": "LTT Legendary Items Weapons Melee Rank4",
               "qty": 1,
-              "dropRate": 25.0,
-              "dropRatePercent": "25.0%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "LTT_LegendaryItems_Weapons_Melee_Rank4",
               "sig": "LGDI"
             },
@@ -29102,8 +29102,8 @@
               "formid": "00884076",
               "name": "LTT Legendary Items Weapons Ranged Rank4",
               "qty": 1,
-              "dropRate": 25.0,
-              "dropRatePercent": "25.0%",
+              "dropRate": 100.0,
+              "dropRatePercent": "100.0%",
               "edid": "LTT_LegendaryItems_Weapons_Ranged_Rank4",
               "sig": "LGDI"
             },
