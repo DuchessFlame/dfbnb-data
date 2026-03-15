@@ -124,17 +124,32 @@ def prettify_lvli_label(edid):
     t = re.sub(r"^LL_", "", t, flags=re.IGNORECASE)
     t = re.sub(r"^FF\d+_(?:Reward_)?", "", t, flags=re.IGNORECASE)
 
+    # Strip quest/event ID prefixes (may be nested): E01b_, Ffz17_, Mtns04_, Bo_, Bs02_, Burn_, etc.
+    # Only strip tokens that look like quest IDs (contain digits, or are known short codes).
+    # Don't strip regular English words like "Tea", "Wheel", "Love", "Robots".
+    for _ in range(3):
+        # Tokens with digits are always quest IDs: E01b_, Ffz17_, Mtns04_, Bs02_, Cbz13_, Sr01_, etc.
+        t = re.sub(r"^[A-Za-z]+\d+[A-Za-z]?_", "", t)
+        # Known short non-numeric quest ID prefixes (2-4 chars, known codes only)
+        t = re.sub(r"^(?:Bo|EN|Burn|Gwws)_", "", t, flags=re.IGNORECASE)
+        t = re.sub(r"^LLS?_", "", t, flags=re.IGNORECASE)
+        t = re.sub(r"^LL_", "", t, flags=re.IGNORECASE)
+
     # Split on underscores and CamelCase
     t = t.replace("__", "_").replace("_", " ")
     t = re.sub(r"([a-z])([A-Z])", r"\1 \2", t)
     t = re.sub(r"\s+", " ", t).strip()
 
+    # Remove stray "LL" / "LLS" words left mid-label
+    t = re.sub(r"\bLLS?\b\s*", "", t)
+    t = re.sub(r"\s+", " ", t).strip()
+
     # Semantic replacements
     t = re.sub(r"\bPublic Events\b", "Public Event Rewards", t, flags=re.IGNORECASE)
     t = re.sub(r"\bPublic Event Rewards Rewards\b", "Public Event Rewards", t, flags=re.IGNORECASE)
-    t = re.sub(r"\bQuest Reward\b", "Event Rewards", t, flags=re.IGNORECASE)
+    t = re.sub(r"(?i)\bUmine\s*It\b", "U-Mine-It", t)
 
-    t = title_case_words(t).replace(" Ll ", " LL ")
+    t = title_case_words(t)
     return t.strip()
 
 def simplify_condition(cond_str):
@@ -1427,7 +1442,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 continue
             seen_lvli_tree.add(formid)
             tree_node = build_lvli_tree_node(formid)
-            if tree_node:
+            if tree_node and (tree_node.get("children") or tree_node.get("items")):
                 tree_node["gmrwDropRate"] = round(gmrw_mult * 100, 6)
                 if gmrw_cond_display:
                     tree_node["gmrwConditions"] = [gmrw_cond_display]
