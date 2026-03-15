@@ -10,10 +10,14 @@ param(
   JSON comes from the repo dist/ folder.
   JS/CSS come from the local dfbnb-child/assets theme folder.
 
+  Challenges are split into 6 individual category modules:
+    score-challenges, lifetime-challenges, pioneer-scouts,
+    quests, random-encounters, mini-seasons
+
 .USAGE
   .\sync_challenges_to_site.ps1                 # uploads everything
   .\sync_challenges_to_site.ps1 -Target json    # only challenges.json
-  .\sync_challenges_to_site.ps1 -Target assets  # only JS + CSS
+  .\sync_challenges_to_site.ps1 -Target assets  # only JS + CSS (all 6 split files)
   .\sync_challenges_to_site.ps1 -Target all     # json + assets
 #>
 
@@ -27,10 +31,17 @@ if (-not (Test-Path (Join-Path $RepoRoot ".git"))) {
 }
 $DistJSON = Join-Path $RepoRoot "dist\challenges\challenges.json"
 
-# JS/CSS from local theme assets folder
+# JS/CSS from local theme assets folder — 6 split challenge modules
 $AssetsDir = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\dfbnb-child\assets"
-$LocalCSS  = Join-Path $AssetsDir "df-bnb-challenges.css"
-$LocalJS   = Join-Path $AssetsDir "df-bnb-challenges.js"
+
+$ChallengeModules = @(
+    "df-bnb-score-challenges",
+    "df-bnb-lifetime-challenges",
+    "df-bnb-pioneer-scouts",
+    "df-bnb-quests",
+    "df-bnb-random-encounters",
+    "df-bnb-mini-seasons"
+)
 
 # WP Engine SFTP
 $SftpHost = "buffsnbrew1.sftp.wpengine.com"
@@ -61,16 +72,22 @@ if ($Target -eq "json" -or $Target -eq "all") {
 }
 
 if ($Target -eq "assets" -or $Target -eq "all") {
-    if (-not (Test-Path -LiteralPath $LocalCSS)) {
-        Write-Host "df-bnb-challenges.css not found at: $LocalCSS"
-        exit 1
+    foreach ($mod in $ChallengeModules) {
+        $js  = Join-Path $AssetsDir "$mod.js"
+        $css = Join-Path $AssetsDir "$mod.css"
+
+        if (-not (Test-Path -LiteralPath $js)) {
+            Write-Host "$mod.js not found at: $js"
+            exit 1
+        }
+        if (-not (Test-Path -LiteralPath $css)) {
+            Write-Host "$mod.css not found at: $css"
+            exit 1
+        }
+
+        $UploadPairs += @{ Local = $js;  Remote = $RemoteAssets }
+        $UploadPairs += @{ Local = $css; Remote = $RemoteAssets }
     }
-    if (-not (Test-Path -LiteralPath $LocalJS)) {
-        Write-Host "df-bnb-challenges.js not found at: $LocalJS"
-        exit 1
-    }
-    $UploadPairs += @{ Local = $LocalCSS; Remote = $RemoteAssets }
-    $UploadPairs += @{ Local = $LocalJS;  Remote = $RemoteAssets }
 }
 
 Write-Host ""

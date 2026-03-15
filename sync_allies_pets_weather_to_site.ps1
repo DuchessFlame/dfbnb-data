@@ -11,7 +11,7 @@ $Local = Join-Path $LocalBase $Target
 
 if (-not (Test-Path -LiteralPath $Local)) {
     Write-Host "Local folder not found: $Local"
-    Write-Host "Run run_allies_pets_weather_images.ps1 first."
+    Write-Host "Run run_allies_pets_weather_images.ps1 (camp items image builder) first."
     exit 1
 }
 
@@ -27,7 +27,7 @@ if (-not (Test-Path -LiteralPath $WinSCP)) {
 }
 
 Write-Host ""
-Write-Host "=== Allies / Pets / Weather upload ==="
+Write-Host "=== Camp Items (Allies / Pets / Utility) upload ==="
 Write-Host "Target: $Target"
 Write-Host "Local:  $Local"
 Write-Host "Remote: $RemoteFolder"
