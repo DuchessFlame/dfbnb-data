@@ -219,6 +219,103 @@ jobs:
       - name: Build Bundles JSON
         run: python src/build_bundles.py
 
+      # ===== GAP-FILLER CATEGORY BUILDS (scaffolded — real logic TBD) =====
+
+      # --- BUFFS ---
+      - name: Build Buffs JSON
+        run: python src/build_buffs_json.py
+
+      # --- CAMP ---
+      - name: Build CAMP JSON
+        run: python src/build_camp_json.py
+
+      # --- CRYPTIDS ---
+      - name: Build Cryptids JSON
+        run: python src/build_cryptids_json.py
+
+      # --- CURRENCY ---
+      - name: Build Currency JSON
+        run: python src/build_currency_json.py
+
+      # --- DATA MINING ---
+      - name: Build Data Mining JSON
+        run: python src/build_data_mining_json.py
+
+      # --- EXPERIENCE (XP) ---
+      - name: Build Experience JSON
+        run: python src/build_experience_json.py
+
+      # --- FARMING (all sub-types) ---
+      - name: Build Farming JSON
+        run: python src/build_farming_json.py
+
+      - name: Build Farming Consumables JSON
+        run: python src/build_farming_consumables_json.py
+
+      - name: Build Farming Critters JSON
+        run: python src/build_farming_critters_json.py
+
+      - name: Build Farming Eggs JSON
+        run: python src/build_farming_eggs_json.py
+
+      - name: Build Farming Guides JSON
+        run: python src/build_farming_guides_json.py
+
+      - name: Build Farming Junk JSON
+        run: python src/build_farming_junk_json.py
+
+      - name: Build Farming Meat JSON
+        run: python src/build_farming_meat_json.py
+
+      - name: Build Farming Non Perishable JSON
+        run: python src/build_farming_non_perishable_json.py
+
+      - name: Build Farming Nuka Cola JSON
+        run: python src/build_farming_nuka_cola_json.py
+
+      - name: Build Farming Plants JSON
+        run: python src/build_farming_plants_json.py
+
+      # --- LEGENDARY MODS ---
+      - name: Build Legendary Mods JSON
+        run: python src/build_legendary_mods_json.py
+
+      # --- PERK CARDS ---
+      - name: Build Perk Cards JSON
+        run: python src/build_perk_cards_json.py
+
+      # --- PET TAMING ---
+      - name: Build Pet Taming JSON
+        run: python src/build_pet_taming_json.py
+
+      # --- SPECIALs & STATS ---
+      - name: Build SPECIALs & Stats JSON
+        run: python src/build_specials_stats_json.py
+
+      # --- STARFIELD ---
+      - name: Build Starfield JSON
+        run: python src/build_starfield_json.py
+
+      # --- TREASURE MAPS ---
+      - name: Build Treasure Maps JSON
+        run: python src/build_treasure_maps_json.py
+
+      # --- VENDORS ---
+      - name: Build Vendors JSON
+        run: python src/build_vendors_json.py
+
+      # --- WEAPONS ---
+      - name: Build Weapons JSON
+        run: python src/build_weapons_json.py
+
+      # --- CULT OF THE LAMB ---
+      - name: Build Cult of the Lamb JSON
+        run: python src/build_cult_of_the_lamb_json.py
+
+      # --- ATOM SHOP ---
+      - name: Build Atom Shop JSON
+        run: python src/build_atom_shop_json.py
+
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |

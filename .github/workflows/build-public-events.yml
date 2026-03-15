@@ -1,0 +1,71 @@
+name: Build Public Events Data
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/**'
+      - 'src/build_events_rewards_json.py'
+      - 'src/build_drop_rates.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  # Step 1: Build shared drop rates first
+  drop-rates:
+    uses: ./.github/workflows/build-drop-rates.yml
+
+  # Step 2: Build public events using shared JSON
+  build:
+    needs: drop-rates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Pull latest (includes drop_rates.json)
+        run: git pull origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Verify dependencies exist
+        run: |
+          echo "--- drop_rates.json ---"
+          ls -la dist/drop_rates.json || echo "NOT FOUND"
+
+      - name: Build Public Events Data
+        run: |
+          python -V
+          python src/build_events_rewards_json.py
+
+      - name: Commit dist outputs
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_events.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build Public Events data"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

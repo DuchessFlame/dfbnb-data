@@ -1,0 +1,57 @@
+name: Build Mini Seasons Data
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/**'
+      - 'src/build_challenges_json_v3.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build Mini Seasons Data
+        run: |
+          python -V
+          python src/build_challenges_json_v3.py
+
+      - name: Commit dist outputs
+        shell: bash
+        run: |
+          set -e
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/challenges/challenges.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build Mini Seasons data"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main
