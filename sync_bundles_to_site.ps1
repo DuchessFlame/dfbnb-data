@@ -24,7 +24,7 @@ if (-not (Test-Path -LiteralPath $Local)) {
 $SftpHost     = "buffsnbrew1.sftp.wpengine.com"
 $Port         = 2222
 $User         = "buffsnbrew1-nav"
-$RemoteFolder = "/wp-content/uploads/storefront/bundles/"
+$RemoteFolder = "/wp-content/uploads/guide-images/atom-shop/request-item-images/"
 
 $WinSCP = "D:\WinSCP\WinSCP.com"
 if (-not (Test-Path -LiteralPath $WinSCP)) {
