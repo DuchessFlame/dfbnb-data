@@ -86,29 +86,114 @@ def title_case_words(s):
     return " ".join(w.capitalize() if w else w for w in s.split())
 
 LVLI_LABEL_OVERRIDES = {
-    # key: lowercase substring match → display label
-    "enclave_plasmagun": "Enclave Plasma Gun Mod Boxes",
-    "enclaveplasmagun":  "Enclave Plasma Gun Mod Boxes",
-    "plasmagun_all":     "Enclave Plasma Gun Mod Boxes",
-    "rewards_activit":   "Activity Rewards",
-    "rewards_enclave":   "Enclave Activity Rewards",
+    # key: EXACT lowercase EDID match → display label
 }
 
+# Pattern-based label rules: (regex, replacement_func_or_string)
+# Applied in order; first match wins.
+LVLI_LABEL_PATTERNS = [
+    # Exact well-known EDIDs
+    (r"^RA_LL_Rewards_Activities$",           "Activity Rewards"),
+    (r"^RA_LL_Rewards_EnclaveActivities$",    "Enclave Activity Rewards"),
+    # Enclave Plasma Gun mod boxes
+    (r"(?i)enclave.*plasmagun|plasmagun.*all", "Enclave Plasma Gun Mod Boxes"),
+    # Corpse Flower Seeds
+    (r"(?i)corpseflower.*seeds",              "Corpse Flower Seeds"),
+    # U-Mine-It Maps
+    (r"(?i)umineit|u_?mine_?it",             "U-Mine-It Maps"),
+    # Stimpak
+    (r"(?i)chems_stimpak$",                   "Stimpak"),
+]
+
 def prettify_lvli_label(edid):
+    """Convert an LVLI EDID to a human-readable label for tree display."""
     t = (edid or "").strip()
     if not t: return ""
-    tl = t.lower()
-    for substr, label in LVLI_LABEL_OVERRIDES.items():
-        if substr in tl: return label
-    t = re.sub(r"^(LLS?|RA_LL|RA_LLS|RA|LL|QuestReward|Quest_Reward|Rewards)_+", "", t, flags=re.IGNORECASE)
+
+    # Check exact overrides first
+    if t.lower() in LVLI_LABEL_OVERRIDES:
+        return LVLI_LABEL_OVERRIDES[t.lower()]
+
+    # Check pattern rules
+    for pat, label in LVLI_LABEL_PATTERNS:
+        if re.search(pat, t):
+            return label
+
+    # Generic cleanup: strip LVLI naming prefixes (order matters — longest first)
+    t = re.sub(r"^(RA_LLS?_Rewards_Activities|RA_LLS?_Rewards|RA_LLS?|RA_LL_Rewards|RA_LL|LLS?_Rewards|LLS?|RA|LL|QuestReward|Quest_Reward|Rewards)_+", "", t, flags=re.IGNORECASE)
     t = re.sub(r"^LL_", "", t, flags=re.IGNORECASE)
-    t = t.replace("__", "_").replace("_", " ").strip()
-    t = re.sub(r"\s+", " ", t)
+    t = re.sub(r"^FF\d+_(?:Reward_)?", "", t, flags=re.IGNORECASE)
+
+    # Split on underscores and CamelCase
+    t = t.replace("__", "_").replace("_", " ")
+    t = re.sub(r"([a-z])([A-Z])", r"\1 \2", t)
+    t = re.sub(r"\s+", " ", t).strip()
+
+    # Semantic replacements
     t = re.sub(r"\bPublic Events\b", "Public Event Rewards", t, flags=re.IGNORECASE)
     t = re.sub(r"\bPublic Event Rewards Rewards\b", "Public Event Rewards", t, flags=re.IGNORECASE)
     t = re.sub(r"\bQuest Reward\b", "Event Rewards", t, flags=re.IGNORECASE)
+
     t = title_case_words(t).replace(" Ll ", " LL ")
     return t.strip()
+
+def simplify_condition(cond_str):
+    """Convert verbose xEdit condition strings to human-readable summaries."""
+    s = (cond_str or "").strip()
+    if not s:
+        return ""
+
+    # Extract quest name from patterns like: EN02_MQ_Us "One of Us" [QUST:000293A3]
+    quest_match = re.search(r'"([^"]+)"\s*\[QUST:', s)
+    quest_name = quest_match.group(1) if quest_match else ""
+
+    # GetQuestCompleted → "Requires: <Quest Name>"
+    if "GetQuestCompleted" in s and quest_name:
+        return f"Requires: {quest_name}"
+
+    # HasLearnedRecipe → "Recipe not yet learned"
+    if "HasLearnedRecipe" in s:
+        return "Recipe not yet learned"
+
+    # GetRandomPercent → already handled by math, omit from display
+    if "GetRandomPercent" in s:
+        return ""
+
+    # GetGlobalValue → extract GLOB name and make readable
+    if "GetGlobalValue" in s:
+        glob_match = re.search(r'(\w+)\s*\[GLOB:', s)
+        if glob_match:
+            glob_edid = glob_match.group(1)
+            # Prettify: LTT_RA_Rewards_Activities_DoubleLegendaryItem_Toggle
+            pretty = re.sub(r"^(LTT_|RA_|Rewards_|Activities_)+", "", glob_edid)
+            pretty = pretty.replace("_", " ").strip()
+            # Split CamelCase
+            pretty = re.sub(r"([a-z])([A-Z])", r"\1 \2", pretty)
+            pretty = re.sub(r"\s+", " ", pretty)
+            pretty = title_case_words(pretty)
+            pretty = re.sub(r"(?i)\bUmine\s*It\s*Map\b", "U-Mine-It Map", pretty)
+            pretty = re.sub(r"(?i)\bU-mine-it\b", "U-Mine-It", pretty)
+            # Clean up "Toggle" suffix if redundant
+            pretty = re.sub(r"\s+Toggle$", "", pretty, flags=re.IGNORECASE)
+            return f"Toggle: {pretty}"
+        return ""
+
+    # Fallback: strip raw numeric flags at end and clean up
+    s = re.sub(r'\s+[01]{8}\s+[\d.]+$', '', s)
+    s = re.sub(r'\s+[01]{8}\s+\S+\s*$', '', s)
+    # Strip "Subject." prefix and parameter noise
+    s = re.sub(r'^Subject\.', '', s)
+    s = re.sub(r'\(00 00 00.*?\)', '()', s)
+    return s.strip() if s.strip() else ""
+
+def simplify_conditions(conditions):
+    """Simplify a list of condition strings, removing empty results."""
+    result = []
+    for c in (conditions or []):
+        s = simplify_condition(c)
+        if s and s not in result:
+            result.append(s)
+    return result
 
 def parse_randompercent_multiplier(conditions_text):
     mult = 1.0
@@ -531,28 +616,30 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
 
 def parse_lvlf_flags(flags_str):
     """
-    Parse LVLF_Flags column. Returns dict with flag booleans.
-    xEdit exports flags as binary strings of varying length (e.g. "001", "11", "00101",
-    or 64-char zero-padded). All are parsed as binary (base-2).
+    Parse LVLF_Flags positional bit string from xEdit export.
+
+    xEdit's GetEditValue on a flags field returns a bit string where
+    character position N (left-to-right, 0-indexed) corresponds to bit N:
+      position 0 = Calculate from all levels <= PC's level (Level Filter)
+      position 1 = Calculate for each item in count (For Each)
+      position 2 = Use All
+      position 6 = First Match
+
+    Examples: "001" → Use All, "11" → Level Filter + For Each,
+              "0000001" → First Match
     """
     flags_str = (flags_str or "").strip()
     if not flags_str:
         return {"use_all": False, "for_each": False, "level_filter": False, "first_match": False}
 
-    # All flag strings from xEdit are binary (base-2)
-    try:
-        if all(c in "01" for c in flags_str):
-            flags_int = int(flags_str, 2)
-        else:
-            flags_int = int(flags_str)
-    except ValueError:
-        flags_int = 0
+    def bit_set(pos):
+        return pos < len(flags_str) and flags_str[pos] == '1'
 
     return {
-        "use_all":       bool(flags_int & 4),    # bit 2
-        "for_each":      bool(flags_int & 2),    # bit 1
-        "level_filter":  bool(flags_int & 1),    # bit 0
-        "first_match":   bool(flags_int & 64),   # bit 6
+        "level_filter": bit_set(0),
+        "for_each":     bit_set(1),
+        "use_all":      bit_set(2),
+        "first_match":  bit_set(6),
     }
 
 def resolve_lvli_items_deep(list_id, depth=0, seen=None):
@@ -661,6 +748,136 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 item["dropRate"] = item["dropRate"] / total_rate
 
     return items
+
+def build_lvli_tree_node(list_id, depth=0, seen=None):
+    """
+    Builds a hierarchical tree representation of an LVLI for rendering as expandable sections.
+    Returns a nested dict structure with type, formid, edid, label, useAll, children[], items[].
+    Max recursion depth: 15. Tracks visited LVLIs via seen set to prevent cycles.
+    """
+    if seen is None:
+        seen = set()
+    if list_id in seen or depth > 15:
+        return None
+    seen = seen | {list_id}
+
+    # Look up list metadata
+    list_row = lvli_list_by_formid.get(list_id)
+    if not list_row:
+        return None
+
+    flags = parse_lvlf_flags(pick(list_row, "LVLF_Flags", default=""))
+    is_use_all = flags["use_all"]
+
+    edid = lvli_edid_by_formid.get(list_id, "")
+    label = prettify_lvli_label(edid)
+
+    children = []
+    items = []
+
+    # Collect raw (0-1) probabilities for all entries first, then normalize
+    raw_entries = []  # list of (type, raw_rate, data_dict)
+
+    # Process each entry
+    for entry in lvli_entries_by_list.get(list_id, []):
+        idx = entry.get("EntryIndex")
+        if idx is None:
+            continue
+
+        math = lvli_math_by_entry.get((list_id, idx))
+        if not math:
+            continue
+
+        # EntryAprioriChance_NoSublist is the pre-computed drop rate in 0-1 space.
+        # It already incorporates: (1 - listCN/100) * (1 - entryCN/100) * condChance
+        # So we use it directly — no need to multiply components again.
+        apriori = float(math.get("EntryAprioriChance_NoSublist") or 0)
+        entry_drop_rate = apriori
+
+        # Get quantity
+        qty = 1
+        qty_raw = entry.get("LVIV_Quantity") or entry.get("LVLO_Count") or entry.get("Count") or "1"
+        try:
+            qty = int(float(qty_raw))
+        except (ValueError, TypeError):
+            qty = 1
+
+        # Check for quantity global override
+        qty_glob_ref = (entry.get("LVIG_QuantityGlobal") or "").strip()
+        if qty_glob_ref:
+            glob_fid = qty_glob_ref.split(":")[0] if ":" in qty_glob_ref else qty_glob_ref
+            if glob_fid in glob_vals:
+                qty = int(glob_vals[glob_fid])
+
+        # Collect conditions from Cond1-Cond10
+        conditions = []
+        for i in range(1, 11):
+            cond_key = f"Cond{i}"
+            if cond_key in entry:
+                cond_val = (entry.get(cond_key) or "").strip()
+                if cond_val:
+                    conditions.append(cond_val)
+
+        sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
+        ref = (entry.get("LVLO_Reference") or "").strip()
+        ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
+
+        # Simplify conditions for display
+        display_conditions = simplify_conditions(conditions)
+
+        if sub_lvli:
+            # Recurse into sub-LVLI
+            sub_node = build_lvli_tree_node(sub_lvli, depth + 1, seen)
+            if sub_node and (sub_node.get("children") or sub_node.get("items")):
+                if display_conditions:
+                    sub_node["conditions"] = display_conditions
+                raw_entries.append(("child", entry_drop_rate, sub_node))
+        else:
+            # Leaf item
+            if ":" in ref:
+                fid = ref.split(":")[0]
+                ref_edid = ref.split(":")[1] if len(ref.split(":")) > 1 else ""
+                name = resolve_name_for_formid(fid, ref_edid)
+                item_data = {
+                    "formid": fid,
+                    "edid": ref_edid,
+                    "name": name,
+                    "qty": qty,
+                    "sig": ref_sig,
+                }
+                if display_conditions:
+                    item_data["conditions"] = display_conditions
+                raw_entries.append(("item", entry_drop_rate, item_data))
+
+    # Normalize for pick-one lists: all raw_rates must sum to 1.0 (100%)
+    total_rate = sum(r for (_, r, _) in raw_entries)
+    if not is_use_all and raw_entries and total_rate > 0 and abs(total_rate - 1.0) > 0.0001:
+        for i, (etype, raw_rate, data) in enumerate(raw_entries):
+            raw_entries[i] = (etype, raw_rate / total_rate, data)
+
+    # Convert to final output with percentages
+    for etype, rate, data in raw_entries:
+        rate_pct = round(rate * 100, 6)
+        if etype == "child":
+            data["entryRate"] = rate_pct
+            children.append(data)
+        else:
+            data["dropRate"] = rate_pct
+            items.append(data)
+
+    result = {
+        "type": "lvli",
+        "formid": list_id,
+        "edid": edid,
+        "label": label,
+        "useAll": is_use_all,
+    }
+    if children:
+        result["children"] = children
+    if items:
+        result["items"] = items
+
+    return result
 
 def decompose_activities_lvli(formid):
     """
@@ -1180,6 +1397,56 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(dr) if dr < 1.0 else None,
                         "qty": item.get("qty", 1),
                     })
+
+    # ── Build reward tree for xEdit-style display ──
+    reward_tree = []
+    seen_lvli_tree = set()
+    for rr in gmrw_rows:
+        rewarded = (rr.get("RewardedItem") or "").strip()
+        if not rewarded:
+            continue
+        formid, kind = parse_ref(rewarded)
+
+        # Extract GMRW-level conditions
+        cond_text = (rr.get("Conditions") or "").strip()
+        tier_func = (rr.get("TierConditionFunc") or "").strip()
+        tier_val = (rr.get("TierConditionValue") or "").strip()
+
+        if tier_func.lower() == "getrandompercent" and tier_val:
+            try:
+                gmrw_mult = max(0.0, min(1.0, float(tier_val) / 100.0))
+            except (ValueError, TypeError):
+                gmrw_mult = 1.0
+            gmrw_cond_display = f"GetRandomPercent <= {tier_val}"
+        else:
+            gmrw_mult = parse_randompercent_multiplier(cond_text)
+            gmrw_cond_display = cond_text if gmrw_mult < 1.0 else ""
+
+        if kind.upper() == "LVLI":
+            if formid in seen_lvli_tree:
+                continue
+            seen_lvli_tree.add(formid)
+            tree_node = build_lvli_tree_node(formid)
+            if tree_node:
+                tree_node["gmrwDropRate"] = round(gmrw_mult * 100, 6)
+                if gmrw_cond_display:
+                    tree_node["gmrwConditions"] = [gmrw_cond_display]
+                reward_tree.append(tree_node)
+        else:
+            # Non-LVLI direct reward (e.g. a single BOOK)
+            name = resolve_name_for_formid(formid)
+            reward_tree.append({
+                "type": "leaf",
+                "formid": formid,
+                "name": name or formid,
+                "qty": 1,
+                "dropRate": round(gmrw_mult * 100, 6),
+                "conditions": [gmrw_cond_display] if gmrw_cond_display else [],
+                "edid": rewarded.split(":")[1] if ":" in rewarded else "",
+                "sig": kind.upper(),
+            })
+
+    activity_data["rewardTree"] = reward_tree
 
     # Sort plan rewards alphabetically
     activity_data["planRewards"].sort(key=lambda x: (x.get("name") or "").lower())
@@ -2134,10 +2401,10 @@ DIST_DIR.mkdir(parents=True, exist_ok=True)
 PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
 
 with open(DIST_DIR / "events_rewards.json", "w", encoding="utf-8") as f:
-    json.dump({"events": events}, f, indent=2)
+    json.dump({"events": events}, f, separators=(",", ":"))
 with open(DIST_DIR / "events_rewards_by_page.json", "w", encoding="utf-8") as f:
-    json.dump({"byPage": by_page}, f, indent=2)
+    json.dump({"byPage": by_page}, f, separators=(",", ":"))
 with open(PATCHLOG_DIR / "patchlog_latest_df_events.json", "w", encoding="utf-8") as f:
-    json.dump({"built": True}, f, indent=2)
+    json.dump({"built": True}, f)
 
 print(f"Events Rewards build complete. events={len(events)} byPage={len(by_page)}")

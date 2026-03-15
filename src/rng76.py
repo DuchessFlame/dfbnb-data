@@ -414,7 +414,17 @@ class LvliIndex:
 
 def parse_lvlf_flags(flags_str: str) -> Dict[str, bool]:
     """
-    Parse LVLF_Flags binary string.
+    Parse LVLF_Flags positional bit string from xEdit export.
+
+    xEdit's GetEditValue on a flags field returns a bit string where
+    character position N (left-to-right, 0-indexed) corresponds to bit N:
+      position 0 = Calculate from all levels <= PC's level (Level Filter)
+      position 1 = Calculate for each item in count (For Each)
+      position 2 = Use All
+      position 6 = First Match
+
+    Examples: "001" → Use All, "11" → Level Filter + For Each,
+              "0000001" → First Match
 
     Returns: ``{use_all, for_each, level_filter, first_match}``
     """
@@ -422,18 +432,15 @@ def parse_lvlf_flags(flags_str: str) -> Dict[str, bool]:
     if not flags_str:
         return {"use_all": False, "for_each": False,
                 "level_filter": False, "first_match": False}
-    try:
-        if all(c in "01" for c in flags_str):
-            v = int(flags_str, 2)
-        else:
-            v = int(flags_str)
-    except ValueError:
-        v = 0
+
+    def bit_set(pos):
+        return pos < len(flags_str) and flags_str[pos] == '1'
+
     return {
-        "use_all":      bool(v & 4),
-        "for_each":     bool(v & 2),
-        "level_filter": bool(v & 1),
-        "first_match":  bool(v & 64),
+        "level_filter": bit_set(0),
+        "for_each":     bit_set(1),
+        "use_all":      bit_set(2),
+        "first_match":  bit_set(6),
     }
 
 
