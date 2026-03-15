@@ -814,6 +814,161 @@ def build_plushies(kywd_refs_rows, misc_rows, seasons, gmrw_pq_map):
     return plushies_live, plushies_cut
 
 
+# =============================================================================
+# NOTE_OVERRIDES — manual corrections applied after xEdit data is processed.
+#
+# Keys are note display names (FULL field). Supported patch fields:
+#   location     — replaces the xEdit-resolved location string
+#   canCollect   — overrides the BTOF-derived collectability boolean
+#   technicalNote — extra note shown in the Technical sub-expand on the frontend
+#
+# Keyed by name rather than EDID because these corrections come from gameplay
+# observation rather than xEdit inspection. If EDIDs are confirmed in future
+# they should be used instead for robustness.
+# =============================================================================
+
+_GRAFTON_PAWN_NOTE = (
+    "Can be initially collected from its delivery package, "
+    "but once placed on the wall at Grafton Pawn Shop it can only be read."
+)
+
+NOTE_OVERRIDES = {
+    # ----- Incorrect locations (xEdit resolved wrong cell) -----
+    "Filtcher Farm Report": {
+        "location": "Silva Homestead\n(In the package for Madeleine de Silva)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Holland Chase Invoice #9021": {
+        "location": "Charleston Capitol Building\n(In the package for Sam Blackwell)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Holland Chase Invoice #9033": {
+        "location": "Charleston Capitol Building\n(In the package for Sam Blackwell)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Shanghai Sally: Berkeley Springs": {
+        "location": "Monongah Police Station\n(In the package for Sheriff Darcy)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Shanghai Sally: Casino Shootout": {
+        "location": "Monongah Police Station\n(In the package for Sheriff Darcy)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Shanghai Sally: Chapter Closed": {
+        "location": "Monongah Police Station\n(In the package for Sheriff Darcy)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Shanghai Sally: Conclusions": {
+        "location": "Monongah Police Station — front desk\n(In the package for Sheriff Darcy)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Suspicious death at Harpers Ferry": {
+        "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Suspicious death of Alicia Shay": {
+        "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Suspicious death of Emmanuel Tillings": {
+        "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Suspicious deaths overview": {
+        "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Vigilant Citizen's note to Blackwell": {
+        "location": "Charleston Capitol Building\n(In the package for Sam Blackwell)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Vigilant Citizen's note to Carter": {
+        "location": "Charleston Herald building\n(In the package for Quinn Carter)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Vigilant Citizen's note to Leah de Silva": {
+        "location": "Silva Homestead\n(In the package for Madeleine de Silva)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Vigilant Citizen's note to Sheriff Darcy": {
+        "location": "Monongah Police Station\n(In the package for Sheriff Darcy)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Vigilant Citizen's note to Van Lowe": {
+        "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    "Weigh station logs": {
+        "location": "Charleston Herald building\n(In the package for Quinn Carter)",
+        "technicalNote": _GRAFTON_PAWN_NOTE,
+    },
+    # ----- Location name changes (game updates renamed locations) -----
+    "A blessed gift": {
+        "location": "Sacramental Glade",
+    },
+    "A worthy sacrifice": {
+        "location": "Sacramental Glade",
+    },
+    "A Life Without Keith": {
+        "location": "The Coop",
+    },
+    "Doomed": {
+        "location": "The Coop",
+    },
+    # ----- Vague/incorrect locations (xEdit resolved nearby cell, not actual spawn) -----
+    "A father's Lament": {
+        "location": "South River Bridge — on the edge of the bridge itself",
+    },
+    "Birthday Letter From Dad": {
+        "location": "South River Bridge (inside the crashed bus)",
+    },
+    "Birthday Letter From Mom": {
+        "location": "South River Bridge (inside the crashed bus)",
+    },
+    "A job opportunity": {
+        "location": "Gilman Lumber Mill",
+    },
+    "Quartermaster's report": {
+        "location": "Gilman Lumber Mill",
+    },
+    "To Addie": {
+        "location": "Gilman Lumber Mill",
+    },
+    "A Failed Dinner": {
+        "location": "Old Danielson Cabin",
+    },
+    "Change of Plans": {
+        "location": "Old Danielson Cabin",
+    },
+    "Hetty is loosing her mind": {
+        "location": "Old Danielson Cabin",
+    },
+    # ----- Collectability fixes (BTOF incorrectly flags as non-collectible) -----
+    "Adelaide Reminder": {
+        "canCollect": True,
+    },
+}
+
+
+def apply_note_overrides(items_live, items_cut):
+    """
+    Apply NOTE_OVERRIDES to notes after xEdit-derived data is built.
+    Patches location, canCollect, and/or technicalNote in-place.
+    Logs each override applied.
+    """
+    all_items = items_live + items_cut
+    applied = 0
+    for item in all_items:
+        override = NOTE_OVERRIDES.get(item.get('name', ''))
+        if not override:
+            continue
+        for field, value in override.items():
+            item[field] = value
+        applied += 1
+        print(f"    Override applied: {item['name']!r}", file=sys.stderr)
+    print(f"  Applied {applied} note overrides ({len(NOTE_OVERRIDES)} defined)", file=sys.stderr)
+
+
 def build_notes(book_path, locations=None):
     """
     Build notes list from BOOK TSV.
@@ -911,20 +1066,6 @@ def build_notes(book_path, locations=None):
     return notes_live, notes_cut
 
 
-# Static image URL overrides for holotape games — keyed by EDID.
-# These are Fandom/wiki-hosted images; there is no xEdit source for them.
-HOLOTAPE_GAME_IMAGE_OVERRIDES = {
-    "Magazine_Holotape_AtomicCommandBook": "https://static.wikia.nocookie.net/fallout/images/6/63/FO76_Atomic_Command.webp/revision/latest/scale-to-width-down/268?cb=20201202070457",
-    "Magazine_Holotape_AutomatronBook":    "https://static.wikia.nocookie.net/fallout/images/f/fd/FO76_Automatron.webp/revision/latest/scale-to-width-down/1000?cb=20201202055204",
-    "Magazine_Holotape_GrognakBook":       "https://static.wikia.nocookie.net/fallout/images/4/46/FO76_Grognak.webp/revision/latest/scale-to-width-down/268?cb=20201202072037",
-    "Magazine_Holotape_NukatapperBook":    "https://static.wikia.nocookie.net/fallout/images/4/47/FO76_Nuka_Tapper.webp/revision/latest/scale-to-width-down/268?cb=20201202054730",
-    "Magazine_Holotape_PipfallBook":       "https://static.wikia.nocookie.net/fallout/images/0/0a/FO76_Pipfall.webp/revision/latest/scale-to-width-down/268?cb=20201202071420",
-    "Magazine_Holotape_RedMenaceBook":     "https://static.wikia.nocookie.net/fallout/images/0/01/FO76_Red_Menace.webp/revision/latest/scale-to-width-down/268?cb=20201202064205",
-    "Magazine_Holotape_WasteladBook":      "https://static.wikia.nocookie.net/fallout/images/4/4c/FO76_Wastelad.webp/revision/latest/scale-to-width-down/268?cb=20201202062435",
-    "Magazine_Holotape_ZetaInvadersBook":  "https://static.wikia.nocookie.net/fallout/images/1/12/FO76_Zeta_Invaders.webp/revision/latest/scale-to-width-down/268?cb=20201202061633",
-}
-
-
 def build_holotape_games(book_path, locations=None):
     """
     Build holotape games list from BOOK TSV.
@@ -963,10 +1104,6 @@ def build_holotape_games(book_path, locations=None):
                     "name": full,
                     "isCut": is_cut
                 }
-
-                image_url = HOLOTAPE_GAME_IMAGE_OVERRIDES.get(edid)
-                if image_url:
-                    item["imageUrl"] = image_url
 
                 if is_cut:
                     cut.append(item)
@@ -1527,6 +1664,8 @@ def main():
 
     print("Building notes...")
     notes, notes_cut = build_notes(book_path, locations=book_locations)
+    print("Applying note overrides...")
+    apply_note_overrides(notes, notes_cut)
 
     # Build holotape games (from BOOK)
     print("Building holotape games...")
