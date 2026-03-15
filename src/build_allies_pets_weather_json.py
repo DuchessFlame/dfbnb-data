@@ -155,10 +155,10 @@ def is_cut(edid):
 
 def storefront_img_url(ecil_val, folder=""):
     """
-    Convert a .dds ECIL image value to a storefront webp URL.
+    Convert a .dds ECIL image value to a storefront avif URL.
     ECIL values look like: ATX_CAMP_Utility_WeatherStation_Standard_Clear_C1.dds
     Storefront URLs follow the pattern:
-      /wp-content/uploads/storefront/<folder>/<lowercase_name_no_ext>.webp
+      /wp-content/uploads/storefront/<folder>/<lowercase_name_no_ext>.avif
     """
     if not ecil_val or not ecil_val.strip():
         return None
@@ -167,8 +167,8 @@ def storefront_img_url(ecil_val, folder=""):
         return None
     base = "/wp-content/uploads/storefront"
     if folder:
-        return f"{base}/{folder}/{name}.webp"
-    return f"{base}/{name}.webp"
+        return f"{base}/{folder}/{name}.avif"
+    return f"{base}/{name}.avif"
 
 
 def xalg_to_source(xalg):
