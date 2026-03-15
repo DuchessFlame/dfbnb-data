@@ -48,12 +48,14 @@ jobs:
           echo "ENTM_TSV=$ENTM_TSV" >> $GITHUB_ENV
           echo "ARMO_BOD2_TSV=$ARMO_TSV" >> $GITHUB_ENV
           echo "COBJ_TSV=$COBJ_TSV" >> $GITHUB_ENV
+          echo "SEASONS_TSV=tsv/fallout76_seasons.tsv" >> $GITHUB_ENV
 
           echo "Using:"
           echo "  FLST_TSV=$FLST_TSV"
           echo "  ARMO_BOD2_TSV=$ARMO_TSV"
           echo "  COBJ_TSV=$COBJ_TSV"
           echo "  ENTM_TSV=$ENTM_TSV"
+          echo "  SEASONS_TSV=tsv/fallout76_seasons.tsv"
 
       - name: Build calculators JSON
         run: node tools/build_df_calculators_json.mjs
@@ -62,6 +64,7 @@ jobs:
           ARMO_BOD2_TSV: ${{ env.ARMO_BOD2_TSV }}
           COBJ_TSV: ${{ env.COBJ_TSV }}
           ENTM_TSV: ${{ env.ENTM_TSV }}
+          SEASONS_TSV: ${{ env.SEASONS_TSV }}
           OUT_DIR: dist/calculators
 
       - name: Commit dist changes

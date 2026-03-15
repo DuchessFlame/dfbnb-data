@@ -849,6 +849,73 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
   fs.writeFileSync(outPath, JSON.stringify(out, null, 2));
 }
 
+
+/* =========================================================
+   4) SCORE PROGRESSION
+   Reads fallout76_seasons.tsv and picks the current season
+   (the row whose EndDate is furthest in the future, i.e. the
+   last row in chronological order).
+   Outputs a tiny JSON used by the S.C.O.R.E. Progression
+   Calculator to display the correct season name and dates.
+   ========================================================= */
+
+function parseSeasonDate(raw) {
+  // TSV dates are D/MM/YYYY  e.g. "3/03/2026"  or  "30/06/2020"
+  const t = String(raw || "").trim();
+  if (!t) return null;
+  const parts = t.split("/");
+  if (parts.length !== 3) return null;
+  const [d, m, y] = parts.map(Number);
+  if (!d || !m || !y) return null;
+  // Build ISO date string YYYY-MM-DD
+  return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+}
+
+function buildScoreProgressionJson(seasonsTsvPath, outPath) {
+  const { rows } = parseTSV(readText(seasonsTsvPath));
+
+  if (!rows.length) throw new Error("fallout76_seasons.tsv is empty");
+
+  // Pick the row with the latest EndDate — that is always the current/upcoming season.
+  // Rows are chronological so we can just take the last non-empty one, but we parse
+  // and compare properly for safety.
+  let best = null;
+  let bestEnd = "";
+
+  for (const r of rows.map(upperKeyed)) {
+    const endIso = parseSeasonDate(r.EndDate);
+    if (!endIso) continue;
+    if (!best || endIso > bestEnd) {
+      best    = r;
+      bestEnd = endIso;
+    }
+  }
+
+  if (!best) throw new Error("No valid season row found in fallout76_seasons.tsv");
+
+  const startIso = parseSeasonDate(best.StartDate);
+  const endIso   = parseSeasonDate(best.EndDate);
+  const number   = parseInt(safeText(best.SeasonNumber), 10) || null;
+  const name     = safeText(best.SeasonName);
+  const days     = parseInt(safeText(best.Days), 10) || null;
+
+  const out = {
+    generatedAt:  new Date().toISOString(),
+    kind:         "score_progression",
+    season: {
+      number,
+      name,
+      startDate:  startIso,
+      endDate:    endIso,
+      days,
+    }
+  };
+
+  ensureDir(path.dirname(outPath));
+  fs.writeFileSync(outPath, JSON.stringify(out, null, 2));
+  console.log(`  score_progression.json  ->  Season ${number}: ${name}  (${startIso} – ${endIso})`);
+}
+
 /* =========================================================
    MAIN
    ========================================================= */
@@ -866,11 +933,13 @@ const FLST_TSV         = process.env.FLST_TSV         || "";
 
 const ARMO_TSV = process.env.ARMO_BOD2_TSV || "";
 const ENTM_TSV = process.env.ENTM_TSV || "";
-const COBJ_TSV = process.env.COBJ_TSV || "";
+const COBJ_TSV    = process.env.COBJ_TSV    || "";
+const SEASONS_TSV = process.env.SEASONS_TSV || "";
 
 const OUT_DIR = process.env.OUT_DIR || "dist/calculators";
 
 const hasBuildInput = FLST_ENTRIES_TSV || (KYWD_TSV && KYWD_REFS_TSV) || FLST_TSV;
+if (!SEASONS_TSV) console.warn("Warning: SEASONS_TSV not set — score_progression.json will not be built.");
 if (!hasBuildInput || !ARMO_TSV || !COBJ_TSV) {
   console.error(
     "Missing env vars.\n" +
@@ -879,7 +948,7 @@ if (!hasBuildInput || !ARMO_TSV || !COBJ_TSV) {
     "    KYWD_TSV + KYWD_REFS_TSV      — KYWD two-file format\n" +
     "    FLST_TSV                      — legacy single-file FLST\n" +
     "  Always required: ARMO_BOD2_TSV, COBJ_TSV\n" +
-    "  Optional:        ENTM_TSV, OUT_DIR"
+    "  Optional:        ENTM_TSV, SEASONS_TSV, OUT_DIR"
   );
   process.exit(1);
 }
@@ -899,5 +968,6 @@ if (FLST_ENTRIES_TSV) {
 }
 buildOutfitInspirationJson(ARMO_TSV, path.join(OUT_DIR, "outfit_inspiration.json"), ENTM_TSV, COBJ_TSV);
 buildBigBloomCraftingJson(COBJ_TSV, path.join(OUT_DIR, "big_bloom_crafting.json"));
+if (SEASONS_TSV) buildScoreProgressionJson(SEASONS_TSV, path.join(OUT_DIR, "score_progression.json"));
 
 console.log("Built calculators JSON into:", OUT_DIR);
