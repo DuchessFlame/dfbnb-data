@@ -911,6 +911,20 @@ def build_notes(book_path, locations=None):
     return notes_live, notes_cut
 
 
+# Static image URL overrides for holotape games — keyed by EDID.
+# These are Fandom/wiki-hosted images; there is no xEdit source for them.
+HOLOTAPE_GAME_IMAGE_OVERRIDES = {
+    "Magazine_Holotape_AtomicCommandBook": "https://static.wikia.nocookie.net/fallout/images/6/63/FO76_Atomic_Command.webp/revision/latest/scale-to-width-down/268?cb=20201202070457",
+    "Magazine_Holotape_AutomatronBook":    "https://static.wikia.nocookie.net/fallout/images/f/fd/FO76_Automatron.webp/revision/latest/scale-to-width-down/1000?cb=20201202055204",
+    "Magazine_Holotape_GrognakBook":       "https://static.wikia.nocookie.net/fallout/images/4/46/FO76_Grognak.webp/revision/latest/scale-to-width-down/268?cb=20201202072037",
+    "Magazine_Holotape_NukatapperBook":    "https://static.wikia.nocookie.net/fallout/images/4/47/FO76_Nuka_Tapper.webp/revision/latest/scale-to-width-down/268?cb=20201202054730",
+    "Magazine_Holotape_PipfallBook":       "https://static.wikia.nocookie.net/fallout/images/0/0a/FO76_Pipfall.webp/revision/latest/scale-to-width-down/268?cb=20201202071420",
+    "Magazine_Holotape_RedMenaceBook":     "https://static.wikia.nocookie.net/fallout/images/0/01/FO76_Red_Menace.webp/revision/latest/scale-to-width-down/268?cb=20201202064205",
+    "Magazine_Holotape_WasteladBook":      "https://static.wikia.nocookie.net/fallout/images/4/4c/FO76_Wastelad.webp/revision/latest/scale-to-width-down/268?cb=20201202062435",
+    "Magazine_Holotape_ZetaInvadersBook":  "https://static.wikia.nocookie.net/fallout/images/1/12/FO76_Zeta_Invaders.webp/revision/latest/scale-to-width-down/268?cb=20201202061633",
+}
+
+
 def build_holotape_games(book_path, locations=None):
     """
     Build holotape games list from BOOK TSV.
@@ -949,6 +963,10 @@ def build_holotape_games(book_path, locations=None):
                     "name": full,
                     "isCut": is_cut
                 }
+
+                image_url = HOLOTAPE_GAME_IMAGE_OVERRIDES.get(edid)
+                if image_url:
+                    item["imageUrl"] = image_url
 
                 if is_cut:
                     cut.append(item)

@@ -1,0 +1,59 @@
+name: Build Fishing JSON
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tsv/FISH_Export_*.tsv'
+      - 'tsv/GLOB_Export_*.tsv'
+      - 'tsv/LVLI_Export_*_LVLI_Entries.tsv'
+      - 'tsv/LVLI_Export_*_LVLI_List.tsv'
+      - 'src/build_fishing_json.py'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest (rebase)
+        run: |
+          git fetch origin
+          git pull --rebase origin main
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build fishing.json
+        run: python src/build_fishing_json.py
+
+      - name: Sanity check output
+        run: |
+          test -f dist/fishing.json || { echo "dist/fishing.json not found"; exit 1; }
+          python -c "
+          import json, sys
+          with open('dist/fishing.json') as f:
+              d = json.load(f)
+          fish = d.get('fish', [])
+          rates = d.get('spawnRates', {})
+          if len(fish) < 40:
+              print(f'Too few fish: {len(fish)}', file=sys.stderr); sys.exit(1)
+          if len(rates) != 3:
+              print(f'Expected 3 bait types, got {len(rates)}', file=sys.stderr); sys.exit(1)
+          print(f'OK: {len(fish)} fish, {len(rates)} bait types')
+          "
+
+      - name: Commit dist
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/fishing.json
+          git diff --cached --quiet || git commit -m "chore: build fishing.json [skip ci]"
+          git push
