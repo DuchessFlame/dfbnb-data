@@ -95,8 +95,23 @@ LVLI_LABEL_PATTERNS = [
     # Exact well-known EDIDs
     (r"^RA_LL_Rewards_Activities$",           "Activity Rewards"),
     (r"^RA_LL_Rewards_EnclaveActivities$",    "Enclave Activity Rewards"),
+    # Enclave Urban Scout Armour (raw EDIDs contain ScoutUniform / ScoutArmor)
+    (r"(?i)scout_?uniform|scout_?armor",      "Enclave Urban Scout Armour"),
     # Enclave Plasma Gun mod boxes
     (r"(?i)enclave.*plasmagun|plasmagun.*all", "Enclave Plasma Gun Mod Boxes"),
+    # Region reward pools (public-facing names, not data-miner jargon)
+    (r"(?i)progression_?items",               "Region Rewards"),
+    (r"(?i)allregions_?grabbag|all_?regions",  "Regional Loot Pool"),
+    (r"(?i)forest_?grabbag|forest_?grab_?bag", "Forest Rewards"),
+    (r"(?i)toxicvalley_?grabbag|toxic_?valley_?grab", "Toxic Valley Rewards"),
+    (r"(?i)savagedivide_?grabbag|savage_?divide_?grab", "Savage Divide Rewards"),
+    (r"(?i)ashheap_?grabbag|ash_?heap_?grab",  "Ash Heap Rewards"),
+    (r"(?i)mire_?grabbag|mire_?grab_?bag",     "The Mire Rewards"),
+    (r"(?i)cranberrybog_?grabbag|cranberry_?bog_?grab", "Cranberry Bog Rewards"),
+    (r"(?i)skylinevalley_?grabbag|skyline_?valley_?grab", "Skyline Valley Rewards"),
+    (r"(?i)burningsprings_?grabbag|burning_?springs_?grab", "Burning Springs Rewards"),
+    # Regional schematics
+    (r"(?i)regional_?schematics",             "Regional Plans"),
     # Corpse Flower Seeds
     (r"(?i)corpseflower.*seeds",              "Corpse Flower Seeds"),
     # U-Mine-It Maps
@@ -275,6 +290,8 @@ try:    CMPT = read_tsv(newest("tsv/CMPT_Export_*.tsv"))
 except FileNotFoundError: CMPT = []
 try:    WEAP_OT = read_tsv(newest("tsv/WEAP_Export_*_ObjectTemplate.tsv"))
 except FileNotFoundError: WEAP_OT = []
+try:    ARMO_OT = read_tsv(newest("tsv/ARMO_Export_*_ObjectTemplate.tsv"))
+except FileNotFoundError: ARMO_OT = []
 
 # --------------------------------------------------
 # Index: WEAP Object Template (mod slots for named/unique weapons)
@@ -346,6 +363,18 @@ def _classify_mod_slot(mod_ref_str):
         value = h if h else edid
     return label, value
 
+def _mod_slot_sort_key(slot):
+    """Sort mod slots: Legendary stars first, then Unique/Custom, then everything else."""
+    label = slot.get("label", "")
+    if label.startswith("Legendary"):
+        # Extract star number for sub-sorting (1★ before 2★ etc.)
+        m = re.search(r"(\d)", label)
+        return (0, int(m.group(1)) if m else 0)
+    if label.lower() in ("unique", "custom"):
+        return (1, 0)
+    # Everything else (Lining, Receiver, Material, Appearance, etc.) by includeIndex
+    return (2, slot.get("includeIndex", 0))
+
 # Group OT rows by (FormID, CombinationIndex), then pick the best combo per weapon.
 # "Best" = the combination with the most legendary slots (i.e. the named/unique variant).
 _weap_combos = defaultdict(lambda: defaultdict(list))  # {fid: {combo_idx: [slots]}}
@@ -375,8 +404,98 @@ for fid, combos in _weap_combos.items():
     # Only keep weapons that have at least one legendary slot (i.e. named/unique weapons)
     has_legendary = any("Legendary" in s["label"] for s in best_slots)
     if has_legendary:
-        best_slots.sort(key=lambda x: x["includeIndex"])
+        best_slots.sort(key=_mod_slot_sort_key)
         weap_mod_slots_by_formid[fid] = best_slots
+
+# --------------------------------------------------
+# Index: ARMO Object Template (mod slots for named/unique armour)
+# --------------------------------------------------
+
+# Armour slot labels — same pattern as weapons but armour-specific keywords
+_ARMOR_MOD_SLOT_LABELS = {
+    "legendary_armor1": "Legendary 1★",
+    "legendary_armor2": "Legendary 2★",
+    "legendary_armor3": "Legendary 3★",
+    "legendary_armor4": "Legendary 4★",
+    "legendary_armor5": "Legendary 5★",
+    "legendary1":       "Legendary 1★",
+    "legendary2":       "Legendary 2★",
+    "legendary3":       "Legendary 3★",
+    "legendary4":       "Legendary 4★",
+    "legendary5":       "Legendary 5★",
+    "paint":      "Appearance",
+    "material_paint": "Appearance",
+    "lining":     "Lining",
+    "material_0": "Material",
+    "material_1": "Material",
+    "material_2": "Material",
+    "material_3": "Material",
+    "material_4": "Material",
+    "size_a":     "Weight Class",
+    "size_b":     "Weight Class",
+    "size_c":     "Weight Class",
+    "custom":     "Unique",
+}
+
+def _classify_armor_mod_slot(mod_ref_str):
+    """Classify an armour OMOD reference string into a human-readable slot label + value."""
+    if not mod_ref_str:
+        return None, None
+    parts = mod_ref_str.strip()
+    display_name = ""
+    m = re.search(r'"([^"]+)"', parts)
+    if m:
+        display_name = m.group(1)
+    edid = re.split(r'["\[]', parts)[0].strip()
+    edid_lower = edid.lower()
+
+    label = None
+    for keyword, slot_label in _ARMOR_MOD_SLOT_LABELS.items():
+        if keyword in edid_lower:
+            label = slot_label
+            break
+    if not label:
+        # Fallback: Null/No Misc linings → skip, otherwise generic "Mod"
+        if "lining_null" in edid_lower or "no misc" in (display_name or "").lower():
+            return None, None
+        label = "Mod"
+
+    if display_name:
+        value = display_name
+    else:
+        h = re.sub(r"^mod_", "", edid, flags=re.IGNORECASE)
+        h = re.sub(r"\s*\[OMOD:[0-9A-Fa-f]+\]", "", h)
+        h = h.replace("_", " ").strip()
+        value = h if h else edid
+    return label, value
+
+_armo_combos = defaultdict(lambda: defaultdict(list))
+for r in ARMO_OT:
+    fid = pick(r, "ARMO_FormID", "FormID")
+    mod_ref = pick(r, "Include_Mod", "Mod")
+    if not fid or not mod_ref:
+        continue
+    label, value = _classify_armor_mod_slot(mod_ref)
+    if label and value:
+        combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
+        inc_idx = int(pick(r, "IncludeIndex", default="0") or 0)
+        _armo_combos[fid][combo_idx].append({
+            "label": label,
+            "value": value,
+            "includeIndex": inc_idx,
+        })
+
+armo_mod_slots_by_formid = {}
+for fid, combos in _armo_combos.items():
+    best_combo_idx = max(
+        combos.keys(),
+        key=lambda ci: sum(1 for s in combos[ci] if "Legendary" in s["label"])
+    )
+    best_slots = combos[best_combo_idx]
+    has_legendary = any("Legendary" in s["label"] for s in best_slots)
+    if has_legendary:
+        best_slots.sort(key=_mod_slot_sort_key)
+        armo_mod_slots_by_formid[fid] = best_slots
 
 # --------------------------------------------------
 # Index: GLOB
@@ -891,6 +1010,13 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         result["children"] = children
     if items:
         result["items"] = items
+
+    # Flag region-based nodes so JS can adjust display (no fake 12.5%, add note)
+    edid_lower = (edid or "").lower()
+    if "allregions" in edid_lower or "grabbag" in edid_lower:
+        result["isRegionPool"] = True
+    if "progressionitems" in edid_lower:
+        result["isRegionLoot"] = True
 
     return result
 
@@ -1466,11 +1592,17 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     # Sort plan rewards alphabetically
     activity_data["planRewards"].sort(key=lambda x: (x.get("name") or "").lower())
 
-    # Attach weapon mod-slot breakdowns (from WEAP Object Template TSV)
+    # Attach weapon/armour mod-slot breakdowns (from ObjectTemplate TSVs)
     for uer_item in activity_data["uniqueEventRewards"]:
         fid = uer_item.get("formid", "")
-        if fid and fid in weap_mod_slots_by_formid:
+        if not fid:
+            continue
+        slots = None
+        if fid in weap_mod_slots_by_formid:
             slots = weap_mod_slots_by_formid[fid]
+        elif fid in armo_mod_slots_by_formid:
+            slots = armo_mod_slots_by_formid[fid]
+        if slots:
             # Strip the includeIndex (internal sorting key) before emitting
             uer_item["modSlots"] = [
                 {"label": s["label"], "value": s["value"]}
