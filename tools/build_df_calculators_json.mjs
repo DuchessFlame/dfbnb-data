@@ -422,23 +422,8 @@ function buildOutfitInspirationJson(armoPath, outPath, entmPath, cobjPath) {
     if (!cobjEdid || isJunkEdid(cobjEdid)) continue;
     if (seenCobjEdid.has(cobjEdid)) continue;
 
-    // Backpack skins: COBJ_EDID contains CO_ARMOR_BACKPACK or CO_MOD_BACKPACK (skin mods)
-    const isBackpackSkin = upCobj.includes("CO_ARMOR_BACKPACK") ||
-      (upCobj.includes("CO_MOD_BACKPACK") && !MOD_KEYWORDS.some(k => upCobj.includes(k)));
-    if (isBackpackSkin) {
-      const name = cnamFull;
-      if (name && !name.toLowerCase().startsWith("plan:")) {
-        seenCobjEdid.add(cobjEdid);
-        items.push({
-          formId: "", edid: cobjEdid, full: name,
-          flags: ["54"], flagLabels: ["Backpack"],
-          keywords: [], type: "BACKPACK", armorSetKey: ""
-        });
-      } else { seenCobjEdid.add(cobjEdid); }
-      continue;
-    }
-
-    // Backpack Flair L (Flair1)
+    // Backpack Flair L (Flair1) — check BEFORE backpack skins so flairs with
+    // CO_MOD_BACKPACK in their EDID are not misclassified as backpacks.
     if (upCobj.includes("FLAIR1") || upCobj.match(/_FLAIR_1[^0-9]/)) {
       const name = cnamFull;
       seenCobjEdid.add(cobjEdid);
@@ -459,6 +444,23 @@ function buildOutfitInspirationJson(armoPath, outPath, entmPath, cobjPath) {
         flags: ["56"], flagLabels: ["Flair R"],
         keywords: [], type: "FLAIR_R", armorSetKey: ""
       });
+      continue;
+    }
+
+    // Backpack skins: COBJ_EDID contains CO_ARMOR_BACKPACK or CO_MOD_BACKPACK (skin mods)
+    // Placed after flair checks so flair items are not misclassified as backpacks.
+    const isBackpackSkin = upCobj.includes("CO_ARMOR_BACKPACK") ||
+      (upCobj.includes("CO_MOD_BACKPACK") && !MOD_KEYWORDS.some(k => upCobj.includes(k)));
+    if (isBackpackSkin) {
+      const name = cnamFull;
+      if (name && !name.toLowerCase().startsWith("plan:")) {
+        seenCobjEdid.add(cobjEdid);
+        items.push({
+          formId: "", edid: cobjEdid, full: name,
+          flags: ["54"], flagLabels: ["Backpack"],
+          keywords: [], type: "BACKPACK", armorSetKey: ""
+        });
+      } else { seenCobjEdid.add(cobjEdid); }
       continue;
     }
 
