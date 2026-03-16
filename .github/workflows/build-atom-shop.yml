@@ -6,7 +6,8 @@ on:
   push:
     paths:
       - 'tsv/**'
-      - 'src/build_bundles.py'
+      - 'src/build_atom_shop_json.py'
+      - 'src/bundles.json'
 
 jobs:
   build:
@@ -24,7 +25,7 @@ jobs:
       - name: Run build script
         run: |
           mkdir -p dist
-          python src/build_bundles.py
+          python src/build_atom_shop_json.py
 
       - name: Commit and push
         run: |
