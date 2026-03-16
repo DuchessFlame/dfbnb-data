@@ -13,10 +13,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: dist-main
-  cancel-in-progress: false
-
 jobs:
   # Step 1: Build shared drop rates first
   drop-rates:
