@@ -85,7 +85,7 @@ def load_desc_lookup():
     tsv_path = files[-1]
     print(f"[atom_shop] Reading DESC from: {os.path.basename(tsv_path)}")
     lookup = {}
-    with open(tsv_path, encoding="utf-8-sig", newline="") as f:
+    with open(tsv_path, encoding="utf-8-sig", errors="replace", newline="") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             edid = str(row.get("EDID") or "").strip().upper()
