@@ -2,7 +2,7 @@
 """
 src/build_atom_shop_json.py
 ============================
-Reads src/bundles.json + the newest tsv/ENTM_Export_*.tsv,
+Reads src/atom_shop.json + the newest tsv/ENTM_Export_*.tsv,
 fixes image URLs, adds DESC descriptions, validates,
 and writes dist/atom_shop.json.
 """
@@ -15,7 +15,7 @@ import re
 import sys
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-SRC      = os.path.join(SCRIPT_DIR, "bundles.json")
+SRC      = os.path.join(SCRIPT_DIR, "atom_shop.json")
 DIST     = os.path.join(SCRIPT_DIR, "..", "dist", "atom_shop.json")
 TSV_ROOT = os.path.join(SCRIPT_DIR, "..", "tsv")
 
@@ -123,7 +123,7 @@ def main():
 
     items = data.get("items", [])
     if not isinstance(items, list) or not items:
-        print("[atom_shop] No items found in src/bundles.json", file=sys.stderr)
+        print("[atom_shop] No items found in src/atom_shop.json", file=sys.stderr)
         sys.exit(1)
 
     errors = 0
