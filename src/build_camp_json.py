@@ -16,7 +16,7 @@ from pathlib import Path
 # ─── PATHS ───────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR  = Path(__file__).resolve().parent
-TSV_DIR     = SCRIPT_DIR / "tsv"
+TSV_DIR     = SCRIPT_DIR.parent / "tsv"
 DIST_DIR    = SCRIPT_DIR.parent / "dist"
 DIST_DIR.mkdir(parents=True, exist_ok=True)
 
