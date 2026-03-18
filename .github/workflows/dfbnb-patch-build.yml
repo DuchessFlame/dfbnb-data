@@ -232,20 +232,16 @@ jobs:
         run: python src/build_cryptids_json.py
 
       # --- CURRENCY ---
-      # Depends on dist/minerva/minerva_plans.json — build minerva first.
       # BOOK_TSV is already set by the "Pick BOOK TSV (Allies/Pets/Weather)" step above.
-      - name: Build Minerva Plans JSON (Currency dependency)
-        run: |
-          mkdir -p dist/minerva
-          python src/build_minerva.py "$BOOK_TSV" > dist/minerva/minerva_plans.json
-
+      # build_currency_json.py reads the BOOK TSV directly — no minerva dependency.
       - name: Build Currency JSON
         shell: bash
         run: |
           LVLI=$(ls -1t tsv/LVLI_Export_*_LVLI_Entries.tsv 2>/dev/null | head -n 1)
           python src/build_currency_json.py \
-            --minerva-json dist/minerva/minerva_plans.json \
-            ${LVLI:+--lvli-entries "$LVLI"}
+            --book-tsv "$BOOK_TSV" \
+            ${LVLI:+--lvli-entries "$LVLI"} \
+            --outdir dist
 
       # --- DATA MINING ---
       - name: Build Data Mining JSON

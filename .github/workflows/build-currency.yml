@@ -5,8 +5,13 @@ on:
 
   push:
     paths:
-      - 'tsv/**'
+      - 'tsv/BOOK_Export_*.tsv'
+      - 'tsv/LVLI_Export_*_LVLI_Entries.tsv'
       - 'src/build_currency_json.py'
+      - '.github/workflows/build-currency.yml'
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -15,6 +20,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -39,27 +46,42 @@ jobs:
           echo "LVLI_ENTRIES_TSV=${FILE:-}" >> $GITHUB_ENV
           echo "Using LVLI Entries TSV: ${FILE:-none}"
 
-      - name: Build Minerva Plans JSON (dependency for Currency)
-        run: |
-          mkdir -p dist/minerva
-          python src/build_minerva.py "$BOOK_TSV" > dist/minerva/minerva_plans.json
-          echo "Built dist/minerva/minerva_plans.json"
-
       - name: Build Currency JSON
+        shell: bash
         run: |
           mkdir -p dist
           python src/build_currency_json.py \
-            --minerva-json dist/minerva/minerva_plans.json \
-            ${LVLI_ENTRIES_TSV:+--lvli-entries "$LVLI_ENTRIES_TSV"}
+            --book-tsv "$BOOK_TSV" \
+            ${LVLI_ENTRIES_TSV:+--lvli-entries "$LVLI_ENTRIES_TSV"} \
+            --outdir dist
+
+      - name: Sanity check Currency output
+        run: |
+          test -f dist/currency.json \
+            && echo "OK currency.json ($(wc -c < dist/currency.json) bytes)" \
+            || (echo "MISSING dist/currency.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/currency.json'))
+          assert 'all_plans' in d, 'Missing all_plans key'
+          assert 'slots' in d, 'Missing slots key'
+          assert len(d['all_plans']) > 0, 'all_plans is empty'
+          assert len(d['slots']) == 24, f'Expected 24 slots, got {len(d[\"slots\"])}'
+          print(f'  all_plans: {len(d[\"all_plans\"])}')
+          print(f'  minerva plans: {len(d.get(\"minerva\", []))}')
+          print(f'  slots: {len(d[\"slots\"])} (big sale: {sum(1 for s in d[\"slots\"] if s[\"big_sale\"])})')
+          "
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@users.noreply.github.com"
-          git add dist/
+          git add dist/currency.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
             git commit -m "Build Currency data"
+            git fetch origin main
+            git pull --rebase origin main
             git push
           fi
