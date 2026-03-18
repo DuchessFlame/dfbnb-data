@@ -21,10 +21,36 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run build script
+      - name: Locate latest BOOK Export TSV
+        shell: bash
+        run: |
+          FILE=$(ls -1t tsv/BOOK_Export_*.tsv 2>/dev/null | grep -iv '_locations' | head -n 1)
+          if [ -z "$FILE" ]; then
+            echo "ERROR: No BOOK_Export_*.tsv found in tsv/"
+            exit 1
+          fi
+          echo "BOOK_TSV=$FILE" >> $GITHUB_ENV
+          echo "Using BOOK TSV: $FILE"
+
+      - name: Locate latest LVLI Entries TSV
+        shell: bash
+        run: |
+          FILE=$(ls -1t tsv/LVLI_Export_*_LVLI_Entries.tsv 2>/dev/null | head -n 1)
+          echo "LVLI_ENTRIES_TSV=${FILE:-}" >> $GITHUB_ENV
+          echo "Using LVLI Entries TSV: ${FILE:-none}"
+
+      - name: Build Minerva Plans JSON (dependency for Currency)
+        run: |
+          mkdir -p dist/minerva
+          python src/build_minerva.py "$BOOK_TSV" > dist/minerva/minerva_plans.json
+          echo "Built dist/minerva/minerva_plans.json"
+
+      - name: Build Currency JSON
         run: |
           mkdir -p dist
-          python src/build_currency_json.py
+          python src/build_currency_json.py \
+            --minerva-json dist/minerva/minerva_plans.json \
+            ${LVLI_ENTRIES_TSV:+--lvli-entries "$LVLI_ENTRIES_TSV"}
 
       - name: Commit and push
         run: |
