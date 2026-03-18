@@ -1,5 +1,2280 @@
 {
-  "_status": "scaffolded",
-  "_category": "Currency",
-  "items": []
+  "meta": {
+    "source": "tsv/BOOK_Export_March_2026.tsv",
+    "built_by": "build_currency_json.py",
+    "total_gold_vendor_plans": 228,
+    "total_minerva_plans": 96,
+    "total_slots": 24,
+    "total_big_sale_slots": 6,
+    "minerva_discount": 0.75,
+    "daily_gold_cap": 200,
+    "smiley_options": [
+      0,
+      50,
+      100,
+      150,
+      200,
+      250,
+      300
+    ]
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "label": "List 1",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 12
+    },
+    {
+      "slot": 2,
+      "label": "List 2",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 10
+    },
+    {
+      "slot": 3,
+      "label": "List 3",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 12
+    },
+    {
+      "slot": 4,
+      "label": "Big Sale — Lists 1, 2 & 3",
+      "big_sale": true,
+      "sub_lists": [
+        1,
+        2,
+        3
+      ],
+      "plan_count": 34
+    },
+    {
+      "slot": 5,
+      "label": "List 5",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 9
+    },
+    {
+      "slot": 6,
+      "label": "List 6",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 10
+    },
+    {
+      "slot": 7,
+      "label": "List 7",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 6
+    },
+    {
+      "slot": 8,
+      "label": "Big Sale — Lists 5, 6 & 7",
+      "big_sale": true,
+      "sub_lists": [
+        5,
+        6,
+        7
+      ],
+      "plan_count": 25
+    },
+    {
+      "slot": 9,
+      "label": "List 9",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 10
+    },
+    {
+      "slot": 10,
+      "label": "List 10",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 7
+    },
+    {
+      "slot": 11,
+      "label": "List 11",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 11
+    },
+    {
+      "slot": 12,
+      "label": "Big Sale — Lists 9, 10 & 11",
+      "big_sale": true,
+      "sub_lists": [
+        9,
+        10,
+        11
+      ],
+      "plan_count": 28
+    },
+    {
+      "slot": 13,
+      "label": "List 13",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 5
+    },
+    {
+      "slot": 14,
+      "label": "List 14",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 5
+    },
+    {
+      "slot": 15,
+      "label": "List 15",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 3
+    },
+    {
+      "slot": 16,
+      "label": "Big Sale — Lists 13, 14 & 15",
+      "big_sale": true,
+      "sub_lists": [
+        13,
+        14,
+        15
+      ],
+      "plan_count": 13
+    },
+    {
+      "slot": 17,
+      "label": "List 17",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 12
+    },
+    {
+      "slot": 18,
+      "label": "List 18",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 10
+    },
+    {
+      "slot": 19,
+      "label": "List 19",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 11
+    },
+    {
+      "slot": 20,
+      "label": "Big Sale — Lists 17, 18 & 19",
+      "big_sale": true,
+      "sub_lists": [
+        17,
+        18,
+        19
+      ],
+      "plan_count": 33
+    },
+    {
+      "slot": 21,
+      "label": "List 21",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 9
+    },
+    {
+      "slot": 22,
+      "label": "List 22",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 10
+    },
+    {
+      "slot": 23,
+      "label": "List 23",
+      "big_sale": false,
+      "sub_lists": [],
+      "plan_count": 1
+    },
+    {
+      "slot": 24,
+      "label": "Big Sale — Lists 21, 22 & 23",
+      "big_sale": true,
+      "sub_lists": [
+        21,
+        22,
+        23
+      ],
+      "plan_count": 19
+    }
+  ],
+  "minerva": [
+    {
+      "formid": "005DCA4F",
+      "name": "Plan: Ammo Converter",
+      "gold": 125,
+      "minerva_price": 94,
+      "lists": [
+        7
+      ]
+    },
+    {
+      "formid": "005DF04B",
+      "name": "Plan: Brotherhood Recon Jet Pack",
+      "gold": 200,
+      "minerva_price": 150,
+      "lists": [
+        13
+      ]
+    },
+    {
+      "formid": "00589621",
+      "name": "Plan: Cattle Prod",
+      "gold": 25,
+      "minerva_price": 19,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "005A0ED4",
+      "name": "Plan: Chemist's Backpack Mod",
+      "gold": 35,
+      "minerva_price": 26,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "005DCA4E",
+      "name": "Plan: Chicken Coop",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        3
+      ]
+    },
+    {
+      "formid": "00595858",
+      "name": "Plan: Chinese Stealth Armor",
+      "gold": 400,
+      "minerva_price": 300,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "00595857",
+      "name": "Plan: Chinese Stealth Helmet",
+      "gold": 165,
+      "minerva_price": 124,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "005E65FC",
+      "name": "Plan: Crusader Pistol Cryo Receiver",
+      "gold": 180,
+      "minerva_price": 135,
+      "lists": [
+        15
+      ]
+    },
+    {
+      "formid": "005E65FA",
+      "name": "Plan: Crusader Pistol Fusion Receiver",
+      "gold": 180,
+      "minerva_price": 135,
+      "lists": [
+        15
+      ]
+    },
+    {
+      "formid": "005E65FB",
+      "name": "Plan: Crusader Pistol Pyro Receiver",
+      "gold": 180,
+      "minerva_price": 135,
+      "lists": [
+        15
+      ]
+    },
+    {
+      "formid": "0058961C",
+      "name": "Plan: Dynamite",
+      "gold": 10,
+      "minerva_price": 8,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "0058961D",
+      "name": "Plan: Dynamite Bundle",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "005A1007",
+      "name": "Plan: Farmable Dirt Tiles",
+      "gold": 50,
+      "minerva_price": 38,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "0058961E",
+      "name": "Plan: Flare",
+      "gold": 5,
+      "minerva_price": 4,
+      "lists": [
+        10
+      ]
+    },
+    {
+      "formid": "00592EB5",
+      "name": "Plan: Floater Flamer Grenade",
+      "gold": 15,
+      "minerva_price": 11,
+      "lists": [
+        7,
+        14
+      ]
+    },
+    {
+      "formid": "00592EB6",
+      "name": "Plan: Floater Freezer Grenade",
+      "gold": 15,
+      "minerva_price": 11,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "00592EB7",
+      "name": "Plan: Floater Gnasher Grenade",
+      "gold": 15,
+      "minerva_price": 11,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "00589623",
+      "name": "Plan: Gauntlet",
+      "gold": 25,
+      "minerva_price": 19,
+      "lists": [
+        3,
+        10,
+        19
+      ]
+    },
+    {
+      "formid": "0058935E",
+      "name": "Plan: Gauss Minigun",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        5,
+        13,
+        21,
+        23
+      ]
+    },
+    {
+      "formid": "00599BD5",
+      "name": "Plan: Gauss Minigun Gunner Sights",
+      "gold": 5,
+      "minerva_price": 4,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "00599BD9",
+      "name": "Plan: Gauss Minigun Tesla Capacitor",
+      "gold": 10,
+      "minerva_price": 8,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "00599BDA",
+      "name": "Plan: Gauss Minigun Tesla Dynamo",
+      "gold": 10,
+      "minerva_price": 8,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "00599BD6",
+      "name": "Plan: Gauss Minigun Triple Barrel",
+      "gold": 15,
+      "minerva_price": 11,
+      "lists": [
+        10
+      ]
+    },
+    {
+      "formid": "0058935F",
+      "name": "Plan: Gauss Pistol",
+      "gold": 25,
+      "minerva_price": 19,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "00591420",
+      "name": "Plan: Gauss Pistol Aligned Short Barrel",
+      "gold": 15,
+      "minerva_price": 11,
+      "lists": [
+        5,
+        21
+      ]
+    },
+    {
+      "formid": "00591421",
+      "name": "Plan: Gauss Pistol Drum Magazine",
+      "gold": 10,
+      "minerva_price": 8,
+      "lists": [
+        5,
+        21
+      ]
+    },
+    {
+      "formid": "005A2442",
+      "name": "Plan: Gauss Pistol Hardened Receiver",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        13
+      ]
+    },
+    {
+      "formid": "005A2443",
+      "name": "Plan: Gauss Pistol Refined Receiver",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        5,
+        21
+      ]
+    },
+    {
+      "formid": "00591422",
+      "name": "Plan: Gauss Pistol Suppressed Barrel",
+      "gold": 15,
+      "minerva_price": 11,
+      "lists": [
+        13
+      ]
+    },
+    {
+      "formid": "005A2441",
+      "name": "Plan: Gauss Pistol Vicious Receiver",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        13
+      ]
+    },
+    {
+      "formid": "00589360",
+      "name": "Plan: Gauss Shotgun",
+      "gold": 50,
+      "minerva_price": 38,
+      "lists": [
+        7
+      ]
+    },
+    {
+      "formid": "0059560D",
+      "name": "Plan: Gauss Shotgun Extended Barrel",
+      "gold": 15,
+      "minerva_price": 11,
+      "lists": [
+        7
+      ]
+    },
+    {
+      "formid": "00595616",
+      "name": "Plan: Gauss Shotgun Extended Magazine",
+      "gold": 10,
+      "minerva_price": 8,
+      "lists": [
+        7
+      ]
+    },
+    {
+      "formid": "00595610",
+      "name": "Plan: Gauss Shotgun Hardened Receiver",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        7
+      ]
+    },
+    {
+      "formid": "00595615",
+      "name": "Plan: Gauss Shotgun Precise Stock",
+      "gold": 10,
+      "minerva_price": 8,
+      "lists": [
+        10
+      ]
+    },
+    {
+      "formid": "00595612",
+      "name": "Plan: Gauss Shotgun Refined Receiver",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        10
+      ]
+    },
+    {
+      "formid": "00595611",
+      "name": "Plan: Gauss Shotgun Vicious Receiver",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        10
+      ]
+    },
+    {
+      "formid": "005A0ED1",
+      "name": "Plan: Grocer's Backpack Mod",
+      "gold": 35,
+      "minerva_price": 26,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "005E47CB",
+      "name": "Plan: Hellstorm Missile Launcher Cryo Payload",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        14
+      ]
+    },
+    {
+      "formid": "005E47CA",
+      "name": "Plan: Hellstorm Missile Launcher Napalm Payload",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        14
+      ]
+    },
+    {
+      "formid": "005E47CF",
+      "name": "Plan: Hellstorm Missile Launcher Plasma Payload",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        14
+      ]
+    },
+    {
+      "formid": "005DBD96",
+      "name": "Plan: Lighter Build Secret Service Armor Limbs",
+      "gold": 25,
+      "minerva_price": 19,
+      "lists": [
+        6,
+        22
+      ]
+    },
+    {
+      "formid": "00589361",
+      "name": "Plan: Plasma Caster",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        6,
+        22
+      ]
+    },
+    {
+      "formid": "005A255E",
+      "name": "Plan: Plasma Caster Calibrated Capacitor",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "00590FC4",
+      "name": "Plan: Plasma Caster Pulse Capacitor",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "0059F458",
+      "name": "Plan: Plasma Caster Signal Dish Barrel",
+      "gold": 15,
+      "minerva_price": 11,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "0059F457",
+      "name": "Plan: Plasma Caster Sniper Barrel",
+      "gold": 15,
+      "minerva_price": 11,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "005A2560",
+      "name": "Plan: Plasma Caster True Capacitor",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "005ECB84",
+      "name": "Plan: Plasma Cutter Cryo Blade",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "005ECB85",
+      "name": "Plan: Plasma Cutter Flaming Blade",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "005ECB86",
+      "name": "Plan: Plasma Cutter Shock Blade",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "0058935B",
+      "name": "Plan: Secret Service Chest Piece",
+      "gold": 125,
+      "minerva_price": 94,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "0058961B",
+      "name": "Plan: Secret Service Helmet",
+      "gold": 165,
+      "minerva_price": 124,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "005A1595",
+      "name": "Plan: Secret Service Jet Pack Armor",
+      "gold": 200,
+      "minerva_price": 150,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "0059D543",
+      "name": "Plan: Secret Service Left Arm",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "0059D545",
+      "name": "Plan: Secret Service Left Leg",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "005CBEC6",
+      "name": "Plan: Secret Service Pocketed Armor Limb",
+      "gold": 25,
+      "minerva_price": 19,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "005A158B",
+      "name": "Plan: Secret Service Pocketed Armor Torso",
+      "gold": 25,
+      "minerva_price": 19,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "0059D544",
+      "name": "Plan: Secret Service Right Arm",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "0059D546",
+      "name": "Plan: Secret Service Right Leg",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        1,
+        17
+      ]
+    },
+    {
+      "formid": "0059D542",
+      "name": "Plan: Secret Service Underarmor",
+      "gold": 25,
+      "minerva_price": 19,
+      "lists": [
+        6,
+        22
+      ]
+    },
+    {
+      "formid": "005527E0",
+      "name": "Plan: Solar Armor Chest Piece",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "005527DC",
+      "name": "Plan: Solar Armor Left Arm",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "005527DE",
+      "name": "Plan: Solar Armor Left Leg",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "00554652",
+      "name": "Plan: Solar Armor Right Arm",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "00554654",
+      "name": "Plan: Solar Armor Right Leg",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        11
+      ]
+    },
+    {
+      "formid": "005535FB",
+      "name": "Plan: Strangler Heart Chest Piece",
+      "gold": 125,
+      "minerva_price": 94,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "00553BEA",
+      "name": "Plan: Strangler Heart Helmet",
+      "gold": 165,
+      "minerva_price": 124,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "005535F9",
+      "name": "Plan: Strangler Heart Left Arm",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "005535FA",
+      "name": "Plan: Strangler Heart Left Leg",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "00553BEB",
+      "name": "Plan: Strangler Heart Right Arm",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "00553BEC",
+      "name": "Plan: Strangler Heart Right Leg",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        2,
+        18
+      ]
+    },
+    {
+      "formid": "005A16BE",
+      "name": "Plan: T-65 Calibrated Shocks",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        6,
+        22
+      ]
+    },
+    {
+      "formid": "00589355",
+      "name": "Plan: T-65 Helm",
+      "gold": 165,
+      "minerva_price": 124,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "005A16C5",
+      "name": "Plan: T-65 Jet Pack",
+      "gold": 200,
+      "minerva_price": 150,
+      "lists": [
+        6,
+        22
+      ]
+    },
+    {
+      "formid": "00589353",
+      "name": "Plan: T-65 Left Arm",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "00589356",
+      "name": "Plan: T-65 Left Leg",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "005A16C7",
+      "name": "Plan: T-65 Medic Pump",
+      "gold": 25,
+      "minerva_price": 19,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "005A16C1",
+      "name": "Plan: T-65 Overdrive Servos",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "00589354",
+      "name": "Plan: T-65 Right Arm",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "00589357",
+      "name": "Plan: T-65 Right Leg",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "005A16BA",
+      "name": "Plan: T-65 Rusty Knuckles",
+      "gold": 25,
+      "minerva_price": 19,
+      "lists": [
+        6,
+        22
+      ]
+    },
+    {
+      "formid": "005A16C9",
+      "name": "Plan: T-65 Stealth Boy",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "00589358",
+      "name": "Plan: T-65 Torso",
+      "gold": 125,
+      "minerva_price": 94,
+      "lists": [
+        9
+      ]
+    },
+    {
+      "formid": "005527DF",
+      "name": "Plan: Thorn Armor Chest Piece",
+      "gold": 100,
+      "minerva_price": 75,
+      "lists": [
+        5,
+        21
+      ]
+    },
+    {
+      "formid": "005527DB",
+      "name": "Plan: Thorn Armor Left Arm",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        5,
+        21
+      ]
+    },
+    {
+      "formid": "005527DD",
+      "name": "Plan: Thorn Armor Left Leg",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        5,
+        21
+      ]
+    },
+    {
+      "formid": "00554651",
+      "name": "Plan: Thorn Armor Right Arm",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        5,
+        21
+      ]
+    },
+    {
+      "formid": "00554653",
+      "name": "Plan: Thorn Armor Right Leg",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        5,
+        21
+      ]
+    },
+    {
+      "formid": "00592F7B",
+      "name": "Plan: Turbo-Fert Fertilizer",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        10
+      ]
+    },
+    {
+      "formid": "005DBD95",
+      "name": "Plan: Ultra-Light Build Secret Service Armor Limbs",
+      "gold": 500,
+      "minerva_price": 375,
+      "lists": [
+        6,
+        22
+      ]
+    },
+    {
+      "formid": "005D86E0",
+      "name": "Plan: War Glaive Cryo Blade",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "005D86E1",
+      "name": "Plan: War Glaive Flaming Blade",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        6,
+        22
+      ]
+    },
+    {
+      "formid": "005D86E3",
+      "name": "Plan: War Glaive Plasma Blade",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        3,
+        19
+      ]
+    },
+    {
+      "formid": "005D86E2",
+      "name": "Plan: War Glaive Shock Blade",
+      "gold": 20,
+      "minerva_price": 15,
+      "lists": [
+        6,
+        22
+      ]
+    },
+    {
+      "formid": "005A0ED3",
+      "name": "Plan: Water Well",
+      "gold": 75,
+      "minerva_price": 56,
+      "lists": [
+        6,
+        14,
+        22
+      ]
+    }
+  ],
+  "all_plans": [
+    {
+      "formid": "0073E93D",
+      "name": "Plan: Adelaide",
+      "gold": 125
+    },
+    {
+      "formid": "005DCA4F",
+      "name": "Plan: Ammo Converter",
+      "gold": 125
+    },
+    {
+      "formid": "00668992",
+      "name": "Plan: Arm Wrestle Machine",
+      "gold": 75
+    },
+    {
+      "formid": "005A0ED2",
+      "name": "Plan: ArmCo Ammunition Construction Appliance",
+      "gold": 75
+    },
+    {
+      "formid": "00732A90",
+      "name": "Plan: Auto-Miner Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "00614393",
+      "name": "Plan: Beehive",
+      "gold": 75
+    },
+    {
+      "formid": "007BCF55",
+      "name": "Plan: Beehive (Black & Yellow)",
+      "gold": 75
+    },
+    {
+      "formid": "0084B0B3",
+      "name": "Plan: Body In A Bathtub",
+      "gold": 75
+    },
+    {
+      "formid": "007BCF58",
+      "name": "Plan: Brewing Vat",
+      "gold": 75
+    },
+    {
+      "formid": "005DF04B",
+      "name": "Plan: Brotherhood Recon Jet Pack",
+      "gold": 200
+    },
+    {
+      "formid": "00589621",
+      "name": "Plan: Cattle Prod",
+      "gold": 25
+    },
+    {
+      "formid": "005A0ED4",
+      "name": "Plan: Chemist's Backpack Mod",
+      "gold": 35
+    },
+    {
+      "formid": "005DCA4E",
+      "name": "Plan: Chicken Coop",
+      "gold": 75
+    },
+    {
+      "formid": "00595858",
+      "name": "Plan: Chinese Stealth Armor",
+      "gold": 400
+    },
+    {
+      "formid": "00595857",
+      "name": "Plan: Chinese Stealth Helmet",
+      "gold": 165
+    },
+    {
+      "formid": "00668993",
+      "name": "Plan: Chuckwagon Cooking Station",
+      "gold": 75
+    },
+    {
+      "formid": "0075FF93",
+      "name": "Plan: Company Tea Machine",
+      "gold": 75
+    },
+    {
+      "formid": "0085CE48",
+      "name": "Plan: Cornbot Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "0085D820",
+      "name": "Plan: Crashed Cargo Bot",
+      "gold": 75
+    },
+    {
+      "formid": "0082BCBD",
+      "name": "Plan: Critter Cooker",
+      "gold": 75
+    },
+    {
+      "formid": "005E65FD",
+      "name": "Plan: Crusader Pistol 5.56 Receiver",
+      "gold": 180
+    },
+    {
+      "formid": "005E65FC",
+      "name": "Plan: Crusader Pistol Cryo Receiver",
+      "gold": 180
+    },
+    {
+      "formid": "005E65FE",
+      "name": "Plan: Crusader Pistol Extended Magazine",
+      "gold": 180
+    },
+    {
+      "formid": "005E65FA",
+      "name": "Plan: Crusader Pistol Fusion Receiver",
+      "gold": 180
+    },
+    {
+      "formid": "005E65F9",
+      "name": "Plan: Crusader Pistol Long Barrel",
+      "gold": 180
+    },
+    {
+      "formid": "005E65FB",
+      "name": "Plan: Crusader Pistol Pyro Receiver",
+      "gold": 180
+    },
+    {
+      "formid": "005E65F7",
+      "name": "Plan: Crusader Pistol Reflex Sight",
+      "gold": 180
+    },
+    {
+      "formid": "005E65F8",
+      "name": "Plan: Crusader Pistol Short Scope",
+      "gold": 180
+    },
+    {
+      "formid": "005E65F6",
+      "name": "Plan: Crusader Pistol Suppressor",
+      "gold": 180
+    },
+    {
+      "formid": "006D8721",
+      "name": "Plan: Cryptid Cards Wall Display",
+      "gold": 75
+    },
+    {
+      "formid": "00631F3A",
+      "name": "Plan: Daphne",
+      "gold": 125
+    },
+    {
+      "formid": "007FDC15",
+      "name": "Plan: Dottie",
+      "gold": 125
+    },
+    {
+      "formid": "0058961C",
+      "name": "Plan: Dynamite",
+      "gold": 10
+    },
+    {
+      "formid": "0058961D",
+      "name": "Plan: Dynamite Bundle",
+      "gold": 20
+    },
+    {
+      "formid": "007BCF57",
+      "name": "Plan: Espresso Machine",
+      "gold": 75
+    },
+    {
+      "formid": "00646A2E",
+      "name": "Plan: Exercise Bike",
+      "gold": 75
+    },
+    {
+      "formid": "00631F39",
+      "name": "Plan: F.E.T.C.H. Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "005A1007",
+      "name": "Plan: Farmable Dirt Tiles",
+      "gold": 50
+    },
+    {
+      "formid": "006BE8D4",
+      "name": "Plan: Firewood Pile",
+      "gold": 75
+    },
+    {
+      "formid": "0058961E",
+      "name": "Plan: Flare",
+      "gold": 5
+    },
+    {
+      "formid": "00592EB5",
+      "name": "Plan: Floater Flamer Grenade",
+      "gold": 15
+    },
+    {
+      "formid": "00592EB6",
+      "name": "Plan: Floater Freezer Grenade",
+      "gold": 15
+    },
+    {
+      "formid": "00592EB7",
+      "name": "Plan: Floater Gnasher Grenade",
+      "gold": 15
+    },
+    {
+      "formid": "006216C2",
+      "name": "Plan: Fortune Teller Machine",
+      "gold": 75
+    },
+    {
+      "formid": "00589623",
+      "name": "Plan: Gauntlet",
+      "gold": 25
+    },
+    {
+      "formid": "0059A133",
+      "name": "Plan: Gauntlet Shock Pads",
+      "gold": 5
+    },
+    {
+      "formid": "0058935E",
+      "name": "Plan: Gauss Minigun",
+      "gold": 75
+    },
+    {
+      "formid": "00599BD5",
+      "name": "Plan: Gauss Minigun Gunner Sights",
+      "gold": 5
+    },
+    {
+      "formid": "00599BD8",
+      "name": "Plan: Gauss Minigun Penta Barrel",
+      "gold": 15
+    },
+    {
+      "formid": "00599BD9",
+      "name": "Plan: Gauss Minigun Tesla Capacitor",
+      "gold": 10
+    },
+    {
+      "formid": "00599BDA",
+      "name": "Plan: Gauss Minigun Tesla Dynamo",
+      "gold": 10
+    },
+    {
+      "formid": "00599BD6",
+      "name": "Plan: Gauss Minigun Triple Barrel",
+      "gold": 15
+    },
+    {
+      "formid": "0058935F",
+      "name": "Plan: Gauss Pistol",
+      "gold": 25
+    },
+    {
+      "formid": "00591420",
+      "name": "Plan: Gauss Pistol Aligned Short Barrel",
+      "gold": 15
+    },
+    {
+      "formid": "00591421",
+      "name": "Plan: Gauss Pistol Drum Magazine",
+      "gold": 10
+    },
+    {
+      "formid": "00591423",
+      "name": "Plan: Gauss Pistol Glow Sights",
+      "gold": 5
+    },
+    {
+      "formid": "005A2442",
+      "name": "Plan: Gauss Pistol Hardened Receiver",
+      "gold": 20
+    },
+    {
+      "formid": "005A2443",
+      "name": "Plan: Gauss Pistol Refined Receiver",
+      "gold": 20
+    },
+    {
+      "formid": "00591424",
+      "name": "Plan: Gauss Pistol Reflex Sight",
+      "gold": 5
+    },
+    {
+      "formid": "00591422",
+      "name": "Plan: Gauss Pistol Suppressed Barrel",
+      "gold": 15
+    },
+    {
+      "formid": "005A2441",
+      "name": "Plan: Gauss Pistol Vicious Receiver",
+      "gold": 20
+    },
+    {
+      "formid": "00589360",
+      "name": "Plan: Gauss Shotgun",
+      "gold": 50
+    },
+    {
+      "formid": "00595614",
+      "name": "Plan: Gauss Shotgun Aligned Stock",
+      "gold": 20
+    },
+    {
+      "formid": "0059560D",
+      "name": "Plan: Gauss Shotgun Extended Barrel",
+      "gold": 15
+    },
+    {
+      "formid": "00595616",
+      "name": "Plan: Gauss Shotgun Extended Magazine",
+      "gold": 10
+    },
+    {
+      "formid": "00595613",
+      "name": "Plan: Gauss Shotgun Forceful Stock",
+      "gold": 20
+    },
+    {
+      "formid": "00595610",
+      "name": "Plan: Gauss Shotgun Hardened Receiver",
+      "gold": 20
+    },
+    {
+      "formid": "00595617",
+      "name": "Plan: Gauss Shotgun Perforating Magazine",
+      "gold": 10
+    },
+    {
+      "formid": "00595615",
+      "name": "Plan: Gauss Shotgun Precise Stock",
+      "gold": 10
+    },
+    {
+      "formid": "00595612",
+      "name": "Plan: Gauss Shotgun Refined Receiver",
+      "gold": 20
+    },
+    {
+      "formid": "0059560E",
+      "name": "Plan: Gauss Shotgun Shielded Barrel",
+      "gold": 15
+    },
+    {
+      "formid": "00595618",
+      "name": "Plan: Gauss Shotgun Short Scope",
+      "gold": 5
+    },
+    {
+      "formid": "00595611",
+      "name": "Plan: Gauss Shotgun Vicious Receiver",
+      "gold": 20
+    },
+    {
+      "formid": "00614395",
+      "name": "Plan: Gold Scavenge Bot",
+      "gold": 75
+    },
+    {
+      "formid": "00732A8F",
+      "name": "Plan: Grandma Junko",
+      "gold": 125
+    },
+    {
+      "formid": "005A0ED1",
+      "name": "Plan: Grocer's Backpack Mod",
+      "gold": 35
+    },
+    {
+      "formid": "005E47CB",
+      "name": "Plan: Hellstorm Missile Launcher Cryo Payload",
+      "gold": 20
+    },
+    {
+      "formid": "005E47D0",
+      "name": "Plan: Hellstorm Missile Launcher Enhanced Blast Payload",
+      "gold": 20
+    },
+    {
+      "formid": "005E47CD",
+      "name": "Plan: Hellstorm Missile Launcher Long NV Scope",
+      "gold": 20
+    },
+    {
+      "formid": "005E47CA",
+      "name": "Plan: Hellstorm Missile Launcher Napalm Payload",
+      "gold": 20
+    },
+    {
+      "formid": "005E47CF",
+      "name": "Plan: Hellstorm Missile Launcher Plasma Payload",
+      "gold": 20
+    },
+    {
+      "formid": "005E47D1",
+      "name": "Plan: Hellstorm Missile Launcher Short Recon Scope",
+      "gold": 20
+    },
+    {
+      "formid": "006CA795",
+      "name": "Plan: Hollywood Vanity",
+      "gold": 75
+    },
+    {
+      "formid": "006D8722",
+      "name": "Plan: Jewelry Stand Flair Display",
+      "gold": 75
+    },
+    {
+      "formid": "006D8720",
+      "name": "Plan: Joey Bello",
+      "gold": 125
+    },
+    {
+      "formid": "00646983",
+      "name": "Plan: Katherine Swan",
+      "gold": 125
+    },
+    {
+      "formid": "00691C04",
+      "name": "Plan: Leo Petrov",
+      "gold": 125
+    },
+    {
+      "formid": "005DBD96",
+      "name": "Plan: Lighter Build Secret Service Armor Limbs",
+      "gold": 25
+    },
+    {
+      "formid": "00631F38",
+      "name": "Plan: Maul",
+      "gold": 125
+    },
+    {
+      "formid": "00668994",
+      "name": "Plan: Mechanical Derby Game",
+      "gold": 75
+    },
+    {
+      "formid": "00732A91",
+      "name": "Plan: Military Cryo-Freezer",
+      "gold": 75
+    },
+    {
+      "formid": "00614394",
+      "name": "Plan: Nuka-Cola Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "00691C05",
+      "name": "Plan: Nuka-Cola Mystery Machine",
+      "gold": 75
+    },
+    {
+      "formid": "00679A72",
+      "name": "Plan: Nuka-Cola Quantum Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "00682041",
+      "name": "Plan: Nuka-Launcher",
+      "gold": 1000
+    },
+    {
+      "formid": "007A8775",
+      "name": "Plan: Pemmican Collector",
+      "gold": 75
+    },
+    {
+      "formid": "00611A5F",
+      "name": "Plan: Pepper Shaker Dual Barrel",
+      "gold": 180
+    },
+    {
+      "formid": "00611A64",
+      "name": "Plan: Pepper Shaker Gunner Sight",
+      "gold": 180
+    },
+    {
+      "formid": "00611A60",
+      "name": "Plan: Pepper Shaker Hex Barrel",
+      "gold": 50
+    },
+    {
+      "formid": "00611A62",
+      "name": "Plan: Pepper Shaker Laser Magazine",
+      "gold": 180
+    },
+    {
+      "formid": "00611A63",
+      "name": "Plan: Pepper Shaker Plasma Magazine",
+      "gold": 180
+    },
+    {
+      "formid": "00611A61",
+      "name": "Plan: Pepper Shaker Single Barrel",
+      "gold": 180
+    },
+    {
+      "formid": "00589361",
+      "name": "Plan: Plasma Caster",
+      "gold": 75
+    },
+    {
+      "formid": "005A255E",
+      "name": "Plan: Plasma Caster Calibrated Capacitor",
+      "gold": 20
+    },
+    {
+      "formid": "00590FC4",
+      "name": "Plan: Plasma Caster Pulse Capacitor",
+      "gold": 20
+    },
+    {
+      "formid": "0059F458",
+      "name": "Plan: Plasma Caster Signal Dish Barrel",
+      "gold": 15
+    },
+    {
+      "formid": "0059F457",
+      "name": "Plan: Plasma Caster Sniper Barrel",
+      "gold": 15
+    },
+    {
+      "formid": "005A2560",
+      "name": "Plan: Plasma Caster True Capacitor",
+      "gold": 20
+    },
+    {
+      "formid": "005ECB84",
+      "name": "Plan: Plasma Cutter Cryo Blade",
+      "gold": 20
+    },
+    {
+      "formid": "005ECB85",
+      "name": "Plan: Plasma Cutter Flaming Blade",
+      "gold": 20
+    },
+    {
+      "formid": "005ECB86",
+      "name": "Plan: Plasma Cutter Shock Blade",
+      "gold": 20
+    },
+    {
+      "formid": "00668995",
+      "name": "Plan: Popcorn Machine",
+      "gold": 75
+    },
+    {
+      "formid": "005A35BA",
+      "name": "Plan: Prime Gauss Minigun Capacitor",
+      "gold": 20
+    },
+    {
+      "formid": "005A2440",
+      "name": "Plan: Prime Gauss Pistol Receiver",
+      "gold": 20
+    },
+    {
+      "formid": "0059560F",
+      "name": "Plan: Prime Gauss Shotgun Receiver",
+      "gold": 20
+    },
+    {
+      "formid": "005A255F",
+      "name": "Plan: Prime Plasma Caster Capacitor",
+      "gold": 20
+    },
+    {
+      "formid": "0066528F",
+      "name": "Plan: Radiation Glove Box",
+      "gold": 75
+    },
+    {
+      "formid": "006BE8D5",
+      "name": "Plan: Radstag Field Dressing Station",
+      "gold": 75
+    },
+    {
+      "formid": "006216C1",
+      "name": "Plan: Red Rocket Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "008A706B",
+      "name": "Plan: Rip Daring's Survival Cache",
+      "gold": 75
+    },
+    {
+      "formid": "00646A2D",
+      "name": "Plan: Sam Nguyen",
+      "gold": 125
+    },
+    {
+      "formid": "00793861",
+      "name": "Plan: Scoutmaster Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "007952D5",
+      "name": "Plan: Scoutmaster Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "00790FD3",
+      "name": "Plan: Scrap Rat Backpack Mod",
+      "gold": 35
+    },
+    {
+      "formid": "005A1581",
+      "name": "Plan: Secret Service Aerodynamic Armor Arms",
+      "gold": 25
+    },
+    {
+      "formid": "005A1589",
+      "name": "Plan: Secret Service Asbestos Lined Armor Torso",
+      "gold": 25
+    },
+    {
+      "formid": "005A158F",
+      "name": "Plan: Secret Service BioCommMesh Armor Torso",
+      "gold": 25
+    },
+    {
+      "formid": "005A157F",
+      "name": "Plan: Secret Service Braced Armor Arms",
+      "gold": 25
+    },
+    {
+      "formid": "005A1583",
+      "name": "Plan: Secret Service Brawling Armor Arms",
+      "gold": 50
+    },
+    {
+      "formid": "005A157A",
+      "name": "Plan: Secret Service Buttressed Armor Arms",
+      "gold": 50
+    },
+    {
+      "formid": "005A157E",
+      "name": "Plan: Secret Service Buttressed Armor Legs",
+      "gold": 50
+    },
+    {
+      "formid": "005A1594",
+      "name": "Plan: Secret Service Buttressed Armor Torso",
+      "gold": 50
+    },
+    {
+      "formid": "0058935B",
+      "name": "Plan: Secret Service Chest Piece",
+      "gold": 125
+    },
+    {
+      "formid": "005A1584",
+      "name": "Plan: Secret Service Cushioned Armor Legs",
+      "gold": 25
+    },
+    {
+      "formid": "005A1585",
+      "name": "Plan: Secret Service Custom Fitted Armor Legs",
+      "gold": 50
+    },
+    {
+      "formid": "005CBEC7",
+      "name": "Plan: Secret Service Deep Pocketed Armor Limb",
+      "gold": 50
+    },
+    {
+      "formid": "005A158A",
+      "name": "Plan: Secret Service Deep Pocketed Armor Torso",
+      "gold": 50
+    },
+    {
+      "formid": "005A1588",
+      "name": "Plan: Secret Service Dense Armor Torso",
+      "gold": 50
+    },
+    {
+      "formid": "005A1579",
+      "name": "Plan: Secret Service Hardened Armor Arms",
+      "gold": 35
+    },
+    {
+      "formid": "005A157D",
+      "name": "Plan: Secret Service Hardened Armor Legs",
+      "gold": 35
+    },
+    {
+      "formid": "005A1593",
+      "name": "Plan: Secret Service Hardened Armor Torso",
+      "gold": 35
+    },
+    {
+      "formid": "0058961B",
+      "name": "Plan: Secret Service Helmet",
+      "gold": 165
+    },
+    {
+      "formid": "005A1595",
+      "name": "Plan: Secret Service Jet Pack Armor",
+      "gold": 200
+    },
+    {
+      "formid": "005A1590",
+      "name": "Plan: Secret Service Lead Lined Armor Torso",
+      "gold": 25
+    },
+    {
+      "formid": "0059D543",
+      "name": "Plan: Secret Service Left Arm",
+      "gold": 75
+    },
+    {
+      "formid": "0059D545",
+      "name": "Plan: Secret Service Left Leg",
+      "gold": 75
+    },
+    {
+      "formid": "005A158D",
+      "name": "Plan: Secret Service Lighter Build Armor Torso",
+      "gold": 25
+    },
+    {
+      "formid": "005A1587",
+      "name": "Plan: Secret Service Padded Armor Torso",
+      "gold": 25
+    },
+    {
+      "formid": "005A158C",
+      "name": "Plan: Secret Service Pneumatic Armor Torso",
+      "gold": 25
+    },
+    {
+      "formid": "005CBEC6",
+      "name": "Plan: Secret Service Pocketed Armor Limb",
+      "gold": 25
+    },
+    {
+      "formid": "005A158B",
+      "name": "Plan: Secret Service Pocketed Armor Torso",
+      "gold": 25
+    },
+    {
+      "formid": "0059D544",
+      "name": "Plan: Secret Service Right Arm",
+      "gold": 75
+    },
+    {
+      "formid": "0059D546",
+      "name": "Plan: Secret Service Right Leg",
+      "gold": 75
+    },
+    {
+      "formid": "005A1586",
+      "name": "Plan: Secret Service Sleek Armor Legs",
+      "gold": 50
+    },
+    {
+      "formid": "005A1582",
+      "name": "Plan: Secret Service Stabilized Armor Arms",
+      "gold": 25
+    },
+    {
+      "formid": "005A1578",
+      "name": "Plan: Secret Service Tempered Armor Arms",
+      "gold": 25
+    },
+    {
+      "formid": "005A157C",
+      "name": "Plan: Secret Service Tempered Armor Legs",
+      "gold": 25
+    },
+    {
+      "formid": "005A1592",
+      "name": "Plan: Secret Service Tempered Armor Torso",
+      "gold": 25
+    },
+    {
+      "formid": "005A158E",
+      "name": "Plan: Secret Service Ultra-Light Build Armor Torso",
+      "gold": 50
+    },
+    {
+      "formid": "0059D542",
+      "name": "Plan: Secret Service Underarmor",
+      "gold": 25
+    },
+    {
+      "formid": "005A1580",
+      "name": "Plan: Secret Service Weighted Armor Arms",
+      "gold": 50
+    },
+    {
+      "formid": "005A1577",
+      "name": "Plan: Secret Service Welded Armor Arms",
+      "gold": 10
+    },
+    {
+      "formid": "005A157B",
+      "name": "Plan: Secret Service Welded Armor Legs",
+      "gold": 10
+    },
+    {
+      "formid": "005A1591",
+      "name": "Plan: Secret Service Welded Armor Torso",
+      "gold": 10
+    },
+    {
+      "formid": "00644675",
+      "name": "Plan: Silver Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "007BCF56",
+      "name": "Plan: Skyline Valley Snow Globe Display Case",
+      "gold": 75
+    },
+    {
+      "formid": "0082BCBC",
+      "name": "Plan: Slime Cake",
+      "gold": 75
+    },
+    {
+      "formid": "005527E0",
+      "name": "Plan: Solar Armor Chest Piece",
+      "gold": 100
+    },
+    {
+      "formid": "005527DC",
+      "name": "Plan: Solar Armor Left Arm",
+      "gold": 75
+    },
+    {
+      "formid": "005527DE",
+      "name": "Plan: Solar Armor Left Leg",
+      "gold": 75
+    },
+    {
+      "formid": "00554652",
+      "name": "Plan: Solar Armor Right Arm",
+      "gold": 75
+    },
+    {
+      "formid": "00554654",
+      "name": "Plan: Solar Armor Right Leg",
+      "gold": 75
+    },
+    {
+      "formid": "00608AEB",
+      "name": "Plan: Solomon Hardy",
+      "gold": 125
+    },
+    {
+      "formid": "008682BF",
+      "name": "Plan: SoulSoup Server",
+      "gold": 75
+    },
+    {
+      "formid": "00609E06",
+      "name": "Plan: Speed Bag",
+      "gold": 75
+    },
+    {
+      "formid": "0084813C",
+      "name": "Plan: Spice Rack",
+      "gold": 75
+    },
+    {
+      "formid": "006BE8D6",
+      "name": "Plan: Steven Scarberry",
+      "gold": 125
+    },
+    {
+      "formid": "005535FB",
+      "name": "Plan: Strangler Heart Chest Piece",
+      "gold": 125
+    },
+    {
+      "formid": "00553BEA",
+      "name": "Plan: Strangler Heart Helmet",
+      "gold": 165
+    },
+    {
+      "formid": "005535F9",
+      "name": "Plan: Strangler Heart Left Arm",
+      "gold": 100
+    },
+    {
+      "formid": "005535FA",
+      "name": "Plan: Strangler Heart Left Leg",
+      "gold": 100
+    },
+    {
+      "formid": "00553BEB",
+      "name": "Plan: Strangler Heart Right Arm",
+      "gold": 100
+    },
+    {
+      "formid": "00553BEC",
+      "name": "Plan: Strangler Heart Right Leg",
+      "gold": 100
+    },
+    {
+      "formid": "005A16C3",
+      "name": "Plan: T-65 Blood Cleanser",
+      "gold": 50
+    },
+    {
+      "formid": "005A16BE",
+      "name": "Plan: T-65 Calibrated Shocks",
+      "gold": 75
+    },
+    {
+      "formid": "005A16BF",
+      "name": "Plan: T-65 Cooling Vent",
+      "gold": 10
+    },
+    {
+      "formid": "005A16C2",
+      "name": "Plan: T-65 Core Assembly",
+      "gold": 75
+    },
+    {
+      "formid": "005A16C4",
+      "name": "Plan: T-65 Emergency Protocols",
+      "gold": 75
+    },
+    {
+      "formid": "00589355",
+      "name": "Plan: T-65 Helm",
+      "gold": 165
+    },
+    {
+      "formid": "005A16BC",
+      "name": "Plan: T-65 Hydraulic Bracers",
+      "gold": 25
+    },
+    {
+      "formid": "005A16C5",
+      "name": "Plan: T-65 Jet Pack",
+      "gold": 200
+    },
+    {
+      "formid": "005A16C6",
+      "name": "Plan: T-65 Kinetic Dynamo",
+      "gold": 50
+    },
+    {
+      "formid": "005A16BD",
+      "name": "Plan: T-65 Kinetic Servos",
+      "gold": 50
+    },
+    {
+      "formid": "00589353",
+      "name": "Plan: T-65 Left Arm",
+      "gold": 100
+    },
+    {
+      "formid": "00589356",
+      "name": "Plan: T-65 Left Leg",
+      "gold": 100
+    },
+    {
+      "formid": "005A16C7",
+      "name": "Plan: T-65 Medic Pump",
+      "gold": 25
+    },
+    {
+      "formid": "005A16CA",
+      "name": "Plan: T-65 Motion-Assist Servos",
+      "gold": 10
+    },
+    {
+      "formid": "005A16B9",
+      "name": "Plan: T-65 Optimized Bracers",
+      "gold": 10
+    },
+    {
+      "formid": "005A16C0",
+      "name": "Plan: T-65 Optimized Servos",
+      "gold": 75
+    },
+    {
+      "formid": "005A16C1",
+      "name": "Plan: T-65 Overdrive Servos",
+      "gold": 75
+    },
+    {
+      "formid": "005A16C8",
+      "name": "Plan: T-65 Reactive Plates",
+      "gold": 75
+    },
+    {
+      "formid": "00589354",
+      "name": "Plan: T-65 Right Arm",
+      "gold": 100
+    },
+    {
+      "formid": "00589357",
+      "name": "Plan: T-65 Right Leg",
+      "gold": 100
+    },
+    {
+      "formid": "005A16BA",
+      "name": "Plan: T-65 Rusty Knuckles",
+      "gold": 25
+    },
+    {
+      "formid": "005A16C9",
+      "name": "Plan: T-65 Stealth Boy",
+      "gold": 75
+    },
+    {
+      "formid": "005A16BB",
+      "name": "Plan: T-65 Tesla Bracers",
+      "gold": 50
+    },
+    {
+      "formid": "005A16CB",
+      "name": "Plan: T-65 Tesla Coils",
+      "gold": 75
+    },
+    {
+      "formid": "00589358",
+      "name": "Plan: T-65 Torso",
+      "gold": 125
+    },
+    {
+      "formid": "005527DF",
+      "name": "Plan: Thorn Armor Chest Piece",
+      "gold": 100
+    },
+    {
+      "formid": "005527DB",
+      "name": "Plan: Thorn Armor Left Arm",
+      "gold": 75
+    },
+    {
+      "formid": "005527DD",
+      "name": "Plan: Thorn Armor Left Leg",
+      "gold": 75
+    },
+    {
+      "formid": "00554651",
+      "name": "Plan: Thorn Armor Right Arm",
+      "gold": 75
+    },
+    {
+      "formid": "00554653",
+      "name": "Plan: Thorn Armor Right Leg",
+      "gold": 75
+    },
+    {
+      "formid": "00592F7B",
+      "name": "Plan: Turbo-Fert Fertilizer",
+      "gold": 75
+    },
+    {
+      "formid": "005DBD95",
+      "name": "Plan: Ultra-Light Build Secret Service Armor Limbs",
+      "gold": 500
+    },
+    {
+      "formid": "005A3329",
+      "name": "Plan: Vault 94 Scout Armor Mask",
+      "gold": 165
+    },
+    {
+      "formid": "005D86E0",
+      "name": "Plan: War Glaive Cryo Blade",
+      "gold": 20
+    },
+    {
+      "formid": "005D86E1",
+      "name": "Plan: War Glaive Flaming Blade",
+      "gold": 20
+    },
+    {
+      "formid": "005D86E3",
+      "name": "Plan: War Glaive Plasma Blade",
+      "gold": 20
+    },
+    {
+      "formid": "005D86E2",
+      "name": "Plan: War Glaive Shock Blade",
+      "gold": 20
+    },
+    {
+      "formid": "00790FCE",
+      "name": "Plan: Water Boiler",
+      "gold": 75
+    },
+    {
+      "formid": "005A0ED3",
+      "name": "Plan: Water Well",
+      "gold": 75
+    },
+    {
+      "formid": "0075FF95",
+      "name": "Plan: Weather Control Station (Atlantic City Fog)",
+      "gold": 75
+    },
+    {
+      "formid": "005F56C8",
+      "name": "Plan: Weight Bench",
+      "gold": 75
+    },
+    {
+      "formid": "00646984",
+      "name": "Plan: West Virginia Slot Machine",
+      "gold": 75
+    },
+    {
+      "formid": "00836468",
+      "name": "Plan: Whitespring Robo Butler Collectron",
+      "gold": 75
+    },
+    {
+      "formid": "00646985",
+      "name": "Plan: Xerxo",
+      "gold": 125
+    },
+    {
+      "formid": "00608AEC",
+      "name": "Plan: Yasmin Chowdhury",
+      "gold": 125
+    }
+  ]
 }
