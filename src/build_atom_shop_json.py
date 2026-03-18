@@ -15,7 +15,7 @@ import re
 import sys
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-SRC      = os.path.join(SCRIPT_DIR, "atom_shop.json")
+SRC      = os.path.join(SCRIPT_DIR, "..", "dist", "atom_shop.json")
 DIST     = os.path.join(SCRIPT_DIR, "..", "dist", "atom_shop.json")
 TSV_ROOT = os.path.join(SCRIPT_DIR, "..", "tsv")
 
