@@ -99,8 +99,21 @@ LVLI_LABEL_PATTERNS = [
     (r"(?i)scout_?uniform|scout_?armor",      "Enclave Urban Scout Armour"),
     # Enclave Plasma Gun mod boxes
     (r"(?i)enclave.*plasmagun|plasmagun.*all", "Enclave Plasma Gun Mod Boxes"),
+    # Legendary items: generative star-count labels from Rank/Star suffixes
+    # e.g. RA_LL_Rewards_LegendaryItems_Rank1 → "Legendary Items (1★)"
+    (r"(?i)LegendaryItems.*?_Rank(\d+)$",
+     lambda m: f"Legendary Items ({m.group(1)}\u2605)"),
+    # e.g. LLS_Loot_Legendary1Star → "Legendary Items (1★)"
+    (r"(?i)Legendary(\d+)Star$",
+     lambda m: f"Legendary Items ({m.group(1)}\u2605)"),
+    # Legendary sub-pools: armour, power armour, weapons
+    (r"(?i)LegendaryItems_LL_Armor_All",       "Legendary Armour"),
+    (r"(?i)LegendaryItems_LL_PowerArmor_All",  "Legendary Power Armour"),
+    (r"(?i)LegendaryItems_LL_Weapons_Any",     "Legendary Weapons (All Types)"),
+    (r"(?i)LegendaryItems_LL_Weapons_Melee",   "Legendary Melee Weapons"),
+    (r"(?i)LegendaryItems_LL_Weapons_Ranged",  "Legendary Ranged Weapons"),
     # Region reward pools (public-facing names, not data-miner jargon)
-    (r"(?i)progression_?items",               "Region Rewards"),
+    (r"(?i)progression_?items",               "Regional Loot"),
     (r"(?i)allregions_?grabbag|all_?regions",  "Regional Loot Pool"),
     (r"(?i)forest_?grabbag|forest_?grab_?bag", "Forest Rewards"),
     (r"(?i)toxicvalley_?grabbag|toxic_?valley_?grab", "Toxic Valley Rewards"),
@@ -129,10 +142,11 @@ def prettify_lvli_label(edid):
     if t.lower() in LVLI_LABEL_OVERRIDES:
         return LVLI_LABEL_OVERRIDES[t.lower()]
 
-    # Check pattern rules
+    # Check pattern rules (label can be a string or a callable(match) → string)
     for pat, label in LVLI_LABEL_PATTERNS:
-        if re.search(pat, t):
-            return label
+        m = re.search(pat, t)
+        if m:
+            return label(m) if callable(label) else label
 
     # Generic cleanup: strip LVLI naming prefixes (order matters — longest first)
     t = re.sub(r"^(RA_LLS?_Rewards_Activities|RA_LLS?_Rewards|RA_LLS?|RA_LL_Rewards|RA_LL|LLS?_Rewards|LLS?|RA|LL|QuestReward|Quest_Reward|Rewards)_+", "", t, flags=re.IGNORECASE)
@@ -181,9 +195,43 @@ def simplify_condition(cond_str):
     if "GetQuestCompleted" in s and quest_name:
         return f"Requires: {quest_name}"
 
-    # HasLearnedRecipe → "Recipe not yet learned"
+    # HasLearnedRecipe → check comparison value (= 1 means MUST know, = 0 means must NOT know)
+    # and resolve the COBJ reference to a human-readable recipe/plan name.
     if "HasLearnedRecipe" in s:
-        return "Recipe not yet learned"
+        # Extract COBJ FormID from e.g. "co_Weapon_Ranged_GatlingPlasma [COBJ:00311432]"
+        cobj_match = re.search(r'\[COBJ:([0-9A-Fa-f]+)\]', s)
+        # Extract COBJ EDID as fallback
+        cobj_edid_match = re.search(r'HasLearnedRecipe\([^,]*,\s*[^,]*,\s*(\w+)', s)
+        # Extract comparison value (last number in the raw string, e.g. "10000000 1.000000")
+        comp_match = re.search(r'(\d+\.\d+)\s*$', s)
+        comp_val = float(comp_match.group(1)) if comp_match else 1.0
+
+        # Resolve recipe name from COBJ
+        recipe_name = ""
+        if cobj_match:
+            cobj_fid = cobj_match.group(1)
+            cobj_entry = cobj_by_formid.get(cobj_fid)
+            if cobj_entry:
+                recipe_name = cobj_entry.get("created_name", "")
+        if not recipe_name and cobj_edid_match:
+            cobj_edid = cobj_edid_match.group(1)
+            cobj_entry = cobj_by_edid.get(cobj_edid)
+            if cobj_entry:
+                recipe_name = cobj_entry.get("created_name", "")
+        if not recipe_name and cobj_edid_match:
+            # Humanize EDID as last resort
+            recipe_name = humanize_edid(cobj_edid_match.group(1))
+
+        if comp_val >= 1.0:
+            # = 1 means player MUST have learned the recipe
+            if recipe_name:
+                return f"Requires Plan: {recipe_name} to be learned"
+            return "Requires the base plan to be learned"
+        else:
+            # = 0 means player must NOT have learned it yet
+            if recipe_name:
+                return f"Won\u2019t drop if you\u2019ve already learned Plan: {recipe_name}"
+            return "Won\u2019t drop if you\u2019ve already learned this recipe"
 
     # GetRandomPercent → already handled by math, omit from display
     if "GetRandomPercent" in s:
@@ -292,6 +340,8 @@ try:    WEAP_OT = read_tsv(newest("tsv/WEAP_Export_*_ObjectTemplate.tsv"))
 except FileNotFoundError: WEAP_OT = []
 try:    ARMO_OT = read_tsv(newest("tsv/ARMO_Export_*_ObjectTemplate.tsv"))
 except FileNotFoundError: ARMO_OT = []
+try:    COBJ = read_tsv(newest("tsv/COBJ_Export_*.tsv"))
+except FileNotFoundError: COBJ = []
 
 # --------------------------------------------------
 # Index: WEAP Object Template (mod slots for named/unique weapons)
@@ -510,6 +560,25 @@ for r in GLOB:
         except ValueError: pass
 
 # --------------------------------------------------
+# Index: COBJ (constructible objects / recipes)
+# Maps COBJ FormID → {edid, created_name, created_formid}
+# Used to resolve HasLearnedRecipe conditions to human-readable names
+# --------------------------------------------------
+
+cobj_by_formid = {}
+cobj_by_edid = {}
+for r in COBJ:
+    fid  = pick(r, "COBJ_FormID", "FormID")
+    edid = pick(r, "COBJ_EDID", "EDID")
+    cnam_full = pick(r, "CNAM_FULL", "FULL")
+    cnam_fid  = pick(r, "CNAM_FormID")
+    if fid:
+        entry = {"edid": edid or "", "created_name": cnam_full or "", "created_formid": cnam_fid or ""}
+        cobj_by_formid[fid] = entry
+        if edid:
+            cobj_by_edid[edid] = entry
+
+# --------------------------------------------------
 # Index: item names
 # --------------------------------------------------
 
@@ -662,6 +731,36 @@ for r in LVLI_ENTRIES:
     if "LVLI_FormID" in r:
         lvli_entries_by_list[r["LVLI_FormID"]].append(r)
 
+def _resolve_chance_none(math_row, field_prefix="Entry"):
+    """
+    Resolve ChanceNone for an LVLI entry/list, checking GLOB references
+    when the pre-computed 'Resolved' column is 0.
+
+    Priority:
+      1. <prefix>ChanceNoneResolved (if non-zero, trust it)
+      2. <prefix>ChanceNoneGlobal → extract GLOB FormID → look up glob_vals
+      3. <prefix>ChanceNoneCurve  → extract GLOB FormID → look up glob_vals
+      4. Fall back to 0.0 (= 100% drop chance)
+
+    Returns a float in 0-100 space (e.g. 95.0 means 95% chance of nothing).
+    """
+    resolved = float(math_row.get(f"{field_prefix}ChanceNoneResolved") or 0)
+    if resolved > 0:
+        return resolved
+
+    # Check GLOB references when Resolved is 0
+    for col in (f"{field_prefix}ChanceNoneGlobal", f"{field_prefix}ChanceNoneCurve"):
+        ref = (math_row.get(col) or "").strip()
+        if not ref:
+            continue
+        # Extract GLOB FormID from "00829437:SpawnChance_Cnone_...:GLOB"
+        glob_fid = ref.split(":")[0] if ":" in ref else ref
+        if glob_fid in glob_vals:
+            return glob_vals[glob_fid]
+
+    return 0.0
+
+
 _lvli_cache = {}
 
 def compute_lvli(list_id):
@@ -674,9 +773,9 @@ def compute_lvli(list_id):
         math = lvli_math_by_entry.get((list_id, idx))
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
-        list_none  = float(math.get("ListChanceNoneResolved") or 0)
+        list_none  = _resolve_chance_none(math, "List") / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = float(math.get("EntryChanceNoneResolved") or 0)
+        entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
@@ -711,9 +810,9 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
         math = lvli_math_by_entry.get((list_id, idx))
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
-        list_none  = float(math.get("ListChanceNoneResolved") or 0)
+        list_none  = _resolve_chance_none(math, "List") / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = float(math.get("EntryChanceNoneResolved") or 0)
+        entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
@@ -804,10 +903,10 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         if not math:
             continue
 
-        # Extract probability components
-        list_none  = float(math.get("ListChanceNoneResolved") or 0)
+        # Extract probability components (resolve GLOBs when xEdit left them unresolved)
+        list_none  = _resolve_chance_none(math, "List") / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = float(math.get("EntryChanceNoneResolved") or 0)
+        entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
 
@@ -923,10 +1022,24 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
             continue
 
         # EntryAprioriChance_NoSublist is the pre-computed drop rate in 0-1 space.
-        # It already incorporates: (1 - listCN/100) * (1 - entryCN/100) * condChance
-        # So we use it directly — no need to multiply components again.
+        # It SHOULD incorporate: (1 - listCN/100) * (1 - entryCN/100) * condChance
+        # BUT xEdit often fails to resolve GLOB references in ChanceNone fields,
+        # leaving them at 0 and inflating apriori.  We correct by applying any
+        # unresolved GLOB ChanceNone as a post-hoc multiplier.
         apriori = float(math.get("EntryAprioriChance_NoSublist") or 0)
-        entry_drop_rate = apriori
+
+        # Correct for unresolved GLOB ChanceNone
+        resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
+        resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
+        actual_list_cn    = _resolve_chance_none(math, "List")
+        actual_entry_cn   = _resolve_chance_none(math, "Entry")
+        # If the resolved value was 0 but the GLOB gives a real value, apply correction
+        glob_correction = 1.0
+        if actual_list_cn > 0 and resolved_list_cn == 0:
+            glob_correction *= (1.0 - actual_list_cn / 100.0)
+        if actual_entry_cn > 0 and resolved_entry_cn == 0:
+            glob_correction *= (1.0 - actual_entry_cn / 100.0)
+        entry_drop_rate = apriori * glob_correction
 
         # Get quantity
         qty = 1
@@ -981,6 +1094,11 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 }
                 if display_conditions:
                     item_data["conditions"] = display_conditions
+                # Attach Object Template mod slots for ARMO/WEAP items
+                if ref_sig == "ARMO" and fid in armo_mod_slots_by_formid:
+                    item_data["modSlots"] = armo_mod_slots_by_formid[fid]
+                elif ref_sig == "WEAP" and fid in weap_mod_slots_by_formid:
+                    item_data["modSlots"] = weap_mod_slots_by_formid[fid]
                 raw_entries.append(("item", entry_drop_rate, item_data))
 
     # Normalize for pick-one lists: all raw_rates must sum to 1.0 (100%)
