@@ -20,9 +20,20 @@ TSV_DIR     = SCRIPT_DIR / "tsv"
 DIST_DIR    = SCRIPT_DIR.parent / "dist"
 DIST_DIR.mkdir(parents=True, exist_ok=True)
 
-ENTM_TSV = TSV_DIR / "ENTM_Export.tsv"
-ACTI_TSV = TSV_DIR / "ACTI_Export.tsv"
-COBJ_TSV = TSV_DIR / "COBJ_Export.tsv"
+def latest_tsv(pattern):
+    """Return the most recent TSV matching a glob pattern, or None."""
+    matches = sorted(TSV_DIR.glob(pattern))
+    return matches[-1] if matches else None
+
+ENTM_TSV = latest_tsv("ENTM_Export*.tsv")
+COBJ_TSV = latest_tsv("COBJ_Export*.tsv")
+
+if not ENTM_TSV:
+    print("[ERROR] No ENTM_Export*.tsv found in tsv/", file=sys.stderr)
+    sys.exit(1)
+if not COBJ_TSV:
+    print("[ERROR] No COBJ_Export*.tsv found in tsv/", file=sys.stderr)
+    sys.exit(1)
 
 # ─── STOREFRONT CONFIG ───────────────────────────────────────────────────────
 
