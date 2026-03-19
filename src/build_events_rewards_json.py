@@ -308,9 +308,9 @@ if not _book_files:
     raise FileNotFoundError("tsv/BOOK_Export_*.tsv (non-Locations)")
 _book_files.sort(key=lambda x: os.path.getmtime(x))
 BOOK         = read_tsv(_book_files[-1])
-# ARMO: exclude SLOTS sub-export (has no ARMO_FULL column)
+# ARMO: exclude SLOTS and ObjectTemplate sub-exports (no ARMO_FULL column)
 _armo_files = [f for f in glob.glob("tsv/ARMO_Export_*.tsv")
-               if "_SLOTS" not in f]
+               if "_SLOTS" not in f and "_ObjectTemplate" not in f]
 if not _armo_files:
     raise FileNotFoundError("tsv/ARMO_Export_*.tsv (non-SLOTS)")
 _armo_files.sort(key=lambda x: os.path.getmtime(x))
@@ -1094,11 +1094,10 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 }
                 if display_conditions:
                     item_data["conditions"] = display_conditions
-                # Attach Object Template mod slots for ARMO/WEAP items
-                if ref_sig == "ARMO" and fid in armo_mod_slots_by_formid:
-                    item_data["modSlots"] = armo_mod_slots_by_formid[fid]
-                elif ref_sig == "WEAP" and fid in weap_mod_slots_by_formid:
-                    item_data["modSlots"] = weap_mod_slots_by_formid[fid]
+                # NOTE: modSlots are NOT attached here for LVLI pool items.
+                # Regular LVLI pools drop the base version of items (Object Template
+                # CombinationIndex 0), not the named/legendary variant.
+                # modSlots are only attached in uniqueEventRewards (see below).
                 raw_entries.append(("item", entry_drop_rate, item_data))
 
     # Normalize for pick-one lists: all raw_rates must sum to 1.0 (100%)
