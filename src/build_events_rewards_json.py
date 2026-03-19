@@ -237,6 +237,13 @@ def simplify_condition(cond_str):
     if "GetRandomPercent" in s:
         return ""
 
+    # GetLevel → "Requires player level X+"
+    if "GetLevel" in s:
+        level_match = re.search(r'(\d+)\.0+\s*$', s)
+        if level_match:
+            return f"Requires player level {level_match.group(1)}+"
+        return ""
+
     # GetGlobalValue → extract GLOB name and make readable
     if "GetGlobalValue" in s:
         glob_match = re.search(r'(\w+)\s*\[GLOB:', s)
