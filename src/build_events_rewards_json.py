@@ -982,6 +982,30 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
 
     return items
 
+# Build a set of unique/named item identifiers from Object Template custom mods.
+# These are used to detect LVLIs that drop named/legendary item variants
+# (e.g. "LL_Armor_EnclaveScoutUniform_Torso_Urban_LastBastion" → "LastBastion").
+_unique_ot_names = set()
+for fid, slots in armo_mod_slots_by_formid.items():
+    for slot in slots:
+        if (slot["label"] or "").lower() in ("unique", "custom"):
+            # Extract the identifier from the value (e.g. "Last Bastion" → "lastbastion")
+            raw = (slot["value"] or "").replace(" ", "").lower()
+            if raw and len(raw) > 3:
+                _unique_ot_names.add(raw)
+for fid, slots in weap_mod_slots_by_formid.items():
+    for slot in slots:
+        if (slot["label"] or "").lower() in ("unique", "custom"):
+            raw = (slot["value"] or "").replace(" ", "").lower()
+            if raw and len(raw) > 3:
+                _unique_ot_names.add(raw)
+
+def _is_unique_lvli(lvli_edid):
+    """Check if an LVLI EDID matches a known unique/named item variant."""
+    edid_lower = (lvli_edid or "").replace("_", "").lower()
+    return any(name in edid_lower for name in _unique_ot_names)
+
+
 def build_lvli_tree_node(list_id, depth=0, seen=None):
     """
     Builds a hierarchical tree representation of an LVLI for rendering as expandable sections.
@@ -1094,10 +1118,14 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 }
                 if display_conditions:
                     item_data["conditions"] = display_conditions
-                # NOTE: modSlots are NOT attached here for LVLI pool items.
-                # Regular LVLI pools drop the base version of items (Object Template
-                # CombinationIndex 0), not the named/legendary variant.
-                # modSlots are only attached in uniqueEventRewards (see below).
+                # Attach modSlots ONLY if this LVLI is a named/unique variant
+                # (detected by matching the LVLI EDID against known unique OT names).
+                # Regular LVLI pools drop the base version (OT CombinationIndex 0).
+                if _is_unique_lvli(edid):
+                    if ref_sig == "ARMO" and fid in armo_mod_slots_by_formid:
+                        item_data["modSlots"] = armo_mod_slots_by_formid[fid]
+                    elif ref_sig == "WEAP" and fid in weap_mod_slots_by_formid:
+                        item_data["modSlots"] = weap_mod_slots_by_formid[fid]
                 raw_entries.append(("item", entry_drop_rate, item_data))
 
     # Normalize for pick-one lists: all raw_rates must sum to 1.0 (100%)
