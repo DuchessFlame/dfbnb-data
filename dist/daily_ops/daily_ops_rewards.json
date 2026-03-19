@@ -1,0 +1,7502 @@
+{
+  "slug": "daily-ops-reward-checklist",
+  "pageType": "dailyops",
+  "name": "Daily Ops",
+  "meta": {
+    "timerTiers": {
+      "elder": {
+        "seconds": 480,
+        "label": "Elder (\u2264 8:00)"
+      },
+      "paladin": {
+        "seconds": 720,
+        "label": "Paladin (\u2264 12:00)"
+      },
+      "knight": {
+        "seconds": 960,
+        "label": "Knight (\u2264 16:00)"
+      }
+    }
+  },
+  "pools": [
+    {
+      "title": "Daily Ops Repeatable Double Mutation Rewards",
+      "poolId": "daily-ops-repeatable-double-mutation-rewards",
+      "lvliFormID": "0061F72A",
+      "lvliEdid": "LL_DailyOps_Repeatable_DoubleMutation_Rewards",
+      "tier": "",
+      "poolChance": 100.0,
+      "conditions": [
+        "GetGlobalValue 10000000 1.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
+        "GetGlobalValue",
+        "005CB976:DailyOps_Timer_Tier_High:GLOB"
+      ],
+      "conditionSummary": "",
+      "items": [
+        {
+          "formid": "0000000F",
+          "name": "Caps",
+          "dropRate": 26.666667,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "005652F9",
+          "name": "Legendary Module",
+          "dropRate": 40.0,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "003F7410",
+          "name": "Legendary Scrip",
+          "dropRate": 26.666667,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "005A5443",
+          "name": "Treasury Note",
+          "dropRate": 6.666667,
+          "qty": 1,
+          "isPlan": false
+        }
+      ],
+      "itemCount": 4
+    },
+    {
+      "title": "Daily Ops Repeatable Quest Rewards",
+      "poolId": "daily-ops-repeatable-quest-rewards",
+      "lvliFormID": "005CBA06",
+      "lvliEdid": "LL_DailyOps_Repeatable_Quest_Rewards",
+      "tier": "",
+      "poolChance": 100.0,
+      "conditions": [],
+      "conditionSummary": "",
+      "items": [
+        {
+          "formid": "0000796E",
+          "name": "Ammo50Caliber Ball",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0001DBB7",
+          "name": "Ammo Plasma Cartridge",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0001EC49",
+          "name": "Ammo Plasma Core",
+          "dropRate": 0.344281,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0001F276",
+          "name": "Ammo10mm",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0001F278",
+          "name": "Ammo556",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0001F279",
+          "name": "Ammo50Caliber",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0001F66A",
+          "name": "Ammo45Caliber",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0001F66B",
+          "name": "Ammo308Caliber",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0001F66C",
+          "name": "Ammo5mm",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0001F673",
+          "name": "Ammo Shotgun Shell",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0004CE87",
+          "name": "Ammo38Caliber",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "00075FE4",
+          "name": "Ammo Fusion Core",
+          "dropRate": 0.344281,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0009221C",
+          "name": "Ammo44",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000C1897",
+          "name": "Ammo Fusion Cell",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000CABA3",
+          "name": "Ammo Missile",
+          "dropRate": 0.344281,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000CAC78",
+          "name": "Ammo Flamer Fuel",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000DF279",
+          "name": "Ammo Gamma Cell",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000E6B2E",
+          "name": "Ammo Fat Man Mini Nuke",
+          "dropRate": 0.344281,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000EEBED",
+          "name": "frag Grenade",
+          "dropRate": 3.660136,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000FD11C",
+          "name": "Ammo Cannon Ball",
+          "dropRate": 2.065685,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000FE269",
+          "name": "Ammo RRSpike",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000FF21D",
+          "name": "Cryo Grenade",
+          "dropRate": 0.872353,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "000FF21F",
+          "name": "Pulse Grenade",
+          "dropRate": 1.56863,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "001025AA",
+          "name": "Ammo Alien Blaster",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "00107BD6",
+          "name": "Baseball Grenade",
+          "dropRate": 1.220045,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0010A33D",
+          "name": "Plasma Grenade",
+          "dropRate": 3.398698,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0010C3C6",
+          "name": "Molotov Cocktail",
+          "dropRate": 1.220045,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "001109CE",
+          "name": "Ammo Harpoon",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0018ABDF",
+          "name": "Ammo2mm EC",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0018ABE2",
+          "name": "Ammo Cryo Cell",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "001CF27D",
+          "name": "Ammo Grenade Launcher",
+          "dropRate": 0.031373,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0032B235",
+          "name": "Ammo Crossbow Bolt",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709B2",
+          "name": "Ammo10mm Anti Scorchbeast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709B3",
+          "name": "Ammo2mm EC Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709B4",
+          "name": "Ammo308Caliber Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709B5",
+          "name": "Ammo44 Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709B6",
+          "name": "Ammo45Caliber Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709B7",
+          "name": "Ammo50Cal Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709B8",
+          "name": "Ammo556 Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709B9",
+          "name": "Ammo5mm Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709BA",
+          "name": "Ammo Crossbow Bolt Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709BB",
+          "name": "Ammo Fusion Cell Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709BC",
+          "name": "Ammo Fusion Core Anti Scorch Beast",
+          "dropRate": 0.344281,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709BD",
+          "name": "Ammo Plasma Cartridge Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709BE",
+          "name": "Ammo Plasma Core Anti Scorched",
+          "dropRate": 0.344281,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709BF",
+          "name": "Ammo RRSpike Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004709C0",
+          "name": "Ammo Shotgun Shell Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "004775AF",
+          "name": "Ammo38Caliber Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "00592EA7",
+          "name": "Floater Flamer Grenade",
+          "dropRate": 0.882354,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "00592EA9",
+          "name": "Floater Gnasher Grenade",
+          "dropRate": 0.882354,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "00592EAB",
+          "name": "Floater Freezer Grenade",
+          "dropRate": 0.882354,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "005A35B9",
+          "name": "Ammo Arrow Anti Scorch Beast",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "005A5DD2",
+          "name": "Ammo Arrow Broadhead",
+          "dropRate": 2.754247,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "0000000F",
+          "name": "Caps",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "003F7410",
+          "name": "Legendary Scrip",
+          "dropRate": 1.377124,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "00023742",
+          "name": "RadAway",
+          "dropRate": 1.032843,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "00023736",
+          "name": "Stimpak",
+          "dropRate": 2.409966,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "003078C2",
+          "name": "Stimpak: Diluted",
+          "dropRate": 0.344281,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "005A5443",
+          "name": "Treasury Note",
+          "dropRate": 0.344281,
+          "qty": 1,
+          "isPlan": false
+        }
+      ],
+      "itemCount": 59
+    },
+    {
+      "title": "Daily Ops Rewards Additional Currency Tier03",
+      "poolId": "daily-ops-rewards-additional-currency-tier03",
+      "lvliFormID": "005DBD10",
+      "lvliEdid": "LL_DailyOps_Rewards_AdditionalCurrency_Tier03",
+      "tier": "",
+      "poolChance": 100.0,
+      "conditions": [
+        "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
+        "GetValue",
+        "005CB976:DailyOps_Timer_Tier_High:GLOB"
+      ],
+      "conditionSummary": "",
+      "items": [
+        {
+          "formid": "0000000F",
+          "name": "Caps",
+          "dropRate": 44.444444,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "003F7410",
+          "name": "Legendary Scrip",
+          "dropRate": 44.444444,
+          "qty": 1,
+          "isPlan": false
+        },
+        {
+          "formid": "005A5443",
+          "name": "Treasury Note",
+          "dropRate": 11.111111,
+          "qty": 1,
+          "isPlan": false
+        }
+      ],
+      "itemCount": 3
+    },
+    {
+      "title": "Daily Ops Rewards Chase Tier01",
+      "poolId": "daily-ops-rewards-chase-tier01",
+      "lvliFormID": "005CB9FF",
+      "lvliEdid": "LL_DailyOps_Rewards_Chase_Tier01",
+      "tier": "",
+      "poolChance": 100.0,
+      "conditions": [
+        "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
+        "GetValue",
+        "005CB978:DailyOps_Timer_Tier_Low:GLOB"
+      ],
+      "conditionSummary": "",
+      "items": [
+        {
+          "formid": "0061E211",
+          "name": "Black Hazmat Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "005D86ED",
+          "name": "Brotherhood Special Ops Mask",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "005D86EE",
+          "name": "Brotherhood Special Ops Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "00437007",
+          "name": "Plan: .44 Revolver",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700E",
+          "name": "Plan: .50 Cal Machine Gun",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F476A",
+          "name": "Plan: 10mm Submachine Gun",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6534",
+          "name": "Plan: Acoustic Instruments",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C94F6",
+          "name": "Plan: Advertisement Posters",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696251",
+          "name": "Plan: Alien Backpack",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0076A6A7",
+          "name": "Plan: Aquarium Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E6",
+          "name": "Plan: Arctic Marine Armor Helmet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E9",
+          "name": "Plan: Arctic Marine Left Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E8",
+          "name": "Plan: Arctic Marine Left Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1EB",
+          "name": "Plan: Arctic Marine Right Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1EA",
+          "name": "Plan: Arctic Marine Right Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E7",
+          "name": "Plan: Arctic Marine Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8977",
+          "name": "Plan: Ashtray",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FBB",
+          "name": "Plan: Assorted Lights",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005ECBD3",
+          "name": "Plan: Asylum Light",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755971",
+          "name": "Plan: Atlantic Emblem",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F477E",
+          "name": "Plan: Auto Grenade Launcher",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "006214DB",
+          "name": "Plan: Auto Grenade Launcher Blood Eagle Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E854F",
+          "name": "Plan: Backyard Grill",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF3",
+          "name": "Plan: Barn Building Set",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FEE",
+          "name": "Plan: Baseball Bat",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E853F",
+          "name": "Plan: Baseball Player Statue",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E899D",
+          "name": "Plan: Basketball Hoop",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E899F",
+          "name": "Plan: Basketball Hoop 2",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8989",
+          "name": "Plan: Bathtub",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FEF",
+          "name": "Plan: Baton",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D651C",
+          "name": "Plan: Bear-Proof Trashcan",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FBF7F",
+          "name": "Plan: BoS Medallion",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D64FC",
+          "name": "Plan: Bookcase",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF0",
+          "name": "Plan: Bowie Knife",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF1",
+          "name": "Plan: Boxing Glove",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00692A1B",
+          "name": "Plan: Brahmin Couch",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FCF",
+          "name": "Plan: Brahmin Pen",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700F",
+          "name": "Plan: Broadsider",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8987",
+          "name": "Plan: Broken Toilet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02E",
+          "name": "Plan: Brotherhood Recon Chest Piece",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02B",
+          "name": "Plan: Brotherhood Recon Helmet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF029",
+          "name": "Plan: Brotherhood Recon Left Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02C",
+          "name": "Plan: Brotherhood Recon Left Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02A",
+          "name": "Plan: Brotherhood Recon Right Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02D",
+          "name": "Plan: Brotherhood Recon Right Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0F",
+          "name": "Plan: Burrows Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0A",
+          "name": "Plan: Caged Bulb Lights",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EB73C",
+          "name": "Plan: Chinese Officer Sword",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E897B",
+          "name": "Plan: Cigarette Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700D",
+          "name": "Plan: Combat Rifle",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F477F",
+          "name": "Plan: Combat Shotgun",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AC",
+          "name": "Plan: Covert Scout Armor Chest Piece",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9B1",
+          "name": "Plan: Covert Scout Armor Left Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AE",
+          "name": "Plan: Covert Scout Armor Left Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AD",
+          "name": "Plan: Covert Scout Armor Mask",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9B0",
+          "name": "Plan: Covert Scout Armor Right Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AF",
+          "name": "Plan: Covert Scout Armor Right Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0068ADEC",
+          "name": "Plan: Cowboy Chaps",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0068ADEB",
+          "name": "Plan: Cowboy Duster",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0068ADED",
+          "name": "Plan: Cowboy Hat",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4780",
+          "name": "Plan: Crossbow",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005ECBD4",
+          "name": "Plan: Crowd Bench Seats",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005E65F5",
+          "name": "Plan: Crusader Pistol",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4781",
+          "name": "Plan: Cryolator",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EB73E",
+          "name": "Plan: Cultist Dagger",
+          "dropRate": 0.495728,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8537",
+          "name": "Plan: Daisy Rug",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E0",
+          "name": "Plan: Death Tambo",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624F",
+          "name": "Plan: Deep-Space Alien Power Armor Arms Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624C",
+          "name": "Plan: Deep-Space Alien Power Armor Helmet Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696253",
+          "name": "Plan: Deep-Space Alien Power Armor Jetpack Skins",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696254",
+          "name": "Plan: Deep-Space Alien Power Armor Legs Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624E",
+          "name": "Plan: Deep-Space Alien Power Armor Torso Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BEE",
+          "name": "Plan: Domestic Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D64FE",
+          "name": "Plan: Double Display Shelf",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6526",
+          "name": "Plan: Dumpster",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6511",
+          "name": "Plan: Elegant Couches",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA70",
+          "name": "Plan: Emmett Mountain Disposal Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FBF81",
+          "name": "Plan: Enclave Medallion",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0060A29A",
+          "name": "Plan: Face Breaker",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6529",
+          "name": "Plan: File Cabinets",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4787",
+          "name": "Plan: Flamer",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696247",
+          "name": "Plan: Flatwoods Monster Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624B",
+          "name": "Plan: Floater Tubes",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6523",
+          "name": "Plan: Footlocker",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755974",
+          "name": "Plan: Foundry Smelter",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437009",
+          "name": "Plan: Gamma Gun",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8533",
+          "name": "Plan: Gas Signage",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4788",
+          "name": "Plan: Gatling Laser",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4789",
+          "name": "Plan: Gatling Plasma",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F478A",
+          "name": "Plan: Gauss Rifle",
+          "dropRate": 0.11084,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00692A1C",
+          "name": "Plan: Ghoul Chair",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF5",
+          "name": "Plan: Golf Club",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069687D",
+          "name": "Plan: Gorilla Chair",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF6",
+          "name": "Plan: Guitar Sword",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4784",
+          "name": "Plan: Handmade Gun",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437012",
+          "name": "Plan: Harpoon Gun",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438609",
+          "name": "Plan: Heavy Combat Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860A",
+          "name": "Plan: Heavy Combat Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860B",
+          "name": "Plan: Heavy Combat Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438606",
+          "name": "Plan: Heavy Leather Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438607",
+          "name": "Plan: Heavy Leather Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438608",
+          "name": "Plan: Heavy Leather Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438603",
+          "name": "Plan: Heavy Metal Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438604",
+          "name": "Plan: Heavy Metal Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438605",
+          "name": "Plan: Heavy Metal Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438600",
+          "name": "Plan: Heavy Raider Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438601",
+          "name": "Plan: Heavy Raider Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438602",
+          "name": "Plan: Heavy Raider Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FD",
+          "name": "Plan: Heavy Robot Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FE",
+          "name": "Plan: Heavy Robot Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FF",
+          "name": "Plan: Heavy Robot Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA6F",
+          "name": "Plan: Hello Neon Sign",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005E47CC",
+          "name": "Plan: Hellstorm Missile Launcher",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BEB",
+          "name": "Plan: High-Tech Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624A",
+          "name": "Plan: Hot Rod Flames Handmade Skin",
+          "dropRate": 0.80721,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E897D",
+          "name": "Plan: Ice Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696252",
+          "name": "Plan: Intergalactic Handmade Skin",
+          "dropRate": 0.80721,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8973",
+          "name": "Plan: Jukebox",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00691D06",
+          "name": "Plan: Kids Truck Bed",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003A0820",
+          "name": "Plan: Kitchen Chairs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E898B",
+          "name": "Plan: Kitchen Stove",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF7",
+          "name": "Plan: Knuckles",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6518",
+          "name": "Plan: Large Toolbox",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437008",
+          "name": "Plan: Laser Gun",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E852F",
+          "name": "Plan: Lawn Flamingoes",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4782",
+          "name": "Plan: Lever Gun",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003A081D",
+          "name": "Plan: Light Boxes",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F570F",
+          "name": "Plan: Light Combat Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5710",
+          "name": "Plan: Light Combat Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5711",
+          "name": "Plan: Light Combat Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F570D",
+          "name": "Plan: Light Metal Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F570C",
+          "name": "Plan: Light Metal Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5709",
+          "name": "Plan: Light Metal Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043701B",
+          "name": "Plan: Light Raider Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043701C",
+          "name": "Plan: Light Raider Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043701D",
+          "name": "Plan: Light Raider Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5712",
+          "name": "Plan: Light Robot Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5713",
+          "name": "Plan: Light Robot Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5714",
+          "name": "Plan: Light Robot Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8543",
+          "name": "Plan: Lion Statues",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755972",
+          "name": "Plan: Long Aquarium Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F478C",
+          "name": "Plan: M79 Grenade Launcher",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F478D",
+          "name": "Plan: MG42 Light Machine Gun",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5715",
+          "name": "Plan: Marine Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5716",
+          "name": "Plan: Marine Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5717",
+          "name": "Plan: Marine Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA6E",
+          "name": "Plan: Meat Bag Stash Box",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEEC",
+          "name": "Plan: Meat Hook",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00613845",
+          "name": "Plan: Mechanic's Best Friend",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FE493",
+          "name": "Plan: Medical Malpractice",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6522",
+          "name": "Plan: Metal Box",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E4871",
+          "name": "Plan: Metal Diner Doors",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6502",
+          "name": "Plan: Metal Shelves",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6506",
+          "name": "Plan: Metal Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CEB",
+          "name": "Plan: Metal Stools",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BEC",
+          "name": "Plan: Metal Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E4854",
+          "name": "Plan: Military Cot",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E897F",
+          "name": "Plan: Milk Vending Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061D923",
+          "name": "Plan: Mirelurk King Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D650D",
+          "name": "Plan: Modern Couches",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BED",
+          "name": "Plan: Modern Kitchen Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FC5",
+          "name": "Plan: Modern Paintings",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D651F",
+          "name": "Plan: News Stand",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8981",
+          "name": "Plan: Nuka-Cola Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D650F",
+          "name": "Plan: Office Couches",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF0",
+          "name": "Plan: Office Desk",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA6D",
+          "name": "Plan: Open Neon Sign",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E484F",
+          "name": "Plan: Painted Wooden Doors",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8983",
+          "name": "Plan: Park Grill",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF1",
+          "name": "Plan: Patio Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6532",
+          "name": "Plan: Pianos",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFA",
+          "name": "Plan: Pipe Wrench",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFB",
+          "name": "Plan: Pitchfork",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005ECB83",
+          "name": "Plan: Plasma Cutter",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700A",
+          "name": "Plan: Plasma Gun",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF4",
+          "name": "Plan: Pole Hook",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDDE7",
+          "name": "Plan: Poodle Sleeping Bag",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437004",
+          "name": "Plan: Pool Cue",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF5",
+          "name": "Plan: Pool Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E89A5",
+          "name": "Plan: Portable Toilet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E852D",
+          "name": "Plan: Potted Plants",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E2",
+          "name": "Plan: Power Fist",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6528",
+          "name": "Plan: Pre-War Dressers",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4769",
+          "name": "Plan: Pump-Action Shotgun",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4783",
+          "name": "Plan: Radium Rifle",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501890",
+          "name": "Plan: Raider Power Chest Piece",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188D",
+          "name": "Plan: Raider Power Helm",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188B",
+          "name": "Plan: Raider Power Left Arm",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188E",
+          "name": "Plan: Raider Power Left Leg",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188C",
+          "name": "Plan: Raider Power Right Arm",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188F",
+          "name": "Plan: Raider Power Right Leg",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437013",
+          "name": "Plan: Railway Rifle",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EB741",
+          "name": "Plan: Revolutionary War Sword",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4785",
+          "name": "Plan: Revolver",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E3",
+          "name": "Plan: Ripper",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFC",
+          "name": "Plan: Rolling Pin",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8539",
+          "name": "Plan: Rug",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E853B",
+          "name": "Plan: Rug Set 2",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0D",
+          "name": "Plan: Scavenged Solar Panel",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FD08D",
+          "name": "Plan: Science Chalkboards",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E4",
+          "name": "Plan: Shishkebab",
+          "dropRate": 0.11084,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFD",
+          "name": "Plan: Sickle",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D64FD",
+          "name": "Plan: Single Display Shelf",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F476C",
+          "name": "Plan: Single-Action Revolver",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFE",
+          "name": "Plan: Ski Sword",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFF",
+          "name": "Plan: Sledge Hammer",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FC7",
+          "name": "Plan: Small Letters Set",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00613846",
+          "name": "Plan: Sole Survivor",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEED",
+          "name": "Plan: Spear",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755973",
+          "name": "Plan: Steel Bust",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8541",
+          "name": "Plan: Stone Fountain",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438612",
+          "name": "Plan: Sturdy Combat Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438613",
+          "name": "Plan: Sturdy Combat Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438614",
+          "name": "Plan: Sturdy Combat Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860F",
+          "name": "Plan: Sturdy Leather Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438610",
+          "name": "Plan: Sturdy Leather Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438611",
+          "name": "Plan: Sturdy Leather Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860C",
+          "name": "Plan: Sturdy Metal Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860D",
+          "name": "Plan: Sturdy Metal Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860E",
+          "name": "Plan: Sturdy Metal Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "002B9FD1",
+          "name": "Plan: Sturdy Raider Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "002B9FD3",
+          "name": "Plan: Sturdy Raider Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "002B9FD5",
+          "name": "Plan: Sturdy Raider Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FB",
+          "name": "Plan: Sturdy Robot Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FC",
+          "name": "Plan: Sturdy Robot Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385F7",
+          "name": "Plan: Sturdy Robot Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700B",
+          "name": "Plan: Submachine Gun",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EE14F",
+          "name": "Plan: Super Mutant Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0E",
+          "name": "Plan: Super Reactor",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437000",
+          "name": "Plan: Super Sledge",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437001",
+          "name": "Plan: Switchblade",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0C",
+          "name": "Plan: Sympto-Matic",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501896",
+          "name": "Plan: T-45 Chest Piece",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501893",
+          "name": "Plan: T-45 Helm",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501891",
+          "name": "Plan: T-45 Left Arm",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501894",
+          "name": "Plan: T-45 Left Leg",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501892",
+          "name": "Plan: T-45 Right Arm",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501895",
+          "name": "Plan: T-45 Right Leg",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189C",
+          "name": "Plan: T-51b Chest Piece",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501899",
+          "name": "Plan: T-51b Helm",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501897",
+          "name": "Plan: T-51b Left Arm",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189A",
+          "name": "Plan: T-51b Left Leg",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501898",
+          "name": "Plan: T-51b Right Arm",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189B",
+          "name": "Plan: T-51b Right Leg",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005018A2",
+          "name": "Plan: T-60 Chest Piece",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189F",
+          "name": "Plan: T-60 Helm",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189D",
+          "name": "Plan: T-60 Left Arm",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005018A0",
+          "name": "Plan: T-60 Left Leg",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189E",
+          "name": "Plan: T-60 Right Arm",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005018A1",
+          "name": "Plan: T-60 Right Leg",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FC3",
+          "name": "Plan: Table Lamps",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437015",
+          "name": "Plan: Tesla Rifle",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F04",
+          "name": "Plan: The Gutter",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437002",
+          "name": "Plan: Tire Iron",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FB7",
+          "name": "Plan: Track Lighting",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5718",
+          "name": "Plan: Trapper Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5719",
+          "name": "Plan: Trapper Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F571A",
+          "name": "Plan: Trapper Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D651E",
+          "name": "Plan: Trash Can",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00691D09",
+          "name": "Plan: Umbrella Hat",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FD186",
+          "name": "Plan: Unstoppable Monster",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F10",
+          "name": "Plan: Valley Galleria Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F02",
+          "name": "Plan: Vault 94 Jumpsuit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F07",
+          "name": "Plan: Vault 94 Stash Box",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEEB",
+          "name": "Plan: Walking Cane",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437003",
+          "name": "Plan: War Drum",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F05",
+          "name": "Plan: War Glaive",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF4",
+          "name": "Plan: Warehouse Building Set",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E853D",
+          "name": "Plan: Welcome Mats",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FBF83",
+          "name": "Plan: Wendigo Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F06",
+          "name": "Plan: Whistle in the Dark",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6533",
+          "name": "Plan: Wind Instruments",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEEE",
+          "name": "Plan: Wood Axe",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BE7",
+          "name": "Plan: Wood Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6525",
+          "name": "Plan: Wooden Crate",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BE8",
+          "name": "Plan: Wooden Desks",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF1",
+          "name": "Plan: Wooden Patio Chair",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF2",
+          "name": "Plan: Wooden Picnic Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CEF",
+          "name": "Plan: Wooden Rocking Chairs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E486B",
+          "name": "Plan: Wooden Shack Doors",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF2",
+          "name": "Plan: Wooden Stool",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EE6B3",
+          "name": "Plan: X-01 Scorched Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00596E9A",
+          "name": "Recipe: Liquid Courage",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "006128B3",
+          "name": "Skull Lord Blood Eagle Helmet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "006128B2",
+          "name": "Skull Lord Blood Eagle Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "005ECBD2",
+          "name": "Swamp Camo Hazmat Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        }
+      ],
+      "itemCount": 286
+    },
+    {
+      "title": "Daily Ops Rewards Chase Tier02",
+      "poolId": "daily-ops-rewards-chase-tier02",
+      "lvliFormID": "005DBD0F",
+      "lvliEdid": "LL_DailyOps_Rewards_Chase_Tier02",
+      "tier": "",
+      "poolChance": 100.0,
+      "conditions": [
+        "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
+        "GetValue",
+        "005CB977:DailyOps_Timer_Tier_Medium:GLOB"
+      ],
+      "conditionSummary": "",
+      "items": [
+        {
+          "formid": "0061E211",
+          "name": "Black Hazmat Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "005D86ED",
+          "name": "Brotherhood Special Ops Mask",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "005D86EE",
+          "name": "Brotherhood Special Ops Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "00437007",
+          "name": "Plan: .44 Revolver",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700E",
+          "name": "Plan: .50 Cal Machine Gun",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F476A",
+          "name": "Plan: 10mm Submachine Gun",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6534",
+          "name": "Plan: Acoustic Instruments",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C94F6",
+          "name": "Plan: Advertisement Posters",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696251",
+          "name": "Plan: Alien Backpack",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0076A6A7",
+          "name": "Plan: Aquarium Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E6",
+          "name": "Plan: Arctic Marine Armor Helmet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E9",
+          "name": "Plan: Arctic Marine Left Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E8",
+          "name": "Plan: Arctic Marine Left Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1EB",
+          "name": "Plan: Arctic Marine Right Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1EA",
+          "name": "Plan: Arctic Marine Right Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E7",
+          "name": "Plan: Arctic Marine Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8977",
+          "name": "Plan: Ashtray",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FBB",
+          "name": "Plan: Assorted Lights",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005ECBD3",
+          "name": "Plan: Asylum Light",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755971",
+          "name": "Plan: Atlantic Emblem",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F477E",
+          "name": "Plan: Auto Grenade Launcher",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "006214DB",
+          "name": "Plan: Auto Grenade Launcher Blood Eagle Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E854F",
+          "name": "Plan: Backyard Grill",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF3",
+          "name": "Plan: Barn Building Set",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FEE",
+          "name": "Plan: Baseball Bat",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E853F",
+          "name": "Plan: Baseball Player Statue",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E899D",
+          "name": "Plan: Basketball Hoop",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E899F",
+          "name": "Plan: Basketball Hoop 2",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8989",
+          "name": "Plan: Bathtub",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FEF",
+          "name": "Plan: Baton",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D651C",
+          "name": "Plan: Bear-Proof Trashcan",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FBF7F",
+          "name": "Plan: BoS Medallion",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D64FC",
+          "name": "Plan: Bookcase",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF0",
+          "name": "Plan: Bowie Knife",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF1",
+          "name": "Plan: Boxing Glove",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00692A1B",
+          "name": "Plan: Brahmin Couch",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FCF",
+          "name": "Plan: Brahmin Pen",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700F",
+          "name": "Plan: Broadsider",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8987",
+          "name": "Plan: Broken Toilet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02E",
+          "name": "Plan: Brotherhood Recon Chest Piece",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02B",
+          "name": "Plan: Brotherhood Recon Helmet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF029",
+          "name": "Plan: Brotherhood Recon Left Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02C",
+          "name": "Plan: Brotherhood Recon Left Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02A",
+          "name": "Plan: Brotherhood Recon Right Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02D",
+          "name": "Plan: Brotherhood Recon Right Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0F",
+          "name": "Plan: Burrows Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0A",
+          "name": "Plan: Caged Bulb Lights",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EB73C",
+          "name": "Plan: Chinese Officer Sword",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E897B",
+          "name": "Plan: Cigarette Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700D",
+          "name": "Plan: Combat Rifle",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F477F",
+          "name": "Plan: Combat Shotgun",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AC",
+          "name": "Plan: Covert Scout Armor Chest Piece",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9B1",
+          "name": "Plan: Covert Scout Armor Left Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AE",
+          "name": "Plan: Covert Scout Armor Left Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AD",
+          "name": "Plan: Covert Scout Armor Mask",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9B0",
+          "name": "Plan: Covert Scout Armor Right Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AF",
+          "name": "Plan: Covert Scout Armor Right Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0068ADEC",
+          "name": "Plan: Cowboy Chaps",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0068ADEB",
+          "name": "Plan: Cowboy Duster",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0068ADED",
+          "name": "Plan: Cowboy Hat",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4780",
+          "name": "Plan: Crossbow",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005ECBD4",
+          "name": "Plan: Crowd Bench Seats",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005E65F5",
+          "name": "Plan: Crusader Pistol",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4781",
+          "name": "Plan: Cryolator",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EB73E",
+          "name": "Plan: Cultist Dagger",
+          "dropRate": 0.495728,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8537",
+          "name": "Plan: Daisy Rug",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E0",
+          "name": "Plan: Death Tambo",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624F",
+          "name": "Plan: Deep-Space Alien Power Armor Arms Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624C",
+          "name": "Plan: Deep-Space Alien Power Armor Helmet Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696253",
+          "name": "Plan: Deep-Space Alien Power Armor Jetpack Skins",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696254",
+          "name": "Plan: Deep-Space Alien Power Armor Legs Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624E",
+          "name": "Plan: Deep-Space Alien Power Armor Torso Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BEE",
+          "name": "Plan: Domestic Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D64FE",
+          "name": "Plan: Double Display Shelf",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6526",
+          "name": "Plan: Dumpster",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6511",
+          "name": "Plan: Elegant Couches",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA70",
+          "name": "Plan: Emmett Mountain Disposal Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FBF81",
+          "name": "Plan: Enclave Medallion",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0060A29A",
+          "name": "Plan: Face Breaker",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6529",
+          "name": "Plan: File Cabinets",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4787",
+          "name": "Plan: Flamer",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696247",
+          "name": "Plan: Flatwoods Monster Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624B",
+          "name": "Plan: Floater Tubes",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6523",
+          "name": "Plan: Footlocker",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755974",
+          "name": "Plan: Foundry Smelter",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437009",
+          "name": "Plan: Gamma Gun",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8533",
+          "name": "Plan: Gas Signage",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4788",
+          "name": "Plan: Gatling Laser",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4789",
+          "name": "Plan: Gatling Plasma",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F478A",
+          "name": "Plan: Gauss Rifle",
+          "dropRate": 0.11084,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00692A1C",
+          "name": "Plan: Ghoul Chair",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF5",
+          "name": "Plan: Golf Club",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069687D",
+          "name": "Plan: Gorilla Chair",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF6",
+          "name": "Plan: Guitar Sword",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4784",
+          "name": "Plan: Handmade Gun",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437012",
+          "name": "Plan: Harpoon Gun",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438609",
+          "name": "Plan: Heavy Combat Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860A",
+          "name": "Plan: Heavy Combat Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860B",
+          "name": "Plan: Heavy Combat Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438606",
+          "name": "Plan: Heavy Leather Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438607",
+          "name": "Plan: Heavy Leather Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438608",
+          "name": "Plan: Heavy Leather Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438603",
+          "name": "Plan: Heavy Metal Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438604",
+          "name": "Plan: Heavy Metal Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438605",
+          "name": "Plan: Heavy Metal Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438600",
+          "name": "Plan: Heavy Raider Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438601",
+          "name": "Plan: Heavy Raider Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438602",
+          "name": "Plan: Heavy Raider Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FD",
+          "name": "Plan: Heavy Robot Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FE",
+          "name": "Plan: Heavy Robot Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FF",
+          "name": "Plan: Heavy Robot Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA6F",
+          "name": "Plan: Hello Neon Sign",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005E47CC",
+          "name": "Plan: Hellstorm Missile Launcher",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BEB",
+          "name": "Plan: High-Tech Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624A",
+          "name": "Plan: Hot Rod Flames Handmade Skin",
+          "dropRate": 0.80721,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E897D",
+          "name": "Plan: Ice Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696252",
+          "name": "Plan: Intergalactic Handmade Skin",
+          "dropRate": 0.80721,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8973",
+          "name": "Plan: Jukebox",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00691D06",
+          "name": "Plan: Kids Truck Bed",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003A0820",
+          "name": "Plan: Kitchen Chairs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E898B",
+          "name": "Plan: Kitchen Stove",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF7",
+          "name": "Plan: Knuckles",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6518",
+          "name": "Plan: Large Toolbox",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437008",
+          "name": "Plan: Laser Gun",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E852F",
+          "name": "Plan: Lawn Flamingoes",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4782",
+          "name": "Plan: Lever Gun",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003A081D",
+          "name": "Plan: Light Boxes",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F570F",
+          "name": "Plan: Light Combat Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5710",
+          "name": "Plan: Light Combat Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5711",
+          "name": "Plan: Light Combat Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F570D",
+          "name": "Plan: Light Metal Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F570C",
+          "name": "Plan: Light Metal Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5709",
+          "name": "Plan: Light Metal Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043701B",
+          "name": "Plan: Light Raider Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043701C",
+          "name": "Plan: Light Raider Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043701D",
+          "name": "Plan: Light Raider Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5712",
+          "name": "Plan: Light Robot Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5713",
+          "name": "Plan: Light Robot Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5714",
+          "name": "Plan: Light Robot Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8543",
+          "name": "Plan: Lion Statues",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755972",
+          "name": "Plan: Long Aquarium Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F478C",
+          "name": "Plan: M79 Grenade Launcher",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F478D",
+          "name": "Plan: MG42 Light Machine Gun",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5715",
+          "name": "Plan: Marine Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5716",
+          "name": "Plan: Marine Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5717",
+          "name": "Plan: Marine Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA6E",
+          "name": "Plan: Meat Bag Stash Box",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEEC",
+          "name": "Plan: Meat Hook",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00613845",
+          "name": "Plan: Mechanic's Best Friend",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FE493",
+          "name": "Plan: Medical Malpractice",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6522",
+          "name": "Plan: Metal Box",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E4871",
+          "name": "Plan: Metal Diner Doors",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6502",
+          "name": "Plan: Metal Shelves",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6506",
+          "name": "Plan: Metal Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CEB",
+          "name": "Plan: Metal Stools",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BEC",
+          "name": "Plan: Metal Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E4854",
+          "name": "Plan: Military Cot",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E897F",
+          "name": "Plan: Milk Vending Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061D923",
+          "name": "Plan: Mirelurk King Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D650D",
+          "name": "Plan: Modern Couches",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BED",
+          "name": "Plan: Modern Kitchen Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FC5",
+          "name": "Plan: Modern Paintings",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D651F",
+          "name": "Plan: News Stand",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8981",
+          "name": "Plan: Nuka-Cola Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D650F",
+          "name": "Plan: Office Couches",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF0",
+          "name": "Plan: Office Desk",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA6D",
+          "name": "Plan: Open Neon Sign",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E484F",
+          "name": "Plan: Painted Wooden Doors",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8983",
+          "name": "Plan: Park Grill",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF1",
+          "name": "Plan: Patio Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6532",
+          "name": "Plan: Pianos",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFA",
+          "name": "Plan: Pipe Wrench",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFB",
+          "name": "Plan: Pitchfork",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005ECB83",
+          "name": "Plan: Plasma Cutter",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700A",
+          "name": "Plan: Plasma Gun",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF4",
+          "name": "Plan: Pole Hook",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDDE7",
+          "name": "Plan: Poodle Sleeping Bag",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437004",
+          "name": "Plan: Pool Cue",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF5",
+          "name": "Plan: Pool Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E89A5",
+          "name": "Plan: Portable Toilet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E852D",
+          "name": "Plan: Potted Plants",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E2",
+          "name": "Plan: Power Fist",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6528",
+          "name": "Plan: Pre-War Dressers",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4769",
+          "name": "Plan: Pump-Action Shotgun",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4783",
+          "name": "Plan: Radium Rifle",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501890",
+          "name": "Plan: Raider Power Chest Piece",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188D",
+          "name": "Plan: Raider Power Helm",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188B",
+          "name": "Plan: Raider Power Left Arm",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188E",
+          "name": "Plan: Raider Power Left Leg",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188C",
+          "name": "Plan: Raider Power Right Arm",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188F",
+          "name": "Plan: Raider Power Right Leg",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437013",
+          "name": "Plan: Railway Rifle",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EB741",
+          "name": "Plan: Revolutionary War Sword",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4785",
+          "name": "Plan: Revolver",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E3",
+          "name": "Plan: Ripper",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFC",
+          "name": "Plan: Rolling Pin",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8539",
+          "name": "Plan: Rug",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E853B",
+          "name": "Plan: Rug Set 2",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0D",
+          "name": "Plan: Scavenged Solar Panel",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FD08D",
+          "name": "Plan: Science Chalkboards",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E4",
+          "name": "Plan: Shishkebab",
+          "dropRate": 0.11084,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFD",
+          "name": "Plan: Sickle",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D64FD",
+          "name": "Plan: Single Display Shelf",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F476C",
+          "name": "Plan: Single-Action Revolver",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFE",
+          "name": "Plan: Ski Sword",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFF",
+          "name": "Plan: Sledge Hammer",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FC7",
+          "name": "Plan: Small Letters Set",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00613846",
+          "name": "Plan: Sole Survivor",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEED",
+          "name": "Plan: Spear",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755973",
+          "name": "Plan: Steel Bust",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8541",
+          "name": "Plan: Stone Fountain",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438612",
+          "name": "Plan: Sturdy Combat Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438613",
+          "name": "Plan: Sturdy Combat Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438614",
+          "name": "Plan: Sturdy Combat Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860F",
+          "name": "Plan: Sturdy Leather Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438610",
+          "name": "Plan: Sturdy Leather Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438611",
+          "name": "Plan: Sturdy Leather Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860C",
+          "name": "Plan: Sturdy Metal Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860D",
+          "name": "Plan: Sturdy Metal Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860E",
+          "name": "Plan: Sturdy Metal Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "002B9FD1",
+          "name": "Plan: Sturdy Raider Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "002B9FD3",
+          "name": "Plan: Sturdy Raider Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "002B9FD5",
+          "name": "Plan: Sturdy Raider Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FB",
+          "name": "Plan: Sturdy Robot Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FC",
+          "name": "Plan: Sturdy Robot Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385F7",
+          "name": "Plan: Sturdy Robot Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700B",
+          "name": "Plan: Submachine Gun",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EE14F",
+          "name": "Plan: Super Mutant Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0E",
+          "name": "Plan: Super Reactor",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437000",
+          "name": "Plan: Super Sledge",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437001",
+          "name": "Plan: Switchblade",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0C",
+          "name": "Plan: Sympto-Matic",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501896",
+          "name": "Plan: T-45 Chest Piece",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501893",
+          "name": "Plan: T-45 Helm",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501891",
+          "name": "Plan: T-45 Left Arm",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501894",
+          "name": "Plan: T-45 Left Leg",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501892",
+          "name": "Plan: T-45 Right Arm",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501895",
+          "name": "Plan: T-45 Right Leg",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189C",
+          "name": "Plan: T-51b Chest Piece",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501899",
+          "name": "Plan: T-51b Helm",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501897",
+          "name": "Plan: T-51b Left Arm",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189A",
+          "name": "Plan: T-51b Left Leg",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501898",
+          "name": "Plan: T-51b Right Arm",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189B",
+          "name": "Plan: T-51b Right Leg",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005018A2",
+          "name": "Plan: T-60 Chest Piece",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189F",
+          "name": "Plan: T-60 Helm",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189D",
+          "name": "Plan: T-60 Left Arm",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005018A0",
+          "name": "Plan: T-60 Left Leg",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189E",
+          "name": "Plan: T-60 Right Arm",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005018A1",
+          "name": "Plan: T-60 Right Leg",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FC3",
+          "name": "Plan: Table Lamps",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437015",
+          "name": "Plan: Tesla Rifle",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F04",
+          "name": "Plan: The Gutter",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437002",
+          "name": "Plan: Tire Iron",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FB7",
+          "name": "Plan: Track Lighting",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5718",
+          "name": "Plan: Trapper Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5719",
+          "name": "Plan: Trapper Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F571A",
+          "name": "Plan: Trapper Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D651E",
+          "name": "Plan: Trash Can",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00691D09",
+          "name": "Plan: Umbrella Hat",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FD186",
+          "name": "Plan: Unstoppable Monster",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F10",
+          "name": "Plan: Valley Galleria Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F02",
+          "name": "Plan: Vault 94 Jumpsuit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F07",
+          "name": "Plan: Vault 94 Stash Box",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEEB",
+          "name": "Plan: Walking Cane",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437003",
+          "name": "Plan: War Drum",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F05",
+          "name": "Plan: War Glaive",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF4",
+          "name": "Plan: Warehouse Building Set",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E853D",
+          "name": "Plan: Welcome Mats",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FBF83",
+          "name": "Plan: Wendigo Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F06",
+          "name": "Plan: Whistle in the Dark",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6533",
+          "name": "Plan: Wind Instruments",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEEE",
+          "name": "Plan: Wood Axe",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BE7",
+          "name": "Plan: Wood Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6525",
+          "name": "Plan: Wooden Crate",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BE8",
+          "name": "Plan: Wooden Desks",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF1",
+          "name": "Plan: Wooden Patio Chair",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF2",
+          "name": "Plan: Wooden Picnic Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CEF",
+          "name": "Plan: Wooden Rocking Chairs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E486B",
+          "name": "Plan: Wooden Shack Doors",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF2",
+          "name": "Plan: Wooden Stool",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EE6B3",
+          "name": "Plan: X-01 Scorched Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00596E9A",
+          "name": "Recipe: Liquid Courage",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "006128B3",
+          "name": "Skull Lord Blood Eagle Helmet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "006128B2",
+          "name": "Skull Lord Blood Eagle Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "005ECBD2",
+          "name": "Swamp Camo Hazmat Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        }
+      ],
+      "itemCount": 286
+    },
+    {
+      "title": "Daily Ops Rewards Chase Tier03",
+      "poolId": "daily-ops-rewards-chase-tier03",
+      "lvliFormID": "005DBD0D",
+      "lvliEdid": "LL_DailyOps_Rewards_Chase_Tier03",
+      "tier": "",
+      "poolChance": 100.0,
+      "conditions": [
+        "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
+        "GetValue",
+        "005CB976:DailyOps_Timer_Tier_High:GLOB"
+      ],
+      "conditionSummary": "",
+      "items": [
+        {
+          "formid": "0061E211",
+          "name": "Black Hazmat Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "005D86ED",
+          "name": "Brotherhood Special Ops Mask",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "005D86EE",
+          "name": "Brotherhood Special Ops Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "00437007",
+          "name": "Plan: .44 Revolver",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700E",
+          "name": "Plan: .50 Cal Machine Gun",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F476A",
+          "name": "Plan: 10mm Submachine Gun",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6534",
+          "name": "Plan: Acoustic Instruments",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C94F6",
+          "name": "Plan: Advertisement Posters",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696251",
+          "name": "Plan: Alien Backpack",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0076A6A7",
+          "name": "Plan: Aquarium Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E6",
+          "name": "Plan: Arctic Marine Armor Helmet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E9",
+          "name": "Plan: Arctic Marine Left Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E8",
+          "name": "Plan: Arctic Marine Left Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1EB",
+          "name": "Plan: Arctic Marine Right Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1EA",
+          "name": "Plan: Arctic Marine Right Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061E1E7",
+          "name": "Plan: Arctic Marine Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8977",
+          "name": "Plan: Ashtray",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FBB",
+          "name": "Plan: Assorted Lights",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005ECBD3",
+          "name": "Plan: Asylum Light",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755971",
+          "name": "Plan: Atlantic Emblem",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F477E",
+          "name": "Plan: Auto Grenade Launcher",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "006214DB",
+          "name": "Plan: Auto Grenade Launcher Blood Eagle Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E854F",
+          "name": "Plan: Backyard Grill",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF3",
+          "name": "Plan: Barn Building Set",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FEE",
+          "name": "Plan: Baseball Bat",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E853F",
+          "name": "Plan: Baseball Player Statue",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E899D",
+          "name": "Plan: Basketball Hoop",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E899F",
+          "name": "Plan: Basketball Hoop 2",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8989",
+          "name": "Plan: Bathtub",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FEF",
+          "name": "Plan: Baton",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D651C",
+          "name": "Plan: Bear-Proof Trashcan",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FBF7F",
+          "name": "Plan: BoS Medallion",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D64FC",
+          "name": "Plan: Bookcase",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF0",
+          "name": "Plan: Bowie Knife",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF1",
+          "name": "Plan: Boxing Glove",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00692A1B",
+          "name": "Plan: Brahmin Couch",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FCF",
+          "name": "Plan: Brahmin Pen",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700F",
+          "name": "Plan: Broadsider",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8987",
+          "name": "Plan: Broken Toilet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02E",
+          "name": "Plan: Brotherhood Recon Chest Piece",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02B",
+          "name": "Plan: Brotherhood Recon Helmet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF029",
+          "name": "Plan: Brotherhood Recon Left Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02C",
+          "name": "Plan: Brotherhood Recon Left Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02A",
+          "name": "Plan: Brotherhood Recon Right Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005DF02D",
+          "name": "Plan: Brotherhood Recon Right Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0F",
+          "name": "Plan: Burrows Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0A",
+          "name": "Plan: Caged Bulb Lights",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EB73C",
+          "name": "Plan: Chinese Officer Sword",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E897B",
+          "name": "Plan: Cigarette Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700D",
+          "name": "Plan: Combat Rifle",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F477F",
+          "name": "Plan: Combat Shotgun",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AC",
+          "name": "Plan: Covert Scout Armor Chest Piece",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9B1",
+          "name": "Plan: Covert Scout Armor Left Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AE",
+          "name": "Plan: Covert Scout Armor Left Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AD",
+          "name": "Plan: Covert Scout Armor Mask",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9B0",
+          "name": "Plan: Covert Scout Armor Right Arm",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FC9AF",
+          "name": "Plan: Covert Scout Armor Right Leg",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0068ADEC",
+          "name": "Plan: Cowboy Chaps",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0068ADEB",
+          "name": "Plan: Cowboy Duster",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0068ADED",
+          "name": "Plan: Cowboy Hat",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4780",
+          "name": "Plan: Crossbow",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005ECBD4",
+          "name": "Plan: Crowd Bench Seats",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005E65F5",
+          "name": "Plan: Crusader Pistol",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4781",
+          "name": "Plan: Cryolator",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EB73E",
+          "name": "Plan: Cultist Dagger",
+          "dropRate": 0.495728,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8537",
+          "name": "Plan: Daisy Rug",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E0",
+          "name": "Plan: Death Tambo",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624F",
+          "name": "Plan: Deep-Space Alien Power Armor Arms Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624C",
+          "name": "Plan: Deep-Space Alien Power Armor Helmet Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696253",
+          "name": "Plan: Deep-Space Alien Power Armor Jetpack Skins",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696254",
+          "name": "Plan: Deep-Space Alien Power Armor Legs Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624E",
+          "name": "Plan: Deep-Space Alien Power Armor Torso Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BEE",
+          "name": "Plan: Domestic Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D64FE",
+          "name": "Plan: Double Display Shelf",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6526",
+          "name": "Plan: Dumpster",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6511",
+          "name": "Plan: Elegant Couches",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA70",
+          "name": "Plan: Emmett Mountain Disposal Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FBF81",
+          "name": "Plan: Enclave Medallion",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0060A29A",
+          "name": "Plan: Face Breaker",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6529",
+          "name": "Plan: File Cabinets",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4787",
+          "name": "Plan: Flamer",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696247",
+          "name": "Plan: Flatwoods Monster Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624B",
+          "name": "Plan: Floater Tubes",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6523",
+          "name": "Plan: Footlocker",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755974",
+          "name": "Plan: Foundry Smelter",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437009",
+          "name": "Plan: Gamma Gun",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8533",
+          "name": "Plan: Gas Signage",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4788",
+          "name": "Plan: Gatling Laser",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4789",
+          "name": "Plan: Gatling Plasma",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F478A",
+          "name": "Plan: Gauss Rifle",
+          "dropRate": 0.11084,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00692A1C",
+          "name": "Plan: Ghoul Chair",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF5",
+          "name": "Plan: Golf Club",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069687D",
+          "name": "Plan: Gorilla Chair",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF6",
+          "name": "Plan: Guitar Sword",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4784",
+          "name": "Plan: Handmade Gun",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437012",
+          "name": "Plan: Harpoon Gun",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438609",
+          "name": "Plan: Heavy Combat Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860A",
+          "name": "Plan: Heavy Combat Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860B",
+          "name": "Plan: Heavy Combat Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438606",
+          "name": "Plan: Heavy Leather Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438607",
+          "name": "Plan: Heavy Leather Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438608",
+          "name": "Plan: Heavy Leather Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438603",
+          "name": "Plan: Heavy Metal Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438604",
+          "name": "Plan: Heavy Metal Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438605",
+          "name": "Plan: Heavy Metal Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438600",
+          "name": "Plan: Heavy Raider Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438601",
+          "name": "Plan: Heavy Raider Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438602",
+          "name": "Plan: Heavy Raider Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FD",
+          "name": "Plan: Heavy Robot Arms",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FE",
+          "name": "Plan: Heavy Robot Legs",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FF",
+          "name": "Plan: Heavy Robot Torso",
+          "dropRate": 0.368359,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA6F",
+          "name": "Plan: Hello Neon Sign",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005E47CC",
+          "name": "Plan: Hellstorm Missile Launcher",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BEB",
+          "name": "Plan: High-Tech Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0069624A",
+          "name": "Plan: Hot Rod Flames Handmade Skin",
+          "dropRate": 0.80721,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E897D",
+          "name": "Plan: Ice Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00696252",
+          "name": "Plan: Intergalactic Handmade Skin",
+          "dropRate": 0.80721,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8973",
+          "name": "Plan: Jukebox",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00691D06",
+          "name": "Plan: Kids Truck Bed",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003A0820",
+          "name": "Plan: Kitchen Chairs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E898B",
+          "name": "Plan: Kitchen Stove",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF7",
+          "name": "Plan: Knuckles",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6518",
+          "name": "Plan: Large Toolbox",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437008",
+          "name": "Plan: Laser Gun",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E852F",
+          "name": "Plan: Lawn Flamingoes",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4782",
+          "name": "Plan: Lever Gun",
+          "dropRate": 0.170271,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003A081D",
+          "name": "Plan: Light Boxes",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F570F",
+          "name": "Plan: Light Combat Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5710",
+          "name": "Plan: Light Combat Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5711",
+          "name": "Plan: Light Combat Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F570D",
+          "name": "Plan: Light Metal Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F570C",
+          "name": "Plan: Light Metal Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5709",
+          "name": "Plan: Light Metal Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043701B",
+          "name": "Plan: Light Raider Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043701C",
+          "name": "Plan: Light Raider Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043701D",
+          "name": "Plan: Light Raider Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5712",
+          "name": "Plan: Light Robot Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5713",
+          "name": "Plan: Light Robot Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5714",
+          "name": "Plan: Light Robot Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8543",
+          "name": "Plan: Lion Statues",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755972",
+          "name": "Plan: Long Aquarium Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F478C",
+          "name": "Plan: M79 Grenade Launcher",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F478D",
+          "name": "Plan: MG42 Light Machine Gun",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5715",
+          "name": "Plan: Marine Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5716",
+          "name": "Plan: Marine Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5717",
+          "name": "Plan: Marine Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA6E",
+          "name": "Plan: Meat Bag Stash Box",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEEC",
+          "name": "Plan: Meat Hook",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00613845",
+          "name": "Plan: Mechanic's Best Friend",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FE493",
+          "name": "Plan: Medical Malpractice",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6522",
+          "name": "Plan: Metal Box",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E4871",
+          "name": "Plan: Metal Diner Doors",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6502",
+          "name": "Plan: Metal Shelves",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6506",
+          "name": "Plan: Metal Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CEB",
+          "name": "Plan: Metal Stools",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BEC",
+          "name": "Plan: Metal Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E4854",
+          "name": "Plan: Military Cot",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E897F",
+          "name": "Plan: Milk Vending Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0061D923",
+          "name": "Plan: Mirelurk King Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D650D",
+          "name": "Plan: Modern Couches",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BED",
+          "name": "Plan: Modern Kitchen Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FC5",
+          "name": "Plan: Modern Paintings",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D651F",
+          "name": "Plan: News Stand",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8981",
+          "name": "Plan: Nuka-Cola Machine",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D650F",
+          "name": "Plan: Office Couches",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF0",
+          "name": "Plan: Office Desk",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDA6D",
+          "name": "Plan: Open Neon Sign",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E484F",
+          "name": "Plan: Painted Wooden Doors",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8983",
+          "name": "Plan: Park Grill",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF1",
+          "name": "Plan: Patio Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6532",
+          "name": "Plan: Pianos",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFA",
+          "name": "Plan: Pipe Wrench",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFB",
+          "name": "Plan: Pitchfork",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005ECB83",
+          "name": "Plan: Plasma Cutter",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700A",
+          "name": "Plan: Plasma Gun",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FF4",
+          "name": "Plan: Pole Hook",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EDDE7",
+          "name": "Plan: Poodle Sleeping Bag",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437004",
+          "name": "Plan: Pool Cue",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF5",
+          "name": "Plan: Pool Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E89A5",
+          "name": "Plan: Portable Toilet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E852D",
+          "name": "Plan: Potted Plants",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E2",
+          "name": "Plan: Power Fist",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6528",
+          "name": "Plan: Pre-War Dressers",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4769",
+          "name": "Plan: Pump-Action Shotgun",
+          "dropRate": 0.346041,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4783",
+          "name": "Plan: Radium Rifle",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501890",
+          "name": "Plan: Raider Power Chest Piece",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188D",
+          "name": "Plan: Raider Power Helm",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188B",
+          "name": "Plan: Raider Power Left Arm",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188E",
+          "name": "Plan: Raider Power Left Leg",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188C",
+          "name": "Plan: Raider Power Right Arm",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050188F",
+          "name": "Plan: Raider Power Right Leg",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437013",
+          "name": "Plan: Railway Rifle",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EB741",
+          "name": "Plan: Revolutionary War Sword",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F4785",
+          "name": "Plan: Revolver",
+          "dropRate": 0.206646,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E3",
+          "name": "Plan: Ripper",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFC",
+          "name": "Plan: Rolling Pin",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8539",
+          "name": "Plan: Rug",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E853B",
+          "name": "Plan: Rug Set 2",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0D",
+          "name": "Plan: Scavenged Solar Panel",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FD08D",
+          "name": "Plan: Science Chalkboards",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F42E4",
+          "name": "Plan: Shishkebab",
+          "dropRate": 0.11084,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFD",
+          "name": "Plan: Sickle",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D64FD",
+          "name": "Plan: Single Display Shelf",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F476C",
+          "name": "Plan: Single-Action Revolver",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFE",
+          "name": "Plan: Ski Sword",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00436FFF",
+          "name": "Plan: Sledge Hammer",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FC7",
+          "name": "Plan: Small Letters Set",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00613846",
+          "name": "Plan: Sole Survivor",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEED",
+          "name": "Plan: Spear",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00755973",
+          "name": "Plan: Steel Bust",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E8541",
+          "name": "Plan: Stone Fountain",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438612",
+          "name": "Plan: Sturdy Combat Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438613",
+          "name": "Plan: Sturdy Combat Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438614",
+          "name": "Plan: Sturdy Combat Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860F",
+          "name": "Plan: Sturdy Leather Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438610",
+          "name": "Plan: Sturdy Leather Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00438611",
+          "name": "Plan: Sturdy Leather Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860C",
+          "name": "Plan: Sturdy Metal Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860D",
+          "name": "Plan: Sturdy Metal Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043860E",
+          "name": "Plan: Sturdy Metal Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "002B9FD1",
+          "name": "Plan: Sturdy Raider Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "002B9FD3",
+          "name": "Plan: Sturdy Raider Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "002B9FD5",
+          "name": "Plan: Sturdy Raider Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FB",
+          "name": "Plan: Sturdy Robot Arms",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385FC",
+          "name": "Plan: Sturdy Robot Legs",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004385F7",
+          "name": "Plan: Sturdy Robot Torso",
+          "dropRate": 0.37987,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0043700B",
+          "name": "Plan: Submachine Gun",
+          "dropRate": 0.247864,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EE14F",
+          "name": "Plan: Super Mutant Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0E",
+          "name": "Plan: Super Reactor",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437000",
+          "name": "Plan: Super Sledge",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437001",
+          "name": "Plan: Switchblade",
+          "dropRate": 0.294228,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F0C",
+          "name": "Plan: Sympto-Matic",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501896",
+          "name": "Plan: T-45 Chest Piece",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501893",
+          "name": "Plan: T-45 Helm",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501891",
+          "name": "Plan: T-45 Left Arm",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501894",
+          "name": "Plan: T-45 Left Leg",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501892",
+          "name": "Plan: T-45 Right Arm",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501895",
+          "name": "Plan: T-45 Right Leg",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189C",
+          "name": "Plan: T-51b Chest Piece",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501899",
+          "name": "Plan: T-51b Helm",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501897",
+          "name": "Plan: T-51b Left Arm",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189A",
+          "name": "Plan: T-51b Left Leg",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00501898",
+          "name": "Plan: T-51b Right Arm",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189B",
+          "name": "Plan: T-51b Right Leg",
+          "dropRate": 0.141759,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005018A2",
+          "name": "Plan: T-60 Chest Piece",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189F",
+          "name": "Plan: T-60 Helm",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189D",
+          "name": "Plan: T-60 Left Arm",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005018A0",
+          "name": "Plan: T-60 Left Leg",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "0050189E",
+          "name": "Plan: T-60 Right Arm",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005018A1",
+          "name": "Plan: T-60 Right Leg",
+          "dropRate": 0.044635,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FC3",
+          "name": "Plan: Table Lamps",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437015",
+          "name": "Plan: Tesla Rifle",
+          "dropRate": 0.087179,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F04",
+          "name": "Plan: The Gutter",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437002",
+          "name": "Plan: Tire Iron",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E9FB7",
+          "name": "Plan: Track Lighting",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5718",
+          "name": "Plan: Trapper Arms",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F5719",
+          "name": "Plan: Trapper Legs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004F571A",
+          "name": "Plan: Trapper Torso",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D651E",
+          "name": "Plan: Trash Can",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00691D09",
+          "name": "Plan: Umbrella Hat",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FD186",
+          "name": "Plan: Unstoppable Monster",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F10",
+          "name": "Plan: Valley Galleria Signs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F02",
+          "name": "Plan: Vault 94 Jumpsuit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F07",
+          "name": "Plan: Vault 94 Stash Box",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEEB",
+          "name": "Plan: Walking Cane",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00437003",
+          "name": "Plan: War Drum",
+          "dropRate": 0.138437,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F05",
+          "name": "Plan: War Glaive",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF4",
+          "name": "Plan: Warehouse Building Set",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E853D",
+          "name": "Plan: Welcome Mats",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005FBF83",
+          "name": "Plan: Wendigo Tube",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005D0F06",
+          "name": "Plan: Whistle in the Dark",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6533",
+          "name": "Plan: Wind Instruments",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004EAEEE",
+          "name": "Plan: Wood Axe",
+          "dropRate": 0.391618,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BE7",
+          "name": "Plan: Wood Tables",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003D6525",
+          "name": "Plan: Wooden Crate",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BE8",
+          "name": "Plan: Wooden Desks",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF1",
+          "name": "Plan: Wooden Patio Chair",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "003C7BF2",
+          "name": "Plan: Wooden Picnic Table",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CEF",
+          "name": "Plan: Wooden Rocking Chairs",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E486B",
+          "name": "Plan: Wooden Shack Doors",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "004E6CF2",
+          "name": "Plan: Wooden Stool",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "005EE6B3",
+          "name": "Plan: X-01 Scorched Paint",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "00596E9A",
+          "name": "Recipe: Liquid Courage",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": true,
+          "tradeable": false
+        },
+        {
+          "formid": "006128B3",
+          "name": "Skull Lord Blood Eagle Helmet",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "006128B2",
+          "name": "Skull Lord Blood Eagle Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        },
+        {
+          "formid": "005ECBD2",
+          "name": "Swamp Camo Hazmat Suit",
+          "dropRate": 0.403605,
+          "qty": 1,
+          "isPlan": false,
+          "tradeable": true
+        }
+      ],
+      "itemCount": 286
+    },
+    {
+      "title": "Restricted Legendary Module 1-3",
+      "poolId": "restricted-legendary-module-1-3",
+      "lvliFormID": "00612800",
+      "lvliEdid": "RESTRICTED_LL_LegendaryModule_1-3",
+      "tier": "",
+      "poolChance": 100.0,
+      "conditions": [
+        "GetValue 10000000 0.000000,\"GetRemainingQuestTimeSeconds 10100100\"",
+        "GetValue",
+        "005CB976:DailyOps_Timer_Tier_High:GLOB"
+      ],
+      "conditionSummary": "",
+      "items": [
+        {
+          "formid": "005652F9",
+          "name": "Legendary Module",
+          "dropRate": 100.0,
+          "qty": 1,
+          "isPlan": false
+        }
+      ],
+      "itemCount": 1
+    },
+    {
+      "title": "Rewards The Drifter Activation Key Card",
+      "poolId": "rewards-the-drifter-activation-key-card",
+      "lvliFormID": "00824D11",
+      "lvliEdid": "P62_LLS_Rewards_TheDrifter_ActivationKeyCard",
+      "tier": "",
+      "poolChance": 100.0,
+      "conditions": [
+        "GetGlobalValue 10000000 0.000000,\"GetRandomPercent 10100100\"",
+        "GetGlobalValue",
+        "008278F2:P62_LCP_TheDrifter_KeycardChance_DailyOps:GLOB",
+        "GetGlobalValue 10000000 1.000000,\"GetRandomPercent 10100100\"",
+        "GetGlobalValue",
+        "008278F2:P62_LCP_TheDrifter_KeycardChance_DailyOps:GLOB"
+      ],
+      "conditionSummary": "Chance-based drop (toggle)",
+      "items": [
+        {
+          "formid": "00824D0E",
+          "name": "Drifter Activation Card",
+          "dropRate": 100.0,
+          "qty": 1,
+          "isPlan": false
+        }
+      ],
+      "itemCount": 1
+    }
+  ],
+  "baseRewards": {
+    "xp": "varies",
+    "caps": "varies"
+  }
+}

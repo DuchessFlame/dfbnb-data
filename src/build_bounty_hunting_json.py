@@ -171,7 +171,7 @@ def _parse_reward(jasf: str) -> str | None:
 def parse_chal_tsv(path: Path) -> dict[str, dict]:
     """Return {FORMID_UPPER: row_dict} for every row in the TSV."""
     records: dict[str, dict] = {}
-    with open(path, encoding="utf-8", newline="") as fh:
+    with open(path, encoding="utf-8-sig", errors="replace", newline="") as fh:
         reader = csv.DictReader(fh, delimiter="\t")
         for row in reader:
             fid = str(row.get("FormID", "") or "").strip().upper()
