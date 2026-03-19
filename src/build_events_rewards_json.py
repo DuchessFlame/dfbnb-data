@@ -233,17 +233,8 @@ def simplify_condition(cond_str):
                 return f"Won\u2019t drop if you\u2019ve already learned Plan: {recipe_name}"
             return "Won\u2019t drop if you\u2019ve already learned this recipe"
 
-    # GetRandomPercent with GLOB reference → show as "X% chance to drop" note
+    # GetRandomPercent → handled by entryRate and pill display, omit from conditions
     if "GetRandomPercent" in s:
-        glob_match = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', s)
-        if glob_match:
-            glob_fid = glob_match.group(1)
-            if glob_fid in glob_vals:
-                val = glob_vals[glob_fid]
-                # Don't show "100% chance to drop" — it's redundant
-                if val < 100.0:
-                    return f"{val:g}% chance to drop"
-        # Literal GetRandomPercent → already handled by math, omit
         return ""
 
     # GetGlobalValue → extract GLOB name and make readable
