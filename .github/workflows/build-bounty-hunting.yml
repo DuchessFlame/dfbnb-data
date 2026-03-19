@@ -5,8 +5,10 @@ on:
 
   push:
     paths:
+      - 'tsv/CHAL_Export_*.tsv'
       - 'tsv/**'
       - 'src/build_reho_json.py'
+      - 'src/build_bounty_hunting_json.py'
       - 'src/build_events_rewards_json.py'
       - 'src/build_drop_rates.py'
 
@@ -18,11 +20,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Step 1: Build shared drop rates first
+
+  # ── Step 1: Shared drop rates ────────────────────────────────────────────────
   drop-rates:
     uses: ./.github/workflows/build-drop-rates.yml
 
-  # Step 2: Build events rewards (REHO depends on events_rewards.json)
+  # ── Step 2: Events rewards (REHO depends on events_rewards.json) ─────────────
   events:
     needs: drop-rates
     runs-on: ubuntu-latest
@@ -53,7 +56,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_events.json
+          git add \
+            dist/events/events_rewards.json \
+            dist/events/events_rewards_by_page.json \
+            dist/patchlogs/patchlog_latest_df_events.json
 
           if git diff --cached --quiet; then
             echo "No events changes to commit."
@@ -61,12 +67,11 @@ jobs:
           fi
 
           git commit -m "Build Events Rewards JSON"
-
           git fetch origin main
           git pull --rebase origin main
           git push origin main
 
-  # Step 3: Build Bounty Hunting using shared JSON + events_rewards.json
+  # ── Step 3: Rewards + Challenges JSON ────────────────────────────────────────
   build:
     needs: events
     runs-on: ubuntu-latest
@@ -93,10 +98,25 @@ jobs:
           echo "--- events_rewards.json ---"
           ls -la dist/events/events_rewards.json || echo "NOT FOUND"
 
-      - name: Build Bounty Hunting Data
+      - name: Build REHO Rewards JSON
         run: |
           python -V
           python src/build_reho_json.py
+
+      - name: Build Bounty Hunting Challenges JSON
+        run: |
+          python -V
+          python src/build_bounty_hunting_json.py
+
+      - name: Sanity check outputs
+        run: |
+          test -f dist/reho/reho_rewards_by_page.json \
+            && echo "OK reho_rewards_by_page.json" \
+            || (echo "MISSING reho_rewards_by_page.json" && exit 1)
+
+          test -f dist/challenges/bounty_hunting_challenges.json \
+            && echo "OK bounty_hunting_challenges.json" \
+            || (echo "MISSING bounty_hunting_challenges.json" && exit 1)
 
       - name: Commit dist outputs
         shell: bash
@@ -104,15 +124,16 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dist/reho/reho_rewards_by_page.json
+          git add \
+            dist/reho/reho_rewards_by_page.json \
+            dist/challenges/bounty_hunting_challenges.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
 
-          git commit -m "Build Bounty Hunting data"
-
+          git commit -m "Build Bounty Hunting data (rewards + challenges)"
           git fetch origin main
           git pull --rebase origin main
           git push origin main

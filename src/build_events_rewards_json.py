@@ -1821,6 +1821,43 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 "sig": kind.upper(),
             })
 
+    # ── Inject missing Chem rewards into the Activity Rewards tree node ──
+    # Some LVLI entries (e.g. LL_Chems_Stimpak) have incomplete TSV exports and
+    # resolve to empty tree nodes.  If we have chemRewards data, inject them as
+    # items into the Activity Rewards tree node so they appear on the page.
+    if activity_data["chemRewards"]:
+        for tree_node in reward_tree:
+            if tree_node.get("edid", "") == "RA_LL_Rewards_Activities" and tree_node.get("useAll"):
+                # Check if chems are already present
+                child_edids = {c.get("edid", "").lower() for c in tree_node.get("children", [])}
+                has_chems = any("ll_chems" in e or "chems_stimpak" in e for e in child_edids)
+                if not has_chems:
+                    chem_items = []
+                    for cr in activity_data["chemRewards"]:
+                        chem_items.append({
+                            "formid": cr.get("formid", ""),
+                            "edid": "",
+                            "name": cr.get("name", ""),
+                            "qty": cr.get("qty", 1),
+                            "sig": "ALCH",
+                            "dropRate": 100.0,
+                        })
+                    if chem_items:
+                        chem_node = {
+                            "type": "lvli",
+                            "formid": "0052B10C",
+                            "edid": "LL_Chems_Stimpak",
+                            "label": "Chems",
+                            "useAll": False,
+                            "items": chem_items,
+                            "entryRate": 100.0,
+                            "conditions": simplify_conditions(
+                                [c for cr in activity_data["chemRewards"] for c in cr.get("conditions", [])]
+                            ),
+                        }
+                        tree_node["children"].append(chem_node)
+                break
+
     activity_data["rewardTree"] = reward_tree
 
     # Sort plan rewards alphabetically
