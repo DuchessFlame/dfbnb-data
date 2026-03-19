@@ -5,6 +5,19 @@ src/build_atom_shop_json.py
 Reads src/atom_shop.json + the newest tsv/ENTM_Export_*.tsv,
 fixes image URLs, adds DESC descriptions, validates,
 and writes dist/atom_shop.json.
+
+Categories (matching the JS front-end):
+  Apparel - Headwear, Apparel - Outfits,
+  Bundles,
+  CAMP - Camp Sets, CAMP - Displays & Weapon Racks, CAMP - Doors,
+  CAMP - Floors, CAMP - Garden, CAMP - Kiddie Rides,
+  CAMP - Lamps & Lights, CAMP - Skins, CAMP - Stash Boxes,
+  CAMP - Vending Machines,
+  Emotes, Fridges, Photomode, Player, Player Icons, Plushies,
+  Pre-Fabs and Structures,
+  Skins - Armour, Skins - Backpack, Skins - Pip Boy,
+  Skins - Power Armour, Skins - Weapons,
+  Wallpaper, Other
 """
 
 import csv
@@ -39,6 +52,37 @@ DESC_STRIP_RE = re.compile(
     r")[^-]*-?\s*$",
     re.IGNORECASE,
 )
+
+# ── Category constants ───────────────────────────────────────────────
+CATEGORY_ORDER = [
+    "Apparel - Headwear",
+    "Apparel - Outfits",
+    "Bundles",
+    "CAMP - Camp Sets",
+    "CAMP - Displays & Weapon Racks",
+    "CAMP - Doors",
+    "CAMP - Floors",
+    "CAMP - Garden",
+    "CAMP - Kiddie Rides",
+    "CAMP - Lamps & Lights",
+    "CAMP - Skins",
+    "CAMP - Stash Boxes",
+    "CAMP - Vending Machines",
+    "Emotes",
+    "Fridges",
+    "Photomode",
+    "Player",
+    "Player Icons",
+    "Plushies",
+    "Pre-Fabs and Structures",
+    "Skins - Armour",
+    "Skins - Backpack",
+    "Skins - Pip Boy",
+    "Skins - Power Armour",
+    "Skins - Weapons",
+    "Wallpaper",
+    "Other",
+]
 
 
 def clean_desc(raw):
@@ -107,6 +151,164 @@ def apply_desc(item, lookup):
     return item
 
 
+# ── Categorisation (mirrors the JS categoryFromEdid) ─────────────────
+
+def _is_wallpaper_edid(edid):
+    e = str(edid or "").upper()
+    return "_CAMP_WALLPAPER_" in e or e.startswith("REUSE_ATX_ENTM_CAMP_WALLPAPER_")
+
+
+def category_from_edid(edid, is_bundle, name, bundle_items):
+    e = str(edid or "").upper()
+    n = str(name or "").upper()
+
+    # ── Bundles ─────────────────────────────────────────
+    if is_bundle:
+        if isinstance(bundle_items, list) and len(bundle_items) > 0:
+            if all(_is_wallpaper_edid(bi.get("edid", "")) for bi in bundle_items):
+                return "Wallpaper"
+        if " SET" not in n:
+            return "Bundles"
+
+    # ── Name-based overrides ────────────────────────────
+    for kw in ("SCOUTING TOWER", "SCOUT TOWER", "FIREWATCH TOWER",
+               "SHELTER", "MEGA MANSION", "SEEDY SHED", "OUTHOUSE"):
+        if kw in n:
+            return "Pre-Fabs and Structures"
+
+    if "REFRIGERATOR" in n or "FRIDGE" in n:
+        return "Fridges"
+    if "PLUSHIE" in n:
+        return "Plushies"
+    if "KIDDIE RIDE" in n:
+        return "CAMP - Kiddie Rides"
+    if "VENDING MACHINE" in n:
+        return "CAMP - Vending Machines"
+    if "STASH BOX" in n or "STASH" in n:
+        return "CAMP - Stash Boxes"
+    if "PLAYER ICON" in n or "ICON" in n:
+        return "Player Icons"
+    if "WALLPAPER" in n:
+        return "Wallpaper"
+    for kw in ("FACE PAINT", "TATTOO", "HAIRSTYLE", "SPIKEHAWK", "MEGATON HAIRSTYLE"):
+        if kw in n:
+            return "Player"
+    for kw in ("EMOTE", "SALUTE", "BATTLECRY", "WOLF HOWL", "SUPER ANGRY",
+               "NO THANK YOU", "NO WAY EMOTE", "WORSHIP EMOTE", "FIST SHAKE"):
+        if kw in n:
+            return "Emotes"
+    if "PHOTOFRAME" in n or "PHOTO" in n:
+        return "Photomode"
+
+    if not e:
+        return "Other"
+
+    # ── EDID-based ──────────────────────────────────────
+    if "_CAMP_STRUCTURE_" in e or e.startswith("SHELTERS_"):
+        return "Pre-Fabs and Structures"
+
+    if "_SKIN_POWERARMOR_" in e or "_SKIN_POWRARMOR_" in e:
+        return "Skins - Power Armour"
+
+    if "_SKIN_BACKPACK_" in e or "_BACKPACK_SKIN_" in e:
+        return "Skins - Backpack"
+
+    if "_SKIN_PIPBOY_" in e or "_PIPBOY_SKIN_" in e or "_SKIN_PIPB_" in e:
+        return "Skins - Pip Boy"
+
+    if "_CAMP_WALLPAPER_" in e or e.startswith("REUSE_ATX_ENTM_CAMP_WALLPAPER_"):
+        return "Wallpaper"
+
+    if "_UTILITY_REFRIGERATOR_" in e or "_CAMP_FRIDGE_" in e:
+        return "Fridges"
+
+    if "_VENDINGMACHINE_" in e:
+        return "CAMP - Vending Machines"
+
+    if "_STASHBOX_" in e:
+        return "CAMP - Stash Boxes"
+
+    if "_KIDDIERIDE_" in e:
+        return "CAMP - Kiddie Rides"
+
+    if "_UTILITY_COLLECTRON_" in e or "_COFFEEMACHINE_" in e or "_SLOCUMSJOE_" in e:
+        return "CAMP - Skins"
+
+    if "_MACHINERY_PURIFIER_" in e or "_MACHINERY_GENERATOR_" in e:
+        return "CAMP - Skins"
+
+    if "_FLOORDECKOR_PLUSHIE_" in e or "_FLOORDECOR_PLUSHIE_" in e:
+        return "Plushies"
+
+    if any(k in e for k in ("_CAMP_LIGHT_", "_CAMP_LAMP_", "_LIGHTING_", "_NEON_", "_CEILINGFAN_")):
+        return "CAMP - Lamps & Lights"
+
+    if any(k in e for k in ("_CAMP_FLOOR_", "_FLOORING_", "_LAMINATE_", "_ASTROTURF_")):
+        return "CAMP - Floors"
+
+    if any(k in e for k in ("_CAMP_DOOR_", "_SECRETDOOR_", "_CURTAINDOOR_")):
+        return "CAMP - Doors"
+
+    if any(k in e for k in ("_CAMP_GARDEN_", "_PLANT_", "_PLANTER_", "_SUCCULENT_",
+                             "_TOPIARY_", "_CACTUS_", "_BRAMBLES_", "_WORMFARM_")):
+        return "CAMP - Garden"
+
+    if any(k in e for k in ("_WEAPONRACK_", "_DISPLAYCASE_", "_DISPLAYRACK_",
+                             "_MANNEQUIN_", "_BOBBLEHEAD_")):
+        return "CAMP - Displays & Weapon Racks"
+
+    if any(k in e for k in ("_CAMP_KIT_", "_PORCHSET_", "_LOGCABIN_",
+                             "_GREENHOUSE_", "_SCAFFOLDKIT_", "_MODULARSOFA_")):
+        return "CAMP - Camp Sets"
+
+    if any(k in e for k in ("_PLAYERSTYLE_FACEPAINT_", "_PLAYERSTYLE_TATTOO_",
+                             "_PLAYERSTYLE_HAIRSTYLE_", "_PLAYERSTYLE_HAIR_")):
+        return "Player"
+
+    if "_PHOTOMODE_FRAME_" in e:
+        return "Photomode"
+
+    if "_PLAYERICON_" in e:
+        return "Player Icons"
+
+    if "_EMOTES_" in e:
+        return "Emotes"
+
+    if "_CAMP_" in e:
+        return "Other"
+
+    if "_APPAREL_" in e or e.startswith("ATX_CLOTHES_"):
+        headwear_kws = ("_HAT_", "_HELMET_", "_MASK_", "_HEADWEAR_", "_BERET_",
+                        "_FEZ_", "_BONNET_", "_MONOCLE_", "_GASMASK_", "_HEAD_")
+        if any(k in e for k in headwear_kws):
+            return "Apparel - Headwear"
+        name_hw = ("MASK", "HAT", "HELMET", "HEADBAND", "BERET", "FEZ",
+                   "BONNET", "MONOCLE", "GAG GLASSES", "EYE PATCH", "MASCOT HEAD")
+        if any(k in n for k in name_hw):
+            return "Apparel - Headwear"
+        return "Apparel - Outfits"
+
+    if "_SKIN_WEAPON" in e or "_SKIN_WEAP" in e or "_WEAPONSKIN_" in e:
+        return "Skins - Weapons"
+
+    if "_SKIN_ARMOR_" in e or "_SKIN_ARMOUR_" in e or "_ARMORSKIN_" in e:
+        return "Skins - Armour"
+
+    if "_SKIN_" in e or e.startswith("ATX_MOD_"):
+        return "Skins - Weapons"
+
+    if e.startswith("SCORE_"):
+        return "Skins - Weapons"
+
+    if e.startswith("ATX_PLUSHIE_"):
+        return "Plushies"
+
+    if e.startswith("DLC03WORKSHOP") or e.startswith("ATX_MAP"):
+        return "Other"
+
+    return "Other"
+
+
 def main():
     try:
         with open(SRC, "r", encoding="utf-8") as f:
@@ -138,6 +340,7 @@ def main():
     desc_lookup = load_desc_lookup()
 
     fixed_count = 0
+    cat_counts = {}
     fixed_items = []
     for item in items:
         original_url = item.get("imageUrl", "")
@@ -145,6 +348,14 @@ def main():
         fixed = apply_desc(fixed, desc_lookup)
         if fixed.get("imageUrl") != original_url:
             fixed_count += 1
+        # Compute and store category
+        cat = category_from_edid(
+            fixed.get("edid", ""),
+            bool(fixed.get("isBundle")),
+            fixed.get("name", ""),
+            fixed.get("bundleItems"),
+        )
+        cat_counts[cat] = cat_counts.get(cat, 0) + 1
         fixed_items.append(fixed)
 
     data["items"] = fixed_items
@@ -154,12 +365,21 @@ def main():
     else:
         print(f"[atom_shop] All image URLs already correct")
 
+    # Print category breakdown
+    print(f"\n[atom_shop] Category breakdown:")
+    for cat in CATEGORY_ORDER:
+        count = cat_counts.get(cat, 0)
+        if count:
+            print(f"  {cat:40s} {count:4d}")
+    total = sum(cat_counts.values())
+    print(f"  {'TOTAL':40s} {total:4d}")
+
     os.makedirs(os.path.dirname(DIST), exist_ok=True)
     with open(DIST, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
         f.write("\n")
 
-    print(f"[atom_shop] OK — {len(fixed_items)} items written to dist/atom_shop.json")
+    print(f"\n[atom_shop] OK — {len(fixed_items)} items written to dist/atom_shop.json")
 
 
 if __name__ == "__main__":
