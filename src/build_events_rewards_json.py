@@ -233,8 +233,17 @@ def simplify_condition(cond_str):
                 return f"Won\u2019t drop if you\u2019ve already learned Plan: {recipe_name}"
             return "Won\u2019t drop if you\u2019ve already learned this recipe"
 
-    # GetRandomPercent → already handled by math, omit from display
+    # GetRandomPercent with GLOB reference → show as "X% chance to drop" note
     if "GetRandomPercent" in s:
+        glob_match = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', s)
+        if glob_match:
+            glob_fid = glob_match.group(1)
+            if glob_fid in glob_vals:
+                val = glob_vals[glob_fid]
+                # Don't show "100% chance to drop" — it's redundant
+                if val < 100.0:
+                    return f"{val:g}% chance to drop"
+        # Literal GetRandomPercent → already handled by math, omit
         return ""
 
     # GetGlobalValue → extract GLOB name and make readable
@@ -877,15 +886,24 @@ def parse_lvlf_flags(flags_str):
 
 def _extract_grp_threshold(raw_conds):
     """Extract the GetRandomPercent <= X threshold from raw condition strings.
-    Returns the threshold float (e.g. 20.0) or None if no GRP condition found."""
+    Handles both literal numbers (e.g. 20.000000) and GLOB references ([GLOB:XXXXXXXX]).
+    Returns the threshold float (e.g. 20.0, 25.0) or None if no GRP condition found."""
     for cond in raw_conds:
-        if "GetRandomPercent" in cond:
-            parts = cond.strip().split()
-            for part in reversed(parts):
-                try:
-                    return float(part)
-                except ValueError:
-                    continue
+        if "GetRandomPercent" not in cond:
+            continue
+        # Try GLOB reference first: [GLOB:XXXXXXXX]
+        glob_match = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', cond)
+        if glob_match:
+            glob_fid = glob_match.group(1)
+            if glob_fid in glob_vals:
+                return glob_vals[glob_fid]
+        # Try literal number (last number in the string)
+        parts = cond.strip().split()
+        for part in reversed(parts):
+            try:
+                return float(part)
+            except ValueError:
+                continue
     return None
 
 
@@ -1135,6 +1153,14 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 cond_val = (entry.get(cond_key) or "").strip()
                 if cond_val:
                     conditions.append(cond_val)
+
+        # For UseAll lists, if entry has a GetRandomPercent condition (with a GLOB
+        # or literal threshold), use that as the effective entry rate.  xEdit can't
+        # resolve GLOB-referenced conditions, leaving apriori=1.0 (100%).
+        if is_use_all and conditions:
+            grp_thresh = _extract_grp_threshold(conditions)
+            if grp_thresh is not None:
+                entry_drop_rate = grp_thresh / 100.0
 
         sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
         ref = (entry.get("LVLO_Reference") or "").strip()
