@@ -875,6 +875,20 @@ def parse_lvlf_flags(flags_str):
         "first_match":  bit_set(6),
     }
 
+def _extract_grp_threshold(raw_conds):
+    """Extract the GetRandomPercent <= X threshold from raw condition strings.
+    Returns the threshold float (e.g. 20.0) or None if no GRP condition found."""
+    for cond in raw_conds:
+        if "GetRandomPercent" in cond:
+            parts = cond.strip().split()
+            for part in reversed(parts):
+                try:
+                    return float(part)
+                except ValueError:
+                    continue
+    return None
+
+
 def resolve_lvli_items_deep(list_id, depth=0, seen=None):
     """
     Resolve an LVLI to leaf items with full quantity/probability tracking.
@@ -892,6 +906,34 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
     list_row = lvli_list_by_formid.get(list_id)
     flags = parse_lvlf_flags(pick(list_row, "LVLF_Flags", default="") if list_row else "")
     is_use_all = flags["use_all"]
+    is_first_match = flags["first_match"]
+
+    # Pre-scan for first_match cascading probabilities:
+    # "Use first object that matches" checks entries IN ORDER, picking the first
+    # whose GetRandomPercent condition passes.  xEdit can't calculate the net
+    # probability per entry, so we do it here.
+    first_match_rates = {}  # EntryIndex -> net probability (0-1)
+    if is_first_match:
+        all_entries = lvli_entries_by_list.get(list_id, [])
+        thresholds = []
+        for _e in all_entries:
+            _idx = _e.get("EntryIndex")
+            if _idx is None:
+                continue
+            _conds = []
+            for _ci in range(1, 11):
+                _cv = (_e.get(f"Cond{_ci}") or "").strip()
+                if _cv:
+                    _conds.append(_cv)
+            thresholds.append((_idx, _extract_grp_threshold(_conds)))
+        if any(t is not None for _, t in thresholds):
+            prev = 0.0
+            for _idx, thresh in thresholds:
+                if thresh is not None:
+                    first_match_rates[_idx] = max((thresh - prev) / 100.0, 0.0)
+                    prev = thresh
+                else:
+                    first_match_rates[_idx] = max((100.0 - prev) / 100.0, 0.0)
 
     items = []
     for entry in lvli_entries_by_list.get(list_id, []):
@@ -911,6 +953,10 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
 
         drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
+
+        # Override with cascading probability for first_match lists
+        if idx in first_match_rates:
+            drop_rate = first_match_rates[idx]
 
         # Get quantity (try multiple columns)
         qty = 1
@@ -974,7 +1020,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
     # xEdit exports often report apriori=1.0 for every entry making the
     # raw total equal to the entry count — we normalise unconditionally
     # whenever the total deviates from 1.0 by more than a tiny epsilon.
-    if not is_use_all and items:
+    if not is_use_all and not is_first_match and items:
         total_rate = sum(item["dropRate"] for item in items)
         if total_rate > 0 and abs(total_rate - 1.0) > 0.0001:
             for item in items:
@@ -1025,6 +1071,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
 
     flags = parse_lvlf_flags(pick(list_row, "LVLF_Flags", default=""))
     is_use_all = flags["use_all"]
+    is_first_match = flags["first_match"]
 
     edid = lvli_edid_by_formid.get(list_id, "")
     label = prettify_lvli_label(edid)
@@ -1033,7 +1080,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     items = []
 
     # Collect raw (0-1) probabilities for all entries first, then normalize
-    raw_entries = []  # list of (type, raw_rate, data_dict)
+    raw_entries = []  # list of (type, raw_rate, data_dict, raw_conditions)
 
     # Process each entry
     for entry in lvli_entries_by_list.get(list_id, []):
@@ -1102,7 +1149,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
             if sub_node and (sub_node.get("children") or sub_node.get("items")):
                 if display_conditions:
                     sub_node["conditions"] = display_conditions
-                raw_entries.append(("child", entry_drop_rate, sub_node))
+                raw_entries.append(("child", entry_drop_rate, sub_node, conditions))
         else:
             # Leaf item
             if ":" in ref:
@@ -1126,16 +1173,41 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                         item_data["modSlots"] = armo_mod_slots_by_formid[fid]
                     elif ref_sig == "WEAP" and fid in weap_mod_slots_by_formid:
                         item_data["modSlots"] = weap_mod_slots_by_formid[fid]
-                raw_entries.append(("item", entry_drop_rate, item_data))
+                raw_entries.append(("item", entry_drop_rate, item_data, conditions))
+
+    # ── First-match cascading probability ──
+    # When a list has the "Use first object that matches all conditions" flag,
+    # entries are checked IN ORDER. Each entry may have a GetRandomPercent <= X
+    # condition. The game rolls ONE random number (1-100) and picks the FIRST
+    # entry whose condition matches.  This means:
+    #   Entry 1 (<= 20): net 20%
+    #   Entry 2 (<= 38): net 18% (38 - 20, since <=20 already consumed)
+    #   Entry 3 (none):  net 62% (100 - 38, catches everything else)
+    # xEdit can't calculate this, so it gives all entries apriori=1.  We fix it here.
+    if is_first_match and raw_entries:
+        thresholds = [_extract_grp_threshold(raw_conds) for (_, _, _, raw_conds) in raw_entries]
+        # Only apply cascading logic if at least one entry has a GetRandomPercent condition
+        if any(t is not None for t in thresholds):
+            prev_threshold = 0.0
+            new_entries = []
+            for i, (etype, rate, data, raw_conds) in enumerate(raw_entries):
+                if thresholds[i] is not None:
+                    net_p = (thresholds[i] - prev_threshold) / 100.0
+                    prev_threshold = thresholds[i]
+                else:
+                    # No condition = catches everything remaining
+                    net_p = (100.0 - prev_threshold) / 100.0
+                new_entries.append((etype, max(net_p, 0.0), data, raw_conds))
+            raw_entries = new_entries
 
     # Normalize for pick-one lists: all raw_rates must sum to 1.0 (100%)
-    total_rate = sum(r for (_, r, _) in raw_entries)
-    if not is_use_all and raw_entries and total_rate > 0 and abs(total_rate - 1.0) > 0.0001:
-        for i, (etype, raw_rate, data) in enumerate(raw_entries):
-            raw_entries[i] = (etype, raw_rate / total_rate, data)
+    total_rate = sum(r for (_, r, _, _) in raw_entries)
+    if not is_use_all and not is_first_match and raw_entries and total_rate > 0 and abs(total_rate - 1.0) > 0.0001:
+        for i, (etype, raw_rate, data, raw_conds) in enumerate(raw_entries):
+            raw_entries[i] = (etype, raw_rate / total_rate, data, raw_conds)
 
     # Convert to final output with percentages
-    for etype, rate, data in raw_entries:
+    for etype, rate, data, _raw_conds in raw_entries:
         rate_pct = round(rate * 100, 6)
         if etype == "child":
             data["entryRate"] = rate_pct
