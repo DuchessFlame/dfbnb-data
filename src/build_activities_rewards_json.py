@@ -87,6 +87,9 @@ def title_case_words(s):
 
 LVLI_LABEL_OVERRIDES = {
     # key: EXACT lowercase EDID match → display label
+    "ll_weapon_ranged_assaultronheadcharging":     "Salvaged Assaultron Head",
+    "ll_weapon_simple_ranged_assaultronheadcharging": "Salvaged Assaultron Head",
+    "mtr10_ll_weapon_ranged_assaultronheadcharging":  "Salvaged Assaultron Head",
 }
 
 # Pattern-based label rules: (regex, replacement_func_or_string)
@@ -558,12 +561,24 @@ for fid, combos in _armo_combos.items():
 # Index: GLOB
 # --------------------------------------------------
 
-glob_vals = {}
+# Fallback values for GLOBs that xEdit exports with Resolved=0 (runtime-only values).
+# These are applied FIRST; the GLOB TSV overrides them if it has a real non-zero value.
+# Add entries here whenever a GLOB is confirmed by inspecting the live game or exports.
+KNOWN_GLOB_VALS = {
+    # QuestRewardChanceNone — used on quest reward weapon/armour LVLI wrappers.
+    # 75% ChanceNone = 25% actual drop rate. Confirmed by Duchess (March 2026).
+    "0043B770": 75.0,
+}
+
+glob_vals = dict(KNOWN_GLOB_VALS)  # seed with known values; TSV entries override below
 for r in GLOB:
     fid  = pick(r, "GLOB_FormID", "FormID")
     fltv = pick(r, "GLOB_FLTV", "FLTV")
     if fid and fltv:
-        try: glob_vals[fid] = float(fltv)
+        try:
+            v = float(fltv)
+            if v != 0.0 or fid not in glob_vals:  # TSV wins unless it exports 0 for a known GLOB
+                glob_vals[fid] = v
         except ValueError: pass
 
 # --------------------------------------------------
