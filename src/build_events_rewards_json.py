@@ -1553,14 +1553,71 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         if loc.get("region", "").strip()
     ))
 
+    # ── Collect ALL unique XP entries across GMRW rows (by FormID) ──────────
+    # Some events have multiple GMRW records at different quest stages, each
+    # awarding XP (e.g. Back on the Beat: stage 600/1000/1401 give 24 XP,
+    # stage 5000 gives 193 XP).  We gather them all so the front-end can
+    # display every stage's XP via the xpByStage array.
+    #
+    # XP can come from two sources:
+    #   XPCT_XPCurveTable  – curve-based, scales with player level (success/stages)
+    #   NAM7_XPGlobal      – flat GLOB value, often used for failure rewards
+    #                         (identified by "Failure" in the GLOB EDID)
+    _xp_seen_formids = set()
+    _xp_entries = []          # list of {gmrwFormID, edid, stageNum, xpCurve, xpValue, hasItems, isFailure}
+    _CUT_RE = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|DVCT|DVDT|DVPT)(?:[_\-]|$)', re.IGNORECASE)
+
     # Process GMRW rows
     for rr in gmrw_rows:
-        # XP
+        # XP — collect every unique GMRW record's XP (from XPCT or NAM7)
         xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
+        nam7 = (rr.get("NAM7_XPGlobal") or "").strip()
+        gmrw_fid = (rr.get("FormID") or "").strip()
+
+        if gmrw_fid and gmrw_fid not in _xp_seen_formids:
+            # Skip cut / deprecated / removed GMRW records
+            _gmrw_edid = (rr.get("EDID") or "").strip()
+            if _CUT_RE.search(_gmrw_edid):
+                _xp_seen_formids.add(gmrw_fid)   # mark seen so we don't re-check
+                continue
+            xpv = None
+            xp_ref = None
+            is_failure = False
+
+            if xpct:
+                xpv = xp_at_level(xpct)
+                xp_ref = xpct.split(":")[0]
+            elif nam7:
+                # NAM7 is a flat GLOB value (not curve-based)
+                nam7_fid = nam7.split(":")[0]
+                if nam7_fid in glob_vals:
+                    xpv = int(glob_vals[nam7_fid])
+                    xp_ref = nam7_fid
+                # Detect failure XP: GLOB EDID contains "Failure"
+                is_failure = "failure" in nam7.lower()
+
+            if xpv is not None and xpv > 0:
+                _xp_seen_formids.add(gmrw_fid)
+                edid = (rr.get("EDID") or "").strip()
+                rewarded = (rr.get("RewardedItem") or "").strip()
+                # Extract stage number from EDID (e.g. "QuestReward_RS02_Beat_Stage1000_01")
+                _stage_m = re.search(r'Stage(\d+)', edid, re.IGNORECASE)
+                stage_num = int(_stage_m.group(1)) if _stage_m else 0
+                _xp_entries.append({
+                    "gmrwFormID": gmrw_fid,
+                    "edid":       edid,
+                    "stageNum":   stage_num,
+                    "xpCurve":    xp_ref,
+                    "xpValue":    xpv,
+                    "hasItems":   bool(rewarded),
+                    "isFailure":  is_failure,
+                })
+
+        # Backward-compat: still set the single xp field (first XPCT value found)
         if xpct and not activity_data["baseRewards"]["xp"]:
-            xpv = xp_at_level(xpct)
-            if xpv is not None:
-                activity_data["baseRewards"]["xp"] = xpv
+            xpv_single = xp_at_level(xpct)
+            if xpv_single is not None:
+                activity_data["baseRewards"]["xp"] = xpv_single
                 activity_data["baseRewards"]["xpFormID"] = xpct.split(":")[0]
 
         # Caps
@@ -1893,6 +1950,82 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         is_title = "title" in kind
         return (0 if is_title else 1, (item.get("name") or "").lower())
     activity_data["uniqueEventRewards"].sort(key=_uer_sort_key)
+
+    # ── Build xpByStage / xpFailed when multiple GMRW records award XP ──────
+    # Sort by stage number, label the one with items as "Event Completion XP",
+    # mark entries with isFailure as "Event Failure XP", and number the rest
+    # as stage checkpoints.
+    #
+    # Two output paths:
+    #   a) xpByStage array  – when there are 3+ entries, or 2 non-failure entries
+    #   b) xpSuccess/xpFailed – simple success+failure pair (1 success, 1 failure)
+    #      The JS renderXpExpand already supports both.
+
+    failure_entries = [e for e in _xp_entries if e["isFailure"]]
+    success_entries = [e for e in _xp_entries if not e["isFailure"]]
+
+    if failure_entries:
+        # Pick the failure XP value (use the first; in practice there's only one)
+        fail_xp = failure_entries[0]["xpValue"]
+        activity_data["baseRewards"]["xpFailed"] = fail_xp
+
+    if len(success_entries) > 1:
+        # Multiple success stages → use xpByStage
+        success_entries.sort(key=lambda e: e["stageNum"])
+
+        # Identify the completion stage: entry with items and highest XP
+        completion_idx = None
+        for i, entry in enumerate(success_entries):
+            if entry["hasItems"]:
+                if completion_idx is None or entry["xpValue"] > success_entries[completion_idx]["xpValue"]:
+                    completion_idx = i
+        if completion_idx is None:
+            completion_idx = len(success_entries) - 1
+
+        xp_by_stage = []
+        checkpoint_counter = 1
+        # Count how many checkpoints there are (non-completion, non-failure)
+        num_checkpoints = sum(1 for i, e in enumerate(success_entries) if i != completion_idx)
+        for i, entry in enumerate(success_entries):
+            if i == completion_idx:
+                label = "Event Completion XP"
+            elif num_checkpoints == 1:
+                label = "Checkpoint XP"
+                checkpoint_counter += 1
+            else:
+                label = f"Checkpoint {checkpoint_counter} XP"
+                checkpoint_counter += 1
+            xp_by_stage.append({
+                "label":       label,
+                "xp":          entry["xpValue"],
+                "gmrwFormID":  entry["gmrwFormID"],
+                "curveFormID": entry["xpCurve"],
+            })
+
+        # Append failure entry to the xpByStage array if present
+        for fe in failure_entries:
+            xp_by_stage.append({
+                "label":       "Event Failure XP",
+                "xp":          fe["xpValue"],
+                "gmrwFormID":  fe["gmrwFormID"],
+                "curveFormID": fe["xpCurve"],
+            })
+
+        activity_data["baseRewards"]["xpByStage"] = xp_by_stage
+
+        # Set the main xp field to the completion value for backward compat
+        comp = success_entries[completion_idx]
+        activity_data["baseRewards"]["xp"] = comp["xpValue"]
+        activity_data["baseRewards"]["xpFormID"] = comp["xpCurve"]
+
+    elif len(success_entries) == 1 and failure_entries:
+        # Simple success+failure pair → use xpSuccess/xpFailed
+        # (the JS renderXpExpand handles this case separately)
+        succ = success_entries[0]
+        activity_data["baseRewards"]["xpSuccess"] = succ["xpValue"]
+        # Make sure main xp is set to the success value
+        activity_data["baseRewards"]["xp"] = succ["xpValue"]
+        activity_data["baseRewards"]["xpFormID"] = succ["xpCurve"]
 
     return activity_data
 
