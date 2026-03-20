@@ -1553,16 +1553,73 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         if loc.get("region", "").strip()
     ))
 
-    # Process GMRW rows
-    for rr in gmrw_rows:
-        # XP
-        xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
-        if xpct and not activity_data["baseRewards"]["xp"]:
-            xpv = xp_at_level(xpct)
-            if xpv is not None:
-                activity_data["baseRewards"]["xp"] = xpv
-                activity_data["baseRewards"]["xpFormID"] = xpct.split(":")[0]
+    # ── Collect XP by stage ───────────────────────────────────────────────────
+    # Each unique GMRW FormID is one checkpoint/stage. Extract the stage number
+    # from the EDID (e.g. QuestReward_RS02_Beat_Stage600_01 → 600), resolve XP,
+    # and note whether that stage also yields item rewards (LVLI / BOOK etc).
+    _stage_re = re.compile(r'_Stage(\d+)_', re.IGNORECASE)
+    _seen_gmrw_stage = {}   # gmrw_formid → {stage, xp, xpFormID, hasRewards}
 
+    for rr in gmrw_rows:
+        gmrw_fid = (rr.get("FormID") or "").strip()
+        if not gmrw_fid:
+            continue
+        has_rewards = bool((rr.get("RewardedItem") or "").strip())
+        if gmrw_fid in _seen_gmrw_stage:
+            if has_rewards:
+                _seen_gmrw_stage[gmrw_fid]["hasRewards"] = True
+            continue
+        edid = (rr.get("EDID") or "").strip()
+        m = _stage_re.search(edid)
+        stage_num = int(m.group(1)) if m else None
+        xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
+        xp_val = xp_at_level(xpct) if xpct else None
+        _seen_gmrw_stage[gmrw_fid] = {
+            "stage":    stage_num,
+            "xp":       xp_val,
+            "xpFormID": xpct.split(":")[0] if xpct else None,
+            "hasRewards": has_rewards,
+        }
+
+    # Sort by stage number (entries without a stage number sort last)
+    _stages_with_xp = sorted(
+        [v for v in _seen_gmrw_stage.values() if v["xp"] is not None],
+        key=lambda x: (x["stage"] is None, x["stage"] or 0)
+    )
+
+    # Completion = highest stage that has item rewards; fall back to highest stage overall
+    _completion = None
+    for _s in reversed(_stages_with_xp):
+        if _s["hasRewards"]:
+            _completion = _s
+            break
+    if _completion is None and _stages_with_xp:
+        _completion = _stages_with_xp[-1]
+
+    # Set baseRewards.xp from completion stage (backward compat for JS renderer)
+    if _completion:
+        activity_data["baseRewards"]["xp"]       = _completion["xp"]
+        activity_data["baseRewards"]["xpFormID"]  = _completion["xpFormID"]
+
+    # Emit xpByStage only when there are 2+ distinct stages
+    if len(_stages_with_xp) > 1:
+        _xp_by_stage = []
+        for _s in _stages_with_xp:
+            _is_comp = (_s is _completion)
+            _label = f"Stage {_s['stage']} XP" if _s["stage"] is not None else "XP"
+            if _is_comp:
+                _label += " (Completion)"
+            _xp_by_stage.append({
+                "stage":        _s["stage"],
+                "label":        _label,
+                "xp":           _s["xp"],
+                "xpFormID":     _s["xpFormID"],
+                "isCompletion": _is_comp,
+            })
+        activity_data["baseRewards"]["xpByStage"] = _xp_by_stage
+
+    # Process GMRW rows (caps, legendary rank, LVLI rewards)
+    for rr in gmrw_rows:
         # Caps
         caps_ref = (rr.get("NAM8_CapsGlobal") or "").strip()
         if caps_ref and not activity_data["baseRewards"]["caps"]:
@@ -2056,7 +2113,12 @@ def classify_pool(lvli_fid):
 gmrw_rows_by_id     = defaultdict(list)
 gmrw_rows_by_parent = defaultdict(list)
 
+_GMRW_SKIP_RE = re.compile(r'^(zzz_|ZZZ_|CUT_|POST_|DEL_)', re.IGNORECASE)
+
 for r in GMRW:
+    edid = (r.get("EDID") or "").strip()
+    if _GMRW_SKIP_RE.match(edid):
+        continue
     gmrw_fid   = pick(r, "FormID", "GMRW_FormID")
     parent_ref = (r.get("ParentQuestLink") or "").strip()
     parent_fid = parent_ref.split(":")[0] if ":" in parent_ref else parent_ref
