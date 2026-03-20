@@ -1902,6 +1902,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     # ── Build reward tree for xEdit-style display ──
     reward_tree = []
     seen_lvli_tree = set()
+    _loose_scrap_items = []   # collect loose scrap/bulk direct rewards for grouping
+
     for rr in gmrw_rows:
         rewarded = (rr.get("RewardedItem") or "").strip()
         if not rewarded:
@@ -1934,18 +1936,61 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     tree_node["gmrwConditions"] = [gmrw_cond_display]
                 reward_tree.append(tree_node)
         else:
-            # Non-LVLI direct reward (e.g. a single BOOK)
+            # Non-LVLI direct reward — check if it's a loose scrap/bulk item.
+            # EDID patterns: "c_*_scrap", "Bulk_*_scrap" — identified by "_scrap" suffix
+            # or "Bulk_" prefix in the rewarded item's EDID (middle segment of ref).
+            item_edid = rewarded.split(":")[1] if rewarded.count(":") >= 2 else ""
+            is_loose_scrap = (
+                "_scrap" in item_edid.lower()
+                or item_edid.lower().startswith("bulk_")
+            )
             name = resolve_name_for_formid(formid)
-            reward_tree.append({
-                "type": "leaf",
-                "formid": formid,
-                "name": name or formid,
-                "qty": 1,
-                "dropRate": round(gmrw_mult * 100, 6),
-                "conditions": [gmrw_cond_display] if gmrw_cond_display else [],
-                "edid": rewarded.split(":")[1] if ":" in rewarded else "",
-                "sig": kind.upper(),
-            })
+            qty_raw = (rr.get("RewardedItemCount") or "1").strip()
+            try:
+                qty = int(float(qty_raw))
+            except (ValueError, TypeError):
+                qty = 1
+
+            if is_loose_scrap:
+                # Accumulate for grouping — dedupe by formid+qty, sum drop rates
+                key = (formid, qty)
+                existing = next((x for x in _loose_scrap_items if (x["formid"], x["qty"]) == key), None)
+                if existing:
+                    existing["dropRate"] = round(existing["dropRate"] + gmrw_mult * 100, 6)
+                else:
+                    _loose_scrap_items.append({
+                        "formid": formid,
+                        "name": name or formid,
+                        "qty": qty,
+                        "dropRate": round(gmrw_mult * 100, 6),
+                        "conditions": [gmrw_cond_display] if gmrw_cond_display else [],
+                        "edid": item_edid,
+                        "sig": kind.upper(),
+                    })
+            else:
+                reward_tree.append({
+                    "type": "leaf",
+                    "formid": formid,
+                    "name": name or formid,
+                    "qty": qty,
+                    "dropRate": round(gmrw_mult * 100, 6),
+                    "conditions": [gmrw_cond_display] if gmrw_cond_display else [],
+                    "edid": item_edid,
+                    "sig": kind.upper(),
+                })
+
+    # ── Emit grouped Scrap Rewards node if any loose scrap/bulk items were found ──
+    if _loose_scrap_items:
+        reward_tree.append({
+            "type": "lvli",
+            "formid": "",
+            "edid": "_synthetic_scrap_rewards",
+            "label": "Scrap Rewards",
+            "useAll": True,
+            "items": _loose_scrap_items,
+            "entryRate": 100.0,
+            "conditions": [],
+        })
 
     # ── Inject missing Chem rewards into the Activity Rewards tree node ──
     # Some LVLI entries (e.g. LL_Chems_Stimpak) have incomplete TSV exports and
