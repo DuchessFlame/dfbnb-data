@@ -1076,16 +1076,31 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "conditions": conditions,
                 })
 
-    # Normalize for pick-one lists.  A pick-one list selects exactly one
-    # entry, so the individual probabilities MUST sum to 1.0 (100%).
-    # xEdit exports often report apriori=1.0 for every entry making the
-    # raw total equal to the entry count — we normalise unconditionally
-    # whenever the total deviates from 1.0 by more than a tiny epsilon.
+    # Normalize for pick-one lists.
+    # Only normalise UPWARD (total > 1) — xEdit exports apriori=1.0 for every entry
+    # in an equal-weight pick-one list, so raw total = entry count, not 1.0.
+    # Do NOT normalise downward (total < 1): that reflects real entry-level ChanceNone.
     if not is_use_all and not is_first_match and items:
         total_rate = sum(item["dropRate"] for item in items)
-        if total_rate > 0 and abs(total_rate - 1.0) > 0.0001:
+        if total_rate > 1.0001:
             for item in items:
                 item["dropRate"] = item["dropRate"] / total_rate
+
+    # Merge entries that resolve to the same item (same formid + qty).
+    # This collapses level-gated duplicates (e.g. Light/Medium/Heavy sub-LVLIs
+    # all pointing to the same ARMO FormID) into a single row with the summed rate.
+    merged = {}
+    for item in items:
+        key = (item["formid"], item.get("qty", 1))
+        if key in merged:
+            merged[key]["dropRate"] += item["dropRate"]
+            existing_conds = set(merged[key].get("conditions") or [])
+            for c in (item.get("conditions") or []):
+                if c not in existing_conds:
+                    merged[key].setdefault("conditions", []).append(c)
+        else:
+            merged[key] = dict(item)
+    items = list(merged.values())
 
     return items
 
@@ -1269,9 +1284,11 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 new_entries.append((etype, max(net_p, 0.0), data, raw_conds))
             raw_entries = new_entries
 
-    # Normalize for pick-one lists: all raw_rates must sum to 1.0 (100%)
+    # Normalize for pick-one lists: only normalise UPWARD (total > 1).
+    # xEdit exports apriori=1.0 per entry, so raw total = entry count for equal-weight lists.
+    # Do NOT normalise downward — that would hide real entry-level ChanceNone outcomes.
     total_rate = sum(r for (_, r, _, _) in raw_entries)
-    if not is_use_all and not is_first_match and raw_entries and total_rate > 0 and abs(total_rate - 1.0) > 0.0001:
+    if not is_use_all and not is_first_match and raw_entries and total_rate > 1.0001:
         for i, (etype, raw_rate, data, raw_conds) in enumerate(raw_entries):
             raw_entries[i] = (etype, raw_rate / total_rate, data, raw_conds)
 
