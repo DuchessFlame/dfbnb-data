@@ -773,7 +773,18 @@ _lvli_cache = {}
 def compute_lvli(list_id):
     if not list_id: return {}
     if list_id in _lvli_cache: return _lvli_cache[list_id]
-    results = {}
+
+    # Determine if this list is Use All (each entry fires independently).
+    # For pick-one lists xEdit exports apriori=1.0 for every equal-weight entry,
+    # so we must normalise the raw pick weights BEFORE applying per-entry ChanceNone.
+    # Folding entry_none into the weight before normalisation inflates entries
+    # with zero ChanceNone and silently absorbs the "nothing" probability.
+    list_row   = lvli_list_by_formid.get(list_id)
+    list_flags = parse_lvlf_flags(pick(list_row, "LVLF_Flags", default="") if list_row else "")
+    is_use_all = list_flags.get("use_all", False)
+
+    # --- Pass 1: collect raw pick-weights (without entry_none) ---
+    raw_entries = []  # (sub, raw_weight, entry_none, entry_row)
     for e in lvli_entries_by_list.get(list_id, []):
         idx = e.get("EntryIndex")
         if idx is None: continue
@@ -785,7 +796,25 @@ def compute_lvli(list_id):
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
-        chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
+        raw_weight = (1 - list_none) * entry_pres * cond_rand * apriori
+        raw_entries.append((sub, raw_weight, entry_none, e))
+
+    if not raw_entries:
+        _lvli_cache[list_id] = {}
+        return {}
+
+    # --- Pass 2: normalise pick weights for pick-one lists, then apply entry_none ---
+    # For use-all lists every entry fires at its own rate; no normalisation needed.
+    total_raw = sum(w for _, w, _, _ in raw_entries)
+    results = {}
+    for sub, raw_weight, entry_none, e in raw_entries:
+        if is_use_all or total_raw <= 0:
+            chance = raw_weight * (1 - entry_none)
+        else:
+            # Normalise to get true pick probability, then apply entry_none
+            pick_prob = raw_weight / total_raw
+            chance = pick_prob * (1 - entry_none)
+
         if sub:
             for k, v in compute_lvli(sub).items():
                 results[k] = results.get(k, 0) + v * chance
@@ -797,6 +826,7 @@ def compute_lvli(list_id):
             if ":" in ref:
                 fid = ref.split(":")[0]
                 results[fid] = results.get(fid, 0) + chance
+
     _lvli_cache[list_id] = results
     return results
 
@@ -2728,11 +2758,12 @@ for key, pages in sorted(reward_pages_by_key.items()):
                                    key=lambda x: (x["name"] or "", x["formid"] or ""))
                 else:
                     probs = compute_lvli(formid)
-                    # Normalise: pick-one lists must sum to 1.0 (100%).
-                    # xEdit exports often give apriori=1.0 for every entry, so
-                    # we normalise whenever the total deviates from 1.0.
+                    # Normalise only when total > 1 (xEdit equal-weight artefact:
+                    # apriori=1.0 for every entry in an N-entry pick-one list gives total=N).
+                    # Do NOT normalise when total < 1 — that reflects legitimate entry-level
+                    # ChanceNone (a real chance of no reward), now handled inside compute_lvli.
                     _total = sum(probs.values())
-                    if _total > 0 and abs(_total - 1.0) > 0.0001:
+                    if _total > 1.0001:
                         probs = {k: v / _total for k, v in probs.items()}
                     items = sorted([
                         {
@@ -2839,7 +2870,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
             lvli_edid = lvli_edid_by_formid.get(formid, "")
             probs = compute_lvli(formid)
             _total = sum(probs.values())
-            if _total > 0 and abs(_total - 1.0) > 0.0001:
+            if _total > 1.0001:
                 probs = {k: v / _total for k, v in probs.items()}
             items = sorted([
                 {
