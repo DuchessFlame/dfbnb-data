@@ -1651,11 +1651,14 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         stage_num = int(m.group(1)) if m else None
         xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
         xp_val = xp_at_level(xpct) if xpct else None
+        xp_glob = (rr.get("NAM7_XPGlobal") or "").strip()
+        is_failure = bool(re.search(r'fail', edid, re.IGNORECASE) or re.search(r'fail', xp_glob, re.IGNORECASE))
         _seen_gmrw_stage[gmrw_fid] = {
-            "stage":    stage_num,
-            "xp":       xp_val,
-            "xpFormID": xpct.split(":")[0] if xpct else None,
+            "stage":      stage_num,
+            "xp":         xp_val,
+            "xpFormID":   xpct.split(":")[0] if xpct else None,
             "hasRewards": has_rewards,
+            "isFailure":  is_failure,
         }
 
     # Sort by stage number (entries without a stage number sort last)
@@ -1683,9 +1686,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         _xp_by_stage = []
         for _s in _stages_with_xp:
             _is_comp = (_s is _completion)
-            _label = f"Stage {_s['stage']} XP" if _s["stage"] is not None else "XP"
             if _is_comp:
-                _label += " (Completion)"
+                _label = "Event Completion XP"
+            elif _s.get("isFailure"):
+                _label = "Event Failure XP"
+            else:
+                _label = "Checkpoint XP"
             _xp_by_stage.append({
                 "stage":        _s["stage"],
                 "label":        _label,
