@@ -87,9 +87,8 @@ def title_case_words(s):
 
 LVLI_LABEL_OVERRIDES = {
     # key: EXACT lowercase EDID match → display label
-    "ll_weapon_ranged_assaultronheadcharging":     "Salvaged Assaultron Head",
-    "ll_weapon_simple_ranged_assaultronheadcharging": "Salvaged Assaultron Head",
-    "mtr10_ll_weapon_ranged_assaultronheadcharging":  "Salvaged Assaultron Head",
+    # NOTE: weapon-specific LVLIs are handled by the LL_Weapon_ pattern below
+    # so they route to Unique Activity Rewards via the JS transform.
 }
 
 # Pattern-based label rules: (regex, replacement_func_or_string)
@@ -134,6 +133,13 @@ LVLI_LABEL_PATTERNS = [
     (r"(?i)umineit|u_?mine_?it",             "U-Mine-It Maps"),
     # Stimpak
     (r"(?i)chems_stimpak$",                   "Stimpak"),
+    # Scrap reward LVLIs (e.g. LLS_Scrap_Screws, LLS_Reward_Scrap) → Scrap Rewards
+    # Catches any EDID where "scrap" appears at the start or after an underscore.
+    (r"(?i)(?:^|_)scrap",                     "Scrap Rewards"),
+    # Weapon-specific LVLIs that are direct GMRW rewards (not Legendary pools).
+    # Legendary weapon pools are caught by the LegendaryItems patterns above.
+    # "Weapon Rewards" ends in "Rewards" → JS transformLabel → "Unique Activity Rewards".
+    (r"(?i)^(?:[A-Za-z0-9]+_)*LL_Weapon_",   "Weapon Rewards"),
 ]
 
 def prettify_lvli_label(edid):

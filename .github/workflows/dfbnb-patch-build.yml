@@ -41,7 +41,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas
 
-      # ===== DROP RATES (must run before titles, events, reho) =====
+      # ===== DROP RATES (must run before titles, events) =====
       - name: Build Drop Rates JSON
         run: python src/build_drop_rates.py
 
@@ -105,10 +105,6 @@ jobs:
       # --- EVENTS REWARDS ---
       - name: Build Events Rewards JSON
         run: python src/build_events_rewards_json.py
-
-      # --- REHO (needs drop_rates.json + events_rewards.json) ---
-      - name: Build REHO Rewards JSON
-        run: python src/build_reho_json.py
 
       # --- BOUNTY HUNTING CHALLENGES (reads CHAL TSV directly) ---
       - name: Build Bounty Hunting Challenges JSON
@@ -334,7 +330,6 @@ jobs:
           test -f dist/titles_manifest.json        && echo "OK titles_manifest.json"        || (echo "MISSING titles_manifest.json" && exit 1)
           test -f dist/curves/index.json           && echo "OK curves/index.json"           || (echo "MISSING curves/index.json" && exit 1)
           test -f dist/events/events_rewards.json  && echo "OK events_rewards.json"         || (echo "MISSING events_rewards.json" && exit 1)
-          test -f dist/reho/reho_rewards_by_page.json && echo "OK reho_rewards_by_page.json" || (echo "MISSING reho_rewards_by_page.json" && exit 1)
           test -f dist/challenges/bounty_hunting_challenges.json && echo "OK bounty_hunting_challenges.json" || (echo "MISSING bounty_hunting_challenges.json" && exit 1)
           test -f dist/challenges/challenges.json  && echo "OK challenges/challenges.json"  || (echo "MISSING challenges/challenges.json" && exit 1)
           test -f dist/chal_latest.json            && echo "OK chal_latest.json"            || (echo "MISSING chal_latest.json" && exit 1)

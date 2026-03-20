@@ -1,4 +1,4 @@
-name: Build Bounty Hunting Data
+name: Build Bounty Hunting Challenges
 
 on:
   workflow_dispatch:
@@ -6,11 +6,7 @@ on:
   push:
     paths:
       - 'tsv/CHAL_Export_*.tsv'
-      - 'tsv/**'
-      - 'src/build_reho_json.py'
       - 'src/build_bounty_hunting_json.py'
-      - 'src/build_events_rewards_json.py'
-      - 'src/build_drop_rates.py'
 
 permissions:
   contents: write
@@ -21,59 +17,8 @@ concurrency:
 
 jobs:
 
-  # ── Step 1: Shared drop rates ────────────────────────────────────────────────
-  drop-rates:
-    uses: ./.github/workflows/build-drop-rates.yml
-
-  # ── Step 2: Events rewards (REHO depends on events_rewards.json) ─────────────
-  events:
-    needs: drop-rates
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-          ref: main
-
-      - name: Pull latest (includes drop_rates.json)
-        run: git pull origin main
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.11"
-
-      - name: Build Events Rewards JSON
-        run: |
-          python -V
-          python src/build_events_rewards_json.py
-
-      - name: Commit events dist
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add \
-            dist/events/events_rewards.json \
-            dist/events/events_rewards_by_page.json \
-            dist/patchlogs/patchlog_latest_df_events.json
-
-          if git diff --cached --quiet; then
-            echo "No events changes to commit."
-            exit 0
-          fi
-
-          git commit -m "Build Events Rewards JSON"
-          git fetch origin main
-          git pull --rebase origin main
-          git push origin main
-
-  # ── Step 3: Rewards + Challenges JSON ────────────────────────────────────────
+  # ── Bounty Hunting Challenges JSON (reads CHAL TSV directly — no REHO/events dependency) ──
   build:
-    needs: events
     runs-on: ubuntu-latest
 
     steps:
@@ -83,25 +28,13 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: Pull latest (includes drop_rates.json + events_rewards.json)
+      - name: Pull latest
         run: git pull origin main
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
-
-      - name: Verify dependencies exist
-        run: |
-          echo "--- drop_rates.json ---"
-          ls -la dist/drop_rates.json || echo "NOT FOUND"
-          echo "--- events_rewards.json ---"
-          ls -la dist/events/events_rewards.json || echo "NOT FOUND"
-
-      - name: Build REHO Rewards JSON
-        run: |
-          python -V
-          python src/build_reho_json.py
 
       - name: Build Bounty Hunting Challenges JSON
         run: |
@@ -110,10 +43,6 @@ jobs:
 
       - name: Sanity check outputs
         run: |
-          test -f dist/reho/reho_rewards_by_page.json \
-            && echo "OK reho_rewards_by_page.json" \
-            || (echo "MISSING reho_rewards_by_page.json" && exit 1)
-
           test -f dist/challenges/bounty_hunting_challenges.json \
             && echo "OK bounty_hunting_challenges.json" \
             || (echo "MISSING bounty_hunting_challenges.json" && exit 1)
@@ -125,7 +54,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add \
-            dist/reho/reho_rewards_by_page.json \
             dist/challenges/bounty_hunting_challenges.json
 
           if git diff --cached --quiet; then
@@ -133,7 +61,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Build Bounty Hunting data (rewards + challenges)"
+          git commit -m "Build Bounty Hunting Challenges JSON"
           git fetch origin main
           git pull --rebase origin main
           git push origin main
