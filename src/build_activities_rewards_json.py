@@ -568,6 +568,15 @@ KNOWN_GLOB_VALS = {
     # QuestRewardChanceNone — used on quest reward weapon/armour LVLI wrappers.
     # 75% ChanceNone = 25% actual drop rate. Confirmed by Duchess (March 2026).
     "0043B770": 75.0,
+    # SpawnChance_Cnone_ActivityCampTitle — ChanceNone for activity camp/player title drops.
+    # 75% ChanceNone = 25% actual drop rate. Confirmed by Duchess (March 2026).
+    "0089EA90": 75.0,
+    # Recipe ChanceNone tier GLOBs — FLTV values confirmed from GLOB TSV (March 2026).
+    "00307CA7": 25.0,   # Recipe_VeryLow_ChanceNone_Tier  → 75% drop
+    "00307FF3": 10.0,   # Recipe_High_ChanceNone_Tier      → 90% drop
+    "00307FE9":  5.0,   # Recipe_VeryHigh_ChanceNone_Tier  → 95% drop
+    "00307FE7": 20.0,   # Recipe_Low_ChanceNone_Tier       → 80% drop
+    "00307FE8": 15.0,   # Recipe_Medium_ChanceNone_Tier    → 85% drop
 }
 
 glob_vals = dict(KNOWN_GLOB_VALS)  # seed with known values; TSV entries override below
