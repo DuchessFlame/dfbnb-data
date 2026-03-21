@@ -106,6 +106,10 @@ jobs:
       - name: Build Events Rewards JSON
         run: python src/build_events_rewards_json.py
 
+      # --- ACTIVITIES REWARDS ---
+      - name: Build Activities Rewards JSON
+        run: python src/build_activities_rewards_json.py
+
       # --- BOUNTY HUNTING CHALLENGES (reads CHAL TSV directly) ---
       - name: Build Bounty Hunting Challenges JSON
         run: python src/build_bounty_hunting_json.py      # --- CHALLENGES ---
@@ -330,6 +334,7 @@ jobs:
           test -f dist/titles_manifest.json        && echo "OK titles_manifest.json"        || (echo "MISSING titles_manifest.json" && exit 1)
           test -f dist/curves/index.json           && echo "OK curves/index.json"           || (echo "MISSING curves/index.json" && exit 1)
           test -f dist/events/events_rewards.json  && echo "OK events_rewards.json"         || (echo "MISSING events_rewards.json" && exit 1)
+          test -f dist/activities/activities_rewards.json && echo "OK activities_rewards.json" || (echo "MISSING activities_rewards.json" && exit 1)
           test -f dist/challenges/bounty_hunting_challenges.json && echo "OK bounty_hunting_challenges.json" || (echo "MISSING bounty_hunting_challenges.json" && exit 1)
           test -f dist/challenges/challenges.json  && echo "OK challenges/challenges.json"  || (echo "MISSING challenges/challenges.json" && exit 1)
           test -f dist/chal_latest.json            && echo "OK chal_latest.json"            || (echo "MISSING chal_latest.json" && exit 1)
