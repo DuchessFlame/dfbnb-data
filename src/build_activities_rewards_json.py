@@ -1647,10 +1647,15 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         gmrw_fid = (rr.get("FormID") or "").strip()
         if not gmrw_fid:
             continue
-        has_rewards = bool((rr.get("RewardedItem") or "").strip())
+        rewarded_ref = (rr.get("RewardedItem") or "").strip()
+        has_rewards = bool(rewarded_ref)
+        has_main_lvli = "rewards_activities" in rewarded_ref.lower() or "ra_ll_rewards" in rewarded_ref.lower()
         if gmrw_fid in _seen_gmrw_stage:
-            if has_rewards:
-                _seen_gmrw_stage[gmrw_fid]["hasRewards"] = True
+            if _seen_gmrw_stage[gmrw_fid] is not None:
+                if has_rewards:
+                    _seen_gmrw_stage[gmrw_fid]["hasRewards"] = True
+                if has_main_lvli:
+                    _seen_gmrw_stage[gmrw_fid]["hasMainLvli"] = True
             continue
         edid = (rr.get("EDID") or "").strip()
 
@@ -1661,6 +1666,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
         m = _stage_re.search(edid)
         stage_num = int(m.group(1)) if m else None
+
+        # Skip Stage 0 — typically debug/dev stages, not used in-game
+        if stage_num == 0:
+            _seen_gmrw_stage[gmrw_fid] = None
+            continue
 
         # Resolve XP: prefer XPCT curve, fall back to NAM7 GLOB
         xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
@@ -1680,11 +1690,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
         is_failure = bool(re.search(r'fail', edid, re.IGNORECASE) or re.search(r'fail', xp_glob, re.IGNORECASE))
         _seen_gmrw_stage[gmrw_fid] = {
-            "stage":      stage_num,
-            "xp":         xp_val,
-            "xpFormID":   xp_fid,
-            "hasRewards": has_rewards,
-            "isFailure":  is_failure,
+            "stage":       stage_num,
+            "xp":          xp_val,
+            "xpFormID":    xp_fid,
+            "hasRewards":  has_rewards,
+            "hasMainLvli": has_main_lvli,
+            "isFailure":   is_failure,
         }
 
     # Sort by stage number (entries without a stage number sort last)
@@ -1694,12 +1705,15 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         key=lambda x: (x["stage"] is None, x["stage"] or 0)
     )
 
-    # Completion = stage with highest XP among those that have item rewards;
-    # fall back to highest stage overall. When multiple stages have items,
-    # the main completion reward is the one with the biggest XP payout.
+    # Completion = the stage containing RA_LL_Rewards_Activities (the main
+    # activity reward LVLI).  Fall back to: highest-stage with items, then
+    # highest stage overall.
+    _with_main = [s for s in _stages_with_xp if s.get("hasMainLvli")]
     _with_rewards = [s for s in _stages_with_xp if s["hasRewards"]]
-    if _with_rewards:
-        _completion = max(_with_rewards, key=lambda s: (s["xp"] or 0))
+    if _with_main:
+        _completion = _with_main[-1]          # highest stage with main LVLI
+    elif _with_rewards:
+        _completion = _with_rewards[-1]       # highest stage with any items
     elif _stages_with_xp:
         _completion = _stages_with_xp[-1]
     else:
@@ -1711,15 +1725,16 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         activity_data["baseRewards"]["xpFormID"]  = _completion["xpFormID"]
 
     # Emit xpByStage only when there are 2+ distinct stages
+    # Order: checkpoints (by stage number) → failure → completion (always last)
     if len(_stages_with_xp) > 1:
+        _checkpoints = [s for s in _stages_with_xp if s is not _completion and not s.get("isFailure")]
+        _failures    = [s for s in _stages_with_xp if s.get("isFailure")]
+        _ordered     = _checkpoints + _failures + ([_completion] if _completion else [])
+
+        _num_checkpoints = len(_checkpoints)
         _xp_by_stage = []
-        # Count checkpoints (non-completion, non-failure) for numbering
-        _num_checkpoints = sum(
-            1 for _s in _stages_with_xp
-            if _s is not _completion and not _s.get("isFailure")
-        )
         _cp_counter = 1
-        for _s in _stages_with_xp:
+        for _s in _ordered:
             _is_comp = (_s is _completion)
             if _is_comp:
                 _label = "Event Completion XP"
