@@ -1857,7 +1857,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     #   NAM7_XPGlobal      – flat GLOB value, often used for failure rewards
     #                         (identified by "Failure" / "fail" in the GLOB EDID)
     _stage_re = re.compile(r'Stage(\d+)', re.IGNORECASE)
-    _cut_re   = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|DVCT|DVDT|DVPT|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
+    # NOTE: ZZZ prefix removed — Bethesda sometimes adds zzz_ to live events
+    # (e.g. Dogwood Die Off, Pitt Expeditions). Actual cut content uses CUT/DEL.
+    _cut_re   = re.compile(r'(?:^|[_\-])(?:CUT|DEL|DVCT|DVDT|DVPT|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
     _seen_gmrw_stage = {}   # gmrw_formid → {stage, xp, xpFormID, hasRewards, isFailure}
 
     for rr in gmrw_rows:
@@ -2348,7 +2350,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         r'| ^Enclave\s+Plasma\s+Gun'
         r'| ^Mutated\s+Events?\s+Rewards?$'
         r'| ^Public\s+Event\s+Rewards?$'
-        r'| ^Corpse\s+Flower'
         r'| ^U-Mine-It'
     )
     for node in reward_tree:
@@ -2357,6 +2358,29 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         else:
             label = node.get("label", "")
             node["isUniqueReward"] = not bool(_STANDARD_TREE_RE.search(label))
+
+    # Attach modSlots to WEAP/ARMO items inside unique rewardTree nodes.
+    # _is_unique_lvli only catches named legendaries; this catches everything
+    # in nodes marked isUniqueReward=True.
+    def _attach_modslots_to_tree(node):
+        if not node or not node.get("isUniqueReward"):
+            return
+        for item in node.get("items", []):
+            if "modSlots" in item:
+                continue  # already attached by _is_unique_lvli
+            fid = item.get("formid", "")
+            sig = (item.get("sig") or "").upper()
+            if sig == "WEAP" and fid in weap_mod_slots_by_formid:
+                item["modSlots"] = weap_mod_slots_by_formid[fid]
+            elif sig == "ARMO" and fid in armo_mod_slots_by_formid:
+                item["modSlots"] = armo_mod_slots_by_formid[fid]
+        for child in node.get("children", []):
+            # Propagate isUniqueReward to children for this walk
+            child["isUniqueReward"] = True
+            _attach_modslots_to_tree(child)
+
+    for node in reward_tree:
+        _attach_modslots_to_tree(node)
 
     # Sort plan rewards alphabetically
     activity_data["planRewards"].sort(key=lambda x: (x.get("name") or "").lower())
@@ -2547,7 +2571,10 @@ def classify_pool(lvli_fid):
 gmrw_rows_by_id     = defaultdict(list)
 gmrw_rows_by_parent = defaultdict(list)
 
-_GMRW_SKIP_RE = re.compile(r'^(zzz_|ZZZ_|CUT_|POST_|DEL_|P62_)', re.IGNORECASE)
+# NOTE: zzz_ prefix is NOT skipped here because Bethesda occasionally adds it to
+# still-live events (e.g. Dogwood Die Off, Pitt Expeditions). Cut content is
+# filtered via the _CUT_LVLI_RE on individual items and the _cut_re on quests.
+_GMRW_SKIP_RE = re.compile(r'^(CUT_|POST_|DEL_|P62_)', re.IGNORECASE)
 
 for r in GMRW:
     edid = (r.get("EDID") or "").strip()
