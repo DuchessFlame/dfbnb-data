@@ -133,6 +133,8 @@ LVLI_LABEL_PATTERNS = [
     (r"(?i)umineit|u_?mine_?it",             "U-Mine-It Maps"),
     # Stimpak
     (r"(?i)chems_stimpak$",                   "Stimpak"),
+    # Underarmour plan LVLIs (e.g. LLS_Recipe_Mod_UnderArmor_Marine_Mk5_Chance)
+    (r"(?i)underarmou?r",                     "Underarmour Plan"),
     # Scrap reward LVLIs (e.g. LLS_Scrap_Screws, LLS_Reward_Scrap) → Scrap Rewards
     # Catches any EDID where "scrap" appears at the start or after an underscore.
     (r"(?i)(?:^|_)scrap",                     "Scrap Rewards"),
@@ -271,6 +273,22 @@ def simplify_condition(cond_str):
             pretty = re.sub(r"\s+Toggle$", "", pretty, flags=re.IGNORECASE)
             return f"Toggle: {pretty}"
         return ""
+
+    # GetIsPlayerGhoul → Ghoul / Human character restriction
+    if "GetIsPlayerGhoul" in s:
+        if re.search(r'0\.0+\s*$', s):
+            return "Human character only"
+        return "Ghoul character only"
+
+    # HasEntitlement → internal Atom Shop ownership check; hide
+    if "HasEntitlement" in s:
+        return ""
+
+    # Internal function-based conditions — hide (too vague to be useful to players)
+    for _fn in ("GetItemCount", "GetValue", "GetNumTimesCompletedQuest",
+                "IsActivePlayer", "GetVMQuestVariable", "GetStageDone"):
+        if _fn in s:
+            return ""
 
     # Fallback: strip raw numeric flags at end and clean up
     s = re.sub(r'\s+[01]{8}\s+[\d.]+$', '', s)
@@ -609,8 +627,13 @@ for r in COBJ:
     edid = pick(r, "COBJ_EDID", "EDID")
     cnam_full = pick(r, "CNAM_FULL", "FULL")
     cnam_fid  = pick(r, "CNAM_FormID")
+    # GNAM_FULL is the plan/recipe BOOK display name (e.g. "Plan: Pre-War Floor Safe").
+    # CNAM_FULL is the Created Object name (often empty for condition proxy COBJs).
+    # Prefer GNAM_FULL for display, fall back to CNAM_FULL.
+    gnam_full = pick(r, "GNAM_FULL")
+    display_name = gnam_full or cnam_full or ""
     if fid:
-        entry = {"edid": edid or "", "created_name": cnam_full or "", "created_formid": cnam_fid or ""}
+        entry = {"edid": edid or "", "created_name": display_name, "created_formid": cnam_fid or ""}
         cobj_by_formid[fid] = entry
         if edid:
             cobj_by_edid[edid] = entry
@@ -2114,6 +2137,31 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 break
 
     activity_data["rewardTree"] = reward_tree
+
+    # ── Tag tree nodes as unique or standard ──────────────────────────────
+    # "Standard" top-level nodes (Activity Rewards, Scrap, Legendary, etc.)
+    # keep their own expand on the page.  Everything else is tagged as
+    # isUniqueReward=True so the JS renderer can merge them into a single
+    # "Unique Activity Rewards" expand.
+    _STANDARD_TREE_RE = re.compile(
+        r'(?xi)'
+        r'  ^Activity\s+Rewards?$'
+        r'| ^Enclave\s+Activity\s+Rewards?$'
+        r'| ^Scrap\s+Rewards?$'
+        r'| ^Legendary'
+        r'| ^Enclave\s+Urban\s+Scout'
+        r'| ^Enclave\s+Plasma\s+Gun'
+        r'| ^Mutated\s+Events?\s+Rewards?$'
+        r'| ^Public\s+Event\s+Rewards?$'
+        r'| ^Corpse\s+Flower'
+        r'| ^U-Mine-It'
+    )
+    for node in reward_tree:
+        if node.get("type") == "leaf":
+            node["isUniqueReward"] = True
+        else:
+            label = node.get("label", "")
+            node["isUniqueReward"] = not bool(_STANDARD_TREE_RE.search(label))
 
     # Sort plan rewards alphabetically
     activity_data["planRewards"].sort(key=lambda x: (x.get("name") or "").lower())
