@@ -230,8 +230,14 @@ def simplify_condition(cond_str):
             if cobj_entry:
                 recipe_name = cobj_entry.get("created_name", "")
         if not recipe_name and cobj_edid_match:
-            # Humanize EDID as last resort
-            recipe_name = humanize_edid(cobj_edid_match.group(1))
+            # Humanize COBJ EDID as last resort (specialized for COBJ naming patterns)
+            recipe_name = humanize_cobj_edid(cobj_edid_match.group(1))
+
+        # Strip "Plan: " / "Recipe: " prefix if present (GNAM_FULL often has it)
+        if recipe_name.startswith(("Plan: ", "Recipe: ")):
+            recipe_name = recipe_name.split(": ", 1)[1]
+        # Strip "Player Title: " / "Camp Title: " prefix and rephrase
+        is_title = recipe_name.startswith(("Player Title:", "Camp Title:"))
 
         if comp_val >= 1.0:
             # = 1 means player MUST have learned the recipe
@@ -240,6 +246,8 @@ def simplify_condition(cond_str):
             return "Requires the base plan to be learned"
         else:
             # = 0 means player must NOT have learned it yet
+            if is_title:
+                return f"Won\u2019t drop if you\u2019ve already learned {recipe_name}"
             if recipe_name:
                 return f"Won\u2019t drop if you\u2019ve already learned Plan: {recipe_name}"
             return "Won\u2019t drop if you\u2019ve already learned this recipe"
@@ -257,11 +265,17 @@ def simplify_condition(cond_str):
 
     # GetGlobalValue → extract GLOB name and make readable
     if "GetGlobalValue" in s:
+        # Hide Drifter (P62) cut content GLOBs
+        if "P62" in s or "TheDrifter" in s or "Drifter" in s:
+            return ""
         glob_match = re.search(r'(\w+)\s*\[GLOB:', s)
         if glob_match:
             glob_edid = glob_match.group(1)
             # Prettify: LTT_RA_Rewards_Activities_DoubleLegendaryItem_Toggle
             pretty = re.sub(r"^(LTT_|RA_|Rewards_|Activities_)+", "", glob_edid)
+            # Strip quest/internal prefixes: P62_LCP_TheDrifter_ etc.
+            pretty = re.sub(r"^[A-Za-z]+\d+_(?:LCP_)?(?:TheDrifter_)?", "", pretty)
+            pretty = re.sub(r"^Gold_Treasury_Note_Loot_", "Treasury Note Loot ", pretty)
             pretty = pretty.replace("_", " ").strip()
             # Split CamelCase
             pretty = re.sub(r"([a-z])([A-Z])", r"\1 \2", pretty)
@@ -269,8 +283,9 @@ def simplify_condition(cond_str):
             pretty = title_case_words(pretty)
             pretty = re.sub(r"(?i)\bUmine\s*It\s*Map\b", "U-Mine-It Map", pretty)
             pretty = re.sub(r"(?i)\bU-mine-it\b", "U-Mine-It", pretty)
-            # Clean up "Toggle" suffix if redundant
+            # Clean up "Toggle" / "Enabled" suffix if redundant
             pretty = re.sub(r"\s+Toggle$", "", pretty, flags=re.IGNORECASE)
+            pretty = re.sub(r"\s+Enabled$", "", pretty, flags=re.IGNORECASE)
             return f"Toggle: {pretty}"
         return ""
 
@@ -284,11 +299,72 @@ def simplify_condition(cond_str):
     if "HasEntitlement" in s:
         return ""
 
+    # GetPublicEventHasMutation → event mutation check
+    if "GetPublicEventHasMutation" in s:
+        # "= 1" means event IS mutated; "= 0" means event is NOT mutated
+        if re.search(r'(?:10000000\s+)?1\.0+\s*$', s):
+            return "Only during Mutated Public Events"
+        if re.search(r'(?:10000000\s+)?0\.0+\s*$', s):
+            return "Only during non-mutated Public Events"
+        # With SPEL reference → specific mutation check (too granular, hide)
+        return ""
+
+    # IsPlayerFO1Member → Fallout 1st membership check
+    if "IsPlayerFO1Member" in s:
+        return "Requires Fallout 1st membership"
+
+    # PlayerHasQuest → quest active check; extract quest display name if present
+    if "PlayerHasQuest" in s:
+        quest_match = re.search(r'"([^"]+)"\s*\[QUST:', s)
+        if quest_match:
+            qname = quest_match.group(1)
+            if re.search(r'0\.0+\s*$', s):
+                return f"Only available when \u201c{qname}\u201d quest is not active"
+            return f"Requires \u201c{qname}\u201d quest to be active"
+        return ""
+
+    # GetInCurrentLocation / GetInCell → internal location checks; hide
+    if "GetInCurrentLocation" in s or "GetInCell" in s:
+        return ""
+
+    # GetIsAliasRef → internal alias reference; hide
+    if "GetIsAliasRef" in s:
+        return ""
+
+    # GetExpeditionsInstanceNumOptbjectivesCompleted → expedition objectives
+    if "GetExpeditionsInstanceNum" in s:
+        obj_match = re.search(r'(\d+)\.\d+\s*$', s)
+        if obj_match:
+            n = int(obj_match.group(1))
+            if n <= 0:
+                return ""  # 0+ is no requirement
+            return f"Requires {n}+ expedition objectives completed"
+        return ""
+
+    # GetRemainingQuestTimeSeconds → internal timer; hide
+    if "GetRemainingQuestTimeSeconds" in s:
+        return ""
+
+    # GetVMQuestVariableUnique → internal quest variable; hide
+    if "GetVMQuestVariableUnique" in s:
+        return ""
+
     # Internal function-based conditions — hide (too vague to be useful to players)
     for _fn in ("GetItemCount", "GetValue", "GetNumTimesCompletedQuest",
-                "IsActivePlayer", "GetVMQuestVariable", "GetStageDone"):
+                "IsActivePlayer", "GetVMQuestVariable", "GetStageDone",
+                "GetStageDoneCurrentInstance", "GetStageDoneUniqueQuest",
+                "HasKeyword", "GetRandomPercent", "GetRemainingQuestTimeSeconds",
+                "HasLearnedRecipe"):
         if _fn in s:
             return ""
+
+    # Raw GLOB references (e.g. "00331BD3:MTNM04_RewardPointsMin:GLOB") → hide
+    if re.match(r'^[0-9A-Fa-f]{8}:', s) and ":GLOB" in s:
+        return ""
+
+    # GetGlobalValue without a matched GLOB → hide
+    if "GetGlobalValue" in s:
+        return ""
 
     # Fallback: strip raw numeric flags at end and clean up
     s = re.sub(r'\s+[01]{8}\s+[\d.]+$', '', s)
@@ -302,9 +378,15 @@ def simplify_conditions(conditions):
     """Simplify a list of condition strings, removing empty results."""
     result = []
     for c in (conditions or []):
-        s = simplify_condition(c)
-        if s and s not in result:
-            result.append(s)
+        # Some conditions are comma-separated multi-conditions in a single string
+        # e.g. 'GetExpeditionsInstance... 3.0,"GetValue 10000000 0.0"'
+        # Split on ',"' pattern and process each sub-condition
+        sub_conds = re.split(r'","?|",', c) if '","' in c or '",' in c else [c]
+        for sc in sub_conds:
+            sc = sc.strip().strip('"')
+            s = simplify_condition(sc)
+            if s and s not in result:
+                result.append(s)
     return result
 
 def parse_randompercent_multiplier(conditions_text):
@@ -713,6 +795,103 @@ def humanize_edid(edid):
     s = re.sub(r"\s+", " ", s).strip()
     return s
 
+def humanize_cobj_edid(edid):
+    """Convert a COBJ EDID to a clean plan/recipe name for HasLearnedRecipe conditions.
+    Handles patterns like:
+      co_CondProxy_Clothes_Headwear_GladiatorMask
+      co_Weapon_Melee_BearArm
+      co_mod_PowerArmor_Material_Paint_Inferno_Mk_1
+      co_mod_BackPack_Bottle_Flair1
+      co_mod_UnderArmor_style_Casual
+      co_Armor_Botsmith_ArmLeft
+      workshop_co_CondProxy_Container_StashBox_Supply_Crate_Large
+      workshop_co_CondProxy_Taxidermy_ScorchedBeastQueen
+      workshop_co_CondProxy_WorkshopDeconArch01
+      workshop_co_Displays_BeerSteins_Aluminum
+      SFS09_PlayerTitle_co_CondProxy_Suffix_Manager
+      Storm_E01_PlayerTitle_co_CondProxy_Prefix_Charged
+      TWZ05_PlayerTitle_co_CondProxy_Suffix_Suitor
+    """
+    if not edid:
+        return edid
+    s = edid
+
+    # Check for Player Title / Camp Title patterns first
+    # Handles: PlayerTitle_co_CondProxy_Suffix_Manager, CAMPTitle_co_CondProxy_Both_Forge,
+    # PlayerTitle_co_CondProxy_Prefix_Suffix_Herd (combined prefix+suffix)
+    title_match = re.search(r'(Player|CAMP)Title_co_CondProxy_(?:(?:Prefix|Suffix|Both)_)+(\w+)', s, re.IGNORECASE)
+    if title_match:
+        title_type = "Camp" if title_match.group(1).upper() == "CAMP" else "Player"
+        name = title_match.group(2)
+        name = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
+        return f"{title_type} Title: {name}"
+
+    # Strip leading quest IDs, "ATX_", and "workshop_" prefix
+    s = re.sub(r"^ATX_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^workshop_", "", s, flags=re.IGNORECASE)
+    # Strip co_ / co_CondProxy_ prefix
+    s = re.sub(r"^co_(?:CondProxy_)?", "", s, flags=re.IGNORECASE)
+
+    # Known category mappings for cleaner output
+    # Weapons
+    s = re.sub(r"^Weapon_(?:Melee|Ranged)_", "", s, flags=re.IGNORECASE)
+    # Armor
+    s = re.sub(r"^Armor_", "", s, flags=re.IGNORECASE)
+    # Mods (paint, material, etc.)
+    is_mod = bool(re.match(r"^mod_", s, flags=re.IGNORECASE))
+    s = re.sub(r"^mod_", "", s, flags=re.IGNORECASE)
+    # Power Armor mods
+    s = re.sub(r"^PowerArmor_", "Power Armor ", s, flags=re.IGNORECASE)
+    # Under Armor
+    s = re.sub(r"^UnderArmou?r_style_", "Underarmour Lining: ", s, flags=re.IGNORECASE)
+    s = re.sub(r"^UnderArmou?r_", "Underarmour ", s, flags=re.IGNORECASE)
+    # Backpack
+    s = re.sub(r"^BackPack_", "Backpack ", s, flags=re.IGNORECASE)
+    # Displays / Taxidermy / Container / Workshop items
+    s = re.sub(r"^Displays?_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Taxidermy_", "Mounted ", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Container_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Workshop", "", s, flags=re.IGNORECASE)
+    # Clothes / Headwear
+    s = re.sub(r"^Clothes_Headwear_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Clothes_", "", s, flags=re.IGNORECASE)
+
+    # Strip "Material_Paint_" / "Material_" for paint plans
+    s = re.sub(r"Material_Paint_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"Material_", "", s, flags=re.IGNORECASE)
+
+    # Strip weapon type prefixes for weapon paint/mod plans
+    s = re.sub(r"^(?:weapon_)?(?:10mm|LaserGun|Minigun|MissileLauncher|GatlingPlasma|CombatShotgun|HandMadeGun)_",
+               lambda m: m.group(0).replace("_", " ").replace("weapon ", "").strip() + " ",
+               s, flags=re.IGNORECASE)
+
+    # Strip T-51 etc. torso/limb parts for PA paints
+    s = re.sub(r"\b(t\d+)_Torso_", r"\1 ", s, flags=re.IGNORECASE)
+
+    # Clean Flair suffixes: "Bottle_Flair1" → "Bottle Flair"
+    s = re.sub(r"_Flair\d*", " Flair", s)
+
+    # Strip quest ID prefixes that may remain
+    s = re.sub(r"^[A-Za-z]+\d+[A-Za-z]?_", "", s)
+
+    # Convert underscores and CamelCase to spaces
+    s = s.replace("_", " ")
+    s = re.sub(r"([a-z])([A-Z])", r"\1 \2", s)
+
+    # Clean up Mk numbers: "Mk 1" → "Mk1"
+    s = re.sub(r"\bMk\s+(\d)", r"Mk\1", s)
+
+    # Clean up stray prefixes
+    s = re.sub(r"^\s*Cond\s*Proxy\s*", "", s, flags=re.IGNORECASE)
+
+    s = re.sub(r"\s+", " ", s).strip()
+
+    # Add context hint for mods
+    if is_mod and s and not s.lower().startswith(("power armor", "underarmour", "backpack")):
+        s = f"{s} (mod)"
+
+    return s if s else edid
+
 # Build EDID-to-name index from all loaded TSVs (for items without FULL names)
 edid_to_name = {}
 for r in BOOK:
@@ -1085,6 +1264,9 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         ref = (entry.get("LVLO_Reference") or "").strip()
         ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
 
+        # Simplify conditions for display
+        display_conds = simplify_conditions(conditions)
+
         if sub_lvli:
             # Recurse into sub-LVLI and apply parent drop rate
             sub_items = resolve_lvli_items_deep(sub_lvli, depth + 1, seen)
@@ -1096,13 +1278,16 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": sub_item["dropRate"] * drop_rate,
                     "edid": sub_item["edid"],
                     "sig": sub_item.get("sig", ""),
-                    "conditions": conditions + (sub_item.get("conditions") or []),
+                    "conditions": display_conds + (sub_item.get("conditions") or []),
                 })
         else:
             # Leaf item
             if ":" in ref:
                 fid = ref.split(":")[0]
                 edid = ref.split(":")[1] if len(ref.split(":")) > 1 else ""
+                # Skip cut/Drifter content items
+                if _CUT_LVLI_RE.search(edid):
+                    continue
                 name = resolve_name_for_formid(fid, edid)
                 items.append({
                     "formid": fid,
@@ -1111,7 +1296,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": drop_rate,
                     "edid": edid,
                     "sig": ref_sig,
-                    "conditions": conditions,
+                    "conditions": display_conds,
                 })
 
     # Normalize for pick-one lists.
@@ -1166,6 +1351,9 @@ def _is_unique_lvli(lvli_edid):
     return any(name in edid_lower for name in _unique_ot_names)
 
 
+# Regex to skip cut/Drifter content LVLIs and items
+_CUT_LVLI_RE = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|POST|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
+
 def build_lvli_tree_node(list_id, depth=0, seen=None):
     """
     Builds a hierarchical tree representation of an LVLI for rendering as expandable sections.
@@ -1188,6 +1376,11 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     is_first_match = flags["first_match"]
 
     edid = lvli_edid_by_formid.get(list_id, "")
+
+    # Skip cut/Drifter content LVLIs
+    if _CUT_LVLI_RE.search(edid):
+        return None
+
     label = prettify_lvli_label(edid)
 
     children = []
@@ -1397,12 +1590,13 @@ def decompose_activities_lvli(formid):
         ref_edid_lower = ref_edid.lower()
 
         # Collect parent-level conditions (Cond1-Cond10 on the Activities entry)
-        parent_conditions = []
+        _raw_parent_conditions = []
         for i in range(1, 11):
             cond_key = f"Cond{i}"
             cond_val = (entry.get(cond_key) or "").strip()
             if cond_val:
-                parent_conditions.append(cond_val)
+                _raw_parent_conditions.append(cond_val)
+        parent_conditions = simplify_conditions(_raw_parent_conditions)
 
         # Collect parent-level ChanceNone GLOB/Curve
         chance_none_glob = (entry.get("LVOC_ChanceNoneCurve") or "").strip()
@@ -1663,7 +1857,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     #   NAM7_XPGlobal      – flat GLOB value, often used for failure rewards
     #                         (identified by "Failure" / "fail" in the GLOB EDID)
     _stage_re = re.compile(r'Stage(\d+)', re.IGNORECASE)
-    _cut_re   = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|DVCT|DVDT|DVPT)(?:[_\-]|$)', re.IGNORECASE)
+    _cut_re   = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|DVCT|DVDT|DVPT|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
     _seen_gmrw_stage = {}   # gmrw_formid → {stage, xp, xpFormID, hasRewards, isFailure}
 
     for rr in gmrw_rows:
@@ -2027,10 +2221,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 gmrw_mult = max(0.0, min(1.0, float(tier_val) / 100.0))
             except (ValueError, TypeError):
                 gmrw_mult = 1.0
-            gmrw_cond_display = f"GetRandomPercent <= {tier_val}"
+            gmrw_cond_display = ""  # GetRandomPercent is handled by drop rate display
         else:
             gmrw_mult = parse_randompercent_multiplier(cond_text)
-            gmrw_cond_display = cond_text if gmrw_mult < 1.0 else ""
+            # Simplify the GMRW condition text for display
+            gmrw_cond_display = simplify_condition(cond_text) if cond_text else ""
 
         if kind.upper() == "LVLI":
             if formid in seen_lvli_tree:
@@ -2352,7 +2547,7 @@ def classify_pool(lvli_fid):
 gmrw_rows_by_id     = defaultdict(list)
 gmrw_rows_by_parent = defaultdict(list)
 
-_GMRW_SKIP_RE = re.compile(r'^(zzz_|ZZZ_|CUT_|POST_|DEL_)', re.IGNORECASE)
+_GMRW_SKIP_RE = re.compile(r'^(zzz_|ZZZ_|CUT_|POST_|DEL_|P62_)', re.IGNORECASE)
 
 for r in GMRW:
     edid = (r.get("EDID") or "").strip()
@@ -2470,10 +2665,10 @@ def build_base_rewards(gmrw_rows):
             "lvliFormID":    lvli_fid,
             "poolTypes":     pool_types,
             "titles":        titles,
-            "conditions":    [c for r in rows for c in
+            "conditions":    simplify_conditions([c for r in rows for c in
                               (r.get("TierConditions") or r.get("TierConditionFunc")
                                or r.get("Conditions") or "").split("|")
-                              if c.strip()],
+                              if c.strip()]),
         })
     return {"tiers": tiers}
 
@@ -2872,11 +3067,11 @@ for key, pages in sorted(reward_pages_by_key.items()):
             if not rewarded: continue
             formid, kind = parse_ref(rewarded)
             count = (rr.get("RewardedItemCount") or "").strip() or "1"
-            conds = merge_conditions(
+            conds = simplify_conditions(merge_conditions(
                 rr.get("Conditions"),
                 rr.get("TierConditionFunc"),
                 rr.get("ConditionGlobs"),
-            )
+            ))
             tier_func  = (rr.get("TierConditionFunc")  or "").strip()
             tier_val   = (rr.get("TierConditionValue")  or "").strip()
 
@@ -2897,21 +3092,17 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 )
                 _cond_mult_canon = parse_randompercent_multiplier(_raw_for_mult)
 
-            # Synthesise canonical "GetRandomPercent <= N" into conds for display only
-            # (does NOT feed back into cond_mult — that's already computed above).
-            if tier_func.lower() == "getrandompercent" and tier_val:
-                try:
-                    synth = f"GetRandomPercent <= {float(tier_val):.6f}"
-                    if synth not in conds:
-                        conds = list(conds) + [synth]
-                except (ValueError, TypeError):
-                    pass
+            # GetRandomPercent tier conditions are expressed via the poolChance/drop rate
+            # display — no need to add them as separate conditions text.
 
             if kind.upper() == "LVLI":
                 pool_key = (formid, rr.get("RewardIndex") or "")
                 if pool_key in pool_seen: continue
                 pool_seen.add(pool_key)
                 lvli_edid = lvli_edid_by_formid.get(formid, "")
+                # Skip cut/Drifter content
+                if _CUT_LVLI_RE.search(lvli_edid) or _CUT_LVLI_RE.search(rewarded):
+                    continue
                 label     = prettify_lvli_label(lvli_edid) or prettify_lvli_label(rewarded.replace(":", "_"))
                 cond_mult = _cond_mult_canon  # pre-computed above, avoids double-counting
                 lvli_edid_lower = lvli_edid.lower()
@@ -3002,6 +3193,9 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 if is_enclave_plasma:      pool_entry["isEnclavePlasmaGun"]   = True
                 event["pools"].append(pool_entry)
             else:
+                # Skip cut/Drifter content direct rewards
+                if _CUT_LVLI_RE.search(rewarded):
+                    continue
                 nm = resolve_name_for_formid(formid) if formid else rewarded
                 is_plan = nm.startswith(("Plan:", "Recipe:")) if nm else False
                 cond_mult_item = _cond_mult_canon  # pre-computed above, avoids double-counting
