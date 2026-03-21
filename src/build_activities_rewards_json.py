@@ -1634,8 +1634,14 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     # Each unique GMRW FormID is one checkpoint/stage. Extract the stage number
     # from the EDID (e.g. QuestReward_RS02_Beat_Stage600_01 → 600), resolve XP,
     # and note whether that stage also yields item rewards (LVLI / BOOK etc).
-    _stage_re = re.compile(r'_Stage(\d+)_', re.IGNORECASE)
-    _seen_gmrw_stage = {}   # gmrw_formid → {stage, xp, xpFormID, hasRewards}
+    #
+    # XP sources:
+    #   XPCT_XPCurveTable  – curve-based, scales with player level (success/stages)
+    #   NAM7_XPGlobal      – flat GLOB value, often used for failure rewards
+    #                         (identified by "Failure" / "fail" in the GLOB EDID)
+    _stage_re = re.compile(r'Stage(\d+)', re.IGNORECASE)
+    _cut_re   = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|DVCT|DVDT|DVPT)(?:[_\-]|$)', re.IGNORECASE)
+    _seen_gmrw_stage = {}   # gmrw_formid → {stage, xp, xpFormID, hasRewards, isFailure}
 
     for rr in gmrw_rows:
         gmrw_fid = (rr.get("FormID") or "").strip()
@@ -1647,34 +1653,57 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 _seen_gmrw_stage[gmrw_fid]["hasRewards"] = True
             continue
         edid = (rr.get("EDID") or "").strip()
+
+        # Skip cut / deprecated / removed GMRW records
+        if _cut_re.search(edid):
+            _seen_gmrw_stage[gmrw_fid] = None   # mark seen so we don't re-check
+            continue
+
         m = _stage_re.search(edid)
         stage_num = int(m.group(1)) if m else None
+
+        # Resolve XP: prefer XPCT curve, fall back to NAM7 GLOB
         xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
-        xp_val = xp_at_level(xpct) if xpct else None
         xp_glob = (rr.get("NAM7_XPGlobal") or "").strip()
+        xp_val = None
+        xp_fid = None
+
+        if xpct:
+            xp_val = xp_at_level(xpct)
+            xp_fid = xpct.split(":")[0]
+        elif xp_glob:
+            # NAM7 is a flat GLOB value (not curve-based)
+            nam7_fid = xp_glob.split(":")[0]
+            if nam7_fid in glob_vals:
+                xp_val = int(glob_vals[nam7_fid])
+                xp_fid = nam7_fid
+
         is_failure = bool(re.search(r'fail', edid, re.IGNORECASE) or re.search(r'fail', xp_glob, re.IGNORECASE))
         _seen_gmrw_stage[gmrw_fid] = {
             "stage":      stage_num,
             "xp":         xp_val,
-            "xpFormID":   xpct.split(":")[0] if xpct else None,
+            "xpFormID":   xp_fid,
             "hasRewards": has_rewards,
             "isFailure":  is_failure,
         }
 
     # Sort by stage number (entries without a stage number sort last)
+    # Filter out None entries (cut content) and 0-XP entries (XPNone:GLOB)
     _stages_with_xp = sorted(
-        [v for v in _seen_gmrw_stage.values() if v["xp"] is not None],
+        [v for v in _seen_gmrw_stage.values() if v is not None and v["xp"] is not None and v["xp"] > 0],
         key=lambda x: (x["stage"] is None, x["stage"] or 0)
     )
 
-    # Completion = highest stage that has item rewards; fall back to highest stage overall
-    _completion = None
-    for _s in reversed(_stages_with_xp):
-        if _s["hasRewards"]:
-            _completion = _s
-            break
-    if _completion is None and _stages_with_xp:
+    # Completion = stage with highest XP among those that have item rewards;
+    # fall back to highest stage overall. When multiple stages have items,
+    # the main completion reward is the one with the biggest XP payout.
+    _with_rewards = [s for s in _stages_with_xp if s["hasRewards"]]
+    if _with_rewards:
+        _completion = max(_with_rewards, key=lambda s: (s["xp"] or 0))
+    elif _stages_with_xp:
         _completion = _stages_with_xp[-1]
+    else:
+        _completion = None
 
     # Set baseRewards.xp from completion stage (backward compat for JS renderer)
     if _completion:
@@ -1684,14 +1713,24 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     # Emit xpByStage only when there are 2+ distinct stages
     if len(_stages_with_xp) > 1:
         _xp_by_stage = []
+        # Count checkpoints (non-completion, non-failure) for numbering
+        _num_checkpoints = sum(
+            1 for _s in _stages_with_xp
+            if _s is not _completion and not _s.get("isFailure")
+        )
+        _cp_counter = 1
         for _s in _stages_with_xp:
             _is_comp = (_s is _completion)
             if _is_comp:
                 _label = "Event Completion XP"
             elif _s.get("isFailure"):
                 _label = "Event Failure XP"
-            else:
+            elif _num_checkpoints == 1:
                 _label = "Checkpoint XP"
+                _cp_counter += 1
+            else:
+                _label = f"Checkpoint {_cp_counter} XP"
+                _cp_counter += 1
             _xp_by_stage.append({
                 "stage":        _s["stage"],
                 "label":        _label,
@@ -1700,6 +1739,15 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 "isCompletion": _is_comp,
             })
         activity_data["baseRewards"]["xpByStage"] = _xp_by_stage
+
+    # Set xpFailed / xpSuccess for the simple success+failure JS render path
+    # (renderXpExpand uses these when xpByStage is absent or has ≤1 entry)
+    _failure_stages = [s for s in _stages_with_xp if s.get("isFailure")]
+    _success_stages = [s for s in _stages_with_xp if not s.get("isFailure")]
+    if _failure_stages:
+        activity_data["baseRewards"]["xpFailed"] = _failure_stages[0]["xp"]
+    if _failure_stages and len(_success_stages) == 1:
+        activity_data["baseRewards"]["xpSuccess"] = _success_stages[0]["xp"]
 
     # Process GMRW rows (caps, legendary rank, LVLI rewards)
     for rr in gmrw_rows:
