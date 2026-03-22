@@ -2394,13 +2394,13 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "sig": kind.upper(),
                 })
 
-    # ── Emit grouped Scrap Rewards node if any loose scrap/bulk items were found ──
+    # ── Emit grouped Junk & Scrap Rewards node if any loose scrap/bulk items were found ──
     if _loose_scrap_items:
         reward_tree.append({
             "type": "lvli",
             "formid": "",
             "edid": "_synthetic_scrap_rewards",
-            "label": "Scrap Rewards",
+            "label": "Junk & Scrap Rewards",
             "useAll": True,
             "items": _loose_scrap_items,
             "entryRate": 100.0,
@@ -2456,6 +2456,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         r'  ^Activity\s+Rewards?$'
         r'| ^Enclave\s+Activity\s+Rewards?$'
         r'| ^Scrap\s+Rewards?$'
+        r'| ^Junk\s+&\s+Scrap\s+Rewards?$'
         r'| ^Legendary'
         r'| ^Enclave\s+Urban\s+Scout'
         r'| ^Enclave\s+Plasma\s+Gun'
