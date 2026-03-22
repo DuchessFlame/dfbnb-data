@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-build_daily_ops_json.py — Daily Ops Reward Checklist
+build_daily_ops_json.py — Daily Ops All Rewards
 
 Reads the shared REHO rewards JSON (built by build_reho_json.py) and enriches
 the Daily Ops page data with tradeable status from BOOK + ARMO TSVs.
@@ -152,7 +152,7 @@ def main():
     with open(reho_path) as f:
         reho = json.load(f)
 
-    slug = "daily-ops-reward-checklist"
+    slug = "daily-ops-all-rewards"
     by_page = reho.get("byPage", {})
     page_data = by_page.get(slug)
 

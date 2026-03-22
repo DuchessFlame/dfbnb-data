@@ -2853,12 +2853,12 @@ def humanize_party_crasher_name(raw):
 reward_pages = []
 for r in GUIDE:
     slug = (r.get("slug") or "").strip()
-    if not slug.endswith("-reward-checklist"): continue
+    if not slug.endswith("-all-rewards"): continue
     url   = strip_trailing_slash(r.get("url") or "")
     title = (r.get("title") or "").strip()
     base_title = title
-    if base_title.lower().endswith(" reward checklist"):
-        base_title = base_title[:-len(" reward checklist")].strip()
+    if base_title.lower().endswith(" all rewards"):
+        base_title = base_title[:-len(" all rewards")].strip()
     reward_pages.append({"slug": slug, "url": url, "title": title,
                           "eventTitle": base_title, "eventKey": norm_name(base_title)})
 

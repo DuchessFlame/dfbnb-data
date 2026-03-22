@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Build REHO (Raid Expo Hunts Ops) reward checklist JSON.
+Build REHO (Raid Expo Hunts Ops) all rewards JSON.
 
 Generates dist/reho/reho_rewards_by_page.json with reward data for 10 specific
-Fallout 76 reward checklist pages, reading from:
+Fallout 76 all rewards pages, reading from:
 - dist/events/events_rewards.json (for Daily Ops, Expos, Raids)
 - dist/drop_rates.json (for Bounty Hunts — pre-computed by build_drop_rates.py)
 
@@ -24,78 +24,78 @@ from typing import Dict, Any, List, Optional, Tuple
 
 
 class REHOBuilder:
-    """Build REHO reward checklist JSON."""
+    """Build REHO all rewards JSON."""
 
     # Page mappings: slug -> (quest_name, quest_form_id, page_type, path)
     PAGE_MAPPINGS = {
-        "daily-ops-reward-checklist": {
+        "daily-ops-all-rewards": {
             "name": "Daily Ops",
             "questName": "Daily Ops",
             "questFormID": "005A77D4",
             "pageType": "dailyops",
-            "path": "/df/daily-ops/daily-ops-reward-checklist",
+            "path": "/df/daily-ops/daily-ops-all-rewards",
             "timerGlobs": {
                 "elder": ("005CB976", 480),
                 "paladin": ("005CB977", 720),
                 "knight": ("005CB978", 960),
             },
         },
-        "atlantic-city-expos-reward-checklist": {
+        "atlantic-city-expos-all-rewards": {
             "name": "Atlantic City Expos",
             "questName": "Atlantic City Expos",
             "questFormID": "006BAA3D",
             "pageType": "expedition",
-            "path": "/df/expos/atlantic-city/atlantic-city-expos-reward-checklist",
+            "path": "/df/expos/atlantic-city/atlantic-city-expos-all-rewards",
         },
-        "pitt-expos-reward-checklist": {
+        "pitt-expos-all-rewards": {
             "name": "The Pitt Expos",
             "questName": "The Pitt Expos",
             "questFormID": "006274EC",
             "pageType": "expedition",
-            "path": "/df/expos/the-pitt/pitt-expos-reward-checklist",
+            "path": "/df/expos/the-pitt/pitt-expos-all-rewards",
         },
-        "gleaming-depths-stage-1-reward-checklist": {
+        "gleaming-depths-stage-1-all-rewards": {
             "name": "Gleaming Depths Stage 1",
             "questName": "Gleaming Depths Stage 1",
             "questFormID": "00772A47",
             "pageType": "raid",
-            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-1-reward-checklist",
+            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-1-all-rewards",
             "stage": 1,
             "speedrunSeconds": 148,
         },
-        "gleaming-depths-stage-2-reward-checklist": {
+        "gleaming-depths-stage-2-all-rewards": {
             "name": "Gleaming Depths Stage 2",
             "questName": "Gleaming Depths Stage 2",
             "questFormID": "0078F7A1",
             "pageType": "raid",
-            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-2-reward-checklist",
+            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-2-all-rewards",
             "stage": 2,
             "speedrunSeconds": 220,
         },
-        "gleaming-depths-stage-3-reward-checklist": {
+        "gleaming-depths-stage-3-all-rewards": {
             "name": "Gleaming Depths Stage 3",
             "questName": "Gleaming Depths Stage 3",
             "questFormID": "0078B59E",
             "pageType": "raid",
-            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-3-reward-checklist",
+            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-3-all-rewards",
             "stage": 3,
             "speedrunSeconds": 139,
         },
-        "gleaming-depths-stage-4-reward-checklist": {
+        "gleaming-depths-stage-4-all-rewards": {
             "name": "Gleaming Depths Stage 4",
             "questName": "Gleaming Depths Stage 4",
             "questFormID": "00788127",
             "pageType": "raid",
-            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-4-reward-checklist",
+            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-4-all-rewards",
             "stage": 4,
             "speedrunSeconds": 254,
         },
-        "gleaming-depths-stage-5-reward-checklist": {
+        "gleaming-depths-stage-5-all-rewards": {
             "name": "Gleaming Depths Stage 5",
             "questName": "Gleaming Depths Stage 5",
             "questFormID": "00786D41",
             "pageType": "raid",
-            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-5-reward-checklist",
+            "path": "/df/raids/gleaming-depths/gleaming-depths-stage-5-all-rewards",
             "stage": 5,
             "speedrunSeconds": 134,
         },
@@ -168,7 +168,7 @@ class REHOBuilder:
 
     def run(self):
         """Build the REHO JSON file."""
-        print("Building REHO reward checklist JSON...")
+        print("Building REHO all rewards JSON...")
 
         # Load shared drop rates JSON (replaces all LVLI/GLOB/item-name loading)
         self._load_drop_rates()

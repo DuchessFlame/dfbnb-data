@@ -150,11 +150,11 @@ def main() -> None:
     # EXACT rules = one-off pages you listed
     # ---------------------------------------------
     EXACT_RULES: List[Tuple[str, str, str]] = [
-        ("/df/expos/atlantic-city/atlantic-city-expos-reward-checklist/",
+        ("/df/expos/atlantic-city/atlantic-city-expos-all-rewards/",
          "patchlog_latest_df_expos_atlantic_city_rewards.json", "df-expos-atlantic-city-rewards"),
-        ("/df/expos/the-pitt/pitt-expos-reward-checklist/",
+        ("/df/expos/the-pitt/pitt-expos-all-rewards/",
          "patchlog_latest_df_expos_pitt_rewards.json", "df-expos-pitt-rewards"),
-        ("/df/daily-ops/daily-ops-reward-checklist/",
+        ("/df/daily-ops/daily-ops-all-rewards/",
          "patchlog_latest_df_daily_ops_rewards.json", "df-daily-ops-rewards"),
     ]
 
