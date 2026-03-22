@@ -323,8 +323,8 @@ def simplify_condition(cond_str):
             return f"Requires \u201c{qname}\u201d quest to be active"
         return ""
 
-    # GetInCurrentLocation / GetInCell → internal location checks; hide
-    if "GetInCurrentLocation" in s or "GetInCell" in s:
+    # GetInCurrentLocation / GetInCell / LocationAliasIsLocation → internal location checks; hide
+    if "GetInCurrentLocation" in s or "GetInCell" in s or "LocationAliasIsLocation" in s:
         return ""
 
     # GetIsAliasRef → internal alias reference; hide
@@ -541,9 +541,14 @@ def _mod_slot_sort_key(slot):
     # Everything else (Lining, Receiver, Material, Appearance, etc.) by includeIndex
     return (2, slot.get("includeIndex", 0))
 
-# Group OT rows by (FormID, CombinationIndex), then pick the best combo per weapon.
-# "Best" = the combination with the most legendary slots (i.e. the named/unique variant).
+# Group OT rows by (FormID, CombinationIndex), storing slots + combo metadata.
+# We keep ALL named/unique combos per weapon, keyed by identifiers extracted from
+# the Combination_FULL name and mod_Custom_ EDIDs.  This lets us match the right
+# combo when an LVLI like LL_Weapon_Ranged_10mmSMG_PerfectStorm references a
+# specific variant of a base weapon.
 _weap_combos = defaultdict(lambda: defaultdict(list))  # {fid: {combo_idx: [slots]}}
+_weap_combo_names = defaultdict(dict)  # {fid: {combo_idx: combo_full_name}}
+_weap_combo_keywords = defaultdict(lambda: defaultdict(set))  # {fid: {combo_idx: {keyword_fragments}}}
 for r in WEAP_OT:
     fid = pick(r, "WEAP_FormID", "FormID")
     mod_ref = pick(r, "Include_Mod", "Mod")
@@ -558,20 +563,58 @@ for r in WEAP_OT:
             "value": value,
             "includeIndex": inc_idx,
         })
+    # Collect combo name from Combination_FULL
+    combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
+    combo_full = (pick(r, "Combination_FULL", default="") or "").strip()
+    if combo_full:
+        _weap_combo_names[fid][combo_idx] = combo_full
+    # Extract custom mod keywords (e.g. mod_Custom_PerfectStorm → "perfectstorm")
+    mod_edid = re.split(r'["\[]', (mod_ref or ""))[0].strip().lower()
+    m = re.match(r"mod_custom_(\w+)", mod_edid)
+    if m:
+        kw = re.sub(r"_", "", m.group(1)).lower()
+        _weap_combo_keywords[fid][combo_idx].add(kw)
 
-weap_mod_slots_by_formid = {}
+# Build per-weapon dict: {fid: {variant_key: sorted_slots}}
+# variant_key is derived from Combination_FULL name or custom mod keywords.
+# Also keep a "best" fallback for backward compat.
+weap_mod_slots_by_formid = {}       # fid → best combo slots (fallback)
+weap_mod_slots_by_variant = {}      # fid → {variant_key_lower: slots}
+
 for fid, combos in _weap_combos.items():
-    # Pick the combination with the most legendary slots
-    best_combo_idx = max(
-        combos.keys(),
-        key=lambda ci: sum(1 for s in combos[ci] if "Legendary" in s["label"])
-    )
-    best_slots = combos[best_combo_idx]
-    # Only keep weapons that have at least one legendary slot (i.e. named/unique weapons)
-    has_legendary = any("Legendary" in s["label"] for s in best_slots)
-    if has_legendary:
-        best_slots.sort(key=_mod_slot_sort_key)
+    variants = {}
+    best_combo_idx = None
+    best_legendary_count = -1
+    for ci, slots in combos.items():
+        has_legendary = any("Legendary" in s["label"] for s in slots)
+        if not has_legendary:
+            continue
+        legendary_count = sum(1 for s in slots if "Legendary" in s["label"])
+        sorted_slots = sorted(slots, key=_mod_slot_sort_key)
+
+        # Derive variant keys from combo name and custom mod keywords
+        keys = set()
+        cname = _weap_combo_names.get(fid, {}).get(ci, "")
+        if cname:
+            keys.add(re.sub(r"[^a-z0-9]", "", cname.lower()))
+        for kw in _weap_combo_keywords.get(fid, {}).get(ci, set()):
+            keys.add(kw)
+        for k in keys:
+            variants[k] = sorted_slots
+
+        # Track best for fallback (highest combo index among tied legendary counts,
+        # to match old behaviour but only as last resort)
+        if legendary_count > best_legendary_count or (
+            legendary_count == best_legendary_count and (best_combo_idx is None or ci > best_combo_idx)
+        ):
+            best_legendary_count = legendary_count
+            best_combo_idx = ci
+
+    if best_combo_idx is not None:
+        best_slots = sorted(combos[best_combo_idx], key=_mod_slot_sort_key)
         weap_mod_slots_by_formid[fid] = best_slots
+    if variants:
+        weap_mod_slots_by_variant[fid] = variants
 
 # --------------------------------------------------
 # Index: ARMO Object Template (mod slots for named/unique armour)
@@ -636,6 +679,8 @@ def _classify_armor_mod_slot(mod_ref_str):
     return label, value
 
 _armo_combos = defaultdict(lambda: defaultdict(list))
+_armo_combo_names = defaultdict(dict)
+_armo_combo_keywords = defaultdict(lambda: defaultdict(set))
 for r in ARMO_OT:
     fid = pick(r, "ARMO_FormID", "FormID")
     mod_ref = pick(r, "Include_Mod", "Mod")
@@ -650,18 +695,47 @@ for r in ARMO_OT:
             "value": value,
             "includeIndex": inc_idx,
         })
+    combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
+    combo_full = (pick(r, "Combination_FULL", default="") or "").strip()
+    if combo_full:
+        _armo_combo_names[fid][combo_idx] = combo_full
+    mod_edid = re.split(r'["\[]', (mod_ref or ""))[0].strip().lower()
+    m = re.match(r"mod_custom_(\w+)", mod_edid)
+    if m:
+        kw = re.sub(r"_", "", m.group(1)).lower()
+        _armo_combo_keywords[fid][combo_idx].add(kw)
 
 armo_mod_slots_by_formid = {}
+armo_mod_slots_by_variant = {}
+
 for fid, combos in _armo_combos.items():
-    best_combo_idx = max(
-        combos.keys(),
-        key=lambda ci: sum(1 for s in combos[ci] if "Legendary" in s["label"])
-    )
-    best_slots = combos[best_combo_idx]
-    has_legendary = any("Legendary" in s["label"] for s in best_slots)
-    if has_legendary:
-        best_slots.sort(key=_mod_slot_sort_key)
+    variants = {}
+    best_combo_idx = None
+    best_legendary_count = -1
+    for ci, slots in combos.items():
+        has_legendary = any("Legendary" in s["label"] for s in slots)
+        if not has_legendary:
+            continue
+        legendary_count = sum(1 for s in slots if "Legendary" in s["label"])
+        sorted_slots = sorted(slots, key=_mod_slot_sort_key)
+        keys = set()
+        cname = _armo_combo_names.get(fid, {}).get(ci, "")
+        if cname:
+            keys.add(re.sub(r"[^a-z0-9]", "", cname.lower()))
+        for kw in _armo_combo_keywords.get(fid, {}).get(ci, set()):
+            keys.add(kw)
+        for k in keys:
+            variants[k] = sorted_slots
+        if legendary_count > best_legendary_count or (
+            legendary_count == best_legendary_count and (best_combo_idx is None or ci > best_combo_idx)
+        ):
+            best_legendary_count = legendary_count
+            best_combo_idx = ci
+    if best_combo_idx is not None:
+        best_slots = sorted(combos[best_combo_idx], key=_mod_slot_sort_key)
         armo_mod_slots_by_formid[fid] = best_slots
+    if variants:
+        armo_mod_slots_by_variant[fid] = variants
 
 # --------------------------------------------------
 # Index: GLOB
@@ -1351,6 +1425,37 @@ def _is_unique_lvli(lvli_edid):
     return any(name in edid_lower for name in _unique_ot_names)
 
 
+def _resolve_variant_modslots(item_fid, item_sig, lvli_edid, fallback=True):
+    """
+    Resolve the correct ObjectTemplate combo for an item inside an LVLI.
+    Uses the LVLI EDID to match against variant keys derived from
+    Combination_FULL names and mod_Custom_ keywords.
+    If fallback=True, returns the generic 'best' combo when no variant matches.
+    If fallback=False, returns None when no variant matches (use this for
+    generic base-weapon LVLIs that should NOT show named variant breakdowns).
+    Returns a list of mod slot dicts, or None.
+    """
+    sig = (item_sig or "").upper()
+    edid_norm = re.sub(r"[^a-z0-9]", "", (lvli_edid or "").lower())
+
+    if sig == "WEAP":
+        variants = weap_mod_slots_by_variant.get(item_fid, {})
+        fb = weap_mod_slots_by_formid.get(item_fid)
+    elif sig == "ARMO":
+        variants = armo_mod_slots_by_variant.get(item_fid, {})
+        fb = armo_mod_slots_by_formid.get(item_fid)
+    else:
+        return None
+
+    # Try matching variant keys against LVLI EDID
+    if variants and edid_norm:
+        for vkey, slots in variants.items():
+            if vkey in edid_norm:
+                return slots
+    # Fallback to generic best (only if requested)
+    return fb if fallback else None
+
+
 # Regex to skip cut/Drifter content LVLIs and items
 _CUT_LVLI_RE = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|POST|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
 
@@ -1480,14 +1585,13 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 }
                 if display_conditions:
                     item_data["conditions"] = display_conditions
-                # Attach modSlots ONLY if this LVLI is a named/unique variant
-                # (detected by matching the LVLI EDID against known unique OT names).
-                # Regular LVLI pools drop the base version (OT CombinationIndex 0).
+                # Attach modSlots if this LVLI is a named/unique variant.
+                # Uses variant-aware resolver to pick the correct OT combination
+                # based on LVLI EDID (e.g. PerfectStorm, Splinter, LastBastion).
                 if _is_unique_lvli(edid):
-                    if ref_sig == "ARMO" and fid in armo_mod_slots_by_formid:
-                        item_data["modSlots"] = armo_mod_slots_by_formid[fid]
-                    elif ref_sig == "WEAP" and fid in weap_mod_slots_by_formid:
-                        item_data["modSlots"] = weap_mod_slots_by_formid[fid]
+                    resolved = _resolve_variant_modslots(fid, ref_sig, edid)
+                    if resolved:
+                        item_data["modSlots"] = resolved
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions))
 
     # ── First-match cascading probability ──
@@ -1857,9 +1961,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     #   NAM7_XPGlobal      – flat GLOB value, often used for failure rewards
     #                         (identified by "Failure" / "fail" in the GLOB EDID)
     _stage_re = re.compile(r'Stage(\d+)', re.IGNORECASE)
-    # NOTE: ZZZ prefix removed — Bethesda sometimes adds zzz_ to live events
-    # (e.g. Dogwood Die Off, Pitt Expeditions). Actual cut content uses CUT/DEL.
-    _cut_re   = re.compile(r'(?:^|[_\-])(?:CUT|DEL|DVCT|DVDT|DVPT|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
+    _cut_re   = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|DVCT|DVDT|DVPT|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
     _seen_gmrw_stage = {}   # gmrw_formid → {stage, xp, xpFormID, hasRewards, isFailure}
 
     for rr in gmrw_rows:
@@ -2362,22 +2464,25 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     # Attach modSlots to WEAP/ARMO items inside unique rewardTree nodes.
     # _is_unique_lvli only catches named legendaries; this catches everything
     # in nodes marked isUniqueReward=True.
-    def _attach_modslots_to_tree(node):
+    def _attach_modslots_to_tree(node, parent_edid=""):
         if not node or not node.get("isUniqueReward"):
             return
+        node_edid = node.get("edid", "") or parent_edid
         for item in node.get("items", []):
             if "modSlots" in item:
                 continue  # already attached by _is_unique_lvli
             fid = item.get("formid", "")
             sig = (item.get("sig") or "").upper()
-            if sig == "WEAP" and fid in weap_mod_slots_by_formid:
-                item["modSlots"] = weap_mod_slots_by_formid[fid]
-            elif sig == "ARMO" and fid in armo_mod_slots_by_formid:
-                item["modSlots"] = armo_mod_slots_by_formid[fid]
+            # Only attach modSlots via variant match — no fallback.
+            # Generic base weapon LVLIs (e.g. LL_Weapon_Ranged_10mmSMG) drop
+            # the default combo and should NOT show named variant breakdowns.
+            resolved = _resolve_variant_modslots(fid, sig, node_edid,
+                                                  fallback=False)
+            if resolved:
+                item["modSlots"] = resolved
         for child in node.get("children", []):
-            # Propagate isUniqueReward to children for this walk
             child["isUniqueReward"] = True
-            _attach_modslots_to_tree(child)
+            _attach_modslots_to_tree(child, child.get("edid", "") or node_edid)
 
     for node in reward_tree:
         _attach_modslots_to_tree(node)
@@ -2390,11 +2495,15 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         fid = uer_item.get("formid", "")
         if not fid:
             continue
-        slots = None
-        if fid in weap_mod_slots_by_formid:
-            slots = weap_mod_slots_by_formid[fid]
-        elif fid in armo_mod_slots_by_formid:
-            slots = armo_mod_slots_by_formid[fid]
+        sig = (uer_item.get("sig") or "").upper()
+        item_edid = uer_item.get("edid", "")
+        slots = _resolve_variant_modslots(fid, sig, item_edid)
+        if not slots:
+            # Fallback to generic best
+            if fid in weap_mod_slots_by_formid:
+                slots = weap_mod_slots_by_formid[fid]
+            elif fid in armo_mod_slots_by_formid:
+                slots = armo_mod_slots_by_formid[fid]
         if slots:
             # Strip the includeIndex (internal sorting key) before emitting
             uer_item["modSlots"] = [
@@ -2571,10 +2680,7 @@ def classify_pool(lvli_fid):
 gmrw_rows_by_id     = defaultdict(list)
 gmrw_rows_by_parent = defaultdict(list)
 
-# NOTE: zzz_ prefix is NOT skipped here because Bethesda occasionally adds it to
-# still-live events (e.g. Dogwood Die Off, Pitt Expeditions). Cut content is
-# filtered via the _CUT_LVLI_RE on individual items and the _cut_re on quests.
-_GMRW_SKIP_RE = re.compile(r'^(CUT_|POST_|DEL_|P62_)', re.IGNORECASE)
+_GMRW_SKIP_RE = re.compile(r'^(zzz_|ZZZ_|CUT_|POST_|DEL_|P62_)', re.IGNORECASE)
 
 for r in GMRW:
     edid = (r.get("EDID") or "").strip()
@@ -2782,7 +2888,7 @@ EVENT_KEY_ALIASES = {
     "sinkholesolutions": ["eventsinkholesolutions", "burne02sinkhole"],
     "campfiretales":     ["eventcampfiretales", "e01ctales"],
     "treasurehunter":    ["seasonaltreasurehunter", "e04treasurehunter"],
-    "poweringuppowerstation": ["poweringupthundermt", "poweringup", "mtr07power", "mtr07earth", "earthmover"],
+    "poweringuppowerstation": ["powerplantevent", "poweringup"],
     "caravansmilepostzero":   ["milecaravanintro", "milepostzero"],
     # Daily Ops → two modes (Uplink + Decryption)
     "dailyops":          ["dailyopsmode01quest", "dailyopsmode02quest"],
