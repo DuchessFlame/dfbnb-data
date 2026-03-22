@@ -2340,6 +2340,15 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 tree_node["gmrwDropRate"] = round(gmrw_mult * 100, 6)
                 if gmrw_cond_display:
                     tree_node["gmrwConditions"] = [gmrw_cond_display]
+                # Pass through RewardedItemCount — the game rolls this LVLI
+                # N times on completion (e.g. Death Blossoms seeds ×3).
+                roll_count_raw = (rr.get("RewardedItemCount") or "1").strip()
+                try:
+                    roll_count = int(float(roll_count_raw))
+                except (ValueError, TypeError):
+                    roll_count = 1
+                if roll_count > 1:
+                    tree_node["rollCount"] = roll_count
                 reward_tree.append(tree_node)
         else:
             # Non-LVLI direct reward — check if it's a loose scrap/bulk item.
