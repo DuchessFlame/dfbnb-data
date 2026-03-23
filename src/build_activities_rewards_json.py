@@ -91,6 +91,17 @@ LVLI_LABEL_OVERRIDES = {
     # so they route to Unique Activity Rewards via the JS transform.
 }
 
+def _detect_armor_weight(edid):
+    """Detect armor weight class from LVLI EDID suffix (e.g. _Light, _Medium, _Heavy)."""
+    e = (edid or "").strip()
+    if re.search(r'_Light$', e, re.IGNORECASE):
+        return "Light"
+    if re.search(r'_Medium$', e, re.IGNORECASE):
+        return "Sturdy"
+    if re.search(r'_Heavy$', e, re.IGNORECASE):
+        return "Heavy"
+    return None
+
 # Pattern-based label rules: (regex, replacement_func_or_string)
 # Applied in order; first match wins.
 LVLI_LABEL_PATTERNS = [
@@ -1576,6 +1587,10 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 fid = ref.split(":")[0]
                 ref_edid = ref.split(":")[1] if len(ref.split(":")) > 1 else ""
                 name = resolve_name_for_formid(fid, ref_edid)
+                # Detect armor weight from parent LVLI EDID and append to name
+                armor_weight = _detect_armor_weight(edid)
+                if armor_weight and name and ref_sig.upper() == "ARMO":
+                    name = f"{name} ({armor_weight})"
                 item_data = {
                     "formid": fid,
                     "edid": ref_edid,
@@ -1648,6 +1663,21 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         result["children"] = children
     if items:
         result["items"] = items
+
+    # Detect duplicate child sub-LVLIs (e.g. Light armour appearing twice in a
+    # body-part list).  When found, attach a short note so JS can display it.
+    if children:
+        child_fids = [c.get("formid", "") for c in children if c.get("formid")]
+        seen_fids = set()
+        dupe_fids = set()
+        for fid in child_fids:
+            if fid in seen_fids:
+                dupe_fids.add(fid)
+            seen_fids.add(fid)
+        if dupe_fids:
+            result["duplicateRollNote"] = (
+                "Some pieces roll twice, giving a better chance to drop."
+            )
 
     # Flag region-based nodes so JS can adjust display (no fake 12.5%, add note)
     edid_lower = (edid or "").lower()
