@@ -89,6 +89,20 @@ LVLI_LABEL_OVERRIDES = {
     # key: EXACT lowercase EDID match → display label
 }
 
+# Fallback items for LVLIs whose entries have empty references in the xEdit export.
+# Keyed by LVLI FormID → list of (item_formid, sig, display_name).
+EMPTY_LVLI_ITEM_FALLBACKS = {
+    "001109F1": [("001107AA", "ARMO", "Armor_DLC03_Marine_ArmLeft")],      # LL_Armor_Marine_ArmLeft
+    "001109F2": [("001107AB", "ARMO", "Armor_DLC03_Marine_ArmRight")],     # LL_Armor_Marine_ArmRight
+    "001109F4": [("001107AD", "ARMO", "Armor_DLC03_Marine_LegLeft")],      # LL_Armor_Marine_LegLeft
+    "001109F5": [("001107AE", "ARMO", "Armor_DLC03_Marine_LegRight")],     # LL_Armor_Marine_LegRight
+    "001109F6": [("001107AF", "ARMO", "Armor_DLC03_Marine_Torso")],        # LL_Armor_Marine_Torso
+}
+
+# List-level conditions: built dynamically from LVLI_List TSV ListCond1..N columns.
+# Populated after TSV loading (see _build_lvli_list_conditions below).
+LVLI_LIST_CONDITIONS = {}  # FormID → list of raw condition strings
+
 def _detect_armor_weight(edid):
     """Detect armor weight class from LVLI EDID suffix (e.g. _Light, _Medium, _Heavy)."""
     e = (edid or "").strip()
@@ -230,8 +244,14 @@ def simplify_condition(cond_str):
             if cobj_entry:
                 recipe_name = cobj_entry.get("created_name", "")
         if not recipe_name and cobj_edid_match:
-            # Humanize EDID as last resort
-            recipe_name = humanize_edid(cobj_edid_match.group(1))
+            # Humanize COBJ EDID as last resort (specialized for COBJ naming patterns)
+            recipe_name = humanize_cobj_edid(cobj_edid_match.group(1))
+
+        # Strip "Plan: " / "Recipe: " prefix if present (GNAM_FULL often has it)
+        if recipe_name.startswith(("Plan: ", "Recipe: ")):
+            recipe_name = recipe_name.split(": ", 1)[1]
+        # Strip "Player Title: " / "Camp Title: " prefix and rephrase
+        is_title = recipe_name.startswith(("Player Title:", "Camp Title:"))
 
         if comp_val >= 1.0:
             # = 1 means player MUST have learned the recipe
@@ -240,6 +260,8 @@ def simplify_condition(cond_str):
             return "Requires the base plan to be learned"
         else:
             # = 0 means player must NOT have learned it yet
+            if is_title:
+                return f"Won\u2019t drop if you\u2019ve already learned {recipe_name}"
             if recipe_name:
                 return f"Won\u2019t drop if you\u2019ve already learned Plan: {recipe_name}"
             return "Won\u2019t drop if you\u2019ve already learned this recipe"
@@ -257,11 +279,17 @@ def simplify_condition(cond_str):
 
     # GetGlobalValue → extract GLOB name and make readable
     if "GetGlobalValue" in s:
+        # Hide Drifter (P62) cut content GLOBs
+        if "P62" in s or "TheDrifter" in s or "Drifter" in s:
+            return ""
         glob_match = re.search(r'(\w+)\s*\[GLOB:', s)
         if glob_match:
             glob_edid = glob_match.group(1)
             # Prettify: LTT_RA_Rewards_Activities_DoubleLegendaryItem_Toggle
             pretty = re.sub(r"^(LTT_|RA_|Rewards_|Activities_)+", "", glob_edid)
+            # Strip quest/internal prefixes: P62_LCP_TheDrifter_ etc.
+            pretty = re.sub(r"^[A-Za-z]+\d+_(?:LCP_)?(?:TheDrifter_)?", "", pretty)
+            pretty = re.sub(r"^Gold_Treasury_Note_Loot_", "Treasury Note Loot ", pretty)
             pretty = pretty.replace("_", " ").strip()
             # Split CamelCase
             pretty = re.sub(r"([a-z])([A-Z])", r"\1 \2", pretty)
@@ -269,18 +297,66 @@ def simplify_condition(cond_str):
             pretty = title_case_words(pretty)
             pretty = re.sub(r"(?i)\bUmine\s*It\s*Map\b", "U-Mine-It Map", pretty)
             pretty = re.sub(r"(?i)\bU-mine-it\b", "U-Mine-It", pretty)
-            # Clean up "Toggle" suffix if redundant
+            # Clean up "Toggle" / "Enabled" suffix if redundant
             pretty = re.sub(r"\s+Toggle$", "", pretty, flags=re.IGNORECASE)
+            pretty = re.sub(r"\s+Enabled$", "", pretty, flags=re.IGNORECASE)
             return f"Toggle: {pretty}"
         return ""
 
-    # Fallback: strip raw numeric flags at end and clean up
-    s = re.sub(r'\s+[01]{8}\s+[\d.]+$', '', s)
-    s = re.sub(r'\s+[01]{8}\s+\S+\s*$', '', s)
-    # Strip "Subject." prefix and parameter noise
-    s = re.sub(r'^Subject\.', '', s)
-    s = re.sub(r'\(00 00 00.*?\)', '()', s)
-    return s.strip() if s.strip() else ""
+    # GetIsPlayerGhoul → Ghoul / Human character restriction
+    if "GetIsPlayerGhoul" in s:
+        if re.search(r'0\.0+\s*$', s):
+            return "Human character only"
+        return "Ghoul character only"
+
+    # HasEntitlement → internal Atom Shop ownership check; hide
+    if "HasEntitlement" in s:
+        return ""
+
+    # GetPublicEventHasMutation → event mutation check
+    if "GetPublicEventHasMutation" in s:
+        # "= 1" means event IS mutated; "= 0" means event is NOT mutated
+        if re.search(r'(?:10000000\s+)?1\.0+\s*$', s):
+            return "Only during Mutated Public Events"
+        if re.search(r'(?:10000000\s+)?0\.0+\s*$', s):
+            return "Only during non-mutated Public Events"
+        # With SPEL reference → specific mutation check (too granular, hide)
+        return ""
+
+    # IsPlayerFO1Member → Fallout 1st membership check
+    if "IsPlayerFO1Member" in s:
+        return "Requires Fallout 1st membership"
+
+    # PlayerHasQuest → quest active check; extract quest display name if present
+    if "PlayerHasQuest" in s:
+        quest_match = re.search(r'"([^"]+)"\s*\[QUST:', s)
+        if quest_match:
+            qname = quest_match.group(1)
+            if re.search(r'0\.0+\s*$', s):
+                return f"Only available when \u201c{qname}\u201d quest is not active"
+            return f"Requires \u201c{qname}\u201d quest to be active"
+        return ""
+
+    # GetInCurrentLocation / GetInCell / LocationAliasIsLocation → internal location checks; hide
+    if "GetInCurrentLocation" in s or "GetInCell" in s or "LocationAliasIsLocation" in s:
+        return ""
+
+    # GetIsAliasRef → internal alias reference; hide
+    if "GetIsAliasRef" in s:
+        return ""
+
+    # GetExpeditionsInstanceNumOptbjectivesCompleted → expedition objectives
+    if "GetExpeditionsInstanceNum" in s:
+        obj_match = re.search(r'(\d+)\.\d+\s*$', s)
+        if obj_match:
+            n = int(obj_match.group(1))
+            if n <= 0:
+                return ""  # 0+ is no requirement
+            return f"Requires {n}+ expedition objectives completed"
+        return ""
+
+    # Fallback: return empty for unrecognized conditions (avoids raw xEdit noise)
+    return ""
 
 def simplify_conditions(conditions):
     """Simplify a list of condition strings, removing empty results."""
@@ -590,8 +666,13 @@ for r in COBJ:
     edid = pick(r, "COBJ_EDID", "EDID")
     cnam_full = pick(r, "CNAM_FULL", "FULL")
     cnam_fid  = pick(r, "CNAM_FormID")
+    # GNAM_FULL is the plan/recipe BOOK display name (e.g. "Plan: Protective Lining Marine Underarmor").
+    # CNAM_FULL is the Created Object name (often just the short mod name like "Protective Lining").
+    # Prefer GNAM_FULL for display, fall back to CNAM_FULL.
+    gnam_full = pick(r, "GNAM_FULL")
+    display_name = gnam_full or cnam_full or ""
     if fid:
-        entry = {"edid": edid or "", "created_name": cnam_full or "", "created_formid": cnam_fid or ""}
+        entry = {"edid": edid or "", "created_name": display_name, "created_formid": cnam_fid or ""}
         cobj_by_formid[fid] = entry
         if edid:
             cobj_by_edid[edid] = entry
@@ -671,6 +752,80 @@ def humanize_edid(edid):
     s = re.sub(r"\s+", " ", s).strip()
     return s
 
+def humanize_cobj_edid(edid):
+    """Convert a COBJ EDID to a clean plan/recipe name for HasLearnedRecipe conditions.
+    Handles patterns like:
+      co_CondProxy_Clothes_Headwear_GladiatorMask
+      co_Weapon_Melee_BearArm
+      co_mod_PowerArmor_Material_Paint_Inferno_Mk_1
+      co_mod_BackPack_Bottle_Flair1
+      co_mod_UnderArmor_style_Casual
+      co_Armor_Botsmith_ArmLeft
+      workshop_co_CondProxy_Container_StashBox_Supply_Crate_Large
+      workshop_co_CondProxy_Taxidermy_ScorchedBeastQueen
+      workshop_co_CondProxy_WorkshopDeconArch01
+      workshop_co_Displays_BeerSteins_Aluminum
+      SFS09_PlayerTitle_co_CondProxy_Suffix_Manager
+      Storm_E01_PlayerTitle_co_CondProxy_Prefix_Charged
+      TWZ05_PlayerTitle_co_CondProxy_Suffix_Suitor
+    """
+    if not edid:
+        return edid
+    s = edid
+
+    # Check for Player Title / Camp Title patterns first
+    title_match = re.search(r'(Player|CAMP)Title_co_CondProxy_(?:(?:Prefix|Suffix|Both)_)+(\w+)', s, re.IGNORECASE)
+    if title_match:
+        title_type = "Camp" if title_match.group(1).upper() == "CAMP" else "Player"
+        name = title_match.group(2)
+        name = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
+        return f"{title_type} Title: {name}"
+
+    # Strip leading quest IDs, "ATX_", and "workshop_" prefix
+    s = re.sub(r"^ATX_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^workshop_", "", s, flags=re.IGNORECASE)
+    # Strip co_ / co_CondProxy_ prefix
+    s = re.sub(r"^co_(?:CondProxy_)?", "", s, flags=re.IGNORECASE)
+
+    # Known category mappings for cleaner output
+    s = re.sub(r"^Weapon_(?:Melee|Ranged)_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Armor_", "", s, flags=re.IGNORECASE)
+    is_mod = bool(re.match(r"^mod_", s, flags=re.IGNORECASE))
+    s = re.sub(r"^mod_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^PowerArmor_", "Power Armor ", s, flags=re.IGNORECASE)
+    s = re.sub(r"^UnderArmou?r_style_", "Underarmour Lining: ", s, flags=re.IGNORECASE)
+    s = re.sub(r"^UnderArmou?r_", "Underarmour ", s, flags=re.IGNORECASE)
+    s = re.sub(r"^BackPack_", "Backpack ", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Displays?_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Taxidermy_", "Mounted ", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Container_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Workshop", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Clothes_Headwear_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Clothes_", "", s, flags=re.IGNORECASE)
+
+    s = re.sub(r"Material_Paint_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"Material_", "", s, flags=re.IGNORECASE)
+
+    s = re.sub(r"^(?:weapon_)?(?:10mm|LaserGun|Minigun|MissileLauncher|GatlingPlasma|CombatShotgun|HandMadeGun)_",
+               lambda m: m.group(0).replace("_", " ").replace("weapon ", "").strip() + " ",
+               s, flags=re.IGNORECASE)
+
+    s = re.sub(r"\b(t\d+)_Torso_", r"\1 ", s, flags=re.IGNORECASE)
+    s = re.sub(r"_Flair\d*", " Flair", s)
+    s = re.sub(r"^[A-Za-z]+\d+[A-Za-z]?_", "", s)
+
+    # Convert underscores and CamelCase to spaces
+    s = s.replace("_", " ")
+    s = re.sub(r"([a-z])([A-Z])", r"\1 \2", s)
+    s = re.sub(r"\bMk\s+(\d)", r"Mk\1", s)
+    s = re.sub(r"^\s*Cond\s*Proxy\s*", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s+", " ", s).strip()
+
+    if is_mod and s and not s.lower().startswith(("power armor", "underarmour", "backpack")):
+        s = f"{s} (mod)"
+
+    return s if s else edid
+
 # Build EDID-to-name index from all loaded TSVs (for items without FULL names)
 edid_to_name = {}
 for r in BOOK:
@@ -748,6 +903,23 @@ lvli_entries_by_list = defaultdict(list)
 for r in LVLI_ENTRIES:
     if "LVLI_FormID" in r:
         lvli_entries_by_list[r["LVLI_FormID"]].append(r)
+
+# Build LVLI_LIST_CONDITIONS from TSV ListCond1..N columns (populated by xEdit export).
+# Falls back to empty if the TSV doesn't have these columns yet.
+for _r in LVLI_LIST:
+    _fid = pick(_r, "LVLI_FormID", "FormID")
+    if not _fid:
+        continue
+    _lcc = (_r.get("ListCondCount") or "").strip()
+    if not _lcc or _lcc == "0":
+        continue
+    _conds = []
+    for _ci in range(1, 26):  # up to ListCond25
+        _cv = (_r.get(f"ListCond{_ci}") or "").strip()
+        if _cv:
+            _conds.append(_cv)
+    if _conds:
+        LVLI_LIST_CONDITIONS[_fid] = _conds
 
 def _resolve_chance_none(math_row, field_prefix="Entry"):
     """
@@ -962,6 +1134,9 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 else:
                     first_match_rates[_idx] = max((100.0 - prev) / 100.0, 0.0)
 
+    # Collect list-level conditions from TSV (LVLI record-level CTDA)
+    list_level_conds = simplify_conditions(LVLI_LIST_CONDITIONS.get(list_id, []))
+
     items = []
     for entry in lvli_entries_by_list.get(list_id, []):
         idx = entry.get("EntryIndex")
@@ -1024,7 +1199,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": sub_item["dropRate"] * drop_rate,
                     "edid": sub_item["edid"],
                     "sig": sub_item.get("sig", ""),
-                    "conditions": conditions + (sub_item.get("conditions") or []),
+                    "conditions": list_level_conds + conditions + (sub_item.get("conditions") or []),
                 })
         else:
             # Leaf item
@@ -1039,7 +1214,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": drop_rate,
                     "edid": edid,
                     "sig": ref_sig,
-                    "conditions": conditions,
+                    "conditions": list_level_conds + conditions,
                 })
 
     # Normalize for pick-one lists.  A pick-one list selects exactly one
@@ -1107,7 +1282,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     items = []
 
     # Collect raw (0-1) probabilities for all entries first, then normalize
-    raw_entries = []  # list of (type, raw_rate, data_dict, raw_conditions)
+    raw_entries = []  # list of (type, raw_rate, data_dict, raw_conditions, pick_weight, glob_correction)
 
     # Process each entry
     for entry in lvli_entries_by_list.get(list_id, []):
@@ -1126,17 +1301,20 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # unresolved GLOB ChanceNone as a post-hoc multiplier.
         apriori = float(math.get("EntryAprioriChance_NoSublist") or 0)
 
-        # Correct for unresolved GLOB ChanceNone
+        # Correct for unresolved GLOB ChanceNone.
+        # IMPORTANT: we separate the GLOB correction from the pick weight so that
+        # normalisation for pick-one lists only affects the pick probability.
+        # ChanceNone is applied AFTER normalisation (same approach as compute_lvli).
         resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
         resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
         actual_list_cn    = _resolve_chance_none(math, "List")
         actual_entry_cn   = _resolve_chance_none(math, "Entry")
-        # If the resolved value was 0 but the GLOB gives a real value, apply correction
         glob_correction = 1.0
         if actual_list_cn > 0 and resolved_list_cn == 0:
             glob_correction *= (1.0 - actual_list_cn / 100.0)
         if actual_entry_cn > 0 and resolved_entry_cn == 0:
             glob_correction *= (1.0 - actual_entry_cn / 100.0)
+        pick_weight = apriori
         entry_drop_rate = apriori * glob_correction
 
         # Get quantity
@@ -1178,13 +1356,14 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # Simplify conditions for display
         display_conditions = simplify_conditions(conditions)
 
+        # Add ChanceNone condition note
         if sub_lvli:
             # Recurse into sub-LVLI
             sub_node = build_lvli_tree_node(sub_lvli, depth + 1, seen)
             if sub_node and (sub_node.get("children") or sub_node.get("items")):
                 if display_conditions:
                     sub_node["conditions"] = display_conditions
-                raw_entries.append(("child", entry_drop_rate, sub_node, conditions))
+                raw_entries.append(("child", entry_drop_rate, sub_node, conditions, pick_weight, glob_correction))
         else:
             # Leaf item
             if ":" in ref:
@@ -1212,7 +1391,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                         item_data["modSlots"] = armo_mod_slots_by_formid[fid]
                     elif ref_sig == "WEAP" and fid in weap_mod_slots_by_formid:
                         item_data["modSlots"] = weap_mod_slots_by_formid[fid]
-                raw_entries.append(("item", entry_drop_rate, item_data, conditions))
+                raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
 
     # ── First-match cascading probability ──
     # When a list has the "Use first object that matches all conditions" flag,
@@ -1224,29 +1403,31 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     #   Entry 3 (none):  net 62% (100 - 38, catches everything else)
     # xEdit can't calculate this, so it gives all entries apriori=1.  We fix it here.
     if is_first_match and raw_entries:
-        thresholds = [_extract_grp_threshold(raw_conds) for (_, _, _, raw_conds) in raw_entries]
+        thresholds = [_extract_grp_threshold(raw_conds) for (_, _, _, raw_conds, _, _) in raw_entries]
         # Only apply cascading logic if at least one entry has a GetRandomPercent condition
         if any(t is not None for t in thresholds):
             prev_threshold = 0.0
             new_entries = []
-            for i, (etype, rate, data, raw_conds) in enumerate(raw_entries):
+            for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
                 if thresholds[i] is not None:
                     net_p = (thresholds[i] - prev_threshold) / 100.0
                     prev_threshold = thresholds[i]
                 else:
                     # No condition = catches everything remaining
                     net_p = (100.0 - prev_threshold) / 100.0
-                new_entries.append((etype, max(net_p, 0.0), data, raw_conds))
+                new_entries.append((etype, max(net_p, 0.0), data, raw_conds, max(net_p, 0.0), gc))
             raw_entries = new_entries
 
-    # Normalize for pick-one lists: all raw_rates must sum to 1.0 (100%)
-    total_rate = sum(r for (_, r, _, _) in raw_entries)
-    if not is_use_all and not is_first_match and raw_entries and total_rate > 0 and abs(total_rate - 1.0) > 0.0001:
-        for i, (etype, raw_rate, data, raw_conds) in enumerate(raw_entries):
-            raw_entries[i] = (etype, raw_rate / total_rate, data, raw_conds)
+    # Normalize for pick-one lists using pick_weight (before ChanceNone correction)
+    total_pick = sum(pw for (_, _, _, _, pw, _) in raw_entries)
+    if not is_use_all and not is_first_match and raw_entries and total_pick > 1.0001:
+        for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
+            normalised_pick = pw / total_pick
+            effective_rate = normalised_pick * gc
+            raw_entries[i] = (etype, effective_rate, data, raw_conds, normalised_pick, gc)
 
     # Convert to final output with percentages
-    for etype, rate, data, _raw_conds in raw_entries:
+    for etype, rate, data, _raw_conds, _pw, _gc in raw_entries:
         rate_pct = round(rate * 100, 6)
         if etype == "child":
             data["entryRate"] = rate_pct
@@ -1254,6 +1435,19 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         else:
             data["dropRate"] = rate_pct
             items.append(data)
+
+    # Fallback for LVLIs with empty TSV entries (e.g. Marine armor sub-lists).
+    if not items and not children and list_id in EMPTY_LVLI_ITEM_FALLBACKS:
+        for fb_fid, fb_sig, fb_edid in EMPTY_LVLI_ITEM_FALLBACKS[list_id]:
+            fb_name = resolve_name_for_formid(fb_fid, fb_edid)
+            items.append({
+                "formid": fb_fid,
+                "edid": fb_edid,
+                "name": fb_name or fb_edid,
+                "qty": 1,
+                "sig": fb_sig,
+                "dropRate": 100.0,
+            })
 
     result = {
         "type": "lvli",
@@ -1266,6 +1460,10 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         result["children"] = children
     if items:
         result["items"] = items
+
+    # Attach list-level conditions (from TSV ListCond columns)
+    if list_id in LVLI_LIST_CONDITIONS:
+        result["conditions"] = simplify_conditions(LVLI_LIST_CONDITIONS[list_id])
 
     # Detect duplicate child sub-LVLIs (e.g. Light armour appearing twice in a
     # body-part list).  When found, attach a short note so JS can display it.
@@ -1801,7 +1999,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     chance_glob = (
                         lvli_entries_by_list.get(formid, [{}])[0].get("LVOG_ChanceNoneGlobal") or ""
                     ).strip()
-                    chance_conds = list(item.get("conditions", []))
+                    chance_conds = simplify_conditions(list(item.get("conditions", [])))
                     if chance_glob:
                         glob_edid = chance_glob.split(":")[1] if ":" in chance_glob else chance_glob
                         chance_conds.append(f"ChanceNone GLOB: {glob_edid}")
@@ -1823,7 +2021,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
                         "qty": item.get("qty", 1),
                         "kind": "plan",
-                        "conditions": item.get("conditions", []),
+                        "conditions": simplify_conditions(item.get("conditions", [])),
                     })
                 else:
                     # Other quest reward → UER
@@ -1834,7 +2032,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
                         "qty": item.get("qty", 1),
                         "kind": None,
-                        "conditions": item.get("conditions", []),
+                        "conditions": simplify_conditions(item.get("conditions", [])),
                     })
 
         # All other LVLI - resolve to unique event rewards
@@ -1857,7 +2055,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "dropRate": pct(dr) if dr < 1.0 else None,
                     "qty": item.get("qty", 1),
                     "kind": "plan" if is_plan else None,
-                    "conditions": item.get("conditions", []),
+                    "conditions": simplify_conditions(item.get("conditions", [])),
                 })
                 if is_plan:
                     activity_data["planRewards"].append({

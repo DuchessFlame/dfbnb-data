@@ -91,6 +91,22 @@ LVLI_LABEL_OVERRIDES = {
     # so they route to Unique Activity Rewards via the JS transform.
 }
 
+# Fallback items for LVLIs whose entries have empty references in the xEdit export.
+# Keyed by LVLI FormID → list of (item_formid, sig, display_name).
+# Marine armor sub-lists are a known export gap: the LVLI entries exist but
+# their LVLO_Reference fields are blank in all TSV generations.
+EMPTY_LVLI_ITEM_FALLBACKS = {
+    "001109F1": [("001107AA", "ARMO", "Armor_DLC03_Marine_ArmLeft")],      # LL_Armor_Marine_ArmLeft
+    "001109F2": [("001107AB", "ARMO", "Armor_DLC03_Marine_ArmRight")],     # LL_Armor_Marine_ArmRight
+    "001109F4": [("001107AD", "ARMO", "Armor_DLC03_Marine_LegLeft")],      # LL_Armor_Marine_LegLeft
+    "001109F5": [("001107AE", "ARMO", "Armor_DLC03_Marine_LegRight")],     # LL_Armor_Marine_LegRight
+    "001109F6": [("001107AF", "ARMO", "Armor_DLC03_Marine_Torso")],        # LL_Armor_Marine_Torso
+}
+
+# List-level conditions: built dynamically from LVLI_List TSV ListCond1..N columns.
+# Populated after TSV loading (see LVLI indexing section below).
+LVLI_LIST_CONDITIONS = {}  # FormID → list of raw condition strings
+
 def _detect_armor_weight(edid):
     """Detect armor weight class from LVLI EDID suffix (e.g. _Light, _Medium, _Heavy)."""
     e = (edid or "").strip()
@@ -1055,6 +1071,23 @@ for r in LVLI_ENTRIES:
     if "LVLI_FormID" in r:
         lvli_entries_by_list[r["LVLI_FormID"]].append(r)
 
+# Build LVLI_LIST_CONDITIONS from TSV ListCond1..N columns (populated by xEdit export).
+# Falls back to empty if the TSV doesn't have these columns yet.
+for _r in LVLI_LIST:
+    _fid = pick(_r, "LVLI_FormID", "FormID")
+    if not _fid:
+        continue
+    _lcc = (_r.get("ListCondCount") or "").strip()
+    if not _lcc or _lcc == "0":
+        continue
+    _conds = []
+    for _ci in range(1, 26):  # up to ListCond25
+        _cv = (_r.get(f"ListCond{_ci}") or "").strip()
+        if _cv:
+            _conds.append(_cv)
+    if _conds:
+        LVLI_LIST_CONDITIONS[_fid] = _conds
+
 def _resolve_chance_none(math_row, field_prefix="Entry"):
     """
     Resolve ChanceNone for an LVLI entry/list, checking GLOB references
@@ -1298,6 +1331,9 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 else:
                     first_match_rates[_idx] = max((100.0 - prev) / 100.0, 0.0)
 
+    # Collect list-level conditions from TSV (LVLI record-level CTDA)
+    list_level_conds = simplify_conditions(LVLI_LIST_CONDITIONS.get(list_id, []))
+
     items = []
     for entry in lvli_entries_by_list.get(list_id, []):
         idx = entry.get("EntryIndex")
@@ -1363,7 +1399,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": sub_item["dropRate"] * drop_rate,
                     "edid": sub_item["edid"],
                     "sig": sub_item.get("sig", ""),
-                    "conditions": display_conds + (sub_item.get("conditions") or []),
+                    "conditions": list_level_conds + display_conds + (sub_item.get("conditions") or []),
                 })
         else:
             # Leaf item
@@ -1381,7 +1417,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": drop_rate,
                     "edid": edid,
                     "sig": ref_sig,
-                    "conditions": display_conds,
+                    "conditions": list_level_conds + display_conds,
                 })
 
     # Normalize for pick-one lists.
@@ -1522,17 +1558,22 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # unresolved GLOB ChanceNone as a post-hoc multiplier.
         apriori = float(math.get("EntryAprioriChance_NoSublist") or 0)
 
-        # Correct for unresolved GLOB ChanceNone
+        # Correct for unresolved GLOB ChanceNone.
+        # IMPORTANT: we separate the GLOB correction from the pick weight so that
+        # normalisation for pick-one lists only affects the pick probability.
+        # ChanceNone is applied AFTER normalisation (same approach as compute_lvli).
         resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
         resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
         actual_list_cn    = _resolve_chance_none(math, "List")
         actual_entry_cn   = _resolve_chance_none(math, "Entry")
-        # If the resolved value was 0 but the GLOB gives a real value, apply correction
         glob_correction = 1.0
         if actual_list_cn > 0 and resolved_list_cn == 0:
             glob_correction *= (1.0 - actual_list_cn / 100.0)
         if actual_entry_cn > 0 and resolved_entry_cn == 0:
             glob_correction *= (1.0 - actual_entry_cn / 100.0)
+        # pick_weight: the entry's relative selection weight (before ChanceNone)
+        # glob_correction: the ChanceNone multiplier (applied after normalisation)
+        pick_weight = apriori
         entry_drop_rate = apriori * glob_correction
 
         # Get quantity
@@ -1574,13 +1615,15 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # Simplify conditions for display
         display_conditions = simplify_conditions(conditions)
 
+        # Add a visible note when GLOB-based ChanceNone significantly reduces drop chance.
+        # This helps players understand WHY an item has a low drop rate.
         if sub_lvli:
             # Recurse into sub-LVLI
             sub_node = build_lvli_tree_node(sub_lvli, depth + 1, seen)
             if sub_node and (sub_node.get("children") or sub_node.get("items")):
                 if display_conditions:
                     sub_node["conditions"] = display_conditions
-                raw_entries.append(("child", entry_drop_rate, sub_node, conditions))
+                raw_entries.append(("child", entry_drop_rate, sub_node, conditions, pick_weight, glob_correction))
         else:
             # Leaf item
             if ":" in ref:
@@ -1607,7 +1650,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                     resolved = _resolve_variant_modslots(fid, ref_sig, edid)
                     if resolved:
                         item_data["modSlots"] = resolved
-                raw_entries.append(("item", entry_drop_rate, item_data, conditions))
+                raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
 
     # ── First-match cascading probability ──
     # When a list has the "Use first object that matches all conditions" flag,
@@ -1619,31 +1662,34 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     #   Entry 3 (none):  net 62% (100 - 38, catches everything else)
     # xEdit can't calculate this, so it gives all entries apriori=1.  We fix it here.
     if is_first_match and raw_entries:
-        thresholds = [_extract_grp_threshold(raw_conds) for (_, _, _, raw_conds) in raw_entries]
+        thresholds = [_extract_grp_threshold(raw_conds) for (_, _, _, raw_conds, _, _) in raw_entries]
         # Only apply cascading logic if at least one entry has a GetRandomPercent condition
         if any(t is not None for t in thresholds):
             prev_threshold = 0.0
             new_entries = []
-            for i, (etype, rate, data, raw_conds) in enumerate(raw_entries):
+            for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
                 if thresholds[i] is not None:
                     net_p = (thresholds[i] - prev_threshold) / 100.0
                     prev_threshold = thresholds[i]
                 else:
                     # No condition = catches everything remaining
                     net_p = (100.0 - prev_threshold) / 100.0
-                new_entries.append((etype, max(net_p, 0.0), data, raw_conds))
+                new_entries.append((etype, max(net_p, 0.0), data, raw_conds, pw, gc))
             raw_entries = new_entries
 
-    # Normalize for pick-one lists: only normalise UPWARD (total > 1).
-    # xEdit exports apriori=1.0 per entry, so raw total = entry count for equal-weight lists.
-    # Do NOT normalise downward — that would hide real entry-level ChanceNone outcomes.
-    total_rate = sum(r for (_, r, _, _) in raw_entries)
-    if not is_use_all and not is_first_match and raw_entries and total_rate > 1.0001:
-        for i, (etype, raw_rate, data, raw_conds) in enumerate(raw_entries):
-            raw_entries[i] = (etype, raw_rate / total_rate, data, raw_conds)
+    # Normalize for pick-one lists using PICK WEIGHTS (not ChanceNone-adjusted rates).
+    # xEdit exports apriori=1.0 per entry, so raw total = entry count for equal-weight
+    # lists. We normalise pick weights, then apply ChanceNone AFTER to get correct
+    # effective rates. This prevents normalisation from undoing ChanceNone reductions.
+    total_pick = sum(pw for (_, _, _, _, pw, _) in raw_entries)
+    if not is_use_all and not is_first_match and raw_entries and total_pick > 1.0001:
+        for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
+            normalised_pick = pw / total_pick
+            effective_rate = normalised_pick * gc  # apply ChanceNone after normalisation
+            raw_entries[i] = (etype, effective_rate, data, raw_conds, normalised_pick, gc)
 
     # Convert to final output with percentages
-    for etype, rate, data, _raw_conds in raw_entries:
+    for etype, rate, data, _raw_conds, _pw, _gc in raw_entries:
         rate_pct = round(rate * 100, 6)
         if etype == "child":
             data["entryRate"] = rate_pct
@@ -1651,6 +1697,21 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         else:
             data["dropRate"] = rate_pct
             items.append(data)
+
+    # Fallback for LVLIs with empty TSV entries (e.g. Marine armor sub-lists).
+    # If we got no items and no children from the normal parse, check the
+    # EMPTY_LVLI_ITEM_FALLBACKS map for hardcoded item references.
+    if not items and not children and list_id in EMPTY_LVLI_ITEM_FALLBACKS:
+        for fb_fid, fb_sig, fb_edid in EMPTY_LVLI_ITEM_FALLBACKS[list_id]:
+            fb_name = resolve_name_for_formid(fb_fid, fb_edid)
+            items.append({
+                "formid": fb_fid,
+                "edid": fb_edid,
+                "name": fb_name or fb_edid,
+                "qty": 1,
+                "sig": fb_sig,
+                "dropRate": 100.0,
+            })
 
     result = {
         "type": "lvli",
@@ -1663,6 +1724,10 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         result["children"] = children
     if items:
         result["items"] = items
+
+    # Attach list-level conditions (from TSV ListCond columns)
+    if list_id in LVLI_LIST_CONDITIONS:
+        result["conditions"] = simplify_conditions(LVLI_LIST_CONDITIONS[list_id])
 
     # Detect duplicate child sub-LVLIs (e.g. Light armour appearing twice in a
     # body-part list).  When found, attach a short note so JS can display it.
@@ -2268,7 +2333,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     chance_glob = (
                         lvli_entries_by_list.get(formid, [{}])[0].get("LVOG_ChanceNoneGlobal") or ""
                     ).strip()
-                    chance_conds = list(item.get("conditions", []))
+                    chance_conds = simplify_conditions(list(item.get("conditions", [])))
                     if chance_glob:
                         glob_edid = chance_glob.split(":")[1] if ":" in chance_glob else chance_glob
                         chance_conds.append(f"ChanceNone GLOB: {glob_edid}")
@@ -2290,7 +2355,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
                         "qty": item.get("qty", 1),
                         "kind": "plan",
-                        "conditions": item.get("conditions", []),
+                        "conditions": simplify_conditions(item.get("conditions", [])),
                     })
                 else:
                     # Other quest reward → UER
@@ -2301,7 +2366,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
                         "qty": item.get("qty", 1),
                         "kind": None,
-                        "conditions": item.get("conditions", []),
+                        "conditions": simplify_conditions(item.get("conditions", [])),
                     })
 
         # All other LVLI - resolve to unique event rewards
@@ -2324,7 +2389,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "dropRate": pct(dr) if dr < 1.0 else None,
                     "qty": item.get("qty", 1),
                     "kind": "plan" if is_plan else None,
-                    "conditions": item.get("conditions", []),
+                    "conditions": simplify_conditions(item.get("conditions", [])),
                 })
                 if is_plan:
                     activity_data["planRewards"].append({
