@@ -461,6 +461,7 @@ _MOD_SLOT_LABELS = {
     "legendary_weapon4": "Legendary 4★",
     "legendary5":   "Legendary 5★",
     "legendary_weapon5": "Legendary 5★",
+    "custom":    "Unique",
     "receiver":  "Receiver",
     "grip":      "Grip",
     "scope":     "Sights",
@@ -518,6 +519,156 @@ def _mod_slot_sort_key(slot):
         return (1, 0)
     # Everything else (Lining, Receiver, Material, Appearance, etc.) by includeIndex
     return (2, slot.get("includeIndex", 0))
+
+
+# --------------------------------------------------
+# Junk mod filtering + custom name prettification
+# --------------------------------------------------
+
+# Mod display values that are engine defaults / placeholders — not real mods.
+_JUNK_MOD_VALUES = {
+    "no upgrade",
+    "default appearance",
+    "no muzzle",
+    "no customization",
+    "no sights",
+    "no custom",
+    "standard ironsights",
+}
+
+_JUNK_MOD_PATTERNS = re.compile(
+    r"(?i)"
+    r"(?:range\s*offset\s*for\s*.+)"
+    r"|(?:.*dummynoeffect.*)"
+    r"|(?:modcol\s*.+)"
+    r"|(?:\w+\s+\w+\s+nozzle)"
+)
+
+def _is_junk_mod(value):
+    """Return True if a mod display value is engine junk / placeholder."""
+    if not value:
+        return True
+    v = value.strip().lower()
+    if v in _JUNK_MOD_VALUES:
+        return True
+    if _JUNK_MOD_PATTERNS.fullmatch(v):
+        return True
+    return False
+
+_CUSTOM_NAME_CLEANUP = {
+    "black diamond":                "Black Diamond",
+    "perfect storm":                "Perfect Storm",
+    "civil unrest":                 "Civil Unrest",
+    "all rise":                     "All Rise",
+    "voice of set":                 "Voice of Set",
+    "slug buster":                  "Slug Buster",
+    "anti scorchbeast training pistol": "Anti-Scorchbeast Training Pistol",
+    "makeshift ronin blade":        "Makeshift Ronin Blade",
+    "blade of bastet":              "Blade of Bastet",
+    "grant's saber":                "Grant's Saber",
+    "sword of surrender":           "Sword of Surrender",
+    "burrows' bane":                "Burrows' Bane",
+    "frigid blaze":                 "Frigid Blaze",
+    "hellstorm":                    "Hellstorm",
+    "kingfisher":                   "Kingfisher",
+    "mind over matter":             "Mind Over Matter",
+    "motherlode":                   "Motherlode",
+    "mechanic's best friend":       "Mechanic's Best Friend",
+    "mechanic friend":              "Mechanic's Best Friend",
+    "fancy shotgun":                "Fancy Shotgun",
+    "fancy revolver":               "Fancy Revolver",
+    "the guarantee":                "The Guarantee",
+    "whistle in the dark":          "Whistle in the Dark",
+    "commander's charge":           "Commander's Charge",
+    "final word":                   "Final Word",
+    "last bastion":                 "Last Bastion",
+    "sole survivor":                "Sole Survivor",
+    "cursed":                       None,
+    "melee knife dmgvscryptid":     "Cryptid Slayer",
+    "ranged flamer cursed":         "Cursed",
+    "boiling point name":           "Boiling Point",
+    "ranged lasergun cursed":       "Cursed",
+    "ranged 10mmsmg cursed":        "Cursed",
+    "melee pickaxe cursed":         "Cursed",
+    "melee shovel cursed":          "Cursed",
+    "incendiary":                   "Perfect Storm",
+    "head hunter":                  "Head Hunter",
+    "dangerous":                    "Ogua Gauntlet",
+    "red terror":                   "Red Terror",
+    "crimson sky":                  "Crimson Sky",
+    "luca's switchblade":           "Luca's Switchblade",
+    "elder's mark":                 "Elder's Mark",
+    "cultist piercer":              "Cultist Piercer",
+    "holy fire":                    "Holy Fire",
+    "cursed harpoon gun":           "Cursed Harpoon Gun",
+    "cursed shovel":                "Cursed Shovel",
+    "cursed pickaxe":               "Cursed Pickaxe",
+    "love tap":                     "Love Tap",
+    "love-tap":                     "Love Tap",
+    "whackersmacker":               "Whacker Smacker",
+    "whacker smacker":              "Whacker Smacker",
+    "rat bat":                      "Rat Bat",
+    "molerat bat":                  "Rat Bat",
+    "tillberg's tornado":           "Tillberg's Tornado",
+}
+
+def _clean_custom_name(raw_value):
+    """Clean up a Custom/Unique mod display value into a human-readable weapon prefix."""
+    if not raw_value:
+        return None
+    v = raw_value.strip()
+    v = re.sub(r"(?i)\s*(?:custom\s*mod|custom\s*name|special\s*effect|paint)$", "", v).strip()
+    if not v:
+        return None
+    key = v.lower()
+    if key in _CUSTOM_NAME_CLEANUP:
+        return _CUSTOM_NAME_CLEANUP[key]
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9 '\-]+", v):
+        return v
+    h = re.sub(r"(?i)^(?:melee|ranged|custom|weapon|armor|armour)[_ ]*", "", v)
+    h = re.sub(r"(?i)[_ ]?(?:name|cursed|dmgvs\w+)$", "", h)
+    h = h.replace("_", " ").strip()
+    if h and len(h) > 2:
+        return h.title()
+    return None
+
+def _apply_custom_prefix(cur_name, custom_prefix):
+    """Build the final display name from base name and custom prefix, avoiding redundancy."""
+    if not custom_prefix or not cur_name:
+        return custom_prefix or cur_name or ""
+    norm_prefix = re.sub(r"[\s\-]", "", custom_prefix.lower())
+    norm_name = re.sub(r"[\s\-]", "", cur_name.lower())
+    if norm_prefix in norm_name:
+        return cur_name
+    if norm_name in norm_prefix:
+        return custom_prefix
+    return f"{custom_prefix} {cur_name}"
+
+
+def _filter_and_clean_modslots(slots, item_name=None):
+    """Filter junk mods and extract custom name prefix."""
+    cleaned = []
+    custom_candidates = []
+    for s in slots:
+        label = s.get("label", "")
+        value = s.get("value", "")
+        if _is_junk_mod(value):
+            continue
+        if label.lower() in ("unique", "custom"):
+            cname = _clean_custom_name(value)
+            if cname:
+                custom_candidates.append(cname)
+            continue
+        cleaned.append(s)
+    custom_prefix = None
+    if custom_candidates:
+        good = [c for c in custom_candidates if c.lower() != "cursed"]
+        if good:
+            custom_prefix = min(good, key=len) if len(good) > 1 else good[0]
+        else:
+            custom_prefix = custom_candidates[0]
+    return cleaned, custom_prefix
+
 
 # Group OT rows by (FormID, CombinationIndex), then pick the best combo per weapon.
 # "Best" = the combination with the most legendary slots (i.e. the named/unique variant).
@@ -1387,10 +1538,19 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 # (detected by matching the LVLI EDID against known unique OT names).
                 # Regular LVLI pools drop the base version (OT CombinationIndex 0).
                 if _is_unique_lvli(edid):
+                    raw_slots = None
                     if ref_sig == "ARMO" and fid in armo_mod_slots_by_formid:
-                        item_data["modSlots"] = armo_mod_slots_by_formid[fid]
+                        raw_slots = armo_mod_slots_by_formid[fid]
                     elif ref_sig == "WEAP" and fid in weap_mod_slots_by_formid:
-                        item_data["modSlots"] = weap_mod_slots_by_formid[fid]
+                        raw_slots = weap_mod_slots_by_formid[fid]
+                    if raw_slots:
+                        cleaned, custom_prefix = _filter_and_clean_modslots(
+                            [{"label": s["label"], "value": s["value"]} for s in raw_slots],
+                            item_data.get("name"))
+                        if cleaned:
+                            item_data["modSlots"] = cleaned
+                        if custom_prefix:
+                            item_data["name"] = _apply_custom_prefix(item_data.get("name", ""), custom_prefix)
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
 
     # ── First-match cascading probability ──
@@ -2166,11 +2326,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         elif fid in armo_mod_slots_by_formid:
             slots = armo_mod_slots_by_formid[fid]
         if slots:
-            # Strip the includeIndex (internal sorting key) before emitting
-            uer_item["modSlots"] = [
-                {"label": s["label"], "value": s["value"]}
-                for s in slots
-            ]
+            raw_slots = [{"label": s["label"], "value": s["value"]} for s in slots]
+            cleaned, custom_prefix = _filter_and_clean_modslots(raw_slots, uer_item.get("name"))
+            if cleaned:
+                uer_item["modSlots"] = cleaned
+            if custom_prefix:
+                uer_item["name"] = _apply_custom_prefix(uer_item.get("name", ""), custom_prefix)
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):

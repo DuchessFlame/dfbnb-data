@@ -510,6 +510,7 @@ _MOD_SLOT_LABELS = {
     "legendary_weapon4": "Legendary 4★",
     "legendary5":   "Legendary 5★",
     "legendary_weapon5": "Legendary 5★",
+    "custom":    "Unique",
     "receiver":  "Receiver",
     "grip":      "Grip",
     "scope":     "Sights",
@@ -567,6 +568,184 @@ def _mod_slot_sort_key(slot):
         return (1, 0)
     # Everything else (Lining, Receiver, Material, Appearance, etc.) by includeIndex
     return (2, slot.get("includeIndex", 0))
+
+
+# --------------------------------------------------
+# Junk mod filtering + custom name prettification
+# --------------------------------------------------
+
+# Mod display values that are engine defaults / placeholders — not real mods.
+# Matched case-insensitively after stripping whitespace.
+_JUNK_MOD_VALUES = {
+    "no upgrade",
+    "default appearance",
+    "no muzzle",
+    "no customization",
+    "no sights",
+    "no custom",
+    "standard ironsights",
+}
+
+# Regex patterns for junk mods that vary slightly in wording
+_JUNK_MOD_PATTERNS = re.compile(
+    r"(?i)"
+    r"(?:range\s*offset\s*for\s*.+)"             # "Range offset for Shotguns", "Range offset for boltaction weapons"
+    r"|(?:.*dummynoeffect.*)"                    # anything containing "DummyNoEffect"
+    r"|(?:modcol\s*.+)"                            # "modcol 10mmSMG FrontSights" — raw EDID reference
+    r"|(?:\w+\s+\w+\s+nozzle)"                   # "Flamer HolyFire Nozzle" — weapon-specific internal mods
+)
+
+def _is_junk_mod(value):
+    """Return True if a mod display value is engine junk / placeholder."""
+    if not value:
+        return True
+    v = value.strip().lower()
+    if v in _JUNK_MOD_VALUES:
+        return True
+    if _JUNK_MOD_PATTERNS.fullmatch(v):
+        return True
+    return False
+
+
+# Map messy Custom mod display names to clean names for prepending to weapon/armor.
+# Keys are lowercased raw display names; values are the clean form.
+_CUSTOM_NAME_CLEANUP = {
+    "black diamond":                "Black Diamond",
+    "perfect storm":                "Perfect Storm",
+    "civil unrest":                 "Civil Unrest",
+    "all rise":                     "All Rise",
+    "voice of set":                 "Voice of Set",
+    "slug buster":                  "Slug Buster",
+    "anti scorchbeast training pistol": "Anti-Scorchbeast Training Pistol",
+    "makeshift ronin blade":        "Makeshift Ronin Blade",
+    "blade of bastet":              "Blade of Bastet",
+    "grant's saber":                "Grant's Saber",
+    "sword of surrender":           "Sword of Surrender",
+    "burrows' bane":                "Burrows' Bane",
+    "frigid blaze":                 "Frigid Blaze",
+    "hellstorm":                    "Hellstorm",
+    "kingfisher":                   "Kingfisher",
+    "mind over matter":             "Mind Over Matter",
+    "motherlode":                   "Motherlode",
+    "mechanic's best friend":       "Mechanic's Best Friend",
+    "mechanic friend":              "Mechanic's Best Friend",
+    "fancy shotgun":                "Fancy Shotgun",
+    "fancy revolver":               "Fancy Revolver",
+    "the guarantee":                "The Guarantee",
+    "whistle in the dark":          "Whistle in the Dark",
+    "commander's charge":           "Commander's Charge",
+    "final word":                   "Final Word",
+    "last bastion":                 "Last Bastion",
+    "sole survivor":                "Sole Survivor",
+    "cursed":                       None,           # "Cursed" prefix not useful alone
+    # Messy EDID-derived names → clean display names
+    "melee knife dmgvscryptid":     "Cryptid Slayer",
+    "ranged flamer cursed":         "Cursed",
+    "boiling point name":           "Boiling Point",
+    "ranged lasergun cursed":       "Cursed",
+    "ranged 10mmsmg cursed":        "Cursed",
+    "melee pickaxe cursed":         "Cursed",
+    "melee shovel cursed":          "Cursed",
+    # Display names from the OMOD that don't match the actual weapon name
+    "incendiary":                   "Perfect Storm",
+    "head hunter":                  "Head Hunter",
+    "dangerous":                    "Ogua Gauntlet",
+    "red terror":                   "Red Terror",
+    "crimson sky":                  "Crimson Sky",
+    "luca's switchblade":           "Luca's Switchblade",
+    "elder's mark":                 "Elder's Mark",
+    "cultist piercer":              "Cultist Piercer",
+    "holy fire":                    "Holy Fire",
+    "cursed harpoon gun":           "Cursed Harpoon Gun",
+    "cursed shovel":                "Cursed Shovel",
+    "cursed pickaxe":               "Cursed Pickaxe",
+    "love tap":                     "Love Tap",
+    "love-tap":                     "Love Tap",
+    "whackersmacker":               "Whacker Smacker",
+    "whacker smacker":              "Whacker Smacker",
+    "rat bat":                      "Rat Bat",
+    "molerat bat":                  "Rat Bat",
+    "tillberg's tornado":           "Tillberg's Tornado",
+}
+
+
+def _clean_custom_name(raw_value):
+    """
+    Clean up a Custom/Unique mod display value into a human-readable weapon prefix.
+    Returns the cleaned name, or None if the value shouldn't be used as a prefix.
+    """
+    if not raw_value:
+        return None
+    v = raw_value.strip()
+    # Strip common suffixes: "Custom Mod", "Custom Name", "Special Effect", "Paint"
+    v = re.sub(r"(?i)\s*(?:custom\s*mod|custom\s*name|special\s*effect|paint)$", "", v).strip()
+    if not v:
+        return None
+    key = v.lower()
+    # Check explicit mapping first
+    if key in _CUSTOM_NAME_CLEANUP:
+        return _CUSTOM_NAME_CLEANUP[key]
+    # If it already looks clean (only letters, spaces, apostrophes, hyphens, digits), keep as-is
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9 '\-]+", v):
+        return v
+    # Try to humanize EDID-style names: strip common prefixes, underscores
+    h = re.sub(r"(?i)^(?:melee|ranged|custom|weapon|armor|armour)[_ ]*", "", v)
+    h = re.sub(r"(?i)[_ ]?(?:name|cursed|dmgvs\w+)$", "", h)
+    h = h.replace("_", " ").strip()
+    if h and len(h) > 2:
+        return h.title()
+    return None
+
+
+def _apply_custom_prefix(cur_name, custom_prefix):
+    """Build the final display name from base name and custom prefix, avoiding redundancy."""
+    if not custom_prefix or not cur_name:
+        return custom_prefix or cur_name or ""
+    # Normalize for comparison (ignore hyphens, spaces, case)
+    norm_prefix = re.sub(r"[\s\-]", "", custom_prefix.lower())
+    norm_name = re.sub(r"[\s\-]", "", cur_name.lower())
+    if norm_prefix in norm_name:
+        return cur_name  # prefix already present in name
+    if norm_name in norm_prefix:
+        return custom_prefix  # name is substring of prefix (e.g. "Shovel" in "Cursed Shovel")
+    return f"{custom_prefix} {cur_name}"
+
+
+def _filter_and_clean_modslots(slots, item_name=None):
+    """
+    Filter junk mods from a modSlots list and optionally extract the custom name.
+    Returns (cleaned_slots, custom_prefix_or_None).
+    If item_name is provided, the caller can use custom_prefix to build
+    "{custom_prefix} {item_name}".
+    """
+    cleaned = []
+    custom_candidates = []
+    for s in slots:
+        label = s.get("label", "")
+        value = s.get("value", "")
+        # Skip junk mods
+        if _is_junk_mod(value):
+            continue
+        # Extract custom/unique name for weapon/armor rename
+        if label.lower() in ("unique", "custom"):
+            cname = _clean_custom_name(value)
+            if cname:
+                custom_candidates.append(cname)
+            # Don't include the Custom mod as a visible slot — it becomes the name
+            continue
+        cleaned.append(s)
+    # Prefer the shortest clean custom name (avoids EDID-style names like "Cursed")
+    # but if only "Cursed" etc. remain, use those
+    custom_prefix = None
+    if custom_candidates:
+        # Filter out generic "Cursed" if there's a better name
+        good = [c for c in custom_candidates if c.lower() != "cursed"]
+        if good:
+            custom_prefix = min(good, key=len) if len(good) > 1 else good[0]
+        else:
+            custom_prefix = custom_candidates[0]
+    return cleaned, custom_prefix
+
 
 # Group OT rows by (FormID, CombinationIndex), storing slots + combo metadata.
 # We keep ALL named/unique combos per weapon, keyed by identifiers extracted from
@@ -1649,7 +1828,12 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 if _is_unique_lvli(edid):
                     resolved = _resolve_variant_modslots(fid, ref_sig, edid)
                     if resolved:
-                        item_data["modSlots"] = resolved
+                        raw_slots = [{"label": s["label"], "value": s["value"]} for s in resolved]
+                        cleaned, custom_prefix = _filter_and_clean_modslots(raw_slots, item_data.get("name"))
+                        if cleaned:
+                            item_data["modSlots"] = cleaned
+                        if custom_prefix:
+                            item_data["name"] = _apply_custom_prefix(item_data.get("name", ""), custom_prefix)
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
 
     # ── First-match cascading probability ──
@@ -2574,7 +2758,15 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         node_edid = node.get("edid", "") or parent_edid
         for item in node.get("items", []):
             if "modSlots" in item:
-                continue  # already attached by _is_unique_lvli
+                # Already attached — still filter junk and extract custom name
+                cleaned, custom_prefix = _filter_and_clean_modslots(item["modSlots"], item.get("name"))
+                if cleaned:
+                    item["modSlots"] = cleaned
+                else:
+                    del item["modSlots"]
+                if custom_prefix:
+                    item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
+                continue
             fid = item.get("formid", "")
             sig = (item.get("sig") or "").upper()
             # Only attach modSlots via variant match — no fallback.
@@ -2583,7 +2775,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             resolved = _resolve_variant_modslots(fid, sig, node_edid,
                                                   fallback=False)
             if resolved:
-                item["modSlots"] = resolved
+                raw_slots = [{"label": s["label"], "value": s["value"]} for s in resolved]
+                cleaned, custom_prefix = _filter_and_clean_modslots(raw_slots, item.get("name"))
+                if cleaned:
+                    item["modSlots"] = cleaned
+                if custom_prefix:
+                    item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
         for child in node.get("children", []):
             child["isUniqueReward"] = True
             _attach_modslots_to_tree(child, child.get("edid", "") or node_edid)
@@ -2609,11 +2806,14 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             elif fid in armo_mod_slots_by_formid:
                 slots = armo_mod_slots_by_formid[fid]
         if slots:
-            # Strip the includeIndex (internal sorting key) before emitting
-            uer_item["modSlots"] = [
-                {"label": s["label"], "value": s["value"]}
-                for s in slots
-            ]
+            # Strip includeIndex, filter junk mods, extract custom name prefix
+            raw_slots = [{"label": s["label"], "value": s["value"]} for s in slots]
+            cleaned, custom_prefix = _filter_and_clean_modslots(raw_slots, uer_item.get("name"))
+            if cleaned:
+                uer_item["modSlots"] = cleaned
+            # Prepend custom name to item display name (e.g. "Ski Sword" → "Black Diamond Ski Sword")
+            if custom_prefix:
+                uer_item["name"] = _apply_custom_prefix(uer_item.get("name", ""), custom_prefix)
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):
