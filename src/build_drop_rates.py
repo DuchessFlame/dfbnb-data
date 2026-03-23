@@ -90,6 +90,7 @@ from rng76 import (
     Rng76Resolver,
     LvliIndex,
     GlobIndex,
+    CurvIndex,
     ItemNameIndex,
     REGION_BY_SUBLVLI_EDID,
     compute_chancenone_rate,

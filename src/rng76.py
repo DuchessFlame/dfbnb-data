@@ -310,6 +310,128 @@ class GlobIndex:
 
 
 # ============================================================
+# 3b. CURVE TABLE INDEX
+# ============================================================
+
+class CurvIndex:
+    """
+    Loads CURV TSV exports and provides:
+      - ``interpolate(curv_formid, x)`` → Y value from curve points
+      - ``curv_for_lvli(lvli_formid)`` → CURV FormID (or None)
+
+    The CURV main TSV lists which LVLIs reference each curve.
+    The CURV points TSV has (FormID, EDID, X, Y) rows.
+    """
+
+    def __init__(self) -> None:
+        # curv_formid → sorted list of (x, y) points
+        self.points: Dict[str, List[Tuple[float, float]]] = {}
+        # lvli_formid → curv_formid
+        self.lvli_to_curv: Dict[str, str] = {}
+
+    def load_points(self, tsv_path: str) -> None:
+        """Load the CURV points TSV (FormID, EDID, X, Y, JsonPath)."""
+        for r in read_tsv(tsv_path):
+            fid = pick(r, "FormID", "\ufeffFormID")
+            x = safe_float(pick(r, "X"))
+            y = safe_float(pick(r, "Y"))
+            if fid and x is not None and y is not None:
+                self.points.setdefault(fid, []).append((x, y))
+        # Sort each curve by X
+        for fid in self.points:
+            self.points[fid].sort(key=lambda p: p[0])
+
+    def load_main(self, tsv_path: str) -> None:
+        """
+        Load the CURV main TSV to build lvli→curv mapping.
+
+        Format: FormID, EDID, JsonRelPath, Filename, RefCount, Ref1, Ref2, ...
+        Each Ref is ``LVLI_FormID:EDID:LVLI``.
+        """
+        try:
+            with open(tsv_path, encoding="utf-8-sig", newline="") as f:
+                for line in f:
+                    parts = line.strip().split("\t")
+                    if len(parts) < 6:
+                        continue
+                    curv_fid = parts[0].strip()
+                    if not re.fullmatch(r"[0-9A-Fa-f]{8}", curv_fid):
+                        continue
+                    for ref in parts[5:]:
+                        ref = ref.strip()
+                        if not ref:
+                            continue
+                        lvli_fid = ref.split(":")[0]
+                        if re.fullmatch(r"[0-9A-Fa-f]{8}", lvli_fid):
+                            self.lvli_to_curv[lvli_fid] = curv_fid
+        except (FileNotFoundError, UnicodeDecodeError):
+            try:
+                with open(tsv_path, encoding="cp1252", errors="replace",
+                          newline="") as f:
+                    for line in f:
+                        parts = line.strip().split("\t")
+                        if len(parts) < 6:
+                            continue
+                        curv_fid = parts[0].strip()
+                        if not re.fullmatch(r"[0-9A-Fa-f]{8}", curv_fid):
+                            continue
+                        for ref in parts[5:]:
+                            ref = ref.strip()
+                            if not ref:
+                                continue
+                            lvli_fid = ref.split(":")[0]
+                            if re.fullmatch(r"[0-9A-Fa-f]{8}", lvli_fid):
+                                self.lvli_to_curv[lvli_fid] = curv_fid
+            except FileNotFoundError:
+                pass
+
+    def load_from_tsv_root(self, tsv_root: str) -> None:
+        """Auto-discover and load CURV TSVs from *tsv_root*."""
+        try:
+            self.load_points(newest(os.path.join(tsv_root, "CURV_Export_*_POINTS.tsv")))
+        except FileNotFoundError:
+            pass
+        # Main CURV file (without _POINTS suffix)
+        try:
+            candidates = _glob.glob(os.path.join(tsv_root, "CURV_Export_*.tsv"))
+            main_files = [f for f in candidates if "_POINTS" not in f]
+            if main_files:
+                main_files.sort(key=lambda x: os.path.getmtime(x))
+                self.load_main(main_files[-1])
+        except FileNotFoundError:
+            pass
+
+    def curv_for_lvli(self, lvli_formid: str) -> Optional[str]:
+        """Return the CURV FormID associated with an LVLI, or None."""
+        return self.lvli_to_curv.get(lvli_formid)
+
+    def interpolate(self, curv_formid: str, x: float) -> Optional[float]:
+        """
+        Linearly interpolate the curve at *x*.
+
+        Returns the Y value, or None if the curve has no points.
+        Clamps to the first/last Y for out-of-range X values.
+        """
+        pts = self.points.get(curv_formid)
+        if not pts:
+            return None
+        if x <= pts[0][0]:
+            return pts[0][1]
+        if x >= pts[-1][0]:
+            return pts[-1][1]
+        # Find bracketing points
+        for i in range(len(pts) - 1):
+            x0, y0 = pts[i]
+            x1, y1 = pts[i + 1]
+            if x0 <= x <= x1:
+                if abs(x1 - x0) < 1e-9:
+                    return y0
+                t = (x - x0) / (x1 - x0)
+                return y0 + t * (y1 - y0)
+        return pts[-1][1]
+
+
+# ============================================================
 # 4. LVLI INDEX
 # ============================================================
 
@@ -536,10 +658,12 @@ class Rng76Resolver:
         lvli: LvliIndex,
         globs: GlobIndex,
         names: ItemNameIndex,
+        curvs: Optional[CurvIndex] = None,
     ) -> None:
         self.lvli = lvli
         self.globs = globs
         self.names = names
+        self.curvs = curvs
         self._cache: Dict[str, Dict[str, float]] = {}
 
     # ---- quick (cached) resolve ------------------------------------
@@ -564,6 +688,14 @@ class Rng76Resolver:
                 continue
             sub = (math.get("SubLVLI_FormID") or "").strip()
             chance = self._entry_chance(math)
+            # Also resolve any unresolved entry-level ChanceNone
+            ecn = self._resolve_entry_chancenone(math, e, list_id)
+            ecn_from_math = float(math.get("EntryChanceNoneResolved") or 0)
+            if ecn > ecn_from_math:
+                # The GLOB/CURV gave a higher ChanceNone than the Math TSV had;
+                # apply the correction factor: multiply by (1-ecn)/(1-ecn_math)
+                correction = (1 - ecn) / (1 - ecn_from_math) if ecn_from_math < 1 else 0
+                chance *= correction
             if sub:
                 for k, v in self.resolve_simple(sub).items():
                     results[k] = results.get(k, 0) + v * chance
@@ -616,6 +748,14 @@ class Rng76Resolver:
             ref = (entry.get("LVLO_Reference") or "").strip()
             ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
 
+            # Resolve any unresolved entry-level ChanceNone from GLOB
+            ecn_resolved = float(math.get("EntryChanceNoneResolved") or 0)
+            ecn_actual = self._resolve_entry_chancenone(math, entry, list_id)
+            # Correction factor: if GLOB gives higher ChanceNone than Math TSV
+            ecn_correction = 1.0
+            if ecn_actual > ecn_resolved:
+                ecn_correction = (1 - ecn_actual) / (1 - ecn_resolved) if ecn_resolved < 1 else 0
+
             if sub_lvli:
                 for sub_item in self.resolve_deep(sub_lvli, depth + 1, seen):
                     items.append({
@@ -626,6 +766,7 @@ class Rng76Resolver:
                         "edid":       sub_item["edid"],
                         "sig":        sub_item.get("sig", ""),
                         "conditions": conditions + (sub_item.get("conditions") or []),
+                        "_ecn_correction": ecn_correction,
                     })
             else:
                 if ":" in ref:
@@ -640,6 +781,7 @@ class Rng76Resolver:
                         "edid":       edid,
                         "sig":        ref_sig,
                         "conditions": conditions,
+                        "_ecn_correction": ecn_correction,
                     })
 
         # Pick-one normalisation — always normalise to 1.0 for pick-one lists
@@ -648,6 +790,12 @@ class Rng76Resolver:
             if total > 0 and abs(total - 1.0) > 0.0001:
                 for it in items:
                     it["dropRate"] = it["dropRate"] / total
+
+        # Apply entry-level ChanceNone correction AFTER normalisation
+        for it in items:
+            correction = it.pop("_ecn_correction", 1.0)
+            if correction != 1.0:
+                it["dropRate"] *= correction
 
         return items
 
@@ -683,6 +831,12 @@ class Rng76Resolver:
                 continue
             sub = (math.get("SubLVLI_FormID") or "").strip()
             chance = self._entry_chance(math)
+            # Apply unresolved entry-level ChanceNone from GLOB
+            ecn_resolved = float(math.get("EntryChanceNoneResolved") or 0)
+            ecn_actual = self._resolve_entry_chancenone(math, e, list_id)
+            if ecn_actual > ecn_resolved:
+                correction = (1 - ecn_actual) / (1 - ecn_resolved) if ecn_resolved < 1 else 0
+                chance *= correction
             if sub:
                 sub_edid = self.lvli.edid_by_formid.get(sub, "").lower()
                 region = inherited_region
@@ -720,6 +874,49 @@ class Rng76Resolver:
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
         return (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
+
+    def _resolve_entry_chancenone(
+        self,
+        math: Dict[str, str],
+        entry: Optional[Dict[str, str]] = None,
+        lvli_formid: str = "",
+    ) -> float:
+        """
+        Resolve the entry-level ChanceNone, falling back to GLOB/CURV lookup.
+
+        Returns the ChanceNone as a 0-1 fraction (e.g. 0.95 for 95%).
+
+        When the Math TSV's ``EntryChanceNoneResolved`` is zero but the
+        Entries TSV row carries a GLOB reference in ``LVOC_ChanceNoneCurve``,
+        resolve the GLOB value.  If the owning LVLI also has a curve table
+        mapping (CURV), the GLOB value is used as the X-axis input into the
+        curve and the interpolated Y value is the actual ChanceNone.
+
+        Examples:
+          - GLOB=75, no CURV → ChanceNone = 75%
+          - GLOB=10, CURV maps X=10→Y=95 → ChanceNone = 95%
+        """
+        entry_none = float(math.get("EntryChanceNoneResolved") or 0)
+        if entry_none > 0 or entry is None:
+            return entry_none
+        for field_name in ("LVOC_ChanceNoneCurve", "LVOG_ChanceNoneGlobal"):
+            raw = (entry.get(field_name) or "").strip()
+            if not raw:
+                continue
+            gfid = glob_formid_from_lvli_field(raw)
+            if gfid:
+                gval = self.globs.value(gfid)
+                if gval is not None and gval > 0:
+                    # Check for a curve table on this LVLI
+                    if self.curvs and lvli_formid:
+                        curv_fid = self.curvs.curv_for_lvli(lvli_formid)
+                        if curv_fid:
+                            y = self.curvs.interpolate(curv_fid, gval)
+                            if y is not None:
+                                return y / 100.0
+                    # No curve — GLOB value IS the ChanceNone
+                    return gval / 100.0
+        return 0.0
 
     def _entry_qty(self, entry: Dict[str, str]) -> int:
         """Resolve quantity from entry row, including GLOB override."""
@@ -1003,6 +1200,7 @@ class Rng76Data:
         self.lvli = LvliIndex()
         self.globs = GlobIndex()
         self.names = ItemNameIndex()
+        self.curvs = CurvIndex()
         self.resolver: Optional[Rng76Resolver] = None
 
     @classmethod
@@ -1011,5 +1209,6 @@ class Rng76Data:
         d.lvli.load_from_tsv_root(tsv_root)
         d.globs.load_from_tsv_root(tsv_root)
         d.names.load_all_from_tsv_root(tsv_root)
-        d.resolver = Rng76Resolver(d.lvli, d.globs, d.names)
+        d.curvs.load_from_tsv_root(tsv_root)
+        d.resolver = Rng76Resolver(d.lvli, d.globs, d.names, d.curvs)
         return d
