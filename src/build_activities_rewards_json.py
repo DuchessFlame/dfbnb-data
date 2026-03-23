@@ -137,7 +137,7 @@ LVLI_LABEL_PATTERNS = [
     (r"(?i)underarmou?r",                     "Underarmour Plan"),
     # Scrap reward LVLIs (e.g. LLS_Scrap_Screws, LLS_Reward_Scrap) → Scrap Rewards
     # Catches any EDID where "scrap" appears at the start or after an underscore.
-    (r"(?i)(?:^|_)scrap",                     "Scrap Rewards"),
+    (r"(?i)(?:^|_)scrap",                     "Junk & Scrap Rewards"),
     # Weapon-specific LVLIs that are direct GMRW rewards (not Legendary pools).
     # Legendary weapon pools are caught by the LegendaryItems patterns above.
     # "Weapon Rewards" ends in "Rewards" → JS transformLabel → "Unique Activity Rewards".
@@ -2455,7 +2455,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         r'(?xi)'
         r'  ^Activity\s+Rewards?$'
         r'| ^Enclave\s+Activity\s+Rewards?$'
-        r'| ^Scrap\s+Rewards?$'
         r'| ^Junk\s+&\s+Scrap\s+Rewards?$'
         r'| ^Legendary'
         r'| ^Enclave\s+Urban\s+Scout'
