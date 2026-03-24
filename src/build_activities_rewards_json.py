@@ -483,6 +483,8 @@ try:    WEAP_OT = read_tsv(newest("tsv/WEAP_Export_*_ObjectTemplate.tsv"))
 except FileNotFoundError: WEAP_OT = []
 try:    ARMO_OT = read_tsv(newest("tsv/ARMO_Export_*_ObjectTemplate.tsv"))
 except FileNotFoundError: ARMO_OT = []
+try:    MGEF_DATA = read_tsv(newest("tsv/MGEF_Export_*.tsv"))
+except FileNotFoundError: MGEF_DATA = []
 try:    COBJ = read_tsv(newest("tsv/COBJ_Export_*.tsv"))
 except FileNotFoundError: COBJ = []
 
@@ -999,6 +1001,18 @@ for r in COBJ:
         cobj_by_formid[fid] = entry
         if edid:
             cobj_by_edid[edid] = entry
+
+# --------------------------------------------------
+# Index: MGEF descriptions for custom mod display
+# Keyed by FULL name (lowercased) → DNAM_MagicItemDescription text
+# --------------------------------------------------
+
+mgef_desc_by_name = {}
+for r in MGEF_DATA:
+    full = pick(r, "FULL")
+    dnam = pick(r, "DNAM_MagicItemDescription")
+    if full and dnam:
+        mgef_desc_by_name[full.strip().lower()] = dnam.strip()
 
 # --------------------------------------------------
 # Index: item names
@@ -2766,6 +2780,10 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     del item["modSlots"]
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
+                    _cdesc = mgef_desc_by_name.get(custom_prefix.lower(), "")
+                    if _cdesc:
+                        item["customModName"] = custom_prefix
+                        item["customModDescription"] = _cdesc
                 continue
             fid = item.get("formid", "")
             sig = (item.get("sig") or "").upper()
@@ -2781,6 +2799,10 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     item["modSlots"] = cleaned
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
+                    _cdesc = mgef_desc_by_name.get(custom_prefix.lower(), "")
+                    if _cdesc:
+                        item["customModName"] = custom_prefix
+                        item["customModDescription"] = _cdesc
         for child in node.get("children", []):
             child["isUniqueReward"] = True
             _attach_modslots_to_tree(child, child.get("edid", "") or node_edid)
@@ -2814,6 +2836,10 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             # Prepend custom name to item display name (e.g. "Ski Sword" → "Black Diamond Ski Sword")
             if custom_prefix:
                 uer_item["name"] = _apply_custom_prefix(uer_item.get("name", ""), custom_prefix)
+                _cdesc = mgef_desc_by_name.get(custom_prefix.lower(), "")
+                if _cdesc:
+                    uer_item["customModName"] = custom_prefix
+                    uer_item["customModDescription"] = _cdesc
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):
