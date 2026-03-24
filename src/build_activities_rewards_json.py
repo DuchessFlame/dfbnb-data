@@ -2780,9 +2780,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     del item["modSlots"]
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
+                    item["customModName"] = custom_prefix
                     _cdesc = mgef_desc_by_name.get(custom_prefix.lower(), "")
                     if _cdesc:
-                        item["customModName"] = custom_prefix
                         item["customModDescription"] = _cdesc
                 continue
             fid = item.get("formid", "")
@@ -2799,9 +2799,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     item["modSlots"] = cleaned
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
+                    item["customModName"] = custom_prefix
                     _cdesc = mgef_desc_by_name.get(custom_prefix.lower(), "")
                     if _cdesc:
-                        item["customModName"] = custom_prefix
                         item["customModDescription"] = _cdesc
         for child in node.get("children", []):
             child["isUniqueReward"] = True
@@ -2836,9 +2836,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             # Prepend custom name to item display name (e.g. "Ski Sword" → "Black Diamond Ski Sword")
             if custom_prefix:
                 uer_item["name"] = _apply_custom_prefix(uer_item.get("name", ""), custom_prefix)
+                uer_item["customModName"] = custom_prefix
                 _cdesc = mgef_desc_by_name.get(custom_prefix.lower(), "")
                 if _cdesc:
-                    uer_item["customModName"] = custom_prefix
                     uer_item["customModDescription"] = _cdesc
 
     # Sort unique event rewards: titles first, then others
