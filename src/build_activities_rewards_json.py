@@ -416,6 +416,21 @@ def simplify_conditions(conditions):
                 result.append(s)
     return result
 
+def extract_region_conditions(raw_conditions):
+    """Extract 'Region: <name>' from raw GetInCurrentLocation conditions.
+    Used by resolve_lvli_items_deep to surface region info on plan rewards
+    without affecting the global simplify_condition output."""
+    regions = []
+    for c in (raw_conditions or []):
+        if "GetInCurrentLocation" in c:
+            loc_match = re.search(r'"([^"]+)"\s*\[LCTN:', c)
+            if loc_match:
+                region = f"Region: {loc_match.group(1)}"
+                if region not in regions:
+                    regions.append(region)
+    return regions
+
+
 def parse_randompercent_multiplier(conditions_text):
     mult = 1.0
     # Match "GetRandomPercent <= N" (standard <= format)
@@ -1627,12 +1642,23 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 if cond_val:
                     conditions.append(cond_val)
 
+        # Extract minimum level requirement as a display condition (skip trivial level 1)
+        min_lvl_raw = (entry.get("LVLV_MinimumLevel") or "").strip()
+        try:
+            min_lvl = int(float(min_lvl_raw)) if min_lvl_raw else 0
+        except (ValueError, TypeError):
+            min_lvl = 0
+        if min_lvl > 1:
+            conditions.append(f"GetLevel(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 01000100 {min_lvl}.000000")
+
         sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
         ref = (entry.get("LVLO_Reference") or "").strip()
         ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
 
         # Simplify conditions for display
         display_conds = simplify_conditions(conditions)
+        # Extract region conditions from raw data (not included in display_conds)
+        region_conds = extract_region_conditions(conditions)
 
         if sub_lvli:
             # Recurse into sub-LVLI and apply parent drop rate
@@ -1645,7 +1671,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": sub_item["dropRate"] * drop_rate,
                     "edid": sub_item["edid"],
                     "sig": sub_item.get("sig", ""),
-                    "conditions": list_level_conds + display_conds + (sub_item.get("conditions") or []),
+                    "conditions": list_level_conds + display_conds + region_conds + (sub_item.get("conditions") or []),
                 })
         else:
             # Leaf item
@@ -1663,7 +1689,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": drop_rate,
                     "edid": edid,
                     "sig": ref_sig,
-                    "conditions": list_level_conds + display_conds,
+                    "conditions": list_level_conds + display_conds + region_conds,
                 })
 
     # Normalize for pick-one lists.
@@ -2434,6 +2460,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     if _failure_stages and len(_success_stages) == 1:
         activity_data["baseRewards"]["xpSuccess"] = _success_stages[0]["xp"]
 
+    # Track plan formids across all GMRW entries to prevent duplicates
+    _seen_plan_fids = set()
+
     # Process GMRW rows (caps, legendary rank, LVLI rewards)
     for rr in gmrw_rows:
         # Caps
@@ -2535,11 +2564,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     is_plan_name = name.startswith(("Plan:", "Recipe:"))
                     if not (is_book or is_plan_edid or is_plan_name):
                         continue
-                    # Dedup by formid
+                    # Dedup by formid (local and cross-GMRW)
                     fid = item.get("formid", "")
-                    if fid in seen_plans:
+                    if fid in seen_plans or fid in _seen_plan_fids:
                         continue
                     seen_plans.add(fid)
+                    _seen_plan_fids.add(fid)
                     activity_data["planRewards"].append({
                         "name": name,
                         "formid": fid,
@@ -2646,12 +2676,18 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "conditions": simplify_conditions(item.get("conditions", [])),
                 })
                 if is_plan:
-                    activity_data["planRewards"].append({
-                        "name": item_name,
-                        "formid": item.get("formid", ""),
-                        "dropRate": pct(dr) if dr < 1.0 else None,
-                        "qty": item.get("qty", 1),
-                    })
+                    plan_fid = item.get("formid", "")
+                    if plan_fid not in _seen_plan_fids:
+                        _seen_plan_fids.add(plan_fid)
+                        activity_data["planRewards"].append({
+                            "name": item_name,
+                            "formid": plan_fid,
+                            "edid": item.get("edid", ""),
+                            "dropRate": pct(dr) if dr < 1.0 else None,
+                            "qty": item.get("qty", 1),
+                            "conditions": simplify_conditions(item.get("conditions", [])),
+                            "isPlan": True,
+                        })
 
     # ── Build reward tree for xEdit-style display ──
     reward_tree = []
