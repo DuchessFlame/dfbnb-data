@@ -483,8 +483,15 @@ try:    WEAP_OT = read_tsv(newest("tsv/WEAP_Export_*_ObjectTemplate.tsv"))
 except FileNotFoundError: WEAP_OT = []
 try:    ARMO_OT = read_tsv(newest("tsv/ARMO_Export_*_ObjectTemplate.tsv"))
 except FileNotFoundError: ARMO_OT = []
-try:    MGEF_DATA = read_tsv(newest("tsv/MGEF_Export_*.tsv"))
-except FileNotFoundError: MGEF_DATA = []
+try:    MGEF_DATA = read_tsv(newest("tsv/MGEF_Export_*March*.tsv"))
+except FileNotFoundError:
+    try:    MGEF_DATA = read_tsv(newest("tsv/MGEF_Export_*.tsv"))
+    except FileNotFoundError: MGEF_DATA = []
+# Load ALL OMOD exports and merge — different exports may have different DESC fields
+OMOD_DATA = []
+for _omod_f in sorted(glob.glob("tsv/OMOD_Export_*.tsv"), key=lambda x: os.path.getmtime(x)):
+    try:    OMOD_DATA.extend(read_tsv(_omod_f))
+    except Exception: pass
 try:    COBJ = read_tsv(newest("tsv/COBJ_Export_*.tsv"))
 except FileNotFoundError: COBJ = []
 
@@ -525,9 +532,9 @@ _MOD_SLOT_LABELS = {
 }
 
 def _classify_mod_slot(mod_ref_str):
-    """Classify a mod OMOD reference string into a human-readable slot label + value."""
+    """Classify a mod OMOD reference string into a human-readable slot label + value + OMOD FormID."""
     if not mod_ref_str:
-        return None, None
+        return None, None, ""
     # mod_ref_str looks like: ATX_mod_44_Weapon_Paint_Lawbringer "Lawbringer" [OMOD:008599F7]
     # or: mod_Legendary_Weapon1_Adrenal "Adrenal" [OMOD:0080F549]
     parts = mod_ref_str.strip()
@@ -536,6 +543,11 @@ def _classify_mod_slot(mod_ref_str):
     m = re.search(r'"([^"]+)"', parts)
     if m:
         display_name = m.group(1)
+    # Extract OMOD FormID
+    omod_fid = ""
+    m2 = re.search(r'\[OMOD:([0-9A-Fa-f]+)\]', parts)
+    if m2:
+        omod_fid = m2.group(1).upper()
     # Extract EDID (everything before the first quote or bracket)
     edid = re.split(r'["\[]', parts)[0].strip()
     edid_lower = edid.lower()
@@ -557,7 +569,7 @@ def _classify_mod_slot(mod_ref_str):
         h = re.sub(r"\s*\[OMOD:[0-9A-Fa-f]+\]", "", h)
         h = h.replace("_", " ").strip()
         value = h if h else edid
-    return label, value
+    return label, value, omod_fid
 
 def _mod_slot_sort_key(slot):
     """Sort mod slots: Legendary stars first, then Unique/Custom, then everything else."""
@@ -713,15 +725,19 @@ def _apply_custom_prefix(cur_name, custom_prefix):
     return f"{custom_prefix} {cur_name}"
 
 
+_JUNK_OMOD_DESCS = {"no customization", ""}
+
 def _filter_and_clean_modslots(slots, item_name=None):
     """
     Filter junk mods from a modSlots list and optionally extract the custom name.
-    Returns (cleaned_slots, custom_prefix_or_None).
+    Returns (cleaned_slots, custom_prefix_or_None, custom_description_or_None).
     If item_name is provided, the caller can use custom_prefix to build
     "{custom_prefix} {item_name}".
+    custom_description comes from the OMOD DESC field for the custom mod(s).
     """
     cleaned = []
     custom_candidates = []
+    custom_omod_fids = []    # collect OMOD FormIDs for description lookup
     for s in slots:
         label = s.get("label", "")
         value = s.get("value", "")
@@ -733,6 +749,10 @@ def _filter_and_clean_modslots(slots, item_name=None):
             cname = _clean_custom_name(value)
             if cname:
                 custom_candidates.append(cname)
+            # Collect OMOD FormID for description lookup
+            ofid = s.get("omod_fid", "")
+            if ofid:
+                custom_omod_fids.append(ofid)
             # Don't include the Custom mod as a visible slot — it becomes the name
             continue
         cleaned.append(s)
@@ -746,7 +766,20 @@ def _filter_and_clean_modslots(slots, item_name=None):
             custom_prefix = min(good, key=len) if len(good) > 1 else good[0]
         else:
             custom_prefix = custom_candidates[0]
-    return cleaned, custom_prefix
+
+    # Look up OMOD descriptions for the custom mod(s)
+    # Pick the longest non-junk description (most informative)
+    custom_desc = None
+    for ofid in custom_omod_fids:
+        d = omod_desc_by_formid.get(ofid, "")
+        if d and d.strip().lower() not in _JUNK_OMOD_DESCS:
+            if custom_desc is None or len(d) > len(custom_desc):
+                custom_desc = d
+    # Fallback: try MGEF description by custom prefix name
+    if not custom_desc and custom_prefix:
+        custom_desc = mgef_desc_by_name.get(custom_prefix.lower())
+
+    return cleaned, custom_prefix, custom_desc
 
 
 # Group OT rows by (FormID, CombinationIndex), storing slots + combo metadata.
@@ -762,7 +795,7 @@ for r in WEAP_OT:
     mod_ref = pick(r, "Include_Mod", "Mod")
     if not fid or not mod_ref:
         continue
-    label, value = _classify_mod_slot(mod_ref)
+    label, value, omod_fid = _classify_mod_slot(mod_ref)
     if label and value:
         combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
         inc_idx = int(pick(r, "IncludeIndex", default="0") or 0)
@@ -770,6 +803,7 @@ for r in WEAP_OT:
             "label": label,
             "value": value,
             "includeIndex": inc_idx,
+            "omod_fid": omod_fid,
         })
     # Collect combo name from Combination_FULL
     combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
@@ -855,9 +889,9 @@ _ARMOR_MOD_SLOT_LABELS = {
 }
 
 def _classify_armor_mod_slot(mod_ref_str):
-    """Classify an armour OMOD reference string into a human-readable slot label + value."""
+    """Classify an armour OMOD reference string into a human-readable slot label + value + OMOD FormID."""
     if not mod_ref_str:
-        return None, None
+        return None, None, ""
     parts = mod_ref_str.strip()
     display_name = ""
     m = re.search(r'"([^"]+)"', parts)
@@ -874,8 +908,14 @@ def _classify_armor_mod_slot(mod_ref_str):
     if not label:
         # Fallback: Null/No Misc linings → skip, otherwise generic "Mod"
         if "lining_null" in edid_lower or "no misc" in (display_name or "").lower():
-            return None, None
+            return None, None, ""
         label = "Mod"
+
+    # Extract OMOD FormID
+    omod_fid = ""
+    m2 = re.search(r'\[OMOD:([0-9A-Fa-f]+)\]', parts)
+    if m2:
+        omod_fid = m2.group(1).upper()
 
     if display_name:
         value = display_name
@@ -884,7 +924,7 @@ def _classify_armor_mod_slot(mod_ref_str):
         h = re.sub(r"\s*\[OMOD:[0-9A-Fa-f]+\]", "", h)
         h = h.replace("_", " ").strip()
         value = h if h else edid
-    return label, value
+    return label, value, omod_fid
 
 _armo_combos = defaultdict(lambda: defaultdict(list))
 _armo_combo_names = defaultdict(dict)
@@ -894,7 +934,7 @@ for r in ARMO_OT:
     mod_ref = pick(r, "Include_Mod", "Mod")
     if not fid or not mod_ref:
         continue
-    label, value = _classify_armor_mod_slot(mod_ref)
+    label, value, omod_fid = _classify_armor_mod_slot(mod_ref)
     if label and value:
         combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
         inc_idx = int(pick(r, "IncludeIndex", default="0") or 0)
@@ -902,6 +942,7 @@ for r in ARMO_OT:
             "label": label,
             "value": value,
             "includeIndex": inc_idx,
+            "omod_fid": omod_fid,
         })
     combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
     combo_full = (pick(r, "Combination_FULL", default="") or "").strip()
@@ -1003,10 +1044,22 @@ for r in COBJ:
             cobj_by_edid[edid] = entry
 
 # --------------------------------------------------
-# Index: MGEF descriptions for custom mod display
-# Keyed by FULL name (lowercased) → DNAM_MagicItemDescription text
+# Index: OMOD descriptions for custom mod display
+# Keyed by OMOD FormID → DESC text (from OMOD export TSV)
 # --------------------------------------------------
 
+omod_desc_by_formid = {}
+for r in OMOD_DATA:
+    fid = pick(r, "OMOD_FormID", "FormID")
+    desc = pick(r, "DESC")
+    if fid and desc:
+        fid_s = fid.strip()
+        desc_s = desc.strip()
+        # Keep the longest description per FormID (different exports may vary)
+        if fid_s not in omod_desc_by_formid or len(desc_s) > len(omod_desc_by_formid[fid_s]):
+            omod_desc_by_formid[fid_s] = desc_s
+
+# Fallback: MGEF descriptions keyed by FULL name (lowercased)
 mgef_desc_by_name = {}
 for r in MGEF_DATA:
     full = pick(r, "FULL")
@@ -1842,12 +1895,15 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 if _is_unique_lvli(edid):
                     resolved = _resolve_variant_modslots(fid, ref_sig, edid)
                     if resolved:
-                        raw_slots = [{"label": s["label"], "value": s["value"]} for s in resolved]
-                        cleaned, custom_prefix = _filter_and_clean_modslots(raw_slots, item_data.get("name"))
+                        raw_slots = [{"label": s["label"], "value": s["value"], "omod_fid": s.get("omod_fid", "")} for s in resolved]
+                        cleaned, custom_prefix, custom_desc = _filter_and_clean_modslots(raw_slots, item_data.get("name"))
                         if cleaned:
                             item_data["modSlots"] = cleaned
                         if custom_prefix:
                             item_data["name"] = _apply_custom_prefix(item_data.get("name", ""), custom_prefix)
+                            item_data["customModName"] = custom_prefix
+                            if custom_desc:
+                                item_data["customModDescription"] = custom_desc
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
 
     # ── First-match cascading probability ──
@@ -2772,8 +2828,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         node_edid = node.get("edid", "") or parent_edid
         for item in node.get("items", []):
             if "modSlots" in item:
-                # Already attached — still filter junk and extract custom name
-                cleaned, custom_prefix = _filter_and_clean_modslots(item["modSlots"], item.get("name"))
+                # Already attached — still filter junk and extract custom name + OMOD description
+                cleaned, custom_prefix, custom_desc = _filter_and_clean_modslots(item["modSlots"], item.get("name"))
                 if cleaned:
                     item["modSlots"] = cleaned
                 else:
@@ -2781,9 +2837,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
                     item["customModName"] = custom_prefix
-                    _cdesc = mgef_desc_by_name.get(custom_prefix.lower(), "")
-                    if _cdesc:
-                        item["customModDescription"] = _cdesc
+                    if custom_desc:
+                        item["customModDescription"] = custom_desc
                 continue
             fid = item.get("formid", "")
             sig = (item.get("sig") or "").upper()
@@ -2793,16 +2848,15 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             resolved = _resolve_variant_modslots(fid, sig, node_edid,
                                                   fallback=False)
             if resolved:
-                raw_slots = [{"label": s["label"], "value": s["value"]} for s in resolved]
-                cleaned, custom_prefix = _filter_and_clean_modslots(raw_slots, item.get("name"))
+                raw_slots = [{"label": s["label"], "value": s["value"], "omod_fid": s.get("omod_fid", "")} for s in resolved]
+                cleaned, custom_prefix, custom_desc = _filter_and_clean_modslots(raw_slots, item.get("name"))
                 if cleaned:
                     item["modSlots"] = cleaned
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
                     item["customModName"] = custom_prefix
-                    _cdesc = mgef_desc_by_name.get(custom_prefix.lower(), "")
-                    if _cdesc:
-                        item["customModDescription"] = _cdesc
+                    if custom_desc:
+                        item["customModDescription"] = custom_desc
         for child in node.get("children", []):
             child["isUniqueReward"] = True
             _attach_modslots_to_tree(child, child.get("edid", "") or node_edid)
@@ -2828,18 +2882,17 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             elif fid in armo_mod_slots_by_formid:
                 slots = armo_mod_slots_by_formid[fid]
         if slots:
-            # Strip includeIndex, filter junk mods, extract custom name prefix
-            raw_slots = [{"label": s["label"], "value": s["value"]} for s in slots]
-            cleaned, custom_prefix = _filter_and_clean_modslots(raw_slots, uer_item.get("name"))
+            # Strip includeIndex, filter junk mods, extract custom name prefix + OMOD description
+            raw_slots = [{"label": s["label"], "value": s["value"], "omod_fid": s.get("omod_fid", "")} for s in slots]
+            cleaned, custom_prefix, custom_desc = _filter_and_clean_modslots(raw_slots, uer_item.get("name"))
             if cleaned:
                 uer_item["modSlots"] = cleaned
             # Prepend custom name to item display name (e.g. "Ski Sword" → "Black Diamond Ski Sword")
             if custom_prefix:
                 uer_item["name"] = _apply_custom_prefix(uer_item.get("name", ""), custom_prefix)
                 uer_item["customModName"] = custom_prefix
-                _cdesc = mgef_desc_by_name.get(custom_prefix.lower(), "")
-                if _cdesc:
-                    uer_item["customModDescription"] = _cdesc
+                if custom_desc:
+                    uer_item["customModDescription"] = custom_desc
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):
