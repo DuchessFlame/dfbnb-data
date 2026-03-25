@@ -101,6 +101,12 @@ EMPTY_LVLI_ITEM_FALLBACKS = {
     "001109F4": [("001107AD", "ARMO", "Armor_DLC03_Marine_LegLeft")],      # LL_Armor_Marine_LegLeft
     "001109F5": [("001107AE", "ARMO", "Armor_DLC03_Marine_LegRight")],     # LL_Armor_Marine_LegRight
     "001109F6": [("001107AF", "ARMO", "Armor_DLC03_Marine_Torso")],        # LL_Armor_Marine_Torso
+    # T-51b Power Armor sub-lists: same export gap as Marine armor above.
+    "0018AE14": [("00140C4D", "ARMO", "Armor_PowerArmor_T51_ArmRight")],  # LL_Armor_PowerArmor_T51_ArmRight
+    "0018AE15": [("00140C4E", "ARMO", "Armor_PowerArmor_T51_Helmet")],    # LL_Armor_PowerArmor_T51_Helmet
+    "0018AE16": [("00140C4F", "ARMO", "Armor_PowerArmor_T51_LegLeft")],   # LL_Armor_PowerArmor_T51_LegLeft
+    "0018AE17": [("00140C50", "ARMO", "Armor_PowerArmor_T51_LegRight")],  # LL_Armor_PowerArmor_T51_LegRight
+    "0018AE18": [("00140C51", "ARMO", "Armor_PowerArmor_T51_Torso")],     # LL_Armor_PowerArmor_T51_Torso
 }
 
 # List-level conditions: built dynamically from LVLI_List TSV ListCond1..N columns.
@@ -229,9 +235,9 @@ def simplify_condition(cond_str):
     quest_match = re.search(r'"([^"]+)"\s*\[QUST:', s)
     quest_name = quest_match.group(1) if quest_match else ""
 
-    # GetQuestCompleted → "Requires: <Quest Name>"
+    # GetQuestCompleted → "Requires the "<Quest Name>" quest to be completed"
     if "GetQuestCompleted" in s and quest_name:
-        return f"Requires: {quest_name}"
+        return f"Requires the \u201c{quest_name}\u201d quest to be completed"
 
     # HasLearnedRecipe → check comparison value (= 1 means MUST know, = 0 means must NOT know)
     # and resolve the COBJ reference to a human-readable recipe/plan name.
@@ -3750,27 +3756,40 @@ for key, pages in sorted(reward_pages_by_key.items()):
                     items = sorted(seen_fids.values(),
                                    key=lambda x: (x["name"] or "", x["formid"] or ""))
                 else:
-                    probs = compute_lvli(formid)
+                    deep_items = resolve_lvli_items_deep(formid)
                     # Normalise only when total > 1 (xEdit equal-weight artefact:
                     # apriori=1.0 for every entry in an N-entry pick-one list gives total=N).
                     # Do NOT normalise when total < 1 — that reflects legitimate entry-level
-                    # ChanceNone (a real chance of no reward), now handled inside compute_lvli.
-                    _total = sum(probs.values())
+                    # ChanceNone (a real chance of no reward), now handled inside resolve_lvli_items_deep.
+                    _total = sum(it["dropRate"] for it in deep_items)
                     if _total > 1.0001:
-                        probs = {k: v / _total for k, v in probs.items()}
+                        for it in deep_items:
+                            it["dropRate"] = it["dropRate"] / _total
+                    # Merge duplicates (same formid) — sum rates, union conditions
+                    _merged = {}
+                    for it in deep_items:
+                        fid = it["formid"]
+                        if fid in _merged:
+                            _merged[fid]["dropRate"] += it["dropRate"]
+                            for c in (it.get("conditions") or []):
+                                if c not in (_merged[fid].get("conditions") or []):
+                                    _merged[fid].setdefault("conditions", []).append(c)
+                        else:
+                            _merged[fid] = dict(it)
                     items = sorted([
                         {
-                            "formid": fid,
-                            "name": resolve_name_for_formid(fid),
-                            "dropRate": pct(ch * cond_mult),
-                            "qty": 1,
+                            "formid": it["formid"],
+                            "name": it.get("name") or resolve_name_for_formid(it["formid"]),
+                            "dropRate": pct(it["dropRate"] * cond_mult),
+                            "qty": it.get("qty", 1),
                             "isPlan": any(
                                 n.startswith(("Plan:", "Recipe:"))
-                                for n in [resolve_name_for_formid(fid)]
+                                for n in [it.get("name") or resolve_name_for_formid(it["formid"])]
                                 if n
                             ),
+                            **({"conditions": it["conditions"]} if it.get("conditions") else {}),
                         }
-                        for fid, ch in probs.items()
+                        for it in _merged.values()
                     ], key=lambda x: (x["name"] or "", x["formid"] or ""))
 
                 pt, ttl = classify_pool(formid)
@@ -3833,16 +3852,21 @@ for key, pages in sorted(reward_pages_by_key.items()):
             has_act = any(p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI for p in event["pools"])
             if not has_act:
                 act_edid  = lvli_edid_by_formid.get(ENCLAVE_ACTIVITIES_LVLI, "")
-                act_probs = compute_lvli(ENCLAVE_ACTIVITIES_LVLI)
+                _act_deep = resolve_lvli_items_deep(ENCLAVE_ACTIVITIES_LVLI)
+                _act_total = sum(it["dropRate"] for it in _act_deep)
+                if _act_total > 1.0001:
+                    for it in _act_deep:
+                        it["dropRate"] = it["dropRate"] / _act_total
                 act_items = sorted([
                     {
-                        "formid": fid,
-                        "name": resolve_name_for_formid(fid),
-                        "dropRate": pct(ch),
-                        "qty": 1,
-                        "isPlan": resolve_name_for_formid(fid).startswith(("Plan:", "Recipe:")),
+                        "formid": it["formid"],
+                        "name": it.get("name") or resolve_name_for_formid(it["formid"]),
+                        "dropRate": pct(it["dropRate"]),
+                        "qty": it.get("qty", 1),
+                        "isPlan": (it.get("name") or "").startswith(("Plan:", "Recipe:")),
+                        **({"conditions": it["conditions"]} if it.get("conditions") else {}),
                     }
-                    for fid, ch in act_probs.items()
+                    for it in _act_deep
                 ], key=lambda x: (x["name"] or "", x["formid"] or ""))
                 pt, ttl = classify_pool(ENCLAVE_ACTIVITIES_LVLI)
                 event["pools"].append({
@@ -3864,23 +3888,36 @@ for key, pages in sorted(reward_pages_by_key.items()):
         for pool_def in cle.get("pools", []):
             formid = pool_def["lvliFormID"]
             lvli_edid = lvli_edid_by_formid.get(formid, "")
-            probs = compute_lvli(formid)
-            _total = sum(probs.values())
-            if _total > 1.0001:
-                probs = {k: v / _total for k, v in probs.items()}
+            _cle_deep = resolve_lvli_items_deep(formid)
+            _cle_total = sum(it["dropRate"] for it in _cle_deep)
+            if _cle_total > 1.0001:
+                for it in _cle_deep:
+                    it["dropRate"] = it["dropRate"] / _cle_total
+            # Merge duplicates (same formid)
+            _cle_merged = {}
+            for it in _cle_deep:
+                fid = it["formid"]
+                if fid in _cle_merged:
+                    _cle_merged[fid]["dropRate"] += it["dropRate"]
+                    for c in (it.get("conditions") or []):
+                        if c not in (_cle_merged[fid].get("conditions") or []):
+                            _cle_merged[fid].setdefault("conditions", []).append(c)
+                else:
+                    _cle_merged[fid] = dict(it)
             items = sorted([
                 {
-                    "formid": fid,
-                    "name": resolve_name_for_formid(fid),
-                    "dropRate": pct(ch),
-                    "qty": 1,
+                    "formid": it["formid"],
+                    "name": it.get("name") or resolve_name_for_formid(it["formid"]),
+                    "dropRate": pct(it["dropRate"]),
+                    "qty": it.get("qty", 1),
                     "isPlan": any(
                         n.startswith(("Plan:", "Recipe:"))
-                        for n in [resolve_name_for_formid(fid)]
+                        for n in [it.get("name") or resolve_name_for_formid(it["formid"])]
                         if n
                     ),
+                    **({"conditions": it["conditions"]} if it.get("conditions") else {}),
                 }
-                for fid, ch in probs.items()
+                for it in _cle_merged.values()
             ], key=lambda x: (x["name"] or "", x["formid"] or ""))
             pt, ttl = classify_pool(formid)
             event["pools"].append({
