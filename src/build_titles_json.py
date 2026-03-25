@@ -30,7 +30,7 @@ from typing import Any, Dict, List, Optional, Tuple
 #   - ATX_* -> "Can be purchased with certain bundles from the Atom Shop." (DropRate N/A)
 # - COBJ proxy (any condition with [COBJ:]):
 #   - how: "Complete the Event: X" / "Complete the Activity: Y" using GMRW.ParentQuest quoted label
-#   - drop: GLOB first (100 - FLTV), LVLI fallback (100 - LVOV_ChanceNone)
+#   - drop: GLOB+CURV first (curve-aware), LVLI fallback (100 - LVOV_ChanceNone)
 # - Tradeable:
 #   - Default non-tradeable; BOOK row containing keyword NonPlayerTradeable => non-tradeable; else tradeable
 #
@@ -661,6 +661,7 @@ def lvli_drop_rate_from_cobj_lvli(
     cobj_formid: str,
     prefer_lvli_formid: Optional[str] = None,
     lvli_parent_map: Optional[Dict[str, set]] = None,
+    curv_pts_by_formid: Optional[Dict[str, List[Tuple[float, float]]]] = None,
 ) -> Optional[str]:
     """
     COBJ(FormID) -> GNAM_FormID (BOOK FormID)
@@ -779,34 +780,18 @@ def lvli_drop_rate_from_cobj_lvli(
                 list_row = lr
                 break
 
-        # Global-first rule (entry-level then list-level).
-        # NOTE: LVOC/LVCT curves are included regardless of whether they contain
-        # ":GLOB" — the old guard was too strict and caused N/A when Bethesda stored
-        # curve references as plain FormIDs or bracket notation.
-        candidates: List[str] = []
-
+        # Entry-level GLOB + CURV pair
         lvog = (entry_row.get("LVOG_ChanceNoneGlobal") or "").strip()
-        if lvog:
-            candidates.append(lvog)
-
         lvoc = (entry_row.get("LVOC_ChanceNoneCurve") or "").strip()
-        if lvoc:
-            candidates.append(lvoc)
+        dr2 = _resolve_chancenone_pair_titles(lvog, lvoc, glob_rows, curv_pts_by_formid)
+        if dr2:
+            return dr2
 
+        # List-level GLOB + CURV pair
         if list_row:
             lvlg = (list_row.get("LVLG_ChanceNoneGlobal") or "").strip()
-            if lvlg:
-                candidates.append(lvlg)
-
             lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
-            if lvct:
-                candidates.append(lvct)
-
-        for glob_field in candidates:
-            gfid = _glob_formid_from_lvli_global_field(glob_field)
-            if not gfid:
-                continue
-            dr2 = glob_drop_rate_by_formid(glob_rows, gfid)
+            dr2 = _resolve_chancenone_pair_titles(lvlg, lvct, glob_rows, curv_pts_by_formid)
             if dr2:
                 return dr2
 
@@ -956,31 +941,18 @@ def lvli_drop_rate_from_cobj_lvli(
                 list_row = lr
                 break
 
-    # Global override first (global-first rule, order matters)
-    candidates: List[str] = []
-
+    # Entry-level GLOB + CURV pair (curve-aware resolution)
     lvog = (best.get("LVOG_ChanceNoneGlobal") or "").strip()
-    if lvog:
-        candidates.append(lvog)
-
     lvoc = (best.get("LVOC_ChanceNoneCurve") or "").strip()
-    if lvoc:  # was: "if lvoc and ':GLOB' in lvoc.upper()" — too strict
-        candidates.append(lvoc)
+    dr = _resolve_chancenone_pair_titles(lvog, lvoc, glob_rows, curv_pts_by_formid)
+    if dr:
+        return dr
 
+    # List-level GLOB + CURV pair
     if list_row:
         lvlg = (list_row.get("LVLG_ChanceNoneGlobal") or "").strip()
-        if lvlg:
-            candidates.append(lvlg)
-
         lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
-        if lvct:  # was: "if lvct and ':GLOB' in lvct.upper()" — too strict
-            candidates.append(lvct)
-
-    for glob_field in candidates:
-        gfid = _glob_formid_from_lvli_global_field(glob_field)
-        if not gfid:
-            continue
-        dr = glob_drop_rate_by_formid(glob_rows, gfid)
+        dr = _resolve_chancenone_pair_titles(lvlg, lvct, glob_rows, curv_pts_by_formid)
         if dr:
             return dr
 
@@ -1031,29 +1003,91 @@ def _glob_formid_from_lvli_global_field(s: str) -> Optional[str]:
     return None
 
 
+def _interp_curve_titles(pts: List[Tuple[float, float]], x: float) -> Optional[float]:
+    """Linearly interpolate Y at X from sorted (x, y) curve points."""
+    if not pts:
+        return None
+    if x <= pts[0][0]:
+        return pts[0][1]
+    if x >= pts[-1][0]:
+        return pts[-1][1]
+    for i in range(len(pts) - 1):
+        x0, y0 = pts[i]
+        x1, y1 = pts[i + 1]
+        if x0 <= x <= x1:
+            t = (x - x0) / (x1 - x0) if abs(x1 - x0) > 1e-9 else 0
+            return y0 + t * (y1 - y0)
+    return pts[-1][1]
+
+
+def _glob_fltv_by_formid(glob_rows: List[Dict[str, str]], glob_formid: str) -> Optional[float]:
+    """Look up GLOB FLTV value by FormID."""
+    gf = (glob_formid or "").strip().upper()
+    if not gf:
+        return None
+    for r in glob_rows:
+        if (r.get("FormID") or "").strip().upper() != gf:
+            continue
+        return safe_float(r.get("FLTV") or "", None)
+    return None
+
+
+def _resolve_chancenone_pair_titles(
+    glob_ref: str,
+    curv_ref: str,
+    glob_rows: List[Dict[str, str]],
+    curv_pts_by_formid: Optional[Dict[str, List[Tuple[float, float]]]] = None,
+) -> Optional[str]:
+    """
+    Resolve a GLOB+CURV ChanceNone pair to a drop-rate string.
+
+    When a CURV is present, GLOB FLTV is the X index and the curve Y is the
+    actual ChanceNone.  When only a GLOB is present, FLTV IS the ChanceNone.
+    """
+    glob_fid = _glob_formid_from_lvli_global_field(glob_ref) if glob_ref else None
+    curv_fid = _glob_formid_from_lvli_global_field(curv_ref) if curv_ref else None
+
+    glob_fltv = _glob_fltv_by_formid(glob_rows, glob_fid) if glob_fid else None
+    if glob_fltv is None and curv_fid:
+        # Curve slot sometimes holds a GLOB ref — try as GLOB fallback
+        glob_fltv = _glob_fltv_by_formid(glob_rows, curv_fid)
+        if glob_fltv is not None:
+            curv_fid = None  # not a real curve
+
+    if glob_fltv is None:
+        return None
+
+    chance_none = glob_fltv  # default: FLTV is the direct ChanceNone
+
+    # If we have a real curve, evaluate it with the GLOB FLTV as X
+    if curv_pts_by_formid and curv_fid and curv_fid in curv_pts_by_formid:
+        y = _interp_curve_titles(curv_pts_by_formid[curv_fid], glob_fltv)
+        if y is not None:
+            chance_none = y  # Y is the actual ChanceNone
+
+    pct = 100.0 - chance_none
+    if pct < 0:
+        return None
+    if abs(pct - round(pct)) < 1e-6:
+        return f"{int(round(pct))}%"
+    return f"{pct:.3f}%"
+
+
 def glob_drop_rate_by_formid(glob_rows: List[Dict[str, str]], glob_formid: str) -> Optional[str]:
     """
-    Your rule:
+    Straight GLOB lookup (no curve):
       pct = 100 - FLTV
     (So FLTV 98 => 2%, FLTV 95 => 5%, etc)
     """
-    glob_formid = (glob_formid or "").strip().upper()
-    if not glob_formid:
+    fv = _glob_fltv_by_formid(glob_rows, glob_formid)
+    if fv is None:
         return None
-
-    for r in glob_rows:
-        if (r.get("FormID") or "").strip().upper() != glob_formid:
-            continue
-        fv = safe_float(r.get("FLTV") or "", None)
-        if fv is None:
-            return None
-        pct = 100.0 - fv
-        if pct < 0:
-            return None
-        if abs(pct - round(pct)) < 1e-6:
-            return f"{int(round(pct))}%"
-        return f"{pct:.3f}%"
-    return None
+    pct = 100.0 - fv
+    if pct < 0:
+        return None
+    if abs(pct - round(pct)) < 1e-6:
+        return f"{int(round(pct))}%"
+    return f"{pct:.3f}%"
 
 def prettify_token_words(token: str) -> str:
     s = token.replace("_", " ").strip()
@@ -2136,6 +2170,7 @@ def compute_unlock_and_rates(
             cobj_rows, lvli_entry_rows, lvli_list_rows, glob_rows, cobj_formid,
             prefer_lvli_formid=prefer_lvli,
             lvli_parent_map=lvli_parent_map,
+            curv_pts_by_formid=curv_pts_by_formid,
         )
         return how_event, (dr or "N/A"), None, "event_activity", extra
 
@@ -2202,6 +2237,7 @@ def main() -> int:
     ap.add_argument("--chal", action="append", required=False)
     ap.add_argument("--cndf", action="append", required=False)
     ap.add_argument("--entm", action="append", required=False)
+    ap.add_argument("--curv", action="append", required=False)
 
     ap.add_argument("--seasons", required=False, default=None)
     ap.add_argument("--outdir", required=True)
@@ -2218,6 +2254,7 @@ def main() -> int:
     args.chal = _autofill_paths(args.tsv_root, args.chal, ["**/*CHAL*.tsv"])
     args.cndf = _autofill_paths(args.tsv_root, args.cndf, ["**/*CNDF*.tsv"])
     args.entm = _autofill_paths(args.tsv_root, args.entm, ["**/*ENTM*.tsv"])
+    args.curv = _autofill_paths(args.tsv_root, args.curv, ["**/*CURV*POINTS*.tsv"])
 
     missing = []
     if not args.cmpt: missing.append("--cmpt (or auto via --tsv-root)")
@@ -2261,6 +2298,20 @@ def main() -> int:
     gmrw_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.gmrw], "FormID")
     chal_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.chal], "FormID")
     cndf_rows = merge_rows_by_key([read_tsv_rows(p) for p in args.cndf], "FormID")
+
+    # CURV points index: curv_formid → sorted list of (x, y) points
+    curv_pts_by_formid: Dict[str, List[Tuple[float, float]]] = {}
+    if args.curv:
+        for curv_path in args.curv:
+            for r in read_tsv_rows(curv_path):
+                fid = (r.get("CURV_FormID") or r.get("FormID") or "").strip()
+                x_val = safe_float(r.get("X") or "", None)
+                y_val = safe_float(r.get("Y") or "", None)
+                if fid and x_val is not None and y_val is not None:
+                    curv_pts_by_formid.setdefault(fid, []).append((x_val, y_val))
+        for fid in curv_pts_by_formid:
+            curv_pts_by_formid[fid].sort(key=lambda p: p[0])
+        print(f"[CURV] Loaded {len(curv_pts_by_formid)} curve tables", file=sys.stderr)
 
     # ------------------------------------------------------------
     # ENTM storefront DDS index (safe even if ENTM TSV missing)
