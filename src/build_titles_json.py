@@ -1470,6 +1470,7 @@ def compute_unlock_and_rates(
     chal_by_edid: Dict[str, Dict[str, str]],
     cndf_by_id: Dict[str, Dict[str, str]],
     lvli_parent_map: Optional[Dict[str, set]] = None,
+    curv_pts_by_formid: Optional[Dict[str, List[Tuple[float, float]]]] = None,
 ) -> Tuple[str, str, Optional[int], str, Dict[str, Any]]:
 
     extra: Dict[str, Any] = {}
@@ -2439,6 +2440,7 @@ def main() -> int:
             chal_by_edid=chal_by_edid,
             cndf_by_id=cndf_by_id,
             lvli_parent_map=lvli_parent_map,
+            curv_pts_by_formid=curv_pts_by_formid,
         )
 
         # Apply manual overrides (howToObtain + dropRate)
@@ -2525,6 +2527,7 @@ def main() -> int:
             chal_by_edid=chal_by_edid,
             cndf_by_id=cndf_by_id,
             lvli_parent_map=lvli_parent_map,
+            curv_pts_by_formid=curv_pts_by_formid,
         )
 
         # Apply manual overrides (howToObtain + dropRate)
