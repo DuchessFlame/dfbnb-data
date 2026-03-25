@@ -3792,6 +3792,31 @@ for key, pages in sorted(reward_pages_by_key.items()):
                         for it in _merged.values()
                     ], key=lambda x: (x["name"] or "", x["formid"] or ""))
 
+                # Filter region-gated items: if an item has Region: conditions and
+                # NONE of them match the activity's regions, the item can never drop
+                # at this activity (GetInCurrentLocation would fail).  Remove it.
+                _act_regions = set(
+                    loc.get("region", "").strip()
+                    for loc in event.get("regionLocations", [])
+                    if loc.get("region", "").strip()
+                )
+                if _act_regions:
+                    _filtered = []
+                    for _it in items:
+                        _it_regions = [
+                            c.replace("Region: ", "")
+                            for c in (_it.get("conditions") or [])
+                            if c.startswith("Region: ")
+                        ]
+                        if _it_regions:
+                            # Item is region-gated — keep only if at least one region matches
+                            if any(r in _act_regions for r in _it_regions):
+                                _filtered.append(_it)
+                        else:
+                            # Item has no region gate — always keep
+                            _filtered.append(_it)
+                    items = _filtered
+
                 pt, ttl = classify_pool(formid)
                 pool_entry = {
                     "title": label or "Reward Pool", "lvliFormID": formid, "lvliEdid": lvli_edid,
