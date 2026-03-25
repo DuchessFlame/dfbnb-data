@@ -246,6 +246,7 @@ def find_title_cobj_lvli_chains(
     tsv_root: str,
     lvli_index: LvliIndex,
     glob_index: GlobIndex,
+    curv_index: CurvIndex = None,
 ) -> Dict[str, Dict[str, str]]:
     """
     Walk COBJ → BOOK → LVLI chains for player/camp titles and compute
@@ -415,7 +416,7 @@ def find_title_cobj_lvli_chains(
                         parts.append(f"{lab} - 0%")
                         continue
                     entry_row = resolved_by_lvli[fid][0]
-                    dr = compute_chancenone_rate(entry_row, fid, lvli_index, glob_index)
+                    dr = compute_chancenone_rate(entry_row, fid, lvli_index, glob_index, curv_index)
                     parts.append(f"{lab} - {dr or 'N/A'}")
 
             # Numeric tiers
@@ -426,7 +427,7 @@ def find_title_cobj_lvli_chains(
                         parts.append(f"{lab} - 0%")
                         continue
                     entry_row = resolved_by_lvli[fid][0]
-                    dr = compute_chancenone_rate(entry_row, fid, lvli_index, glob_index)
+                    dr = compute_chancenone_rate(entry_row, fid, lvli_index, glob_index, curv_index)
                     parts.append(f"{lab} - {dr or 'N/A'}")
 
             if parts:
@@ -440,7 +441,7 @@ def find_title_cobj_lvli_chains(
             matches.sort(key=_rank)
             best = matches[0]
             lvli_fid = (best.get("LVLI_FormID") or best.get("FormID") or "").strip().upper()
-            rate_str = compute_chancenone_rate(best, lvli_fid, lvli_index, glob_index)
+            rate_str = compute_chancenone_rate(best, lvli_fid, lvli_index, glob_index, curv_index)
 
         if rate_str:
             entry = {"dropRate": rate_str}
@@ -594,7 +595,7 @@ def main():
 
     # 5) Build title rate export
     print("  Computing title drop rates...")
-    title_rates = find_title_cobj_lvli_chains(TSV_ROOT, lvli, globs)
+    title_rates = find_title_cobj_lvli_chains(TSV_ROOT, lvli, globs, data.curvs)
     print(f"  Title rates computed: {len(title_rates)}")
 
     # 6) Assemble output

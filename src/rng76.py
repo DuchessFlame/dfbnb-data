@@ -1042,48 +1042,67 @@ def compute_chancenone_rate(
     lvli_fid: str,
     lvli_index: LvliIndex,
     glob_index: GlobIndex,
+    curv_index: Optional["CurvIndex"] = None,
 ) -> Optional[str]:
     """
-    Compute drop rate from ChanceNone fields (GLOB-first rule).
+    Compute drop rate from ChanceNone fields (GLOB-first, curve-aware).
 
-    Used by the titles build for COBJ → BOOK → LVLI rate resolution.
+    Used by the titles/drop-rates builds for COBJ → BOOK → LVLI rate resolution.
 
-    Priority (first non-None wins):
-      1. Entry-level LVOG_ChanceNoneGlobal → GLOB FLTV → 100 - FLTV
-      2. Entry-level LVOC_ChanceNoneCurve → same
-      3. List-level LVLG_ChanceNoneGlobal → same
-      4. List-level LVCT_ChanceNoneCurve → same
-      5. LVOV_ChanceNoneValue → 100 - value
-      6. Blank/missing → 100%
+    When a GLOB and CURV are both present, the GLOB FLTV is the X index
+    into the curve table and the Y output is the actual ChanceNone.
+    When only a GLOB is present, the FLTV IS the direct ChanceNone.
+
+    Priority:
+      1. Entry-level GLOB + CURV → Curve(X=FLTV) → 100 - Y
+         Entry-level GLOB only   → 100 - FLTV
+      2. List-level  GLOB + CURV → same curve logic
+         List-level  GLOB only   → 100 - FLTV
+      3. LVOV_ChanceNoneValue → 100 - value
+      4. Blank/missing → 100%
     """
     list_row = lvli_index.list_by_formid.get(lvli_fid)
 
-    # Collect GLOB candidates (order matters)
-    candidates: List[str] = []
+    # --- Helper: resolve a GLOB+CURV pair to ChanceNone (0-100) ---
+    def _resolve_pair(glob_field: str, curv_field: str) -> Optional[float]:
+        glob_fid = glob_formid_from_lvli_field(glob_field) if glob_field else None
+        curv_fid = glob_formid_from_lvli_field(curv_field) if curv_field else None
 
+        glob_fltv = glob_index.value(glob_fid) if glob_fid else None
+        if glob_fltv is None and curv_fid:
+            # Curve slot sometimes holds a GLOB ref — try as GLOB fallback
+            glob_fltv = glob_index.value(curv_fid)
+            if glob_fltv is not None:
+                curv_fid = None  # not a real curve
+
+        if glob_fltv is None:
+            return None
+
+        # If we have a real curve, evaluate it with the GLOB FLTV as X
+        if curv_index and curv_fid:
+            y = curv_index.interpolate(curv_fid, glob_fltv)
+            if y is not None:
+                return y  # Y is the actual ChanceNone
+
+        # No curve — GLOB FLTV is the direct ChanceNone
+        return glob_fltv
+
+    # --- Entry-level ---
     lvog = (entry_row.get("LVOG_ChanceNoneGlobal") or "").strip()
-    if lvog:
-        candidates.append(lvog)
-
     lvoc = (entry_row.get("LVOC_ChanceNoneCurve") or "").strip()
-    if lvoc:
-        candidates.append(lvoc)
+    cn = _resolve_pair(lvog, lvoc)
+    if cn is not None and cn > 0:
+        p = 100.0 - cn
+        return fmt_pct(p) if p >= 0 else None
 
+    # --- List-level ---
     if list_row:
         lvlg = (list_row.get("LVLG_ChanceNoneGlobal") or "").strip()
-        if lvlg:
-            candidates.append(lvlg)
         lvct = (list_row.get("LVCT_ChanceNoneCurve") or "").strip()
-        if lvct:
-            candidates.append(lvct)
-
-    for field in candidates:
-        gfid = glob_formid_from_lvli_field(field)
-        if not gfid:
-            continue
-        dr = glob_index.drop_rate_str(gfid)
-        if dr:
-            return dr
+        cn = _resolve_pair(lvlg, lvct)
+        if cn is not None and cn > 0:
+            p = 100.0 - cn
+            return fmt_pct(p) if p >= 0 else None
 
     # Fallback: LVOV_ChanceNoneValue
     raw_cn = (entry_row.get("LVOV_ChanceNoneValue") or "").strip()

@@ -1015,12 +1015,15 @@ KNOWN_GLOB_VALS = {
     # SpawnChance_Cnone_ActivityCampTitle — ChanceNone for activity camp/player title drops.
     # 75% ChanceNone = 25% actual drop rate. Confirmed by Duchess (March 2026).
     "0089EA90": 75.0,
-    # Recipe ChanceNone tier GLOBs — FLTV values confirmed from GLOB TSV (March 2026).
-    "00307CA7": 25.0,   # Recipe_VeryLow_ChanceNone_Tier  → 75% drop
-    "00307FF3": 10.0,   # Recipe_High_ChanceNone_Tier      → 90% drop
-    "00307FE9":  5.0,   # Recipe_VeryHigh_ChanceNone_Tier  → 95% drop
-    "00307FE7": 20.0,   # Recipe_Low_ChanceNone_Tier       → 80% drop
-    "00307FE8": 15.0,   # Recipe_Medium_ChanceNone_Tier    → 85% drop
+    # Recipe ChanceNone tier GLOBs — FLTV values (tier indices) from GLOB TSV (March 2026).
+    # These are X inputs to a ChanceNone curve (e.g. Container_Recipe_ChanceNone).
+    # When paired with a CURV, _resolve_chance_none evaluates Curve(X=FLTV) for the
+    # actual ChanceNone.  When no CURV is present, the FLTV is used directly.
+    "00307CA7": 25.0,   # Recipe_VeryLow_ChanceNone_Tier   (tier index, NOT direct %)
+    "00307FF3": 10.0,   # Recipe_High_ChanceNone_Tier      (tier index, NOT direct %)
+    "00307FE9":  5.0,   # Recipe_VeryHigh_ChanceNone_Tier  (tier index, NOT direct %)
+    "00307FE7": 20.0,   # Recipe_Low_ChanceNone_Tier       (tier index, NOT direct %)
+    "00307FE8": 15.0,   # Recipe_Medium_ChanceNone_Tier    (tier index, NOT direct %)
 }
 
 glob_vals = dict(KNOWN_GLOB_VALS)  # seed with known values; TSV entries override below
@@ -1349,16 +1352,38 @@ for _r in LVLI_LIST:
     if _conds:
         LVLI_LIST_CONDITIONS[_fid] = _conds
 
+def _interp_curve(pts, x):
+    """Linearly interpolate Y at X from a list of (x, y) curve points."""
+    if not pts:
+        return None
+    sp = sorted(pts, key=lambda p: p[0])
+    if x <= sp[0][0]:
+        return sp[0][1]
+    if x >= sp[-1][0]:
+        return sp[-1][1]
+    for i in range(len(sp) - 1):
+        x0, y0 = sp[i]
+        x1, y1 = sp[i + 1]
+        if x0 <= x <= x1:
+            t = (x - x0) / (x1 - x0) if x1 != x0 else 0
+            return y0 + t * (y1 - y0)
+    return sp[-1][1]
+
 def _resolve_chance_none(math_row, field_prefix="Entry"):
     """
-    Resolve ChanceNone for an LVLI entry/list, checking GLOB references
-    when the pre-computed 'Resolved' column is 0.
+    Resolve ChanceNone for an LVLI entry/list, checking GLOB and CURV
+    references when the pre-computed 'Resolved' column is 0.
 
     Priority:
       1. <prefix>ChanceNoneResolved (if non-zero, trust it)
-      2. <prefix>ChanceNoneGlobal → extract GLOB FormID → look up glob_vals
-      3. <prefix>ChanceNoneCurve  → extract GLOB FormID → look up glob_vals
-      4. Fall back to 0.0 (= 100% drop chance)
+      2. GLOB + CURV present → use GLOB FLTV as X index into curve, return Y
+      3. GLOB only (no CURV) → return GLOB FLTV directly as ChanceNone
+      4. CURV-column GLOB fallback (when CURV slot holds a GLOB ref) → FLTV
+      5. Fall back to 0.0 (= 100% drop chance)
+
+    GLOB FLTV values (e.g. 10.0 for Recipe_High_ChanceNone_Tier) are tier
+    indices, NOT direct ChanceNone percentages.  When paired with a CURV,
+    the game evaluates Curve(X=FLTV) to get the actual ChanceNone Y.
 
     Returns a float in 0-100 space (e.g. 95.0 means 95% chance of nothing).
     """
@@ -1366,15 +1391,31 @@ def _resolve_chance_none(math_row, field_prefix="Entry"):
     if resolved > 0:
         return resolved
 
-    # Check GLOB references when Resolved is 0
-    for col in (f"{field_prefix}ChanceNoneGlobal", f"{field_prefix}ChanceNoneCurve"):
-        ref = (math_row.get(col) or "").strip()
-        if not ref:
-            continue
-        # Extract GLOB FormID from "00829437:SpawnChance_Cnone_...:GLOB"
-        glob_fid = ref.split(":")[0] if ":" in ref else ref
+    glob_ref = (math_row.get(f"{field_prefix}ChanceNoneGlobal") or "").strip()
+    curv_ref = (math_row.get(f"{field_prefix}ChanceNoneCurve") or "").strip()
+
+    # Resolve GLOB FLTV (the tier/index value)
+    glob_fltv = None
+    if glob_ref:
+        glob_fid = glob_ref.split(":")[0] if ":" in glob_ref else glob_ref
         if glob_fid in glob_vals:
-            return glob_vals[glob_fid]
+            glob_fltv = glob_vals[glob_fid]
+
+    # If a real CURV is referenced, evaluate it with the GLOB FLTV as X
+    if curv_ref:
+        curv_fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
+        curv_pts = _curv_pts.get(curv_fid)
+        if curv_pts and glob_fltv is not None:
+            # GLOB FLTV is the X index into the curve; Y is the actual ChanceNone
+            y = _interp_curve(curv_pts, glob_fltv)
+            if y is not None:
+                return y
+        # Curve slot sometimes holds a GLOB ref (no actual curve points) — treat as GLOB
+        if not curv_pts and curv_fid in glob_vals and glob_fltv is None:
+            glob_fltv = glob_vals[curv_fid]
+
+    if glob_fltv is not None:
+        return glob_fltv
 
     return 0.0
 
