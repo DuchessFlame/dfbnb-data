@@ -142,6 +142,9 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
     # Radiation Rumble — RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
     "playertitles_suffix_rumbler": "10%",
     "e05_playertitles_suffix_scavenger": "10%",
+    # Project Paradise — same RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
+    "sfs09_playertitles_suffix_manager": "10%",
+    "playertitles_suffix_researcher": "10%",
 }
 
 
@@ -1536,12 +1539,12 @@ def compute_unlock_and_rates(
             full = clean_full(row.get("FULL")) or clean_full(chal_edid) or "Challenge"
             cnam = (row.get("CNAM") or "").strip() or "Challenge"
 
-            # Drill Complex counters: Enc02_01 / Enc02_05 / Enc02_76 => x1/x5/x76
-            # Also handles EncAll variants via the target-count fallback.
+            # Encounter counters: Enc02_01 / EncAll_05 / EncAll_76 => x01/x05/x76
+            # Regex matches both Enc## and EncAll EDID patterns.
             # Guard: skip appending if the FULL already ends with an x## suffix.
             _already_has_x = bool(re.search(r"\bx\d+\s*$", full, flags=re.IGNORECASE))
 
-            mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid, flags=re.IGNORECASE)
+            mcount = re.search(r"_Enc(?:\d+|All)_(\d+)\b", chal_edid, flags=re.IGNORECASE)
             if mcount and not _already_has_x:
                 full = f"{full} x{mcount.group(1)}"
             elif not _already_has_x:
@@ -1598,7 +1601,7 @@ def compute_unlock_and_rates(
             # Guard: skip appending if the FULL already ends with an x## suffix.
             _already_has_x = bool(re.search(r"\bx\d+\s*$", full, flags=re.IGNORECASE))
 
-            mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid, flags=re.IGNORECASE)
+            mcount = re.search(r"_Enc(?:\d+|All)_(\d+)\b", chal_edid, flags=re.IGNORECASE)
             if mcount and not _already_has_x:
                 full = f"{full} x{mcount.group(1)}"
             elif not _already_has_x:
@@ -2108,8 +2111,8 @@ def compute_unlock_and_rates(
                     # Guard: skip appending if the FULL already ends with an x## suffix.
                     _already_has_x = bool(re.search(r"\bx\d+\s*$", full, flags=re.IGNORECASE))
 
-                    # Drill Complex counters for GNAM-routed challenges too
-                    mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid2, flags=re.IGNORECASE)
+                    # Encounter counters for GNAM-routed challenges too (Enc##, EncAll)
+                    mcount = re.search(r"_Enc(?:\d+|All)_(\d+)\b", chal_edid2, flags=re.IGNORECASE)
                     if mcount and not _already_has_x:
                         full = f"{full} x{mcount.group(1)}"
                     elif not _already_has_x:
