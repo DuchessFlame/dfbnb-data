@@ -71,6 +71,23 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
         "Complete the Event: Project Paradise\nCondition: Shut down ARIC-4 (any number of animals alive)",
     "sfs09_playertitles_suffix_manager":
         "Complete the Event: Project Paradise\nCondition: Shut down ARIC-4 (any number of animals alive)",
+    # ---- Paid Platform Store Bundles (Xbox / PlayStation / Steam) ----
+    # Enclave Armory Bundle — December 3, 2024
+    "atx_playertitles_prefix_gleaming":
+        "Part of the Enclave Armory Bundle, available for purchase from the Xbox, PlayStation, and Steam stores (December 3, 2024).",
+    "atx_playertitles_suffix_technician":
+        "Part of the Enclave Armory Bundle, available for purchase from the Xbox, PlayStation, and Steam stores (December 3, 2024).",
+    # Atomic Angler Bundle — June 3, 2025
+    "atx_playertitles_prefix_contessa":
+        "Part of the Atomic Angler Bundle, available for purchase from the Xbox, PlayStation, and Steam stores (June 3, 2025).",
+    "atx_playertitles_suffix_buoy":
+        "Part of the Atomic Angler Bundle, available for purchase from the Xbox, PlayStation, and Steam stores (June 3, 2025).",
+    # Mojave Bundle — January 29, 2026
+    "atx_playertitles_prefix_advictoriam":
+        "Part of the Mojave Bundle, available for purchase from the Xbox, PlayStation, and Steam stores (January 29, 2026).",
+    "atx_playertitles_prefix_tribune":
+        "Part of the Mojave Bundle, available for purchase from the Xbox, PlayStation, and Steam stores (January 29, 2026).",
+
     # Holiday Scorched — title drops from Crafted Holiday Gifts only
     "playertitles_prefix_festive":
         "Open Crafted Holiday Gifts during the Holiday Scorched seasonal event",
