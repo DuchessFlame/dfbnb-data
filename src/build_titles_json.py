@@ -142,14 +142,7 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
         "Complete the Event: Sinkhole Solutions",
 
     # ---- CAMP Titles: Challenges ----
-    "camptitles_lifetime_suffix_cove":
-        "Complete the Challenge: Catch Any Local Legend",
-    "camptitles_lifetime_suffix_cryptidhunter":
-        "Complete the Challenge: Kill Different Kinds of Cryptids",
-    "camptitles_lifetime_both_workshop":
-        "Complete the Challenge: Claim a Workshop",
-    "camptitles_lifetime_suffix_settlement":
-        "Complete the Challenge: Deploy C.A.M.P.s to settle Appalachia",
+    # (Removed — auto-resolver now correctly appends x## counts from TNAM)
 }
 
 # ---- Manual dropRate overrides (keyed by PLYT/CMPT EDID, lower-cased) ----
