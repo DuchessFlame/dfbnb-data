@@ -2096,8 +2096,9 @@ def compute_unlock_and_rates(
             # Example: GNAM_EDID = Challenge_Lifetime_... and GNAM_FULL = "Build decorative furnishings..."
             if gnam_edid.startswith("Challenge_") or (gnam_form and gnam_full and "CHAL:" in gnam_full):
                                # Resolve CHAL strictly by EDID as exported (no prefix stripping)
+                # Note: chal_by_edid uses lowercase keys
                 chal_key = gnam_edid
-                row = chal_by_edid.get(chal_key)
+                row = chal_by_edid.get(chal_key.lower())
 
                 if row:
                     chal_edid2 = (row.get("EDID") or "").strip()
