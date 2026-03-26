@@ -1158,7 +1158,7 @@ def storefront_webp_url_from_extra(kind: str, extra: Dict[str, Any]) -> Optional
         return None
 
     ent = img_ent.lower().replace("_entm_", "_")
-    return "/wp-content/uploads/storefront/" + folder + "/" + ent + ".webp"
+    return "/wp-content/uploads/storefront/" + folder + "/" + ent + ".avif"
 
 def parse_quest_name_from_condition(cond: str) -> Optional[str]:
     m = RE_QUOTED.search(cond)
@@ -2787,7 +2787,7 @@ def main() -> int:
 
         # Normalize entitlement -> filename
         ent = str(ent_ids[0]).strip().lower().replace("_entm_", "_")
-        filename = f"{ent}.webp"
+        filename = f"{ent}.avif"
 
         tt = (task.get("titleType") or "").strip().lower()
         if tt == "player":
