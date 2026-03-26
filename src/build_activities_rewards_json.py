@@ -2624,6 +2624,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(item.get("dropRate", 0.0)),
                         "qty": item.get("qty", 1),
                         "isPlan": True,
+                        "conditions": item.get("conditions", []),
                     })
 
             # Process progression items → Region Rewards
