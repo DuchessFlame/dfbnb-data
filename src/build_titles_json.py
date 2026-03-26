@@ -1537,10 +1537,14 @@ def compute_unlock_and_rates(
             cnam = (row.get("CNAM") or "").strip() or "Challenge"
 
             # Drill Complex counters: Enc02_01 / Enc02_05 / Enc02_76 => x1/x5/x76
+            # Also handles EncAll variants via the target-count fallback.
+            # Guard: skip appending if the FULL already ends with an x## suffix.
+            _already_has_x = bool(re.search(r"\bx\d+\s*$", full, flags=re.IGNORECASE))
+
             mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid, flags=re.IGNORECASE)
-            if mcount:
+            if mcount and not _already_has_x:
                 full = f"{full} x{mcount.group(1)}"
-            else:
+            elif not _already_has_x:
                 # Generic challenge target count (Lifetime kills etc) => xN
                 target = None
                 for k in ("TNAM", "TargetCount", "Target Count", "DATA - Target Count", "CTDA - Comparison Value"):
@@ -1591,10 +1595,13 @@ def compute_unlock_and_rates(
 
             full = clean_full(row.get("FULL")) or clean_full(chal_edid) or chal_edid
 
+            # Guard: skip appending if the FULL already ends with an x## suffix.
+            _already_has_x = bool(re.search(r"\bx\d+\s*$", full, flags=re.IGNORECASE))
+
             mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid, flags=re.IGNORECASE)
-            if mcount:
+            if mcount and not _already_has_x:
                 full = f"{full} x{mcount.group(1)}"
-            else:
+            elif not _already_has_x:
                 target = None
                 for k in ("TNAM", "TargetCount", "Target Count", "DATA - Target Count", "CTDA - Comparison Value"):
                     v = (row.get(k) or "").strip() if isinstance(row.get(k), str) else row.get(k)
@@ -1636,7 +1643,22 @@ def compute_unlock_and_rates(
             return f"Complete the Quest:\n{qname} ({n_int} times)", "N/A", None, "quest", extra
 
     if RE_QUEST_COMPLETED.search(joined):
-        qname = clean_full(parse_quest_name_from_condition(joined)) or "Unknown Quest"
+        # Collect ALL quest names when multiple GetQuestCompleted conditions exist
+        quest_names: List[str] = []
+        for c in conds:
+            if "GetQuestCompleted" not in c:
+                continue
+            qn = clean_full(parse_quest_name_from_condition(c))
+            if qn:
+                qn = qn.replace('"', "").strip()
+                if qn and qn not in quest_names:
+                    quest_names.append(qn)
+
+        if len(quest_names) >= 2:
+            how = "Complete the following quests to unlock this title:\n" + "\n".join(f"- {n}" for n in quest_names)
+            return how, "N/A", None, "quest", extra
+
+        qname = quest_names[0] if quest_names else (clean_full(parse_quest_name_from_condition(joined)) or "Unknown Quest")
         qname = qname.replace('"', "").strip()
         return f"Complete the Quest:\n{qname}", "N/A", None, "quest", extra
 
@@ -2082,10 +2104,28 @@ def compute_unlock_and_rates(
                     full = clean_full(row.get("FULL")) or clean_full(gnam_full) or clean_full(chal_edid2) or clean_full(chal_key) or "Challenge"
                     cnam = (row.get("CNAM") or "").strip() or "Challenge"
 
+                    # Guard: skip appending if the FULL already ends with an x## suffix.
+                    _already_has_x = bool(re.search(r"\bx\d+\s*$", full, flags=re.IGNORECASE))
+
                     # Drill Complex counters for GNAM-routed challenges too
                     mcount = re.search(r"_Enc\d+_(\d+)\b", chal_edid2, flags=re.IGNORECASE)
-                    if mcount:
+                    if mcount and not _already_has_x:
                         full = f"{full} x{mcount.group(1)}"
+                    elif not _already_has_x:
+                        # Generic challenge target count (same logic as direct CHAL path)
+                        target = None
+                        for k in ("TNAM", "TargetCount", "Target Count", "DATA - Target Count", "CTDA - Comparison Value"):
+                            v = (row.get(k) or "").strip() if isinstance(row.get(k), str) else row.get(k)
+                            if v is None:
+                                continue
+                            try:
+                                target = int(float(str(v).strip()))
+                                break
+                            except Exception:
+                                pass
+
+                        if target and target > 1:
+                            full = f"{full} x{target}"
 
                     extra.update({"chalEdid": chal_edid2, "chalCNAM": cnam, "chalFULL": full})
                     if cnam.lower() == "challenge":
