@@ -94,6 +94,12 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
     # Treasure Hunter — title drops from Crafted Mole Miner Pails only
     "playertitles_suffix_surveyor":
         "Open Crafted Mole Miner Pails during the Treasure Hunter seasonal event",
+    # Spooky Scorched — title drops from Spooky Treat Bags
+    "playertitles_prefix_spooky":
+        "Drops from Spooky Treat Bags during the Spooky Scorched seasonal event",
+    # Uranium Fever (zzz copy — likely cut content duplicate)
+    "mtns06_playertitles_prefix_feverish_copy01":
+        "Complete the Event: Uranium Fever",
 
     # ---- CAMP Titles: Activities ----
     "camptitles_suffix_array":
@@ -162,6 +168,8 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
     # Project Paradise — same RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
     "sfs09_playertitles_suffix_manager": "10%",
     "playertitles_suffix_researcher": "10%",
+    # Spooky Scorched — ChanceNone 80 on parent entry = 20% drop per treat bag
+    "playertitles_prefix_spooky": "20%",
 }
 
 
