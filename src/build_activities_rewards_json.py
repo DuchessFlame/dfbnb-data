@@ -1375,7 +1375,7 @@ def _interp_curve(pts, x):
             return y0 + t * (y1 - y0)
     return sp[-1][1]
 
-def _resolve_chance_none(math_row, field_prefix="Entry"):
+def _resolve_chance_none(math_row, field_prefix="Entry", lvli_formid=""):
     """
     Resolve ChanceNone for an LVLI entry/list, checking GLOB and CURV
     references when the pre-computed 'Resolved' column is 0.
@@ -1383,13 +1383,21 @@ def _resolve_chance_none(math_row, field_prefix="Entry"):
     Priority:
       1. <prefix>ChanceNoneResolved (if non-zero, trust it)
       2. GLOB + CURV present → use GLOB FLTV as X index into curve, return Y
-      3. GLOB only (no CURV) → return GLOB FLTV directly as ChanceNone
-      4. CURV-column GLOB fallback (when CURV slot holds a GLOB ref) → FLTV
+      3. CURV-column holds GLOB ref → resolve GLOB FLTV, then check
+         LVLI→CURV mapping for an associated curve table to evaluate
+      4. GLOB only (no CURV) → check LVLI→CURV mapping for curve, else
+         return GLOB FLTV directly as ChanceNone
       5. Fall back to 0.0 (= 100% drop chance)
 
     GLOB FLTV values (e.g. 10.0 for Recipe_High_ChanceNone_Tier) are tier
-    indices, NOT direct ChanceNone percentages.  When paired with a CURV,
+    indices, NOT direct ChanceNone percentages.  When paired with a CURV
+    (either directly or via the LVLI→CURV mapping from the CURV main TSV),
     the game evaluates Curve(X=FLTV) to get the actual ChanceNone Y.
+
+    Args:
+      math_row:      Dict from the LVLI Math TSV.
+      field_prefix:  "Entry" or "List".
+      lvli_formid:   The owning LVLI FormID (for LVLI→CURV mapping lookup).
 
     Returns a float in 0-100 space (e.g. 95.0 means 95% chance of nothing).
     """
@@ -1416,11 +1424,22 @@ def _resolve_chance_none(math_row, field_prefix="Entry"):
             y = _interp_curve(curv_pts, glob_fltv)
             if y is not None:
                 return y
-        # Curve slot sometimes holds a GLOB ref (no actual curve points) — treat as GLOB
+        # Curve slot holds a GLOB ref (no actual curve points) — resolve its FLTV
         if not curv_pts and curv_fid in glob_vals and glob_fltv is None:
             glob_fltv = glob_vals[curv_fid]
 
+    # If we have a GLOB FLTV (tier index) but haven't found a curve yet,
+    # check the LVLI→CURV mapping.  The CURV main TSV tells us which curve
+    # table governs this LVLI's ChanceNone (e.g. Container_Recipe_ChanceNone).
     if glob_fltv is not None:
+        owner_fid = lvli_formid or (math_row.get("LVLI_FormID") or "").strip()
+        if owner_fid and owner_fid in _lvli_to_curv:
+            mapped_curv_fid = _lvli_to_curv[owner_fid]
+            mapped_pts = _curv_pts.get(mapped_curv_fid)
+            if mapped_pts:
+                y = _interp_curve(mapped_pts, glob_fltv)
+                if y is not None:
+                    return y
         return glob_fltv
 
     return 0.0
@@ -1449,9 +1468,9 @@ def compute_lvli(list_id):
         math = lvli_math_by_entry.get((list_id, idx))
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
-        list_none  = _resolve_chance_none(math, "List") / 100.0
+        list_none  = _resolve_chance_none(math, "List", list_id) / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = _resolve_chance_none(math, "Entry") / 100.0
+        entry_none = _resolve_chance_none(math, "Entry", list_id) / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
         raw_weight = (1 - list_none) * entry_pres * cond_rand * apriori
@@ -1505,9 +1524,9 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
         math = lvli_math_by_entry.get((list_id, idx))
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
-        list_none  = _resolve_chance_none(math, "List") / 100.0
+        list_none  = _resolve_chance_none(math, "List", list_id) / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = _resolve_chance_none(math, "Entry") / 100.0
+        entry_none = _resolve_chance_none(math, "Entry", list_id) / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
@@ -1653,9 +1672,9 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
             continue
 
         # Extract probability components (resolve GLOBs when xEdit left them unresolved)
-        list_none  = _resolve_chance_none(math, "List") / 100.0
+        list_none  = _resolve_chance_none(math, "List", list_id) / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = _resolve_chance_none(math, "Entry") / 100.0
+        entry_none = _resolve_chance_none(math, "Entry", list_id) / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
 
@@ -1883,8 +1902,8 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # ChanceNone is applied AFTER normalisation (same approach as compute_lvli).
         resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
         resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
-        actual_list_cn    = _resolve_chance_none(math, "List")
-        actual_entry_cn   = _resolve_chance_none(math, "Entry")
+        actual_list_cn    = _resolve_chance_none(math, "List", list_id)
+        actual_entry_cn   = _resolve_chance_none(math, "Entry", list_id)
         glob_correction = 1.0
         if actual_list_cn > 0 and resolved_list_cn == 0:
             glob_correction *= (1.0 - actual_list_cn / 100.0)
@@ -3001,6 +3020,37 @@ for r in CURV_POINTS:
     fid = pick(r, "CURV_FormID", "FormID")
     try: _curv_pts[fid].append((float(r.get("X") or 0), float(r.get("Y") or 0)))
     except (ValueError, TypeError): pass
+
+# LVLI→CURV mapping: which curve table governs each LVLI's ChanceNone.
+# Built from the CURV main TSV's Ref columns (e.g. "003D6544:LLS_Recipe_...:LVLI").
+# Uses lightweight line-based parsing since the CURV main TSV can have 2700+ columns.
+_lvli_to_curv = {}
+_HEX8 = re.compile(r"[0-9A-Fa-f]{8}")
+_LVLI_REF_RE = re.compile(r"([0-9A-Fa-f]{8}):[^:]+:LVLI")
+try:
+    _curv_main_candidates = [f for f in glob.glob("tsv/CURV_Export_*.tsv") if "_POINTS" not in f]
+    _curv_main_candidates.sort(key=lambda x: os.path.getmtime(x))
+    _curv_main_path = _curv_main_candidates[-1] if _curv_main_candidates else None
+except (IndexError, FileNotFoundError):
+    _curv_main_path = None
+if _curv_main_path:
+    with open(_curv_main_path, encoding="utf-8-sig") as _cf:
+        _header = _cf.readline().strip().split("\t")
+        _fid_col = 0  # CURV_FormID is first column
+        for _i, _h in enumerate(_header):
+            if _h in ("CURV_FormID", "FormID"):
+                _fid_col = _i
+                break
+        for _line in _cf:
+            _fields = _line.split("\t")
+            if len(_fields) <= _fid_col:
+                continue
+            _curv_fid = _fields[_fid_col].strip()
+            if not _HEX8.fullmatch(_curv_fid):
+                continue
+            # Scan the entire line for LVLI references (fast regex on raw text)
+            for _m in _LVLI_REF_RE.finditer(_line):
+                _lvli_to_curv[_m.group(1)] = _curv_fid
 
 def xp_at_level(curv_ref, level=50):
     fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
