@@ -49,7 +49,7 @@ TIER_PRICE = {
 }
 
 MINERVA_DISCOUNT = 0.75
-DAILY_GOLD_CAP   = 200
+DAILY_GOLD_CAP   = 400
 SMILEY_OPTIONS   = [0, 50, 100, 150, 200, 250, 300]
 
 # Hardcoded big sale fallback (matches March 2026 game data)

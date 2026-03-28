@@ -2526,6 +2526,89 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     if _failure_stages and len(_success_stages) == 1:
         activity_data["baseRewards"]["xpSuccess"] = _success_stages[0]["xp"]
 
+    # ── Multi-tier GMRW breakdown (RewardIndex-based) ─────────────────────
+    # Some activities (e.g. Riding Shotgun) have multiple RewardIndex tiers
+    # within a single GMRW record, each with its own XP, Caps, LVLI, and
+    # conditions.  Group rows by RewardIndex and emit xpBreakdown / capsBreakdown
+    # arrays so the JS renderer can show labeled reward lines.
+    _by_reward_idx = defaultdict(list)
+    for rr in gmrw_rows:
+        ri = int(rr.get("RewardIndex") or 0)
+        _by_reward_idx[ri].append(rr)
+
+    if len(_by_reward_idx) > 1:
+        # Helper: parse a human-readable label from a GLOB EDID
+        # e.g. "XP_E05_Caravan_FrontBrahmin_Survived" → "Front Brahmin Survived"
+        #       "Caps_E05_Caravan_Found_1_Package"     → "Found 1 Package"
+        def _label_from_glob_edid(edid_str):
+            edid = edid_str.split(":")[-2] if ":" in edid_str else edid_str
+            # Strip common prefixes: XP_, Caps_, then quest prefix (e.g. E05_Caravan_, E01B_Herd_)
+            edid = re.sub(r'^(?:XP|Caps|NAM\d)_', '', edid)
+            edid = re.sub(r'^[A-Z]\d+[A-Za-z]*_[A-Za-z]+_', '', edid)
+            # Convert underscores to spaces
+            edid = edid.replace('_', ' ').strip()
+            # Insert space before CamelCase boundaries (e.g. FrontBrahmin → Front Brahmin)
+            edid = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', edid)
+            edid = re.sub(r'(?<=[A-Z])(?=[A-Z][a-z])', ' ', edid)
+            # Title-case
+            return edid.title() if edid else None
+
+        xp_breakdown = []
+        caps_breakdown = []
+
+        for ri in sorted(_by_reward_idx.keys()):
+            rows = _by_reward_idx[ri]
+            first = rows[0]
+
+            # Conditions for this tier
+            cond_func = (first.get("TierConditionFunc") or "").strip()
+            cond_val  = (first.get("TierConditionValue") or "").strip()
+
+            # XP: prefer XPCT curve, fall back to NAM7 GLOB
+            xpct      = (first.get("XPCT_XPCurveTable") or "").strip()
+            xp_glob   = (first.get("NAM7_XPGlobal") or "").strip()
+            xp_val    = None
+            xp_label  = None
+
+            if xpct:
+                xp_val   = xp_at_level(xpct)
+                # Use NAM7 GLOB EDID for label when available; XPCT EDIDs are usually
+                # generic curve names like "CT_Player_XP_Universal_Tier25" — not useful.
+                if xp_glob:
+                    xp_label = _label_from_glob_edid(xp_glob)
+                else:
+                    xp_label = "Event Completion"
+            elif xp_glob:
+                xp_fid = xp_glob.split(":")[0]
+                if xp_fid in glob_vals:
+                    xp_val = int(glob_vals[xp_fid])
+                xp_label = _label_from_glob_edid(xp_glob)
+
+            if xp_val and xp_val > 0:
+                entry = {"label": xp_label or f"Reward Tier {ri}", "xp": xp_val, "rewardIndex": ri}
+                if cond_func:
+                    entry["condition"] = cond_func
+                if xpct:
+                    entry["scalesWithLevel"] = True
+                xp_breakdown.append(entry)
+
+            # Caps: NAM8 GLOB
+            caps_ref = (first.get("NAM8_CapsGlobal") or "").strip()
+            if caps_ref:
+                caps_fid = caps_ref.split(":")[0]
+                if caps_fid in glob_vals:
+                    caps_val = int(glob_vals[caps_fid])
+                    caps_label = _label_from_glob_edid(caps_ref)
+                    entry = {"label": caps_label or f"Reward Tier {ri}", "caps": caps_val, "rewardIndex": ri}
+                    if cond_func:
+                        entry["condition"] = cond_func
+                    caps_breakdown.append(entry)
+
+        if len(xp_breakdown) > 1:
+            activity_data["baseRewards"]["xpBreakdown"] = xp_breakdown
+        if len(caps_breakdown) > 1:
+            activity_data["baseRewards"]["capsBreakdown"] = caps_breakdown
+
     # Track plan formids across all GMRW entries to prevent duplicates
     _seen_plan_fids = set()
 
