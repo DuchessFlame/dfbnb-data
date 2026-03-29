@@ -1433,6 +1433,7 @@ def _resolve_chance_none(math_row, field_prefix="Entry", lvli_formid=""):
             glob_fltv = glob_vals[glob_fid]
 
     # If a real CURV is referenced, evaluate it with the GLOB FLTV as X
+    _glob_in_curv_slot = False  # True when the Curve slot holds a GLOB, not a real CURV
     if curv_ref:
         curv_fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
         curv_pts = _curv_pts.get(curv_fid)
@@ -1441,22 +1442,28 @@ def _resolve_chance_none(math_row, field_prefix="Entry", lvli_formid=""):
             y = _interp_curve(curv_pts, glob_fltv)
             if y is not None:
                 return y
-        # Curve slot holds a GLOB ref (no actual curve points) — resolve its FLTV
+        # Curve slot holds a GLOB ref (no actual curve points) — resolve its FLTV.
+        # The GLOB value IS the direct ChanceNone percentage, not a curve index.
         if not curv_pts and curv_fid in glob_vals and glob_fltv is None:
             glob_fltv = glob_vals[curv_fid]
+            _glob_in_curv_slot = True
 
     # If we have a GLOB FLTV (tier index) but haven't found a curve yet,
     # check the LVLI→CURV mapping.  The CURV main TSV tells us which curve
     # table governs this LVLI's ChanceNone (e.g. Container_Recipe_ChanceNone).
+    # SKIP this lookup when the Curve slot held a GLOB — in that case the FLTV
+    # is already the direct ChanceNone, not an index into a curve.  The _lvli_to_curv
+    # map is built from CURV back-references and can match unrelated curves.
     if glob_fltv is not None:
-        owner_fid = lvli_formid or (math_row.get("LVLI_FormID") or "").strip()
-        if owner_fid and owner_fid in _lvli_to_curv:
-            mapped_curv_fid = _lvli_to_curv[owner_fid]
-            mapped_pts = _curv_pts.get(mapped_curv_fid)
-            if mapped_pts:
-                y = _interp_curve(mapped_pts, glob_fltv)
-                if y is not None:
-                    return y
+        if not _glob_in_curv_slot:
+            owner_fid = lvli_formid or (math_row.get("LVLI_FormID") or "").strip()
+            if owner_fid and owner_fid in _lvli_to_curv:
+                mapped_curv_fid = _lvli_to_curv[owner_fid]
+                mapped_pts = _curv_pts.get(mapped_curv_fid)
+                if mapped_pts:
+                    y = _interp_curve(mapped_pts, glob_fltv)
+                    if y is not None:
+                        return y
         return glob_fltv
 
     return 0.0
