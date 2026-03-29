@@ -3174,6 +3174,96 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         return (0 if is_title else 1, (item.get("name") or "").lower())
     activity_data["uniqueEventRewards"].sort(key=_uer_sort_key)
 
+    # ── S.M.A.R.T. Vending Machine detection ──────────────────────────────
+    # Only runs for Monster Mash (CB02 quest prefix).  Detects
+    # CB02_LL_VendingList_* LVLIs and builds item lists for each tier.
+    # Candy costs are from the in-game terminal (not in LVLI data); we map
+    # them by EDID suffix.  Item lists are fully generative from the TSV.
+    _quest_edid = ""
+    if gmrw_rows:
+        _quest_parent = (gmrw_rows[0].get("ParentQuestLink") or "").strip()
+        _quest_edid = _quest_parent.split(":")[1] if ":" in _quest_parent else ""
+
+    _is_monster_mash = "CB02_MonsterMash" in _quest_edid
+    _SMART_COST_MAP = {
+        "SmallToy":   50,
+        "MediumToy":  75,
+        "LargeToy":   125,
+        "Surprise1":  400,
+        "Surprise2":  800,
+    }
+    _SMART_TITLE_MAP = {
+        "SmallToy":   "Small Toy",
+        "MediumToy":  "Medium Toy",
+        "LargeToy":   "Large Toy",
+        "Surprise1":  "Surprise Gift",
+        "Surprise2":  "Mystery Gift",
+    }
+    _SMART_ORDER = ["SmallToy", "MediumToy", "LargeToy", "Surprise1", "Surprise2"]
+
+    smart_categories = []
+    if _is_monster_mash:
+        for suffix in _SMART_ORDER:
+            vend_edid = f"CB02_LL_VendingList_{suffix}"
+            # Find formid for this EDID
+            vend_fid = None
+            for fid, edid in lvli_edid_by_formid.items():
+                if edid == vend_edid:
+                    vend_fid = fid
+                    break
+            if not vend_fid:
+                continue
+
+            # Walk entries for this LVLI
+            vend_items = []
+            entries = lvli_entries_by_list.get(vend_fid, [])
+            for entry in entries:
+                ref = (entry.get("LVLO_Reference") or "").strip()
+                if not ref:
+                    continue
+                parts = ref.split(":")
+                item_fid = parts[0] if len(parts) >= 1 else ""
+                item_edid = parts[1] if len(parts) >= 2 else ""
+                item_sig = parts[2].upper() if len(parts) >= 3 else ""
+
+                item_name = resolve_name_for_formid(item_fid, item_edid)
+
+                # Quantity from LVIV_Quantity
+                qty_raw = (entry.get("LVIV_Quantity") or "").strip()
+                qty = 1
+                if qty_raw:
+                    try:
+                        qty = max(1, int(float(qty_raw)))
+                    except (ValueError, TypeError):
+                        qty = 1
+
+                vend_items.append({
+                    "formid": item_fid,
+                    "name": item_name,
+                    "qty": qty,
+                    "sig": item_sig,
+                })
+
+            if not vend_items:
+                continue
+
+            # Equal-weight pick-one pool: each item has 1/N chance
+            n = len(vend_items)
+            for it in vend_items:
+                it["dropRate"] = round(100.0 / n, 6)
+
+            smart_categories.append({
+                "title": _SMART_TITLE_MAP.get(suffix, suffix),
+                "cost": _SMART_COST_MAP.get(suffix, 0),
+                "formid": vend_fid,
+                "edid": vend_edid,
+                "itemCount": n,
+                "items": sorted(vend_items, key=lambda x: x["name"].lower()),
+            })
+
+    if smart_categories:
+        activity_data["smartMachine"] = smart_categories
+
     return activity_data
 
 # --------------------------------------------------
