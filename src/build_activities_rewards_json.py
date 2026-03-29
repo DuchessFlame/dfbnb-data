@@ -2935,6 +2935,22 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 # (e.g. "Front Brahmin Survived", "Back Brahmin Survived")
                 if _tier_label:
                     tree_node["tierLabel"] = _tier_label
+
+                # ── Placement-based tiers (e.g. Monster Mash 1st/2nd/3rd) ──
+                # Detect via GetIsAliasRef condition + Rank1/Rank2/Rank3 in EDID.
+                # These are competitive activities where rewards differ by finishing
+                # position.  Tag the tree node so the JS can render placement expands.
+                _item_edid = rewarded.split(":")[1] if rewarded.count(":") >= 2 else ""
+                if tier_func.lower() == "getisaliasref":
+                    _rank_m = re.search(r'Rank(\d+)', _item_edid)
+                    if _rank_m:
+                        _placement = int(_rank_m.group(1))
+                        _placement_labels = {1: "1st Place", 2: "2nd Place", 3: "3rd Place"}
+                        tree_node["placementTier"] = _placement
+                        tree_node["placementLabel"] = _placement_labels.get(
+                            _placement, f"{_placement}th Place"
+                        )
+
                 # Pass through RewardedItemCount — the game rolls this LVLI
                 # N times on completion (e.g. Death Blossoms seeds ×3).
                 roll_count_raw = (rr.get("RewardedItemCount") or "1").strip()
