@@ -3221,50 +3221,122 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             if not vend_fid:
                 continue
 
-            # Walk entries for this LVLI
-            vend_items = []
-            entries = lvli_entries_by_list.get(vend_fid, [])
-            for entry in entries:
-                ref = (entry.get("LVLO_Reference") or "").strip()
-                if not ref:
+            # Use resolve_lvli_items_deep to fully flatten all sub-LVLIs.
+            # This handles ammo sub-lists (Surprise Gift) and weapon sub-lists
+            # (Mystery Gift) by recursing until leaf items, preserving drop
+            # rates, quantities, and level conditions.
+            flat_items = resolve_lvli_items_deep(vend_fid)
+            if not flat_items:
+                continue
+
+            # Build output items with proper names, conditions, and rates.
+            # Merge entries that resolve to the same item name (e.g. level-gated
+            # ammo quantities or weapon variants).  For merged items:
+            #   - drop rates are summed
+            #   - qty becomes a "min–max" range string if it varies
+            #   - level conditions: if ANY entry has no level requirement,
+            #     the item is always available → skip level conditions;
+            #     otherwise keep the minimum level from across all entries
+            # Known ammo display names — EDIDs don't always humanize well
+            # because there's no AMMO TSV with FULL names.
+            _AMMO_DISPLAY = {
+                "Ammo10mm":             "10mm Round",
+                "Ammo2mmEC":            "2mm Electromagnetic Cartridge",
+                "Ammo308Caliber":       ".308 Round",
+                "Ammo38Caliber":        ".38 Round",
+                "Ammo44":               ".44 Round",
+                "Ammo45Caliber":        ".45 Round",
+                "Ammo50Caliber":        ".50 Round",
+                "Ammo50CaliberBall":    ".50 Caliber Ball",
+                "Ammo556":              "5.56 Round",
+                "Ammo5mm":              "5mm Round",
+                "AmmoRRSpike":          "Railway Spike",
+            }
+            def _clean_smart_name(name, sig, edid=""):
+                """Normalise item names for S.M.A.R.T. machine display."""
+                # Try known ammo map first (keyed by original EDID before humanize)
+                if edid in _AMMO_DISPLAY:
+                    return _AMMO_DISPLAY[edid]
+                # Generic ammo prefix strip
+                if sig.upper() == "AMMO" or name.lower().startswith("ammo"):
+                    n = re.sub(r"^Ammo\s*", "", name)
+                    n = re.sub(r"([a-z])([A-Z])", r"\1 \2", n)
+                    return n.strip()
+                return name
+
+            _smart_by_name = {}
+            for it in flat_items:
+                dr = it.get("dropRate", 0.0)
+                if dr <= 0.0:
                     continue
-                parts = ref.split(":")
-                item_fid = parts[0] if len(parts) >= 1 else ""
-                item_edid = parts[1] if len(parts) >= 2 else ""
-                item_sig = parts[2].upper() if len(parts) >= 3 else ""
+                item_name = it.get("name", "")
+                if re.fullmatch(r"[0-9A-Fa-f]{8}", item_name):
+                    continue
+                raw_conds = simplify_conditions(it.get("conditions", []))
+                qty = it.get("qty", 1)
+                item_name = _clean_smart_name(item_name, it.get("sig", ""), it.get("edid", ""))
+                if item_name not in _smart_by_name:
+                    _smart_by_name[item_name] = {
+                        "formid": it.get("formid", ""),
+                        "name": item_name,
+                        "qtys": [qty],
+                        "sig": it.get("sig", ""),
+                        "dropRate": dr,
+                        "conds_list": [raw_conds],
+                    }
+                else:
+                    grp = _smart_by_name[item_name]
+                    grp["dropRate"] += dr
+                    grp["qtys"].append(qty)
+                    grp["conds_list"].append(raw_conds)
 
-                item_name = resolve_name_for_formid(item_fid, item_edid)
+            vend_items = []
+            for grp in _smart_by_name.values():
+                qtys = sorted(set(grp["qtys"]))
+                if len(qtys) == 1:
+                    qty_val = qtys[0]
+                else:
+                    qty_val = f"{qtys[0]}\u2013{qtys[-1]}"
 
-                # Quantity from LVIV_Quantity
-                qty_raw = (entry.get("LVIV_Quantity") or "").strip()
-                qty = 1
-                if qty_raw:
-                    try:
-                        qty = max(1, int(float(qty_raw)))
-                    except (ValueError, TypeError):
-                        qty = 1
+                # Merge conditions: extract minimum player level, if all
+                # entries require one.  If any entry has NO level condition
+                # the item is always available.
+                all_conds = grp["conds_list"]
+                _has_unconditional = any(
+                    not any("level" in c.lower() for c in cl) for cl in all_conds
+                )
+                merged_conds = []
+                if not _has_unconditional:
+                    # Find minimum level across all condition lists
+                    _min_lvl = None
+                    for cl in all_conds:
+                        for c in cl:
+                            m = re.search(r"level (\d+)\+", c, re.IGNORECASE)
+                            if m:
+                                lvl = int(m.group(1))
+                                if _min_lvl is None or lvl < _min_lvl:
+                                    _min_lvl = lvl
+                    if _min_lvl and _min_lvl > 1:
+                        merged_conds.append(f"Requires player level {_min_lvl}+")
 
                 vend_items.append({
-                    "formid": item_fid,
-                    "name": item_name,
-                    "qty": qty,
-                    "sig": item_sig,
+                    "formid": grp["formid"],
+                    "name": grp["name"],
+                    "qty": qty_val,
+                    "sig": grp["sig"],
+                    "dropRate": pct(grp["dropRate"]),
+                    "conditions": merged_conds if merged_conds else None,
                 })
 
             if not vend_items:
                 continue
-
-            # Equal-weight pick-one pool: each item has 1/N chance
-            n = len(vend_items)
-            for it in vend_items:
-                it["dropRate"] = round(100.0 / n, 6)
 
             smart_categories.append({
                 "title": _SMART_TITLE_MAP.get(suffix, suffix),
                 "cost": _SMART_COST_MAP.get(suffix, 0),
                 "formid": vend_fid,
                 "edid": vend_edid,
-                "itemCount": n,
+                "itemCount": len(vend_items),
                 "items": sorted(vend_items, key=lambda x: x["name"].lower()),
             })
 
