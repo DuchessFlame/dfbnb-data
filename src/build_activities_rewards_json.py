@@ -707,6 +707,7 @@ _CUSTOM_NAME_CLEANUP = {
 # Keys are lowercased customModName values; values are player-readable descriptions.
 _CUSTOM_MOD_DESC_OVERRIDES = {
     "black diamond":       "Cryo Damage",
+    "perfect storm":       "Deals ~21 Fire Damage on impact + Burning DoT (17 dmg × 3 ticks). Burns stack per bullet.",
     "civil unrest":        "+50 AP",
     "all rise":            "+50 HP",
 }
