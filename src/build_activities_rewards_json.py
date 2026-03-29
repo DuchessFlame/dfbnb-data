@@ -706,7 +706,7 @@ _CUSTOM_NAME_CLEANUP = {
 # Static fallback descriptions for custom mods whose OMOD DESC is empty or missing.
 # Keys are lowercased customModName values; values are player-readable descriptions.
 _CUSTOM_MOD_DESC_OVERRIDES = {
-    "black diamond":       "Cryo Damage",
+    "black diamond":       "Splits base physical damage into roughly equal physical and cryo per hit. No DoT \u2014 all cryo is direct on-hit.",
     "perfect storm":       "Deals ~21 Fire Damage on impact + Burning DoT (17 dmg × 3 ticks). Burns stack per bullet.",
     "civil unrest":        "+50 AP",
     "all rise":            "+50 HP",
