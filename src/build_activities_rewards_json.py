@@ -2582,7 +2582,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     def _label_from_glob_edid(edid_str):
         edid = edid_str.split(":")[-2] if ":" in edid_str else edid_str
         # Strip common prefixes: XP_, Caps_, then quest prefix (e.g. E05_Caravan_, BS02_E01_Metal_)
-        edid = re.sub(r'^(?:XP|Caps|NAM\d)_', '', edid)
+        # Handle both underscore-separated (XP_Something) and CamelCase (XPSomething)
+        edid = re.sub(r'^(?:XP|Caps|NAM\d)_?', '', edid)
         # Strip quest prefix: one or more segments like E05_Caravan_ or BS02_E01_Metal_
         edid = re.sub(r'^(?:[A-Z]{1,4}\d+[A-Za-z]*_)+(?:[A-Za-z]+_)?', '', edid)
         # Convert underscores to spaces
@@ -2650,10 +2651,18 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         entry["condition"] = cond_func
                     caps_breakdown.append(entry)
 
+        # Only emit xpBreakdown if there are genuinely different XP values across
+        # tiers.  Placement-based activities (e.g. Monster Mash) have multiple
+        # RewardIndex tiers that all share the same XP — showing a breakdown of
+        # identical values is misleading.
         if len(xp_breakdown) > 1:
-            activity_data["baseRewards"]["xpBreakdown"] = xp_breakdown
+            _unique_xp_vals = set(e["xp"] for e in xp_breakdown)
+            if len(_unique_xp_vals) > 1:
+                activity_data["baseRewards"]["xpBreakdown"] = xp_breakdown
         if len(caps_breakdown) > 1:
-            activity_data["baseRewards"]["capsBreakdown"] = caps_breakdown
+            _unique_caps_vals = set(e["caps"] for e in caps_breakdown)
+            if len(_unique_caps_vals) > 1:
+                activity_data["baseRewards"]["capsBreakdown"] = caps_breakdown
 
     # Track plan formids across all GMRW entries to prevent duplicates
     _seen_plan_fids = set()
