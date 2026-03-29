@@ -1788,6 +1788,12 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
             for item in items:
                 item["dropRate"] = item["dropRate"] / total_rate
 
+    # Single-entry pick-one lists: normalize the sole item to 100%.
+    # Same rationale as build_lvli_tree_node — residual EntryCN on single-item lists
+    # is xEdit noise; the parent GLOB ChanceNone controls whether the list fires.
+    if not is_use_all and len(items) == 1 and items[0]["dropRate"] < 1.0:
+        items[0]["dropRate"] = 1.0
+
     # Merge entries that resolve to the same item (same formid + qty).
     # This collapses level-gated duplicates (e.g. Light/Medium/Heavy sub-LVLIs
     # all pointing to the same ARMO FormID) into a single row with the summed rate.
@@ -2057,6 +2063,16 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
             normalised_pick = pw / total_pick
             effective_rate = normalised_pick * gc  # apply ChanceNone after normalisation
             raw_entries[i] = (etype, effective_rate, data, raw_conds, normalised_pick, gc)
+
+    # Single-entry pick-one lists: the sole entry IS the entire list — normalize to 100%.
+    # xEdit sometimes computes a residual EntryChanceNone (e.g. 1%) on single-entry lists
+    # that doesn't reflect real game behaviour.  The parent LVLI's ChanceNone GLOB already
+    # controls whether the list fires at all; the single item inside should always be 100%.
+    # Example: LL_Weapon_Ranged_PumpActionShotgun_CivilUnrest has apriori=0.99 due to a
+    # stray 1% EntryCN, while the other 3 unique weapon LVLIs correctly show apriori=1.0.
+    if not is_use_all and len(raw_entries) == 1:
+        etype, rate, data, raw_conds, pw, gc = raw_entries[0]
+        raw_entries[0] = (etype, gc, data, raw_conds, 1.0, gc)
 
     # Convert to final output with percentages
     for etype, rate, data, _raw_conds, _pw, _gc in raw_entries:
