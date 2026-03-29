@@ -1273,12 +1273,20 @@ def humanize_cobj_edid(edid):
     return s if s else edid
 
 # Build EDID-to-name index from all loaded TSVs (for items without FULL names)
+# Also build NonDroppable set (plans that cannot be traded/dropped)
 edid_to_name = {}
+_nondrop_book_fids = set()
 for r in BOOK:
     edid = pick(r, "BOOK_EDID", "EDID")
     full = pick(r, "BOOK_FULL", "FULL")
+    fid  = pick(r, "FormID", "BOOK_FormID")
     if edid and full:
         edid_to_name[edid] = full
+    # Check keywords for NonDroppable
+    kws = [pick(r, f"KW{i}") for i in range(1, 8)]
+    if any("NonDroppable" in (kw or "") for kw in kws):
+        if fid:
+            _nondrop_book_fids.add(fid.strip().upper())
 for r in ARMO:
     edid = pick(r, "ARMO_EDID", "EDID")
     full = pick(r, "ARMO_FULL", "FULL")
@@ -1757,7 +1765,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 if _CUT_LVLI_RE.search(edid):
                     continue
                 name = resolve_name_for_formid(fid, edid)
-                items.append({
+                _leaf_item = {
                     "formid": fid,
                     "name": name,
                     "qty": qty,
@@ -1765,7 +1773,10 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "edid": edid,
                     "sig": ref_sig,
                     "conditions": list_level_conds + display_conds + region_conds,
-                })
+                }
+                if ref_sig.upper() == "BOOK":
+                    _leaf_item["tradeable"] = fid.strip().upper() not in _nondrop_book_fids
+                items.append(_leaf_item)
 
     # Normalize for pick-one lists.
     # Only normalise UPWARD (total > 1) — xEdit exports apriori=1.0 for every entry
@@ -1988,6 +1999,9 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                     "qty": qty,
                     "sig": ref_sig,
                 }
+                # Mark tradeability for BOOK items (plans/recipes)
+                if ref_sig.upper() == "BOOK":
+                    item_data["tradeable"] = fid.strip().upper() not in _nondrop_book_fids
                 if display_conditions:
                     item_data["conditions"] = display_conditions
                 # Attach modSlots if this LVLI is a named/unique variant.
@@ -2798,6 +2812,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     })
                 elif sig_str == "BOOK" or "recipe" in edid_str.lower():
                     # Non-title BOOK quest reward (plan) → UER
+                    _uer_fid = item.get("formid", "").strip().upper()
                     activity_data["uniqueEventRewards"].append({
                         "name": item.get("name", ""),
                         "formid": item.get("formid", ""),
@@ -2805,6 +2820,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
                         "qty": item.get("qty", 1),
                         "kind": "plan",
+                        "tradeable": _uer_fid not in _nondrop_book_fids,
                         "conditions": simplify_conditions(item.get("conditions", [])),
                     })
                 else:
@@ -2832,7 +2848,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if re.fullmatch(r"[0-9A-Fa-f]{8}", item_name):
                     continue
                 is_plan = item_name.startswith(("Plan:", "Recipe:"))
-                activity_data["uniqueEventRewards"].append({
+                _uer_fid2 = item.get("formid", "").strip().upper()
+                _uer_entry = {
                     "name": item_name,
                     "formid": item.get("formid", ""),
                     "edid": item.get("edid", ""),
@@ -2840,7 +2857,10 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "qty": item.get("qty", 1),
                     "kind": "plan" if is_plan else None,
                     "conditions": simplify_conditions(item.get("conditions", [])),
-                })
+                }
+                if is_plan:
+                    _uer_entry["tradeable"] = _uer_fid2 not in _nondrop_book_fids
+                activity_data["uniqueEventRewards"].append(_uer_entry)
                 if is_plan:
                     plan_fid = item.get("formid", "")
                     if plan_fid not in _seen_plan_fids:

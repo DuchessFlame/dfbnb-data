@@ -57,6 +57,89 @@
     return tr;
   }
 
+  // ── Plan/Recipe tradeability (NonDroppable keyword in BOOK TSV) ─────────
+  // Plans with the NonDroppable keyword cannot be traded or dropped.
+  // Everything else is tradeable by default.
+  const NON_TRADEABLE_FIDS = new Set([
+    "00564078", // Plan: Small Backpack
+    "005FEB25", // Plan: Crop - Pumpkin
+    "0063E378", // Plan: Gulper Smacker
+    "0064015C", // Plan: Gulper Smacker Spiked
+    "0064015D", // Plan: Gulper Smacker Chain-Wrapped
+    "0064015E", // Plan: Gulper Smacker Sharp
+    "0065D138", // Plan: T-51 Power Armor Brotherhood Knight Paint
+    "0065D139", // Plan: T-51 Power Armor Brotherhood Paladin Paint
+    "00660865", // Plan: Cappy and Bottle Couple Signs
+    "006772E5", // Plan: Heart Arch
+    "0067A92A", // Plan: Nuka-Bin
+    "0067F16C", // Plan: Ultracite Titan Backpack Flair
+    "0067F16D", // Plan: Bottle Backpack Flair
+    "0067F16E", // Plan: Cappy Backpack Flair
+    "0067F171", // Plan: Nuka-World Cowboy Chaps
+    "00691D0A", // Plan: Crowd Control
+    "00691D45", // Plan: Ogua Backpack Flair
+    "00691D5A", // Plan: Blue Devil Claws
+    "00692243", // Plan: Blue Devil Backpack Flair
+    "00694C1B", // Plan: Vault Girl Plushie Backpack
+    "00694C1C", // Plan: Vault Boy Plushie Backpack
+    "00746FC2", // Plan: Turkey Backpack Flair
+    "00785058", // Plan: Moe The Mole Backpack Flair
+    "0078505D", // Plan: Pheasant Backpack Flair
+    "007B2B9B", // Recipe: Grilled Fish
+    "007F556B", // Plan: Scuba Tank Backpack
+    "00811382", // Plan: Mark 1 Reel
+    "00811383", // Plan: Mark 2 Reel
+    "00811384", // Plan: Mark 3 Reel
+    "00811385", // Plan: Mark 4 Reel
+    "0085364E", // Plan: Abraxodyne Truck
+    "008575FA", // Plan: Rust Raider Medium Outfit
+    "008575FB", // Plan: Rust Raider Light Outfit
+  ]);
+
+  // Check if a plan/recipe item is tradeable.
+  // Prefers the JSON `tradeable` field if present; falls back to static set.
+  function isPlanTradeable(item) {
+    if (item.tradeable === true) return true;
+    if (item.tradeable === false) return false;
+    const fid = (item.formid || "").trim().toLowerCase();
+    return !NON_TRADEABLE_FIDS.has(fid);
+  }
+
+  // Render tradeable/non-tradeable pill + "keeps dropping" note for a Plan/Recipe in UER.
+  // Returns a <tr> or null if the item is not a plan/recipe.
+  function renderPlanPillRow(item, colSpan) {
+    const name = (item.name || "").trim();
+    if (!/^(Plan|Recipe):/i.test(name)) return null;
+
+    const pills = document.createElement("div");
+    pills.style.cssText = "display: flex; gap: 6px; flex-wrap: wrap; align-items: center; padding: 2px 0 4px;";
+
+    const tradeable = isPlanTradeable(item);
+    const pill = document.createElement("span");
+    if (tradeable) {
+      pill.textContent = "Tradeable";
+      pill.className = "dfbnb-evr__plan-pill dfbnb-evr__plan-pill--trade-yes";
+    } else {
+      pill.textContent = "Not Tradeable";
+      pill.className = "dfbnb-evr__plan-pill dfbnb-evr__plan-pill--trade-no";
+    }
+    pills.appendChild(pill);
+
+    // "Keeps dropping" note
+    const note = document.createElement("span");
+    note.style.cssText = "font-size: 0.82em; color: #7a6e54; font-style: italic;";
+    note.textContent = "Continues to drop after being learned";
+    pills.appendChild(note);
+
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.setAttribute("colspan", colSpan);
+    td.style.cssText = "padding: 0 8px 6px; border: none;";
+    td.appendChild(pills);
+    tr.appendChild(td);
+    return tr;
+  }
+
   // ── Label mapping (internal EDID labels → public-facing names) ──────────
   const LABEL_MAP = {
     "Scrip":                                  "Legendary Scrip",
@@ -1133,6 +1216,12 @@
             tbody.appendChild(condRow);
           });
         }
+      }
+
+      // Tradeable/non-tradeable pill + "keeps dropping" note (UER plans only)
+      if (showPerItemConds) {
+        const pillRow = renderPlanPillRow(it, colSpan);
+        if (pillRow) tbody.appendChild(pillRow);
       }
 
       // Item image gallery (e.g. Blue Ridge Caravan outfit/mask previews)
@@ -2564,6 +2653,73 @@
     });
   }
 
+  // ── Gallery section ────────────────────────────────────────────────────────
+  // Static gallery config: maps page slugs to arrays of image objects.
+  // To add gallery images for a page, add an entry here and upload the images
+  // to /wp-content/uploads/guide-images/activities/{slug}/gallery/
+  const GALLERY_IMAGES = {
+    // Example format — uncomment and populate as needed:
+    // "riding-shotgun-all-rewards": [
+    //   { src: "/wp-content/uploads/guide-images/activities/riding-shotgun/gallery/img1.avif", caption: "Caption text" },
+    // ],
+  };
+
+  function renderActivityGallery(pageId) {
+    // Determine slug from pageId or URL
+    const slug = pageId || "";
+    const images = GALLERY_IMAGES[slug];
+    if (!images || !images.length) return null;
+
+    const container = document.createElement("div");
+    container.className = "dfbnb-gallery";
+    container.style.cssText = "margin: 24px 0 0; padding: 16px; background: #f5f0e1; border: 1px solid #d5c9a1; border-radius: 8px;";
+
+    // Header
+    const header = document.createElement("div");
+    header.style.cssText = "font-size: 1.1em; font-weight: 600; color: #2c6e49; margin-bottom: 12px;";
+    header.textContent = "Gallery";
+    container.appendChild(header);
+
+    // Scrollable image strip
+    const strip = document.createElement("div");
+    strip.style.cssText = "display: flex; gap: 12px; overflow-x: auto; padding: 8px 0; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;";
+
+    images.forEach(img => {
+      const card = document.createElement("div");
+      card.style.cssText = "flex: 0 0 auto; scroll-snap-align: start; text-align: center;";
+
+      const imgEl = document.createElement("img");
+      imgEl.src = img.src;
+      imgEl.alt = img.caption || "";
+      imgEl.loading = "lazy";
+      imgEl.style.cssText = "max-height: 300px; width: auto; border-radius: 6px; border: 1px solid #d5c9a1; cursor: pointer;";
+      // Click to open full-size in new tab
+      imgEl.addEventListener("click", () => window.open(img.src, "_blank"));
+      card.appendChild(imgEl);
+
+      if (img.caption) {
+        const cap = document.createElement("div");
+        cap.style.cssText = "font-size: 0.82em; color: #7a6e54; margin-top: 4px; max-width: 280px;";
+        cap.textContent = img.caption;
+        card.appendChild(cap);
+      }
+
+      strip.appendChild(card);
+    });
+
+    container.appendChild(strip);
+
+    // Scroll hint if there are many images
+    if (images.length > 3) {
+      const hint = document.createElement("div");
+      hint.style.cssText = "font-size: 0.78em; color: #a09880; text-align: center; margin-top: 4px;";
+      hint.textContent = "\u2190 Scroll to see more \u2192";
+      container.appendChild(hint);
+    }
+
+    return container;
+  }
+
   // ── Header + Controls ──────────────────────────────────────────────────────
 
   function clearModuleLocalStorage(pageId) {
@@ -2598,6 +2754,12 @@
       const plansExpand = renderPlansExpand(data, pageId);
       if (plansExpand) rootEl.appendChild(plansExpand);
     }
+
+    // ── Gallery section (above comments) ──────────────────────────────────
+    // Looks for images uploaded to /wp-content/uploads/guide-images/activities/{slug}/gallery/
+    // Images are displayed in a horizontal scrolling strip inside a styled container.
+    const galleryEl = renderActivityGallery(pageId);
+    if (galleryEl) rootEl.appendChild(galleryEl);
 
     if (guideApi?.registerSearchTarget)
       guideApi.registerSearchTarget({ id: MODULE_ID, rootEl, getText: () => rootEl.innerText || "" });
