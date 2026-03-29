@@ -703,6 +703,14 @@ _CUSTOM_NAME_CLEANUP = {
     "tillberg's tornado":           "Tillberg's Tornado",
 }
 
+# Static fallback descriptions for custom mods whose OMOD DESC is empty or missing.
+# Keys are lowercased customModName values; values are player-readable descriptions.
+_CUSTOM_MOD_DESC_OVERRIDES = {
+    "black diamond":       "Cryo Damage",
+    "civil unrest":        "+50 AP",
+    "all rise":            "+50 HP",
+}
+
 
 def _clean_custom_name(raw_value):
     """
@@ -1994,8 +2002,9 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                         if custom_prefix:
                             item_data["name"] = _apply_custom_prefix(item_data.get("name", ""), custom_prefix)
                             item_data["customModName"] = custom_prefix
-                            if custom_desc:
-                                item_data["customModDescription"] = custom_desc
+                            desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
+                            if desc:
+                                item_data["customModDescription"] = desc
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
 
     # ── First-match cascading probability ──
@@ -2536,23 +2545,29 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         ri = int(rr.get("RewardIndex") or 0)
         _by_reward_idx[ri].append(rr)
 
-    if len(_by_reward_idx) > 1:
-        # Helper: parse a human-readable label from a GLOB EDID
-        # e.g. "XP_E05_Caravan_FrontBrahmin_Survived" → "Front Brahmin Survived"
-        #       "Caps_E05_Caravan_Found_1_Package"     → "Found 1 Package"
-        def _label_from_glob_edid(edid_str):
-            edid = edid_str.split(":")[-2] if ":" in edid_str else edid_str
-            # Strip common prefixes: XP_, Caps_, then quest prefix (e.g. E05_Caravan_, E01B_Herd_)
-            edid = re.sub(r'^(?:XP|Caps|NAM\d)_', '', edid)
-            edid = re.sub(r'^[A-Z]\d+[A-Za-z]*_[A-Za-z]+_', '', edid)
-            # Convert underscores to spaces
-            edid = edid.replace('_', ' ').strip()
-            # Insert space before CamelCase boundaries (e.g. FrontBrahmin → Front Brahmin)
-            edid = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', edid)
-            edid = re.sub(r'(?<=[A-Z])(?=[A-Z][a-z])', ' ', edid)
-            # Title-case
-            return edid.title() if edid else None
+    # Helper: parse a human-readable label from a GLOB EDID
+    # e.g. "XP_E05_Caravan_FrontBrahmin_Survived" → "Front Brahmin Survived"
+    #       "Caps_E05_Caravan_Found_1_Package"     → "Found 1 Package"
+    def _label_from_glob_edid(edid_str):
+        edid = edid_str.split(":")[-2] if ":" in edid_str else edid_str
+        # Strip common prefixes: XP_, Caps_, then quest prefix (e.g. E05_Caravan_, BS02_E01_Metal_)
+        edid = re.sub(r'^(?:XP|Caps|NAM\d)_', '', edid)
+        # Strip quest prefix: one or more segments like E05_Caravan_ or BS02_E01_Metal_
+        edid = re.sub(r'^(?:[A-Z]{1,4}\d+[A-Za-z]*_)+(?:[A-Za-z]+_)?', '', edid)
+        # Convert underscores to spaces
+        edid = edid.replace('_', ' ').strip()
+        # Insert space before CamelCase boundaries (e.g. FrontBrahmin → Front Brahmin)
+        edid = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', edid)
+        edid = re.sub(r'(?<=[A-Z])(?=[A-Z][a-z])', ' ', edid)
+        # Title-case
+        result = edid.title() if edid else None
+        # Filter out meaningless labels (pure numbers, stage codes, short gibberish)
+        # Only return if it contains at least one word with 3+ alpha characters.
+        if result and not re.search(r'[A-Za-z]{3,}', result):
+            return None
+        return result
 
+    if len(_by_reward_idx) > 1:
         xp_breakdown = []
         caps_breakdown = []
 
@@ -2855,6 +2870,10 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         tier_func = (rr.get("TierConditionFunc") or "").strip()
         tier_val = (rr.get("TierConditionValue") or "").strip()
 
+        # Extract tier label from NAM7 XP GLOB EDID (e.g. "Front Brahmin Survived")
+        _nam7_ref = (rr.get("NAM7_XPGlobal") or "").strip()
+        _tier_label = _label_from_glob_edid(_nam7_ref) if _nam7_ref else None
+
         if tier_func.lower() == "getrandompercent" and tier_val:
             try:
                 gmrw_mult = max(0.0, min(1.0, float(tier_val) / 100.0))
@@ -2875,6 +2894,10 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 tree_node["gmrwDropRate"] = round(gmrw_mult * 100, 6)
                 if gmrw_cond_display:
                     tree_node["gmrwConditions"] = [gmrw_cond_display]
+                # Attach human-readable tier label from GMRW NAM7 XP GLOB EDID
+                # (e.g. "Front Brahmin Survived", "Back Brahmin Survived")
+                if _tier_label:
+                    tree_node["tierLabel"] = _tier_label
                 # Pass through RewardedItemCount — the game rolls this LVLI
                 # N times on completion (e.g. Death Blossoms seeds ×3).
                 roll_count_raw = (rr.get("RewardedItemCount") or "1").strip()
@@ -2991,7 +3014,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         r'  ^Activity\s+Rewards?$'
         r'| ^Enclave\s+Activity\s+Rewards?$'
         r'| ^Junk\s+&\s+Scrap\s+Rewards?$'
-        r'| ^Legendary'
         r'| ^Enclave\s+Urban\s+Scout'
         r'| ^Enclave\s+Plasma\s+Gun'
         r'| ^Mutated\s+Events?\s+Rewards?$'
@@ -3023,8 +3045,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
                     item["customModName"] = custom_prefix
-                    if custom_desc:
-                        item["customModDescription"] = custom_desc
+                    desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
+                    if desc:
+                        item["customModDescription"] = desc
                 continue
             fid = item.get("formid", "")
             sig = (item.get("sig") or "").upper()
@@ -3041,8 +3064,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
                     item["customModName"] = custom_prefix
-                    if custom_desc:
-                        item["customModDescription"] = custom_desc
+                    desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
+                    if desc:
+                        item["customModDescription"] = desc
         for child in node.get("children", []):
             child["isUniqueReward"] = True
             _attach_modslots_to_tree(child, child.get("edid", "") or node_edid)
@@ -3077,8 +3101,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             if custom_prefix:
                 uer_item["name"] = _apply_custom_prefix(uer_item.get("name", ""), custom_prefix)
                 uer_item["customModName"] = custom_prefix
-                if custom_desc:
-                    uer_item["customModDescription"] = custom_desc
+                desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
+                if desc:
+                    uer_item["customModDescription"] = desc
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):
