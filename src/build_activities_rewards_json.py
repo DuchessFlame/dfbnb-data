@@ -37,10 +37,36 @@ PATCHLOG_DIR = Path("dist/patchlogs")
 # Helpers
 # --------------------------------------------------
 
+_MONTH_ORDER = {
+    "jan": 1, "feb": 2, "mar": 3, "march": 3, "apr": 4, "april": 4,
+    "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7, "aug": 8,
+    "august": 8, "sep": 9, "sept": 9, "oct": 10, "nov": 11, "dec": 12,
+    "december": 12, "january": 1, "february": 2, "september": 9,
+    "october": 10, "november": 11,
+}
+
+def _filename_date_key(path):
+    """Extract (year, month_number) from filenames like LVLI_Export_April_2026_*.tsv.
+    Returns a tuple suitable for sorting; files without a parseable date sort last
+    (highest) so that mtime-based ordering still wins for unrecognised names."""
+    base = os.path.basename(path).lower()
+    # Match patterns like "Export_April_2026" or "Export_Mar_2026"
+    m = re.search(r'_([a-z]+)_(\d{4})', base)
+    if m:
+        month_str, year_str = m.group(1), m.group(2)
+        month_num = _MONTH_ORDER.get(month_str, 0)
+        if month_num:
+            return (int(year_str), month_num)
+    return (9999, 99)  # unknown → sort high so it doesn't accidentally win
+
 def newest(pattern):
+    """Pick the most recent file matching *pattern*.
+    Primary sort: file modification time (works on local machines).
+    Tiebreaker: parsed year+month from filename (handles GitHub Actions where
+    git checkout sets all mtimes to the same value)."""
     files = glob.glob(pattern)
     if not files: raise FileNotFoundError(pattern)
-    files.sort(key=lambda x: os.path.getmtime(x))
+    files.sort(key=lambda x: (os.path.getmtime(x), _filename_date_key(x)))
     return files[-1]
 
 def read_tsv(path):

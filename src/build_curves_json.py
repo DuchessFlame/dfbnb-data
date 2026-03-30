@@ -47,20 +47,21 @@ CHUNK_MAX_CURVES = 200
 # ==================================================================
 
 _MONTHS = {
-    "jan": 1, "feb": 2, "mar": 3, "march": 3, "apr": 4, "may": 5,
-    "jun": 6, "june": 6, "jul": 7, "july": 7, "aug": 8, "sep": 9,
-    "sept": 9, "oct": 10, "nov": 11, "dec": 12,
+    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9, "oct": 10,
+    "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
 }
 
 
 def name_date_key(filepath):
     """Extract (year, month) from a filename like 'CURV_Export_March_2026.tsv'."""
     base = os.path.basename(filepath).lower()
-    m = re.search(r"(jan|feb|mar(?:ch)?|apr|may|june?|july?|aug|sept?|oct|nov|dec)[_\s]*(\d{4})", base)
+    m = re.search(r'_([a-z]+)_(\d{4})', base)
     if m:
         month = _MONTHS.get(m.group(1), 0)
-        year = int(m.group(2))
-        return (year, month)
+        if month:
+            return (int(m.group(2)), month)
     return (0, 0)
 
 

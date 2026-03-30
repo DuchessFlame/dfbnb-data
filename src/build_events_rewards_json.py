@@ -37,10 +37,31 @@ PATCHLOG_DIR = Path("dist/patchlogs")
 # Helpers
 # --------------------------------------------------
 
+_MONTH_ORDER = {
+    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9, "oct": 10,
+    "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
+}
+
+def _filename_date_key(path):
+    """Extract (year, month_number) from filenames like LVLI_Export_April_2026_*.tsv."""
+    base = os.path.basename(path).lower()
+    m = re.search(r'_([a-z]+)_(\d{4})', base)
+    if m:
+        month_num = _MONTH_ORDER.get(m.group(1), 0)
+        if month_num:
+            return (int(m.group(2)), month_num)
+    return (9999, 99)
+
 def newest(pattern):
+    """Pick the most recent file matching *pattern*.
+    Primary sort: file mtime (works locally).
+    Tiebreaker: parsed year+month from filename (handles GitHub Actions
+    where git checkout sets all mtimes to the same value)."""
     files = glob.glob(pattern)
     if not files: raise FileNotFoundError(pattern)
-    files.sort(key=lambda x: os.path.getmtime(x))
+    files.sort(key=lambda x: (os.path.getmtime(x), _filename_date_key(x)))
     return files[-1]
 
 def read_tsv(path):
