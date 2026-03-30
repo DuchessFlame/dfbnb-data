@@ -265,16 +265,19 @@ def simplify_condition(cond_str):
     if "GetQuestCompleted" in s and quest_name:
         return f"Requires the \u201c{quest_name}\u201d quest to be completed"
 
-    # HasLearnedRecipe → check comparison value (= 1 means MUST know, = 0 means must NOT know)
-    # and resolve the COBJ reference to a human-readable recipe/plan name.
+    # HasLearnedRecipe → LVLI entry conditions for plans/recipes are always
+    # self-referencing (the condition checks the same recipe the entry awards).
+    # In-game these plans stop dropping once the player has learned them.
+    # Previous logic tried to distinguish comp_val >= 1.0 ("must know") from
+    # comp_val < 1.0 ("must not know"), but this produced circular text like
+    # "Requires Plan: Large Generator to be learned" on the Large Generator
+    # plan itself.  All HasLearnedRecipe conditions on LVLI entries should
+    # produce "Won't drop if already learned" text.
     if "HasLearnedRecipe" in s:
         # Extract COBJ FormID from e.g. "co_Weapon_Ranged_GatlingPlasma [COBJ:00311432]"
         cobj_match = re.search(r'\[COBJ:([0-9A-Fa-f]+)\]', s)
         # Extract COBJ EDID as fallback
         cobj_edid_match = re.search(r'HasLearnedRecipe\([^,]*,\s*[^,]*,\s*(\w+)', s)
-        # Extract comparison value (last number in the raw string, e.g. "10000000 1.000000")
-        comp_match = re.search(r'(\d+\.\d+)\s*$', s)
-        comp_val = float(comp_match.group(1)) if comp_match else 1.0
 
         # Resolve recipe name from COBJ
         recipe_name = ""
@@ -298,18 +301,12 @@ def simplify_condition(cond_str):
         # Strip "Player Title: " / "Camp Title: " prefix and rephrase
         is_title = recipe_name.startswith(("Player Title:", "Camp Title:"))
 
-        if comp_val >= 1.0:
-            # = 1 means player MUST have learned the recipe
-            if recipe_name:
-                return f"Requires Plan: {recipe_name} to be learned"
-            return "Requires the base plan to be learned"
-        else:
-            # = 0 means player must NOT have learned it yet
-            if is_title:
-                return f"Won\u2019t drop if you\u2019ve already learned {recipe_name}"
-            if recipe_name:
-                return f"Won\u2019t drop if you\u2019ve already learned Plan: {recipe_name}"
-            return "Won\u2019t drop if you\u2019ve already learned this recipe"
+        # All LVLI HasLearnedRecipe conditions → "Won't drop if already learned"
+        if is_title:
+            return f"Won\u2019t drop if you\u2019ve already learned {recipe_name}"
+        if recipe_name:
+            return f"Won\u2019t drop if you\u2019ve already learned Plan: {recipe_name}"
+        return "Won\u2019t drop if you\u2019ve already learned this recipe"
 
     # GetRandomPercent → handled by entryRate and pill display, omit from conditions
     if "GetRandomPercent" in s:
@@ -4373,127 +4370,4 @@ for key, pages in sorted(reward_pages_by_key.items()):
             _ri = (rr.get("RewardedItem") or "").strip()
             if not _ri: continue
             _fid, _sig = parse_ref(_ri)
-            if _sig.upper() == "LVLI" and _fid:
-                _pool_tiers[_fid].add((rr.get("TierLabel") or "").strip())
-        for _p in event["pools"]:
-            if len(_pool_tiers.get(_p["lvliFormID"], set())) > 1:
-                _p["tier"] = ""
-
-        event["pools"].sort(key=lambda p: (p.get("title") or "", p.get("lvliFormID") or ""))
-
-        # For enclave activities: ensure the shared activities LVLI 008A9106 is present
-        if event.get("isEnclaveActivity"):
-            # If 008A9106 was already added by the GMRW loop (without the flag), stamp it now.
-            for _p in event["pools"]:
-                if _p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI:
-                    _p["isEnclaveActivities"] = True
-            has_act = any(p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI for p in event["pools"])
-            if not has_act:
-                act_edid  = lvli_edid_by_formid.get(ENCLAVE_ACTIVITIES_LVLI, "")
-                _act_deep = resolve_lvli_items_deep(ENCLAVE_ACTIVITIES_LVLI)
-                _act_total = sum(it["dropRate"] for it in _act_deep)
-                if _act_total > 1.0001:
-                    for it in _act_deep:
-                        it["dropRate"] = it["dropRate"] / _act_total
-                act_items = sorted([
-                    {
-                        "formid": it["formid"],
-                        "name": it.get("name") or resolve_name_for_formid(it["formid"]),
-                        "dropRate": pct(it["dropRate"]),
-                        "qty": it.get("qty", 1),
-                        "isPlan": (it.get("name") or "").startswith(("Plan:", "Recipe:")),
-                        **({"conditions": it["conditions"]} if it.get("conditions") else {}),
-                    }
-                    for it in _act_deep
-                ], key=lambda x: (x["name"] or "", x["formid"] or ""))
-                pt, ttl = classify_pool(ENCLAVE_ACTIVITIES_LVLI)
-                event["pools"].append({
-                    "title": "Enclave Activity Rewards",
-                    "lvliFormID": ENCLAVE_ACTIVITIES_LVLI,
-                    "lvliEdid": act_edid,
-                    "tier": "", "count": "1", "conditions": [],
-                    "poolChance": 100.0, "poolTypes": pt, "items": act_items,
-                    "itemCount": len(act_items),
-                    "isEnclaveActivities": True,
-                })
-
-    # Container-based seasonal events: inject LVLI pools when GMRW yields none
-    if key in CONTAINER_LOOT_EVENTS and not event.get("pools"):
-        cle = CONTAINER_LOOT_EVENTS[key]
-        if cle.get("description"):
-            event["containerLootDescription"] = cle["description"]
-        event["isContainerLoot"] = True
-        for pool_def in cle.get("pools", []):
-            formid = pool_def["lvliFormID"]
-            lvli_edid = lvli_edid_by_formid.get(formid, "")
-            _cle_deep = resolve_lvli_items_deep(formid)
-            _cle_total = sum(it["dropRate"] for it in _cle_deep)
-            if _cle_total > 1.0001:
-                for it in _cle_deep:
-                    it["dropRate"] = it["dropRate"] / _cle_total
-            # Merge duplicates (same formid)
-            _cle_merged = {}
-            for it in _cle_deep:
-                fid = it["formid"]
-                if fid in _cle_merged:
-                    _cle_merged[fid]["dropRate"] += it["dropRate"]
-                    for c in (it.get("conditions") or []):
-                        if c not in (_cle_merged[fid].get("conditions") or []):
-                            _cle_merged[fid].setdefault("conditions", []).append(c)
-                else:
-                    _cle_merged[fid] = dict(it)
-            items = sorted([
-                {
-                    "formid": it["formid"],
-                    "name": it.get("name") or resolve_name_for_formid(it["formid"]),
-                    "dropRate": pct(it["dropRate"]),
-                    "qty": it.get("qty", 1),
-                    "isPlan": any(
-                        n.startswith(("Plan:", "Recipe:"))
-                        for n in [it.get("name") or resolve_name_for_formid(it["formid"])]
-                        if n
-                    ),
-                    **({"conditions": it["conditions"]} if it.get("conditions") else {}),
-                }
-                for it in _cle_merged.values()
-            ], key=lambda x: (x["name"] or "", x["formid"] or ""))
-            pt, ttl = classify_pool(formid)
-            event["pools"].append({
-                "title": pool_def["title"],
-                "lvliFormID": formid,
-                "lvliEdid": lvli_edid,
-                "tier": pool_def.get("tier", ""),
-                "count": "1",
-                "conditions": [],
-                "poolChance": 100.0,
-                "poolTypes": pt,
-                "items": items,
-                "itemCount": len(items),
-                "isContainerLoot": True,
-            })
-        # Remove the "Missing QUEST match" warning since we now have data
-        event["warnings"] = [w for w in event.get("warnings", [])
-                             if w.get("title") != "Missing QUEST match"]
-
-    for p in pages:
-        if p["slug"]: by_page[p["slug"]] = event
-        if p["url"]:
-            by_page[p["url"]] = event
-            by_page[strip_trailing_slash(p["url"])] = event
-    events.append(event)
-
-# --------------------------------------------------
-# Write output
-# --------------------------------------------------
-
-DIST_DIR.mkdir(parents=True, exist_ok=True)
-PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
-
-with open(DIST_DIR / "activities_rewards.json", "w", encoding="utf-8") as f:
-    json.dump({"events": events}, f, separators=(",", ":"))
-with open(DIST_DIR / "activities_rewards_by_page.json", "w", encoding="utf-8") as f:
-    json.dump({"byPage": by_page}, f, separators=(",", ":"))
-with open(PATCHLOG_DIR / "patchlog_latest_df_activities.json", "w", encoding="utf-8") as f:
-    json.dump({"built": True}, f)
-
-print(f"Activities Rewards build complete. events={len(events)} byPage={len(by_page)}")
+            if _sig.upper
