@@ -57,16 +57,16 @@ def _filename_date_key(path):
         month_num = _MONTH_ORDER.get(month_str, 0)
         if month_num:
             return (int(year_str), month_num)
-    return (9999, 99)  # unknown → sort high so it doesn't accidentally win
+    return (0, 0)  # unknown → sort low so parseable dates always win
 
 def newest(pattern):
     """Pick the most recent file matching *pattern*.
-    Primary sort: file modification time (works on local machines).
-    Tiebreaker: parsed year+month from filename (handles GitHub Actions where
-    git checkout sets all mtimes to the same value)."""
+    Primary sort: parsed year+month from filename (reliable on GitHub Actions
+    where git checkout mtimes vary by checkout order, not commit date).
+    Tiebreaker: file modification time (useful on local machines)."""
     files = glob.glob(pattern)
     if not files: raise FileNotFoundError(pattern)
-    files.sort(key=lambda x: (os.path.getmtime(x), _filename_date_key(x)))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
     return files[-1]
 
 def read_tsv(path):

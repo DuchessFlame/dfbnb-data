@@ -57,17 +57,17 @@ def _filename_date_key(path):
         month_num = _MONTH_ORDER.get(m.group(1), 0)
         if month_num:
             return (int(m.group(2)), month_num)
-    return (9999, 99)
+    return (0, 0)  # unknown → sort low so parseable dates always win
 
 def newest(pattern):
     """Pick the most recent file matching *pattern*.
-    Primary sort: file mtime (works locally).
-    Tiebreaker: parsed year+month from filename (handles GitHub Actions
-    where git checkout sets all mtimes to the same value)."""
+    Primary sort: parsed year+month from filename (reliable on GitHub Actions
+    where git checkout mtimes vary by checkout order, not commit date).
+    Tiebreaker: file mtime (useful on local machines)."""
     files = glob.glob(pattern)
     if not files:
         return None
-    files.sort(key=lambda x: (os.path.getmtime(x), _filename_date_key(x)))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
     return files[-1]
 
 
