@@ -37,36 +37,10 @@ PATCHLOG_DIR = Path("dist/patchlogs")
 # Helpers
 # --------------------------------------------------
 
-_MONTH_ORDER = {
-    "jan": 1, "feb": 2, "mar": 3, "march": 3, "apr": 4, "april": 4,
-    "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7, "aug": 8,
-    "august": 8, "sep": 9, "sept": 9, "oct": 10, "nov": 11, "dec": 12,
-    "december": 12, "january": 1, "february": 2, "september": 9,
-    "october": 10, "november": 11,
-}
-
-def _filename_date_key(path):
-    """Extract (year, month_number) from filenames like LVLI_Export_April_2026_*.tsv.
-    Returns a tuple suitable for sorting; files without a parseable date sort last
-    (highest) so that mtime-based ordering still wins for unrecognised names."""
-    base = os.path.basename(path).lower()
-    # Match patterns like "Export_April_2026" or "Export_Mar_2026"
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month_str, year_str = m.group(1), m.group(2)
-        month_num = _MONTH_ORDER.get(month_str, 0)
-        if month_num:
-            return (int(year_str), month_num)
-    return (0, 0)  # unknown → sort low so parseable dates always win
-
 def newest(pattern):
-    """Pick the most recent file matching *pattern*.
-    Primary sort: parsed year+month from filename (reliable on GitHub Actions
-    where git checkout mtimes vary by checkout order, not commit date).
-    Tiebreaker: file modification time (useful on local machines)."""
     files = glob.glob(pattern)
     if not files: raise FileNotFoundError(pattern)
-    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    files.sort(key=lambda x: os.path.getmtime(x))
     return files[-1]
 
 def read_tsv(path):
@@ -1456,6 +1430,7 @@ def _resolve_chance_none(math_row, field_prefix="Entry", lvli_formid=""):
             glob_fltv = glob_vals[glob_fid]
 
     # If a real CURV is referenced, evaluate it with the GLOB FLTV as X
+    _glob_in_curv_slot = False  # True when the Curve slot holds a GLOB, not a real CURV
     if curv_ref:
         curv_fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
         curv_pts = _curv_pts.get(curv_fid)
@@ -1465,26 +1440,27 @@ def _resolve_chance_none(math_row, field_prefix="Entry", lvli_formid=""):
             if y is not None:
                 return y
         # Curve slot holds a GLOB ref (no actual curve points) — resolve its FLTV.
-        # The GLOB FLTV is usually a tier index (e.g. Recipe_High_ChanceNone_Tier = 10.0)
-        # that must be evaluated against the LVLI's mapped curve table below.
+        # The GLOB value IS the direct ChanceNone percentage, not a curve index.
         if not curv_pts and curv_fid in glob_vals and glob_fltv is None:
             glob_fltv = glob_vals[curv_fid]
+            _glob_in_curv_slot = True
 
     # If we have a GLOB FLTV (tier index) but haven't found a curve yet,
     # check the LVLI→CURV mapping.  The CURV main TSV tells us which curve
     # table governs this LVLI's ChanceNone (e.g. Container_Recipe_ChanceNone).
-    # This applies regardless of whether the GLOB came from the GLOB slot or the
-    # Curve slot — recipe tier GLOBs like Recipe_High_ChanceNone_Tier (FLTV=10)
-    # are always tier indices that need curve evaluation, not direct percentages.
+    # SKIP this lookup when the Curve slot held a GLOB — in that case the FLTV
+    # is already the direct ChanceNone, not an index into a curve.  The _lvli_to_curv
+    # map is built from CURV back-references and can match unrelated curves.
     if glob_fltv is not None:
-        owner_fid = lvli_formid or (math_row.get("LVLI_FormID") or "").strip()
-        if owner_fid and owner_fid in _lvli_to_curv:
-            mapped_curv_fid = _lvli_to_curv[owner_fid]
-            mapped_pts = _curv_pts.get(mapped_curv_fid)
-            if mapped_pts:
-                y = _interp_curve(mapped_pts, glob_fltv)
-                if y is not None:
-                    return y
+        if not _glob_in_curv_slot:
+            owner_fid = lvli_formid or (math_row.get("LVLI_FormID") or "").strip()
+            if owner_fid and owner_fid in _lvli_to_curv:
+                mapped_curv_fid = _lvli_to_curv[owner_fid]
+                mapped_pts = _curv_pts.get(mapped_curv_fid)
+                if mapped_pts:
+                    y = _interp_curve(mapped_pts, glob_fltv)
+                    if y is not None:
+                        return y
         return glob_fltv
 
     return 0.0
@@ -2502,21 +2478,21 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             _seen_gmrw_stage[gmrw_fid] = None
             continue
 
-        # Resolve XP: prefer NAM7 GLOB (actual awarded value), fall back to
-        # XPCT curve (base curve that may undercount).
+        # Resolve XP: prefer XPCT curve, fall back to NAM7 GLOB
         xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
         xp_glob = (rr.get("NAM7_XPGlobal") or "").strip()
         xp_val = None
         xp_fid = None
 
-        if xp_glob:
-            nam7_fid = xp_glob.split(":")[0]
-            if nam7_fid in glob_vals and glob_vals[nam7_fid]:
-                xp_val = int(glob_vals[nam7_fid])
-                xp_fid = nam7_fid
-        if xp_val is None and xpct:
+        if xpct:
             xp_val = xp_at_level(xpct)
             xp_fid = xpct.split(":")[0]
+        elif xp_glob:
+            # NAM7 is a flat GLOB value (not curve-based)
+            nam7_fid = xp_glob.split(":")[0]
+            if nam7_fid in glob_vals:
+                xp_val = int(glob_vals[nam7_fid])
+                xp_fid = nam7_fid
 
         is_failure = bool(re.search(r'fail', edid, re.IGNORECASE) or re.search(r'fail', xp_glob, re.IGNORECASE))
         _seen_gmrw_stage[gmrw_fid] = {
@@ -2639,23 +2615,25 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             cond_func = (first.get("TierConditionFunc") or "").strip()
             cond_val  = (first.get("TierConditionValue") or "").strip()
 
-            # XP: prefer NAM7 GLOB (actual awarded value), fall back to XPCT curve.
-            # NAM7 GLOB EDID is also used for the label since XPCT EDIDs are
-            # generic curve names like "CT_Player_XP_Universal_Tier25".
+            # XP: prefer XPCT curve, fall back to NAM7 GLOB
             xpct      = (first.get("XPCT_XPCurveTable") or "").strip()
             xp_glob   = (first.get("NAM7_XPGlobal") or "").strip()
             xp_val    = None
             xp_label  = None
 
-            if xp_glob:
+            if xpct:
+                xp_val   = xp_at_level(xpct)
+                # Use NAM7 GLOB EDID for label when available; XPCT EDIDs are usually
+                # generic curve names like "CT_Player_XP_Universal_Tier25" — not useful.
+                if xp_glob:
+                    xp_label = _label_from_glob_edid(xp_glob)
+                else:
+                    xp_label = "Event Completion"
+            elif xp_glob:
                 xp_fid = xp_glob.split(":")[0]
-                if xp_fid in glob_vals and glob_vals[xp_fid]:
+                if xp_fid in glob_vals:
                     xp_val = int(glob_vals[xp_fid])
                 xp_label = _label_from_glob_edid(xp_glob)
-            if xp_val is None and xpct:
-                xp_val = xp_at_level(xpct)
-                if not xp_label:
-                    xp_label = "Event Completion"
 
             if xp_val and xp_val > 0:
                 entry = {"label": xp_label or f"Reward Tier {ri}", "xp": xp_val, "rewardIndex": ri}
@@ -2665,9 +2643,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     entry["scalesWithLevel"] = True
                 xp_breakdown.append(entry)
 
-            # Caps: NAM8 GLOB (skip AAAIgnoreMe placeholder = 0 caps)
+            # Caps: NAM8 GLOB
             caps_ref = (first.get("NAM8_CapsGlobal") or "").strip()
-            if caps_ref and "aaaignoreme" not in caps_ref.lower():
+            if caps_ref:
                 caps_fid = caps_ref.split(":")[0]
                 if caps_fid in glob_vals:
                     caps_val = int(glob_vals[caps_fid])
@@ -2676,21 +2654,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     if cond_func:
                         entry["condition"] = cond_func
                     caps_breakdown.append(entry)
-
-        # Deduplicate breakdown entries by (label, value) — events like
-        # Powering Up repeat the same Minimal/Full tiers across 3 locations.
-        def _dedup_breakdown(entries, val_key):
-            seen = set()
-            out = []
-            for e in entries:
-                key = (e.get("label", ""), e.get(val_key, 0))
-                if key not in seen:
-                    seen.add(key)
-                    out.append(e)
-            return out
-
-        xp_breakdown   = _dedup_breakdown(xp_breakdown, "xp")
-        caps_breakdown = _dedup_breakdown(caps_breakdown, "caps")
 
         # Only emit xpBreakdown if there are genuinely different XP values across
         # tiers.  Placement-based activities (e.g. Monster Mash) have multiple
@@ -2709,11 +2672,10 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     _seen_plan_fids = set()
 
     # Process GMRW rows (caps, legendary rank, LVLI rewards)
-    _ad_seen_lvli = set()   # dedup: skip repeat LVLI formids (e.g. 3 locations)
     for rr in gmrw_rows:
-        # Caps — skip AAAIgnoreMe placeholder GLOBs
+        # Caps
         caps_ref = (rr.get("NAM8_CapsGlobal") or "").strip()
-        if caps_ref and "aaaignoreme" not in caps_ref.lower() and not activity_data["baseRewards"]["caps"]:
+        if caps_ref and not activity_data["baseRewards"]["caps"]:
             caps_fid = caps_ref.split(":")[0]
             if caps_fid in glob_vals:
                 activity_data["baseRewards"]["caps"] = int(glob_vals[caps_fid])
@@ -2732,11 +2694,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         formid, kind = parse_ref(rewarded)
         if kind.upper() != "LVLI":
             continue
-
-        # Skip duplicate LVLI formids (same pool referenced by multiple locations)
-        if formid in _ad_seen_lvli:
-            continue
-        _ad_seen_lvli.add(formid)
 
         lvli_edid = lvli_edid_by_formid.get(formid, "")
         lvli_edid_lower = lvli_edid.lower()
@@ -3629,52 +3586,7 @@ def get_gmrw_rows_for_quest(q):
 # Base Rewards builder
 # --------------------------------------------------
 
-TIER_ORDER = ("", "minimal", "full", "gold", "silver", "bronze", "mutated")
-
-# ---------------------------------------------------------------------------
-# Alias placeholder cleanup
-# ---------------------------------------------------------------------------
-_ALIAS_RE = re.compile(r'<Alias=[^>]+>')
-
-def strip_aliases(text):
-    """Remove game-engine alias placeholders like <Alias=PowerPlantShortNameLocation>."""
-    if not text: return text
-    return _ALIAS_RE.sub('', text).strip()
-    # Also collapse any resulting double-spaces or leading/trailing junk
-    # (the re.sub already handles removing the tag; strip cleans whitespace)
-
-
-# ---------------------------------------------------------------------------
-# GMRW tier-label inference for events whose TierLabel column is empty
-# ---------------------------------------------------------------------------
-
-def _infer_tier_labels(gmrw_rows):
-    """
-    For events like Powering Up where TierLabel is blank but reward rows
-    are differentiated by XP GLOB EDIDs (e.g. XPPowerPlantMinimal / Full)
-    or GetVMQuestVariable conditions, infer and stamp a TierLabel on each row.
-    Only acts when all existing TierLabels are empty and a Minimal/Full pattern
-    is detected in the XP GLOB EDIDs.
-    """
-    # Quick check: if any row already has a TierLabel, leave everything alone
-    if any((r.get("TierLabel") or "").strip() for r in gmrw_rows):
-        return gmrw_rows
-
-    # Check if the XP GLOB EDIDs contain Minimal/Full pattern
-    has_minimal = any("minimal" in (r.get("NAM7_XPGlobal") or "").lower() for r in gmrw_rows)
-    has_full    = any("full"    in (r.get("NAM7_XPGlobal") or "").lower() for r in gmrw_rows)
-    if not (has_minimal and has_full):
-        return gmrw_rows
-
-    # Stamp TierLabel based on XP GLOB name
-    for r in gmrw_rows:
-        xp_glob = (r.get("NAM7_XPGlobal") or "").lower()
-        if "minimal" in xp_glob:
-            r["TierLabel"] = "minimal"
-        elif "full" in xp_glob:
-            r["TierLabel"] = "full"
-        # Rows without an XP GLOB (e.g. legendary drops, drifter keycard) keep ""
-    return gmrw_rows
+TIER_ORDER = ("", "gold", "silver", "bronze", "mutated")
 
 def build_base_rewards(gmrw_rows):
     by_tier = defaultdict(list)
@@ -3686,32 +3598,21 @@ def build_base_rewards(gmrw_rows):
         if tier_key not in by_tier: continue
         rows = by_tier[tier_key]
 
-        # XP — prefer NAM7 GLOB (the actual awarded value) over XPCT curve
-        # (which is a base curve that may undercount).  Fall back to XPCT
-        # when NAM7 is absent or resolves to 0.
+        # XP at level 50
         xp_val = xp_formid = None
         for r in rows:
-            nam7 = (r.get("NAM7_XPGlobal") or "").strip()
-            if nam7:
-                fid = nam7.split(":")[0]
-                if fid in glob_vals and glob_vals[fid]:
-                    xp_val    = int(glob_vals[fid])
-                    xp_formid = fid
-                    break
-        if xp_val is None:
-            for r in rows:
-                xpct = (r.get("XPCT_XPCurveTable") or "").strip()
-                if xpct:
-                    fid = xpct.split(":")[0]
-                    xp_val = xp_at_level(fid)
-                    xp_formid = fid
-                    break
+            xpct = (r.get("XPCT_XPCurveTable") or "").strip()
+            if xpct:
+                fid = xpct.split(":")[0]
+                xp_val = xp_at_level(fid)
+                xp_formid = fid
+                break
 
-        # Caps — skip "AAAIgnoreMe" placeholder GLOBs (value 0, means no caps)
+        # Caps
         caps_val = caps_formid = None
         for r in rows:
             caps_ref = (r.get("NAM8_CapsGlobal") or "").strip()
-            if caps_ref and "aaaignoreme" not in caps_ref.lower():
+            if caps_ref:
                 fid = caps_ref.split(":")[0]
                 if fid in glob_vals:
                     caps_val    = int(glob_vals[fid])
@@ -3905,12 +3806,6 @@ CONTAINER_LOOT_EVENTS = {
     },
 }
 
-# Description overrides for events whose in-game text contains alias
-# placeholders that can't be resolved at build time.
-DESCRIPTION_OVERRIDES = {
-    "poweringuppowerstation": "A power plant has failed. Repair its systems and get the power back on.",
-}
-
 # Events that were cut or have no in-game rewards — suppress warnings.
 CUT_EVENTS = {"caravansmilepostzero"}
 
@@ -4054,13 +3949,10 @@ for key, pages in sorted(reward_pages_by_key.items()):
 
         is_public = str(q.get("IsPublicEvent") or q.get("PublicEvent") or "0").strip() == "1"
 
-        desc = DESCRIPTION_OVERRIDES.get(key) or strip_aliases(
-            pick(q, "DESC - Description", "DESC", default=""))
-
         event = {
-            "questFormID": qid, "name": pages[0]["eventTitle"] or strip_aliases(game_name),
-            "gameName": strip_aliases(game_name), "isPublicEvent": is_public,
-            "description": desc,
+            "questFormID": qid, "name": pages[0]["eventTitle"] or game_name,
+            "gameName": game_name, "isPublicEvent": is_public,
+            "description": pick(q, "DESC - Description", "DESC", default=""),
             "regionLocations": ACTIVITY_REGION_LOCATIONS.get(key, []),
             "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
             "pools": [], "banners": [], "scenarios": [],
@@ -4104,7 +3996,6 @@ for key, pages in sorted(reward_pages_by_key.items()):
         # GMRW
         gmrw_rows = get_gmrw_rows_for_quest(q)
         if gmrw_rows:
-            gmrw_rows = _infer_tier_labels(gmrw_rows)
             event["baseRewards"] = build_base_rewards(gmrw_rows)
 
         # Detect if this is an activity event
@@ -4191,7 +4082,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
             # display — no need to add them as separate conditions text.
 
             if kind.upper() == "LVLI":
-                pool_key = formid
+                pool_key = (formid, rr.get("RewardIndex") or "")
                 if pool_key in pool_seen: continue
                 pool_seen.add(pool_key)
                 lvli_edid = lvli_edid_by_formid.get(formid, "")
@@ -4362,12 +4253,121 @@ for key, pages in sorted(reward_pages_by_key.items()):
                              meta={"source": "GMRW", "rewardedItem": rewarded, "conditions": conds,
                                    "name": nm, "qty": count, "isPlan": is_plan, "isUnique": not is_plan})
 
-        # If a pool FormID appeared under multiple tier labels in the GMRW
-        # rows, mark it as shared (tier="") so the JS renderer shows it once
-        # under both tiers rather than arbitrarily under the first-seen tier.
-        _pool_tiers = defaultdict(set)
-        for rr in gmrw_rows:
-            _ri = (rr.get("RewardedItem") or "").strip()
-            if not _ri: continue
-            _fid, _sig = parse_ref(_ri)
-            if _sig.upper
+        event["pools"].sort(key=lambda p: (p.get("title") or "", p.get("lvliFormID") or ""))
+
+        # For enclave activities: ensure the shared activities LVLI 008A9106 is present
+        if event.get("isEnclaveActivity"):
+            # If 008A9106 was already added by the GMRW loop (without the flag), stamp it now.
+            for _p in event["pools"]:
+                if _p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI:
+                    _p["isEnclaveActivities"] = True
+            has_act = any(p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI for p in event["pools"])
+            if not has_act:
+                act_edid  = lvli_edid_by_formid.get(ENCLAVE_ACTIVITIES_LVLI, "")
+                _act_deep = resolve_lvli_items_deep(ENCLAVE_ACTIVITIES_LVLI)
+                _act_total = sum(it["dropRate"] for it in _act_deep)
+                if _act_total > 1.0001:
+                    for it in _act_deep:
+                        it["dropRate"] = it["dropRate"] / _act_total
+                act_items = sorted([
+                    {
+                        "formid": it["formid"],
+                        "name": it.get("name") or resolve_name_for_formid(it["formid"]),
+                        "dropRate": pct(it["dropRate"]),
+                        "qty": it.get("qty", 1),
+                        "isPlan": (it.get("name") or "").startswith(("Plan:", "Recipe:")),
+                        **({"conditions": it["conditions"]} if it.get("conditions") else {}),
+                    }
+                    for it in _act_deep
+                ], key=lambda x: (x["name"] or "", x["formid"] or ""))
+                pt, ttl = classify_pool(ENCLAVE_ACTIVITIES_LVLI)
+                event["pools"].append({
+                    "title": "Enclave Activity Rewards",
+                    "lvliFormID": ENCLAVE_ACTIVITIES_LVLI,
+                    "lvliEdid": act_edid,
+                    "tier": "", "count": "1", "conditions": [],
+                    "poolChance": 100.0, "poolTypes": pt, "items": act_items,
+                    "itemCount": len(act_items),
+                    "isEnclaveActivities": True,
+                })
+
+    # Container-based seasonal events: inject LVLI pools when GMRW yields none
+    if key in CONTAINER_LOOT_EVENTS and not event.get("pools"):
+        cle = CONTAINER_LOOT_EVENTS[key]
+        if cle.get("description"):
+            event["containerLootDescription"] = cle["description"]
+        event["isContainerLoot"] = True
+        for pool_def in cle.get("pools", []):
+            formid = pool_def["lvliFormID"]
+            lvli_edid = lvli_edid_by_formid.get(formid, "")
+            _cle_deep = resolve_lvli_items_deep(formid)
+            _cle_total = sum(it["dropRate"] for it in _cle_deep)
+            if _cle_total > 1.0001:
+                for it in _cle_deep:
+                    it["dropRate"] = it["dropRate"] / _cle_total
+            # Merge duplicates (same formid)
+            _cle_merged = {}
+            for it in _cle_deep:
+                fid = it["formid"]
+                if fid in _cle_merged:
+                    _cle_merged[fid]["dropRate"] += it["dropRate"]
+                    for c in (it.get("conditions") or []):
+                        if c not in (_cle_merged[fid].get("conditions") or []):
+                            _cle_merged[fid].setdefault("conditions", []).append(c)
+                else:
+                    _cle_merged[fid] = dict(it)
+            items = sorted([
+                {
+                    "formid": it["formid"],
+                    "name": it.get("name") or resolve_name_for_formid(it["formid"]),
+                    "dropRate": pct(it["dropRate"]),
+                    "qty": it.get("qty", 1),
+                    "isPlan": any(
+                        n.startswith(("Plan:", "Recipe:"))
+                        for n in [it.get("name") or resolve_name_for_formid(it["formid"])]
+                        if n
+                    ),
+                    **({"conditions": it["conditions"]} if it.get("conditions") else {}),
+                }
+                for it in _cle_merged.values()
+            ], key=lambda x: (x["name"] or "", x["formid"] or ""))
+            pt, ttl = classify_pool(formid)
+            event["pools"].append({
+                "title": pool_def["title"],
+                "lvliFormID": formid,
+                "lvliEdid": lvli_edid,
+                "tier": pool_def.get("tier", ""),
+                "count": "1",
+                "conditions": [],
+                "poolChance": 100.0,
+                "poolTypes": pt,
+                "items": items,
+                "itemCount": len(items),
+                "isContainerLoot": True,
+            })
+        # Remove the "Missing QUEST match" warning since we now have data
+        event["warnings"] = [w for w in event.get("warnings", [])
+                             if w.get("title") != "Missing QUEST match"]
+
+    for p in pages:
+        if p["slug"]: by_page[p["slug"]] = event
+        if p["url"]:
+            by_page[p["url"]] = event
+            by_page[strip_trailing_slash(p["url"])] = event
+    events.append(event)
+
+# --------------------------------------------------
+# Write output
+# --------------------------------------------------
+
+DIST_DIR.mkdir(parents=True, exist_ok=True)
+PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
+
+with open(DIST_DIR / "activities_rewards.json", "w", encoding="utf-8") as f:
+    json.dump({"events": events}, f, separators=(",", ":"))
+with open(DIST_DIR / "activities_rewards_by_page.json", "w", encoding="utf-8") as f:
+    json.dump({"byPage": by_page}, f, separators=(",", ":"))
+with open(PATCHLOG_DIR / "patchlog_latest_df_activities.json", "w", encoding="utf-8") as f:
+    json.dump({"built": True}, f)
+
+print(f"Activities Rewards build complete. events={len(events)} byPage={len(by_page)}")
