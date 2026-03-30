@@ -2505,21 +2505,21 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             _seen_gmrw_stage[gmrw_fid] = None
             continue
 
-        # Resolve XP: prefer XPCT curve, fall back to NAM7 GLOB
+        # Resolve XP: prefer NAM7 GLOB (actual awarded value), fall back to
+        # XPCT curve (base curve that may undercount).
         xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
         xp_glob = (rr.get("NAM7_XPGlobal") or "").strip()
         xp_val = None
         xp_fid = None
 
-        if xpct:
-            xp_val = xp_at_level(xpct)
-            xp_fid = xpct.split(":")[0]
-        elif xp_glob:
-            # NAM7 is a flat GLOB value (not curve-based)
+        if xp_glob:
             nam7_fid = xp_glob.split(":")[0]
-            if nam7_fid in glob_vals:
+            if nam7_fid in glob_vals and glob_vals[nam7_fid]:
                 xp_val = int(glob_vals[nam7_fid])
                 xp_fid = nam7_fid
+        if xp_val is None and xpct:
+            xp_val = xp_at_level(xpct)
+            xp_fid = xpct.split(":")[0]
 
         is_failure = bool(re.search(r'fail', edid, re.IGNORECASE) or re.search(r'fail', xp_glob, re.IGNORECASE))
         _seen_gmrw_stage[gmrw_fid] = {
@@ -2642,25 +2642,23 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             cond_func = (first.get("TierConditionFunc") or "").strip()
             cond_val  = (first.get("TierConditionValue") or "").strip()
 
-            # XP: prefer XPCT curve, fall back to NAM7 GLOB
+            # XP: prefer NAM7 GLOB (actual awarded value), fall back to XPCT curve.
+            # NAM7 GLOB EDID is also used for the label since XPCT EDIDs are
+            # generic curve names like "CT_Player_XP_Universal_Tier25".
             xpct      = (first.get("XPCT_XPCurveTable") or "").strip()
             xp_glob   = (first.get("NAM7_XPGlobal") or "").strip()
             xp_val    = None
             xp_label  = None
 
-            if xpct:
-                xp_val   = xp_at_level(xpct)
-                # Use NAM7 GLOB EDID for label when available; XPCT EDIDs are usually
-                # generic curve names like "CT_Player_XP_Universal_Tier25" — not useful.
-                if xp_glob:
-                    xp_label = _label_from_glob_edid(xp_glob)
-                else:
-                    xp_label = "Event Completion"
-            elif xp_glob:
+            if xp_glob:
                 xp_fid = xp_glob.split(":")[0]
-                if xp_fid in glob_vals:
+                if xp_fid in glob_vals and glob_vals[xp_fid]:
                     xp_val = int(glob_vals[xp_fid])
                 xp_label = _label_from_glob_edid(xp_glob)
+            if xp_val is None and xpct:
+                xp_val = xp_at_level(xpct)
+                if not xp_label:
+                    xp_label = "Event Completion"
 
             if xp_val and xp_val > 0:
                 entry = {"label": xp_label or f"Reward Tier {ri}", "xp": xp_val, "rewardIndex": ri}
@@ -2670,9 +2668,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     entry["scalesWithLevel"] = True
                 xp_breakdown.append(entry)
 
-            # Caps: NAM8 GLOB
+            # Caps: NAM8 GLOB (skip AAAIgnoreMe placeholder = 0 caps)
             caps_ref = (first.get("NAM8_CapsGlobal") or "").strip()
-            if caps_ref:
+            if caps_ref and "aaaignoreme" not in caps_ref.lower():
                 caps_fid = caps_ref.split(":")[0]
                 if caps_fid in glob_vals:
                     caps_val = int(glob_vals[caps_fid])
@@ -2681,6 +2679,21 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     if cond_func:
                         entry["condition"] = cond_func
                     caps_breakdown.append(entry)
+
+        # Deduplicate breakdown entries by (label, value) — events like
+        # Powering Up repeat the same Minimal/Full tiers across 3 locations.
+        def _dedup_breakdown(entries, val_key):
+            seen = set()
+            out = []
+            for e in entries:
+                key = (e.get("label", ""), e.get(val_key, 0))
+                if key not in seen:
+                    seen.add(key)
+                    out.append(e)
+            return out
+
+        xp_breakdown   = _dedup_breakdown(xp_breakdown, "xp")
+        caps_breakdown = _dedup_breakdown(caps_breakdown, "caps")
 
         # Only emit xpBreakdown if there are genuinely different XP values across
         # tiers.  Placement-based activities (e.g. Monster Mash) have multiple
@@ -2699,10 +2712,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     _seen_plan_fids = set()
 
     # Process GMRW rows (caps, legendary rank, LVLI rewards)
+    _ad_seen_lvli = set()   # dedup: skip repeat LVLI formids (e.g. 3 locations)
     for rr in gmrw_rows:
-        # Caps
+        # Caps — skip AAAIgnoreMe placeholder GLOBs
         caps_ref = (rr.get("NAM8_CapsGlobal") or "").strip()
-        if caps_ref and not activity_data["baseRewards"]["caps"]:
+        if caps_ref and "aaaignoreme" not in caps_ref.lower() and not activity_data["baseRewards"]["caps"]:
             caps_fid = caps_ref.split(":")[0]
             if caps_fid in glob_vals:
                 activity_data["baseRewards"]["caps"] = int(glob_vals[caps_fid])
@@ -2721,6 +2735,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         formid, kind = parse_ref(rewarded)
         if kind.upper() != "LVLI":
             continue
+
+        # Skip duplicate LVLI formids (same pool referenced by multiple locations)
+        if formid in _ad_seen_lvli:
+            continue
+        _ad_seen_lvli.add(formid)
 
         lvli_edid = lvli_edid_by_formid.get(formid, "")
         lvli_edid_lower = lvli_edid.lower()
@@ -3613,7 +3632,52 @@ def get_gmrw_rows_for_quest(q):
 # Base Rewards builder
 # --------------------------------------------------
 
-TIER_ORDER = ("", "gold", "silver", "bronze", "mutated")
+TIER_ORDER = ("", "minimal", "full", "gold", "silver", "bronze", "mutated")
+
+# ---------------------------------------------------------------------------
+# Alias placeholder cleanup
+# ---------------------------------------------------------------------------
+_ALIAS_RE = re.compile(r'<Alias=[^>]+>')
+
+def strip_aliases(text):
+    """Remove game-engine alias placeholders like <Alias=PowerPlantShortNameLocation>."""
+    if not text: return text
+    return _ALIAS_RE.sub('', text).strip()
+    # Also collapse any resulting double-spaces or leading/trailing junk
+    # (the re.sub already handles removing the tag; strip cleans whitespace)
+
+
+# ---------------------------------------------------------------------------
+# GMRW tier-label inference for events whose TierLabel column is empty
+# ---------------------------------------------------------------------------
+
+def _infer_tier_labels(gmrw_rows):
+    """
+    For events like Powering Up where TierLabel is blank but reward rows
+    are differentiated by XP GLOB EDIDs (e.g. XPPowerPlantMinimal / Full)
+    or GetVMQuestVariable conditions, infer and stamp a TierLabel on each row.
+    Only acts when all existing TierLabels are empty and a Minimal/Full pattern
+    is detected in the XP GLOB EDIDs.
+    """
+    # Quick check: if any row already has a TierLabel, leave everything alone
+    if any((r.get("TierLabel") or "").strip() for r in gmrw_rows):
+        return gmrw_rows
+
+    # Check if the XP GLOB EDIDs contain Minimal/Full pattern
+    has_minimal = any("minimal" in (r.get("NAM7_XPGlobal") or "").lower() for r in gmrw_rows)
+    has_full    = any("full"    in (r.get("NAM7_XPGlobal") or "").lower() for r in gmrw_rows)
+    if not (has_minimal and has_full):
+        return gmrw_rows
+
+    # Stamp TierLabel based on XP GLOB name
+    for r in gmrw_rows:
+        xp_glob = (r.get("NAM7_XPGlobal") or "").lower()
+        if "minimal" in xp_glob:
+            r["TierLabel"] = "minimal"
+        elif "full" in xp_glob:
+            r["TierLabel"] = "full"
+        # Rows without an XP GLOB (e.g. legendary drops, drifter keycard) keep ""
+    return gmrw_rows
 
 def build_base_rewards(gmrw_rows):
     by_tier = defaultdict(list)
@@ -3625,21 +3689,32 @@ def build_base_rewards(gmrw_rows):
         if tier_key not in by_tier: continue
         rows = by_tier[tier_key]
 
-        # XP at level 50
+        # XP — prefer NAM7 GLOB (the actual awarded value) over XPCT curve
+        # (which is a base curve that may undercount).  Fall back to XPCT
+        # when NAM7 is absent or resolves to 0.
         xp_val = xp_formid = None
         for r in rows:
-            xpct = (r.get("XPCT_XPCurveTable") or "").strip()
-            if xpct:
-                fid = xpct.split(":")[0]
-                xp_val = xp_at_level(fid)
-                xp_formid = fid
-                break
+            nam7 = (r.get("NAM7_XPGlobal") or "").strip()
+            if nam7:
+                fid = nam7.split(":")[0]
+                if fid in glob_vals and glob_vals[fid]:
+                    xp_val    = int(glob_vals[fid])
+                    xp_formid = fid
+                    break
+        if xp_val is None:
+            for r in rows:
+                xpct = (r.get("XPCT_XPCurveTable") or "").strip()
+                if xpct:
+                    fid = xpct.split(":")[0]
+                    xp_val = xp_at_level(fid)
+                    xp_formid = fid
+                    break
 
-        # Caps
+        # Caps — skip "AAAIgnoreMe" placeholder GLOBs (value 0, means no caps)
         caps_val = caps_formid = None
         for r in rows:
             caps_ref = (r.get("NAM8_CapsGlobal") or "").strip()
-            if caps_ref:
+            if caps_ref and "aaaignoreme" not in caps_ref.lower():
                 fid = caps_ref.split(":")[0]
                 if fid in glob_vals:
                     caps_val    = int(glob_vals[fid])
@@ -3833,6 +3908,12 @@ CONTAINER_LOOT_EVENTS = {
     },
 }
 
+# Description overrides for events whose in-game text contains alias
+# placeholders that can't be resolved at build time.
+DESCRIPTION_OVERRIDES = {
+    "poweringuppowerstation": "A power plant has failed. Repair its systems and get the power back on.",
+}
+
 # Events that were cut or have no in-game rewards — suppress warnings.
 CUT_EVENTS = {"caravansmilepostzero"}
 
@@ -3976,10 +4057,13 @@ for key, pages in sorted(reward_pages_by_key.items()):
 
         is_public = str(q.get("IsPublicEvent") or q.get("PublicEvent") or "0").strip() == "1"
 
+        desc = DESCRIPTION_OVERRIDES.get(key) or strip_aliases(
+            pick(q, "DESC - Description", "DESC", default=""))
+
         event = {
-            "questFormID": qid, "name": pages[0]["eventTitle"] or game_name,
-            "gameName": game_name, "isPublicEvent": is_public,
-            "description": pick(q, "DESC - Description", "DESC", default=""),
+            "questFormID": qid, "name": pages[0]["eventTitle"] or strip_aliases(game_name),
+            "gameName": strip_aliases(game_name), "isPublicEvent": is_public,
+            "description": desc,
             "regionLocations": ACTIVITY_REGION_LOCATIONS.get(key, []),
             "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
             "pools": [], "banners": [], "scenarios": [],
@@ -4023,6 +4107,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
         # GMRW
         gmrw_rows = get_gmrw_rows_for_quest(q)
         if gmrw_rows:
+            gmrw_rows = _infer_tier_labels(gmrw_rows)
             event["baseRewards"] = build_base_rewards(gmrw_rows)
 
         # Detect if this is an activity event
@@ -4109,7 +4194,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
             # display — no need to add them as separate conditions text.
 
             if kind.upper() == "LVLI":
-                pool_key = (formid, rr.get("RewardIndex") or "")
+                pool_key = formid
                 if pool_key in pool_seen: continue
                 pool_seen.add(pool_key)
                 lvli_edid = lvli_edid_by_formid.get(formid, "")
@@ -4279,6 +4364,20 @@ for key, pages in sorted(reward_pages_by_key.items()):
                     add_free(event["freeRewards"], "Guaranteed Reward", f"{nm} x{count}",
                              meta={"source": "GMRW", "rewardedItem": rewarded, "conditions": conds,
                                    "name": nm, "qty": count, "isPlan": is_plan, "isUnique": not is_plan})
+
+        # If a pool FormID appeared under multiple tier labels in the GMRW
+        # rows, mark it as shared (tier="") so the JS renderer shows it once
+        # under both tiers rather than arbitrarily under the first-seen tier.
+        _pool_tiers = defaultdict(set)
+        for rr in gmrw_rows:
+            _ri = (rr.get("RewardedItem") or "").strip()
+            if not _ri: continue
+            _fid, _sig = parse_ref(_ri)
+            if _sig.upper() == "LVLI" and _fid:
+                _pool_tiers[_fid].add((rr.get("TierLabel") or "").strip())
+        for _p in event["pools"]:
+            if len(_pool_tiers.get(_p["lvliFormID"], set())) > 1:
+                _p["tier"] = ""
 
         event["pools"].sort(key=lambda p: (p.get("title") or "", p.get("lvliFormID") or ""))
 
