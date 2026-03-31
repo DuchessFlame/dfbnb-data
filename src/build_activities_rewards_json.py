@@ -2339,6 +2339,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         ri = int(rr.get("RewardIndex") or 0)
         _by_ri[ri].append(rr)
 
+    # Defaults for variables set inside the dedup block
+    _has_tier_split = False
+    _did_location_dedup = False
+    _kept_ris = set()
+    _ri_to_tier_label = {}
+
     if len(_by_ri) > 1:
         # Build a signature per RI: frozenset of RewardedItem FormIDs
         _ri_sig = {}
@@ -2358,20 +2364,23 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             scales   = False
 
             # Parse a human-readable label from the GLOB EDID
-            # e.g. "XPPowerPlantMinimal" → "Minimal", "XPPowerPlantFull" → "Full"
+            # e.g. "XPPowerPlantMinimal" → "Power Plant Minimal Repair"
+            # e.g. "XPPowerPlantFull"    → "Power Plant Full Repair"
             def _label_from_xp_glob(glob_ref):
                 edid = glob_ref.split(":")[1] if ":" in glob_ref else glob_ref
-                # Strip "XP" prefix, then split CamelCase
+                # Strip "XP" or "XP_" prefix
                 edid = re.sub(r'^XP_?', '', edid)
-                # Remove quest-name prefix segments (e.g. "PowerPlant")
-                # Keep only the last CamelCase segment(s) that describe the tier
+                # Split CamelCase and underscores into words
                 parts = re.findall(r'[A-Z][a-z0-9]*', edid)
-                if len(parts) > 1:
-                    # Heuristic: the tier descriptor is usually the last 1-2 words
-                    # e.g. ["Power","Plant","Minimal"] → "Minimal"
-                    # e.g. ["Power","Plant","Full"]    → "Full"
-                    return " ".join(parts[-1:])
-                return " ".join(parts) if parts else None
+                if not parts:
+                    return None
+                label = " ".join(parts)
+                # Append "Repair" if the label ends with a tier word
+                # (e.g. "Power Plant Minimal" → "Power Plant Minimal Repair")
+                tier_words = {"Minimal", "Full", "Partial", "Complete", "Failed", "Success"}
+                if parts[-1] in tier_words:
+                    label += " Repair"
+                return label
 
             if xpct:
                 xp_val = xp_at_level(xpct)
@@ -2395,26 +2404,31 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
         _kept_ris = set()
         _xp_tiers = []
+        _ri_to_tier_label = {}   # RI number → tier label (e.g. "Power Plant Minimal Repair")
         for sig, ris in _sig_groups.items():
             rep = ris[0]
             _kept_ris.add(rep)
             xp_val, xp_label, xp_fid, scales = _ri_xp[rep]
+            tier_label = xp_label or f"Tier {rep}"
+            _ri_to_tier_label[rep] = tier_label
             if xp_val and xp_val > 0:
                 _xp_tiers.append({
-                    "label": f"{xp_label} XP" if xp_label else f"Tier {rep} XP",
+                    "label": f"{tier_label} XP",
                     "xp": xp_val,
                     "xpFormID": xp_fid,
                     "scalesWithLevel": scales,
                 })
 
         # Only apply dedup if we actually collapsed something
-        if len(_kept_ris) < len(_by_ri):
+        _did_location_dedup = len(_kept_ris) < len(_by_ri)
+        if _did_location_dedup:
             gmrw_rows = [
                 rr for rr in gmrw_rows
                 if int(rr.get("RewardIndex") or 0) in _kept_ris
             ]
 
         # Emit xpBreakdown when there are 2+ tiers with different XP values
+        _has_tier_split = False
         if len(_xp_tiers) > 1:
             _unique_xp = set(t["xp"] for t in _xp_tiers)
             if len(_unique_xp) > 1:
@@ -2422,6 +2436,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 activity_data["baseRewards"]["xpBreakdown"] = _xp_tiers
                 # Set baseRewards.xp to the total (both tiers are awarded)
                 activity_data["baseRewards"]["xp"] = sum(t["xp"] for t in _xp_tiers)
+                _has_tier_split = True
 
     # ── Collect XP by stage ───────────────────────────────────────────────────
     # Each unique GMRW FormID is one checkpoint/stage. Extract the stage number
@@ -2778,17 +2793,15 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     })
 
     # ── Build reward tree for xEdit-style display ──
-    reward_tree = []
-    seen_lvli_tree = set()
-    _loose_scrap_items = []   # collect loose scrap/bulk direct rewards for grouping
-
-    for rr in gmrw_rows:
+    # Helper: build a tree node from a GMRW row
+    def _build_tree_node_from_row(rr, seen_fids):
+        """Build a reward tree node from a single GMRW row.
+        Returns (node_or_None, is_scrap_bool, scrap_data_or_None)."""
         rewarded = (rr.get("RewardedItem") or "").strip()
         if not rewarded:
-            continue
+            return None, False, None
         formid, kind = parse_ref(rewarded)
 
-        # Extract GMRW-level conditions
         cond_text = (rr.get("Conditions") or "").strip()
         tier_func = (rr.get("TierConditionFunc") or "").strip()
         tier_val = (rr.get("TierConditionValue") or "").strip()
@@ -2798,23 +2811,20 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 gmrw_mult = max(0.0, min(1.0, float(tier_val) / 100.0))
             except (ValueError, TypeError):
                 gmrw_mult = 1.0
-            gmrw_cond_display = ""  # GetRandomPercent is handled by drop rate display
+            gmrw_cond_display = ""
         else:
             gmrw_mult = parse_randompercent_multiplier(cond_text)
-            # Simplify the GMRW condition text for display
             gmrw_cond_display = simplify_condition(cond_text) if cond_text else ""
 
         if kind.upper() == "LVLI":
-            if formid in seen_lvli_tree:
-                continue
-            seen_lvli_tree.add(formid)
+            if formid in seen_fids:
+                return None, False, None
+            seen_fids.add(formid)
             tree_node = build_lvli_tree_node(formid)
             if tree_node and (tree_node.get("children") or tree_node.get("items")):
                 tree_node["gmrwDropRate"] = round(gmrw_mult * 100, 6)
                 if gmrw_cond_display:
                     tree_node["gmrwConditions"] = [gmrw_cond_display]
-                # Pass through RewardedItemCount — the game rolls this LVLI
-                # N times on completion (e.g. Death Blossoms seeds ×3).
                 roll_count_raw = (rr.get("RewardedItemCount") or "1").strip()
                 try:
                     roll_count = int(float(roll_count_raw))
@@ -2822,11 +2832,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     roll_count = 1
                 if roll_count > 1:
                     tree_node["rollCount"] = roll_count
-                reward_tree.append(tree_node)
+                return tree_node, False, None
         else:
-            # Non-LVLI direct reward — check if it's a loose scrap/bulk item.
-            # EDID patterns: "c_*_scrap", "Bulk_*_scrap" — identified by "_scrap" suffix
-            # or "Bulk_" prefix in the rewarded item's EDID (middle segment of ref).
             item_edid = rewarded.split(":")[1] if rewarded.count(":") >= 2 else ""
             is_loose_scrap = (
                 "_scrap" in item_edid.lower()
@@ -2839,33 +2846,152 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             except (ValueError, TypeError):
                 qty = 1
 
+            node_data = {
+                "formid": formid,
+                "name": name or formid,
+                "qty": qty,
+                "dropRate": round(gmrw_mult * 100, 6),
+                "conditions": [gmrw_cond_display] if gmrw_cond_display else [],
+                "edid": item_edid,
+                "sig": kind.upper(),
+            }
             if is_loose_scrap:
-                # Accumulate for grouping — dedupe by formid+qty, sum drop rates
-                key = (formid, qty)
+                return None, True, node_data
+            else:
+                node_data["type"] = "leaf"
+                return node_data, False, None
+        return None, False, None
+
+    reward_tree = []
+    _loose_scrap_items = []
+
+    # ── Tier-split tree building ──
+    # When we have 2+ reward tiers (e.g. Minimal vs Full), build separate
+    # tree node lists per tier. Standard nodes (Activity Rewards etc.) stay
+    # top-level; unique nodes get wrapped in tier sub-expands.
+    # Only create tier wrappers for contribution-level splits (e.g. Minimal/Full),
+    # NOT for generic sequential stage tiers (Tier 0, Tier 1, ...).
+    # Detect contribution-level tiers by checking if ANY tier label contains
+    # a meaningful contribution word (from _label_from_xp_glob output).
+    _CONTRIBUTION_WORDS = {"Minimal", "Full", "Partial", "Complete", "Failed", "Success"}
+    _is_contribution_split = _has_tier_split and _did_location_dedup and any(
+        any(w in label for w in _CONTRIBUTION_WORDS)
+        for label in _ri_to_tier_label.values()
+    )
+    if _is_contribution_split and len(_kept_ris) > 1:
+        # Build per-tier: each tier gets its OWN seen_fids so shared LVLIs
+        # (like Schematics) appear in each tier that awards them.
+        _tier_trees = {}   # ri → [nodes]
+        _tier_scrap = {}   # ri → [scrap_items]
+        _standard_nodes = []
+        _standard_seen = set()
+        _standard_scrap = []
+
+        for ri in sorted(_kept_ris):
+            tier_rows = [rr for rr in gmrw_rows if int(rr.get("RewardIndex") or 0) == ri]
+            tier_seen = set()
+            tier_nodes = []
+            tier_scrap_items = []
+
+            for rr in tier_rows:
+                node, is_scrap, scrap_data = _build_tree_node_from_row(rr, tier_seen)
+                if node:
+                    tier_nodes.append(node)
+                elif is_scrap and scrap_data:
+                    key = (scrap_data["formid"], scrap_data["qty"])
+                    existing = next((x for x in tier_scrap_items if (x["formid"], x["qty"]) == key), None)
+                    if existing:
+                        existing["dropRate"] = round(existing["dropRate"] + scrap_data["dropRate"], 6)
+                    else:
+                        tier_scrap_items.append(scrap_data)
+
+            _tier_trees[ri] = tier_nodes
+            _tier_scrap[ri] = tier_scrap_items
+
+        # Classify standard vs unique nodes per tier, then wrap unique ones.
+        # Standard regex (same as below, defined here for reuse)
+        _STD_RE = re.compile(
+            r'(?xi)'
+            r'  ^Activity\s+Rewards?$'
+            r'| ^Enclave\s+Activity\s+Rewards?$'
+            r'| ^Junk\s+&\s+Scrap\s+Rewards?$'
+            r'| ^Legendary'
+            r'| ^Enclave\s+Urban\s+Scout'
+            r'| ^Enclave\s+Plasma\s+Gun'
+            r'| ^Mutated\s+Events?\s+Rewards?$'
+            r'| ^Public\s+Event\s+Rewards?$'
+            r'| ^U-Mine-It'
+        )
+
+        for ri in sorted(_kept_ris):
+            tier_label = _ri_to_tier_label.get(ri, f"Tier {ri}")
+            unique_children = []
+            for node in _tier_trees[ri]:
+                label = node.get("label", "")
+                is_standard = bool(_STD_RE.search(label)) if node.get("type") != "leaf" else False
+                if is_standard:
+                    # Add standard nodes to top-level (dedup across tiers)
+                    fid = node.get("formid", "")
+                    if fid and fid not in _standard_seen:
+                        _standard_seen.add(fid)
+                        _standard_nodes.append(node)
+                else:
+                    node["isUniqueReward"] = True
+                    unique_children.append(node)
+
+            # Add tier scrap as grouped node inside unique children
+            if _tier_scrap[ri]:
+                unique_children.append({
+                    "type": "lvli",
+                    "formid": "",
+                    "edid": f"_synthetic_scrap_rewards_tier{ri}",
+                    "label": "Junk & Scrap Rewards",
+                    "useAll": True,
+                    "items": _tier_scrap[ri],
+                    "entryRate": 100.0,
+                    "conditions": [],
+                })
+
+            # Create tier wrapper node
+            if unique_children:
+                tier_wrapper = {
+                    "type": "lvli",
+                    "formid": "",
+                    "edid": f"_synthetic_tier_{ri}",
+                    "label": f"{tier_label} Rewards",
+                    "useAll": True,
+                    "isTierWrapper": True,
+                    "isUniqueReward": True,
+                    "children": unique_children,
+                    "items": [],
+                    "entryRate": 100.0,
+                    "conditions": [],
+                }
+                reward_tree.append(tier_wrapper)
+
+        # Add standard nodes at top level
+        reward_tree.extend(_standard_nodes)
+
+        # Merge standard scrap across tiers (shouldn't happen often, but be safe)
+        for ri in sorted(_kept_ris):
+            for scrap in _tier_scrap.get(ri, []):
+                # Standard scrap already handled inside tier wrappers
+                pass
+
+    else:
+        # ── Normal (single-tier) tree building ──
+        seen_lvli_tree = set()
+        for rr in gmrw_rows:
+            node, is_scrap, scrap_data = _build_tree_node_from_row(rr, seen_lvli_tree)
+            if node:
+                reward_tree.append(node)
+            elif is_scrap and scrap_data:
+                key = (scrap_data["formid"], scrap_data["qty"])
                 existing = next((x for x in _loose_scrap_items if (x["formid"], x["qty"]) == key), None)
                 if existing:
-                    existing["dropRate"] = round(existing["dropRate"] + gmrw_mult * 100, 6)
+                    existing["dropRate"] = round(existing["dropRate"] + scrap_data["dropRate"], 6)
                 else:
-                    _loose_scrap_items.append({
-                        "formid": formid,
-                        "name": name or formid,
-                        "qty": qty,
-                        "dropRate": round(gmrw_mult * 100, 6),
-                        "conditions": [gmrw_cond_display] if gmrw_cond_display else [],
-                        "edid": item_edid,
-                        "sig": kind.upper(),
-                    })
-            else:
-                reward_tree.append({
-                    "type": "leaf",
-                    "formid": formid,
-                    "name": name or formid,
-                    "qty": qty,
-                    "dropRate": round(gmrw_mult * 100, 6),
-                    "conditions": [gmrw_cond_display] if gmrw_cond_display else [],
-                    "edid": item_edid,
-                    "sig": kind.upper(),
-                })
+                    _loose_scrap_items.append(scrap_data)
 
     # ── Emit grouped Junk & Scrap Rewards node if any loose scrap/bulk items were found ──
     if _loose_scrap_items:
