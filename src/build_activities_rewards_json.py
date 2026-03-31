@@ -101,12 +101,6 @@ EMPTY_LVLI_ITEM_FALLBACKS = {
     "001109F4": [("001107AD", "ARMO", "Armor_DLC03_Marine_LegLeft")],      # LL_Armor_Marine_LegLeft
     "001109F5": [("001107AE", "ARMO", "Armor_DLC03_Marine_LegRight")],     # LL_Armor_Marine_LegRight
     "001109F6": [("001107AF", "ARMO", "Armor_DLC03_Marine_Torso")],        # LL_Armor_Marine_Torso
-    # T-51b Power Armor sub-lists: same export gap as Marine armor above.
-    "0018AE14": [("00140C4D", "ARMO", "Armor_PowerArmor_T51_ArmRight")],  # LL_Armor_PowerArmor_T51_ArmRight
-    "0018AE15": [("00140C4E", "ARMO", "Armor_PowerArmor_T51_Helmet")],    # LL_Armor_PowerArmor_T51_Helmet
-    "0018AE16": [("00140C4F", "ARMO", "Armor_PowerArmor_T51_LegLeft")],   # LL_Armor_PowerArmor_T51_LegLeft
-    "0018AE17": [("00140C50", "ARMO", "Armor_PowerArmor_T51_LegRight")],  # LL_Armor_PowerArmor_T51_LegRight
-    "0018AE18": [("00140C51", "ARMO", "Armor_PowerArmor_T51_Torso")],     # LL_Armor_PowerArmor_T51_Torso
 }
 
 # List-level conditions: built dynamically from LVLI_List TSV ListCond1..N columns.
@@ -235,23 +229,20 @@ def simplify_condition(cond_str):
     quest_match = re.search(r'"([^"]+)"\s*\[QUST:', s)
     quest_name = quest_match.group(1) if quest_match else ""
 
-    # GetQuestCompleted → "Requires the "<Quest Name>" quest to be completed"
+    # GetQuestCompleted → "Requires: <Quest Name>"
     if "GetQuestCompleted" in s and quest_name:
-        return f"Requires the \u201c{quest_name}\u201d quest to be completed"
+        return f"Requires: {quest_name}"
 
-    # HasLearnedRecipe → LVLI entry conditions for plans/recipes are always
-    # self-referencing (the condition checks the same recipe the entry awards).
-    # In-game these plans stop dropping once the player has learned them.
-    # Previous logic tried to distinguish comp_val >= 1.0 ("must know") from
-    # comp_val < 1.0 ("must not know"), but this produced circular text like
-    # "Requires Plan: Large Generator to be learned" on the Large Generator
-    # plan itself.  All HasLearnedRecipe conditions on LVLI entries should
-    # produce "Won't drop if already learned" text.
+    # HasLearnedRecipe → check comparison value (= 1 means MUST know, = 0 means must NOT know)
+    # and resolve the COBJ reference to a human-readable recipe/plan name.
     if "HasLearnedRecipe" in s:
         # Extract COBJ FormID from e.g. "co_Weapon_Ranged_GatlingPlasma [COBJ:00311432]"
         cobj_match = re.search(r'\[COBJ:([0-9A-Fa-f]+)\]', s)
         # Extract COBJ EDID as fallback
         cobj_edid_match = re.search(r'HasLearnedRecipe\([^,]*,\s*[^,]*,\s*(\w+)', s)
+        # Extract comparison value (last number in the raw string, e.g. "10000000 1.000000")
+        comp_match = re.search(r'(\d+\.\d+)\s*$', s)
+        comp_val = float(comp_match.group(1)) if comp_match else 1.0
 
         # Resolve recipe name from COBJ
         recipe_name = ""
@@ -275,12 +266,18 @@ def simplify_condition(cond_str):
         # Strip "Player Title: " / "Camp Title: " prefix and rephrase
         is_title = recipe_name.startswith(("Player Title:", "Camp Title:"))
 
-        # All LVLI HasLearnedRecipe conditions → "Won't drop if already learned"
-        if is_title:
-            return f"Won\u2019t drop if you\u2019ve already learned {recipe_name}"
-        if recipe_name:
-            return f"Won\u2019t drop if you\u2019ve already learned Plan: {recipe_name}"
-        return "Won\u2019t drop if you\u2019ve already learned this recipe"
+        if comp_val >= 1.0:
+            # = 1 means player MUST have learned the recipe
+            if recipe_name:
+                return f"Requires Plan: {recipe_name} to be learned"
+            return "Requires the base plan to be learned"
+        else:
+            # = 0 means player must NOT have learned it yet
+            if is_title:
+                return f"Won\u2019t drop if you\u2019ve already learned {recipe_name}"
+            if recipe_name:
+                return f"Won\u2019t drop if you\u2019ve already learned Plan: {recipe_name}"
+            return "Won\u2019t drop if you\u2019ve already learned this recipe"
 
     # GetRandomPercent → handled by entryRate and pill display, omit from conditions
     if "GetRandomPercent" in s:
@@ -418,21 +415,6 @@ def simplify_conditions(conditions):
             if s and s not in result:
                 result.append(s)
     return result
-
-def extract_region_conditions(raw_conditions):
-    """Extract 'Region: <name>' from raw GetInCurrentLocation conditions.
-    Used by resolve_lvli_items_deep to surface region info on plan rewards
-    without affecting the global simplify_condition output."""
-    regions = []
-    for c in (raw_conditions or []):
-        if "GetInCurrentLocation" in c:
-            loc_match = re.search(r'"([^"]+)"\s*\[LCTN:', c)
-            if loc_match:
-                region = f"Region: {loc_match.group(1)}"
-                if region not in regions:
-                    regions.append(region)
-    return regions
-
 
 def parse_randompercent_multiplier(conditions_text):
     mult = 1.0
@@ -700,15 +682,6 @@ _CUSTOM_NAME_CLEANUP = {
     "tillberg's tornado":           "Tillberg's Tornado",
 }
 
-# Static fallback descriptions for custom mods whose OMOD DESC is empty or missing.
-# Keys are lowercased customModName values; values are player-readable descriptions.
-_CUSTOM_MOD_DESC_OVERRIDES = {
-    "black diamond":       "Splits base damage into ~96 Physical + ~96 Cryo per hit (L50). No DoT \u2014 all cryo is direct on-hit.",
-    "perfect storm":       "Deals ~21 Fire Damage on impact + Burning DoT (17 dmg × 3 ticks). Burns stack per bullet.",
-    "civil unrest":        "+50 AP",
-    "all rise":            "+50 HP",
-}
-
 
 def _clean_custom_name(raw_value):
     """
@@ -763,8 +736,8 @@ def _filter_and_clean_modslots(slots, item_name=None):
     custom_description comes from the OMOD DESC field for the custom mod(s).
     """
     cleaned = []
-    custom_candidates = []
-    custom_omod_fids = []    # collect OMOD FormIDs for description lookup
+    custom_slots = []            # (cleaned_name, raw_value, original_slot) triples
+    custom_omod_fids = []        # collect OMOD FormIDs for description lookup
     for s in slots:
         label = s.get("label", "")
         value = s.get("value", "")
@@ -775,24 +748,49 @@ def _filter_and_clean_modslots(slots, item_name=None):
         if label.lower() in ("unique", "custom"):
             cname = _clean_custom_name(value)
             if cname:
-                custom_candidates.append(cname)
+                custom_slots.append((cname, value, s))
             # Collect OMOD FormID for description lookup
             ofid = s.get("omod_fid", "")
             if ofid:
                 custom_omod_fids.append(ofid)
-            # Don't include the Custom mod as a visible slot — it becomes the name
+            # Don't add to cleaned yet — we'll decide which ones to keep below
             continue
         cleaned.append(s)
     # Prefer the shortest clean custom name (avoids EDID-style names like "Cursed")
-    # but if only "Cursed" etc. remain, use those
+    # but if only "Cursed" etc. remain, use those.
+    # Among candidates with the same cleaned name, prefer the one whose raw value
+    # contains "Custom Mod" / "Custom Name" — that's the NAME OMOD.  The other(s)
+    # are EFFECT OMODs (like "Incendiary") and should stay visible as mod rows.
     custom_prefix = None
-    if custom_candidates:
+    chosen_idx = None            # index into custom_slots for the winner
+    _NAME_SUFFIXES = re.compile(r"(?i)\s*(?:custom\s*mod|custom\s*name)\s*$")
+    if custom_slots:
+        names_only = [c[0] for c in custom_slots]
         # Filter out generic "Cursed" if there's a better name
-        good = [c for c in custom_candidates if c.lower() != "cursed"]
-        if good:
-            custom_prefix = min(good, key=len) if len(good) > 1 else good[0]
-        else:
-            custom_prefix = custom_candidates[0]
+        good_idxs = [i for i, (c, r, s) in enumerate(custom_slots) if c.lower() != "cursed"]
+        if not good_idxs:
+            good_idxs = list(range(len(custom_slots)))
+        # Among candidates, prefer the one whose RAW value has a "Custom Mod"/"Custom Name"
+        # suffix — that's clearly the weapon-naming OMOD, not the effect OMOD.
+        def _name_score(idx):
+            c, raw, s = custom_slots[idx]
+            has_name_suffix = 1 if _NAME_SUFFIXES.search(raw) else 0
+            return (-has_name_suffix, len(c))   # prefer name suffix, then shortest
+        best_idx = min(good_idxs, key=_name_score)
+        custom_prefix = custom_slots[best_idx][0]
+        chosen_idx = best_idx
+        # Keep effect OMODs (all custom slots EXCEPT the chosen name) as visible rows.
+        # Strip "Special Effect" / "Custom Mod" suffixes for clean display values.
+        _EFFECT_STRIP = re.compile(r"(?i)\s*(?:special\s*effect|custom\s*mod|custom\s*name|paint)\s*$")
+        for i, (cname, raw_val, slot) in enumerate(custom_slots):
+            if i == chosen_idx:
+                continue
+            display = _EFFECT_STRIP.sub("", raw_val).strip() or raw_val.strip()
+            # Skip if display value is same as weapon name (redundant)
+            if custom_prefix and display.lower() == custom_prefix.lower():
+                continue
+            cleaned.append({"label": "Custom", "value": display,
+                            "omod_fid": slot.get("omod_fid", "")})
 
     # Look up OMOD descriptions for the custom mod(s)
     # Pick the longest non-junk description (most informative)
@@ -1027,15 +1025,12 @@ KNOWN_GLOB_VALS = {
     # SpawnChance_Cnone_ActivityCampTitle — ChanceNone for activity camp/player title drops.
     # 75% ChanceNone = 25% actual drop rate. Confirmed by Duchess (March 2026).
     "0089EA90": 75.0,
-    # Recipe ChanceNone tier GLOBs — FLTV values (tier indices) from GLOB TSV (March 2026).
-    # These are X inputs to a ChanceNone curve (e.g. Container_Recipe_ChanceNone).
-    # When paired with a CURV, _resolve_chance_none evaluates Curve(X=FLTV) for the
-    # actual ChanceNone.  When no CURV is present, the FLTV is used directly.
-    "00307CA7": 25.0,   # Recipe_VeryLow_ChanceNone_Tier   (tier index, NOT direct %)
-    "00307FF3": 10.0,   # Recipe_High_ChanceNone_Tier      (tier index, NOT direct %)
-    "00307FE9":  5.0,   # Recipe_VeryHigh_ChanceNone_Tier  (tier index, NOT direct %)
-    "00307FE7": 20.0,   # Recipe_Low_ChanceNone_Tier       (tier index, NOT direct %)
-    "00307FE8": 15.0,   # Recipe_Medium_ChanceNone_Tier    (tier index, NOT direct %)
+    # Recipe ChanceNone tier GLOBs — FLTV values confirmed from GLOB TSV (March 2026).
+    "00307CA7": 25.0,   # Recipe_VeryLow_ChanceNone_Tier  → 75% drop
+    "00307FF3": 10.0,   # Recipe_High_ChanceNone_Tier      → 90% drop
+    "00307FE9":  5.0,   # Recipe_VeryHigh_ChanceNone_Tier  → 95% drop
+    "00307FE7": 20.0,   # Recipe_Low_ChanceNone_Tier       → 80% drop
+    "00307FE8": 15.0,   # Recipe_Medium_ChanceNone_Tier    → 85% drop
 }
 
 glob_vals = dict(KNOWN_GLOB_VALS)  # seed with known values; TSV entries override below
@@ -1270,20 +1265,12 @@ def humanize_cobj_edid(edid):
     return s if s else edid
 
 # Build EDID-to-name index from all loaded TSVs (for items without FULL names)
-# Also build NonDroppable set (plans that cannot be traded/dropped)
 edid_to_name = {}
-_nondrop_book_fids = set()
 for r in BOOK:
     edid = pick(r, "BOOK_EDID", "EDID")
     full = pick(r, "BOOK_FULL", "FULL")
-    fid  = pick(r, "FormID", "BOOK_FormID")
     if edid and full:
         edid_to_name[edid] = full
-    # Check keywords for NonDroppable
-    kws = [pick(r, f"KW{i}") for i in range(1, 8)]
-    if any("NonDroppable" in (kw or "") for kw in kws):
-        if fid:
-            _nondrop_book_fids.add(fid.strip().upper())
 for r in ARMO:
     edid = pick(r, "ARMO_EDID", "EDID")
     full = pick(r, "ARMO_FULL", "FULL")
@@ -1372,46 +1359,16 @@ for _r in LVLI_LIST:
     if _conds:
         LVLI_LIST_CONDITIONS[_fid] = _conds
 
-def _interp_curve(pts, x):
-    """Linearly interpolate Y at X from a list of (x, y) curve points."""
-    if not pts:
-        return None
-    sp = sorted(pts, key=lambda p: p[0])
-    if x <= sp[0][0]:
-        return sp[0][1]
-    if x >= sp[-1][0]:
-        return sp[-1][1]
-    for i in range(len(sp) - 1):
-        x0, y0 = sp[i]
-        x1, y1 = sp[i + 1]
-        if x0 <= x <= x1:
-            t = (x - x0) / (x1 - x0) if x1 != x0 else 0
-            return y0 + t * (y1 - y0)
-    return sp[-1][1]
-
-def _resolve_chance_none(math_row, field_prefix="Entry", lvli_formid=""):
+def _resolve_chance_none(math_row, field_prefix="Entry"):
     """
-    Resolve ChanceNone for an LVLI entry/list, checking GLOB and CURV
-    references when the pre-computed 'Resolved' column is 0.
+    Resolve ChanceNone for an LVLI entry/list, checking GLOB references
+    when the pre-computed 'Resolved' column is 0.
 
     Priority:
       1. <prefix>ChanceNoneResolved (if non-zero, trust it)
-      2. GLOB + CURV present → use GLOB FLTV as X index into curve, return Y
-      3. CURV-column holds GLOB ref → resolve GLOB FLTV, then check
-         LVLI→CURV mapping for an associated curve table to evaluate
-      4. GLOB only (no CURV) → check LVLI→CURV mapping for curve, else
-         return GLOB FLTV directly as ChanceNone
-      5. Fall back to 0.0 (= 100% drop chance)
-
-    GLOB FLTV values (e.g. 10.0 for Recipe_High_ChanceNone_Tier) are tier
-    indices, NOT direct ChanceNone percentages.  When paired with a CURV
-    (either directly or via the LVLI→CURV mapping from the CURV main TSV),
-    the game evaluates Curve(X=FLTV) to get the actual ChanceNone Y.
-
-    Args:
-      math_row:      Dict from the LVLI Math TSV.
-      field_prefix:  "Entry" or "List".
-      lvli_formid:   The owning LVLI FormID (for LVLI→CURV mapping lookup).
+      2. <prefix>ChanceNoneGlobal → extract GLOB FormID → look up glob_vals
+      3. <prefix>ChanceNoneCurve  → extract GLOB FormID → look up glob_vals
+      4. Fall back to 0.0 (= 100% drop chance)
 
     Returns a float in 0-100 space (e.g. 95.0 means 95% chance of nothing).
     """
@@ -1419,49 +1376,15 @@ def _resolve_chance_none(math_row, field_prefix="Entry", lvli_formid=""):
     if resolved > 0:
         return resolved
 
-    glob_ref = (math_row.get(f"{field_prefix}ChanceNoneGlobal") or "").strip()
-    curv_ref = (math_row.get(f"{field_prefix}ChanceNoneCurve") or "").strip()
-
-    # Resolve GLOB FLTV (the tier/index value)
-    glob_fltv = None
-    if glob_ref:
-        glob_fid = glob_ref.split(":")[0] if ":" in glob_ref else glob_ref
+    # Check GLOB references when Resolved is 0
+    for col in (f"{field_prefix}ChanceNoneGlobal", f"{field_prefix}ChanceNoneCurve"):
+        ref = (math_row.get(col) or "").strip()
+        if not ref:
+            continue
+        # Extract GLOB FormID from "00829437:SpawnChance_Cnone_...:GLOB"
+        glob_fid = ref.split(":")[0] if ":" in ref else ref
         if glob_fid in glob_vals:
-            glob_fltv = glob_vals[glob_fid]
-
-    # If a real CURV is referenced, evaluate it with the GLOB FLTV as X
-    _glob_in_curv_slot = False  # True when the Curve slot holds a GLOB, not a real CURV
-    if curv_ref:
-        curv_fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
-        curv_pts = _curv_pts.get(curv_fid)
-        if curv_pts and glob_fltv is not None:
-            # GLOB FLTV is the X index into the curve; Y is the actual ChanceNone
-            y = _interp_curve(curv_pts, glob_fltv)
-            if y is not None:
-                return y
-        # Curve slot holds a GLOB ref (no actual curve points) — resolve its FLTV.
-        # The GLOB value IS the direct ChanceNone percentage, not a curve index.
-        if not curv_pts and curv_fid in glob_vals and glob_fltv is None:
-            glob_fltv = glob_vals[curv_fid]
-            _glob_in_curv_slot = True
-
-    # If we have a GLOB FLTV (tier index) but haven't found a curve yet,
-    # check the LVLI→CURV mapping.  The CURV main TSV tells us which curve
-    # table governs this LVLI's ChanceNone (e.g. Container_Recipe_ChanceNone).
-    # SKIP this lookup when the Curve slot held a GLOB — in that case the FLTV
-    # is already the direct ChanceNone, not an index into a curve.  The _lvli_to_curv
-    # map is built from CURV back-references and can match unrelated curves.
-    if glob_fltv is not None:
-        if not _glob_in_curv_slot:
-            owner_fid = lvli_formid or (math_row.get("LVLI_FormID") or "").strip()
-            if owner_fid and owner_fid in _lvli_to_curv:
-                mapped_curv_fid = _lvli_to_curv[owner_fid]
-                mapped_pts = _curv_pts.get(mapped_curv_fid)
-                if mapped_pts:
-                    y = _interp_curve(mapped_pts, glob_fltv)
-                    if y is not None:
-                        return y
-        return glob_fltv
+            return glob_vals[glob_fid]
 
     return 0.0
 
@@ -1489,9 +1412,9 @@ def compute_lvli(list_id):
         math = lvli_math_by_entry.get((list_id, idx))
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
-        list_none  = _resolve_chance_none(math, "List", list_id) / 100.0
+        list_none  = _resolve_chance_none(math, "List") / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = _resolve_chance_none(math, "Entry", list_id) / 100.0
+        entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
         raw_weight = (1 - list_none) * entry_pres * cond_rand * apriori
@@ -1545,9 +1468,9 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
         math = lvli_math_by_entry.get((list_id, idx))
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
-        list_none  = _resolve_chance_none(math, "List", list_id) / 100.0
+        list_none  = _resolve_chance_none(math, "List") / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = _resolve_chance_none(math, "Entry", list_id) / 100.0
+        entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
@@ -1693,9 +1616,9 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
             continue
 
         # Extract probability components (resolve GLOBs when xEdit left them unresolved)
-        list_none  = _resolve_chance_none(math, "List", list_id) / 100.0
+        list_none  = _resolve_chance_none(math, "List") / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = _resolve_chance_none(math, "Entry", list_id) / 100.0
+        entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
         apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
 
@@ -1729,23 +1652,12 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 if cond_val:
                     conditions.append(cond_val)
 
-        # Extract minimum level requirement as a display condition (skip trivial level 1)
-        min_lvl_raw = (entry.get("LVLV_MinimumLevel") or "").strip()
-        try:
-            min_lvl = int(float(min_lvl_raw)) if min_lvl_raw else 0
-        except (ValueError, TypeError):
-            min_lvl = 0
-        if min_lvl > 1:
-            conditions.append(f"GetLevel(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 01000100 {min_lvl}.000000")
-
         sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
         ref = (entry.get("LVLO_Reference") or "").strip()
         ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
 
         # Simplify conditions for display
         display_conds = simplify_conditions(conditions)
-        # Extract region conditions from raw data (not included in display_conds)
-        region_conds = extract_region_conditions(conditions)
 
         if sub_lvli:
             # Recurse into sub-LVLI and apply parent drop rate
@@ -1758,7 +1670,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": sub_item["dropRate"] * drop_rate,
                     "edid": sub_item["edid"],
                     "sig": sub_item.get("sig", ""),
-                    "conditions": list_level_conds + display_conds + region_conds + (sub_item.get("conditions") or []),
+                    "conditions": list_level_conds + display_conds + (sub_item.get("conditions") or []),
                 })
         else:
             # Leaf item
@@ -1769,18 +1681,15 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 if _CUT_LVLI_RE.search(edid):
                     continue
                 name = resolve_name_for_formid(fid, edid)
-                _leaf_item = {
+                items.append({
                     "formid": fid,
                     "name": name,
                     "qty": qty,
                     "dropRate": drop_rate,
                     "edid": edid,
                     "sig": ref_sig,
-                    "conditions": list_level_conds + display_conds + region_conds,
-                }
-                if ref_sig.upper() == "BOOK":
-                    _leaf_item["tradeable"] = fid.strip().upper() not in _nondrop_book_fids
-                items.append(_leaf_item)
+                    "conditions": list_level_conds + display_conds,
+                })
 
     # Normalize for pick-one lists.
     # Only normalise UPWARD (total > 1) — xEdit exports apriori=1.0 for every entry
@@ -1791,12 +1700,6 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         if total_rate > 1.0001:
             for item in items:
                 item["dropRate"] = item["dropRate"] / total_rate
-
-    # Single-entry pick-one lists: normalize the sole item to 100%.
-    # Same rationale as build_lvli_tree_node — residual EntryCN on single-item lists
-    # is xEdit noise; the parent GLOB ChanceNone controls whether the list fires.
-    if not is_use_all and len(items) == 1 and items[0]["dropRate"] < 1.0:
-        items[0]["dropRate"] = 1.0
 
     # Merge entries that resolve to the same item (same formid + qty).
     # This collapses level-gated duplicates (e.g. Light/Medium/Heavy sub-LVLIs
@@ -1932,8 +1835,8 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # ChanceNone is applied AFTER normalisation (same approach as compute_lvli).
         resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
         resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
-        actual_list_cn    = _resolve_chance_none(math, "List", list_id)
-        actual_entry_cn   = _resolve_chance_none(math, "Entry", list_id)
+        actual_list_cn    = _resolve_chance_none(math, "List")
+        actual_entry_cn   = _resolve_chance_none(math, "Entry")
         glob_correction = 1.0
         if actual_list_cn > 0 and resolved_list_cn == 0:
             glob_correction *= (1.0 - actual_list_cn / 100.0)
@@ -2009,9 +1912,6 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                     "qty": qty,
                     "sig": ref_sig,
                 }
-                # Mark tradeability for BOOK items (plans/recipes)
-                if ref_sig.upper() == "BOOK":
-                    item_data["tradeable"] = fid.strip().upper() not in _nondrop_book_fids
                 if display_conditions:
                     item_data["conditions"] = display_conditions
                 # Attach modSlots if this LVLI is a named/unique variant.
@@ -2027,9 +1927,8 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                         if custom_prefix:
                             item_data["name"] = _apply_custom_prefix(item_data.get("name", ""), custom_prefix)
                             item_data["customModName"] = custom_prefix
-                            desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
-                            if desc:
-                                item_data["customModDescription"] = desc
+                            if custom_desc:
+                                item_data["customModDescription"] = custom_desc
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
 
     # ── First-match cascading probability ──
@@ -2067,16 +1966,6 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
             normalised_pick = pw / total_pick
             effective_rate = normalised_pick * gc  # apply ChanceNone after normalisation
             raw_entries[i] = (etype, effective_rate, data, raw_conds, normalised_pick, gc)
-
-    # Single-entry pick-one lists: the sole entry IS the entire list — normalize to 100%.
-    # xEdit sometimes computes a residual EntryChanceNone (e.g. 1%) on single-entry lists
-    # that doesn't reflect real game behaviour.  The parent LVLI's ChanceNone GLOB already
-    # controls whether the list fires at all; the single item inside should always be 100%.
-    # Example: LL_Weapon_Ranged_PumpActionShotgun_CivilUnrest has apriori=0.99 due to a
-    # stray 1% EntryCN, while the other 3 unique weapon LVLIs correctly show apriori=1.0.
-    if not is_use_all and len(raw_entries) == 1:
-        etype, rate, data, raw_conds, pw, gc = raw_entries[0]
-        raw_entries[0] = (etype, gc, data, raw_conds, 1.0, gc)
 
     # Convert to final output with percentages
     for etype, rate, data, _raw_conds, _pw, _gc in raw_entries:
@@ -2570,107 +2459,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     if _failure_stages and len(_success_stages) == 1:
         activity_data["baseRewards"]["xpSuccess"] = _success_stages[0]["xp"]
 
-    # ── Multi-tier GMRW breakdown (RewardIndex-based) ─────────────────────
-    # Some activities (e.g. Riding Shotgun) have multiple RewardIndex tiers
-    # within a single GMRW record, each with its own XP, Caps, LVLI, and
-    # conditions.  Group rows by RewardIndex and emit xpBreakdown / capsBreakdown
-    # arrays so the JS renderer can show labeled reward lines.
-    _by_reward_idx = defaultdict(list)
-    for rr in gmrw_rows:
-        ri = int(rr.get("RewardIndex") or 0)
-        _by_reward_idx[ri].append(rr)
-
-    # Helper: parse a human-readable label from a GLOB EDID
-    # e.g. "XP_E05_Caravan_FrontBrahmin_Survived" → "Front Brahmin Survived"
-    #       "Caps_E05_Caravan_Found_1_Package"     → "Found 1 Package"
-    def _label_from_glob_edid(edid_str):
-        edid = edid_str.split(":")[-2] if ":" in edid_str else edid_str
-        # Strip common prefixes: XP_, Caps_, then quest prefix (e.g. E05_Caravan_, BS02_E01_Metal_)
-        # Handle both underscore-separated (XP_Something) and CamelCase (XPSomething)
-        edid = re.sub(r'^(?:XP|Caps|NAM\d)_?', '', edid)
-        # Strip quest prefix: one or more segments like E05_Caravan_ or BS02_E01_Metal_
-        edid = re.sub(r'^(?:[A-Z]{1,4}\d+[A-Za-z]*_)+(?:[A-Za-z]+_)?', '', edid)
-        # Convert underscores to spaces
-        edid = edid.replace('_', ' ').strip()
-        # Insert space before CamelCase boundaries (e.g. FrontBrahmin → Front Brahmin)
-        edid = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', edid)
-        edid = re.sub(r'(?<=[A-Z])(?=[A-Z][a-z])', ' ', edid)
-        # Title-case
-        result = edid.title() if edid else None
-        # Filter out meaningless labels (pure numbers, stage codes, short gibberish)
-        # Only return if it contains at least one word with 3+ alpha characters.
-        if result and not re.search(r'[A-Za-z]{3,}', result):
-            return None
-        return result
-
-    if len(_by_reward_idx) > 1:
-        xp_breakdown = []
-        caps_breakdown = []
-
-        for ri in sorted(_by_reward_idx.keys()):
-            rows = _by_reward_idx[ri]
-            first = rows[0]
-
-            # Conditions for this tier
-            cond_func = (first.get("TierConditionFunc") or "").strip()
-            cond_val  = (first.get("TierConditionValue") or "").strip()
-
-            # XP: prefer XPCT curve, fall back to NAM7 GLOB
-            xpct      = (first.get("XPCT_XPCurveTable") or "").strip()
-            xp_glob   = (first.get("NAM7_XPGlobal") or "").strip()
-            xp_val    = None
-            xp_label  = None
-
-            if xpct:
-                xp_val   = xp_at_level(xpct)
-                # Use NAM7 GLOB EDID for label when available; XPCT EDIDs are usually
-                # generic curve names like "CT_Player_XP_Universal_Tier25" — not useful.
-                if xp_glob:
-                    xp_label = _label_from_glob_edid(xp_glob)
-                else:
-                    xp_label = "Event Completion"
-            elif xp_glob:
-                xp_fid = xp_glob.split(":")[0]
-                if xp_fid in glob_vals:
-                    xp_val = int(glob_vals[xp_fid])
-                xp_label = _label_from_glob_edid(xp_glob)
-
-            if xp_val and xp_val > 0:
-                entry = {"label": xp_label or f"Reward Tier {ri}", "xp": xp_val, "rewardIndex": ri}
-                if cond_func:
-                    entry["condition"] = cond_func
-                if xpct:
-                    entry["scalesWithLevel"] = True
-                xp_breakdown.append(entry)
-
-            # Caps: NAM8 GLOB
-            caps_ref = (first.get("NAM8_CapsGlobal") or "").strip()
-            if caps_ref:
-                caps_fid = caps_ref.split(":")[0]
-                if caps_fid in glob_vals:
-                    caps_val = int(glob_vals[caps_fid])
-                    caps_label = _label_from_glob_edid(caps_ref)
-                    entry = {"label": caps_label or f"Reward Tier {ri}", "caps": caps_val, "rewardIndex": ri}
-                    if cond_func:
-                        entry["condition"] = cond_func
-                    caps_breakdown.append(entry)
-
-        # Only emit xpBreakdown if there are genuinely different XP values across
-        # tiers.  Placement-based activities (e.g. Monster Mash) have multiple
-        # RewardIndex tiers that all share the same XP — showing a breakdown of
-        # identical values is misleading.
-        if len(xp_breakdown) > 1:
-            _unique_xp_vals = set(e["xp"] for e in xp_breakdown)
-            if len(_unique_xp_vals) > 1:
-                activity_data["baseRewards"]["xpBreakdown"] = xp_breakdown
-        if len(caps_breakdown) > 1:
-            _unique_caps_vals = set(e["caps"] for e in caps_breakdown)
-            if len(_unique_caps_vals) > 1:
-                activity_data["baseRewards"]["capsBreakdown"] = caps_breakdown
-
-    # Track plan formids across all GMRW entries to prevent duplicates
-    _seen_plan_fids = set()
-
     # Process GMRW rows (caps, legendary rank, LVLI rewards)
     for rr in gmrw_rows:
         # Caps
@@ -2772,12 +2560,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     is_plan_name = name.startswith(("Plan:", "Recipe:"))
                     if not (is_book or is_plan_edid or is_plan_name):
                         continue
-                    # Dedup by formid (local and cross-GMRW)
+                    # Dedup by formid
                     fid = item.get("formid", "")
-                    if fid in seen_plans or fid in _seen_plan_fids:
+                    if fid in seen_plans:
                         continue
                     seen_plans.add(fid)
-                    _seen_plan_fids.add(fid)
                     activity_data["planRewards"].append({
                         "name": name,
                         "formid": fid,
@@ -2785,7 +2572,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(item.get("dropRate", 0.0)),
                         "qty": item.get("qty", 1),
                         "isPlan": True,
-                        "conditions": item.get("conditions", []),
                     })
 
             # Process progression items → Region Rewards
@@ -2841,7 +2627,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     })
                 elif sig_str == "BOOK" or "recipe" in edid_str.lower():
                     # Non-title BOOK quest reward (plan) → UER
-                    _uer_fid = item.get("formid", "").strip().upper()
                     activity_data["uniqueEventRewards"].append({
                         "name": item.get("name", ""),
                         "formid": item.get("formid", ""),
@@ -2849,7 +2634,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(item.get("dropRate", 0.0)) if item.get("dropRate", 0.0) < 1.0 else None,
                         "qty": item.get("qty", 1),
                         "kind": "plan",
-                        "tradeable": _uer_fid not in _nondrop_book_fids,
                         "conditions": simplify_conditions(item.get("conditions", [])),
                     })
                 else:
@@ -2877,8 +2661,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if re.fullmatch(r"[0-9A-Fa-f]{8}", item_name):
                     continue
                 is_plan = item_name.startswith(("Plan:", "Recipe:"))
-                _uer_fid2 = item.get("formid", "").strip().upper()
-                _uer_entry = {
+                activity_data["uniqueEventRewards"].append({
                     "name": item_name,
                     "formid": item.get("formid", ""),
                     "edid": item.get("edid", ""),
@@ -2886,23 +2669,14 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "qty": item.get("qty", 1),
                     "kind": "plan" if is_plan else None,
                     "conditions": simplify_conditions(item.get("conditions", [])),
-                }
+                })
                 if is_plan:
-                    _uer_entry["tradeable"] = _uer_fid2 not in _nondrop_book_fids
-                activity_data["uniqueEventRewards"].append(_uer_entry)
-                if is_plan:
-                    plan_fid = item.get("formid", "")
-                    if plan_fid not in _seen_plan_fids:
-                        _seen_plan_fids.add(plan_fid)
-                        activity_data["planRewards"].append({
-                            "name": item_name,
-                            "formid": plan_fid,
-                            "edid": item.get("edid", ""),
-                            "dropRate": pct(dr) if dr < 1.0 else None,
-                            "qty": item.get("qty", 1),
-                            "conditions": simplify_conditions(item.get("conditions", [])),
-                            "isPlan": True,
-                        })
+                    activity_data["planRewards"].append({
+                        "name": item_name,
+                        "formid": item.get("formid", ""),
+                        "dropRate": pct(dr) if dr < 1.0 else None,
+                        "qty": item.get("qty", 1),
+                    })
 
     # ── Build reward tree for xEdit-style display ──
     reward_tree = []
@@ -2919,10 +2693,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         cond_text = (rr.get("Conditions") or "").strip()
         tier_func = (rr.get("TierConditionFunc") or "").strip()
         tier_val = (rr.get("TierConditionValue") or "").strip()
-
-        # Extract tier label from NAM7 XP GLOB EDID (e.g. "Front Brahmin Survived")
-        _nam7_ref = (rr.get("NAM7_XPGlobal") or "").strip()
-        _tier_label = _label_from_glob_edid(_nam7_ref) if _nam7_ref else None
 
         if tier_func.lower() == "getrandompercent" and tier_val:
             try:
@@ -2944,26 +2714,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 tree_node["gmrwDropRate"] = round(gmrw_mult * 100, 6)
                 if gmrw_cond_display:
                     tree_node["gmrwConditions"] = [gmrw_cond_display]
-                # Attach human-readable tier label from GMRW NAM7 XP GLOB EDID
-                # (e.g. "Front Brahmin Survived", "Back Brahmin Survived")
-                if _tier_label:
-                    tree_node["tierLabel"] = _tier_label
-
-                # ── Placement-based tiers (e.g. Monster Mash 1st/2nd/3rd) ──
-                # Detect via GetIsAliasRef condition + Rank1/Rank2/Rank3 in EDID.
-                # These are competitive activities where rewards differ by finishing
-                # position.  Tag the tree node so the JS can render placement expands.
-                _item_edid = rewarded.split(":")[1] if rewarded.count(":") >= 2 else ""
-                if tier_func.lower() == "getisaliasref":
-                    _rank_m = re.search(r'Rank(\d+)', _item_edid)
-                    if _rank_m:
-                        _placement = int(_rank_m.group(1))
-                        _placement_labels = {1: "1st Place", 2: "2nd Place", 3: "3rd Place"}
-                        tree_node["placementTier"] = _placement
-                        tree_node["placementLabel"] = _placement_labels.get(
-                            _placement, f"{_placement}th Place"
-                        )
-
                 # Pass through RewardedItemCount — the game rolls this LVLI
                 # N times on completion (e.g. Death Blossoms seeds ×3).
                 roll_count_raw = (rr.get("RewardedItemCount") or "1").strip()
@@ -3080,6 +2830,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         r'  ^Activity\s+Rewards?$'
         r'| ^Enclave\s+Activity\s+Rewards?$'
         r'| ^Junk\s+&\s+Scrap\s+Rewards?$'
+        r'| ^Legendary'
         r'| ^Enclave\s+Urban\s+Scout'
         r'| ^Enclave\s+Plasma\s+Gun'
         r'| ^Mutated\s+Events?\s+Rewards?$'
@@ -3111,9 +2862,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
                     item["customModName"] = custom_prefix
-                    desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
-                    if desc:
-                        item["customModDescription"] = desc
+                    if custom_desc:
+                        item["customModDescription"] = custom_desc
                 continue
             fid = item.get("formid", "")
             sig = (item.get("sig") or "").upper()
@@ -3130,9 +2880,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
                     item["customModName"] = custom_prefix
-                    desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
-                    if desc:
-                        item["customModDescription"] = desc
+                    if custom_desc:
+                        item["customModDescription"] = custom_desc
         for child in node.get("children", []):
             child["isUniqueReward"] = True
             _attach_modslots_to_tree(child, child.get("edid", "") or node_edid)
@@ -3167,9 +2916,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             if custom_prefix:
                 uer_item["name"] = _apply_custom_prefix(uer_item.get("name", ""), custom_prefix)
                 uer_item["customModName"] = custom_prefix
-                desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
-                if desc:
-                    uer_item["customModDescription"] = desc
+                if custom_desc:
+                    uer_item["customModDescription"] = custom_desc
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):
@@ -3177,168 +2925,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         is_title = "title" in kind
         return (0 if is_title else 1, (item.get("name") or "").lower())
     activity_data["uniqueEventRewards"].sort(key=_uer_sort_key)
-
-    # ── S.M.A.R.T. Vending Machine detection ──────────────────────────────
-    # Only runs for Monster Mash (CB02 quest prefix).  Detects
-    # CB02_LL_VendingList_* LVLIs and builds item lists for each tier.
-    # Candy costs are from the in-game terminal (not in LVLI data); we map
-    # them by EDID suffix.  Item lists are fully generative from the TSV.
-    _quest_edid = ""
-    if gmrw_rows:
-        _quest_parent = (gmrw_rows[0].get("ParentQuestLink") or "").strip()
-        _quest_edid = _quest_parent.split(":")[1] if ":" in _quest_parent else ""
-
-    _is_monster_mash = "CB02_MonsterMash" in _quest_edid
-    _SMART_COST_MAP = {
-        "SmallToy":   50,
-        "MediumToy":  75,
-        "LargeToy":   125,
-        "Surprise1":  400,
-        "Surprise2":  800,
-    }
-    _SMART_TITLE_MAP = {
-        "SmallToy":   "Small Toy",
-        "MediumToy":  "Medium Toy",
-        "LargeToy":   "Large Toy",
-        "Surprise1":  "Surprise Gift",
-        "Surprise2":  "Mystery Gift",
-    }
-    _SMART_ORDER = ["SmallToy", "MediumToy", "LargeToy", "Surprise1", "Surprise2"]
-
-    smart_categories = []
-    if _is_monster_mash:
-        for suffix in _SMART_ORDER:
-            vend_edid = f"CB02_LL_VendingList_{suffix}"
-            # Find formid for this EDID
-            vend_fid = None
-            for fid, edid in lvli_edid_by_formid.items():
-                if edid == vend_edid:
-                    vend_fid = fid
-                    break
-            if not vend_fid:
-                continue
-
-            # Use resolve_lvli_items_deep to fully flatten all sub-LVLIs.
-            # This handles ammo sub-lists (Surprise Gift) and weapon sub-lists
-            # (Mystery Gift) by recursing until leaf items, preserving drop
-            # rates, quantities, and level conditions.
-            flat_items = resolve_lvli_items_deep(vend_fid)
-            if not flat_items:
-                continue
-
-            # Build output items with proper names, conditions, and rates.
-            # Merge entries that resolve to the same item name (e.g. level-gated
-            # ammo quantities or weapon variants).  For merged items:
-            #   - drop rates are summed
-            #   - qty becomes a "min–max" range string if it varies
-            #   - level conditions: if ANY entry has no level requirement,
-            #     the item is always available → skip level conditions;
-            #     otherwise keep the minimum level from across all entries
-            # Known ammo display names — EDIDs don't always humanize well
-            # because there's no AMMO TSV with FULL names.
-            _AMMO_DISPLAY = {
-                "Ammo10mm":             "10mm Round",
-                "Ammo2mmEC":            "2mm Electromagnetic Cartridge",
-                "Ammo308Caliber":       ".308 Round",
-                "Ammo38Caliber":        ".38 Round",
-                "Ammo44":               ".44 Round",
-                "Ammo45Caliber":        ".45 Round",
-                "Ammo50Caliber":        ".50 Round",
-                "Ammo50CaliberBall":    ".50 Caliber Ball",
-                "Ammo556":              "5.56 Round",
-                "Ammo5mm":              "5mm Round",
-                "AmmoRRSpike":          "Railway Spike",
-            }
-            def _clean_smart_name(name, sig, edid=""):
-                """Normalise item names for S.M.A.R.T. machine display."""
-                # Try known ammo map first (keyed by original EDID before humanize)
-                if edid in _AMMO_DISPLAY:
-                    return _AMMO_DISPLAY[edid]
-                # Generic ammo prefix strip
-                if sig.upper() == "AMMO" or name.lower().startswith("ammo"):
-                    n = re.sub(r"^Ammo\s*", "", name)
-                    n = re.sub(r"([a-z])([A-Z])", r"\1 \2", n)
-                    return n.strip()
-                return name
-
-            _smart_by_name = {}
-            for it in flat_items:
-                dr = it.get("dropRate", 0.0)
-                if dr <= 0.0:
-                    continue
-                item_name = it.get("name", "")
-                if re.fullmatch(r"[0-9A-Fa-f]{8}", item_name):
-                    continue
-                raw_conds = simplify_conditions(it.get("conditions", []))
-                qty = it.get("qty", 1)
-                item_name = _clean_smart_name(item_name, it.get("sig", ""), it.get("edid", ""))
-                if item_name not in _smart_by_name:
-                    _smart_by_name[item_name] = {
-                        "formid": it.get("formid", ""),
-                        "name": item_name,
-                        "qtys": [qty],
-                        "sig": it.get("sig", ""),
-                        "dropRate": dr,
-                        "conds_list": [raw_conds],
-                    }
-                else:
-                    grp = _smart_by_name[item_name]
-                    grp["dropRate"] += dr
-                    grp["qtys"].append(qty)
-                    grp["conds_list"].append(raw_conds)
-
-            vend_items = []
-            for grp in _smart_by_name.values():
-                qtys = sorted(set(grp["qtys"]))
-                if len(qtys) == 1:
-                    qty_val = qtys[0]
-                else:
-                    qty_val = f"{qtys[0]}\u2013{qtys[-1]}"
-
-                # Merge conditions: extract minimum player level, if all
-                # entries require one.  If any entry has NO level condition
-                # the item is always available.
-                all_conds = grp["conds_list"]
-                _has_unconditional = any(
-                    not any("level" in c.lower() for c in cl) for cl in all_conds
-                )
-                merged_conds = []
-                if not _has_unconditional:
-                    # Find minimum level across all condition lists
-                    _min_lvl = None
-                    for cl in all_conds:
-                        for c in cl:
-                            m = re.search(r"level (\d+)\+", c, re.IGNORECASE)
-                            if m:
-                                lvl = int(m.group(1))
-                                if _min_lvl is None or lvl < _min_lvl:
-                                    _min_lvl = lvl
-                    if _min_lvl and _min_lvl > 1:
-                        merged_conds.append(f"Requires player level {_min_lvl}+")
-
-                vend_items.append({
-                    "formid": grp["formid"],
-                    "name": grp["name"],
-                    "qty": qty_val,
-                    "sig": grp["sig"],
-                    "dropRate": pct(grp["dropRate"]),
-                    "conditions": merged_conds if merged_conds else None,
-                })
-
-            if not vend_items:
-                continue
-
-            smart_categories.append({
-                "title": _SMART_TITLE_MAP.get(suffix, suffix),
-                "cost": _SMART_COST_MAP.get(suffix, 0),
-                "formid": vend_fid,
-                "edid": vend_edid,
-                "itemCount": len(vend_items),
-                "items": sorted(vend_items, key=lambda x: x["name"].lower()),
-            })
-
-    if smart_categories:
-        activity_data["smartMachine"] = smart_categories
 
     return activity_data
 
@@ -3356,37 +2942,6 @@ for r in CURV_POINTS:
     fid = pick(r, "CURV_FormID", "FormID")
     try: _curv_pts[fid].append((float(r.get("X") or 0), float(r.get("Y") or 0)))
     except (ValueError, TypeError): pass
-
-# LVLI→CURV mapping: which curve table governs each LVLI's ChanceNone.
-# Built from the CURV main TSV's Ref columns (e.g. "003D6544:LLS_Recipe_...:LVLI").
-# Uses lightweight line-based parsing since the CURV main TSV can have 2700+ columns.
-_lvli_to_curv = {}
-_HEX8 = re.compile(r"[0-9A-Fa-f]{8}")
-_LVLI_REF_RE = re.compile(r"([0-9A-Fa-f]{8}):[^:]+:LVLI")
-try:
-    _curv_main_candidates = [f for f in glob.glob("tsv/CURV_Export_*.tsv") if "_POINTS" not in f]
-    _curv_main_candidates.sort(key=lambda x: os.path.getmtime(x))
-    _curv_main_path = _curv_main_candidates[-1] if _curv_main_candidates else None
-except (IndexError, FileNotFoundError):
-    _curv_main_path = None
-if _curv_main_path:
-    with open(_curv_main_path, encoding="utf-8-sig") as _cf:
-        _header = _cf.readline().strip().split("\t")
-        _fid_col = 0  # CURV_FormID is first column
-        for _i, _h in enumerate(_header):
-            if _h in ("CURV_FormID", "FormID"):
-                _fid_col = _i
-                break
-        for _line in _cf:
-            _fields = _line.split("\t")
-            if len(_fields) <= _fid_col:
-                continue
-            _curv_fid = _fields[_fid_col].strip()
-            if not _HEX8.fullmatch(_curv_fid):
-                continue
-            # Scan the entire line for LVLI references (fast regex on raw text)
-            for _m in _LVLI_REF_RE.finditer(_line):
-                _lvli_to_curv[_m.group(1)] = _curv_fid
 
 def xp_at_level(curv_ref, level=50):
     fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
@@ -4143,66 +3698,28 @@ for key, pages in sorted(reward_pages_by_key.items()):
                     items = sorted(seen_fids.values(),
                                    key=lambda x: (x["name"] or "", x["formid"] or ""))
                 else:
-                    deep_items = resolve_lvli_items_deep(formid)
+                    probs = compute_lvli(formid)
                     # Normalise only when total > 1 (xEdit equal-weight artefact:
                     # apriori=1.0 for every entry in an N-entry pick-one list gives total=N).
                     # Do NOT normalise when total < 1 — that reflects legitimate entry-level
-                    # ChanceNone (a real chance of no reward), now handled inside resolve_lvli_items_deep.
-                    _total = sum(it["dropRate"] for it in deep_items)
+                    # ChanceNone (a real chance of no reward), now handled inside compute_lvli.
+                    _total = sum(probs.values())
                     if _total > 1.0001:
-                        for it in deep_items:
-                            it["dropRate"] = it["dropRate"] / _total
-                    # Merge duplicates (same formid) — sum rates, union conditions
-                    _merged = {}
-                    for it in deep_items:
-                        fid = it["formid"]
-                        if fid in _merged:
-                            _merged[fid]["dropRate"] += it["dropRate"]
-                            for c in (it.get("conditions") or []):
-                                if c not in (_merged[fid].get("conditions") or []):
-                                    _merged[fid].setdefault("conditions", []).append(c)
-                        else:
-                            _merged[fid] = dict(it)
+                        probs = {k: v / _total for k, v in probs.items()}
                     items = sorted([
                         {
-                            "formid": it["formid"],
-                            "name": it.get("name") or resolve_name_for_formid(it["formid"]),
-                            "dropRate": pct(it["dropRate"] * cond_mult),
-                            "qty": it.get("qty", 1),
+                            "formid": fid,
+                            "name": resolve_name_for_formid(fid),
+                            "dropRate": pct(ch * cond_mult),
+                            "qty": 1,
                             "isPlan": any(
                                 n.startswith(("Plan:", "Recipe:"))
-                                for n in [it.get("name") or resolve_name_for_formid(it["formid"])]
+                                for n in [resolve_name_for_formid(fid)]
                                 if n
                             ),
-                            **({"conditions": it["conditions"]} if it.get("conditions") else {}),
                         }
-                        for it in _merged.values()
+                        for fid, ch in probs.items()
                     ], key=lambda x: (x["name"] or "", x["formid"] or ""))
-
-                # Filter region-gated items: if an item has Region: conditions and
-                # NONE of them match the activity's regions, the item can never drop
-                # at this activity (GetInCurrentLocation would fail).  Remove it.
-                _act_regions = set(
-                    loc.get("region", "").strip()
-                    for loc in event.get("regionLocations", [])
-                    if loc.get("region", "").strip()
-                )
-                if _act_regions:
-                    _filtered = []
-                    for _it in items:
-                        _it_regions = [
-                            c.replace("Region: ", "")
-                            for c in (_it.get("conditions") or [])
-                            if c.startswith("Region: ")
-                        ]
-                        if _it_regions:
-                            # Item is region-gated — keep only if at least one region matches
-                            if any(r in _act_regions for r in _it_regions):
-                                _filtered.append(_it)
-                        else:
-                            # Item has no region gate — always keep
-                            _filtered.append(_it)
-                    items = _filtered
 
                 pt, ttl = classify_pool(formid)
                 pool_entry = {
@@ -4264,21 +3781,16 @@ for key, pages in sorted(reward_pages_by_key.items()):
             has_act = any(p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI for p in event["pools"])
             if not has_act:
                 act_edid  = lvli_edid_by_formid.get(ENCLAVE_ACTIVITIES_LVLI, "")
-                _act_deep = resolve_lvli_items_deep(ENCLAVE_ACTIVITIES_LVLI)
-                _act_total = sum(it["dropRate"] for it in _act_deep)
-                if _act_total > 1.0001:
-                    for it in _act_deep:
-                        it["dropRate"] = it["dropRate"] / _act_total
+                act_probs = compute_lvli(ENCLAVE_ACTIVITIES_LVLI)
                 act_items = sorted([
                     {
-                        "formid": it["formid"],
-                        "name": it.get("name") or resolve_name_for_formid(it["formid"]),
-                        "dropRate": pct(it["dropRate"]),
-                        "qty": it.get("qty", 1),
-                        "isPlan": (it.get("name") or "").startswith(("Plan:", "Recipe:")),
-                        **({"conditions": it["conditions"]} if it.get("conditions") else {}),
+                        "formid": fid,
+                        "name": resolve_name_for_formid(fid),
+                        "dropRate": pct(ch),
+                        "qty": 1,
+                        "isPlan": resolve_name_for_formid(fid).startswith(("Plan:", "Recipe:")),
                     }
-                    for it in _act_deep
+                    for fid, ch in act_probs.items()
                 ], key=lambda x: (x["name"] or "", x["formid"] or ""))
                 pt, ttl = classify_pool(ENCLAVE_ACTIVITIES_LVLI)
                 event["pools"].append({
@@ -4300,36 +3812,23 @@ for key, pages in sorted(reward_pages_by_key.items()):
         for pool_def in cle.get("pools", []):
             formid = pool_def["lvliFormID"]
             lvli_edid = lvli_edid_by_formid.get(formid, "")
-            _cle_deep = resolve_lvli_items_deep(formid)
-            _cle_total = sum(it["dropRate"] for it in _cle_deep)
-            if _cle_total > 1.0001:
-                for it in _cle_deep:
-                    it["dropRate"] = it["dropRate"] / _cle_total
-            # Merge duplicates (same formid)
-            _cle_merged = {}
-            for it in _cle_deep:
-                fid = it["formid"]
-                if fid in _cle_merged:
-                    _cle_merged[fid]["dropRate"] += it["dropRate"]
-                    for c in (it.get("conditions") or []):
-                        if c not in (_cle_merged[fid].get("conditions") or []):
-                            _cle_merged[fid].setdefault("conditions", []).append(c)
-                else:
-                    _cle_merged[fid] = dict(it)
+            probs = compute_lvli(formid)
+            _total = sum(probs.values())
+            if _total > 1.0001:
+                probs = {k: v / _total for k, v in probs.items()}
             items = sorted([
                 {
-                    "formid": it["formid"],
-                    "name": it.get("name") or resolve_name_for_formid(it["formid"]),
-                    "dropRate": pct(it["dropRate"]),
-                    "qty": it.get("qty", 1),
+                    "formid": fid,
+                    "name": resolve_name_for_formid(fid),
+                    "dropRate": pct(ch),
+                    "qty": 1,
                     "isPlan": any(
                         n.startswith(("Plan:", "Recipe:"))
-                        for n in [it.get("name") or resolve_name_for_formid(it["formid"])]
+                        for n in [resolve_name_for_formid(fid)]
                         if n
                     ),
-                    **({"conditions": it["conditions"]} if it.get("conditions") else {}),
                 }
-                for it in _cle_merged.values()
+                for fid, ch in probs.items()
             ], key=lambda x: (x["name"] or "", x["formid"] or ""))
             pt, ttl = classify_pool(formid)
             event["pools"].append({
