@@ -2325,6 +2325,104 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         if loc.get("region", "").strip()
     ))
 
+    # ── Deduplicate location-variant RewardIndex tiers ────────────────────────
+    # Some activities (e.g. Powering Up) have multiple RewardIndex tiers that
+    # award the same set of items but are conditioned on different locations
+    # (LocationAliasIsLocation).  Without dedup, every item gets added N× per
+    # location variant.  Collapse by grouping RIs whose RewardedItem sets are
+    # identical, keeping one representative per group.
+    #
+    # Also extracts per-tier XP info for xpBreakdown display (e.g. "Minimal XP"
+    # vs "Full XP" from GLOB EDIDs like XPPowerPlantMinimal / XPPowerPlantFull).
+    _by_ri = defaultdict(list)
+    for rr in gmrw_rows:
+        ri = int(rr.get("RewardIndex") or 0)
+        _by_ri[ri].append(rr)
+
+    if len(_by_ri) > 1:
+        # Build a signature per RI: frozenset of RewardedItem FormIDs
+        _ri_sig = {}
+        _ri_xp  = {}   # ri → (xp_val, label, fid, scales_with_level)
+        for ri, rows in sorted(_by_ri.items()):
+            _ri_sig[ri] = frozenset(
+                (r.get("RewardedItem") or "").split(":")[0]
+                for r in rows if (r.get("RewardedItem") or "").strip()
+            )
+            # XP info from first row of this RI
+            first = rows[0]
+            xpct     = (first.get("XPCT_XPCurveTable") or "").strip()
+            xp_glob  = (first.get("NAM7_XPGlobal") or "").strip()
+            xp_val   = None
+            xp_label = None
+            xp_fid   = None
+            scales   = False
+
+            # Parse a human-readable label from the GLOB EDID
+            # e.g. "XPPowerPlantMinimal" → "Minimal", "XPPowerPlantFull" → "Full"
+            def _label_from_xp_glob(glob_ref):
+                edid = glob_ref.split(":")[1] if ":" in glob_ref else glob_ref
+                # Strip "XP" prefix, then split CamelCase
+                edid = re.sub(r'^XP_?', '', edid)
+                # Remove quest-name prefix segments (e.g. "PowerPlant")
+                # Keep only the last CamelCase segment(s) that describe the tier
+                parts = re.findall(r'[A-Z][a-z0-9]*', edid)
+                if len(parts) > 1:
+                    # Heuristic: the tier descriptor is usually the last 1-2 words
+                    # e.g. ["Power","Plant","Minimal"] → "Minimal"
+                    # e.g. ["Power","Plant","Full"]    → "Full"
+                    return " ".join(parts[-1:])
+                return " ".join(parts) if parts else None
+
+            if xpct:
+                xp_val = xp_at_level(xpct)
+                xp_fid = xpct.split(":")[0]
+                scales = True
+                if xp_glob:
+                    xp_label = _label_from_xp_glob(xp_glob)
+            elif xp_glob:
+                nam7_fid = xp_glob.split(":")[0]
+                if nam7_fid in glob_vals:
+                    xp_val = int(glob_vals[nam7_fid])
+                    xp_fid = nam7_fid
+                xp_label = _label_from_xp_glob(xp_glob)
+
+            _ri_xp[ri] = (xp_val, xp_label, xp_fid, scales)
+
+        # Group RIs with identical item signatures → keep first RI per group
+        _sig_groups = defaultdict(list)
+        for ri in sorted(_ri_sig):
+            _sig_groups[_ri_sig[ri]].append(ri)
+
+        _kept_ris = set()
+        _xp_tiers = []
+        for sig, ris in _sig_groups.items():
+            rep = ris[0]
+            _kept_ris.add(rep)
+            xp_val, xp_label, xp_fid, scales = _ri_xp[rep]
+            if xp_val and xp_val > 0:
+                _xp_tiers.append({
+                    "label": f"{xp_label} XP" if xp_label else f"Tier {rep} XP",
+                    "xp": xp_val,
+                    "xpFormID": xp_fid,
+                    "scalesWithLevel": scales,
+                })
+
+        # Only apply dedup if we actually collapsed something
+        if len(_kept_ris) < len(_by_ri):
+            gmrw_rows = [
+                rr for rr in gmrw_rows
+                if int(rr.get("RewardIndex") or 0) in _kept_ris
+            ]
+
+        # Emit xpBreakdown when there are 2+ tiers with different XP values
+        if len(_xp_tiers) > 1:
+            _unique_xp = set(t["xp"] for t in _xp_tiers)
+            if len(_unique_xp) > 1:
+                _xp_tiers.sort(key=lambda t: t["xp"])
+                activity_data["baseRewards"]["xpBreakdown"] = _xp_tiers
+                # Set baseRewards.xp to the total (both tiers are awarded)
+                activity_data["baseRewards"]["xp"] = sum(t["xp"] for t in _xp_tiers)
+
     # ── Collect XP by stage ───────────────────────────────────────────────────
     # Each unique GMRW FormID is one checkpoint/stage. Extract the stage number
     # from the EDID (e.g. QuestReward_RS02_Beat_Stage600_01 → 600), resolve XP,
@@ -2415,7 +2513,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         _completion = None
 
     # Set baseRewards.xp from completion stage (backward compat for JS renderer)
-    if _completion:
+    # Skip if xpBreakdown already set it to the tier total (e.g. Minimal + Full).
+    if _completion and not activity_data["baseRewards"].get("xpBreakdown"):
         activity_data["baseRewards"]["xp"]       = _completion["xp"]
         activity_data["baseRewards"]["xpFormID"]  = _completion["xpFormID"]
 
