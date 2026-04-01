@@ -142,7 +142,9 @@ def starts_cut(edid):
 
 def starts_cut_notes(edid):
     """
-    Check if EDID indicates a cut note, with additional CUT infixes.
+    Check if EDID indicates a cut note, with additional CUT infixes
+    and an explicit list of known cut EDIDs whose naming convention
+    doesn't follow the standard CUT/DEL/POST/ZZZ prefixes.
     """
     if starts_cut(edid):
         return True
@@ -150,6 +152,17 @@ def starts_cut_notes(edid):
     # Additional infixes for notes
     e = (edid or "").upper()
     if "_CUT_" in e or "BURN_CUT_" in e or "ZZZBURN_" in e:
+        return True
+
+    # Explicit list of known cut notes whose EDIDs don't follow standard
+    # CUT naming. These have been verified as cut from the game (no valid
+    # REFR placement, not obtainable in-game).
+    _MANUAL_CUT_EDIDS = {
+        "Morgantown_Lore_MartialLawNotice",   # Public Notice - Martial Law
+        "Morgantown_Lore_RallyNotice",         # Rally for Justice!
+        "Morgantown_Lore_RallyFlyer",          # Rally Flyer
+    }
+    if edid in _MANUAL_CUT_EDIDS:
         return True
 
     return False
@@ -903,10 +916,10 @@ NOTE_OVERRIDES = {
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
     # ----- Location name changes (game updates renamed locations) -----
-    "A blessed gift": {
+    "A Blessed Gift": {
         "location": "Sacramental Glade",
     },
-    "A worthy sacrifice": {
+    "A Worthy Sacrifice": {
         "location": "Sacramental Glade",
     },
     "A Life Without Keith": {
@@ -915,8 +928,32 @@ NOTE_OVERRIDES = {
     "Doomed": {
         "location": "The Coop",
     },
+    # Middle Mountain Cabins was renamed to Middle Mountain Pitstop in-game
+    "Pitstop Note": {
+        "location": "Middle Mountain Pitstop",
+    },
+    "Investigation Report": {
+        "location": "Middle Mountain Pitstop",
+    },
+    "Letter To Vera": {
+        "location": "Middle Mountain Pitstop",
+    },
+    "Rest In Peace": {
+        "location": "Middle Mountain Pitstop",
+    },
+    "Weird Note": {
+        "location": "Middle Mountain Pitstop",
+    },
+    "Brag's Note": {
+        "location": "Middle Mountain Pitstop",
+    },
+    # Postcard from Elizabeth — xEdit resolves to VaultTecU cell but the note
+    # is actually found in a destroyed house in Morgantown
+    "Postcard from Elizabeth": {
+        "location": "Morgantown",
+    },
     # ----- Vague/incorrect locations (xEdit resolved nearby cell, not actual spawn) -----
-    "A father's Lament": {
+    "A Father's Lament": {
         "location": "South River Bridge — on the edge of the bridge itself",
     },
     "Birthday Letter From Dad": {
@@ -925,16 +962,16 @@ NOTE_OVERRIDES = {
     "Birthday Letter From Mom": {
         "location": "South River Bridge (inside the crashed bus)",
     },
-    "A job opportunity": {
+    "A Job Opportunity": {
         "location": "Gilman Lumber Mill",
     },
-    "Quartermaster's report": {
+    "Quartermaster's Report": {
         "location": "Gilman Lumber Mill",
     },
     "To Addie": {
         "location": "Gilman Lumber Mill",
     },
-    "A Failed Dinner": {
+    "A failed dinner": {
         "location": "Old Danielson Cabin",
     },
     "Change of Plans": {
@@ -969,12 +1006,36 @@ def apply_note_overrides(items_live, items_cut):
     print(f"  Applied {applied} note overrides ({len(NOTE_OVERRIDES)} defined)", file=sys.stderr)
 
 
+def _is_note_model(model):
+    """
+    Check if the Model field indicates a note/paper item.
+
+    Notes in Fallout 76 use specific 3D models — this is a far more reliable
+    identifier than checking for HTML tags in DESC, since many legitimate
+    in-game notes use plain-text descriptions.
+
+    Matches any model path containing 'note' (case-insensitive), which covers:
+      - Props\\Note_LowPoly.nif, props/note_lowpoly.nif
+      - props/note_classified.nif, props/note_classfied.nif (typo in data)
+      - props/noteripped_lowpoly.nif, Props\\NoteRipped_LowPoly.nif
+      - props/note_topsecret.nif, props/Note_Propaganda01.nif
+      - Interface\\Note\\DotMatrixPage01.nif and other interface/note/ variants
+      - interface/note/Postcard_LowPoly01.nif
+      - interface/note/lowpoly_notepad01.nif
+      - SetDressing\\DotMatrixPrinter\\DotMatrixPrinterNote01.nif
+      - note01/note01.nif
+    """
+    return bool(model) and 'note' in model.lower()
+
+
 def build_notes(book_path, locations=None):
     """
     Build notes list from BOOK TSV.
     Streams BOOK file to avoid OOM on large files.
 
-    Filters for rows where DESC contains <font face= (identifies notes).
+    Identifies notes by their 3D Model field (any model path containing
+    'note'), which is more reliable than the previous HTML-in-DESC check.
+    Recipes/plans that happen to use a note model are excluded by EDID/FULL.
 
     Returns (live_items, cut_items).
 
@@ -999,17 +1060,25 @@ def build_notes(book_path, locations=None):
                 if count % 5000 == 0:
                     print(f"    Read {count} BOOK rows...", file=sys.stderr)
 
-                desc = row.get('DESC', '').strip()
+                model = row.get('Model', '').strip()
 
-                # Filter for notes: DESC must contain HTML formatting tags.
-                # Most notes use <font face=, but some use <font size= or <p> tags
-                # without <font face=.
-                has_html = ('<font face=' in desc or
-                            '<font size=' in desc or
-                            '<font size' in desc.lower() or
-                            '<p align=' in desc or
-                            '<p>' in desc)
-                if not has_html:
+                # Primary filter: Model field must be a note model.
+                # This catches all notes regardless of whether DESC has HTML.
+                if not _is_note_model(model):
+                    continue
+
+                desc = row.get('DESC', '').strip()
+                edid = row.get('EDID', '').strip()
+                full = row.get('FULL', '').strip()
+
+                # Exclude recipes/plans that happen to use a note model
+                # (e.g. 16 recipes use props\note_classified.nif)
+                if (edid.lower().startswith('recipe_') or
+                    full.startswith('Plan:') or full.startswith('Recipe:')):
+                    continue
+
+                # Must have a display name
+                if not full:
                     continue
 
                 formid = row.get('FormID', '').strip()
@@ -1730,7 +1799,8 @@ def main():
     notes_data = {
         "generatedAt": generated_at,
         "type": "notes",
-        "items": notes
+        "items": notes,
+        "cutContent": notes_cut
     }
     notes_file = outdir / "collectables_notes.json"
     with open(notes_file, 'w', encoding='utf-8') as f:
