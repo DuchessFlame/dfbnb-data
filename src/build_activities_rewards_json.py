@@ -2391,6 +2391,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         # Build a signature per RI: frozenset of RewardedItem FormIDs
         _ri_sig = {}
         _ri_xp  = {}   # ri → (xp_val, label, fid, scales_with_level)
+        _ri_caps = {}   # ri → (caps_val, label)
         for ri, rows in sorted(_by_ri.items()):
             _ri_sig[ri] = frozenset(
                 (r.get("RewardedItem") or "").split(":")[0]
@@ -2408,19 +2409,28 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             # Parse a human-readable label from the GLOB EDID
             # e.g. "XPPowerPlantMinimal" → "Power Plant Minimal Repair"
             # e.g. "XPPowerPlantFull"    → "Power Plant Full Repair"
-            def _label_from_xp_glob(glob_ref):
+            def _label_from_xp_glob(glob_ref, keep_ordinals=False):
                 edid = glob_ref.split(":")[1] if ":" in glob_ref else glob_ref
-                # Strip "XP" or "XP_" prefix
-                edid = re.sub(r'^XP_?', '', edid)
-                # Split CamelCase and underscores into words
-                parts = re.findall(r'[A-Z][a-z0-9]*', edid)
-                if not parts:
+                # Strip "XP_", "XP", or "Caps_" prefix
+                edid = re.sub(r'^(XP|Caps)_?', '', edid)
+                # Strip quest/event prefixes (E05_Caravan_, CB02_MonsterMash_, etc.)
+                edid = re.sub(r'^[A-Z]\d+_[A-Za-z]+_', '', edid)
+                # Strip trailing _XP or XP suffix
+                edid = re.sub(r'_?XP$', '', edid)
+                # Strip ordinal numbers in Found_N_Package → Found_Package (unless keeping them)
+                if not keep_ordinals:
+                    edid = re.sub(r'_\d+_', '_', edid)
+                # Split underscores into words, then CamelCase
+                parts = re.sub(r'_', ' ', edid).strip()
+                parts = re.sub(r'([a-z])([A-Z])', r'\1 \2', parts)
+                words = parts.split()
+                if not words:
                     return None
-                label = " ".join(parts)
+                label = " ".join(w.capitalize() if w.islower() else w for w in words)
                 # Append "Repair" if the label ends with a tier word
                 # (e.g. "Power Plant Minimal" → "Power Plant Minimal Repair")
                 tier_words = {"Minimal", "Full", "Partial", "Complete", "Failed", "Success"}
-                if parts[-1] in tier_words:
+                if words[-1] in tier_words:
                     label += " Repair"
                 return label
 
@@ -2439,6 +2449,14 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
             _ri_xp[ri] = (xp_val, xp_label, xp_fid, scales)
 
+            # Caps info from first row
+            caps_ref = (first.get("NAM8_CapsGlobal") or "").strip()
+            if caps_ref:
+                caps_fid = caps_ref.split(":")[0]
+                if caps_fid in glob_vals:
+                    caps_label = _label_from_xp_glob(caps_ref, keep_ordinals=True) or f"Tier {ri}"
+                    _ri_caps[ri] = (int(glob_vals[caps_fid]), caps_label)
+
         # Group RIs with identical item signatures → keep first RI per group
         _sig_groups = defaultdict(list)
         for ri in sorted(_ri_sig):
@@ -2455,10 +2473,23 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             _ri_to_tier_label[rep] = tier_label
             if xp_val and xp_val > 0:
                 _xp_tiers.append({
-                    "label": f"{tier_label} XP",
+                    "label": tier_label,
                     "xp": xp_val,
                     "xpFormID": xp_fid,
                     "scalesWithLevel": scales,
+                })
+
+        # Caps breakdown: collect from ALL RIs (not just deduped ones),
+        # because each RI with caps represents a separate bonus objective.
+        # Use the caps GLOB EDID for labels (preserves package numbers).
+        _caps_tiers = []
+        for ri in sorted(_ri_caps):
+            caps_val, caps_label = _ri_caps[ri]
+            if caps_val and caps_val > 0:
+                _caps_tiers.append({
+                    "label": caps_label,
+                    "caps": caps_val,
+                    "condition": True,
                 })
 
         # Only apply dedup if we actually collapsed something
@@ -2479,6 +2510,13 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 # Set baseRewards.xp to the total (both tiers are awarded)
                 activity_data["baseRewards"]["xp"] = sum(t["xp"] for t in _xp_tiers)
                 _has_tier_split = True
+
+        # Emit capsBreakdown when there are 2+ tiers with caps
+        # (unlike XP, show all caps entries even if they have the same value,
+        #  since each represents a separate bonus objective)
+        if len(_caps_tiers) > 1:
+            _caps_tiers.sort(key=lambda t: t["caps"])
+            activity_data["baseRewards"]["capsBreakdown"] = _caps_tiers
 
     # ── Collect XP by stage ───────────────────────────────────────────────────
     # Each unique GMRW FormID is one checkpoint/stage. Extract the stage number
@@ -3262,7 +3300,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 "Ammo5mm":              "5mm Round",
                 "AmmoRRSpike":          "Railway Spike",
             }
-            def _clean_smart_name(name, sig, edid=""):
+            def _clean_smart_name(name, sig, edid="", formid=""):
                 """Normalise item names for S.M.A.R.T. machine display."""
                 if edid in _AMMO_DISPLAY:
                     return _AMMO_DISPLAY[edid]
@@ -3282,7 +3320,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     continue
                 raw_conds = simplify_conditions(it.get("conditions", []))
                 qty = it.get("qty", 1)
-                item_name = _clean_smart_name(item_name, it.get("sig", ""), it.get("edid", ""))
+                item_name = _clean_smart_name(item_name, it.get("sig", ""), it.get("edid", ""), it.get("formid", ""))
                 if item_name not in _smart_by_name:
                     _smart_by_name[item_name] = {
                         "formid": it.get("formid", ""),
