@@ -401,6 +401,21 @@ def simplify_condition(cond_str):
     s = re.sub(r'\(00 00 00.*?\)', '()', s)
     return s.strip() if s.strip() else ""
 
+def extract_region_conditions(raw_conditions):
+    """Extract 'Region: <name>' from raw GetInCurrentLocation conditions.
+    Used by resolve_lvli_items_deep to surface region info on plan rewards
+    without affecting the global simplify_condition output."""
+    regions = []
+    for c in (raw_conditions or []):
+        if "GetInCurrentLocation" in c:
+            loc_match = re.search(r'"([^"]+)"\s*\[LCTN:', c)
+            if loc_match:
+                region = f"Region: {loc_match.group(1)}"
+                if region not in regions:
+                    regions.append(region)
+    return regions
+
+
 def simplify_conditions(conditions):
     """Simplify a list of condition strings, removing empty results."""
     result = []
@@ -680,6 +695,15 @@ _CUSTOM_NAME_CLEANUP = {
     "rat bat":                      "Rat Bat",
     "molerat bat":                  "Rat Bat",
     "tillberg's tornado":           "Tillberg's Tornado",
+}
+
+# Static fallback descriptions for custom mods whose OMOD DESC is empty or missing.
+# Keys are lowercased customModName values; values are player-readable descriptions.
+_CUSTOM_MOD_DESC_OVERRIDES = {
+    "black diamond":       "Splits base damage into ~96 Physical + ~96 Cryo per hit (L50). No DoT \u2014 all cryo is direct on-hit.",
+    "perfect storm":       "Deals ~21 Fire Damage on impact + Burning DoT (17 dmg \u00d7 3 ticks). Burns stack per bullet.",
+    "civil unrest":        "+50 AP",
+    "all rise":            "+50 HP",
 }
 
 
@@ -1652,12 +1676,23 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 if cond_val:
                     conditions.append(cond_val)
 
+        # Extract minimum level requirement as a display condition (skip trivial level 1)
+        min_lvl_raw = (entry.get("LVLV_MinimumLevel") or "").strip()
+        try:
+            min_lvl = int(float(min_lvl_raw)) if min_lvl_raw else 0
+        except (ValueError, TypeError):
+            min_lvl = 0
+        if min_lvl > 1:
+            conditions.append(f"GetLevel(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 01000100 {min_lvl}.000000")
+
         sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
         ref = (entry.get("LVLO_Reference") or "").strip()
         ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
 
         # Simplify conditions for display
         display_conds = simplify_conditions(conditions)
+        # Extract region conditions from raw data (not included in display_conds)
+        region_conds = extract_region_conditions(conditions)
 
         if sub_lvli:
             # Recurse into sub-LVLI and apply parent drop rate
@@ -1670,7 +1705,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": sub_item["dropRate"] * drop_rate,
                     "edid": sub_item["edid"],
                     "sig": sub_item.get("sig", ""),
-                    "conditions": list_level_conds + display_conds + (sub_item.get("conditions") or []),
+                    "conditions": list_level_conds + display_conds + region_conds + (sub_item.get("conditions") or []),
                 })
         else:
             # Leaf item
@@ -1688,7 +1723,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "dropRate": drop_rate,
                     "edid": edid,
                     "sig": ref_sig,
-                    "conditions": list_level_conds + display_conds,
+                    "conditions": list_level_conds + display_conds + region_conds,
                 })
 
     # Normalize for pick-one lists.
@@ -1933,8 +1968,9 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                         if custom_prefix:
                             item_data["name"] = _apply_custom_prefix(item_data.get("name", ""), custom_prefix)
                             item_data["customModName"] = custom_prefix
-                            if custom_desc:
-                                item_data["customModDescription"] = custom_desc
+                            desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
+                            if desc:
+                                item_data["customModDescription"] = desc
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
 
     # ── First-match cascading probability ──
@@ -2580,6 +2616,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         activity_data["baseRewards"]["xpSuccess"] = _success_stages[0]["xp"]
 
     # Process GMRW rows (caps, legendary rank, LVLI rewards)
+    _seen_plan_fids = set()
     for rr in gmrw_rows:
         # Caps
         caps_ref = (rr.get("NAM8_CapsGlobal") or "").strip()
@@ -2680,11 +2717,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     is_plan_name = name.startswith(("Plan:", "Recipe:"))
                     if not (is_book or is_plan_edid or is_plan_name):
                         continue
-                    # Dedup by formid
+                    # Dedup by formid (within regional_schematics AND globally)
                     fid = item.get("formid", "")
-                    if fid in seen_plans:
+                    if fid in seen_plans or fid in _seen_plan_fids:
                         continue
                     seen_plans.add(fid)
+                    _seen_plan_fids.add(fid)
                     activity_data["planRewards"].append({
                         "name": name,
                         "formid": fid,
@@ -2692,6 +2730,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": pct(item.get("dropRate", 0.0)),
                         "qty": item.get("qty", 1),
                         "isPlan": True,
+                        "conditions": simplify_conditions(item.get("conditions", [])),
                     })
 
             # Process progression items → Region Rewards
@@ -2791,12 +2830,18 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "conditions": simplify_conditions(item.get("conditions", [])),
                 })
                 if is_plan:
-                    activity_data["planRewards"].append({
-                        "name": item_name,
-                        "formid": item.get("formid", ""),
-                        "dropRate": pct(dr) if dr < 1.0 else None,
-                        "qty": item.get("qty", 1),
-                    })
+                    plan_fid = item.get("formid", "")
+                    if plan_fid not in _seen_plan_fids:
+                        _seen_plan_fids.add(plan_fid)
+                        activity_data["planRewards"].append({
+                            "name": item_name,
+                            "formid": plan_fid,
+                            "edid": item.get("edid", ""),
+                            "dropRate": pct(dr) if dr < 1.0 else None,
+                            "qty": item.get("qty", 1),
+                            "isPlan": True,
+                            "conditions": simplify_conditions(item.get("conditions", [])),
+                        })
 
     # ── Build reward tree for xEdit-style display ──
     # Helper: build a tree node from a GMRW row
@@ -3093,8 +3138,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
                     item["customModName"] = custom_prefix
-                    if custom_desc:
-                        item["customModDescription"] = custom_desc
+                    desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
+                    if desc:
+                        item["customModDescription"] = desc
                 continue
             fid = item.get("formid", "")
             sig = (item.get("sig") or "").upper()
@@ -3111,8 +3157,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if custom_prefix:
                     item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
                     item["customModName"] = custom_prefix
-                    if custom_desc:
-                        item["customModDescription"] = custom_desc
+                    desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
+                    if desc:
+                        item["customModDescription"] = desc
         for child in node.get("children", []):
             child["isUniqueReward"] = True
             _attach_modslots_to_tree(child, child.get("edid", "") or node_edid)
@@ -3147,8 +3194,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             if custom_prefix:
                 uer_item["name"] = _apply_custom_prefix(uer_item.get("name", ""), custom_prefix)
                 uer_item["customModName"] = custom_prefix
-                if custom_desc:
-                    uer_item["customModDescription"] = custom_desc
+                desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
+                if desc:
+                    uer_item["customModDescription"] = desc
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):
@@ -3156,6 +3204,149 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         is_title = "title" in kind
         return (0 if is_title else 1, (item.get("name") or "").lower())
     activity_data["uniqueEventRewards"].sort(key=_uer_sort_key)
+
+    # ── S.M.A.R.T. Machine Rewards (Monster Mash vending machine) ────────────
+    # Detect Monster Mash by quest EDID, then resolve each vending LVLI and
+    # group them by EDID suffix.  Item lists are fully generative from the TSV.
+    _quest_edid = ""
+    if gmrw_rows:
+        _quest_parent = (gmrw_rows[0].get("ParentQuestLink") or "").strip()
+        _quest_edid = _quest_parent.split(":")[1] if ":" in _quest_parent else ""
+
+    _is_monster_mash = "CB02_MonsterMash" in _quest_edid
+    _SMART_COST_MAP = {
+        "SmallToy":   50,
+        "MediumToy":  75,
+        "LargeToy":   125,
+        "Surprise1":  400,
+        "Surprise2":  800,
+    }
+    _SMART_TITLE_MAP = {
+        "SmallToy":   "Small Toy",
+        "MediumToy":  "Medium Toy",
+        "LargeToy":   "Large Toy",
+        "Surprise1":  "Surprise Gift",
+        "Surprise2":  "Mystery Gift",
+    }
+    _SMART_ORDER = ["SmallToy", "MediumToy", "LargeToy", "Surprise1", "Surprise2"]
+
+    smart_categories = []
+    if _is_monster_mash:
+        for suffix in _SMART_ORDER:
+            vend_edid = f"CB02_LL_VendingList_{suffix}"
+            # Find formid for this EDID
+            vend_fid = None
+            for fid, edid in lvli_edid_by_formid.items():
+                if edid == vend_edid:
+                    vend_fid = fid
+                    break
+            if not vend_fid:
+                continue
+
+            # Use resolve_lvli_items_deep to fully flatten all sub-LVLIs
+            flat_items = resolve_lvli_items_deep(vend_fid)
+            if not flat_items:
+                continue
+
+            # Known ammo display names
+            _AMMO_DISPLAY = {
+                "Ammo10mm":             "10mm Round",
+                "Ammo2mmEC":            "2mm Electromagnetic Cartridge",
+                "Ammo308Caliber":       ".308 Round",
+                "Ammo38Caliber":        ".38 Round",
+                "Ammo44":               ".44 Round",
+                "Ammo45Caliber":        ".45 Round",
+                "Ammo50Caliber":        ".50 Round",
+                "Ammo50CaliberBall":    ".50 Caliber Ball",
+                "Ammo556":              "5.56 Round",
+                "Ammo5mm":              "5mm Round",
+                "AmmoRRSpike":          "Railway Spike",
+            }
+            def _clean_smart_name(name, sig, edid=""):
+                """Normalise item names for S.M.A.R.T. machine display."""
+                if edid in _AMMO_DISPLAY:
+                    return _AMMO_DISPLAY[edid]
+                if sig.upper() == "AMMO" or name.lower().startswith("ammo"):
+                    n = re.sub(r"^Ammo\s*", "", name)
+                    n = re.sub(r"([a-z])([A-Z])", r"\1 \2", n)
+                    return n.strip()
+                return name
+
+            _smart_by_name = {}
+            for it in flat_items:
+                dr = it.get("dropRate", 0.0)
+                if dr <= 0.0:
+                    continue
+                item_name = it.get("name", "")
+                if re.fullmatch(r"[0-9A-Fa-f]{8}", item_name):
+                    continue
+                raw_conds = simplify_conditions(it.get("conditions", []))
+                qty = it.get("qty", 1)
+                item_name = _clean_smart_name(item_name, it.get("sig", ""), it.get("edid", ""))
+                if item_name not in _smart_by_name:
+                    _smart_by_name[item_name] = {
+                        "formid": it.get("formid", ""),
+                        "name": item_name,
+                        "qtys": [qty],
+                        "sig": it.get("sig", ""),
+                        "dropRate": dr,
+                        "conds_list": [raw_conds],
+                    }
+                else:
+                    grp = _smart_by_name[item_name]
+                    grp["dropRate"] += dr
+                    grp["qtys"].append(qty)
+                    grp["conds_list"].append(raw_conds)
+
+            vend_items = []
+            for grp in _smart_by_name.values():
+                qtys = sorted(set(grp["qtys"]))
+                if len(qtys) == 1:
+                    qty_val = qtys[0]
+                else:
+                    qty_val = f"{qtys[0]}\u2013{qtys[-1]}"
+
+                # Merge conditions: extract minimum player level
+                all_conds = grp["conds_list"]
+                _has_unconditional = any(
+                    not any("level" in c.lower() for c in cl) for cl in all_conds
+                )
+                merged_conds = []
+                if not _has_unconditional:
+                    _min_lvl = None
+                    for cl in all_conds:
+                        for c in cl:
+                            m = re.search(r"level (\d+)\+", c, re.IGNORECASE)
+                            if m:
+                                lvl = int(m.group(1))
+                                if _min_lvl is None or lvl < _min_lvl:
+                                    _min_lvl = lvl
+                    if _min_lvl and _min_lvl > 1:
+                        merged_conds.append(f"Requires player level {_min_lvl}+")
+
+                vend_items.append({
+                    "formid": grp["formid"],
+                    "name": grp["name"],
+                    "qty": qty_val,
+                    "sig": grp["sig"],
+                    "dropRate": pct(grp["dropRate"]),
+                    "conditions": merged_conds if merged_conds else None,
+                })
+
+            if not vend_items:
+                continue
+
+            smart_categories.append({
+                "title": _SMART_TITLE_MAP.get(suffix, suffix),
+                "cost": _SMART_COST_MAP.get(suffix, 0),
+                "formid": vend_fid,
+                "edid": vend_edid,
+                "itemCount": len(vend_items),
+                "items": sorted(vend_items, key=lambda x: x["name"].lower()),
+            })
+
+    if smart_categories:
+        activity_data["smartMachine"] = smart_categories
 
     return activity_data
 
