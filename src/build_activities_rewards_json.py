@@ -2367,6 +2367,13 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         if loc.get("region", "").strip()
     ))
 
+    # ── Early Monster Mash detection (needed for candy-leak guard below) ──
+    _quest_edid_early = ""
+    if gmrw_rows:
+        _qp = (gmrw_rows[0].get("ParentQuestLink") or "").strip()
+        _quest_edid_early = _qp.split(":")[1] if ":" in _qp else ""
+    _is_monster_mash = "CB02_MonsterMash" in _quest_edid_early
+
     # ── Deduplicate location-variant RewardIndex tiers ────────────────────────
     # Some activities (e.g. Powering Up) have multiple RewardIndex tiers that
     # award the same set of items but are conditioned on different locations
@@ -2485,12 +2492,17 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 ) if _by_ri.get(ri) and _by_ri[ri][0].get("NAM7_XPGlobal") else xp_label
                 if not label:
                     label = xp_label or f"Tier {ri}"
-                _xp_tiers.append({
+                _entry = {
                     "label": label,
                     "xp": xp_val,
                     "xpFormID": xp_fid,
                     "scalesWithLevel": scales,
-                })
+                }
+                # Mark non-base RIs as conditional (bonus objectives) so the JS
+                # renderer can append "(bonus)" to match the Caps breakdown style.
+                if ri > min(_ri_xp.keys()):
+                    _entry["condition"] = True
+                _xp_tiers.append(_entry)
 
         # Caps breakdown: collect from ALL RIs (not just deduped ones),
         # because each RI with caps represents a separate bonus objective.
@@ -2810,6 +2822,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
         # Handle quest rewards (titles/books)
         elif "_questrewards" in lvli_edid_lower or "_ll_quest" in lvli_edid_lower:
+            # Skip Monster Mash candy rank LVLIs — these are handled by the
+            # dedicated Halloween Candy section and should not leak into UER.
+            # Rank LVLIs (CB02_LL_Quest_Reward_Rank1_High etc.) contain the
+            # candy sub-lists, so we skip both _candy and _rank patterns.
+            if _is_monster_mash and ("_candy" in lvli_edid_lower or "_reward_rank" in lvli_edid_lower):
+                continue
             sub_items = resolve_lvli_items_deep(formid)
             for item in sub_items:
                 edid_str = item.get("edid", "")
@@ -2863,6 +2881,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
         # All other LVLI - resolve to unique event rewards
         else:
+            # Skip Monster Mash candy/rank LVLIs in the catch-all too
+            if _is_monster_mash and ("_candy" in lvli_edid_lower or "_reward_rank" in lvli_edid_lower):
+                continue
             sub_items = resolve_lvli_items_deep(formid)
             for item in sub_items:
                 dr = item.get("dropRate", 0.0)
