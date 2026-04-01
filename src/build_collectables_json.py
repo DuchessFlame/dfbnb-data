@@ -1129,8 +1129,11 @@ def build_notes(book_path, locations=None):
         print(f"  ERROR reading BOOK: {e}", file=sys.stderr)
         return [], []
 
-    # Sort live notes alphabetically
-    notes_live.sort(key=lambda x: x['name'])
+    # Sort live notes: collectible notes first, then environment spawns,
+    # each group sorted alphabetically by name.
+    # canCollect=True  -> 0 (first)
+    # canCollect=False -> 1 (second)
+    notes_live.sort(key=lambda x: (0 if x.get('canCollect', True) else 1, x['name']))
 
     return notes_live, notes_cut
 
@@ -1735,6 +1738,8 @@ def main():
     notes, notes_cut = build_notes(book_path, locations=book_locations)
     print("Applying note overrides...")
     apply_note_overrides(notes, notes_cut)
+    # Re-sort after overrides (overrides can change canCollect, shifting group membership)
+    notes.sort(key=lambda x: (0 if x.get('canCollect', True) else 1, x['name']))
 
     # Build holotape games (from BOOK)
     print("Building holotape games...")
