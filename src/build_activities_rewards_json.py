@@ -164,7 +164,7 @@ LVLI_LABEL_PATTERNS = [
     (r"(?i)underarmou?r",                     "Underarmour Plan"),
     # Scrap reward LVLIs (e.g. LLS_Scrap_Screws, LLS_Reward_Scrap) → Scrap Rewards
     # Catches any EDID where "scrap" appears at the start or after an underscore.
-    (r"(?i)(?:^|_)scrap",                     "Junk & Scrap Rewards"),
+    (r"(?i)(?:^|_)scrap",                     "Junk & Scrap"),
     # Weapon-specific LVLIs that are direct GMRW rewards (not Legendary pools).
     # Legendary weapon pools are caught by the LegendaryItems patterns above.
     # "Weapon Rewards" ends in "Rewards" → JS transformLabel → "Unique Activity Rewards".
@@ -1894,6 +1894,12 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
             if sub_node and (sub_node.get("children") or sub_node.get("items")):
                 if display_conditions:
                     sub_node["conditions"] = display_conditions
+                # Propagate parent LVIV_Quantity as rollCount on the child node.
+                # When a UseAll parent references a sub-LVLI with qty > 1, the game
+                # rolls that sub-list qty times independently. The JS renderer uses
+                # rollCount to generate accurate "List rolls N times" blurbs.
+                if qty > 1:
+                    sub_node["rollCount"] = qty
                 raw_entries.append(("child", entry_drop_rate, sub_node, conditions, pick_weight, glob_correction))
         else:
             # Leaf item
@@ -2945,7 +2951,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "type": "lvli",
                     "formid": "",
                     "edid": f"_synthetic_scrap_rewards_tier{ri}",
-                    "label": "Junk & Scrap Rewards",
+                    "label": "Junk & Scrap",
                     "useAll": True,
                     "items": _tier_scrap[ri],
                     "entryRate": 100.0,
@@ -2999,7 +3005,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             "type": "lvli",
             "formid": "",
             "edid": "_synthetic_scrap_rewards",
-            "label": "Junk & Scrap Rewards",
+            "label": "Junk & Scrap",
             "useAll": True,
             "items": _loose_scrap_items,
             "entryRate": 100.0,
