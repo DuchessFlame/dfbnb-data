@@ -2463,7 +2463,6 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             _sig_groups[_ri_sig[ri]].append(ri)
 
         _kept_ris = set()
-        _xp_tiers = []
         _ri_to_tier_label = {}   # RI number → tier label (e.g. "Power Plant Minimal Repair")
         for sig, ris in _sig_groups.items():
             rep = ris[0]
@@ -2471,9 +2470,23 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             xp_val, xp_label, xp_fid, scales = _ri_xp[rep]
             tier_label = xp_label or f"Tier {rep}"
             _ri_to_tier_label[rep] = tier_label
+
+        # XP breakdown: collect from ALL RIs (not just deduped ones),
+        # because each RI with XP represents a separate bonus objective
+        # (e.g. each found package in Riding Shotgun).
+        # Use GLOB EDID labels with ordinals preserved.
+        _xp_tiers = []
+        for ri in sorted(_ri_xp):
+            xp_val, xp_label, xp_fid, scales = _ri_xp[ri]
             if xp_val and xp_val > 0:
+                label = _label_from_xp_glob(
+                    _by_ri[ri][0].get("NAM7_XPGlobal", "") or "",
+                    keep_ordinals=True
+                ) if _by_ri.get(ri) and _by_ri[ri][0].get("NAM7_XPGlobal") else xp_label
+                if not label:
+                    label = xp_label or f"Tier {ri}"
                 _xp_tiers.append({
-                    "label": tier_label,
+                    "label": label,
                     "xp": xp_val,
                     "xpFormID": xp_fid,
                     "scalesWithLevel": scales,
@@ -2500,14 +2513,17 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 if int(rr.get("RewardIndex") or 0) in _kept_ris
             ]
 
-        # Emit xpBreakdown when there are 2+ tiers with different XP values
+        # Emit xpBreakdown when there are 2+ tiers with different XP values.
+        # Also emit if there are entries with duplicate values but different labels
+        # (e.g. Riding Shotgun's 4 package entries each awarding 50 XP).
         _has_tier_split = False
         if len(_xp_tiers) > 1:
             _unique_xp = set(t["xp"] for t in _xp_tiers)
-            if len(_unique_xp) > 1:
+            _unique_labels = set(t["label"] for t in _xp_tiers)
+            if len(_unique_xp) > 1 or len(_unique_labels) > len(_unique_xp):
                 _xp_tiers.sort(key=lambda t: t["xp"])
                 activity_data["baseRewards"]["xpBreakdown"] = _xp_tiers
-                # Set baseRewards.xp to the total (both tiers are awarded)
+                # Set baseRewards.xp to the total (all tiers are awarded)
                 activity_data["baseRewards"]["xp"] = sum(t["xp"] for t in _xp_tiers)
                 _has_tier_split = True
 
