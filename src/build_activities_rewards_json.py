@@ -517,20 +517,28 @@ except FileNotFoundError: COBJ = []
 # --------------------------------------------------
 _NON_PLAYER_TRADABLE_KW = "00499f7a"
 _UNSELLABLE_OBJECT_KW   = "003d4327"
-_armo_non_tradable_fids  = set()  # FormIDs with NonPlayerTradable keyword
-_armo_unsellable_fids    = set()  # FormIDs with UnsellableObject keyword
+_armo_non_tradable_fids  = set()  # ARMO FormIDs with NonPlayerTradable keyword
+_armo_unsellable_fids    = set()  # ARMO FormIDs with UnsellableObject keyword
+_book_non_tradable_fids  = set()  # BOOK FormIDs with NonPlayerTradable keyword
+_book_unsellable_fids    = set()  # BOOK FormIDs with UnsellableObject keyword
 try:
     _kywd_refs = read_tsv(newest("tsv/KYWD_Export_*_Refs.tsv"))
     for _kr in _kywd_refs:
         kw_fid = (_kr.get("KeywordFormID") or "").strip().lower()
         ref_sig = (_kr.get("RefSignature") or "").strip().upper()
         ref_fid = (_kr.get("RefFormID") or "").strip().lower()
-        if ref_sig != "ARMO" or not ref_fid:
+        if not ref_fid:
             continue
-        if kw_fid == _NON_PLAYER_TRADABLE_KW:
-            _armo_non_tradable_fids.add(ref_fid)
-        elif kw_fid == _UNSELLABLE_OBJECT_KW:
-            _armo_unsellable_fids.add(ref_fid)
+        if ref_sig == "ARMO":
+            if kw_fid == _NON_PLAYER_TRADABLE_KW:
+                _armo_non_tradable_fids.add(ref_fid)
+            elif kw_fid == _UNSELLABLE_OBJECT_KW:
+                _armo_unsellable_fids.add(ref_fid)
+        elif ref_sig == "BOOK":
+            if kw_fid == _NON_PLAYER_TRADABLE_KW:
+                _book_non_tradable_fids.add(ref_fid)
+            elif kw_fid == _UNSELLABLE_OBJECT_KW:
+                _book_unsellable_fids.add(ref_fid)
 except FileNotFoundError:
     pass
 
@@ -1979,14 +1987,20 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 }
                 if display_conditions:
                     item_data["conditions"] = display_conditions
-                # Tag ARMO items with tradeable/unsellable flags from keyword data.
+                # Tag ARMO and BOOK items with tradeable/unsellable flags from keyword data.
                 # NonPlayerTradable [KYWD:00499F7A] → cannot be traded with other players.
                 # UnsellableObject  [KYWD:003D4327] → cannot be sold to NPC vendors.
-                if ref_sig.upper() == "ARMO":
-                    fid_lower = fid.strip().lower()
+                _sig_upper = ref_sig.upper()
+                fid_lower = fid.strip().lower()
+                if _sig_upper == "ARMO":
                     if fid_lower in _armo_non_tradable_fids:
                         item_data["tradeable"] = False
                     if fid_lower in _armo_unsellable_fids:
+                        item_data["unsellable"] = True
+                elif _sig_upper == "BOOK":
+                    if fid_lower in _book_non_tradable_fids:
+                        item_data["tradeable"] = False
+                    if fid_lower in _book_unsellable_fids:
                         item_data["unsellable"] = True
                 # Attach modSlots if this LVLI is a named/unique variant.
                 # Uses variant-aware resolver to pick the correct OT combination
@@ -3021,12 +3035,18 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 "edid": item_edid,
                 "sig": kind.upper(),
             }
-            # Tag ARMO items with tradeable/unsellable flags from keyword data
-            if kind.upper() == "ARMO":
-                _fid_lower = formid.strip().lower()
+            # Tag ARMO and BOOK items with tradeable/unsellable flags from keyword data
+            _kind_upper = kind.upper()
+            _fid_lower = formid.strip().lower()
+            if _kind_upper == "ARMO":
                 if _fid_lower in _armo_non_tradable_fids:
                     node_data["tradeable"] = False
                 if _fid_lower in _armo_unsellable_fids:
+                    node_data["unsellable"] = True
+            elif _kind_upper == "BOOK":
+                if _fid_lower in _book_non_tradable_fids:
+                    node_data["tradeable"] = False
+                if _fid_lower in _book_unsellable_fids:
                     node_data["unsellable"] = True
             if is_loose_scrap:
                 return None, True, node_data
@@ -4304,10 +4324,13 @@ for key, pages in sorted(reward_pages_by_key.items()):
                         cond_entry["kind"] = "player_title" if kind_str == "player" else "camp_title"
                         if td.get("isPrefix"): cond_entry["affix"] = "Prefix"
                         elif td.get("isSuffix"): cond_entry["affix"] = "Suffix"
-                    # Mark non-tradeable for BOOKs (plans/titles are never tradeable)
-                    item_sig = edid_parts[-1].upper() if edid_parts else ""
-                    if item_sig == "BOOK" or is_plan or title_result:
-                        cond_entry["tradeable"] = False
+                    # Tag BOOK items with tradeable/unsellable flags from keyword data
+                    if formid:
+                        _cr_fid = formid.strip().lower()
+                        if _cr_fid in _book_non_tradable_fids:
+                            cond_entry["tradeable"] = False
+                        if _cr_fid in _book_unsellable_fids:
+                            cond_entry["unsellable"] = True
                     event["conditionalRewards"].append(cond_entry)
                 else:
                     add_free(event["freeRewards"], "Guaranteed Reward", f"{nm} x{count}",
