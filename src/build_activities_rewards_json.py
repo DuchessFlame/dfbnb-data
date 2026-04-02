@@ -1955,6 +1955,12 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 }
                 if display_conditions:
                     item_data["conditions"] = display_conditions
+                # Tag ARMO/CLOT items as tradeable unless they are ATX/SCORE content.
+                # ATX_ and SCORE_ prefixes identify Atomic Shop / season items that
+                # cannot be traded. Regular event-reward clothing and armour is tradeable.
+                if ref_sig.upper() == "ARMO":
+                    _non_trade = ("ATX_", "atx_", "SCORE_", "score_", "zzzATX", "zzzSCORE")
+                    item_data["tradeable"] = not any(ref_edid.startswith(p) for p in _non_trade)
                 # Attach modSlots if this LVLI is a named/unique variant.
                 # Uses variant-aware resolver to pick the correct OT combination
                 # based on LVLI EDID (e.g. PerfectStorm, Splinter, LastBastion).
@@ -2988,6 +2994,10 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 "edid": item_edid,
                 "sig": kind.upper(),
             }
+            # Tag ARMO items as tradeable unless ATX/SCORE content
+            if kind.upper() == "ARMO":
+                _non_trade = ("ATX_", "atx_", "SCORE_", "score_", "zzzATX", "zzzSCORE")
+                node_data["tradeable"] = not any(item_edid.startswith(p) for p in _non_trade)
             if is_loose_scrap:
                 return None, True, node_data
             else:
