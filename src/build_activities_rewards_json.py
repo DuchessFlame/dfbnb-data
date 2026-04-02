@@ -511,6 +511,30 @@ try:    COBJ = read_tsv(newest("tsv/COBJ_Export_*.tsv"))
 except FileNotFoundError: COBJ = []
 
 # --------------------------------------------------
+# Index: ARMO keyword flags — NonPlayerTradable and UnsellableObject
+# NonPlayerTradable [KYWD:00499F7A] → item cannot be traded with other players
+# UnsellableObject  [KYWD:003D4327] → item cannot be sold to NPC vendors
+# --------------------------------------------------
+_NON_PLAYER_TRADABLE_KW = "00499f7a"
+_UNSELLABLE_OBJECT_KW   = "003d4327"
+_armo_non_tradable_fids  = set()  # FormIDs with NonPlayerTradable keyword
+_armo_unsellable_fids    = set()  # FormIDs with UnsellableObject keyword
+try:
+    _kywd_refs = read_tsv(newest("tsv/KYWD_Export_*_Refs.tsv"))
+    for _kr in _kywd_refs:
+        kw_fid = (_kr.get("KeywordFormID") or "").strip().lower()
+        ref_sig = (_kr.get("RefSignature") or "").strip().upper()
+        ref_fid = (_kr.get("RefFormID") or "").strip().lower()
+        if ref_sig != "ARMO" or not ref_fid:
+            continue
+        if kw_fid == _NON_PLAYER_TRADABLE_KW:
+            _armo_non_tradable_fids.add(ref_fid)
+        elif kw_fid == _UNSELLABLE_OBJECT_KW:
+            _armo_unsellable_fids.add(ref_fid)
+except FileNotFoundError:
+    pass
+
+# --------------------------------------------------
 # Index: WEAP Object Template (mod slots for named/unique weapons)
 # --------------------------------------------------
 
@@ -1955,12 +1979,15 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 }
                 if display_conditions:
                     item_data["conditions"] = display_conditions
-                # Tag ARMO/CLOT items as tradeable unless they are ATX/SCORE content.
-                # ATX_ and SCORE_ prefixes identify Atomic Shop / season items that
-                # cannot be traded. Regular event-reward clothing and armour is tradeable.
+                # Tag ARMO items with tradeable/unsellable flags from keyword data.
+                # NonPlayerTradable [KYWD:00499F7A] → cannot be traded with other players.
+                # UnsellableObject  [KYWD:003D4327] → cannot be sold to NPC vendors.
                 if ref_sig.upper() == "ARMO":
-                    _non_trade = ("ATX_", "atx_", "SCORE_", "score_", "zzzATX", "zzzSCORE")
-                    item_data["tradeable"] = not any(ref_edid.startswith(p) for p in _non_trade)
+                    fid_lower = fid.strip().lower()
+                    if fid_lower in _armo_non_tradable_fids:
+                        item_data["tradeable"] = False
+                    if fid_lower in _armo_unsellable_fids:
+                        item_data["unsellable"] = True
                 # Attach modSlots if this LVLI is a named/unique variant.
                 # Uses variant-aware resolver to pick the correct OT combination
                 # based on LVLI EDID (e.g. PerfectStorm, Splinter, LastBastion).
@@ -2994,10 +3021,13 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 "edid": item_edid,
                 "sig": kind.upper(),
             }
-            # Tag ARMO items as tradeable unless ATX/SCORE content
+            # Tag ARMO items with tradeable/unsellable flags from keyword data
             if kind.upper() == "ARMO":
-                _non_trade = ("ATX_", "atx_", "SCORE_", "score_", "zzzATX", "zzzSCORE")
-                node_data["tradeable"] = not any(item_edid.startswith(p) for p in _non_trade)
+                _fid_lower = formid.strip().lower()
+                if _fid_lower in _armo_non_tradable_fids:
+                    node_data["tradeable"] = False
+                if _fid_lower in _armo_unsellable_fids:
+                    node_data["unsellable"] = True
             if is_loose_scrap:
                 return None, True, node_data
             else:
