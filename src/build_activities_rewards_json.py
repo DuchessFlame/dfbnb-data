@@ -2958,6 +2958,13 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     roll_count = 1
                 if roll_count > 1:
                     tree_node["rollCount"] = roll_count
+                # Attach the human-readable tier label (e.g. "Front Brahmin Survived")
+                # derived from the XP GLOB name for this reward index.  Used by the
+                # JS lvliCategoryBlurb to append condition notes to Legendary blurbs.
+                ri = int(rr.get("RewardIndex") or 0)
+                tier_lbl = _ri_to_tier_label.get(ri)
+                if tier_lbl:
+                    tree_node["tierLabel"] = tier_lbl
                 return tree_node, False, None
         else:
             item_edid = rewarded.split(":")[1] if rewarded.count(":") >= 2 else ""
