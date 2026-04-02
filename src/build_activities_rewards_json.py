@@ -2143,8 +2143,9 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
             seen_fids.add(fid)
         if dupe_fids:
             result["duplicateRollNote"] = (
-                "Some pieces roll twice, giving a better chance to drop."
+                "Rewards marked with a \u2020 roll twice, giving a better chance to drop"
             )
+            result["duplicateRollFids"] = sorted(dupe_fids)
 
     # Flag region-based nodes so JS can adjust display (no fake 12.5%, add note)
     edid_lower = (edid or "").lower()
