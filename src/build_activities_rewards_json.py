@@ -1730,7 +1730,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
             # Recurse into sub-LVLI and apply parent drop rate
             sub_items = resolve_lvli_items_deep(sub_lvli, depth + 1, seen)
             for sub_item in sub_items:
-                items.append({
+                propagated = {
                     "formid": sub_item["formid"],
                     "name": sub_item["name"],
                     "qty": sub_item["qty"],
@@ -1738,7 +1738,13 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "edid": sub_item["edid"],
                     "sig": sub_item.get("sig", ""),
                     "conditions": list_level_conds + display_conds + region_conds + (sub_item.get("conditions") or []),
-                })
+                }
+                # Propagate keyword flags from sub-item
+                if "tradeable" in sub_item:
+                    propagated["tradeable"] = sub_item["tradeable"]
+                if "unsellable" in sub_item:
+                    propagated["unsellable"] = sub_item["unsellable"]
+                items.append(propagated)
         else:
             # Leaf item
             if ":" in ref:
@@ -1748,7 +1754,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 if _CUT_LVLI_RE.search(edid):
                     continue
                 name = resolve_name_for_formid(fid, edid)
-                items.append({
+                item_data = {
                     "formid": fid,
                     "name": name,
                     "qty": qty,
@@ -1756,7 +1762,21 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "edid": edid,
                     "sig": ref_sig,
                     "conditions": list_level_conds + display_conds + region_conds,
-                })
+                }
+                # Tag ARMO and BOOK items with tradeable/unsellable flags from keyword data
+                _sig_u = ref_sig.upper()
+                _fid_l = fid.strip().lower()
+                if _sig_u == "ARMO":
+                    if _fid_l in _armo_non_tradable_fids:
+                        item_data["tradeable"] = False
+                    if _fid_l in _armo_unsellable_fids:
+                        item_data["unsellable"] = True
+                elif _sig_u == "BOOK":
+                    if _fid_l in _book_non_tradable_fids:
+                        item_data["tradeable"] = False
+                    if _fid_l in _book_unsellable_fids:
+                        item_data["unsellable"] = True
+                items.append(item_data)
 
     # Normalize for pick-one lists.
     # Only normalise UPWARD (total > 1) — xEdit exports apriori=1.0 for every entry
@@ -2072,14 +2092,28 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     if not items and not children and list_id in EMPTY_LVLI_ITEM_FALLBACKS:
         for fb_fid, fb_sig, fb_edid in EMPTY_LVLI_ITEM_FALLBACKS[list_id]:
             fb_name = resolve_name_for_formid(fb_fid, fb_edid)
-            items.append({
+            fb_item = {
                 "formid": fb_fid,
                 "edid": fb_edid,
                 "name": fb_name or fb_edid,
                 "qty": 1,
                 "sig": fb_sig,
                 "dropRate": 100.0,
-            })
+            }
+            # Tag fallback items with tradeable/unsellable flags
+            _fb_sig_u = fb_sig.upper()
+            _fb_fid_l = fb_fid.strip().lower()
+            if _fb_sig_u == "ARMO":
+                if _fb_fid_l in _armo_non_tradable_fids:
+                    fb_item["tradeable"] = False
+                if _fb_fid_l in _armo_unsellable_fids:
+                    fb_item["unsellable"] = True
+            elif _fb_sig_u == "BOOK":
+                if _fb_fid_l in _book_non_tradable_fids:
+                    fb_item["tradeable"] = False
+                if _fb_fid_l in _book_unsellable_fids:
+                    fb_item["unsellable"] = True
+            items.append(fb_item)
 
     result = {
         "type": "lvli",
@@ -3426,7 +3460,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 qty = it.get("qty", 1)
                 item_name = _clean_smart_name(item_name, it.get("sig", ""), it.get("edid", ""), it.get("formid", ""))
                 if item_name not in _smart_by_name:
-                    _smart_by_name[item_name] = {
+                    _grp_entry = {
                         "formid": it.get("formid", ""),
                         "name": item_name,
                         "qtys": [qty],
@@ -3434,6 +3468,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": dr,
                         "conds_list": [raw_conds],
                     }
+                    # Propagate keyword flags
+                    if "tradeable" in it:
+                        _grp_entry["tradeable"] = it["tradeable"]
+                    if "unsellable" in it:
+                        _grp_entry["unsellable"] = it["unsellable"]
+                    _smart_by_name[item_name] = _grp_entry
                 else:
                     grp = _smart_by_name[item_name]
                     grp["dropRate"] += dr
@@ -3466,14 +3506,20 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     if _min_lvl and _min_lvl > 1:
                         merged_conds.append(f"Requires player level {_min_lvl}+")
 
-                vend_items.append({
+                _vend_item = {
                     "formid": grp["formid"],
                     "name": grp["name"],
                     "qty": qty_val,
                     "sig": grp["sig"],
                     "dropRate": pct(grp["dropRate"]),
                     "conditions": merged_conds if merged_conds else None,
-                })
+                }
+                # Propagate keyword flags from grouped data
+                if "tradeable" in grp:
+                    _vend_item["tradeable"] = grp["tradeable"]
+                if "unsellable" in grp:
+                    _vend_item["unsellable"] = grp["unsellable"]
+                vend_items.append(_vend_item)
 
             if not vend_items:
                 continue
