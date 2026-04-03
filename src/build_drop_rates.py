@@ -110,8 +110,11 @@ from rng76 import (
 # CONFIG
 # ============================================================
 
-TSV_ROOT = "tsv"
-DIST_DIR = Path("dist")
+# Resolve paths relative to the repo root (one level up from src/) so the
+# script produces correct output regardless of which directory it's run from.
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+TSV_ROOT = str(_REPO_ROOT / "tsv")
+DIST_DIR = _REPO_ROOT / "dist"
 OUTPUT   = DIST_DIR / "drop_rates.json"
 
 # Bounty hunt root LVLIs (from REHO page mappings)

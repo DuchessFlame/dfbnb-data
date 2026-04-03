@@ -30,15 +30,21 @@ import csv, glob, json, os, re
 from collections import defaultdict
 from pathlib import Path
 
-DIST_DIR     = Path("dist/activities")
-PATCHLOG_DIR = Path("dist/patchlogs")
+# Resolve paths relative to the repo root (one level up from src/) so the
+# script produces correct output regardless of which directory it's run from.
+_REPO_ROOT   = Path(__file__).resolve().parent.parent
+DIST_DIR     = _REPO_ROOT / "dist" / "activities"
+PATCHLOG_DIR = _REPO_ROOT / "dist" / "patchlogs"
 
 # --------------------------------------------------
 # Helpers
 # --------------------------------------------------
 
 def newest(pattern):
-    files = glob.glob(pattern)
+    # Resolve glob patterns relative to the repo root so the script works
+    # regardless of the working directory it's launched from.
+    full_pattern = str(_REPO_ROOT / pattern)
+    files = glob.glob(full_pattern)
     if not files: raise FileNotFoundError(pattern)
     files.sort(key=lambda x: os.path.getmtime(x))
     return files[-1]
@@ -460,14 +466,14 @@ LVLI_LIST    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_List.tsv"))
 LVLI_ENTRIES = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Entries.tsv"))
 LVLI_MATH    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Math.tsv"))
 # BOOK: exclude Locations sub-export (has no FULL column)
-_book_files = [f for f in glob.glob("tsv/BOOK_Export_*.tsv")
+_book_files = [f for f in glob.glob(str(_REPO_ROOT / "tsv/BOOK_Export_*.tsv"))
                if "_Locations" not in f]
 if not _book_files:
     raise FileNotFoundError("tsv/BOOK_Export_*.tsv (non-Locations)")
 _book_files.sort(key=lambda x: os.path.getmtime(x))
 BOOK         = read_tsv(_book_files[-1])
 # ARMO: exclude SLOTS and ObjectTemplate sub-exports (no ARMO_FULL column)
-_armo_files = [f for f in glob.glob("tsv/ARMO_Export_*.tsv")
+_armo_files = [f for f in glob.glob(str(_REPO_ROOT / "tsv/ARMO_Export_*.tsv"))
                if "_SLOTS" not in f and "_ObjectTemplate" not in f]
 if not _armo_files:
     raise FileNotFoundError("tsv/ARMO_Export_*.tsv (non-SLOTS)")
@@ -504,7 +510,7 @@ except FileNotFoundError:
     except FileNotFoundError: MGEF_DATA = []
 # Load ALL OMOD exports and merge — different exports may have different DESC fields
 OMOD_DATA = []
-for _omod_f in sorted(glob.glob("tsv/OMOD_Export_*.tsv"), key=lambda x: os.path.getmtime(x)):
+for _omod_f in sorted(glob.glob(str(_REPO_ROOT / "tsv/OMOD_Export_*.tsv")), key=lambda x: os.path.getmtime(x)):
     try:    OMOD_DATA.extend(read_tsv(_omod_f))
     except Exception: pass
 try:    COBJ = read_tsv(newest("tsv/COBJ_Export_*.tsv"))

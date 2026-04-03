@@ -35,7 +35,10 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-DIST_DIR = Path("dist/challenges")
+# Resolve paths relative to the repo root (one level up from src/) so the
+# script produces correct output regardless of which directory it's run from.
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+DIST_DIR = _REPO_ROOT / "dist" / "challenges"
 DIST_DIR.mkdir(parents=True, exist_ok=True)
 
 # ==================================================================
@@ -64,7 +67,8 @@ def newest(pattern):
     Primary sort: parsed year+month from filename (reliable on GitHub Actions
     where git checkout mtimes vary by checkout order, not commit date).
     Tiebreaker: file mtime (useful on local machines)."""
-    files = glob.glob(pattern)
+    full_pattern = str(_REPO_ROOT / pattern)
+    files = glob.glob(full_pattern)
     if not files:
         return None
     files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
