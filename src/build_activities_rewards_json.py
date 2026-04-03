@@ -1755,14 +1755,17 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         if not math:
             continue
 
-        # Extract probability components (resolve GLOBs when xEdit left them unresolved)
+        # Extract probability components (resolve GLOBs when xEdit left them unresolved).
+        # We compute the drop rate from individual components using our curve-aware
+        # _resolve_chance_none(), NOT from xEdit's pre-computed apriori which may use
+        # wrong Resolved values (e.g. T-60 PA where Resolved=40 from MinLvl GLOB
+        # instead of the correct curve-based ChanceNone=70).
         list_none  = _resolve_chance_none(math, "List") / 100.0
         entry_pres = float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
 
-        drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
+        drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand
 
         # Override with cascading probability for first_match lists
         if idx in first_match_rates:
@@ -2024,30 +2027,33 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         if not math:
             continue
 
-        # EntryAprioriChance_NoSublist is the pre-computed drop rate in 0-1 space.
-        # It SHOULD incorporate: (1 - listCN/100) * (1 - entryCN/100) * condChance
-        # BUT xEdit often fails to resolve GLOB references in ChanceNone fields,
-        # leaving them at 0 and inflating apriori.  We correct by applying any
-        # unresolved GLOB ChanceNone as a post-hoc multiplier.
+        # Compute pick_weight and glob_correction from apriori and curve-resolved CN.
+        #
+        # xEdit's EntryAprioriChance_NoSublist = (1-listCN_resolved/100)
+        #   × presenceChance × (1-entryCN_resolved/100) × condChance.
+        # The Resolved values are often WRONG (e.g. T-60 PA: Resolved=40 from
+        # MinLvl GLOB instead of 80 from curve).
+        #
+        # Strategy: strip ChanceNone out of apriori to get pure pick weight,
+        # then apply correct curve-resolved ChanceNone as glob_correction.
+        # This ensures normalisation for pick-one lists uses ChanceNone-free
+        # weights, and the correct ChanceNone is applied AFTER normalisation.
         apriori = float(math.get("EntryAprioriChance_NoSublist") or 0)
-
-        # Correct for unresolved GLOB ChanceNone.
-        # IMPORTANT: we separate the GLOB correction from the pick weight so that
-        # normalisation for pick-one lists only affects the pick probability.
-        # ChanceNone is applied AFTER normalisation (same approach as compute_lvli).
         resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
         resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
         actual_list_cn    = _resolve_chance_none(math, "List")
         actual_entry_cn   = _resolve_chance_none(math, "Entry")
-        glob_correction = 1.0
-        if actual_list_cn > 0 and resolved_list_cn == 0:
-            glob_correction *= (1.0 - actual_list_cn / 100.0)
-        if actual_entry_cn > 0 and resolved_entry_cn == 0:
-            glob_correction *= (1.0 - actual_entry_cn / 100.0)
-        # pick_weight: the entry's relative selection weight (before ChanceNone)
-        # glob_correction: the ChanceNone multiplier (applied after normalisation)
+
+        # Strip resolved ChanceNone out of apriori to get pure pick weight
         pick_weight = apriori
-        entry_drop_rate = apriori * glob_correction
+        if resolved_list_cn > 0 and resolved_list_cn < 100:
+            pick_weight /= (1.0 - resolved_list_cn / 100.0)
+        if resolved_entry_cn > 0 and resolved_entry_cn < 100:
+            pick_weight /= (1.0 - resolved_entry_cn / 100.0)
+
+        # Apply correct curve-resolved ChanceNone
+        glob_correction = (1.0 - actual_list_cn / 100.0) * (1.0 - actual_entry_cn / 100.0)
+        entry_drop_rate = pick_weight * glob_correction
 
         # Get quantity
         qty = 1
