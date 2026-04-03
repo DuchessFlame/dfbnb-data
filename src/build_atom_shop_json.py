@@ -6,6 +6,11 @@ Reads src/atom_shop.json + the newest tsv/ENTM_Export_*.tsv,
 fixes image URLs, adds DESC descriptions, validates,
 and writes dist/atom_shop.json.
 
+Also writes static LTB (Limited Time Bundles) data as data["ltb"]
+in the same output file. LTB bundles are real-money platform DLC
+(Steam/PS/Xbox), not Atom Shop items, so they are hardcoded here
+rather than sourced from the ENTM export.
+
 Categories (matching the JS front-end):
   Apparel - Headwear, Apparel - Outfits,
   Bundles,
@@ -33,12 +38,212 @@ DIST     = os.path.join(SCRIPT_DIR, "..", "dist", "atom_shop.json")
 TSV_ROOT = os.path.join(SCRIPT_DIR, "..", "tsv")
 
 IMAGE_BASE_URL = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/atom-shop/request-item-images/"
+LTB_IMAGE_BASE_URL = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/atom-shop/ltb-images/"
 
 OLD_IMAGE_BASES = [
     "https://www.buffsnbrew.com/wp-content/uploads/fo76/storefront/bundles/",
     "https://www.buffsnbrew.com/wp-content/uploads/fo76/storefront/",
     "/wp-content/uploads/fo76/storefront/bundles/",
     "/wp-content/uploads/fo76/storefront/",
+]
+
+# ── Limited Time Bundles (real-money platform DLC) ───────────────────
+# Ordered newest-first. status: "active" | "replaced" | "discontinued" | "removed"
+# imageUrl fields use filenames only; LTB_IMAGE_BASE_URL is prepended by the JS.
+LTB_BUNDLES = [
+    {
+        "id":        "mojave-bundle",
+        "name":      "Mojave Bundle",
+        "released":  "2026-01-29",
+        "update":    "Burning Springs / Fallout TV Season 2",
+        "price":     "$29.99",
+        "status":    "active",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "Ranger Power Armour Paint",      "desc": "Don the iconic look of the NCR's elite with this rugged, battle-worn Power Armour paint.",                        "imageUrl": ""},
+            {"name": "NCR Flag",                       "desc": "Proudly display the NCR Flag at your C.A.M.P.",                                                                   "imageUrl": ""},
+            {"name": "New Vegas Neon Sign",            "desc": "Add a touch of vintage Vegas glamour to your settlement.",                                                         "imageUrl": ""},
+            {"name": "Ad Victoriam (Super Sledge)",    "desc": "A 4-Star Legendary Super Sledge — the first 4-star weapon sold via the platform store.",                           "imageUrl": ""},
+            {"name": "Legion Legate Outfit",           "desc": "Embrace the ruthless efficiency of Caesar's Legion with this imposing outfit.",                                    "imageUrl": ""},
+            {"name": 'Player Title: "Ad Victoriam"',  "desc": "Player Title Prefix.",                                                                                             "imageUrl": ""},
+            {"name": 'Player Title: "Tribune"',        "desc": "Player Title Prefix and Suffix.",                                                                                  "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "atomic-angler-bundle",
+        "name":      "Atomic Angler Bundle",
+        "released":  "2025-06-03",
+        "update":    None,
+        "price":     "$29.99",
+        "status":    "active",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "Hydro Tech Exo Power Armour",  "desc": "Deep water power armour — or an interesting way to catch fish by hand.",                                           "imageUrl": ""},
+            {"name": "Appalachian Contessa Prefab",  "desc": "Place the Appalachian Contessa in your C.A.M.P. and be the captain of your own ship.",                             "imageUrl": ""},
+            {"name": "Live Bait Barrel",             "desc": "A resource collector. Have a fresh selection of fishing bait available in your C.A.M.P.",                          "imageUrl": ""},
+            {"name": "Floating Buoy Set",            "desc": "For those who like to float things around, even in radiated water.",                                                "imageUrl": ""},
+            {"name": "Charmcaster Fishing Rod",      "desc": "For those who said fishing is a boring hobby.",                                                                     "imageUrl": ""},
+            {"name": 'Player Title: "Contessa"',    "desc": "Player Title Prefix.",                                                                                              "imageUrl": ""},
+            {"name": 'Player Title: "Buoy"',        "desc": "Player Title Suffix.",                                                                                              "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "enclave-armory-bundle",
+        "name":      "Enclave Armory Bundle",
+        "released":  "2024-12-03",
+        "update":    "Gleaming Depths",
+        "price":     "$29.99",
+        "status":    "replaced",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "Enclave Lab Shelter",                   "desc": "What secrets were they hiding in here? Decide for yourself.",                                              "imageUrl": ""},
+            {"name": "Enclave Technician Outfit",             "desc": "Gear up and get ready.",                                                                                  "imageUrl": ""},
+            {"name": "Enclave Technician Helmet",             "desc": "Patriotism is in the air, and that's all you'll be breathing in with this helmet.",                        "imageUrl": ""},
+            {"name": "Vertiguard Enclave Power Armour Paint", "desc": "Continue the Enclave's work in the Gleaming Depths with the Vertiguard Enclave Power Armour Paint.",      "imageUrl": ""},
+            {"name": "Vertiguard Enclave Jetpack",            "desc": "Fly into the Gleaming Depths!",                                                                           "imageUrl": ""},
+            {"name": "Enclave Repair Bot",                    "desc": "Trust the Enclave to keep your C.A.M.P. at tip-top shape. Cannot be built inside a Shelter.",             "imageUrl": ""},
+            {"name": 'Player Title: "Gleaming"',              "desc": "Player Title Prefix.",                                                                                    "imageUrl": ""},
+            {"name": 'Player Title: "Technician"',            "desc": "Player Title Suffix.",                                                                                    "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "skyline-valley-lost-treasures-bundle",
+        "name":      "Skyline Valley — Lost Treasures Bundle",
+        "released":  "2024-06-12",
+        "update":    "Skyline Valley",
+        "price":     "$29.99",
+        "status":    "discontinued",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "Weather Control Station (Skyline Valley)", "desc": "Give your C.A.M.P. an electrical red glow!",                                                           "imageUrl": ""},
+            {"name": "V63 Power Armour & Jetpack Paint",         "desc": "Become a Vault 63 champion with this shiny new Power Armour and Jetpack skin.",                        "imageUrl": ""},
+            {"name": "Vault 63 Door Display",                    "desc": "Bring a piece of Vault 63 to your C.A.M.P.",                                                           "imageUrl": ""},
+            {"name": "Moe the Mole Plushie",                     "desc": "Moe the Mole really digs safety.",                                                                     "imageUrl": ""},
+            {"name": "V63 Chassis Display Frame",                "desc": "Showcase your Power Armour in Vault 63 style!",                                                        "imageUrl": ""},
+            {"name": "Lightning Rod Pose",                       "desc": "Harness the power of lightning with this pose.",                                                        "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "atlantic-city-high-stakes-bundle",
+        "name":      "Atlantic City High Stakes Bundle",
+        "released":  "2023-12-05",
+        "update":    "Atlantic City — Boardwalk Paradise",
+        "price":     "$29.99",
+        "status":    "discontinued",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "Casino Quarter C.A.M.P. Kit",    "desc": "Build your very own Atlantic City.",                                                                             "imageUrl": ""},
+            {"name": "Civic Duty Power Armour Paint",  "desc": "The Munis keep the city running. Fulfil your Civic Duty with this Power Armour!",                                "imageUrl": ""},
+            {"name": "Honey Pot 'o Gold Slot Machine", "desc": "With a little bit of sweet luck you'll be over the rainbow.",                                                    "imageUrl": ""},
+            {"name": "Aquarium of the Atlantic Door",  "desc": "What treasures await you in the deep seas behind this door?",                                                    "imageUrl": ""},
+            {"name": "Large Overgrown Plushie",        "desc": "The Overgrown will take over your bedroom with this Large Plushie!",                                             "imageUrl": ""},
+            {"name": "Rig Roll-Up Backpack",           "desc": "Rig, Roll, and Pack it up with this all-purpose Backpack!",                                                      "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "pitt-recruitment-bundle",
+        "name":      "The Pitt Recruitment Bundle",
+        "released":  "2022-09-13",
+        "update":    "Expeditions: The Pitt",
+        "price":     "$29.99",
+        "status":    "discontinued",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "Pittsburgh Neighbourhood C.A.M.P. Kit", "desc": "Fit right in with the friends from your expeditions with the Pittsburgh Neighbourhood C.A.M.P. Kit.",   "imageUrl": ""},
+            {"name": "Fanatic Paint (10mm SMG)",               "desc": "You don't want to be caught in The Pitt without the Fanatic Paint for the 10mm SMG.",                  "imageUrl": ""},
+            {"name": "Fanatic Power Armour Paint",             "desc": "Be right at home in the factory with this Fanatic Power Armour Paint. Can be equipped to all Power Armours.", "imageUrl": ""},
+            {"name": "Trog Plushie",                           "desc": "Even Trogs could use a snuggle! Bring this Trog Plushie home to your C.A.M.P.",                        "imageUrl": ""},
+            {"name": "Fusion Core Recharger",                  "desc": "Extend the life of your used Fusion Cores. Cannot be built inside a Shelter.",                          "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "mechanists-persona-bundle",
+        "name":      "Mechanist's Persona Bundle",
+        "released":  "2022-07-13",
+        "update":    None,
+        "price":     "$9.99",
+        "status":    "removed",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "1000 (+500 Bonus) Atoms", "desc": "In-game currency for the Atomic Shop.",         "imageUrl": ""},
+            {"name": "Mechanist's Outfit",       "desc": "The Mechanist's signature outfit.",             "imageUrl": ""},
+            {"name": "Mechanist's Helmet",       "desc": "The Mechanist's iconic helmet.",                "imageUrl": ""},
+            {"name": "6x Repair Kits",           "desc": "Standard Repair Kits.",                         "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "elders-persona-bundle",
+        "name":      "Elder's Persona Bundle",
+        "released":  "2022-06-13",
+        "update":    None,
+        "price":     "$9.99",
+        "status":    "removed",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "1000 (+500 Bonus) Atoms", "desc": "In-game currency for the Atomic Shop.",         "imageUrl": ""},
+            {"name": "Elder's Battlecoat",       "desc": "The distinguished coat of a Brotherhood Elder.", "imageUrl": ""},
+            {"name": "6x Repair Kits",           "desc": "Standard Repair Kits.",                         "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "generals-persona-bundle",
+        "name":      "General's Persona Bundle",
+        "released":  "2022-05-12",
+        "update":    None,
+        "price":     "$9.99",
+        "status":    "removed",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "1000 (+500 Bonus) Atoms",          "desc": "In-game currency for the Atomic Shop.", "imageUrl": ""},
+            {"name": "Revolutionary General's Uniform",  "desc": "Suit up in the uniform of a Revolutionary General.", "imageUrl": ""},
+            {"name": "3x Repair Kits",                   "desc": "Standard Repair Kits.",                 "imageUrl": ""},
+            {"name": "3x Scrap Kits",                    "desc": "Standard Scrap Kits.",                  "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "pint-sized-slashers-persona-bundle",
+        "name":      "Pint-Sized Slasher's Persona Bundle",
+        "released":  "2022-04-12",
+        "update":    None,
+        "price":     "$9.99",
+        "status":    "removed",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "1000 (+500 Bonus) Atoms",    "desc": "In-game currency for the Atomic Shop.", "imageUrl": ""},
+            {"name": "Pint-Sized Slasher Costume", "desc": "The full Pint-Sized Slasher outfit.",   "imageUrl": ""},
+            {"name": "Pint-Sized Slasher Knife",   "desc": "The Pint-Sized Slasher's signature knife.", "imageUrl": ""},
+            {"name": "3x Repair Kits",             "desc": "Standard Repair Kits.",                 "imageUrl": ""},
+            {"name": "3x Scrap Kits",              "desc": "Standard Scrap Kits.",                  "imageUrl": ""},
+        ],
+    },
+    {
+        "id":        "brotherhood-recruitment-bundle",
+        "name":      "Brotherhood Recruitment Bundle",
+        "released":  "2020-12-01",
+        "update":    "Steel Dawn",
+        "price":     "$29.99",
+        "status":    "removed",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "Brotherhood of Steel Scouting Tower",    "desc": "Survey Appalachia for new threats and opportunities from this massive Scouting Tower.",                 "imageUrl": ""},
+            {"name": "Brotherhood of Steel Salute",            "desc": "Ad Victoriam, Brothers.",                                                                               "imageUrl": ""},
+            {"name": "Brotherhood of Steel Barricade",         "desc": "One more tool to protect against the new dangers of Appalachia.",                                       "imageUrl": ""},
+            {"name": "Brotherhood Tactical Field Pack",        "desc": "Never be caught unprepared with the Tactical Field Pack.",                                              "imageUrl": ""},
+            {"name": "Brotherhood Barracks Locker",            "desc": "Keep your valuable finds safe and sound with the Barracks Locker.",                                     "imageUrl": ""},
+            {"name": "Brotherhood Reclaimed Power Armour Paint", "desc": "Use what you find and reclaim Appalachia!",                                                           "imageUrl": ""},
+        ],
+    },
 ]
 
 DESC_STRIP_RE = re.compile(
@@ -374,12 +579,18 @@ def main():
     total = sum(cat_counts.values())
     print(f"  {'TOTAL':40s} {total:4d}")
 
+    # ── Write LTB static data ────────────────────────────────────────
+    # LTB imageUrl values are filenames only; the JS prepends LTB_IMAGE_BASE_URL.
+    # If an imageUrl is empty ("") the JS renders a placeholder — that's fine.
+    data["ltb"] = LTB_BUNDLES
+    print(f"\n[atom_shop] LTB bundles written: {len(LTB_BUNDLES)}")
+
     os.makedirs(os.path.dirname(DIST), exist_ok=True)
     with open(DIST, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
         f.write("\n")
 
-    print(f"\n[atom_shop] OK — {len(fixed_items)} items written to dist/atom_shop.json")
+    print(f"\n[atom_shop] OK — {len(fixed_items)} items + {len(LTB_BUNDLES)} LTB bundles written to dist/atom_shop.json")
 
 
 if __name__ == "__main__":
