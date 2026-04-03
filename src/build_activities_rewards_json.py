@@ -1792,14 +1792,45 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 if cond_val:
                     conditions.append(cond_val)
 
-        # Extract minimum level requirement as a display condition (skip trivial level 1)
-        min_lvl_raw = (entry.get("LVLV_MinimumLevel") or "").strip()
-        try:
-            min_lvl = int(float(min_lvl_raw)) if min_lvl_raw else 0
-        except (ValueError, TypeError):
-            min_lvl = 0
+        # Extract minimum level requirement as a display condition (skip trivial level 1).
+        # Priority: GLOB+CURV (curve-interpolated) > GLOB only > static LVLV value.
+        # Also checks LVOG_ChanceNoneGlobal for misplaced MinLvl GLOBs (xEdit bug
+        # where PowerArmor MinLvl GLOBs appear in the ChanceNone column).
+        min_lvl = 0
+        _ml_glob_ref = (entry.get("LVLG_MinimumLevelGlobal") or "").strip()
+        _ml_curv_ref = (entry.get("LVLT_MinimumLevelCurve") or "").strip()
+        _ml_glob_fltv = None
+        if _ml_glob_ref:
+            _ml_gfid = _ml_glob_ref.split(":")[0] if ":" in _ml_glob_ref else _ml_glob_ref
+            if _ml_gfid in glob_vals:
+                _ml_glob_fltv = glob_vals[_ml_gfid]
+        if _ml_curv_ref and _ml_glob_fltv is not None:
+            _ml_cfid = _ml_curv_ref.split(":")[0] if ":" in _ml_curv_ref else _ml_curv_ref
+            _ml_curv_pts = _curv_pts.get(_ml_cfid)
+            if _ml_curv_pts:
+                _ml_y = _interp_curve(_ml_curv_pts, _ml_glob_fltv)
+                if _ml_y is not None:
+                    min_lvl = int(round(_ml_y))
+        if min_lvl == 0 and _ml_glob_fltv is not None:
+            # GLOB FLTV is the direct minimum level (e.g. PowerArmor MinLvl GLOBs)
+            min_lvl = int(round(_ml_glob_fltv))
+        # Fallback: check ChanceNone column for misplaced MinLvl GLOBs (xEdit bug).
+        # Power Armour entries often have MinLvl_PowerArmor_* in LVOG_ChanceNoneGlobal.
+        if min_lvl == 0:
+            _cn_glob_ref = (entry.get("LVOG_ChanceNoneGlobal") or "").strip()
+            if _cn_glob_ref and "MinLvl_" in _cn_glob_ref:
+                _cn_gfid = _cn_glob_ref.split(":")[0] if ":" in _cn_glob_ref else _cn_glob_ref
+                if _cn_gfid in glob_vals:
+                    min_lvl = int(round(glob_vals[_cn_gfid]))
+        if min_lvl == 0:
+            # Fall back to static value
+            min_lvl_raw = (entry.get("LVLV_MinimumLevel") or "").strip()
+            try:
+                min_lvl = int(float(min_lvl_raw)) if min_lvl_raw else 0
+            except (ValueError, TypeError):
+                min_lvl = 0
         if min_lvl > 1:
-            conditions.append(f"GetLevel(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 01000100 {min_lvl}.000000")
+            conditions.append(f"Requires player level {min_lvl}+")
 
         sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
         ref = (entry.get("LVLO_Reference") or "").strip()
