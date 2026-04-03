@@ -3287,6 +3287,42 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
     activity_data["rewardTree"] = reward_tree
 
+    # ── Repair: rebuild any LVLI tree nodes that lost children during build ──
+    # Some pick-one LVLI nodes (e.g. T-51b Power Armor) sporadically lose
+    # children during the full build despite correct TSV data.  Walk the tree
+    # and, for any LVLI node whose TSV entry count exceeds its child count,
+    # rebuild the missing children via build_lvli_tree_node on each sub-LVLI.
+    def _repair_missing_children(node):
+        if not node or node.get("type") == "leaf":
+            return
+        fid = node.get("formid", "")
+        children = node.get("children", [])
+        if fid and fid in lvli_entries_by_list:
+            expected_sub_lvlis = []
+            for entry in lvli_entries_by_list[fid]:
+                idx = entry.get("EntryIndex")
+                math = lvli_math_by_entry.get((fid, idx))
+                if math:
+                    sub = (math.get("SubLVLI_FormID") or "").strip()
+                    if sub:
+                        expected_sub_lvlis.append(sub)
+            existing_fids = {c.get("formid", "") for c in children}
+            missing = [s for s in expected_sub_lvlis if s not in existing_fids]
+            if missing and len(children) < len(expected_sub_lvlis):
+                for sub_fid in missing:
+                    sub_node = build_lvli_tree_node(sub_fid)
+                    if sub_node and (sub_node.get("children") or sub_node.get("items")):
+                        sub_node["entryRate"] = 100.0
+                        sub_node["isUniqueReward"] = node.get("isUniqueReward", False)
+                        children.append(sub_node)
+                if "children" not in node:
+                    node["children"] = children
+        for child in node.get("children", []):
+            _repair_missing_children(child)
+
+    for tree_node in reward_tree:
+        _repair_missing_children(tree_node)
+
     # ── Tag tree nodes as unique or standard ──────────────────────────────
     # "Standard" top-level nodes (Activity Rewards, Scrap, Legendary, etc.)
     # keep their own expand on the page.  Everything else is tagged as
