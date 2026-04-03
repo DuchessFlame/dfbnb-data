@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  SFTP sync for bundle images to WP Engine.
+  SFTP sync for Limited Time Bundle images to WP Engine.
   Called by run_bundle_images.ps1 after building AVIFs,
   or run standalone to re-upload.
 
@@ -12,7 +12,7 @@ $ErrorActionPreference = "Stop"
 
 # ---- Paths ----
 $LocalBase = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\storefront"
-$Local     = Join-Path $LocalBase "bundles"
+$Local     = Join-Path $LocalBase "bundle-images"
 
 if (-not (Test-Path -LiteralPath $Local)) {
     Write-Host "Local folder not found: $Local"
@@ -24,7 +24,7 @@ if (-not (Test-Path -LiteralPath $Local)) {
 $SftpHost     = "buffsnbrew1.sftp.wpengine.com"
 $Port         = 2222
 $User         = "buffsnbrew1-nav"
-$RemoteFolder = "/wp-content/uploads/guide-images/atom-shop/request-item-images/"
+$RemoteFolder = "/wp-content/uploads/guide-images/atom-shop/bundle-images/"
 
 $WinSCP = "D:\WinSCP\WinSCP.com"
 if (-not (Test-Path -LiteralPath $WinSCP)) {
@@ -54,9 +54,6 @@ $lines = @(
     ("open sftp://" + $User + "@" + $SftpHost + ":" + $Port + "/ -password=`"" + $SftpPassword + "`""),
     "",
     ("cd " + $RemoteFolder),
-    "",
-    "# Remove old WebP files (transition cleanup - harmless once all files are AVIF)",
-    "rm *.webp",
     "",
     "# Remove existing AVIF files before uploading fresh set",
     "rm *.avif",

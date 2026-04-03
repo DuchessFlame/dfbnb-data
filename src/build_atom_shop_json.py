@@ -38,7 +38,7 @@ DIST     = os.path.join(SCRIPT_DIR, "..", "dist", "atom_shop.json")
 TSV_ROOT = os.path.join(SCRIPT_DIR, "..", "tsv")
 
 IMAGE_BASE_URL = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/atom-shop/request-item-images/"
-LTB_IMAGE_BASE_URL = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/atom-shop/ltb-images/"
+LTB_IMAGE_BASE_URL = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/atom-shop/bundle-images/"
 
 OLD_IMAGE_BASES = [
     "https://www.buffsnbrew.com/wp-content/uploads/fo76/storefront/bundles/",
