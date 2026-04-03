@@ -3019,7 +3019,21 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 gmrw_mult = max(0.0, min(1.0, float(tier_val) / 100.0))
             except (ValueError, TypeError):
                 gmrw_mult = 1.0
+            # GetRandomPercent is handled by the tier fields, but the Conditions
+            # text may contain OTHER conditions (e.g. HasLearnedRecipe) that still
+            # need to be surfaced.  Split on comma-quote boundary and process each
+            # sub-condition individually, skipping GetRandomPercent.
             gmrw_cond_display = ""
+            if cond_text:
+                parts = re.split(r',(?=")', cond_text)
+                for part in parts:
+                    part = part.strip().strip('"')
+                    if not part or "GetRandomPercent" in part:
+                        continue
+                    result = simplify_condition(part)
+                    if result:
+                        gmrw_cond_display = result
+                        break
         else:
             gmrw_mult = parse_randompercent_multiplier(cond_text)
             gmrw_cond_display = simplify_condition(cond_text) if cond_text else ""
