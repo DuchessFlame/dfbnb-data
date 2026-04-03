@@ -40,13 +40,32 @@ PATCHLOG_DIR = _REPO_ROOT / "dist" / "patchlogs"
 # Helpers
 # --------------------------------------------------
 
+_MONTH_ORDER = {
+    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9, "oct": 10,
+    "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
+}
+
+def _filename_date_key(path):
+    """Extract (year, month_number) from filenames like LVLI_Export_April_2026_*.tsv."""
+    base = os.path.basename(path).lower()
+    m = re.search(r'_([a-z]+)_(\d{4})', base)
+    if m:
+        month_num = _MONTH_ORDER.get(m.group(1), 0)
+        if month_num:
+            return (int(m.group(2)), month_num)
+    return (0, 0)  # unknown → sort low so parseable dates always win
+
 def newest(pattern):
-    # Resolve glob patterns relative to the repo root so the script works
-    # regardless of the working directory it's launched from.
+    """Pick the most recent file matching *pattern*.
+    Primary sort: parsed year+month from filename (reliable on GitHub Actions
+    where git checkout mtimes vary by checkout order, not commit date).
+    Tiebreaker: file mtime (useful on local machines)."""
     full_pattern = str(_REPO_ROOT / pattern)
     files = glob.glob(full_pattern)
     if not files: raise FileNotFoundError(pattern)
-    files.sort(key=lambda x: os.path.getmtime(x))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
     return files[-1]
 
 def read_tsv(path):
@@ -1421,32 +1440,91 @@ for _r in LVLI_LIST:
     if _conds:
         LVLI_LIST_CONDITIONS[_fid] = _conds
 
+def _interp_curve(pts, x):
+    """Linearly interpolate Y at X from a list of (x, y) curve points."""
+    if not pts:
+        return None
+    sp = sorted(pts, key=lambda p: p[0])
+    if x <= sp[0][0]:
+        return sp[0][1]
+    if x >= sp[-1][0]:
+        return sp[-1][1]
+    for i in range(len(sp) - 1):
+        x0, y0 = sp[i]
+        x1, y1 = sp[i + 1]
+        if x0 <= x <= x1:
+            t = (x - x0) / (x1 - x0) if x1 != x0 else 0
+            return y0 + t * (y1 - y0)
+    return sp[-1][1]
+
 def _resolve_chance_none(math_row, field_prefix="Entry"):
     """
-    Resolve ChanceNone for an LVLI entry/list, checking GLOB references
-    when the pre-computed 'Resolved' column is 0.
+    Resolve ChanceNone for an LVLI entry/list, checking GLOB and CURV
+    references when the pre-computed 'Resolved' column is 0.
 
     Priority:
-      1. <prefix>ChanceNoneResolved (if non-zero, trust it)
-      2. <prefix>ChanceNoneGlobal → extract GLOB FormID → look up glob_vals
-      3. <prefix>ChanceNoneCurve  → extract GLOB FormID → look up glob_vals
-      4. Fall back to 0.0 (= 100% drop chance)
+      1. CURV-column GLOB with LVLI→CURV mapping → tier index into curve → Y
+         (overrides Resolved, which is often wrong when ChanceNoneGlobal holds
+         a non-ChanceNone GLOB like MinLvl_*)
+      2. Real CURV + GLOB → GLOB FLTV as X into curve → Y
+      3. <prefix>ChanceNoneResolved (if non-zero and no curve path available)
+      4. <prefix>ChanceNoneGlobal → GLOB FLTV directly
+      5. <prefix>ChanceNoneCurve  → GLOB FLTV directly (fallback)
+      6. 0.0 (= 100% drop chance)
+
+    GLOB FLTV values (e.g. 10.0 for Recipe_High_ChanceNone_Tier) are tier
+    indices, NOT direct ChanceNone percentages.  When paired with a CURV,
+    the game evaluates Curve(X=FLTV) to get the actual ChanceNone Y.
 
     Returns a float in 0-100 space (e.g. 95.0 means 95% chance of nothing).
     """
+    glob_ref = (math_row.get(f"{field_prefix}ChanceNoneGlobal") or "").strip()
+    curv_ref = (math_row.get(f"{field_prefix}ChanceNoneCurve") or "").strip()
+
+    # Resolve GLOB FLTV (may be a MinLvl or other non-ChanceNone value)
+    glob_fltv = None
+    if glob_ref:
+        glob_fid = glob_ref.split(":")[0] if ":" in glob_ref else glob_ref
+        if glob_fid in glob_vals:
+            glob_fltv = glob_vals[glob_fid]
+
+    # Try curve-based resolution FIRST (before trusting Resolved)
+    if curv_ref:
+        curv_fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
+        curv_pts = _curv_pts.get(curv_fid)
+        if curv_pts and glob_fltv is not None:
+            # GLOB FLTV is the X index into a real curve; Y is the actual ChanceNone
+            y = _interp_curve(curv_pts, glob_fltv)
+            if y is not None:
+                return y
+        # CURV column holds a GLOB ref (no actual curve points) — resolve as
+        # tier index and look up the LVLI's own CURV mapping for interpolation.
+        # This is the most common case: the ChanceNoneCurve field contains
+        # e.g. "00307FF3:Recipe_High_ChanceNone_Tier:GLOB" with FLTV=10,
+        # and the LVLI is linked to Container_Recipe_ChanceNone via CURV refs.
+        if not curv_pts:
+            tier_fltv = glob_vals.get(curv_fid)
+            if tier_fltv is not None:
+                lvli_fid = (math_row.get("LVLI_FormID") or "").strip()
+                mapped_curv = _lvli_to_curv.get(lvli_fid)
+                if mapped_curv:
+                    mapped_pts = _curv_pts.get(mapped_curv)
+                    if mapped_pts:
+                        y = _interp_curve(mapped_pts, tier_fltv)
+                        if y is not None:
+                            return y
+                # No LVLI→CURV mapping — use tier FLTV as direct ChanceNone
+                if glob_fltv is None:
+                    glob_fltv = tier_fltv
+
+    # Fall back to xEdit's pre-computed Resolved value (trustworthy when no
+    # curve path exists — i.e. when ChanceNoneCurve is empty)
     resolved = float(math_row.get(f"{field_prefix}ChanceNoneResolved") or 0)
     if resolved > 0:
         return resolved
 
-    # Check GLOB references when Resolved is 0
-    for col in (f"{field_prefix}ChanceNoneGlobal", f"{field_prefix}ChanceNoneCurve"):
-        ref = (math_row.get(col) or "").strip()
-        if not ref:
-            continue
-        # Extract GLOB FormID from "00829437:SpawnChance_Cnone_...:GLOB"
-        glob_fid = ref.split(":")[0] if ":" in ref else ref
-        if glob_fid in glob_vals:
-            return glob_vals[glob_fid]
+    if glob_fltv is not None:
+        return glob_fltv
 
     return 0.0
 
@@ -3609,6 +3687,32 @@ for r in CURV_POINTS:
     fid = pick(r, "CURV_FormID", "FormID")
     try: _curv_pts[fid].append((float(r.get("X") or 0), float(r.get("Y") or 0)))
     except (ValueError, TypeError): pass
+
+# Build LVLI → CURV mapping from the CURV main TSV (non-POINTS file).
+# Each row lists a CURV FormID and which LVLIs reference it (Ref1..RefN).
+_lvli_to_curv = {}
+try:
+    _curv_main_candidates = glob.glob(str(_REPO_ROOT / "tsv" / "CURV_Export_*.tsv"))
+    _curv_main_files = [f for f in _curv_main_candidates if "_POINTS" not in f]
+    if _curv_main_files:
+        _curv_main_files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+        with open(_curv_main_files[-1], encoding="utf-8-sig", newline="") as _cf:
+            for _line in _cf:
+                _parts = _line.strip().split("\t")
+                if len(_parts) < 6:
+                    continue
+                _curv_fid = _parts[0].strip()
+                if not re.fullmatch(r"[0-9A-Fa-f]{8}", _curv_fid):
+                    continue
+                for _ref in _parts[5:]:
+                    _ref = _ref.strip()
+                    if not _ref:
+                        continue
+                    _lvli_fid = _ref.split(":")[0]
+                    if re.fullmatch(r"[0-9A-Fa-f]{8}", _lvli_fid):
+                        _lvli_to_curv[_lvli_fid] = _curv_fid
+except (FileNotFoundError, UnicodeDecodeError):
+    pass
 
 def xp_at_level(curv_ref, level=50):
     fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
