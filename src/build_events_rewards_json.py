@@ -1115,10 +1115,12 @@ def compute_lvli(list_id):
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
         if sub:
             for k, v in compute_lvli(sub).items():
@@ -1152,10 +1154,12 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
         if sub:
             # Detect region from sub-LVLI EDID
@@ -1256,10 +1260,12 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
 
         # Extract probability components (resolve GLOBs when xEdit left them unresolved)
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
 
         drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
 
@@ -1407,14 +1413,17 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # BUT xEdit often fails to resolve GLOB references in ChanceNone fields,
         # leaving them at 0 and inflating apriori.  We correct by applying any
         # unresolved GLOB ChanceNone as a post-hoc multiplier.
-        apriori = float(math.get("EntryAprioriChance_NoSublist") or 0)
+        # MinLvl GLOBs in EntryChanceNoneGlobal contaminate apriori — override.
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        apriori = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 0)
 
         # Correct for unresolved GLOB ChanceNone.
         # IMPORTANT: we separate the GLOB correction from the pick weight so that
         # normalisation for pick-one lists only affects the pick probability.
         # ChanceNone is applied AFTER normalisation (same approach as compute_lvli).
         resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
-        resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
+        resolved_entry_cn = 0.0 if _is_minlvl else float(math.get("EntryChanceNoneResolved") or 0)
         actual_list_cn    = _resolve_chance_none(math, "List")
         actual_entry_cn   = _resolve_chance_none(math, "Entry")
         glob_correction = 1.0

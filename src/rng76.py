@@ -748,6 +748,7 @@ class Rng76Resolver:
 
         flags = self.lvli.flags_for(list_id)
         is_use_all = flags["use_all"]
+        is_for_each = flags["for_each"]
 
         items: List[Dict[str, Any]] = []
         for entry in self.lvli.entries_by_list.get(list_id, []):
@@ -801,18 +802,28 @@ class Rng76Resolver:
                         "_ecn_correction": ecn_correction,
                     })
 
-        # ── ChanceNone cascading (waterfall) probability ──
-        # For pick-one lists where entries have per-entry ChanceNone, the game
-        # evaluates entries IN ORDER, rolling ChanceNone for each.  On failure
-        # it moves to the next.  net_p_i = success_i × product(failure_j for j<i).
-        # The last entry (often no ChanceNone) catches the remainder → total = 100%.
-        has_cascading_cn = (
-            not is_use_all
-            and items
-            and any(it.get("_ecn_correction", 1.0) < 0.9999 for it in items)
+        # ── Determine which post-processing path to take ──
+        has_entry_cn = any(
+            it.get("_ecn_correction", 1.0) < 0.9999 for it in items
         )
 
-        if has_cascading_cn:
+        # ── "For Each" + per-entry ChanceNone: independent rolls ──
+        # Each entry is rolled independently (not cascading, not pick-one).
+        # e.g. CBZ09_LL_Armor_Marine_Any: 5 entries each with 25% success.
+        # No normalisation — total can exceed 100% (represents independent events).
+        if is_for_each and has_entry_cn:
+            for it in items:
+                correction = it.pop("_ecn_correction", 1.0)
+                if correction != 1.0:
+                    it["dropRate"] *= correction
+
+        # ── ChanceNone cascading (waterfall) probability ──
+        # For pick-one lists (NOT for_each) where entries have per-entry
+        # ChanceNone, the game evaluates entries IN ORDER, rolling ChanceNone
+        # for each.  On failure it moves to the next.
+        # net_p_i = success_i × product(failure_j for j<i).
+        # The last entry (often no ChanceNone) catches the remainder → total = 100%.
+        elif not is_use_all and not is_for_each and items and has_entry_cn:
             cumulative_failure = 1.0
             for it in items:
                 correction = it.pop("_ecn_correction", 1.0)
@@ -904,12 +915,34 @@ class Rng76Resolver:
 
     @staticmethod
     def _entry_chance(math: Dict[str, str]) -> float:
-        """Apply the rng-76 formula to a single LVLI entry."""
+        """Apply the rng-76 formula to a single LVLI entry.
+
+        Detects MinLvl GLOBs that xEdit misinterprets as ChanceNone,
+        contaminating EntryChanceNoneResolved, EntryPresenceChance, and
+        EntryAprioriChance_NoSublist.  When a MinLvl GLOB is present,
+        the contaminated fields are overridden to their correct values
+        (entry_none=0, entry_pres=1, apriori=1).
+        """
+        # Detect MinLvl GLOBs in EntryChanceNoneGlobal — these set the
+        # minimum player level, NOT a chance of nothing.  xEdit bakes
+        # the GLOB FLTV into Resolved/Presence/Apriori as if it were a
+        # ChanceNone percentage, producing wildly wrong (even negative)
+        # drop rates.
+        entry_cn_glob = (math.get("EntryChanceNoneGlobal") or "")
+        is_minlvl = "MinLvl" in entry_cn_glob
+
         list_none  = float(math.get("ListChanceNoneResolved") or 0)
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = float(math.get("EntryChanceNoneResolved") or 0)
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+
+        if is_minlvl:
+            entry_pres = 1.0
+            entry_none = 0.0
+            apriori    = 1.0
+        else:
+            entry_pres = float(math.get("EntryPresenceChance") or 1)
+            entry_none = float(math.get("EntryChanceNoneResolved") or 0)
+            apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+
         return (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
 
     def _resolve_entry_chancenone(
@@ -933,9 +966,15 @@ class Rng76Resolver:
           - GLOB=75, no CURV → ChanceNone = 75%
           - GLOB=10, CURV maps X=10→Y=95 → ChanceNone = 95%
         """
+        # If a MinLvl GLOB contaminated EntryChanceNoneResolved, ignore it
+        entry_cn_glob = (math.get("EntryChanceNoneGlobal") or "")
+        is_minlvl = "MinLvl" in entry_cn_glob
+
         entry_none = float(math.get("EntryChanceNoneResolved") or 0)
-        if entry_none > 0 or entry is None:
+        if not is_minlvl and (entry_none > 0 or entry is None):
             return entry_none
+        if is_minlvl:
+            entry_none = 0.0  # Not a real ChanceNone
         for field_name in ("LVOC_ChanceNoneCurve", "LVOG_ChanceNoneGlobal"):
             raw = (entry.get(field_name) or "").strip()
             if not raw:

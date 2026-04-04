@@ -1469,10 +1469,12 @@ def compute_lvli(list_id):
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         raw_weight = (1 - list_none) * entry_pres * cond_rand * apriori
         raw_entries.append((sub, raw_weight, entry_none, e))
 
@@ -1525,10 +1527,12 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
         if sub:
             # Detect region from sub-LVLI EDID
@@ -1632,8 +1636,14 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         # _resolve_chance_none(), NOT from xEdit's pre-computed apriori which may use
         # wrong Resolved values (e.g. T-60 PA where Resolved=40 from MinLvl GLOB
         # instead of the correct curve-based ChanceNone=70).
+        #
+        # MinLvl GLOBs in EntryChanceNoneGlobal also contaminate
+        # EntryPresenceChance (xEdit computes 1-MinLvl/100 as if the
+        # level were a ChanceNone percentage).  Override to 1.0.
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        entry_cn_glob = (math.get("EntryChanceNoneGlobal") or "")
+        is_minlvl = "MinLvl" in entry_cn_glob
+        entry_pres = 1.0 if is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
 
@@ -1911,9 +1921,14 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # then apply correct curve-resolved ChanceNone as glob_correction.
         # This ensures normalisation for pick-one lists uses ChanceNone-free
         # weights, and the correct ChanceNone is applied AFTER normalisation.
-        apriori = float(math.get("EntryAprioriChance_NoSublist") or 0)
+        #
+        # MinLvl GLOBs in EntryChanceNoneGlobal contaminate apriori and
+        # resolved values — override to clean values when detected.
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        apriori = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 0)
         resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
-        resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
+        resolved_entry_cn = 0.0 if _is_minlvl else float(math.get("EntryChanceNoneResolved") or 0)
         actual_list_cn    = _resolve_chance_none(math, "List")
         actual_entry_cn   = _resolve_chance_none(math, "Entry")
 
