@@ -16,11 +16,11 @@ Categories (matching the JS front-end):
   Bundles,
   CAMP - Camp Sets, CAMP - Displays & Weapon Racks, CAMP - Doors,
   CAMP - Floors, CAMP - Garden, CAMP - Kiddie Rides,
-  CAMP - Lamps & Lights, CAMP - Skins, CAMP - Stash Boxes,
-  CAMP - Vending Machines,
+  CAMP - Lamps & Lights, CAMP - Resource Generator, CAMP - Shelters,
+  CAMP - Skins, CAMP - Stash Boxes, CAMP - Vending Machines,
   Emotes, Fridges, Photomode, Player, Player Icons, Plushies,
   Pre-Fabs and Structures,
-  Skins - Armour, Skins - Backpack, Skins - Pip Boy,
+  Skins - Armour, Skins - Backpack & Lootbags, Skins - Pip Boy,
   Skins - Power Armour, Skins - Weapons,
   Wallpaper, Other
 """
@@ -248,6 +248,8 @@ CATEGORY_ORDER = [
     "CAMP - Garden",
     "CAMP - Kiddie Rides",
     "CAMP - Lamps & Lights",
+    "CAMP - Resource Generator",
+    "CAMP - Shelters",
     "CAMP - Skins",
     "CAMP - Stash Boxes",
     "CAMP - Vending Machines",
@@ -259,7 +261,7 @@ CATEGORY_ORDER = [
     "Plushies",
     "Pre-Fabs and Structures",
     "Skins - Armour",
-    "Skins - Backpack",
+    "Skins - Backpack & Lootbags",
     "Skins - Pip Boy",
     "Skins - Power Armour",
     "Skins - Weapons",
@@ -365,16 +367,28 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
             return "Bundles"
 
     # ── Name-based overrides ────────────────────────────
+    if "POWER ARMOUR" in n and ("PAINT" in n or "SKIN" in n or "PAINTS" in n):
+        return "Skins - Power Armour"
+
+    if "SHELTER" in n:
+        return "CAMP - Shelters"
+
     for kw in ("SCOUTING TOWER", "SCOUT TOWER", "FIREWATCH TOWER",
-               "SHELTER", "MEGA MANSION", "SEEDY SHED", "OUTHOUSE"):
+               "MEGA MANSION", "SEEDY SHED", "OUTHOUSE"):
         if kw in n:
             return "Pre-Fabs and Structures"
+
+    if "COLLECTRON" in n or "COFFEE MACHINE" in n:
+        return "CAMP - Resource Generator"
+
+    if "HAUNTED HOUSE STAIRCASE" in n:
+        return "CAMP - Camp Sets"
 
     if "REFRIGERATOR" in n or "FRIDGE" in n:
         return "Fridges"
     if "PLUSHIE" in n:
         return "Plushies"
-    if "KIDDIE RIDE" in n:
+    if "KIDDIE RIDE" in n or n.endswith(" RIDE"):
         return "CAMP - Kiddie Rides"
     if "VENDING MACHINE" in n:
         return "CAMP - Vending Machines"
@@ -394,18 +408,24 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
     if "PHOTOFRAME" in n or "PHOTO" in n:
         return "Photomode"
 
+    if "LOOT BAG" in n:
+        return "Skins - Backpack & Lootbags"
+
     if not e:
         return "Other"
 
     # ── EDID-based ──────────────────────────────────────
-    if "_CAMP_STRUCTURE_" in e or e.startswith("SHELTERS_"):
+    if e.startswith("SHELTERS_"):
+        return "CAMP - Shelters"
+
+    if "_CAMP_STRUCTURE_" in e:
         return "Pre-Fabs and Structures"
 
     if "_SKIN_POWERARMOR_" in e or "_SKIN_POWRARMOR_" in e:
         return "Skins - Power Armour"
 
-    if "_SKIN_BACKPACK_" in e or "_BACKPACK_SKIN_" in e:
-        return "Skins - Backpack"
+    if "_SKIN_BACKPACK_" in e or "_BACKPACK_SKIN_" in e or "_LOOTBAG_" in e:
+        return "Skins - Backpack & Lootbags"
 
     if "_SKIN_PIPBOY_" in e or "_PIPBOY_SKIN_" in e or "_SKIN_PIPB_" in e:
         return "Skins - Pip Boy"
@@ -425,8 +445,8 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
     if "_KIDDIERIDE_" in e:
         return "CAMP - Kiddie Rides"
 
-    if "_UTILITY_COLLECTRON_" in e or "_COFFEEMACHINE_" in e or "_SLOCUMSJOE_" in e:
-        return "CAMP - Skins"
+    if "_UTILITY_COLLECTRON_" in e or "_COLLECTOR_" in e or "_COFFEEMACHINE_" in e or "_SLOCUMSJOE_" in e:
+        return "CAMP - Resource Generator"
 
     if "_MACHINERY_PURIFIER_" in e or "_MACHINERY_GENERATOR_" in e:
         return "CAMP - Skins"
@@ -472,6 +492,9 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
         return "Other"
 
     if "_APPAREL_" in e or e.startswith("ATX_CLOTHES_"):
+        # Underarmor is armour, not apparel
+        if "_UNDERARMOR_" in e:
+            return "Skins - Armour"
         headwear_kws = ("_HAT_", "_HELMET_", "_MASK_", "_HEADWEAR_", "_BERET_",
                         "_FEZ_", "_BONNET_", "_MONOCLE_", "_GASMASK_", "_HEAD_")
         if any(k in e for k in headwear_kws):
