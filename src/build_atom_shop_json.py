@@ -15,7 +15,7 @@ Categories (matching the JS front-end):
   Apparel - Headwear, Apparel - Outfits,
   Bundles,
   CAMP - Beds, CAMP - Camp Sets, CAMP - Displays & Weapon Racks, CAMP - Doors,
-  CAMP - Floors, CAMP - Garden, CAMP - Kiddie Rides,
+  CAMP - Floors, CAMP Garden & Fences, CAMP - Kiddie Rides,
   CAMP - Lamps & Lights, CAMP - Resource Generator, CAMP - Shelters,
   CAMP - Skins, CAMP - Stash Boxes, CAMP - Vending Machines,
   Emotes, Fridges, Nuka Cola, Photomode, Player, Player Icons, Plushies,
@@ -246,7 +246,7 @@ CATEGORY_ORDER = [
     "CAMP - Displays & Weapon Racks",
     "CAMP - Doors",
     "CAMP - Floors",
-    "CAMP - Garden",
+    "CAMP Garden & Fences",
     "CAMP - Kiddie Rides",
     "CAMP - Lamps & Lights",
     "CAMP - Resource Generator",
@@ -401,7 +401,7 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
 
     for kw in ("FENCE", "FENCES", "PLANT", "CACTUS", "FLOWER", "FLOWERS", "BRAMBLES"):
         if kw in n:
-            return "CAMP - Garden"
+            return "CAMP Garden & Fences"
 
     if "TURRET" in n:
         return "CAMP - Skins"
@@ -491,7 +491,7 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
 
     if any(k in e for k in ("_CAMP_GARDEN_", "_PLANT_", "_PLANTER_", "_SUCCULENT_",
                              "_TOPIARY_", "_CACTUS_", "_BRAMBLES_", "_FENCE_", "_FENCES_", "_WORMFARM_")):
-        return "CAMP - Garden"
+        return "CAMP Garden & Fences"
 
     if any(k in e for k in ("_WEAPONRACK", "_GUNRACKS", "_DISPLAYCASE_", "_DISPLAYRACK_",
                              "_MANNEQUIN_", "_BOBBLEHEAD_")):
@@ -552,6 +552,68 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
     return "Other"
 
 
+# ── Power Armour skin applicability ──────────────────────────
+# Derives which PA chassis a skin applies to from EDID patterns.
+
+_PA_TYPE_MARKERS = [
+    ("_T45",        "T-45"),
+    ("_T51",        "T-51"),
+    ("_T60",        "T-60"),
+    ("_T65",        "T-65"),
+    ("_X01",        "X-01"),
+    ("_ULTRACITE",  "Ultracite"),
+    ("_EXCAVATOR",  "Excavator"),
+    ("_RAIDER",     "Raider"),
+    ("_HELLCAT",    "Hellcat"),
+    ("_UNION",      "Union"),
+]
+
+ALL_PA_TYPES = "Excavator, Raider, T-45, T-51, T-60, T-65, X-01, Ultracite, Hellcat, Union"
+
+
+def pa_applicability(edid: str, name: str, desc: str) -> str:
+    """Return an 'Applicable to: ...' string for Power Armour skins, or ''."""
+    e = edid.upper()
+
+    # Skip non-PA-skin items
+    if "_SKIN_POWERARMOR_" not in e and "_SKIN_POWRARMOR_" not in e:
+        n = name.upper()
+        if not ("POWER ARMOUR" in n and ("PAINT" in n or "SKIN" in n or "PAINTS" in n)):
+            return ""
+
+    # Items that are NOT actual PA skins (stations, statues, etc.) — skip
+    for skip in ("_WORKBENCH_", "_STATUE_", "_CHASSIS_", "_JETPACK_"):
+        if skip in e:
+            return ""
+
+    # Helmet-only items
+    if "_HELMET_" in e:
+        return "Applicable to: All Power Armour (helmet only)"
+
+    # Check for explicit single-type markers in the EDID
+    matched = [label for marker, label in _PA_TYPE_MARKERS if marker in e]
+
+    # If exactly one type matched, it's a single-type skin
+    if len(matched) == 1:
+        return f"Applicable to: {matched[0]}"
+
+    # Universal indicators: _MODEL_ or _TX_ or _SKIN_ (without specific type)
+    if "_MODEL_" in e or "_TX_" in e:
+        return f"Applicable to: {ALL_PA_TYPES}"
+
+    # Multiple types matched (rare) — list them
+    if len(matched) > 1:
+        return f"Applicable to: {', '.join(matched)}"
+
+    # Fallback: check if description mentions applicability
+    d = desc.lower()
+    if "all main power armor" in d or "all power armor" in d:
+        return f"Applicable to: {ALL_PA_TYPES}"
+
+    # Default for generic paint/skin EDIDs with no type marker
+    return f"Applicable to: {ALL_PA_TYPES}"
+
+
 def main():
     try:
         with open(SRC, "r", encoding="utf-8") as f:
@@ -604,6 +666,15 @@ def main():
             fixed.get("bundleItems"),
         )
         cat_counts[cat] = cat_counts.get(cat, 0) + 1
+        # Auto-populate technicalNotes for Power Armour skins
+        if cat == "Skins - Power Armour" and not fixed.get("technicalNotes"):
+            pa_note = pa_applicability(
+                fixed.get("edid", ""),
+                fixed.get("name", ""),
+                fixed.get("desc", ""),
+            )
+            if pa_note:
+                fixed["technicalNotes"] = pa_note
         fixed_items.append(fixed)
 
     data["items"] = fixed_items
