@@ -1497,6 +1497,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
 
     # Collect raw (0-1) probabilities for all entries first, then normalize
     raw_entries = []  # list of (type, raw_rate, data_dict, raw_conditions, pick_weight, glob_correction)
+    _entry_cns = []   # parallel: actual entry-level ChanceNone per entry (for waterfall)
 
     # Process each entry
     for entry in lvli_entries_by_list.get(list_id, []):
@@ -1578,6 +1579,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 if display_conditions:
                     sub_node["conditions"] = display_conditions
                 raw_entries.append(("child", entry_drop_rate, sub_node, conditions, pick_weight, glob_correction))
+                _entry_cns.append(actual_entry_cn)
         else:
             # Leaf item
             if ":" in ref:
@@ -1615,6 +1617,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                         if custom_prefix:
                             item_data["name"] = _apply_custom_prefix(item_data.get("name", ""), custom_prefix)
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
+                _entry_cns.append(actual_entry_cn)
 
     # ── First-match cascading probability ──
     # When a list has the "Use first object that matches all conditions" flag,
@@ -1641,9 +1644,39 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 new_entries.append((etype, max(net_p, 0.0), data, raw_conds, max(net_p, 0.0), gc))
             raw_entries = new_entries
 
+    # ── Cascading ChanceNone waterfall ──
+    # For pick-one lists where entries have per-entry ChanceNone (via GLOB/CURV),
+    # the game evaluates entries IN ORDER.  For each entry it rolls ChanceNone:
+    # if the roll says "skip" (ChanceNone succeeded), move to next entry;
+    # if the roll says "award" (ChanceNone failed), award this entry and stop.
+    # net_p_i = list_success × entry_success_i × product(entry_failure_j for j < i)
+    # The last entry (often no ChanceNone) catches the remainder → total ≈ 100%.
+    _has_cascading_cn = False
+    if not is_use_all and not is_first_match and raw_entries and _entry_cns:
+        _has_cascading_cn = any(cn > 0.1 for cn in _entry_cns)
+        if _has_cascading_cn:
+            # Get list-level ChanceNone (same for all entries in this list)
+            _first_entry = next(
+                (e for e in lvli_entries_by_list.get(list_id, [])
+                 if e.get("EntryIndex") is not None), None)
+            _first_math = (lvli_math_by_entry.get((list_id, _first_entry.get("EntryIndex")))
+                           if _first_entry else None)
+            _list_cn = _resolve_chance_none(_first_math, "List") if _first_math else 0.0
+            _list_success = 1.0 - _list_cn / 100.0
+
+            cumulative_failure = 1.0
+            new_entries = []
+            for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
+                entry_success = 1.0 - _entry_cns[i] / 100.0
+                net_p = _list_success * entry_success * cumulative_failure
+                cumulative_failure *= (1.0 - entry_success)
+                new_entries.append((etype, net_p, data, raw_conds, pw, gc))
+            raw_entries = new_entries
+
     # Normalize for pick-one lists using pick_weight (before ChanceNone correction)
+    # Skip normalisation for cascading ChanceNone lists — waterfall already computed rates.
     total_pick = sum(pw for (_, _, _, _, pw, _) in raw_entries)
-    if not is_use_all and not is_first_match and raw_entries and total_pick > 1.0001:
+    if not is_use_all and not is_first_match and not _has_cascading_cn and raw_entries and total_pick > 1.0001:
         for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
             normalised_pick = pw / total_pick
             effective_rate = normalised_pick * gc
