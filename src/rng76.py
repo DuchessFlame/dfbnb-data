@@ -734,12 +734,16 @@ class Rng76Resolver:
         list_id: str,
         depth: int = 0,
         seen: Optional[Set[str]] = None,
+        gmrw_context: bool = False,
     ) -> List[Dict[str, Any]]:
         """
         Resolve LVLI → list of leaf items with full metadata.
 
         Each item dict:
           ``{formid, name, qty, dropRate, edid, sig, conditions}``
+
+        When *gmrw_context* is True, entry-level ChanceNone corrections from
+        container curves are skipped (quest/event rewards don't apply them).
 
         Applies pick-one normalisation when Use All is off and total > 1.
         """
@@ -768,16 +772,19 @@ class Rng76Resolver:
             ref = (entry.get("LVLO_Reference") or "").strip()
             ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
 
-            # Resolve any unresolved entry-level ChanceNone from GLOB
-            ecn_resolved = float(math.get("EntryChanceNoneResolved") or 0)
-            ecn_actual = self._resolve_entry_chancenone(math, entry, list_id)
-            # Correction factor: if GLOB gives higher ChanceNone than Math TSV
+            # Resolve any unresolved entry-level ChanceNone from GLOB.
+            # In GMRW context (quest/event rewards), skip — container curves
+            # don't apply when the game evaluates the LVLI as a reward.
             ecn_correction = 1.0
-            if ecn_actual > ecn_resolved:
-                ecn_correction = (1 - ecn_actual) / (1 - ecn_resolved) if ecn_resolved < 1 else 0
+            if not gmrw_context:
+                ecn_resolved = float(math.get("EntryChanceNoneResolved") or 0)
+                ecn_actual = self._resolve_entry_chancenone(math, entry, list_id)
+                # Correction factor: if GLOB gives higher ChanceNone than Math TSV
+                if ecn_actual > ecn_resolved:
+                    ecn_correction = (1 - ecn_actual) / (1 - ecn_resolved) if ecn_resolved < 1 else 0
 
             if sub_lvli:
-                for sub_item in self.resolve_deep(sub_lvli, depth + 1, seen):
+                for sub_item in self.resolve_deep(sub_lvli, depth + 1, seen, gmrw_context=gmrw_context):
                     items.append({
                         "formid":     sub_item["formid"],
                         "name":       sub_item["name"],
