@@ -991,9 +991,17 @@ class Rng76Resolver:
         glob_ref = (math_row.get(f"{field_prefix}ChanceNoneGlobal") or "").strip()
         curv_ref = (math_row.get(f"{field_prefix}ChanceNoneCurve") or "").strip()
 
+        # Detect MinLvl GLOBs misplaced in the ChanceNone slot by xEdit.
+        # These set the minimum player level for the entry, NOT a chance of
+        # nothing.  Their FLTV (e.g. 1.0 for MinLvl_Guaranteed_ECON) would
+        # otherwise be treated as a tiny ChanceNone, producing wrong rates.
+        # When a MinLvl GLOB is present, both the GLOB FLTV and xEdit's
+        # pre-computed Resolved value are contaminated — return 0.0 (100% drop).
+        _is_minlvl = "MinLvl" in glob_ref
+
         # Resolve GLOB FLTV
         glob_fltv = None
-        if glob_ref:
+        if glob_ref and not _is_minlvl:
             gfid = glob_formid_from_lvli_field(glob_ref)
             if gfid:
                 glob_fltv = self.globs.value(gfid)
@@ -1030,12 +1038,15 @@ class Rng76Resolver:
                     if glob_fltv is None:
                         glob_fltv = tier_fltv
 
-        # Fall back to xEdit's pre-computed Resolved value
-        resolved = safe_float(
-            math_row.get(f"{field_prefix}ChanceNoneResolved"), 0.0
-        )
-        if resolved and resolved > 0:
-            return resolved
+        # Fall back to xEdit's pre-computed Resolved value (skip when a
+        # MinLvl GLOB contaminated it — the Resolved value would be the
+        # minimum level, not a real ChanceNone percentage).
+        if not _is_minlvl:
+            resolved = safe_float(
+                math_row.get(f"{field_prefix}ChanceNoneResolved"), 0.0
+            )
+            if resolved and resolved > 0:
+                return resolved
 
         if glob_fltv is not None and glob_fltv > 0:
             return glob_fltv
