@@ -634,25 +634,18 @@ def pct(x: float) -> float:
 
 def fmt_pct(value: float) -> str:
     """
-    Format a percentage value as a clean string.
+    Format a percentage value as a clean string — NO rounding.
 
+    Shows up to 6 decimal places, trailing zeros stripped.
     - Integer values:  ``"10%"``
-    - Small values:    ``"0.05%"``
+    - Fractional:      ``"14.851485%"``  (not rounded to 15%)
     - Tiny values:     ``"0.0012%"``
-
-    Adaptive: uses the fewest decimal places needed.
     """
-    if abs(value - round(value)) < 1e-6:
+    if value == 0:
+        return "0%"
+    if abs(value - round(value)) < 1e-9:
         return f"{int(round(value))}%"
-    # 2 dp for common rates
-    if value >= 0.01:
-        s = f"{value:.2f}".rstrip("0").rstrip(".")
-        return f"{s}%"
-    # 4 dp for small
-    if value >= 0.0001:
-        s = f"{value:.4f}".rstrip("0").rstrip(".")
-        return f"{s}%"
-    # 6 dp for very small
+    # Always use 6 dp, strip trailing zeros
     s = f"{value:.6f}".rstrip("0").rstrip(".")
     return f"{s}%"
 
