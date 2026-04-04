@@ -26,9 +26,25 @@ baseRewards schema (new):
   }
 """
 
-import csv, glob, json, os, re
+import csv, glob, json, os, re, sys
 from collections import defaultdict
 from pathlib import Path
+
+# ---------------------------------------------------------------------------
+# Import shared drop-rate engine (rng76.py in same directory)
+# ---------------------------------------------------------------------------
+_this_dir = Path(__file__).resolve().parent
+for _p in [_this_dir, _this_dir / "src", _this_dir.parent / "src"]:
+    if _p.exists() and str(_p) not in sys.path:
+        sys.path.insert(0, str(_p))
+
+from rng76 import (
+    Rng76Resolver, LvliIndex, GlobIndex, CurvIndex, ItemNameIndex,
+    safe_float, safe_int,
+    parse_lvlf_flags, parse_randompercent_multiplier,
+    humanize_edid, glob_formid_from_lvli_field,
+    fmt_pct, REGION_BY_SUBLVLI_EDID,
+)
 
 # Resolve paths relative to the repo root (one level up from src/) so the
 # script produces correct output regardless of which directory it's run from.
@@ -456,24 +472,7 @@ def simplify_conditions(conditions):
                 result.append(s)
     return result
 
-def parse_randompercent_multiplier(conditions_text):
-    mult = 1.0
-    # Match "GetRandomPercent <= N" (standard <= format)
-    for m in re.finditer(r"GetRandomPercent\s*<=\s*(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
-        try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
-        except ValueError:
-            pass
-    # Match raw GMRW Conditions format: "GetRandomPercent <flags> <value>"
-    # e.g. "GetRandomPercent 10100000 10.000000"
-    for m in re.finditer(r"GetRandomPercent\s+\d+\s+(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
-        try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
-        except ValueError:
-            pass
-    return mult
+# parse_randompercent_multiplier → imported from rng76
 
 # --------------------------------------------------
 # Load TSVs
@@ -1230,23 +1229,7 @@ KNOWN_FID_NAMES = {
     "0072D4FC": "Bobblehead Crate",
 }
 
-def humanize_edid(edid):
-    """Convert an EDID like 'DLC04_HandMadeGun' or 'CombatShotgun' to a readable name."""
-    if not edid:
-        return edid
-    s = edid
-    # Strip common prefixes (including all DLC prefixes like DLC03_, DLC04_, etc.)
-    for pfx in ["LL_Weapon_", "LL_Armor_", "LPI_Weapon_", "LPI_Armor_",
-                 "LL_", "LPI_", "POST_"]:
-        if s.startswith(pfx):
-            s = s[len(pfx):]
-    # Strip DLC0N_ prefixes generically (DLC01_, DLC02_, DLC03_, etc.)
-    s = re.sub(r"^DLC\d+_", "", s)
-    # Split CamelCase and underscores into words
-    s = re.sub(r"_", " ", s)
-    s = re.sub(r"([a-z])([A-Z])", r"\1 \2", s)
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
+# humanize_edid → imported from rng76
 
 def humanize_cobj_edid(edid):
     """Convert a COBJ EDID to a clean plan/recipe name for HasLearnedRecipe conditions.
@@ -1458,75 +1441,8 @@ def _interp_curve(pts, x):
     return sp[-1][1]
 
 def _resolve_chance_none(math_row, field_prefix="Entry"):
-    """
-    Resolve ChanceNone for an LVLI entry/list, checking GLOB and CURV
-    references when the pre-computed 'Resolved' column is 0.
-
-    Priority:
-      1. CURV-column GLOB with LVLI→CURV mapping → tier index into curve → Y
-         (overrides Resolved, which is often wrong when ChanceNoneGlobal holds
-         a non-ChanceNone GLOB like MinLvl_*)
-      2. Real CURV + GLOB → GLOB FLTV as X into curve → Y
-      3. <prefix>ChanceNoneResolved (if non-zero and no curve path available)
-      4. <prefix>ChanceNoneGlobal → GLOB FLTV directly
-      5. <prefix>ChanceNoneCurve  → GLOB FLTV directly (fallback)
-      6. 0.0 (= 100% drop chance)
-
-    GLOB FLTV values (e.g. 10.0 for Recipe_High_ChanceNone_Tier) are tier
-    indices, NOT direct ChanceNone percentages.  When paired with a CURV,
-    the game evaluates Curve(X=FLTV) to get the actual ChanceNone Y.
-
-    Returns a float in 0-100 space (e.g. 95.0 means 95% chance of nothing).
-    """
-    glob_ref = (math_row.get(f"{field_prefix}ChanceNoneGlobal") or "").strip()
-    curv_ref = (math_row.get(f"{field_prefix}ChanceNoneCurve") or "").strip()
-
-    # Resolve GLOB FLTV (may be a MinLvl or other non-ChanceNone value)
-    glob_fltv = None
-    if glob_ref:
-        glob_fid = glob_ref.split(":")[0] if ":" in glob_ref else glob_ref
-        if glob_fid in glob_vals:
-            glob_fltv = glob_vals[glob_fid]
-
-    # Try curve-based resolution FIRST (before trusting Resolved)
-    if curv_ref:
-        curv_fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
-        curv_pts = _curv_pts.get(curv_fid)
-        if curv_pts and glob_fltv is not None:
-            # GLOB FLTV is the X index into a real curve; Y is the actual ChanceNone
-            y = _interp_curve(curv_pts, glob_fltv)
-            if y is not None:
-                return y
-        # CURV column holds a GLOB ref (no actual curve points) — resolve as
-        # tier index and look up the LVLI's own CURV mapping for interpolation.
-        # This is the most common case: the ChanceNoneCurve field contains
-        # e.g. "00307FF3:Recipe_High_ChanceNone_Tier:GLOB" with FLTV=10,
-        # and the LVLI is linked to Container_Recipe_ChanceNone via CURV refs.
-        if not curv_pts:
-            tier_fltv = glob_vals.get(curv_fid)
-            if tier_fltv is not None:
-                lvli_fid = (math_row.get("LVLI_FormID") or "").strip()
-                mapped_curv = _lvli_to_curv.get(lvli_fid)
-                if mapped_curv:
-                    mapped_pts = _curv_pts.get(mapped_curv)
-                    if mapped_pts:
-                        y = _interp_curve(mapped_pts, tier_fltv)
-                        if y is not None:
-                            return y
-                # No LVLI→CURV mapping — use tier FLTV as direct ChanceNone
-                if glob_fltv is None:
-                    glob_fltv = tier_fltv
-
-    # Fall back to xEdit's pre-computed Resolved value (trustworthy when no
-    # curve path exists — i.e. when ChanceNoneCurve is empty)
-    resolved = float(math_row.get(f"{field_prefix}ChanceNoneResolved") or 0)
-    if resolved > 0:
-        return resolved
-
-    if glob_fltv is not None:
-        return glob_fltv
-
-    return 0.0
+    """Thin wrapper → Rng76Resolver.resolve_chance_none (centralised GLOB/CURV math)."""
+    return _get_resolver().resolve_chance_none(math_row, field_prefix)
 
 
 _lvli_cache = {}
@@ -1645,55 +1561,11 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
 # Activity Events: Helper functions
 # --------------------------------------------------
 
-def parse_lvlf_flags(flags_str):
-    """
-    Parse LVLF_Flags positional bit string from xEdit export.
-
-    xEdit's GetEditValue on a flags field returns a bit string where
-    character position N (left-to-right, 0-indexed) corresponds to bit N:
-      position 0 = Calculate from all levels <= PC's level (Level Filter)
-      position 1 = Calculate for each item in count (For Each)
-      position 2 = Use All
-      position 6 = First Match
-
-    Examples: "001" → Use All, "11" → Level Filter + For Each,
-              "0000001" → First Match
-    """
-    flags_str = (flags_str or "").strip()
-    if not flags_str:
-        return {"use_all": False, "for_each": False, "level_filter": False, "first_match": False}
-
-    def bit_set(pos):
-        return pos < len(flags_str) and flags_str[pos] == '1'
-
-    return {
-        "level_filter": bit_set(0),
-        "for_each":     bit_set(1),
-        "use_all":      bit_set(2),
-        "first_match":  bit_set(6),
-    }
+# parse_lvlf_flags → imported from rng76
 
 def _extract_grp_threshold(raw_conds):
-    """Extract the GetRandomPercent <= X threshold from raw condition strings.
-    Handles both literal numbers (e.g. 20.000000) and GLOB references ([GLOB:XXXXXXXX]).
-    Returns the threshold float (e.g. 20.0, 25.0) or None if no GRP condition found."""
-    for cond in raw_conds:
-        if "GetRandomPercent" not in cond:
-            continue
-        # Try GLOB reference first: [GLOB:XXXXXXXX]
-        glob_match = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', cond)
-        if glob_match:
-            glob_fid = glob_match.group(1)
-            if glob_fid in glob_vals:
-                return glob_vals[glob_fid]
-        # Try literal number (last number in the string)
-        parts = cond.strip().split()
-        for part in reversed(parts):
-            try:
-                return float(part)
-            except ValueError:
-                continue
-    return None
+    """Thin wrapper → Rng76Resolver.extract_grp_threshold (centralised GRP math)."""
+    return _get_resolver().extract_grp_threshold(raw_conds)
 
 
 def resolve_lvli_items_deep(list_id, depth=0, seen=None):
@@ -3783,6 +3655,33 @@ try:
                         _lvli_to_curv[_lvli_fid] = _curv_fid
 except (FileNotFoundError, UnicodeDecodeError):
     pass
+
+# ---------------------------------------------------------------------------
+# Rng76 Resolver — wraps the builder's already-loaded GLOB/CURV data so we
+# can delegate ChanceNone and GRP-threshold math to the centralised engine.
+# ---------------------------------------------------------------------------
+_resolver = None
+
+def _get_resolver():
+    """Lazy-create an Rng76Resolver backed by the builder's own data."""
+    global _resolver
+    if _resolver is not None:
+        return _resolver
+
+    _rng_globs = GlobIndex()
+    _rng_globs.vals = dict(glob_vals)        # already includes KNOWN_GLOB_VALS
+
+    _rng_curvs = CurvIndex()
+    _rng_curvs.points = dict(_curv_pts)      # formid → [(x,y), ...]
+    _rng_curvs.lvli_to_curv = dict(_lvli_to_curv)
+
+    # LvliIndex and ItemNameIndex aren't needed for ChanceNone / GRP math,
+    # but the Rng76Resolver constructor requires them — pass empty instances.
+    _rng_lvli  = LvliIndex()
+    _rng_names = ItemNameIndex()
+
+    _resolver = Rng76Resolver(_rng_lvli, _rng_globs, _rng_names, _rng_curvs)
+    return _resolver
 
 def xp_at_level(curv_ref, level=50):
     fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref

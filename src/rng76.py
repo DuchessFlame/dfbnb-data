@@ -8,9 +8,11 @@ tier detection, item-name resolution, and adaptive precision formatting
 so that every page-specific build script can import from ONE place.
 
 Used by:
-  build_events_rewards_json.py   (event/activity reward pages)
-  build_reho_json.py             (Raid · Expo · Hunts · Ops pages)
-  build_titles_json.py           (Player & Camp title checklists)
+  build_activities_rewards_json.py (activity reward pages)
+  build_events_rewards_json.py     (event reward pages)
+  build_drop_rates.py              (pre-computed drop-rate JSON)
+  build_reho_json.py               (Raid · Expo · Hunts · Ops pages)
+  build_titles_json.py             (Player & Camp title checklists)
 
 Core formula (rng-76):
   dropRate = (1 - ListChanceNone)
@@ -959,6 +961,115 @@ class Rng76Resolver:
                     # No curve — GLOB value IS the ChanceNone
                     return gval / 100.0
         return 0.0
+
+    # ---- public ChanceNone resolver (used by builders) ----------------
+
+    def resolve_chance_none(
+        self,
+        math_row: Dict[str, str],
+        field_prefix: str = "Entry",
+    ) -> float:
+        """
+        Resolve ChanceNone for an LVLI entry or list from a Math TSV row.
+
+        Handles GLOB/CURV resolution including:
+          - Direct GLOB values (FLTV is the ChanceNone)
+          - GLOB as tier index into CURV table → Curve(X=FLTV) = Y ChanceNone
+          - LVLI→CURV mapping for indirect curve references
+          - ChanceNoneCurve field holding a GLOB ref (not actual curve)
+
+        Priority (matches game engine behaviour):
+          1. CURV-column GLOB with LVLI→CURV mapping → tier into curve → Y
+          2. Real CURV + GLOB → GLOB FLTV as X into curve → Y
+          3. <prefix>ChanceNoneResolved (if non-zero and no curve path)
+          4. <prefix>ChanceNoneGlobal → GLOB FLTV directly
+          5. <prefix>ChanceNoneCurve GLOB FLTV (fallback)
+          6. 0.0 (= 100% drop chance)
+
+        Returns ChanceNone as 0-100 (e.g. 90.0 = 90% nothing, 10% drop).
+        """
+        glob_ref = (math_row.get(f"{field_prefix}ChanceNoneGlobal") or "").strip()
+        curv_ref = (math_row.get(f"{field_prefix}ChanceNoneCurve") or "").strip()
+
+        # Resolve GLOB FLTV
+        glob_fltv = None
+        if glob_ref:
+            gfid = glob_formid_from_lvli_field(glob_ref)
+            if gfid:
+                glob_fltv = self.globs.value(gfid)
+
+        # Try curve-based resolution FIRST (before trusting Resolved)
+        if curv_ref:
+            curv_fid = glob_formid_from_lvli_field(curv_ref)
+            # Check if curv_ref points to actual curve data
+            has_pts = (
+                self.curvs is not None
+                and curv_fid is not None
+                and curv_fid in self.curvs.points
+            )
+
+            if has_pts and glob_fltv is not None:
+                # Direct curve: GLOB FLTV is X, curve Y is ChanceNone
+                y = self.curvs.interpolate(curv_fid, glob_fltv)
+                if y is not None:
+                    return y
+
+            # ChanceNoneCurve field holds a GLOB ref (no actual curve points).
+            # Use its FLTV as tier index into the LVLI's own CURV mapping.
+            if not has_pts and curv_fid:
+                tier_fltv = self.globs.value(curv_fid)
+                if tier_fltv is not None:
+                    lvli_fid = (math_row.get("LVLI_FormID") or "").strip()
+                    if self.curvs and lvli_fid:
+                        mapped_curv = self.curvs.curv_for_lvli(lvli_fid)
+                        if mapped_curv:
+                            y = self.curvs.interpolate(mapped_curv, tier_fltv)
+                            if y is not None:
+                                return y
+                    # No LVLI→CURV mapping — use tier FLTV as direct ChanceNone
+                    if glob_fltv is None:
+                        glob_fltv = tier_fltv
+
+        # Fall back to xEdit's pre-computed Resolved value
+        resolved = safe_float(
+            math_row.get(f"{field_prefix}ChanceNoneResolved"), 0.0
+        )
+        if resolved and resolved > 0:
+            return resolved
+
+        if glob_fltv is not None and glob_fltv > 0:
+            return glob_fltv
+
+        return 0.0
+
+    def extract_grp_threshold(
+        self,
+        raw_conds: List[str],
+    ) -> Optional[float]:
+        """
+        Extract ``GetRandomPercent <= X`` threshold from raw condition strings.
+
+        Handles both literal numbers (``20.000000``) and GLOB references
+        (``[GLOB:XXXXXXXX]``).  Returns threshold float or None.
+        """
+        for cond in raw_conds:
+            if "GetRandomPercent" not in cond:
+                continue
+            # Try GLOB reference: [GLOB:XXXXXXXX]
+            gm = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', cond)
+            if gm:
+                val = self.globs.value(gm.group(1))
+                if val is not None:
+                    return val
+            # Try literal number (last number in the string)
+            for part in reversed(cond.strip().split()):
+                try:
+                    return float(part)
+                except ValueError:
+                    continue
+        return None
+
+    # ---- internal helpers ------------------------------------------
 
     def _entry_qty(self, entry: Dict[str, str]) -> int:
         """Resolve quantity from entry row, including GLOB override."""
