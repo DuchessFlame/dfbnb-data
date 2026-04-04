@@ -14,11 +14,11 @@ rather than sourced from the ENTM export.
 Categories (matching the JS front-end):
   Apparel - Headwear, Apparel - Outfits,
   Bundles,
-  CAMP - Camp Sets, CAMP - Displays & Weapon Racks, CAMP - Doors,
+  CAMP - Beds, CAMP - Camp Sets, CAMP - Displays & Weapon Racks, CAMP - Doors,
   CAMP - Floors, CAMP - Garden, CAMP - Kiddie Rides,
   CAMP - Lamps & Lights, CAMP - Resource Generator, CAMP - Shelters,
   CAMP - Skins, CAMP - Stash Boxes, CAMP - Vending Machines,
-  Emotes, Fridges, Photomode, Player, Player Icons, Plushies,
+  Emotes, Fridges, Nuka Cola, Photomode, Player, Player Icons, Plushies,
   Pre-Fabs and Structures,
   Skins - Armour, Skins - Backpack & Lootbags, Skins - Pip Boy,
   Skins - Power Armour, Skins - Weapons,
@@ -241,6 +241,7 @@ CATEGORY_ORDER = [
     "Apparel - Headwear",
     "Apparel - Outfits",
     "Bundles",
+    "CAMP - Beds",
     "CAMP - Camp Sets",
     "CAMP - Displays & Weapon Racks",
     "CAMP - Doors",
@@ -255,6 +256,7 @@ CATEGORY_ORDER = [
     "CAMP - Vending Machines",
     "Emotes",
     "Fridges",
+    "Nuka Cola",
     "Photomode",
     "Player",
     "Player Icons",
@@ -358,6 +360,10 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
     e = str(edid or "").upper()
     n = str(name or "").upper()
 
+    # ── Nuka Cola — HARD RULE (overrides everything) ────
+    if "NUKA-COLA" in n or "NUKA COLA" in n or "NUKACOLA" in e or "NUKA_COLA" in e:
+        return "Nuka Cola"
+
     # ── Bundles ─────────────────────────────────────────
     if is_bundle:
         if isinstance(bundle_items, list) and len(bundle_items) > 0:
@@ -383,6 +389,22 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
 
     if "HAUNTED HOUSE STAIRCASE" in n:
         return "CAMP - Camp Sets"
+
+    if " BED" in n or "WATERBED" in n:
+        return "CAMP - Beds"
+
+    if "WEAPON RACK" in n:
+        return "CAMP - Displays & Weapon Racks"
+
+    if n.endswith(" SIGN") or "NEON SIGN" in n or "BAR SIGN" in n or "SIGNS" in n or "POWER CONNECTOR" in n or "CEILING FAN" in n or "DECK FAN" in n:
+        return "CAMP - Lamps & Lights"
+
+    for kw in ("FENCE", "FENCES", "PLANT", "CACTUS", "FLOWER", "FLOWERS", "BRAMBLES"):
+        if kw in n:
+            return "CAMP - Garden"
+
+    if "TURRET" in n:
+        return "CAMP - Skins"
 
     if "REFRIGERATOR" in n or "FRIDGE" in n:
         return "Fridges"
@@ -448,13 +470,17 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
     if "_UTILITY_COLLECTRON_" in e or "_COLLECTOR_" in e or "_COFFEEMACHINE_" in e or "_SLOCUMSJOE_" in e:
         return "CAMP - Resource Generator"
 
-    if "_MACHINERY_PURIFIER_" in e or "_MACHINERY_GENERATOR_" in e:
+    if "_CAMP_BED_" in e:
+        return "CAMP - Beds"
+
+    if "_MACHINERY_PURIFIER_" in e or "_MACHINERY_GENERATOR_" in e or "_TURRET_" in e:
         return "CAMP - Skins"
 
     if "_FLOORDECKOR_PLUSHIE_" in e or "_FLOORDECOR_PLUSHIE_" in e:
         return "Plushies"
 
-    if any(k in e for k in ("_CAMP_LIGHT_", "_CAMP_LAMP_", "_LIGHTING_", "_NEON_", "_CEILINGFAN_")):
+    if any(k in e for k in ("_CAMP_LIGHT_", "_CAMP_LIGHTS_", "_CAMP_LAMP_", "_CAMP_SIGN_",
+                             "_LIGHTING_", "_NEON_", "_POWERCONNECTORS_", "_CEILINGFAN_", "_DECKFAN")):
         return "CAMP - Lamps & Lights"
 
     if any(k in e for k in ("_CAMP_FLOOR_", "_FLOORING_", "_LAMINATE_", "_ASTROTURF_")):
@@ -464,10 +490,10 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
         return "CAMP - Doors"
 
     if any(k in e for k in ("_CAMP_GARDEN_", "_PLANT_", "_PLANTER_", "_SUCCULENT_",
-                             "_TOPIARY_", "_CACTUS_", "_BRAMBLES_", "_WORMFARM_")):
+                             "_TOPIARY_", "_CACTUS_", "_BRAMBLES_", "_FENCE_", "_FENCES_", "_WORMFARM_")):
         return "CAMP - Garden"
 
-    if any(k in e for k in ("_WEAPONRACK_", "_DISPLAYCASE_", "_DISPLAYRACK_",
+    if any(k in e for k in ("_WEAPONRACK", "_GUNRACKS", "_DISPLAYCASE_", "_DISPLAYRACK_",
                              "_MANNEQUIN_", "_BOBBLEHEAD_")):
         return "CAMP - Displays & Weapon Racks"
 
