@@ -734,7 +734,6 @@ class Rng76Resolver:
         list_id: str,
         depth: int = 0,
         seen: Optional[Set[str]] = None,
-        gmrw_context: bool = False,
     ) -> List[Dict[str, Any]]:
         """
         Resolve LVLI → list of leaf items with full metadata.
@@ -742,10 +741,9 @@ class Rng76Resolver:
         Each item dict:
           ``{formid, name, qty, dropRate, edid, sig, conditions}``
 
-        When *gmrw_context* is True, entry-level ChanceNone corrections from
-        container curves are skipped (quest/event rewards don't apply them).
-
         Applies pick-one normalisation when Use All is off and total > 1.
+        Detects cascading ChanceNone lists (entries evaluated in order with
+        per-entry ChanceNone) and computes waterfall probabilities.
         """
         if seen is None:
             seen = set()
@@ -773,18 +771,15 @@ class Rng76Resolver:
             ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
 
             # Resolve any unresolved entry-level ChanceNone from GLOB.
-            # In GMRW context (quest/event rewards), skip — container curves
-            # don't apply when the game evaluates the LVLI as a reward.
             ecn_correction = 1.0
-            if not gmrw_context:
-                ecn_resolved = float(math.get("EntryChanceNoneResolved") or 0)
-                ecn_actual = self._resolve_entry_chancenone(math, entry, list_id)
-                # Correction factor: if GLOB gives higher ChanceNone than Math TSV
-                if ecn_actual > ecn_resolved:
-                    ecn_correction = (1 - ecn_actual) / (1 - ecn_resolved) if ecn_resolved < 1 else 0
+            ecn_resolved = float(math.get("EntryChanceNoneResolved") or 0)
+            ecn_actual = self._resolve_entry_chancenone(math, entry, list_id)
+            # Correction factor: if GLOB gives higher ChanceNone than Math TSV
+            if ecn_actual > ecn_resolved:
+                ecn_correction = (1 - ecn_actual) / (1 - ecn_resolved) if ecn_resolved < 1 else 0
 
             if sub_lvli:
-                for sub_item in self.resolve_deep(sub_lvli, depth + 1, seen, gmrw_context=gmrw_context):
+                for sub_item in self.resolve_deep(sub_lvli, depth + 1, seen):
                     items.append({
                         "formid":     sub_item["formid"],
                         "name":       sub_item["name"],
@@ -811,18 +806,38 @@ class Rng76Resolver:
                         "_ecn_correction": ecn_correction,
                     })
 
-        # Pick-one normalisation — always normalise to 1.0 for pick-one lists
-        if not is_use_all and items:
-            total = sum(it["dropRate"] for it in items)
-            if total > 0 and abs(total - 1.0) > 0.0001:
-                for it in items:
-                    it["dropRate"] = it["dropRate"] / total
+        # ── ChanceNone cascading (waterfall) probability ──
+        # For pick-one lists where entries have per-entry ChanceNone, the game
+        # evaluates entries IN ORDER, rolling ChanceNone for each.  On failure
+        # it moves to the next.  net_p_i = success_i × product(failure_j for j<i).
+        # The last entry (often no ChanceNone) catches the remainder → total = 100%.
+        has_cascading_cn = (
+            not is_use_all
+            and items
+            and any(it.get("_ecn_correction", 1.0) < 0.9999 for it in items)
+        )
 
-        # Apply entry-level ChanceNone correction AFTER normalisation
-        for it in items:
-            correction = it.pop("_ecn_correction", 1.0)
-            if correction != 1.0:
-                it["dropRate"] *= correction
+        if has_cascading_cn:
+            cumulative_failure = 1.0
+            for it in items:
+                correction = it.pop("_ecn_correction", 1.0)
+                # correction is the success rate (1 - ChanceNone)
+                net_p = correction * cumulative_failure
+                cumulative_failure *= (1.0 - correction)
+                it["dropRate"] = net_p
+        else:
+            # Pick-one normalisation — always normalise to 1.0 for pick-one lists
+            if not is_use_all and items:
+                total = sum(it["dropRate"] for it in items)
+                if total > 0 and abs(total - 1.0) > 0.0001:
+                    for it in items:
+                        it["dropRate"] = it["dropRate"] / total
+
+            # Apply entry-level ChanceNone correction AFTER normalisation
+            for it in items:
+                correction = it.pop("_ecn_correction", 1.0)
+                if correction != 1.0:
+                    it["dropRate"] *= correction
 
         return items
 
