@@ -268,6 +268,17 @@ CATEGORY_ORDER = [
 ]
 
 
+def fix_display_name(name):
+    """Normalise US → AU/UK spelling for public-facing display names only.
+    EDIDs, image filenames, and formIds are never touched."""
+    name = name.replace("Power Armor", "Power Armour")
+    name = name.replace(" Armor Paint", " Armour Paint")
+    name = name.replace(" Armor Skin", " Armour Skin")
+    name = name.replace("Armored", "Armoured")
+    name = name.replace("Armory", "Armoury")
+    return name
+
+
 def clean_desc(raw):
     s = raw.strip()
     for _ in range(5):
@@ -529,6 +540,11 @@ def main():
         original_url = item.get("imageUrl", "")
         fixed = fix_item_images(dict(item))
         fixed = apply_desc(fixed, desc_lookup)
+        # AU/UK spelling for display names only (edid/imageUrl untouched)
+        fixed["name"] = fix_display_name(fixed.get("name", ""))
+        if fixed.get("bundleItems"):
+            for bi in fixed["bundleItems"]:
+                bi["name"] = fix_display_name(bi.get("name", ""))
         if fixed.get("imageUrl") != original_url:
             fixed_count += 1
         # Compute and store category
