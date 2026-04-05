@@ -2077,47 +2077,17 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 new_entries.append((etype, max(net_p, 0.0), data, raw_conds, pw, gc))
             raw_entries = new_entries
 
-    # ── Cascading ChanceNone waterfall ──
-    # For pick-one lists where entries have per-entry ChanceNone (via GLOB/CURV),
-    # the game evaluates entries IN ORDER.  For each entry it rolls ChanceNone:
-    # if the roll says "skip" (ChanceNone succeeded), move to next entry;
-    # if the roll says "award" (ChanceNone failed), award this entry and stop.
-    # net_p_i = list_success × entry_success_i × product(entry_failure_j for j < i)
-    # The last entry (often no ChanceNone) catches the remainder → total ≈ 100%.
+    # ── Pick-one normalisation (non-UseAll, non-FirstMatch) ──
+    # For pick-one lists the game picks ONE entry at uniform random (1/N).
+    # Normalise pick weights so they sum to 1.0, then multiply by cn_factor
+    # (ChanceNone) to get the effective drop rate.
     #
-    # IMPORTANT: "For Each" lists (e.g. CBZ09_LL_Armor_Marine_Any) roll each
-    # entry INDEPENDENTLY — they are NOT cascading.  Each entry gets its own
-    # ChanceNone roll and multiple entries can succeed in a single evaluation.
-    # Skip waterfall logic for these lists.
-    _has_cascading_cn = False
-    if not is_use_all and not is_for_each and not is_first_match and raw_entries and _entry_cns:
-        _has_cascading_cn = any(cn > 0.1 for cn in _entry_cns)
-        if _has_cascading_cn:
-            # Get list-level ChanceNone (same for all entries in this list)
-            _first_entry = next(
-                (e for e in lvli_entries_by_list.get(list_id, [])
-                 if e.get("EntryIndex") is not None), None)
-            _first_math = (lvli_math_by_entry.get((list_id, _first_entry.get("EntryIndex")))
-                           if _first_entry else None)
-            _list_cn = _resolve_chance_none(_first_math, "List") if _first_math else 0.0
-            _list_success = 1.0 - _list_cn / 100.0
-
-            cumulative_failure = 1.0
-            new_entries = []
-            for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
-                entry_success = 1.0 - _entry_cns[i] / 100.0
-                net_p = _list_success * entry_success * cumulative_failure
-                cumulative_failure *= (1.0 - entry_success)
-                new_entries.append((etype, net_p, data, raw_conds, pw, gc))
-            raw_entries = new_entries
-
-    # Normalize for pick-one lists using PICK WEIGHTS (not ChanceNone-adjusted rates).
-    # xEdit exports apriori=1.0 per entry, so raw total = entry count for equal-weight
-    # lists. We normalise pick weights, then apply ChanceNone AFTER to get correct
-    # effective rates. This prevents normalisation from undoing ChanceNone reductions.
-    # Skip normalisation for cascading ChanceNone lists — waterfall already computed rates.
+    # The for_each flag (bit 1) only affects condition pruning order, NOT
+    # whether entries roll independently.  All non-UseAll lists use pick-one.
+    # Per-entry ChanceNone means that if the picked entry fails its CN roll,
+    # the list returns nothing — there is NO cascading/waterfall for non-UseAll.
     total_pick = sum(pw for (_, _, _, _, pw, _) in raw_entries)
-    if not is_use_all and not is_for_each and not is_first_match and not _has_cascading_cn and raw_entries and total_pick > 1.0001:
+    if not is_use_all and not is_first_match and raw_entries and total_pick > 0:
         for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
             normalised_pick = pw / total_pick
             effective_rate = normalised_pick * gc  # apply ChanceNone after normalisation

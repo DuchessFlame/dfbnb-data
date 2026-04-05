@@ -215,7 +215,7 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
 # ============================================================
 
 def now_iso() -> str:
-    return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat()
+    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
 
 def find_gmrw_lvli_formids(tsv_root: str) -> Set[str]:
