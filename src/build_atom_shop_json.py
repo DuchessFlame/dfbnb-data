@@ -207,6 +207,22 @@ LTB_BUNDLES = [
         ],
     },
     {
+        "id":        "appalachia-starter-bundle",
+        "name":      "Appalachia Starter Bundle",
+        "released":  "2020-07-09",
+        "update":    "Wastelanders",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "800 (+300 Bonus) Atoms",  "desc": "In-game currency for the Atomic Shop.",                                                       "formId": "",         "edid": "",                                            "imageUrl": ""},
+            {"name": "Piper's Press Outfit",    "desc": "Dress as our favourite investigative reporter and uncover the dark secrets of Appalachia!",   "formId": "004FA0A1", "edid": "ATX_ENTM_Apparel_Outfit_Piper_SP1",           "imageUrl": ""},
+            {"name": "Piper's Press Cap",       "desc": "Dress as our favourite investigative reporter and uncover the dark secrets of Appalachia!",   "formId": "004FA0DC", "edid": "ATX_ENTM_Apparel_Headwear_Piper_Cap_SP1",    "imageUrl": ""},
+            {"name": "Piper's Road Goggles",    "desc": "Dress as our favourite investigative reporter and uncover the dark secrets of Appalachia!",   "formId": "004FA0DD", "edid": "ATX_ENTM_Apparel_Headwear_Piper_Goggles_SP1","imageUrl": ""},
+            {"name": "5x Repair Kits",           "desc": "Standard Repair Kits.",                                                                       "formId": "",         "edid": "",                                            "imageUrl": ""},
+            {"name": "5x Scrap Kits",            "desc": "Standard Scrap Kits.",                                                                        "formId": "",         "edid": "",                                            "imageUrl": ""},
+        ],
+    },
+    {
         "id":        "brotherhood-recruitment-bundle",
         "name":      "Brotherhood Recruitment Bundle",
         "released":  "2020-12-01",
