@@ -78,12 +78,15 @@ def newest(pattern):
 def read_tsv(path):
     if not path or not os.path.exists(path):
         return []
+    def _read(enc):
+        with open(path, encoding=enc, errors="replace", newline="") as f:
+            raw = f.read().replace("\x00", "")
+            import io
+            return list(csv.DictReader(io.StringIO(raw), delimiter="\t"))
     try:
-        with open(path, encoding="utf-8-sig", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+        return _read("utf-8-sig")
     except UnicodeDecodeError:
-        with open(path, encoding="cp1252", errors="replace", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+        return _read("cp1252")
 
 
 def pick(row, *keys, default=""):
@@ -556,7 +559,7 @@ print(f"  META parents: {len(meta_map)}")
 
 buckets = defaultdict(list)
 for item in all_items:
-    if item["is_sub"] and edid_base(item["edid"]) in meta_map:
+    if item["is_sub"] and not item["is_meta"] and edid_base(item["edid"]) in meta_map:
         continue
     if item["is_cut"]:
         buckets["cut"].append(item)
