@@ -1884,6 +1884,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     flags = parse_lvlf_flags(pick(list_row, "LVLF_Flags", default=""))
     is_use_all = flags["use_all"]
     is_first_match = flags["first_match"]
+    is_for_each = flags["for_each"]
 
     edid = lvli_edid_by_formid.get(list_id, "")
 
@@ -2083,8 +2084,13 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     # if the roll says "award" (ChanceNone failed), award this entry and stop.
     # net_p_i = list_success × entry_success_i × product(entry_failure_j for j < i)
     # The last entry (often no ChanceNone) catches the remainder → total ≈ 100%.
+    #
+    # IMPORTANT: "For Each" lists (e.g. CBZ09_LL_Armor_Marine_Any) roll each
+    # entry INDEPENDENTLY — they are NOT cascading.  Each entry gets its own
+    # ChanceNone roll and multiple entries can succeed in a single evaluation.
+    # Skip waterfall logic for these lists.
     _has_cascading_cn = False
-    if not is_use_all and not is_first_match and raw_entries and _entry_cns:
+    if not is_use_all and not is_for_each and not is_first_match and raw_entries and _entry_cns:
         _has_cascading_cn = any(cn > 0.1 for cn in _entry_cns)
         if _has_cascading_cn:
             # Get list-level ChanceNone (same for all entries in this list)
@@ -2163,6 +2169,8 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         "label": label,
         "useAll": is_use_all,
     }
+    if is_for_each:
+        result["forEach"] = True
     if children:
         result["children"] = children
     if items:
