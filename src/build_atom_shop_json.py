@@ -783,6 +783,18 @@ def main():
     # ── Write LTB static data ────────────────────────────────────────
     # LTB imageUrl values are filenames only; the JS prepends LTB_IMAGE_BASE_URL.
     # If an imageUrl is empty ("") the JS renders a placeholder — that's fine.
+    # Auto-populate technicalNotes for PA skins in LTB bundles.
+    for ltb in LTB_BUNDLES:
+        for li in ltb.get("items", []):
+            li_edid_upper = li.get("edid", "").upper()
+            if li_edid_upper in _PA_OVERRIDES or not li.get("technicalNotes"):
+                pa_note = pa_applicability(
+                    li.get("edid", ""),
+                    li.get("name", ""),
+                    li.get("desc", ""),
+                )
+                if pa_note:
+                    li["technicalNotes"] = pa_note
     data["ltb"] = LTB_BUNDLES
     print(f"\n[atom_shop] LTB bundles written: {len(LTB_BUNDLES)}")
 
