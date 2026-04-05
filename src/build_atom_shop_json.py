@@ -602,34 +602,239 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
 
 
 # ── Power Armour skin applicability ──────────────────────────
-# Derives which PA chassis a skin applies to from EDID patterns.
+# Reads COBJ (crafting recipe) and ENTM per-type entries from the
+# TSV exports to determine EXACTLY which PA chassis each skin
+# applies to. No guessing from descriptions or EDID patterns.
 
-_PA_TYPE_MARKERS = [
-    ("_T45",        "T-45"),
-    ("_T51",        "T-51"),
-    ("_T60",        "T-60"),
-    ("_T65",        "T-65"),
-    ("_X01",        "X-01"),
-    ("_ULTRACITE",  "Ultracite"),
-    ("_EXCAVATOR",  "Excavator"),
-    ("_RAIDER",     "Raider"),
-    ("_HELLCAT",    "Hellcat"),
-    ("_UNION",      "Union"),
+# Display order for PA types in the "Applicable to:" string
+PA_TYPE_DISPLAY_ORDER = [
+    "Excavator", "Raider", "T-45", "T-51", "T-60",
+    "T-65", "X-01", "Ultracite", "Hellcat", "Union", "Vulcan",
 ]
 
-ALL_PA_TYPES = "Excavator, Raider, T-45, T-51, T-60, T-65, X-01, Ultracite, Hellcat, Union"
+# COBJ/OMOD internal name → display name
+_PA_TYPE_DISPLAY = {
+    "Excavator": "Excavator", "Raider": "Raider",
+    "T45": "T-45", "T51": "T-51", "T60": "T-60", "T65": "T-65",
+    "X01": "X-01", "Ultracite": "Ultracite",
+    "Hellcat": "Hellcat", "Union": "Union",
+    "EnclaveVulcan": "Vulcan",
+    # Variant names that appear in some COBJ/OMOD EDIDs
+    "Ultracite_Set_V94": "Ultracite",
+    "EXC": "Excavator", "ULT": "Ultracite",
+    "T51Raider": "Raider",
+}
 
-# Manual overrides where the EDID/description is misleading
+# What "ALL" expands to (every PA chassis that exists in-game)
+ALL_PA_TYPES_SET = set(_PA_TYPE_DISPLAY.values())
+ALL_PA_TYPES = ", ".join(PA_TYPE_DISPLAY_ORDER)
+
+# Internal PA types used in COBJ EDIDs
+_COBJ_PA_TYPES = list(_PA_TYPE_DISPLAY.keys())
+
+# Body-part tokens that appear in COBJ/OMOD EDIDs
+_BODY_PARTS_RE = (
+    r"(?:Helmet|Torso|ArmLeft|ArmRight|LegLeft|LegRight"
+    r"|LeftArm|RightArm|LeftLeg|RightLeg)"
+)
+
+# Manual overrides — user-verified corrections that take precedence
+# over COBJ data. Key = EDID (case-insensitive), value = display string.
 _PA_OVERRIDES = {
     "ATX_ENTM_SKIN_POWERARMOR_PAINT_ENCLAVE": "Applicable to: X-01",
+    "ATX_ENTM_SKIN_POWERARMOR_SKIN_SANTASUIT": "Applicable to: T-51",
 }
+
+# ENTM skin name → COBJ/OMOD skin name aliases.
+# Handles cases where the ENTM EDID uses a different name than the
+# COBJ/OMOD crafting entries.
+_SKIN_NAME_ALIASES = {
+    "BosReclaimed":             "BosCamo",
+    "CamoWhite":                "Camo",                # Winter Camo → same as "Camo" paint
+    "FreeStates_Revolutionary": "FreeStates02",
+    "FreeStates_Survivalist":   "FreeStates01",
+    "Camoblack":                "CamoBlack",           # case mismatch in ENTM EDID
+    "RedScare":                 "Communist_Red",       # OMOD uses Communist_Red
+    "RedShift":                 "Communist",           # OMOD uses Communist
+    "WarRider":                 "Warrider",            # case mismatch in OMOD
+}
+
+# ── Build the COBJ/OMOD skin-name → PA-types lookup at import time ──
+_cobj_skin_types = None          # populated by _build_pa_lookup()
+_omod_skin_types = None          # populated by _build_pa_lookup()
+_entm_skin_families = None       # populated by _build_pa_lookup()
+
+
+def _build_pa_lookup():
+    """Parse COBJ, OMOD, and ENTM TSVs to build skin_name → set-of-PA-types maps."""
+    global _cobj_skin_types, _omod_skin_types, _entm_skin_families
+    from collections import defaultdict
+
+    _cobj_skin_types = defaultdict(set)
+    _omod_skin_types = defaultdict(set)
+    _entm_skin_families = defaultdict(set)
+
+    def _parse_paint_lines(path, prefix, target_dict):
+        """Parse COBJ or OMOD lines for PA paint entries."""
+        with open(path, "r", encoding="utf-8", errors="replace") as f:
+            for line in f:
+                cols = line.rstrip("\n").split("\t")
+                if len(cols) < 2:
+                    continue
+                edid = cols[1].strip('"')
+                if "PowerArmor" not in edid or "Paint" not in edid:
+                    continue
+                upper = edid.upper()
+                if upper.startswith("ZZZ") or upper.startswith("DEL"):
+                    continue
+                if "Headlamp" in edid or "Lining" in edid or "Misc" in edid:
+                    continue
+
+                # Pattern 1: per-type
+                # {prefix}_PowerArmor_{TYPE}_{Part}_Material_Paint_{SkinName}
+                m = re.search(
+                    rf"{prefix}_PowerArmor_(\w+?)_{_BODY_PARTS_RE}_Material_Paint_(\w+)",
+                    edid,
+                )
+                if m:
+                    pa_type, skin = m.group(1), m.group(2)
+                    if pa_type != "ALL":
+                        target_dict[skin].add(pa_type)
+                    else:
+                        target_dict[skin].add("ALL")
+                    continue
+
+                # Pattern 2: ALL layout (body part AFTER skin name)
+                # {prefix}_PowerArmor_ALL_Material_Paint_{SkinName}_{Part}
+                m = re.search(
+                    rf"{prefix}_PowerArmor_ALL_Material_Paint_(\w+?)_{_BODY_PARTS_RE}$",
+                    edid,
+                )
+                if m:
+                    target_dict[m.group(1)].add("ALL")
+
+    # ── COBJ: crafting recipes ──
+    cobj_files = sorted(glob.glob(os.path.join(TSV_ROOT, "COBJ_Export_*.tsv")))
+    if cobj_files:
+        cobj_path = cobj_files[-1]
+        print(f"[PA lookup] Reading {os.path.basename(cobj_path)}")
+        _parse_paint_lines(cobj_path, "co_mod", _cobj_skin_types)
+        print(f"[PA lookup] COBJ: {len(_cobj_skin_types)} skin mappings")
+
+    # ── OMOD: object modifications (covers skins without COBJ recipes) ──
+    omod_files = sorted(glob.glob(os.path.join(TSV_ROOT, "OMOD_Export_*.tsv")))
+    if omod_files:
+        omod_path = omod_files[-1]
+        print(f"[PA lookup] Reading {os.path.basename(omod_path)}")
+        _parse_paint_lines(omod_path, "mod", _omod_skin_types)
+        print(f"[PA lookup] OMOD: {len(_omod_skin_types)} skin mappings")
+
+    # ── ENTM: per-type entries (e.g. Paint_T65_Water) ──
+    entm_files = sorted(glob.glob(os.path.join(TSV_ROOT, "ENTM_Export_*.tsv")))
+    if entm_files:
+        entm_path = entm_files[-1]
+        print(f"[PA lookup] Reading {os.path.basename(entm_path)}")
+        with open(entm_path, "r", encoding="utf-8", errors="replace") as f:
+            reader = csv.reader(f, delimiter="\t")
+            try:
+                next(reader)  # skip header
+            except StopIteration:
+                pass
+            for row in reader:
+                if len(row) < 2:
+                    continue
+                edid = row[1]
+                if "Skin_PowerArmor" not in edid:
+                    continue
+                for pa_type in _COBJ_PA_TYPES:
+                    marker = f"_Paint_{pa_type}_"
+                    if marker in edid:
+                        idx = edid.index(marker) + len(marker)
+                        skin = edid[idx:]
+                        _entm_skin_families[skin].add(pa_type)
+                        break
+
+        print(f"[PA lookup] ENTM families: {len(_entm_skin_families)} skin groups")
+
+
+def _extract_skin_name(edid: str) -> str | None:
+    """Pull the 'skin name' suffix out of an ENTM EDID so we can
+    match it against the COBJ/ENTM lookup tables."""
+    # _Paint_TX_{SkinName}
+    m = re.search(r"_Paint_TX_(\w+)", edid)
+    if m:
+        return m.group(1)
+    # _Model_{SkinName}  (may contain & etc. — grab up to non-word)
+    m = re.search(r"_Model_(\w+)", edid)
+    if m:
+        return m.group(1)
+    # _Skin_{SkinName}  (but not _Skin_PowerArmor)
+    m = re.search(r"_Skin_(?!PowerArmor)(\w+)", edid)
+    if m:
+        return m.group(1)
+    # Per-type: _Paint_{PA_TYPE}_{SkinName}
+    for pa_type in _COBJ_PA_TYPES:
+        m = re.search(rf"_Paint_{pa_type}_(\w+)", edid)
+        if m:
+            return m.group(1)
+    # Generic paint: Skin_PowerArmor_Paint_{SkinName}
+    m = re.search(r"Skin_PowerArmor_Paint_(\w+)", edid)
+    if m:
+        return m.group(1)
+    return None
+
+
+def _resolve_pa_types(skin_name: str) -> set | None:
+    """Look up a skin name in COBJ → OMOD → ENTM families. Returns a set
+    of display-name strings like {'T-45', 'T-51', ...}, or None."""
+    if _cobj_skin_types is None:
+        _build_pa_lookup()
+
+    # Try the direct name, then check aliases
+    names_to_try = [skin_name]
+    alias = _SKIN_NAME_ALIASES.get(skin_name)
+    if alias:
+        names_to_try.append(alias)
+
+    raw = None
+    for name in names_to_try:
+        raw = _cobj_skin_types.get(name)
+        if raw:
+            break
+        raw = _omod_skin_types.get(name)
+        if raw:
+            break
+        raw = _entm_skin_families.get(name)
+        if raw:
+            break
+
+    if not raw:
+        return None
+
+    # Expand "ALL" / "MODEL" to the full set
+    if "ALL" in raw or "MODEL" in raw:
+        return set(ALL_PA_TYPES_SET)
+
+    # Convert internal names to display names
+    display = set()
+    for t in raw:
+        d = _PA_TYPE_DISPLAY.get(t)
+        if d:
+            display.add(d)
+    return display if display else None
+
+
+def _format_pa_types(types: set) -> str:
+    """Format a set of display PA types into a sorted 'Applicable to:' string."""
+    ordered = [t for t in PA_TYPE_DISPLAY_ORDER if t in types]
+    return f"Applicable to: {', '.join(ordered)}"
 
 
 def pa_applicability(edid: str, name: str, desc: str) -> str:
     """Return an 'Applicable to: ...' string for Power Armour skins, or ''."""
     e = edid.upper()
 
-    # Check manual overrides first
+    # Check manual overrides first (always win)
     if e in _PA_OVERRIDES:
         return _PA_OVERRIDES[e]
 
@@ -639,36 +844,30 @@ def pa_applicability(edid: str, name: str, desc: str) -> str:
         if not ("POWER ARMOUR" in n and ("PAINT" in n or "SKIN" in n or "PAINTS" in n)):
             return ""
 
-    # Items that are NOT actual PA skins (stations, statues, etc.) — skip
-    for skip in ("_WORKBENCH_", "_STATUE_", "_CHASSIS_", "_JETPACK_"):
+    # Items that are NOT actual PA skins — skip
+    for skip in ("_WORKBENCH_", "_STATUE_", "_CHASSIS_", "_JETPACK_", "_JETPACK"):
         if skip in e:
             return ""
+
+    # Headlamp skins — these fit all PA types
+    if "_HEADLAMP_" in e:
+        return f"Applicable to: {ALL_PA_TYPES} (headlamp)"
 
     # Helmet-only items
     if "_HELMET_" in e:
         return "Applicable to: All Power Armour (helmet only)"
 
-    # Check for explicit single-type markers in the EDID
-    matched = [label for marker, label in _PA_TYPE_MARKERS if marker in e]
+    # Look up from game data (COBJ + ENTM)
+    skin_name = _extract_skin_name(edid)
+    if skin_name:
+        types = _resolve_pa_types(skin_name)
+        if types:
+            return _format_pa_types(types)
 
-    # If exactly one type matched, it's a single-type skin
-    if len(matched) == 1:
-        return f"Applicable to: {matched[0]}"
-
-    # Universal indicators: _MODEL_ or _TX_ or _SKIN_ (without specific type)
-    if "_MODEL_" in e or "_TX_" in e:
-        return f"Applicable to: {ALL_PA_TYPES}"
-
-    # Multiple types matched (rare) — list them
-    if len(matched) > 1:
-        return f"Applicable to: {', '.join(matched)}"
-
-    # Fallback: check if description mentions applicability
-    d = desc.lower()
-    if "all main power armor" in d or "all power armor" in d:
-        return f"Applicable to: {ALL_PA_TYPES}"
-
-    # Default for generic paint/skin EDIDs with no type marker
+    # If game data lookup failed, fall back to ALL
+    # (this should rarely happen once COBJ data is available)
+    print(f"[PA lookup] WARNING: no COBJ/ENTM data for {edid} "
+          f"(skin_name={skin_name}), defaulting to ALL")
     return f"Applicable to: {ALL_PA_TYPES}"
 
 
@@ -724,43 +923,39 @@ def main():
             fixed.get("bundleItems"),
         )
         cat_counts[cat] = cat_counts.get(cat, 0) + 1
-        # Auto-populate technicalNotes for Power Armour skins
-        # (standalone items categorised as PA skins)
-        # Overrides always apply; otherwise only fill if empty.
+        # Auto-populate technicalNotes for Power Armour skins.
+        # Always recalculate from game data (COBJ/OMOD/ENTM) on every build
+        # so that updated TSV exports are reflected.
         edid_upper = fixed.get("edid", "").upper()
         if cat == "Skins - Power Armour":
-            if edid_upper in _PA_OVERRIDES or not fixed.get("technicalNotes"):
-                pa_note = pa_applicability(
-                    fixed.get("edid", ""),
-                    fixed.get("name", ""),
-                    fixed.get("desc", ""),
-                )
-                if pa_note:
-                    fixed["technicalNotes"] = pa_note
+            pa_note = pa_applicability(
+                fixed.get("edid", ""),
+                fixed.get("name", ""),
+                fixed.get("desc", ""),
+            )
+            if pa_note:
+                fixed["technicalNotes"] = pa_note
 
         # Also populate technicalNotes for PA skins inside bundles,
         # and for PA-skin bundles themselves
         if fixed.get("isBundle"):
             # Bundle-level: if it looks like a PA skin bundle, add notes
-            if edid_upper in _PA_OVERRIDES or not fixed.get("technicalNotes"):
-                pa_note = pa_applicability(
-                    fixed.get("edid", ""),
-                    fixed.get("name", ""),
-                    fixed.get("desc", ""),
-                )
-                if pa_note:
-                    fixed["technicalNotes"] = pa_note
+            pa_note = pa_applicability(
+                fixed.get("edid", ""),
+                fixed.get("name", ""),
+                fixed.get("desc", ""),
+            )
+            if pa_note:
+                fixed["technicalNotes"] = pa_note
             # Child items inside any bundle
             for bi in fixed.get("bundleItems") or []:
-                bi_edid_upper = bi.get("edid", "").upper()
-                if bi_edid_upper in _PA_OVERRIDES or not bi.get("technicalNotes"):
-                    pa_note = pa_applicability(
-                        bi.get("edid", ""),
-                        bi.get("name", ""),
-                        bi.get("desc", ""),
-                    )
-                    if pa_note:
-                        bi["technicalNotes"] = pa_note
+                pa_note = pa_applicability(
+                    bi.get("edid", ""),
+                    bi.get("name", ""),
+                    bi.get("desc", ""),
+                )
+                if pa_note:
+                    bi["technicalNotes"] = pa_note
 
         fixed_items.append(fixed)
 
@@ -786,15 +981,13 @@ def main():
     # Auto-populate technicalNotes for PA skins in LTB bundles.
     for ltb in LTB_BUNDLES:
         for li in ltb.get("items", []):
-            li_edid_upper = li.get("edid", "").upper()
-            if li_edid_upper in _PA_OVERRIDES or not li.get("technicalNotes"):
-                pa_note = pa_applicability(
-                    li.get("edid", ""),
-                    li.get("name", ""),
-                    li.get("desc", ""),
-                )
-                if pa_note:
-                    li["technicalNotes"] = pa_note
+            pa_note = pa_applicability(
+                li.get("edid", ""),
+                li.get("name", ""),
+                li.get("desc", ""),
+            )
+            if pa_note:
+                li["technicalNotes"] = pa_note
     data["ltb"] = LTB_BUNDLES
     print(f"\n[atom_shop] LTB bundles written: {len(LTB_BUNDLES)}")
 
