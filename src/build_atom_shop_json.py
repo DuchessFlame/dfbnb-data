@@ -522,9 +522,11 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
     if any(k in e for k in ("_CAMP_GARDEN_", "_PLANT_", "_PLANTER_", "_SUCCULENT_",
                              "_TOPIARY_", "_CACTUS_", "_BRAMBLES_", "_FENCE_", "_FENCES_",
                              "_WORMFARM_", "_TREE_", "_TIRE_", "_TYRE_", "_BARRICADE_",
-                             "_RAINWATER_", "_HAYBALE_", "_HOTTUB_", "_FIREPIT_",
-                             "_FOUNTAIN_")):
+                             "_RAINWATER_", "_HAYBALE_")):
         return "CAMP - Garden & Fences"
+
+    if any(k in e for k in ("_HOTTUB_", "_FIREPIT_")):
+        return "CAMP - Buffs"
 
     if any(k in e for k in ("_WEAPONRACK", "_GUNRACKS", "_DISPLAYCASE_", "_DISPLAYRACK_",
                              "_MANNEQUIN_", "_BOBBLEHEAD_")):
