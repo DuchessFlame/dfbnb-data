@@ -2117,7 +2117,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     # effective rates. This prevents normalisation from undoing ChanceNone reductions.
     # Skip normalisation for cascading ChanceNone lists — waterfall already computed rates.
     total_pick = sum(pw for (_, _, _, _, pw, _) in raw_entries)
-    if not is_use_all and not is_first_match and not _has_cascading_cn and raw_entries and total_pick > 1.0001:
+    if not is_use_all and not is_for_each and not is_first_match and not _has_cascading_cn and raw_entries and total_pick > 1.0001:
         for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
             normalised_pick = pw / total_pick
             effective_rate = normalised_pick * gc  # apply ChanceNone after normalisation
