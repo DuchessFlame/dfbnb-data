@@ -15,7 +15,7 @@ Categories (matching the JS front-end):
   Apparel - Headwear, Apparel - Outfits,
   Bundles,
   CAMP - Beds, CAMP - Camp Sets, CAMP - Displays & Weapon Racks, CAMP - Doors,
-  CAMP - Floors, CAMP Garden & Fences, CAMP - Kiddie Rides,
+  CAMP - Floors, CAMP - Garden & Fences, CAMP - Kiddie Rides,
   CAMP - Lamps & Lights, CAMP - Resource Generator, CAMP - Shelters,
   CAMP - Skins, CAMP - Stash Boxes, CAMP - Vending Machines,
   Emotes, Fridges, Nuka Cola, Photomode, Player, Player Icons, Plushies,
@@ -242,17 +242,22 @@ CATEGORY_ORDER = [
     "Apparel - Outfits",
     "Bundles",
     "CAMP - Beds",
+    "CAMP - Buffs",
     "CAMP - Camp Sets",
+    "CAMP - Chairs & Tables",
+    "CAMP - Decorations",
     "CAMP - Displays & Weapon Racks",
     "CAMP - Doors",
     "CAMP - Floors",
-    "CAMP Garden & Fences",
+    "CAMP - Garden & Fences",
     "CAMP - Kiddie Rides",
     "CAMP - Lamps & Lights",
+    "CAMP - Letters",
     "CAMP - Resource Generator",
     "CAMP - Shelters",
     "CAMP - Skins",
     "CAMP - Stash Boxes",
+    "CAMP - Statues",
     "CAMP - Vending Machines",
     "Emotes",
     "Fridges",
@@ -267,6 +272,7 @@ CATEGORY_ORDER = [
     "Skins - Pip Boy",
     "Skins - Power Armour",
     "Skins - Weapons",
+    "Skins - Workbenches",
     "Wallpaper",
     "Other",
 ]
@@ -399,12 +405,36 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
     if n.endswith(" SIGN") or "NEON SIGN" in n or "BAR SIGN" in n or "SIGNS" in n or "POWER CONNECTOR" in n or "CEILING FAN" in n or "DECK FAN" in n:
         return "CAMP - Lamps & Lights"
 
-    for kw in ("FENCE", "FENCES", "PLANT", "CACTUS", "FLOWER", "FLOWERS", "BRAMBLES"):
+    for kw in ("FENCE", "FENCES", "PLANT", "CACTUS", "FLOWER", "FLOWERS", "BRAMBLES",
+               "TREE", "TREES", "TIRE", "TYRE", "SUCCULENT", "BARRICADE",
+               "RAIN WATER COLLECTOR", "HAY BALE", "WORM FARM"):
         if kw in n:
-            return "CAMP Garden & Fences"
+            return "CAMP - Garden & Fences"
 
     if "TURRET" in n:
         return "CAMP - Skins"
+
+    # ── Buffs ──────────────────────────────────────────
+    for kw in ("HOT TUB", "FIREPIT", "FIRE PIT"):
+        if kw in n:
+            return "CAMP - Buffs"
+
+    # ── Chairs & Tables ────────────────────────────────
+    for kw in ("CHAIR", "TABLE", "SOFA", "BENCH", "STOOL", "DECK CHAIR"):
+        if kw in n:
+            return "CAMP - Chairs & Tables"
+
+    # ── Letters ────────────────────────────────────────
+    if "LETTER" in n and ("KIT" in n or "NEON" in n or "GIANT" in n or "LETTERS" in n):
+        return "CAMP - Letters"
+
+    # ── Statues ────────────────────────────────────────
+    if "STATUE" in n or "TOTEM" in n:
+        return "CAMP - Statues"
+
+    # ── Workbench skins ────────────────────────────────
+    if "WORKBENCH" in n or ("STATION" in n and "POWER ARMOUR" not in n):
+        return "Skins - Workbenches"
 
     if "REFRIGERATOR" in n or "FRIDGE" in n:
         return "Fridges"
@@ -490,8 +520,11 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
         return "CAMP - Doors"
 
     if any(k in e for k in ("_CAMP_GARDEN_", "_PLANT_", "_PLANTER_", "_SUCCULENT_",
-                             "_TOPIARY_", "_CACTUS_", "_BRAMBLES_", "_FENCE_", "_FENCES_", "_WORMFARM_")):
-        return "CAMP Garden & Fences"
+                             "_TOPIARY_", "_CACTUS_", "_BRAMBLES_", "_FENCE_", "_FENCES_",
+                             "_WORMFARM_", "_TREE_", "_TIRE_", "_TYRE_", "_BARRICADE_",
+                             "_RAINWATER_", "_HAYBALE_", "_HOTTUB_", "_FIREPIT_",
+                             "_FOUNTAIN_")):
+        return "CAMP - Garden & Fences"
 
     if any(k in e for k in ("_WEAPONRACK", "_GUNRACKS", "_DISPLAYCASE_", "_DISPLAYRACK_",
                              "_MANNEQUIN_", "_BOBBLEHEAD_")):
@@ -513,6 +546,20 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
 
     if "_EMOTES_" in e:
         return "Emotes"
+
+    if any(k in e for k in ("_CAMP_FURNITURE_CHAIR_", "_CAMP_FURNITURE_TABLE_",
+                             "_CAMP_FURNITURE_SOFA_", "_CAMP_FURNITURE_BENCH_",
+                             "_CAMP_FURNITURE_STOOL_")):
+        return "CAMP - Chairs & Tables"
+
+    if "_LETTER_" in e or "_LETTERS_" in e:
+        return "CAMP - Letters"
+
+    if "_STATUE_" in e or "_TOTEM_" in e:
+        return "CAMP - Statues"
+
+    if "_WORKBENCH_" in e or "_MACHINERY_WORKBENCH_" in e:
+        return "Skins - Workbenches"
 
     if "_CAMP_" in e:
         return "Other"
@@ -667,6 +714,7 @@ def main():
         )
         cat_counts[cat] = cat_counts.get(cat, 0) + 1
         # Auto-populate technicalNotes for Power Armour skins
+        # (standalone items categorised as PA skins)
         if cat == "Skins - Power Armour" and not fixed.get("technicalNotes"):
             pa_note = pa_applicability(
                 fixed.get("edid", ""),
@@ -675,6 +723,30 @@ def main():
             )
             if pa_note:
                 fixed["technicalNotes"] = pa_note
+
+        # Also populate technicalNotes for PA skins inside bundles,
+        # and for PA-skin bundles themselves
+        if fixed.get("isBundle"):
+            # Bundle-level: if it looks like a PA skin bundle, add notes
+            if not fixed.get("technicalNotes"):
+                pa_note = pa_applicability(
+                    fixed.get("edid", ""),
+                    fixed.get("name", ""),
+                    fixed.get("desc", ""),
+                )
+                if pa_note:
+                    fixed["technicalNotes"] = pa_note
+            # Child items inside any bundle
+            for bi in fixed.get("bundleItems") or []:
+                if not bi.get("technicalNotes"):
+                    pa_note = pa_applicability(
+                        bi.get("edid", ""),
+                        bi.get("name", ""),
+                        bi.get("desc", ""),
+                    )
+                    if pa_note:
+                        bi["technicalNotes"] = pa_note
+
         fixed_items.append(fixed)
 
     data["items"] = fixed_items
