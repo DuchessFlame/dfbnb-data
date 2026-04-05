@@ -1482,10 +1482,35 @@ def compute_lvli(list_id):
         _lvli_cache[list_id] = {}
         return {}
 
-    # --- Pass 2: normalise pick weights for pick-one lists, then apply entry_none ---
-    # For use-all lists every entry fires at its own rate; no normalisation needed.
+    # --- Pass 2: compute per-entry drop rates ---
+    # UseAll + no ChanceNone on entries → each entry independent at 100%.
+    # UseAll + ChanceNone on entries → waterfall (cascading probability).
+    # Pick-one (non-UseAll) → 100% / N items.
     total_raw = sum(w for _, w, _, _ in raw_entries)
+    has_entry_cn = is_use_all and any(en > 1e-9 for _, _, en, _ in raw_entries)
     results = {}
+
+    if is_use_all and has_entry_cn:
+        # Waterfall: entries checked in order, first that passes wins
+        cum_fail = 1.0
+        waterfall_chances = []
+        for sub, raw_weight, entry_none, e in raw_entries:
+            drop = raw_weight * (1 - entry_none)
+            chance = drop * cum_fail
+            cum_fail *= (1.0 - drop)
+            waterfall_chances.append((sub, chance, e))
+        for sub, chance, e in waterfall_chances:
+            if sub:
+                for k, v in compute_lvli(sub).items():
+                    results[k] = results.get(k, 0) + v * chance
+            else:
+                ref = (e.get("LVLO_Reference") or "").strip()
+                if ":" in ref:
+                    fid = ref.split(":")[0]
+                    results[fid] = results.get(fid, 0) + chance
+        _lvli_cache[list_id] = results
+        return results
+
     for sub, raw_weight, entry_none, e in raw_entries:
         if is_use_all or total_raw <= 0:
             chance = raw_weight * (1 - entry_none)
@@ -1618,6 +1643,36 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 else:
                     first_match_rates[_idx] = max((100.0 - prev) / 100.0, 0.0)
 
+    # Pre-scan for UseAll waterfall:
+    # If UseAll and any entry has ChanceNone (GLOB/CURV), apply waterfall —
+    # entries checked in order, first that passes its ChanceNone wins,
+    # remaining probability cascades to the next entry.
+    useall_waterfall_rates = {}  # EntryIndex -> waterfall rate (0-1)
+    if is_use_all and not is_first_match:
+        _all_entries = lvli_entries_by_list.get(list_id, [])
+        _raw_drops = []  # (idx, raw_drop_rate)
+        for _e in _all_entries:
+            _idx = _e.get("EntryIndex")
+            if _idx is None:
+                continue
+            _math = lvli_math_by_entry.get((list_id, _idx))
+            if not _math:
+                continue
+            _list_none = _resolve_chance_none(_math, "List") / 100.0
+            _ecn_glob = (_math.get("EntryChanceNoneGlobal") or "")
+            _is_ml = "MinLvl" in _ecn_glob
+            _entry_pres = 1.0 if _is_ml else float(_math.get("EntryPresenceChance") or 1)
+            _entry_none = _resolve_chance_none(_math, "Entry") / 100.0
+            _cond_rand = float(_math.get("EntryCondChance_RandomPercent") or 1)
+            _drop = (1 - _list_none) * _entry_pres * (1 - _entry_none) * _cond_rand
+            _raw_drops.append((_idx, _drop))
+        # Only apply waterfall if at least one entry has ChanceNone
+        if any(d < 1.0 - 1e-9 for _, d in _raw_drops):
+            _cum_fail = 1.0
+            for _idx, _drop in _raw_drops:
+                useall_waterfall_rates[_idx] = _drop * _cum_fail
+                _cum_fail *= (1.0 - _drop)
+
     # Collect list-level conditions from TSV (LVLI record-level CTDA)
     list_level_conds = simplify_conditions(LVLI_LIST_CONDITIONS.get(list_id, []))
 
@@ -1652,6 +1707,10 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         # Override with cascading probability for first_match lists
         if idx in first_match_rates:
             drop_rate = first_match_rates[idx]
+
+        # Override with waterfall rate for UseAll lists with ChanceNone
+        if idx in useall_waterfall_rates:
+            drop_rate = useall_waterfall_rates[idx]
 
         # Get quantity (try multiple columns)
         qty = 1
@@ -2077,6 +2136,23 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 new_entries.append((etype, max(net_p, 0.0), data, raw_conds, pw, gc))
             raw_entries = new_entries
 
+    # ── UseAll waterfall (UseAll + ChanceNone on entries) ──
+    # If UseAll and any entry has ChanceNone (gc < 1.0), apply waterfall:
+    # entries checked in order, first that passes its ChanceNone wins,
+    # remaining probability cascades to the next entry.
+    # If no entry has ChanceNone → each fires independently (rates already correct).
+    if is_use_all and not is_first_match and raw_entries:
+        has_cn = any(gc < 1.0 - 1e-9 for (_, _, _, _, _, gc) in raw_entries)
+        if has_cn:
+            cum_fail = 1.0
+            new_entries = []
+            for (etype, rate, data, raw_conds, pw, gc) in raw_entries:
+                drop = pw * gc  # entry's own drop chance
+                waterfall_rate = drop * cum_fail
+                cum_fail *= (1.0 - drop)
+                new_entries.append((etype, waterfall_rate, data, raw_conds, pw, gc))
+            raw_entries = new_entries
+
     # ── Pick-one normalisation (non-UseAll, non-FirstMatch) ──
     # For pick-one lists the game picks ONE entry at uniform random (1/N).
     # Normalise pick weights so they sum to 1.0, then multiply by cn_factor
@@ -2084,8 +2160,6 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     #
     # The for_each flag (bit 1) only affects condition pruning order, NOT
     # whether entries roll independently.  All non-UseAll lists use pick-one.
-    # Per-entry ChanceNone means that if the picked entry fails its CN roll,
-    # the list returns nothing — there is NO cascading/waterfall for non-UseAll.
     total_pick = sum(pw for (_, _, _, _, pw, _) in raw_entries)
     if not is_use_all and not is_first_match and raw_entries and total_pick > 0:
         for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):

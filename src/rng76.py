@@ -15,12 +15,15 @@ Used by:
   build_titles_json.py             (Player & Camp title checklists)
 
 Core formula (rng-76):
-  Use All mode (bit 2):
-    rate = pick_weight × cn_factor       (each entry independent)
+  Use All mode (bit 2), no ChanceNone on entries:
+    each entry independent at 100%
+  Use All mode (bit 2), with ChanceNone on entries:
+    waterfall — entries checked in order, first that passes its
+    ChanceNone wins, remaining probability cascades to next entry
   Pick-one mode (non-Use-All):
-    rate = (pick_weight / Σpw) × cn_factor   (uniform random pick)
+    rate = 100% / N items   (uniform random pick)
   First Match mode (bit 6):
-    rate = cascading thresholds from GetRandomPercent conditions
+    waterfall with cascading GetRandomPercent thresholds
 
   Where:
     pick_weight = apriori with ChanceNone stripped out
@@ -755,8 +758,11 @@ class Rng76Resolver:
         Cached.  Used by ``compute_lvli()`` in the events script.
 
         Modes (rng-76 rules):
-          - Use All (bit 2):  each entry independent,
-                              rate = pick_weight × cn_factor.
+          - Use All (bit 2), no ChanceNone on entries:
+                each entry independent, rate = 100%.
+          - Use All (bit 2), with ChanceNone on entries:
+                waterfall — entries checked in order, first that passes
+                its ChanceNone wins, remaining probability cascades.
           - First Match (bit 6): cascading condition thresholds.
           - Non-Use-All:      pick one at random,
                               rate = (pw / Σpw) × cn_factor.
@@ -797,6 +803,8 @@ class Rng76Resolver:
 
         # ── compute per-entry rate ──
         if is_first_match:
+            # First Match: cascading GetRandomPercent thresholds.
+            # Entries checked in order, first match wins.
             thresholds = [
                 self.extract_grp_threshold(r["conditions"]) for r in raw
             ]
@@ -809,17 +817,33 @@ class Rng76Resolver:
                     else:
                         r["rate"] = (100.0 - prev) / 100.0
             else:
-                # Fallback: simple cascading with cn_factor
+                # Fallback: cascading with cn_factor
                 cum_fail = 1.0
                 for r in raw:
                     s = r["pw"] * r["cn"]
                     r["rate"] = s * cum_fail
                     cum_fail *= (1.0 - s)
+
         elif is_use_all:
-            for r in raw:
-                r["rate"] = r["pw"] * r["cn"]
+            # Check if any entry has ChanceNone (cn < 1.0).
+            # If so → waterfall: entries checked in order, first that
+            # passes its ChanceNone wins, probability cascades to next.
+            # If no entry has ChanceNone → each fires independently at 100%.
+            has_cn = any(r["cn"] < 1.0 - 1e-9 for r in raw)
+            if has_cn:
+                # Waterfall: cascading ChanceNone
+                cum_fail = 1.0
+                for r in raw:
+                    drop = r["pw"] * r["cn"]  # entry's own drop chance
+                    r["rate"] = drop * cum_fail
+                    cum_fail *= (1.0 - drop)
+            else:
+                # No ChanceNone → independent, each at pw (usually 1.0)
+                for r in raw:
+                    r["rate"] = r["pw"] * r["cn"]
+
         else:
-            # Pick one: normalise pick weights
+            # Pick one at random — 100% / N items
             total_pw = sum(r["pw"] for r in raw)
             if total_pw > 0:
                 for r in raw:
@@ -859,8 +883,11 @@ class Rng76Resolver:
           ``{formid, name, qty, dropRate, edid, sig, conditions}``
 
         Uses rng-76 rules:
-          - Use All (bit 2):  each entry evaluated independently,
-                              rate = pick_weight × cn_factor.
+          - Use All (bit 2), no ChanceNone on entries:
+                each entry independent, rate = 100%.
+          - Use All (bit 2), with ChanceNone on entries:
+                waterfall — entries checked in order, first that passes
+                its ChanceNone wins, remaining probability cascades.
           - First Match (bit 6): cascading condition thresholds —
                               first entry whose conditions pass wins.
           - Non-Use-All:      pick ONE entry at uniform random,
@@ -913,6 +940,7 @@ class Rng76Resolver:
 
         # ── compute per-entry drop rate based on mode ──
         if is_first_match:
+            # First Match: cascading GetRandomPercent thresholds.
             thresholds = [
                 self.extract_grp_threshold(r["conditions"]) for r in raw
             ]
@@ -932,12 +960,25 @@ class Rng76Resolver:
                     cum_fail *= (1.0 - s)
 
         elif is_use_all:
-            # Each entry independent
-            for r in raw:
-                r["rate"] = r["pw"] * r["cn"]
+            # Check if any entry has ChanceNone (cn < 1.0).
+            # If so → waterfall: entries checked in order, first that
+            # passes its ChanceNone wins, probability cascades to next.
+            # If no entry has ChanceNone → each fires independently at 100%.
+            has_cn = any(r["cn"] < 1.0 - 1e-9 for r in raw)
+            if has_cn:
+                # Waterfall: cascading ChanceNone
+                cum_fail = 1.0
+                for r in raw:
+                    drop = r["pw"] * r["cn"]
+                    r["rate"] = drop * cum_fail
+                    cum_fail *= (1.0 - drop)
+            else:
+                # No ChanceNone → independent, each at pw (usually 1.0)
+                for r in raw:
+                    r["rate"] = r["pw"] * r["cn"]
 
         else:
-            # Pick one at random — normalise pick weights
+            # Pick one at random — 100% / N items
             total_pw = sum(r["pw"] for r in raw)
             if total_pw > 0:
                 for r in raw:
