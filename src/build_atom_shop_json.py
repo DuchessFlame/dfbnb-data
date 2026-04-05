@@ -619,10 +619,19 @@ _PA_TYPE_MARKERS = [
 
 ALL_PA_TYPES = "Excavator, Raider, T-45, T-51, T-60, T-65, X-01, Ultracite, Hellcat, Union"
 
+# Manual overrides where the EDID/description is misleading
+_PA_OVERRIDES = {
+    "ATX_ENTM_SKIN_POWERARMOR_PAINT_ENCLAVE": "Applicable to: X-01",
+}
+
 
 def pa_applicability(edid: str, name: str, desc: str) -> str:
     """Return an 'Applicable to: ...' string for Power Armour skins, or ''."""
     e = edid.upper()
+
+    # Check manual overrides first
+    if e in _PA_OVERRIDES:
+        return _PA_OVERRIDES[e]
 
     # Skip non-PA-skin items
     if "_SKIN_POWERARMOR_" not in e and "_SKIN_POWRARMOR_" not in e:
@@ -717,20 +726,23 @@ def main():
         cat_counts[cat] = cat_counts.get(cat, 0) + 1
         # Auto-populate technicalNotes for Power Armour skins
         # (standalone items categorised as PA skins)
-        if cat == "Skins - Power Armour" and not fixed.get("technicalNotes"):
-            pa_note = pa_applicability(
-                fixed.get("edid", ""),
-                fixed.get("name", ""),
-                fixed.get("desc", ""),
-            )
-            if pa_note:
-                fixed["technicalNotes"] = pa_note
+        # Overrides always apply; otherwise only fill if empty.
+        edid_upper = fixed.get("edid", "").upper()
+        if cat == "Skins - Power Armour":
+            if edid_upper in _PA_OVERRIDES or not fixed.get("technicalNotes"):
+                pa_note = pa_applicability(
+                    fixed.get("edid", ""),
+                    fixed.get("name", ""),
+                    fixed.get("desc", ""),
+                )
+                if pa_note:
+                    fixed["technicalNotes"] = pa_note
 
         # Also populate technicalNotes for PA skins inside bundles,
         # and for PA-skin bundles themselves
         if fixed.get("isBundle"):
             # Bundle-level: if it looks like a PA skin bundle, add notes
-            if not fixed.get("technicalNotes"):
+            if edid_upper in _PA_OVERRIDES or not fixed.get("technicalNotes"):
                 pa_note = pa_applicability(
                     fixed.get("edid", ""),
                     fixed.get("name", ""),
@@ -740,7 +752,8 @@ def main():
                     fixed["technicalNotes"] = pa_note
             # Child items inside any bundle
             for bi in fixed.get("bundleItems") or []:
-                if not bi.get("technicalNotes"):
+                bi_edid_upper = bi.get("edid", "").upper()
+                if bi_edid_upper in _PA_OVERRIDES or not bi.get("technicalNotes"):
                     pa_note = pa_applicability(
                         bi.get("edid", ""),
                         bi.get("name", ""),
