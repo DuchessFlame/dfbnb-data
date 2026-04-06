@@ -342,23 +342,32 @@ def fix_item_images(item):
 
 
 def load_desc_lookup():
+    """Load DESC and ETDI (image filename) from the newest ENTM export.
+    Returns (desc_lookup, etdi_lookup) — both keyed by EDID (upper-cased)."""
     pattern = os.path.join(TSV_ROOT, "ENTM_Export_*.tsv")
     files = sorted(glob.glob(pattern))
     if not files:
         print(f"[atom_shop] WARNING: No ENTM_Export_*.tsv found in {TSV_ROOT}", file=sys.stderr)
-        return {}
+        return {}, {}
     tsv_path = files[-1]
-    print(f"[atom_shop] Reading DESC from: {os.path.basename(tsv_path)}")
-    lookup = {}
+    print(f"[atom_shop] Reading DESC + ETDI from: {os.path.basename(tsv_path)}")
+    desc_lookup = {}
+    etdi_lookup = {}
     with open(tsv_path, encoding="utf-8-sig", errors="replace", newline="") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             edid = str(row.get("EDID") or "").strip().upper()
             desc = str(row.get("DESC") or "").strip()
+            etdi = str(row.get("ETDI") or "").strip()
             if edid and desc:
-                lookup[edid] = clean_desc(desc)
-    print(f"[atom_shop] DESC entries loaded: {len(lookup)}")
-    return lookup
+                desc_lookup[edid] = clean_desc(desc)
+            if edid and etdi:
+                # ETDI is the DDS filename — strip .dds, add .avif
+                img_name = re.sub(r'\.dds$', '.avif', etdi, flags=re.IGNORECASE)
+                etdi_lookup[edid] = img_name
+    print(f"[atom_shop] DESC entries loaded: {len(desc_lookup)}")
+    print(f"[atom_shop] ETDI image entries loaded: {len(etdi_lookup)}")
+    return desc_lookup, etdi_lookup
 
 
 def apply_desc(item, lookup):
@@ -368,6 +377,73 @@ def apply_desc(item, lookup):
         for bi in item["bundleItems"]:
             bi_edid = str(bi.get("edid") or "").strip().upper()
             bi["desc"] = lookup.get(bi_edid, "")
+    return item
+
+
+def _find_image_in_etdi(edid, etdi_lookup):
+    """Look up an EDID in the ETDI lookup.  First tries exact match, then
+    falls back to partial matching for non-standard EDIDs (legacy items
+    that don't follow the _ENTM_ naming convention)."""
+    edid_upper = edid.upper()
+    # Exact match
+    img = etdi_lookup.get(edid_upper)
+    if img:
+        return img
+
+    # Build a set of search tails from the EDID, progressively shorter.
+    # e.g. ATX_Plushie_BalloonAnimalMrFuzzy_Misc
+    #   → PLUSHIE_BALLOONANIMALMRFUZZY_MISC   (strip ATX_)
+    #   → BALLOONANIMALMRFUZZY                 (last meaningful segment)
+    tails = []
+    stripped = edid_upper
+    for prefix in ("ATX_", "SCORE_S1_", "SCORE_S2_", "SCORE_",
+                   "DLC03WORKSHOPBARNKIT_", "DLC03_", "BABYLON_"):
+        if stripped.startswith(prefix):
+            stripped = stripped[len(prefix):]
+            break
+    tails.append(stripped)
+
+    # Also try stripping category prefixes (Clothes_, Plushie_, mod_, F1_, etc.)
+    for cat_prefix in ("CLOTHES_", "CLOTHES_UNSTOPPABLES_", "PLUSHIE_",
+                       "MOD_MELEE_WARGLAIVE_", "MOD_GROGNAKAXE_WEAPON_MODELSWAP_",
+                       "MOD_", "F1_", "ENTM_", "MAP"):
+        if stripped.startswith(cat_prefix):
+            inner = stripped[len(cat_prefix):]
+            # Remove trailing _MISC
+            if inner.endswith("_MISC"):
+                inner = inner[:-5]
+            tails.append(inner)
+
+    # Remove trailing _MISC from full stripped too
+    if stripped.endswith("_MISC"):
+        tails.append(stripped[:-5])
+
+    for tail in tails:
+        if len(tail) < 4:
+            continue
+        tail_flat = tail.replace("_", "")
+        for key, val in etdi_lookup.items():
+            if tail in key or tail_flat in key.replace("_", ""):
+                return val
+    return None
+
+
+def apply_image_from_entm(item, etdi_lookup):
+    """For items missing imageUrl, try to derive it from the ENTM ETDI field."""
+    if not item.get("imageUrl"):
+        edid = str(item.get("edid") or "").strip()
+        if edid:
+            img_name = _find_image_in_etdi(edid, etdi_lookup)
+            if img_name:
+                item["imageUrl"] = IMAGE_BASE_URL + img_name.lower()
+    if item.get("bundleItems"):
+        for bi in item["bundleItems"]:
+            if not bi.get("imageUrl"):
+                bi_edid = str(bi.get("edid") or "").strip()
+                if bi_edid:
+                    img_name = _find_image_in_etdi(bi_edid, etdi_lookup)
+                    if img_name:
+                        bi["imageUrl"] = IMAGE_BASE_URL + img_name.lower()
     return item
 
 
@@ -1011,15 +1087,21 @@ def main():
         print(f"[atom_shop] {errors} validation error(s). Aborting.", file=sys.stderr)
         sys.exit(1)
 
-    desc_lookup = load_desc_lookup()
+    desc_lookup, etdi_lookup = load_desc_lookup()
 
     fixed_count = 0
+    img_filled_count = 0
     cat_counts = {}
     fixed_items = []
     for item in items:
         original_url = item.get("imageUrl", "")
         fixed = fix_item_images(dict(item))
         fixed = apply_desc(fixed, desc_lookup)
+        # Fill in missing imageUrl from ENTM ETDI data
+        had_img_before = bool(fixed.get("imageUrl"))
+        fixed = apply_image_from_entm(fixed, etdi_lookup)
+        if not had_img_before and fixed.get("imageUrl"):
+            img_filled_count += 1
         # AU/UK spelling for display names only (edid/imageUrl untouched)
         fixed["name"] = fix_display_name(fixed.get("name", ""))
         if fixed.get("bundleItems"):
@@ -1074,6 +1156,8 @@ def main():
         print(f"[atom_shop] Rewrote {fixed_count} image URL(s)")
     else:
         print(f"[atom_shop] All image URLs already correct")
+    if img_filled_count:
+        print(f"[atom_shop] Filled {img_filled_count} missing imageUrl(s) from ENTM ETDI")
 
     # Print category breakdown
     print(f"\n[atom_shop] Category breakdown:")
