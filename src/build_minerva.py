@@ -26,6 +26,19 @@ TIER_PRICE = {
 
 MINERVA_DISCOUNT = 0.75  # 25% off
 
+# Big Sale lists are merge-lists: each includes the 3 preceding emporium lists.
+# A plan in any of those emporium lists also appears at the Big Sale event.
+# Derived from LVLI: 04_M->{1,2,3}, 08_M->{5,6,7}, 12_M->{9,10,11},
+#                    16_M->{13,14,15}, 20_M->{17,18,19}, 24_M->{21,22,23}
+BIG_SALE_MAP = {
+    1: 4,  2: 4,  3: 4,
+    5: 8,  6: 8,  7: 8,
+    9: 12, 10: 12, 11: 12,
+    13: 16, 14: 16, 15: 16,
+    17: 20, 18: 20, 19: 20,
+    21: 24, 22: 24, 23: 24,
+}
+
 def parse_gold_price(row):
     dnam = row.get('DNAM_Flags', '')
     for glob_id, price in TIER_PRICE.items():
@@ -42,9 +55,18 @@ def get_minerva_lists(row):
     for val in row.values():
         if not val:
             continue
-        # findall catches ALL list refs in a single field (search only finds the first)
+        # findall catches ALL list refs in a single field (search only finds the first).
+        # The regex matches plain numbered lists (e.g. GoldVendor_03) but NOT the Big
+        # Sale merge-lists (GoldVendor_04_M) — those are LVLI-only containers that no
+        # BOOK record references directly.
         for num in re.findall(r'BS02_SpecialVendor_Minerva_LLS_GoldVendor_(\d+)', val):
             lists.add(int(num))
+    # Expand: if a plan is in an emporium list that's merged into a Big Sale list,
+    # it also belongs to that Big Sale list.
+    for emporium_list in list(lists):
+        big_sale = BIG_SALE_MAP.get(emporium_list)
+        if big_sale:
+            lists.add(big_sale)
     return sorted(lists)
 
 def main():
