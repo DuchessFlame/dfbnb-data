@@ -31,10 +31,12 @@ jobs:
       - name: Locate latest BOOK Export TSV
         shell: bash
         run: |
-          # Pick file with latest Month_Year in filename (mtimes are equal on Actions)
+          # Pick file with latest Month_Year in filename (mtimes are equal on Actions).
+          # Excludes companion files (_Locations, _Refs, etc.) by requiring the filename
+          # to match BOOK_Export_<Month>_<Year>.tsv with no extra segments after the year.
           newest_by_name() {
             local files
-            files=$(ls -1 $1 2>/dev/null)
+            files=$(ls -1 $1 2>/dev/null | grep -E 'BOOK_Export_[A-Za-z]+_[0-9]{4}\.tsv$')
             [ -z "$files" ] && return
             echo "$files" | awk -F'[_./]' '
             BEGIN {
@@ -53,7 +55,7 @@ jobs:
 
           FILE=$(newest_by_name "tsv/BOOK_Export_*.tsv")
           if [ -z "$FILE" ]; then
-            echo "ERROR: No BOOK_Export_*.tsv found in tsv/"
+            echo "ERROR: No BOOK_Export_<Month>_<Year>.tsv found in tsv/"
             exit 1
           fi
           echo "BOOK_TSV=$FILE" >> $GITHUB_ENV
