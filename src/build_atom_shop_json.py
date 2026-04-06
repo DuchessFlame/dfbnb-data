@@ -673,24 +673,29 @@ _SKIN_NAME_ALIASES = {
     "RedScare":                 "Communist_Red",       # OMOD uses Communist_Red
     "RedShift":                 "Communist",           # OMOD uses Communist
     "WarRider":                 "Warrider",            # case mismatch in OMOD
+    "SlocumsJoe":               "Babylon_SlocumsJoe",  # COBJ prefixes with Babylon_
+    "Waster":                   "RaiderWaster",        # ENTM: Paint_Raider_Waster → extracts "Waster", COBJ uses "RaiderWaster"
+    "Junkyard_Rusted":          "Junkyard_Rusted",     # explicit identity (model skin)
 }
 
 # ── Build the COBJ/OMOD skin-name → PA-types lookup at import time ──
 _cobj_skin_types = None          # populated by _build_pa_lookup()
 _omod_skin_types = None          # populated by _build_pa_lookup()
 _entm_skin_families = None       # populated by _build_pa_lookup()
+_cobj_edids_by_skin = None       # populated by _build_pa_lookup()  skin_name → sorted list of full COBJ EDIDs
 
 
 def _build_pa_lookup():
     """Parse COBJ, OMOD, and ENTM TSVs to build skin_name → set-of-PA-types maps."""
-    global _cobj_skin_types, _omod_skin_types, _entm_skin_families
+    global _cobj_skin_types, _omod_skin_types, _entm_skin_families, _cobj_edids_by_skin
     from collections import defaultdict
 
     _cobj_skin_types = defaultdict(set)
     _omod_skin_types = defaultdict(set)
     _entm_skin_families = defaultdict(set)
+    _cobj_edids_by_skin = defaultdict(list)
 
-    def _parse_paint_lines(path, prefix, target_dict):
+    def _parse_paint_lines(path, prefix, target_dict, collect_edids=False):
         """Parse COBJ or OMOD lines for PA paint entries."""
         with open(path, "r", encoding="utf-8", errors="replace") as f:
             for line in f:
@@ -718,6 +723,8 @@ def _build_pa_lookup():
                         target_dict[skin].add(pa_type)
                     else:
                         target_dict[skin].add("ALL")
+                    if collect_edids:
+                        _cobj_edids_by_skin[skin].append(edid)
                     continue
 
                 # Pattern 2: ALL layout (body part AFTER skin name)
@@ -728,14 +735,80 @@ def _build_pa_lookup():
                 )
                 if m:
                     target_dict[m.group(1)].add("ALL")
+                    if collect_edids:
+                        _cobj_edids_by_skin[m.group(1)].append(edid)
+
+    def _parse_model_lines(path):
+        """Parse COBJ lines for 'Model' PA skins — whole-PA replacements that
+        use patterns WITHOUT Material_Paint_.  Collects EDIDs only.
+        Pattern A: {prefix}_PowerArmor_{SkinName}_{Part}  (skin applies to ALL)
+        Pattern B: {prefix}_PowerArmor_{TYPE}_{SkinName}_{Part}  (type-specific model)"""
+        _BODY_PART_SET = {
+            "Helmet", "Torso", "ArmLeft", "ArmRight", "LegLeft", "LegRight",
+            "LeftArm", "RightArm", "LeftLeg", "RightLeg",
+        }
+        _PA_TYPE_SET = set(_PA_TYPE_DISPLAY.keys())
+
+        _MODEL_PARTS_RE = re.compile(
+            r"(?:ATX_)?co(?:_(?:ATX_)?mod)?_PowerArmor_(\w+?)_"
+            r"(?:Helmet|Torso|ArmLeft|ArmRight|LegLeft|LegRight"
+            r"|LeftArm|RightArm|LeftLeg|RightLeg)$"
+        )
+        # Pattern B: {prefix}_PowerArmor_{TYPE}_{SkinName}_{Part}
+        _MODEL_TYPED_RE = re.compile(
+            r"co(?:_(?:ATX_)?mod)?_PowerArmor_("
+            + "|".join(re.escape(t) for t in _PA_TYPE_SET)
+            + r")_(\w+?)_(?:Helmet|Torso|ArmLeft|ArmRight|LegLeft|LegRight"
+            r"|LeftArm|RightArm|LeftLeg|RightLeg)$"
+        )
+        with open(path, "r", encoding="utf-8", errors="replace") as f:
+            for line in f:
+                cols = line.rstrip("\n").split("\t")
+                if len(cols) < 2:
+                    continue
+                edid = cols[1].strip('"')
+                if "PowerArmor" not in edid:
+                    continue
+                upper = edid.upper()
+                if upper.startswith("ZZZ") or upper.startswith("DEL") or upper.startswith("CUT"):
+                    continue
+                if "Headlamp" in edid or "Lining" in edid or "Misc" in edid:
+                    continue
+                # Skip entries already caught by _parse_paint_lines (Material_Paint)
+                if "Material_Paint" in edid:
+                    continue
+
+                # Try Pattern B first (type-specific model): _PowerArmor_{TYPE}_{SkinName}_{Part}
+                m = _MODEL_TYPED_RE.search(edid)
+                if m:
+                    skin = m.group(2)
+                    _cobj_edids_by_skin[skin].append(edid)
+                    continue
+
+                # Pattern A: _PowerArmor_{SkinName}_{Part}
+                m = _MODEL_PARTS_RE.search(edid)
+                if m:
+                    skin = m.group(1)
+                    # Skip if skin is actually a PA type name (base recipe, not a skin)
+                    if skin in _PA_TYPE_SET:
+                        continue
+                    _cobj_edids_by_skin[skin].append(edid)
 
     # ── COBJ: crafting recipes ──
     cobj_files = sorted(glob.glob(os.path.join(TSV_ROOT, "COBJ_Export_*.tsv")))
     if cobj_files:
         cobj_path = cobj_files[-1]
         print(f"[PA lookup] Reading {os.path.basename(cobj_path)}")
-        _parse_paint_lines(cobj_path, "co_mod", _cobj_skin_types)
-        print(f"[PA lookup] COBJ: {len(_cobj_skin_types)} skin mappings")
+        _parse_paint_lines(cobj_path, "co_mod", _cobj_skin_types, collect_edids=True)
+        # Some COBJs use alternate prefixes — parse those too
+        _parse_paint_lines(cobj_path, "co_ATX_mod", _cobj_skin_types, collect_edids=True)
+        # Also collect EDIDs for model-type skins (whole-PA replacements)
+        _parse_model_lines(cobj_path)
+        # Sort each skin's COBJ EDIDs for consistent output
+        for skin in _cobj_edids_by_skin:
+            _cobj_edids_by_skin[skin] = sorted(set(_cobj_edids_by_skin[skin]))
+        print(f"[PA lookup] COBJ: {len(_cobj_skin_types)} skin mappings, "
+              f"{sum(len(v) for v in _cobj_edids_by_skin.values())} total COBJ EDIDs")
 
     # ── OMOD: object modifications (covers skins without COBJ recipes) ──
     omod_files = sorted(glob.glob(os.path.join(TSV_ROOT, "OMOD_Export_*.tsv")))
@@ -846,6 +919,29 @@ def _format_pa_types(types: set) -> str:
     return f"Applicable to: {', '.join(ordered)}"
 
 
+def collect_cobj_edids(edid: str) -> list:
+    """Return the sorted list of all COBJ EDIDs related to this PA skin ENTM EDID.
+    Returns [] if not a PA skin or no COBJ data found."""
+    if _cobj_edids_by_skin is None:
+        _build_pa_lookup()
+
+    skin_name = _extract_skin_name(edid)
+    if not skin_name:
+        return []
+
+    # Try direct name first, then aliases
+    names_to_try = [skin_name]
+    alias = _SKIN_NAME_ALIASES.get(skin_name)
+    if alias:
+        names_to_try.append(alias)
+
+    for name in names_to_try:
+        edids = _cobj_edids_by_skin.get(name)
+        if edids:
+            return edids
+    return []
+
+
 def pa_applicability(edid: str, name: str, desc: str) -> str:
     """Return an 'Applicable to: ...' string for Power Armour skins, or ''."""
     e = edid.upper()
@@ -939,32 +1035,26 @@ def main():
             fixed.get("bundleItems"),
         )
         cat_counts[cat] = cat_counts.get(cat, 0) + 1
-        # Auto-populate technicalNotes for Power Armour skins.
+        # Auto-populate technicalNotes + relatedEdids for Power Armour skins.
         # Always recalculate from game data (COBJ/OMOD/ENTM) on every build
         # so that updated TSV exports are reflected.
-        edid_upper = fixed.get("edid", "").upper()
-        if cat == "Skins - Power Armour":
-            pa_note = pa_applicability(
-                fixed.get("edid", ""),
-                fixed.get("name", ""),
-                fixed.get("desc", ""),
-            )
-            if pa_note:
-                fixed["technicalNotes"] = pa_note
+        # Try pa_applicability on EVERY item (not just "Skins - Power Armour"
+        # category) because PA skins can appear in Bundles, Nuka Cola, etc.
+        pa_note = pa_applicability(
+            fixed.get("edid", ""),
+            fixed.get("name", ""),
+            fixed.get("desc", ""),
+        )
+        if pa_note:
+            fixed["technicalNotes"] = pa_note
+        # Collect related COBJ EDIDs for any item that has PA skin data
+        cobj_edids = collect_cobj_edids(fixed.get("edid", ""))
+        if cobj_edids:
+            fixed["relatedEdids"] = cobj_edids
 
-        # Also populate technicalNotes for PA skins inside bundles,
-        # and for PA-skin bundles themselves
-        if fixed.get("isBundle"):
-            # Bundle-level: if it looks like a PA skin bundle, add notes
-            pa_note = pa_applicability(
-                fixed.get("edid", ""),
-                fixed.get("name", ""),
-                fixed.get("desc", ""),
-            )
-            if pa_note:
-                fixed["technicalNotes"] = pa_note
-            # Child items inside any bundle
-            for bi in fixed.get("bundleItems") or []:
+        # Also populate technicalNotes + relatedEdids for PA skins inside bundles
+        if fixed.get("bundleItems"):
+            for bi in fixed["bundleItems"]:
                 pa_note = pa_applicability(
                     bi.get("edid", ""),
                     bi.get("name", ""),
@@ -972,6 +1062,9 @@ def main():
                 )
                 if pa_note:
                     bi["technicalNotes"] = pa_note
+                bi_cobj_edids = collect_cobj_edids(bi.get("edid", ""))
+                if bi_cobj_edids:
+                    bi["relatedEdids"] = bi_cobj_edids
 
         fixed_items.append(fixed)
 
@@ -994,7 +1087,7 @@ def main():
     # ── Write LTB static data ────────────────────────────────────────
     # LTB imageUrl values are filenames only; the JS prepends LTB_IMAGE_BASE_URL.
     # If an imageUrl is empty ("") the JS renders a placeholder — that's fine.
-    # Auto-populate technicalNotes for PA skins in LTB bundles.
+    # Auto-populate technicalNotes + relatedEdids for PA skins in LTB bundles.
     for ltb in LTB_BUNDLES:
         for li in ltb.get("items", []):
             pa_note = pa_applicability(
@@ -1004,6 +1097,9 @@ def main():
             )
             if pa_note:
                 li["technicalNotes"] = pa_note
+            li_cobj_edids = collect_cobj_edids(li.get("edid", ""))
+            if li_cobj_edids:
+                li["relatedEdids"] = li_cobj_edids
     data["ltb"] = LTB_BUNDLES
     print(f"\n[atom_shop] LTB bundles written: {len(LTB_BUNDLES)}")
 
