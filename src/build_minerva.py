@@ -9,19 +9,19 @@ import csv, json, re, sys
 
 # Econ_GoldVendor_Tier_XX GLOB IDs -> gold bullion price
 TIER_PRICE = {
-    "005A5044": 5,   # Tier 01
-    "005A5045": 10,  # Tier 02
-    "005A5046": 15,  # Tier 03
-    "005A5047": 20,  # Tier 04
-    "005A5048": 25,  # Tier 05
-    "005A5049": 35,  # Tier 06
-    "005A504A": 50,  # Tier 07
-    "005A504B": 75,  # Tier 08
-    "005A504C": 100, # Tier 09
-    "005A504D": 125, # Tier 10
-    "005A504E": 165, # Tier 11
-    "005A504F": 200, # Tier 12
-    "005A5050": 400, # Tier 13
+    "005A5044": 50,   # Tier 01
+    "005A5045": 100,  # Tier 02
+    "005A5046": 150,  # Tier 03
+    "005A5047": 200,  # Tier 04
+    "005A5048": 250,  # Tier 05
+    "005A5049": 350,  # Tier 06
+    "005A504A": 500,  # Tier 07
+    "005A504B": 750,  # Tier 08
+    "005A504C": 1000, # Tier 09
+    "005A504D": 1250, # Tier 10
+    "005A504E": 1650, # Tier 11
+    "005A504F": 2000, # Tier 12
+    "005A5050": 4000, # Tier 13
 }
 
 MINERVA_DISCOUNT = 0.75  # 25% off
@@ -40,11 +40,15 @@ BIG_SALE_MAP = {
 }
 
 def parse_gold_price(row):
-    dnam = row.get('DNAM_Flags', '')
+    # BVGO holds the "Base Value GLOB Override" — the Econ_GoldVendor_Tier_XX GLOB
+    # reference that encodes the gold bullion price.  DNAM_Flags is a flags field
+    # (always "000001") and does NOT contain the GLOB ID.
+    bvgo = row.get('BVGO', '')
     for glob_id, price in TIER_PRICE.items():
-        if glob_id.upper() in dnam.upper():
+        if glob_id.upper() in bvgo.upper():
             return price
-    # fallback: DATA_Value field often equals the gold price
+    # Fallback for items that don't use the tier GLOB system (e.g. Brotherhood
+    # Recon Armor base pieces store their gold price directly in DATA_Value).
     try:
         return int(float(row.get('DATA_Value', 0)))
     except (ValueError, TypeError):
@@ -81,9 +85,22 @@ def main():
             edid = row.get('EDID', '')
             name = row.get('FULL', '').strip()
 
-            if 'GoldVendor' not in edid:
-                continue
             if not name.startswith('Plan:'):
+                continue
+            # Three signals that a BOOK record is a gold-bullion plan:
+            #  1. "GoldVendor" in EDID — the standard naming convention.
+            #  2. Non-empty BVGO — an explicit Econ_GoldVendor_Tier_XX GLOB is set,
+            #     meaning the game assigned a gold bullion price (e.g. BOS Recon mods).
+            #  3. References a Minerva-specific LLS list directly (e.g. Brotherhood
+            #     Recon Armor base pieces, Arctic Marine Armor — items sold at Minerva
+            #     that use DATA_Value for their gold price instead of the tier GLOB).
+            bvgo = row.get('BVGO', '').strip()
+            has_gold_vendor = (
+                'GoldVendor' in edid
+                or bool(bvgo)
+                or any('Minerva_LLS_GoldVendor' in str(v) for v in row.values() if v)
+            )
+            if not has_gold_vendor:
                 continue
 
             gold = parse_gold_price(row)
