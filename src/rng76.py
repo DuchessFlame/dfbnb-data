@@ -8,16 +8,27 @@ tier detection, item-name resolution, and adaptive precision formatting
 so that every page-specific build script can import from ONE place.
 
 Used by:
-  build_events_rewards_json.py   (event/activity reward pages)
-  build_reho_json.py             (Raid · Expo · Hunts · Ops pages)
-  build_titles_json.py           (Player & Camp title checklists)
+  build_activities_rewards_json.py (activity reward pages)
+  build_events_rewards_json.py     (event reward pages)
+  build_drop_rates.py              (pre-computed drop-rate JSON)
+  build_reho_json.py               (Raid · Expo · Hunts · Ops pages)
+  build_titles_json.py             (Player & Camp title checklists)
 
 Core formula (rng-76):
-  dropRate = (1 - ListChanceNone)
-           × EntryPresenceChance
-           × (1 - EntryChanceNone)
-           × CondChance            (GetRandomPercent)
-           × AprioriChance         (pick-one weight)
+  Use All mode (bit 2), no ChanceNone on entries:
+    each entry independent at 100%
+  Use All mode (bit 2), with ChanceNone on entries:
+    waterfall — entries checked in order, first that passes its
+    ChanceNone wins, remaining probability cascades to next entry
+  Pick-one mode (non-Use-All):
+    rate = 100% / N items   (uniform random pick)
+  First Match mode (bit 6):
+    waterfall with cascading GetRandomPercent thresholds
+
+  Where:
+    pick_weight = apriori with ChanceNone stripped out
+    cn_factor   = (1 - actual_list_CN/100) × (1 - actual_entry_CN/100)
+    ChanceNone values resolved through GLOB/CURV lookups (0-100 scale)
 """
 
 from __future__ import annotations
@@ -632,25 +643,18 @@ def pct(x: float) -> float:
 
 def fmt_pct(value: float) -> str:
     """
-    Format a percentage value as a clean string.
+    Format a percentage value as a clean string — NO rounding.
 
+    Shows up to 6 decimal places, trailing zeros stripped.
     - Integer values:  ``"10%"``
-    - Small values:    ``"0.05%"``
+    - Fractional:      ``"14.851485%"``  (not rounded to 15%)
     - Tiny values:     ``"0.0012%"``
-
-    Adaptive: uses the fewest decimal places needed.
     """
-    if abs(value - round(value)) < 1e-6:
+    if value == 0:
+        return "0%"
+    if abs(value - round(value)) < 1e-9:
         return f"{int(round(value))}%"
-    # 2 dp for common rates
-    if value >= 0.01:
-        s = f"{value:.2f}".rstrip("0").rstrip(".")
-        return f"{s}%"
-    # 4 dp for small
-    if value >= 0.0001:
-        s = f"{value:.4f}".rstrip("0").rstrip(".")
-        return f"{s}%"
-    # 6 dp for very small
+    # Always use 6 dp, strip trailing zeros
     s = f"{value:.6f}".rstrip("0").rstrip(".")
     return f"{s}%"
 
@@ -686,6 +690,65 @@ class Rng76Resolver:
         self.curvs = curvs
         self._cache: Dict[str, Dict[str, float]] = {}
 
+    # ---- pick-weight / ChanceNone helpers ----------------------------
+
+    def _entry_pick_and_cn(
+        self,
+        math: Dict[str, str],
+        entry: Dict[str, str],
+        list_id: str,
+    ) -> Tuple[float, float]:
+        """
+        Compute (pick_weight, cn_factor) for a single LVLI entry.
+
+        *pick_weight*: pure selection weight with ChanceNone stripped out.
+          For equal-weight lists every entry gets ~1.0; for conditioned
+          entries it equals ``condChance``.
+
+        *cn_factor*: ``(1 − actualListCN/100) × (1 − actualEntryCN/100)``
+          resolved through GLOB/CURV where needed.
+
+        The effective drop rate for a Use-All entry is
+        ``pick_weight × cn_factor``.
+        For a pick-one (non-Use-All) entry it is
+        ``(pick_weight / Σpick_weights) × cn_factor``.
+        """
+        _ecn_glob = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+
+        apriori = (
+            1.0 if _is_minlvl
+            else float(math.get("EntryAprioriChance_NoSublist") or 1)
+        )
+        resolved_list_cn = float(math.get("ListChanceNoneResolved") or 0)       # 0-100
+        resolved_entry_cn = (
+            0.0 if _is_minlvl
+            else float(math.get("EntryChanceNoneResolved") or 0)                # 0-100
+        )
+
+        # Strip resolved ChanceNone out of apriori → pure pick weight.
+        # xEdit bakes (1-listCN/100)*(1-entryCN/100)*condChance into apriori.
+        # We undo the CN parts so normalisation uses ChanceNone-free weights.
+        pick_weight = apriori
+        if 0 < resolved_list_cn < 100:
+            pick_weight /= (1.0 - resolved_list_cn / 100.0)
+        if 0 < resolved_entry_cn < 100:
+            pick_weight /= (1.0 - resolved_entry_cn / 100.0)
+
+        # Resolve actual ChanceNone via GLOB/CURV (both return 0-100).
+        actual_list_cn = self.resolve_chance_none(math, "List")
+        actual_entry_cn = (
+            0.0 if _is_minlvl
+            else self.resolve_chance_none(math, "Entry")
+        )
+
+        cn_factor = (
+            (1.0 - actual_list_cn / 100.0)
+            * (1.0 - actual_entry_cn / 100.0)
+        )
+
+        return (pick_weight, cn_factor)
+
     # ---- quick (cached) resolve ------------------------------------
 
     def resolve_simple(self, list_id: str) -> Dict[str, float]:
@@ -693,12 +756,28 @@ class Rng76Resolver:
         Resolve LVLI → ``{leaf_formid: total_chance}``.
 
         Cached.  Used by ``compute_lvli()`` in the events script.
+
+        Modes (rng-76 rules):
+          - Use All (bit 2), no ChanceNone on entries:
+                each entry independent, rate = 100%.
+          - Use All (bit 2), with ChanceNone on entries:
+                waterfall — entries checked in order, first that passes
+                its ChanceNone wins, remaining probability cascades.
+          - First Match (bit 6): cascading condition thresholds.
+          - Non-Use-All:      pick one at random,
+                              rate = (pw / Σpw) × cn_factor.
         """
         if not list_id:
             return {}
         if list_id in self._cache:
             return self._cache[list_id]
-        results: Dict[str, float] = {}
+
+        flags = self.lvli.flags_for(list_id)
+        is_use_all = flags["use_all"]
+        is_first_match = flags["first_match"]
+
+        # ── gather entries ──
+        raw: List[Dict[str, Any]] = []
         for e in self.lvli.entries_by_list.get(list_id, []):
             idx = e.get("EntryIndex")
             if idx is None:
@@ -706,24 +785,86 @@ class Rng76Resolver:
             math = self.lvli.math_by_entry.get((list_id, idx))
             if not math:
                 continue
+
+            pw, cn = self._entry_pick_and_cn(math, e, list_id)
             sub = (math.get("SubLVLI_FormID") or "").strip()
-            chance = self._entry_chance(math)
-            # Also resolve any unresolved entry-level ChanceNone
-            ecn = self._resolve_entry_chancenone(math, e, list_id)
-            ecn_from_math = float(math.get("EntryChanceNoneResolved") or 0)
-            if ecn > ecn_from_math:
-                # The GLOB/CURV gave a higher ChanceNone than the Math TSV had;
-                # apply the correction factor: multiply by (1-ecn)/(1-ecn_math)
-                correction = (1 - ecn) / (1 - ecn_from_math) if ecn_from_math < 1 else 0
-                chance *= correction
-            if sub:
-                for k, v in self.resolve_simple(sub).items():
-                    results[k] = results.get(k, 0) + v * chance
+            ref = (e.get("LVLO_Reference") or "").strip()
+            conditions = self._entry_conditions(e)
+
+            # UseAll + GetRandomPercent condition → use threshold as rate
+            if is_use_all and conditions:
+                grp = self.extract_grp_threshold(conditions)
+                if grp is not None:
+                    pw = grp / 100.0
+                    cn = 1.0
+
+            raw.append({"pw": pw, "cn": cn, "sub": sub, "ref": ref,
+                        "conditions": conditions})
+
+        # ── compute per-entry rate ──
+        if is_first_match:
+            # First Match: cascading GetRandomPercent thresholds.
+            # Entries checked in order, first match wins.
+            thresholds = [
+                self.extract_grp_threshold(r["conditions"]) for r in raw
+            ]
+            if any(t is not None for t in thresholds):
+                prev = 0.0
+                for i, r in enumerate(raw):
+                    if thresholds[i] is not None:
+                        r["rate"] = (thresholds[i] - prev) / 100.0
+                        prev = thresholds[i]
+                    else:
+                        r["rate"] = (100.0 - prev) / 100.0
             else:
-                ref = (e.get("LVLO_Reference") or "").strip()
+                # Fallback: cascading with cn_factor
+                cum_fail = 1.0
+                for r in raw:
+                    s = r["pw"] * r["cn"]
+                    r["rate"] = s * cum_fail
+                    cum_fail *= (1.0 - s)
+
+        elif is_use_all:
+            # Check if any entry has ChanceNone (cn < 1.0).
+            # If so → waterfall: entries checked in order, first that
+            # passes its ChanceNone wins, probability cascades to next.
+            # If no entry has ChanceNone → each fires independently at 100%.
+            has_cn = any(r["cn"] < 1.0 - 1e-9 for r in raw)
+            if has_cn:
+                # Waterfall: cascading ChanceNone
+                cum_fail = 1.0
+                for r in raw:
+                    drop = r["pw"] * r["cn"]  # entry's own drop chance
+                    r["rate"] = drop * cum_fail
+                    cum_fail *= (1.0 - drop)
+            else:
+                # No ChanceNone → independent, each at pw (usually 1.0)
+                for r in raw:
+                    r["rate"] = r["pw"] * r["cn"]
+
+        else:
+            # Pick one at random — 100% / N items
+            total_pw = sum(r["pw"] for r in raw)
+            if total_pw > 0:
+                for r in raw:
+                    r["rate"] = (r["pw"] / total_pw) * r["cn"]
+            else:
+                for r in raw:
+                    r["rate"] = 0.0
+
+        # ── recurse / accumulate ──
+        results: Dict[str, float] = {}
+        for r in raw:
+            rate = r["rate"]
+            if r["sub"]:
+                for k, v in self.resolve_simple(r["sub"]).items():
+                    results[k] = results.get(k, 0) + v * rate
+            else:
+                ref = r["ref"]
                 if ":" in ref:
                     fid = ref.split(":")[0]
-                    results[fid] = results.get(fid, 0) + chance
+                    results[fid] = results.get(fid, 0) + rate
+
         self._cache[list_id] = results
         return results
 
@@ -741,7 +882,18 @@ class Rng76Resolver:
         Each item dict:
           ``{formid, name, qty, dropRate, edid, sig, conditions}``
 
-        Applies pick-one normalisation when Use All is off and total > 1.
+        Uses rng-76 rules:
+          - Use All (bit 2), no ChanceNone on entries:
+                each entry independent, rate = 100%.
+          - Use All (bit 2), with ChanceNone on entries:
+                waterfall — entries checked in order, first that passes
+                its ChanceNone wins, remaining probability cascades.
+          - First Match (bit 6): cascading condition thresholds —
+                              first entry whose conditions pass wins.
+          - Non-Use-All:      pick ONE entry at uniform random,
+                              rate = (pw / Σpw) × cn_factor.
+                              The ``for_each`` flag (bit 1) only affects
+                              condition pruning order, NOT independence.
         """
         if seen is None:
             seen = set()
@@ -751,8 +903,10 @@ class Rng76Resolver:
 
         flags = self.lvli.flags_for(list_id)
         is_use_all = flags["use_all"]
+        is_first_match = flags["first_match"]
 
-        items: List[Dict[str, Any]] = []
+        # ── gather entries with pick-weight and cn-factor ──
+        raw: List[Dict[str, Any]] = []
         for entry in self.lvli.entries_by_list.get(list_id, []):
             idx = entry.get("EntryIndex")
             if idx is None:
@@ -761,32 +915,95 @@ class Rng76Resolver:
             if not math:
                 continue
 
-            drop_rate = self._entry_chance(math)
+            pw, cn = self._entry_pick_and_cn(math, entry, list_id)
             qty = self._entry_qty(entry)
             conditions = self._entry_conditions(entry)
             sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
             ref = (entry.get("LVLO_Reference") or "").strip()
+
+            # UseAll + GetRandomPercent condition → override with threshold
+            if is_use_all and conditions:
+                grp = self.extract_grp_threshold(conditions)
+                if grp is not None:
+                    pw = grp / 100.0
+                    cn = 1.0
+
+            raw.append({
+                "entry": entry, "math": math,
+                "pw": pw, "cn": cn,
+                "sub_lvli": sub_lvli, "ref": ref,
+                "qty": qty, "conditions": conditions,
+            })
+
+        if not raw:
+            return []
+
+        # ── compute per-entry drop rate based on mode ──
+        if is_first_match:
+            # First Match: cascading GetRandomPercent thresholds.
+            thresholds = [
+                self.extract_grp_threshold(r["conditions"]) for r in raw
+            ]
+            if any(t is not None for t in thresholds):
+                prev = 0.0
+                for i, r in enumerate(raw):
+                    if thresholds[i] is not None:
+                        r["rate"] = (thresholds[i] - prev) / 100.0
+                        prev = thresholds[i]
+                    else:
+                        r["rate"] = (100.0 - prev) / 100.0
+            else:
+                cum_fail = 1.0
+                for r in raw:
+                    s = r["pw"] * r["cn"]
+                    r["rate"] = s * cum_fail
+                    cum_fail *= (1.0 - s)
+
+        elif is_use_all:
+            # Check if any entry has ChanceNone (cn < 1.0).
+            # If so → waterfall: entries checked in order, first that
+            # passes its ChanceNone wins, probability cascades to next.
+            # If no entry has ChanceNone → each fires independently at 100%.
+            has_cn = any(r["cn"] < 1.0 - 1e-9 for r in raw)
+            if has_cn:
+                # Waterfall: cascading ChanceNone
+                cum_fail = 1.0
+                for r in raw:
+                    drop = r["pw"] * r["cn"]
+                    r["rate"] = drop * cum_fail
+                    cum_fail *= (1.0 - drop)
+            else:
+                # No ChanceNone → independent, each at pw (usually 1.0)
+                for r in raw:
+                    r["rate"] = r["pw"] * r["cn"]
+
+        else:
+            # Pick one at random — 100% / N items
+            total_pw = sum(r["pw"] for r in raw)
+            if total_pw > 0:
+                for r in raw:
+                    r["rate"] = (r["pw"] / total_pw) * r["cn"]
+            else:
+                for r in raw:
+                    r["rate"] = 0.0
+
+        # ── build resolved items list ──
+        items: List[Dict[str, Any]] = []
+        for r in raw:
+            dr = r["rate"]
+            ref = r["ref"]
             ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
 
-            # Resolve any unresolved entry-level ChanceNone from GLOB
-            ecn_resolved = float(math.get("EntryChanceNoneResolved") or 0)
-            ecn_actual = self._resolve_entry_chancenone(math, entry, list_id)
-            # Correction factor: if GLOB gives higher ChanceNone than Math TSV
-            ecn_correction = 1.0
-            if ecn_actual > ecn_resolved:
-                ecn_correction = (1 - ecn_actual) / (1 - ecn_resolved) if ecn_resolved < 1 else 0
-
-            if sub_lvli:
-                for sub_item in self.resolve_deep(sub_lvli, depth + 1, seen):
+            if r["sub_lvli"]:
+                for sub_item in self.resolve_deep(r["sub_lvli"], depth + 1, seen):
                     items.append({
                         "formid":     sub_item["formid"],
                         "name":       sub_item["name"],
                         "qty":        sub_item["qty"],
-                        "dropRate":   sub_item["dropRate"] * drop_rate,
+                        "dropRate":   sub_item["dropRate"] * dr,
                         "edid":       sub_item["edid"],
                         "sig":        sub_item.get("sig", ""),
-                        "conditions": conditions + (sub_item.get("conditions") or []),
-                        "_ecn_correction": ecn_correction,
+                        "conditions": r["conditions"] + (sub_item.get("conditions") or []),
                     })
             else:
                 if ":" in ref:
@@ -796,26 +1013,12 @@ class Rng76Resolver:
                     items.append({
                         "formid":     fid,
                         "name":       name,
-                        "qty":        qty,
-                        "dropRate":   drop_rate,
+                        "qty":        r["qty"],
+                        "dropRate":   dr,
                         "edid":       edid,
                         "sig":        ref_sig,
-                        "conditions": conditions,
-                        "_ecn_correction": ecn_correction,
+                        "conditions": r["conditions"],
                     })
-
-        # Pick-one normalisation — always normalise to 1.0 for pick-one lists
-        if not is_use_all and items:
-            total = sum(it["dropRate"] for it in items)
-            if total > 0 and abs(total - 1.0) > 0.0001:
-                for it in items:
-                    it["dropRate"] = it["dropRate"] / total
-
-        # Apply entry-level ChanceNone correction AFTER normalisation
-        for it in items:
-            correction = it.pop("_ecn_correction", 1.0)
-            if correction != 1.0:
-                it["dropRate"] *= correction
 
         return items
 
@@ -834,14 +1037,21 @@ class Rng76Resolver:
 
         *region_map*: ``{edid_substring: "Region Name"}``
         Returns: ``[{formid, chance, region}]``
+
+        Uses the same pick-weight/cn-factor approach as resolve_simple.
         """
         if seen is None:
             seen = set()
         if list_id in seen or depth > 8:
             return []
         seen = seen | {list_id}
-        results: List[Dict[str, Any]] = []
 
+        flags = self.lvli.flags_for(list_id)
+        is_use_all = flags["use_all"]
+        is_first_match = flags["first_match"]
+
+        # ── gather entries ──
+        raw: List[Dict[str, Any]] = []
         for e in self.lvli.entries_by_list.get(list_id, []):
             idx = e.get("EntryIndex")
             if idx is None:
@@ -849,14 +1059,57 @@ class Rng76Resolver:
             math = self.lvli.math_by_entry.get((list_id, idx))
             if not math:
                 continue
+
+            pw, cn = self._entry_pick_and_cn(math, e, list_id)
             sub = (math.get("SubLVLI_FormID") or "").strip()
-            chance = self._entry_chance(math)
-            # Apply unresolved entry-level ChanceNone from GLOB
-            ecn_resolved = float(math.get("EntryChanceNoneResolved") or 0)
-            ecn_actual = self._resolve_entry_chancenone(math, e, list_id)
-            if ecn_actual > ecn_resolved:
-                correction = (1 - ecn_actual) / (1 - ecn_resolved) if ecn_resolved < 1 else 0
-                chance *= correction
+            ref = (e.get("LVLO_Reference") or "").strip()
+            conditions = self._entry_conditions(e)
+
+            if is_use_all and conditions:
+                grp = self.extract_grp_threshold(conditions)
+                if grp is not None:
+                    pw = grp / 100.0
+                    cn = 1.0
+
+            raw.append({"pw": pw, "cn": cn, "sub": sub, "ref": ref,
+                        "conditions": conditions})
+
+        # ── compute rates (same logic as resolve_simple) ──
+        if is_first_match:
+            thresholds = [
+                self.extract_grp_threshold(r["conditions"]) for r in raw
+            ]
+            if any(t is not None for t in thresholds):
+                prev = 0.0
+                for i, r in enumerate(raw):
+                    if thresholds[i] is not None:
+                        r["rate"] = (thresholds[i] - prev) / 100.0
+                        prev = thresholds[i]
+                    else:
+                        r["rate"] = (100.0 - prev) / 100.0
+            else:
+                cum_fail = 1.0
+                for r in raw:
+                    s = r["pw"] * r["cn"]
+                    r["rate"] = s * cum_fail
+                    cum_fail *= (1.0 - s)
+        elif is_use_all:
+            for r in raw:
+                r["rate"] = r["pw"] * r["cn"]
+        else:
+            total_pw = sum(r["pw"] for r in raw)
+            if total_pw > 0:
+                for r in raw:
+                    r["rate"] = (r["pw"] / total_pw) * r["cn"]
+            else:
+                for r in raw:
+                    r["rate"] = 0.0
+
+        # ── recurse / accumulate ──
+        results: List[Dict[str, Any]] = []
+        for r in raw:
+            chance = r["rate"]
+            sub = r["sub"]
             if sub:
                 sub_edid = self.lvli.edid_by_formid.get(sub, "").lower()
                 region = inherited_region
@@ -873,7 +1126,7 @@ class Rng76Resolver:
                         "region": item["region"] or inherited_region,
                     })
             else:
-                ref = (e.get("LVLO_Reference") or "").strip()
+                ref = r["ref"]
                 if ":" in ref:
                     fid = ref.split(":")[0]
                     results.append({
@@ -887,12 +1140,34 @@ class Rng76Resolver:
 
     @staticmethod
     def _entry_chance(math: Dict[str, str]) -> float:
-        """Apply the rng-76 formula to a single LVLI entry."""
+        """Apply the rng-76 formula to a single LVLI entry.
+
+        Detects MinLvl GLOBs that xEdit misinterprets as ChanceNone,
+        contaminating EntryChanceNoneResolved, EntryPresenceChance, and
+        EntryAprioriChance_NoSublist.  When a MinLvl GLOB is present,
+        the contaminated fields are overridden to their correct values
+        (entry_none=0, entry_pres=1, apriori=1).
+        """
+        # Detect MinLvl GLOBs in EntryChanceNoneGlobal — these set the
+        # minimum player level, NOT a chance of nothing.  xEdit bakes
+        # the GLOB FLTV into Resolved/Presence/Apriori as if it were a
+        # ChanceNone percentage, producing wildly wrong (even negative)
+        # drop rates.
+        entry_cn_glob = (math.get("EntryChanceNoneGlobal") or "")
+        is_minlvl = "MinLvl" in entry_cn_glob
+
         list_none  = float(math.get("ListChanceNoneResolved") or 0)
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
-        entry_none = float(math.get("EntryChanceNoneResolved") or 0)
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+
+        if is_minlvl:
+            entry_pres = 1.0
+            entry_none = 0.0
+            apriori    = 1.0
+        else:
+            entry_pres = float(math.get("EntryPresenceChance") or 1)
+            entry_none = float(math.get("EntryChanceNoneResolved") or 0)
+            apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+
         return (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
 
     def _resolve_entry_chancenone(
@@ -916,9 +1191,15 @@ class Rng76Resolver:
           - GLOB=75, no CURV → ChanceNone = 75%
           - GLOB=10, CURV maps X=10→Y=95 → ChanceNone = 95%
         """
+        # If a MinLvl GLOB contaminated EntryChanceNoneResolved, ignore it
+        entry_cn_glob = (math.get("EntryChanceNoneGlobal") or "")
+        is_minlvl = "MinLvl" in entry_cn_glob
+
         entry_none = float(math.get("EntryChanceNoneResolved") or 0)
-        if entry_none > 0 or entry is None:
+        if not is_minlvl and (entry_none > 0 or entry is None):
             return entry_none
+        if is_minlvl:
+            entry_none = 0.0  # Not a real ChanceNone
         for field_name in ("LVOC_ChanceNoneCurve", "LVOG_ChanceNoneGlobal"):
             raw = (entry.get(field_name) or "").strip()
             if not raw:
@@ -937,6 +1218,126 @@ class Rng76Resolver:
                     # No curve — GLOB value IS the ChanceNone
                     return gval / 100.0
         return 0.0
+
+    # ---- public ChanceNone resolver (used by builders) ----------------
+
+    def resolve_chance_none(
+        self,
+        math_row: Dict[str, str],
+        field_prefix: str = "Entry",
+    ) -> float:
+        """
+        Resolve ChanceNone for an LVLI entry or list from a Math TSV row.
+
+        Handles GLOB/CURV resolution including:
+          - Direct GLOB values (FLTV is the ChanceNone)
+          - GLOB as tier index into CURV table → Curve(X=FLTV) = Y ChanceNone
+          - LVLI→CURV mapping for indirect curve references
+          - ChanceNoneCurve field holding a GLOB ref (not actual curve)
+
+        Priority (matches game engine behaviour):
+          1. CURV-column GLOB with LVLI→CURV mapping → tier into curve → Y
+          2. Real CURV + GLOB → GLOB FLTV as X into curve → Y
+          3. <prefix>ChanceNoneResolved (if non-zero and no curve path)
+          4. <prefix>ChanceNoneGlobal → GLOB FLTV directly
+          5. <prefix>ChanceNoneCurve GLOB FLTV (fallback)
+          6. 0.0 (= 100% drop chance)
+
+        Returns ChanceNone as 0-100 (e.g. 90.0 = 90% nothing, 10% drop).
+        """
+        glob_ref = (math_row.get(f"{field_prefix}ChanceNoneGlobal") or "").strip()
+        curv_ref = (math_row.get(f"{field_prefix}ChanceNoneCurve") or "").strip()
+
+        # Detect MinLvl GLOBs misplaced in the ChanceNone slot by xEdit.
+        # These set the minimum player level for the entry, NOT a chance of
+        # nothing.  Their FLTV (e.g. 1.0 for MinLvl_Guaranteed_ECON) would
+        # otherwise be treated as a tiny ChanceNone, producing wrong rates.
+        # When a MinLvl GLOB is present, both the GLOB FLTV and xEdit's
+        # pre-computed Resolved value are contaminated — return 0.0 (100% drop).
+        _is_minlvl = "MinLvl" in glob_ref
+
+        # Resolve GLOB FLTV
+        glob_fltv = None
+        if glob_ref and not _is_minlvl:
+            gfid = glob_formid_from_lvli_field(glob_ref)
+            if gfid:
+                glob_fltv = self.globs.value(gfid)
+
+        # Try curve-based resolution FIRST (before trusting Resolved)
+        if curv_ref:
+            curv_fid = glob_formid_from_lvli_field(curv_ref)
+            # Check if curv_ref points to actual curve data
+            has_pts = (
+                self.curvs is not None
+                and curv_fid is not None
+                and curv_fid in self.curvs.points
+            )
+
+            if has_pts and glob_fltv is not None:
+                # Direct curve: GLOB FLTV is X, curve Y is ChanceNone
+                y = self.curvs.interpolate(curv_fid, glob_fltv)
+                if y is not None:
+                    return y
+
+            # ChanceNoneCurve field holds a GLOB ref (no actual curve points).
+            # Use its FLTV as tier index into the LVLI's own CURV mapping.
+            if not has_pts and curv_fid:
+                tier_fltv = self.globs.value(curv_fid)
+                if tier_fltv is not None:
+                    lvli_fid = (math_row.get("LVLI_FormID") or "").strip()
+                    if self.curvs and lvli_fid:
+                        mapped_curv = self.curvs.curv_for_lvli(lvli_fid)
+                        if mapped_curv:
+                            y = self.curvs.interpolate(mapped_curv, tier_fltv)
+                            if y is not None:
+                                return y
+                    # No LVLI→CURV mapping — use tier FLTV as direct ChanceNone
+                    if glob_fltv is None:
+                        glob_fltv = tier_fltv
+
+        # Fall back to xEdit's pre-computed Resolved value (skip when a
+        # MinLvl GLOB contaminated it — the Resolved value would be the
+        # minimum level, not a real ChanceNone percentage).
+        if not _is_minlvl:
+            resolved = safe_float(
+                math_row.get(f"{field_prefix}ChanceNoneResolved"), 0.0
+            )
+            if resolved and resolved > 0:
+                return resolved
+
+        if glob_fltv is not None and glob_fltv > 0:
+            return glob_fltv
+
+        return 0.0
+
+    def extract_grp_threshold(
+        self,
+        raw_conds: List[str],
+    ) -> Optional[float]:
+        """
+        Extract ``GetRandomPercent <= X`` threshold from raw condition strings.
+
+        Handles both literal numbers (``20.000000``) and GLOB references
+        (``[GLOB:XXXXXXXX]``).  Returns threshold float or None.
+        """
+        for cond in raw_conds:
+            if "GetRandomPercent" not in cond:
+                continue
+            # Try GLOB reference: [GLOB:XXXXXXXX]
+            gm = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', cond)
+            if gm:
+                val = self.globs.value(gm.group(1))
+                if val is not None:
+                    return val
+            # Try literal number (last number in the string)
+            for part in reversed(cond.strip().split()):
+                try:
+                    return float(part)
+                except ValueError:
+                    continue
+        return None
+
+    # ---- internal helpers ------------------------------------------
 
     def _entry_qty(self, entry: Dict[str, str]) -> int:
         """Resolve quantity from entry row, including GLOB override."""

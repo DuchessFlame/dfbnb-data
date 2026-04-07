@@ -26,12 +26,31 @@ baseRewards schema (new):
   }
 """
 
-import csv, glob, json, os, re
+import csv, glob, json, os, re, sys
 from collections import defaultdict
 from pathlib import Path
 
-DIST_DIR     = Path("dist/events")
-PATCHLOG_DIR = Path("dist/patchlogs")
+# ---------------------------------------------------------------------------
+# Import shared drop-rate engine (rng76.py in same directory)
+# ---------------------------------------------------------------------------
+_this_dir = Path(__file__).resolve().parent
+for _p in [_this_dir, _this_dir / "src", _this_dir.parent / "src"]:
+    if _p.exists() and str(_p) not in sys.path:
+        sys.path.insert(0, str(_p))
+
+from rng76 import (
+    Rng76Resolver, LvliIndex, GlobIndex, CurvIndex, ItemNameIndex,
+    safe_float, safe_int,
+    parse_lvlf_flags, parse_randompercent_multiplier,
+    humanize_edid, glob_formid_from_lvli_field,
+    fmt_pct, REGION_BY_SUBLVLI_EDID,
+)
+
+# Resolve paths relative to the repo root (one level up from src/) so the
+# script produces correct output regardless of which directory it's run from.
+_REPO_ROOT   = Path(__file__).resolve().parent.parent
+DIST_DIR     = _REPO_ROOT / "dist" / "events"
+PATCHLOG_DIR = _REPO_ROOT / "dist" / "patchlogs"
 
 # --------------------------------------------------
 # Helpers
@@ -59,7 +78,8 @@ def newest(pattern):
     Primary sort: parsed year+month from filename (reliable on GitHub Actions
     where git checkout mtimes vary by checkout order, not commit date).
     Tiebreaker: file mtime (useful on local machines)."""
-    files = glob.glob(pattern)
+    full_pattern = str(_REPO_ROOT / pattern)
+    files = glob.glob(full_pattern)
     if not files: raise FileNotFoundError(pattern)
     files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
     return files[-1]
@@ -388,24 +408,7 @@ def simplify_conditions(conditions):
             result.append(s)
     return result
 
-def parse_randompercent_multiplier(conditions_text):
-    mult = 1.0
-    # Match "GetRandomPercent <= N" (standard <= format)
-    for m in re.finditer(r"GetRandomPercent\s*<=\s*(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
-        try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
-        except ValueError:
-            pass
-    # Match raw GMRW Conditions format: "GetRandomPercent <flags> <value>"
-    # e.g. "GetRandomPercent 10100000 10.000000"
-    for m in re.finditer(r"GetRandomPercent\s+\d+\s+(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
-        try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
-        except ValueError:
-            pass
-    return mult
+# parse_randompercent_multiplier → imported from rng76
 
 # --------------------------------------------------
 # Load TSVs
@@ -417,14 +420,14 @@ LVLI_LIST    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_List.tsv"))
 LVLI_ENTRIES = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Entries.tsv"))
 LVLI_MATH    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Math.tsv"))
 # BOOK: exclude Locations sub-export (has no FULL column)
-_book_files = [f for f in glob.glob("tsv/BOOK_Export_*.tsv")
+_book_files = [f for f in glob.glob(str(_REPO_ROOT / "tsv/BOOK_Export_*.tsv"))
                if "_Locations" not in f]
 if not _book_files:
     raise FileNotFoundError("tsv/BOOK_Export_*.tsv (non-Locations)")
 _book_files.sort(key=lambda x: os.path.getmtime(x))
 BOOK         = read_tsv(_book_files[-1])
 # ARMO: exclude SLOTS and ObjectTemplate sub-exports (no ARMO_FULL column)
-_armo_files = [f for f in glob.glob("tsv/ARMO_Export_*.tsv")
+_armo_files = [f for f in glob.glob(str(_REPO_ROOT / "tsv/ARMO_Export_*.tsv"))
                if "_SLOTS" not in f and "_ObjectTemplate" not in f]
 if not _armo_files:
     raise FileNotFoundError("tsv/ARMO_Export_*.tsv (non-SLOTS)")
@@ -906,23 +909,7 @@ KNOWN_FID_NAMES = {
     "0072D4FC": "Bobblehead Crate",
 }
 
-def humanize_edid(edid):
-    """Convert an EDID like 'DLC04_HandMadeGun' or 'CombatShotgun' to a readable name."""
-    if not edid:
-        return edid
-    s = edid
-    # Strip common prefixes (including all DLC prefixes like DLC03_, DLC04_, etc.)
-    for pfx in ["LL_Weapon_", "LL_Armor_", "LPI_Weapon_", "LPI_Armor_",
-                 "LL_", "LPI_", "POST_"]:
-        if s.startswith(pfx):
-            s = s[len(pfx):]
-    # Strip DLC0N_ prefixes generically (DLC01_, DLC02_, DLC03_, etc.)
-    s = re.sub(r"^DLC\d+_", "", s)
-    # Split CamelCase and underscores into words
-    s = re.sub(r"_", " ", s)
-    s = re.sub(r"([a-z])([A-Z])", r"\1 \2", s)
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
+# humanize_edid → imported from rng76
 
 def humanize_cobj_edid(edid):
     """Convert a COBJ EDID to a clean plan/recipe name for HasLearnedRecipe conditions.
@@ -1111,54 +1098,8 @@ def _interp_curve(pts, x):
     return sp[-1][1]
 
 def _resolve_chance_none(math_row, field_prefix="Entry"):
-    """
-    Resolve ChanceNone for an LVLI entry/list, checking GLOB and CURV
-    references when the pre-computed 'Resolved' column is 0.
-
-    Priority:
-      1. <prefix>ChanceNoneResolved (if non-zero, trust it)
-      2. GLOB + CURV present → use GLOB FLTV as X index into curve, return Y
-      3. GLOB only (no CURV) → return GLOB FLTV directly as ChanceNone
-      4. CURV-column GLOB fallback (when CURV slot holds a GLOB ref) → FLTV
-      5. Fall back to 0.0 (= 100% drop chance)
-
-    GLOB FLTV values (e.g. 10.0 for Recipe_High_ChanceNone_Tier) are tier
-    indices, NOT direct ChanceNone percentages.  When paired with a CURV,
-    the game evaluates Curve(X=FLTV) to get the actual ChanceNone Y.
-
-    Returns a float in 0-100 space (e.g. 95.0 means 95% chance of nothing).
-    """
-    resolved = float(math_row.get(f"{field_prefix}ChanceNoneResolved") or 0)
-    if resolved > 0:
-        return resolved
-
-    glob_ref = (math_row.get(f"{field_prefix}ChanceNoneGlobal") or "").strip()
-    curv_ref = (math_row.get(f"{field_prefix}ChanceNoneCurve") or "").strip()
-
-    # Resolve GLOB FLTV (the tier/index value)
-    glob_fltv = None
-    if glob_ref:
-        glob_fid = glob_ref.split(":")[0] if ":" in glob_ref else glob_ref
-        if glob_fid in glob_vals:
-            glob_fltv = glob_vals[glob_fid]
-
-    # If a real CURV is referenced, evaluate it with the GLOB FLTV as X
-    if curv_ref:
-        curv_fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
-        curv_pts = _curv_pts.get(curv_fid)
-        if curv_pts and glob_fltv is not None:
-            # GLOB FLTV is the X index into the curve; Y is the actual ChanceNone
-            y = _interp_curve(curv_pts, glob_fltv)
-            if y is not None:
-                return y
-        # Curve slot sometimes holds a GLOB ref (no actual curve points) — treat as GLOB
-        if not curv_pts and curv_fid in glob_vals and glob_fltv is None:
-            glob_fltv = glob_vals[curv_fid]
-
-    if glob_fltv is not None:
-        return glob_fltv
-
-    return 0.0
+    """Thin wrapper → Rng76Resolver.resolve_chance_none (centralised GLOB/CURV math)."""
+    return _get_resolver().resolve_chance_none(math_row, field_prefix)
 
 
 _lvli_cache = {}
@@ -1174,10 +1115,12 @@ def compute_lvli(list_id):
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
         if sub:
             for k, v in compute_lvli(sub).items():
@@ -1211,10 +1154,12 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
         if sub:
             # Detect region from sub-LVLI EDID
@@ -1247,55 +1192,11 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
 # Activity Events: Helper functions
 # --------------------------------------------------
 
-def parse_lvlf_flags(flags_str):
-    """
-    Parse LVLF_Flags positional bit string from xEdit export.
-
-    xEdit's GetEditValue on a flags field returns a bit string where
-    character position N (left-to-right, 0-indexed) corresponds to bit N:
-      position 0 = Calculate from all levels <= PC's level (Level Filter)
-      position 1 = Calculate for each item in count (For Each)
-      position 2 = Use All
-      position 6 = First Match
-
-    Examples: "001" → Use All, "11" → Level Filter + For Each,
-              "0000001" → First Match
-    """
-    flags_str = (flags_str or "").strip()
-    if not flags_str:
-        return {"use_all": False, "for_each": False, "level_filter": False, "first_match": False}
-
-    def bit_set(pos):
-        return pos < len(flags_str) and flags_str[pos] == '1'
-
-    return {
-        "level_filter": bit_set(0),
-        "for_each":     bit_set(1),
-        "use_all":      bit_set(2),
-        "first_match":  bit_set(6),
-    }
+# parse_lvlf_flags → imported from rng76
 
 def _extract_grp_threshold(raw_conds):
-    """Extract the GetRandomPercent <= X threshold from raw condition strings.
-    Handles both literal numbers (e.g. 20.000000) and GLOB references ([GLOB:XXXXXXXX]).
-    Returns the threshold float (e.g. 20.0, 25.0) or None if no GRP condition found."""
-    for cond in raw_conds:
-        if "GetRandomPercent" not in cond:
-            continue
-        # Try GLOB reference first: [GLOB:XXXXXXXX]
-        glob_match = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', cond)
-        if glob_match:
-            glob_fid = glob_match.group(1)
-            if glob_fid in glob_vals:
-                return glob_vals[glob_fid]
-        # Try literal number (last number in the string)
-        parts = cond.strip().split()
-        for part in reversed(parts):
-            try:
-                return float(part)
-            except ValueError:
-                continue
-    return None
+    """Thin wrapper → Rng76Resolver.extract_grp_threshold (centralised GRP math)."""
+    return _get_resolver().extract_grp_threshold(raw_conds)
 
 
 def resolve_lvli_items_deep(list_id, depth=0, seen=None):
@@ -1359,10 +1260,12 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
 
         # Extract probability components (resolve GLOBs when xEdit left them unresolved)
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
 
         drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
 
@@ -1493,6 +1396,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
 
     # Collect raw (0-1) probabilities for all entries first, then normalize
     raw_entries = []  # list of (type, raw_rate, data_dict, raw_conditions, pick_weight, glob_correction)
+    _entry_cns = []   # parallel: actual entry-level ChanceNone per entry (for waterfall)
 
     # Process each entry
     for entry in lvli_entries_by_list.get(list_id, []):
@@ -1509,14 +1413,17 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # BUT xEdit often fails to resolve GLOB references in ChanceNone fields,
         # leaving them at 0 and inflating apriori.  We correct by applying any
         # unresolved GLOB ChanceNone as a post-hoc multiplier.
-        apriori = float(math.get("EntryAprioriChance_NoSublist") or 0)
+        # MinLvl GLOBs in EntryChanceNoneGlobal contaminate apriori — override.
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        apriori = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 0)
 
         # Correct for unresolved GLOB ChanceNone.
         # IMPORTANT: we separate the GLOB correction from the pick weight so that
         # normalisation for pick-one lists only affects the pick probability.
         # ChanceNone is applied AFTER normalisation (same approach as compute_lvli).
         resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
-        resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
+        resolved_entry_cn = 0.0 if _is_minlvl else float(math.get("EntryChanceNoneResolved") or 0)
         actual_list_cn    = _resolve_chance_none(math, "List")
         actual_entry_cn   = _resolve_chance_none(math, "Entry")
         glob_correction = 1.0
@@ -1574,6 +1481,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 if display_conditions:
                     sub_node["conditions"] = display_conditions
                 raw_entries.append(("child", entry_drop_rate, sub_node, conditions, pick_weight, glob_correction))
+                _entry_cns.append(actual_entry_cn)
         else:
             # Leaf item
             if ":" in ref:
@@ -1611,6 +1519,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                         if custom_prefix:
                             item_data["name"] = _apply_custom_prefix(item_data.get("name", ""), custom_prefix)
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
+                _entry_cns.append(actual_entry_cn)
 
     # ── First-match cascading probability ──
     # When a list has the "Use first object that matches all conditions" flag,
@@ -1637,9 +1546,39 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 new_entries.append((etype, max(net_p, 0.0), data, raw_conds, max(net_p, 0.0), gc))
             raw_entries = new_entries
 
+    # ── Cascading ChanceNone waterfall ──
+    # For pick-one lists where entries have per-entry ChanceNone (via GLOB/CURV),
+    # the game evaluates entries IN ORDER.  For each entry it rolls ChanceNone:
+    # if the roll says "skip" (ChanceNone succeeded), move to next entry;
+    # if the roll says "award" (ChanceNone failed), award this entry and stop.
+    # net_p_i = list_success × entry_success_i × product(entry_failure_j for j < i)
+    # The last entry (often no ChanceNone) catches the remainder → total ≈ 100%.
+    _has_cascading_cn = False
+    if not is_use_all and not is_first_match and raw_entries and _entry_cns:
+        _has_cascading_cn = any(cn > 0.1 for cn in _entry_cns)
+        if _has_cascading_cn:
+            # Get list-level ChanceNone (same for all entries in this list)
+            _first_entry = next(
+                (e for e in lvli_entries_by_list.get(list_id, [])
+                 if e.get("EntryIndex") is not None), None)
+            _first_math = (lvli_math_by_entry.get((list_id, _first_entry.get("EntryIndex")))
+                           if _first_entry else None)
+            _list_cn = _resolve_chance_none(_first_math, "List") if _first_math else 0.0
+            _list_success = 1.0 - _list_cn / 100.0
+
+            cumulative_failure = 1.0
+            new_entries = []
+            for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
+                entry_success = 1.0 - _entry_cns[i] / 100.0
+                net_p = _list_success * entry_success * cumulative_failure
+                cumulative_failure *= (1.0 - entry_success)
+                new_entries.append((etype, net_p, data, raw_conds, pw, gc))
+            raw_entries = new_entries
+
     # Normalize for pick-one lists using pick_weight (before ChanceNone correction)
+    # Skip normalisation for cascading ChanceNone lists — waterfall already computed rates.
     total_pick = sum(pw for (_, _, _, _, pw, _) in raw_entries)
-    if not is_use_all and not is_first_match and raw_entries and total_pick > 1.0001:
+    if not is_use_all and not is_first_match and not _has_cascading_cn and raw_entries and total_pick > 1.0001:
         for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
             normalised_pick = pw / total_pick
             effective_rate = normalised_pick * gc
@@ -2491,6 +2430,33 @@ for r in CURV_POINTS:
     fid = pick(r, "CURV_FormID", "FormID")
     try: _curv_pts[fid].append((float(r.get("X") or 0), float(r.get("Y") or 0)))
     except (ValueError, TypeError): pass
+
+# ---------------------------------------------------------------------------
+# Rng76 Resolver — wraps the builder's already-loaded GLOB/CURV data so we
+# can delegate ChanceNone and GRP-threshold math to the centralised engine.
+# ---------------------------------------------------------------------------
+_resolver = None
+
+def _get_resolver():
+    """Lazy-create an Rng76Resolver backed by the builder's own data."""
+    global _resolver
+    if _resolver is not None:
+        return _resolver
+
+    _rng_globs = GlobIndex()
+    _rng_globs.vals = dict(glob_vals)
+
+    _rng_curvs = CurvIndex()
+    _rng_curvs.points = dict(_curv_pts)      # formid → [(x,y), ...]
+    _rng_curvs.lvli_to_curv = {}             # events builder has no LVLI→CURV mapping
+
+    # LvliIndex and ItemNameIndex aren't needed for ChanceNone / GRP math,
+    # but the Rng76Resolver constructor requires them — pass empty instances.
+    _rng_lvli  = LvliIndex()
+    _rng_names = ItemNameIndex()
+
+    _resolver = Rng76Resolver(_rng_lvli, _rng_globs, _rng_names, _rng_curvs)
+    return _resolver
 
 def xp_at_level(curv_ref, level=50):
     fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref

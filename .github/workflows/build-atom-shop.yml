@@ -1,13 +1,15 @@
 name: Build Atom Shop Data
 
+# Manual-only trigger.
+# The patch build (dfbnb-patch-build.yml) already runs this script on
+# every push to src/ or tsv/, so an automatic trigger here would cause
+# a double-build race condition. Use this workflow for quick one-off
+# rebuilds when you only need to update the Atom Shop data.
 on:
   workflow_dispatch:
 
-  push:
-    paths:
-      - 'tsv/**'
-      - 'src/build_atom_shop_json.py'
-      - 'src/bundles.json'
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -16,11 +18,13 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: '3.11'
 
       - name: Run build script
         run: |
@@ -31,10 +35,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@users.noreply.github.com"
-          git add dist/
+          git add dist/atom_shop.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
             git commit -m "Build Atom Shop data"
+            git fetch origin main
+            git pull --rebase origin main
             git push
           fi

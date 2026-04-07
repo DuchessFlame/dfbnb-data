@@ -35,7 +35,10 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-DIST_DIR = Path("dist/challenges")
+# Resolve paths relative to the repo root (one level up from src/) so the
+# script produces correct output regardless of which directory it's run from.
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+DIST_DIR = _REPO_ROOT / "dist" / "challenges"
 DIST_DIR.mkdir(parents=True, exist_ok=True)
 
 # ==================================================================
@@ -64,7 +67,8 @@ def newest(pattern):
     Primary sort: parsed year+month from filename (reliable on GitHub Actions
     where git checkout mtimes vary by checkout order, not commit date).
     Tiebreaker: file mtime (useful on local machines)."""
-    files = glob.glob(pattern)
+    full_pattern = str(_REPO_ROOT / pattern)
+    files = glob.glob(full_pattern)
     if not files:
         return None
     files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
@@ -74,12 +78,15 @@ def newest(pattern):
 def read_tsv(path):
     if not path or not os.path.exists(path):
         return []
+    def _read(enc):
+        with open(path, encoding=enc, errors="replace", newline="") as f:
+            raw = f.read().replace("\x00", "")
+            import io
+            return list(csv.DictReader(io.StringIO(raw), delimiter="\t"))
     try:
-        with open(path, encoding="utf-8-sig", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+        return _read("utf-8-sig")
     except UnicodeDecodeError:
-        with open(path, encoding="cp1252", errors="replace", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+        return _read("cp1252")
 
 
 def pick(row, *keys, default=""):
@@ -552,7 +559,7 @@ print(f"  META parents: {len(meta_map)}")
 
 buckets = defaultdict(list)
 for item in all_items:
-    if item["is_sub"] and edid_base(item["edid"]) in meta_map:
+    if item["is_sub"] and not item["is_meta"] and edid_base(item["edid"]) in meta_map:
         continue
     if item["is_cut"]:
         buckets["cut"].append(item)

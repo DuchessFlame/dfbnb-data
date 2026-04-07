@@ -110,8 +110,11 @@ from rng76 import (
 # CONFIG
 # ============================================================
 
-TSV_ROOT = "tsv"
-DIST_DIR = Path("dist")
+# Resolve paths relative to the repo root (one level up from src/) so the
+# script produces correct output regardless of which directory it's run from.
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+TSV_ROOT = str(_REPO_ROOT / "tsv")
+DIST_DIR = _REPO_ROOT / "dist"
 OUTPUT   = DIST_DIR / "drop_rates.json"
 
 # Bounty hunt root LVLIs (from REHO page mappings)
@@ -212,7 +215,7 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
 # ============================================================
 
 def now_iso() -> str:
-    return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat()
+    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
 
 def find_gmrw_lvli_formids(tsv_root: str) -> Set[str]:

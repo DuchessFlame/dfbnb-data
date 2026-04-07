@@ -1413,10 +1413,12 @@ def compute_lvli(list_id):
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         raw_weight = (1 - list_none) * entry_pres * cond_rand * apriori
         raw_entries.append((sub, raw_weight, entry_none, e))
 
@@ -1469,10 +1471,12 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
         if sub:
             # Detect region from sub-LVLI EDID
@@ -1617,10 +1621,12 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
 
         # Extract probability components (resolve GLOBs when xEdit left them unresolved)
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
 
         drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
 

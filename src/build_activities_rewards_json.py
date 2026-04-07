@@ -26,21 +26,62 @@ baseRewards schema (new):
   }
 """
 
-import csv, glob, json, os, re
+import csv, glob, json, os, re, sys
 from collections import defaultdict
 from pathlib import Path
 
-DIST_DIR     = Path("dist/activities")
-PATCHLOG_DIR = Path("dist/patchlogs")
+# ---------------------------------------------------------------------------
+# Import shared drop-rate engine (rng76.py in same directory)
+# ---------------------------------------------------------------------------
+_this_dir = Path(__file__).resolve().parent
+for _p in [_this_dir, _this_dir / "src", _this_dir.parent / "src"]:
+    if _p.exists() and str(_p) not in sys.path:
+        sys.path.insert(0, str(_p))
+
+from rng76 import (
+    Rng76Resolver, LvliIndex, GlobIndex, CurvIndex, ItemNameIndex,
+    safe_float, safe_int,
+    parse_lvlf_flags, parse_randompercent_multiplier,
+    humanize_edid, glob_formid_from_lvli_field,
+    fmt_pct, REGION_BY_SUBLVLI_EDID,
+)
+
+# Resolve paths relative to the repo root (one level up from src/) so the
+# script produces correct output regardless of which directory it's run from.
+_REPO_ROOT   = Path(__file__).resolve().parent.parent
+DIST_DIR     = _REPO_ROOT / "dist" / "activities"
+PATCHLOG_DIR = _REPO_ROOT / "dist" / "patchlogs"
 
 # --------------------------------------------------
 # Helpers
 # --------------------------------------------------
 
+_MONTH_ORDER = {
+    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9, "oct": 10,
+    "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
+}
+
+def _filename_date_key(path):
+    """Extract (year, month_number) from filenames like LVLI_Export_April_2026_*.tsv."""
+    base = os.path.basename(path).lower()
+    m = re.search(r'_([a-z]+)_(\d{4})', base)
+    if m:
+        month_num = _MONTH_ORDER.get(m.group(1), 0)
+        if month_num:
+            return (int(m.group(2)), month_num)
+    return (0, 0)  # unknown → sort low so parseable dates always win
+
 def newest(pattern):
-    files = glob.glob(pattern)
+    """Pick the most recent file matching *pattern*.
+    Primary sort: parsed year+month from filename (reliable on GitHub Actions
+    where git checkout mtimes vary by checkout order, not commit date).
+    Tiebreaker: file mtime (useful on local machines)."""
+    full_pattern = str(_REPO_ROOT / pattern)
+    files = glob.glob(full_pattern)
     if not files: raise FileNotFoundError(pattern)
-    files.sort(key=lambda x: os.path.getmtime(x))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
     return files[-1]
 
 def read_tsv(path):
@@ -431,24 +472,7 @@ def simplify_conditions(conditions):
                 result.append(s)
     return result
 
-def parse_randompercent_multiplier(conditions_text):
-    mult = 1.0
-    # Match "GetRandomPercent <= N" (standard <= format)
-    for m in re.finditer(r"GetRandomPercent\s*<=\s*(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
-        try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
-        except ValueError:
-            pass
-    # Match raw GMRW Conditions format: "GetRandomPercent <flags> <value>"
-    # e.g. "GetRandomPercent 10100000 10.000000"
-    for m in re.finditer(r"GetRandomPercent\s+\d+\s+(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
-        try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
-        except ValueError:
-            pass
-    return mult
+# parse_randompercent_multiplier → imported from rng76
 
 # --------------------------------------------------
 # Load TSVs
@@ -460,14 +484,14 @@ LVLI_LIST    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_List.tsv"))
 LVLI_ENTRIES = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Entries.tsv"))
 LVLI_MATH    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Math.tsv"))
 # BOOK: exclude Locations sub-export (has no FULL column)
-_book_files = [f for f in glob.glob("tsv/BOOK_Export_*.tsv")
+_book_files = [f for f in glob.glob(str(_REPO_ROOT / "tsv/BOOK_Export_*.tsv"))
                if "_Locations" not in f]
 if not _book_files:
     raise FileNotFoundError("tsv/BOOK_Export_*.tsv (non-Locations)")
 _book_files.sort(key=lambda x: os.path.getmtime(x))
 BOOK         = read_tsv(_book_files[-1])
 # ARMO: exclude SLOTS and ObjectTemplate sub-exports (no ARMO_FULL column)
-_armo_files = [f for f in glob.glob("tsv/ARMO_Export_*.tsv")
+_armo_files = [f for f in glob.glob(str(_REPO_ROOT / "tsv/ARMO_Export_*.tsv"))
                if "_SLOTS" not in f and "_ObjectTemplate" not in f]
 if not _armo_files:
     raise FileNotFoundError("tsv/ARMO_Export_*.tsv (non-SLOTS)")
@@ -504,7 +528,7 @@ except FileNotFoundError:
     except FileNotFoundError: MGEF_DATA = []
 # Load ALL OMOD exports and merge — different exports may have different DESC fields
 OMOD_DATA = []
-for _omod_f in sorted(glob.glob("tsv/OMOD_Export_*.tsv"), key=lambda x: os.path.getmtime(x)):
+for _omod_f in sorted(glob.glob(str(_REPO_ROOT / "tsv/OMOD_Export_*.tsv")), key=lambda x: os.path.getmtime(x)):
     try:    OMOD_DATA.extend(read_tsv(_omod_f))
     except Exception: pass
 try:    COBJ = read_tsv(newest("tsv/COBJ_Export_*.tsv"))
@@ -1205,23 +1229,7 @@ KNOWN_FID_NAMES = {
     "0072D4FC": "Bobblehead Crate",
 }
 
-def humanize_edid(edid):
-    """Convert an EDID like 'DLC04_HandMadeGun' or 'CombatShotgun' to a readable name."""
-    if not edid:
-        return edid
-    s = edid
-    # Strip common prefixes (including all DLC prefixes like DLC03_, DLC04_, etc.)
-    for pfx in ["LL_Weapon_", "LL_Armor_", "LPI_Weapon_", "LPI_Armor_",
-                 "LL_", "LPI_", "POST_"]:
-        if s.startswith(pfx):
-            s = s[len(pfx):]
-    # Strip DLC0N_ prefixes generically (DLC01_, DLC02_, DLC03_, etc.)
-    s = re.sub(r"^DLC\d+_", "", s)
-    # Split CamelCase and underscores into words
-    s = re.sub(r"_", " ", s)
-    s = re.sub(r"([a-z])([A-Z])", r"\1 \2", s)
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
+# humanize_edid → imported from rng76
 
 def humanize_cobj_edid(edid):
     """Convert a COBJ EDID to a clean plan/recipe name for HasLearnedRecipe conditions.
@@ -1415,34 +1423,26 @@ for _r in LVLI_LIST:
     if _conds:
         LVLI_LIST_CONDITIONS[_fid] = _conds
 
+def _interp_curve(pts, x):
+    """Linearly interpolate Y at X from a list of (x, y) curve points."""
+    if not pts:
+        return None
+    sp = sorted(pts, key=lambda p: p[0])
+    if x <= sp[0][0]:
+        return sp[0][1]
+    if x >= sp[-1][0]:
+        return sp[-1][1]
+    for i in range(len(sp) - 1):
+        x0, y0 = sp[i]
+        x1, y1 = sp[i + 1]
+        if x0 <= x <= x1:
+            t = (x - x0) / (x1 - x0) if x1 != x0 else 0
+            return y0 + t * (y1 - y0)
+    return sp[-1][1]
+
 def _resolve_chance_none(math_row, field_prefix="Entry"):
-    """
-    Resolve ChanceNone for an LVLI entry/list, checking GLOB references
-    when the pre-computed 'Resolved' column is 0.
-
-    Priority:
-      1. <prefix>ChanceNoneResolved (if non-zero, trust it)
-      2. <prefix>ChanceNoneGlobal → extract GLOB FormID → look up glob_vals
-      3. <prefix>ChanceNoneCurve  → extract GLOB FormID → look up glob_vals
-      4. Fall back to 0.0 (= 100% drop chance)
-
-    Returns a float in 0-100 space (e.g. 95.0 means 95% chance of nothing).
-    """
-    resolved = float(math_row.get(f"{field_prefix}ChanceNoneResolved") or 0)
-    if resolved > 0:
-        return resolved
-
-    # Check GLOB references when Resolved is 0
-    for col in (f"{field_prefix}ChanceNoneGlobal", f"{field_prefix}ChanceNoneCurve"):
-        ref = (math_row.get(col) or "").strip()
-        if not ref:
-            continue
-        # Extract GLOB FormID from "00829437:SpawnChance_Cnone_...:GLOB"
-        glob_fid = ref.split(":")[0] if ":" in ref else ref
-        if glob_fid in glob_vals:
-            return glob_vals[glob_fid]
-
-    return 0.0
+    """Thin wrapper → Rng76Resolver.resolve_chance_none (centralised GLOB/CURV math)."""
+    return _get_resolver().resolve_chance_none(math_row, field_prefix)
 
 
 _lvli_cache = {}
@@ -1469,10 +1469,12 @@ def compute_lvli(list_id):
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         raw_weight = (1 - list_none) * entry_pres * cond_rand * apriori
         raw_entries.append((sub, raw_weight, entry_none, e))
 
@@ -1480,10 +1482,35 @@ def compute_lvli(list_id):
         _lvli_cache[list_id] = {}
         return {}
 
-    # --- Pass 2: normalise pick weights for pick-one lists, then apply entry_none ---
-    # For use-all lists every entry fires at its own rate; no normalisation needed.
+    # --- Pass 2: compute per-entry drop rates ---
+    # UseAll + no ChanceNone on entries → each entry independent at 100%.
+    # UseAll + ChanceNone on entries → waterfall (cascading probability).
+    # Pick-one (non-UseAll) → 100% / N items.
     total_raw = sum(w for _, w, _, _ in raw_entries)
+    has_entry_cn = is_use_all and any(en > 1e-9 for _, _, en, _ in raw_entries)
     results = {}
+
+    if is_use_all and has_entry_cn:
+        # Waterfall: entries checked in order, first that passes wins
+        cum_fail = 1.0
+        waterfall_chances = []
+        for sub, raw_weight, entry_none, e in raw_entries:
+            drop = raw_weight * (1 - entry_none)
+            chance = drop * cum_fail
+            cum_fail *= (1.0 - drop)
+            waterfall_chances.append((sub, chance, e))
+        for sub, chance, e in waterfall_chances:
+            if sub:
+                for k, v in compute_lvli(sub).items():
+                    results[k] = results.get(k, 0) + v * chance
+            else:
+                ref = (e.get("LVLO_Reference") or "").strip()
+                if ":" in ref:
+                    fid = ref.split(":")[0]
+                    results[fid] = results.get(fid, 0) + chance
+        _lvli_cache[list_id] = results
+        return results
+
     for sub, raw_weight, entry_none, e in raw_entries:
         if is_use_all or total_raw <= 0:
             chance = raw_weight * (1 - entry_none)
@@ -1525,10 +1552,12 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
         if not math: continue
         sub        = (math.get("SubLVLI_FormID") or "").strip()
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        entry_pres = 1.0 if _is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
+        apriori    = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 1)
         chance = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
         if sub:
             # Detect region from sub-LVLI EDID
@@ -1561,55 +1590,11 @@ def compute_lvli_with_region(list_id, depth=0, seen=None, inherited_region=None)
 # Activity Events: Helper functions
 # --------------------------------------------------
 
-def parse_lvlf_flags(flags_str):
-    """
-    Parse LVLF_Flags positional bit string from xEdit export.
-
-    xEdit's GetEditValue on a flags field returns a bit string where
-    character position N (left-to-right, 0-indexed) corresponds to bit N:
-      position 0 = Calculate from all levels <= PC's level (Level Filter)
-      position 1 = Calculate for each item in count (For Each)
-      position 2 = Use All
-      position 6 = First Match
-
-    Examples: "001" → Use All, "11" → Level Filter + For Each,
-              "0000001" → First Match
-    """
-    flags_str = (flags_str or "").strip()
-    if not flags_str:
-        return {"use_all": False, "for_each": False, "level_filter": False, "first_match": False}
-
-    def bit_set(pos):
-        return pos < len(flags_str) and flags_str[pos] == '1'
-
-    return {
-        "level_filter": bit_set(0),
-        "for_each":     bit_set(1),
-        "use_all":      bit_set(2),
-        "first_match":  bit_set(6),
-    }
+# parse_lvlf_flags → imported from rng76
 
 def _extract_grp_threshold(raw_conds):
-    """Extract the GetRandomPercent <= X threshold from raw condition strings.
-    Handles both literal numbers (e.g. 20.000000) and GLOB references ([GLOB:XXXXXXXX]).
-    Returns the threshold float (e.g. 20.0, 25.0) or None if no GRP condition found."""
-    for cond in raw_conds:
-        if "GetRandomPercent" not in cond:
-            continue
-        # Try GLOB reference first: [GLOB:XXXXXXXX]
-        glob_match = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', cond)
-        if glob_match:
-            glob_fid = glob_match.group(1)
-            if glob_fid in glob_vals:
-                return glob_vals[glob_fid]
-        # Try literal number (last number in the string)
-        parts = cond.strip().split()
-        for part in reversed(parts):
-            try:
-                return float(part)
-            except ValueError:
-                continue
-    return None
+    """Thin wrapper → Rng76Resolver.extract_grp_threshold (centralised GRP math)."""
+    return _get_resolver().extract_grp_threshold(raw_conds)
 
 
 def resolve_lvli_items_deep(list_id, depth=0, seen=None):
@@ -1658,6 +1643,36 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 else:
                     first_match_rates[_idx] = max((100.0 - prev) / 100.0, 0.0)
 
+    # Pre-scan for UseAll waterfall:
+    # If UseAll and any entry has ChanceNone (GLOB/CURV), apply waterfall —
+    # entries checked in order, first that passes its ChanceNone wins,
+    # remaining probability cascades to the next entry.
+    useall_waterfall_rates = {}  # EntryIndex -> waterfall rate (0-1)
+    if is_use_all and not is_first_match:
+        _all_entries = lvli_entries_by_list.get(list_id, [])
+        _raw_drops = []  # (idx, raw_drop_rate)
+        for _e in _all_entries:
+            _idx = _e.get("EntryIndex")
+            if _idx is None:
+                continue
+            _math = lvli_math_by_entry.get((list_id, _idx))
+            if not _math:
+                continue
+            _list_none = _resolve_chance_none(_math, "List") / 100.0
+            _ecn_glob = (_math.get("EntryChanceNoneGlobal") or "")
+            _is_ml = "MinLvl" in _ecn_glob
+            _entry_pres = 1.0 if _is_ml else float(_math.get("EntryPresenceChance") or 1)
+            _entry_none = _resolve_chance_none(_math, "Entry") / 100.0
+            _cond_rand = float(_math.get("EntryCondChance_RandomPercent") or 1)
+            _drop = (1 - _list_none) * _entry_pres * (1 - _entry_none) * _cond_rand
+            _raw_drops.append((_idx, _drop))
+        # Only apply waterfall if at least one entry has ChanceNone
+        if any(d < 1.0 - 1e-9 for _, d in _raw_drops):
+            _cum_fail = 1.0
+            for _idx, _drop in _raw_drops:
+                useall_waterfall_rates[_idx] = _drop * _cum_fail
+                _cum_fail *= (1.0 - _drop)
+
     # Collect list-level conditions from TSV (LVLI record-level CTDA)
     list_level_conds = simplify_conditions(LVLI_LIST_CONDITIONS.get(list_id, []))
 
@@ -1671,18 +1686,31 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         if not math:
             continue
 
-        # Extract probability components (resolve GLOBs when xEdit left them unresolved)
+        # Extract probability components (resolve GLOBs when xEdit left them unresolved).
+        # We compute the drop rate from individual components using our curve-aware
+        # _resolve_chance_none(), NOT from xEdit's pre-computed apriori which may use
+        # wrong Resolved values (e.g. T-60 PA where Resolved=40 from MinLvl GLOB
+        # instead of the correct curve-based ChanceNone=70).
+        #
+        # MinLvl GLOBs in EntryChanceNoneGlobal also contaminate
+        # EntryPresenceChance (xEdit computes 1-MinLvl/100 as if the
+        # level were a ChanceNone percentage).  Override to 1.0.
         list_none  = _resolve_chance_none(math, "List") / 100.0
-        entry_pres = float(math.get("EntryPresenceChance") or 1)
+        entry_cn_glob = (math.get("EntryChanceNoneGlobal") or "")
+        is_minlvl = "MinLvl" in entry_cn_glob
+        entry_pres = 1.0 if is_minlvl else float(math.get("EntryPresenceChance") or 1)
         entry_none = _resolve_chance_none(math, "Entry") / 100.0
         cond_rand  = float(math.get("EntryCondChance_RandomPercent") or 1)
-        apriori    = float(math.get("EntryAprioriChance_NoSublist") or 1)
 
-        drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand * apriori
+        drop_rate = (1 - list_none) * entry_pres * (1 - entry_none) * cond_rand
 
         # Override with cascading probability for first_match lists
         if idx in first_match_rates:
             drop_rate = first_match_rates[idx]
+
+        # Override with waterfall rate for UseAll lists with ChanceNone
+        if idx in useall_waterfall_rates:
+            drop_rate = useall_waterfall_rates[idx]
 
         # Get quantity (try multiple columns)
         qty = 1
@@ -1708,14 +1736,45 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 if cond_val:
                     conditions.append(cond_val)
 
-        # Extract minimum level requirement as a display condition (skip trivial level 1)
-        min_lvl_raw = (entry.get("LVLV_MinimumLevel") or "").strip()
-        try:
-            min_lvl = int(float(min_lvl_raw)) if min_lvl_raw else 0
-        except (ValueError, TypeError):
-            min_lvl = 0
+        # Extract minimum level requirement as a display condition (skip trivial level 1).
+        # Priority: GLOB+CURV (curve-interpolated) > GLOB only > static LVLV value.
+        # Also checks LVOG_ChanceNoneGlobal for misplaced MinLvl GLOBs (xEdit bug
+        # where PowerArmor MinLvl GLOBs appear in the ChanceNone column).
+        min_lvl = 0
+        _ml_glob_ref = (entry.get("LVLG_MinimumLevelGlobal") or "").strip()
+        _ml_curv_ref = (entry.get("LVLT_MinimumLevelCurve") or "").strip()
+        _ml_glob_fltv = None
+        if _ml_glob_ref:
+            _ml_gfid = _ml_glob_ref.split(":")[0] if ":" in _ml_glob_ref else _ml_glob_ref
+            if _ml_gfid in glob_vals:
+                _ml_glob_fltv = glob_vals[_ml_gfid]
+        if _ml_curv_ref and _ml_glob_fltv is not None:
+            _ml_cfid = _ml_curv_ref.split(":")[0] if ":" in _ml_curv_ref else _ml_curv_ref
+            _ml_curv_pts = _curv_pts.get(_ml_cfid)
+            if _ml_curv_pts:
+                _ml_y = _interp_curve(_ml_curv_pts, _ml_glob_fltv)
+                if _ml_y is not None:
+                    min_lvl = int(round(_ml_y))
+        if min_lvl == 0 and _ml_glob_fltv is not None:
+            # GLOB FLTV is the direct minimum level (e.g. PowerArmor MinLvl GLOBs)
+            min_lvl = int(round(_ml_glob_fltv))
+        # Fallback: check ChanceNone column for misplaced MinLvl GLOBs (xEdit bug).
+        # Power Armour entries often have MinLvl_PowerArmor_* in LVOG_ChanceNoneGlobal.
+        if min_lvl == 0:
+            _cn_glob_ref = (entry.get("LVOG_ChanceNoneGlobal") or "").strip()
+            if _cn_glob_ref and "MinLvl_" in _cn_glob_ref:
+                _cn_gfid = _cn_glob_ref.split(":")[0] if ":" in _cn_glob_ref else _cn_glob_ref
+                if _cn_gfid in glob_vals:
+                    min_lvl = int(round(glob_vals[_cn_gfid]))
+        if min_lvl == 0:
+            # Fall back to static value
+            min_lvl_raw = (entry.get("LVLV_MinimumLevel") or "").strip()
+            try:
+                min_lvl = int(float(min_lvl_raw)) if min_lvl_raw else 0
+            except (ValueError, TypeError):
+                min_lvl = 0
         if min_lvl > 1:
-            conditions.append(f"GetLevel(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 01000100 {min_lvl}.000000")
+            conditions.append(f"Requires player level {min_lvl}+")
 
         sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
         ref = (entry.get("LVLO_Reference") or "").strip()
@@ -1730,7 +1789,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
             # Recurse into sub-LVLI and apply parent drop rate
             sub_items = resolve_lvli_items_deep(sub_lvli, depth + 1, seen)
             for sub_item in sub_items:
-                items.append({
+                propagated = {
                     "formid": sub_item["formid"],
                     "name": sub_item["name"],
                     "qty": sub_item["qty"],
@@ -1738,7 +1797,13 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "edid": sub_item["edid"],
                     "sig": sub_item.get("sig", ""),
                     "conditions": list_level_conds + display_conds + region_conds + (sub_item.get("conditions") or []),
-                })
+                }
+                # Propagate keyword flags from sub-item
+                if "tradeable" in sub_item:
+                    propagated["tradeable"] = sub_item["tradeable"]
+                if "unsellable" in sub_item:
+                    propagated["unsellable"] = sub_item["unsellable"]
+                items.append(propagated)
         else:
             # Leaf item
             if ":" in ref:
@@ -1748,7 +1813,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 if _CUT_LVLI_RE.search(edid):
                     continue
                 name = resolve_name_for_formid(fid, edid)
-                items.append({
+                item_data = {
                     "formid": fid,
                     "name": name,
                     "qty": qty,
@@ -1756,7 +1821,21 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     "edid": edid,
                     "sig": ref_sig,
                     "conditions": list_level_conds + display_conds + region_conds,
-                })
+                }
+                # Tag ARMO and BOOK items with tradeable/unsellable flags from keyword data
+                _sig_u = ref_sig.upper()
+                _fid_l = fid.strip().lower()
+                if _sig_u == "ARMO":
+                    if _fid_l in _armo_non_tradable_fids:
+                        item_data["tradeable"] = False
+                    if _fid_l in _armo_unsellable_fids:
+                        item_data["unsellable"] = True
+                elif _sig_u == "BOOK":
+                    if _fid_l in _book_non_tradable_fids:
+                        item_data["tradeable"] = False
+                    if _fid_l in _book_unsellable_fids:
+                        item_data["unsellable"] = True
+                items.append(item_data)
 
     # Normalize for pick-one lists.
     # Only normalise UPWARD (total > 1) — xEdit exports apriori=1.0 for every entry
@@ -1864,6 +1943,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     flags = parse_lvlf_flags(pick(list_row, "LVLF_Flags", default=""))
     is_use_all = flags["use_all"]
     is_first_match = flags["first_match"]
+    is_for_each = flags["for_each"]
 
     edid = lvli_edid_by_formid.get(list_id, "")
 
@@ -1878,6 +1958,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
 
     # Collect raw (0-1) probabilities for all entries first, then normalize
     raw_entries = []  # list of (type, raw_rate, data_dict, raw_conditions)
+    _entry_cns = []   # parallel: actual entry-level ChanceNone per entry (for waterfall)
 
     # Process each entry
     for entry in lvli_entries_by_list.get(list_id, []):
@@ -1889,30 +1970,38 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         if not math:
             continue
 
-        # EntryAprioriChance_NoSublist is the pre-computed drop rate in 0-1 space.
-        # It SHOULD incorporate: (1 - listCN/100) * (1 - entryCN/100) * condChance
-        # BUT xEdit often fails to resolve GLOB references in ChanceNone fields,
-        # leaving them at 0 and inflating apriori.  We correct by applying any
-        # unresolved GLOB ChanceNone as a post-hoc multiplier.
-        apriori = float(math.get("EntryAprioriChance_NoSublist") or 0)
-
-        # Correct for unresolved GLOB ChanceNone.
-        # IMPORTANT: we separate the GLOB correction from the pick weight so that
-        # normalisation for pick-one lists only affects the pick probability.
-        # ChanceNone is applied AFTER normalisation (same approach as compute_lvli).
+        # Compute pick_weight and glob_correction from apriori and curve-resolved CN.
+        #
+        # xEdit's EntryAprioriChance_NoSublist = (1-listCN_resolved/100)
+        #   × presenceChance × (1-entryCN_resolved/100) × condChance.
+        # The Resolved values are often WRONG (e.g. T-60 PA: Resolved=40 from
+        # MinLvl GLOB instead of 80 from curve).
+        #
+        # Strategy: strip ChanceNone out of apriori to get pure pick weight,
+        # then apply correct curve-resolved ChanceNone as glob_correction.
+        # This ensures normalisation for pick-one lists uses ChanceNone-free
+        # weights, and the correct ChanceNone is applied AFTER normalisation.
+        #
+        # MinLvl GLOBs in EntryChanceNoneGlobal contaminate apriori and
+        # resolved values — override to clean values when detected.
+        _ecn_glob  = (math.get("EntryChanceNoneGlobal") or "")
+        _is_minlvl = "MinLvl" in _ecn_glob
+        apriori = 1.0 if _is_minlvl else float(math.get("EntryAprioriChance_NoSublist") or 0)
         resolved_list_cn  = float(math.get("ListChanceNoneResolved") or 0)
-        resolved_entry_cn = float(math.get("EntryChanceNoneResolved") or 0)
+        resolved_entry_cn = 0.0 if _is_minlvl else float(math.get("EntryChanceNoneResolved") or 0)
         actual_list_cn    = _resolve_chance_none(math, "List")
         actual_entry_cn   = _resolve_chance_none(math, "Entry")
-        glob_correction = 1.0
-        if actual_list_cn > 0 and resolved_list_cn == 0:
-            glob_correction *= (1.0 - actual_list_cn / 100.0)
-        if actual_entry_cn > 0 and resolved_entry_cn == 0:
-            glob_correction *= (1.0 - actual_entry_cn / 100.0)
-        # pick_weight: the entry's relative selection weight (before ChanceNone)
-        # glob_correction: the ChanceNone multiplier (applied after normalisation)
+
+        # Strip resolved ChanceNone out of apriori to get pure pick weight
         pick_weight = apriori
-        entry_drop_rate = apriori * glob_correction
+        if resolved_list_cn > 0 and resolved_list_cn < 100:
+            pick_weight /= (1.0 - resolved_list_cn / 100.0)
+        if resolved_entry_cn > 0 and resolved_entry_cn < 100:
+            pick_weight /= (1.0 - resolved_entry_cn / 100.0)
+
+        # Apply correct curve-resolved ChanceNone
+        glob_correction = (1.0 - actual_list_cn / 100.0) * (1.0 - actual_entry_cn / 100.0)
+        entry_drop_rate = pick_weight * glob_correction
 
         # Get quantity
         qty = 1
@@ -1968,6 +2057,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 if qty > 1:
                     sub_node["rollCount"] = qty
                 raw_entries.append(("child", entry_drop_rate, sub_node, conditions, pick_weight, glob_correction))
+                _entry_cns.append(actual_entry_cn)
         else:
             # Leaf item
             if ":" in ref:
@@ -2019,6 +2109,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                             if desc:
                                 item_data["customModDescription"] = desc
                 raw_entries.append(("item", entry_drop_rate, item_data, conditions, pick_weight, glob_correction))
+                _entry_cns.append(actual_entry_cn)
 
     # ── First-match cascading probability ──
     # When a list has the "Use first object that matches all conditions" flag,
@@ -2045,12 +2136,32 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 new_entries.append((etype, max(net_p, 0.0), data, raw_conds, pw, gc))
             raw_entries = new_entries
 
-    # Normalize for pick-one lists using PICK WEIGHTS (not ChanceNone-adjusted rates).
-    # xEdit exports apriori=1.0 per entry, so raw total = entry count for equal-weight
-    # lists. We normalise pick weights, then apply ChanceNone AFTER to get correct
-    # effective rates. This prevents normalisation from undoing ChanceNone reductions.
+    # ── UseAll waterfall (UseAll + ChanceNone on entries) ──
+    # If UseAll and any entry has ChanceNone (gc < 1.0), apply waterfall:
+    # entries checked in order, first that passes its ChanceNone wins,
+    # remaining probability cascades to the next entry.
+    # If no entry has ChanceNone → each fires independently (rates already correct).
+    if is_use_all and not is_first_match and raw_entries:
+        has_cn = any(gc < 1.0 - 1e-9 for (_, _, _, _, _, gc) in raw_entries)
+        if has_cn:
+            cum_fail = 1.0
+            new_entries = []
+            for (etype, rate, data, raw_conds, pw, gc) in raw_entries:
+                drop = pw * gc  # entry's own drop chance
+                waterfall_rate = drop * cum_fail
+                cum_fail *= (1.0 - drop)
+                new_entries.append((etype, waterfall_rate, data, raw_conds, pw, gc))
+            raw_entries = new_entries
+
+    # ── Pick-one normalisation (non-UseAll, non-FirstMatch) ──
+    # For pick-one lists the game picks ONE entry at uniform random (1/N).
+    # Normalise pick weights so they sum to 1.0, then multiply by cn_factor
+    # (ChanceNone) to get the effective drop rate.
+    #
+    # The for_each flag (bit 1) only affects condition pruning order, NOT
+    # whether entries roll independently.  All non-UseAll lists use pick-one.
     total_pick = sum(pw for (_, _, _, _, pw, _) in raw_entries)
-    if not is_use_all and not is_first_match and raw_entries and total_pick > 1.0001:
+    if not is_use_all and not is_first_match and raw_entries and total_pick > 0:
         for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
             normalised_pick = pw / total_pick
             effective_rate = normalised_pick * gc  # apply ChanceNone after normalisation
@@ -2072,14 +2183,28 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     if not items and not children and list_id in EMPTY_LVLI_ITEM_FALLBACKS:
         for fb_fid, fb_sig, fb_edid in EMPTY_LVLI_ITEM_FALLBACKS[list_id]:
             fb_name = resolve_name_for_formid(fb_fid, fb_edid)
-            items.append({
+            fb_item = {
                 "formid": fb_fid,
                 "edid": fb_edid,
                 "name": fb_name or fb_edid,
                 "qty": 1,
                 "sig": fb_sig,
                 "dropRate": 100.0,
-            })
+            }
+            # Tag fallback items with tradeable/unsellable flags
+            _fb_sig_u = fb_sig.upper()
+            _fb_fid_l = fb_fid.strip().lower()
+            if _fb_sig_u == "ARMO":
+                if _fb_fid_l in _armo_non_tradable_fids:
+                    fb_item["tradeable"] = False
+                if _fb_fid_l in _armo_unsellable_fids:
+                    fb_item["unsellable"] = True
+            elif _fb_sig_u == "BOOK":
+                if _fb_fid_l in _book_non_tradable_fids:
+                    fb_item["tradeable"] = False
+                if _fb_fid_l in _book_unsellable_fids:
+                    fb_item["unsellable"] = True
+            items.append(fb_item)
 
     result = {
         "type": "lvli",
@@ -2088,6 +2213,8 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         "label": label,
         "useAll": is_use_all,
     }
+    if is_for_each:
+        result["forEach"] = True
     if children:
         result["children"] = children
     if items:
@@ -2109,8 +2236,9 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
             seen_fids.add(fid)
         if dupe_fids:
             result["duplicateRollNote"] = (
-                "Some pieces roll twice, giving a better chance to drop."
+                "Rewards marked with a \u2020 roll twice, giving a better chance to drop"
             )
+            result["duplicateRollFids"] = sorted(dupe_fids)
 
     # Flag region-based nodes so JS can adjust display (no fake 12.5%, add note)
     edid_lower = (edid or "").lower()
@@ -2984,7 +3112,21 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 gmrw_mult = max(0.0, min(1.0, float(tier_val) / 100.0))
             except (ValueError, TypeError):
                 gmrw_mult = 1.0
+            # GetRandomPercent is handled by the tier fields, but the Conditions
+            # text may contain OTHER conditions (e.g. HasLearnedRecipe) that still
+            # need to be surfaced.  Split on comma-quote boundary and process each
+            # sub-condition individually, skipping GetRandomPercent.
             gmrw_cond_display = ""
+            if cond_text:
+                parts = re.split(r',(?=")', cond_text)
+                for part in parts:
+                    part = part.strip().strip('"')
+                    if not part or "GetRandomPercent" in part:
+                        continue
+                    result = simplify_condition(part)
+                    if result:
+                        gmrw_cond_display = result
+                        break
         else:
             gmrw_mult = parse_randompercent_multiplier(cond_text)
             gmrw_cond_display = simplify_condition(cond_text) if cond_text else ""
@@ -3238,6 +3380,42 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
     activity_data["rewardTree"] = reward_tree
 
+    # ── Repair: rebuild any LVLI tree nodes that lost children during build ──
+    # Some pick-one LVLI nodes (e.g. T-51b Power Armor) sporadically lose
+    # children during the full build despite correct TSV data.  Walk the tree
+    # and, for any LVLI node whose TSV entry count exceeds its child count,
+    # rebuild the missing children via build_lvli_tree_node on each sub-LVLI.
+    def _repair_missing_children(node):
+        if not node or node.get("type") == "leaf":
+            return
+        fid = node.get("formid", "")
+        children = node.get("children", [])
+        if fid and fid in lvli_entries_by_list:
+            expected_sub_lvlis = []
+            for entry in lvli_entries_by_list[fid]:
+                idx = entry.get("EntryIndex")
+                math = lvli_math_by_entry.get((fid, idx))
+                if math:
+                    sub = (math.get("SubLVLI_FormID") or "").strip()
+                    if sub:
+                        expected_sub_lvlis.append(sub)
+            existing_fids = {c.get("formid", "") for c in children}
+            missing = [s for s in expected_sub_lvlis if s not in existing_fids]
+            if missing and len(children) < len(expected_sub_lvlis):
+                for sub_fid in missing:
+                    sub_node = build_lvli_tree_node(sub_fid)
+                    if sub_node and (sub_node.get("children") or sub_node.get("items")):
+                        sub_node["entryRate"] = 100.0
+                        sub_node["isUniqueReward"] = node.get("isUniqueReward", False)
+                        children.append(sub_node)
+                if "children" not in node:
+                    node["children"] = children
+        for child in node.get("children", []):
+            _repair_missing_children(child)
+
+    for tree_node in reward_tree:
+        _repair_missing_children(tree_node)
+
     # ── Tag tree nodes as unique or standard ──────────────────────────────
     # "Standard" top-level nodes (Activity Rewards, Scrap, Legendary, etc.)
     # keep their own expand on the page.  Everything else is tagged as
@@ -3426,7 +3604,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 qty = it.get("qty", 1)
                 item_name = _clean_smart_name(item_name, it.get("sig", ""), it.get("edid", ""), it.get("formid", ""))
                 if item_name not in _smart_by_name:
-                    _smart_by_name[item_name] = {
+                    _grp_entry = {
                         "formid": it.get("formid", ""),
                         "name": item_name,
                         "qtys": [qty],
@@ -3434,6 +3612,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "dropRate": dr,
                         "conds_list": [raw_conds],
                     }
+                    # Propagate keyword flags
+                    if "tradeable" in it:
+                        _grp_entry["tradeable"] = it["tradeable"]
+                    if "unsellable" in it:
+                        _grp_entry["unsellable"] = it["unsellable"]
+                    _smart_by_name[item_name] = _grp_entry
                 else:
                     grp = _smart_by_name[item_name]
                     grp["dropRate"] += dr
@@ -3466,14 +3650,20 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     if _min_lvl and _min_lvl > 1:
                         merged_conds.append(f"Requires player level {_min_lvl}+")
 
-                vend_items.append({
+                _vend_item = {
                     "formid": grp["formid"],
                     "name": grp["name"],
                     "qty": qty_val,
                     "sig": grp["sig"],
                     "dropRate": pct(grp["dropRate"]),
                     "conditions": merged_conds if merged_conds else None,
-                })
+                }
+                # Propagate keyword flags from grouped data
+                if "tradeable" in grp:
+                    _vend_item["tradeable"] = grp["tradeable"]
+                if "unsellable" in grp:
+                    _vend_item["unsellable"] = grp["unsellable"]
+                vend_items.append(_vend_item)
 
             if not vend_items:
                 continue
@@ -3506,6 +3696,59 @@ for r in CURV_POINTS:
     fid = pick(r, "CURV_FormID", "FormID")
     try: _curv_pts[fid].append((float(r.get("X") or 0), float(r.get("Y") or 0)))
     except (ValueError, TypeError): pass
+
+# Build LVLI → CURV mapping from the CURV main TSV (non-POINTS file).
+# Each row lists a CURV FormID and which LVLIs reference it (Ref1..RefN).
+_lvli_to_curv = {}
+try:
+    _curv_main_candidates = glob.glob(str(_REPO_ROOT / "tsv" / "CURV_Export_*.tsv"))
+    _curv_main_files = [f for f in _curv_main_candidates if "_POINTS" not in f]
+    if _curv_main_files:
+        _curv_main_files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+        with open(_curv_main_files[-1], encoding="utf-8-sig", newline="") as _cf:
+            for _line in _cf:
+                _parts = _line.strip().split("\t")
+                if len(_parts) < 6:
+                    continue
+                _curv_fid = _parts[0].strip()
+                if not re.fullmatch(r"[0-9A-Fa-f]{8}", _curv_fid):
+                    continue
+                for _ref in _parts[5:]:
+                    _ref = _ref.strip()
+                    if not _ref:
+                        continue
+                    _lvli_fid = _ref.split(":")[0]
+                    if re.fullmatch(r"[0-9A-Fa-f]{8}", _lvli_fid):
+                        _lvli_to_curv[_lvli_fid] = _curv_fid
+except (FileNotFoundError, UnicodeDecodeError):
+    pass
+
+# ---------------------------------------------------------------------------
+# Rng76 Resolver — wraps the builder's already-loaded GLOB/CURV data so we
+# can delegate ChanceNone and GRP-threshold math to the centralised engine.
+# ---------------------------------------------------------------------------
+_resolver = None
+
+def _get_resolver():
+    """Lazy-create an Rng76Resolver backed by the builder's own data."""
+    global _resolver
+    if _resolver is not None:
+        return _resolver
+
+    _rng_globs = GlobIndex()
+    _rng_globs.vals = dict(glob_vals)        # already includes KNOWN_GLOB_VALS
+
+    _rng_curvs = CurvIndex()
+    _rng_curvs.points = dict(_curv_pts)      # formid → [(x,y), ...]
+    _rng_curvs.lvli_to_curv = dict(_lvli_to_curv)
+
+    # LvliIndex and ItemNameIndex aren't needed for ChanceNone / GRP math,
+    # but the Rng76Resolver constructor requires them — pass empty instances.
+    _rng_lvli  = LvliIndex()
+    _rng_names = ItemNameIndex()
+
+    _resolver = Rng76Resolver(_rng_lvli, _rng_globs, _rng_names, _rng_curvs)
+    return _resolver
 
 def xp_at_level(curv_ref, level=50):
     fid = curv_ref.split(":")[0] if ":" in curv_ref else curv_ref
