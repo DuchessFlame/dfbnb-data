@@ -15,11 +15,13 @@ Used by:
   build_titles_json.py             (Player & Camp title checklists)
 
 Core formula (rng-76):
-  Use All mode (bit 2), no ChanceNone on entries:
-    each entry independent at 100%
-  Use All mode (bit 2), with ChanceNone on entries:
+  Use All mode (bit 2), max_count = 0:
+    each entry fires independently at its own ChanceNone rate
+  Use All mode (bit 2), max_count = 1:
     waterfall — entries checked in order, first that passes its
     ChanceNone wins, remaining probability cascades to next entry
+  Use All mode (bit 2), max_count > 1:
+    combinatorial pick (approximated as independent for display)
   Pick-one mode (non-Use-All):
     rate = 100% / N items   (uniform random pick)
   First Match mode (bit 6):
@@ -560,6 +562,56 @@ class LvliIndex:
                     "level_filter": False, "first_match": False}
         return parse_lvlf_flags(pick(row, "LVLF_Flags", default=""))
 
+    def max_count_for(
+        self,
+        formid: str,
+        globs: Optional["GlobData"] = None,
+        curvs: Optional["CurvData"] = None,
+    ) -> int:
+        """
+        Resolve the maximum entry count for a UseAll list (rng-76 rules).
+
+        The max count determines UseAll behaviour:
+          0  → no limit, every entry fires independently
+          1  → waterfall cascading (first entry that passes wins)
+          >1 → combinatorial pick (complex)
+
+        Resolution priority (per rng-76):
+          1. LVMT curve + LVMG global as X index → curve Y
+          2. LVMG global value directly
+          3. LVMV static value
+          4. 0 (no limit)
+        """
+        row = self.list_by_formid.get(formid)
+        if not row:
+            return 0
+
+        max_val = safe_float(row.get("LVMV_MaxValue"), 0.0)
+        max_glob_ref = (row.get("LVMG_MaxGlobal") or "").strip()
+        max_curv_ref = (row.get("LVMT_MaxCurve") or "").strip()
+
+        # Resolve GLOB value
+        glob_fltv = None
+        if max_glob_ref and globs:
+            gfid = glob_formid_from_lvli_field(max_glob_ref)
+            if gfid:
+                glob_fltv = globs.value(gfid)
+
+        # Try curve-based resolution (GLOB as X into curve)
+        if max_curv_ref and glob_fltv is not None and curvs:
+            cfid = glob_formid_from_lvli_field(max_curv_ref)
+            if cfid and cfid in curvs.points:
+                y = curvs.interpolate(cfid, glob_fltv)
+                if y is not None:
+                    return int(round(y))
+
+        # GLOB value directly
+        if glob_fltv is not None:
+            return int(round(glob_fltv))
+
+        # Static value
+        return int(round(max_val))
+
 
 # ============================================================
 # 5. FLAG PARSING
@@ -801,9 +853,9 @@ class Rng76Resolver:
             raw.append({"pw": pw, "cn": cn, "sub": sub, "ref": ref,
                         "conditions": conditions})
 
-        # ── compute per-entry rate ──
+        # ── compute per-entry rate (rng-76 rules) ──
         if is_first_match:
-            # First Match: cascading GetRandomPercent thresholds.
+            # First Match (bit 6): cascading GetRandomPercent thresholds.
             # Entries checked in order, first match wins.
             thresholds = [
                 self.extract_grp_threshold(r["conditions"]) for r in raw
@@ -825,20 +877,25 @@ class Rng76Resolver:
                     cum_fail *= (1.0 - s)
 
         elif is_use_all:
-            # Check if any entry has ChanceNone (cn < 1.0).
-            # If so → waterfall: entries checked in order, first that
-            # passes its ChanceNone wins, probability cascades to next.
-            # If no entry has ChanceNone → each fires independently at 100%.
-            has_cn = any(r["cn"] < 1.0 - 1e-9 for r in raw)
-            if has_cn:
+            # UseAll (bit 2): behaviour depends on max_count attribute.
+            #   max=0 → no limit, each entry fires independently
+            #   max=1 → waterfall: entries checked in order, first that
+            #           passes its ChanceNone wins, probability cascades
+            #   max>1 → combinatorial (entries compete for limited slots)
+            max_count = self.lvli.max_count_for(
+                list_id, self.globs, self.curvs
+            )
+            if max_count == 1:
                 # Waterfall: cascading ChanceNone
                 cum_fail = 1.0
                 for r in raw:
-                    drop = r["pw"] * r["cn"]  # entry's own drop chance
+                    drop = r["pw"] * r["cn"]
                     r["rate"] = drop * cum_fail
                     cum_fail *= (1.0 - drop)
             else:
-                # No ChanceNone → independent, each at pw (usually 1.0)
+                # max=0 (independent) or max>1 (each entry fires on its own
+                # ChanceNone roll; max>1 just caps total results which we
+                # approximate as independent for drop rate display purposes)
                 for r in raw:
                     r["rate"] = r["pw"] * r["cn"]
 
@@ -883,11 +940,10 @@ class Rng76Resolver:
           ``{formid, name, qty, dropRate, edid, sig, conditions}``
 
         Uses rng-76 rules:
-          - Use All (bit 2), no ChanceNone on entries:
-                each entry independent, rate = 100%.
-          - Use All (bit 2), with ChanceNone on entries:
-                waterfall — entries checked in order, first that passes
-                its ChanceNone wins, remaining probability cascades.
+          - Use All (bit 2), max_count=0: each entry fires independently.
+          - Use All (bit 2), max_count=1: waterfall — entries checked in
+                order, first that passes its ChanceNone wins, cascading.
+          - Use All (bit 2), max_count>1: combinatorial (approx. independent).
           - First Match (bit 6): cascading condition thresholds —
                               first entry whose conditions pass wins.
           - Non-Use-All:      pick ONE entry at uniform random,
@@ -960,12 +1016,15 @@ class Rng76Resolver:
                     cum_fail *= (1.0 - s)
 
         elif is_use_all:
-            # Check if any entry has ChanceNone (cn < 1.0).
-            # If so → waterfall: entries checked in order, first that
-            # passes its ChanceNone wins, probability cascades to next.
-            # If no entry has ChanceNone → each fires independently at 100%.
-            has_cn = any(r["cn"] < 1.0 - 1e-9 for r in raw)
-            if has_cn:
+            # UseAll (bit 2): behaviour depends on max_count attribute.
+            #   max=0 → no limit, each entry fires independently
+            #   max=1 → waterfall: entries checked in order, first that
+            #           passes its ChanceNone wins, probability cascades
+            #   max>1 → combinatorial (approximated as independent)
+            max_count = self.lvli.max_count_for(
+                list_id, self.globs, self.curvs
+            )
+            if max_count == 1:
                 # Waterfall: cascading ChanceNone
                 cum_fail = 1.0
                 for r in raw:
@@ -973,7 +1032,7 @@ class Rng76Resolver:
                     r["rate"] = drop * cum_fail
                     cum_fail *= (1.0 - drop)
             else:
-                # No ChanceNone → independent, each at pw (usually 1.0)
+                # max=0 (independent) or max>1
                 for r in raw:
                     r["rate"] = r["pw"] * r["cn"]
 

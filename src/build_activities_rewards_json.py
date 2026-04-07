@@ -1445,6 +1445,48 @@ def _resolve_chance_none(math_row, field_prefix="Entry"):
     return _get_resolver().resolve_chance_none(math_row, field_prefix)
 
 
+def _resolve_max_count(list_id):
+    """
+    Resolve the UseAll max_count for a list (rng-76 rules).
+
+    0  → no limit, each entry fires independently
+    1  → waterfall cascading
+    >1 → combinatorial (approximated as independent)
+
+    Resolution: LVMT curve(LVMG) > LVMG global > LVMV static > 0.
+    """
+    list_row = lvli_list_by_formid.get(list_id)
+    if not list_row:
+        return 0
+
+    max_val = float(list_row.get("LVMV_MaxValue") or 0)
+    max_glob_ref = (list_row.get("LVMG_MaxGlobal") or "").strip()
+    max_curv_ref = (list_row.get("LVMT_MaxCurve") or "").strip()
+
+    # Resolve GLOB value
+    glob_fltv = None
+    if max_glob_ref:
+        gfid = max_glob_ref.split(":")[0] if ":" in max_glob_ref else max_glob_ref
+        if gfid in glob_vals:
+            glob_fltv = glob_vals[gfid]
+
+    # Try curve-based resolution (GLOB as X into curve)
+    if max_curv_ref and glob_fltv is not None:
+        cfid = max_curv_ref.split(":")[0] if ":" in max_curv_ref else max_curv_ref
+        curv_pts = _curv_pts.get(cfid)
+        if curv_pts:
+            y = _interp_curve(curv_pts, glob_fltv)
+            if y is not None:
+                return int(round(y))
+
+    # GLOB value directly
+    if glob_fltv is not None:
+        return int(round(glob_fltv))
+
+    # Static value
+    return int(round(max_val))
+
+
 _lvli_cache = {}
 
 def compute_lvli(list_id):
@@ -1482,15 +1524,15 @@ def compute_lvli(list_id):
         _lvli_cache[list_id] = {}
         return {}
 
-    # --- Pass 2: compute per-entry drop rates ---
-    # UseAll + no ChanceNone on entries → each entry independent at 100%.
-    # UseAll + ChanceNone on entries → waterfall (cascading probability).
-    # Pick-one (non-UseAll) → 100% / N items.
+    # --- Pass 2: compute per-entry drop rates (rng-76 rules) ---
+    # UseAll + max=0 → each entry fires independently
+    # UseAll + max=1 → waterfall (cascading probability)
+    # Pick-one (non-UseAll) → 100% / N items
     total_raw = sum(w for _, w, _, _ in raw_entries)
-    has_entry_cn = is_use_all and any(en > 1e-9 for _, _, en, _ in raw_entries)
+    max_count = _resolve_max_count(list_id) if is_use_all else 0
     results = {}
 
-    if is_use_all and has_entry_cn:
+    if is_use_all and max_count == 1:
         # Waterfall: entries checked in order, first that passes wins
         cum_fail = 1.0
         waterfall_chances = []
@@ -1643,31 +1685,30 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 else:
                     first_match_rates[_idx] = max((100.0 - prev) / 100.0, 0.0)
 
-    # Pre-scan for UseAll waterfall:
-    # If UseAll and any entry has ChanceNone (GLOB/CURV), apply waterfall —
-    # entries checked in order, first that passes its ChanceNone wins,
-    # remaining probability cascades to the next entry.
+    # Pre-scan for UseAll waterfall (rng-76 rules):
+    # Only applies when UseAll AND max_count == 1.
+    # max=0 → independent, max=1 → waterfall, max>1 → combinatorial (approx independent).
     useall_waterfall_rates = {}  # EntryIndex -> waterfall rate (0-1)
     if is_use_all and not is_first_match:
-        _all_entries = lvli_entries_by_list.get(list_id, [])
-        _raw_drops = []  # (idx, raw_drop_rate)
-        for _e in _all_entries:
-            _idx = _e.get("EntryIndex")
-            if _idx is None:
-                continue
-            _math = lvli_math_by_entry.get((list_id, _idx))
-            if not _math:
-                continue
-            _list_none = _resolve_chance_none(_math, "List") / 100.0
-            _ecn_glob = (_math.get("EntryChanceNoneGlobal") or "")
-            _is_ml = "MinLvl" in _ecn_glob
-            _entry_pres = 1.0 if _is_ml else float(_math.get("EntryPresenceChance") or 1)
-            _entry_none = _resolve_chance_none(_math, "Entry") / 100.0
-            _cond_rand = float(_math.get("EntryCondChance_RandomPercent") or 1)
-            _drop = (1 - _list_none) * _entry_pres * (1 - _entry_none) * _cond_rand
-            _raw_drops.append((_idx, _drop))
-        # Only apply waterfall if at least one entry has ChanceNone
-        if any(d < 1.0 - 1e-9 for _, d in _raw_drops):
+        _max_count = _resolve_max_count(list_id)
+        if _max_count == 1:
+            _all_entries = lvli_entries_by_list.get(list_id, [])
+            _raw_drops = []
+            for _e in _all_entries:
+                _idx = _e.get("EntryIndex")
+                if _idx is None:
+                    continue
+                _math = lvli_math_by_entry.get((list_id, _idx))
+                if not _math:
+                    continue
+                _list_none = _resolve_chance_none(_math, "List") / 100.0
+                _ecn_glob = (_math.get("EntryChanceNoneGlobal") or "")
+                _is_ml = "MinLvl" in _ecn_glob
+                _entry_pres = 1.0 if _is_ml else float(_math.get("EntryPresenceChance") or 1)
+                _entry_none = _resolve_chance_none(_math, "Entry") / 100.0
+                _cond_rand = float(_math.get("EntryCondChance_RandomPercent") or 1)
+                _drop = (1 - _list_none) * _entry_pres * (1 - _entry_none) * _cond_rand
+                _raw_drops.append((_idx, _drop))
             _cum_fail = 1.0
             for _idx, _drop in _raw_drops:
                 useall_waterfall_rates[_idx] = _drop * _cum_fail
@@ -2136,18 +2177,17 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 new_entries.append((etype, max(net_p, 0.0), data, raw_conds, pw, gc))
             raw_entries = new_entries
 
-    # ── UseAll waterfall (UseAll + ChanceNone on entries) ──
-    # If UseAll and any entry has ChanceNone (gc < 1.0), apply waterfall:
-    # entries checked in order, first that passes its ChanceNone wins,
-    # remaining probability cascades to the next entry.
-    # If no entry has ChanceNone → each fires independently (rates already correct).
+    # ── UseAll waterfall (rng-76: UseAll + max_count == 1) ──
+    # max=0 → independent (each entry fires on its own), rates already correct.
+    # max=1 → waterfall: entries checked in order, first that passes wins.
+    # max>1 → combinatorial (approximated as independent).
     if is_use_all and not is_first_match and raw_entries:
-        has_cn = any(gc < 1.0 - 1e-9 for (_, _, _, _, _, gc) in raw_entries)
-        if has_cn:
+        _max_count = _resolve_max_count(list_id)
+        if _max_count == 1:
             cum_fail = 1.0
             new_entries = []
             for (etype, rate, data, raw_conds, pw, gc) in raw_entries:
-                drop = pw * gc  # entry's own drop chance
+                drop = pw * gc
                 waterfall_rate = drop * cum_fail
                 cum_fail *= (1.0 - drop)
                 new_entries.append((etype, waterfall_rate, data, raw_conds, pw, gc))
