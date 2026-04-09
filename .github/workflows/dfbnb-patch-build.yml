@@ -399,6 +399,10 @@ jobs:
       - name: Build Cult of the Lamb JSON
         run: python src/build_cult_of_the_lamb_json.py
 
+      # --- COBJ RECIPES (Buffs n Brew crafting data) ---
+      - name: Build COBJ Recipes JSON
+        run: python src/build_cobj_recipes_json.py
+
       # --- ATOM SHOP ---
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
@@ -434,6 +438,7 @@ jobs:
           test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
           test -f dist/atom_shop.json                && echo "OK atom_shop.json"                || (echo "MISSING atom_shop.json" && exit 1)
           test -f dist/camp.json                     && echo "OK camp.json"                     || (echo "MISSING camp.json" && exit 1)
+          test -f dist/cobj-recipes.json              && echo "OK cobj-recipes.json"              || (echo "MISSING cobj-recipes.json" && exit 1)
 
       # --- COMMIT ONCE ---
       - name: Commit & Push
