@@ -32,6 +32,80 @@ def is_cut_edid(edid: str) -> bool:
     return str(edid).lower().startswith(_CUT_PREFIXES)
 
 
+# ── Condition string parser ───────────────────────────────────────────────────
+
+def _clean_cond(raw: str) -> str | None:
+    """Convert a raw game condition string to a short human-readable note."""
+    s = str(raw or "").strip()
+    if not s:
+        return None
+
+    # HasCompletedChallenge — prerequisite chain
+    m = re.search(r'HasCompletedChallenge\([^"]*"([^"]+)"', s)
+    if m:
+        return f"Prerequisite: {m.group(1)}"
+
+    # GetInCurrentLocation
+    m = re.search(r'GetInCurrentLocation\([^"]*"([^"]+)"', s)
+    if m:
+        return f"Location: {m.group(1)}"
+
+    # GetGlobalValue — bounty gang ID
+    m = re.search(r'GetGlobalValue\(Burn_BountyHunt_RecentHeadhuntGang_01.*?=\s*([\d.]+)', s)
+    if m:
+        return f"Gang ID: {int(float(m.group(1)))}"
+
+    # IsInList — readable list name
+    m = re.search(r'IsInList\([^"]*"([^"]+)"', s)
+    if m:
+        return f"Target list: {m.group(1)}"
+
+    # GetValue — actor value check (e.g. star level)
+    m = re.search(r'GetValue\((\w+)', s)
+    if m:
+        v = re.search(r'=\s*([\d.]+)', s)
+        val = int(float(v.group(1))) if v else "?"
+        name = m.group(1)
+        if "GruntStarLevel" in name:
+            return f"Star level chosen: {val} ({val}-star Grunt Hunts)"
+        return f"{name} = {val}"
+
+    # IsTrueForConditionForm — short CNDF name
+    m = re.search(r'IsTrueForConditionForm\((\w+)\s', s)
+    if m:
+        cname = m.group(1)
+        cname = re.sub(
+            r'^(Challenge_Lifetime_BurnBounty_|zzzChallenge_Lifetime_BurnBounty_|'
+            r'Challenge_BurnBounty_|Burn_Challenge_)',
+            '', cname)
+        return f"Condition form: {cname}"
+
+    # GetWithinDistance — distance value
+    m = re.search(r'GetWithinDistance\(.*?,\s*([\d.]+)\)', s)
+    if m:
+        return f"Within distance: {int(float(m.group(1)))} units"
+
+    # HasKeyword
+    m = re.search(r'HasKeyword\((\w+)', s)
+    if m:
+        return f"Keyword: {m.group(1)}"
+
+    return s  # fallback: raw string
+
+
+def parse_conditions(row: dict) -> list[str]:
+    """Extract and clean all non-empty condition columns from a TSV row."""
+    out = []
+    for i in range(1, 53):
+        raw = str(row.get(f"Cond{i}", "") or "").strip()
+        if raw:
+            c = _clean_cond(raw)
+            if c:
+                out.append(c)
+    return out
+
+
+
 # ── Hardcoded FormID structure ─────────────────────────────────────────────────
 # The TSV supplies name / targetCount / type / category.
 # The hierarchy (what belongs on which page, parent→child) is fixed game data.
@@ -186,6 +260,8 @@ def parse_chal_tsv(path: Path) -> dict[str, dict]:
                 "type":        str(row.get("CNAM",  "") or "").strip(),
                 "category":    str(row.get("ENAM",  "") or "").strip(),
                 "reward":      _parse_reward(row.get("JASF", "")),
+                # raw row kept for condition parsing (Cond1–Cond52)
+                "_raw":        row,
             }
     return records
 
@@ -196,16 +272,18 @@ def make_challenge(row: dict, force_live: bool = False) -> dict:
     """Build a normalised challenge object from a TSV row.
     force_live=True: treat as live content regardless of EDID prefix (e.g. CAMP items)."""
     cut = False if force_live else is_cut_edid(row["edid"])
+    conditions = parse_conditions(row.get("_raw", {}))
     return {
         "formId":      row["formId"],
         "edid":        row["edid"],
         "name":        row["name"] or row["edid"],
-        "snam":        row["snam"],       # stat label e.g. "Quests Completed"
+        "snam":        row["snam"],        # stat label e.g. "Quests Completed"
         "targetCount": row["targetCount"],
-        "type":        row["type"],       # "Lifetime" / "Daily" / "Weekly"
-        "category":    row["category"],   # "Burning Springs" / "Sub Challenge (Unsorted)"
+        "type":        row["type"],        # "Lifetime" / "Daily" / "Weekly"
+        "category":    row["category"],    # "Burning Springs" / "Sub Challenge (Unsorted)"
         "cutContent":  cut,
-        "reward":      row["reward"],     # EDID of reward GMRW, or null
+        "reward":      row["reward"],      # EDID of reward GMRW, or null
+        "conditions":  conditions,         # human-readable condition strings from TSV
     }
 
 
