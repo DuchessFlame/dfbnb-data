@@ -21,6 +21,7 @@ Output:
     "recipe_meta": { "Item Name": {
         "edid": "co_meal_...",
         "cnam_edid": "...",
+        "bnam_edid": "Workbench_Cooking" | "",   # BNAM (FO76 workbench ref)
         "bench_keywords": ["Meal_Recipe_Food", ...],
         "category": "food" | "chem" | "other",
         "source_file": "COBJ_Export_March_2026.tsv"
@@ -73,6 +74,20 @@ CHEM_KEYWORD_PATTERNS = (
     re.compile(r"^RecipeFilter_Poison", re.IGNORECASE),
     re.compile(r"^RecipeFilter_Bio", re.IGNORECASE),
     re.compile(r"^RecipeFilter_Brewing", re.IGNORECASE),
+)
+
+# BNAM (workbench) EDID patterns — more reliable than FNAM keywords
+# because a single workbench uniquely determines the menu category.
+FOOD_BENCH_PATTERNS = (
+    re.compile(r"Cook", re.IGNORECASE),
+    re.compile(r"Brew", re.IGNORECASE),
+    re.compile(r"Food", re.IGNORECASE),
+)
+
+CHEM_BENCH_PATTERNS = (
+    re.compile(r"Chem", re.IGNORECASE),
+    re.compile(r"Pharma", re.IGNORECASE),
+    re.compile(r"Medical", re.IGNORECASE),
 )
 
 
@@ -140,7 +155,18 @@ def parse_fnam_keywords(fnam_str: str) -> List[str]:
     return keywords
 
 
-def classify_category(keywords: List[str]) -> str:
+def classify_category(keywords: List[str], bnam_edid: str = "") -> str:
+    # BNAM wins if it matches — the workbench uniquely identifies the
+    # recipe category. Only fall through to keyword-based classification
+    # when BNAM is absent (older TSV exports) or ambiguous.
+    if bnam_edid:
+        for pat in FOOD_BENCH_PATTERNS:
+            if pat.search(bnam_edid):
+                return "food"
+        for pat in CHEM_BENCH_PATTERNS:
+            if pat.search(bnam_edid):
+                return "chem"
+
     for kw in keywords:
         for pat in FOOD_KEYWORD_PATTERNS:
             if pat.search(kw):
@@ -204,6 +230,7 @@ def build_recipes(
             display_name = clean_str(row.get("CNAM_FULL", ""))
             fvpa = row.get("FVPA", "")
             fnam = row.get("FNAM_Keywords", "")
+            bnam_edid = clean_str(row.get("BNAM_EDID", ""))
 
             if should_skip(edid):
                 total_skipped_cut += 1
@@ -221,13 +248,14 @@ def build_recipes(
             total_usable += 1
 
             keywords = parse_fnam_keywords(fnam)
-            category = classify_category(keywords)
+            category = classify_category(keywords, bnam_edid)
 
             if display_name not in recipes:
                 recipes[display_name] = ingredients
                 meta[display_name] = {
                     "edid": clean_str(edid),
                     "cnam_edid": clean_str(row.get("CNAM_EDID", "")),
+                    "bnam_edid": bnam_edid,
                     "bench_keywords": keywords,
                     "category": category,
                     "source_file": os.path.basename(source_file),
@@ -239,16 +267,24 @@ def build_recipes(
                     meta[display_name] = {
                         "edid": clean_str(edid),
                         "cnam_edid": clean_str(row.get("CNAM_EDID", "")),
+                        "bnam_edid": bnam_edid,
                         "bench_keywords": keywords,
                         "category": category,
                         "source_file": os.path.basename(source_file),
                     }
                 else:
-                    # Back-fill keywords / category if earlier entry lacked them
+                    # Back-fill keywords / BNAM / category if earlier entry lacked them
                     existing = meta.get(display_name, {})
                     if not existing.get("bench_keywords") and keywords:
                         existing["bench_keywords"] = keywords
-                        existing["category"] = category
+                    if not existing.get("bnam_edid") and bnam_edid:
+                        existing["bnam_edid"] = bnam_edid
+                    # Re-classify if we now have a BNAM we didn't before
+                    if existing.get("category") == "other" and (bnam_edid or keywords):
+                        existing["category"] = classify_category(
+                            existing.get("bench_keywords") or keywords,
+                            existing.get("bnam_edid") or bnam_edid,
+                        )
 
         # Diagnostic: a TSV with zero usable rows is almost always a broken export
         if file_total > 0 and file_usable == 0:
