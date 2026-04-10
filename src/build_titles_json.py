@@ -2381,6 +2381,12 @@ def main() -> int:
 
     today_str = today_ymd_utc()
 
+    # "New" cutoff: any item whose releaseDate is within the last 30 days
+    # gets isNew=True, so the frontend can flag recent additions for easy
+    # visual scanning. Rolls off automatically — no manual maintenance.
+    _new_cutoff_dt = dt.datetime.now(dt.UTC) - dt.timedelta(days=30)
+    new_cutoff_str = _new_cutoff_dt.strftime("%Y-%m-%d")
+
     seasons = {}
     if args.seasons and os.path.isfile(args.seasons):
         seasons = seasons_map(args.seasons)
@@ -2580,6 +2586,7 @@ def main() -> int:
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,
+            "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
             "unlockType": unlock_type,
             "seasonNumber": sn,
@@ -2669,6 +2676,7 @@ def main() -> int:
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,
+            "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
             "unlockType": unlock_type,
             "seasonNumber": sn,
