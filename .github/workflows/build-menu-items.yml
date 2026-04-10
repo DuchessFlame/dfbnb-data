@@ -5,8 +5,11 @@ on:
 
   push:
     paths:
-      - 'tsv/menu-items.tsv'
+      - 'tsv/menu-overrides.tsv'
+      - 'tsv/COBJ_Export_*.tsv'
       - 'src/build_menu_items_json.py'
+      - 'src/build_cobj_recipes_json.py'
+      - 'src/diagnostics.py'
 
 jobs:
   build:
@@ -21,10 +24,13 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run build script
+      - name: Rebuild COBJ recipes (source of truth)
         run: |
           mkdir -p dist
-          python src/build_menu_items_json.py
+          python src/build_cobj_recipes_json.py
+
+      - name: Build menu items from COBJ + overrides
+        run: python src/build_menu_items_json.py
 
       - name: Commit and push
         run: |
@@ -34,6 +40,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Build menu items data"
+            git commit -m "Build menu items + diagnostics"
             git push
           fi

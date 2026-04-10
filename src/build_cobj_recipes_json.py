@@ -5,14 +5,33 @@ build_cobj_recipes_json.py
 ===========================
 Generates dist/cobj-recipes.json from xEdit COBJ TSV export.
 
-Reads COBJ entries and extracts crafting recipes for food and chemical items.
-Maps menu item display names to their ingredient requirements.
+Reads COBJ entries and extracts crafting recipes for food, chem, and other
+craftable items. Captures FNAM_Keywords so downstream builders (menu-items)
+can classify each recipe as food/chem/other without needing a second TSV.
 
 Input files (place in tsv/ folder or pass via --data-dir):
   COBJ_Export_*.tsv       (xEdit tab-separated export)
 
 Output:
-  dist/cobj-recipes.json  → { "recipes": { "Item Name": { "Ingredient": count } } }
+  dist/cobj-recipes.json  -> {
+    "version": "YYYY-MM-DD",
+    "generated": "<ISO-8601 UTC>",
+    "count": N,
+    "recipes":     { "Item Name": { "Ingredient": count, ... } },
+    "recipe_meta": { "Item Name": {
+        "edid": "co_meal_...",
+        "cnam_edid": "...",
+        "bench_keywords": ["Meal_Recipe_Food", ...],
+        "category": "food" | "chem" | "other",
+        "source_file": "COBJ_Export_March_2026.tsv"
+    } }
+  }
+
+Diagnostics:
+  Writes cobj_recipes section of dist/diagnostics.json reporting:
+    - TSV files that have no usable rows (column-rename / empty export)
+    - Rows with a display name but no ingredients (FVPA missing)
+    - Duplicate recipes across months (info only)
 
 Usage:
   python build_cobj_recipes_json.py
@@ -27,7 +46,11 @@ import json
 import os
 import re
 import sys
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
+
+# Import shared diagnostics helper
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from diagnostics import Diagnostics  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -35,23 +58,37 @@ from typing import Any, Dict, List, Optional
 
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
 
+# FNAM_Keywords -> menu category classification.
+# These patterns are matched against each extracted keyword EDID.
+FOOD_KEYWORD_PATTERNS = (
+    re.compile(r"^Meal_Recipe_", re.IGNORECASE),
+    re.compile(r"^RecipeFilter_Shared_Food", re.IGNORECASE),
+)
+
+CHEM_KEYWORD_PATTERNS = (
+    re.compile(r"^RecipeFilter_Chem", re.IGNORECASE),
+    re.compile(r"^RecipeFilter_Shared_Healing", re.IGNORECASE),
+    re.compile(r"^RecipeFilter_MutationSerum", re.IGNORECASE),
+    re.compile(r"^RecipeFilter_Stimpak", re.IGNORECASE),
+    re.compile(r"^RecipeFilter_Poison", re.IGNORECASE),
+    re.compile(r"^RecipeFilter_Bio", re.IGNORECASE),
+    re.compile(r"^RecipeFilter_Brewing", re.IGNORECASE),
+)
+
 
 # ---------------------------------------------------------------------------
 # Utilities
 # ---------------------------------------------------------------------------
 
 def now_iso() -> str:
-    """Return current UTC time as ISO 8601 string."""
     return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
 
 def today_ymd() -> str:
-    """Return current UTC date as YYYY-MM-DD."""
     return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")
 
 
 def clean_str(s: Any) -> str:
-    """Strip whitespace and remove surrounding quotes from a string."""
     if s is None:
         return ""
     s = str(s).strip()
@@ -61,49 +98,60 @@ def clean_str(s: Any) -> str:
 
 
 def should_skip(edid: str) -> bool:
-    """Check if EDID starts with a cut/placeholder prefix."""
     e = clean_str(edid).upper()
     return any(e.startswith(p) for p in CUT_PREFIXES)
 
 
 def parse_fvpa(fvpa_str: str) -> Dict[str, int]:
-    """
-    Parse FVPA field into ingredient dict.
-    Format: "Material:Count | Material:Count | ..."
-    Returns: { "Material": count, ... }
-    """
+    """Parse FVPA field "Material:Count | Material:Count | ..." -> {mat: count}."""
     ingredients: Dict[str, int] = {}
-    if not fvpa_str:
-        return ingredients
-
     fvpa_str = clean_str(fvpa_str).strip()
     if not fvpa_str:
         return ingredients
-
-    # Split by pipe delimiter
-    parts = fvpa_str.split("|")
-    for part in parts:
+    for part in fvpa_str.split("|"):
         part = part.strip()
-        if not part:
+        if not part or ":" not in part:
             continue
-
-        # Parse "Material:Count" format
-        if ":" in part:
-            mat, cnt = part.split(":", 1)
-            mat = clean_str(mat).strip()
-            cnt_str = clean_str(cnt).strip()
-            try:
-                count = int(cnt_str)
-                if mat:
-                    ingredients[mat] = ingredients.get(mat, 0) + count
-            except (ValueError, TypeError):
-                pass
-
+        mat, cnt = part.split(":", 1)
+        mat = clean_str(mat).strip()
+        try:
+            count = int(clean_str(cnt).strip())
+        except (ValueError, TypeError):
+            continue
+        if mat:
+            ingredients[mat] = ingredients.get(mat, 0) + count
     return ingredients
 
 
+def parse_fnam_keywords(fnam_str: str) -> List[str]:
+    """Parse FNAM_Keywords "Name[FormID] | Name[FormID]" -> ["Name", ...]."""
+    keywords: List[str] = []
+    fnam_str = clean_str(fnam_str).strip()
+    if not fnam_str:
+        return keywords
+    for part in fnam_str.split("|"):
+        part = clean_str(part).strip()
+        if not part:
+            continue
+        # strip trailing [FormID]
+        part = re.sub(r"\[[0-9A-Fa-f]+\]\s*$", "", part).strip()
+        if part:
+            keywords.append(part)
+    return keywords
+
+
+def classify_category(keywords: List[str]) -> str:
+    for kw in keywords:
+        for pat in FOOD_KEYWORD_PATTERNS:
+            if pat.search(kw):
+                return "food"
+        for pat in CHEM_KEYWORD_PATTERNS:
+            if pat.search(kw):
+                return "chem"
+    return "other"
+
+
 def read_tsv(path: str) -> List[Dict[str, str]]:
-    """Read a TSV file and return list of row dicts."""
     rows: List[Dict[str, str]] = []
     try:
         with open(path, "r", encoding="utf-8", errors="replace", newline="") as f:
@@ -118,63 +166,122 @@ def read_tsv(path: str) -> List[Dict[str, str]]:
 
 
 def find_tsv_files(data_dir: str, pattern: str = "COBJ_Export_*.tsv") -> List[str]:
-    """Find TSV files matching pattern in data_dir."""
-    paths = glob.glob(os.path.join(data_dir, pattern))
-    return sorted(paths)
+    return sorted(glob.glob(os.path.join(data_dir, pattern)))
+
+
+def resolve_edid_column(row: Dict[str, str]) -> str:
+    """xEdit export column names drift between months — accept either form."""
+    for key in ("COBJ_EDID", "EDID"):
+        if key in row and row[key] is not None:
+            return row[key]
+    return ""
 
 
 # ---------------------------------------------------------------------------
 # Recipe extraction
 # ---------------------------------------------------------------------------
 
-def build_recipes(cobj_rows: List[Dict[str, str]]) -> Dict[str, Dict[str, int]]:
-    """
-    Extract recipes from COBJ rows.
-    Returns: { "Item Display Name": { "Ingredient": count, ... } }
-    """
+def build_recipes(
+    per_file_rows: List[Tuple[str, List[Dict[str, str]]]],
+    diag: Diagnostics,
+) -> Tuple[Dict[str, Dict[str, int]], Dict[str, Dict[str, Any]]]:
+    """Extract recipes + metadata from per-file COBJ rows."""
     recipes: Dict[str, Dict[str, int]] = {}
-    skipped_count = 0
-    no_fvpa_count = 0
+    meta: Dict[str, Dict[str, Any]] = {}
 
-    for row in cobj_rows:
-        edid = row.get("COBJ_EDID", "")
-        display_name = clean_str(row.get("CNAM_FULL", ""))
-        fvpa = row.get("FVPA", "")
+    total_rows = 0
+    total_skipped_cut = 0
+    total_no_fvpa = 0
+    total_usable = 0
 
-        # Skip cut content
-        if should_skip(edid):
-            skipped_count += 1
-            continue
+    for source_file, rows in per_file_rows:
+        file_usable = 0
+        file_total = len(rows)
+        total_rows += file_total
 
-        # Skip if no display name
-        if not display_name:
-            no_fvpa_count += 1
-            continue
+        for row in rows:
+            edid = resolve_edid_column(row)
+            display_name = clean_str(row.get("CNAM_FULL", ""))
+            fvpa = row.get("FVPA", "")
+            fnam = row.get("FNAM_Keywords", "")
 
-        # Skip if no FVPA (ingredients)
-        if not clean_str(fvpa):
-            no_fvpa_count += 1
-            continue
+            if should_skip(edid):
+                total_skipped_cut += 1
+                continue
 
-        # Parse ingredients
-        ingredients = parse_fvpa(fvpa)
-        if not ingredients:
-            no_fvpa_count += 1
-            continue
+            if not display_name:
+                continue
 
-        # Add recipe (first match wins for duplicates, or use the one with most ingredients)
-        if display_name not in recipes:
-            recipes[display_name] = ingredients
-        else:
-            # If we have a duplicate, keep the one with more ingredients
-            if len(ingredients) > len(recipes[display_name]):
+            ingredients = parse_fvpa(fvpa)
+            if not ingredients:
+                total_no_fvpa += 1
+                continue
+
+            file_usable += 1
+            total_usable += 1
+
+            keywords = parse_fnam_keywords(fnam)
+            category = classify_category(keywords)
+
+            if display_name not in recipes:
                 recipes[display_name] = ingredients
+                meta[display_name] = {
+                    "edid": clean_str(edid),
+                    "cnam_edid": clean_str(row.get("CNAM_EDID", "")),
+                    "bench_keywords": keywords,
+                    "category": category,
+                    "source_file": os.path.basename(source_file),
+                }
+            else:
+                # Prefer the entry with the most ingredients (most-specific recipe)
+                if len(ingredients) > len(recipes[display_name]):
+                    recipes[display_name] = ingredients
+                    meta[display_name] = {
+                        "edid": clean_str(edid),
+                        "cnam_edid": clean_str(row.get("CNAM_EDID", "")),
+                        "bench_keywords": keywords,
+                        "category": category,
+                        "source_file": os.path.basename(source_file),
+                    }
+                else:
+                    # Back-fill keywords / category if earlier entry lacked them
+                    existing = meta.get(display_name, {})
+                    if not existing.get("bench_keywords") and keywords:
+                        existing["bench_keywords"] = keywords
+                        existing["category"] = category
+
+        # Diagnostic: a TSV with zero usable rows is almost always a broken export
+        if file_total > 0 and file_usable == 0:
+            diag.error(
+                "cobj.tsv.empty_export",
+                "COBJ TSV contains no usable recipes — likely a broken or empty xEdit export.",
+                detail=f"{os.path.basename(source_file)} has {file_total} rows but 0 with ingredients.",
+                context={"file": os.path.basename(source_file), "rows": file_total},
+            )
+        elif file_total > 0 and file_usable < max(10, file_total // 50):
+            diag.warning(
+                "cobj.tsv.low_yield",
+                "COBJ TSV produced unusually few recipes — check xEdit export columns.",
+                detail=f"{os.path.basename(source_file)}: {file_usable}/{file_total} rows usable.",
+                context={"file": os.path.basename(source_file), "rows": file_total, "usable": file_usable},
+            )
 
     print(f"Recipes extracted: {len(recipes)}", file=sys.stderr)
-    print(f"Skipped (cut content): {skipped_count}", file=sys.stderr)
-    print(f"Skipped (no FVPA or no display name): {no_fvpa_count}", file=sys.stderr)
+    print(f"Skipped (cut content): {total_skipped_cut}", file=sys.stderr)
+    print(f"Rows without ingredients: {total_no_fvpa}", file=sys.stderr)
 
-    return recipes
+    diag.info(
+        "cobj.build.summary",
+        f"Extracted {len(recipes)} unique recipes from {total_rows} COBJ rows.",
+        context={
+            "unique_recipes": len(recipes),
+            "total_rows": total_rows,
+            "skipped_cut": total_skipped_cut,
+            "no_fvpa": total_no_fvpa,
+        },
+    )
+
+    return recipes, meta
 
 
 # ---------------------------------------------------------------------------
@@ -182,64 +289,59 @@ def build_recipes(cobj_rows: List[Dict[str, str]]) -> Dict[str, Dict[str, int]]:
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Build cobj-recipes.json from COBJ TSV export"
-    )
-    parser.add_argument(
-        "--data-dir",
-        type=str,
-        default="tsv",
-        help="Directory containing COBJ_Export_*.tsv files (default: tsv)",
-    )
-    parser.add_argument(
-        "--outdir",
-        type=str,
-        default="dist",
-        help="Output directory for cobj-recipes.json (default: dist)",
-    )
+    parser = argparse.ArgumentParser(description="Build cobj-recipes.json from COBJ TSV export")
+    parser.add_argument("--data-dir", type=str, default="tsv", help="TSV input dir (default: tsv)")
+    parser.add_argument("--outdir", type=str, default="dist", help="Output dir (default: dist)")
     args = parser.parse_args()
 
-    # Ensure output directory exists
     os.makedirs(args.outdir, exist_ok=True)
+    diag = Diagnostics(source="cobj_recipes", outdir=args.outdir)
 
-    # Find and read COBJ TSV files
     tsv_files = find_tsv_files(args.data_dir, "COBJ_Export_*.tsv")
     if not tsv_files:
+        diag.error(
+            "cobj.tsv.none_found",
+            "No COBJ_Export_*.tsv files were found.",
+            detail=f"Searched {args.data_dir}",
+        )
+        diag.save()
         print(f"ERROR: No COBJ_Export_*.tsv files found in {args.data_dir}", file=sys.stderr)
         sys.exit(1)
 
     print(f"Found {len(tsv_files)} COBJ TSV file(s)", file=sys.stderr)
 
-    all_rows: List[Dict[str, str]] = []
+    per_file_rows: List[Tuple[str, List[Dict[str, str]]]] = []
     for tsv_path in tsv_files:
         print(f"Reading {os.path.basename(tsv_path)}...", file=sys.stderr)
         rows = read_tsv(tsv_path)
-        all_rows.extend(rows)
+        per_file_rows.append((tsv_path, rows))
         print(f"  Loaded {len(rows)} rows", file=sys.stderr)
 
-    print(f"Total rows: {len(all_rows)}", file=sys.stderr)
+    total_rows = sum(len(r) for _, r in per_file_rows)
+    print(f"Total rows: {total_rows}", file=sys.stderr)
 
-    # Build recipes
-    recipes = build_recipes(all_rows)
+    recipes, meta = build_recipes(per_file_rows, diag)
 
-    # Build output JSON
     output: Dict[str, Any] = {
         "version": today_ymd(),
         "generated": now_iso(),
         "count": len(recipes),
         "recipes": recipes,
+        "recipe_meta": meta,
     }
 
-    # Write JSON
     output_path = os.path.join(args.outdir, "cobj-recipes.json")
     try:
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(output, f, indent=2, ensure_ascii=False)
         print(f"Wrote {output_path}", file=sys.stderr)
     except Exception as e:
+        diag.error("cobj.write.failed", "Failed to write cobj-recipes.json", detail=str(e))
+        diag.save()
         print(f"ERROR writing {output_path}: {e}", file=sys.stderr)
         sys.exit(1)
 
+    diag.save()
     print("Done.", file=sys.stderr)
 
 

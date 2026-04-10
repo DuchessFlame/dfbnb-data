@@ -1,0 +1,94 @@
+{
+  "generated": "2026-04-10T23:06:53+00:00",
+  "sections": {
+    "cobj_recipes": {
+      "generated": "2026-04-10T23:06:53+00:00",
+      "counts": {
+        "error": 1,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "error",
+          "code": "cobj.tsv.empty_export",
+          "message": "COBJ TSV contains no usable recipes — likely a broken or empty xEdit export.",
+          "detail": "COBJ_Export_Apr_2026.tsv has 14318 rows but 0 with ingredients.",
+          "context": {
+            "file": "COBJ_Export_Apr_2026.tsv",
+            "rows": 14318
+          }
+        },
+        {
+          "severity": "info",
+          "code": "cobj.build.summary",
+          "message": "Extracted 5451 unique recipes from 56209 COBJ rows.",
+          "context": {
+            "unique_recipes": 5451,
+            "total_rows": 56209,
+            "skipped_cut": 7906,
+            "no_fvpa": 11317
+          }
+        }
+      ]
+    },
+    "menu_items": {
+      "generated": "2026-04-10T23:06:53+00:00",
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 5
+      },
+      "entries": [
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Sunshine Oil': COBJ suggests 'food', override sets 'chem'.",
+          "context": {
+            "name": "Sunshine Oil",
+            "cobj": "food",
+            "override": "chem"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Purified Water': COBJ suggests 'food', override sets 'chem'.",
+          "context": {
+            "name": "Purified Water",
+            "cobj": "food",
+            "override": "chem"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Lemonade': COBJ suggests 'food', override sets 'chem'.",
+          "context": {
+            "name": "Lemonade",
+            "cobj": "food",
+            "override": "chem"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.skipped",
+          "message": "Skipped 83 items marked skip=1 in menu-overrides.tsv.",
+          "context": {
+            "count": 83
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.build.summary",
+          "message": "Wrote 312 menu items (213 Food, 99 Chem).",
+          "context": {
+            "total": 312,
+            "food": 213,
+            "chem": 99
+          }
+        }
+      ]
+    }
+  }
+}
