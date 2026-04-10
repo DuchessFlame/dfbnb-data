@@ -1,4 +1,4 @@
-{
+(*
   ExportCOBJToTSV.pas
   ====================
   Exports selected COBJ (Constructible Object) records to TSV.
@@ -10,12 +10,17 @@
       GNAM/FNAM/FVPA columns in the April 2026 export. Signatures are
       immutable. Also added BNAM (real workbench keyword in FO76) and
       explicit sub-field parsing for FVPA Component/Count pairs.
+    - 2026-04-11 (later): Switched the outer header comment from
+      {...} to (* ... *) because Pascal {...} comments don't nest —
+      the inner {workbench keyword - FO76} annotation was silently
+      closing the outer block, causing xEdit to throw
+      "'unit' expected but 'GNAM_FormID' found." on load.
 
   Columns (header):
     COBJ_FormID, COBJ_EDID,
     CNAM_FormID, CNAM_EDID, CNAM_FULL,
-    BNAM_FormID, BNAM_EDID, BNAM_FULL,     {workbench keyword - FO76}
-    GNAM_FormID, GNAM_EDID, GNAM_FULL,     {recipe book ref (legacy/optional)}
+    BNAM_FormID, BNAM_EDID, BNAM_FULL      -- workbench keyword (FO76)
+    GNAM_FormID, GNAM_EDID, GNAM_FULL      -- recipe book ref (legacy/optional)
     FNAM_Keywords, FVPA, ReferencedBy_Flat, ReferencedByCount,
     Ref_1..Ref_N
 
@@ -25,7 +30,7 @@
 
   Variable-width Ref columns (0..N). FNAM and FVPA are flat-joined
   with pipes. FVPA format: "ComponentEDID:Count|ComponentEDID:Count".
-}
+*)
 
 unit UserScript;
 
