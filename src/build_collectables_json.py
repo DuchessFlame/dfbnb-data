@@ -25,6 +25,8 @@ from pathlib import Path
 from html.parser import HTMLParser
 from html import unescape
 
+from patchlog_utils import write_patchlog_feed, _git_show_json, diff_item_lists, _write_json
+
 
 class HTMLStripper(HTMLParser):
     """Strip HTML tags and preserve text content."""
@@ -1902,6 +1904,77 @@ def main():
     with open(manifest_file, 'w', encoding='utf-8') as f:
         json.dump(manifest_data, f, indent=2, ensure_ascii=False)
     print(f"Wrote {manifest_file}")
+
+    # Generate patchlog feed combining all collectables items
+    all_items = []
+
+    # Extract items from bobbleheads (nested in groups)
+    for group in bobblehead_groups:
+        all_items.extend(group.get('items', []))
+
+    # Extract items from other collectables
+    all_items.extend(plushies)
+    all_items.extend(notes)
+    all_items.extend(holotape_games)
+    all_items.extend(magazines)
+    all_items.extend(holotapes)
+    all_items.extend(keys)
+
+    # Load previous items from git for comparison
+    def extract_all_prev_items(prev_json_data):
+        """Extract all items from previously generated collectables JSON files."""
+        if not prev_json_data:
+            return []
+        prev_items = []
+
+        # Handle different structures: some have "items", bobbleheads have "groups"
+        if "groups" in prev_json_data:
+            # Bobbleheads structure
+            for group in prev_json_data.get("groups", []):
+                prev_items.extend(group.get("items", []))
+        elif "items" in prev_json_data:
+            # Standard structure for plushies, notes, etc.
+            prev_items.extend(prev_json_data.get("items", []))
+
+        return prev_items
+
+    # Load previous data from all collectables files and combine
+    prev_all_items = []
+    collectables_files = [
+        "dist/collectables_bobbleheads.json",
+        "dist/collectables_plushies.json",
+        "dist/collectables_notes.json",
+        "dist/collectables_holotape_games.json",
+        "dist/collectables_magazines.json",
+        "dist/collectables_holotapes.json",
+        "dist/collectables_keys.json",
+    ]
+
+    for cf in collectables_files:
+        prev_data = _git_show_json("HEAD^", cf)
+        if prev_data:
+            prev_all_items.extend(extract_all_prev_items(prev_data))
+
+    # Generate patchlog entry
+    entry = diff_item_lists(
+        prev_items=prev_all_items,
+        curr_items=all_items,
+        key_field="formId",
+        name_field="name,edid",
+        compare_fields=["name", "description", "locations"],
+    )
+
+    # Write patchlog feed
+    feed = {"entries": [entry]}
+    feed_path = outdir / "patchlog_latest_df_collectables.json"
+    _write_json(str(feed_path), feed)
+
+    # Log summary
+    a, r, c = len(entry["added"]), len(entry["removed"]), len(entry["changed"])
+    print(
+        f"[patchlog] patchlog_latest_df_collectables.json: current={entry['current']}  "
+        f"added={a}  removed={r}  changed={c}"
+    )
 
     # Print summary
     print("\n=== Summary ===")

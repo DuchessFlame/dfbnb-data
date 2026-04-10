@@ -37,6 +37,8 @@ import json
 import os
 import sys
 
+from patchlog_utils import write_empty_patchlog_feed
+
 def main():
     print(f"[build_experience_json.py] Gap filler — real build logic TBD")
 
@@ -49,6 +51,9 @@ def main():
         json.dump({"_status": "scaffolded", "_category": "Experience (XP)", "items": []}, f, indent=2)
 
     print(f"[build_experience_json.py] Wrote {out_path}")
+
+    # Write empty patchlog feed
+    write_empty_patchlog_feed("dist", "patchlog_latest_bnb_experience.json", current_count=0)
 
 if __name__ == "__main__":
     main()

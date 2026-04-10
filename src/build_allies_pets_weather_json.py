@@ -31,6 +31,8 @@ import re
 import argparse
 from pathlib import Path
 
+from patchlog_utils import write_patchlog_feed
+
 # ---------------------------------------------------------------------------
 # CLI args + env var resolution (matches dfbnb-patch-build.yml pattern)
 #
@@ -1223,13 +1225,46 @@ def build_fridges():
 
 print("\nBuilding JSON files…")
 
-save_json("weather_stations.json", build_weather_stations())
-save_json("repair-bots.json",      build_repair_bots())
-save_json("allies.json",           build_allies())
-save_json("pets.json",             build_pets())
-save_json("pet-furniture.json",    build_pet_furniture())
-save_json("pet-apparel.json",      build_pet_apparel())
-save_json("cryos.json",            build_cryos())
-save_json("fridges.json",          build_fridges())
+weather_data = build_weather_stations()
+repair_bots_data = build_repair_bots()
+allies_data = build_allies()
+pets_data = build_pets()
+pet_furn_data = build_pet_furniture()
+pet_appr_data = build_pet_apparel()
+cryos_data = build_cryos()
+fridges_data = build_fridges()
+
+save_json("weather_stations.json", weather_data)
+save_json("repair-bots.json",      repair_bots_data)
+save_json("allies.json",           allies_data)
+save_json("pets.json",             pets_data)
+save_json("pet-furniture.json",    pet_furn_data)
+save_json("pet-apparel.json",      pet_appr_data)
+save_json("cryos.json",            cryos_data)
+save_json("fridges.json",          fridges_data)
+
+# Generate patchlog feed (all camp-related items combined)
+def combine_camp_items(*dicts):
+    """Combine all items from multiple data structures."""
+    items = []
+    for d in dicts:
+        items.extend(d.get("items", []))
+    return items
+
+camp_items = combine_camp_items(
+    allies_data, pets_data, pet_furn_data, pet_appr_data,
+    cryos_data, fridges_data, repair_bots_data
+)
+
+write_patchlog_feed(
+    dist_dir=str(OUT_DIR),
+    feed_name="patchlog_latest_df_camp.json",
+    current_items=camp_items,
+    key_field="formId",
+    name_field="displayName,edid",
+    compare_fields=["displayName", "description", "obtainSource"],
+    prev_json_path="dist/allies.json",  # Using allies.json as reference
+    items_extractor=lambda d: d.get("items", []),
+)
 
 print("\nDone.")

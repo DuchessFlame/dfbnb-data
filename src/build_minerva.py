@@ -6,6 +6,9 @@ Usage: python3 build_minerva.py BOOK_Export_March_2026.tsv > minerva_plans.json
 """
 
 import csv, json, re, sys
+from pathlib import Path
+
+from patchlog_utils import write_patchlog_feed
 
 # Econ_GoldVendor_Tier_XX GLOB IDs -> gold bullion price
 TIER_PRICE = {
@@ -137,6 +140,19 @@ def main():
 
     print(json.dumps(output, indent=2))
     print(f"\n// Built: {len(all_plans)} gold vendor plans, {len(minerva_plans)} on Minerva lists", file=sys.stderr)
+
+    # Generate patchlog feed to dist/ (minerva_plans.json output location)
+    dist_dir = Path(__file__).parent.parent / "dist"
+    write_patchlog_feed(
+        dist_dir=str(dist_dir),
+        feed_name="patchlog_latest_df_minerva.json",
+        current_items=minerva_plans,
+        key_field="formid",
+        name_field="name",
+        compare_fields=["name", "gold", "lists"],
+        prev_json_path="dist/minerva_plans.json",
+        items_extractor=lambda d: d.get("minerva", []),
+    )
 
 if __name__ == '__main__':
     main()

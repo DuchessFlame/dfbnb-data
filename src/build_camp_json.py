@@ -13,6 +13,8 @@ Output: ../dist/camp.json
 import csv, json, os, re, sys
 from pathlib import Path
 
+from patchlog_utils import write_empty_patchlog_feed
+
 # ─── PATHS ───────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR  = Path(__file__).resolve().parent
@@ -359,6 +361,10 @@ def build():
     print(f"[camp] Written {len(items)} items → {out_path}")
     for pt, n in sorted(counts.items()):
         print(f"  {pt}: {n}")
+
+    # Note: patchlog feed for camp items is written by build_allies_pets_weather_json.py
+    # to patchlog_latest_df_camp.json. This script skips patchlog generation since
+    # it's a partial view of the same data.
 
 if __name__ == "__main__":
     build()

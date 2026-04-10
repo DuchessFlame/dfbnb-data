@@ -2252,37 +2252,69 @@ def git_show_json(rev: str, path: str) -> Optional[dict]:
         return None
 
 
+# Import the shared patchlog utility for frontend-compatible output
+try:
+    from patchlog_utils import diff_item_lists as _patchlog_diff_items
+except ImportError:
+    # Fallback if patchlog_utils isn't on path (shouldn't happen in CI)
+    _patchlog_diff_items = None  # type: ignore[assignment]
+
+
 def build_patchlog(prev: Optional[dict], curr: dict) -> dict:
+    """
+    Build a patchlog entry for a titles category (camp or player).
+
+    Returns the frontend-compatible format:
+    {ts, current, added: [names], removed: [names], changed: [names]}
+    """
+    TITLE_COMPARE_FIELDS = (
+        "edid", "title", "titleMale", "titleFemale",
+        "isPrefix", "isSuffix", "howToObtain", "dropRate",
+        "tradeable", "cutContent", "unlockType",
+    )
+
+    # Use shared utility if available
+    if _patchlog_diff_items is not None:
+        prev_items = prev.get("items", []) if prev else []
+        curr_items = curr.get("items", [])
+        return _patchlog_diff_items(
+            prev_items=prev_items,
+            curr_items=curr_items,
+            key_field="formId",
+            name_field="title,titleMale,titleFemale,edid",
+            compare_fields=TITLE_COMPARE_FIELDS,
+        )
+
+    # Inline fallback (same logic, same output format)
     def index_by_id(items: List[dict]) -> Dict[str, dict]:
         return {str(x.get("formId")): x for x in items if x.get("formId")}
+
+    def get_name(item: dict) -> str:
+        for f in ("title", "titleMale", "titleFemale", "edid"):
+            v = item.get(f)
+            if v and str(v).strip():
+                return str(v).strip()
+        return str(item.get("formId", "Unknown"))
 
     prev_items = index_by_id(prev.get("items", [])) if prev else {}
     curr_items = index_by_id(curr.get("items", []))
 
-    added = [k for k in curr_items.keys() if k not in prev_items]
-    removed = [k for k in prev_items.keys() if k not in curr_items]
+    added = [get_name(curr_items[k]) for k in curr_items if k not in prev_items]
+    removed = [get_name(prev_items[k]) for k in prev_items if k not in curr_items]
     changed: List[str] = []
 
-    for k in curr_items.keys():
+    for k in curr_items:
         if k in prev_items:
-            a = prev_items[k]
-            b = curr_items[k]
-            fields = ("edid", "title", "titleMale", "titleFemale", "isPrefix", "isSuffix", "howToObtain", "dropRate", "tradeable", "cutContent", "unlockType")
-            if any(a.get(f) != b.get(f) for f in fields):
-                changed.append(k)
+            a, b = prev_items[k], curr_items[k]
+            if any(a.get(f) != b.get(f) for f in TITLE_COMPARE_FIELDS):
+                changed.append(get_name(curr_items[k]))
 
     return {
-        "generatedAt": now_iso(),
-        "counts": {
-            "prev": len(prev_items),
-            "curr": len(curr_items),
-            "added": len(added),
-            "removed": len(removed),
-            "changed": len(changed),
-        },
-        "addedFormIds": added[:500],
-        "removedFormIds": removed[:500],
-        "changedFormIds": changed[:500],
+        "ts": now_iso(),
+        "current": len(curr_items),
+        "added": sorted(added)[:500],
+        "removed": sorted(removed)[:500],
+        "changed": sorted(changed)[:500],
     }
 
 def main() -> int:
@@ -2681,10 +2713,29 @@ def main() -> int:
     prev_camp = git_show_json("HEAD^", "dist/titles_camp.json")
     prev_player = git_show_json("HEAD^", "dist/titles_player.json")
 
+    camp_entry = build_patchlog(prev_camp, camp_json)
+    player_entry = build_patchlog(prev_player, player_json)
+
+    # Merge camp + player into a single combined entry for the frontend.
+    # The frontend expects {entries: [{ts, current, added, removed, changed}]}.
+    combined_current = camp_entry.get("current", 0) + player_entry.get("current", 0)
+    combined_added = camp_entry.get("added", []) + player_entry.get("added", [])
+    combined_removed = camp_entry.get("removed", []) + player_entry.get("removed", [])
+    combined_changed = camp_entry.get("changed", []) + player_entry.get("changed", [])
+
     patchlog = {
-        "generatedAt": now_iso(),
-        "camp": build_patchlog(prev_camp, camp_json),
-        "player": build_patchlog(prev_player, player_json),
+        "entries": [
+            {
+                "ts": now_iso(),
+                "current": combined_current,
+                "added": sorted(combined_added)[:500],
+                "removed": sorted(combined_removed)[:500],
+                "changed": sorted(combined_changed)[:500],
+            }
+        ],
+        # Keep sub-entries for any future per-category use
+        "_camp": camp_entry,
+        "_player": player_entry,
     }
 
     # ============================================================

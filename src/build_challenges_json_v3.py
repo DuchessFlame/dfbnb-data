@@ -35,6 +35,8 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
+from patchlog_utils import diff_item_lists, _write_json, _git_show_json, write_empty_patchlog_feed
+
 # Resolve paths relative to the repo root (one level up from src/) so the
 # script produces correct output regardless of which directory it's run from.
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -1120,4 +1122,44 @@ with open(out_path, "w", encoding="utf-8") as f:
 print(f"[challenges] Written: {out_path} ({out_path.stat().st_size:,} bytes)")
 for k, v in sorted(page_meta.items()):
     print(f"    {k}: {v['count']} items" if 'count' in v else f"    {k}: {v}")
+
+# Generate patchlog feed
+# Challenges structure has pages with items, plus quest_pages and encounter_pages
+# Extract all challenge items from all pages for diffing
+def extract_all_challenges(data):
+    if not data:
+        return []
+    items = []
+    # Main challenge pages
+    pages = data.get('pages', {})
+    for page_name, page_data in pages.items():
+        if isinstance(page_data, dict):
+            items.extend(page_data.get('items', []))
+    # Quest pages
+    quest_pages = data.get('quest_pages', {})
+    for page_name, page_data in quest_pages.items():
+        if isinstance(page_data, dict):
+            items.extend(page_data.get('items', []))
+    # Encounter pages
+    encounter_pages = data.get('encounter_pages', {})
+    for page_name, page_data in encounter_pages.items():
+        if isinstance(page_data, dict):
+            items.extend(page_data.get('items', []))
+    return items
+
+dist_base = str(DIST_DIR.parent)  # Go up one level to dist/
+prev_json = _git_show_json('HEAD^', str(out_path))
+
+entry = diff_item_lists(
+    prev_items=extract_all_challenges(prev_json),
+    curr_items=extract_all_challenges(output),
+    key_field='form_id',
+    name_field='full,edid',
+    compare_fields=['scope', 'classification', 'required', 'rewards'],
+)
+feed = {"entries": [entry]}
+feed_path = os.path.join(dist_base, 'patchlog_latest_df_challenges.json')
+_write_json(feed_path, feed)
+a, r, c = len(entry["added"]), len(entry["removed"]), len(entry["changed"])
+print(f"[patchlog] patchlog_latest_df_challenges.json: current={entry['current']}  added={a}  removed={r}  changed={c}")
 print("[challenges] Done.")

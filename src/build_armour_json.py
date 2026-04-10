@@ -24,6 +24,8 @@ import sys
 import argparse
 from collections import defaultdict
 
+from patchlog_utils import diff_paged_items, diff_item_lists, _write_json, _git_show_json
+
 # ─────────────────────────────────────────────────────────────────────────────
 #  LVLI → human-readable obtain source
 # ─────────────────────────────────────────────────────────────────────────────
@@ -777,6 +779,43 @@ def main():
 
     size_kb = os.path.getsize(args.out) / 1024
     print(f'\nSaved → {args.out}  ({size_kb:.0f} KB)')
+
+    # Generate patchlog feed
+    # Armour structure is deeply nested: pages -> {page_name} -> sets -> pieces -> slots -> mods
+    # Extract all mods from all pages, sets, pieces, and slots
+    def extract_all_mods(data):
+        if not data:
+            return []
+        mods = []
+        pages = data.get('pages', {})
+        for page_name, page_data in pages.items():
+            if isinstance(page_data, dict):
+                for page_set in page_data.get('sets', []):
+                    for piece in page_set.get('pieces', []):
+                        for slot in piece.get('slots', []):
+                            mods.extend(slot.get('mods', []))
+            elif isinstance(page_data, list):
+                # Handle other potential structures
+                for item in page_data:
+                    if isinstance(item, dict):
+                        mods.append(item)
+        return mods
+
+    dist_base = os.path.dirname(args.out) or 'dist'
+    prev_json = _git_show_json('HEAD^', args.out)
+
+    entry = diff_item_lists(
+        prev_items=extract_all_mods(prev_json),
+        curr_items=extract_all_mods(combined),
+        key_field='id',
+        name_field='name',
+        compare_fields=['hasPlan', 'isATX', 'planName', 'obtainText'],
+    )
+    feed = {"entries": [entry]}
+    feed_path = os.path.join(dist_base, 'patchlog_latest_bnb_armour.json')
+    _write_json(feed_path, feed)
+    a, r, c = len(entry["added"]), len(entry["removed"]), len(entry["changed"])
+    print(f"[patchlog] patchlog_latest_bnb_armour.json: current={entry['current']}  added={a}  removed={r}  changed={c}")
 
 
 if __name__ == '__main__':

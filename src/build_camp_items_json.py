@@ -27,6 +27,8 @@ import re
 import sys
 from typing import Any, Dict, List, Optional, Tuple
 
+from patchlog_utils import write_patchlog_feed, diff_item_lists
+
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
@@ -981,6 +983,47 @@ def main() -> int:
     print(f"[OK] collectrons.json: {len(collectron_items)} items", file=sys.stderr)
     print(f"[OK] resource_producers.json: {len(resource_items)} items", file=sys.stderr)
     print(f"[OK] Written to: {args.outdir}", file=sys.stderr)
+
+    # Generate combined patchlog feed from all output files
+    combined_items = collectron_items + resource_items
+
+    # Load previous versions of both files for combined diff
+    prev_combined_items = []
+    try:
+        import subprocess
+        for json_file in ["dist/collectrons.json", "dist/resource_producers.json"]:
+            try:
+                out = subprocess.check_output(
+                    ["git", "show", f"HEAD^:{json_file}"],
+                    stderr=subprocess.DEVNULL,
+                    timeout=30,
+                )
+                data = json.loads(out.decode("utf-8"))
+                prev_combined_items.extend(data.get("items", []))
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    # Generate patchlog entry and write feed
+    entry = diff_item_lists(
+        prev_items=prev_combined_items,
+        curr_items=combined_items,
+        key_field="formId",
+        name_field="displayName,edid",
+        compare_fields=["displayName", "description", "production", "imageUrl"],
+    )
+    feed = {"entries": [entry]}
+    feed_path = os.path.join(args.outdir, "patchlog_latest_bnb_camp_items.json")
+    with open(feed_path, "w", encoding="utf-8") as f:
+        json.dump(feed, f, ensure_ascii=False, indent=2)
+
+    a, r, c = len(entry["added"]), len(entry["removed"]), len(entry["changed"])
+    print(
+        f"[patchlog] patchlog_latest_bnb_camp_items.json: current={entry['current']}  "
+        f"added={a}  removed={r}  changed={c}",
+        file=sys.stderr,
+    )
 
     return 0
 

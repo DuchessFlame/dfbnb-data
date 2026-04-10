@@ -27,6 +27,8 @@ import glob
 from pathlib import Path
 from typing import Dict, List
 
+from patchlog_utils import write_patchlog_feed
+
 
 # ---------------------------------------------------------------------------
 # TSV HELPERS
@@ -192,6 +194,26 @@ def main():
         json.dump(output, f, indent=2)
 
     print(f"✓ Wrote {out_file}")
+
+    # Generate patchlog feed
+    def extract_items_from_output(data):
+        """Flatten all items from pools."""
+        items = []
+        for pool in data.get("pools", []):
+            items.extend(pool.get("items", []))
+        return items
+
+    write_patchlog_feed(
+        dist_dir=str(out_dir),
+        feed_name="patchlog_latest_df_daily_ops_rewards.json",
+        current_items=extract_items_from_output(output),
+        key_field="formId",
+        name_field="name",
+        compare_fields=["name", "category", "rarity"],
+        prev_json_path="dist/daily_ops/daily_ops_rewards.json",
+        items_extractor=extract_items_from_output,
+    )
+
     return 0
 
 

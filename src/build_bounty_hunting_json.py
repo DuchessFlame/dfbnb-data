@@ -17,6 +17,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from patchlog_utils import write_patchlog_feed
+
 # ── Paths ─────────────────────────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT       = SCRIPT_DIR.parent
@@ -416,6 +418,26 @@ def main() -> None:
     print(f"[build_bounty_hunting_json] grunt-hunt-rewards: {grunt_total} top-level challenges")
     print(f"[build_bounty_hunting_json] head-hunt-rewards:  {head_total} top-level challenges")
     print(f"[build_bounty_hunting_json] Written → {OUT_FILE}")
+
+    # Generate patchlog feed
+    def extract_challenges(output_data):
+        """Flatten all challenges from the nested structure."""
+        challenges = []
+        for page_data in output_data.get("byPage", {}).values():
+            for group in page_data.get("groups", []):
+                challenges.extend(group.get("challenges", []))
+        return challenges
+
+    write_patchlog_feed(
+        dist_dir=str(ROOT / "dist"),
+        feed_name="patchlog_latest_df_bounty_hunting.json",
+        current_items=extract_challenges(data),
+        key_field="formId",
+        name_field="name",
+        compare_fields=["name", "type", "category", "targetCount"],
+        prev_json_path="dist/challenges/bounty_hunting_challenges.json",
+        items_extractor=extract_challenges,
+    )
 
 
 if __name__ == "__main__":

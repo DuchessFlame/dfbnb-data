@@ -29,6 +29,8 @@ import os
 import re
 import sys
 
+from patchlog_utils import write_patchlog_feed
+
 # ---------------------------------------------------------------------------
 # Gold tier pricing — Econ_GoldVendor_Tier_XX GLOB IDs -> gold bullion price
 # ---------------------------------------------------------------------------
@@ -280,6 +282,18 @@ def main():
     print(f"[build_currency_json] Wrote {out_path} — "
           f"{len(slots)} slots, {sum(s['plan_count'] for s in slots)} total slot plans.",
           file=sys.stderr)
+
+    # Generate patchlog feed
+    write_patchlog_feed(
+        dist_dir=args.outdir,
+        feed_name="patchlog_latest_df_currency.json",
+        current_items=minerva_plans,
+        key_field="formId",
+        name_field="name",
+        compare_fields=["name", "price", "lists"],
+        prev_json_path="dist/currency.json",
+        items_extractor=lambda d: d.get("minerva", []),
+    )
 
 
 if __name__ == "__main__":

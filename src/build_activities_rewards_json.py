@@ -30,6 +30,8 @@ import csv, glob, json, os, re, sys
 from collections import defaultdict
 from pathlib import Path
 
+from patchlog_utils import write_patchlog_feed
+
 # ---------------------------------------------------------------------------
 # Import shared drop-rate engine (rng76.py in same directory)
 # ---------------------------------------------------------------------------
@@ -4716,7 +4718,16 @@ with open(DIST_DIR / "activities_rewards.json", "w", encoding="utf-8") as f:
     json.dump({"events": events}, f, separators=(",", ":"))
 with open(DIST_DIR / "activities_rewards_by_page.json", "w", encoding="utf-8") as f:
     json.dump({"byPage": by_page}, f, separators=(",", ":"))
-with open(PATCHLOG_DIR / "patchlog_latest_df_activities.json", "w", encoding="utf-8") as f:
-    json.dump({"built": True}, f)
+
+write_patchlog_feed(
+    dist_dir=str(_REPO_ROOT / "dist"),
+    feed_name="patchlog_latest_df_activities.json",
+    current_items=events,
+    key_field="questFormID",
+    name_field="name,gameName",
+    compare_fields=["name", "gameName", "rewards", "pools"],
+    prev_json_path="dist/activities/activities_rewards.json",
+    items_extractor=lambda d: d.get("events", []),
+)
 
 print(f"Activities Rewards build complete. events={len(events)} byPage={len(by_page)}")
