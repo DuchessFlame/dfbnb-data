@@ -180,6 +180,15 @@ def main() -> None:
          "patchlog_latest_df_expos_pitt_rewards.json", "df-expos-pitt-rewards"),
         ("/df/daily-ops/daily-ops-all-rewards/",
          "patchlog_latest_df_daily_ops_rewards.json", "df-daily-ops-rewards"),
+
+        # Each inspiration generator gets its OWN feed so build-list changes
+        # only show on the build page and outfit item changes only show on
+        # the outfit page. These EXACT rules override the
+        # "/df/calculators/" prefix rule above.
+        ("/df/calculators/build-inspiration-generator/",
+         "patchlog_latest_df_build_inspiration.json",  "df-build-inspiration"),
+        ("/df/calculators/outfit-inspiration-generator/",
+         "patchlog_latest_df_outfit_inspiration.json", "df-outfit-inspiration"),
     ]
 
     prefix_rules = [(norm_path(p), feed, label) for (p, feed, label) in PREFIX_RULES]

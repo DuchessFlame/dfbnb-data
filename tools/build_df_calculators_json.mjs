@@ -1,6 +1,7 @@
 // scripts/build_df_calculators_json.mjs
 import fs from "fs";
 import path from "path";
+import { execFileSync } from "child_process";
 
 function readText(p) {
   return fs.readFileSync(p, "utf8");
@@ -971,5 +972,278 @@ if (FLST_ENTRIES_TSV) {
 buildOutfitInspirationJson(ARMO_TSV, path.join(OUT_DIR, "outfit_inspiration.json"), ENTM_TSV, COBJ_TSV);
 buildBigBloomCraftingJson(COBJ_TSV, path.join(OUT_DIR, "big_bloom_crafting.json"));
 if (SEASONS_TSV) buildScoreProgressionJson(SEASONS_TSV, path.join(OUT_DIR, "score_progression.json"));
+
+/* =========================================================
+   PATCHLOGS — build_inspiration + outfit_inspiration
+   Each calculator page has its own feed file so build changes
+   never appear on the outfit page and vice versa.
+
+   Frontend contract (must match patchlog_utils.py):
+     { entries: [ { ts, current, added, removed, changed } ] }
+
+   Build feed:  feed items are flattened "CATEGORY > TAG" rows,
+                keyed by tag edid.
+   Outfit feed: feed items are the outfit_inspiration items, keyed
+                by edid, with descriptive "changed" strings that
+                include the slot delta (e.g. "+Hair Top, -Beard").
+   ========================================================= */
+
+function nowIso() {
+  // Match patchlog_utils.py: UTC ISO-8601, no microseconds.
+  return new Date().toISOString().replace(/\.\d{3}Z$/, "+00:00");
+}
+
+function gitShowJson(rev, relPath) {
+  // Load a JSON file from a previous git revision, relative to repo root.
+  // Returns null on failure (missing file, not a git repo, first commit, etc.).
+  try {
+    const buf = execFileSync("git", ["show", `${rev}:${relPath}`], {
+      stdio: ["ignore", "pipe", "ignore"],
+      timeout: 30_000,
+      maxBuffer: 256 * 1024 * 1024,
+    });
+    return JSON.parse(buf.toString("utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function writeFeedFile(feedPath, entry) {
+  const feed = { entries: [entry] };
+  ensureDir(path.dirname(feedPath));
+  fs.writeFileSync(feedPath, JSON.stringify(feed, null, 2) + "\n");
+  console.log(
+    `[patchlog] ${path.basename(feedPath)}: current=${entry.current} ` +
+    `added=${entry.added.length} removed=${entry.removed.length} changed=${entry.changed.length}`
+  );
+}
+
+// --- BUILD INSPIRATION DIFF ---------------------------------------------
+
+// Flatten {categories:[{label,tags:[{edid,label}]}]} into
+// [{key: edid, name: "CATEGORY > TAG"}]
+function flattenBuildInspiration(data) {
+  if (!data || !Array.isArray(data.categories)) return [];
+  const out = [];
+  for (const cat of data.categories) {
+    const catLabel = String(cat?.label || cat?.id || "").trim() || "UNKNOWN";
+    const tags = Array.isArray(cat?.tags) ? cat.tags : [];
+    for (const t of tags) {
+      const edid = String(t?.edid || "").trim();
+      if (!edid) continue;
+      const tagLabel = String(t?.label || edid).trim();
+      out.push({ key: edid, name: `${catLabel} > ${tagLabel}` });
+    }
+  }
+  return out;
+}
+
+function diffBuildInspiration(prevData, currData) {
+  const curr = flattenBuildInspiration(currData);
+  const currByKey = new Map(curr.map(x => [x.key, x]));
+
+  // First-run guard: no previous data in git yet. Emit a clean empty diff
+  // with the current count so the feed isn't flooded with thousands of
+  // "added" rows on the initial build. Subsequent builds will diff normally.
+  if (prevData == null) {
+    return {
+      ts: nowIso(),
+      current: currByKey.size,
+      added: [],
+      removed: [],
+      changed: [],
+    };
+  }
+
+  const prev = flattenBuildInspiration(prevData);
+  const prevByKey = new Map(prev.map(x => [x.key, x]));
+
+  const added = [];
+  const removed = [];
+  const changed = [];
+
+  for (const [k, v] of currByKey) {
+    if (!prevByKey.has(k)) added.push(v.name);
+  }
+  for (const [k, v] of prevByKey) {
+    if (!currByKey.has(k)) removed.push(v.name);
+  }
+  for (const [k, v] of currByKey) {
+    const p = prevByKey.get(k);
+    if (p && p.name !== v.name) {
+      // Label rename — surface both so the reader can see the change.
+      changed.push(`${p.name} → ${v.name}`);
+    }
+  }
+
+  const cap = arr => arr.slice().sort((a, b) => a.localeCompare(b)).slice(0, 500);
+
+  return {
+    ts: nowIso(),
+    current: currByKey.size,
+    added: cap(added),
+    removed: cap(removed),
+    changed: cap(changed),
+  };
+}
+
+// --- OUTFIT INSPIRATION DIFF --------------------------------------------
+
+function outfitItemName(it) {
+  const full = String(it?.full || "").trim();
+  if (full) return full;
+  const edid = String(it?.edid || "").trim();
+  return edid || "Unknown";
+}
+
+function outfitItemKey(it) {
+  // formId is usually empty on outfit items, so key on edid.
+  const edid = String(it?.edid || "").trim();
+  if (edid) return edid;
+  return String(it?.formId || "").trim();
+}
+
+function asSet(arr) {
+  return new Set((arr || []).map(v => String(v)));
+}
+
+function describeSlotDelta(prev, curr) {
+  // Prefer human-readable flagLabels; fall back to numeric flags.
+  const prevLabels = asSet(prev?.flagLabels);
+  const currLabels = asSet(curr?.flagLabels);
+  let addedSlots = [...currLabels].filter(x => !prevLabels.has(x));
+  let removedSlots = [...prevLabels].filter(x => !currLabels.has(x));
+
+  if (!addedSlots.length && !removedSlots.length) {
+    const prevFlags = asSet(prev?.flags);
+    const currFlags = asSet(curr?.flags);
+    addedSlots = [...currFlags].filter(x => !prevFlags.has(x));
+    removedSlots = [...prevFlags].filter(x => !currFlags.has(x));
+  }
+
+  const parts = [];
+  if (addedSlots.length) parts.push("+" + addedSlots.sort().join(", +"));
+  if (removedSlots.length) parts.push("-" + removedSlots.sort().join(", -"));
+  return parts.length ? `slots: ${parts.join(", ")}` : "";
+}
+
+function describeOutfitChange(prev, curr) {
+  // Builds a human-readable reason string. Empty if nothing tracked changed.
+  const reasons = [];
+
+  const slotDelta = describeSlotDelta(prev, curr);
+  if (slotDelta) reasons.push(slotDelta);
+
+  const prevType = String(prev?.type || "").trim();
+  const currType = String(curr?.type || "").trim();
+  if (prevType !== currType) {
+    reasons.push(`type: ${prevType || "?"} → ${currType || "?"}`);
+  }
+
+  const prevSetKey = String(prev?.armorSetKey || "").trim();
+  const currSetKey = String(curr?.armorSetKey || "").trim();
+  if (prevSetKey !== currSetKey) {
+    reasons.push(`set: ${prevSetKey || "?"} → ${currSetKey || "?"}`);
+  }
+
+  const prevFull = String(prev?.full || "").trim();
+  const currFull = String(curr?.full || "").trim();
+  if (prevFull && currFull && prevFull !== currFull) {
+    reasons.push(`renamed from "${prevFull}"`);
+  }
+
+  const prevKw = asSet(prev?.keywords);
+  const currKw = asSet(curr?.keywords);
+  const addedKw = [...currKw].filter(x => !prevKw.has(x));
+  const removedKw = [...prevKw].filter(x => !currKw.has(x));
+  if (addedKw.length || removedKw.length) {
+    const bits = [];
+    if (addedKw.length) bits.push("+" + addedKw.sort().join(", +"));
+    if (removedKw.length) bits.push("-" + removedKw.sort().join(", -"));
+    reasons.push(`keywords: ${bits.join(", ")}`);
+  }
+
+  return reasons.join("; ");
+}
+
+function diffOutfitInspiration(prevData, currData) {
+  const currItems = Array.isArray(currData?.items) ? currData.items : [];
+  const currByKey = new Map();
+  for (const it of currItems) {
+    const k = outfitItemKey(it);
+    if (k) currByKey.set(k, it);
+  }
+
+  // First-run guard (see diffBuildInspiration for rationale).
+  if (prevData == null) {
+    return {
+      ts: nowIso(),
+      current: currByKey.size,
+      added: [],
+      removed: [],
+      changed: [],
+    };
+  }
+
+  const prevItems = Array.isArray(prevData?.items) ? prevData.items : [];
+  const prevByKey = new Map();
+  for (const it of prevItems) {
+    const k = outfitItemKey(it);
+    if (k) prevByKey.set(k, it);
+  }
+
+  const added = [];
+  const removed = [];
+  const changed = [];
+
+  for (const [k, it] of currByKey) {
+    if (!prevByKey.has(k)) added.push(outfitItemName(it));
+  }
+  for (const [k, it] of prevByKey) {
+    if (!currByKey.has(k)) removed.push(outfitItemName(it));
+  }
+  for (const [k, curr] of currByKey) {
+    const prev = prevByKey.get(k);
+    if (!prev) continue;
+    const reason = describeOutfitChange(prev, curr);
+    if (reason) {
+      changed.push(`${outfitItemName(curr)} (${reason})`);
+    }
+  }
+
+  const cap = arr => arr.slice().sort((a, b) => a.localeCompare(b)).slice(0, 500);
+
+  return {
+    ts: nowIso(),
+    current: currByKey.size,
+    added: cap(added),
+    removed: cap(removed),
+    changed: cap(changed),
+  };
+}
+
+// --- WRITE FEEDS --------------------------------------------------------
+
+function buildInspirationPatchlogs(outDir) {
+  const buildRel = path.posix.join(outDir.replace(/\\/g, "/"), "build_inspiration.json");
+  const outfitRel = path.posix.join(outDir.replace(/\\/g, "/"), "outfit_inspiration.json");
+
+  const currBuild = JSON.parse(fs.readFileSync(path.join(outDir, "build_inspiration.json"), "utf8"));
+  const currOutfit = JSON.parse(fs.readFileSync(path.join(outDir, "outfit_inspiration.json"), "utf8"));
+
+  const prevBuild = gitShowJson("HEAD^", buildRel);
+  const prevOutfit = gitShowJson("HEAD^", outfitRel);
+
+  const buildEntry = diffBuildInspiration(prevBuild, currBuild);
+  const outfitEntry = diffOutfitInspiration(prevOutfit, currOutfit);
+
+  // Write alongside the data files. A workflow step later copies/renames
+  // these into dist/ as patchlog_latest_df_<name>.json so the patchlog
+  // manifest can point at them.
+  writeFeedFile(path.join(outDir, "build_inspiration_patchlog.json"), buildEntry);
+  writeFeedFile(path.join(outDir, "outfit_inspiration_patchlog.json"), outfitEntry);
+}
+
+buildInspirationPatchlogs(OUT_DIR);
 
 console.log("Built calculators JSON into:", OUT_DIR);

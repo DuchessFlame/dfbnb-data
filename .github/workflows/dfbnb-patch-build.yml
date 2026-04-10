@@ -200,6 +200,15 @@ jobs:
           COBJ_TSV: ${{ env.COBJ_TSV }}
           OUT_DIR: dist/calculators
 
+      - name: Stage DF calculators patchlog feeds
+        # build_df_calculators_json.mjs writes per-page patchlog feeds next to
+        # the data files. Copy them into dist/ with the names the patchlog
+        # manifest expects so the build-inspiration page and the
+        # outfit-inspiration page each get their own, separate feed.
+        run: |
+          cp dist/calculators/build_inspiration_patchlog.json  dist/patchlog_latest_df_build_inspiration.json
+          cp dist/calculators/outfit_inspiration_patchlog.json dist/patchlog_latest_df_outfit_inspiration.json
+
       # --- ARMOUR DATA ---
       - name: Build Armour Data JSON
         run: python src/build_armour_json.py --data-dir tsv --out dist/armour.json
