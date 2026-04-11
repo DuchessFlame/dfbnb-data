@@ -132,6 +132,21 @@ jobs:
       - name: Build Activities Rewards JSON
         run: python src/build_activities_rewards_json.py
 
+      # --- REHO REWARDS (Daily Ops, Expos, Raids, Bounty Hunts) ---
+      # Depends on dist/drop_rates.json (built above) and
+      # dist/events/events_rewards.json (built above). Must run before
+      # build_daily_ops_json.py which enriches REHO output with tradeable
+      # status from BOOK+ARMO TSVs.
+      - name: Build REHO Rewards JSON
+        run: python src/build_reho_json.py
+
+      # --- DAILY OPS (enriches REHO output with tradeable flags) ---
+      # Reads dist/reho/reho_rewards_by_page.json produced by the step
+      # above, then cross-references BOOK + ARMO TSVs to stamp each reward
+      # with a tradeable flag. Emits dist/daily_ops/daily_ops_rewards.json.
+      - name: Build Daily Ops JSON
+        run: python src/build_daily_ops_json.py
+
       # --- BOUNTY HUNTING CHALLENGES (reads CHAL TSV directly) ---
       - name: Build Bounty Hunting Challenges JSON
         run: python src/build_bounty_hunting_json.py      # --- CHALLENGES ---
@@ -412,6 +427,20 @@ jobs:
       - name: Build COBJ Recipes JSON
         run: python src/build_cobj_recipes_json.py
 
+      # --- MENU ITEMS (Buffs n Brew Crafting tab) ---
+      # Reads dist/cobj-recipes.json produced by the step above and merges
+      # with tsv/menu-overrides.tsv to produce dist/menu-items.json, which
+      # is consumed by the staff portal's Crafting tab category classifier.
+      # Must run AFTER build_cobj_recipes_json.py.
+      - name: Build Menu Items JSON
+        run: python src/build_menu_items_json.py
+
+      # --- FISHING ---
+      # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
+      # fish metadata + spawn rate tables per bait type. Self-contained.
+      - name: Build Fishing JSON
+        run: python src/build_fishing_json.py
+
       # --- ATOM SHOP ---
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
@@ -447,7 +476,12 @@ jobs:
           test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
           test -f dist/atom_shop.json                && echo "OK atom_shop.json"                || (echo "MISSING atom_shop.json" && exit 1)
           test -f dist/camp.json                     && echo "OK camp.json"                     || (echo "MISSING camp.json" && exit 1)
-          test -f dist/cobj-recipes.json              && echo "OK cobj-recipes.json"              || (echo "MISSING cobj-recipes.json" && exit 1)
+          test -f dist/cobj-recipes.json             && echo "OK cobj-recipes.json"             || (echo "MISSING cobj-recipes.json" && exit 1)
+          test -f dist/menu-items.json               && echo "OK menu-items.json"               || (echo "MISSING menu-items.json" && exit 1)
+          test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
+          test -f dist/reho/reho_rewards_by_page.json && echo "OK reho/reho_rewards_by_page.json" || (echo "MISSING reho/reho_rewards_by_page.json" && exit 1)
+          test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
+          test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
 
       # --- COMMIT ONCE ---
       - name: Commit & Push
