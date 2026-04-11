@@ -47,6 +47,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 from typing import Any, Dict, List, Optional, Tuple
 
 # Import shared diagnostics helper
@@ -367,14 +368,104 @@ def main() -> None:
     }
 
     output_path = os.path.join(args.outdir, "cobj-recipes.json")
+
+    # Atomic write + round-trip validation.
+    #
+    # The dist/cobj-recipes.json shipped in April 2026 was truncated mid-
+    # recipe_meta entry (file ended at "ATX_workshop_LL_Structure_Taggerdys_
+    # Roofs": {). That can only happen if json.dump was interrupted after
+    # opening the file in 'w' mode — the file is zeroed on open, then
+    # partially populated, then the process dies, and a broken artifact
+    # gets committed. The browser's JSON.parse then throws and the chef
+    # portal's Crafting tab silently receives an empty recipes dict.
+    #
+    # Fix pattern:
+    #   1. Serialize the full payload to a string first. If the payload
+    #      has a circular reference or a non-serialisable type, the error
+    #      happens here with zero files touched.
+    #   2. Write to a same-directory temp file and fsync before rename.
+    #      os.replace is atomic on every supported platform — the
+    #      destination either points at the old file or the new one,
+    #      never a half-written one.
+    #   3. Re-parse the destination with json.loads as a sanity check
+    #      before claiming success. If it can't round-trip we leave the
+    #      tempfile as *.json.bad for inspection and error out loud.
     try:
-        with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(output, f, indent=2, ensure_ascii=False)
+        payload = json.dumps(output, indent=2, ensure_ascii=False)
+    except Exception as e:
+        diag.error("cobj.serialize.failed", "Failed to serialise cobj-recipes payload", detail=str(e))
+        diag.save()
+        print(f"ERROR serialising {output_path}: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    tmp_fd, tmp_path = tempfile.mkstemp(
+        prefix="cobj-recipes.",
+        suffix=".json.tmp",
+        dir=args.outdir,
+    )
+    try:
+        with os.fdopen(tmp_fd, "w", encoding="utf-8") as f:
+            f.write(payload)
+            f.flush()
+            try:
+                os.fsync(f.fileno())
+            except (OSError, AttributeError):
+                # fsync may not be available on every FS (e.g. a network
+                # share inside a GH Actions windows runner). It's best-
+                # effort; os.replace below is still atomic.
+                pass
+    except Exception as e:
+        # Writing the temp file itself failed — drop it and bail.
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
+        diag.error("cobj.write.failed", "Failed to write cobj-recipes temp file", detail=str(e))
+        diag.save()
+        print(f"ERROR writing tempfile for {output_path}: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    # Round-trip verification — re-parse the tempfile so a silently
+    # truncated write can't reach dist/.
+    try:
+        with open(tmp_path, "r", encoding="utf-8") as f:
+            reparsed = json.load(f)
+        if not isinstance(reparsed, dict) or "recipes" not in reparsed:
+            raise ValueError("re-parsed JSON missing 'recipes' key")
+        if len(reparsed.get("recipes", {})) != len(recipes):
+            raise ValueError(
+                f"recipe count mismatch: wrote {len(recipes)}, reparsed {len(reparsed.get('recipes', {}))}"
+            )
+    except Exception as e:
+        # Preserve the broken file for post-mortem rather than leaving
+        # dist/cobj-recipes.json in its previous (possibly also broken)
+        # state silently.
+        bad_path = output_path + ".bad"
+        try:
+            os.replace(tmp_path, bad_path)
+        except OSError:
+            pass
+        diag.error(
+            "cobj.write.roundtrip_failed",
+            "Wrote cobj-recipes temp file but re-parse failed — refusing to publish.",
+            detail=f"{e}; bad file kept at {os.path.basename(bad_path)}",
+        )
+        diag.save()
+        print(f"ERROR round-trip validating {tmp_path}: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    # All checks passed — publish atomically.
+    try:
+        os.replace(tmp_path, output_path)
         print(f"Wrote {output_path}", file=sys.stderr)
     except Exception as e:
-        diag.error("cobj.write.failed", "Failed to write cobj-recipes.json", detail=str(e))
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
+        diag.error("cobj.publish.failed", "Failed to replace cobj-recipes.json", detail=str(e))
         diag.save()
-        print(f"ERROR writing {output_path}: {e}", file=sys.stderr)
+        print(f"ERROR publishing {output_path}: {e}", file=sys.stderr)
         sys.exit(1)
 
     diag.save()
