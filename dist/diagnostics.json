@@ -1,704 +1,111 @@
 {
-  "generated": "2026-04-11T13:08:24+00:00",
+  "generated": "2026-04-11T13:43:27+00:00",
   "sections": {
-    "cobj_recipes": {
-      "generated": "2026-04-11T13:08:24+00:00",
+    "bnb_item_categories": {
+      "generated": "2026-04-11T13:43:27+00:00",
       "counts": {
         "error": 0,
-        "warning": 0,
+        "warning": 1,
         "info": 1
       },
       "entries": [
         {
-          "severity": "info",
-          "code": "cobj.build.summary",
-          "message": "Extracted 5563 unique recipes from 56209 COBJ rows.",
-          "context": {
-            "unique_recipes": 5563,
-            "total_rows": 56209,
-            "skipped_cut": 7906,
-            "no_fvpa": 1468
-          }
-        }
-      ]
-    },
-    "menu_items": {
-      "generated": "2026-04-11T13:08:24+00:00",
-      "counts": {
-        "error": 27,
-        "warning": 27,
-        "info": 5
-      },
-      "entries": [
-        {
           "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Cutting Fluid' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Cutting Fluid",
+          "code": "bnb_categories.alch.undersized",
+          "message": "ALCH_Export TSV only has 223 records. A complete FO76 export is typically 900+; the current file may be a pre-fix partial export that stopped mid-run. Output will reflect whatever records ARE in the file, so some categories may be empty or sparse. Re-run the build after the fresh TSV is in place.",
           "context": {
-            "name": "Cutting Fluid",
-            "category": "chem",
-            "keywords": [
-              "RecipeFilter_Shared_Utility"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Cutting Fluid' has no prices set.",
-          "detail": "Cutting Fluid",
-          "context": {
-            "name": "Cutting Fluid",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'HalluciGen Gas Grenade' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "HalluciGen Gas Grenade",
-          "context": {
-            "name": "HalluciGen Gas Grenade",
-            "category": "chem",
-            "keywords": [
-              "RecipeFilter_Tinkers_Grenade"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'HalluciGen Gas Grenade' has no prices set.",
-          "detail": "HalluciGen Gas Grenade",
-          "context": {
-            "name": "HalluciGen Gas Grenade",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Tato Mash' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Tato Mash",
-          "context": {
-            "name": "Tato Mash",
-            "category": "food",
-            "keywords": [
-              "RecipeFilter_Shared_Quest"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Tato Mash' has no prices set.",
-          "detail": "Tato Mash",
-          "context": {
-            "name": "Tato Mash",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Grain Mash' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Grain Mash",
-          "context": {
-            "name": "Grain Mash",
-            "category": "food",
-            "keywords": [
-              "RecipeFilter_Shared_Quest"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Grain Mash' has no prices set.",
-          "detail": "Grain Mash",
-          "context": {
-            "name": "Grain Mash",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Fruit Mash' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Fruit Mash",
-          "context": {
-            "name": "Fruit Mash",
-            "category": "food",
-            "keywords": [
-              "RecipeFilter_Shared_Quest"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Fruit Mash' has no prices set.",
-          "detail": "Fruit Mash",
-          "context": {
-            "name": "Fruit Mash",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Unrefined Gunpowder' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Unrefined Gunpowder",
-          "context": {
-            "name": "Unrefined Gunpowder",
-            "category": "chem",
-            "keywords": [
-              "RecipeFilter_Shared_StandardAmmo"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Unrefined Gunpowder' has no prices set.",
-          "detail": "Unrefined Gunpowder",
-          "context": {
-            "name": "Unrefined Gunpowder",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Precursor 114a' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Precursor 114a",
-          "context": {
-            "name": "Precursor 114a",
-            "category": "chem",
-            "keywords": []
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Precursor 114a' has no prices set.",
-          "detail": "Precursor 114a",
-          "context": {
-            "name": "Precursor 114a",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Precursor 114b' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Precursor 114b",
-          "context": {
-            "name": "Precursor 114b",
-            "category": "chem",
-            "keywords": []
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Precursor 114b' has no prices set.",
-          "detail": "Precursor 114b",
-          "context": {
-            "name": "Precursor 114b",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Precursor 7516a' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Precursor 7516a",
-          "context": {
-            "name": "Precursor 7516a",
-            "category": "chem",
-            "keywords": []
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Precursor 7516a' has no prices set.",
-          "detail": "Precursor 7516a",
-          "context": {
-            "name": "Precursor 7516a",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Precursor 7516b' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Precursor 7516b",
-          "context": {
-            "name": "Precursor 7516b",
-            "category": "chem",
-            "keywords": []
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Precursor 7516b' has no prices set.",
-          "detail": "Precursor 7516b",
-          "context": {
-            "name": "Precursor 7516b",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Solvent Attractant' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Solvent Attractant",
-          "context": {
-            "name": "Solvent Attractant",
-            "category": "chem",
-            "keywords": [
-              "RecipeFilter_Shared_Utility"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Solvent Attractant' has no prices set.",
-          "detail": "Solvent Attractant",
-          "context": {
-            "name": "Solvent Attractant",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Solvent Deterrant' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Solvent Deterrant",
-          "context": {
-            "name": "Solvent Deterrant",
-            "category": "chem",
-            "keywords": [
-              "RecipeFilter_Shared_Utility"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Solvent Deterrant' has no prices set.",
-          "detail": "Solvent Deterrant",
-          "context": {
-            "name": "Solvent Deterrant",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Solvent Suppressor' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Solvent Suppressor",
-          "context": {
-            "name": "Solvent Suppressor",
-            "category": "chem",
-            "keywords": [
-              "RecipeFilter_Shared_Utility"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Solvent Suppressor' has no prices set.",
-          "detail": "Solvent Suppressor",
-          "context": {
-            "name": "Solvent Suppressor",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Solvent Enhancer' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Solvent Enhancer",
-          "context": {
-            "name": "Solvent Enhancer",
-            "category": "chem",
-            "keywords": [
-              "RecipeFilter_Shared_Utility"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Solvent Enhancer' has no prices set.",
-          "detail": "Solvent Enhancer",
-          "context": {
-            "name": "Solvent Enhancer",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Weaponized Nuka-Cola Quantum Ammo' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Weaponized Nuka-Cola Quantum Ammo",
-          "context": {
-            "name": "Weaponized Nuka-Cola Quantum Ammo",
-            "category": "chem",
-            "keywords": [
-              "DLC04_RecipeThirstZapperAmmo"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Weaponized Nuka-Cola Quantum Ammo' has no prices set.",
-          "detail": "Weaponized Nuka-Cola Quantum Ammo",
-          "context": {
-            "name": "Weaponized Nuka-Cola Quantum Ammo",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Weaponized Nuka-Cherry Ammo' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Weaponized Nuka-Cherry Ammo",
-          "context": {
-            "name": "Weaponized Nuka-Cherry Ammo",
-            "category": "chem",
-            "keywords": [
-              "DLC04_RecipeThirstZapperAmmo"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Weaponized Nuka-Cherry Ammo' has no prices set.",
-          "detail": "Weaponized Nuka-Cherry Ammo",
-          "context": {
-            "name": "Weaponized Nuka-Cherry Ammo",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Weaponized Nuka-Cola Ammo' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Weaponized Nuka-Cola Ammo",
-          "context": {
-            "name": "Weaponized Nuka-Cola Ammo",
-            "category": "chem",
-            "keywords": [
-              "DLC04_RecipeThirstZapperAmmo"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Weaponized Nuka-Cola Ammo' has no prices set.",
-          "detail": "Weaponized Nuka-Cola Ammo",
-          "context": {
-            "name": "Weaponized Nuka-Cola Ammo",
-            "category": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Water Filter' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Water Filter",
-          "context": {
-            "name": "Water Filter",
-            "category": "chem",
-            "keywords": [
-              "RecipeFilter_Shared_Utility"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Water Filter' has no prices set.",
-          "detail": "Water Filter",
-          "context": {
-            "name": "Water Filter",
-            "category": "chem"
+            "records": 223,
+            "file": "ALCH_Export_Apr_2026.tsv"
           }
         },
         {
           "severity": "info",
-          "code": "menu.category_conflict",
-          "message": "'Sunshine Oil': COBJ suggests 'food', override sets 'chem'.",
+          "code": "bnb_categories.build.summary",
+          "message": "Built 109 items across 7 categories",
           "context": {
-            "name": "Sunshine Oil",
-            "cobj": "food",
-            "override": "chem"
-          }
-        },
-        {
-          "severity": "info",
-          "code": "menu.category_conflict",
-          "message": "'Purified Water': COBJ suggests 'food', override sets 'chem'.",
-          "context": {
-            "name": "Purified Water",
-            "cobj": "food",
-            "override": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Tarberry Nougat Heart' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Tarberry Nougat Heart",
-          "context": {
-            "name": "Tarberry Nougat Heart",
-            "category": "food",
-            "keywords": [
-              "RecipeFilter_Shared_Quest"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Tarberry Nougat Heart' has no prices set.",
-          "detail": "Tarberry Nougat Heart",
-          "context": {
-            "name": "Tarberry Nougat Heart",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "info",
-          "code": "menu.category_conflict",
-          "message": "'Lemonade': COBJ suggests 'food', override sets 'chem'.",
-          "context": {
-            "name": "Lemonade",
-            "cobj": "food",
-            "override": "chem"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Wasteland Fish Sandwich' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Wasteland Fish Sandwich",
-          "context": {
-            "name": "Wasteland Fish Sandwich",
-            "category": "food",
-            "keywords": [
-              "Meal_Recipe_Meat",
-              "Meal_Recipe_Food",
-              "Meal_Recipe_Prepared"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Wasteland Fish Sandwich' has no prices set.",
-          "detail": "Wasteland Fish Sandwich",
-          "context": {
-            "name": "Wasteland Fish Sandwich",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Jellied Fish' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Jellied Fish",
-          "context": {
-            "name": "Jellied Fish",
-            "category": "food",
-            "keywords": [
-              "Meal_Recipe_Meat",
-              "Meal_Recipe_Food",
-              "Meal_Recipe_Prepared"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Jellied Fish' has no prices set.",
-          "detail": "Jellied Fish",
-          "context": {
-            "name": "Jellied Fish",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Fall Filet' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Fall Filet",
-          "context": {
-            "name": "Fall Filet",
-            "category": "food",
-            "keywords": [
-              "Meal_Recipe_Food",
-              "Meal_Recipe_FishBits"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Fall Filet' has no prices set.",
-          "detail": "Fall Filet",
-          "context": {
-            "name": "Fall Filet",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Winter Filet' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Winter Filet",
-          "context": {
-            "name": "Winter Filet",
-            "category": "food",
-            "keywords": [
-              "Meal_Recipe_Food",
-              "Meal_Recipe_FishBits"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Winter Filet' has no prices set.",
-          "detail": "Winter Filet",
-          "context": {
-            "name": "Winter Filet",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Summer Filet' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Summer Filet",
-          "context": {
-            "name": "Summer Filet",
-            "category": "food",
-            "keywords": [
-              "Meal_Recipe_Food",
-              "Meal_Recipe_FishBits"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Summer Filet' has no prices set.",
-          "detail": "Summer Filet",
-          "context": {
-            "name": "Summer Filet",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Spring Filet' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Spring Filet",
-          "context": {
-            "name": "Spring Filet",
-            "category": "food",
-            "keywords": [
-              "Meal_Recipe_Food",
-              "Meal_Recipe_FishBits"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Spring Filet' has no prices set.",
-          "detail": "Spring Filet",
-          "context": {
-            "name": "Spring Filet",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Moo-Moo Curd' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Moo-Moo Curd",
-          "context": {
-            "name": "Moo-Moo Curd",
-            "category": "food",
-            "keywords": [
-              "Meal_Recipe_Food",
-              "Meal_Recipe_Prepared"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Moo-Moo Curd' has no prices set.",
-          "detail": "Moo-Moo Curd",
-          "context": {
-            "name": "Moo-Moo Curd",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Pickled Pumpkin' has no entry in menu-overrides.tsv - add a row to set price/limits.",
-          "detail": "Pickled Pumpkin",
-          "context": {
-            "name": "Pickled Pumpkin",
-            "category": "food",
-            "keywords": [
-              "Meal_Recipe_Food",
-              "Meal_Recipe_Prepared"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Pickled Pumpkin' has no prices set.",
-          "detail": "Pickled Pumpkin",
-          "context": {
-            "name": "Pickled Pumpkin",
-            "category": "food"
-          }
-        },
-        {
-          "severity": "info",
-          "code": "menu.skipped",
-          "message": "Skipped 83 items marked skip=1 in menu-overrides.tsv.",
-          "context": {
-            "count": 83
-          }
-        },
-        {
-          "severity": "info",
-          "code": "menu.build.summary",
-          "message": "Wrote 339 menu items (232 Food, 107 Chem).",
-          "context": {
-            "total": 339,
-            "food": 232,
-            "chem": 107
+            "total_items": 109,
+            "alch_records": 223,
+            "source_alch": "ALCH_Export_Apr_2026.tsv",
+            "source_kywd": "KYWD_Export_Apr_2026_Refs.tsv",
+            "stats": {
+              "food": {
+                "candidates": 607,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 80,
+                "excluded_raw": 145,
+                "excluded_missing_alch": 345,
+                "excluded_by_edid_substring": 0,
+                "included": 37,
+                "post_included_via_suffix": 0
+              },
+              "canned": {
+                "candidates": 44,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 9,
+                "excluded_missing_alch": 22,
+                "excluded_by_edid_substring": 0,
+                "included": 13,
+                "post_included_via_suffix": 0
+              },
+              "nuka_cola": {
+                "candidates": 159,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 6,
+                "excluded_missing_alch": 130,
+                "excluded_by_edid_substring": 16,
+                "included": 7,
+                "post_included_via_suffix": 0
+              },
+              "chems": {
+                "candidates": 81,
+                "excluded_cut": 1,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 47,
+                "excluded_by_edid_substring": 0,
+                "included": 33,
+                "post_included_via_suffix": 0
+              },
+              "alcohol": {
+                "candidates": 159,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 76,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 71,
+                "excluded_by_edid_substring": 0,
+                "included": 12,
+                "post_included_via_suffix": 0
+              },
+              "serums": {
+                "candidates": 21,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 21,
+                "excluded_by_edid_substring": 0,
+                "included": 0,
+                "post_included_via_suffix": 0
+              },
+              "prewar_candy": {
+                "candidates": 21,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 16,
+                "excluded_by_edid_substring": 0,
+                "included": 7,
+                "post_included_via_suffix": 2
+              }
+            }
           }
         }
       ]
