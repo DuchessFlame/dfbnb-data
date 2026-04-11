@@ -1,36 +1,38 @@
-(*
-  ExportCOBJToTSV.pas
-  ====================
-  Exports selected COBJ (Constructible Object) records to TSV.
-
-  Fix history:
-    - 2026-04-11: Rewritten to use ElementBySignature instead of
-      ElementByPath('XXXX - Label') — the label text drifts between
-      xEdit versions, which silently returned nil and produced empty
-      GNAM/FNAM/FVPA columns in the April 2026 export. Signatures are
-      immutable. Also added BNAM (real workbench keyword in FO76) and
-      explicit sub-field parsing for FVPA Component/Count pairs.
-    - 2026-04-11 (later): Switched the outer header comment from
-      {...} to (* ... *) because Pascal {...} comments don't nest —
-      the inner {workbench keyword - FO76} annotation was silently
-      closing the outer block, causing xEdit to throw
-      "'unit' expected but 'GNAM_FormID' found." on load.
-
-  Columns (header):
-    COBJ_FormID, COBJ_EDID,
-    CNAM_FormID, CNAM_EDID, CNAM_FULL,
-    BNAM_FormID, BNAM_EDID, BNAM_FULL      -- workbench keyword (FO76)
-    GNAM_FormID, GNAM_EDID, GNAM_FULL      -- recipe book ref (legacy/optional)
-    FNAM_Keywords, FVPA, ReferencedBy_Flat, ReferencedByCount,
-    Ref_1..Ref_N
-
-  Legacy builders (build_cobj_recipes_json.py) accept either
-  COBJ_EDID or EDID for the EDID column — we emit COBJ_EDID so older
-  monthly TSVs stay comparable.
-
-  Variable-width Ref columns (0..N). FNAM and FVPA are flat-joined
-  with pipes. FVPA format: "ComponentEDID:Count|ComponentEDID:Count".
-*)
+// ExportCOBJToTSV.pas
+// ====================
+// Exports selected COBJ (Constructible Object) records to TSV.
+//
+// Fix history:
+//   - 2026-04-11: Rewritten to use ElementBySignature instead of
+//     ElementByPath with label strings -- the label text drifts
+//     between xEdit versions, silently returning nil and producing
+//     empty GNAM/FNAM/FVPA columns in the April 2026 export.
+//     Signatures (four-char record codes) are immutable. Also added
+//     BNAM (real workbench keyword in FO76) and explicit sub-field
+//     parsing for FVPA Component/Count pairs.
+//   - 2026-04-11 (later): Header block rewritten as // line comments.
+//     Earlier versions used curly-brace block comments with nested
+//     curly annotations, which Pascal does not support -- the inner
+//     close-brace ended the outer comment and the parser failed on
+//     the first code-looking token after it. A follow-up attempt used
+//     paren-star block comments but included the literal paren-star
+//     sequence inside the body, which again closed the outer block
+//     prematurely. Line comments sidestep both problems.
+//
+// Columns (header):
+//   COBJ_FormID, COBJ_EDID,
+//   CNAM_FormID, CNAM_EDID, CNAM_FULL,
+//   BNAM_FormID, BNAM_EDID, BNAM_FULL      -- workbench keyword (FO76)
+//   GNAM_FormID, GNAM_EDID, GNAM_FULL      -- recipe book ref (legacy/optional)
+//   FNAM_Keywords, FVPA, ReferencedBy_Flat, ReferencedByCount,
+//   Ref_1..Ref_N
+//
+// Legacy builders (build_cobj_recipes_json.py) accept either
+// COBJ_EDID or EDID for the EDID column -- we emit COBJ_EDID so
+// older monthly TSVs stay comparable.
+//
+// Variable-width Ref columns (0..N). FNAM and FVPA are flat-joined
+// with pipes. FVPA format: ComponentEDID:Count|ComponentEDID:Count
 
 unit UserScript;
 
