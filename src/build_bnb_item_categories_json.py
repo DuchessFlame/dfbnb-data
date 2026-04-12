@@ -252,7 +252,10 @@ CATEGORIES: Dict[str, Dict[str, Any]] = {
     },
     "alcohol": {
         "include_kywds": [
-            "000F4AEC",  # ObjectTypeDrink (too broad — filtered below)
+            # ObjectTypeDrink (000F4AEC) deliberately omitted — it catches
+            # Brahmin Milk, Chally's Milk, Cream, Carry Weight Booster etc.
+            # Every real alcohol item already has one of the three specific
+            # alcohol keywords below.
             "00864CC6",  # DrinkTypeSarsaparilla
             "004878E3",  # DrinkTypeLiquor
             "0010C416",  # DrinkTypeAlcohol

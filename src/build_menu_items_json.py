@@ -60,7 +60,13 @@ REQUIRED_OVERRIDE_COLS = {
 PRICE_FIELDS = ("price_xbox", "price_ps", "price_pc")
 LIMIT_FIELDS = ("limit_new", "limit_existing")
 
-CATEGORY_LABEL = {"food": "Food", "chem": "Chem", "canned": "Canned"}
+CATEGORY_LABEL = {
+    "food": "Food",
+    "chem": "Chem",
+    "canned": "Canned",
+    "alcohol": "Alcohol",
+    "soda": "Soda",
+}
 
 
 # ---------------------------------------------------------------------------

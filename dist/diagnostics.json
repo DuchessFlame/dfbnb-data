@@ -1,3764 +1,12 @@
 {
-  "generated": "2026-04-12T09:04:00+00:00",
+  "generated": "2026-04-12T09:24:34+00:00",
   "sections": {
-    "bnb_item_categories": {
-      "generated": "2026-04-12T08:49:08+00:00",
-      "counts": {
-        "error": 0,
-        "warning": 0,
-        "info": 1
-      },
-      "entries": [
-        {
-          "severity": "info",
-          "code": "bnb_categories.build.summary",
-          "message": "Built 283 items across 7 categories",
-          "context": {
-            "total_items": 283,
-            "alch_records": 950,
-            "source_alch": "ALCH_Export_March_2026.tsv",
-            "source_kywd": "KYWD_Export_March_2026_Refs.tsv",
-            "stats": {
-              "food": {
-                "candidates": 582,
-                "excluded_cut": 21,
-                "excluded_no_name": 6,
-                "excluded_by_kywd": 80,
-                "excluded_raw": 401,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 74,
-                "post_included_via_suffix": 0
-              },
-              "canned": {
-                "candidates": 26,
-                "excluded_cut": 3,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 0,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 23,
-                "post_included_via_suffix": 0
-              },
-              "nuka_cola": {
-                "candidates": 159,
-                "excluded_cut": 14,
-                "excluded_no_name": 6,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 42,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 78,
-                "included": 19,
-                "post_included_via_suffix": 0
-              },
-              "chems": {
-                "candidates": 81,
-                "excluded_cut": 27,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 0,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 54,
-                "post_included_via_suffix": 0
-              },
-              "alcohol": {
-                "candidates": 159,
-                "excluded_cut": 6,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 76,
-                "excluded_raw": 4,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 73,
-                "post_included_via_suffix": 0
-              },
-              "serums": {
-                "candidates": 21,
-                "excluded_cut": 2,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 0,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 19,
-                "post_included_via_suffix": 0
-              },
-              "prewar_candy": {
-                "candidates": 20,
-                "excluded_cut": 0,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 1,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 21,
-                "post_included_via_suffix": 2
-              }
-            }
-          }
-        }
-      ]
-    },
-    "bnb_menu": {
-      "generated": "2026-04-12T08:33:48+00:00",
-      "counts": {
-        "error": 240,
-        "warning": 0,
-        "info": 5
-      },
-      "entries": [
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mire Magic Moonshine' (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Mire Magic Moonshine",
-          "context": {
-            "name": "Mire Magic Moonshine",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Muttberry Shine' (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Muttberry Shine",
-          "context": {
-            "name": "Muttberry Shine",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"Rodgers' Reserve Beer\" (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Rodgers' Reserve Beer",
-          "context": {
-            "name": "Rodgers' Reserve Beer",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Sugar-Free Nukashine' (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Sugar-Free Nukashine",
-          "context": {
-            "name": "Sugar-Free Nukashine",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Sunday Shine' (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Sunday Shine",
-          "context": {
-            "name": "Sunday Shine",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Tater Shine' (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Tater Shine",
-          "context": {
-            "name": "Tater Shine",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Vintage Firecracker Whiskey' (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Vintage Firecracker Whiskey",
-          "context": {
-            "name": "Vintage Firecracker Whiskey",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Vintage Lead Champagne' (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Vintage Lead Champagne",
-          "context": {
-            "name": "Vintage Lead Champagne",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Vintage Nukashine' (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Vintage Nukashine",
-          "context": {
-            "name": "Vintage Nukashine",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Vintage Tick Blood Tequila' (Alcohol) is missing price for: xbox, ps, pc",
-          "detail": "Vintage Tick Blood Tequila",
-          "context": {
-            "name": "Vintage Tick Blood Tequila",
-            "category": "Alcohol",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Canned Blight Soup' (Canned) is missing price for: xbox, ps, pc",
-          "detail": "Canned Blight Soup",
-          "context": {
-            "name": "Canned Blight Soup",
-            "category": "Canned",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Canned Brain Bombs' (Canned) is missing price for: xbox, ps, pc",
-          "detail": "Canned Brain Bombs",
-          "context": {
-            "name": "Canned Brain Bombs",
-            "category": "Canned",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Canned Broiled Scorchbeast Brain' (Canned) is missing price for: xbox, ps, pc",
-          "detail": "Canned Broiled Scorchbeast Brain",
-          "context": {
-            "name": "Canned Broiled Scorchbeast Brain",
-            "category": "Canned",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Canned Deathclaw Wellington' (Canned) is missing price for: xbox, ps, pc",
-          "detail": "Canned Deathclaw Wellington",
-          "context": {
-            "name": "Canned Deathclaw Wellington",
-            "category": "Canned",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Canned Glowing Fish Chowder' (Canned) is missing price for: xbox, ps, pc",
-          "detail": "Canned Glowing Fish Chowder",
-          "context": {
-            "name": "Canned Glowing Fish Chowder",
-            "category": "Canned",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Canned Glowing Grilled Fish' (Canned) is missing price for: xbox, ps, pc",
-          "detail": "Canned Glowing Grilled Fish",
-          "context": {
-            "name": "Canned Glowing Grilled Fish",
-            "category": "Canned",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Canned Smoked Mirelurk Fillets' (Canned) is missing price for: xbox, ps, pc",
-          "detail": "Canned Smoked Mirelurk Fillets",
-          "context": {
-            "name": "Canned Smoked Mirelurk Fillets",
-            "category": "Canned",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Canned Tato Salad' (Canned) is missing price for: xbox, ps, pc",
-          "detail": "Canned Tato Salad",
-          "context": {
-            "name": "Canned Tato Salad",
-            "category": "Canned",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'\"The Fix\"' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "\"The Fix\"",
-          "context": {
-            "name": "\"The Fix\"",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Calmex Silk' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Calmex Silk",
-          "context": {
-            "name": "Calmex Silk",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Carry Weight Booster' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Carry Weight Booster",
-          "context": {
-            "name": "Carry Weight Booster",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fiery Infusion Tier I' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Fiery Infusion Tier I",
-          "context": {
-            "name": "Fiery Infusion Tier I",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Formula B' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Formula B",
-          "context": {
-            "name": "Formula B",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Formula Q' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Formula Q",
-          "context": {
-            "name": "Formula Q",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Healing Cloud Infusion Tier I' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Healing Cloud Infusion Tier I",
-          "context": {
-            "name": "Healing Cloud Infusion Tier I",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Healing Cloud Infusion Tier II' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Healing Cloud Infusion Tier II",
-          "context": {
-            "name": "Healing Cloud Infusion Tier II",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Healing Cloud Infusion Tier III' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Healing Cloud Infusion Tier III",
-          "context": {
-            "name": "Healing Cloud Infusion Tier III",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Lunchbox' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Lunchbox",
-          "context": {
-            "name": "Lunchbox",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mentats' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Mentats",
-          "context": {
-            "name": "Mentats",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"Nuclear Don's Custom Chem Blend\" (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Nuclear Don's Custom Chem Blend",
-          "context": {
-            "name": "Nuclear Don's Custom Chem Blend",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Phantom Device' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Phantom Device",
-          "context": {
-            "name": "Phantom Device",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Refreshing Beverage' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Refreshing Beverage",
-          "context": {
-            "name": "Refreshing Beverage",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Skeeto Spit' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Skeeto Spit",
-          "context": {
-            "name": "Skeeto Spit",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Super Chem MK I' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Super Chem MK I",
-          "context": {
-            "name": "Super Chem MK I",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Super Chem MK II' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Super Chem MK II",
-          "context": {
-            "name": "Super Chem MK II",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Super Chem MK III' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Super Chem MK III",
-          "context": {
-            "name": "Super Chem MK III",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'SuperChem' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "SuperChem",
-          "context": {
-            "name": "SuperChem",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"Surly's Buffout\" (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Surly's Buffout",
-          "context": {
-            "name": "Surly's Buffout",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Survival Syringe' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Survival Syringe",
-          "context": {
-            "name": "Survival Syringe",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Trench-Med' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Trench-Med",
-          "context": {
-            "name": "Trench-Med",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Firecracker Nougat Heart' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Firecracker Nougat Heart",
-          "context": {
-            "name": "Firecracker Nougat Heart",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 197: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
-          "detail": "Fried Radroach On A Stick"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glowing Fish and Tatos' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Glowing Fish and Tatos",
-          "context": {
-            "name": "Glowing Fish and Tatos",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glowing Fish Chowder' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Glowing Fish Chowder",
-          "context": {
-            "name": "Glowing Fish Chowder",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glowing Grilled Fish' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Glowing Grilled Fish",
-          "context": {
-            "name": "Glowing Grilled Fish",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Moo-Moo Curd' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Moo-Moo Curd",
-          "context": {
-            "name": "Moo-Moo Curd",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mutfruit Nougat Heart' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Mutfruit Nougat Heart",
-          "context": {
-            "name": "Mutfruit Nougat Heart",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mutton Chops' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Mutton Chops",
-          "context": {
-            "name": "Mutton Chops",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nougat Candy Assortment' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Nougat Candy Assortment",
-          "context": {
-            "name": "Nougat Candy Assortment",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Owlet Nuggets' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Owlet Nuggets",
-          "context": {
-            "name": "Owlet Nuggets",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Restorative Venison and Tato Stew' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Restorative Venison and Tato Stew",
-          "context": {
-            "name": "Restorative Venison and Tato Stew",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Slice of Birthday Cake' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Slice of Birthday Cake",
-          "context": {
-            "name": "Slice of Birthday Cake",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Slice of Pumpkin Pie' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Slice of Pumpkin Pie",
-          "context": {
-            "name": "Slice of Pumpkin Pie",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Slice of Slime Cake' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Slice of Slime Cake",
-          "context": {
-            "name": "Slice of Slime Cake",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Spicy Venison and Tato Stew' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Spicy Venison and Tato Stew",
-          "context": {
-            "name": "Spicy Venison and Tato Stew",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Spiked Venison and Tato Stew' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Spiked Venison and Tato Stew",
-          "context": {
-            "name": "Spiked Venison and Tato Stew",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Steeped Carrot Flower Tea' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Steeped Carrot Flower Tea",
-          "context": {
-            "name": "Steeped Carrot Flower Tea",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Swamp Tofu' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Swamp Tofu",
-          "context": {
-            "name": "Swamp Tofu",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Tarberry Nougat Heart' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Tarberry Nougat Heart",
-          "context": {
-            "name": "Tarberry Nougat Heart",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Bog Sucker' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Bog Sucker",
-          "context": {
-            "name": "Bog Sucker",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fall Filet' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Fall Filet",
-          "context": {
-            "name": "Fall Filet",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fernskipper' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Fernskipper",
-          "context": {
-            "name": "Fernskipper",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fester Koi' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Fester Koi",
-          "context": {
-            "name": "Fester Koi",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glass Ghost' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Glass Ghost",
-          "context": {
-            "name": "Glass Ghost",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Jellied Fish' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Jellied Fish",
-          "context": {
-            "name": "Jellied Fish",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Orange Overseer' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Orange Overseer",
-          "context": {
-            "name": "Orange Overseer",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Spring Filet' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Spring Filet",
-          "context": {
-            "name": "Spring Filet",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Summer Filet' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Summer Filet",
-          "context": {
-            "name": "Summer Filet",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Wasteland Fish Sandwich' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Wasteland Fish Sandwich",
-          "context": {
-            "name": "Wasteland Fish Sandwich",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Winter Filet' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Winter Filet",
-          "context": {
-            "name": "Winter Filet",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Angler Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Angler Meat",
-          "context": {
-            "name": "Angler Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Ant Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Ant Meat",
-          "context": {
-            "name": "Ant Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Ash Rose' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Ash Rose",
-          "context": {
-            "name": "Ash Rose",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Aster' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Aster",
-          "context": {
-            "name": "Aster",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Bioluminescent Fluid' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Bioluminescent Fluid",
-          "context": {
-            "name": "Bioluminescent Fluid",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Black Bloodleaf' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Black Bloodleaf",
-          "context": {
-            "name": "Black Bloodleaf",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Blight' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Blight",
-          "context": {
-            "name": "Blight",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Bloatfly Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Bloatfly Meat",
-          "context": {
-            "name": "Bloatfly Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Bloodbug Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Bloodbug Meat",
-          "context": {
-            "name": "Bloodbug Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Bloodleaf' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Bloodleaf",
-          "context": {
-            "name": "Bloodleaf",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Boiled Water' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Boiled Water",
-          "context": {
-            "name": "Boiled Water",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Brahmin Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Brahmin Meat",
-          "context": {
-            "name": "Brahmin Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Brahmin Milk' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Brahmin Milk",
-          "context": {
-            "name": "Brahmin Milk",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Brain Fungus' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Brain Fungus",
-          "context": {
-            "name": "Brain Fungus",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Carrot' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Carrot",
-          "context": {
-            "name": "Carrot",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Carrot Flower' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Carrot Flower",
-          "context": {
-            "name": "Carrot Flower",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Cave Cricket Gland' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Cave Cricket Gland",
-          "context": {
-            "name": "Cave Cricket Gland",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Cave Cricket Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Cave Cricket Meat",
-          "context": {
-            "name": "Cave Cricket Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Cave Fungus' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Cave Fungus",
-          "context": {
-            "name": "Cave Fungus",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"Chally's Milk\" (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Chally's Milk",
-          "context": {
-            "name": "Chally's Milk",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Chicken Thigh' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Chicken Thigh",
-          "context": {
-            "name": "Chicken Thigh",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 433: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
-          "detail": "Chicken Thigh"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Corn' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Corn",
-          "context": {
-            "name": "Corn",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Corpse Flower Stamen' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Corpse Flower Stamen",
-          "context": {
-            "name": "Corpse Flower Stamen",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Corpse Seeds' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Corpse Seeds",
-          "context": {
-            "name": "Corpse Seeds",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Cranberries' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Cranberries",
-          "context": {
-            "name": "Cranberries",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Cream' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Cream",
-          "context": {
-            "name": "Cream",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Deathclaw Egg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Deathclaw Egg",
-          "context": {
-            "name": "Deathclaw Egg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Deathclaw Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Deathclaw Meat",
-          "context": {
-            "name": "Deathclaw Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Dirty Water' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Dirty Water",
-          "context": {
-            "name": "Dirty Water",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Diseased Cranberries' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Diseased Cranberries",
-          "context": {
-            "name": "Diseased Cranberries",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fever Blossom' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Fever Blossom",
-          "context": {
-            "name": "Fever Blossom",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Firecap' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Firecap",
-          "context": {
-            "name": "Firecap",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Firecracker Berry' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Firecracker Berry",
-          "context": {
-            "name": "Firecracker Berry",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Flying Ant Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Flying Ant Meat",
-          "context": {
-            "name": "Flying Ant Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fox Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Fox Meat",
-          "context": {
-            "name": "Fox Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Frog Egg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Frog Egg",
-          "context": {
-            "name": "Frog Egg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Frog Leg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Frog Leg",
-          "context": {
-            "name": "Frog Leg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Ginseng Root' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Ginseng Root",
-          "context": {
-            "name": "Ginseng Root",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glowing Fungus' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Glowing Fungus",
-          "context": {
-            "name": "Glowing Fungus",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glowing Mass' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Glowing Mass",
-          "context": {
-            "name": "Glowing Mass",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glowing Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Glowing Meat",
-          "context": {
-            "name": "Glowing Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glowing Resin' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Glowing Resin",
-          "context": {
-            "name": "Glowing Resin",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Gourd' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Gourd",
-          "context": {
-            "name": "Gourd",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Gourd Blossom' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Gourd Blossom",
-          "context": {
-            "name": "Gourd Blossom",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Gulper Innards' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Gulper Innards",
-          "context": {
-            "name": "Gulper Innards",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Gut Shroom' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Gut Shroom",
-          "context": {
-            "name": "Gut Shroom",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Healthy Deathclaw Egg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Healthy Deathclaw Egg",
-          "context": {
-            "name": "Healthy Deathclaw Egg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Hermit Crab Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Hermit Crab Meat",
-          "context": {
-            "name": "Hermit Crab Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Honeycomb' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Honeycomb",
-          "context": {
-            "name": "Honeycomb",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Iguana Bits' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Iguana Bits",
-          "context": {
-            "name": "Iguana Bits",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Inert Flux' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Inert Flux",
-          "context": {
-            "name": "Inert Flux",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Intestine' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Intestine",
-          "context": {
-            "name": "Intestine",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Ionized Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Ionized Meat",
-          "context": {
-            "name": "Ionized Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Kaleidopore Flower' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Kaleidopore Flower",
-          "context": {
-            "name": "Kaleidopore Flower",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Lure Weed' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Lure Weed",
-          "context": {
-            "name": "Lure Weed",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Megasloth Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Megasloth Meat",
-          "context": {
-            "name": "Megasloth Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Megasloth Mushroom' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Megasloth Mushroom",
-          "context": {
-            "name": "Megasloth Mushroom",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Melon' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Melon",
-          "context": {
-            "name": "Melon",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Melon Bloom' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Melon Bloom",
-          "context": {
-            "name": "Melon Bloom",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Melon Blossom' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Melon Blossom",
-          "context": {
-            "name": "Melon Blossom",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mirelurk Egg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Mirelurk Egg",
-          "context": {
-            "name": "Mirelurk Egg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mirelurk Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Mirelurk Meat",
-          "context": {
-            "name": "Mirelurk Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Moldy Food' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Moldy Food",
-          "context": {
-            "name": "Moldy Food",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mole Rat Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Mole Rat Meat",
-          "context": {
-            "name": "Mole Rat Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mongrel Dog Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Mongrel Dog Meat",
-          "context": {
-            "name": "Mongrel Dog Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mothman Egg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Mothman Egg",
-          "context": {
-            "name": "Mothman Egg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mutant Hound Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Mutant Hound Meat",
-          "context": {
-            "name": "Mutant Hound Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mutated Fern Flower' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Mutated Fern Flower",
-          "context": {
-            "name": "Mutated Fern Flower",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mutfruit' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Mutfruit",
-          "context": {
-            "name": "Mutfruit",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuclear Wastewater' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Nuclear Wastewater",
-          "context": {
-            "name": "Nuclear Wastewater",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Opossum Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Opossum Meat",
-          "context": {
-            "name": "Opossum Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Owlet Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Owlet Meat",
-          "context": {
-            "name": "Owlet Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Perfect Mothman Egg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Perfect Mothman Egg",
-          "context": {
-            "name": "Perfect Mothman Egg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Pickled Pumpkin' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Pickled Pumpkin",
-          "context": {
-            "name": "Pickled Pumpkin",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Prickeye' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Prickeye",
-          "context": {
-            "name": "Prickeye",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Prime Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Prime Meat",
-          "context": {
-            "name": "Prime Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Pumpkin' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Pumpkin",
-          "context": {
-            "name": "Pumpkin",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Queen Mirelurk Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Queen Mirelurk Meat",
-          "context": {
-            "name": "Queen Mirelurk Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Rabbit Leg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Rabbit Leg",
-          "context": {
-            "name": "Rabbit Leg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Radhog Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Radhog Meat",
-          "context": {
-            "name": "Radhog Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Radrat Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Radrat Meat",
-          "context": {
-            "name": "Radrat Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Radroach Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Radroach Meat",
-          "context": {
-            "name": "Radroach Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Radscorpion Egg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Radscorpion Egg",
-          "context": {
-            "name": "Radscorpion Egg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Radscorpion Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Radscorpion Meat",
-          "context": {
-            "name": "Radscorpion Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Radstag Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Radstag Meat",
-          "context": {
-            "name": "Radstag Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Radtoad Egg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Radtoad Egg",
-          "context": {
-            "name": "Radtoad Egg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Radtoad Leg' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Radtoad Leg",
-          "context": {
-            "name": "Radtoad Leg",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Cobalt Flux' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Raw Cobalt Flux",
-          "context": {
-            "name": "Raw Cobalt Flux",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Crimson Flux' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Raw Crimson Flux",
-          "context": {
-            "name": "Raw Crimson Flux",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Fluorescent Flux' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Raw Fluorescent Flux",
-          "context": {
-            "name": "Raw Fluorescent Flux",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Fog Crawler Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Raw Fog Crawler Meat",
-          "context": {
-            "name": "Raw Fog Crawler Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Violet Flux' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Raw Violet Flux",
-          "context": {
-            "name": "Raw Violet Flux",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Wolf Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Raw Wolf Meat",
-          "context": {
-            "name": "Raw Wolf Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Yellowcake Flux' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Raw Yellowcake Flux",
-          "context": {
-            "name": "Raw Yellowcake Flux",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Razorgrain' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Razorgrain",
-          "context": {
-            "name": "Razorgrain",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Rhododendron Flower' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Rhododendron Flower",
-          "context": {
-            "name": "Rhododendron Flower",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Salmon Filet' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Salmon Filet",
-          "context": {
-            "name": "Salmon Filet",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Scorchbeast Brain' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Scorchbeast Brain",
-          "context": {
-            "name": "Scorchbeast Brain",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Scorchbeast Heart' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Scorchbeast Heart",
-          "context": {
-            "name": "Scorchbeast Heart",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Scorchbeast Liver' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Scorchbeast Liver",
-          "context": {
-            "name": "Scorchbeast Liver",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Scorchbeast Lung' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Scorchbeast Lung",
-          "context": {
-            "name": "Scorchbeast Lung",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Scorchbeast Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Scorchbeast Meat",
-          "context": {
-            "name": "Scorchbeast Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Sheepsquatch Horn' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Sheepsquatch Horn",
-          "context": {
-            "name": "Sheepsquatch Horn",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Sheepsquatch Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Sheepsquatch Meat",
-          "context": {
-            "name": "Sheepsquatch Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Silt Bean' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Silt Bean",
-          "context": {
-            "name": "Silt Bean",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Snaptail Reed' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Snaptail Reed",
-          "context": {
-            "name": "Snaptail Reed",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Softshell Mirelurk Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Softshell Mirelurk Meat",
-          "context": {
-            "name": "Softshell Mirelurk Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Soot Flower' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Soot Flower",
-          "context": {
-            "name": "Soot Flower",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Spoiled Bio Fluid' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Spoiled Bio Fluid",
-          "context": {
-            "name": "Spoiled Bio Fluid",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Spoiled Fruit' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Spoiled Fruit",
-          "context": {
-            "name": "Spoiled Fruit",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Spoiled Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Spoiled Meat",
-          "context": {
-            "name": "Spoiled Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Spoiled Vegetables' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Spoiled Vegetables",
-          "context": {
-            "name": "Spoiled Vegetables",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Squirrel Bits' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Squirrel Bits",
-          "context": {
-            "name": "Squirrel Bits",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Starlight Berries' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Starlight Berries",
-          "context": {
-            "name": "Starlight Berries",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Steeped Melon Bloom Tea' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Steeped Melon Bloom Tea",
-          "context": {
-            "name": "Steeped Melon Bloom Tea",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Steeped Strangler Bloom Tea' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Steeped Strangler Bloom Tea",
-          "context": {
-            "name": "Steeped Strangler Bloom Tea",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Stingwing Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Stingwing Meat",
-          "context": {
-            "name": "Stingwing Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Strangler Bloom' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Strangler Bloom",
-          "context": {
-            "name": "Strangler Bloom",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Strangler Pod' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Strangler Pod",
-          "context": {
-            "name": "Strangler Pod",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Swamp Plant' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Swamp Plant",
-          "context": {
-            "name": "Swamp Plant",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Tarberry' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Tarberry",
-          "context": {
-            "name": "Tarberry",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Tato' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Tato",
-          "context": {
-            "name": "Tato",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Tato Flower' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Tato Flower",
-          "context": {
-            "name": "Tato Flower",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Thistle' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Thistle",
-          "context": {
-            "name": "Thistle",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Tick Blood' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Tick Blood",
-          "context": {
-            "name": "Tick Blood",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Toxic Soot Flower' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Toxic Soot Flower",
-          "context": {
-            "name": "Toxic Soot Flower",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Toxic Water' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Toxic Water",
-          "context": {
-            "name": "Toxic Water",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Wild Blackberry' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Wild Blackberry",
-          "context": {
-            "name": "Wild Blackberry",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"Winner's Cup\" (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Winner's Cup",
-          "context": {
-            "name": "Winner's Cup",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Yao Guai Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Yao Guai Meat",
-          "context": {
-            "name": "Yao Guai Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Cola Perk Bubblegum' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Cola Perk Bubblegum",
-          "context": {
-            "name": "Cola Perk Bubblegum",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 553: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
-          "detail": "Cotton Candy Bites"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Grape Perk Bubblegum' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Grape Perk Bubblegum",
-          "context": {
-            "name": "Grape Perk Bubblegum",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 561: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
-          "detail": "Gum Drops"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'InstaMash (Clean)' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "InstaMash (Clean)",
-          "context": {
-            "name": "InstaMash (Clean)",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mystery Candy' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Mystery Candy",
-          "context": {
-            "name": "Mystery Candy",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Noodle Cup' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Noodle Cup",
-          "context": {
-            "name": "Noodle Cup",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka Victory Candy' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Nuka Victory Candy",
-          "context": {
-            "name": "Nuka Victory Candy",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka-Cola Candy' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Candy",
-          "context": {
-            "name": "Nuka-Cola Candy",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka-Cola Quantum Candy' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Quantum Candy",
-          "context": {
-            "name": "Nuka-Cola Quantum Candy",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Perk Bubblegum' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Perk Bubblegum",
-          "context": {
-            "name": "Perk Bubblegum",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Popcorn' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Popcorn",
-          "context": {
-            "name": "Popcorn",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"Rudy's Canned Pozole\" (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Rudy's Canned Pozole",
-          "context": {
-            "name": "Rudy's Canned Pozole",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Strawberry Perk Bubblegum' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Strawberry Perk Bubblegum",
-          "context": {
-            "name": "Strawberry Perk Bubblegum",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Watermelon Perk Bubblegum' (Pre War Food) is missing price for: xbox, ps, pc",
-          "detail": "Watermelon Perk Bubblegum",
-          "context": {
-            "name": "Watermelon Perk Bubblegum",
-            "category": "Pre War Food",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Ballistic Bock' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Ballistic Bock",
-          "context": {
-            "name": "Fermentable Ballistic Bock",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Beer' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Beer",
-          "context": {
-            "name": "Fermentable Beer",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Blackwater Brew' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Blackwater Brew",
-          "context": {
-            "name": "Fermentable Blackwater Brew",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Bourbon' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Bourbon",
-          "context": {
-            "name": "Fermentable Bourbon",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Cranberry Moonshine' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Cranberry Moonshine",
-          "context": {
-            "name": "Fermentable Cranberry Moonshine",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Firecracker Whiskey' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Firecracker Whiskey",
-          "context": {
-            "name": "Fermentable Firecracker Whiskey",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable High Voltage Hefe' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable High Voltage Hefe",
-          "context": {
-            "name": "Fermentable High Voltage Hefe",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Hoppy Hunter IPA' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Hoppy Hunter IPA",
-          "context": {
-            "name": "Fermentable Hoppy Hunter IPA",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Lead Champagne' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Lead Champagne",
-          "context": {
-            "name": "Fermentable Lead Champagne",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Liquid Courage' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Liquid Courage",
-          "context": {
-            "name": "Fermentable Liquid Courage",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Mire Magic Moonshine' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Mire Magic Moonshine",
-          "context": {
-            "name": "Fermentable Mire Magic Moonshine",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Mountain Honey Moonshine' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Mountain Honey Moonshine",
-          "context": {
-            "name": "Fermentable Mountain Honey Moonshine",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable New River Red Ale' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable New River Red Ale",
-          "context": {
-            "name": "Fermentable New River Red Ale",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Nuka-Cola Dark' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Nuka-Cola Dark",
-          "context": {
-            "name": "Fermentable Nuka-Cola Dark",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Nukashine' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Nukashine",
-          "context": {
-            "name": "Fermentable Nukashine",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Nukashine 2 Electric Boogaloo' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Nukashine 2 Electric Boogaloo",
-          "context": {
-            "name": "Fermentable Nukashine 2 Electric Boogaloo",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Oak Holler Lager' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Oak Holler Lager",
-          "context": {
-            "name": "Fermentable Oak Holler Lager",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Old Possum' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Old Possum",
-          "context": {
-            "name": "Fermentable Old Possum",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Pickaxe Pilsner' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Pickaxe Pilsner",
-          "context": {
-            "name": "Fermentable Pickaxe Pilsner",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Rad Ant Lager' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Rad Ant Lager",
-          "context": {
-            "name": "Fermentable Rad Ant Lager",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Rum' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Rum",
-          "context": {
-            "name": "Fermentable Rum",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Tick Blood Tequila' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Tick Blood Tequila",
-          "context": {
-            "name": "Fermentable Tick Blood Tequila",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Vodka' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Vodka",
-          "context": {
-            "name": "Fermentable Vodka",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Whiskey' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Whiskey",
-          "context": {
-            "name": "Fermentable Whiskey",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fermentable Wine' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Fermentable Wine",
-          "context": {
-            "name": "Fermentable Wine",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Irradiated Sunset Sarsaparilla' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Irradiated Sunset Sarsaparilla",
-          "context": {
-            "name": "Irradiated Sunset Sarsaparilla",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka-Cola' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola",
-          "context": {
-            "name": "Nuka-Cola",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka-Cola Vaccinated' (Soda) is missing price for: pc",
-          "detail": "Nuka-Cola Vaccinated",
-          "context": {
-            "name": "Nuka-Cola Vaccinated",
-            "category": "Soda",
-            "missing_fields": [
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.build.summary",
-          "message": "Wrote 634 menu items across 10 categories.",
-          "context": {
-            "total": 634,
-            "categories": [
-              "Alcohol",
-              "Canned",
-              "Chems",
-              "Condiments & Non-Perishable",
-              "Dishes & Teas",
-              "Fish",
-              "Ingredients",
-              "Pre War Food",
-              "Serums",
-              "Soda"
-            ]
-          }
-        }
-      ]
-    },
     "menu_items": {
-      "generated": "2026-04-12T09:04:00+00:00",
+      "generated": "2026-04-12T09:24:34+00:00",
       "counts": {
-        "error": 19,
-        "warning": 19,
-        "info": 5
+        "error": 49,
+        "warning": 49,
+        "info": 34
       },
       "entries": [
         {
@@ -4012,6 +260,117 @@
           }
         },
         {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Nukashine': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Nukashine",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Nukashine' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Nukashine",
+          "context": {
+            "name": "Fermentable Nukashine",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Nukashine' is missing limit for: new, existing",
+          "detail": "Fermentable Nukashine",
+          "context": {
+            "name": "Fermentable Nukashine",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Hoppy Hunter IPA': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Hoppy Hunter IPA",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Hoppy Hunter IPA' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Hoppy Hunter IPA",
+          "context": {
+            "name": "Fermentable Hoppy Hunter IPA",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Hoppy Hunter IPA' is missing limit for: new, existing",
+          "detail": "Fermentable Hoppy Hunter IPA",
+          "context": {
+            "name": "Fermentable Hoppy Hunter IPA",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Lead Champagne': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Lead Champagne",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Lead Champagne' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Lead Champagne",
+          "context": {
+            "name": "Fermentable Lead Champagne",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Lead Champagne' is missing limit for: new, existing",
+          "detail": "Fermentable Lead Champagne",
+          "context": {
+            "name": "Fermentable Lead Champagne",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
           "severity": "warning",
           "code": "menu.new_item",
           "message": "New craftable item 'Tarberry Nougat Heart' has no entry in menu-overrides.tsv - add a row to set price/limits.",
@@ -4037,11 +396,811 @@
         {
           "severity": "info",
           "code": "menu.category_conflict",
+          "message": "'Fermentable Tick Blood Tequila': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Tick Blood Tequila",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Tick Blood Tequila' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Tick Blood Tequila",
+          "context": {
+            "name": "Fermentable Tick Blood Tequila",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Tick Blood Tequila' is missing limit for: new, existing",
+          "detail": "Fermentable Tick Blood Tequila",
+          "context": {
+            "name": "Fermentable Tick Blood Tequila",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Ballistic Bock': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Ballistic Bock",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Ballistic Bock' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Ballistic Bock",
+          "context": {
+            "name": "Fermentable Ballistic Bock",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Ballistic Bock' is missing limit for: new, existing",
+          "detail": "Fermentable Ballistic Bock",
+          "context": {
+            "name": "Fermentable Ballistic Bock",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Hard Lemonade': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Hard Lemonade",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
           "message": "'Lemonade': COBJ suggests 'food', override sets 'chem'.",
           "context": {
             "name": "Lemonade",
             "cobj": "food",
             "override": "chem"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Bourbon': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Bourbon",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Bourbon' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Bourbon",
+          "context": {
+            "name": "Fermentable Bourbon",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Bourbon' is missing limit for: new, existing",
+          "detail": "Fermentable Bourbon",
+          "context": {
+            "name": "Fermentable Bourbon",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Whiskey': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Whiskey",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Whiskey' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Whiskey",
+          "context": {
+            "name": "Fermentable Whiskey",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Whiskey' is missing limit for: new, existing",
+          "detail": "Fermentable Whiskey",
+          "context": {
+            "name": "Fermentable Whiskey",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Rum': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Rum",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Rum' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Rum",
+          "context": {
+            "name": "Fermentable Rum",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Rum' is missing limit for: new, existing",
+          "detail": "Fermentable Rum",
+          "context": {
+            "name": "Fermentable Rum",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Vodka': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Vodka",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Vodka' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Vodka",
+          "context": {
+            "name": "Fermentable Vodka",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Vodka' is missing limit for: new, existing",
+          "detail": "Fermentable Vodka",
+          "context": {
+            "name": "Fermentable Vodka",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Blackwater Brew': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Blackwater Brew",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Blackwater Brew' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Blackwater Brew",
+          "context": {
+            "name": "Fermentable Blackwater Brew",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Blackwater Brew' is missing limit for: new, existing",
+          "detail": "Fermentable Blackwater Brew",
+          "context": {
+            "name": "Fermentable Blackwater Brew",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Wine': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Wine",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Wine' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Wine",
+          "context": {
+            "name": "Fermentable Wine",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Wine' is missing limit for: new, existing",
+          "detail": "Fermentable Wine",
+          "context": {
+            "name": "Fermentable Wine",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Beer': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Beer",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Beer' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Beer",
+          "context": {
+            "name": "Fermentable Beer",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Beer' is missing limit for: new, existing",
+          "detail": "Fermentable Beer",
+          "context": {
+            "name": "Fermentable Beer",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable New River Red Ale': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable New River Red Ale",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable New River Red Ale' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable New River Red Ale",
+          "context": {
+            "name": "Fermentable New River Red Ale",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable New River Red Ale' is missing limit for: new, existing",
+          "detail": "Fermentable New River Red Ale",
+          "context": {
+            "name": "Fermentable New River Red Ale",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Oak Holler Lager': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Oak Holler Lager",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Oak Holler Lager' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Oak Holler Lager",
+          "context": {
+            "name": "Fermentable Oak Holler Lager",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Oak Holler Lager' is missing limit for: new, existing",
+          "detail": "Fermentable Oak Holler Lager",
+          "context": {
+            "name": "Fermentable Oak Holler Lager",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Old Possum': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Old Possum",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Old Possum' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Old Possum",
+          "context": {
+            "name": "Fermentable Old Possum",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Old Possum' is missing limit for: new, existing",
+          "detail": "Fermentable Old Possum",
+          "context": {
+            "name": "Fermentable Old Possum",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Pickaxe Pilsner': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Pickaxe Pilsner",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Pickaxe Pilsner' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Pickaxe Pilsner",
+          "context": {
+            "name": "Fermentable Pickaxe Pilsner",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Pickaxe Pilsner' is missing limit for: new, existing",
+          "detail": "Fermentable Pickaxe Pilsner",
+          "context": {
+            "name": "Fermentable Pickaxe Pilsner",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Tick Blood Tequila Margarita': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Tick Blood Tequila Margarita",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Tick Blood Tequila Sunrise': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Tick Blood Tequila Sunrise",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Lead Champagne Bellini': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Lead Champagne Bellini",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Lead Champagne Mimosa': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Lead Champagne Mimosa",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable High Voltage Hefe': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable High Voltage Hefe",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable High Voltage Hefe' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable High Voltage Hefe",
+          "context": {
+            "name": "Fermentable High Voltage Hefe",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable High Voltage Hefe' is missing limit for: new, existing",
+          "detail": "Fermentable High Voltage Hefe",
+          "context": {
+            "name": "Fermentable High Voltage Hefe",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Rad Ant Lager': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Rad Ant Lager",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Rad Ant Lager' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Rad Ant Lager",
+          "context": {
+            "name": "Fermentable Rad Ant Lager",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Rad Ant Lager' is missing limit for: new, existing",
+          "detail": "Fermentable Rad Ant Lager",
+          "context": {
+            "name": "Fermentable Rad Ant Lager",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Nuka-Cola Dark': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Nuka-Cola Dark",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Nuka-Cola Dark' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Nuka-Cola Dark",
+          "context": {
+            "name": "Fermentable Nuka-Cola Dark",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Nuka-Cola Dark' is missing limit for: new, existing",
+          "detail": "Fermentable Nuka-Cola Dark",
+          "context": {
+            "name": "Fermentable Nuka-Cola Dark",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Mountain Honey Moonshine': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Mountain Honey Moonshine",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Mountain Honey Moonshine' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Mountain Honey Moonshine",
+          "context": {
+            "name": "Fermentable Mountain Honey Moonshine",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Mountain Honey Moonshine' is missing limit for: new, existing",
+          "detail": "Fermentable Mountain Honey Moonshine",
+          "context": {
+            "name": "Fermentable Mountain Honey Moonshine",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Cranberry Moonshine': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Cranberry Moonshine",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Cranberry Moonshine' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Cranberry Moonshine",
+          "context": {
+            "name": "Fermentable Cranberry Moonshine",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Cranberry Moonshine' is missing limit for: new, existing",
+          "detail": "Fermentable Cranberry Moonshine",
+          "context": {
+            "name": "Fermentable Cranberry Moonshine",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'White Russian': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "White Russian",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Liquid Courage': COBJ suggests 'food', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Liquid Courage",
+            "cobj": "food",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Liquid Courage' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Liquid Courage",
+          "context": {
+            "name": "Fermentable Liquid Courage",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Liquid Courage' is missing limit for: new, existing",
+          "detail": "Fermentable Liquid Courage",
+          "context": {
+            "name": "Fermentable Liquid Courage",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu.category_conflict",
+          "message": "'Fermentable Mire Magic Moonshine': COBJ suggests 'chem', override sets 'alcohol'.",
+          "context": {
+            "name": "Fermentable Mire Magic Moonshine",
+            "cobj": "chem",
+            "override": "alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Fermentable Mire Magic Moonshine' is missing price for: xbox, ps, pc",
+          "detail": "Fermentable Mire Magic Moonshine",
+          "context": {
+            "name": "Fermentable Mire Magic Moonshine",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Fermentable Mire Magic Moonshine' is missing limit for: new, existing",
+          "detail": "Fermentable Mire Magic Moonshine",
+          "context": {
+            "name": "Fermentable Mire Magic Moonshine",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
           }
         },
         {
@@ -4239,21 +1398,310 @@
           }
         },
         {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Canned Blight Soup' is missing price for: xbox, ps, pc",
+          "detail": "Canned Blight Soup",
+          "context": {
+            "name": "Canned Blight Soup",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Canned Blight Soup' is missing limit for: new, existing",
+          "detail": "Canned Blight Soup",
+          "context": {
+            "name": "Canned Blight Soup",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Canned Brain Bombs' is missing price for: xbox, ps, pc",
+          "detail": "Canned Brain Bombs",
+          "context": {
+            "name": "Canned Brain Bombs",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Canned Brain Bombs' is missing limit for: new, existing",
+          "detail": "Canned Brain Bombs",
+          "context": {
+            "name": "Canned Brain Bombs",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Canned Broiled Scorchbeast Brain' is missing price for: xbox, ps, pc",
+          "detail": "Canned Broiled Scorchbeast Brain",
+          "context": {
+            "name": "Canned Broiled Scorchbeast Brain",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Canned Broiled Scorchbeast Brain' is missing limit for: new, existing",
+          "detail": "Canned Broiled Scorchbeast Brain",
+          "context": {
+            "name": "Canned Broiled Scorchbeast Brain",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Canned Deathclaw Wellington' is missing price for: xbox, ps, pc",
+          "detail": "Canned Deathclaw Wellington",
+          "context": {
+            "name": "Canned Deathclaw Wellington",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Canned Deathclaw Wellington' is missing limit for: new, existing",
+          "detail": "Canned Deathclaw Wellington",
+          "context": {
+            "name": "Canned Deathclaw Wellington",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Canned Smoked Mirelurk Fillets' is missing price for: xbox, ps, pc",
+          "detail": "Canned Smoked Mirelurk Fillets",
+          "context": {
+            "name": "Canned Smoked Mirelurk Fillets",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Canned Smoked Mirelurk Fillets' is missing limit for: new, existing",
+          "detail": "Canned Smoked Mirelurk Fillets",
+          "context": {
+            "name": "Canned Smoked Mirelurk Fillets",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Canned Tato Salad' is missing price for: xbox, ps, pc",
+          "detail": "Canned Tato Salad",
+          "context": {
+            "name": "Canned Tato Salad",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Canned Tato Salad' is missing limit for: new, existing",
+          "detail": "Canned Tato Salad",
+          "context": {
+            "name": "Canned Tato Salad",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "\"Rudy's Canned Pozole\" is missing price for: xbox, ps, pc",
+          "detail": "Rudy's Canned Pozole",
+          "context": {
+            "name": "Rudy's Canned Pozole",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "\"Rudy's Canned Pozole\" is missing limit for: new, existing",
+          "detail": "Rudy's Canned Pozole",
+          "context": {
+            "name": "Rudy's Canned Pozole",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
           "severity": "info",
           "code": "menu.skipped",
-          "message": "Skipped 89 items marked skip=1 in menu-overrides.tsv.",
+          "message": "Skipped 66 items marked skip=1 in menu-overrides.tsv.",
           "context": {
-            "count": 89
+            "count": 66
           }
         },
         {
           "severity": "info",
           "code": "menu.build.summary",
-          "message": "Wrote 333 menu items (212 Food, 99 Chem).",
+          "message": "Wrote 363 menu items (205 Food, 67 Chem).",
           "context": {
-            "total": 333,
-            "food": 212,
-            "chem": 99
+            "total": 363,
+            "food": 205,
+            "chem": 67
+          }
+        }
+      ]
+    },
+    "bnb_item_categories": {
+      "generated": "2026-04-12T09:23:46+00:00",
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "info",
+          "code": "bnb_categories.build.summary",
+          "message": "Built 287 items across 7 categories",
+          "context": {
+            "total_items": 287,
+            "alch_records": 982,
+            "source_alch": "ALCH_Export_Apr_2026.tsv",
+            "source_kywd": "KYWD_Export_Apr_2026_Refs.tsv",
+            "stats": {
+              "food": {
+                "candidates": 607,
+                "excluded_cut": 25,
+                "excluded_no_name": 6,
+                "excluded_by_kywd": 80,
+                "excluded_raw": 420,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 76,
+                "post_included_via_suffix": 0
+              },
+              "canned": {
+                "candidates": 32,
+                "excluded_cut": 3,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 29,
+                "post_included_via_suffix": 0
+              },
+              "nuka_cola": {
+                "candidates": 159,
+                "excluded_cut": 14,
+                "excluded_no_name": 6,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 42,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 78,
+                "included": 19,
+                "post_included_via_suffix": 0
+              },
+              "chems": {
+                "candidates": 81,
+                "excluded_cut": 27,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 54,
+                "post_included_via_suffix": 0
+              },
+              "alcohol": {
+                "candidates": 80,
+                "excluded_cut": 6,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 6,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 68,
+                "post_included_via_suffix": 0
+              },
+              "serums": {
+                "candidates": 21,
+                "excluded_cut": 2,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 19,
+                "post_included_via_suffix": 0
+              },
+              "prewar_candy": {
+                "candidates": 21,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 1,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 22,
+                "post_included_via_suffix": 2
+              }
+            }
           }
         }
       ]
