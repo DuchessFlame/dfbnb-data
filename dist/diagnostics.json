@@ -2,7 +2,7 @@
   "generated": "2026-04-12T13:35:46+00:00",
   "sections": {
     "menu_items": {
-      "generated": "2026-04-12T13:16:59+00:00",
+      "generated": "2026-04-12T19:00:23+00:00",
       "counts": {
         "error": 227,
         "warning": 248,
@@ -6574,7 +6574,7 @@
       ]
     },
     "bnb_item_categories": {
-      "generated": "2026-04-12T09:49:59+00:00",
+      "generated": "2026-04-12T19:00:24+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -6584,33 +6584,33 @@
         {
           "severity": "info",
           "code": "bnb_categories.build.summary",
-          "message": "Built 287 items across 7 categories",
+          "message": "Built 278 items across 7 categories",
           "context": {
-            "total_items": 287,
-            "alch_records": 982,
-            "source_alch": "ALCH_Export_Apr_2026.tsv",
-            "source_kywd": "KYWD_Export_Apr_2026_Refs.tsv",
+            "total_items": 278,
+            "alch_records": 950,
+            "source_alch": "ALCH_Export_March_2026.tsv",
+            "source_kywd": "KYWD_Export_March_2026_Refs.tsv",
             "stats": {
               "food": {
-                "candidates": 607,
-                "excluded_cut": 25,
+                "candidates": 582,
+                "excluded_cut": 21,
                 "excluded_no_name": 6,
                 "excluded_by_kywd": 80,
-                "excluded_raw": 420,
+                "excluded_raw": 401,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 76,
+                "included": 74,
                 "post_included_via_suffix": 0
               },
               "canned": {
-                "candidates": 32,
+                "candidates": 26,
                 "excluded_cut": 3,
                 "excluded_no_name": 0,
                 "excluded_by_kywd": 0,
                 "excluded_raw": 0,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 29,
+                "included": 23,
                 "post_included_via_suffix": 0
               },
               "nuka_cola": {
@@ -6658,14 +6658,14 @@
                 "post_included_via_suffix": 0
               },
               "prewar_candy": {
-                "candidates": 21,
+                "candidates": 20,
                 "excluded_cut": 0,
                 "excluded_no_name": 0,
                 "excluded_by_kywd": 0,
                 "excluded_raw": 1,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 22,
+                "included": 21,
                 "post_included_via_suffix": 2
               }
             }
@@ -6674,7 +6674,7 @@
       ]
     },
     "cobj_recipes": {
-      "generated": "2026-04-12T09:48:52+00:00",
+      "generated": "2026-04-12T19:00:23+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -7168,6 +7168,96 @@
           }
         },
         {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Brahmin Milk' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Brahmin Milk",
+          "context": {
+            "name": "Brahmin Milk",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "\"Chally's Milk\" (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Chally's Milk",
+          "context": {
+            "name": "Chally's Milk",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Cream' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Cream",
+          "context": {
+            "name": "Cream",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Honeycomb' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Honeycomb",
+          "context": {
+            "name": "Honeycomb",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Nuclear Wastewater' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Nuclear Wastewater",
+          "context": {
+            "name": "Nuclear Wastewater",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Tick Blood' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Tick Blood",
+          "context": {
+            "name": "Tick Blood",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
           "message": "Row 202: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
@@ -7188,8 +7278,23 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 205: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "message": "Row 215: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
           "detail": "Fried Radroach On A Stick"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Ionized Meat' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Ionized Meat",
+          "context": {
+            "name": "Ionized Meat",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
         },
         {
           "severity": "error",
@@ -7228,6 +7333,21 @@
           "detail": "Owlet Nuggets",
           "context": {
             "name": "Owlet Nuggets",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Pickled Pumpkin' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Pickled Pumpkin",
+          "context": {
+            "name": "Pickled Pumpkin",
             "category": "Dishes & Teas",
             "missing_fields": [
               "price_xbox",
@@ -7357,6 +7477,117 @@
           }
         },
         {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 446: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "detail": "Chicken Thigh"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 447: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "detail": "Chicken Thigh"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 448: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "detail": "Chicken Thigh"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 631: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Bobblehead Box"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 633: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 634: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'_Disease Chance Food 0 - Base' (Other) is missing price for: xbox, ps, pc",
+          "detail": "_Disease Chance Food 0 - Base",
+          "context": {
+            "name": "_Disease Chance Food 0 - Base",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'_Disease Chance Food 1 - Low' (Other) is missing price for: xbox, ps, pc",
+          "detail": "_Disease Chance Food 1 - Low",
+          "context": {
+            "name": "_Disease Chance Food 1 - Low",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'_Disease Chance Food 2 - Medium' (Other) is missing price for: xbox, ps, pc",
+          "detail": "_Disease Chance Food 2 - Medium",
+          "context": {
+            "name": "_Disease Chance Food 2 - Medium",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'_Disease Chance Food 3 - High' (Other) is missing price for: xbox, ps, pc",
+          "detail": "_Disease Chance Food 3 - High",
+          "context": {
+            "name": "_Disease Chance Food 3 - High",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'_Disease Chance Food 4 - Very High' (Other) is missing price for: xbox, ps, pc",
+          "detail": "_Disease Chance Food 4 - Very High",
+          "context": {
+            "name": "_Disease Chance Food 4 - Very High",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
           "message": "'Bioluminescent Fluid' (Other) is missing price for: xbox, ps, pc",
@@ -7374,11 +7605,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Brahmin Milk' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
-          "detail": "Brahmin Milk",
+          "message": "'Potion of Exploration' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Potion of Exploration",
           "context": {
-            "name": "Brahmin Milk",
-            "category": "Condiments & Non-Perishable",
+            "name": "Potion of Exploration",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -7389,8 +7620,8 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "\"Chally's Milk\" (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
-          "detail": "Chally's Milk",
+          "message": "'Potion of Knowledge' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Potion of Knowledge",
           "context": {
             "name": "Chally's Milk",
             "category": "Condiments & Non-Perishable",
@@ -7572,6 +7803,21 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
+          "message": "'Recalibrated Liberator' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Recalibrated Liberator",
+          "context": {
+            "name": "Recalibrated Liberator",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
           "message": "'Spoiled Bio Fluid' (Other) is missing price for: xbox, ps, pc",
           "detail": "Spoiled Bio Fluid",
           "context": {
@@ -7622,21 +7868,6 @@
           "context": {
             "name": "Spoiled Vegetables",
             "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Tick Blood' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
-          "detail": "Tick Blood",
-          "context": {
-            "name": "Tick Blood",
-            "category": "Condiments & Non-Perishable",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -7735,23 +7966,107 @@
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-04-12T10:34:19+00:00",
+      "generated": "2026-04-12T19:00:23+00:00",
       "counts": {
-        "error": 371,
-        "warning": 1,
+        "error": 77,
+        "warning": 8,
         "info": 1
       },
       "entries": [
         {
           "severity": "warning",
           "code": "bnb_menu_sync.new_item",
-          "message": "New item added: 'Preserved InstaMash (Pre War)' -> Pre War Food",
-          "detail": "edid=InstaMash_PreWar_Clean, form_id=000E377A",
+          "message": "New item added: '_Disease Chance Food 0 - Base' -> Other",
+          "detail": "edid=test_SURV_TestDiseaseChanceFood_Base, form_id=00281E8B",
           "context": {
-            "name": "Preserved InstaMash (Pre War)",
-            "category": "Pre War Food",
-            "edid": "InstaMash_PreWar_Clean",
-            "form_id": "000E377A"
+            "name": "_Disease Chance Food 0 - Base",
+            "category": "Other",
+            "edid": "test_SURV_TestDiseaseChanceFood_Base",
+            "form_id": "00281E8B"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item",
+          "message": "New item added: '_Disease Chance Food 4 - Very High' -> Other",
+          "detail": "edid=test_SURV_TestDiseaseChanceFood_VeryHigh, form_id=0038E049",
+          "context": {
+            "name": "_Disease Chance Food 4 - Very High",
+            "category": "Other",
+            "edid": "test_SURV_TestDiseaseChanceFood_VeryHigh",
+            "form_id": "0038E049"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item",
+          "message": "New item added: '_Disease Chance Food 3 - High' -> Other",
+          "detail": "edid=test_SURV_TestDiseaseChanceFood_High, form_id=0038E048",
+          "context": {
+            "name": "_Disease Chance Food 3 - High",
+            "category": "Other",
+            "edid": "test_SURV_TestDiseaseChanceFood_High",
+            "form_id": "0038E048"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item",
+          "message": "New item added: '_Disease Chance Food 2 - Medium' -> Other",
+          "detail": "edid=test_SURV_TestDiseaseChanceFood_Medium, form_id=0038E047",
+          "context": {
+            "name": "_Disease Chance Food 2 - Medium",
+            "category": "Other",
+            "edid": "test_SURV_TestDiseaseChanceFood_Medium",
+            "form_id": "0038E047"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item",
+          "message": "New item added: '_Disease Chance Food 1 - Low' -> Other",
+          "detail": "edid=test_SURV_TestDiseaseChanceFood_Low, form_id=0038E046",
+          "context": {
+            "name": "_Disease Chance Food 1 - Low",
+            "category": "Other",
+            "edid": "test_SURV_TestDiseaseChanceFood_Low",
+            "form_id": "0038E046"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item",
+          "message": "New item added: 'Recalibrated Liberator' -> Other",
+          "detail": "edid=CUT_W05_MQS_202P_RecalibratedLiberator_Item, form_id=00567460",
+          "context": {
+            "name": "Recalibrated Liberator",
+            "category": "Other",
+            "edid": "CUT_W05_MQS_202P_RecalibratedLiberator_Item",
+            "form_id": "00567460"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item",
+          "message": "New item added: 'Potion of Knowledge' -> Other",
+          "detail": "edid=PTS_LearnAllRecipes_Potion, form_id=008A9107",
+          "context": {
+            "name": "Potion of Knowledge",
+            "category": "Other",
+            "edid": "PTS_LearnAllRecipes_Potion",
+            "form_id": "008A9107"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item",
+          "message": "New item added: 'Potion of Exploration' -> Other",
+          "detail": "edid=PTS_ShowAllMapMarkers_Potion, form_id=008A9108",
+          "context": {
+            "name": "Potion of Exploration",
+            "category": "Other",
+            "edid": "PTS_ShowAllMapMarkers_Potion",
+            "form_id": "008A9108"
           }
         },
         {
@@ -7801,16 +8116,6 @@
           "detail": "Fermentable Cranberry Moonshine",
           "context": {
             "name": "Fermentable Cranberry Moonshine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Firecracker Whiskey' (Alcohol)",
-          "detail": "Fermentable Firecracker Whiskey",
-          "context": {
-            "name": "Fermentable Firecracker Whiskey",
             "category": "Alcohol"
           }
         },
@@ -7907,16 +8212,6 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Nukashine 2 Electric Boogaloo' (Alcohol)",
-          "detail": "Fermentable Nukashine 2 Electric Boogaloo",
-          "context": {
-            "name": "Fermentable Nukashine 2 Electric Boogaloo",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
           "message": "No price set: 'Fermentable Oak Holler Lager' (Alcohol)",
           "detail": "Fermentable Oak Holler Lager",
           "context": {
@@ -8007,26 +8302,6 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mire Magic Moonshine' (Alcohol)",
-          "detail": "Mire Magic Moonshine",
-          "context": {
-            "name": "Mire Magic Moonshine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Muttberry Shine' (Alcohol)",
-          "detail": "Muttberry Shine",
-          "context": {
-            "name": "Muttberry Shine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
           "message": "No price set: \"Rodgers' Reserve Beer\" (Alcohol)",
           "detail": "Rodgers' Reserve Beer",
           "context": {
@@ -8041,66 +8316,6 @@
           "detail": "Sugar-Free Nukashine",
           "context": {
             "name": "Sugar-Free Nukashine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Sunday Shine' (Alcohol)",
-          "detail": "Sunday Shine",
-          "context": {
-            "name": "Sunday Shine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Tater Shine' (Alcohol)",
-          "detail": "Tater Shine",
-          "context": {
-            "name": "Tater Shine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Vintage Firecracker Whiskey' (Alcohol)",
-          "detail": "Vintage Firecracker Whiskey",
-          "context": {
-            "name": "Vintage Firecracker Whiskey",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Vintage Lead Champagne' (Alcohol)",
-          "detail": "Vintage Lead Champagne",
-          "context": {
-            "name": "Vintage Lead Champagne",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Vintage Nukashine' (Alcohol)",
-          "detail": "Vintage Nukashine",
-          "context": {
-            "name": "Vintage Nukashine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Vintage Tick Blood Tequila' (Alcohol)",
-          "detail": "Vintage Tick Blood Tequila",
-          "context": {
-            "name": "Vintage Tick Blood Tequila",
             "category": "Alcohol"
           }
         },
@@ -8187,281 +8402,61 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Calmex Silk' (Chems)",
-          "detail": "Calmex Silk",
+          "message": "No price set: 'Brahmin Milk' (Condiments & Non-Perishable)",
+          "detail": "Brahmin Milk",
           "context": {
-            "name": "Calmex Silk",
-            "category": "Chems"
+            "name": "Brahmin Milk",
+            "category": "Condiments & Non-Perishable"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Carry Weight Booster' (Chems)",
-          "detail": "Carry Weight Booster",
+          "message": "No price set: \"Chally's Milk\" (Condiments & Non-Perishable)",
+          "detail": "Chally's Milk",
           "context": {
-            "name": "Carry Weight Booster",
-            "category": "Chems"
+            "name": "Chally's Milk",
+            "category": "Condiments & Non-Perishable"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Detoxing Salve' (Chems)",
-          "detail": "Detoxing Salve",
+          "message": "No price set: 'Cream' (Condiments & Non-Perishable)",
+          "detail": "Cream",
           "context": {
-            "name": "Detoxing Salve",
-            "category": "Chems"
+            "name": "Cream",
+            "category": "Condiments & Non-Perishable"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fiery Infusion Tier I' (Chems)",
-          "detail": "Fiery Infusion Tier I",
+          "message": "No price set: 'Honeycomb' (Condiments & Non-Perishable)",
+          "detail": "Honeycomb",
           "context": {
-            "name": "Fiery Infusion Tier I",
-            "category": "Chems"
+            "name": "Honeycomb",
+            "category": "Condiments & Non-Perishable"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Formula B' (Chems)",
-          "detail": "Formula B",
+          "message": "No price set: 'Nuclear Wastewater' (Condiments & Non-Perishable)",
+          "detail": "Nuclear Wastewater",
           "context": {
-            "name": "Formula B",
-            "category": "Chems"
+            "name": "Nuclear Wastewater",
+            "category": "Condiments & Non-Perishable"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Formula Q' (Chems)",
-          "detail": "Formula Q",
+          "message": "No price set: 'Tick Blood' (Condiments & Non-Perishable)",
+          "detail": "Tick Blood",
           "context": {
-            "name": "Formula Q",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Healing Cloud Infusion Tier I' (Chems)",
-          "detail": "Healing Cloud Infusion Tier I",
-          "context": {
-            "name": "Healing Cloud Infusion Tier I",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Healing Cloud Infusion Tier II' (Chems)",
-          "detail": "Healing Cloud Infusion Tier II",
-          "context": {
-            "name": "Healing Cloud Infusion Tier II",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Healing Cloud Infusion Tier III' (Chems)",
-          "detail": "Healing Cloud Infusion Tier III",
-          "context": {
-            "name": "Healing Cloud Infusion Tier III",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Lunchbox' (Chems)",
-          "detail": "Lunchbox",
-          "context": {
-            "name": "Lunchbox",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mentats' (Chems)",
-          "detail": "Mentats",
-          "context": {
-            "name": "Mentats",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: \"Nuclear Don's Custom Chem Blend\" (Chems)",
-          "detail": "Nuclear Don's Custom Chem Blend",
-          "context": {
-            "name": "Nuclear Don's Custom Chem Blend",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Phantom Device' (Chems)",
-          "detail": "Phantom Device",
-          "context": {
-            "name": "Phantom Device",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Refreshing Beverage' (Chems)",
-          "detail": "Refreshing Beverage",
-          "context": {
-            "name": "Refreshing Beverage",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Resuscitation Kit' (Chems)",
-          "detail": "Resuscitation Kit",
-          "context": {
-            "name": "Resuscitation Kit",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Scorched Fever Innoculation' (Chems)",
-          "detail": "Scorched Fever Innoculation",
-          "context": {
-            "name": "Scorched Fever Innoculation",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Skeeto Spit' (Chems)",
-          "detail": "Skeeto Spit",
-          "context": {
-            "name": "Skeeto Spit",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Stealth Boy' (Chems)",
-          "detail": "Stealth Boy",
-          "context": {
-            "name": "Stealth Boy",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Stealth Boy Mark III' (Chems)",
-          "detail": "Stealth Boy Mark III",
-          "context": {
-            "name": "Stealth Boy Mark III",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Super Chem MK I' (Chems)",
-          "detail": "Super Chem MK I",
-          "context": {
-            "name": "Super Chem MK I",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Super Chem MK II' (Chems)",
-          "detail": "Super Chem MK II",
-          "context": {
-            "name": "Super Chem MK II",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Super Chem MK III' (Chems)",
-          "detail": "Super Chem MK III",
-          "context": {
-            "name": "Super Chem MK III",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'SuperChem' (Chems)",
-          "detail": "SuperChem",
-          "context": {
-            "name": "SuperChem",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: \"Surly's Buffout\" (Chems)",
-          "detail": "Surly's Buffout",
-          "context": {
-            "name": "Surly's Buffout",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Survival Syringe' (Chems)",
-          "detail": "Survival Syringe",
-          "context": {
-            "name": "Survival Syringe",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'The Fix' (Chems)",
-          "detail": "The Fix",
-          "context": {
-            "name": "The Fix",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Trench-Med' (Chems)",
-          "detail": "Trench-Med",
-          "context": {
-            "name": "Trench-Med",
-            "category": "Chems"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Firecracker Nougat Heart' (Dishes & Teas)",
-          "detail": "Firecracker Nougat Heart",
-          "context": {
-            "name": "Firecracker Nougat Heart",
-            "category": "Dishes & Teas"
+            "name": "Tick Blood",
+            "category": "Condiments & Non-Perishable"
           }
         },
         {
@@ -8537,20 +8532,20 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Moo-Moo Curd' (Dishes & Teas)",
-          "detail": "Moo-Moo Curd",
+          "message": "No price set: 'Ionized Meat' (Dishes & Teas)",
+          "detail": "Ionized Meat",
           "context": {
-            "name": "Moo-Moo Curd",
+            "name": "Ionized Meat",
             "category": "Dishes & Teas"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mutfruit Nougat Heart' (Dishes & Teas)",
-          "detail": "Mutfruit Nougat Heart",
+          "message": "No price set: 'Moo-Moo Curd' (Dishes & Teas)",
+          "detail": "Moo-Moo Curd",
           "context": {
-            "name": "Mutfruit Nougat Heart",
+            "name": "Moo-Moo Curd",
             "category": "Dishes & Teas"
           }
         },
@@ -8567,20 +8562,20 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nougat Candy Assortment' (Dishes & Teas)",
-          "detail": "Nougat Candy Assortment",
+          "message": "No price set: 'Owlet Nuggets' (Dishes & Teas)",
+          "detail": "Owlet Nuggets",
           "context": {
-            "name": "Nougat Candy Assortment",
+            "name": "Owlet Nuggets",
             "category": "Dishes & Teas"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Owlet Nuggets' (Dishes & Teas)",
-          "detail": "Owlet Nuggets",
+          "message": "No price set: 'Pickled Pumpkin' (Dishes & Teas)",
+          "detail": "Pickled Pumpkin",
           "context": {
-            "name": "Owlet Nuggets",
+            "name": "Pickled Pumpkin",
             "category": "Dishes & Teas"
           }
         },
@@ -8667,1516 +8662,6 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Tarberry Nougat Heart' (Dishes & Teas)",
-          "detail": "Tarberry Nougat Heart",
-          "context": {
-            "name": "Tarberry Nougat Heart",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Bog Sucker' (Fish)",
-          "detail": "Bog Sucker",
-          "context": {
-            "name": "Bog Sucker",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fall Filet' (Fish)",
-          "detail": "Fall Filet",
-          "context": {
-            "name": "Fall Filet",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fernskipper' (Fish)",
-          "detail": "Fernskipper",
-          "context": {
-            "name": "Fernskipper",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fester Koi' (Fish)",
-          "detail": "Fester Koi",
-          "context": {
-            "name": "Fester Koi",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Glass Ghost' (Fish)",
-          "detail": "Glass Ghost",
-          "context": {
-            "name": "Glass Ghost",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Jellied Fish' (Fish)",
-          "detail": "Jellied Fish",
-          "context": {
-            "name": "Jellied Fish",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Orange Overseer' (Fish)",
-          "detail": "Orange Overseer",
-          "context": {
-            "name": "Orange Overseer",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spring Filet' (Fish)",
-          "detail": "Spring Filet",
-          "context": {
-            "name": "Spring Filet",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Summer Filet' (Fish)",
-          "detail": "Summer Filet",
-          "context": {
-            "name": "Summer Filet",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Wasteland Fish Sandwich' (Fish)",
-          "detail": "Wasteland Fish Sandwich",
-          "context": {
-            "name": "Wasteland Fish Sandwich",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Winter Filet' (Fish)",
-          "detail": "Winter Filet",
-          "context": {
-            "name": "Winter Filet",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Angler Meat' (Ingredients)",
-          "detail": "Angler Meat",
-          "context": {
-            "name": "Angler Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Ant Meat' (Ingredients)",
-          "detail": "Ant Meat",
-          "context": {
-            "name": "Ant Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Ash Rose' (Ingredients)",
-          "detail": "Ash Rose",
-          "context": {
-            "name": "Ash Rose",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Aster' (Ingredients)",
-          "detail": "Aster",
-          "context": {
-            "name": "Aster",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Bioluminescent Fluid' (Ingredients)",
-          "detail": "Bioluminescent Fluid",
-          "context": {
-            "name": "Bioluminescent Fluid",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Black Bloodleaf' (Ingredients)",
-          "detail": "Black Bloodleaf",
-          "context": {
-            "name": "Black Bloodleaf",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Blight' (Ingredients)",
-          "detail": "Blight",
-          "context": {
-            "name": "Blight",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Bloatfly Meat' (Ingredients)",
-          "detail": "Bloatfly Meat",
-          "context": {
-            "name": "Bloatfly Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Bloodbug Meat' (Ingredients)",
-          "detail": "Bloodbug Meat",
-          "context": {
-            "name": "Bloodbug Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Bloodleaf' (Ingredients)",
-          "detail": "Bloodleaf",
-          "context": {
-            "name": "Bloodleaf",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Boiled Water' (Ingredients)",
-          "detail": "Boiled Water",
-          "context": {
-            "name": "Boiled Water",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Brahmin Meat' (Ingredients)",
-          "detail": "Brahmin Meat",
-          "context": {
-            "name": "Brahmin Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Brahmin Milk' (Ingredients)",
-          "detail": "Brahmin Milk",
-          "context": {
-            "name": "Brahmin Milk",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Brain Fungus' (Ingredients)",
-          "detail": "Brain Fungus",
-          "context": {
-            "name": "Brain Fungus",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Burger Bits' (Ingredients)",
-          "detail": "Burger Bits",
-          "context": {
-            "name": "Burger Bits",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Carrot' (Ingredients)",
-          "detail": "Carrot",
-          "context": {
-            "name": "Carrot",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Carrot Flower' (Ingredients)",
-          "detail": "Carrot Flower",
-          "context": {
-            "name": "Carrot Flower",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cave Cricket Gland' (Ingredients)",
-          "detail": "Cave Cricket Gland",
-          "context": {
-            "name": "Cave Cricket Gland",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cave Cricket Meat' (Ingredients)",
-          "detail": "Cave Cricket Meat",
-          "context": {
-            "name": "Cave Cricket Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cave Fungus' (Ingredients)",
-          "detail": "Cave Fungus",
-          "context": {
-            "name": "Cave Fungus",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: \"Chally's Milk\" (Ingredients)",
-          "detail": "Chally's Milk",
-          "context": {
-            "name": "Chally's Milk",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Chicken Thigh' (Ingredients)",
-          "detail": "Chicken Thigh",
-          "context": {
-            "name": "Chicken Thigh",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Chicken Thigh' (Ingredients)",
-          "detail": "Chicken Thigh",
-          "context": {
-            "name": "Chicken Thigh",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Chicken Thigh' (Ingredients)",
-          "detail": "Chicken Thigh",
-          "context": {
-            "name": "Chicken Thigh",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Chicken Thigh' (Ingredients)",
-          "detail": "Chicken Thigh",
-          "context": {
-            "name": "Chicken Thigh",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Corn' (Ingredients)",
-          "detail": "Corn",
-          "context": {
-            "name": "Corn",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Corpse Flower Stamen' (Ingredients)",
-          "detail": "Corpse Flower Stamen",
-          "context": {
-            "name": "Corpse Flower Stamen",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Corpse Seeds' (Ingredients)",
-          "detail": "Corpse Seeds",
-          "context": {
-            "name": "Corpse Seeds",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cranberries' (Ingredients)",
-          "detail": "Cranberries",
-          "context": {
-            "name": "Cranberries",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cream' (Ingredients)",
-          "detail": "Cream",
-          "context": {
-            "name": "Cream",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Deathclaw Egg' (Ingredients)",
-          "detail": "Deathclaw Egg",
-          "context": {
-            "name": "Deathclaw Egg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Deathclaw Meat' (Ingredients)",
-          "detail": "Deathclaw Meat",
-          "context": {
-            "name": "Deathclaw Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Dirty Water' (Ingredients)",
-          "detail": "Dirty Water",
-          "context": {
-            "name": "Dirty Water",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Diseased Cranberries' (Ingredients)",
-          "detail": "Diseased Cranberries",
-          "context": {
-            "name": "Diseased Cranberries",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fever Blossom' (Ingredients)",
-          "detail": "Fever Blossom",
-          "context": {
-            "name": "Fever Blossom",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Firecap' (Ingredients)",
-          "detail": "Firecap",
-          "context": {
-            "name": "Firecap",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Firecracker Berry' (Ingredients)",
-          "detail": "Firecracker Berry",
-          "context": {
-            "name": "Firecracker Berry",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Flying Ant Meat' (Ingredients)",
-          "detail": "Flying Ant Meat",
-          "context": {
-            "name": "Flying Ant Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Forrage Porridge' (Ingredients)",
-          "detail": "Forrage Porridge",
-          "context": {
-            "name": "Forrage Porridge",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fox Meat' (Ingredients)",
-          "detail": "Fox Meat",
-          "context": {
-            "name": "Fox Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Frog Egg' (Ingredients)",
-          "detail": "Frog Egg",
-          "context": {
-            "name": "Frog Egg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Frog Leg' (Ingredients)",
-          "detail": "Frog Leg",
-          "context": {
-            "name": "Frog Leg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Ginseng Root' (Ingredients)",
-          "detail": "Ginseng Root",
-          "context": {
-            "name": "Ginseng Root",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Glowing Fungus' (Ingredients)",
-          "detail": "Glowing Fungus",
-          "context": {
-            "name": "Glowing Fungus",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Glowing Mass' (Ingredients)",
-          "detail": "Glowing Mass",
-          "context": {
-            "name": "Glowing Mass",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Glowing Meat' (Ingredients)",
-          "detail": "Glowing Meat",
-          "context": {
-            "name": "Glowing Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Glowing Resin' (Ingredients)",
-          "detail": "Glowing Resin",
-          "context": {
-            "name": "Glowing Resin",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gourd' (Ingredients)",
-          "detail": "Gourd",
-          "context": {
-            "name": "Gourd",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gourd Blossom' (Ingredients)",
-          "detail": "Gourd Blossom",
-          "context": {
-            "name": "Gourd Blossom",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gulper Innards' (Ingredients)",
-          "detail": "Gulper Innards",
-          "context": {
-            "name": "Gulper Innards",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gut Shroom' (Ingredients)",
-          "detail": "Gut Shroom",
-          "context": {
-            "name": "Gut Shroom",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Healthy Deathclaw Egg' (Ingredients)",
-          "detail": "Healthy Deathclaw Egg",
-          "context": {
-            "name": "Healthy Deathclaw Egg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Hermit Crab Meat' (Ingredients)",
-          "detail": "Hermit Crab Meat",
-          "context": {
-            "name": "Hermit Crab Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Honeycomb' (Ingredients)",
-          "detail": "Honeycomb",
-          "context": {
-            "name": "Honeycomb",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Iguana Bits' (Ingredients)",
-          "detail": "Iguana Bits",
-          "context": {
-            "name": "Iguana Bits",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Inert Flux' (Ingredients)",
-          "detail": "Inert Flux",
-          "context": {
-            "name": "Inert Flux",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Intestine' (Ingredients)",
-          "detail": "Intestine",
-          "context": {
-            "name": "Intestine",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Ionized Meat' (Ingredients)",
-          "detail": "Ionized Meat",
-          "context": {
-            "name": "Ionized Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Kaleidopore Flower' (Ingredients)",
-          "detail": "Kaleidopore Flower",
-          "context": {
-            "name": "Kaleidopore Flower",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Lure Weed' (Ingredients)",
-          "detail": "Lure Weed",
-          "context": {
-            "name": "Lure Weed",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Meat Treats' (Ingredients)",
-          "detail": "Meat Treats",
-          "context": {
-            "name": "Meat Treats",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Megasloth Meat' (Ingredients)",
-          "detail": "Megasloth Meat",
-          "context": {
-            "name": "Megasloth Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Megasloth Mushroom' (Ingredients)",
-          "detail": "Megasloth Mushroom",
-          "context": {
-            "name": "Megasloth Mushroom",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Melon' (Ingredients)",
-          "detail": "Melon",
-          "context": {
-            "name": "Melon",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Melon Bloom' (Ingredients)",
-          "detail": "Melon Bloom",
-          "context": {
-            "name": "Melon Bloom",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Melon Blossom' (Ingredients)",
-          "detail": "Melon Blossom",
-          "context": {
-            "name": "Melon Blossom",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mirelurk Egg' (Ingredients)",
-          "detail": "Mirelurk Egg",
-          "context": {
-            "name": "Mirelurk Egg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mirelurk Meat' (Ingredients)",
-          "detail": "Mirelurk Meat",
-          "context": {
-            "name": "Mirelurk Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Moldy Food' (Ingredients)",
-          "detail": "Moldy Food",
-          "context": {
-            "name": "Moldy Food",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mole Rat Meat' (Ingredients)",
-          "detail": "Mole Rat Meat",
-          "context": {
-            "name": "Mole Rat Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mongrel Dog Meat' (Ingredients)",
-          "detail": "Mongrel Dog Meat",
-          "context": {
-            "name": "Mongrel Dog Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mothman Egg' (Ingredients)",
-          "detail": "Mothman Egg",
-          "context": {
-            "name": "Mothman Egg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mutant Hound Meat' (Ingredients)",
-          "detail": "Mutant Hound Meat",
-          "context": {
-            "name": "Mutant Hound Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mutated Fern Flower' (Ingredients)",
-          "detail": "Mutated Fern Flower",
-          "context": {
-            "name": "Mutated Fern Flower",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mutfruit' (Ingredients)",
-          "detail": "Mutfruit",
-          "context": {
-            "name": "Mutfruit",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nuclear Wastewater' (Ingredients)",
-          "detail": "Nuclear Wastewater",
-          "context": {
-            "name": "Nuclear Wastewater",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Opossum Meat' (Ingredients)",
-          "detail": "Opossum Meat",
-          "context": {
-            "name": "Opossum Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Owlet Meat' (Ingredients)",
-          "detail": "Owlet Meat",
-          "context": {
-            "name": "Owlet Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Perfect Mothman Egg' (Ingredients)",
-          "detail": "Perfect Mothman Egg",
-          "context": {
-            "name": "Perfect Mothman Egg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Pickled Pumpkin' (Ingredients)",
-          "detail": "Pickled Pumpkin",
-          "context": {
-            "name": "Pickled Pumpkin",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Prickeye' (Ingredients)",
-          "detail": "Prickeye",
-          "context": {
-            "name": "Prickeye",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Prime Meat' (Ingredients)",
-          "detail": "Prime Meat",
-          "context": {
-            "name": "Prime Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Pumpkin' (Ingredients)",
-          "detail": "Pumpkin",
-          "context": {
-            "name": "Pumpkin",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Queen Mirelurk Meat' (Ingredients)",
-          "detail": "Queen Mirelurk Meat",
-          "context": {
-            "name": "Queen Mirelurk Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Rabbit Leg' (Ingredients)",
-          "detail": "Rabbit Leg",
-          "context": {
-            "name": "Rabbit Leg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Radhog Meat' (Ingredients)",
-          "detail": "Radhog Meat",
-          "context": {
-            "name": "Radhog Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Radrat Meat' (Ingredients)",
-          "detail": "Radrat Meat",
-          "context": {
-            "name": "Radrat Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Radroach Meat' (Ingredients)",
-          "detail": "Radroach Meat",
-          "context": {
-            "name": "Radroach Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Radscorpion Egg' (Ingredients)",
-          "detail": "Radscorpion Egg",
-          "context": {
-            "name": "Radscorpion Egg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Radscorpion Meat' (Ingredients)",
-          "detail": "Radscorpion Meat",
-          "context": {
-            "name": "Radscorpion Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Radstag Meat' (Ingredients)",
-          "detail": "Radstag Meat",
-          "context": {
-            "name": "Radstag Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Radtoad Egg' (Ingredients)",
-          "detail": "Radtoad Egg",
-          "context": {
-            "name": "Radtoad Egg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Radtoad Leg' (Ingredients)",
-          "detail": "Radtoad Leg",
-          "context": {
-            "name": "Radtoad Leg",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Cobalt Flux' (Ingredients)",
-          "detail": "Raw Cobalt Flux",
-          "context": {
-            "name": "Raw Cobalt Flux",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Crimson Flux' (Ingredients)",
-          "detail": "Raw Crimson Flux",
-          "context": {
-            "name": "Raw Crimson Flux",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Fluorescent Flux' (Ingredients)",
-          "detail": "Raw Fluorescent Flux",
-          "context": {
-            "name": "Raw Fluorescent Flux",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Fog Crawler Meat' (Ingredients)",
-          "detail": "Raw Fog Crawler Meat",
-          "context": {
-            "name": "Raw Fog Crawler Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Violet Flux' (Ingredients)",
-          "detail": "Raw Violet Flux",
-          "context": {
-            "name": "Raw Violet Flux",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Wolf Meat' (Ingredients)",
-          "detail": "Raw Wolf Meat",
-          "context": {
-            "name": "Raw Wolf Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Yellowcake Flux' (Ingredients)",
-          "detail": "Raw Yellowcake Flux",
-          "context": {
-            "name": "Raw Yellowcake Flux",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Razorgrain' (Ingredients)",
-          "detail": "Razorgrain",
-          "context": {
-            "name": "Razorgrain",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Rhododendron Flower' (Ingredients)",
-          "detail": "Rhododendron Flower",
-          "context": {
-            "name": "Rhododendron Flower",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Salmon Filet' (Ingredients)",
-          "detail": "Salmon Filet",
-          "context": {
-            "name": "Salmon Filet",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Scorchbeast Brain' (Ingredients)",
-          "detail": "Scorchbeast Brain",
-          "context": {
-            "name": "Scorchbeast Brain",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Scorchbeast Heart' (Ingredients)",
-          "detail": "Scorchbeast Heart",
-          "context": {
-            "name": "Scorchbeast Heart",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Scorchbeast Liver' (Ingredients)",
-          "detail": "Scorchbeast Liver",
-          "context": {
-            "name": "Scorchbeast Liver",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Scorchbeast Lung' (Ingredients)",
-          "detail": "Scorchbeast Lung",
-          "context": {
-            "name": "Scorchbeast Lung",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Scorchbeast Meat' (Ingredients)",
-          "detail": "Scorchbeast Meat",
-          "context": {
-            "name": "Scorchbeast Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Seed Feed' (Ingredients)",
-          "detail": "Seed Feed",
-          "context": {
-            "name": "Seed Feed",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Sheepsquatch Horn' (Ingredients)",
-          "detail": "Sheepsquatch Horn",
-          "context": {
-            "name": "Sheepsquatch Horn",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Sheepsquatch Meat' (Ingredients)",
-          "detail": "Sheepsquatch Meat",
-          "context": {
-            "name": "Sheepsquatch Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Silt Bean' (Ingredients)",
-          "detail": "Silt Bean",
-          "context": {
-            "name": "Silt Bean",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Snaptail Reed' (Ingredients)",
-          "detail": "Snaptail Reed",
-          "context": {
-            "name": "Snaptail Reed",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Softshell Mirelurk Meat' (Ingredients)",
-          "detail": "Softshell Mirelurk Meat",
-          "context": {
-            "name": "Softshell Mirelurk Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Soot Flower' (Ingredients)",
-          "detail": "Soot Flower",
-          "context": {
-            "name": "Soot Flower",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spoiled Bio Fluid' (Ingredients)",
-          "detail": "Spoiled Bio Fluid",
-          "context": {
-            "name": "Spoiled Bio Fluid",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spoiled Fruit' (Ingredients)",
-          "detail": "Spoiled Fruit",
-          "context": {
-            "name": "Spoiled Fruit",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spoiled Meat' (Ingredients)",
-          "detail": "Spoiled Meat",
-          "context": {
-            "name": "Spoiled Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spoiled Vegetables' (Ingredients)",
-          "detail": "Spoiled Vegetables",
-          "context": {
-            "name": "Spoiled Vegetables",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Squirrel Bits' (Ingredients)",
-          "detail": "Squirrel Bits",
-          "context": {
-            "name": "Squirrel Bits",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Starlight Berries' (Ingredients)",
-          "detail": "Starlight Berries",
-          "context": {
-            "name": "Starlight Berries",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steak Sticks' (Ingredients)",
-          "detail": "Steak Sticks",
-          "context": {
-            "name": "Steak Sticks",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steeped Melon Bloom Tea' (Ingredients)",
-          "detail": "Steeped Melon Bloom Tea",
-          "context": {
-            "name": "Steeped Melon Bloom Tea",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steeped Strangler Bloom Tea' (Ingredients)",
-          "detail": "Steeped Strangler Bloom Tea",
-          "context": {
-            "name": "Steeped Strangler Bloom Tea",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Stingwing Meat' (Ingredients)",
-          "detail": "Stingwing Meat",
-          "context": {
-            "name": "Stingwing Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Strangler Bloom' (Ingredients)",
-          "detail": "Strangler Bloom",
-          "context": {
-            "name": "Strangler Bloom",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Strangler Pod' (Ingredients)",
-          "detail": "Strangler Pod",
-          "context": {
-            "name": "Strangler Pod",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Swamp Plant' (Ingredients)",
-          "detail": "Swamp Plant",
-          "context": {
-            "name": "Swamp Plant",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Tarberry' (Ingredients)",
-          "detail": "Tarberry",
-          "context": {
-            "name": "Tarberry",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Tato' (Ingredients)",
-          "detail": "Tato",
-          "context": {
-            "name": "Tato",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Tato Flower' (Ingredients)",
-          "detail": "Tato Flower",
-          "context": {
-            "name": "Tato Flower",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Thistle' (Ingredients)",
-          "detail": "Thistle",
-          "context": {
-            "name": "Thistle",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Tick Blood' (Ingredients)",
-          "detail": "Tick Blood",
-          "context": {
-            "name": "Tick Blood",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Toxic Soot Flower' (Ingredients)",
-          "detail": "Toxic Soot Flower",
-          "context": {
-            "name": "Toxic Soot Flower",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Toxic Water' (Ingredients)",
-          "detail": "Toxic Water",
-          "context": {
-            "name": "Toxic Water",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Veggie Vittles' (Ingredients)",
-          "detail": "Veggie Vittles",
-          "context": {
-            "name": "Veggie Vittles",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Wild Blackberry' (Ingredients)",
-          "detail": "Wild Blackberry",
-          "context": {
-            "name": "Wild Blackberry",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: \"Winner's Cup\" (Ingredients)",
-          "detail": "Winner's Cup",
-          "context": {
-            "name": "Winner's Cup",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Yao Guai Meat' (Ingredients)",
-          "detail": "Yao Guai Meat",
-          "context": {
-            "name": "Yao Guai Meat",
-            "category": "Ingredients"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
           "message": "No price set: '_Disease Chance Food 0 - Base' (Other)",
           "detail": "_Disease Chance Food 0 - Base",
           "context": {
@@ -10227,370 +8712,10 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: \"ATLAS Donor's Provisions\" (Other)",
-          "detail": "ATLAS Donor's Provisions",
+          "message": "No price set: 'Bioluminescent Fluid' (Other)",
+          "detail": "Bioluminescent Fluid",
           "context": {
-            "name": "ATLAS Donor's Provisions",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Crafted Dusty Mole Miner Pail' (Other)",
-          "detail": "Crafted Dusty Mole Miner Pail",
-          "context": {
-            "name": "Crafted Dusty Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Crafted Dusty Mole Miner Pail' (Other)",
-          "detail": "Crafted Dusty Mole Miner Pail",
-          "context": {
-            "name": "Crafted Dusty Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Crafted Mole Miner Pail' (Other)",
-          "detail": "Crafted Mole Miner Pail",
-          "context": {
-            "name": "Crafted Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Crafted Mole Miner Pail' (Other)",
-          "detail": "Crafted Mole Miner Pail",
-          "context": {
-            "name": "Crafted Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Crafted Ornate Mole Miner Pail' (Other)",
-          "detail": "Crafted Ornate Mole Miner Pail",
-          "context": {
-            "name": "Crafted Ornate Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Crafted Ornate Mole Miner Pail' (Other)",
-          "detail": "Crafted Ornate Mole Miner Pail",
-          "context": {
-            "name": "Crafted Ornate Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cultist High Priest Pack' (Other)",
-          "detail": "Cultist High Priest Pack",
-          "context": {
-            "name": "Cultist High Priest Pack",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Double Mutated Package' (Other)",
-          "detail": "Double Mutated Package",
-          "context": {
-            "name": "Double Mutated Package",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Double Mutated Party Pack' (Other)",
-          "detail": "Double Mutated Party Pack",
-          "context": {
-            "name": "Double Mutated Party Pack",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Dusty Mole Miner Pail' (Other)",
-          "detail": "Dusty Mole Miner Pail",
-          "context": {
-            "name": "Dusty Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Dusty Mole Miner Pail' (Other)",
-          "detail": "Dusty Mole Miner Pail",
-          "context": {
-            "name": "Dusty Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gleaming Depths Weekly Reward Crate' (Other)",
-          "detail": "Gleaming Depths Weekly Reward Crate",
-          "context": {
-            "name": "Gleaming Depths Weekly Reward Crate",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Handmade Holiday Gift' (Other)",
-          "detail": "Handmade Holiday Gift",
-          "context": {
-            "name": "Handmade Holiday Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Handmade Holiday Gift' (Other)",
-          "detail": "Handmade Holiday Gift",
-          "context": {
-            "name": "Handmade Holiday Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Holiday Gift' (Other)",
-          "detail": "Holiday Gift",
-          "context": {
-            "name": "Holiday Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Holiday Gift' (Other)",
-          "detail": "Holiday Gift",
-          "context": {
-            "name": "Holiday Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Large Handmade Holiday Gift' (Other)",
-          "detail": "Large Handmade Holiday Gift",
-          "context": {
-            "name": "Large Handmade Holiday Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Large Handmade Holiday Gift' (Other)",
-          "detail": "Large Handmade Holiday Gift",
-          "context": {
-            "name": "Large Handmade Holiday Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Large Holiday Gift' (Other)",
-          "detail": "Large Holiday Gift",
-          "context": {
-            "name": "Large Holiday Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Large Holiday Gift' (Other)",
-          "detail": "Large Holiday Gift",
-          "context": {
-            "name": "Large Holiday Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Large Waterlogged Gift' (Other)",
-          "detail": "Large Waterlogged Gift",
-          "context": {
-            "name": "Large Waterlogged Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Metabolux Syringe' (Other)",
-          "detail": "Metabolux Syringe",
-          "context": {
-            "name": "Metabolux Syringe",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mole Miner Pail' (Other)",
-          "detail": "Mole Miner Pail",
-          "context": {
-            "name": "Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mole Miner Pail' (Other)",
-          "detail": "Mole Miner Pail",
-          "context": {
-            "name": "Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mutated Package' (Other)",
-          "detail": "Mutated Package",
-          "context": {
-            "name": "Mutated Package",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mutated Party Pack' (Other)",
-          "detail": "Mutated Party Pack",
-          "context": {
-            "name": "Mutated Party Pack",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mystery Bobblehead Box' (Other)",
-          "detail": "Mystery Bobblehead Box",
-          "context": {
-            "name": "Mystery Bobblehead Box",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mystery Bobblehead Box' (Other)",
-          "detail": "Mystery Bobblehead Box",
-          "context": {
-            "name": "Mystery Bobblehead Box",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mystery Magazine Package' (Other)",
-          "detail": "Mystery Magazine Package",
-          "context": {
-            "name": "Mystery Magazine Package",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mystery Magazine Package' (Other)",
-          "detail": "Mystery Magazine Package",
-          "context": {
-            "name": "Mystery Magazine Package",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Ornate Mole Miner Pail' (Other)",
-          "detail": "Ornate Mole Miner Pail",
-          "context": {
-            "name": "Ornate Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Ornate Mole Miner Pail' (Other)",
-          "detail": "Ornate Mole Miner Pail",
-          "context": {
-            "name": "Ornate Mole Miner Pail",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Potion of Experience I' (Other)",
-          "detail": "Potion of Experience I",
-          "context": {
-            "name": "Potion of Experience I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Potion of Experience II' (Other)",
-          "detail": "Potion of Experience II",
-          "context": {
-            "name": "Potion of Experience II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Potion of Experience III' (Other)",
-          "detail": "Potion of Experience III",
-          "context": {
-            "name": "Potion of Experience III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Potion of Experience IV' (Other)",
-          "detail": "Potion of Experience IV",
-          "context": {
-            "name": "Potion of Experience IV",
+            "name": "Bioluminescent Fluid",
             "category": "Other"
           }
         },
@@ -10617,40 +8742,50 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Precursor 114a' (Other)",
-          "detail": "Precursor 114a",
+          "message": "No price set: 'Raw Cobalt Flux' (Other)",
+          "detail": "Raw Cobalt Flux",
           "context": {
-            "name": "Precursor 114a",
+            "name": "Raw Cobalt Flux",
             "category": "Other"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Precursor 114b' (Other)",
-          "detail": "Precursor 114b",
+          "message": "No price set: 'Raw Crimson Flux' (Other)",
+          "detail": "Raw Crimson Flux",
           "context": {
-            "name": "Precursor 114b",
+            "name": "Raw Crimson Flux",
             "category": "Other"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Precursor 7516a' (Other)",
-          "detail": "Precursor 7516a",
+          "message": "No price set: 'Raw Fluorescent Flux' (Other)",
+          "detail": "Raw Fluorescent Flux",
           "context": {
-            "name": "Precursor 7516a",
+            "name": "Raw Fluorescent Flux",
             "category": "Other"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Precursor 7516b' (Other)",
-          "detail": "Precursor 7516b",
+          "message": "No price set: 'Raw Violet Flux' (Other)",
+          "detail": "Raw Violet Flux",
           "context": {
-            "name": "Precursor 7516b",
+            "name": "Raw Violet Flux",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Raw Yellowcake Flux' (Other)",
+          "detail": "Raw Yellowcake Flux",
+          "context": {
+            "name": "Raw Yellowcake Flux",
             "category": "Other"
           }
         },
@@ -10667,813 +8802,53 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: \"Scout's Banner\" (Other)",
-          "detail": "Scout's Banner",
+          "message": "No price set: 'Spoiled Bio Fluid' (Other)",
+          "detail": "Spoiled Bio Fluid",
           "context": {
-            "name": "Scout's Banner",
+            "name": "Spoiled Bio Fluid",
             "category": "Other"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Small Handmade Holiday Gift' (Other)",
-          "detail": "Small Handmade Holiday Gift",
+          "message": "No price set: 'Spoiled Fruit' (Other)",
+          "detail": "Spoiled Fruit",
           "context": {
-            "name": "Small Handmade Holiday Gift",
+            "name": "Spoiled Fruit",
             "category": "Other"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Small Handmade Holiday Gift' (Other)",
-          "detail": "Small Handmade Holiday Gift",
+          "message": "No price set: 'Spoiled Meat' (Other)",
+          "detail": "Spoiled Meat",
           "context": {
-            "name": "Small Handmade Holiday Gift",
+            "name": "Spoiled Meat",
             "category": "Other"
           }
         },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Small Holiday Gift' (Other)",
-          "detail": "Small Holiday Gift",
+          "message": "No price set: 'Spoiled Vegetables' (Other)",
+          "detail": "Spoiled Vegetables",
           "context": {
-            "name": "Small Holiday Gift",
+            "name": "Spoiled Vegetables",
             "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Small Holiday Gift' (Other)",
-          "detail": "Small Holiday Gift",
-          "context": {
-            "name": "Small Holiday Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Small Waterlogged Gift' (Other)",
-          "detail": "Small Waterlogged Gift",
-          "context": {
-            "name": "Small Waterlogged Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spooky Treat Bag' (Other)",
-          "detail": "Spooky Treat Bag",
-          "context": {
-            "name": "Spooky Treat Bag",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Stealth Boy' (Other)",
-          "detail": "Stealth Boy",
-          "context": {
-            "name": "Stealth Boy",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Stealth Boy' (Other)",
-          "detail": "Stealth Boy",
-          "context": {
-            "name": "Stealth Boy",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier I' (Other)",
-          "detail": "Steel Skin Infusion Tier I",
-          "context": {
-            "name": "Steel Skin Infusion Tier I",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier II' (Other)",
-          "detail": "Steel Skin Infusion Tier II",
-          "context": {
-            "name": "Steel Skin Infusion Tier II",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steel Skin Infusion Tier III' (Other)",
-          "detail": "Steel Skin Infusion Tier III",
-          "context": {
-            "name": "Steel Skin Infusion Tier III",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Tracking Dart' (Other)",
-          "detail": "Tracking Dart",
-          "context": {
-            "name": "Tracking Dart",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Vox Interpreter Dart' (Other)",
-          "detail": "Vox Interpreter Dart",
-          "context": {
-            "name": "Vox Interpreter Dart",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Waterlogged Gift' (Other)",
-          "detail": "Waterlogged Gift",
-          "context": {
-            "name": "Waterlogged Gift",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cola Perk Bubblegum' (Pre War Food)",
-          "detail": "Cola Perk Bubblegum",
-          "context": {
-            "name": "Cola Perk Bubblegum",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cotton Candy Bites' (Pre War Food)",
-          "detail": "Cotton Candy Bites",
-          "context": {
-            "name": "Cotton Candy Bites",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cotton Candy Bites' (Pre War Food)",
-          "detail": "Cotton Candy Bites",
-          "context": {
-            "name": "Cotton Candy Bites",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cotton Candy Bites' (Pre War Food)",
-          "detail": "Cotton Candy Bites",
-          "context": {
-            "name": "Cotton Candy Bites",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cotton Candy Bites' (Pre War Food)",
-          "detail": "Cotton Candy Bites",
-          "context": {
-            "name": "Cotton Candy Bites",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cotton Candy Bites' (Pre War Food)",
-          "detail": "Cotton Candy Bites",
-          "context": {
-            "name": "Cotton Candy Bites",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Grape Perk Bubblegum' (Pre War Food)",
-          "detail": "Grape Perk Bubblegum",
-          "context": {
-            "name": "Grape Perk Bubblegum",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gum Drops' (Pre War Food)",
-          "detail": "Gum Drops",
-          "context": {
-            "name": "Gum Drops",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gum Drops' (Pre War Food)",
-          "detail": "Gum Drops",
-          "context": {
-            "name": "Gum Drops",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gum Drops' (Pre War Food)",
-          "detail": "Gum Drops",
-          "context": {
-            "name": "Gum Drops",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gum Drops' (Pre War Food)",
-          "detail": "Gum Drops",
-          "context": {
-            "name": "Gum Drops",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gum Drops' (Pre War Food)",
-          "detail": "Gum Drops",
-          "context": {
-            "name": "Gum Drops",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Mystery Candy' (Pre War Food)",
-          "detail": "Mystery Candy",
-          "context": {
-            "name": "Mystery Candy",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Noodle Cup' (Pre War Food)",
-          "detail": "Noodle Cup",
-          "context": {
-            "name": "Noodle Cup",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nuka Victory Candy' (Pre War Food)",
-          "detail": "Nuka Victory Candy",
-          "context": {
-            "name": "Nuka Victory Candy",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nuka-Cola Candy' (Pre War Food)",
-          "detail": "Nuka-Cola Candy",
-          "context": {
-            "name": "Nuka-Cola Candy",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nuka-Cola Quantum Candy' (Pre War Food)",
-          "detail": "Nuka-Cola Quantum Candy",
-          "context": {
-            "name": "Nuka-Cola Quantum Candy",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Perk Bubblegum' (Pre War Food)",
-          "detail": "Perk Bubblegum",
-          "context": {
-            "name": "Perk Bubblegum",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Popcorn' (Pre War Food)",
-          "detail": "Popcorn",
-          "context": {
-            "name": "Popcorn",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Preserved InstaMash (Pre War)' (Pre War Food)",
-          "detail": "Preserved InstaMash (Pre War)",
-          "context": {
-            "name": "Preserved InstaMash (Pre War)",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: \"Rudy's Canned Pozole\" (Pre War Food)",
-          "detail": "Rudy's Canned Pozole",
-          "context": {
-            "name": "Rudy's Canned Pozole",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Strawberry Perk Bubblegum' (Pre War Food)",
-          "detail": "Strawberry Perk Bubblegum",
-          "context": {
-            "name": "Strawberry Perk Bubblegum",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Watermelon Perk Bubblegum' (Pre War Food)",
-          "detail": "Watermelon Perk Bubblegum",
-          "context": {
-            "name": "Watermelon Perk Bubblegum",
-            "category": "Pre War Food"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Irradiated Sunset Sarsaparilla' (Soda)",
-          "detail": "Irradiated Sunset Sarsaparilla",
-          "context": {
-            "name": "Irradiated Sunset Sarsaparilla",
-            "category": "Soda"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nuka-Cola' (Soda)",
-          "detail": "Nuka-Cola",
-          "context": {
-            "name": "Nuka-Cola",
-            "category": "Soda"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nuka-Cola Wild' (Soda)",
-          "detail": "Nuka-Cola Wild",
-          "context": {
-            "name": "Nuka-Cola Wild",
-            "category": "Soda"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nuka-Grape' (Soda)",
-          "detail": "Nuka-Grape",
-          "context": {
-            "name": "Nuka-Grape",
-            "category": "Soda"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nuka-Orange' (Soda)",
-          "detail": "Nuka-Orange",
-          "context": {
-            "name": "Nuka-Orange",
-            "category": "Soda"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Star Size Sunset Sarsaparilla' (Soda)",
-          "detail": "Star Size Sunset Sarsaparilla",
-          "context": {
-            "name": "Star Size Sunset Sarsaparilla",
-            "category": "Soda"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Sunset Sarsaparilla' (Soda)",
-          "detail": "Sunset Sarsaparilla",
-          "context": {
-            "name": "Sunset Sarsaparilla",
-            "category": "Soda"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Volatile Nuka Quantum' (Soda)",
-          "detail": "Volatile Nuka Quantum",
-          "context": {
-            "name": "Volatile Nuka Quantum",
-            "category": "Soda"
           }
         },
         {
           "severity": "info",
           "code": "bnb_menu_sync.summary",
-          "message": "Sync: 901 total, 1 new, 0 updated, 371 unpriced.",
+          "message": "Sync: 784 total, 8 new, 1 updated, 77 unpriced.",
           "context": {
-            "total": 901,
-            "new": 1,
-            "updated": 0,
-            "unpriced": 371,
-            "skipped": 128
+            "total": 784,
+            "new": 8,
+            "updated": 1,
+            "unpriced": 77,
+            "skipped": 442
           }
         }
       ]
