@@ -83,6 +83,8 @@ REQUIRED_COLS = {
     "limit_new",
     "limit_existing",
     "build",
+    "mutation",
+    "buff",
 }
 
 PRICE_FIELDS = ("price_xbox", "price_ps", "price_pc")
@@ -182,6 +184,8 @@ def build_categories(rows: List[Dict[str, str]], diag: Diagnostics) -> List[Dict
             "limit_new":      clean(row.get("limit_new", "")),
             "limit_existing": clean(row.get("limit_existing", "")),
             "build":          clean(row.get("build", "")),
+            "mutation":       clean(row.get("mutation", "")),
+            "buff":           clean(row.get("buff", "")),
         }
 
         missing_prices = [f for f in PRICE_FIELDS if not item[f]]
