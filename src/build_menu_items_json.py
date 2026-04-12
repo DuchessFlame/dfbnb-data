@@ -66,6 +66,7 @@ CATEGORY_LABEL = {
     "canned": "Canned",
     "alcohol": "Alcohol",
     "soda": "Soda",
+    "condiment": "Condiments & Non-Perishable",
     "other": "Other",
 }
 

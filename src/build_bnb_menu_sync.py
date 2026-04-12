@@ -100,6 +100,15 @@ SKIP_EDID_PATTERNS = [
     re.compile(r"^TestQA", re.IGNORECASE),
     re.compile(r"^test[A-Z]", re.IGNORECASE),
     re.compile(r"^zz", re.IGNORECASE),
+    re.compile(r"^AC_SQ04_Reopening_", re.IGNORECASE),  # cut content (Nukashine 2 etc.)
+    re.compile(r"^SFS01_Brew_", re.IGNORECASE),          # cut content (Tater/Muttberry/Sunday Shine)
+    re.compile(r"Firecracker", re.IGNORECASE),            # cut content (Firecracker Whiskey line)
+    re.compile(r"^_Disease", re.IGNORECASE),              # game system (disease chance)
+    re.compile(r"SteelSkin", re.IGNORECASE),              # game system (Steel Skin Infusion)
+    re.compile(r"HealingCloud", re.IGNORECASE),           # game system (Healing Cloud Infusion)
+    re.compile(r"FieryInfusion", re.IGNORECASE),          # game system (Fiery Infusion)
+    re.compile(r"^PotionOf", re.IGNORECASE),              # game system (Potion of Experience etc.)
+    re.compile(r"^Recalibrated", re.IGNORECASE),          # game system (Recalibrated Liberator)
 ]
 
 # ---------------------------------------------------------------------------
