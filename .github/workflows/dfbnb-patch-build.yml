@@ -452,6 +452,14 @@ jobs:
       - name: Build BnB Menu JSON
         run: python src/build_bnb_menu_json.py
 
+      # --- BNB ITEM CATEGORIES (ALCH → category index for crafting tab) ---
+      # Cross-references ALCH_Export + KYWD_Refs TSVs to classify every
+      # consumable into food/canned/nuka_cola/chems/alcohol/serums/prewar_candy.
+      # Emits dist/bnb-item-categories.json consumed by the staff portal's
+      # Crafting tab to supplement the menu-items.json primary item list.
+      - name: Build BnB Item Categories JSON
+        run: python src/build_bnb_item_categories_json.py --data-dir tsv --outdir dist
+
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
       # fish metadata + spawn rate tables per bait type. Self-contained.
@@ -496,6 +504,7 @@ jobs:
           test -f dist/cobj-recipes.json             && echo "OK cobj-recipes.json"             || (echo "MISSING cobj-recipes.json" && exit 1)
           test -f dist/menu-items.json               && echo "OK menu-items.json"               || (echo "MISSING menu-items.json" && exit 1)
           test -f dist/bnb-menu.json                 && echo "OK bnb-menu.json"                 || (echo "MISSING bnb-menu.json" && exit 1)
+          test -f dist/bnb-item-categories.json      && echo "OK bnb-item-categories.json"      || (echo "MISSING bnb-item-categories.json" && exit 1)
           test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
           test -f dist/reho/reho_rewards_by_page.json && echo "OK reho/reho_rewards_by_page.json" || (echo "MISSING reho/reho_rewards_by_page.json" && exit 1)
           test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)

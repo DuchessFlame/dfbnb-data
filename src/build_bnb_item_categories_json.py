@@ -342,15 +342,18 @@ def load_alch_records(tsv_path: str) -> Dict[str, Dict[str, Any]]:
     with open(tsv_path, "r", encoding="utf-8", errors="replace", newline="") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
-            fid = norm_fid(row.get("FormID", ""))
+            # Support both column naming conventions:
+            #   Old/generic: FormID, EDID
+            #   April 2026+: ALCH_FormID, ALCH_EDID
+            fid = norm_fid(row.get("ALCH_FormID", "") or row.get("FormID", ""))
             if not fid:
                 continue
-            edid = clean(row.get("EDID", ""))
+            edid = clean(row.get("ALCH_EDID", "") or row.get("EDID", ""))
             name = clean(row.get("FULL", ""))
             desc = clean(row.get("DESC", ""))
             weight = clean(row.get("Weight", ""))
             value = clean(row.get("Value", ""))
-            dnam = clean(row.get("DNAM", ""))
+            dnam = clean(row.get("DNAM_AddictionName", "") or row.get("DNAM", ""))
             kws = parse_keywords_flat(row.get("Keywords_Flat", ""))
             records[fid] = {
                 "form_id": fid,
@@ -533,7 +536,13 @@ def main() -> int:
 
     # --- Locate inputs ---
     kywd_refs_path = find_latest_tsv(args.data_dir, "KYWD_Export_*_Refs.tsv")
-    alch_path = find_latest_tsv(args.data_dir, "ALCH_Export_*.tsv")
+    # Exclude _Effects files — we want the base ALCH export only.
+    alch_candidates = [
+        p for p in glob.glob(os.path.join(args.data_dir, "ALCH_Export_*.tsv"))
+        if "_Effects" not in os.path.basename(p)
+    ]
+    alch_candidates.sort(key=lambda p: os.path.getmtime(p), reverse=True)
+    alch_path = alch_candidates[0] if alch_candidates else None
 
     if not kywd_refs_path:
         msg = f"No KYWD_Export_*_Refs.tsv found in {args.data_dir}"
