@@ -1,11 +1,11 @@
 {
-  "generated": "2026-04-12T13:02:58+00:00",
+  "generated": "2026-04-12T13:16:59+00:00",
   "sections": {
     "menu_items": {
-      "generated": "2026-04-12T13:02:58+00:00",
+      "generated": "2026-04-12T13:16:59+00:00",
       "counts": {
-        "error": 226,
-        "warning": 247,
+        "error": 227,
+        "warning": 248,
         "info": 41
       },
       "entries": [
@@ -261,6 +261,30 @@
             "name": "Syrup",
             "cobj": "food",
             "override": "condiment"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Crispy Flying Ant Bits' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Crispy Flying Ant Bits",
+          "context": {
+            "name": "Crispy Flying Ant Bits",
+            "category": "food",
+            "keywords": [
+              "Meal_Recipe_Meat",
+              "Meal_Recipe_Food"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Crispy Flying Ant Bits' has no prices set.",
+          "detail": "Crispy Flying Ant Bits",
+          "context": {
+            "name": "Crispy Flying Ant Bits",
+            "category": "food"
           }
         },
         {
@@ -730,11 +754,11 @@
         {
           "severity": "info",
           "code": "menu.category_conflict",
-          "message": "'Lemonade': COBJ suggests 'food', override sets 'chem'.",
+          "message": "'Lemonade': COBJ suggests 'food', override sets 'soda'.",
           "context": {
             "name": "Lemonade",
             "cobj": "food",
-            "override": "chem"
+            "override": "soda"
           }
         },
         {
@@ -1798,27 +1822,30 @@
           }
         },
         {
-          "severity": "warning",
-          "code": "menu.new_item",
-          "message": "New craftable item 'Pickled Pumpkin' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Pickled Pumpkin' is missing price for: xbox, ps, pc",
           "detail": "Pickled Pumpkin",
           "context": {
             "name": "Pickled Pumpkin",
-            "category": "food",
-            "keywords": [
-              "Meal_Recipe_Food",
-              "Meal_Recipe_Prepared"
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
             ]
           }
         },
         {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "Menu item 'Pickled Pumpkin' has no prices set.",
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Pickled Pumpkin' is missing limit for: new, existing",
           "detail": "Pickled Pumpkin",
           "context": {
             "name": "Pickled Pumpkin",
-            "category": "food"
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
           }
         },
         {
@@ -4551,10 +4578,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Inert Flux' is missing price for: xbox, ps, pc",
-          "detail": "Inert Flux",
+          "message": "'Ionized Meat' is missing price for: xbox, ps, pc",
+          "detail": "Ionized Meat",
           "context": {
-            "name": "Inert Flux",
+            "name": "Ionized Meat",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -4565,10 +4592,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Inert Flux' is missing limit for: new, existing",
-          "detail": "Inert Flux",
+          "message": "'Ionized Meat' is missing limit for: new, existing",
+          "detail": "Ionized Meat",
           "context": {
-            "name": "Inert Flux",
+            "name": "Ionized Meat",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -6522,25 +6549,25 @@
         {
           "severity": "info",
           "code": "menu.skipped",
-          "message": "Skipped 45 items marked skip=1 in menu-overrides.tsv.",
+          "message": "Skipped 44 items marked skip=1 in menu-overrides.tsv.",
           "context": {
-            "count": 45
+            "count": 44
           }
         },
         {
           "severity": "info",
           "code": "menu.build.summary",
-          "message": "Wrote 589 menu items.",
+          "message": "Wrote 592 menu items.",
           "context": {
-            "total": 589,
+            "total": 592,
             "categories": {
               "Alcohol": 59,
               "Canned": 31,
-              "Chem": 89,
-              "Condiments & Non-Perishable": 22,
-              "Food": 211,
-              "Other": 151,
-              "Soda": 26
+              "Chem": 87,
+              "Condiments & Non-Perishable": 23,
+              "Food": 212,
+              "Other": 153,
+              "Soda & Drinks": 27
             }
           }
         }
@@ -6668,9 +6695,9 @@
       ]
     },
     "bnb_menu": {
-      "generated": "2026-04-12T13:02:57+00:00",
+      "generated": "2026-04-12T13:16:58+00:00",
       "counts": {
-        "error": 189,
+        "error": 171,
         "warning": 0,
         "info": 19
       },
@@ -7171,19 +7198,16 @@
           }
         },
         {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Firecracker Nougat Heart' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Firecracker Nougat Heart",
-          "context": {
-            "name": "Firecracker Nougat Heart",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 204: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "detail": "Fried Radroach On A Stick"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 205: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "detail": "Fried Radroach On A Stick"
         },
         {
           "severity": "info",
@@ -7195,18 +7219,6 @@
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
           "message": "Row 207: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
-          "detail": "Fried Radroach On A Stick"
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 208: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
-          "detail": "Fried Radroach On A Stick"
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 209: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
           "detail": "Fried Radroach On A Stick"
         },
         {
@@ -7272,40 +7284,10 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Mutfruit Nougat Heart' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Mutfruit Nougat Heart",
-          "context": {
-            "name": "Mutfruit Nougat Heart",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
           "message": "'Mutton Chops' (Dishes & Teas) is missing price for: xbox, ps, pc",
           "detail": "Mutton Chops",
           "context": {
             "name": "Mutton Chops",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nougat Candy Assortment' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Nougat Candy Assortment",
-          "context": {
-            "name": "Nougat Candy Assortment",
             "category": "Dishes & Teas",
             "missing_fields": [
               "price_xbox",
@@ -7442,186 +7424,6 @@
           "context": {
             "name": "Swamp Tofu",
             "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Tarberry Nougat Heart' (Dishes & Teas) is missing price for: xbox, ps, pc",
-          "detail": "Tarberry Nougat Heart",
-          "context": {
-            "name": "Tarberry Nougat Heart",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Bog Sucker' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Bog Sucker",
-          "context": {
-            "name": "Bog Sucker",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fall Filet' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Fall Filet",
-          "context": {
-            "name": "Fall Filet",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fernskipper' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Fernskipper",
-          "context": {
-            "name": "Fernskipper",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fester Koi' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Fester Koi",
-          "context": {
-            "name": "Fester Koi",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glass Ghost' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Glass Ghost",
-          "context": {
-            "name": "Glass Ghost",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Jellied Fish' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Jellied Fish",
-          "context": {
-            "name": "Jellied Fish",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Orange Overseer' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Orange Overseer",
-          "context": {
-            "name": "Orange Overseer",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Spring Filet' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Spring Filet",
-          "context": {
-            "name": "Spring Filet",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Summer Filet' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Summer Filet",
-          "context": {
-            "name": "Summer Filet",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Wasteland Fish Sandwich' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Wasteland Fish Sandwich",
-          "context": {
-            "name": "Wasteland Fish Sandwich",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Winter Filet' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Winter Filet",
-          "context": {
-            "name": "Winter Filet",
-            "category": "Fish",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -7932,19 +7734,19 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 445: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 440: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 446: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 441: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 447: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 442: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
@@ -8115,21 +7917,6 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Flying Ant Meat' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Flying Ant Meat",
-          "context": {
-            "name": "Flying Ant Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
           "message": "'Fox Meat' (Ingredients) is missing price for: xbox, ps, pc",
           "detail": "Fox Meat",
           "context": {
@@ -8194,21 +7981,6 @@
           "detail": "Glowing Fungus",
           "context": {
             "name": "Glowing Fungus",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Glowing Mass' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Glowing Mass",
-          "context": {
-            "name": "Glowing Mass",
             "category": "Ingredients",
             "missing_fields": [
               "price_xbox",
@@ -8370,21 +8142,6 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Inert Flux' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Inert Flux",
-          "context": {
-            "name": "Inert Flux",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
           "message": "'Intestine' (Ingredients) is missing price for: xbox, ps, pc",
           "detail": "Intestine",
           "context": {
@@ -8400,11 +8157,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Ionized Meat' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Ionized Meat' (Dishes & Teas) is missing price for: xbox, ps, pc",
           "detail": "Ionized Meat",
           "context": {
             "name": "Ionized Meat",
-            "category": "Ingredients",
+            "category": "Dishes & Teas",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -8715,11 +8472,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Pickled Pumpkin' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Pickled Pumpkin' (Dishes & Teas) is missing price for: xbox, ps, pc",
           "detail": "Pickled Pumpkin",
           "context": {
             "name": "Pickled Pumpkin",
-            "category": "Ingredients",
+            "category": "Dishes & Teas",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -9555,75 +9312,75 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 698: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 692: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Bobblehead Box"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 699: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 693: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 700: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 694: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 709: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 703: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 710: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 704: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 711: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 705: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 712: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 706: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 720: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 714: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 721: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 715: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 722: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 716: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 723: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 717: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
           "severity": "info",
           "code": "bnb_menu.build.summary",
-          "message": "Wrote 764 menu items across 12 categories.",
+          "message": "Wrote 758 menu items across 12 categories.",
           "context": {
-            "total": 764,
+            "total": 758,
             "categories": [
               "Alcohol",
               "Canned",
@@ -9636,7 +9393,7 @@
               "Other",
               "Pre War Food",
               "Serums",
-              "Soda"
+              "Soda & Drinks"
             ]
           }
         }

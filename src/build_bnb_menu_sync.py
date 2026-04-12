@@ -130,6 +130,8 @@ SKIP_EDID_PATTERNS = [
     re.compile(r"^POST_DetoxingSalve", re.IGNORECASE),    # Detoxing Salve (not sold)
     re.compile(r"^SURV_Innoculation", re.IGNORECASE),     # Scorched Fever Innoculation
     re.compile(r"^ResuscitationKit", re.IGNORECASE),      # Resuscitation Kit (perk item)
+    re.compile(r"^CUT_P01E_HeartNougat", re.IGNORECASE), # cut Nougat Heart candies
+    re.compile(r"^SwarmMeat", re.IGNORECASE),             # Flying Ant Meat / Crispy Flying Ant Bits
 ]
 
 # ---------------------------------------------------------------------------
