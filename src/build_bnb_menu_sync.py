@@ -60,11 +60,23 @@ MENU_COLS = [
 KEYWORD_TO_CATEGORY: List[Tuple[str, str, str]] = [
     ("ObjectTypeSerum",            "Serums",                      "serum"),
     ("ObjectTypeSyringerAmmo",     "__skip__",                    ""),      # syringer darts — not menu items
-    ("ObjectTypeAlcohol",          "Alcohol",                     "alcohol"),
+    ("DrinkTypeAlcohol",           "Alcohol",                     "alcohol"),
+    ("DrinkTypeLiquor",            "Alcohol",                     "alcohol"),
+    ("DrinkTypeSarsaparilla",      "Alcohol",                     "alcohol"),
     ("ObjectTypeNukaCola",         "Soda",                        "drink"),
-    ("ObjectTypeDrink",            "Soda",                        "drink"),
+    ("DrinkTypeSoda",              "Soda",                        "drink"),
+    ("DrinkTypeSodaIcon",          "Soda",                        "drink"),
     ("ObjectTypeChem",             "Chems",                       "chem"),
     ("ObjectTypeStimpak",          "Chems",                       "chem"),
+    ("ObjectTypeSalve",            "Chems",                       "chem"),
+    ("ObjectTypeRadX",             "Chems",                       "chem"),
+    ("ObjectTypeBloodPack",        "Chems",                       "chem"),
+    ("ObjectTypeAntibiotics",      "Chems",                       "chem"),
+    ("ChemTypeRadaway",            "Chems",                       "chem"),
+    ("ChemTypeHealing",            "Chems",                       "chem"),
+    ("ObjectTypeCandy",            "Pre War Food",                "prewarf"),
+    ("DrinkTypeTea",               "Dishes & Teas",               "food"),
+    ("DrinkTypeJuice",             "Dishes & Teas",               "food"),
 ]
 
 # EDID patterns for Fish (these don't have a distinguishing keyword)
@@ -72,6 +84,13 @@ FISH_EDID_PATTERNS = [
     re.compile(r"Fish_Meal", re.IGNORECASE),
     re.compile(r"Fish_Fishbits", re.IGNORECASE),
     re.compile(r"Fishing_Fish.*Cooked", re.IGNORECASE),
+]
+
+# EDID patterns for Magazines & Bobbleheads
+MAGAZINE_BOBBLEHEAD_PATTERNS = [
+    re.compile(r"^Magazine_", re.IGNORECASE),
+    re.compile(r"^Bobble[Hh]ead_.*_Potion", re.IGNORECASE),
+    re.compile(r"^BobbleHead_.*_Potion", re.IGNORECASE),
 ]
 
 # EDID patterns to always skip (pets, test items, debug, etc.)
@@ -97,6 +116,7 @@ HERBIVORE_KEYWORDS = {
 
 CARNIVORE_KEYWORDS = {
     "IngredientTypeMeat",
+    "IngredientTypeEgg",
     "FoodTypeChickenMeat",
     "MealTypeSteak",
 }
@@ -188,7 +208,7 @@ def extract_keyword_names(keywords_flat: str) -> Set[str]:
 def detect_category(edid: str, keywords: Set[str], is_canned: bool, meal_keywords: Set[str]) -> Tuple[str, str]:
     """Return (menu_category, order_category) for an ALCH record.
     Returns ('__skip__', '') for items that should NOT be on the menu.
-    Returns ('__unknown__', '') for items that don't match any rule."""
+    Returns ('Other', 'other') for items that don't match any rule."""
 
     # Skip test/debug/pet items
     for pat in SKIP_EDID_PATTERNS:
@@ -199,6 +219,15 @@ def detect_category(edid: str, keywords: Set[str], is_canned: bool, meal_keyword
     for pat in FISH_EDID_PATTERNS:
         if pat.search(edid):
             return ("Fish", "fish")
+
+    # Check Magazines & Bobbleheads by EDID pattern
+    for pat in MAGAZINE_BOBBLEHEAD_PATTERNS:
+        if pat.search(edid):
+            return ("Magazines & Bobbleheads", "magazine")
+
+    # Pre War Clean items by EDID suffix
+    if edid.lower().endswith("_prewar_clean"):
+        return ("Pre War Food", "prewarf")
 
     # Check keyword-based rules
     for kw_sub, cat, order in KEYWORD_TO_CATEGORY:
@@ -230,9 +259,9 @@ def detect_category(edid: str, keywords: Set[str], is_canned: bool, meal_keyword
             return ("Dishes & Teas", "food")
         return ("Ingredients", "ingredient")
 
-    # If it has a spoiled item, it's food of some kind
-    # Default to unknown
-    return ("__unknown__", "")
+    # Catch-all: items that don't match any rule go to Other
+    # for manual review via the diagnostics page
+    return ("Other", "other")
 
 
 def detect_mutation(keywords: Set[str]) -> str:
@@ -357,6 +386,15 @@ def sync(
     existing_categories = {clean(r.get("menu category", "")).lower() for r in menu_rows}
     existing_categories.discard("")
 
+    # Build a set of EDIDs that have a _PreWar_Clean variant so we can
+    # identify their "dirty" (post-war) counterparts.
+    prewar_clean_bases: Set[str] = set()
+    for alch in alch_rows:
+        edid = clean(alch.get("ALCH_EDID", ""))
+        if edid.lower().endswith("_prewar_clean"):
+            base = edid[:edid.lower().index("_prewar_clean")]
+            prewar_clean_bases.add(base.lower())
+
     # Process each ALCH record
     new_items: List[Dict[str, str]] = []
     updated_count = 0
@@ -379,18 +417,22 @@ def sync(
         # Detect category
         cat, order_cat = detect_category(edid, keywords, is_canned, meal_keywords)
 
+        # Apply Pre War / Post War display-name suffix for packaged food variants
+        if edid.lower().endswith("_prewar_clean"):
+            if not full_name.endswith("(Pre War)"):
+                full_name = full_name + " (Pre War)"
+        elif edid.lower() in prewar_clean_bases:
+            # This EDID has a _PreWar_Clean counterpart → it's the post-war version
+            if not full_name.endswith("(Post War)"):
+                full_name = full_name + " (Post War)"
+
         if cat == "__skip__":
             skipped_count += 1
             continue
 
-        if cat == "__unknown__":
-            skipped_count += 1
-            continue
-
-        # Only add to menu if category exists (category-based filter)
-        if cat.lower() not in existing_categories:
-            skipped_count += 1
-            continue
+        # All valid categories are accepted — new categories are created
+        # automatically. Items land in "Other" if no keyword rule matches,
+        # and staff can re-categorise via the diagnostics page.
 
         # Detect mutation
         mutation = detect_mutation(keywords)
@@ -403,18 +445,26 @@ def sync(
         existing = menu_by_edid.get(edid.lower()) or menu_by_fid.get(fid.lower())
 
         if existing:
-            # Update mutation and buff columns (don't overwrite prices/limits/category)
-            if not clean(existing.get("mutation", "")) and mutation:
+            # Always update mutation and buff from game data
+            changed = False
+            if mutation and existing.get("mutation", "") != mutation:
                 existing["mutation"] = mutation
-                updated_count += 1
-            elif mutation:
-                existing["mutation"] = mutation
-
-            if not clean(existing.get("buff", "")) and buff:
+                changed = True
+            if buff and existing.get("buff", "") != buff:
                 existing["buff"] = buff
+                changed = True
+            # Only update display name for Pre War/Post War suffix corrections
+            # (don't overwrite manual name edits like "Mountain Honey Moonshine")
+            old_name = clean(existing.get("name", ""))
+            is_prewar_rename = "(Pre War)" in full_name or "(Post War)" in full_name
+            if is_prewar_rename and old_name != full_name:
+                # Replace (Clean)→(Pre War), (Dirty)→(Post War) in existing name
+                new_name = old_name.replace("(Clean)", "(Pre War)").replace("(Dirty)", "(Post War)")
+                if new_name != old_name:
+                    existing["name"] = new_name
+                    changed = True
+            if changed:
                 updated_count += 1
-            elif buff:
-                existing["buff"] = buff
         else:
             # New item — add with blank prices
             new_row = {col: "" for col in MENU_COLS}
