@@ -66,6 +66,7 @@ CATEGORY_LABEL = {
     "canned": "Canned",
     "alcohol": "Alcohol",
     "soda": "Soda",
+    "other": "Other",
 }
 
 
@@ -163,7 +164,9 @@ def build_menu(
     used_override_keys: set = set()
     skipped_count = 0
 
-    # 1. Walk every COBJ item that's food or chem and emit it
+    # 1. Walk every COBJ food/chem item and emit it.
+    #    Alcohol, soda, canned, serum, and other categories are handled
+    #    via include_without_cobj overrides or category_override in the TSV.
     for name, ingredients in recipes.items():
         m = meta.get(name, {})
         cobj_cat = m.get("category", "other")
@@ -333,15 +336,15 @@ def main() -> None:
 
     menu_items = build_menu(recipes, meta, overrides, diag)
 
-    food_ct = sum(1 for i in menu_items if i["category"] == "Food")
-    chem_ct = sum(1 for i in menu_items if i["category"] == "Chem")
-    other_ct = len(menu_items) - food_ct - chem_ct
-    print(f"Menu items: {len(menu_items)}  (Food: {food_ct}  Chem: {chem_ct}  Other: {other_ct})", file=sys.stderr)
+    from collections import Counter as _Counter
+    cat_counts = _Counter(i["category"] for i in menu_items)
+    cat_summary = "  ".join(f"{cat}: {ct}" for cat, ct in cat_counts.most_common())
+    print(f"Menu items: {len(menu_items)}  ({cat_summary})", file=sys.stderr)
 
     diag.info(
         "menu.build.summary",
-        f"Wrote {len(menu_items)} menu items ({food_ct} Food, {chem_ct} Chem).",
-        context={"total": len(menu_items), "food": food_ct, "chem": chem_ct},
+        f"Wrote {len(menu_items)} menu items.",
+        context={"total": len(menu_items), "categories": dict(cat_counts)},
     )
 
     output: Dict[str, Any] = {
