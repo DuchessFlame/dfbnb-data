@@ -171,6 +171,10 @@ RAW_INGREDIENT_KEYWORDS: Set[str] = {
 #   "exclude_raw":    bool        (if True, also kill any raw ingredient)
 #   "edid_substring": str         (optional — EDID must contain this, case-insens.)
 #   "edid_regex":     str         (optional — EDID must match this regex)
+#   "name_regex":     str         (optional — display name must match this regex)
+#   "match_mode":     str         (optional — "edid_or_name" to select by EDID/name
+#                                  pattern instead of keywords. Requires at least one
+#                                  of edid_regex or name_regex.)
 
 CATEGORIES: Dict[str, Dict[str, Any]] = {
     "food": {
@@ -199,15 +203,17 @@ CATEGORIES: Dict[str, Dict[str, Any]] = {
         "exclude_raw": True,
     },
     "canned": {
-        # No form-id list from the user — they asked to "go to ALCH and
-        # look for canned food items". The canonical marker is the
-        # MealTypePackaged keyword (e.g. Dogfood, Cram, BlamcoMac...
-        # _PreWar_Clean variants) which is the game's own "this is a
-        # sealed/packaged container" tag.
-        "include_kywds": [
-            "0013485D",  # MealTypePackaged
-        ],
-        "exclude_raw": True,
+        # Canned food = items produced by the Canning Workshop or that
+        # have "Canned" in their display name. MealTypePackaged is NOT
+        # the right keyword — it covers all pre-war packaged food
+        # (Blamco, Sugar Bombs, bubblegum etc.), not actual canned items.
+        #
+        # Selection: scan all ALCH records for EDID containing "Cannery"
+        # or display name containing "Canned" (case-insensitive).
+        "match_mode": "edid_or_name",
+        "edid_regex": r"(?i)Cannery",
+        "name_regex": r"(?i)\bCanned\b",
+        "exclude_raw": False,  # canned food contains meat/veg ingredients
     },
     "nuka_cola": {
         "include_kywds": [
@@ -429,50 +435,78 @@ def resolve_category(
         "post_included_via_suffix": 0,
     }
 
-    # 1. Union all "in-set" candidates from include_kywds
-    include_kywds = [norm_fid(k) for k in rule.get("include_kywds", [])]
-    candidate_fids: Set[str] = set()
-    for kfid in include_kywds:
-        candidate_fids |= kywd_to_alch.get(kfid, set())
-    stats["candidates"] = len(candidate_fids)
-
-    # 2. Subtract anything matching exclude_kywds
-    exclude_kywds = [norm_fid(k) for k in rule.get("exclude_kywds", [])]
-    exclude_fids: Set[str] = set()
-    for kfid in exclude_kywds:
-        exclude_fids |= kywd_to_alch.get(kfid, set())
-    if exclude_fids:
-        before = len(candidate_fids)
-        candidate_fids -= exclude_fids
-        stats["excluded_by_kywd"] = before - len(candidate_fids)
-
-    # 3. Narrow by EDID substring / regex if the rule asks for it
-    edid_substring = rule.get("edid_substring")
+    match_mode = rule.get("match_mode", "")
     edid_regex = rule.get("edid_regex")
+    name_regex = rule.get("name_regex")
+    edid_substring = rule.get("edid_substring")
     exclude_raw = bool(rule.get("exclude_raw"))
 
-    items: List[Dict[str, Any]] = []
-    for fid in candidate_fids:
-        rec = alch_records.get(fid)
-        if rec is None:
-            stats["excluded_missing_alch"] += 1
-            continue
-        if edid_is_cut(rec["edid"]):
-            stats["excluded_cut"] += 1
-            continue
-        if not rec["name"]:
-            stats["excluded_no_name"] += 1
-            continue
-        if exclude_raw and (rec["keywords"] & RAW_INGREDIENT_KEYWORDS):
-            stats["excluded_raw"] += 1
-            continue
-        if edid_substring and edid_substring.lower() not in rec["edid"].lower():
-            stats["excluded_by_edid_substring"] += 1
-            continue
-        if edid_regex and not re.search(edid_regex, rec["edid"], re.IGNORECASE):
-            stats["excluded_by_edid_substring"] += 1
-            continue
-        items.append(_export_record(rec))
+    # ── match_mode="edid_or_name": scan ALL ALCH records, select by
+    #    EDID regex OR name regex (union). No keyword-based candidate set.
+    if match_mode == "edid_or_name":
+        items: List[Dict[str, Any]] = []
+        _edid_re = re.compile(edid_regex) if edid_regex else None
+        _name_re = re.compile(name_regex) if name_regex else None
+        for fid, rec in alch_records.items():
+            matched = False
+            if _edid_re and _edid_re.search(rec["edid"]):
+                matched = True
+            if _name_re and _name_re.search(rec["name"]):
+                matched = True
+            if not matched:
+                continue
+            stats["candidates"] += 1
+            if edid_is_cut(rec["edid"]):
+                stats["excluded_cut"] += 1
+                continue
+            if not rec["name"]:
+                stats["excluded_no_name"] += 1
+                continue
+            if exclude_raw and (rec["keywords"] & RAW_INGREDIENT_KEYWORDS):
+                stats["excluded_raw"] += 1
+                continue
+            items.append(_export_record(rec))
+    else:
+        # 1. Union all "in-set" candidates from include_kywds
+        include_kywds = [norm_fid(k) for k in rule.get("include_kywds", [])]
+        candidate_fids: Set[str] = set()
+        for kfid in include_kywds:
+            candidate_fids |= kywd_to_alch.get(kfid, set())
+        stats["candidates"] = len(candidate_fids)
+
+        # 2. Subtract anything matching exclude_kywds
+        exclude_kywds = [norm_fid(k) for k in rule.get("exclude_kywds", [])]
+        exclude_fids: Set[str] = set()
+        for kfid in exclude_kywds:
+            exclude_fids |= kywd_to_alch.get(kfid, set())
+        if exclude_fids:
+            before = len(candidate_fids)
+            candidate_fids -= exclude_fids
+            stats["excluded_by_kywd"] = before - len(candidate_fids)
+
+        # 3. Narrow by EDID substring / regex if the rule asks for it
+        items: List[Dict[str, Any]] = []
+        for fid in candidate_fids:
+            rec = alch_records.get(fid)
+            if rec is None:
+                stats["excluded_missing_alch"] += 1
+                continue
+            if edid_is_cut(rec["edid"]):
+                stats["excluded_cut"] += 1
+                continue
+            if not rec["name"]:
+                stats["excluded_no_name"] += 1
+                continue
+            if exclude_raw and (rec["keywords"] & RAW_INGREDIENT_KEYWORDS):
+                stats["excluded_raw"] += 1
+                continue
+            if edid_substring and edid_substring.lower() not in rec["edid"].lower():
+                stats["excluded_by_edid_substring"] += 1
+                continue
+            if edid_regex and not re.search(edid_regex, rec["edid"], re.IGNORECASE):
+                stats["excluded_by_edid_substring"] += 1
+                continue
+            items.append(_export_record(rec))
 
     # 4. Post-include: EDID suffix (e.g. '_PreWar_Clean'). Pulls in records
     #    that wouldn't otherwise be in the candidate set.
