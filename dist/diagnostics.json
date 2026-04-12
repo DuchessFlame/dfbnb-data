@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-12T02:45:00+00:00",
+  "generated": "2026-04-12T03:07:52+00:00",
   "sections": {
     "bnb_menu": {
       "generated": "2026-04-12T02:45:00+00:00",
@@ -4670,6 +4670,115 @@
             "total": 339,
             "food": 232,
             "chem": 107
+          }
+        }
+      ]
+    },
+    "bnb_item_categories": {
+      "generated": "2026-04-12T03:07:52+00:00",
+      "counts": {
+        "error": 0,
+        "warning": 1,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "warning",
+          "code": "bnb_categories.alch.undersized",
+          "message": "ALCH_Export TSV only has 1 records. A complete FO76 export is typically 900+; the current file may be a pre-fix partial export that stopped mid-run. Output will reflect whatever records ARE in the file, so some categories may be empty or sparse. Re-run the build after the fresh TSV is in place.",
+          "context": {
+            "records": 1,
+            "file": "ALCH_Export_March_2026.tsv"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_categories.build.summary",
+          "message": "Built 0 items across 7 categories",
+          "context": {
+            "total_items": 0,
+            "alch_records": 1,
+            "source_alch": "ALCH_Export_March_2026.tsv",
+            "source_kywd": "KYWD_Export_March_2026_Refs.tsv",
+            "stats": {
+              "food": {
+                "candidates": 582,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 80,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 502,
+                "excluded_by_edid_substring": 0,
+                "included": 0,
+                "post_included_via_suffix": 0
+              },
+              "canned": {
+                "candidates": 43,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 43,
+                "excluded_by_edid_substring": 0,
+                "included": 0,
+                "post_included_via_suffix": 0
+              },
+              "nuka_cola": {
+                "candidates": 159,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 159,
+                "excluded_by_edid_substring": 0,
+                "included": 0,
+                "post_included_via_suffix": 0
+              },
+              "chems": {
+                "candidates": 81,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 81,
+                "excluded_by_edid_substring": 0,
+                "included": 0,
+                "post_included_via_suffix": 0
+              },
+              "alcohol": {
+                "candidates": 159,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 76,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 83,
+                "excluded_by_edid_substring": 0,
+                "included": 0,
+                "post_included_via_suffix": 0
+              },
+              "serums": {
+                "candidates": 21,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 21,
+                "excluded_by_edid_substring": 0,
+                "included": 0,
+                "post_included_via_suffix": 0
+              },
+              "prewar_candy": {
+                "candidates": 20,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 20,
+                "excluded_by_edid_substring": 0,
+                "included": 0,
+                "post_included_via_suffix": 0
+              }
+            }
           }
         }
       ]
