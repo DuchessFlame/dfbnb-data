@@ -435,10 +435,20 @@ jobs:
       - name: Build Menu Items JSON
         run: python src/build_menu_items_json.py
 
+      # --- BNB MENU SYNC (ALCH → menu TSV) ---
+      # Reads the latest ALCH_Export_*.tsv + Effects TSV, cross-references
+      # with tsv/BnB_Menu_Items.tsv, auto-adds new items that match existing
+      # menu categories, and populates mutation/buff columns from ALCH data.
+      # Unpriced items are flagged in dist/diagnostics.json for the staff
+      # portal diagnose page. Must run BEFORE build_bnb_menu_json.py.
+      - name: Sync ALCH into BnB Menu TSV
+        run: python src/build_bnb_menu_sync.py
+
       # --- BNB MENU (public menu page) ---
       # Reads tsv/BnB_Menu_Items.tsv and emits dist/bnb-menu.json — the data
       # source for the Buffs n Brew menu page rendered by df-bnb-menu.js at
       # /bnb/buffs-n-brew/menu/. Self-contained (no COBJ dependency).
+      # Must run AFTER build_bnb_menu_sync.py.
       - name: Build BnB Menu JSON
         run: python src/build_bnb_menu_json.py
 
@@ -498,6 +508,7 @@ jobs:
           git config user.email "github-actions@users.noreply.github.com"
 
           git add dist/
+          git add tsv/BnB_Menu_Items.tsv
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
