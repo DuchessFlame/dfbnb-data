@@ -109,6 +109,27 @@ SKIP_EDID_PATTERNS = [
     re.compile(r"FieryInfusion", re.IGNORECASE),          # game system (Fiery Infusion)
     re.compile(r"^PotionOf", re.IGNORECASE),              # game system (Potion of Experience etc.)
     re.compile(r"^Recalibrated", re.IGNORECASE),          # game system (Recalibrated Liberator)
+    re.compile(r"^DEPRECATED_", re.IGNORECASE),           # deprecated variants of event items
+    re.compile(r"^BS00_Contribution", re.IGNORECASE),     # ATLAS Donor's Provisions
+    re.compile(r"TreasureHunt_Chest", re.IGNORECASE),     # Mole Miner Pails (event loot)
+    re.compile(r"^E07A_Mothman", re.IGNORECASE),          # Cultist High Priest Pack
+    re.compile(r"MutatedEvents_Package", re.IGNORECASE),  # Mutated event packages
+    re.compile(r"Challenge_Raids_", re.IGNORECASE),       # Gleaming Depths reward crate
+    re.compile(r"^Festive_", re.IGNORECASE),              # Holiday/Waterlogged gifts
+    re.compile(r"^v96_Metabolux", re.IGNORECASE),         # Metabolux Syringe
+    re.compile(r"^MTR01_Precursor", re.IGNORECASE),       # Precursor serums (game system)
+    re.compile(r"^SCORE_", re.IGNORECASE),                # SCORE reward items
+    re.compile(r"^Spooky_TreatBag", re.IGNORECASE),       # Spooky Treat Bag (event loot)
+    re.compile(r"^TrackingDart", re.IGNORECASE),          # Tracking Dart
+    re.compile(r"^MTNS05_VoxDart", re.IGNORECASE),        # Vox Interpreter Dart
+    re.compile(r"^W05_MQS_205P_Jen", re.IGNORECASE),     # Jen's Stealth potion (quest item)
+    re.compile(r"^CUT_RefreshingBeverage", re.IGNORECASE), # cut Refreshing Beverage
+    re.compile(r"^DLC04_Calmex", re.IGNORECASE),          # Calmex Silk (DLC chem, not sold)
+    re.compile(r"^CUT_SFS09_FormulaQ", re.IGNORECASE),   # cut Formula Q
+    re.compile(r"^MTNZ03_FormulaB", re.IGNORECASE),      # Formula B (quest reward only)
+    re.compile(r"^POST_DetoxingSalve", re.IGNORECASE),    # Detoxing Salve (not sold)
+    re.compile(r"^SURV_Innoculation", re.IGNORECASE),     # Scorched Fever Innoculation
+    re.compile(r"^ResuscitationKit", re.IGNORECASE),      # Resuscitation Kit (perk item)
 ]
 
 # ---------------------------------------------------------------------------

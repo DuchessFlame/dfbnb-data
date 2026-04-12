@@ -1,67 +1,25 @@
 {
-  "generated": "2026-04-12T12:08:52+00:00",
+  "generated": "2026-04-12T12:46:50+00:00",
   "sections": {
     "menu_items": {
-      "generated": "2026-04-12T12:08:52+00:00",
+      "generated": "2026-04-12T12:46:50+00:00",
       "counts": {
-        "error": 278,
-        "warning": 303,
+        "error": 228,
+        "warning": 249,
         "info": 41
       },
       "entries": [
         {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Mentats' is missing price for: xbox, ps, pc",
-          "detail": "Mentats",
-          "context": {
-            "name": "Mentats",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
+          "severity": "warning",
+          "code": "menu.overrides.duplicate",
+          "message": "Duplicate override row for 'RadAway' - keeping the first occurrence.",
+          "detail": "RadAway"
         },
         {
           "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Mentats' is missing limit for: new, existing",
-          "detail": "Mentats",
-          "context": {
-            "name": "Mentats",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Skeeto Spit' is missing price for: xbox, ps, pc",
-          "detail": "Skeeto Spit",
-          "context": {
-            "name": "Skeeto Spit",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Skeeto Spit' is missing limit for: new, existing",
-          "detail": "Skeeto Spit",
-          "context": {
-            "name": "Skeeto Spit",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
+          "code": "menu.overrides.duplicate",
+          "message": "Duplicate override row for 'RadShield' - keeping the first occurrence.",
+          "detail": "RadShield"
         },
         {
           "severity": "warning",
@@ -189,33 +147,6 @@
           }
         },
         {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Boiled Water' is missing price for: xbox, ps, pc",
-          "detail": "Boiled Water",
-          "context": {
-            "name": "Boiled Water",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Boiled Water' is missing limit for: new, existing",
-          "detail": "Boiled Water",
-          "context": {
-            "name": "Boiled Water",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
           "severity": "warning",
           "code": "menu.new_item",
           "message": "New craftable item 'Unrefined Gunpowder' has no entry in menu-overrides.tsv - add a row to set price/limits.",
@@ -239,57 +170,87 @@
           }
         },
         {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'RadAway: Diluted' is missing price for: xbox, ps, pc",
-          "detail": "RadAway: Diluted",
-          "context": {
-            "name": "RadAway: Diluted",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
           "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'RadAway: Diluted' is missing limit for: new, existing",
-          "detail": "RadAway: Diluted",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Precursor 114a' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Precursor 114a",
           "context": {
-            "name": "RadAway: Diluted",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
+            "name": "Precursor 114a",
+            "category": "chem",
+            "keywords": []
           }
         },
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Rad-X: Diluted' is missing price for: xbox, ps, pc",
-          "detail": "Rad-X: Diluted",
+          "message": "Menu item 'Precursor 114a' has no prices set.",
+          "detail": "Precursor 114a",
           "context": {
-            "name": "Rad-X: Diluted",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
+            "name": "Precursor 114a",
+            "category": "chem"
           }
         },
         {
           "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Rad-X: Diluted' is missing limit for: new, existing",
-          "detail": "Rad-X: Diluted",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Precursor 114b' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Precursor 114b",
           "context": {
-            "name": "Rad-X: Diluted",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
+            "name": "Precursor 114b",
+            "category": "chem",
+            "keywords": []
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Precursor 114b' has no prices set.",
+          "detail": "Precursor 114b",
+          "context": {
+            "name": "Precursor 114b",
+            "category": "chem"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Precursor 7516a' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Precursor 7516a",
+          "context": {
+            "name": "Precursor 7516a",
+            "category": "chem",
+            "keywords": []
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Precursor 7516a' has no prices set.",
+          "detail": "Precursor 7516a",
+          "context": {
+            "name": "Precursor 7516a",
+            "category": "chem"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Precursor 7516b' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Precursor 7516b",
+          "context": {
+            "name": "Precursor 7516b",
+            "category": "chem",
+            "keywords": []
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Precursor 7516b' has no prices set.",
+          "detail": "Precursor 7516b",
+          "context": {
+            "name": "Precursor 7516b",
+            "category": "chem"
           }
         },
         {
@@ -300,33 +261,6 @@
             "name": "Syrup",
             "cobj": "food",
             "override": "condiment"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Stimpak: Diluted' is missing price for: xbox, ps, pc",
-          "detail": "Stimpak: Diluted",
-          "context": {
-            "name": "Stimpak: Diluted",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Stimpak: Diluted' is missing limit for: new, existing",
-          "detail": "Stimpak: Diluted",
-          "context": {
-            "name": "Stimpak: Diluted",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
           }
         },
         {
@@ -432,33 +366,6 @@
           }
         },
         {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Stimpak: Super' is missing price for: xbox, ps, pc",
-          "detail": "Stimpak: Super",
-          "context": {
-            "name": "Stimpak: Super",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Stimpak: Super' is missing limit for: new, existing",
-          "detail": "Stimpak: Super",
-          "context": {
-            "name": "Stimpak: Super",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
           "severity": "info",
           "code": "menu.category_conflict",
           "message": "'Sugar': COBJ suggests 'food', override sets 'condiment'.",
@@ -466,33 +373,6 @@
             "name": "Sugar",
             "cobj": "food",
             "override": "condiment"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Sugar' is missing price for: xbox, ps, pc",
-          "detail": "Sugar",
-          "context": {
-            "name": "Sugar",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Sugar' is missing limit for: new, existing",
-          "detail": "Sugar",
-          "context": {
-            "name": "Sugar",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
           }
         },
         {
@@ -1500,6 +1380,150 @@
           }
         },
         {
+          "severity": "warning",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Seed Feed' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Seed Feed",
+          "context": {
+            "name": "Seed Feed",
+            "category": "food",
+            "keywords": [
+              "Meal_Recipe_Plants",
+              "PETS_Meal_Recipe_PetFood"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Seed Feed' has no prices set.",
+          "detail": "Seed Feed",
+          "context": {
+            "name": "Seed Feed",
+            "category": "food"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Meat Treats' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Meat Treats",
+          "context": {
+            "name": "Meat Treats",
+            "category": "food",
+            "keywords": [
+              "Meal_Recipe_Meat",
+              "PETS_Meal_Recipe_PetFood"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Meat Treats' has no prices set.",
+          "detail": "Meat Treats",
+          "context": {
+            "name": "Meat Treats",
+            "category": "food"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Burger Bits' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Burger Bits",
+          "context": {
+            "name": "Burger Bits",
+            "category": "food",
+            "keywords": [
+              "Meal_Recipe_Meat",
+              "PETS_Meal_Recipe_PetFood"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Burger Bits' has no prices set.",
+          "detail": "Burger Bits",
+          "context": {
+            "name": "Burger Bits",
+            "category": "food"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Steak Sticks' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Steak Sticks",
+          "context": {
+            "name": "Steak Sticks",
+            "category": "food",
+            "keywords": [
+              "Meal_Recipe_Meat",
+              "PETS_Meal_Recipe_PetFood"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Steak Sticks' has no prices set.",
+          "detail": "Steak Sticks",
+          "context": {
+            "name": "Steak Sticks",
+            "category": "food"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Forrage Porridge' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Forrage Porridge",
+          "context": {
+            "name": "Forrage Porridge",
+            "category": "food",
+            "keywords": [
+              "Meal_Recipe_Plants",
+              "PETS_Meal_Recipe_PetFood"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Forrage Porridge' has no prices set.",
+          "detail": "Forrage Porridge",
+          "context": {
+            "name": "Forrage Porridge",
+            "category": "food"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.new_item",
+          "message": "New craftable item 'Veggie Vittles' has no entry in menu-overrides.tsv - add a row to set price/limits.",
+          "detail": "Veggie Vittles",
+          "context": {
+            "name": "Veggie Vittles",
+            "category": "food",
+            "keywords": [
+              "Meal_Recipe_Plants",
+              "PETS_Meal_Recipe_PetFood"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "Menu item 'Veggie Vittles' has no prices set.",
+          "detail": "Veggie Vittles",
+          "context": {
+            "name": "Veggie Vittles",
+            "category": "food"
+          }
+        },
+        {
           "severity": "info",
           "code": "menu.category_conflict",
           "message": "'Fermentable Liquid Courage': COBJ suggests 'food', override sets 'alcohol'.",
@@ -1547,33 +1571,6 @@
           }
         },
         {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Cola Scorched' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Scorched",
-          "context": {
-            "name": "Nuka-Cola Scorched",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Cola Scorched' is missing limit for: new, existing",
-          "detail": "Nuka-Cola Scorched",
-          "context": {
-            "name": "Nuka-Cola Scorched",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
           "severity": "info",
           "code": "menu.category_conflict",
           "message": "\"Nuka-Cola My Blood's In It\": COBJ suggests 'chem', override sets 'soda'.",
@@ -1584,33 +1581,6 @@
           }
         },
         {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "\"Nuka-Cola My Blood's In It\" is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola My Blood's In It",
-          "context": {
-            "name": "Nuka-Cola My Blood's In It",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "\"Nuka-Cola My Blood's In It\" is missing limit for: new, existing",
-          "detail": "Nuka-Cola My Blood's In It",
-          "context": {
-            "name": "Nuka-Cola My Blood's In It",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
           "severity": "info",
           "code": "menu.category_conflict",
           "message": "'Nuka-Cola Vaccinated': COBJ suggests 'chem', override sets 'soda'.",
@@ -1618,33 +1588,6 @@
             "name": "Nuka-Cola Vaccinated",
             "cobj": "chem",
             "override": "soda"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Cola Vaccinated' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Vaccinated",
-          "context": {
-            "name": "Nuka-Cola Vaccinated",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Cola Vaccinated' is missing limit for: new, existing",
-          "detail": "Nuka-Cola Vaccinated",
-          "context": {
-            "name": "Nuka-Cola Vaccinated",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
           }
         },
         {
@@ -2232,33 +2175,6 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "\"ATLAS Donor's Provisions\" is missing price for: xbox, ps, pc",
-          "detail": "ATLAS Donor's Provisions",
-          "context": {
-            "name": "ATLAS Donor's Provisions",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "\"ATLAS Donor's Provisions\" is missing limit for: new, existing",
-          "detail": "ATLAS Donor's Provisions",
-          "context": {
-            "name": "ATLAS Donor's Provisions",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
           "message": "'Backwoodsman 1' is missing price for: xbox, ps, pc",
           "detail": "Backwoodsman 1",
           "context": {
@@ -2520,6 +2436,33 @@
           "detail": "Backwoodsman 9",
           "context": {
             "name": "Backwoodsman 9",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Bioluminescent Fluid' is missing price for: xbox, ps, pc",
+          "detail": "Bioluminescent Fluid",
+          "context": {
+            "name": "Bioluminescent Fluid",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Bioluminescent Fluid' is missing limit for: new, existing",
+          "detail": "Bioluminescent Fluid",
+          "context": {
+            "name": "Bioluminescent Fluid",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -3096,10 +3039,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Calmex Silk' is missing price for: xbox, ps, pc",
-          "detail": "Calmex Silk",
+          "message": "'Brahmin Milk' is missing price for: xbox, ps, pc",
+          "detail": "Brahmin Milk",
           "context": {
-            "name": "Calmex Silk",
+            "name": "Brahmin Milk",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -3110,10 +3053,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Calmex Silk' is missing limit for: new, existing",
-          "detail": "Calmex Silk",
+          "message": "'Brahmin Milk' is missing limit for: new, existing",
+          "detail": "Brahmin Milk",
           "context": {
-            "name": "Calmex Silk",
+            "name": "Brahmin Milk",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -3366,10 +3309,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Carry Weight Booster' is missing price for: xbox, ps, pc",
-          "detail": "Carry Weight Booster",
+          "message": "\"Chally's Milk\" is missing price for: xbox, ps, pc",
+          "detail": "Chally's Milk",
           "context": {
-            "name": "Carry Weight Booster",
+            "name": "Chally's Milk",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -3380,64 +3323,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Carry Weight Booster' is missing limit for: new, existing",
-          "detail": "Carry Weight Booster",
+          "message": "\"Chally's Milk\" is missing limit for: new, existing",
+          "detail": "Chally's Milk",
           "context": {
-            "name": "Carry Weight Booster",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.orphan_override",
-          "message": "Override 'Crafted Dusty Mole Miner Pail' is not found in COBJ and not marked include_without_cobj. Item will not appear on the menu.",
-          "detail": "Crafted Dusty Mole Miner Pail",
-          "context": {
-            "name": "Crafted Dusty Mole Miner Pail"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.orphan_override",
-          "message": "Override 'Crafted Mole Miner Pail' is not found in COBJ and not marked include_without_cobj. Item will not appear on the menu.",
-          "detail": "Crafted Mole Miner Pail",
-          "context": {
-            "name": "Crafted Mole Miner Pail"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.orphan_override",
-          "message": "Override 'Crafted Ornate Mole Miner Pail' is not found in COBJ and not marked include_without_cobj. Item will not appear on the menu.",
-          "detail": "Crafted Ornate Mole Miner Pail",
-          "context": {
-            "name": "Crafted Ornate Mole Miner Pail"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Cultist High Priest Pack' is missing price for: xbox, ps, pc",
-          "detail": "Cultist High Priest Pack",
-          "context": {
-            "name": "Cultist High Priest Pack",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Cultist High Priest Pack' is missing limit for: new, existing",
-          "detail": "Cultist High Priest Pack",
-          "context": {
-            "name": "Cultist High Priest Pack",
+            "name": "Chally's Milk",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -3447,10 +3336,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Daddy-O' is missing price for: xbox, ps, pc",
-          "detail": "Daddy-O",
+          "message": "'Cream' is missing price for: xbox, ps, pc",
+          "detail": "Cream",
           "context": {
-            "name": "Daddy-O",
+            "name": "Cream",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -3461,118 +3350,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Daddy-O' is missing limit for: new, existing",
-          "detail": "Daddy-O",
+          "message": "'Cream' is missing limit for: new, existing",
+          "detail": "Cream",
           "context": {
-            "name": "Daddy-O",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Detoxing Salve' is missing price for: xbox, ps, pc",
-          "detail": "Detoxing Salve",
-          "context": {
-            "name": "Detoxing Salve",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Detoxing Salve' is missing limit for: new, existing",
-          "detail": "Detoxing Salve",
-          "context": {
-            "name": "Detoxing Salve",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Dirty Water' is missing price for: xbox, ps, pc",
-          "detail": "Dirty Water",
-          "context": {
-            "name": "Dirty Water",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Dirty Water' is missing limit for: new, existing",
-          "detail": "Dirty Water",
-          "context": {
-            "name": "Dirty Water",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Double Mutated Package' is missing price for: xbox, ps, pc",
-          "detail": "Double Mutated Package",
-          "context": {
-            "name": "Double Mutated Package",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Double Mutated Package' is missing limit for: new, existing",
-          "detail": "Double Mutated Package",
-          "context": {
-            "name": "Double Mutated Package",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Double Mutated Party Pack' is missing price for: xbox, ps, pc",
-          "detail": "Double Mutated Party Pack",
-          "context": {
-            "name": "Double Mutated Party Pack",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Double Mutated Party Pack' is missing limit for: new, existing",
-          "detail": "Double Mutated Party Pack",
-          "context": {
-            "name": "Double Mutated Party Pack",
+            "name": "Cream",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -3609,33 +3390,6 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Dusty Mole Miner Pail' is missing price for: xbox, ps, pc",
-          "detail": "Dusty Mole Miner Pail",
-          "context": {
-            "name": "Dusty Mole Miner Pail",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Dusty Mole Miner Pail' is missing limit for: new, existing",
-          "detail": "Dusty Mole Miner Pail",
-          "context": {
-            "name": "Dusty Mole Miner Pail",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
           "message": "'Fancy Lads Snack Cakes' is missing price for: xbox, ps, pc",
           "detail": "Fancy Lads Snack Cakes",
           "context": {
@@ -3663,60 +3417,6 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Formula B' is missing price for: xbox, ps, pc",
-          "detail": "Formula B",
-          "context": {
-            "name": "Formula B",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Formula B' is missing limit for: new, existing",
-          "detail": "Formula B",
-          "context": {
-            "name": "Formula B",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Formula Q' is missing price for: xbox, ps, pc",
-          "detail": "Formula Q",
-          "context": {
-            "name": "Formula Q",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Formula Q' is missing limit for: new, existing",
-          "detail": "Formula Q",
-          "context": {
-            "name": "Formula Q",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
           "message": "'Fussfungle' is missing price for: xbox, ps, pc",
           "detail": "Fussfungle",
           "context": {
@@ -3735,33 +3435,6 @@
           "detail": "Fussfungle",
           "context": {
             "name": "Fussfungle",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Gleaming Depths Weekly Reward Crate' is missing price for: xbox, ps, pc",
-          "detail": "Gleaming Depths Weekly Reward Crate",
-          "context": {
-            "name": "Gleaming Depths Weekly Reward Crate",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Gleaming Depths Weekly Reward Crate' is missing limit for: new, existing",
-          "detail": "Gleaming Depths Weekly Reward Crate",
-          "context": {
-            "name": "Gleaming Depths Weekly Reward Crate",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -4849,21 +4522,12 @@
           }
         },
         {
-          "severity": "warning",
-          "code": "menu.orphan_override",
-          "message": "Override 'Handmade Holiday Gift' is not found in COBJ and not marked include_without_cobj. Item will not appear on the menu.",
-          "detail": "Handmade Holiday Gift",
-          "context": {
-            "name": "Handmade Holiday Gift"
-          }
-        },
-        {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'High-Radiation Fluids' is missing price for: xbox, ps, pc",
-          "detail": "High-Radiation Fluids",
+          "message": "'Honeycomb' is missing price for: xbox, ps, pc",
+          "detail": "Honeycomb",
           "context": {
-            "name": "High-Radiation Fluids",
+            "name": "Honeycomb",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -4874,10 +4538,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'High-Radiation Fluids' is missing limit for: new, existing",
-          "detail": "High-Radiation Fluids",
+          "message": "'Honeycomb' is missing limit for: new, existing",
+          "detail": "Honeycomb",
           "context": {
-            "name": "High-Radiation Fluids",
+            "name": "Honeycomb",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -4887,10 +4551,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Holiday Gift' is missing price for: xbox, ps, pc",
-          "detail": "Holiday Gift",
+          "message": "'Inert Flux' is missing price for: xbox, ps, pc",
+          "detail": "Inert Flux",
           "context": {
-            "name": "Holiday Gift",
+            "name": "Inert Flux",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -4901,100 +4565,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Holiday Gift' is missing limit for: new, existing",
-          "detail": "Holiday Gift",
+          "message": "'Inert Flux' is missing limit for: new, existing",
+          "detail": "Inert Flux",
           "context": {
-            "name": "Holiday Gift",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Irradiated Sunset Sarsaparilla' is missing price for: xbox, ps, pc",
-          "detail": "Irradiated Sunset Sarsaparilla",
-          "context": {
-            "name": "Irradiated Sunset Sarsaparilla",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Irradiated Sunset Sarsaparilla' is missing limit for: new, existing",
-          "detail": "Irradiated Sunset Sarsaparilla",
-          "context": {
-            "name": "Irradiated Sunset Sarsaparilla",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.orphan_override",
-          "message": "Override 'Large Handmade Holiday Gift' is not found in COBJ and not marked include_without_cobj. Item will not appear on the menu.",
-          "detail": "Large Handmade Holiday Gift",
-          "context": {
-            "name": "Large Handmade Holiday Gift"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Large Holiday Gift' is missing price for: xbox, ps, pc",
-          "detail": "Large Holiday Gift",
-          "context": {
-            "name": "Large Holiday Gift",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Large Holiday Gift' is missing limit for: new, existing",
-          "detail": "Large Holiday Gift",
-          "context": {
-            "name": "Large Holiday Gift",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Large Waterlogged Gift' is missing price for: xbox, ps, pc",
-          "detail": "Large Waterlogged Gift",
-          "context": {
-            "name": "Large Waterlogged Gift",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Large Waterlogged Gift' is missing limit for: new, existing",
-          "detail": "Large Waterlogged Gift",
-          "context": {
-            "name": "Large Waterlogged Gift",
+            "name": "Inert Flux",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -5247,60 +4821,6 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Lunchbox' is missing price for: xbox, ps, pc",
-          "detail": "Lunchbox",
-          "context": {
-            "name": "Lunchbox",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Lunchbox' is missing limit for: new, existing",
-          "detail": "Lunchbox",
-          "context": {
-            "name": "Lunchbox",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Metabolux Syringe' is missing price for: xbox, ps, pc",
-          "detail": "Metabolux Syringe",
-          "context": {
-            "name": "Metabolux Syringe",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Metabolux Syringe' is missing limit for: new, existing",
-          "detail": "Metabolux Syringe",
-          "context": {
-            "name": "Metabolux Syringe",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
           "message": "'Mire Magic Moonshine' is missing price for: xbox, ps, pc",
           "detail": "Mire Magic Moonshine",
           "context": {
@@ -5319,33 +4839,6 @@
           "detail": "Mire Magic Moonshine",
           "context": {
             "name": "Mire Magic Moonshine",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Mole Miner Pail' is missing price for: xbox, ps, pc",
-          "detail": "Mole Miner Pail",
-          "context": {
-            "name": "Mole Miner Pail",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Mole Miner Pail' is missing limit for: new, existing",
-          "detail": "Mole Miner Pail",
-          "context": {
-            "name": "Mole Miner Pail",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -5382,10 +4875,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Mutated Package' is missing price for: xbox, ps, pc",
-          "detail": "Mutated Package",
+          "message": "'Nuclear Wastewater' is missing price for: xbox, ps, pc",
+          "detail": "Nuclear Wastewater",
           "context": {
-            "name": "Mutated Package",
+            "name": "Nuclear Wastewater",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -5396,442 +4889,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Mutated Package' is missing limit for: new, existing",
-          "detail": "Mutated Package",
+          "message": "'Nuclear Wastewater' is missing limit for: new, existing",
+          "detail": "Nuclear Wastewater",
           "context": {
-            "name": "Mutated Package",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Mutated Party Pack' is missing price for: xbox, ps, pc",
-          "detail": "Mutated Party Pack",
-          "context": {
-            "name": "Mutated Party Pack",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Mutated Party Pack' is missing limit for: new, existing",
-          "detail": "Mutated Party Pack",
-          "context": {
-            "name": "Mutated Party Pack",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Mystery Bobblehead Box' is missing price for: xbox, ps, pc",
-          "detail": "Mystery Bobblehead Box",
-          "context": {
-            "name": "Mystery Bobblehead Box",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Mystery Bobblehead Box' is missing limit for: new, existing",
-          "detail": "Mystery Bobblehead Box",
-          "context": {
-            "name": "Mystery Bobblehead Box",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Mystery Magazine Package' is missing price for: xbox, ps, pc",
-          "detail": "Mystery Magazine Package",
-          "context": {
-            "name": "Mystery Magazine Package",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Mystery Magazine Package' is missing limit for: new, existing",
-          "detail": "Mystery Magazine Package",
-          "context": {
-            "name": "Mystery Magazine Package",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "\"Nuclear Don's Custom Chem Blend\" is missing price for: xbox, ps, pc",
-          "detail": "Nuclear Don's Custom Chem Blend",
-          "context": {
-            "name": "Nuclear Don's Custom Chem Blend",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "\"Nuclear Don's Custom Chem Blend\" is missing limit for: new, existing",
-          "detail": "Nuclear Don's Custom Chem Blend",
-          "context": {
-            "name": "Nuclear Don's Custom Chem Blend",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Cherry' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cherry",
-          "context": {
-            "name": "Nuka-Cherry",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Cherry' is missing limit for: new, existing",
-          "detail": "Nuka-Cherry",
-          "context": {
-            "name": "Nuka-Cherry",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Cola' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola",
-          "context": {
-            "name": "Nuka-Cola",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Cola' is missing limit for: new, existing",
-          "detail": "Nuka-Cola",
-          "context": {
-            "name": "Nuka-Cola",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Cola Cranberry' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Cranberry",
-          "context": {
-            "name": "Nuka-Cola Cranberry",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Cola Cranberry' is missing limit for: new, existing",
-          "detail": "Nuka-Cola Cranberry",
-          "context": {
-            "name": "Nuka-Cola Cranberry",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Cola Dark' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Dark",
-          "context": {
-            "name": "Nuka-Cola Dark",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Cola Dark' is missing limit for: new, existing",
-          "detail": "Nuka-Cola Dark",
-          "context": {
-            "name": "Nuka-Cola Dark",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Cola Quantum' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Quantum",
-          "context": {
-            "name": "Nuka-Cola Quantum",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Cola Quantum' is missing limit for: new, existing",
-          "detail": "Nuka-Cola Quantum",
-          "context": {
-            "name": "Nuka-Cola Quantum",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Cola Twist' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Twist",
-          "context": {
-            "name": "Nuka-Cola Twist",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Cola Twist' is missing limit for: new, existing",
-          "detail": "Nuka-Cola Twist",
-          "context": {
-            "name": "Nuka-Cola Twist",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Cola Wild' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Wild",
-          "context": {
-            "name": "Nuka-Cola Wild",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Cola Wild' is missing limit for: new, existing",
-          "detail": "Nuka-Cola Wild",
-          "context": {
-            "name": "Nuka-Cola Wild",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Grape' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Grape",
-          "context": {
-            "name": "Nuka-Grape",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Grape' is missing limit for: new, existing",
-          "detail": "Nuka-Grape",
-          "context": {
-            "name": "Nuka-Grape",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Nuka-Orange' is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Orange",
-          "context": {
-            "name": "Nuka-Orange",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Nuka-Orange' is missing limit for: new, existing",
-          "detail": "Nuka-Orange",
-          "context": {
-            "name": "Nuka-Orange",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Ornate Mole Miner Pail' is missing price for: xbox, ps, pc",
-          "detail": "Ornate Mole Miner Pail",
-          "context": {
-            "name": "Ornate Mole Miner Pail",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Ornate Mole Miner Pail' is missing limit for: new, existing",
-          "detail": "Ornate Mole Miner Pail",
-          "context": {
-            "name": "Ornate Mole Miner Pail",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Pepper' is missing price for: xbox, ps, pc",
-          "detail": "Pepper",
-          "context": {
-            "name": "Pepper",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Pepper' is missing limit for: new, existing",
-          "detail": "Pepper",
-          "context": {
-            "name": "Pepper",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Phantom Device' is missing price for: xbox, ps, pc",
-          "detail": "Phantom Device",
-          "context": {
-            "name": "Phantom Device",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Phantom Device' is missing limit for: new, existing",
-          "detail": "Phantom Device",
-          "context": {
-            "name": "Phantom Device",
+            "name": "Nuclear Wastewater",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -5868,10 +4929,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Rad-X' is missing price for: xbox, ps, pc",
-          "detail": "Rad-X",
+          "message": "'Raw Cobalt Flux' is missing price for: xbox, ps, pc",
+          "detail": "Raw Cobalt Flux",
           "context": {
-            "name": "Rad-X",
+            "name": "Raw Cobalt Flux",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -5882,10 +4943,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Rad-X' is missing limit for: new, existing",
-          "detail": "Rad-X",
+          "message": "'Raw Cobalt Flux' is missing limit for: new, existing",
+          "detail": "Raw Cobalt Flux",
           "context": {
-            "name": "Rad-X",
+            "name": "Raw Cobalt Flux",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -5895,10 +4956,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Refreshing Beverage' is missing price for: xbox, ps, pc",
-          "detail": "Refreshing Beverage",
+          "message": "'Raw Crimson Flux' is missing price for: xbox, ps, pc",
+          "detail": "Raw Crimson Flux",
           "context": {
-            "name": "Refreshing Beverage",
+            "name": "Raw Crimson Flux",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -5909,10 +4970,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Refreshing Beverage' is missing limit for: new, existing",
-          "detail": "Refreshing Beverage",
+          "message": "'Raw Crimson Flux' is missing limit for: new, existing",
+          "detail": "Raw Crimson Flux",
           "context": {
-            "name": "Refreshing Beverage",
+            "name": "Raw Crimson Flux",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -5922,10 +4983,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Resuscitation Kit' is missing price for: xbox, ps, pc",
-          "detail": "Resuscitation Kit",
+          "message": "'Raw Fluorescent Flux' is missing price for: xbox, ps, pc",
+          "detail": "Raw Fluorescent Flux",
           "context": {
-            "name": "Resuscitation Kit",
+            "name": "Raw Fluorescent Flux",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -5936,10 +4997,64 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Resuscitation Kit' is missing limit for: new, existing",
-          "detail": "Resuscitation Kit",
+          "message": "'Raw Fluorescent Flux' is missing limit for: new, existing",
+          "detail": "Raw Fluorescent Flux",
           "context": {
-            "name": "Resuscitation Kit",
+            "name": "Raw Fluorescent Flux",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Raw Violet Flux' is missing price for: xbox, ps, pc",
+          "detail": "Raw Violet Flux",
+          "context": {
+            "name": "Raw Violet Flux",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Raw Violet Flux' is missing limit for: new, existing",
+          "detail": "Raw Violet Flux",
+          "context": {
+            "name": "Raw Violet Flux",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu.missing_price",
+          "message": "'Raw Yellowcake Flux' is missing price for: xbox, ps, pc",
+          "detail": "Raw Yellowcake Flux",
+          "context": {
+            "name": "Raw Yellowcake Flux",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu.missing_limit",
+          "message": "'Raw Yellowcake Flux' is missing limit for: new, existing",
+          "detail": "Raw Yellowcake Flux",
+          "context": {
+            "name": "Raw Yellowcake Flux",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -5976,33 +5091,6 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Royal Jelly' is missing price for: xbox, ps, pc",
-          "detail": "Royal Jelly",
-          "context": {
-            "name": "Royal Jelly",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Royal Jelly' is missing limit for: new, existing",
-          "detail": "Royal Jelly",
-          "context": {
-            "name": "Royal Jelly",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
           "message": "\"Rudy's Canned Pozole\" is missing price for: xbox, ps, pc",
           "detail": "Rudy's Canned Pozole",
           "context": {
@@ -6021,87 +5109,6 @@
           "detail": "Rudy's Canned Pozole",
           "context": {
             "name": "Rudy's Canned Pozole",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Salt' is missing price for: xbox, ps, pc",
-          "detail": "Salt",
-          "context": {
-            "name": "Salt",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Salt' is missing limit for: new, existing",
-          "detail": "Salt",
-          "context": {
-            "name": "Salt",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Scorched Fever Innoculation' is missing price for: xbox, ps, pc",
-          "detail": "Scorched Fever Innoculation",
-          "context": {
-            "name": "Scorched Fever Innoculation",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Scorched Fever Innoculation' is missing limit for: new, existing",
-          "detail": "Scorched Fever Innoculation",
-          "context": {
-            "name": "Scorched Fever Innoculation",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "\"Scout's Banner\" is missing price for: xbox, ps, pc",
-          "detail": "Scout's Banner",
-          "context": {
-            "name": "Scout's Banner",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "\"Scout's Banner\" is missing limit for: new, existing",
-          "detail": "Scout's Banner",
-          "context": {
-            "name": "Scout's Banner",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -6379,21 +5386,12 @@
           }
         },
         {
-          "severity": "warning",
-          "code": "menu.orphan_override",
-          "message": "Override 'Small Handmade Holiday Gift' is not found in COBJ and not marked include_without_cobj. Item will not appear on the menu.",
-          "detail": "Small Handmade Holiday Gift",
-          "context": {
-            "name": "Small Handmade Holiday Gift"
-          }
-        },
-        {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Small Holiday Gift' is missing price for: xbox, ps, pc",
-          "detail": "Small Holiday Gift",
+          "message": "'Spoiled Bio Fluid' is missing price for: xbox, ps, pc",
+          "detail": "Spoiled Bio Fluid",
           "context": {
-            "name": "Small Holiday Gift",
+            "name": "Spoiled Bio Fluid",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -6404,10 +5402,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Small Holiday Gift' is missing limit for: new, existing",
-          "detail": "Small Holiday Gift",
+          "message": "'Spoiled Bio Fluid' is missing limit for: new, existing",
+          "detail": "Spoiled Bio Fluid",
           "context": {
-            "name": "Small Holiday Gift",
+            "name": "Spoiled Bio Fluid",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -6417,10 +5415,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Small Waterlogged Gift' is missing price for: xbox, ps, pc",
-          "detail": "Small Waterlogged Gift",
+          "message": "'Spoiled Fruit' is missing price for: xbox, ps, pc",
+          "detail": "Spoiled Fruit",
           "context": {
-            "name": "Small Waterlogged Gift",
+            "name": "Spoiled Fruit",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -6431,10 +5429,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Small Waterlogged Gift' is missing limit for: new, existing",
-          "detail": "Small Waterlogged Gift",
+          "message": "'Spoiled Fruit' is missing limit for: new, existing",
+          "detail": "Spoiled Fruit",
           "context": {
-            "name": "Small Waterlogged Gift",
+            "name": "Spoiled Fruit",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -6444,10 +5442,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Spices' is missing price for: xbox, ps, pc",
-          "detail": "Spices",
+          "message": "'Spoiled Meat' is missing price for: xbox, ps, pc",
+          "detail": "Spoiled Meat",
           "context": {
-            "name": "Spices",
+            "name": "Spoiled Meat",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -6458,10 +5456,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Spices' is missing limit for: new, existing",
-          "detail": "Spices",
+          "message": "'Spoiled Meat' is missing limit for: new, existing",
+          "detail": "Spoiled Meat",
           "context": {
-            "name": "Spices",
+            "name": "Spoiled Meat",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -6471,10 +5469,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'Spooky Treat Bag' is missing price for: xbox, ps, pc",
-          "detail": "Spooky Treat Bag",
+          "message": "'Spoiled Vegetables' is missing price for: xbox, ps, pc",
+          "detail": "Spoiled Vegetables",
           "context": {
-            "name": "Spooky Treat Bag",
+            "name": "Spoiled Vegetables",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -6485,91 +5483,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'Spooky Treat Bag' is missing limit for: new, existing",
-          "detail": "Spooky Treat Bag",
+          "message": "'Spoiled Vegetables' is missing limit for: new, existing",
+          "detail": "Spoiled Vegetables",
           "context": {
-            "name": "Spooky Treat Bag",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Star Size Sunset Sarsaparilla' is missing price for: xbox, ps, pc",
-          "detail": "Star Size Sunset Sarsaparilla",
-          "context": {
-            "name": "Star Size Sunset Sarsaparilla",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Star Size Sunset Sarsaparilla' is missing limit for: new, existing",
-          "detail": "Star Size Sunset Sarsaparilla",
-          "context": {
-            "name": "Star Size Sunset Sarsaparilla",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Stealth Boy' is missing price for: xbox, ps, pc",
-          "detail": "Stealth Boy",
-          "context": {
-            "name": "Stealth Boy",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Stealth Boy' is missing limit for: new, existing",
-          "detail": "Stealth Boy",
-          "context": {
-            "name": "Stealth Boy",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Stealth Boy Mark III' is missing price for: xbox, ps, pc",
-          "detail": "Stealth Boy Mark III",
-          "context": {
-            "name": "Stealth Boy Mark III",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Stealth Boy Mark III' is missing limit for: new, existing",
-          "detail": "Stealth Boy Mark III",
-          "context": {
-            "name": "Stealth Boy Mark III",
+            "name": "Spoiled Vegetables",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -6624,168 +5541,6 @@
           "detail": "Sugar-Free Nukashine",
           "context": {
             "name": "Sugar-Free Nukashine",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Super Chem MK I' is missing price for: xbox, ps, pc",
-          "detail": "Super Chem MK I",
-          "context": {
-            "name": "Super Chem MK I",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Super Chem MK I' is missing limit for: new, existing",
-          "detail": "Super Chem MK I",
-          "context": {
-            "name": "Super Chem MK I",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Super Chem MK II' is missing price for: xbox, ps, pc",
-          "detail": "Super Chem MK II",
-          "context": {
-            "name": "Super Chem MK II",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Super Chem MK II' is missing limit for: new, existing",
-          "detail": "Super Chem MK II",
-          "context": {
-            "name": "Super Chem MK II",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Super Chem MK III' is missing price for: xbox, ps, pc",
-          "detail": "Super Chem MK III",
-          "context": {
-            "name": "Super Chem MK III",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Super Chem MK III' is missing limit for: new, existing",
-          "detail": "Super Chem MK III",
-          "context": {
-            "name": "Super Chem MK III",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'SuperChem' is missing price for: xbox, ps, pc",
-          "detail": "SuperChem",
-          "context": {
-            "name": "SuperChem",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'SuperChem' is missing limit for: new, existing",
-          "detail": "SuperChem",
-          "context": {
-            "name": "SuperChem",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "\"Surly's Buffout\" is missing price for: xbox, ps, pc",
-          "detail": "Surly's Buffout",
-          "context": {
-            "name": "Surly's Buffout",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "\"Surly's Buffout\" is missing limit for: new, existing",
-          "detail": "Surly's Buffout",
-          "context": {
-            "name": "Surly's Buffout",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Survival Syringe' is missing price for: xbox, ps, pc",
-          "detail": "Survival Syringe",
-          "context": {
-            "name": "Survival Syringe",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Survival Syringe' is missing limit for: new, existing",
-          "detail": "Survival Syringe",
-          "context": {
-            "name": "Survival Syringe",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -7173,10 +5928,10 @@
         {
           "severity": "error",
           "code": "menu.missing_price",
-          "message": "'The Fix' is missing price for: xbox, ps, pc",
-          "detail": "The Fix",
+          "message": "'Tick Blood' is missing price for: xbox, ps, pc",
+          "detail": "Tick Blood",
           "context": {
-            "name": "The Fix",
+            "name": "Tick Blood",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -7187,91 +5942,10 @@
         {
           "severity": "warning",
           "code": "menu.missing_limit",
-          "message": "'The Fix' is missing limit for: new, existing",
-          "detail": "The Fix",
+          "message": "'Tick Blood' is missing limit for: new, existing",
+          "detail": "Tick Blood",
           "context": {
-            "name": "The Fix",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Toxic Water' is missing price for: xbox, ps, pc",
-          "detail": "Toxic Water",
-          "context": {
-            "name": "Toxic Water",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Toxic Water' is missing limit for: new, existing",
-          "detail": "Toxic Water",
-          "context": {
-            "name": "Toxic Water",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Tracking Dart' is missing price for: xbox, ps, pc",
-          "detail": "Tracking Dart",
-          "context": {
-            "name": "Tracking Dart",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Tracking Dart' is missing limit for: new, existing",
-          "detail": "Tracking Dart",
-          "context": {
-            "name": "Tracking Dart",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Trench-Med' is missing price for: xbox, ps, pc",
-          "detail": "Trench-Med",
-          "context": {
-            "name": "Trench-Med",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Trench-Med' is missing limit for: new, existing",
-          "detail": "Trench-Med",
-          "context": {
-            "name": "Trench-Med",
+            "name": "Tick Blood",
             "missing_fields": [
               "limit_new",
               "limit_existing"
@@ -7900,134 +6574,26 @@
           }
         },
         {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Volatile Nuka Quantum' is missing price for: xbox, ps, pc",
-          "detail": "Volatile Nuka Quantum",
-          "context": {
-            "name": "Volatile Nuka Quantum",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Volatile Nuka Quantum' is missing limit for: new, existing",
-          "detail": "Volatile Nuka Quantum",
-          "context": {
-            "name": "Volatile Nuka Quantum",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Vox Interpreter Dart' is missing price for: xbox, ps, pc",
-          "detail": "Vox Interpreter Dart",
-          "context": {
-            "name": "Vox Interpreter Dart",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Vox Interpreter Dart' is missing limit for: new, existing",
-          "detail": "Vox Interpreter Dart",
-          "context": {
-            "name": "Vox Interpreter Dart",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'Waterlogged Gift' is missing price for: xbox, ps, pc",
-          "detail": "Waterlogged Gift",
-          "context": {
-            "name": "Waterlogged Gift",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'Waterlogged Gift' is missing limit for: new, existing",
-          "detail": "Waterlogged Gift",
-          "context": {
-            "name": "Waterlogged Gift",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "menu.missing_price",
-          "message": "'X-Cell' is missing price for: xbox, ps, pc",
-          "detail": "X-Cell",
-          "context": {
-            "name": "X-Cell",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "menu.missing_limit",
-          "message": "'X-Cell' is missing limit for: new, existing",
-          "detail": "X-Cell",
-          "context": {
-            "name": "X-Cell",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
           "severity": "info",
           "code": "menu.skipped",
-          "message": "Skipped 55 items marked skip=1 in menu-overrides.tsv.",
+          "message": "Skipped 45 items marked skip=1 in menu-overrides.tsv.",
           "context": {
-            "count": 55
+            "count": 45
           }
         },
         {
           "severity": "info",
           "code": "menu.build.summary",
-          "message": "Wrote 591 menu items.",
+          "message": "Wrote 589 menu items.",
           "context": {
-            "total": 591,
+            "total": 589,
             "categories": {
               "Alcohol": 59,
               "Canned": 31,
-              "Chem": 95,
-              "Condiments & Non-Perishable": 15,
-              "Food": 206,
-              "Other": 159,
+              "Chem": 89,
+              "Condiments & Non-Perishable": 22,
+              "Food": 211,
+              "Other": 151,
               "Soda": 26
             }
           }
@@ -8156,11 +6722,11 @@
       ]
     },
     "bnb_menu": {
-      "generated": "2026-04-12T12:06:25+00:00",
+      "generated": "2026-04-12T12:46:50+00:00",
       "counts": {
-        "error": 279,
+        "error": 204,
         "warning": 0,
-        "info": 31
+        "info": 19
       },
       "entries": [
         {
@@ -8661,351 +7227,6 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Calmex Silk' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Calmex Silk",
-          "context": {
-            "name": "Calmex Silk",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Carry Weight Booster' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Carry Weight Booster",
-          "context": {
-            "name": "Carry Weight Booster",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Detoxing Salve' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Detoxing Salve",
-          "context": {
-            "name": "Detoxing Salve",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Formula B' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Formula B",
-          "context": {
-            "name": "Formula B",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Formula Q' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Formula Q",
-          "context": {
-            "name": "Formula Q",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Lunchbox' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Lunchbox",
-          "context": {
-            "name": "Lunchbox",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mentats' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Mentats",
-          "context": {
-            "name": "Mentats",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"Nuclear Don's Custom Chem Blend\" (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Nuclear Don's Custom Chem Blend",
-          "context": {
-            "name": "Nuclear Don's Custom Chem Blend",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Phantom Device' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Phantom Device",
-          "context": {
-            "name": "Phantom Device",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Refreshing Beverage' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Refreshing Beverage",
-          "context": {
-            "name": "Refreshing Beverage",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Resuscitation Kit' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Resuscitation Kit",
-          "context": {
-            "name": "Resuscitation Kit",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Scorched Fever Innoculation' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Scorched Fever Innoculation",
-          "context": {
-            "name": "Scorched Fever Innoculation",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Skeeto Spit' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Skeeto Spit",
-          "context": {
-            "name": "Skeeto Spit",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Stealth Boy' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Stealth Boy",
-          "context": {
-            "name": "Stealth Boy",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Stealth Boy Mark III' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Stealth Boy Mark III",
-          "context": {
-            "name": "Stealth Boy Mark III",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Super Chem MK I' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Super Chem MK I",
-          "context": {
-            "name": "Super Chem MK I",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Super Chem MK II' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Super Chem MK II",
-          "context": {
-            "name": "Super Chem MK II",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Super Chem MK III' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Super Chem MK III",
-          "context": {
-            "name": "Super Chem MK III",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'SuperChem' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "SuperChem",
-          "context": {
-            "name": "SuperChem",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"Surly's Buffout\" (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Surly's Buffout",
-          "context": {
-            "name": "Surly's Buffout",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Survival Syringe' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Survival Syringe",
-          "context": {
-            "name": "Survival Syringe",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'The Fix' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "The Fix",
-          "context": {
-            "name": "The Fix",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Trench-Med' (Chems) is missing price for: xbox, ps, pc",
-          "detail": "Trench-Med",
-          "context": {
-            "name": "Trench-Med",
-            "category": "Chems",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
           "message": "'Firecracker Nougat Heart' (Dishes & Teas) is missing price for: xbox, ps, pc",
           "detail": "Firecracker Nougat Heart",
           "context": {
@@ -9021,25 +7242,25 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 214: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "message": "Row 206: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
           "detail": "Fried Radroach On A Stick"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 215: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "message": "Row 207: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
           "detail": "Fried Radroach On A Stick"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 216: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "message": "Row 208: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
           "detail": "Fried Radroach On A Stick"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 217: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "message": "Row 209: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
           "detail": "Fried Radroach On A Stick"
         },
         {
@@ -9525,11 +7746,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Bioluminescent Fluid' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Bioluminescent Fluid' (Other) is missing price for: xbox, ps, pc",
           "detail": "Bioluminescent Fluid",
           "context": {
             "name": "Bioluminescent Fluid",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -9615,21 +7836,6 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Boiled Water' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
-          "detail": "Boiled Water",
-          "context": {
-            "name": "Boiled Water",
-            "category": "Condiments & Non-Perishable",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
           "message": "'Brahmin Meat' (Ingredients) is missing price for: xbox, ps, pc",
           "detail": "Brahmin Meat",
           "context": {
@@ -9645,11 +7851,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Brahmin Milk' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Brahmin Milk' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
           "detail": "Brahmin Milk",
           "context": {
             "name": "Brahmin Milk",
-            "category": "Ingredients",
+            "category": "Condiments & Non-Perishable",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -9664,21 +7870,6 @@
           "detail": "Brain Fungus",
           "context": {
             "name": "Brain Fungus",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Burger Bits' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Burger Bits",
-          "context": {
-            "name": "Burger Bits",
             "category": "Ingredients",
             "missing_fields": [
               "price_xbox",
@@ -9765,11 +7956,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "\"Chally's Milk\" (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "\"Chally's Milk\" (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
           "detail": "Chally's Milk",
           "context": {
             "name": "Chally's Milk",
-            "category": "Ingredients",
+            "category": "Condiments & Non-Perishable",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -9795,19 +7986,19 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 454: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 445: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 455: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 446: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 456: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 447: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
@@ -9873,11 +8064,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Cream' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Cream' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
           "detail": "Cream",
           "context": {
             "name": "Cream",
-            "category": "Ingredients",
+            "category": "Condiments & Non-Perishable",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -9908,21 +8099,6 @@
           "context": {
             "name": "Deathclaw Meat",
             "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Dirty Water' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
-          "detail": "Dirty Water",
-          "context": {
-            "name": "Dirty Water",
-            "category": "Condiments & Non-Perishable",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -9997,21 +8173,6 @@
           "detail": "Flying Ant Meat",
           "context": {
             "name": "Flying Ant Meat",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Forrage Porridge' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Forrage Porridge",
-          "context": {
-            "name": "Forrage Porridge",
             "category": "Ingredients",
             "missing_fields": [
               "price_xbox",
@@ -10233,11 +8394,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Honeycomb' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Honeycomb' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
           "detail": "Honeycomb",
           "context": {
             "name": "Honeycomb",
-            "category": "Ingredients",
+            "category": "Condiments & Non-Perishable",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -10263,11 +8424,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Inert Flux' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Inert Flux' (Other) is missing price for: xbox, ps, pc",
           "detail": "Inert Flux",
           "context": {
             "name": "Inert Flux",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -10327,21 +8488,6 @@
           "detail": "Lure Weed",
           "context": {
             "name": "Lure Weed",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Meat Treats' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Meat Treats",
-          "context": {
-            "name": "Meat Treats",
             "category": "Ingredients",
             "missing_fields": [
               "price_xbox",
@@ -10563,11 +8709,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Nuclear Wastewater' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Nuclear Wastewater' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
           "detail": "Nuclear Wastewater",
           "context": {
             "name": "Nuclear Wastewater",
-            "category": "Ingredients",
+            "category": "Condiments & Non-Perishable",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -10833,11 +8979,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Cobalt Flux' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Raw Cobalt Flux' (Other) is missing price for: xbox, ps, pc",
           "detail": "Raw Cobalt Flux",
           "context": {
             "name": "Raw Cobalt Flux",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -10848,11 +8994,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Crimson Flux' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Raw Crimson Flux' (Other) is missing price for: xbox, ps, pc",
           "detail": "Raw Crimson Flux",
           "context": {
             "name": "Raw Crimson Flux",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -10863,11 +9009,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Fluorescent Flux' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Raw Fluorescent Flux' (Other) is missing price for: xbox, ps, pc",
           "detail": "Raw Fluorescent Flux",
           "context": {
             "name": "Raw Fluorescent Flux",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -10893,11 +9039,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Violet Flux' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Raw Violet Flux' (Other) is missing price for: xbox, ps, pc",
           "detail": "Raw Violet Flux",
           "context": {
             "name": "Raw Violet Flux",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -10923,11 +9069,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Raw Yellowcake Flux' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Raw Yellowcake Flux' (Other) is missing price for: xbox, ps, pc",
           "detail": "Raw Yellowcake Flux",
           "context": {
             "name": "Raw Yellowcake Flux",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -11058,21 +9204,6 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Seed Feed' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Seed Feed",
-          "context": {
-            "name": "Seed Feed",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
           "message": "'Sheepsquatch Horn' (Ingredients) is missing price for: xbox, ps, pc",
           "detail": "Sheepsquatch Horn",
           "context": {
@@ -11163,11 +9294,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Spoiled Bio Fluid' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Spoiled Bio Fluid' (Other) is missing price for: xbox, ps, pc",
           "detail": "Spoiled Bio Fluid",
           "context": {
             "name": "Spoiled Bio Fluid",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -11178,11 +9309,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Spoiled Fruit' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Spoiled Fruit' (Other) is missing price for: xbox, ps, pc",
           "detail": "Spoiled Fruit",
           "context": {
             "name": "Spoiled Fruit",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -11193,11 +9324,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Spoiled Meat' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Spoiled Meat' (Other) is missing price for: xbox, ps, pc",
           "detail": "Spoiled Meat",
           "context": {
             "name": "Spoiled Meat",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -11208,11 +9339,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Spoiled Vegetables' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Spoiled Vegetables' (Other) is missing price for: xbox, ps, pc",
           "detail": "Spoiled Vegetables",
           "context": {
             "name": "Spoiled Vegetables",
-            "category": "Ingredients",
+            "category": "Other",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -11242,21 +9373,6 @@
           "detail": "Starlight Berries",
           "context": {
             "name": "Starlight Berries",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Steak Sticks' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Steak Sticks",
-          "context": {
-            "name": "Steak Sticks",
             "category": "Ingredients",
             "missing_fields": [
               "price_xbox",
@@ -11418,11 +9534,11 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Tick Blood' (Ingredients) is missing price for: xbox, ps, pc",
+          "message": "'Tick Blood' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
           "detail": "Tick Blood",
           "context": {
             "name": "Tick Blood",
-            "category": "Ingredients",
+            "category": "Condiments & Non-Perishable",
             "missing_fields": [
               "price_xbox",
               "price_ps",
@@ -11437,36 +9553,6 @@
           "detail": "Toxic Soot Flower",
           "context": {
             "name": "Toxic Soot Flower",
-            "category": "Ingredients",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Toxic Water' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
-          "detail": "Toxic Water",
-          "context": {
-            "name": "Toxic Water",
-            "category": "Condiments & Non-Perishable",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Veggie Vittles' (Ingredients) is missing price for: xbox, ps, pc",
-          "detail": "Veggie Vittles",
-          "context": {
-            "name": "Veggie Vittles",
             "category": "Ingredients",
             "missing_fields": [
               "price_xbox",
@@ -11521,604 +9607,22 @@
           }
         },
         {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"ATLAS Donor's Provisions\" (Other) is missing price for: xbox, ps, pc",
-          "detail": "ATLAS Donor's Provisions",
-          "context": {
-            "name": "ATLAS Donor's Provisions",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Crafted Dusty Mole Miner Pail' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Crafted Dusty Mole Miner Pail",
-          "context": {
-            "name": "Crafted Dusty Mole Miner Pail",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 713: duplicate 'Crafted Dusty Mole Miner Pail' in 'Other' — keeping first.",
-          "detail": "Crafted Dusty Mole Miner Pail"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Crafted Mole Miner Pail' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Crafted Mole Miner Pail",
-          "context": {
-            "name": "Crafted Mole Miner Pail",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 715: duplicate 'Crafted Mole Miner Pail' in 'Other' — keeping first.",
-          "detail": "Crafted Mole Miner Pail"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Crafted Ornate Mole Miner Pail' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Crafted Ornate Mole Miner Pail",
-          "context": {
-            "name": "Crafted Ornate Mole Miner Pail",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 717: duplicate 'Crafted Ornate Mole Miner Pail' in 'Other' — keeping first.",
-          "detail": "Crafted Ornate Mole Miner Pail"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Cultist High Priest Pack' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Cultist High Priest Pack",
-          "context": {
-            "name": "Cultist High Priest Pack",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Double Mutated Package' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Double Mutated Package",
-          "context": {
-            "name": "Double Mutated Package",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Double Mutated Party Pack' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Double Mutated Party Pack",
-          "context": {
-            "name": "Double Mutated Party Pack",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Dusty Mole Miner Pail' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Dusty Mole Miner Pail",
-          "context": {
-            "name": "Dusty Mole Miner Pail",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 722: duplicate 'Dusty Mole Miner Pail' in 'Other' — keeping first.",
-          "detail": "Dusty Mole Miner Pail"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Gleaming Depths Weekly Reward Crate' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Gleaming Depths Weekly Reward Crate",
-          "context": {
-            "name": "Gleaming Depths Weekly Reward Crate",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Handmade Holiday Gift' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Handmade Holiday Gift",
-          "context": {
-            "name": "Handmade Holiday Gift",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 725: duplicate 'Handmade Holiday Gift' in 'Other' — keeping first.",
-          "detail": "Handmade Holiday Gift"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Holiday Gift' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Holiday Gift",
-          "context": {
-            "name": "Holiday Gift",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 727: duplicate 'Holiday Gift' in 'Other' — keeping first.",
-          "detail": "Holiday Gift"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Large Handmade Holiday Gift' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Large Handmade Holiday Gift",
-          "context": {
-            "name": "Large Handmade Holiday Gift",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 729: duplicate 'Large Handmade Holiday Gift' in 'Other' — keeping first.",
-          "detail": "Large Handmade Holiday Gift"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Large Holiday Gift' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Large Holiday Gift",
-          "context": {
-            "name": "Large Holiday Gift",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 731: duplicate 'Large Holiday Gift' in 'Other' — keeping first.",
-          "detail": "Large Holiday Gift"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Large Waterlogged Gift' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Large Waterlogged Gift",
-          "context": {
-            "name": "Large Waterlogged Gift",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Metabolux Syringe' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Metabolux Syringe",
-          "context": {
-            "name": "Metabolux Syringe",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mole Miner Pail' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Mole Miner Pail",
-          "context": {
-            "name": "Mole Miner Pail",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 735: duplicate 'Mole Miner Pail' in 'Other' — keeping first.",
-          "detail": "Mole Miner Pail"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mutated Package' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Mutated Package",
-          "context": {
-            "name": "Mutated Package",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mutated Party Pack' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Mutated Party Pack",
-          "context": {
-            "name": "Mutated Party Pack",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mystery Bobblehead Box' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Mystery Bobblehead Box",
-          "context": {
-            "name": "Mystery Bobblehead Box",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 739: duplicate 'Mystery Bobblehead Box' in 'Other' — keeping first.",
+          "message": "Row 698: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Bobblehead Box"
         },
         {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Mystery Magazine Package' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Mystery Magazine Package",
-          "context": {
-            "name": "Mystery Magazine Package",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 741: duplicate 'Mystery Magazine Package' in 'Other' — keeping first.",
+          "message": "Row 699: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Ornate Mole Miner Pail' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Ornate Mole Miner Pail",
-          "context": {
-            "name": "Ornate Mole Miner Pail",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 743: duplicate 'Ornate Mole Miner Pail' in 'Other' — keeping first.",
-          "detail": "Ornate Mole Miner Pail"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Precursor 114a' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Precursor 114a",
-          "context": {
-            "name": "Precursor 114a",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Precursor 114b' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Precursor 114b",
-          "context": {
-            "name": "Precursor 114b",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Precursor 7516a' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Precursor 7516a",
-          "context": {
-            "name": "Precursor 7516a",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Precursor 7516b' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Precursor 7516b",
-          "context": {
-            "name": "Precursor 7516b",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "\"Scout's Banner\" (Other) is missing price for: xbox, ps, pc",
-          "detail": "Scout's Banner",
-          "context": {
-            "name": "Scout's Banner",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Small Handmade Holiday Gift' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Small Handmade Holiday Gift",
-          "context": {
-            "name": "Small Handmade Holiday Gift",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 750: duplicate 'Small Handmade Holiday Gift' in 'Other' — keeping first.",
-          "detail": "Small Handmade Holiday Gift"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Small Holiday Gift' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Small Holiday Gift",
-          "context": {
-            "name": "Small Holiday Gift",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 752: duplicate 'Small Holiday Gift' in 'Other' — keeping first.",
-          "detail": "Small Holiday Gift"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Small Waterlogged Gift' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Small Waterlogged Gift",
-          "context": {
-            "name": "Small Waterlogged Gift",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Spooky Treat Bag' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Spooky Treat Bag",
-          "context": {
-            "name": "Spooky Treat Bag",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Stealth Boy' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Stealth Boy",
-          "context": {
-            "name": "Stealth Boy",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 756: duplicate 'Stealth Boy' in 'Other' — keeping first.",
-          "detail": "Stealth Boy"
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Tracking Dart' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Tracking Dart",
-          "context": {
-            "name": "Tracking Dart",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Vox Interpreter Dart' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Vox Interpreter Dart",
-          "context": {
-            "name": "Vox Interpreter Dart",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Waterlogged Gift' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Waterlogged Gift",
-          "context": {
-            "name": "Waterlogged Gift",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
+          "message": "Row 700: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Magazine Package"
         },
         {
           "severity": "error",
@@ -12153,25 +9657,25 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 767: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 709: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 768: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 710: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 769: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 711: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 770: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 712: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
@@ -12207,25 +9711,25 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 778: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 720: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 779: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 721: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 780: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 722: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 781: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 723: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
@@ -12394,144 +9898,11 @@
           }
         },
         {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Irradiated Sunset Sarsaparilla' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Irradiated Sunset Sarsaparilla",
-          "context": {
-            "name": "Irradiated Sunset Sarsaparilla",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka-Cola' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola",
-          "context": {
-            "name": "Nuka-Cola",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka-Cola Vaccinated' (Soda) is missing price for: pc",
-          "detail": "Nuka-Cola Vaccinated",
-          "context": {
-            "name": "Nuka-Cola Vaccinated",
-            "category": "Soda",
-            "missing_fields": [
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka-Cola Wild' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Cola Wild",
-          "context": {
-            "name": "Nuka-Cola Wild",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka-Grape' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Grape",
-          "context": {
-            "name": "Nuka-Grape",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Nuka-Orange' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Nuka-Orange",
-          "context": {
-            "name": "Nuka-Orange",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Star Size Sunset Sarsaparilla' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Star Size Sunset Sarsaparilla",
-          "context": {
-            "name": "Star Size Sunset Sarsaparilla",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Sunset Sarsaparilla' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Sunset Sarsaparilla",
-          "context": {
-            "name": "Sunset Sarsaparilla",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Volatile Nuka Quantum' (Soda) is missing price for: xbox, ps, pc",
-          "detail": "Volatile Nuka Quantum",
-          "context": {
-            "name": "Volatile Nuka Quantum",
-            "category": "Soda",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
           "severity": "info",
           "code": "bnb_menu.build.summary",
-          "message": "Wrote 809 menu items across 12 categories.",
+          "message": "Wrote 764 menu items across 12 categories.",
           "context": {
-            "total": 809,
+            "total": 764,
             "categories": [
               "Alcohol",
               "Canned",
