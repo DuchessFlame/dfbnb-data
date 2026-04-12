@@ -435,6 +435,13 @@ jobs:
       - name: Build Menu Items JSON
         run: python src/build_menu_items_json.py
 
+      # --- BNB MENU (public menu page) ---
+      # Reads tsv/BnB_Menu_Items.tsv and emits dist/bnb-menu.json — the data
+      # source for the Buffs n Brew menu page rendered by df-bnb-menu.js at
+      # /bnb/buffs-n-brew/menu/. Self-contained (no COBJ dependency).
+      - name: Build BnB Menu JSON
+        run: python src/build_bnb_menu_json.py
+
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
       # fish metadata + spawn rate tables per bait type. Self-contained.
@@ -478,6 +485,7 @@ jobs:
           test -f dist/camp.json                     && echo "OK camp.json"                     || (echo "MISSING camp.json" && exit 1)
           test -f dist/cobj-recipes.json             && echo "OK cobj-recipes.json"             || (echo "MISSING cobj-recipes.json" && exit 1)
           test -f dist/menu-items.json               && echo "OK menu-items.json"               || (echo "MISSING menu-items.json" && exit 1)
+          test -f dist/bnb-menu.json                 && echo "OK bnb-menu.json"                 || (echo "MISSING bnb-menu.json" && exit 1)
           test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
           test -f dist/reho/reho_rewards_by_page.json && echo "OK reho/reho_rewards_by_page.json" || (echo "MISSING reho/reho_rewards_by_page.json" && exit 1)
           test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
