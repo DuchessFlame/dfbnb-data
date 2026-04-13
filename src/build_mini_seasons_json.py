@@ -11,6 +11,9 @@ Week assignment uses three strategies:
   2. Completion challenge condition references (GetIsForm -> sub-challenge)
   3. CNAM scope fallback (Daily -> week1, Weekly -> week2)
 
+Guide linking extracts item/creature/material names from challenge conditions
+and matches them against the site's guide_index.tsv to auto-populate guide_links.
+
 Usage:
   python src/build_mini_seasons_json.py
   # or with explicit paths:
@@ -77,6 +80,395 @@ def extract_chal_refs(raw_conds):
         if 'GetIsForm' in c:
             refs.extend(re.findall(r'(\w+)\s+"[^"]*"\s+\[CHAL:', c))
     return refs
+
+
+# ─────────────────────────────────────────────────────────────
+# TSV parsing
+# ─────────────────────────────────────────────────────────────
+
+# ─────────────────────────────────────────────────────────────
+# Guide linking
+# ─────────────────────────────────────────────────────────────
+
+# Condition item names that should NEVER generate guide links.
+# These are cosmetic items, CAMP categories, event refs, regions,
+# generic gameplay terms, or internal-only references.
+GUIDE_SKIP = {
+    # Cosmetic / event-specific gear (no farming guide exists)
+    'tough love helmet', 'flower crown', 'wasteland wanderer outfit',
+    'wasteland wanderer backpack', 'wasteland wanderer headwear',
+    'wasteland wanderer headwear with cap', 'coin flip emote',
+    'sunset sarsaparilla deputy', 'marshal mallow',
+    # CAMP build categories (no individual guide)
+    'floors', 'walls', 'roofs', 'lights', 'shelves', 'displays',
+    'floor decor', 'wall decor', 'stash boxes', 'generators',
+    'power connectors',
+    # Regions (not items)
+    'ash heap', 'burning springs', 'the forest', 'savage divide',
+    'toxic valley', 'skyline valley',
+    # Locations
+    "johnson's acre", 'the slumber mill motel', 'tunnel of love', 'vault 76',
+    # Generic / internal terms
+    'costume', 'human', 'energy', 'food', 'lost', 'cap', 'pistol',
+    '1-hand melee', '2-hand melee', 'all events',
+    'event: the big bloom',
+    # Mystery items (placeholders)
+    'mystery item day 2', 'mystery item day 4', 'mystery item day 6',
+    'mystery item day 7', 'mystery item day 9', 'mystery item day 11',
+    'mystery item day 14',
+    # Misc items with no dedicated guide
+    'broom', 'clean broom', 'soap', 'plunger', 'toilet paper',
+    'balloon animal bouquet', 'moneybag',
+    'beaker', 'large beaker', 'thin beaker', 'microscope',
+    'scalpel', 'surgical scalpel',
+    'cake pan', 'clean cake pan', 'ceremonial cannon',
+    'autopsy board game', 'blast radius board game',
+    'catch the commie board game',
+    'bait - common', 'bait - improved', 'bait - superb',
+    'water',
+}
+
+# Manual alias map: condition item name (lower) → guide (title, url).
+# Handles Nuka-Cola hyphenation, scrap variants, race→creature mappings,
+# and items whose condition name differs from the guide subCategory.
+GUIDE_ALIASES = {
+    # ── Nuka-Cola products (condition uses hyphens, guides use spaces) ──
+    'nuka-cola':            ('Nuka Cola Guide',            '/bnb/farming/nuka-cola/nuka-cola/guide/'),
+    'nuka-cherry':          ('Nuka Cola Cherry Guide',     '/bnb/farming/nuka-cola/nuka-cola-cherry/guide/'),
+    'nuka-grape':           ('Nuka Cola Grape Guide',      '/bnb/farming/nuka-cola/nuka-cola-grape/guide/'),
+    'nuka-orange':          ('Nuka Cola Orange Guide',     '/bnb/farming/nuka-cola/nuka-cola-orange/guide/'),
+    'nuka-cola quantum':    ('Nuka Cola Quantum Guide',    '/bnb/farming/nuka-cola/nuka-cola-quantum/guide/'),
+    'nuka-cola dark':       ('Nuka Cola Dark Guide',       '/bnb/farming/nuka-cola/nuka-cola-dark/guide/'),
+    'nuka-cola cranberry':  ('Nuka Cola Cranberry Guide',  '/bnb/farming/nuka-cola/nuka-cola-cranberry/guide/'),
+    'nuka-cola twist':      ('Nuka Cola Twist Guide',      '/bnb/farming/nuka-cola/nuka-cola-twist/guide/'),
+    'nuka-cola wild':       ('Nuka Cola Wild Guide',       '/bnb/farming/nuka-cola/nuka-cola-wild/guide/'),
+    'fermentable nuka-cola dark': ('Nuka Cola Dark Guide', '/bnb/farming/nuka-cola/nuka-cola-dark/guide/'),
+
+    # ── Scrap / raw variants → base junk guide ──
+    'steel scrap':          ('Steel Farming Guide',        '/df/farming/junk/steel/farming-guide/'),
+    'ceramic scrap':        ('Ceramic Farming Guide',      '/df/farming/junk/ceramic/farming-guide/'),
+    'glass shards':         ('Glass Farming Guide',        '/df/farming/junk/glass/farming-guide/'),
+    'gold scrap':           ('Gold Farming Guide',         '/df/farming/junk/gold/farming-guide/'),
+    'silver scrap':         ('Silver Farming Guide',       '/df/farming/junk/silver/farming-guide/'),
+    'fiber optics bundle':  ('Fiber Optics Farming Guide', '/df/farming/junk/fiber-optics/farming-guide/'),
+    'waste acid':           ('Acid Farming Guide',         '/df/farming/junk/acid/farming-guide/'),
+    'raw fertilizer':       ('Fertilizer Farming Guide',   '/df/farming/junk/fertilizer/farming-guide/'),
+    'molded plastic':       ('Plastic Farming Guide',      '/df/farming/junk/plastic/farming-guide/'),
+    'nuclear waste':        ('Nuclear Material Farming Guide', '/df/farming/junk/nuclear-material/farming-guide/'),
+
+    # ── Eggs (condition uses singular, guide subCategory uses plural) ──
+    'deathclaw egg':        ('Deathclaw Egg Guide',        '/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/'),
+    'mothman egg':          ('Mothman Egg Guide',          '/bnb/farming/eggs/eggs-mothman/mothman-guide/'),
+    'perfect mothman egg':  ('Mothman Egg Guide',          '/bnb/farming/eggs/eggs-mothman/mothman-guide/'),
+
+    # ── Meat with "Meat" suffix in condition name ──
+    'opossum meat':         ('Opossum Meat Guide',         '/bnb/farming/meat/opossum/opossum/'),
+    'queen mirelurk meat':  ('Mirelurk Queen Meat Guide',  '/bnb/farming/meat/mirelurk-queen/mirelurk-queen-guide/'),
+    'brahmin milk':         ('Brahmin Meat Guide',         '/bnb/farming/meat/brahmin/brahmin-guide/'),
+
+    # ── Creature race names → meat guides ──
+    'honey beast':          ('Honey Guide',                '/bnb/farming/non-perishable/non-perishable-honey/honey-guide/'),
+    'feral ghoul':          ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'wild mongrel':         ('Mongrel Dog Meat Guide',     '/bnb/farming/meat/mongrel-dog/mongrel-dog-guide/'),
+    'super mutant':         ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'wendigo colossus':     ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'mirelurk hunter':      ('Mirelurk Meat Guide',        '/bnb/farming/meat/mirelurk/mirelurk-guide/'),
+    'mirelurk king':        ('Mirelurk Meat Guide',        '/bnb/farming/meat/mirelurk/mirelurk-guide/'),
+    'mirelurk spawn':       ('Mirelurk Meat Guide',        '/bnb/farming/meat/mirelurk/mirelurk-guide/'),
+    'fev hound':            ('Mongrel Dog Meat Guide',     '/bnb/farming/meat/mongrel-dog/mongrel-dog-guide/'),
+    'floater':              ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'scorched':             ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'protectron':           ('Circuitry Farming Guide',    '/df/farming/junk/circuitry/farming-guide/'),
+    'robobrain':            ('Circuitry Farming Guide',    '/df/farming/junk/circuitry/farming-guide/'),
+    'trog':                 ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'ghoul':                ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'alien':                ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'radturkey':            ('Radstag Meat Guide',         '/bnb/farming/meat/radstag/radstag-guide/'),
+    'radant':               ('Rad Ant Meat Guide',         '/bnb/farming/meat/rad-ant/rad-ant-guide/'),
+
+    # ── Big Bloom creatures ──
+    'overgrown pollinator': ('Honey Guide',                '/bnb/farming/non-perishable/non-perishable-honey/honey-guide/'),
+    'overgrown tank':       ('Mirelurk Meat Guide',        '/bnb/farming/meat/mirelurk/mirelurk-guide/'),
+    'overgrown thorn':      ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'lesser devil':         ('Honey Guide',                '/bnb/farming/non-perishable/non-perishable-honey/honey-guide/'),
+    'blue devil':           ('Honey Guide',                '/bnb/farming/non-perishable/non-perishable-honey/honey-guide/'),
+    'the beast of beckley': ('Honey Guide',                '/bnb/farming/non-perishable/non-perishable-honey/honey-guide/'),
+
+    # ── Chems → chem buffs guide ──
+    'med-x':                ('Chem Buffs Guide',           '/bnb/buffs/chems/chem-buffs/'),
+    'psycho':               ('Chem Buffs Guide',           '/bnb/buffs/chems/chem-buffs/'),
+    'disease cure':         ('Chem Buffs Guide',           '/bnb/buffs/chems/chem-buffs/'),
+    'antibiotics':          ('Chem Buffs Guide',           '/bnb/buffs/chems/chem-buffs/'),
+    'healing salve':        ('Chem Buffs Guide',           '/bnb/buffs/chems/chem-buffs/'),
+
+    # ── Food items → food buffs guide ──
+    'cranberry cobbler':    ('Food Buffs Guide',           '/bnb/buffs/food/food-buffs/'),
+    'starlight berry cobbler': ('Food Buffs Guide',        '/bnb/buffs/food/food-buffs/'),
+    'fermentable wine':     ('Alcohol Buffs Guide',        '/bnb/buffs/alcohol/alcohol-buffs/'),
+
+    # ── Junk items referenced by non-standard names ──
+    'pre-war money':        ('Cloth Farming Guide',        '/df/farming/junk/cloth/farming-guide/'),
+    'bag of chlorine':      ('Acid Farming Guide',         '/df/farming/junk/acid/farming-guide/'),
+
+    # ── Tobacco / cigarette items → no dedicated guide, link to junk overview ──
+    'pack of cigarettes':       ('Plastic Farming Guide',  '/df/farming/junk/plastic/farming-guide/'),
+    'preserved cigarette pack': ('Plastic Farming Guide',  '/df/farming/junk/plastic/farming-guide/'),
+    'undamaged cigarettes':     ('Plastic Farming Guide',  '/df/farming/junk/plastic/farming-guide/'),
+    'cigar box':                ('Wood Farming Guide',     '/df/farming/junk/wood/farming-guide/'),
+    'cigarette carton':         ('Cloth Farming Guide',    '/df/farming/junk/cloth/farming-guide/'),
+    'box of san francisco sunlights': ('Plastic Farming Guide', '/df/farming/junk/plastic/farming-guide/'),
+
+    # ── Cleaning items → relevant junk guide ──
+    'abraxo cleaner':              ('Acid Farming Guide',       '/df/farming/junk/acid/farming-guide/'),
+    'abraxo cleaner industrial grade': ('Acid Farming Guide',   '/df/farming/junk/acid/farming-guide/'),
+    'undamaged abraxo cleaner':    ('Acid Farming Guide',       '/df/farming/junk/acid/farming-guide/'),
+
+    # ── Skull parts → bone junk guide ──
+    'skull':                ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
+    'skull cap bone':       ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
+    'skull eye socket':     ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
+    'skull faceplate':      ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
+    'skull fragment':       ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
+    'upper skull':          ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
+    'capless skull':        ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
+    'human jaw':            ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
+
+    # ── Spice items ──
+    'spices':               ('Spices Guide',               '/bnb/farming/non-perishable/salt-pepper-spices-sugar/perishable-spices-guide/'),
+    'sugar':                ('Sugar Guide',                '/bnb/farming/non-perishable/salt-pepper-spices-sugar/perishable-sugar-guide/'),
+
+    # ── Radtoad → egg guide (toad challenges are usually egg-related) ──
+    'radtoad':              ('Radtoad Egg Guide',          '/bnb/farming/eggs/eggs-radtoad/radtoad-guide/'),
+
+    # ── Fanatics ──
+    'fanatics faction':     ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+}
+
+# Keyword EDID → guide mapping.
+# Conditions using HasKeyword() reference items by EDID rather than quoted name.
+# This maps the keyword EDID to the corresponding guide.
+KEYWORD_GUIDES = {
+    # Plants
+    'PlantTypeAshRose':        ('Ash Rose Guide',           '/bnb/farming/plants/ash-rose/ash-rose-guide/'),
+    'PlantTypeBrainFungus':    ('Brain Fungus Guide',       '/bnb/farming/plants/brain-fungus/brain-fungus-guide/'),
+    'PlantTypeCarrotFlower':   ('Carrot Guide',             '/bnb/farming/plants/carrot/carrot-guide/'),
+    'PlantTypeFeverBlossom':   ('Fever Blossom Guide',      '/bnb/farming/plants/fever-blossom/fever-blossom-guide/'),
+    'PlantTypeFirecapFungus':  ('Firecap Guide',            '/bnb/farming/plants/firecap/firecap-guide/'),
+    'PlantTypeSootFlower':     ('Toxic Soot Flower Guide',  '/bnb/farming/plants/toxic-soot-flower/toxic-soot-flower-guide/'),
+
+    # Chems
+    'ChemTypeMentats':         ('Chem Buffs Guide',         '/bnb/buffs/chems/chem-buffs/'),
+    'ChemTypeRadaway':         ('Chem Buffs Guide',         '/bnb/buffs/chems/chem-buffs/'),
+    'ChemTypeStimpack':        ('Chem Buffs Guide',         '/bnb/buffs/chems/chem-buffs/'),
+    'ObjectTypeChem':          ('Chem Buffs Guide',         '/bnb/buffs/chems/chem-buffs/'),
+    'ObjectTypeStimpak':       ('Chem Buffs Guide',         '/bnb/buffs/chems/chem-buffs/'),
+
+    # Creatures
+    'ActorTypeWendigo':        ('Glowing Meat Guide',       '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'ActorTypeWendigoColossus':('Glowing Meat Guide',       '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'ActorTypeWendigoSpawn':   ('Glowing Meat Guide',       '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'ActorTypeGlowing':        ('Glowing Meat Guide',       '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'ActorTypeFloaterGnasher': ('Glowing Meat Guide',       '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    'ActorTypeOvergrown':      ('Honey Guide',              '/bnb/farming/non-perishable/non-perishable-honey/honey-guide/'),
+    'ActorTypeCryptid':        ('Mothman Egg Guide',        '/bnb/farming/eggs/eggs-mothman/mothman-guide/'),
+
+    # Food
+    'DrinkTypeAlcohol':        ('Alcohol Buffs Guide',      '/bnb/buffs/alcohol/alcohol-buffs/'),
+    'MealTypeCooked':          ('Food Buffs Guide',         '/bnb/buffs/food/food-buffs/'),
+    'MealTypeSteak':           ('Food Buffs Guide',         '/bnb/buffs/food/food-buffs/'),
+    'MealTypeDogfood':         ('Food Buffs Guide',         '/bnb/buffs/food/food-buffs/'),
+    'MealTypeBirthdayCake':    ('Food Buffs Guide',         '/bnb/buffs/food/food-buffs/'),
+    'ObjectTypeCakesPies':     ('Food Buffs Guide',         '/bnb/buffs/food/food-buffs/'),
+    'ObjectTypeCandy':         ('Food Buffs Guide',         '/bnb/buffs/food/food-buffs/'),
+}
+
+
+def load_guide_index(guide_tsv_path):
+    """Load guide_index.tsv and build a subCategory → (title, url) lookup.
+
+    Only includes guide-type pages (template or title contains 'guide').
+    Returns dict keyed by lowercase subCategory.
+    """
+    lookup = {}
+    if not os.path.isfile(guide_tsv_path):
+        print(f"  WARNING: guide_index.tsv not found at {guide_tsv_path}, skipping guide linking")
+        return lookup
+
+    with open(guide_tsv_path, 'r', encoding='utf-8-sig', errors='replace') as fh:
+        rdr = csv.DictReader(fh, delimiter='\t')
+        for row in rdr:
+            nt = (row.get('nodeType', '') or '').strip().rstrip('\r')
+            if nt != 'page':
+                continue
+            title = (row.get('title', '') or '').strip().rstrip('\r')
+            url   = (row.get('url', '') or '').strip().rstrip('\r')
+            subcat = (row.get('subCategory', '') or '').strip().rstrip('\r')
+            template = (row.get('template', '') or '').strip().rstrip('\r')
+
+            if 'guide' not in template and 'guide' not in title.lower():
+                continue
+
+            key = subcat.lower().strip()
+            if key and key not in lookup:
+                lookup[key] = (title, url)
+
+    print(f"  Guide index: {len(lookup)} subCategory→guide mappings loaded")
+    return lookup
+
+
+def extract_item_names(conditions):
+    """Extract quoted item/creature names and keyword EDIDs from parsed conditions.
+
+    Returns list of (item_name, record_type) tuples.
+    record_type is the 4-letter record prefix (ALCH, MISC, CMPO, RACE, KYWD etc.)
+    or empty string if not found.
+
+    Also extracts HasKeyword EDID names prefixed with 'KYWD:' for keyword-based
+    guide matching.
+    """
+    items = []
+    for cond in conditions:
+        # Match GetIsID/GetIsRace patterns: "Item Name" [TYPE:FormID]
+        for m in re.finditer(r'"([^"]+)"\s*\[(\w+):', cond):
+            name = m.group(1)
+            rtype = m.group(2)
+            items.append((name, rtype))
+
+        # Match HasKeyword patterns: HasKeyword(KeywordEdid [KYWD:...])
+        # or HasKeyword(KeywordEdid "Name" [KYWD:...])
+        for m in re.finditer(r'HasKeyword\((\w+)\s+(?:"[^"]*"\s+)?\[KYWD:', cond):
+            edid = m.group(1)
+            items.append((f'KYWD:{edid}', 'KYWD'))
+
+        # Also match quoted names without brackets (rare edge case)
+        if '[' not in cond:
+            for m in re.finditer(r'"([^"]+)"', cond):
+                items.append((m.group(1), ''))
+    return items
+
+
+def resolve_guide_links(conditions, guide_lookup, challenge_name=''):
+    """Resolve challenge conditions → guide_links array.
+
+    Strategy:
+      1. Extract all quoted item names + keyword EDIDs from conditions
+      2. Skip items in GUIDE_SKIP (cosmetics, regions, internal refs)
+      3. For KYWD: prefixed items, check KEYWORD_GUIDES table
+      4. For regular items, check GUIDE_ALIASES then subCategory lookup
+      5. If no links found from conditions, try name-based extraction
+      6. Deduplicate by URL (same guide may match multiple condition items)
+
+    Returns list of {title, url} dicts.
+    """
+    items = extract_item_names(conditions)
+
+    seen_urls = set()
+    links = []
+
+    for item_name, rtype in items:
+        title, url = None, None
+
+        # Handle keyword EDID lookups
+        if item_name.startswith('KYWD:'):
+            edid = item_name[5:]
+            if edid in KEYWORD_GUIDES:
+                title, url = KEYWORD_GUIDES[edid]
+        else:
+            key = item_name.lower().strip()
+
+            # Skip known non-linkable items
+            if key in GUIDE_SKIP:
+                continue
+
+            # 1. Check manual alias table first
+            if key in GUIDE_ALIASES:
+                title, url = GUIDE_ALIASES[key]
+
+            # 2. Direct subCategory match
+            if not url and key in guide_lookup:
+                title, url = guide_lookup[key]
+
+        if url and url not in seen_urls:
+            seen_urls.add(url)
+            links.append({'title': title, 'url': url})
+
+    # ── Fallback: name-based creature/item extraction ──
+    # If condition-based matching found nothing, try extracting known
+    # creature or item names from the challenge name itself.
+    if not links and challenge_name:
+        name_links = _extract_from_challenge_name(challenge_name, guide_lookup)
+        for gl in name_links:
+            if gl['url'] not in seen_urls:
+                seen_urls.add(gl['url'])
+                links.append(gl)
+
+    return links
+
+
+# Creature / item names to search for in challenge names, ordered longest first
+# to prevent partial matches (e.g., "Mirelurk Queen" before "Mirelurk").
+_NAME_KEYWORDS = [
+    # Multi-word creatures (must come before single-word)
+    ('mirelurk queen',    'Mirelurk Queen Meat Guide',  '/bnb/farming/meat/mirelurk-queen/mirelurk-queen-guide/'),
+    ('mirelurk king',     'Mirelurk Meat Guide',        '/bnb/farming/meat/mirelurk/mirelurk-guide/'),
+    ('mirelurk hunter',   'Mirelurk Meat Guide',        '/bnb/farming/meat/mirelurk/mirelurk-guide/'),
+    ('cave cricket',      'Cave Cricket Meat Guide',     '/bnb/farming/meat/cave-cricket/cave-cricket-guide/'),
+    ('fog crawler',       'Fog Crawler Meat Guide',      '/bnb/farming/meat/fog-crawler/fog-crawler-guide/'),
+    ('feral ghoul',       'Glowing Meat Guide',          '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    ('super mutant',      'Glowing Meat Guide',          '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    ('mega sloth',        'Megasloth Meat Guide',        '/bnb/farming/meat/megasloth/megasloth-guide/'),
+    ('mongrel dog',       'Mongrel Dog Meat Guide',      '/bnb/farming/meat/mongrel-dog/mongrel-dog-guide/'),
+    ('honey beast',       'Honey Guide',                 '/bnb/farming/non-perishable/non-perishable-honey/honey-guide/'),
+    ('hermit crab',       'Hermit Crab Meat Guide',      '/bnb/farming/meat/hermit-crab/hermit-crab-guide/'),
+    ('mole rat',          'Mole Rat Meat Guide',         '/bnb/farming/meat/mole-rat/mole-rat-guide/'),
+    ('yao guai',          'Yao Guai Meat Guide',         '/bnb/farming/meat/yao-guai/yao-guai/'),
+    ('wendigo colossus',  'Glowing Meat Guide',          '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    ('grafton monster',   'Glowing Meat Guide',          '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    ('mutant hound',      'Mongrel Dog Meat Guide',      '/bnb/farming/meat/mongrel-dog/mongrel-dog-guide/'),
+    # Single-word creatures
+    ('deathclaw',         'Deathclaw Meat Guide',        '/bnb/farming/meat/deathclaw/deathclaw-guide/'),
+    ('mirelurk',          'Mirelurk Meat Guide',         '/bnb/farming/meat/mirelurk/mirelurk-guide/'),
+    ('radscorpion',       'Radscorpion Meat Guide',      '/bnb/farming/meat/radscorpion/radscorpion-guide/'),
+    ('scorchbeast',       'Scorchbeast Meat Guide',      '/bnb/farming/meat/scorchbeast/scorchbeast-guide/'),
+    ('snallygaster',      'Glowing Meat Guide',          '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    ('brahmin',           'Brahmin Meat Guide',           '/bnb/farming/meat/brahmin/brahmin-guide/'),
+    ('radstag',           'Radstag Meat Guide',           '/bnb/farming/meat/radstag/radstag-guide/'),
+    ('radhog',            'Radhog Meat Guide',            '/bnb/farming/meat/radhog/radhog-guide/'),
+    ('radroach',          'Radroach Meat Guide',          '/bnb/farming/meat/radroach/radroach-guide/'),
+    ('radrat',            'Radrat Meat Guide',            '/bnb/farming/meat/radrat/radrat/'),
+    ('bloatfly',          'Bloatfly Meat Guide',          '/bnb/farming/meat/bloatfly/bloatfly-guide/'),
+    ('bloodbug',          'Bloodbug Meat Guide',          '/bnb/farming/meat/bloodbug/bloodbug-guide/'),
+    ('gulper',            'Gulper Meat Guide',            '/bnb/farming/meat/gulper/gulper-guide/'),
+    ('angler',            'Angler Meat Guide',            '/bnb/farming/meat/angler/angler-guide/'),
+    ('megasloth',         'Megasloth Meat Guide',         '/bnb/farming/meat/megasloth/megasloth-guide/'),
+    ('wendigo',           'Glowing Meat Guide',           '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
+    ('wolf',              'Wolf Meat Guide',              '/bnb/farming/meat/wolf/wolf-guide/'),
+    ('ogua',              'Gulper Meat Guide',            '/bnb/farming/meat/gulper/gulper-guide/'),
+    ('stingwing',         'Bloatfly Meat Guide',          '/bnb/farming/meat/bloatfly/bloatfly-guide/'),
+]
+
+
+def _extract_from_challenge_name(name, guide_lookup):
+    """Try to extract creature/item names from challenge name text.
+
+    Uses word-boundary matching to avoid false positives
+    (e.g., "Brahmin" shouldn't match inside "Abrahmin").
+    """
+    lower = name.lower()
+    seen = set()
+    links = []
+
+    for keyword, title, url in _NAME_KEYWORDS:
+        if url in seen:
+            continue
+        # Word boundary match: keyword must not be inside a larger word.
+        # Allow trailing 's' for plurals (e.g., "Mirelurks" matches "mirelurk").
+        pattern = r'(?<![a-z])' + re.escape(keyword) + r's?(?![a-z])'
+        if re.search(pattern, lower):
+            seen.add(url)
+            links.append({'title': title, 'url': url})
+
+    return links
 
 
 # ─────────────────────────────────────────────────────────────
@@ -224,6 +616,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--tsv-root', default='tsv', help='Dir containing CHAL_Export_*.tsv')
     parser.add_argument('--outdir', default='dist/mini_seasons', help='Output directory')
+    parser.add_argument('--guide-index', default='tsv/guide_index.tsv',
+                        help='Path to guide_index.tsv for guide linking')
     args = parser.parse_args()
 
     # Find all CHAL TSVs, sort by name (oldest first so newest wins)
@@ -260,7 +654,11 @@ def main():
 
     print(f"  Week map: {len(week_map)} challenges assigned via completions")
 
+    # Load guide index for guide linking
+    guide_lookup = load_guide_index(args.guide_index)
+
     # Build output
+    guide_link_stats = {'linked': 0, 'total': 0}
     output = {}
     for key, evdef in EVENT_DEFS.items():
         live, cut = [], []
@@ -271,6 +669,12 @@ def main():
             if edid.startswith('SCORE_') and not any(k in edid for k in ['FreeCam', 'St_Patrick', 'BigBloom']):
                 continue
 
+            # Resolve guide links from raw conditions (has quoted names + FormIDs)
+            guide_links = resolve_guide_links(row['raw_conditions'], guide_lookup, row['full'])
+            guide_link_stats['total'] += 1
+            if guide_links:
+                guide_link_stats['linked'] += 1
+
             entry = {
                 'id':            row['form_id'],
                 'edid':          row['edid'],
@@ -280,7 +684,7 @@ def main():
                 'scope':         row['cnam'],
                 'category':      row['enam'],
                 'conditions':    row['conditions'],
-                'guide_links':   [],
+                'guide_links':   guide_links,
                 'week':          infer_week(edid, row, week_map),
                 'is_cut':        is_cut,
                 'is_completion': is_completion(edid),
@@ -318,6 +722,7 @@ def main():
     t = g['w1'] + g['w2'] + g['b'] + g['c']
     print(f"  {'TOTAL':<48} {g['w1']:>3} {g['w2']:>3} {g['b']:>3} {g['c']:>3} {t:>3}")
     print(f"\n  {len(output)} events")
+    print(f"  Guide links: {guide_link_stats['linked']}/{guide_link_stats['total']} challenges linked")
 
 
 if __name__ == '__main__':
