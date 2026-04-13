@@ -1,10 +1,31 @@
 {
-  "generated": "2026-04-13T08:14:30+00:00",
+  "generated": "2026-04-13T11:39:25+00:00",
   "sections": {
-    "bnb_menu": {
-      "generated": "2026-04-13T08:14:29+00:00",
+    "cobj_recipes": {
+      "generated": "2026-04-13T11:36:40+00:00",
       "counts": {
-        "error": 59,
+        "error": 0,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "info",
+          "code": "cobj.build.summary",
+          "message": "Extracted 5563 unique recipes from 56209 COBJ rows.",
+          "context": {
+            "unique_recipes": 5563,
+            "total_rows": 56209,
+            "skipped_cut": 7906,
+            "no_fvpa": 1468
+          }
+        }
+      ]
+    },
+    "bnb_menu": {
+      "generated": "2026-04-13T11:36:46+00:00",
+      "counts": {
+        "error": 60,
         "warning": 0,
         "info": 19
       },
@@ -1003,11 +1024,26 @@
           "detail": "Gum Drops"
         },
         {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Irradiated Sunset Sarsaparilla' (Soda & Drinks) is missing price for: xbox, ps, pc",
+          "detail": "Irradiated Sunset Sarsaparilla",
+          "context": {
+            "name": "Irradiated Sunset Sarsaparilla",
+            "category": "Soda & Drinks",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
           "severity": "info",
           "code": "bnb_menu.build.summary",
-          "message": "Wrote 761 menu items across 12 categories.",
+          "message": "Wrote 745 menu items across 12 categories.",
           "context": {
-            "total": 761,
+            "total": 745,
             "categories": [
               "Alcohol",
               "Canned",
@@ -1026,8 +1062,8 @@
         }
       ]
     },
-    "cobj_recipes": {
-      "generated": "2026-04-13T08:14:29+00:00",
+    "bnb_item_categories": {
+      "generated": "2026-04-13T11:36:46+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -1036,19 +1072,98 @@
       "entries": [
         {
           "severity": "info",
-          "code": "cobj.build.summary",
-          "message": "Extracted 5563 unique recipes from 56209 COBJ rows.",
+          "code": "bnb_categories.build.summary",
+          "message": "Built 287 items across 7 categories",
           "context": {
-            "unique_recipes": 5563,
-            "total_rows": 56209,
-            "skipped_cut": 7906,
-            "no_fvpa": 1468
+            "total_items": 287,
+            "alch_records": 982,
+            "source_alch": "ALCH_Export_Apr_2026.tsv",
+            "source_kywd": "KYWD_Export_Apr_2026_Refs.tsv",
+            "stats": {
+              "food": {
+                "candidates": 607,
+                "excluded_cut": 25,
+                "excluded_no_name": 6,
+                "excluded_by_kywd": 80,
+                "excluded_raw": 420,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 76,
+                "post_included_via_suffix": 0
+              },
+              "canned": {
+                "candidates": 32,
+                "excluded_cut": 3,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 29,
+                "post_included_via_suffix": 0
+              },
+              "nuka_cola": {
+                "candidates": 159,
+                "excluded_cut": 14,
+                "excluded_no_name": 6,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 42,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 78,
+                "included": 19,
+                "post_included_via_suffix": 0
+              },
+              "chems": {
+                "candidates": 81,
+                "excluded_cut": 27,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 54,
+                "post_included_via_suffix": 0
+              },
+              "alcohol": {
+                "candidates": 80,
+                "excluded_cut": 6,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 6,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 68,
+                "post_included_via_suffix": 0
+              },
+              "serums": {
+                "candidates": 21,
+                "excluded_cut": 2,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 19,
+                "post_included_via_suffix": 0
+              },
+              "prewar_candy": {
+                "candidates": 21,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 1,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 22,
+                "post_included_via_suffix": 2
+              }
+            }
           }
         }
       ]
     },
     "menu_items": {
-      "generated": "2026-04-13T08:14:29+00:00",
+      "generated": "2026-04-13T11:39:25+00:00",
       "counts": {
         "error": 225,
         "warning": 246,
@@ -7560,854 +7675,6 @@
               "Food": 212,
               "Other": 153,
               "Soda & Drinks": 27
-            }
-          }
-        }
-      ]
-    },
-    "bnb_menu_sync": {
-      "generated": "2026-04-13T08:14:29+00:00",
-      "counts": {
-        "error": 63,
-        "warning": 8,
-        "info": 1
-      },
-      "entries": [
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item",
-          "message": "New item added: '_Disease Chance Food 0 - Base' -> Other",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_Base, form_id=00281E8B",
-          "context": {
-            "name": "_Disease Chance Food 0 - Base",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_Base",
-            "form_id": "00281E8B"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item",
-          "message": "New item added: '_Disease Chance Food 4 - Very High' -> Other",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_VeryHigh, form_id=0038E049",
-          "context": {
-            "name": "_Disease Chance Food 4 - Very High",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_VeryHigh",
-            "form_id": "0038E049"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item",
-          "message": "New item added: '_Disease Chance Food 3 - High' -> Other",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_High, form_id=0038E048",
-          "context": {
-            "name": "_Disease Chance Food 3 - High",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_High",
-            "form_id": "0038E048"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item",
-          "message": "New item added: '_Disease Chance Food 2 - Medium' -> Other",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_Medium, form_id=0038E047",
-          "context": {
-            "name": "_Disease Chance Food 2 - Medium",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_Medium",
-            "form_id": "0038E047"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item",
-          "message": "New item added: '_Disease Chance Food 1 - Low' -> Other",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_Low, form_id=0038E046",
-          "context": {
-            "name": "_Disease Chance Food 1 - Low",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_Low",
-            "form_id": "0038E046"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item",
-          "message": "New item added: 'Recalibrated Liberator' -> Other",
-          "detail": "edid=CUT_W05_MQS_202P_RecalibratedLiberator_Item, form_id=00567460",
-          "context": {
-            "name": "Recalibrated Liberator",
-            "category": "Other",
-            "edid": "CUT_W05_MQS_202P_RecalibratedLiberator_Item",
-            "form_id": "00567460"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item",
-          "message": "New item added: 'Potion of Knowledge' -> Other",
-          "detail": "edid=PTS_LearnAllRecipes_Potion, form_id=008A9107",
-          "context": {
-            "name": "Potion of Knowledge",
-            "category": "Other",
-            "edid": "PTS_LearnAllRecipes_Potion",
-            "form_id": "008A9107"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item",
-          "message": "New item added: 'Potion of Exploration' -> Other",
-          "detail": "edid=PTS_ShowAllMapMarkers_Potion, form_id=008A9108",
-          "context": {
-            "name": "Potion of Exploration",
-            "category": "Other",
-            "edid": "PTS_ShowAllMapMarkers_Potion",
-            "form_id": "008A9108"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Ballistic Bock' (Alcohol)",
-          "detail": "Fermentable Ballistic Bock",
-          "context": {
-            "name": "Fermentable Ballistic Bock",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Beer' (Alcohol)",
-          "detail": "Fermentable Beer",
-          "context": {
-            "name": "Fermentable Beer",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Blackwater Brew' (Alcohol)",
-          "detail": "Fermentable Blackwater Brew",
-          "context": {
-            "name": "Fermentable Blackwater Brew",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Bourbon' (Alcohol)",
-          "detail": "Fermentable Bourbon",
-          "context": {
-            "name": "Fermentable Bourbon",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Cranberry Moonshine' (Alcohol)",
-          "detail": "Fermentable Cranberry Moonshine",
-          "context": {
-            "name": "Fermentable Cranberry Moonshine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable High Voltage Hefe' (Alcohol)",
-          "detail": "Fermentable High Voltage Hefe",
-          "context": {
-            "name": "Fermentable High Voltage Hefe",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Hoppy Hunter IPA' (Alcohol)",
-          "detail": "Fermentable Hoppy Hunter IPA",
-          "context": {
-            "name": "Fermentable Hoppy Hunter IPA",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Lead Champagne' (Alcohol)",
-          "detail": "Fermentable Lead Champagne",
-          "context": {
-            "name": "Fermentable Lead Champagne",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Liquid Courage' (Alcohol)",
-          "detail": "Fermentable Liquid Courage",
-          "context": {
-            "name": "Fermentable Liquid Courage",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Mire Magic Moonshine' (Alcohol)",
-          "detail": "Fermentable Mire Magic Moonshine",
-          "context": {
-            "name": "Fermentable Mire Magic Moonshine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Mountain Honey Moonshine' (Alcohol)",
-          "detail": "Fermentable Mountain Honey Moonshine",
-          "context": {
-            "name": "Fermentable Mountain Honey Moonshine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable New River Red Ale' (Alcohol)",
-          "detail": "Fermentable New River Red Ale",
-          "context": {
-            "name": "Fermentable New River Red Ale",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Nuka-Cola Dark' (Alcohol)",
-          "detail": "Fermentable Nuka-Cola Dark",
-          "context": {
-            "name": "Fermentable Nuka-Cola Dark",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Nukashine' (Alcohol)",
-          "detail": "Fermentable Nukashine",
-          "context": {
-            "name": "Fermentable Nukashine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Oak Holler Lager' (Alcohol)",
-          "detail": "Fermentable Oak Holler Lager",
-          "context": {
-            "name": "Fermentable Oak Holler Lager",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Old Possum' (Alcohol)",
-          "detail": "Fermentable Old Possum",
-          "context": {
-            "name": "Fermentable Old Possum",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Pickaxe Pilsner' (Alcohol)",
-          "detail": "Fermentable Pickaxe Pilsner",
-          "context": {
-            "name": "Fermentable Pickaxe Pilsner",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Rad Ant Lager' (Alcohol)",
-          "detail": "Fermentable Rad Ant Lager",
-          "context": {
-            "name": "Fermentable Rad Ant Lager",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Rum' (Alcohol)",
-          "detail": "Fermentable Rum",
-          "context": {
-            "name": "Fermentable Rum",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Tick Blood Tequila' (Alcohol)",
-          "detail": "Fermentable Tick Blood Tequila",
-          "context": {
-            "name": "Fermentable Tick Blood Tequila",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Vodka' (Alcohol)",
-          "detail": "Fermentable Vodka",
-          "context": {
-            "name": "Fermentable Vodka",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Whiskey' (Alcohol)",
-          "detail": "Fermentable Whiskey",
-          "context": {
-            "name": "Fermentable Whiskey",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fermentable Wine' (Alcohol)",
-          "detail": "Fermentable Wine",
-          "context": {
-            "name": "Fermentable Wine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: \"Rodgers' Reserve Beer\" (Alcohol)",
-          "detail": "Rodgers' Reserve Beer",
-          "context": {
-            "name": "Rodgers' Reserve Beer",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Sugar-Free Nukashine' (Alcohol)",
-          "detail": "Sugar-Free Nukashine",
-          "context": {
-            "name": "Sugar-Free Nukashine",
-            "category": "Alcohol"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Brahmin Milk' (Condiments & Non-Perishable)",
-          "detail": "Brahmin Milk",
-          "context": {
-            "name": "Brahmin Milk",
-            "category": "Condiments & Non-Perishable"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: \"Chally's Milk\" (Condiments & Non-Perishable)",
-          "detail": "Chally's Milk",
-          "context": {
-            "name": "Chally's Milk",
-            "category": "Condiments & Non-Perishable"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Cream' (Condiments & Non-Perishable)",
-          "detail": "Cream",
-          "context": {
-            "name": "Cream",
-            "category": "Condiments & Non-Perishable"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Honeycomb' (Condiments & Non-Perishable)",
-          "detail": "Honeycomb",
-          "context": {
-            "name": "Honeycomb",
-            "category": "Condiments & Non-Perishable"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Nuclear Wastewater' (Condiments & Non-Perishable)",
-          "detail": "Nuclear Wastewater",
-          "context": {
-            "name": "Nuclear Wastewater",
-            "category": "Condiments & Non-Perishable"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Tick Blood' (Condiments & Non-Perishable)",
-          "detail": "Tick Blood",
-          "context": {
-            "name": "Tick Blood",
-            "category": "Condiments & Non-Perishable"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fried Radroach On A Stick' (Dishes & Teas)",
-          "detail": "Fried Radroach On A Stick",
-          "context": {
-            "name": "Fried Radroach On A Stick",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fried Radroach On A Stick' (Dishes & Teas)",
-          "detail": "Fried Radroach On A Stick",
-          "context": {
-            "name": "Fried Radroach On A Stick",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fried Radroach On A Stick' (Dishes & Teas)",
-          "detail": "Fried Radroach On A Stick",
-          "context": {
-            "name": "Fried Radroach On A Stick",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fried Radroach On A Stick' (Dishes & Teas)",
-          "detail": "Fried Radroach On A Stick",
-          "context": {
-            "name": "Fried Radroach On A Stick",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Ionized Meat' (Dishes & Teas)",
-          "detail": "Ionized Meat",
-          "context": {
-            "name": "Ionized Meat",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Moo-Moo Curd' (Dishes & Teas)",
-          "detail": "Moo-Moo Curd",
-          "context": {
-            "name": "Moo-Moo Curd",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Pickled Pumpkin' (Dishes & Teas)",
-          "detail": "Pickled Pumpkin",
-          "context": {
-            "name": "Pickled Pumpkin",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Restorative Venison and Tato Stew' (Dishes & Teas)",
-          "detail": "Restorative Venison and Tato Stew",
-          "context": {
-            "name": "Restorative Venison and Tato Stew",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Slice of Birthday Cake' (Dishes & Teas)",
-          "detail": "Slice of Birthday Cake",
-          "context": {
-            "name": "Slice of Birthday Cake",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Slice of Pumpkin Pie' (Dishes & Teas)",
-          "detail": "Slice of Pumpkin Pie",
-          "context": {
-            "name": "Slice of Pumpkin Pie",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Slice of Slime Cake' (Dishes & Teas)",
-          "detail": "Slice of Slime Cake",
-          "context": {
-            "name": "Slice of Slime Cake",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spicy Venison and Tato Stew' (Dishes & Teas)",
-          "detail": "Spicy Venison and Tato Stew",
-          "context": {
-            "name": "Spicy Venison and Tato Stew",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spiked Venison and Tato Stew' (Dishes & Teas)",
-          "detail": "Spiked Venison and Tato Stew",
-          "context": {
-            "name": "Spiked Venison and Tato Stew",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Steeped Carrot Flower Tea' (Dishes & Teas)",
-          "detail": "Steeped Carrot Flower Tea",
-          "context": {
-            "name": "Steeped Carrot Flower Tea",
-            "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: '_Disease Chance Food 0 - Base' (Other)",
-          "detail": "_Disease Chance Food 0 - Base",
-          "context": {
-            "name": "_Disease Chance Food 0 - Base",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: '_Disease Chance Food 1 - Low' (Other)",
-          "detail": "_Disease Chance Food 1 - Low",
-          "context": {
-            "name": "_Disease Chance Food 1 - Low",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: '_Disease Chance Food 2 - Medium' (Other)",
-          "detail": "_Disease Chance Food 2 - Medium",
-          "context": {
-            "name": "_Disease Chance Food 2 - Medium",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: '_Disease Chance Food 3 - High' (Other)",
-          "detail": "_Disease Chance Food 3 - High",
-          "context": {
-            "name": "_Disease Chance Food 3 - High",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: '_Disease Chance Food 4 - Very High' (Other)",
-          "detail": "_Disease Chance Food 4 - Very High",
-          "context": {
-            "name": "_Disease Chance Food 4 - Very High",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Bioluminescent Fluid' (Other)",
-          "detail": "Bioluminescent Fluid",
-          "context": {
-            "name": "Bioluminescent Fluid",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Potion of Exploration' (Other)",
-          "detail": "Potion of Exploration",
-          "context": {
-            "name": "Potion of Exploration",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Potion of Knowledge' (Other)",
-          "detail": "Potion of Knowledge",
-          "context": {
-            "name": "Potion of Knowledge",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Cobalt Flux' (Other)",
-          "detail": "Raw Cobalt Flux",
-          "context": {
-            "name": "Raw Cobalt Flux",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Crimson Flux' (Other)",
-          "detail": "Raw Crimson Flux",
-          "context": {
-            "name": "Raw Crimson Flux",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Fluorescent Flux' (Other)",
-          "detail": "Raw Fluorescent Flux",
-          "context": {
-            "name": "Raw Fluorescent Flux",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Violet Flux' (Other)",
-          "detail": "Raw Violet Flux",
-          "context": {
-            "name": "Raw Violet Flux",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Raw Yellowcake Flux' (Other)",
-          "detail": "Raw Yellowcake Flux",
-          "context": {
-            "name": "Raw Yellowcake Flux",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Recalibrated Liberator' (Other)",
-          "detail": "Recalibrated Liberator",
-          "context": {
-            "name": "Recalibrated Liberator",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spoiled Bio Fluid' (Other)",
-          "detail": "Spoiled Bio Fluid",
-          "context": {
-            "name": "Spoiled Bio Fluid",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spoiled Fruit' (Other)",
-          "detail": "Spoiled Fruit",
-          "context": {
-            "name": "Spoiled Fruit",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spoiled Meat' (Other)",
-          "detail": "Spoiled Meat",
-          "context": {
-            "name": "Spoiled Meat",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Spoiled Vegetables' (Other)",
-          "detail": "Spoiled Vegetables",
-          "context": {
-            "name": "Spoiled Vegetables",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu_sync.summary",
-          "message": "Sync: 779 total, 8 new, 0 updated, 63 unpriced.",
-          "context": {
-            "total": 779,
-            "new": 8,
-            "updated": 0,
-            "unpriced": 63,
-            "skipped": 451
-          }
-        }
-      ]
-    },
-    "bnb_item_categories": {
-      "generated": "2026-04-13T08:14:30+00:00",
-      "counts": {
-        "error": 0,
-        "warning": 0,
-        "info": 1
-      },
-      "entries": [
-        {
-          "severity": "info",
-          "code": "bnb_categories.build.summary",
-          "message": "Built 278 items across 7 categories",
-          "context": {
-            "total_items": 278,
-            "alch_records": 950,
-            "source_alch": "ALCH_Export_March_2026.tsv",
-            "source_kywd": "KYWD_Export_March_2026_Refs.tsv",
-            "stats": {
-              "food": {
-                "candidates": 582,
-                "excluded_cut": 21,
-                "excluded_no_name": 6,
-                "excluded_by_kywd": 80,
-                "excluded_raw": 401,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 74,
-                "post_included_via_suffix": 0
-              },
-              "canned": {
-                "candidates": 26,
-                "excluded_cut": 3,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 0,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 23,
-                "post_included_via_suffix": 0
-              },
-              "nuka_cola": {
-                "candidates": 159,
-                "excluded_cut": 14,
-                "excluded_no_name": 6,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 42,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 78,
-                "included": 19,
-                "post_included_via_suffix": 0
-              },
-              "chems": {
-                "candidates": 81,
-                "excluded_cut": 27,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 0,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 54,
-                "post_included_via_suffix": 0
-              },
-              "alcohol": {
-                "candidates": 80,
-                "excluded_cut": 6,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 6,
-                "excluded_raw": 0,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 68,
-                "post_included_via_suffix": 0
-              },
-              "serums": {
-                "candidates": 21,
-                "excluded_cut": 2,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 0,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 19,
-                "post_included_via_suffix": 0
-              },
-              "prewar_candy": {
-                "candidates": 20,
-                "excluded_cut": 0,
-                "excluded_no_name": 0,
-                "excluded_by_kywd": 0,
-                "excluded_raw": 1,
-                "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 0,
-                "included": 21,
-                "post_included_via_suffix": 2
-              }
             }
           }
         }
