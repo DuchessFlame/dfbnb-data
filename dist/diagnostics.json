@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-13T12:25:08+00:00",
+  "generated": "2026-04-13T12:49:15+00:00",
   "sections": {
     "cobj_recipes": {
       "generated": "2026-04-13T11:36:40+00:00",
@@ -1163,9 +1163,9 @@
       ]
     },
     "menu_items": {
-      "generated": "2026-04-13T12:25:06+00:00",
+      "generated": "2026-04-13T12:49:15+00:00",
       "counts": {
-        "error": 225,
+        "error": 226,
         "warning": 247,
         "info": 45
       },
@@ -5713,6 +5713,16 @@
         },
         {
           "severity": "error",
+          "code": "menu.include_without_cobj.bad_category",
+          "message": "'Halloween Candy' is flagged include_without_cobj but category_override is missing/invalid ('pre war food').",
+          "detail": "Halloween Candy",
+          "context": {
+            "name": "Halloween Candy",
+            "category_override": "Pre War Food"
+          }
+        },
+        {
+          "severity": "error",
           "code": "menu.missing_price",
           "message": "'Honeycomb' is missing price for: xbox, ps, pc",
           "detail": "Honeycomb",
@@ -7729,16 +7739,16 @@
         {
           "severity": "info",
           "code": "menu.build.summary",
-          "message": "Wrote 589 menu items.",
+          "message": "Wrote 588 menu items.",
           "context": {
-            "total": 589,
+            "total": 588,
             "categories": {
               "Alcohol": 59,
               "Canned": 29,
               "Chem": 79,
               "Condiments & Non-Perishable": 23,
               "Food": 212,
-              "Other": 159,
+              "Other": 158,
               "Soda & Drinks": 28
             }
           }
