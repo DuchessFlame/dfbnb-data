@@ -5,7 +5,7 @@ Parses the FO76 BOOK export TSV and outputs minerva_plans.json
 Usage: python3 build_minerva.py BOOK_Export_March_2026.tsv > minerva_plans.json
 """
 
-import csv, json, re, sys
+import csv, json, math, re, sys
 from pathlib import Path
 
 from patchlog_utils import write_patchlog_feed
@@ -118,7 +118,7 @@ def main():
             if lists:
                 minerva_plans.append({
                     **entry,
-                    "minerva_price": round(gold * MINERVA_DISCOUNT),
+                    "minerva_price": math.floor(gold * MINERVA_DISCOUNT + 0.5),
                     "lists": lists
                 })
 

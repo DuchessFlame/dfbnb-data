@@ -25,6 +25,7 @@ import argparse
 import csv
 import glob
 import json
+import math
 import os
 import re
 import sys
@@ -133,7 +134,7 @@ def parse_book_tsv(book_tsv):
             if lists:
                 minerva_plans.append({
                     **entry,
-                    "minerva_price": round(gold * MINERVA_DISCOUNT),
+                    "minerva_price": math.floor(gold * MINERVA_DISCOUNT + 0.5),
                     "lists":         lists,
                 })
 
