@@ -3,25 +3,44 @@ from __future__ import annotations
 """
 build_bnb_menu_sync.py
 =======================
-Syncs the ALCH export TSVs into BnB_Menu_Items.tsv.
+Syncs the ALCH export TSVs into BnB_Menu_Items.tsv — the master TSV that drives
+the customer menu page, the staff-portal crafting tab, and the order log. This
+script is the single entry point for "I dropped a new ALCH / COBJ export into
+tsv/, now make everything pick it up".
 
 What it does:
   1. Reads ALCH_Export_*.tsv (base) + ALCH_Export_*_Effects.tsv
-  2. Reads the current BnB_Menu_Items.tsv
-  3. For every ALCH record that matches an existing menu category
-     (based on keyword analysis), ensures it exists in the menu TSV.
-     New items are added with blank prices.
-  4. Populates the "mutation" column (Herbivore / Carnivore / Both / blank)
+  2. Reads dist/cobj-recipes.json (built by build_cobj_recipes_json.py — run
+     that first) for ingredient-count driven auto-pricing.
+  3. Reads the current BnB_Menu_Items.tsv.
+  4. For every ALCH record that matches a menu category (keyword analysis),
+     ensures it exists in the menu TSV. New items are:
+       * auto-priced using the BnB formula:
+            price_xbox = ingredient_count * 5
+            price_ps   = price_xbox + 10
+            price_pc   = price_xbox + 10
+         where ingredient_count comes from the item's COBJ recipe. If no COBJ
+         recipe is found (e.g. ALCH-only items like looted consumables) prices
+         stay blank and a diagnostic is emitted.
+       * order limits (limit_new / limit_existing) are always left blank for
+         new items — the chef must set them manually. A "needs_limits"
+         diagnostic is written so the staff-portal diagnostics tab surfaces
+         them.
+     Existing items keep their manually-set prices and limits untouched —
+     the sync only refreshes mutation / buff / Pre War / Post War fields.
+  5. Populates the "mutation" column (Herbivore / Carnivore / Both / blank)
      from ALCH keywords.
-  5. Populates the "buff" column from MGEF effect names in the effects TSV.
-  6. Writes the updated BnB_Menu_Items.tsv.
-  7. Reports unpriced items to diagnostics.json for the staff portal.
+  6. Populates the "buff" column from MGEF effect names in the effects TSV.
+  7. Writes the updated BnB_Menu_Items.tsv.
+  8. Reports unpriced items and new-items-needing-limits to diagnostics.json
+     for the staff portal.
 
 Usage:
     python build_bnb_menu_sync.py
     python build_bnb_menu_sync.py --data-dir tsv --outdir dist
     python build_bnb_menu_sync.py --alch-base ALCH_Export_Apr_2026.tsv
                                   --alch-effects ALCH_Export_Apr_2026_Effects.tsv
+    python build_bnb_menu_sync.py --cobj-json dist/cobj-recipes.json
 """
 
 import argparse
@@ -63,9 +82,9 @@ KEYWORD_TO_CATEGORY: List[Tuple[str, str, str]] = [
     ("DrinkTypeAlcohol",           "Alcohol",                     "alcohol"),
     ("DrinkTypeLiquor",            "Alcohol",                     "alcohol"),
     ("DrinkTypeSarsaparilla",      "Alcohol",                     "alcohol"),
-    ("ObjectTypeNukaCola",         "Soda",                        "drink"),
-    ("DrinkTypeSoda",              "Soda",                        "drink"),
-    ("DrinkTypeSodaIcon",          "Soda",                        "drink"),
+    ("ObjectTypeNukaCola",         "Soda & Drinks",               "drink"),
+    ("DrinkTypeSoda",              "Soda & Drinks",               "drink"),
+    ("DrinkTypeSodaIcon",          "Soda & Drinks",               "drink"),
     ("ObjectTypeChem",             "Chems",                       "chem"),
     ("ObjectTypeStimpak",          "Chems",                       "chem"),
     ("ObjectTypeSalve",            "Chems",                       "chem"),
@@ -340,10 +359,69 @@ def detect_buffs(effects: List[Dict[str, str]]) -> str:
 # File loading
 # ---------------------------------------------------------------------------
 
+# Month-name → number so "Apr_2026" sorts AFTER "March_2026" instead of
+# before it (alphabetical: Apr < Dec < Feb < March). xEdit exports embed the
+# month as a short English word in the filename, which makes plain sorting
+# unsafe — we previously shipped builds against the March TSV even when the
+# April export was sitting right next to it.
+_MONTH_TO_NUM = {
+    "jan": 1, "january": 1,
+    "feb": 2, "february": 2,
+    "mar": 3, "march": 3,
+    "apr": 4, "april": 4,
+    "may": 5,
+    "jun": 6, "june": 6,
+    "jul": 7, "july": 7,
+    "aug": 8, "august": 8,
+    "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10,
+    "nov": 11, "november": 11,
+    "dec": 12, "december": 12,
+}
+
+_DATE_RE = re.compile(r"_([A-Za-z]+)_(\d{4})", re.IGNORECASE)
+
+
+def _filename_date_key(path: str) -> Tuple[int, int, str]:
+    """Extract (year, month, basename) from a TSV filename for sorting.
+
+    Filenames look like "ALCH_Export_Apr_2026.tsv" or "COBJ_Export_March_2026.tsv".
+    We pull out the month word + 4-digit year and map to a (year, month) tuple
+    so sorts put calendar-latest last. Files that don't match the pattern get
+    (0, 0, basename) so they sort first — harmless, since real exports always
+    include the date.
+    """
+    base = os.path.basename(path)
+    m = _DATE_RE.search(base)
+    if not m:
+        return (0, 0, base.lower())
+    month_word = m.group(1).lower()
+    try:
+        year = int(m.group(2))
+    except ValueError:
+        return (0, 0, base.lower())
+    month = _MONTH_TO_NUM.get(month_word, 0)
+    return (year, month, base.lower())
+
+
 def find_latest_file(data_dir: str, pattern: str) -> Optional[str]:
-    """Find the most recent file matching a glob pattern."""
-    matches = sorted(glob.glob(os.path.join(data_dir, pattern)))
-    return matches[-1] if matches else None
+    """Find the most recent file matching a glob pattern.
+
+    Prefers the embedded-date key (year, month) from the filename. Falls back
+    to mtime if no match has a parseable date. This was previously a plain
+    alphabetical sort and silently picked March over April.
+    """
+    matches = glob.glob(os.path.join(data_dir, pattern))
+    if not matches:
+        return None
+    # If at least one file has a parseable date, trust the filename.
+    # Otherwise fall back to mtime.
+    dated = [(p, _filename_date_key(p)) for p in matches]
+    if any(k[0] > 0 for _, k in dated):
+        dated.sort(key=lambda pk: pk[1])
+        return dated[-1][0]
+    matches.sort(key=lambda p: os.path.getmtime(p))
+    return matches[-1]
 
 
 def load_alch_base(path: str) -> List[Dict[str, str]]:
@@ -371,6 +449,63 @@ def load_menu_tsv(path: str) -> List[Dict[str, str]]:
         return list(csv.DictReader(f, delimiter="\t"))
 
 
+def load_cobj_recipes(path: str) -> Dict[str, Dict[str, Any]]:
+    """Load dist/cobj-recipes.json and index ingredient counts by display name
+    AND by recipe EDID (some ALCH records match COBJ via edid rather than name).
+
+    Returns {"by_name": {lowercase_name: ingredient_count},
+             "by_edid": {lowercase_edid: ingredient_count}}.
+
+    Missing file is NOT fatal — we just can't auto-price. build_cobj_recipes_json
+    should have run before this, but during a fresh-clone bootstrap or a partial
+    build it may not exist yet. We warn and fall through to blank prices.
+    """
+    if not os.path.isfile(path):
+        return {"by_name": {}, "by_edid": {}}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"WARNING: failed to load {path}: {e}", file=sys.stderr)
+        return {"by_name": {}, "by_edid": {}}
+
+    recipes = data.get("recipes", {}) or {}
+    meta = data.get("recipe_meta", {}) or {}
+
+    by_name: Dict[str, int] = {}
+    by_edid: Dict[str, int] = {}
+    for name, ingredients in recipes.items():
+        count = len(ingredients) if isinstance(ingredients, dict) else 0
+        if not count:
+            continue
+        by_name[name.lower()] = count
+        # cnam_edid is the recipe's produced-item EDID (matches ALCH_EDID for
+        # food/chem items); edid is the COBJ record's own EDID (less useful).
+        m = meta.get(name, {}) or {}
+        cnam = clean(m.get("cnam_edid", ""))
+        if cnam:
+            by_edid[cnam.lower()] = count
+
+    return {"by_name": by_name, "by_edid": by_edid}
+
+
+def calc_prices(ingredient_count: int) -> Tuple[str, str, str]:
+    """Apply the BnB pricing formula.
+
+      price_xbox = ingredient_count * 5
+      price_ps   = price_xbox + 10
+      price_pc   = price_xbox + 10
+
+    Returns ("", "", "") if ingredient_count is 0 or negative (no recipe ⇒
+    no auto-price; the row stays blank and the diagnostic will flag it).
+    """
+    if ingredient_count <= 0:
+        return ("", "", "")
+    xbox = ingredient_count * 5
+    ps_pc = xbox + 10
+    return (str(xbox), str(ps_pc), str(ps_pc))
+
+
 def save_menu_tsv(path: str, rows: List[Dict[str, str]]) -> None:
     """Write BnB_Menu_Items.tsv preserving column order."""
     with open(path, "w", encoding="utf-8", newline="") as f:
@@ -389,6 +524,7 @@ def sync(
     alch_base_path: str,
     alch_effects_path: str,
     menu_path: str,
+    cobj_json_path: str,
     diag: Diagnostics,
 ) -> List[Dict[str, str]]:
     """Run the sync and return updated menu rows."""
@@ -397,10 +533,22 @@ def sync(
     alch_rows = load_alch_base(alch_base_path)
     effects_by_fid = load_alch_effects(alch_effects_path)
     menu_rows = load_menu_tsv(menu_path)
+    cobj_index = load_cobj_recipes(cobj_json_path)
 
     print(f"ALCH base: {len(alch_rows)} records", file=sys.stderr)
     print(f"ALCH effects: {len(effects_by_fid)} records with effects", file=sys.stderr)
     print(f"Menu: {len(menu_rows)} existing items", file=sys.stderr)
+    print(
+        f"COBJ recipe index: {len(cobj_index['by_name'])} by-name, "
+        f"{len(cobj_index['by_edid'])} by-edid entries",
+        file=sys.stderr,
+    )
+    if not cobj_index["by_name"] and not cobj_index["by_edid"]:
+        diag.warning(
+            "bnb_menu_sync.cobj.missing",
+            "cobj-recipes.json is empty or missing — new items will be added with blank prices.",
+            detail=cobj_json_path,
+        )
 
     # Index existing menu items by edid (lowercase) for fast lookup
     menu_by_edid: Dict[str, Dict[str, str]] = {}
@@ -500,24 +648,72 @@ def sync(
             if changed:
                 updated_count += 1
         else:
-            # New item — add with blank prices
+            # ─── NEW ITEM ───
+            # Auto-price from the COBJ recipe ingredient count, if we can find
+            # one. Look up by EDID first (unambiguous) then fall back to display
+            # name (handles items renamed in ALCH since their recipe was written).
+            ing_count = (
+                cobj_index["by_edid"].get(edid.lower())
+                or cobj_index["by_name"].get(full_name.lower())
+                or 0
+            )
+            px, pps, ppc = calc_prices(ing_count)
+
             new_row = {col: "" for col in MENU_COLS}
             new_row["menu category"] = cat
             new_row["name"] = full_name
             new_row["edid"] = edid
             new_row["form_id"] = fid
+            new_row["build"] = ""
+            new_row["price_xbox"] = px
+            new_row["price_ps"] = pps
+            new_row["price_pc"] = ppc
+            # limit_new / limit_existing intentionally left blank — the chef
+            # must set order caps manually per the "needs_limits" diagnostic.
             new_row["mutation"] = mutation
             new_row["buff"] = buff
             new_row["order category"] = order_cat
             new_items.append(new_row)
             new_count += 1
 
-            diag.warning(
-                "bnb_menu_sync.new_item",
-                f"New item added: {full_name!r} -> {cat}",
-                detail=f"edid={edid}, form_id={fid}",
-                context={"name": full_name, "category": cat, "edid": edid, "form_id": fid},
-            )
+            if px:
+                msg = (
+                    f"New item {full_name!r} -> {cat}. Auto-priced from {ing_count}-"
+                    f"ingredient COBJ recipe: XBOX={px}, PS/PC={pps}. "
+                    f"Order limits (new/existing) still need to be set."
+                )
+                diag.warning(
+                    "bnb_menu_sync.new_item.needs_limits",
+                    msg,
+                    detail=f"edid={edid}, form_id={fid}",
+                    context={
+                        "name": full_name,
+                        "category": cat,
+                        "edid": edid,
+                        "form_id": fid,
+                        "ingredient_count": ing_count,
+                        "price_xbox": px,
+                        "price_ps": pps,
+                        "price_pc": ppc,
+                    },
+                )
+            else:
+                msg = (
+                    f"New item {full_name!r} -> {cat}. No COBJ recipe found, so "
+                    f"no auto-price could be calculated. Prices and order limits "
+                    f"both need to be set manually."
+                )
+                diag.warning(
+                    "bnb_menu_sync.new_item.needs_price_and_limits",
+                    msg,
+                    detail=f"edid={edid}, form_id={fid}",
+                    context={
+                        "name": full_name,
+                        "category": cat,
+                        "edid": edid,
+                        "form_id": fid,
+                    },
+                )
 
     # Merge new items into existing rows
     all_rows = menu_rows + new_items
@@ -587,6 +783,9 @@ def main() -> None:
                         help="ALCH base TSV filename (auto-detects latest if omitted)")
     parser.add_argument("--alch-effects", type=str, default=None,
                         help="ALCH effects TSV filename (auto-detects latest if omitted)")
+    parser.add_argument("--cobj-json", type=str, default=None,
+                        help="Path to cobj-recipes.json (defaults to <outdir>/cobj-recipes.json). "
+                             "Used to auto-price new items via ingredient_count x 5.")
     parser.add_argument("--dry-run", action="store_true",
                         help="Don't write changes, just report what would happen")
     args = parser.parse_args()
@@ -594,16 +793,24 @@ def main() -> None:
     os.makedirs(args.outdir, exist_ok=True)
     diag = Diagnostics(source="bnb_menu_sync", outdir=args.outdir)
 
-    # Find ALCH files
+    # Find ALCH files.
+    #
+    # The base ALCH TSV pattern "ALCH_Export_*.tsv" unfortunately also matches
+    # "ALCH_Export_*_Effects.tsv" — we must filter those out BEFORE picking
+    # the newest, otherwise find_latest_file might hand back an effects file
+    # and we'd end up treating it as the base.
     if args.alch_base:
         base_path = os.path.join(args.data_dir, args.alch_base)
     else:
-        base_path = find_latest_file(args.data_dir, "ALCH_Export_*.tsv")
-        # Exclude effects files
-        if base_path and "_Effects" in base_path:
-            candidates = sorted(glob.glob(os.path.join(args.data_dir, "ALCH_Export_*.tsv")))
-            candidates = [c for c in candidates if "_Effects" not in c]
-            base_path = candidates[-1] if candidates else None
+        candidates = [
+            p for p in glob.glob(os.path.join(args.data_dir, "ALCH_Export_*.tsv"))
+            if "_Effects" not in os.path.basename(p)
+        ]
+        if candidates:
+            candidates.sort(key=_filename_date_key)
+            base_path = candidates[-1]
+        else:
+            base_path = None
 
     if args.alch_effects:
         effects_path = os.path.join(args.data_dir, args.alch_effects)
@@ -626,11 +833,17 @@ def main() -> None:
         diag.save()
         sys.exit(1)
 
+    # COBJ recipes JSON — built by build_cobj_recipes_json.py. Used for
+    # auto-pricing new items. If it's missing we carry on with blank prices
+    # (warned in diag) rather than aborting.
+    cobj_json_path = args.cobj_json or os.path.join(args.outdir, "cobj-recipes.json")
+
     print(f"ALCH base:    {base_path}", file=sys.stderr)
     print(f"ALCH effects: {effects_path}", file=sys.stderr)
     print(f"Menu TSV:     {menu_path}", file=sys.stderr)
+    print(f"COBJ JSON:    {cobj_json_path}", file=sys.stderr)
 
-    rows = sync(base_path, effects_path, menu_path, diag)
+    rows = sync(base_path, effects_path, menu_path, cobj_json_path, diag)
 
     if args.dry_run:
         print("\n[DRY RUN] No files written.", file=sys.stderr)
