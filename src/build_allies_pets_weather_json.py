@@ -84,6 +84,12 @@ FLST_PATH = _resolve_tsv("FLST_ENTRIES_TSV", "FLST_Export_*_Entries.tsv", "FLST_
 BOOK_PATH = _resolve_tsv("BOOK_TSV",         "BOOK_Export_*.tsv",         "BOOK_Export.tsv",
                          exclude_suffix="_locations.tsv")
 ACTI_PATH = _resolve_tsv("ACTI_TSV",         "ACTI_Export_*_ACTI.tsv",    "ACTI_Export_ACTI.tsv")
+# WTHR TSV — optional. Only weather station fishing classification uses it;
+# if absent the builder falls back to an empty classification.
+try:
+    WTHR_PATH = _resolve_tsv("WTHR_TSV",     "WTHR_Export_*_WTHR.tsv",    "WTHR_Export_WTHR.tsv")
+except FileNotFoundError:
+    WTHR_PATH = None
 
 # Seasons TSV — optional, falls back gracefully if missing
 _SEASONS_PATH = TSV_DIR / "fallout76_seasons.tsv"
@@ -121,8 +127,15 @@ def load_tsv(path, encoding="utf-8"):
     with open(path, encoding=encoding, errors="replace", newline="") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
-            # Strip surrounding quotes that xEdit sometimes adds
-            rows.append({k: v.strip().strip('"') for k, v in row.items()})
+            # Strip surrounding quotes that xEdit sometimes adds. Guard against
+            # None values: DictReader returns None for missing trailing cells
+            # on short rows (common in wide exports like WTHR where unused
+            # KW_N columns are absent on records with few keywords).
+            rows.append({
+                k: ((v or "").strip().strip('"'))
+                for k, v in row.items()
+                if k is not None
+            })
     return rows
 
 
@@ -194,6 +207,7 @@ print(f"  FURN: {FURN_PATH}")
 print(f"  FLST: {FLST_PATH}")
 print(f"  BOOK: {BOOK_PATH}")
 print(f"  ACTI: {ACTI_PATH}")
+print(f"  WTHR: {WTHR_PATH if WTHR_PATH else '(not found — weather-station fishing classification disabled)'}")
 
 cobj_rows      = load_tsv(COBJ_PATH)
 entm_rows      = load_tsv(ENTM_PATH)
@@ -201,6 +215,7 @@ furn_rows      = load_tsv(FURN_PATH)
 flst_entries   = load_tsv(FLST_PATH)
 book_rows      = load_tsv(BOOK_PATH)
 acti_rows      = load_tsv(ACTI_PATH)
+wthr_rows      = load_tsv(WTHR_PATH) if WTHR_PATH else []
 
 # ---------------------------------------------------------------------------
 # Build lookup maps
@@ -361,13 +376,120 @@ def acti_prps_value(acti_edid: str, av_name: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# WEATHER STATIONS
+# WEATHER STATIONS — fishing-weather classification from WTHR keywords
 # ---------------------------------------------------------------------------
 # Source: FLST 006EE8F0 (ATX_Weather_FormList_WeatherStations) → 18 ACTI entries
 # ENTM matched by EDID suffix after ATX_Weather_WeatherStation_ /
 # SCORE_*_Weather_WeatherStation_
+#
+# Fishing classification is derived from WTHR record keywords, cross-referenced
+# against the CNDF fishing conditions (Fishing_IsCamp*Weather_Condition). Each
+# CNDF tests for the presence of specific keywords via GetCurrentCAMPWeatherHasKeyword.
+# By categorising each WTHR's keywords we can label what a player would fish in:
+#
+#   FISHING_GLOWING_KWS   — Fishing_IsCampGlowingWeather_Condition
+#   FISHING_SANDSTORM_KWS — Fishing_IsCampSandstormWeather_Condition
+#   FISHING_RAINY_KWS     — Fishing_IsCampRainyWeather_Condition
+#   (anything else)       — Fishing_IsCampAnyFallbackWeather_Condition
+#
+# ENTM → WTHR linkage is hardcoded for now (manual mapping keyed by ENTM EDID
+# suffix). Once the ACTI export picks up VMAD script properties, this will be
+# replaced by a data-driven station→WTHR lookup via the weather-station
+# Papyrus scripts.
 
 WEATHER_FLST = "006EE8F0"
+
+# Keyword EDIDs (without the FormID prefix) that each fishing CNDF tests for.
+FISHING_GLOWING_KWS   = {"s_wt_StormRad", "s_wt_StormNuke"}
+FISHING_SANDSTORM_KWS = {"s_wt_Sandstorm"}
+FISHING_RAINY_KWS     = {
+    "s_wt_StormMistyRainy",
+    "s_wt_StormRain",
+    "s_wt_StormRainOcclusion",
+    "ATX_Weather_WeatherTypeKW_ThunderStorm",
+}
+
+def _wthr_kw_edids(wthr_row):
+    """Extract the set of keyword EDIDs from a WTHR_Export row.
+
+    KW_N cells look like '0017698E:s_wt_StormRad:KYWD'; we only need the middle
+    segment. Empty cells are skipped. Returns a set for fast membership tests.
+    """
+    kws = set()
+    # WTHR export currently emits up to 7 KW columns (KW_1..KW_7)
+    for i in range(1, 20):
+        cell = wthr_row.get(f"KW_{i}", "").strip()
+        if not cell:
+            continue
+        parts = cell.split(":")
+        if len(parts) >= 2 and parts[1]:
+            kws.add(parts[1])
+    return kws
+
+def _classify_wthr_keywords(kw_set):
+    """Map a WTHR's keyword set to a short fishing-weather label.
+
+    Returns one of: 'Radstorm', 'Sandstorm', 'Rainy', 'Clear', 'Cloudy',
+    or 'Generic CAMP Weather' when no recognisable keyword is present.
+    CNDF precedence: a WTHR can satisfy multiple rules (e.g. Radstorm also
+    has PermanentAurora), so we match most-specific (Radstorm) first.
+    """
+    if kw_set & FISHING_GLOWING_KWS:
+        return "Radstorm"
+    if kw_set & FISHING_SANDSTORM_KWS:
+        return "Sandstorm"
+    if kw_set & FISHING_RAINY_KWS:
+        return "Rainy"
+    if "s_wt_Clear" in kw_set:
+        return "Clear"
+    if "s_wt_Cloudy" in kw_set:
+        return "Cloudy"
+    return "Generic CAMP Weather"
+
+# Build the WTHR classification lookups: by FormID and by lowercase EDID.
+wthr_class_by_fid  = {}
+wthr_class_by_edid = {}
+for _w in wthr_rows:
+    _fid  = _w.get("WTHR_FormID", "").strip()
+    _edid = _w.get("WTHR_EDID", "").strip()
+    if not _fid and not _edid:
+        continue
+    _kws  = _wthr_kw_edids(_w)
+    _cls  = _classify_wthr_keywords(_kws)
+    if _fid:
+        wthr_class_by_fid[_fid.upper()] = _cls
+    if _edid:
+        wthr_class_by_edid[_edid.lower()] = _cls
+
+# ENTM EDID suffix (lower-cased, after stripping SCORE_S##_ + ATX_/ENTM_CAMP_Utility_WeatherStation_)
+# → the WTHR EDID whose keywords define the fishing bonus at that station.
+#
+# This is a manual table for now. When the ACTI VMAD export lands we can
+# derive this automatically from the weather station's Papyrus script
+# properties, but the mapping is ~18 entries and rarely changes.
+ENTM_SUFFIX_TO_WTHR_EDID = {
+    "standard_clear":           "NewWeatherClear_DONOTUSE",   # Generic clear weather
+    "standard_radstorm":        "NewWeatherRadstorm",
+    "snowman_snow":             "NewWeatherRain",             # Snowman → rain-type weather
+    "xpdacboardwalk":           "ATX_Weather_XPD_AC_Boardwalk_Fog",
+    "thunderstorm":             "ATX_Weather_Thunderstorm",
+    "storm_skylinevalley":      "ATX_Weather_Storm_DeadZone_New",
+    "mothman":                  "ATX_Weather_MothmanEquinox",
+    "halloween":                "ATX_Weather_HalloweenOvercast01",
+    "fallfoliage":              "ATX_Weather_FallFoliage",
+    "nukezone":                 "NewWeatherPostNukeBlast",
+    "snowaurora":               "ATX_Weather_SnowAurora01",
+    "verdantpollen":            "ATX_Weather_VerdantPollen",
+    "fireworks":                "ATX_Weather_Fireworks",
+    "standard_lightrain":       "ATX_Weather_LightRain",
+    "burningnight":             "ATX_Weather_BurningNight",
+    "burningsandstorm":         "ATX_Weather_BurningSandStorm",
+    "outwaste":                 "ATX_Weather_Outwaste",
+    "invasion":                 "ATX_Weather_Invasion",
+    "rainbow":                  "ATX_Weather_Rainbow",
+    "rainbowlightrain":         "ATX_Weather_RainbowLightRain",
+}
+
 
 # Suffix extractor for ACTI EDID
 _ACTI_PREFIX_RE = re.compile(
@@ -396,35 +518,15 @@ def build_weather_stations():
         "0073ABA6": False,  # Weather Control Station (Atlantic City Fog) — Gold Bullion plan, NonPlayerTradable
     }
 
-    # ── Fishing condition mapping ──
-    # Derived from CNDF fishing conditions cross-referenced with KYWD_Refs on WTHR records.
-    # Fishing_IsCampRainyWeather_Condition checks: s_wt_StormMistyRainy, s_wt_StormRain,
-    #   s_wt_StormRainOcclusion, ATX_Weather_WeatherTypeKW_ThunderStorm
-    # Fishing_IsCampGlowingWeather_Condition checks: s_wt_StormRad, s_wt_StormNuke
-    # Fishing_IsCampSandstormWeather_Condition checks: s_wt_Sandstorm
-    # Fishing_IsCampAnyFallbackWeather_Condition: any active CAMP weather (all stations)
+    # Fishing-weather classification is derived at build time by:
+    #   1. Looking up the WTHR record that a given weather station activates
+    #      (ENTM_SUFFIX_TO_WTHR_EDID table above — to be replaced with a
+    #      VMAD-derived map once the ACTI export gains script-property data).
+    #   2. Classifying that WTHR's keywords via _classify_wthr_keywords()
+    #      using the fishing-CNDF keyword sets.
     #
-    # ENTM EDID suffix → fishing condition label (empty = generic CAMP weather only)
-    WEATHER_FISHING_CONDITION = {
-        "standard_clear":           "",                         # No specific fishing condition
-        "standard_radstorm":        "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
-        "snowman_snow":             "Rainy (Rain Occlusion)",   # WTHR has s_wt_StormRainOcclusion
-        "xpdacboardwalk":           "",                         # AC Fog — no fishing keyword
-        "thunderstorm":             "Rainy (Thunderstorm)",     # WTHR has s_wt_StormMistyRainy + ThunderStorm KW
-        "storm_skylinevalley":      "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
-        "mothman":                  "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
-        "halloween":                "",                         # No specific fishing condition
-        "fallfoliage":              "",                         # No specific fishing condition
-        "nukezone":                 "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
-        "snowaurora":               "Rainy (Rain Occlusion)",   # WTHR has s_wt_StormRainOcclusion
-        "verdantpollen":            "",                         # No specific fishing condition
-        "fireworks":                "",                         # No specific fishing condition
-        "standard_lightrain":       "Rainy (Misty/Rainy)",      # WTHR has s_wt_StormMistyRainy + s_wt_StormRainOcclusion
-        "burningnight":             "",                         # No specific fishing condition
-        "burningsandstorm":         "Sandstorm",                # WTHR has s_wt_Sandstorm
-        "outwaste":                 "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
-        "invasion":                 "Glowing (Radstorm)",       # WTHR has s_wt_StormRad
-    }
+    # Labels emitted: 'Radstorm', 'Sandstorm', 'Rainy', 'Clear', 'Cloudy',
+    # or 'Generic CAMP Weather'.
 
     # ── How to Obtain — richer per-station detail ──
     # Keyed by ENTM FormID for items that need more detail than EDID-prefix classification.
@@ -472,10 +574,19 @@ def build_weather_stations():
         else:
             _ws_plan_name = ""
 
-        # ── Fishing condition from EDID suffix lookup ──
-        _suffix_m = _ENTM_PREFIX_RE.match(edid)
+        # ── Fishing-weather classification: ENTM suffix → WTHR → keywords ──
+        _suffix_m    = _ENTM_PREFIX_RE.match(edid)
         _edid_suffix = _suffix_m.group(1).lower() if _suffix_m else ""
-        _fishing = WEATHER_FISHING_CONDITION.get(_edid_suffix, "")
+        _wthr_edid   = ENTM_SUFFIX_TO_WTHR_EDID.get(_edid_suffix, "")
+        if _wthr_edid and wthr_class_by_edid:
+            _fishing = wthr_class_by_edid.get(_wthr_edid.lower(), "")
+            if not _fishing:
+                # WTHR EDID was mapped but not found in the current WTHR TSV —
+                # surface a build-time warning so we notice stale mappings.
+                print(f"  [WARN] ENTM suffix '{_edid_suffix}' maps to WTHR "
+                      f"'{_wthr_edid}' but that WTHR wasn't found in the TSV")
+        else:
+            _fishing = ""
 
         # ── How to Obtain — use richer detail if available ──
         if entm_id in WEATHER_HOW_TO_OBTAIN:
@@ -505,11 +616,17 @@ def build_weather_stations():
 
         # Build limit and flamingo units are workshop-system globals with no
         # per-record game field — these are the only values that stay hardcoded.
+        # `Fishing Weather` is appended so the Technical-section renderer picks
+        # it up without needing a new Wix field mapping. Falls back to an
+        # em-dash when the ENTM isn't in our suffix→WTHR map (unknown or newly
+        # added station) or when the WTHR TSV is missing.
+        _fishing_line = _fishing if _fishing else "—"
         _build_info = (
             f"Build Limit per Camp: 1\n"
             f"Build Limit per Workshop: 0\n"
             f"Power Required: {_power_val}\n"
-            f"Flamingo Units: 1"
+            f"Flamingo Units: 1\n"
+            f"Fishing Weather: {_fishing_line}"
         )
 
         items.append({
@@ -529,7 +646,9 @@ def build_weather_stations():
             "imageCarousel":        carousel,
             "buildInfo":            _build_info,
             "craftingRequirements": "Circuitry ×2\nRubber ×2\nSteel ×4\nScrew ×2",
-            "fishingCondition":     _fishing,
+            "fishingCondition":     _fishing,    # Back-compat: same as fishingWeather
+            "fishingWeather":       _fishing,    # Short label: Radstorm/Sandstorm/Rainy/Clear/...
+            "wthrEdid":             _wthr_edid,  # WTHR record whose keywords drive the label
             "cutContent":           False,
         })
 
