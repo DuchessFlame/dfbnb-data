@@ -153,6 +153,11 @@ SKIP_EDID_PATTERNS = [
     re.compile(r"^SwarmMeat", re.IGNORECASE),             # Flying Ant Meat / Crispy Flying Ant Bits
     re.compile(r"^Fishing_.*_Glowing$", re.IGNORECASE),  # Glowing fish dishes (no COBJ)
     re.compile(r"^ZZZ_Fishing_.*_Glowing", re.IGNORECASE), # Canned glowing fish (no COBJ)
+    re.compile(r"^PTS_", re.IGNORECASE),                  # prototype-scrapped (Potion of Experience/Exploration/Knowledge)
+    re.compile(r"^CUT_", re.IGNORECASE),                  # anything explicitly tagged CUT_ in the game data
+    re.compile(r"^SpoiledFood_", re.IGNORECASE),          # test decay items (Spoiled Meat/Vegetables/Fruit)
+    re.compile(r"_Spoiled$", re.IGNORECASE),              # spoiled variants (Milk_Brahmin_Spoiled, *FluidPotion_Spoiled)
+    re.compile(r"^FloraSpecimenJarYellow$", re.IGNORECASE), # Raw Yellowcake Flux (cut specimen jar)
 ]
 
 # ---------------------------------------------------------------------------
