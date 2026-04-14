@@ -53,12 +53,11 @@ from typing import Any, Dict, List, Optional, Tuple
 # Import shared diagnostics helper
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from diagnostics import Diagnostics  # noqa: E402
+from cut_content import is_cut  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-
-CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
 
 # FNAM_Keywords -> menu category classification.
 # These patterns are matched against each extracted keyword EDID.
@@ -83,6 +82,24 @@ FOOD_BENCH_PATTERNS = (
     re.compile(r"Cook", re.IGNORECASE),
     re.compile(r"Brew", re.IGNORECASE),
     re.compile(r"Food", re.IGNORECASE),
+)
+
+# Region tokens that appear in FO76 EDIDs. When multiple COBJ recipes share
+# the same display name (e.g. "Disease Cure", "Healing Salve") but have
+# different region tokens in their EDID, we treat them as region variants
+# — one recipe per region — and surface them separately in recipe_variants.
+#
+# Ordered most-specific first so "CranberryBog" is detected before a
+# hypothetical shorter token, and so "TheMire" wins over "Mire" when both
+# would match (the game uses both spellings across different items).
+REGION_TOKENS: Tuple[Tuple[str, str], ...] = (
+    ("CranberryBog",  "Cranberry Bog"),
+    ("TheMire",       "The Mire"),
+    ("ToxicValley",   "Toxic Valley"),
+    ("SavageDivide",  "Savage Divide"),
+    ("AshHeap",       "Ash Heap"),
+    ("Forest",        "Forest"),
+    ("Mire",          "The Mire"),   # fallback spelling
 )
 
 CHEM_BENCH_PATTERNS = (
@@ -114,8 +131,31 @@ def clean_str(s: Any) -> str:
 
 
 def should_skip(edid: str) -> bool:
-    e = clean_str(edid).upper()
-    return any(e.startswith(p) for p in CUT_PREFIXES)
+    """Delegate to the shared cut_content module — single source of truth
+    for cut / test / debug / never-released EDIDs."""
+    return is_cut(clean_str(edid))
+
+
+def detect_region(edid: str) -> str:
+    """Return the human-readable region name if the EDID contains an FO76
+    region token, otherwise "". Used to group region-variant recipes
+    (e.g. Disease Cure - Forest, Healing Salve - The Mire).
+
+    We match on a CamelCase-aware trailing boundary only. Leading
+    boundaries would need to allow both "_Forest" (post-underscore, as in
+    Disease Cure EDIDs) AND "SalveForest" (mid-CamelCase, as in Healing
+    Salve EDIDs), which a single lookbehind can't express without
+    re-introducing false positives in rare suffix-clash words. Trailing
+    boundary (end of string / underscore / uppercase / digit) is
+    sufficient in practice because each region token starts with a
+    capital letter and is unique enough mid-word ("Mire", "AshHeap",
+    "CranberryBog" etc.) that we haven't seen clashes."""
+    e = edid or ""
+    for token, display in REGION_TOKENS:
+        pat = re.compile(re.escape(token) + r"(?=$|[_A-Z0-9])")
+        if pat.search(e):
+            return display
+    return ""
 
 
 def parse_fvpa(fvpa_str: str) -> Dict[str, int]:
@@ -211,10 +251,24 @@ def resolve_edid_column(row: Dict[str, str]) -> str:
 def build_recipes(
     per_file_rows: List[Tuple[str, List[Dict[str, str]]]],
     diag: Diagnostics,
-) -> Tuple[Dict[str, Dict[str, int]], Dict[str, Dict[str, Any]]]:
-    """Extract recipes + metadata from per-file COBJ rows."""
+) -> Tuple[Dict[str, Dict[str, int]], Dict[str, Dict[str, Any]], Dict[str, List[Dict[str, Any]]]]:
+    """Extract recipes + metadata from per-file COBJ rows.
+
+    Returns (recipes, meta, variants) where:
+      recipes[name]  = {ingredient: count, ...}   (deduped, best pick)
+      meta[name]     = {edid, bnam_edid, category, source_file, ...}
+      variants[name] = [{region, edid, ingredients, bnam_edid, ...}, ...]
+
+    `variants` is only populated for display names that have 2+ COBJ
+    recipes each with a detected region token in their EDID. This powers
+    the chef portal's Crafting tab which needs to show e.g. "Disease Cure
+    - Forest", "Disease Cure - The Mire" as separate rows even though the
+    game's display name for all of them is just "Disease Cure".
+    """
     recipes: Dict[str, Dict[str, int]] = {}
     meta: Dict[str, Dict[str, Any]] = {}
+    # raw_by_name[name] -> list of (region, edid, ingredients, bnam_edid, category, source_file)
+    raw_by_name: Dict[str, List[Dict[str, Any]]] = {}
 
     total_rows = 0
     total_skipped_cut = 0
@@ -250,6 +304,19 @@ def build_recipes(
 
             keywords = parse_fnam_keywords(fnam)
             category = classify_category(keywords, bnam_edid)
+
+            # Track every recipe under its display name so we can later
+            # extract region variants. This is additive to the dedup
+            # logic below, not a replacement.
+            region = detect_region(edid)
+            raw_by_name.setdefault(display_name, []).append({
+                "region": region,
+                "edid": clean_str(edid),
+                "ingredients": ingredients,
+                "bnam_edid": bnam_edid,
+                "category": category,
+                "source_file": os.path.basename(source_file),
+            })
 
             if display_name not in recipes:
                 recipes[display_name] = ingredients
@@ -303,7 +370,39 @@ def build_recipes(
                 context={"file": os.path.basename(source_file), "rows": file_total, "usable": file_usable},
             )
 
+    # ── Extract region-variant recipes ─────────────────────────────────
+    # A "region variant" is a display name that has 2+ COBJ recipes, each
+    # with a distinct region token in its EDID. Disease Cure and Healing
+    # Salve are the two current cases — each has one recipe per FO76
+    # region (Forest / Toxic Valley / Savage Divide / Ash Heap / The Mire
+    # / Cranberry Bog), and sometimes two per region (chem lab + cooking
+    # bench). We de-dupe on (region, ingredient_set) so we don't emit
+    # two identical chem-lab-vs-cooking-lab rows for the same region;
+    # the chef only needs to know which ingredients a region requires.
+    variants: Dict[str, List[Dict[str, Any]]] = {}
+    for display_name, entries in raw_by_name.items():
+        region_entries = [e for e in entries if e["region"]]
+        if len(region_entries) < 2:
+            continue
+        regions_seen = {e["region"] for e in region_entries}
+        if len(regions_seen) < 2:
+            # all "variants" are in the same region (e.g. two workbench
+            # variants of one regional recipe) — not a true region split
+            continue
+        # Collapse duplicates per region — keep the entry with the most
+        # ingredients so the most-specific recipe wins, matching the
+        # dedup rule used above for `recipes`.
+        by_region: Dict[str, Dict[str, Any]] = {}
+        for e in region_entries:
+            existing = by_region.get(e["region"])
+            if existing is None or len(e["ingredients"]) > len(existing["ingredients"]):
+                by_region[e["region"]] = e
+        variants[display_name] = [
+            by_region[r] for r in sorted(by_region.keys())
+        ]
+
     print(f"Recipes extracted: {len(recipes)}", file=sys.stderr)
+    print(f"Region variants: {len(variants)} items with per-region recipes", file=sys.stderr)
     print(f"Skipped (cut content): {total_skipped_cut}", file=sys.stderr)
     print(f"Rows without ingredients: {total_no_fvpa}", file=sys.stderr)
 
@@ -312,13 +411,14 @@ def build_recipes(
         f"Extracted {len(recipes)} unique recipes from {total_rows} COBJ rows.",
         context={
             "unique_recipes": len(recipes),
+            "region_variant_items": len(variants),
             "total_rows": total_rows,
             "skipped_cut": total_skipped_cut,
             "no_fvpa": total_no_fvpa,
         },
     )
 
-    return recipes, meta
+    return recipes, meta, variants
 
 
 # ---------------------------------------------------------------------------
@@ -357,7 +457,7 @@ def main() -> None:
     total_rows = sum(len(r) for _, r in per_file_rows)
     print(f"Total rows: {total_rows}", file=sys.stderr)
 
-    recipes, meta = build_recipes(per_file_rows, diag)
+    recipes, meta, variants = build_recipes(per_file_rows, diag)
 
     output: Dict[str, Any] = {
         "version": today_ymd(),
@@ -365,6 +465,11 @@ def main() -> None:
         "count": len(recipes),
         "recipes": recipes,
         "recipe_meta": meta,
+        # Region-variant recipes for items whose display name collapses
+        # multiple COBJ records (Disease Cure, Healing Salve). Consumers
+        # (chef portal's Crafting tab) should render one row per region
+        # when an item appears in recipe_variants.
+        "recipe_variants": variants,
     }
 
     output_path = os.path.join(args.outdir, "cobj-recipes.json")

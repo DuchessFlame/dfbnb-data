@@ -127,15 +127,12 @@ try:
     from diagnostics import Diagnostics  # noqa: E402
 except Exception:  # pragma: no cover - diagnostics is optional at runtime
     Diagnostics = None  # type: ignore
+from cut_content import is_cut  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-
-# EDID prefixes that always mean "cut content / test / debug / removed".
-# Matched case-insensitively against the start of the record's EDID.
-CUT_PREFIXES = ("CUT", "ZZZ", "ZZZZ", "POST", "DEL", "TEST", "DEBUG")
 
 # Form IDs are always upper-case 8-char hex strings in this module. xEdit
 # exports sometimes lower-case them; we normalise on read.
@@ -319,8 +316,9 @@ def clean(s: Any) -> str:
 
 
 def edid_is_cut(edid: str) -> bool:
-    e = clean(edid).upper()
-    return any(e.startswith(p) for p in CUT_PREFIXES)
+    """Delegate to the shared cut_content module — single source of truth
+    for cut / test / debug / never-released EDIDs across builders."""
+    return is_cut(clean(edid))
 
 
 def parse_keywords_flat(flat: str) -> Set[str]:

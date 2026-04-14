@@ -55,6 +55,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from diagnostics import Diagnostics  # noqa: E402
+from cut_content import is_cut, purge_cut_rows  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -268,7 +269,13 @@ def detect_category(edid: str, keywords: Set[str], is_canned: bool, meal_keyword
     Returns ('__skip__', '') for items that should NOT be on the menu.
     Returns ('Other', 'other') for items that don't match any rule."""
 
-    # Skip test/debug/pet items
+    # Skip test/debug/pet items — run both filters:
+    #   1) the shared cut_content module (primary source of truth)
+    #   2) the local SKIP_EDID_PATTERNS (sync-specific extras like PETS_ /
+    #      Debug / the bunch of event-crate / dart / syringer patterns that
+    #      aren't strictly "cut content" but still shouldn't hit the menu)
+    if is_cut(edid):
+        return ("__skip__", "")
     for pat in SKIP_EDID_PATTERNS:
         if pat.search(edid):
             return ("__skip__", "")
@@ -540,9 +547,27 @@ def sync(
     menu_rows = load_menu_tsv(menu_path)
     cobj_index = load_cobj_recipes(cobj_json_path)
 
+    # ── Self-healing cut-content purge ───────────────────────────────────
+    # Any existing menu row whose EDID matches a cut/test/debug pattern is
+    # removed before we do any work. This catches legacy rows that slipped
+    # in before the cut_content patterns were complete (e.g.
+    # zzz_CranberryTastyRelish_Cannery, AC_SQ04_Reopening_* Nukashine 2,
+    # _Disease Chance Food 0-4 etc.) and means the master TSV converges to
+    # a clean state just by re-running this script.
+    menu_rows, purged_rows = purge_cut_rows(menu_rows, edid_col="edid")
+    if purged_rows:
+        for r in purged_rows:
+            diag.info(
+                "bnb_menu_sync.purge.cut",
+                f"Purged cut-content row: {clean(r.get('name',''))!r} ({clean(r.get('edid',''))})",
+                detail=clean(r.get("edid", "")),
+                context={"name": clean(r.get("name", "")), "edid": clean(r.get("edid", ""))},
+            )
+        print(f"Purged {len(purged_rows)} cut-content row(s) from master TSV", file=sys.stderr)
+
     print(f"ALCH base: {len(alch_rows)} records", file=sys.stderr)
     print(f"ALCH effects: {len(effects_by_fid)} records with effects", file=sys.stderr)
-    print(f"Menu: {len(menu_rows)} existing items", file=sys.stderr)
+    print(f"Menu: {len(menu_rows)} existing items (after cut purge)", file=sys.stderr)
     print(
         f"COBJ recipe index: {len(cobj_index['by_name'])} by-name, "
         f"{len(cobj_index['by_edid'])} by-edid entries",
