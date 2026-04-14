@@ -310,6 +310,14 @@ jobs:
       - name: Build Axolotl Rotations JSON
         run: node tools/build-axolotl-rotations-json.mjs
 
+      # --- SEASONAL FISH ---
+      # Reads the latest FISH + LVLI_Entries TSVs and emits dist/seasonal-fish.json
+      # consumed by the home banner. Regenerative — if Bethesda moves a fish
+      # between regional collections or adds a new seasonal fish, the next build
+      # picks it up without code changes. Runs AFTER Axolotl for consistency.
+      - name: Build Seasonal Fish JSON
+        run: node tools/build-seasonal-fish-json.mjs
+
       # --- HOME EVENTS ---
       - name: Build Home Events JSON
         run: node tools/build-home-events-json.mjs
@@ -513,6 +521,7 @@ jobs:
           test -f dist/bnb-menu.json                 && echo "OK bnb-menu.json"                 || (echo "MISSING bnb-menu.json" && exit 1)
           test -f dist/bnb-item-categories.json      && echo "OK bnb-item-categories.json"      || (echo "MISSING bnb-item-categories.json" && exit 1)
           test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
+          test -f dist/seasonal-fish.json            && echo "OK seasonal-fish.json"            || (echo "MISSING seasonal-fish.json" && exit 1)
           test -f dist/reho/reho_rewards_by_page.json && echo "OK reho/reho_rewards_by_page.json" || (echo "MISSING reho/reho_rewards_by_page.json" && exit 1)
           test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
