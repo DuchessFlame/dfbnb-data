@@ -1,8 +1,8 @@
 {
-  "generated": "2026-04-14T02:30:40+00:00",
+  "generated": "2026-04-14T03:57:41+00:00",
   "sections": {
     "bnb_menu": {
-      "generated": "2026-04-14T02:25:59+00:00",
+      "generated": "2026-04-14T03:57:40+00:00",
       "counts": {
         "error": 43,
         "warning": 0,
@@ -669,10 +669,10 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Volatile Nuka Quantum' (Soda & Drinks) is missing price for: xbox, ps, pc",
-          "detail": "Volatile Nuka Quantum",
+          "message": "'Irradiated Sunset Sarsaparilla' (Soda & Drinks) is missing price for: xbox, ps, pc",
+          "detail": "Irradiated Sunset Sarsaparilla",
           "context": {
-            "name": "Volatile Nuka Quantum",
+            "name": "Irradiated Sunset Sarsaparilla",
             "category": "Soda & Drinks",
             "missing_fields": [
               "price_xbox",
@@ -684,10 +684,10 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Irradiated Sunset Sarsaparilla' (Soda & Drinks) is missing price for: xbox, ps, pc",
-          "detail": "Irradiated Sunset Sarsaparilla",
+          "message": "'Volatile Nuka Quantum' (Soda & Drinks) is missing price for: xbox, ps, pc",
+          "detail": "Volatile Nuka Quantum",
           "context": {
-            "name": "Irradiated Sunset Sarsaparilla",
+            "name": "Volatile Nuka Quantum",
             "category": "Soda & Drinks",
             "missing_fields": [
               "price_xbox",
@@ -721,7 +721,7 @@
       ]
     },
     "menu_items": {
-      "generated": "2026-04-14T02:30:40+00:00",
+      "generated": "2026-04-14T03:57:40+00:00",
       "counts": {
         "error": 43,
         "warning": 64,
@@ -2346,625 +2346,13 @@
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-04-14T02:25:21+00:00",
+      "generated": "2026-04-14T03:57:40+00:00",
       "counts": {
         "error": 44,
-        "warning": 43,
+        "warning": 0,
         "info": 1
       },
       "entries": [
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item '_Disease Chance Food 0 - Base' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_Base, form_id=00281E8B",
-          "context": {
-            "name": "_Disease Chance Food 0 - Base",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_Base",
-            "form_id": "00281E8B"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Spoiled Meat' -> Ingredients. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=SpoiledFood_Meat, form_id=0037E133",
-          "context": {
-            "name": "Spoiled Meat",
-            "category": "Ingredients",
-            "edid": "SpoiledFood_Meat",
-            "form_id": "0037E133"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Spoiled Vegetables' -> Ingredients. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=SpoiledFood_Vegetable, form_id=0037E134",
-          "context": {
-            "name": "Spoiled Vegetables",
-            "category": "Ingredients",
-            "edid": "SpoiledFood_Vegetable",
-            "form_id": "0037E134"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Spoiled Fruit' -> Ingredients. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=SpoiledFood_Fruit, form_id=0037E135",
-          "context": {
-            "name": "Spoiled Fruit",
-            "category": "Ingredients",
-            "edid": "SpoiledFood_Fruit",
-            "form_id": "0037E135"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item '_Disease Chance Food 1 - Low' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_Low, form_id=0038E046",
-          "context": {
-            "name": "_Disease Chance Food 1 - Low",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_Low",
-            "form_id": "0038E046"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item '_Disease Chance Food 2 - Medium' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_Medium, form_id=0038E047",
-          "context": {
-            "name": "_Disease Chance Food 2 - Medium",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_Medium",
-            "form_id": "0038E047"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item '_Disease Chance Food 3 - High' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_High, form_id=0038E048",
-          "context": {
-            "name": "_Disease Chance Food 3 - High",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_High",
-            "form_id": "0038E048"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item '_Disease Chance Food 4 - Very High' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=test_SURV_TestDiseaseChanceFood_VeryHigh, form_id=0038E049",
-          "context": {
-            "name": "_Disease Chance Food 4 - Very High",
-            "category": "Other",
-            "edid": "test_SURV_TestDiseaseChanceFood_VeryHigh",
-            "form_id": "0038E049"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Rad Ant Lager' -> Alcohol. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_RadAntLagerFerm, form_id=003EC3E5",
-          "context": {
-            "name": "Fermentable Rad Ant Lager",
-            "category": "Alcohol",
-            "edid": "Brew_RadAntLagerFerm",
-            "form_id": "003EC3E5",
-            "ingredient_count": 5,
-            "price_xbox": "25",
-            "price_ps": "35",
-            "price_pc": "35"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable High Voltage Hefe' -> Alcohol. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_HighVoltageHefeFerm, form_id=003EC3ED",
-          "context": {
-            "name": "Fermentable High Voltage Hefe",
-            "category": "Alcohol",
-            "edid": "Brew_HighVoltageHefeFerm",
-            "form_id": "003EC3ED",
-            "ingredient_count": 5,
-            "price_xbox": "25",
-            "price_ps": "35",
-            "price_pc": "35"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Cranberry Moonshine' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_CranberryMoonshineFerm, form_id=003F2DEA",
-          "context": {
-            "name": "Fermentable Cranberry Moonshine",
-            "category": "Alcohol",
-            "edid": "Brew_CranberryMoonshineFerm",
-            "form_id": "003F2DEA",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Nuka-Cola Dark' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_DLC04_NukaCola_DarkFerm, form_id=003F3053",
-          "context": {
-            "name": "Fermentable Nuka-Cola Dark",
-            "category": "Alcohol",
-            "edid": "Brew_DLC04_NukaCola_DarkFerm",
-            "form_id": "003F3053",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Mountain Honey Moonshine' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_MountainHoneyMoonshineFerm, form_id=003F3054",
-          "context": {
-            "name": "Fermentable Mountain Honey Moonshine",
-            "category": "Alcohol",
-            "edid": "Brew_MountainHoneyMoonshineFerm",
-            "form_id": "003F3054",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Spoiled Brahmin Milk' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=Milk_Brahmin_Spoiled, form_id=0040A0B7",
-          "context": {
-            "name": "Spoiled Brahmin Milk",
-            "category": "Other",
-            "edid": "Milk_Brahmin_Spoiled",
-            "form_id": "0040A0B7"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Lead Champagne' -> Alcohol. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_LeadChampagneFerm, form_id=00454123",
-          "context": {
-            "name": "Fermentable Lead Champagne",
-            "category": "Alcohol",
-            "edid": "Brew_LeadChampagneFerm",
-            "form_id": "00454123",
-            "ingredient_count": 5,
-            "price_xbox": "25",
-            "price_ps": "35",
-            "price_pc": "35"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Hoppy Hunter IPA' -> Alcohol. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_HoppyHunterFerm, form_id=0045412F",
-          "context": {
-            "name": "Fermentable Hoppy Hunter IPA",
-            "category": "Alcohol",
-            "edid": "Brew_HoppyHunterFerm",
-            "form_id": "0045412F",
-            "ingredient_count": 5,
-            "price_xbox": "25",
-            "price_ps": "35",
-            "price_pc": "35"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Lemonade' -> Dishes & Teas. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Lemonade, form_id=0045CB9F",
-          "context": {
-            "name": "Lemonade",
-            "category": "Dishes & Teas",
-            "edid": "Lemonade",
-            "form_id": "0045CB9F",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Ballistic Bock' -> Alcohol. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_BallisticBockFerm, form_id=00469842",
-          "context": {
-            "name": "Fermentable Ballistic Bock",
-            "category": "Alcohol",
-            "edid": "Brew_BallisticBockFerm",
-            "form_id": "00469842",
-            "ingredient_count": 5,
-            "price_xbox": "25",
-            "price_ps": "35",
-            "price_pc": "35"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Tick Blood Tequila' -> Alcohol. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_TickBloodTequilaFerm, form_id=0046985C",
-          "context": {
-            "name": "Fermentable Tick Blood Tequila",
-            "category": "Alcohol",
-            "edid": "Brew_TickBloodTequilaFerm",
-            "form_id": "0046985C",
-            "ingredient_count": 5,
-            "price_xbox": "25",
-            "price_ps": "35",
-            "price_pc": "35"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Vodka' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_VodkaFerm, form_id=0046F4EF",
-          "context": {
-            "name": "Fermentable Vodka",
-            "category": "Alcohol",
-            "edid": "Brew_VodkaFerm",
-            "form_id": "0046F4EF",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Bourbon' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_BourbonFerm, form_id=0046F4F0",
-          "context": {
-            "name": "Fermentable Bourbon",
-            "category": "Alcohol",
-            "edid": "Brew_BourbonFerm",
-            "form_id": "0046F4F0",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable New River Red Ale' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_NewRiverRedAleFerm, form_id=0046F4F1",
-          "context": {
-            "name": "Fermentable New River Red Ale",
-            "category": "Alcohol",
-            "edid": "Brew_NewRiverRedAleFerm",
-            "form_id": "0046F4F1",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Rum' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_RumFerm, form_id=0046F4F2",
-          "context": {
-            "name": "Fermentable Rum",
-            "category": "Alcohol",
-            "edid": "Brew_RumFerm",
-            "form_id": "0046F4F2",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Whiskey' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_WhiskeyFerm, form_id=0046F4F3",
-          "context": {
-            "name": "Fermentable Whiskey",
-            "category": "Alcohol",
-            "edid": "Brew_WhiskeyFerm",
-            "form_id": "0046F4F3",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Blackwater Brew' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_BlackwaterBrewFerm, form_id=0046F4F4",
-          "context": {
-            "name": "Fermentable Blackwater Brew",
-            "category": "Alcohol",
-            "edid": "Brew_BlackwaterBrewFerm",
-            "form_id": "0046F4F4",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Beer' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_BeerBottleStandard01Ferm, form_id=0046F4F5",
-          "context": {
-            "name": "Fermentable Beer",
-            "category": "Alcohol",
-            "edid": "Brew_BeerBottleStandard01Ferm",
-            "form_id": "0046F4F5",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Oak Holler Lager' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_OakHollerLagerFerm, form_id=0046F4F7",
-          "context": {
-            "name": "Fermentable Oak Holler Lager",
-            "category": "Alcohol",
-            "edid": "Brew_OakHollerLagerFerm",
-            "form_id": "0046F4F7",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Old Possum' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_OldPossumFerm, form_id=0046F4F8",
-          "context": {
-            "name": "Fermentable Old Possum",
-            "category": "Alcohol",
-            "edid": "Brew_OldPossumFerm",
-            "form_id": "0046F4F8",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Pickaxe Pilsner' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_PickAxePilsnerFerm, form_id=0046F4F9",
-          "context": {
-            "name": "Fermentable Pickaxe Pilsner",
-            "category": "Alcohol",
-            "edid": "Brew_PickAxePilsnerFerm",
-            "form_id": "0046F4F9",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Wine' -> Alcohol. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_WineFerm, form_id=0046F4FA",
-          "context": {
-            "name": "Fermentable Wine",
-            "category": "Alcohol",
-            "edid": "Brew_WineFerm",
-            "form_id": "0046F4FA",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Nukashine' -> Alcohol. Auto-priced from 6-ingredient COBJ recipe: XBOX=30, PS/PC=40. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_NukashineFerm, form_id=0047BC13",
-          "context": {
-            "name": "Fermentable Nukashine",
-            "category": "Alcohol",
-            "edid": "Brew_NukashineFerm",
-            "form_id": "0047BC13",
-            "ingredient_count": 6,
-            "price_xbox": "30",
-            "price_ps": "40",
-            "price_pc": "40"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Spoiled Bio Fluid' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=FFZ10_BioluminescentFluidPotion_Spoiled, form_id=005109AC",
-          "context": {
-            "name": "Spoiled Bio Fluid",
-            "category": "Other",
-            "edid": "FFZ10_BioluminescentFluidPotion_Spoiled",
-            "form_id": "005109AC"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Recalibrated Liberator' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=CUT_W05_MQS_202P_RecalibratedLiberator_Item, form_id=00567460",
-          "context": {
-            "name": "Recalibrated Liberator",
-            "category": "Other",
-            "edid": "CUT_W05_MQS_202P_RecalibratedLiberator_Item",
-            "form_id": "00567460"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Liquid Courage' -> Alcohol. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
-          "detail": "edid=Brew_LiquidCourageFerm, form_id=0057AE04",
-          "context": {
-            "name": "Fermentable Liquid Courage",
-            "category": "Alcohol",
-            "edid": "Brew_LiquidCourageFerm",
-            "form_id": "0057AE04",
-            "ingredient_count": 5,
-            "price_xbox": "25",
-            "price_ps": "35",
-            "price_pc": "35"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Survival Syringe' -> Chems. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=LGN_SurvivalShortcut_Chem01, form_id=005CBB7E",
-          "context": {
-            "name": "Survival Syringe",
-            "category": "Chems",
-            "edid": "LGN_SurvivalShortcut_Chem01",
-            "form_id": "005CBB7E"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fermentable Mire Magic Moonshine' -> Alcohol. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
-          "detail": "edid=E08A_Brew_GulpershineFerm, form_id=00655D12",
-          "context": {
-            "name": "Fermentable Mire Magic Moonshine",
-            "category": "Alcohol",
-            "edid": "E08A_Brew_GulpershineFerm",
-            "form_id": "00655D12",
-            "ingredient_count": 5,
-            "price_xbox": "25",
-            "price_ps": "35",
-            "price_pc": "35"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Volatile Nuka Quantum' -> Soda. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=Burn_Bounty_IcedNukaCola, form_id=0083A263",
-          "context": {
-            "name": "Volatile Nuka Quantum",
-            "category": "Soda",
-            "edid": "Burn_Bounty_IcedNukaCola",
-            "form_id": "0083A263"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Potion of Knowledge' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=PTS_LearnAllRecipes_Potion, form_id=008A9107",
-          "context": {
-            "name": "Potion of Knowledge",
-            "category": "Other",
-            "edid": "PTS_LearnAllRecipes_Potion",
-            "form_id": "008A9107"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Potion of Exploration' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=PTS_ShowAllMapMarkers_Potion, form_id=008A9108",
-          "context": {
-            "name": "Potion of Exploration",
-            "category": "Other",
-            "edid": "PTS_ShowAllMapMarkers_Potion",
-            "form_id": "008A9108"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Potion of Experience I' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=PTS_ExperienceT1_Potion, form_id=008D383F",
-          "context": {
-            "name": "Potion of Experience I",
-            "category": "Other",
-            "edid": "PTS_ExperienceT1_Potion",
-            "form_id": "008D383F"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Potion of Experience II' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=PTS_ExperienceT2_Potion, form_id=008D3840",
-          "context": {
-            "name": "Potion of Experience II",
-            "category": "Other",
-            "edid": "PTS_ExperienceT2_Potion",
-            "form_id": "008D3840"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Potion of Experience III' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=PTS_ExperienceT3_Potion, form_id=008D3841",
-          "context": {
-            "name": "Potion of Experience III",
-            "category": "Other",
-            "edid": "PTS_ExperienceT3_Potion",
-            "form_id": "008D3841"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Potion of Experience IV' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=PTS_ExperienceT4_Potion, form_id=008D3842",
-          "context": {
-            "name": "Potion of Experience IV",
-            "category": "Other",
-            "edid": "PTS_ExperienceT4_Potion",
-            "form_id": "008D3842"
-          }
-        },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
@@ -3388,16 +2776,6 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Volatile Nuka Quantum' (Soda)",
-          "detail": "Volatile Nuka Quantum",
-          "context": {
-            "name": "Volatile Nuka Quantum",
-            "category": "Soda"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
           "message": "No price set: 'Irradiated Sunset Sarsaparilla' (Soda & Drinks)",
           "detail": "Irradiated Sunset Sarsaparilla",
           "context": {
@@ -3406,13 +2784,23 @@
           }
         },
         {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Volatile Nuka Quantum' (Soda & Drinks)",
+          "detail": "Volatile Nuka Quantum",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks"
+          }
+        },
+        {
           "severity": "info",
           "code": "bnb_menu_sync.summary",
-          "message": "Sync: 776 total, 43 new, 13 updated, 44 unpriced.",
+          "message": "Sync: 776 total, 0 new, 0 updated, 44 unpriced.",
           "context": {
             "total": 776,
-            "new": 43,
-            "updated": 13,
+            "new": 0,
+            "updated": 0,
             "unpriced": 44,
             "skipped": 219
           }
@@ -3420,7 +2808,7 @@
       ]
     },
     "cobj_recipes": {
-      "generated": "2026-04-14T02:25:30+00:00",
+      "generated": "2026-04-14T03:57:40+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -3441,7 +2829,7 @@
       ]
     },
     "bnb_item_categories": {
-      "generated": "2026-04-14T02:25:31+00:00",
+      "generated": "2026-04-14T03:57:41+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -3451,33 +2839,33 @@
         {
           "severity": "info",
           "code": "bnb_categories.build.summary",
-          "message": "Built 287 items across 7 categories",
+          "message": "Built 278 items across 7 categories",
           "context": {
-            "total_items": 287,
-            "alch_records": 982,
-            "source_alch": "ALCH_Export_Apr_2026.tsv",
-            "source_kywd": "KYWD_Export_Apr_2026_Refs.tsv",
+            "total_items": 278,
+            "alch_records": 950,
+            "source_alch": "ALCH_Export_March_2026.tsv",
+            "source_kywd": "KYWD_Export_March_2026_Refs.tsv",
             "stats": {
               "food": {
-                "candidates": 607,
-                "excluded_cut": 25,
+                "candidates": 582,
+                "excluded_cut": 21,
                 "excluded_no_name": 6,
                 "excluded_by_kywd": 80,
-                "excluded_raw": 420,
+                "excluded_raw": 401,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 76,
+                "included": 74,
                 "post_included_via_suffix": 0
               },
               "canned": {
-                "candidates": 32,
+                "candidates": 26,
                 "excluded_cut": 3,
                 "excluded_no_name": 0,
                 "excluded_by_kywd": 0,
                 "excluded_raw": 0,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 29,
+                "included": 23,
                 "post_included_via_suffix": 0
               },
               "nuka_cola": {
@@ -3525,14 +2913,14 @@
                 "post_included_via_suffix": 0
               },
               "prewar_candy": {
-                "candidates": 21,
+                "candidates": 20,
                 "excluded_cut": 0,
                 "excluded_no_name": 0,
                 "excluded_by_kywd": 0,
                 "excluded_raw": 1,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 22,
+                "included": 21,
                 "post_included_via_suffix": 2
               }
             }
