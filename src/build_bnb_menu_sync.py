@@ -139,13 +139,10 @@ SKIP_EDID_PATTERNS = [
     re.compile(r"^v96_Metabolux", re.IGNORECASE),         # Metabolux Syringe
     re.compile(r"^MTR01_Precursor", re.IGNORECASE),       # Precursor serums (game system)
     # ^SCORE_ blanket removed — Season 22/25 added real consumables with
-    # SCORE_ prefixed EDIDs. Keep only the non-consumable reward boxes:
-    re.compile(r"^SCORE_Lunchbox", re.IGNORECASE),       # Lunchbox (XP booster)
-    re.compile(r"^SCORE_BobbleheadBox", re.IGNORECASE),  # Mystery Bobblehead Box
-    re.compile(r"^SCORE_MagazineBookBox", re.IGNORECASE), # Mystery Magazine Package
-    re.compile(r"^SCORE_Boost_", re.IGNORECASE),         # Carry Weight Booster etc.
-    re.compile(r"^SCORE_Bubblegum_", re.IGNORECASE),     # Perfect Bubblegum
-    re.compile(r"^SCORE_Banner_", re.IGNORECASE),        # Scout's Banner
+    # SCORE_ prefixed EDIDs. Reward-box items (Lunchbox, Bobblehead Box,
+    # Magazine Package, Carry Weight Booster, Perfect Bubblegum, Scout's
+    # Banner) are allowed through and marked Not Available via
+    # not-available.json instead.
     re.compile(r"^Spooky_TreatBag", re.IGNORECASE),       # Spooky Treat Bag (event loot)
     re.compile(r"^TrackingDart", re.IGNORECASE),          # Tracking Dart
     re.compile(r"^MTNS05_VoxDart", re.IGNORECASE),        # Vox Interpreter Dart
