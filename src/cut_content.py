@@ -68,7 +68,11 @@ CUT_PATTERNS = [
     re.compile(r"^Festive_", re.IGNORECASE),             # Holiday/Waterlogged gifts
     re.compile(r"^v96_Metabolux", re.IGNORECASE),
     re.compile(r"^MTR01_Precursor", re.IGNORECASE),      # Precursor serums
-    re.compile(r"^SCORE_", re.IGNORECASE),               # SCORE rewards
+    # ^SCORE_ removed — Season 22/25 introduced real consumables (Sunset
+    # Sarsaparilla, Sugar-Free Nukashine, 6 Canned items) whose EDIDs start
+    # with SCORE_. The non-consumable SCORE reward boxes (Lunchbox, Bobblehead
+    # Box, Magazine Package, Carry Weight Booster, Perfect Bubblegum, Scout's
+    # Banner) are handled by the sync script's SKIP_EDID_PATTERNS instead.
     re.compile(r"^Spooky_TreatBag", re.IGNORECASE),
     re.compile(r"^TrackingDart", re.IGNORECASE),
     re.compile(r"^MTNS05_VoxDart", re.IGNORECASE),
