@@ -1,20 +1,14 @@
 {
-  "generated": "2026-04-17T22:59:07+00:00",
+  "generated": "2026-04-17T23:48:50+00:00",
   "sections": {
     "menu_items": {
-      "generated": "2026-04-17T22:58:48+00:00",
+      "generated": "2026-04-17T23:48:49+00:00",
       "counts": {
-        "error": 27,
+        "error": 26,
         "warning": 47,
         "info": 9
       },
       "entries": [
-        {
-          "severity": "error",
-          "code": "menu_items.cobj.unreadable",
-          "message": "cobj-recipes.json could not be parsed - every item will be tagged no_cobj.",
-          "detail": "Unterminated string starting at: line 66521 column 22 (char 1979576)"
-        },
         {
           "severity": "warning",
           "code": "menu_items.missing_limit",
@@ -1132,14 +1126,15 @@
               "Soda & Drinks": 16
             },
             "source": {
-              "no_cobj": 747
+              "no_cobj": 449,
+              "cobj": 298
             }
           }
         }
       ]
     },
     "bnb_item_categories": {
-      "generated": "2026-04-17T22:59:07+00:00",
+      "generated": "2026-04-17T23:48:50+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -1149,33 +1144,33 @@
         {
           "severity": "info",
           "code": "bnb_categories.build.summary",
-          "message": "Built 270 items across 7 categories",
+          "message": "Built 261 items across 7 categories",
           "context": {
-            "total_items": 270,
-            "alch_records": 982,
-            "source_alch": "ALCH_Export_Apr_2026.tsv",
-            "source_kywd": "KYWD_Export_Apr_2026_Refs.tsv",
+            "total_items": 261,
+            "alch_records": 950,
+            "source_alch": "ALCH_Export_March_2026.tsv",
+            "source_kywd": "KYWD_Export_March_2026_Refs.tsv",
             "stats": {
               "food": {
-                "candidates": 607,
-                "excluded_cut": 44,
+                "candidates": 582,
+                "excluded_cut": 40,
                 "excluded_no_name": 6,
                 "excluded_by_kywd": 80,
-                "excluded_raw": 403,
+                "excluded_raw": 384,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 74,
+                "included": 72,
                 "post_included_via_suffix": 0
               },
               "canned": {
-                "candidates": 32,
+                "candidates": 26,
                 "excluded_cut": 3,
                 "excluded_no_name": 0,
                 "excluded_by_kywd": 0,
                 "excluded_raw": 0,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 29,
+                "included": 23,
                 "post_included_via_suffix": 0
               },
               "nuka_cola": {
@@ -1223,17 +1218,783 @@
                 "post_included_via_suffix": 0
               },
               "prewar_candy": {
-                "candidates": 21,
+                "candidates": 20,
                 "excluded_cut": 0,
                 "excluded_no_name": 0,
                 "excluded_by_kywd": 0,
                 "excluded_raw": 1,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 22,
+                "included": 21,
                 "post_included_via_suffix": 2
               }
             }
+          }
+        }
+      ]
+    },
+    "cobj_recipes": {
+      "generated": "2026-04-17T23:48:49+00:00",
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "info",
+          "code": "cobj.build.summary",
+          "message": "Extracted 5533 unique recipes from 56209 COBJ rows.",
+          "context": {
+            "unique_recipes": 5533,
+            "region_variant_items": 2,
+            "total_rows": 56209,
+            "skipped_cut": 8274,
+            "no_fvpa": 1404
+          }
+        }
+      ]
+    },
+    "bnb_menu_sync": {
+      "generated": "2026-04-17T23:48:49+00:00",
+      "counts": {
+        "error": 27,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Irradiated Sunset Sarsaparilla' (Alcohol)",
+          "detail": "Irradiated Sunset Sarsaparilla",
+          "context": {
+            "name": "Irradiated Sunset Sarsaparilla",
+            "category": "Alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: \"Rodgers' Reserve Beer\" (Alcohol)",
+          "detail": "Rodgers' Reserve Beer",
+          "context": {
+            "name": "Rodgers' Reserve Beer",
+            "category": "Alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Star Size Sunset Sarsaparilla' (Alcohol)",
+          "detail": "Star Size Sunset Sarsaparilla",
+          "context": {
+            "name": "Star Size Sunset Sarsaparilla",
+            "category": "Alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Sunset Sarsaparilla' (Alcohol)",
+          "detail": "Sunset Sarsaparilla",
+          "context": {
+            "name": "Sunset Sarsaparilla",
+            "category": "Alcohol"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Survival Syringe' (Chems)",
+          "detail": "Survival Syringe",
+          "context": {
+            "name": "Survival Syringe",
+            "category": "Chems"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: \"Chally's Milk\" (Condiments & Non-Perishable)",
+          "detail": "Chally's Milk",
+          "context": {
+            "name": "Chally's Milk",
+            "category": "Condiments & Non-Perishable"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Cream' (Condiments & Non-Perishable)",
+          "detail": "Cream",
+          "context": {
+            "name": "Cream",
+            "category": "Condiments & Non-Perishable"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Honeycomb' (Condiments & Non-Perishable)",
+          "detail": "Honeycomb",
+          "context": {
+            "name": "Honeycomb",
+            "category": "Condiments & Non-Perishable"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Nuclear Wastewater' (Condiments & Non-Perishable)",
+          "detail": "Nuclear Wastewater",
+          "context": {
+            "name": "Nuclear Wastewater",
+            "category": "Condiments & Non-Perishable"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Tick Blood' (Condiments & Non-Perishable)",
+          "detail": "Tick Blood",
+          "context": {
+            "name": "Tick Blood",
+            "category": "Condiments & Non-Perishable"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Fried Radroach On A Stick' (Dishes & Teas)",
+          "detail": "Fried Radroach On A Stick",
+          "context": {
+            "name": "Fried Radroach On A Stick",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Ionized Meat' (Dishes & Teas)",
+          "detail": "Ionized Meat",
+          "context": {
+            "name": "Ionized Meat",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Moo-Moo Curd' (Dishes & Teas)",
+          "detail": "Moo-Moo Curd",
+          "context": {
+            "name": "Moo-Moo Curd",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Pickled Pumpkin' (Dishes & Teas)",
+          "detail": "Pickled Pumpkin",
+          "context": {
+            "name": "Pickled Pumpkin",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Restorative Venison and Tato Stew' (Dishes & Teas)",
+          "detail": "Restorative Venison and Tato Stew",
+          "context": {
+            "name": "Restorative Venison and Tato Stew",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Slice of Birthday Cake' (Dishes & Teas)",
+          "detail": "Slice of Birthday Cake",
+          "context": {
+            "name": "Slice of Birthday Cake",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Slice of Pumpkin Pie' (Dishes & Teas)",
+          "detail": "Slice of Pumpkin Pie",
+          "context": {
+            "name": "Slice of Pumpkin Pie",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Slice of Slime Cake' (Dishes & Teas)",
+          "detail": "Slice of Slime Cake",
+          "context": {
+            "name": "Slice of Slime Cake",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Spicy Venison and Tato Stew' (Dishes & Teas)",
+          "detail": "Spicy Venison and Tato Stew",
+          "context": {
+            "name": "Spicy Venison and Tato Stew",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Spiked Venison and Tato Stew' (Dishes & Teas)",
+          "detail": "Spiked Venison and Tato Stew",
+          "context": {
+            "name": "Spiked Venison and Tato Stew",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Steeped Carrot Flower Tea' (Dishes & Teas)",
+          "detail": "Steeped Carrot Flower Tea",
+          "context": {
+            "name": "Steeped Carrot Flower Tea",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Bioluminescent Fluid' (Other)",
+          "detail": "Bioluminescent Fluid",
+          "context": {
+            "name": "Bioluminescent Fluid",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Raw Cobalt Flux' (Other)",
+          "detail": "Raw Cobalt Flux",
+          "context": {
+            "name": "Raw Cobalt Flux",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Raw Crimson Flux' (Other)",
+          "detail": "Raw Crimson Flux",
+          "context": {
+            "name": "Raw Crimson Flux",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Raw Fluorescent Flux' (Other)",
+          "detail": "Raw Fluorescent Flux",
+          "context": {
+            "name": "Raw Fluorescent Flux",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Raw Violet Flux' (Other)",
+          "detail": "Raw Violet Flux",
+          "context": {
+            "name": "Raw Violet Flux",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Volatile Nuka Quantum' (Soda & Drinks)",
+          "detail": "Volatile Nuka Quantum",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu_sync.summary",
+          "message": "Sync: 755 total, 0 new, 0 updated, 27 unpriced.",
+          "context": {
+            "total": 755,
+            "new": 0,
+            "updated": 0,
+            "unpriced": 27,
+            "skipped": 221
+          }
+        }
+      ]
+    },
+    "bnb_menu": {
+      "generated": "2026-04-17T23:48:49+00:00",
+      "counts": {
+        "error": 26,
+        "warning": 0,
+        "info": 6
+      },
+      "entries": [
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Irradiated Sunset Sarsaparilla' (Alcohol) is missing price for: xbox, ps, pc",
+          "detail": "Irradiated Sunset Sarsaparilla",
+          "context": {
+            "name": "Irradiated Sunset Sarsaparilla",
+            "category": "Alcohol",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "\"Rodgers' Reserve Beer\" (Alcohol) is missing price for: xbox, ps, pc",
+          "detail": "Rodgers' Reserve Beer",
+          "context": {
+            "name": "Rodgers' Reserve Beer",
+            "category": "Alcohol",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Star Size Sunset Sarsaparilla' (Alcohol) is missing price for: xbox, ps, pc",
+          "detail": "Star Size Sunset Sarsaparilla",
+          "context": {
+            "name": "Star Size Sunset Sarsaparilla",
+            "category": "Alcohol",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Sunset Sarsaparilla' (Alcohol) is missing price for: xbox, ps, pc",
+          "detail": "Sunset Sarsaparilla",
+          "context": {
+            "name": "Sunset Sarsaparilla",
+            "category": "Alcohol",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Survival Syringe' (Chems) is missing price for: xbox, ps, pc",
+          "detail": "Survival Syringe",
+          "context": {
+            "name": "Survival Syringe",
+            "category": "Chems",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "\"Chally's Milk\" (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Chally's Milk",
+          "context": {
+            "name": "Chally's Milk",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Cream' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Cream",
+          "context": {
+            "name": "Cream",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Honeycomb' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Honeycomb",
+          "context": {
+            "name": "Honeycomb",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Nuclear Wastewater' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Nuclear Wastewater",
+          "context": {
+            "name": "Nuclear Wastewater",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Tick Blood' (Condiments & Non-Perishable) is missing price for: xbox, ps, pc",
+          "detail": "Tick Blood",
+          "context": {
+            "name": "Tick Blood",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 211: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "detail": "Fried Radroach On A Stick"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Ionized Meat' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Ionized Meat",
+          "context": {
+            "name": "Ionized Meat",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Moo-Moo Curd' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Moo-Moo Curd",
+          "context": {
+            "name": "Moo-Moo Curd",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Pickled Pumpkin' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Pickled Pumpkin",
+          "context": {
+            "name": "Pickled Pumpkin",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Restorative Venison and Tato Stew' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Restorative Venison and Tato Stew",
+          "context": {
+            "name": "Restorative Venison and Tato Stew",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Slice of Birthday Cake' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Slice of Birthday Cake",
+          "context": {
+            "name": "Slice of Birthday Cake",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Slice of Pumpkin Pie' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Slice of Pumpkin Pie",
+          "context": {
+            "name": "Slice of Pumpkin Pie",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Slice of Slime Cake' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Slice of Slime Cake",
+          "context": {
+            "name": "Slice of Slime Cake",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Spicy Venison and Tato Stew' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Spicy Venison and Tato Stew",
+          "context": {
+            "name": "Spicy Venison and Tato Stew",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Spiked Venison and Tato Stew' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Spiked Venison and Tato Stew",
+          "context": {
+            "name": "Spiked Venison and Tato Stew",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Steeped Carrot Flower Tea' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Steeped Carrot Flower Tea",
+          "context": {
+            "name": "Steeped Carrot Flower Tea",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 438: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "detail": "Chicken Thigh"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 620: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Bioluminescent Fluid' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Bioluminescent Fluid",
+          "context": {
+            "name": "Bioluminescent Fluid",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Raw Cobalt Flux' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Raw Cobalt Flux",
+          "context": {
+            "name": "Raw Cobalt Flux",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Raw Crimson Flux' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Raw Crimson Flux",
+          "context": {
+            "name": "Raw Crimson Flux",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Raw Fluorescent Flux' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Raw Fluorescent Flux",
+          "context": {
+            "name": "Raw Fluorescent Flux",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Raw Violet Flux' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Raw Violet Flux",
+          "context": {
+            "name": "Raw Violet Flux",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 688: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "detail": "Cotton Candy Bites"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 696: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "detail": "Gum Drops"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Volatile Nuka Quantum' (Soda & Drinks) is missing price for: xbox, ps, pc",
+          "detail": "Volatile Nuka Quantum",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.build.summary",
+          "message": "Wrote 750 menu items across 12 categories.",
+          "context": {
+            "total": 750,
+            "categories": [
+              "Alcohol",
+              "Canned",
+              "Chems",
+              "Condiments & Non-Perishable",
+              "Dishes & Teas",
+              "Fish",
+              "Ingredients",
+              "Magazines & Bobbleheads",
+              "Other",
+              "Pre War Food",
+              "Serums",
+              "Soda & Drinks"
+            ]
           }
         }
       ]
