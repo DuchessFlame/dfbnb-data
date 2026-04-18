@@ -1,12 +1,12 @@
 {
-  "generated": "2026-04-18T02:36:51+00:00",
+  "generated": "2026-04-18T07:18:32+00:00",
   "sections": {
     "menu_items": {
-      "generated": "2026-04-18T02:36:50+00:00",
+      "generated": "2026-04-18T07:18:31+00:00",
       "counts": {
         "error": 26,
         "warning": 46,
-        "info": 6
+        "info": 8
       },
       "entries": [
         {
@@ -917,6 +917,18 @@
           }
         },
         {
+          "severity": "info",
+          "code": "menu_items.row.duplicate",
+          "message": "Row 670: duplicate 'Mystery Bobblehead Box' - keeping first.",
+          "detail": "Mystery Bobblehead Box"
+        },
+        {
+          "severity": "info",
+          "code": "menu_items.row.duplicate",
+          "message": "Row 671: duplicate 'Mystery Magazine Package' - keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
           "severity": "error",
           "code": "menu_items.missing_price",
           "message": "'Raw Cobalt Flux' (Other) is missing price for: xbox, ps, pc",
@@ -1035,13 +1047,13 @@
         {
           "severity": "info",
           "code": "menu_items.row.duplicate",
-          "message": "Row 685: duplicate 'Cotton Candy Bites' - keeping first.",
+          "message": "Row 687: duplicate 'Cotton Candy Bites' - keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "menu_items.row.duplicate",
-          "message": "Row 693: duplicate 'Gum Drops' - keeping first.",
+          "message": "Row 695: duplicate 'Gum Drops' - keeping first.",
           "detail": "Gum Drops"
         },
         {
@@ -1102,7 +1114,7 @@
       ]
     },
     "bnb_item_categories": {
-      "generated": "2026-04-18T02:36:51+00:00",
+      "generated": "2026-04-18T07:18:32+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -1202,7 +1214,7 @@
       ]
     },
     "cobj_recipes": {
-      "generated": "2026-04-18T02:36:50+00:00",
+      "generated": "2026-04-18T07:18:31+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -1224,37 +1236,13 @@
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-04-18T02:36:50+00:00",
+      "generated": "2026-04-18T07:18:31+00:00",
       "counts": {
         "error": 29,
-        "warning": 2,
+        "warning": 0,
         "info": 1
       },
       "entries": [
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Mystery Bobblehead Box' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=SCORE_BobbleheadBox, form_id=0072D4FC",
-          "context": {
-            "name": "Mystery Bobblehead Box",
-            "category": "Other",
-            "edid": "SCORE_BobbleheadBox",
-            "form_id": "0072D4FC"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Mystery Magazine Package' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=SCORE_MagazineBookBox, form_id=0075887B",
-          "context": {
-            "name": "Mystery Magazine Package",
-            "category": "Other",
-            "edid": "SCORE_MagazineBookBox",
-            "form_id": "0075887B"
-          }
-        },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
@@ -1548,11 +1536,11 @@
         {
           "severity": "info",
           "code": "bnb_menu_sync.summary",
-          "message": "Sync: 754 total, 2 new, 1 updated, 29 unpriced.",
+          "message": "Sync: 754 total, 0 new, 0 updated, 29 unpriced.",
           "context": {
             "total": 754,
-            "new": 2,
-            "updated": 1,
+            "new": 0,
+            "updated": 0,
             "unpriced": 29,
             "skipped": 221
           }
@@ -1560,7 +1548,7 @@
       ]
     },
     "bnb_menu": {
-      "generated": "2026-04-18T02:36:50+00:00",
+      "generated": "2026-04-18T07:18:31+00:00",
       "counts": {
         "error": 28,
         "warning": 0,
