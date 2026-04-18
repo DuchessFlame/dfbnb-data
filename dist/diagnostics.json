@@ -1,12 +1,12 @@
 {
-  "generated": "2026-04-17T23:48:50+00:00",
+  "generated": "2026-04-18T02:36:51+00:00",
   "sections": {
     "menu_items": {
-      "generated": "2026-04-17T23:48:49+00:00",
+      "generated": "2026-04-18T02:36:50+00:00",
       "counts": {
         "error": 26,
-        "warning": 47,
-        "info": 9
+        "warning": 46,
+        "info": 6
       },
       "entries": [
         {
@@ -657,20 +657,6 @@
           }
         },
         {
-          "severity": "warning",
-          "code": "menu_items.missing_limit",
-          "message": "'Lemonade' (Dishes & Teas) is missing limit for: new, existing",
-          "detail": "Lemonade",
-          "context": {
-            "name": "Lemonade",
-            "category": "Dishes & Teas",
-            "missing_fields": [
-              "limit_new",
-              "limit_existing"
-            ]
-          }
-        },
-        {
           "severity": "error",
           "code": "menu_items.missing_price",
           "message": "'Moo-Moo Curd' (Dishes & Teas) is missing price for: xbox, ps, pc",
@@ -892,13 +878,13 @@
         {
           "severity": "info",
           "code": "menu_items.row.duplicate",
-          "message": "Row 438: duplicate 'Chicken Thigh' - keeping first.",
+          "message": "Row 437: duplicate 'Chicken Thigh' - keeping first.",
           "detail": "Chicken Thigh"
         },
         {
           "severity": "info",
           "code": "menu_items.row.duplicate",
-          "message": "Row 620: duplicate 'Mystery Magazine Package' - keeping first.",
+          "message": "Row 619: duplicate 'Mystery Magazine Package' - keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
@@ -929,18 +915,6 @@
               "limit_existing"
             ]
           }
-        },
-        {
-          "severity": "info",
-          "code": "menu_items.row.duplicate",
-          "message": "Row 671: duplicate 'Mystery Bobblehead Box' - keeping first.",
-          "detail": "Mystery Bobblehead Box"
-        },
-        {
-          "severity": "info",
-          "code": "menu_items.row.duplicate",
-          "message": "Row 672: duplicate 'Mystery Magazine Package' - keeping first.",
-          "detail": "Mystery Magazine Package"
         },
         {
           "severity": "error",
@@ -1061,20 +1035,14 @@
         {
           "severity": "info",
           "code": "menu_items.row.duplicate",
-          "message": "Row 688: duplicate 'Cotton Candy Bites' - keeping first.",
+          "message": "Row 685: duplicate 'Cotton Candy Bites' - keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "menu_items.row.duplicate",
-          "message": "Row 696: duplicate 'Gum Drops' - keeping first.",
+          "message": "Row 693: duplicate 'Gum Drops' - keeping first.",
           "detail": "Gum Drops"
-        },
-        {
-          "severity": "info",
-          "code": "menu_items.row.duplicate",
-          "message": "Row 740: duplicate 'Lemonade' - keeping first.",
-          "detail": "Lemonade"
         },
         {
           "severity": "error",
@@ -1116,14 +1084,14 @@
               "Canned": 26,
               "Chems": 45,
               "Condiments & Non-Perishable": 23,
-              "Dishes & Teas": 191,
-              "Fish": 69,
+              "Dishes & Teas": 192,
+              "Fish": 67,
               "Ingredients": 106,
               "Magazines & Bobbleheads": 138,
               "Other": 14,
               "Pre War Food": 38,
               "Serums": 19,
-              "Soda & Drinks": 16
+              "Soda & Drinks": 17
             },
             "source": {
               "no_cobj": 449,
@@ -1134,7 +1102,7 @@
       ]
     },
     "bnb_item_categories": {
-      "generated": "2026-04-17T23:48:50+00:00",
+      "generated": "2026-04-18T02:36:51+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -1234,7 +1202,7 @@
       ]
     },
     "cobj_recipes": {
-      "generated": "2026-04-17T23:48:49+00:00",
+      "generated": "2026-04-18T02:36:50+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -1256,13 +1224,37 @@
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-04-17T23:48:49+00:00",
+      "generated": "2026-04-18T02:36:50+00:00",
       "counts": {
-        "error": 27,
-        "warning": 0,
+        "error": 29,
+        "warning": 2,
         "info": 1
       },
       "entries": [
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Mystery Bobblehead Box' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=SCORE_BobbleheadBox, form_id=0072D4FC",
+          "context": {
+            "name": "Mystery Bobblehead Box",
+            "category": "Other",
+            "edid": "SCORE_BobbleheadBox",
+            "form_id": "0072D4FC"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Mystery Magazine Package' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=SCORE_MagazineBookBox, form_id=0075887B",
+          "context": {
+            "name": "Mystery Magazine Package",
+            "category": "Other",
+            "edid": "SCORE_MagazineBookBox",
+            "form_id": "0075887B"
+          }
+        },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
@@ -1486,6 +1478,26 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Mystery Bobblehead Box' (Other)",
+          "detail": "Mystery Bobblehead Box",
+          "context": {
+            "name": "Mystery Bobblehead Box",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Mystery Magazine Package' (Other)",
+          "detail": "Mystery Magazine Package",
+          "context": {
+            "name": "Mystery Magazine Package",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
           "message": "No price set: 'Raw Cobalt Flux' (Other)",
           "detail": "Raw Cobalt Flux",
           "context": {
@@ -1536,21 +1548,21 @@
         {
           "severity": "info",
           "code": "bnb_menu_sync.summary",
-          "message": "Sync: 755 total, 0 new, 0 updated, 27 unpriced.",
+          "message": "Sync: 754 total, 2 new, 1 updated, 29 unpriced.",
           "context": {
-            "total": 755,
-            "new": 0,
-            "updated": 0,
-            "unpriced": 27,
+            "total": 754,
+            "new": 2,
+            "updated": 1,
+            "unpriced": 29,
             "skipped": 221
           }
         }
       ]
     },
     "bnb_menu": {
-      "generated": "2026-04-17T23:48:49+00:00",
+      "generated": "2026-04-18T02:36:50+00:00",
       "counts": {
-        "error": 26,
+        "error": 28,
         "warning": 0,
         "info": 6
       },
@@ -1864,13 +1876,13 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 438: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 437: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 620: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 619: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
@@ -1880,6 +1892,36 @@
           "detail": "Bioluminescent Fluid",
           "context": {
             "name": "Bioluminescent Fluid",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Mystery Bobblehead Box' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Mystery Bobblehead Box",
+          "context": {
+            "name": "Mystery Bobblehead Box",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Mystery Magazine Package' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Mystery Magazine Package",
+          "context": {
+            "name": "Mystery Magazine Package",
             "category": "Other",
             "missing_fields": [
               "price_xbox",
@@ -1951,13 +1993,13 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 688: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 687: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 696: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 695: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
@@ -1978,9 +2020,9 @@
         {
           "severity": "info",
           "code": "bnb_menu.build.summary",
-          "message": "Wrote 750 menu items across 12 categories.",
+          "message": "Wrote 749 menu items across 12 categories.",
           "context": {
-            "total": 750,
+            "total": 749,
             "categories": [
               "Alcohol",
               "Canned",
