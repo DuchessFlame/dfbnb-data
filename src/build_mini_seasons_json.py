@@ -568,6 +568,53 @@ EVENT_DEFS = OrderedDict([
 ])
 
 
+# ENTM EDID patterns for matching rewards to events.
+# These differ from the CHAL patterns because ENTM naming is inconsistent.
+# Each event key maps to a list of regex patterns that match its ENTM EDIDs.
+ENTM_PATTERNS = {
+    # ── Mini Seasons ──
+    'love-hurts':          [r'(?i)SCORE_MiniSeason.*LoveHurts'],
+    'sunset-stranger':     [r'(?i)SCORE_MiniSeason_2025_SunsetStranger'],
+    'night-at-the-morgue': [r'(?i)SCORE_MiniSeason_2025_NightAtTheMorgue'],
+    'marshal-mallows':     [r'(?i)SCORE_MiniSeason_2025_MMMFE'],
+    'appalachian-outlaws':  [r'(?i)SCORE_MiniSeason.*AppalachianOutlaws'],
+    'science-of-love':      [r'(?i)DE2024_ScienceOfLove', r'(?i)DE2024_Scienceoflove'],
+    'uncharted-scouts':     [],  # No ENTM entries found
+    'spring-cleaning':      [r'(?i)DE2024_SpringCleaning'],
+    'burning-love':         [],  # No ENTM entries found
+    'weapons-expert':       [r'(?i)SCORE_MiniSeason_2026_WeaponsExpert'],
+
+    # ── Limited Time Events ──
+    'birthday':             [r'(?i)ATX_ENTM.*Birthday', r'(?i)SCORE_S14_ENTM.*Birthday'],
+    'summer-camp':          [r'(?i)DE2023_SummerCamp'],
+    'rip-daring':           [r'(?i)ATX_ENTM_CAMP_Bed_RipDaringEvent'],
+    'call-to-axe-ion':      [r'(?i)ATX_DE2022_Pitt_ENTM', r'(?i)ATX_Upgrade2022_Pitt_ENTM'],
+    'anniversary':          [r'(?i)ATX_ENTM_AnniversaryEvent'],
+    'nuka-connoisseur':     [],  # No dedicated ENTM entries
+    'the-coming-storm':     [],  # No ENTM entries found
+    'spread-the-love-2021': [r'(?i)ATX_DE2021_Love_ENTM'],
+    'spread-the-love-2023': [],  # No ENTM entries found
+    'free-cam':             [],  # No ENTM entries found
+    'st-patricks-day':      [],  # No ENTM entries found
+    'big-bloom':            [],  # No ENTM entries found
+    'halloween-2021':       [],  # No ENTM entries found
+    'halloween-2022':       [],  # No ENTM entries found
+    'halloween-2023':       [],  # No ENTM entries found
+    'halloween-2024':       [r'(?i)ATX_DE2024_Halloween_ENTM'],
+}
+
+# Gallery images: manually maintained per-event.
+# Each entry is a dict with 'url' (full path on site) and 'alt' (description).
+GALLERY_IMAGES = {
+    'weapons-expert': [
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/76_ATX_PROMOTE_P68_S24_MS1_NOTAG - Copy.avif', 'alt': 'Weapons Expert Promotion'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/s24_miniseason1_background - Copy.avif',        'alt': 'Weapons Expert Background'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/s24_miniseason1_marquee - Copy.avif',           'alt': 'Weapons Expert Marquee'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/s24_miniseason1_seasonselection - Copy.avif',   'alt': 'Weapons Expert Season Selection'},
+    ],
+}
+
+
 def classify(edid):
     e = re.sub(r'^(ZZZ_|CUT_|DEL_)', '', edid)
     is_cut = edid != e
@@ -759,6 +806,77 @@ def resolve_keyword_items(raw_conditions, kywd_lookup):
 
 
 # ─────────────────────────────────────────────────────────────
+# ENTM reward loading
+# ─────────────────────────────────────────────────────────────
+
+def load_entm_rewards(tsv_root):
+    """Load ENTM TSV and match rewards to events using ENTM_PATTERNS.
+
+    Returns dict[event_key] → list of {name, description, edid, image_url}.
+    Image URLs use the storefront convention: edid.lower() + '.webp'
+    under /wp-content/uploads/fo76/storefront/.
+    """
+    entm_files = glob.glob(os.path.join(tsv_root, 'ENTM_Export_*.tsv'))
+    if not entm_files:
+        print("  WARNING: No ENTM_Export_*.tsv found, skipping reward loading")
+        return {}
+
+    # Use most recently modified file (sorted() alphabetically is unreliable
+    # because month names don't sort chronologically)
+    entm_file = max(entm_files, key=os.path.getmtime)
+    print(f"  Loading ENTM rewards from {os.path.basename(entm_file)}")
+
+    # Read all ENTM rows
+    all_rows = []
+    with open(entm_file, 'r', encoding='utf-8-sig', errors='replace') as fh:
+        rdr = csv.DictReader(fh, delimiter='\t')
+        for row in rdr:
+            edid = (row.get('EDID', '') or '').strip()
+            if not edid:
+                continue
+            all_rows.append(row)
+
+    # Match rows to events
+    rewards_by_event = {}
+    for key, patterns in ENTM_PATTERNS.items():
+        if not patterns:
+            rewards_by_event[key] = []
+            continue
+
+        matched = []
+        for row in all_rows:
+            edid = (row.get('EDID', '') or '').strip()
+            # Skip ZZZ_ (cut/deprecated) entries
+            if edid.startswith('ZZZ_') or edid.startswith('zzz_'):
+                continue
+            for pat in patterns:
+                if re.search(pat, edid):
+                    full = (row.get('FULL', '') or '').strip()
+                    desc = (row.get('DESC', '') or '').strip()
+                    nnam = (row.get('NNAM', '') or '').strip()
+
+                    # Build storefront image URL from EDID
+                    img_edid = edid.lower()
+                    img_edid = img_edid.replace('_entm_', '_')
+                    image_url = f"/wp-content/uploads/fo76/storefront/{img_edid}.webp"
+
+                    matched.append({
+                        'name':        full or nnam or edid,
+                        'description': desc,
+                        'edid':        edid,
+                        'image_url':   image_url,
+                    })
+                    break  # Don't double-match same row
+
+        rewards_by_event[key] = matched
+
+    total = sum(len(v) for v in rewards_by_event.values())
+    non_empty = sum(1 for v in rewards_by_event.values() if v)
+    print(f"  ENTM rewards: {total} items across {non_empty} events")
+    return rewards_by_event
+
+
+# ─────────────────────────────────────────────────────────────
 # Main
 # ─────────────────────────────────────────────────────────────
 
@@ -811,6 +929,9 @@ def main():
     kywd_lookup = load_keyword_refs(args.tsv_root)
     print(f"  Keyword refs: {len(kywd_lookup)} keywords loaded")
 
+    # Load ENTM rewards for each event
+    entm_rewards = load_entm_rewards(args.tsv_root)
+
     # Build output
     guide_link_stats = {'linked': 0, 'total': 0}
     output = {}
@@ -860,8 +981,8 @@ def main():
             'cut':        cut,
             'total_live': len(live),
             'total_cut':  len(cut),
-            'rewards':    [],
-            'gallery':    [],
+            'rewards':    entm_rewards.get(key, []),
+            'gallery':    GALLERY_IMAGES.get(key, []),
         }
 
     # Write
@@ -884,6 +1005,13 @@ def main():
     print(f"  {'TOTAL':<48} {g['w1']:>3} {g['w2']:>3} {g['b']:>3} {g['c']:>3} {t:>3}")
     print(f"\n  {len(output)} events")
     print(f"  Guide links: {guide_link_stats['linked']}/{guide_link_stats['total']} challenges linked")
+
+    # Reward stats
+    reward_total = sum(len(ev['rewards']) for ev in output.values())
+    reward_events = sum(1 for ev in output.values() if ev['rewards'])
+    gallery_events = sum(1 for ev in output.values() if ev['gallery'])
+    print(f"  Rewards: {reward_total} items across {reward_events} events")
+    print(f"  Gallery: {gallery_events} events with gallery images")
 
 
 if __name__ == '__main__':
