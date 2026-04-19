@@ -44,13 +44,20 @@ def parse_condition_display(raw):
         param = parts[5] if len(parts) > 5 else ''
         subj  = parts[-1].rstrip('|').strip() if parts else ''
 
-        if func in ('IsFalloutWorlds', 'GetIsForm'):
+        if func == 'GetIsForm':
             return None
 
         name_m = re.search(r'"([^"]+)"', param)
         name   = name_m.group(1) if name_m else ''
         ref_m  = re.search(r'\[(\w+):([0-9A-Fa-f]+)\]', param)
         ref    = f"[{ref_m.group(1)}:{ref_m.group(2)}]" if ref_m else ''
+
+        # If no quoted name but there IS a ref bracket, grab the EDID before it
+        # e.g. "WeaponsExpert_StatueTypeItem_GatheringBuff [KYWD:008B1D60]"
+        if not name and ref:
+            edid_m = re.match(r'([A-Za-z0-9_]+)\s*\[', param.strip())
+            if edid_m:
+                name = edid_m.group(1)
 
         try:
             v = float(value)
@@ -66,8 +73,6 @@ def parse_condition_display(raw):
             return f"{subj}.{func}() = {value}"
     else:
         # ── Pre-parsed human-readable format ──
-        if 'IsFalloutWorlds' in c:
-            return None
         if '.GetIsForm(' in c:
             return None
         return re.sub(r'^Top:', '', c)
@@ -615,6 +620,200 @@ GALLERY_IMAGES = {
 }
 
 
+def _static_challenge(name, *, snam='Community Goal', required='1', scope='Event',
+                       category='Community Challenge', conditions=None,
+                       week='week1', note=''):
+    """Helper to build a challenge dict for static (non-game-file) events."""
+    return {
+        'id':            '',
+        'edid':          '',
+        'name':          name,
+        'snam':          snam,
+        'required':      required,
+        'scope':         scope,
+        'category':      category,
+        'conditions':    conditions or [],
+        'guide_links':   [],
+        'keyword_items': {},
+        'week':          week,
+        'is_cut':        False,
+        'is_completion': False,
+        'note':          note,
+    }
+
+
+def _build_static_events():
+    """Build event data for community events not present in the game's CHAL records.
+
+    These were real-time community challenges tracked server-side, not personal
+    CHAL records, so they don't appear in xEdit exports.
+    """
+    static = {}
+
+    # ──────────────────────────────────────────────────────────────
+    # PROJECT CLEAN APPALACHIA (September 10 – October 23, 2019)
+    # 6-week limited-time community event series.
+    # ──────────────────────────────────────────────────────────────
+    pca_weeks = {}
+
+    # Community Challenge 1 — Clear the Skies (Sep 10–23)
+    pca_weeks['week1'] = [
+        _static_challenge(
+            'Community Challenge: Clear the Skies — Take down 100,000 Scorchbeasts',
+            snam='Scorchbeasts Killed', required='100,000', week='week1',
+            note='Community-wide goal. Stretch goal rewards: Scorchbeast Player Icon, Curly Bun Hairstyle, and a full week of Meat Week.'),
+        _static_challenge(
+            'Double XP Weekend (September 12–16)',
+            snam='Event', required='—', week='week1', category='Weekly Event',
+            note='Double XP active September 12–16.'),
+        _static_challenge(
+            'Atomic Shop Freebie: Tripod Floor Lamp',
+            snam='Free Item', required='—', week='week1', category='Weekly Freebie'),
+    ]
+
+    # Week 2 — freebies only (Sep 23–30)
+    pca_weeks['week2'] = [
+        _static_challenge(
+            'Atomic Shop Freebie: Mid-Century Disc Lamps',
+            snam='Free Item', required='—', week='week2', category='Weekly Freebie'),
+    ]
+
+    # Week 3 — Meat Week returns + freebie (Sep 26 – Oct 3)
+    pca_weeks['week3'] = [
+        _static_challenge(
+            'Meat Week Returns (September 26 – October 3)',
+            snam='Event', required='—', week='week3', category='Weekly Event',
+            note='Meat Week unlocked as a stretch goal reward from Clear the Skies.'),
+        _static_challenge(
+            'Atomic Shop Freebie: Grafton Photomode Frame & Grafton High Bed',
+            snam='Free Item', required='—', week='week3', category='Weekly Freebie'),
+    ]
+
+    # Community Challenge 2 — Take Out the Trash (Oct 1–14)
+    pca_weeks['week4'] = [
+        _static_challenge(
+            'Community Challenge: Take Out the Trash — Take down 8,000,000 Scorched',
+            snam='Scorched Killed', required='8,000,000', week='week4',
+            note='Community-wide goal. Stretch goal rewards: Honeybeast Player Icon, Vault-Tec Flamer Skin, and a 50% discount during the Legendary Vendor Sale.'),
+        _static_challenge(
+            "Purveyor Murgh's Mystery Pick (October 3–7)",
+            snam='Event', required='—', week='week4', category='Weekly Event'),
+        _static_challenge(
+            'Atomic Shop Freebie: Mr. Handy Player Icon',
+            snam='Free Item', required='—', week='week4', category='Weekly Freebie'),
+    ]
+
+    # Week 5 — freebie (Oct 7–14)
+    pca_weeks['week5'] = [
+        _static_challenge(
+            'Atomic Shop Freebie: Face Paint Bundle',
+            snam='Free Item', required='—', week='week5', category='Weekly Freebie'),
+    ]
+
+    # Week 6 — Legendary Vendor Sale + freebie (Oct 14–21)
+    pca_weeks['week6'] = [
+        _static_challenge(
+            'Legendary Vendor Community Sale (October 17–21)',
+            snam='Event', required='—', week='week6', category='Weekly Event',
+            note='25% off standard, or 50% off if Take Out the Trash stretch goal was unlocked.'),
+        _static_challenge(
+            'Atomic Shop Freebie: Modern Art Statue',
+            snam='Free Item', required='—', week='week6', category='Weekly Freebie'),
+    ]
+
+    pca_total = sum(len(v) for v in pca_weeks.values())
+    static['project-clean-appalachia'] = {
+        'key':          'project-clean-appalachia',
+        'title':        'Project Clean Appalachia',
+        'type':         'limited_time_event',
+        'url':          '/df/mini-seasons/project-clean-appalachia/challenge-checklist/',
+        'start_date':   '2019-09-10',
+        'end_date':     '2019-10-23',
+        **pca_weeks,
+        'cut':          [],
+        'total_live':   pca_total,
+        'total_cut':    0,
+        'rewards':      [],
+        'gallery':      [],
+        'group_labels': {
+            'week1': 'Week 1 — Clear the Skies (Sep 10–23)',
+            'week2': 'Week 2 (Sep 23–30)',
+            'week3': 'Week 3 — Meat Week Returns (Sep 26 – Oct 3)',
+            'week4': 'Week 4 — Take Out the Trash (Oct 1–14)',
+            'week5': 'Week 5 (Oct 7–14)',
+            'week6': 'Week 6 — Legendary Vendor Sale (Oct 14–21)',
+        },
+    }
+
+    # ──────────────────────────────────────────────────────────────
+    # FORTIFYING ATLAS (August 4 – September 10, 2020)
+    # Two-phase community resource donation event.
+    # ──────────────────────────────────────────────────────────────
+    fa_weeks = {}
+
+    # Project Alpha (Aug 4–18)
+    fa_weeks['week1'] = [
+        _static_challenge(
+            'Deliver 125,000,000 Steel',
+            snam='Steel Delivered', required='125,000,000', week='week1',
+            note='Reward: Brotherhood of Steel Beret.'),
+        _static_challenge(
+            'Deliver 150,000,000 Concrete',
+            snam='Concrete Delivered', required='150,000,000', week='week1',
+            note='Reward: Brotherhood of Steel C.A.M.P. Banner.'),
+        _static_challenge(
+            'Deliver 200,000,000 Cork',
+            snam='Cork Delivered', required='200,000,000', week='week1',
+            note='Reward: High S.C.O.R.E. Double Daily Challenges (Aug 20–24).'),
+        _static_challenge(
+            'Deliver 150,000,000 Plastic',
+            snam='Plastic Delivered', required='150,000,000', week='week1',
+            note='Reward: Bonus Challenges Week (Aug 26–31).'),
+    ]
+
+    # Project Bravo (Aug 27 – Sep 10)
+    fa_weeks['week2'] = [
+        _static_challenge(
+            'Deliver 150,000,000 Wood',
+            snam='Wood Delivered', required='150,000,000', week='week2',
+            note='Reward: Steel Dawn Army Fatigues.'),
+        _static_challenge(
+            'Deliver 200,000,000 Cloth',
+            snam='Cloth Delivered', required='200,000,000', week='week2',
+            note='Reward: Brotherhood of Steel Collectron Station.'),
+        _static_challenge(
+            'Deliver 175,000,000 Leather',
+            snam='Leather Delivered', required='175,000,000', week='week2',
+            note='Reward: Purveyor 50% off Super Sale (Sep 10–14).'),
+        _static_challenge(
+            'Deliver 250,000,000 Glass',
+            snam='Glass Delivered', required='250,000,000', week='week2',
+            note='Reward: Meat Week, A Second Helping (Sep 22–28).'),
+    ]
+
+    fa_total = sum(len(v) for v in fa_weeks.values())
+    static['fortifying-atlas'] = {
+        'key':          'fortifying-atlas',
+        'title':        'Fortifying ATLAS',
+        'type':         'limited_time_event',
+        'url':          '/df/mini-seasons/fortifying-atlas/challenge-checklist/',
+        'start_date':   '2020-08-04',
+        'end_date':     '2020-09-10',
+        **fa_weeks,
+        'cut':          [],
+        'total_live':   fa_total,
+        'total_cut':    0,
+        'rewards':      [],
+        'gallery':      [],
+        'group_labels': {
+            'week1': 'Project Alpha (August 4–18)',
+            'week2': 'Project Bravo (August 27 – September 10)',
+        },
+    }
+
+    return static
+
+
 def classify(edid):
     e = re.sub(r'^(ZZZ_|CUT_|DEL_)', '', edid)
     is_cut = edid != e
@@ -1077,22 +1276,40 @@ def main():
             }
             (cut if is_cut else live).append(entry)
 
-        output[key] = {
+        ev_out = {
             'key':        key,
             'title':      evdef['title'],
             'type':       evdef.get('type', 'limited_time_event'),
             'url':        evdef['url'],
             'start_date': evdef.get('start_date', 'TBA'),
             'end_date':   evdef.get('end_date', 'TBA'),
-            'week1':      [c for c in live if c['week'] == 'week1'],
-            'week2':      [c for c in live if c['week'] == 'week2'],
-            'bonus':      [c for c in live if c['week'] == 'bonus'],
-            'cut':        cut,
-            'total_live': len(live),
-            'total_cut':  len(cut),
-            'rewards':    entm_rewards.get(key, []),
-            'gallery':    GALLERY_IMAGES.get(key, []),
         }
+        # Dynamically add week1–week8 if they have challenges
+        for wi in range(1, 9):
+            wk = f'week{wi}'
+            wk_list = [c for c in live if c['week'] == wk]
+            if wk_list:
+                ev_out[wk] = wk_list
+        # Always include week1/week2 even if empty (for consistency with existing pages)
+        ev_out.setdefault('week1', [])
+        ev_out.setdefault('week2', [])
+        # Bonus and cut
+        bonus_list = [c for c in live if c['week'] == 'bonus']
+        if bonus_list:
+            ev_out['bonus'] = bonus_list
+        ev_out['cut']        = cut
+        ev_out['total_live'] = len(live)
+        ev_out['total_cut']  = len(cut)
+        ev_out['rewards']    = entm_rewards.get(key, [])
+        ev_out['gallery']    = GALLERY_IMAGES.get(key, [])
+        # Custom group labels (if defined in event def)
+        if evdef.get('group_labels'):
+            ev_out['group_labels'] = evdef['group_labels']
+        output[key] = ev_out
+
+    # ── Inject static events (not in game files) ──────────────────
+    for skey, sdata in _build_static_events().items():
+        output[skey] = sdata
 
     # Write
     os.makedirs(args.outdir, exist_ok=True)
@@ -1105,8 +1322,11 @@ def main():
     print('  ' + '-' * 66)
     g = {'w1': 0, 'w2': 0, 'b': 0, 'c': 0}
     for k, ev in output.items():
-        w1 = len(ev['week1']); w2 = len(ev['week2'])
-        b  = len(ev['bonus']); c  = len(ev['cut'])
+        w1 = len(ev.get('week1', [])); w2 = len(ev.get('week2', []))
+        # Count all extra weeks (week3–week8) into w2 for summary display
+        for wi in range(3, 9):
+            w2 += len(ev.get(f'week{wi}', []))
+        b  = len(ev.get('bonus', [])); c  = len(ev['cut'])
         g['w1'] += w1; g['w2'] += w2; g['b'] += b; g['c'] += c
         print(f"  {ev['title']:<48} {w1:>3} {w2:>3} {b:>3} {c:>3} {w1+w2+b+c:>3}")
     print('  ' + '-' * 66)
