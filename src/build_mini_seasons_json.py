@@ -536,32 +536,35 @@ def parse_tsv_nosnam(path):
 # ─────────────────────────────────────────────────────────────
 
 EVENT_DEFS = OrderedDict([
-    ('love-hurts',          {'title': 'Love Hurts',                                      'url': '/df/mini-seasons/love-hurts/challenge-checklist/',                                   'patterns': [r'ATX_DE2025_LoveHurts']}),
-    ('sunset-stranger',     {'title': 'Sunset Stranger',                                  'url': '/df/mini-seasons/sunset-stranger/challenge-checklist/',                               'patterns': [r'ATX_DE2025_SunsetStranger']}),
-    ('night-at-the-morgue', {'title': 'Night at the Morgue',                              'url': '/df/mini-seasons/night-at-the-morgue/challenge-checklist/',                           'patterns': [r'ATX_DE2025_Halloween']}),
-    ('marshal-mallows',     {'title': "Marshal Mallow's Marvelous Fishing Excursion",     'url': '/df/mini-seasons/marshal-mallows-marvelous-fishing-excursion/challenge-checklist/',    'patterns': [r'ATX_DE2025_MMMFE']}),
-    ('appalachian-outlaws',  {'title': 'Appalachian Outlaws',                              'url': '/df/mini-seasons/appalachian-outlaws/challenge-checklist/',                           'patterns': [r'ATX_DE2025_AppalachianOutlaws']}),
-    ('science-of-love',      {'title': 'Science of Love',                                  'url': '/df/mini-seasons/science-of-love/challenge-checklist/',                               'patterns': [r'ATX_DE2024_ScienceOfLove']}),
-    ('uncharted-scouts',     {'title': 'Uncharted Scouts',                                 'url': '/df/mini-seasons/uncharted-scouts/challenge-checklist/',                              'patterns': [r'ATX_DE2024_UnchartedScouts']}),
-    ('spring-cleaning',      {'title': 'Spring Cleaning',                                  'url': '/df/mini-seasons/spring-cleaning/challenge-checklist/',                               'patterns': [r'ATX_DE2024_SpringCleaning']}),
-    ('burning-love',         {'title': 'Burning Love',                                     'url': '/df/mini-seasons/burning-love/challenge-checklist/',                                  'patterns': [r'ATX_DE2024_Valentines']}),
-    ('birthday',             {'title': 'Birthday Challenge',                               'url': '/df/mini-seasons/birthday-challenge/challenge-checklist/',                            'patterns': [r'ATX_DE2023_Birthday']}),
-    ('summer-camp',          {'title': 'Summer Camp',                                      'url': '/df/mini-seasons/summer-camp/challenge-checklist/',                                   'patterns': [r'ATX_DE2023_SummerCamp']}),
-    ('rip-daring',           {'title': 'Rip Daring and the Cryptid Hunt',                  'url': '/df/mini-seasons/rip-daring-and-the-cryptid-hunt/challenge-checklist/',               'patterns': [r'ATX_DE2023_RipDaring']}),
-    ('call-to-axe-ion',      {'title': 'Call to Axe-ion',                                  'url': '/df/mini-seasons/call-to-axe-ion/challenge-checklist/',                               'patterns': [r'ATX_DE2022_Pitt']}),
-    ('anniversary',          {'title': 'Anniversary',                                      'url': '/df/mini-seasons/anniversary/challenge-checklist/',                                   'patterns': [r'ATX_DE2022_Anniversary']}),
-    ('nuka-connoisseur',     {'title': 'Nuka Connoisseur',                                 'url': '/df/mini-seasons/nuka-connoisseur/challenge-checklist/',                              'patterns': [r'ATX_DE2022_NukaWorld']}),
-    ('the-coming-storm',     {'title': 'The Coming Storm',                                 'url': '/df/mini-seasons/the-coming-storm/challenge-checklist/',                              'patterns': [r'ATX_DE2021_BoS']}),
-    ('spread-the-love-2021', {'title': 'Spread the Love 2021',                             'url': '/df/mini-seasons/spread-the-love/2021/challenge-checklist/',                          'patterns': [r'ATX_DE2021_Love']}),
-    ('spread-the-love-2023', {'title': 'Spread the Love 2023',                             'url': '/df/mini-seasons/spread-the-love/2023/challenge-checklist/',                          'patterns': [r'ATX_DE2023_Valentines']}),
-    ('free-cam',             {'title': 'Free Cam Challenge',                               'url': '/df/mini-seasons/free-cam-challenge/challenge-checklist/',                            'patterns': [r'ATX_DE2022.*FreeCam', r'SCORE.*FreeCam']}),
-    ('st-patricks-day',      {'title': "St Patrick's Day Challenge",                       'url': '/df/mini-seasons/st-patricks-day-challenge/challenge-checklist/',                     'patterns': [r'SCORE.*St_Patrick']}),
-    ('big-bloom',            {'title': 'The Big Bloom Challenge',                          'url': '/df/mini-seasons/big-bloom-challenge/challenge-checklist/',                           'patterns': [r'ATX_DE2024.*BigBloom', r'SCORE.*BigBloom']}),
-    ('weapons-expert',       {'title': "Rip Daring's Weapons Expert Extraordinaire",       'url': '/df/mini-seasons/rip-daring-weapons-expert-extraordinaire/challenge-checklist/',      'patterns': [r'ATX_DE2026_WeaponsExpert']}),
-    ('halloween-2021',       {'title': 'Halloween 2021',                                   'url': '/df/mini-seasons/halloween/2021/challenge-checklist/',                                'patterns': [r'ATX_DE2021_Halloween']}),
-    ('halloween-2022',       {'title': 'Halloween 2022',                                   'url': '/df/mini-seasons/halloween/2022/challenge-checklist/',                                'patterns': [r'ATX_DE2022_Halloween']}),
-    ('halloween-2023',       {'title': 'Halloween 2023',                                   'url': '/df/mini-seasons/halloween/2023/challenge-checklist/',                                'patterns': [r'ATX_DE2023_Halloween']}),
-    ('halloween-2024',       {'title': 'Halloween 2024',                                   'url': '/df/mini-seasons/halloween/2024/challenge-checklist/',                                'patterns': [r'ATX_DE2024_Halloween']}),
+    # ── Mini Seasons (ticket system: complete tasks → earn tickets → buy rewards) ──
+    ('love-hurts',          {'title': 'Love Hurts',                                      'url': '/df/mini-seasons/love-hurts/challenge-checklist/',                                   'patterns': [r'ATX_DE2025_LoveHurts'],                'type': 'mini_season'}),
+    ('sunset-stranger',     {'title': 'Sunset Stranger',                                  'url': '/df/mini-seasons/sunset-stranger/challenge-checklist/',                               'patterns': [r'ATX_DE2025_SunsetStranger'],            'type': 'mini_season'}),
+    ('night-at-the-morgue', {'title': 'Night at the Morgue',                              'url': '/df/mini-seasons/night-at-the-morgue/challenge-checklist/',                           'patterns': [r'ATX_DE2025_Halloween'],                 'type': 'mini_season'}),
+    ('marshal-mallows',     {'title': "Marshal Mallow's Marvelous Fishing Excursion",     'url': '/df/mini-seasons/marshal-mallows-marvelous-fishing-excursion/challenge-checklist/',    'patterns': [r'ATX_DE2025_MMMFE'],                     'type': 'mini_season'}),
+    ('appalachian-outlaws',  {'title': 'Appalachian Outlaws',                              'url': '/df/mini-seasons/appalachian-outlaws/challenge-checklist/',                           'patterns': [r'ATX_DE2025_AppalachianOutlaws'],        'type': 'mini_season'}),
+    ('science-of-love',      {'title': 'Science of Love',                                  'url': '/df/mini-seasons/science-of-love/challenge-checklist/',                               'patterns': [r'ATX_DE2024_ScienceOfLove'],             'type': 'mini_season'}),
+    ('uncharted-scouts',     {'title': 'Uncharted Scouts',                                 'url': '/df/mini-seasons/uncharted-scouts/challenge-checklist/',                              'patterns': [r'ATX_DE2024_UnchartedScouts'],           'type': 'mini_season'}),
+    ('spring-cleaning',      {'title': 'Spring Cleaning',                                  'url': '/df/mini-seasons/spring-cleaning/challenge-checklist/',                               'patterns': [r'ATX_DE2024_SpringCleaning'],            'type': 'mini_season'}),
+    ('burning-love',         {'title': 'Burning Love',                                     'url': '/df/mini-seasons/burning-love/challenge-checklist/',                                  'patterns': [r'ATX_DE2024_Valentines'],                'type': 'mini_season'}),
+    ('weapons-expert',       {'title': "Rip Daring's Weapons Expert Extraordinaire",       'url': '/df/mini-seasons/rip-daring-weapons-expert-extraordinaire/challenge-checklist/',      'patterns': [r'ATX_DE2026_WeaponsExpert'],             'type': 'mini_season'}),
+
+    # ── Limited Time Events (complete task → get reward directly) ──
+    ('birthday',             {'title': 'Birthday Challenge',                               'url': '/df/mini-seasons/birthday-challenge/challenge-checklist/',                            'patterns': [r'ATX_DE2023_Birthday'],                  'type': 'limited_time_event'}),
+    ('summer-camp',          {'title': 'Summer Camp',                                      'url': '/df/mini-seasons/summer-camp/challenge-checklist/',                                   'patterns': [r'ATX_DE2023_SummerCamp'],                'type': 'limited_time_event'}),
+    ('rip-daring',           {'title': 'Rip Daring and the Cryptid Hunt',                  'url': '/df/mini-seasons/rip-daring-and-the-cryptid-hunt/challenge-checklist/',               'patterns': [r'ATX_DE2023_RipDaring'],                 'type': 'limited_time_event'}),
+    ('call-to-axe-ion',      {'title': 'Call to Axe-ion',                                  'url': '/df/mini-seasons/call-to-axe-ion/challenge-checklist/',                               'patterns': [r'ATX_DE2022_Pitt'],                      'type': 'limited_time_event'}),
+    ('anniversary',          {'title': 'Anniversary',                                      'url': '/df/mini-seasons/anniversary/challenge-checklist/',                                   'patterns': [r'ATX_DE2022_Anniversary'],               'type': 'limited_time_event'}),
+    ('nuka-connoisseur',     {'title': 'Nuka Connoisseur',                                 'url': '/df/mini-seasons/nuka-connoisseur/challenge-checklist/',                              'patterns': [r'ATX_DE2022_NukaWorld'],                 'type': 'limited_time_event'}),
+    ('the-coming-storm',     {'title': 'The Coming Storm',                                 'url': '/df/mini-seasons/the-coming-storm/challenge-checklist/',                              'patterns': [r'ATX_DE2021_BoS'],                       'type': 'limited_time_event'}),
+    ('spread-the-love-2021', {'title': 'Spread the Love 2021',                             'url': '/df/mini-seasons/spread-the-love/2021/challenge-checklist/',                          'patterns': [r'ATX_DE2021_Love'],                      'type': 'limited_time_event'}),
+    ('spread-the-love-2023', {'title': 'Spread the Love 2023',                             'url': '/df/mini-seasons/spread-the-love/2023/challenge-checklist/',                          'patterns': [r'ATX_DE2023_Valentines'],                'type': 'limited_time_event'}),
+    ('free-cam',             {'title': 'Free Cam Challenge',                               'url': '/df/mini-seasons/free-cam-challenge/challenge-checklist/',                            'patterns': [r'ATX_DE2022.*FreeCam', r'SCORE.*FreeCam'], 'type': 'limited_time_event'}),
+    ('st-patricks-day',      {'title': "St Patrick's Day Challenge",                       'url': '/df/mini-seasons/st-patricks-day-challenge/challenge-checklist/',                     'patterns': [r'SCORE.*St_Patrick'],                    'type': 'limited_time_event'}),
+    ('big-bloom',            {'title': 'The Big Bloom Challenge',                          'url': '/df/mini-seasons/big-bloom-challenge/challenge-checklist/',                           'patterns': [r'ATX_DE2024.*BigBloom', r'SCORE.*BigBloom'], 'type': 'limited_time_event'}),
+    ('halloween-2021',       {'title': 'Halloween 2021',                                   'url': '/df/mini-seasons/halloween/2021/challenge-checklist/',                                'patterns': [r'ATX_DE2021_Halloween'],                 'type': 'limited_time_event'}),
+    ('halloween-2022',       {'title': 'Halloween 2022',                                   'url': '/df/mini-seasons/halloween/2022/challenge-checklist/',                                'patterns': [r'ATX_DE2022_Halloween'],                 'type': 'limited_time_event'}),
+    ('halloween-2023',       {'title': 'Halloween 2023',                                   'url': '/df/mini-seasons/halloween/2023/challenge-checklist/',                                'patterns': [r'ATX_DE2023_Halloween'],                 'type': 'limited_time_event'}),
+    ('halloween-2024',       {'title': 'Halloween 2024',                                   'url': '/df/mini-seasons/halloween/2024/challenge-checklist/',                                'patterns': [r'ATX_DE2024_Halloween'],                 'type': 'limited_time_event'}),
 ])
 
 
@@ -694,6 +697,7 @@ def main():
         output[key] = {
             'key':        key,
             'title':      evdef['title'],
+            'type':       evdef.get('type', 'limited_time_event'),
             'url':        evdef['url'],
             'week1':      [c for c in live if c['week'] == 'week1'],
             'week2':      [c for c in live if c['week'] == 'week2'],
@@ -701,6 +705,8 @@ def main():
             'cut':        cut,
             'total_live': len(live),
             'total_cut':  len(cut),
+            'rewards':    [],
+            'gallery':    [],
         }
 
     # Write
