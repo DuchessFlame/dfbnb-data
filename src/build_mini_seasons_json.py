@@ -612,6 +612,153 @@ def infer_week(edid, row, week_map):
 
 
 # ─────────────────────────────────────────────────────────────
+# Keyword item lookup (KYWD Refs TSV)
+# ─────────────────────────────────────────────────────────────
+
+# Prefixes that indicate creature/NPC/cut/internal/debug weapons
+_KYWD_SKIP_PREFIXES = (
+    'cr',  'zzz', 'ZZZ', 'DEL', 'del', 'CUT', 'cut',
+    'CharGen', 'POST', 'debug', 'Debug', 'DEPRECATED',
+    'Test_', 'test_',
+)
+# Substrings anywhere in the EDID that indicate non-player items
+_KYWD_SKIP_CONTAINS = (
+    'NONPLAYABLE', 'Vertibird', 'Workshop_Trap', 'WorkshopTrap',
+    'Workshop_Artillery', 'WorkshopArtillery',
+    'OrbitalStrike', 'Orbital_Strike',
+    'Invaders_Missile', 'InvadersMissile',
+    'Muni_Turret', 'MuniTurret', 'Turret_Mounted',
+    'EN02_', 'SFZ14_', 'V96_', 'LC096_',
+    'AC_MQ02', 'W05_MQ', 'W05_COMP', 'W05_Minigun',
+    'DLC05Workshop', 'Firework_Weapon', 'FireworkWeapon',
+    'Firework_Mine', 'DLC05_Firework',
+    '_cr_', 'P62_cr', 'RD01_cr',
+    'Unarmed_Human', 'UnarmedHuman',
+    'Unarmed_Power', 'UnarmedPower',
+    'Pain_Train', 'PainTrain',
+)
+
+
+def load_keyword_refs(tsv_root):
+    """Load KYWD_Export_*_Refs.tsv → dict[kywd_formid] → list of {edid, sig}."""
+    refs_files = sorted(glob.glob(os.path.join(tsv_root, 'KYWD_Export_*_Refs.tsv')))
+    if not refs_files:
+        return {}
+
+    refs_file = refs_files[-1]
+    lookup = {}
+    with open(refs_file, newline='', encoding='utf-8-sig') as fh:
+        reader = csv.DictReader(fh, delimiter='\t')
+        for row in reader:
+            kid = row.get('KeywordFormID', '').strip()
+            ref_edid = row.get('RefEDID', '').strip()
+            ref_sig = row.get('RefSignature', '').strip()
+            if not kid or not ref_edid:
+                continue
+            lookup.setdefault(kid, []).append({
+                'edid': ref_edid,
+                'sig':  ref_sig,
+            })
+
+    return lookup
+
+
+def prettify_edid(edid):
+    """Turn an EDID like 'DLC03_PoleHook' into 'Pole Hook'."""
+    # Strip common prefixes (DLC##_, ATX_, E##X_, DN###_, XPD_xxx_, SCORE_S##_,
+    # MTNL##_, MTNS##_, MTNM##_, MTR##_, Mo_M_, Joey_Bello_, Survival_)
+    s = re.sub(
+        r'^(DLC\d+_|ATX_|atx_|E\d+[A-Z]?_|DN\d+_|XPD_\w+_|SCORE_S\d+_'
+        r'|MTNL?\d+_|MTNS\d+_|MTNM\d+_|MTR\d+_|Mo_M\d*_'
+        r'|Joey_Bello_|Survival_|Burn_cr_)',
+        '', edid
+    )
+    # Split on underscores and CamelCase
+    s = s.replace('_', ' ')
+    s = re.sub(r'([a-z])([A-Z])', r'\1 \2', s)
+    # Fix double-leading-consonant artifacts (e.g. CCrossbow → Crossbow)
+    s = re.sub(r'\b([A-Z])\1([a-z])', r'\1\2', s)
+    # Remove leading "gauss" duplication like "gaussshotgun" → "Gauss Shotgun"
+    s = re.sub(r'\bgauss([a-z])', lambda m: 'Gauss ' + m.group(1).upper(), s, flags=re.IGNORECASE)
+    # Collapse multiple spaces
+    s = re.sub(r'\s+', ' ', s).strip()
+    return s
+
+
+# Signatures worth listing (player-facing items/creatures/objects)
+_KYWD_ALLOWED_SIGS = {'WEAP', 'ALCH', 'NPC_', 'FLOR', 'MISC', 'RACE', 'ARMO', 'BOOK'}
+
+# Keywords where listing refs is not useful (cosmetics, CAMP categories, buffs, etc.)
+_KYWD_SKIP_NAMES = {
+    'costume', 'flower crown', 'tough love helmet',
+    'marshal mallow', 'sunset sarsaparilla deputy', 'moneybag',
+    'floors', 'walls', 'roofs', 'lights', 'shelves', 'displays',
+    'floor decor', 'wall decor', 'stash boxes', 'generators',
+    'power connectors', 'water',
+}
+
+
+def _is_player_item(edid):
+    """Return True if this EDID looks like a player-relevant item."""
+    if any(edid.startswith(p) for p in _KYWD_SKIP_PREFIXES):
+        return False
+    if any(sub in edid for sub in _KYWD_SKIP_CONTAINS):
+        return False
+    return True
+
+
+def resolve_keyword_items(raw_conditions, kywd_lookup):
+    """For each KYWD reference in conditions, return {keyword_name: [item_names]}.
+    Deduplicates by prettified name (case-insensitive).
+    Works for weapons, food, creatures, armour — any keyword type.
+
+    Raw condition formats:
+      Pipe-separated: ...WeaponTypeArchaic "Archaic" [KYWD:0033AB23]...
+      Pre-parsed:     ...DoesTargetWeaponHaveKeyword(Archaic [KYWD:0033AB23]) = 1
+    """
+    result = {}
+    for c in raw_conditions:
+        # Skip non-keyword conditions
+        if 'KYWD:' not in c:
+            continue
+        # Skip IsFalloutWorlds, HasMagicEffectKeyword (buff checks, not item types)
+        if 'IsFalloutWorlds' in c or 'HasMagicEffectKeyword' in c:
+            continue
+
+        # Match: "DisplayName" [KYWD:HexID]  or  EdidName "DisplayName" [KYWD:HexID]
+        for m in re.finditer(r'"([^"]+)"\s*\[KYWD:([0-9A-Fa-f]+)\]', c):
+            kw_name = m.group(1).strip()
+            kw_fid = m.group(2).strip()
+
+            # Skip cosmetic/CAMP/non-useful keywords
+            if kw_name.lower() in _KYWD_SKIP_NAMES:
+                continue
+
+            if kw_fid not in kywd_lookup:
+                continue
+
+            # Filter to player-facing signatures, skip internal items, deduplicate
+            items = []
+            seen = set()
+            for ref in kywd_lookup[kw_fid]:
+                if ref['sig'] not in _KYWD_ALLOWED_SIGS:
+                    continue
+                if not _is_player_item(ref['edid']):
+                    continue
+                pretty = prettify_edid(ref['edid'])
+                key = pretty.lower()
+                if key not in seen:
+                    seen.add(key)
+                    items.append(pretty)
+
+            if items:
+                items.sort(key=str.lower)
+                result[kw_name] = items
+
+    return result
+
+
+# ─────────────────────────────────────────────────────────────
 # Main
 # ─────────────────────────────────────────────────────────────
 
@@ -660,6 +807,10 @@ def main():
     # Load guide index for guide linking
     guide_lookup = load_guide_index(args.guide_index)
 
+    # Load keyword refs for keyword item resolution
+    kywd_lookup = load_keyword_refs(args.tsv_root)
+    print(f"  Keyword refs: {len(kywd_lookup)} keywords loaded")
+
     # Build output
     guide_link_stats = {'linked': 0, 'total': 0}
     output = {}
@@ -678,6 +829,9 @@ def main():
             if guide_links:
                 guide_link_stats['linked'] += 1
 
+            # Resolve keyword items (e.g. Archaic → list of player weapons)
+            kw_items = resolve_keyword_items(row['raw_conditions'], kywd_lookup)
+
             entry = {
                 'id':            row['form_id'],
                 'edid':          row['edid'],
@@ -688,6 +842,7 @@ def main():
                 'category':      row['enam'],
                 'conditions':    row['conditions'],
                 'guide_links':   guide_links,
+                'keyword_items': kw_items,
                 'week':          infer_week(edid, row, week_map),
                 'is_cut':        is_cut,
                 'is_completion': is_completion(edid),
