@@ -636,6 +636,10 @@ def is_completion(edid):
 def infer_week(edid, row, week_map):
     clean = re.sub(r'^(ZZZ_|CUT_|DEL_)', '', edid)
 
+    # Manual overrides take priority (for events without week EDID patterns)
+    if clean in MANUAL_WEEK_OVERRIDES:
+        return MANUAL_WEEK_OVERRIDES[clean]
+
     if is_completion(edid):
         return 'bonus'
     if '_Week1_' in clean:
@@ -656,6 +660,33 @@ def infer_week(edid, row, week_map):
         return 'week2'
 
     return 'week1'
+
+
+# ─────────────────────────────────────────────────────────────
+# Manual week overrides (for events where devs didn't use
+# _Week1_/_Week2_ EDID patterns)
+# ─────────────────────────────────────────────────────────────
+
+MANUAL_WEEK_OVERRIDES = {
+    # Weapons Expert — Week 1
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Shotgun':         'week1',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Archaic_Bow':    'week1',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Thrown':          'week1',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Energy':          'week1',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Explosive':       'week1',
+    # Weapons Expert — Week 2
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Heavy':           'week2',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Melee1h':         'week2',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Melee2h':         'week2',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_MeleeAutomatic':  'week2',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Pistol':          'week2',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Unarmed':         'week2',
+    # Weapons Expert — Bonus (two-week)
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Ranged':          'bonus',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Any':             'bonus',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Ballistic':       'bonus',
+    'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_MeleeAny':        'bonus',
+}
 
 
 # ─────────────────────────────────────────────────────────────
