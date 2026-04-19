@@ -713,7 +713,7 @@ _KYWD_SKIP_CONTAINS = (
     'AC_MQ02', 'W05_MQ', 'W05_COMP', 'W05_Minigun',
     'DLC05Workshop', 'Firework_Weapon', 'FireworkWeapon',
     'Firework_Mine', 'DLC05_Firework',
-    '_cr_', 'P62_cr', 'RD01_cr',
+    '_cr_', 'P62_cr', 'RD01_cr', 'HTO_cr',
     'Unarmed_Human', 'UnarmedHuman',
     'Unarmed_Power', 'UnarmedPower',
     'Pain_Train', 'PainTrain',
@@ -723,6 +723,13 @@ _KYWD_SKIP_CONTAINS = (
     'alienprobe',         # internal alien probe weapon
     'meltdown',           # internal meltdown weapon
     'NoName',             # CharGen items with no display name
+    'Liberator',          # Liberator robot weapons
+    'EyeBot', 'Eyebot',  # Eyebot robot weapons
+    'Turret_',            # Turret-mounted weapons
+    'JerseyDevil', 'Jersey_Devil',  # Creature attack
+    '_PA_', 'PowerArmor_Gun',  # Power Armor dual-wield gun variants
+    'PA_T',               # PA turret/gun
+    'Bomb_Weapon',        # Internal bomb weapon
 )
 
 
@@ -733,13 +740,17 @@ def load_keyword_refs(tsv_root):
     record, added in the Apr 2026 xEdit script update.  Older TSVs without the
     RefName column will have name=''.
     """
-    refs_files = sorted(glob.glob(os.path.join(tsv_root, 'KYWD_Export_*_Refs.tsv')))
+    refs_files = glob.glob(os.path.join(tsv_root, 'KYWD_Export_*_Refs.tsv'))
     if not refs_files:
         return {}
 
-    refs_file = refs_files[-1]
+    # Pick the newest file by modification time (alphabetical sort fails on
+    # month names like "Apr" vs "March").
+    refs_file = max(refs_files, key=os.path.getmtime)
     lookup = {}
-    with open(refs_file, newline='', encoding='utf-8-sig') as fh:
+    # xEdit saves in ANSI (Windows-1252 / cp1252).  Use cp1252 which is a
+    # superset of latin-1 and handles accented characters (e.g. "Michellé").
+    with open(refs_file, newline='', encoding='cp1252') as fh:
         reader = csv.DictReader(fh, delimiter='\t')
         for row in reader:
             kid = row.get('KeywordFormID', '').strip()
@@ -789,6 +800,18 @@ _KYWD_ALLOWED_SIGS = {'WEAP', 'ALCH', 'NPC_', 'FLOR', 'MISC', 'ARMO', 'BOOK'}
 # NPC_ is excluded because NPCs/creatures often lack FULL names.
 _KYWD_REQUIRE_NAME_SIGS = {'WEAP', 'ALCH', 'FLOR', 'MISC', 'ARMO', 'BOOK'}
 
+# Display-name substrings that indicate non-player items (checked after name resolution).
+# Catches NPC/creature/turret weapons that have valid FULL names but aren't player-usable.
+_KYWD_SKIP_DISPLAY_CONTAINS = (
+    '[Left]', '[Right]',            # Power Armor dual-wield gun variants
+    'Turret',                       # Turret-mounted weapons
+    'Liberator',                    # Liberator robot weapons
+    'EyeBot', 'Eyebot',            # Eyebot robot weapons
+    'Jersey Devil',                 # Creature attack
+    'Charge Attack',                # Creature charge attacks
+    'Thirst Zapper',                # Joke weapon (NW only)
+)
+
 # Keywords where listing refs is not useful (cosmetics, CAMP categories, buffs, etc.)
 _KYWD_SKIP_NAMES = {
     'costume', 'flower crown', 'tough love helmet',
@@ -826,8 +849,17 @@ def resolve_keyword_items(raw_conditions, kywd_lookup):
         if 'IsFalloutWorlds' in c or 'HasMagicEffectKeyword' in c:
             continue
 
-        # Match: "DisplayName" [KYWD:HexID]  or  EdidName "DisplayName" [KYWD:HexID]
-        for m in re.finditer(r'"([^"]+)"\s*\[KYWD:([0-9A-Fa-f]+)\]', c):
+        # Match keywords in conditions.  Two formats:
+        #   Quoted:   "Archaic" [KYWD:0033AB23]  or  WeaponTypeArchaic "Archaic" [KYWD:0033AB23]
+        #   Unquoted: Archaic [KYWD:0033AB23]  or  1-Hand Melee [KYWD:0004A0A4]
+        # Try quoted first (more specific), then unquoted as fallback.
+        kw_matches = list(re.finditer(r'"([^"]+)"\s*\[KYWD:([0-9A-Fa-f]+)\]', c))
+        if not kw_matches:
+            # Unquoted: capture everything before [KYWD:...] that looks like a name
+            # e.g.  "DoesTargetWeaponHaveKeyword(Archaic [KYWD:0033AB23])"
+            #        "WornHasKeyword(1-Hand Melee [KYWD:0004A0A4])"
+            kw_matches = list(re.finditer(r'(?:[(,]\s*|[|]\s*)([A-Za-z0-9][A-Za-z0-9 _-]*?)\s*\[KYWD:([0-9A-Fa-f]+)\]', c))
+        for m in kw_matches:
             kw_name = m.group(1).strip()
             kw_fid = m.group(2).strip()
 
@@ -863,6 +895,10 @@ def resolve_keyword_items(raw_conditions, kywd_lookup):
                 else:
                     # NPC_ / RACE may not have FULL names; fall back to EDID
                     pretty = prettify_edid(ref['edid'])
+
+                # Skip display names that indicate NPC/creature/turret weapons
+                if any(sub in pretty for sub in _KYWD_SKIP_DISPLAY_CONTAINS):
+                    continue
 
                 key = pretty.lower()
                 if key not in seen:
