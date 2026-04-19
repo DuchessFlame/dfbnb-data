@@ -584,28 +584,28 @@ ENTM_PATTERNS = {
     'marshal-mallows':     [r'(?i)SCORE_MiniSeason_2025_MMMFE'],
     'appalachian-outlaws':  [r'(?i)SCORE_MiniSeason.*AppalachianOutlaws'],
     'science-of-love':      [r'(?i)DE2024_ScienceOfLove', r'(?i)DE2024_Scienceoflove'],
-    'uncharted-scouts':     [],  # No ENTM entries found
-    'spring-cleaning':      [r'(?i)DE2024_SpringCleaning'],
-    'burning-love':         [],  # No ENTM entries found
+    'uncharted-scouts':     [r'(?i)DE2024_ScoutsUncharted_ENTM'],
+    'spring-cleaning':      [r'(?i)DE2024_SpringCleaning_ENTM'],
+    'burning-love':         [],  # No ENTM entries in game files
     'weapons-expert':       [r'(?i)SCORE_MiniSeason_2026_WeaponsExpert'],
 
     # ── Limited Time Events ──
     'birthday':             [r'(?i)ATX_ENTM.*Birthday', r'(?i)SCORE_S14_ENTM.*Birthday'],
-    'summer-camp':          [r'(?i)DE2023_SummerCamp'],
+    'summer-camp':          [r'(?i)ATX_Shelters_ENTM_ShelterEntrance_SummerCamp'],
     'rip-daring':           [r'(?i)ATX_ENTM_CAMP_Bed_RipDaringEvent'],
     'call-to-axe-ion':      [r'(?i)ATX_DE2022_Pitt_ENTM', r'(?i)ATX_Upgrade2022_Pitt_ENTM'],
     'anniversary':          [r'(?i)ATX_ENTM_AnniversaryEvent'],
-    'nuka-connoisseur':     [],  # No dedicated ENTM entries
-    'the-coming-storm':     [],  # No ENTM entries found
+    'nuka-connoisseur':     [],  # No dedicated ENTM entries in game files
+    'the-coming-storm':     [],  # No ENTM entries in game files
     'spread-the-love-2021': [r'(?i)ATX_DE2021_Love_ENTM'],
-    'spread-the-love-2023': [],  # No ENTM entries found
-    'free-cam':             [],  # No ENTM entries found
-    'st-patricks-day':      [],  # No ENTM entries found
-    'big-bloom':            [],  # No ENTM entries found
-    'halloween-2021':       [],  # No ENTM entries found
-    'halloween-2022':       [],  # No ENTM entries found
-    'halloween-2023':       [],  # No ENTM entries found
-    'halloween-2024':       [r'(?i)ATX_DE2024_Halloween_ENTM'],
+    'spread-the-love-2023': [],  # No ENTM entries in game files
+    'free-cam':             [],  # Building challenge — no cosmetic rewards
+    'st-patricks-day':      [r'(?i)ATX_ENTM.*Leprechaun', r'(?i)ATX_ENTM.*StPatrick', r'(?i)ATX_ENTM_Skin_PipBoySkin_StPatricks'],
+    'big-bloom':            [],  # Seasonal public event — rewards come from the event itself
+    'halloween-2021':       [],  # Generic Halloween ENTM items exist but aren't tied to a specific year
+    'halloween-2022':       [],  # Generic Halloween ENTM items exist but aren't tied to a specific year
+    'halloween-2023':       [],  # Generic Halloween ENTM items exist but aren't tied to a specific year
+    'halloween-2024':       [r'(?i)DE2024_Halloween_ENTM'],
 }
 
 # Gallery images: manually maintained per-event.
@@ -1119,8 +1119,7 @@ def load_entm_rewards(tsv_root):
     """Load ENTM TSV and match rewards to events using ENTM_PATTERNS.
 
     Returns dict[event_key] → list of {name, description, edid, image_url}.
-    Image URLs use the storefront convention: edid.lower() + '.webp'
-    under /wp-content/uploads/fo76/storefront/.
+    Image URLs use .avif format under /wp-content/uploads/guide-images/mini-seasons/.
     """
     entm_files = glob.glob(os.path.join(tsv_root, 'ENTM_Export_*.tsv'))
     if not entm_files:
@@ -1161,10 +1160,10 @@ def load_entm_rewards(tsv_root):
                     desc = (row.get('DESC', '') or '').strip()
                     nnam = (row.get('NNAM', '') or '').strip()
 
-                    # Build storefront image URL from EDID
+                    # Build image URL from EDID
                     img_edid = edid.lower()
                     img_edid = img_edid.replace('_entm_', '_')
-                    image_url = f"/wp-content/uploads/fo76/storefront/{img_edid}.webp"
+                    image_url = f"/wp-content/uploads/guide-images/mini-seasons/{img_edid}.avif"
 
                     matched.append({
                         'name':        full or nnam or edid,
@@ -1176,10 +1175,57 @@ def load_entm_rewards(tsv_root):
 
         rewards_by_event[key] = matched
 
+    # Sort mini season rewards alphabetically by name
+    for key in rewards_by_event:
+        if key in EVENT_DEFS and EVENT_DEFS[key].get('type') == 'mini_season':
+            rewards_by_event[key].sort(key=lambda r: r['name'].lower())
+
     total = sum(len(v) for v in rewards_by_event.values())
     non_empty = sum(1 for v in rewards_by_event.values() if v)
     print(f"  ENTM rewards: {total} items across {non_empty} events")
     return rewards_by_event
+
+
+# ─────────────────────────────────────────────────────────────
+# LTE per-challenge reward extraction
+# ─────────────────────────────────────────────────────────────
+
+# Consumable rewards embedded in CHAL EDID suffixes.
+# Maps suffix → display name for the reward item.
+CONSUMABLE_REWARD_MAP = {
+    'PerkPack':        'Perk Card Pack',
+    'Lunchbox':        'Lunchbox',
+    'LegendaryModule': 'Legendary Module',
+    'RepairKit':       'Improved Repair Kit',
+    'CarryBooster':    'Carry Weight Booster',
+    'ScrapKit':        'Scrap Kit',
+}
+
+
+def extract_challenge_reward(edid, entm_rewards_for_event):
+    """Extract the per-challenge reward for an LTE challenge.
+
+    For daily challenges: extracts consumable reward from EDID suffix.
+    For milestone/completion challenges: attempts to match ENTM cosmetics.
+
+    Returns dict with {type, name, description, image_url, edid} or None.
+    """
+    # 1) Check for consumable reward suffix on dailies
+    parts = edid.rsplit('_', 1)
+    if len(parts) == 2:
+        suffix = parts[1]
+        if suffix in CONSUMABLE_REWARD_MAP:
+            return {
+                'type':        'consumable',
+                'name':        CONSUMABLE_REWARD_MAP[suffix],
+                'description': '',
+                'image_url':   '',
+                'edid':        '',
+            }
+
+    # 2) For completion challenges, no automatic ENTM mapping
+    #    (the event-level rewards section already shows all ENTM items)
+    return None
 
 
 # ─────────────────────────────────────────────────────────────
@@ -1274,6 +1320,13 @@ def main():
                 'is_cut':        is_cut,
                 'is_completion': is_completion(edid),
             }
+
+            # For LTE events, attach per-challenge reward
+            if evdef.get('type') == 'limited_time_event':
+                chal_reward = extract_challenge_reward(
+                    edid, entm_rewards.get(key, []))
+                if chal_reward:
+                    entry['reward'] = chal_reward
             (cut if is_cut else live).append(entry)
 
         ev_out = {
