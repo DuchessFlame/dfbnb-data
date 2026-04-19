@@ -698,6 +698,9 @@ _KYWD_SKIP_PREFIXES = (
     'cr',  'zzz', 'ZZZ', 'DEL', 'del', 'CUT', 'cut',
     'CharGen', 'POST', 'debug', 'Debug', 'DEPRECATED',
     'Test_', 'test_',
+    'Creature_',        # creature-only weapons (Candy Cane, Slay Bells, etc.)
+    'Burn_cr',          # creature attacks (Rad Scorpion sting, Sting Wing etc.)
+    'DailyOps_cr', 'Daily_Ops_cr',  # Daily Ops creature variants
 )
 # Substrings anywhere in the EDID that indicate non-player items
 _KYWD_SKIP_CONTAINS = (
@@ -714,11 +717,22 @@ _KYWD_SKIP_CONTAINS = (
     'Unarmed_Human', 'UnarmedHuman',
     'Unarmed_Power', 'UnarmedPower',
     'Pain_Train', 'PainTrain',
+    'Creature_Holiday',   # Holiday creature weapons
+    'SubGraphData',       # RACE sub-graph data, not weapons
+    '_Platform_Gun', 'PlatformGun',  # Enclave event platform guns
+    'alienprobe',         # internal alien probe weapon
+    'meltdown',           # internal meltdown weapon
+    'NoName',             # CharGen items with no display name
 )
 
 
 def load_keyword_refs(tsv_root):
-    """Load KYWD_Export_*_Refs.tsv → dict[kywd_formid] → list of {edid, sig}."""
+    """Load KYWD_Export_*_Refs.tsv → dict[kywd_formid] → list of {edid, sig, name}.
+
+    The 'name' field is the FULL - Name (in-game display name) from the referenced
+    record, added in the Apr 2026 xEdit script update.  Older TSVs without the
+    RefName column will have name=''.
+    """
     refs_files = sorted(glob.glob(os.path.join(tsv_root, 'KYWD_Export_*_Refs.tsv')))
     if not refs_files:
         return {}
@@ -731,11 +745,13 @@ def load_keyword_refs(tsv_root):
             kid = row.get('KeywordFormID', '').strip()
             ref_edid = row.get('RefEDID', '').strip()
             ref_sig = row.get('RefSignature', '').strip()
+            ref_name = row.get('RefName', '').strip()  # display name (may be empty on old TSVs)
             if not kid or not ref_edid:
                 continue
             lookup.setdefault(kid, []).append({
                 'edid': ref_edid,
                 'sig':  ref_sig,
+                'name': ref_name,
             })
 
     return lookup
@@ -763,8 +779,15 @@ def prettify_edid(edid):
     return s
 
 
-# Signatures worth listing (player-facing items/creatures/objects)
-_KYWD_ALLOWED_SIGS = {'WEAP', 'ALCH', 'NPC_', 'FLOR', 'MISC', 'RACE', 'ARMO', 'BOOK'}
+# Signatures worth listing (player-facing items/creatures/objects).
+# RACE removed — RACE refs on weapon keywords are unarmed attack definitions,
+# not player-facing items (e.g. "Human Race", "Power Armor Race").
+_KYWD_ALLOWED_SIGS = {'WEAP', 'ALCH', 'NPC_', 'FLOR', 'MISC', 'ARMO', 'BOOK'}
+
+# Item-type signatures that MUST have a display name (FULL - Name) to be listed.
+# If the RefName column is empty for these sigs, the record is internal/non-player.
+# NPC_ is excluded because NPCs/creatures often lack FULL names.
+_KYWD_REQUIRE_NAME_SIGS = {'WEAP', 'ALCH', 'FLOR', 'MISC', 'ARMO', 'BOOK'}
 
 # Keywords where listing refs is not useful (cosmetics, CAMP categories, buffs, etc.)
 _KYWD_SKIP_NAMES = {
@@ -815,7 +838,11 @@ def resolve_keyword_items(raw_conditions, kywd_lookup):
             if kw_fid not in kywd_lookup:
                 continue
 
-            # Filter to player-facing signatures, skip internal items, deduplicate
+            # Filter to player-facing signatures, skip internal items, deduplicate.
+            # Use the in-game display name (RefName) when available; fall back to
+            # prettify_edid() for old TSVs without the RefName column.
+            # For item signatures (WEAP, ALCH, FLOR, MISC, ARMO, BOOK), skip refs
+            # that have no display name — they're internal/non-player records.
             items = []
             seen = set()
             for ref in kywd_lookup[kw_fid]:
@@ -823,7 +850,20 @@ def resolve_keyword_items(raw_conditions, kywd_lookup):
                     continue
                 if not _is_player_item(ref['edid']):
                     continue
-                pretty = prettify_edid(ref['edid'])
+
+                display_name = ref.get('name', '').strip()
+
+                # If the TSV has the RefName column: use it, and require it for
+                # item-type signatures (weapons, food, flora, armour, etc.).
+                if display_name:
+                    pretty = display_name
+                elif ref['sig'] in _KYWD_REQUIRE_NAME_SIGS:
+                    # No display name → internal/non-player record → skip
+                    continue
+                else:
+                    # NPC_ / RACE may not have FULL names; fall back to EDID
+                    pretty = prettify_edid(ref['edid'])
+
                 key = pretty.lower()
                 if key not in seen:
                     seen.add(key)
