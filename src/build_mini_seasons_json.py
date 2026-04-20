@@ -1021,6 +1021,30 @@ _KYWD_SKIP_NAMES = {
 }
 
 
+# Condition-function → keyword(s) fallback map.
+#
+# Some Fallout 76 challenge conditions use hard-coded game functions instead
+# of keyword filters, so they have no inline [KYWD:xxxxxxxx] tag for the
+# resolver to latch onto. Example:
+#
+#     Subject.CHAL_IsTargetWeaponThrown = 1
+#
+# For these, map the function name → (pill label, keyword FormID) and the
+# resolver will synthesise a matching condition so keyword_items gets
+# populated as if the challenge had referenced the keyword directly.
+#
+# Each function can map to multiple keywords if needed (e.g. a challenge
+# that covers "Thrown OR Bow" would get entries for both).
+_COND_FN_KEYWORDS = {
+    # Deal Thrown Weapon Damage — Weapons Expert mini-season.
+    # WeaponTypeThrowingKnife covers Tomahawk, Throwing Knife, Meat Cleaver,
+    # Sheepsquatch Shard (and cr- creature variants, deduped by display name).
+    'CHAL_IsTargetWeaponThrown': [
+        ('Thrown', '003879A4'),  # WeaponTypeThrowingKnife
+    ],
+}
+
+
 def _is_player_item(edid):
     """Return True if this EDID looks like a player-relevant item."""
     if any(edid.startswith(p) for p in _KYWD_SKIP_PREFIXES):
@@ -1038,9 +1062,24 @@ def resolve_keyword_items(raw_conditions, kywd_lookup):
     Raw condition formats:
       Pipe-separated: ...WeaponTypeArchaic "Archaic" [KYWD:0033AB23]...
       Pre-parsed:     ...DoesTargetWeaponHaveKeyword(Archaic [KYWD:0033AB23]) = 1
+
+    Hard-coded condition functions (e.g. CHAL_IsTargetWeaponThrown) don't
+    contain a [KYWD:xxxx] tag. For those, _COND_FN_KEYWORDS supplies the
+    keyword(s) explicitly — we synthesise a matching condition string so the
+    regex below can treat them uniformly.
     """
-    result = {}
+    # Synthesise [KYWD:xxxx]-style conditions for known hard-coded functions.
+    # Only fires when the function name is actually present in a raw condition,
+    # so unrelated challenges are unaffected.
+    conds = list(raw_conditions)
     for c in raw_conditions:
+        for fn_name, fn_kws in _COND_FN_KEYWORDS.items():
+            if fn_name in c:
+                for label, kw_fid in fn_kws:
+                    conds.append(f'CHAL_DoesTargetWeaponHaveKeyword("{label}" [KYWD:{kw_fid}]) = 1')
+
+    result = {}
+    for c in conds:
         # Skip non-keyword conditions
         if 'KYWD:' not in c:
             continue
