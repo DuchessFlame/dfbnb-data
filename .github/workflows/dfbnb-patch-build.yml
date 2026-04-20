@@ -7,6 +7,12 @@ on:
   push:
     branches: [ main ]
     paths:
+      # tsv/** intentionally broad — covers CHAL, KYWD, LVLI, CURV, BOOK, ARMO,
+      # COBJ, FURN, FLST, ENTM, ALCH, FISH, GLOB, etc. Do NOT narrow this glob
+      # without auditing which downstream builds depend on which TSVs. In
+      # particular, mini-seasons keyword pill resolution (Archaic, Bow, etc.)
+      # depends on KYWD_Export_*_Refs.tsv — if the glob is narrowed to only
+      # CHAL exports, weapon renames from Bethesda won't rebuild mini_seasons.
       - "tsv/**"
       - "tools/**"
       - "src/**"
