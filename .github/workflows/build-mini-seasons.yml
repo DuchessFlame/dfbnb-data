@@ -60,3 +60,13 @@ jobs:
           git fetch origin main
           git pull --rebase origin main
           git push origin main
+
+  # After a successful build + commit on main, push the fresh JSON up to
+  # WP Engine so the live site serves it. Runs via the reusable
+  # deploy-mini-seasons.yml workflow so the SFTP logic has a single source
+  # of truth.
+  deploy:
+    needs: build
+    uses: ./.github/workflows/deploy-mini-seasons.yml
+    secrets:
+      WPE_SFTP_PASSWORD: ${{ secrets.WPE_SFTP_PASSWORD }}
