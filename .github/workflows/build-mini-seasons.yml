@@ -69,5 +69,3 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/deploy-mini-seasons.yml
-    secrets:
-      WPE_SFTP_PASSWORD: ${{ secrets.WPE_SFTP_PASSWORD }}

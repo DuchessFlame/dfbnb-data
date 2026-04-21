@@ -1,37 +1,28 @@
 name: Deploy Mini Seasons JSON
 
-# Uploads dist/mini_seasons/mini_seasons.json to WP Engine SFTP so the
-# live site (buffsnbrew.com) can serve it at
-#   /wp-content/uploads/json/mini_seasons/mini_seasons.json
+# Verifies that dist/mini_seasons/mini_seasons.json is committed on main
+# and available via raw.githubusercontent.com. No SFTP — the site fetches
+# the JSON directly from this repo, same as titles / collectables / etc.
 #
 # Runnable three ways:
-#   1. Standalone — workflow_dispatch from the Actions tab. Deploys whatever
-#      is currently committed on main under dist/mini_seasons/.
-#   2. Chained from build-mini-seasons.yml — runs automatically after a
-#      successful mini-seasons build on main.
-#   3. Chained from dfbnb-patch-build.yml — runs after the big patch build
-#      commits its dist outputs.
-#
-# Requires repo secret: WPE_SFTP_PASSWORD (SFTP password for user
-# buffsnbrew1-nav on buffsnbrew1.sftp.wpengine.com:2222).
+#   1. Standalone — workflow_dispatch from the Actions tab.
+#   2. Chained from build-mini-seasons.yml via workflow_call.
+#   3. Chained from dfbnb-patch-build.yml via workflow_call.
 
 on:
   workflow_dispatch:
   workflow_call:
-    secrets:
-      WPE_SFTP_PASSWORD:
-        required: true
 
 concurrency:
   group: deploy-mini-seasons
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  verify:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main (pull latest committed dist)
+      - name: Checkout main
         uses: actions/checkout@v5
         with:
           ref: main
@@ -45,32 +36,9 @@ jobs:
             echo "ERROR: $F not found on main. Run Build Mini Seasons Data first."
             exit 1
           fi
-          echo "Deploying $F ($(wc -c < "$F") bytes)"
+          BYTES=$(wc -c < "$F")
+          echo "OK: $F ($BYTES bytes) is committed on main."
+          echo "Live URL: https://raw.githubusercontent.com/${{ github.repository }}/main/$F"
 
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
-
-      - name: Upload to WP Engine SFTP
-        env:
-          WPE_SFTP_PASSWORD: ${{ secrets.WPE_SFTP_PASSWORD }}
-        run: |
-          set -e
-          if [ -z "$WPE_SFTP_PASSWORD" ]; then
-            echo "ERROR: secret WPE_SFTP_PASSWORD is not set on this repo."
-            echo "Add it at: Settings -> Secrets and variables -> Actions -> New repository secret"
-            exit 1
-          fi
-
-          lftp -u "buffsnbrew1-nav,$WPE_SFTP_PASSWORD" -p 2222 \
-               sftp://buffsnbrew1.sftp.wpengine.com <<'EOF'
-          set sftp:auto-confirm yes
-          set net:max-retries 3
-          set net:timeout 30
-          # Ensure target directory exists (no-op if already there)
-          mkdir -pf /wp-content/uploads/json/mini_seasons
-          put -O /wp-content/uploads/json/mini_seasons/ dist/mini_seasons/mini_seasons.json
-          bye
-          EOF
-
-      - name: Confirm upload
-        run: echo "Deployed dist/mini_seasons/mini_seasons.json to buffsnbrew.com:/wp-content/uploads/json/mini_seasons/"
+      - name: Confirm deployment
+        run: echo "mini_seasons.json is live — served directly from GitHub via raw.githubusercontent.com"
