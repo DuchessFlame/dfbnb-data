@@ -1336,8 +1336,18 @@ def main():
     # Load ENTM rewards for each event
     entm_rewards = load_entm_rewards(args.tsv_root)
 
+    # Diagnostic: count keyword-bearing conditions in merged data
+    _kw_diag_total = 0
+    _kw_diag_with_kywd = 0
+    for _de, _dr in merged.items():
+        _kw_diag_total += 1
+        if any('KYWD:' in c for c in _dr['raw_conditions']):
+            _kw_diag_with_kywd += 1
+    print(f"  Keyword diagnostics: {_kw_diag_with_kywd}/{_kw_diag_total} merged challenges have KYWD in raw_conditions")
+
     # Build output
     guide_link_stats = {'linked': 0, 'total': 0}
+    kw_items_stats = {'with': 0, 'without': 0}
     output = {}
     for key, evdef in EVENT_DEFS.items():
         live, cut = [], []
@@ -1356,6 +1366,10 @@ def main():
 
             # Resolve keyword items (e.g. Archaic → list of player weapons)
             kw_items = resolve_keyword_items(row['raw_conditions'], kywd_lookup)
+            if kw_items:
+                kw_items_stats['with'] += 1
+            else:
+                kw_items_stats['without'] += 1
 
             entry = {
                 'id':            row['form_id'],
@@ -1446,6 +1460,7 @@ def main():
     print(f"  {'TOTAL':<48} {g['w1']:>3} {g['w2']:>3} {g['b']:>3} {g['c']:>3} {t:>3}")
     print(f"\n  {len(output)} events")
     print(f"  Guide links: {guide_link_stats['linked']}/{guide_link_stats['total']} challenges linked")
+    print(f"  Keyword pills: {kw_items_stats['with']} challenges with keyword_items, {kw_items_stats['without']} without")
 
     # Reward stats
     reward_total = sum(len(ev['rewards']) for ev in output.values())
