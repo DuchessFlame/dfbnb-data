@@ -549,14 +549,3 @@ jobs:
             git pull --rebase origin main
             git push origin main
           fi
-
-  # ===== DEPLOYS =====
-  # After the monolithic build job commits dist/, fan out to the reusable
-  # deploy workflows so the fresh JSON reaches buffsnbrew.com. Each deploy
-  # is its own reusable workflow so it can also be triggered solo or from
-  # the matching per-category build workflow. Add more `needs: build`
-  # blocks here as other deploy workflows come online.
-
-  deploy-mini-seasons:
-    needs: build
-    uses: ./.github/workflows/deploy-mini-seasons.yml

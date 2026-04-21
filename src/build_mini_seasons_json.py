@@ -1221,25 +1221,29 @@ def load_entm_rewards(tsv_root):
     Returns dict[event_key] → list of {name, description, edid, image_url}.
     Image URLs use .avif format under /wp-content/uploads/guide-images/mini-seasons/.
     """
-    entm_files = glob.glob(os.path.join(tsv_root, 'ENTM_Export_*.tsv'))
+    entm_files = sorted(glob.glob(os.path.join(tsv_root, 'ENTM_Export_*.tsv')))
     if not entm_files:
         print("  WARNING: No ENTM_Export_*.tsv found, skipping reward loading")
         return {}
 
-    # Use most recently modified file (sorted() alphabetically is unreliable
-    # because month names don't sort chronologically)
-    entm_file = max(entm_files, key=os.path.getmtime)
-    print(f"  Loading ENTM rewards from {os.path.basename(entm_file)}")
-
-    # Read all ENTM rows
+    # Load ALL ENTM files and merge by EDID (newest wins, same as CHAL loading).
+    # Using only the most-recently-modified file broke on GitHub Actions where
+    # checkout sets every file to the same mtime, so the picked file was arbitrary
+    # and often missed newer event rewards (e.g. WeaponsExpert in Apr but CI
+    # picked the March file).
     all_rows = []
-    with open(entm_file, 'r', encoding='utf-8-sig', errors='replace') as fh:
-        rdr = csv.DictReader(fh, delimiter='\t')
-        for row in rdr:
-            edid = (row.get('EDID', '') or '').strip()
-            if not edid:
-                continue
-            all_rows.append(row)
+    seen_edids = set()
+    for entm_file in entm_files:
+        print(f"  Loading ENTM rewards from {os.path.basename(entm_file)}")
+        with open(entm_file, 'r', encoding='utf-8-sig', errors='replace') as fh:
+            rdr = csv.DictReader(fh, delimiter='\t')
+            for row in rdr:
+                edid = (row.get('EDID', '') or '').strip()
+                if not edid:
+                    continue
+                if edid not in seen_edids:
+                    all_rows.append(row)
+                    seen_edids.add(edid)
 
     # Match rows to events
     rewards_by_event = {}
