@@ -670,11 +670,11 @@ REWARD_IMAGE_OVERRIDES = {
         'score_miniseason_2026_weaponsexpert_camp_floordecor_taxidermy_megaslothtaxidermy':
             '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaoponsexpert_camp_floordecor_taxidermy_megaslothtaxidermy_l.avif',
         'score_miniseason_2026_weaponsexpert_camp_floordecor_miniripboystatue':
-            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaoponsexpert_camp_floordecor_miniripboystatue_l.avif',
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaoponsexpert_camp_floordecor_miniripboystatue_c2.avif',
         'score_miniseason_2026_weaponsexpert_camp_furniture_ripdaringpinballmachine':
             '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_camp_furniture_ripdaringpinballmachine_l.avif',
         'score_miniseason_2026_weaponsexpert_camp_furniture_ripboystatue':
-            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_furniture_ripboystatue_c2.avif',
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaoponsexpert_camp_floordecor_miniripboystatue_l.avif',
         'score_miniseason_2026_weaponsexpert_camp_walldisplay_jetpackdisplay':
             '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaponsexpert_camp_displaycase_jetpackdisplay_l.avif',
     },
