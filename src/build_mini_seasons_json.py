@@ -22,6 +22,19 @@ Usage:
 import csv, re, os, json, sys, glob, argparse
 from collections import OrderedDict
 
+# Static ticket-value overlay (see mini_seasons_tickets.py).
+# Ticket rewards per challenge and ticket costs per reward item are not in
+# the game files, so we maintain them manually and merge them in after the
+# TSV-derived data is built.
+try:
+    from mini_seasons_tickets import apply_ticket_overlay
+except ImportError:
+    # Allow running as `python src/build_mini_seasons_json.py` from repo root.
+    _this_dir = os.path.dirname(os.path.abspath(__file__))
+    if _this_dir not in sys.path:
+        sys.path.insert(0, _this_dir)
+    from mini_seasons_tickets import apply_ticket_overlay
+
 # ─────────────────────────────────────────────────────────────
 # Condition parsing
 # ─────────────────────────────────────────────────────────────
@@ -1402,6 +1415,13 @@ def main():
     # ── Inject static events (not in game files) ──────────────────
     for skey, sdata in _build_static_events().items():
         output[skey] = sdata
+
+    # ── Apply static ticket + LTE reward overlay ─────────────────
+    # Ticket values (mini seasons) and per-challenge item rewards (LTEs) are
+    # not in the game files — they're maintained by hand in
+    # src/mini_seasons_tickets.py. Merge them in now so they land in dist JSON.
+    overlay_stats = apply_ticket_overlay(output)
+    print(f"  Static overlay applied: {overlay_stats}")
 
     # Write
     os.makedirs(args.outdir, exist_ok=True)
