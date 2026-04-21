@@ -121,6 +121,61 @@ function pickLatestLvliEntriesTsv(repoRoot) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Season rollover (Kevin's rule)                                      */
+/* ------------------------------------------------------------------ */
+//
+// The in-game LCP_Fishing_SeasonalFish_SeasonIndex auto-rotates on the FIRST
+// TUESDAY strictly after the North American astronomical equinox/solstice.
+// (Source: Kevin, the dev who wrote the seasonal fish system.)
+//
+// We hard-code the equinox/solstice dates per year so the build is deterministic
+// and doesn't depend on an astronomy library at build time. Add new years here
+// as needed — values are the standard NA calendar dates.
+const EQUINOX_SOLSTICE_NA = {
+  // year: { spring: "YYYY-MM-DD", summer: ..., fall: ..., winter: ... }
+  2024: { spring: "2024-03-19", summer: "2024-06-20", fall: "2024-09-22", winter: "2024-12-21" },
+  2025: { spring: "2025-03-20", summer: "2025-06-20", fall: "2025-09-22", winter: "2025-12-21" },
+  2026: { spring: "2026-03-20", summer: "2026-06-21", fall: "2026-09-22", winter: "2026-12-21" },
+  2027: { spring: "2027-03-20", summer: "2027-06-21", fall: "2027-09-23", winter: "2027-12-22" },
+  2028: { spring: "2028-03-20", summer: "2028-06-20", fall: "2028-09-22", winter: "2028-12-21" },
+  2029: { spring: "2029-03-20", summer: "2029-06-21", fall: "2029-09-22", winter: "2029-12-21" },
+  2030: { spring: "2030-03-20", summer: "2030-06-21", fall: "2030-09-22", winter: "2030-12-21" }
+};
+
+// Return the ISO date of the first Tuesday strictly AFTER the given ISO date.
+// Uses UTC math so the result is stable regardless of the build server tz.
+function firstTuesdayAfter(iso) {
+  const [y, m, d] = iso.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  // Advance at least one day (strictly after).
+  do {
+    dt.setUTCDate(dt.getUTCDate() + 1);
+  } while (dt.getUTCDay() !== 2); // 2 = Tuesday
+  const yy = dt.getUTCFullYear();
+  const mm = String(dt.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(dt.getUTCDate()).padStart(2, "0");
+  return `${yy}-${mm}-${dd}`;
+}
+
+// Build a flat list of season rollover dates across the years we know about.
+// Each entry: { date: "YYYY-MM-DD", season: "spring"|"summer"|"fall"|"winter" }
+// Sorted ascending. The client picks the current season by finding the most
+// recent entry whose date <= today.
+function buildRolloverDates() {
+  const out = [];
+  const years = Object.keys(EQUINOX_SOLSTICE_NA).map(Number).sort((a, b) => a - b);
+  for (const y of years) {
+    const e = EQUINOX_SOLSTICE_NA[y];
+    out.push({ date: firstTuesdayAfter(e.spring), season: "spring" });
+    out.push({ date: firstTuesdayAfter(e.summer), season: "summer" });
+    out.push({ date: firstTuesdayAfter(e.fall),   season: "fall"   });
+    out.push({ date: firstTuesdayAfter(e.winter), season: "winter" });
+  }
+  out.sort((a, b) => a.date.localeCompare(b.date));
+  return out;
+}
+
+/* ------------------------------------------------------------------ */
 /* Region mapping                                                      */
 /* ------------------------------------------------------------------ */
 
@@ -400,9 +455,14 @@ function main() {
       weekendToggleGlobal: "LTT_WeekendSeasonalFish_Toggle"
     },
     timezone: "America/New_York",
-    // US meteorological seasons: Dec-Feb winter, Mar-May spring, Jun-Aug summer, Sep-Nov fall.
+    // Kevin's rule: the in-game season index auto-rotates on the first Tuesday
+    // strictly AFTER the North American astronomical equinox/solstice.
+    // rolloverDates is the source of truth for the client; monthToSeason is a
+    // soft fallback only (used if the client ever lands outside the known years).
     seasonRule: {
-      method: "meteorological_us",
+      method: "first_tuesday_after_equinox_na",
+      description: "Season rotates on the first Tuesday strictly after the NA equinox/solstice.",
+      rolloverDates: buildRolloverDates(),
       monthToSeason: {
         "1":"winter","2":"winter","3":"spring","4":"spring","5":"spring",
         "6":"summer","7":"summer","8":"summer",
