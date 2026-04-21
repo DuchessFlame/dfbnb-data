@@ -625,11 +625,59 @@ ENTM_PATTERNS = {
 # Each entry is a dict with 'url' (full path on site) and 'alt' (description).
 GALLERY_IMAGES = {
     'weapons-expert': [
-        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/76_ATX_PROMOTE_P68_S24_MS1_NOTAG - Copy.avif', 'alt': 'Weapons Expert Promotion'},
-        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/s24_miniseason1_background - Copy.avif',        'alt': 'Weapons Expert Background'},
-        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/s24_miniseason1_marquee - Copy.avif',           'alt': 'Weapons Expert Marquee'},
-        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/s24_miniseason1_seasonselection - Copy.avif',   'alt': 'Weapons Expert Season Selection'},
+        # Promo / event art
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/76_ATX_PROMOTE_P68_S24_MS1_NOTAG.avif',    'alt': 'Weapons Expert Promotion'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/s24_miniseason1_background.avif',           'alt': 'Weapons Expert Background'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/s24_miniseason1_marquee.avif',              'alt': 'Weapons Expert Marquee'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/s24_miniseason1_seasonselection.avif',      'alt': 'Weapons Expert Season Selection'},
+        # Reward closeups
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaoponsexpert_camp_floordecor_miniripboystatue_c1.avif', 'alt': 'Miniature Rip Daring Vault Boy Statue'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaoponsexpert_camp_floordecor_miniripboystatue_c2.avif', 'alt': 'Miniature Rip Daring Vault Boy Statue (alt)'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_backpackflair_spacecowflair_c1.avif',       'alt': 'Space Cow Backpack Flair'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_backpackflair_spacecowflair_c2.avif',       'alt': 'Space Cow Backpack Flair (alt)'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_displaycase_jetpackdisplay_c1.avif',   'alt': 'Jetpack Display'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_displaycase_jetpackdisplay_c2.avif',   'alt': 'Jetpack Display (alt)'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_floordecor_taxidermy_megaslothtaxidermy_c1.avif', 'alt': 'Taxidermy Hanging Mega Sloth'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_floordecor_taxidermy_megaslothtaxidermy_c2.avif', 'alt': 'Taxidermy Hanging Mega Sloth (alt)'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_furniture_ripboystatue_c2.avif',       'alt': 'Rip Daring Vault Boy Statue'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_furniture_ripboystatue_c3.avif',       'alt': 'Rip Daring Vault Boy Statue (alt)'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_furniture_ripdaringpinballmachine_c1.avif', 'alt': 'Rip Daring Pinball Machine'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_furniture_ripdaringpinballmachine_c2.avif', 'alt': 'Rip Daring Pinball Machine (alt)'},
+        {'url': '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_photomode_logo_marqueelogo_ms67_c1.avif',   'alt': 'Weapons Expert Marquee Photomode Logo'},
     ],
+}
+
+# ── Per-event reward image overrides ──────────────────────────────────
+# Maps event_key → {img_edid (lowercase, _entm_ stripped) → actual URL}.
+# Used by load_entm_rewards() to override the auto-generated image_url
+# when the uploaded filename differs from the EDID-derived path.
+REWARD_IMAGE_OVERRIDES = {
+    'weapons-expert': {
+        'score_miniseason_2026_weaponsexpert_photomode_logo_marqueelogo_ms67':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaponsexpert_photomode_logo_marqueelogo_ms67_l.avif',
+        'score_miniseason_2026_weaponsexpert_backpackflair_spacecowflair':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaponsexpert_backpackflair_spacecowflair_l.avif',
+        'score_miniseason_2026_weaponsexpert_playertitles_prefix_merciless':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaponsexpert_playertitles_prefix_merciless_l.avif',
+        'score_miniseason_2026_weaponsexpert_playertitles_prefix_ripped':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaponsexpert_playertitles_prefix_ripped_l.avif',
+        'score_miniseason_2026_weaponsexpert_camptitles_prefix_sharpshooters':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaponsexpert_camptitles_prefix_sharpshooters_l.avif',
+        'score_miniseason_2026_weaponsexpert_playertitles_suffix_weaponmaster':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaponsexpert_playertitles_suffix_weaponmaster_l.avif',
+        'score_miniseason_2026_weaponsexpert_camptitles_suffix_arsenal':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaponsexpert_camptitles_suffix_arsenal_l.avif',
+        'score_miniseason_2026_weaponsexpert_camp_floordecor_taxidermy_megaslothtaxidermy':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaoponsexpert_camp_floordecor_taxidermy_megaslothtaxidermy_l.avif',
+        'score_miniseason_2026_weaponsexpert_camp_floordecor_miniripboystatue':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaoponsexpert_camp_floordecor_miniripboystatue_l.avif',
+        'score_miniseason_2026_weaponsexpert_camp_furniture_ripdaringpinballmachine':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_camp_furniture_ripdaringpinballmachine_l.avif',
+        'score_miniseason_2026_weaponsexpert_camp_furniture_ripboystatue':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/gallery/score_miniseason_2026_weaponsexpert_camp_furniture_ripboystatue_c2.avif',
+        'score_miniseason_2026_weaponsexpert_camp_walldisplay_jetpackdisplay':
+            '/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_weaponsexpert_camp_displaycase_jetpackdisplay_l.avif',
+    },
 }
 
 
@@ -1212,10 +1260,14 @@ def load_entm_rewards(tsv_root):
                     desc = (row.get('DESC', '') or '').strip()
                     nnam = (row.get('NNAM', '') or '').strip()
 
-                    # Build image URL from EDID
+                    # Build image URL from EDID (check overrides first)
                     img_edid = edid.lower()
                     img_edid = img_edid.replace('_entm_', '_')
-                    image_url = f"/wp-content/uploads/guide-images/mini-seasons/{img_edid}.avif"
+                    override_map = REWARD_IMAGE_OVERRIDES.get(key, {})
+                    if img_edid in override_map:
+                        image_url = override_map[img_edid]
+                    else:
+                        image_url = f"/wp-content/uploads/guide-images/mini-seasons/{img_edid}.avif"
 
                     matched.append({
                         'name':        full or nnam or edid,
