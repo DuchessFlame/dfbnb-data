@@ -1269,8 +1269,19 @@ def load_entm_rewards(tsv_root):
                     else:
                         image_url = f"/wp-content/uploads/guide-images/mini-seasons/{img_edid}.avif"
 
+                    # Derive display name — title rewards get suffix like
+                    # "Arsenal Suffix Camp Title" per user convention.
+                    display_name = full or nnam or edid
+                    title_m = re.search(
+                        r'(PlayerTitles|CAMPTitles)_(Prefix|Suffix)_',
+                        edid, re.IGNORECASE)
+                    if title_m:
+                        kind = 'Player' if 'player' in title_m.group(1).lower() else 'Camp'
+                        fix  = title_m.group(2).capitalize()   # Prefix or Suffix
+                        display_name = f"{display_name} {fix} {kind} Title"
+
                     matched.append({
-                        'name':        full or nnam or edid,
+                        'name':        display_name,
                         'description': desc,
                         'edid':        edid,
                         'image_url':   image_url,

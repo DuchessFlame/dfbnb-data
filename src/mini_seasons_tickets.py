@@ -88,7 +88,7 @@ TICKET_COSTS = {
     #  but bundle numbers aren't legible, so can't disambiguate the 3 EDIDs safely.)
 
     # ── Rip Daring's Weapons Expert Extraordinaire (2026) ──
-    # (values pending — fill in from screenshots)
+    'SCORE_MiniSeason_2026_WeaponsExpert_ENTM_CAMP_Furniture_RipBoyStatue': 0,  # Rip Daring Vault Boy Statue — free starter
 }
 
 
