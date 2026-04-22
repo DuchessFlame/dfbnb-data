@@ -470,7 +470,7 @@ function main() {
       }
     },
     weekendEvent: {
-      note: "Seasonal fish are only catchable during Bethesda's weekend seasonal fish events.",
+      note: "Seasonal fish are catchable throughout the entire season. Weekend events boost your catch rate.",
       toggleGlobal: "LTT_WeekendSeasonalFish_Toggle"
     },
     // Display-name mapping for region keywords (parallel to axolotl-rotations.json).
