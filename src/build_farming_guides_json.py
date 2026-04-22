@@ -59,6 +59,8 @@ import sys
 from collections import defaultdict
 from typing import Any, Dict, List, Optional, Tuple
 
+from cut_content import is_cut
+
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
@@ -308,6 +310,13 @@ def build(data_dir: str, outdir: str) -> str:
         if not out_name and not out_fid:
             continue
 
+        # Skip cut/test/debug recipes and cut outputs
+        if is_cut(recipe_edid):
+            continue
+        out_edid = r.get("CNAM_EDID", "")
+        if is_cut(out_edid):
+            continue
+
         ings = parse_fvpa(r.get("FVPA", ""))
         if not ings:
             continue
@@ -353,6 +362,8 @@ def build(data_dir: str, outdir: str) -> str:
     #   (b) qualify as a "food" item by keyword/spoil
     ingredients: List[Dict[str, Any]] = []
     for ing_edid, uses in ingredient_uses.items():
+        if is_cut(ing_edid):
+            continue
         row = alch_by_edid.get(ing_edid)
         if not row:
             continue
@@ -374,6 +385,8 @@ def build(data_dir: str, outdir: str) -> str:
     canned_items: List[Dict[str, Any]] = []
     for r in alch:
         if (r.get("ENIT_IsCanned") or "").strip().lower() != "true":
+            continue
+        if is_cut(r.get("ALCH_EDID", "")):
             continue
         canned_items.append({
             "edid":         r.get("ALCH_EDID", ""),
