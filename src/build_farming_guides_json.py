@@ -139,6 +139,21 @@ TYPE_PRIORITY = [
     ("ObjectTypeFood",         "Food"),
 ]
 
+# Mutation perk detection — which perk doubles the output?
+CARNIVORE_KWS = {"IngredientTypeMeat", "IngredientTypeEgg", "ObjectTypeFish"}
+HERBIVORE_KWS = {
+    "IngredientTypeFruit", "IngredientTypeVegetable", "IngredientTypeHerb",
+    "IngredientTypeFungus", "PlantTypeBerry", "PlantTypeVegetable",
+    "PlantTypeFungus", "PlantTypeMutfruit", "PlantTypeFlowers",
+    "PlantTypeSlipperCactus", "ObjectTypeFungus", "ObjectTypeFlowers",
+}
+
+# Pretty names for ingredient EDIDs that lack a FULL name in the ALCH table
+# (usually MISC items used as recipe components).
+INGREDIENT_NAME_OVERRIDES: Dict[str, str] = {
+    "Cannery_Clean_Can": "Clean Can",
+}
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -200,6 +215,19 @@ def pretty_type(kws: List[str], row: Dict[str, str]) -> str:
         if tag in kws:
             return label
     return "Food"
+
+
+def mutation_perk(kws: List[str]) -> Optional[str]:
+    """Determine which mutation perk benefits from this item's keywords."""
+    is_carn = bool(CARNIVORE_KWS & set(kws))
+    is_herb = bool(HERBIVORE_KWS & set(kws))
+    if is_carn and is_herb:
+        return "Carnivore, Herbivore (Hybrid)"
+    if is_carn:
+        return "Carnivore"
+    if is_herb:
+        return "Herbivore"
+    return None
 
 
 def workbench_category(bnam_edid: str, bnam_full: str) -> Tuple[str, str]:
@@ -295,6 +323,7 @@ def build(data_dir: str, outdir: str) -> str:
             "spoils_to":   r.get("ENIT_SpoiledItem_FULL", "").strip() or None,
             "is_canned":   (r.get("ENIT_IsCanned") or "").strip().lower() == "true",
             "canned_base": r.get("ENIT_CannedBase_FULL", "").strip() or None,
+            "mutation":    mutation_perk(kws),
             "effects":     eff_by_fid.get(fid, []),
         }
 
@@ -334,10 +363,14 @@ def build(data_dir: str, outdir: str) -> str:
         all_ings_resolved: List[Dict[str, Any]] = []
         for ing_edid, qty in ings:
             ing_row = alch_by_edid.get(ing_edid)
-            ing_name = ing_row.get("FULL") if ing_row else ing_edid
+            ing_name = (
+                INGREDIENT_NAME_OVERRIDES.get(ing_edid)
+                or (ing_row.get("FULL") if ing_row else None)
+                or ing_edid
+            )
             all_ings_resolved.append({
                 "edid": ing_edid,
-                "name": ing_name or ing_edid,
+                "name": ing_name,
                 "qty":  qty,
             })
 
