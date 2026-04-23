@@ -82,14 +82,27 @@ COBJ_GLOBS = [
     "COBJ_Export_Feb_2026.tsv",
     "COBJ_Export_Dec_2025.tsv",
 ]
+# KYWD refs includes CMPO (Component) records — used to resolve ingredient
+# EDIDs like "c_Wood" to their pretty names ("Wood").
+KYWD_REFS_GLOBS = [
+    "KYWD_Export_Apr_2026_Refs.tsv",
+    "KYWD_Export_March_2026_Refs.tsv",
+]
+# MISC records cover raw materials / containers used as recipe components
+# (e.g. Cannery_Clean_Can -> "Clean Can") that don't appear in ALCH.
+MISC_GLOBS = [
+    "MISC_Export_Apr_2026.tsv",
+    "MISC_Export_Mar_2026.tsv",
+]
 
-# Workbench EDID -> friendly category label used in the UI pills.
+# Workbench EDID -> (category slug, friendly label). Labels mirror the
+# in-game station names so "Workbench: Cooking Station" reads naturally.
 WORKBENCH_CATEGORY = [
-    (re.compile(r"Cook",   re.IGNORECASE), ("cooking",  "Cooking")),
-    (re.compile(r"Brew",   re.IGNORECASE), ("brewing",  "Brewing")),
-    (re.compile(r"Cannery",re.IGNORECASE), ("cannery",  "Cannery")),
-    (re.compile(r"Chem",   re.IGNORECASE), ("chem",     "Chem Lab")),
-    (re.compile(r"Tinker", re.IGNORECASE), ("tinker",   "Tinker's Workbench")),
+    (re.compile(r"Cook",    re.IGNORECASE), ("cooking",  "Cooking Station")),
+    (re.compile(r"Brew",    re.IGNORECASE), ("brewing",  "Brewing Station")),
+    (re.compile(r"Cannery", re.IGNORECASE), ("cannery",  "Cannery Station")),
+    (re.compile(r"Chem",    re.IGNORECASE), ("chem",     "Chemistry Station")),
+    (re.compile(r"Tinker",  re.IGNORECASE), ("tinker",   "Tinker's Workbench")),
 ]
 
 # Food / ingredient keyword classes (any of these qualifies an ALCH as a
@@ -153,6 +166,68 @@ HERBIVORE_KWS = {
 INGREDIENT_NAME_OVERRIDES: Dict[str, str] = {
     "Cannery_Clean_Can": "Clean Can",
 }
+
+# Base spoil time per HealthCurve / spoil-curve FormID. Sourced from the
+# community-maintained spoilage spreadsheet (01/01/2022 revision) — the
+# HealthCurve that each ALCH references doubles as its spoil-category
+# identifier, and every item in the same category shares a base time.
+# Values are in minutes at the default 1.0× spoil rate (no storage bonus,
+# no perks). Stationary storage is 1.0×; fast travel reduces to 0×.
+SPOIL_CURVE_TIME: Dict[str, Tuple[int, str]] = {
+    "003D8EB8": (360, "Tasty Meat Large"),
+    "003D8EB9": (360, "Tasty Vegetable Large"),
+    "003D8EE8": (90,  "Raw Vegetable Large"),
+    "003D8EE9": (468, "Tasty Fruit Large"),
+    "003D91C7": (108, "Raw Fruit Large"),
+    "003D91C8": (90,  "Raw Meat Large"),
+    "003D97F4": (288, "Cooked Meat Large"),
+    "003D97F5": (288, "Cooked Vegetable Large"),
+    "003D9FBB": (374, "Cooked Fruit Large"),
+    "0052B5B9": (240, "Cooked Vegetable"),
+    "0052B5BA": (312, "Cooked Fruit"),
+    "0052B5BB": (240, "Cooked Meat"),
+    "0052B5BC": (90,  "Raw Fruit"),
+    "0052B5BD": (75,  "Raw Meat"),
+    "0052B5BE": (75,  "Raw Vegetable"),
+    "0052B5BF": (300, "Tasty Meat"),
+    "0052B5C0": (390, "Tasty Fruit"),
+    "0052B5C1": (300, "Tasty Vegetable"),
+    # Brewing (ferment) — separate mechanic but rendered the same way.
+    "003F0B3D": (60,  "Brewing Short Fermentation"),
+    "003F0B3E": (120, "Brewing Long Fermentation"),
+}
+
+# Ways to extend spoil time. Each entry is (pct_reduction, label, source).
+# "Reduced spoil rate" extends time: t = base × (1 + pct/100).
+SPOIL_REDUCTIONS: List[Tuple[int, str, str]] = [
+    (30, "Good with Salt 1",          "Luck perk card"),
+    (50, "Refrigerated Backpack mod", "Possum vendor"),
+    (60, "Good with Salt 2 / Fridge", "Luck perk / Atom Shop"),
+    (90, "Good with Salt 3",          "Luck perk card"),
+]
+
+# Regions used in regional-recipe variants (Disease Cure, Healing Salve,
+# Detoxing Salve). Listed longest-first so the alternation in REGION_RE
+# matches "TheMire" before "Mire" and avoids false positives.
+REGION_PRETTY: Dict[str, str] = {
+    "TheMire":      "The Mire",
+    "CranberryBog": "Cranberry Bog",
+    "SavageDivide": "Savage Divide",
+    "ToxicValley":  "Toxic Valley",
+    "AshHeap":      "Ash Heap",
+    "Forest":       "Forest",
+    "Mire":         "The Mire",
+}
+
+# Match a region token only at genuine word boundaries — either an
+# underscore/start-of-string on the left and underscore/end/uppercase on
+# the right, or a camelCase transition (lowercase->Uppercase). This is
+# what stops "Mire" from matching inside "Mirelurk".
+REGION_RE = re.compile(
+    r'(?<=_|[a-z])'
+    r'(TheMire|CranberryBog|SavageDivide|ToxicValley|AshHeap|Forest|Mire)'
+    r'(?=_|$|[A-Z])'
+)
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -238,6 +313,78 @@ def workbench_category(bnam_edid: str, bnam_full: str) -> Tuple[str, str]:
     return ("other", bnam_full or bnam_edid or "Other")
 
 
+def extract_region(recipe_edid: str) -> Optional[str]:
+    """Return the pretty region name if this recipe is a regional variant.
+
+    Disease Cure, Healing Salve and Detoxing Salve all exist as one recipe
+    per region (Forest/Toxic Valley/Savage Divide/Ash Heap/The Mire/Cranberry
+    Bog) so the same output item can be crafted using local ingredients.
+    The region is embedded in the recipe EDID.
+
+    Uses word-boundary lookarounds so "Mire" doesn't match inside unrelated
+    EDIDs like "MirelurkMeatTastyJerky".
+    """
+    if not recipe_edid:
+        return None
+    m = REGION_RE.search(recipe_edid)
+    if not m:
+        return None
+    return REGION_PRETTY.get(m.group(1))
+
+
+def cooking_duplicates_to_skip(cobj: List[Dict[str, str]]) -> set:
+    """COBJ EDIDs of cooking-workbench recipes that duplicate a chem sibling.
+
+    Items like Disease Cure and Healing Salve each have both a cooking and
+    a chem/chemlab recipe with identical ingredients. The chem version is
+    canonical; cooking siblings get filtered out so they don't render as
+    near-identical cards on the ingredient-search page.
+    """
+    all_edids = {r.get("COBJ_EDID", "") for r in cobj if r.get("COBJ_EDID")}
+    skip = set()
+    for edid in all_edids:
+        if not edid.endswith("_WorkbenchCooking"):
+            continue
+        base = edid[:-len("_WorkbenchCooking")]
+        if (base + "_WorkbenchChemLab") in all_edids \
+                or (base + "_WorkbenchChem") in all_edids:
+            skip.add(edid)
+    return skip
+
+
+def compute_spoil_time(curve_fid: str) -> Optional[Dict[str, Any]]:
+    """Build a spoil-time payload for an ALCH's HealthCurve FormID.
+
+    Returns None if the curve isn't in the spoilage lookup — i.e. the
+    item doesn't spoil (chems, water, etc.). Otherwise returns the base
+    time plus pre-computed "extended" times for each common reduction
+    tier (perks / fridge / backpack mod) so the UI doesn't have to do
+    the math itself.
+    """
+    if not curve_fid:
+        return None
+    # FormIDs in the TSV are 8-char uppercase; normalise just in case.
+    key = curve_fid.strip().upper().zfill(8)
+    if key not in SPOIL_CURVE_TIME:
+        return None
+    base_min, curve_name = SPOIL_CURVE_TIME[key]
+    tiers = [
+        {
+            "pct":     pct,
+            "label":   label,
+            "source":  source,
+            "minutes": round(base_min * (1 + pct / 100.0), 2),
+        }
+        for pct, label, source in SPOIL_REDUCTIONS
+    ]
+    return {
+        "base_minutes": base_min,
+        "curve_type":   curve_name,
+        "curve_formId": key,
+        "tiers":        tiers,
+    }
+
+
 def parse_fvpa(fvpa: str) -> List[Tuple[str, int]]:
     out: List[Tuple[str, int]] = []
     if not fvpa:
@@ -275,6 +422,60 @@ def safe_int(s: str) -> Optional[int]:
     return int(f) if f is not None else None
 
 
+def load_cmpo_names(path: Optional[str]) -> Dict[str, str]:
+    """EDID -> pretty name for CMPO (Component) records.
+
+    Sourced from KYWD_Export_*_Refs.tsv, which lists every record that
+    references a keyword alongside its signature. Filtering on
+    RefSignature == "CMPO" gives us the full component list.
+    """
+    if not path:
+        return {}
+    out: Dict[str, str] = {}
+    for row in read_tsv(path):
+        if (row.get("RefSignature") or "").strip() != "CMPO":
+            continue
+        edid = (row.get("RefEDID") or "").strip()
+        name = (row.get("RefName") or "").strip()
+        if edid and name and edid not in out:
+            out[edid] = name
+    return out
+
+
+def load_misc_names(path: Optional[str]) -> Dict[str, str]:
+    """EDID -> FULL name for MISC records."""
+    if not path:
+        return {}
+    out: Dict[str, str] = {}
+    for row in read_tsv(path):
+        edid = (row.get("EDID") or "").strip()
+        name = (row.get("FULL") or "").strip()
+        if edid and name and edid not in out:
+            out[edid] = name
+    return out
+
+
+def load_weight_backfill(alch_paths: List[str]) -> Dict[str, float]:
+    """FormID -> Weight from the first ALCH TSV that has weights populated.
+
+    Works around the Apr 2026 xEdit export losing the Weight column on
+    every row — we scan older exports (March 2026, Feb 2026, Dec 2025)
+    and keep the first one with non-empty weights.
+    """
+    for path in alch_paths:
+        if not path or not os.path.isfile(path):
+            continue
+        out: Dict[str, float] = {}
+        for r in read_tsv(path):
+            fid = (r.get("ALCH_FormID") or "").strip()
+            w = safe_float(r.get("Weight", ""))
+            if fid and w is not None:
+                out[fid] = w
+        if out:
+            return out
+    return {}
+
+
 # ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
@@ -283,6 +484,8 @@ def build(data_dir: str, outdir: str) -> str:
     alch_path = find_first(data_dir, ALCH_GLOBS)
     cobj_path = find_first(data_dir, COBJ_GLOBS)
     eff_path  = find_first(data_dir, ALCH_EFFECTS_GLOBS)
+    kywd_refs_path = find_first(data_dir, KYWD_REFS_GLOBS)
+    misc_path = find_first(data_dir, MISC_GLOBS)
 
     if not alch_path or not cobj_path:
         raise SystemExit(
@@ -293,6 +496,19 @@ def build(data_dir: str, outdir: str) -> str:
     alch = read_tsv(alch_path)
     cobj = read_tsv(cobj_path)
     effects = read_tsv(eff_path) if eff_path else []
+
+    # Ingredient-name lookups for recipe components that aren't in ALCH
+    # (e.g. c_Wood -> "Wood", Cannery_Clean_Can -> "Clean Can").
+    cmpo_names = load_cmpo_names(kywd_refs_path)
+    misc_names = load_misc_names(misc_path)
+
+    # Weight column in Apr 2026 ALCH is empty for all rows; backfill from the
+    # newest older export that still has it.
+    weight_backfill_paths = [
+        os.path.join(data_dir, n) for n in ALCH_GLOBS
+        if os.path.join(data_dir, n) != alch_path
+    ]
+    weight_backfill = load_weight_backfill(weight_backfill_paths)
 
     # ALCH lookups
     alch_by_fid: Dict[str, Dict[str, str]] = {r["ALCH_FormID"]: r for r in alch}
@@ -313,19 +529,30 @@ def build(data_dir: str, outdir: str) -> str:
     def alch_lite(r: Dict[str, str]) -> Dict[str, Any]:
         kws = parse_keywords(r.get("Keywords_Flat", ""))
         fid = r.get("ALCH_FormID", "")
+        weight = safe_float(r.get("Weight", ""))
+        if weight is None:
+            weight = weight_backfill.get(fid)
+        # Spoil time is keyed off the HealthCurve — the same FormID is
+        # both "HP restored over level" and the spoil-category identifier.
+        spoil_time = compute_spoil_time(r.get("ENIT_HealthCurve_FormID", ""))
         return {
             "edid":        r.get("ALCH_EDID", ""),
             "formId":      fid,
             "name":        r.get("FULL") or r.get("ALCH_EDID") or "",
             "type":        pretty_type(kws, r),
-            "weight":      safe_float(r.get("Weight", "")),
+            "weight":      weight,
             "value":       safe_int(r.get("Value", "")),
             "spoils_to":   r.get("ENIT_SpoiledItem_FULL", "").strip() or None,
+            "spoil_time":  spoil_time,
             "is_canned":   (r.get("ENIT_IsCanned") or "").strip().lower() == "true",
             "canned_base": r.get("ENIT_CannedBase_FULL", "").strip() or None,
             "mutation":    mutation_perk(kws),
             "effects":     eff_by_fid.get(fid, []),
         }
+
+    # Pre-compute the set of cooking-workbench COBJ EDIDs that are just
+    # duplicates of a chem sibling (Disease Cure, Healing Salve, etc.).
+    cooking_dupes = cooking_duplicates_to_skip(cobj)
 
     # Build a map: ingredient EDID -> list of recipes that consume it.
     # Each recipe entry includes the FULL ingredient list (so the UI can show
@@ -346,6 +573,10 @@ def build(data_dir: str, outdir: str) -> str:
         if is_cut(out_edid):
             continue
 
+        # Skip cooking-workbench dupes when a chem sibling exists.
+        if recipe_edid in cooking_dupes:
+            continue
+
         ings = parse_fvpa(r.get("FVPA", ""))
         if not ings:
             continue
@@ -359,13 +590,24 @@ def build(data_dir: str, outdir: str) -> str:
             r.get("BNAM_EDID", ""), r.get("BNAM_FULL", "")
         )
 
-        # Resolve the full ingredient list (for the dish breakdown)
+        # Regional recipes (e.g. Disease Cure - Ash Heap) get a suffix so
+        # the card reads as a distinct recipe rather than "six Disease Cures".
+        region = extract_region(recipe_edid)
+        display_name = out_name
+        if region:
+            display_name = f"{out_name} - {region}"
+
+        # Resolve the full ingredient list (for the dish breakdown).
+        # Lookup priority: manual override -> ALCH FULL -> CMPO (component)
+        # -> MISC FULL -> raw EDID as last-resort.
         all_ings_resolved: List[Dict[str, Any]] = []
         for ing_edid, qty in ings:
             ing_row = alch_by_edid.get(ing_edid)
             ing_name = (
                 INGREDIENT_NAME_OVERRIDES.get(ing_edid)
                 or (ing_row.get("FULL") if ing_row else None)
+                or cmpo_names.get(ing_edid)
+                or misc_names.get(ing_edid)
                 or ing_edid
             )
             all_ings_resolved.append({
@@ -376,7 +618,8 @@ def build(data_dir: str, outdir: str) -> str:
 
         recipe_payload = {
             "recipe_edid":  recipe_edid,
-            "recipe_name":  out_name,
+            "recipe_name":  display_name,
+            "region":       region,
             "workbench":    wb_label,
             "category":     wb_cat,
             "output":       alch_lite(out_alch),
