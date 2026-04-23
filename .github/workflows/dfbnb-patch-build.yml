@@ -592,12 +592,15 @@ jobs:
 
           git add dist/
           git add tsv/BnB_Menu_Items.tsv
+          # Stage regenerated CURV POINTS TSV (built by build_curv_points_tsv.py)
+          git add tsv/CURV_Export_*_POINTS.tsv 2>/dev/null || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
             git commit -m "DFBNB Patch Build update"
             git fetch origin main
-            git pull --rebase origin main
+            # --autostash handles any remaining unstaged changes during rebase
+            git pull --rebase --autostash origin main
             git push origin main
           fi
