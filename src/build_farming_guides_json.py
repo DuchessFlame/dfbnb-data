@@ -112,6 +112,41 @@ CURV_RECORD_GLOBS = [
     "CURV_Export_Feb_2026.tsv",
     "CURV_Export_Dec_2025.tsv",
 ]
+# GLOB table — holds the storage-activator spoil-rate multipliers
+# (refrigerator / freezer / fermenter). GLOB.FLTV is the actual numeric
+# value of the global.
+GLOB_GLOBS = [
+    "GLOB_Export_Apr_2026.tsv",
+    "GLOB_Export_March_2026.tsv",
+    "GLOB_Export_Feb_2026.tsv",
+    "GLOB_Export_Dec_2025.tsv",
+]
+# SPEL effects — per-rank magnitudes for perk abilities. Good with Salt
+# is encoded as a single SPEL (AbPerkGoodWithSalt) with one effect entry
+# per rank (index 0 = Rank 1, index 1 = Rank 2). Magnitudes are stored
+# as fractions (0.45 = 45%).
+SPEL_EFFECTS_GLOBS = [
+    "SPEL_Export_Apr_2026_EFFECTS.tsv",
+    "SPEL_Export_March_2026_EFFECTS.tsv",
+    "SPEL_Export_Feb_2026_EFFECTS.tsv",
+]
+# ENCH records — the Refrigerated Backpack mod's effect magnitude lives
+# on its ENCH. The Apr export doesn't include ENCH so we fall back to
+# the March one (the last one that existed when this was last exported).
+ENCH_GLOBS = [
+    "ENCH_Export_Apr_2026.tsv",
+    "ENCH_Export_March_2026.tsv",
+    "ENCH_Export_Feb_2026.tsv",
+    "ENCH_Export_Dec_2025.tsv",
+]
+# MGEF descriptions — used to parse inline "does not stack" hints and
+# other caveats that the game surfaces to players.
+MGEF_GLOBS = [
+    "MGEF_Export_Apr_2026.tsv",
+    "MGEF_Export_March_2026.tsv",
+    "MGEF_Export_Feb_2026.tsv",
+    "MGEF_Export_Dec_2025.tsv",
+]
 
 # Workbench EDID -> (category slug, friendly label). Labels mirror the
 # in-game station names so "Workbench: Cooking Station" reads naturally.
@@ -215,13 +250,35 @@ SPOIL_BASE_MINUTES_FALLBACK: Dict[str, int] = {
     "CT_FoodHealth_TastyFruitLarge":      468,
 }
 
-# Ways to extend spoil time. Each entry is (pct_reduction, label, source).
-# "Reduced spoil rate" extends time: t = base × (1 + pct/100).
-SPOIL_REDUCTIONS: List[Tuple[int, str, str]] = [
-    (30, "Good with Salt 1",          "Luck perk card"),
-    (50, "Refrigerated Backpack mod", "Possum vendor"),
-    (60, "Good with Salt 2 / Fridge", "Luck perk / Atom Shop"),
-    (90, "Good with Salt 3",          "Luck perk card"),
+# Spoil-time modifier sources. Each entry points at a real record whose
+# magnitude gets pulled live from the TSVs at build time. Only the
+# label/scope/kind/edid mapping is hardcoded; the numeric magnitudes
+# come from the game data so Bethesda rebalances propagate automatically.
+#
+# kind: what kind of magnitude source to read
+#   - "glob_rate"   : GLOB.FLTV interpreted as a spoil-rate multiplier.
+#                     time = base / rate. rate 0 = never spoils.
+#   - "spel_rank"   : one effect entry on a SPEL. "index" selects the
+#                     rank (0-based). Magnitude is "% slower": rate
+#                     reduced by magnitude, so time = base / (1 - mag).
+#   - "ench_effect" : first effect magnitude on an ENCH. Same math as
+#                     spel_rank (rate-reduction model).
+#
+# scope: which kinds of curve this tier applies to ("food", "brewing",
+# or "any"). Keeps fermenter off food rows and fridges off brewing rows.
+SPOIL_TIER_SOURCES: List[Dict[str, Any]] = [
+    {"label": "Fridge",                    "kind": "glob_rate",  "scope": "food",
+     "edid":  "WorkshopStashActivatorGroup_Refrigerator_SpoilRate"},
+    {"label": "Freezer",                   "kind": "glob_rate",  "scope": "food",
+     "edid":  "WorkshopStashActivatorGroup_Freezer_SpoilRate"},
+    {"label": "Fermenter",                 "kind": "glob_rate",  "scope": "brewing",
+     "edid":  "WorkshopStashActivatorGroup_Fermenter_SpoilRate"},
+    {"label": "Good with Salt Rank 1",     "kind": "spel_rank",  "scope": "food",
+     "edid":  "AbPerkGoodWithSalt", "index": 0},
+    {"label": "Good with Salt Rank 2",     "kind": "spel_rank",  "scope": "food",
+     "edid":  "AbPerkGoodWithSalt", "index": 1},
+    {"label": "Refrigerated Backpack mod", "kind": "ench_effect","scope": "food",
+     "edid":  "EnchBackpack_Effect_Refrigerated"},
 ]
 
 # Small override for camelCase-to-pretty conversions that simple
@@ -345,10 +402,113 @@ def pretty_curve_name(edid: str) -> str:
     return camel_to_words(edid)
 
 
+def _curve_scope(curve_edid: str) -> str:
+    """Bucket a curve EDID into 'food' / 'brewing' / 'any' so the tier
+    filter knows which storage/perk/mod entries apply to each recipe.
+    """
+    lc = curve_edid.lower()
+    if "brewing" in lc:
+        return "brewing"
+    if "foodhealth" in lc:
+        return "food"
+    return "any"
+
+
+def _resolve_tier(
+    spec: Dict[str, Any],
+    base_minutes: float,
+    globs: Dict[str, float],
+    spel_mags: Dict[str, List[float]],
+    ench_mags: Dict[str, float],
+    warnings: Dict[str, Any],
+) -> Optional[Dict[str, Any]]:
+    """Turn a SPOIL_TIER_SOURCES spec into a concrete tier entry, or None
+    if the referenced record is missing from the TSVs this build.
+    """
+    kind  = spec["kind"]
+    edid  = spec["edid"]
+    label = spec["label"]
+    note  = spec.get("note")
+
+    if kind == "glob_rate":
+        rate = globs.get(edid)
+        if rate is None:
+            warnings.setdefault("missing_spoil_source", {})[f"GLOB:{edid}"] = (
+                warnings.get("missing_spoil_source", {}).get(f"GLOB:{edid}", 0) + 1
+            )
+            return None
+        # rate < 1  ⇒ slower ⇒ longer time. rate == 0 ⇒ never spoils.
+        # rate > 1  ⇒ faster (fermenter speeds brewing up).
+        if rate == 0:
+            mins: Optional[float] = None
+            reduction_pct: Optional[int] = 100
+        elif rate == 1:
+            mins = base_minutes
+            reduction_pct = 0
+        else:
+            mins = round(base_minutes / rate, 2)
+            # Negative = faster (rate > 1). Positive = slower (rate < 1).
+            reduction_pct = round((1.0 - rate) * 100)
+        tier = {
+            "kind":     "storage",
+            "label":    label,
+            "rate_mult": rate,
+            "reduction_pct": reduction_pct,
+            "minutes":  mins,
+            "source":   f"GLOB:{edid}",
+        }
+
+    elif kind == "spel_rank":
+        idx = spec.get("index", 0)
+        mags = spel_mags.get(edid) or []
+        if idx >= len(mags):
+            warnings.setdefault("missing_spoil_source", {})[f"SPEL:{edid}[{idx}]"] = (
+                warnings.get("missing_spoil_source", {}).get(f"SPEL:{edid}[{idx}]", 0) + 1
+            )
+            return None
+        mag = mags[idx]
+        mins = None if mag >= 1.0 else round(base_minutes / (1.0 - mag), 2)
+        tier = {
+            "kind":     "perk",
+            "label":    label,
+            "magnitude": mag,
+            "reduction_pct": round(mag * 100),
+            "minutes":  mins,
+            "source":   f"SPEL:{edid}[{idx}]",
+        }
+
+    elif kind == "ench_effect":
+        mag = ench_mags.get(edid)
+        if mag is None:
+            warnings.setdefault("missing_spoil_source", {})[f"ENCH:{edid}"] = (
+                warnings.get("missing_spoil_source", {}).get(f"ENCH:{edid}", 0) + 1
+            )
+            return None
+        mins = None if mag >= 1.0 else round(base_minutes / (1.0 - mag), 2)
+        tier = {
+            "kind":     "mod",
+            "label":    label,
+            "magnitude": mag,
+            "reduction_pct": round(mag * 100),
+            "minutes":  mins,
+            "source":   f"ENCH:{edid}",
+        }
+
+    else:
+        return None
+
+    if note:
+        tier["note"] = note
+    return tier
+
+
 def compute_spoil_time(
     curve_edid: str,
     curve_fid: str,
     curve_base_times: Dict[str, float],
+    globs: Dict[str, float],
+    spel_mags: Dict[str, List[float]],
+    ench_mags: Dict[str, float],
     warnings: Dict[str, Any],
 ) -> Optional[Dict[str, Any]]:
     """Build a spoil-time payload keyed off the ALCH's HealthCurve EDID.
@@ -356,21 +516,21 @@ def compute_spoil_time(
     Returns None if the item has no HealthCurve (chems, water, etc. —
     they don't spoil).
 
-    Lookup priority for the base time:
-      1. Live CURV points data (Y at X=1 for this curve)
-      2. SPOIL_BASE_MINUTES_FALLBACK — 2022 snapshot, only hit when the
-         CURV export is missing/broken
-      3. None — still produces a payload with the category name so the
-         UI renders "Spoil time: base unknown (Raw Fish)" and the curve
-         EDID shows up in the build warnings for manual follow-up.
+    Base minutes resolution order:
+      1. Live CURV points data (Y at X=1)
+      2. SPOIL_BASE_MINUTES_FALLBACK (2022 snapshot, safety net only)
+      3. None — category still renders so the missing curve is visible
+         in build warnings.
 
-    curve_fid is only carried through for debugging / downstream consumers
-    — no lookup keys off it, so Bethesda can shuffle FormIDs freely.
+    Tiers are resolved generatively: each entry in SPOIL_TIER_SOURCES
+    names a GLOB / SPEL / ENCH record whose magnitude is pulled from
+    the TSV data. Curve scope (food vs brewing) filters out irrelevant
+    tiers so fridges don't show on fermentable-brew recipes and vice
+    versa.
     """
     if not curve_edid:
         return None  # no curve = doesn't spoil
     curve_type = pretty_curve_name(curve_edid)
-    # Prefer the live lookup so rebalances propagate on next build.
     base = curve_base_times.get(curve_edid)
     source: Optional[str] = "curv_points" if base is not None else None
     if base is None:
@@ -393,22 +553,25 @@ def compute_spoil_time(
             "source":       None,
             "tiers":        [],
         }
+
+    scope = _curve_scope(curve_edid)
+    tiers: List[Dict[str, Any]] = []
+    for spec in SPOIL_TIER_SOURCES:
+        tier_scope = spec.get("scope", "any")
+        if tier_scope != "any" and tier_scope != scope:
+            continue
+        tier = _resolve_tier(spec, base, globs, spel_mags, ench_mags, warnings)
+        if tier is not None:
+            tiers.append(tier)
+
     base_int = int(base) if base == int(base) else round(base, 2)
-    tiers = [
-        {
-            "pct":     pct,
-            "label":   label,
-            "source":  srclbl,
-            "minutes": round(base * (1 + pct / 100.0), 2),
-        }
-        for pct, label, srclbl in SPOIL_REDUCTIONS
-    ]
     return {
         "base_minutes": base_int,
         "curve_type":   curve_type,
         "curve_edid":   curve_edid,
         "curve_formId": (curve_fid or "").strip().upper().zfill(8) or None,
         "source":       source,
+        "scope":        scope,
         "tiers":        tiers,
     }
 
@@ -773,6 +936,82 @@ def load_curve_base_times(
     return out
 
 
+def load_glob_values(paths: List[str]) -> Dict[str, float]:
+    """Return {glob_edid: FLTV} from the first available GLOB export."""
+    for path in paths:
+        if not path or not os.path.isfile(path):
+            continue
+        out: Dict[str, float] = {}
+        for row in read_tsv(path):
+            edid = (row.get("EDID") or "").strip()
+            fltv = safe_float(row.get("FLTV", ""))
+            if edid and fltv is not None:
+                out[edid] = fltv
+        if out:
+            return out
+    return {}
+
+
+def load_spel_effect_magnitudes(paths: List[str]) -> Dict[str, List[float]]:
+    """Return {spel_edid: [magnitude_per_effect_index]}.
+
+    Good with Salt's per-rank magnitudes are represented as multiple
+    effect entries on a single SPEL (AbPerkGoodWithSalt) — index 0 is
+    Rank 1's magnitude, index 1 is Rank 2's. We preserve the order from
+    the TSV's "EffectIndex" column so rank numbering stays sane.
+    """
+    for path in paths:
+        if not path or not os.path.isfile(path):
+            continue
+        tmp: Dict[str, Dict[int, float]] = defaultdict(dict)
+        for row in read_tsv(path):
+            edid = (row.get("SPEL_EDID") or "").strip()
+            if not edid:
+                continue
+            try:
+                idx = int(row.get("EffectIndex", "0"))
+            except ValueError:
+                continue
+            mag = safe_float(row.get("EFIT_Magnitude", ""))
+            if mag is None:
+                continue
+            tmp[edid][idx] = mag
+        if tmp:
+            return {
+                edid: [by_idx[i] for i in sorted(by_idx.keys())]
+                for edid, by_idx in tmp.items()
+            }
+    return {}
+
+
+# Parses the "Effect_N" cells that ENCH exports use — each is a single
+# string of "key=value;..." pairs. We only need Mag out of it.
+_ENCH_EFFECT_MAG_RE = re.compile(r'\bMag=([0-9.eE+\-]+)')
+
+
+def load_ench_effect_magnitudes(paths: List[str]) -> Dict[str, float]:
+    """Return {ench_edid: first_effect_magnitude} from the Effect_1 cell."""
+    for path in paths:
+        if not path or not os.path.isfile(path):
+            continue
+        out: Dict[str, float] = {}
+        for row in read_tsv(path):
+            edid = (row.get("ENCH_EDID") or "").strip()
+            if not edid:
+                continue
+            cell = row.get("Effect_1") or row.get("Effects_Flat") or ""
+            m = _ENCH_EFFECT_MAG_RE.search(cell)
+            if not m:
+                continue
+            try:
+                out[edid] = float(m.group(1))
+            except ValueError:
+                continue
+        if out:
+            return out
+    return {}
+
+
 def load_weight_backfill(alch_paths: List[str]) -> Dict[str, float]:
     """FormID -> Weight from the first ALCH TSV that has weights populated.
 
@@ -832,6 +1071,19 @@ def build(data_dir: str, outdir: str) -> str:
         curv_points_paths, curv_record_paths, curvetables_roots
     )
 
+    # Live data for spoil modifiers — storage (GLOB), perks (SPEL), mods
+    # (ENCH). Replaces the old hardcoded SPOIL_REDUCTIONS list; every
+    # number below is now pulled from the engine TSVs each build.
+    glob_values = load_glob_values(
+        [os.path.join(data_dir, n) for n in GLOB_GLOBS]
+    )
+    spel_mags = load_spel_effect_magnitudes(
+        [os.path.join(data_dir, n) for n in SPEL_EFFECTS_GLOBS]
+    )
+    ench_mags = load_ench_effect_magnitudes(
+        [os.path.join(data_dir, n) for n in ENCH_GLOBS]
+    )
+
     # Weight column in Apr 2026 ALCH is empty for all rows; backfill from the
     # newest older export that still has it.
     weight_backfill_paths = [
@@ -869,12 +1121,14 @@ def build(data_dir: str, outdir: str) -> str:
             weight = weight_backfill.get(fid)
         # Spoil time is keyed off the HealthCurve EDID (stable across
         # ESM resaves); the base minutes come from the live CURV points
-        # lookup. Unknown curves still produce a payload with a category
-        # label — the missing base time is logged in warnings.
+        # lookup and the tier magnitudes from GLOB / SPEL / ENCH TSVs.
         spoil_time = compute_spoil_time(
             r.get("ENIT_HealthCurve_EDID", ""),
             r.get("ENIT_HealthCurve_FormID", ""),
             curve_base_times,
+            glob_values,
+            spel_mags,
+            ench_mags,
             warnings,
         )
         return {
@@ -1098,6 +1352,7 @@ def build(data_dir: str, outdir: str) -> str:
         labels = {
             "unknown_spoil_curves":    "HealthCurves with no CURV points AND no fallback (items render 'base unknown')",
             "using_spoil_fallback":    "HealthCurves served from 2022 fallback (CURV export missing these)",
+            "missing_spoil_source":    "Spoil-tier source records not found in GLOB/SPEL/ENCH exports",
             "unknown_workbench":       "BNAM workbench refs that fell through to 'Other'",
             "unresolved_ingredients":  "Ingredient EDIDs with no ALCH/CMPO/MISC name",
         }
