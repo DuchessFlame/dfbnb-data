@@ -159,7 +159,7 @@ def _resolve_json(
         # 5. CT_-stripped fallback (matches the PS1 patch). Older curves
         # like CT_FoodHealth_TastyMeat have no JASF_Path and their JSON
         # is at foodhealth_tastymeat.json — i.e. CT_ prefix removed.
-        m = re.match(r"^(?i)CT_(.+)$", edid)
+        m = re.match(r"^CT_(.+)$", edid, re.IGNORECASE)
         if m:
             stem = m.group(1)
             hit = fname_index.get(f"{stem}.json".lower())
