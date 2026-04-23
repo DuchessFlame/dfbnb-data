@@ -111,6 +111,10 @@ CURV_POINTS_GLOBS = [
 # to its raw JSON file on disk when the POINTS TSV doesn't include it
 # (common for non-Large food curves whose CURV record has no JASF_Path).
 CURV_RECORD_GLOBS = [
+    # Preferred new naming (matches tools\build-curv-points.ps1 output)
+    "CURV_Export_Apr_2026_CURV.tsv",
+    # Legacy double-extension name from the old xEdit script — kept as
+    # fallback so previously-committed exports still build.
     "CURV_Export_Apr_2026.tsv_CURV.tsv",
     "CURV_Export_March_2026.tsv",
     "CURV_Export_Feb_2026.tsv",
@@ -317,8 +321,16 @@ def find_first(data_dir: str, names: List[str]) -> Optional[str]:
 def read_tsv(path: str) -> List[Dict[str, str]]:
     if not path:
         return []
-    with open(path, encoding="utf-8", errors="replace", newline="") as f:
-        return list(csv.DictReader(f, delimiter="\t"))
+    # Tolerate phantom files: os.path.isfile() can return True for
+    # OneDrive-backed "Files On-Demand" placeholders whose content the
+    # kernel can't actually materialize (seen on WSL/sandbox mounts).
+    # Callers already skip the row/column work on an empty list, so
+    # treating an unreadable file as empty is the right default.
+    try:
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            return list(csv.DictReader(f, delimiter="\t"))
+    except FileNotFoundError:
+        return []
 
 
 KW_RE = re.compile(r"^(.+?)\[([0-9A-Fa-f]+)\]$")
@@ -783,19 +795,25 @@ def load_misc_names(path: Optional[str]) -> Dict[str, str]:
 
 
 def _discover_curvetables_roots(data_dir: str) -> List[str]:
-    """Candidate paths for the fo76-tools curvetables JSON root. Tries,
-    in order: env override, a sibling fo76-tools checkout next to the
-    dfbnb-data repo, and the common OneDrive GitHub layout.
+    """Candidate paths for the curvetables JSON root. Tries, in order:
+
+      1. FO76_CURVETABLES env override
+      2. In-repo committed copy at <repo>/data/curvetables/json
+         (works in CI — no external checkout needed)
+      3. A sibling fo76-tools checkout next to the dfbnb-data repo
+      4. The OneDrive GitHub layout (Duchess's canonical local path)
 
     Returns all existing candidates so the loader can merge them, though
-    in practice only one will usually exist per machine. Missing paths
-    are tolerated — the loader will fall through to the POINTS TSV and
-    then to the hardcoded 2022 snapshot.
+    in practice one is enough. Missing paths are tolerated — the loader
+    falls through to the POINTS TSV and then to the hardcoded 2022
+    snapshot.
     """
     env = os.environ.get("FO76_CURVETABLES")
-    repo_parent = os.path.abspath(os.path.join(data_dir, os.pardir, os.pardir))
+    repo_root = os.path.abspath(os.path.join(data_dir, os.pardir))
+    repo_parent = os.path.abspath(os.path.join(repo_root, os.pardir))
     candidates = [
         env,
+        os.path.join(repo_root,   "data", "curvetables", "json"),
         os.path.join(repo_parent, "fo76-tools", "misc", "curvetables", "json"),
         os.path.join(os.path.expanduser("~"), "OneDrive", "GitHub",
                      "fo76-tools", "misc", "curvetables", "json"),

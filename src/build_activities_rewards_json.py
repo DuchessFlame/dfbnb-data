@@ -75,13 +75,22 @@ def _filename_date_key(path):
             return (int(m.group(2)), month_num)
     return (0, 0)  # unknown → sort low so parseable dates always win
 
-def newest(pattern):
+def newest(pattern, exclude_substrings=None):
     """Pick the most recent file matching *pattern*.
     Primary sort: parsed year+month from filename (reliable on GitHub Actions
     where git checkout mtimes vary by checkout order, not commit date).
-    Tiebreaker: file mtime (useful on local machines)."""
+    Tiebreaker: file mtime (useful on local machines).
+
+    *exclude_substrings* is an optional iterable of substrings; any file
+    whose basename contains one of them is dropped before sorting. Used to
+    keep the CURV records glob ("CURV_Export_*.tsv") from accidentally
+    matching the POINTS file ("CURV_Export_<month>_<year>_POINTS.tsv").
+    """
     full_pattern = str(_REPO_ROOT / pattern)
     files = glob.glob(full_pattern)
+    if exclude_substrings:
+        files = [f for f in files
+                 if not any(s in os.path.basename(f) for s in exclude_substrings)]
     if not files: raise FileNotFoundError(pattern)
     files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
     return files[-1]
@@ -512,7 +521,7 @@ try:    AMMO = read_tsv(newest("tsv/AMMO_Export_*.tsv"))
 except FileNotFoundError: AMMO = []
 try:    CREA = read_tsv(newest("tsv/CREA_Export_*.tsv"))
 except FileNotFoundError: CREA = []
-try:    CURV = read_tsv(newest("tsv/CURV_Export_*.tsv"))
+try:    CURV = read_tsv(newest("tsv/CURV_Export_*.tsv", exclude_substrings=("_POINTS", "CurvePoints")))
 except FileNotFoundError: CURV = []
 try:    CURV_POINTS = read_tsv(newest("tsv/CURV_Export_*_POINTS.tsv"))
 except FileNotFoundError: CURV_POINTS = []

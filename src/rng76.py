@@ -64,12 +64,21 @@ def _filename_date_key(path: str) -> Tuple[int, int]:
             return (int(m.group(2)), month_num)
     return (0, 0)  # unknown → sort low so parseable dates always win
 
-def newest(pattern: str) -> str:
+def newest(pattern: str, exclude_substrings=None) -> str:
     """Return the most recent file matching *pattern*.
     Primary sort: parsed year+month from filename (reliable on GitHub Actions
     where git checkout mtimes vary by checkout order, not commit date).
-    Tiebreaker: file mtime (useful on local machines)."""
+    Tiebreaker: file mtime (useful on local machines).
+
+    *exclude_substrings* is an optional iterable of substrings; any file
+    whose basename contains one of them is dropped before sorting. Used to
+    keep the CURV records glob ("CURV_Export_*.tsv") from accidentally
+    matching the POINTS file ("CURV_Export_<month>_<year>_POINTS.tsv").
+    """
     files = _glob.glob(pattern)
+    if exclude_substrings:
+        files = [f for f in files
+                 if not any(s in os.path.basename(f) for s in exclude_substrings)]
     if not files:
         raise FileNotFoundError(pattern)
     files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
@@ -427,7 +436,8 @@ class CurvIndex:
         # Main CURV file (without _POINTS suffix)
         try:
             candidates = _glob.glob(os.path.join(tsv_root, "CURV_Export_*.tsv"))
-            main_files = [f for f in candidates if "_POINTS" not in f]
+            main_files = [f for f in candidates
+                          if "_POINTS" not in f and "CurvePoints" not in f]
             if main_files:
                 main_files.sort(key=lambda x: os.path.getmtime(x))
                 self.load_main(main_files[-1])
