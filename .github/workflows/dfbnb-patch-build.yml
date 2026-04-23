@@ -102,7 +102,14 @@ jobs:
         shell: bash
         run: |
           set -e
-          RECORDS=$(ls -1 tsv/CURV_Export_*_CURV.tsv tsv/CURV_Export_*.tsv_CURV.tsv 2>/dev/null | awk -F'[_./]' '
+          # GitHub Actions bash runs with -o pipefail. `ls` given a glob
+          # that matches nothing (here: tsv/CURV_Export_*.tsv_CURV.tsv)
+          # exits 2 even with stderr redirected, and pipefail propagates
+          # that up through the pipe, aborting the script via `set -e`.
+          # Wrap ls in `{ ... || true; }` so the pipeline always starts
+          # from exit 0; the awk filter decides whether any records TSV
+          # was actually found.
+          RECORDS=$({ ls -1 tsv/CURV_Export_*_CURV.tsv tsv/CURV_Export_*.tsv_CURV.tsv 2>/dev/null || true; } | awk -F'[_./]' '
             BEGIN {
               m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
               m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
