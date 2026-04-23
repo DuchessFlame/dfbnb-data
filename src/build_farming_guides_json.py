@@ -96,9 +96,13 @@ MISC_GLOBS = [
 ]
 # CURV points exports. Y at X=1 for each ALCH's HealthCurve equals the
 # base spoil time in minutes — so we read this every build instead of
-# maintaining a hardcoded table. April export is currently empty
-# (export regression), so the March file is the effective primary.
+# maintaining a hardcoded table. The April regression was fixed by the
+# rewritten ExportCURVToTSV.pas (external-JSON fallback via JASF), which
+# now emits *_POINTS.tsv matching the March naming. The old
+# *_CurvePoints.tsv (with the double-`.tsv` bug) and the March file are
+# kept as fallbacks so previously-committed exports still work.
 CURV_POINTS_GLOBS = [
+    "CURV_Export_Apr_2026_POINTS.tsv",
     "CURV_Export_Apr_2026.tsv_CurvePoints.tsv",
     "CURV_Export_March_2026_POINTS.tsv",
 ]
