@@ -1166,6 +1166,8 @@ def build(data_dir: str, outdir: str) -> str:
             "canned_base": r.get("ENIT_CannedBase_FULL", "").strip() or None,
             "mutation":    mutation_perk(kws),
             "effects":     eff_by_fid.get(fid, []),
+            "addiction_name":   r.get("ENIT_Addiction_FULL", "").strip() or None,
+            "addiction_chance":  safe_float(r.get("ENIT_AddictionChance", "")),
         }
 
     # Discover duplicate-workbench pairs and variant recipes from the data
