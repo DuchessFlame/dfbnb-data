@@ -12,6 +12,7 @@ Source of truth:
 Schema (TSV columns):
     menu category   name   edid   form_id   build   price_xbox   price_ps
     price_pc        limit_new      limit_existing   order category   notes
+    availability
 
 Output shape:
     {
@@ -30,7 +31,8 @@ Output shape:
               "price_pc":       "15",
               "limit_new":      "30",
               "limit_existing": "30",
-              "build":          ""
+              "build":          "",
+              "availability":   ""
             },
             ...
           ]
@@ -40,16 +42,20 @@ Output shape:
     }
 
 Design notes:
-  - The page renders all 9 fine-grained menu categories (NOT the coarse
+  - The page renders all fine-grained menu categories (NOT the coarse
     Food/Chem buckets used by build_menu_items_json.py).
   - Items are sorted A-Z within each category, and categories A-Z overall.
   - Missing prices render as blank — we do NOT substitute fallbacks.
   - "order category" and "notes" columns are stripped (not shown on the page).
   - The "edid" and "form_id" columns are stripped (internal only).
+  - Items with availability="Not Available" get N/A prices and are styled
+    accordingly on the front end.
+  - Items with availability="Seasonal" are flagged for seasonal CSS treatment.
 
 Diagnostics:
   Warnings for rows missing a category or name, and errors for rows missing
-  any price. Written to dist/diagnostics.json under source="bnb_menu".
+  any price (only for available items). Written to dist/diagnostics.json
+  under source="bnb_menu".
 
 Usage:
     python build_bnb_menu_json.py
@@ -85,6 +91,7 @@ REQUIRED_COLS = {
     "build",
     "mutation",
     "buff",
+    "availability",
 }
 
 PRICE_FIELDS = ("price_xbox", "price_ps", "price_pc")
@@ -176,6 +183,8 @@ def build_categories(rows: List[Dict[str, str]], diag: Diagnostics) -> List[Dict
             continue
         seen.add(key)
 
+        availability = clean(row.get("availability", ""))
+
         item: Dict[str, Any] = {
             "name":           name,
             "price_xbox":     clean(row.get("price_xbox", "")),
@@ -186,17 +195,20 @@ def build_categories(rows: List[Dict[str, str]], diag: Diagnostics) -> List[Dict
             "build":          clean(row.get("build", "")),
             "mutation":       clean(row.get("mutation", "")),
             "buff":           clean(row.get("buff", "")),
+            "availability":   availability,
         }
 
-        missing_prices = [f for f in PRICE_FIELDS if not item[f]]
-        if missing_prices:
-            diag.error(
-                "bnb_menu.row.missing_price",
-                f"{name!r} ({cat}) is missing price for: "
-                f"{', '.join(p.replace('price_', '') for p in missing_prices)}",
-                detail=name,
-                context={"name": name, "category": cat, "missing_fields": missing_prices},
-            )
+        # Only flag missing prices for available items (not N/A or seasonal-N/A)
+        if availability != "Not Available" and item["price_xbox"] != "N/A":
+            missing_prices = [f for f in PRICE_FIELDS if not item[f]]
+            if missing_prices:
+                diag.error(
+                    "bnb_menu.row.missing_price",
+                    f"{name!r} ({cat}) is missing price for: "
+                    f"{', '.join(p.replace('price_', '') for p in missing_prices)}",
+                    detail=name,
+                    context={"name": name, "category": cat, "missing_fields": missing_prices},
+                )
 
         grouped.setdefault(cat, []).append(item)
 

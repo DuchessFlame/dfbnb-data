@@ -41,7 +41,8 @@ Output shape (unchanged for consumers):
           "price_pc":       "20",
           "limit_new":      "50",
           "limit_existing": "100",
-          "source":         "cobj" | "no_cobj"
+          "source":         "cobj" | "no_cobj",
+          "availability":   ""
         },
         ...
       ]
@@ -52,9 +53,12 @@ Notes
 - `source` is kept for back-compat with any consumer that inspects it.
   "cobj"    = has a COBJ recipe (craftable)
   "no_cobj" = menu item without a recipe (looted / served / cut-content-but-still-sold)
-- Missing prices raise `menu.missing_price` (ERROR). Missing limits raise
-  `menu.missing_limit` (WARNING). Diagnostics land in dist/diagnostics.json
-  under source="menu_items".
+- `availability` can be "" (normal), "Not Available", or "Seasonal".
+  Not Available items have N/A prices and should be styled/greyed accordingly.
+  Seasonal items have prices but are only available during certain events.
+- Missing prices raise `menu.missing_price` (ERROR) only for available items.
+  Missing limits raise `menu.missing_limit` (WARNING) only for available items.
+  Diagnostics land in dist/diagnostics.json under source="menu_items".
 - menu-overrides.tsv is no longer read. If it's still in tsv/ it is ignored.
 
 Usage:
@@ -91,6 +95,7 @@ REQUIRED_MASTER_COLS = {
     "limit_new",
     "limit_existing",
     "order category",
+    "availability",
 }
 
 PRICE_FIELDS = ("price_xbox", "price_ps", "price_pc")
@@ -219,6 +224,7 @@ def build_menu(
         seen_keys.add(key)
 
         source = "cobj" if key in cobj_names else "no_cobj"
+        availability = clean(row.get("availability", ""))
 
         item: Dict[str, Any] = {
             "name":           name,
@@ -231,26 +237,30 @@ def build_menu(
             "limit_new":      clean(row.get("limit_new", "")),
             "limit_existing": clean(row.get("limit_existing", "")),
             "source":         source,
+            "availability":   availability,
         }
 
-        missing_prices = [f for f in PRICE_FIELDS if not item[f]]
-        if missing_prices:
-            diag.error(
-                "menu_items.missing_price",
-                f"{name!r} ({category}) is missing price for: "
-                f"{', '.join(p.replace('price_', '') for p in missing_prices)}",
-                detail=name,
-                context={"name": name, "category": category, "missing_fields": missing_prices},
-            )
-        missing_limits = [f for f in LIMIT_FIELDS if not item[f]]
-        if missing_limits:
-            diag.warning(
-                "menu_items.missing_limit",
-                f"{name!r} ({category}) is missing limit for: "
-                f"{', '.join(l.replace('limit_', '') for l in missing_limits)}",
-                detail=name,
-                context={"name": name, "category": category, "missing_fields": missing_limits},
-            )
+        # Only flag missing prices/limits for available items
+        if availability != "Not Available" and item["price_xbox"] != "N/A":
+            missing_prices = [f for f in PRICE_FIELDS if not item[f]]
+            if missing_prices:
+                diag.error(
+                    "menu_items.missing_price",
+                    f"{name!r} ({category}) is missing price for: "
+                    f"{', '.join(p.replace('price_', '') for p in missing_prices)}",
+                    detail=name,
+                    context={"name": name, "category": category, "missing_fields": missing_prices},
+                )
+        if availability != "Not Available":
+            missing_limits = [f for f in LIMIT_FIELDS if not item[f]]
+            if missing_limits:
+                diag.warning(
+                    "menu_items.missing_limit",
+                    f"{name!r} ({category}) is missing limit for: "
+                    f"{', '.join(l.replace('limit_', '') for l in missing_limits)}",
+                    detail=name,
+                    context={"name": name, "category": category, "missing_fields": missing_limits},
+                )
 
         out.append(item)
 
@@ -315,7 +325,11 @@ def main() -> None:
             json.dump(output, f, indent=2, ensure_ascii=False)
         print(f"Wrote {output_path}", file=sys.stderr)
     except Exception as exc:
-        diag.error("menu_items.write.failed", "Failed to write menu-items.json", detail=str(exc))
+        diag.error(
+            "menu_items.write.failed",
+            "Failed to write menu-items.json",
+            detail=str(exc),
+        )
         diag.save()
         sys.exit(1)
 
