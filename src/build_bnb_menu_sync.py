@@ -506,7 +506,7 @@ def load_cobj_recipes(path: str) -> Dict[str, Dict[str, Any]]:
 
 
 def calc_prices(ingredient_count: int) -> Tuple[str, str, str]:
-    """Apply the BnB pricing formula.
+    """Apply the BnB pricing formula for standard (non-canned) items.
 
       price_xbox = ingredient_count * 5
       price_ps   = price_xbox + 10
@@ -519,6 +519,78 @@ def calc_prices(ingredient_count: int) -> Tuple[str, str, str]:
         return ("", "", "")
     xbox = ingredient_count * 5
     ps_pc = xbox + 10
+    return (str(xbox), str(ps_pc), str(ps_pc))
+
+
+# ---------------------------------------------------------------------------
+# Canned-item pricing
+# ---------------------------------------------------------------------------
+# Canned items are priced as: fresh item's ACTUAL price + 10 caps.
+#   price_xbox = fresh_price_xbox + 10
+#   price_ps   = fresh_price_ps   + 10
+#   price_pc   = fresh_price_pc   + 10
+#
+# The fresh price comes from looking up the non-canned version in the
+# existing menu TSV. Some fresh items use the ingredient formula
+# (ingredients × 5), others have static premium prices (e.g. Brain Bombs
+# at 100c). This approach respects both.
+#
+# If no fresh version exists in the menu, we fall back to the ingredient
+# formula: (ingredient_count × 5) + 10 for Xbox, + 20 for PS/PC.
+#
+# The fresh item is found by stripping the _Cannery suffix (and any
+# trailing _G1/_G2 for Season 25 variants) and any SCORE_ prefix from
+# the EDID, or by stripping "Canned " from the display name.
+
+_CANNERY_SUFFIX_RE = re.compile(r"_Cannery.*$", re.IGNORECASE)
+_SCORE_PREFIX_RE = re.compile(r"^SCORE_S?\d+_", re.IGNORECASE)
+
+CANNED_MARKUP = 10
+
+
+def derive_fresh_edid(canned_edid: str) -> str:
+    """Strip _Cannery suffix and SCORE_ prefix to get the fresh item's EDID.
+
+    Examples:
+        BrahminMeatCooked_Cannery            → BrahminMeatCooked
+        SCORE_25_BrainBombsGourmet_Cannery_G1 → BrainBombsGourmet
+        SCORE_S25_BlightVegetableCookedSoup_Cannery_G2 → BlightVegetableCookedSoup
+    """
+    edid = _CANNERY_SUFFIX_RE.sub("", canned_edid)
+    edid = _SCORE_PREFIX_RE.sub("", edid)
+    return edid
+
+
+def calc_canned_from_fresh_prices(
+    fresh_xbox: str, fresh_ps: str, fresh_pc: str,
+) -> Tuple[str, str, str]:
+    """Add the canned markup (+10) to each of the fresh item's actual prices.
+
+    Returns ("", "", "") if any fresh price is blank or non-numeric.
+    """
+    try:
+        px = int(fresh_xbox) + CANNED_MARKUP
+        pps = int(fresh_ps) + CANNED_MARKUP
+        ppc = int(fresh_pc) + CANNED_MARKUP
+    except (ValueError, TypeError):
+        return ("", "", "")
+    return (str(px), str(pps), str(ppc))
+
+
+def calc_canned_from_ingredients(ingredient_count: int) -> Tuple[str, str, str]:
+    """Fallback: derive canned price from ingredient count when no fresh
+    item exists in the menu. Uses the standard ingredient formula + markup.
+
+      price_xbox = (ingredient_count * 5) + 10
+      price_ps   = (ingredient_count * 5) + 20
+      price_pc   = (ingredient_count * 5) + 20
+
+    Returns ("", "", "") if ingredient_count is 0 or negative.
+    """
+    if ingredient_count <= 0:
+        return ("", "", "")
+    xbox = (ingredient_count * 5) + CANNED_MARKUP
+    ps_pc = (ingredient_count * 5) + CANNED_MARKUP + 10  # +10 platform markup
     return (str(xbox), str(ps_pc), str(ps_pc))
 
 
@@ -597,6 +669,15 @@ def sync(
         fid = clean(row.get("form_id", "")).lower()
         if fid:
             menu_by_fid[fid] = row
+
+    # Index by display name (lowercase) for fresh-item price lookups.
+    # Used by the canned pricing path to find the fresh version's actual
+    # price — respects static premium prices (e.g. Brain Bombs at 100c).
+    menu_by_name: Dict[str, Dict[str, str]] = {}
+    for row in menu_rows:
+        n = clean(row.get("name", "")).lower()
+        if n:
+            menu_by_name[n] = row
 
     # Track which menu categories currently exist
     existing_categories = {clean(r.get("menu category", "")).lower() for r in menu_rows}
@@ -683,15 +764,46 @@ def sync(
                 updated_count += 1
         else:
             # ─── NEW ITEM ───
-            # Auto-price from the COBJ recipe ingredient count, if we can find
-            # one. Look up by EDID first (unambiguous) then fall back to display
-            # name (handles items renamed in ALCH since their recipe was written).
-            ing_count = (
-                cobj_index["by_edid"].get(edid.lower())
-                or cobj_index["by_name"].get(full_name.lower())
-                or 0
-            )
-            px, pps, ppc = calc_prices(ing_count)
+            # Canned items use a different pricing path: look up the FRESH
+            # version's ACTUAL price in the menu and add +10 canned markup.
+            # This respects static premium prices (e.g. Brain Bombs at 100c
+            # → Canned Brain Bombs at 110c). Falls back to ingredient
+            # formula + markup only if no fresh version exists in the menu.
+            if cat == "Canned":
+                fresh_name = re.sub(
+                    r"^Canned\s+", "", full_name, flags=re.IGNORECASE
+                ).lower()
+                fresh_row = menu_by_name.get(fresh_name)
+
+                if fresh_row:
+                    # Fresh item exists — use its actual prices + markup
+                    px, pps, ppc = calc_canned_from_fresh_prices(
+                        clean(fresh_row.get("price_xbox", "")),
+                        clean(fresh_row.get("price_ps", "")),
+                        clean(fresh_row.get("price_pc", "")),
+                    )
+                    fresh_ing = 0  # not used in this path
+
+                if not fresh_row or not px:
+                    # No fresh item, or fresh price is blank/N/A —
+                    # fall back to ingredient formula + canned markup
+                    fresh_edid = derive_fresh_edid(edid)
+                    fresh_ing = (
+                        cobj_index["by_edid"].get(fresh_edid.lower())
+                        or cobj_index["by_name"].get(fresh_name)
+                        or 0
+                    )
+                    px, pps, ppc = calc_canned_from_ingredients(fresh_ing)
+            else:
+                # Standard auto-price from COBJ recipe ingredient count.
+                # Look up by EDID first (unambiguous) then fall back to
+                # display name (handles ALCH renames since recipe was written).
+                ing_count = (
+                    cobj_index["by_edid"].get(edid.lower())
+                    or cobj_index["by_name"].get(full_name.lower())
+                    or 0
+                )
+                px, pps, ppc = calc_prices(ing_count)
 
             new_row = {col: "" for col in MENU_COLS}
             new_row["menu category"] = cat
@@ -711,9 +823,23 @@ def sync(
             new_count += 1
 
             if px:
+                if cat == "Canned" and fresh_row:
+                    price_note = (
+                        f"Canned pricing: fresh {fresh_name!r} is "
+                        f"{clean(fresh_row.get('price_xbox',''))} Xbox, +10 markup"
+                    )
+                elif cat == "Canned":
+                    price_note = (
+                        f"Canned pricing (ingredient fallback): {fresh_ing} "
+                        f"ingredients × 5 + 10 markup"
+                    )
+                else:
+                    price_note = (
+                        f"Auto-priced from {ing_count}-ingredient COBJ recipe"
+                    )
                 msg = (
-                    f"New item {full_name!r} -> {cat}. Auto-priced from {ing_count}-"
-                    f"ingredient COBJ recipe: XBOX={px}, PS/PC={pps}. "
+                    f"New item {full_name!r} -> {cat}. {price_note}: "
+                    f"XBOX={px}, PS/PC={pps}. "
                     f"Order limits (new/existing) still need to be set."
                 )
                 diag.warning(
@@ -725,17 +851,27 @@ def sync(
                         "category": cat,
                         "edid": edid,
                         "form_id": fid,
-                        "ingredient_count": ing_count,
+                        "ingredient_count": fresh_ing if cat == "Canned" else ing_count,
                         "price_xbox": px,
                         "price_ps": pps,
                         "price_pc": ppc,
                     },
                 )
             else:
+                if cat == "Canned":
+                    no_recipe_note = (
+                        f"No fresh version found in menu (tried "
+                        f"{fresh_name!r}) and no COBJ recipe found, so "
+                        f"no auto-price could be calculated."
+                    )
+                else:
+                    no_recipe_note = (
+                        f"No COBJ recipe found, so no auto-price could be "
+                        f"calculated."
+                    )
                 msg = (
-                    f"New item {full_name!r} -> {cat}. No COBJ recipe found, so "
-                    f"no auto-price could be calculated. Prices and order limits "
-                    f"both need to be set manually."
+                    f"New item {full_name!r} -> {cat}. {no_recipe_note} "
+                    f"Prices and order limits both need to be set manually."
                 )
                 diag.warning(
                     "bnb_menu_sync.new_item.needs_price_and_limits",
