@@ -69,6 +69,7 @@ MENU_COLS = [
     "limit_new", "limit_existing",
     "mutation", "buff",
     "order category", "notes",
+    "availability",
 ]
 
 # ---------------------------------------------------------------------------
