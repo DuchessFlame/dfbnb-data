@@ -190,6 +190,10 @@ jobs:
       - name: Build Activities Rewards JSON
         run: python src/build_activities_rewards_json.py
 
+      # --- SEASONAL EVENTS REWARDS ---
+      - name: Build Seasonal Events Rewards JSON
+        run: python src/build_seasonal_events_json.py
+
       # --- REHO REWARDS (Daily Ops, Expos, Raids, Bounty Hunts) ---
       # Depends on dist/drop_rates.json (built above) and
       # dist/events/events_rewards.json (built above). Must run before
@@ -580,6 +584,8 @@ jobs:
           test -f dist/bnb-item-categories.json      && echo "OK bnb-item-categories.json"      || (echo "MISSING bnb-item-categories.json" && exit 1)
           test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
           test -f dist/seasonal-fish.json            && echo "OK seasonal-fish.json"            || (echo "MISSING seasonal-fish.json" && exit 1)
+          test -f dist/seasonal_events/seasonal_events_rewards.json && echo "OK seasonal_events_rewards.json" || (echo "MISSING seasonal_events_rewards.json" && exit 1)
+          test -f dist/seasonal_events/seasonal_events_rewards_by_page.json && echo "OK seasonal_events_rewards_by_page.json" || (echo "MISSING seasonal_events_rewards_by_page.json" && exit 1)
           test -f dist/reho/reho_rewards_by_page.json && echo "OK reho/reho_rewards_by_page.json" || (echo "MISSING reho/reho_rewards_by_page.json" && exit 1)
           test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"

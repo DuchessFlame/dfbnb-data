@@ -6,7 +6,7 @@ on:
   push:
     paths:
       - 'tsv/**'
-      - 'src/build_events_rewards_json.py'
+      - 'src/build_seasonal_events_json.py'
       - 'src/build_drop_rates.py'
 
 permissions:
@@ -49,7 +49,7 @@ jobs:
       - name: Build Seasonal Events Data
         run: |
           python -V
-          python src/build_events_rewards_json.py
+          python src/build_seasonal_events_json.py
 
       - name: Commit dist outputs
         shell: bash
@@ -57,7 +57,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_events.json
+          git add dist/seasonal_events/seasonal_events_rewards.json dist/seasonal_events/seasonal_events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_seasonal_events.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
