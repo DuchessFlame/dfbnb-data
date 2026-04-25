@@ -59,6 +59,15 @@ from cut_content import is_cut  # noqa: E402
 # Constants
 # ---------------------------------------------------------------------------
 
+# Display-name overrides: game-data name -> public-facing name.
+# The game's internal names are sometimes data-mining labels that players
+# and staff won't recognise. Map them here so every downstream consumer
+# (crafting tab, order log, menu page) sees the familiar name.
+DISPLAY_NAME_OVERRIDES: Dict[str, str] = {
+    "Slipper Cactus":           "Prickeye",
+    "Vegetable Slipper Cactus": "Prickeye",
+}
+
 # FNAM_Keywords -> menu category classification.
 # These patterns are matched against each extracted keyword EDID.
 FOOD_KEYWORD_PATTERNS = (
@@ -283,6 +292,7 @@ def build_recipes(
         for row in rows:
             edid = resolve_edid_column(row)
             display_name = clean_str(row.get("CNAM_FULL", ""))
+            display_name = DISPLAY_NAME_OVERRIDES.get(display_name, display_name)
             fvpa = row.get("FVPA", "")
             fnam = row.get("FNAM_Keywords", "")
             bnam_edid = clean_str(row.get("BNAM_EDID", ""))
