@@ -191,12 +191,10 @@ print(f"[build_seasonal_events] Loaded: {len(QUEST)} quests, {len(GMRW)} GMRW, "
 # ---------------------------------------------------------------------------
 print("[build_seasonal_events] Building indices...")
 
-lvli_idx = LvliIndex(LVLI_LIST, LVLI_ENTRIES, LVLI_MATH)
-glob_idx = GlobIndex(GLOB)
+lvli_idx = LvliIndex()
+glob_idx = GlobIndex()
 
-curv_idx = None
-if CURV and CURV_PTS:
-    curv_idx = CurvIndex(CURV, CURV_PTS)
+curv_idx = CurvIndex()
 
 name_idx = ItemNameIndex()
 name_idx.load_book(BOOK)
