@@ -32,7 +32,7 @@ Alcohol	Fussfungle	Brew_Fussfungle	00648161		N/A	N/A	N/A	N/A	N/A		Charisma | Str
 Alcohol	Hard Lemonade	Brew_LemonadeHard	0045DAC2		25	35	35	50	100		Max AP	chems		
 Alcohol	High Voltage Hefe	Brew_HighVoltageHefe	003EC3E7		35	45	45	50	100			chems		
 Alcohol	Hoppy Hunter IPA	Brew_HoppyHunter	00454128		35	45	45	50	100			chems		
-Alcohol	Irradiated Sunset Sarsaparilla	SCORE_S22_Consumable_SunsetSarsaparilla_Irradiated	00837E07		45	55	55	15	30			Restore HP	alcohol		
+Alcohol	Irradiated Sunset Sarsaparilla	SCORE_S22_Consumable_SunsetSarsaparilla_Irradiated	00837E07		45	55	55	15	30		Restore HP	Restore HP	alcohol	
 Alcohol	Lead Champagne	Brew_LeadChampagneFresh	00454122		35	45	45	15	30			chems		
 Alcohol	Lead Champagne Bellini	Brew_LeadChampagneBellini	003EC2BD		35	45	45	15	30			chems		
 Alcohol	Lead Champagne Mimosa	Brew_LeadChampagneMimosa	003EC2BC		35	45	45	15	30			chems		
@@ -313,12 +313,14 @@ Dishes & Teas	Squirrel On A Stick	SquirrelMeatTasty	000366BB	Carnivore	25	35	35	
 Dishes & Teas	Starlight Berry Cobbler	StarlightBerryCookedCobbler	003D787A		10	20	20	30	30	Herbivore	Restore HP | Endurance	food		
 Dishes & Teas	Steeped Ash Rose Tea	AshRoseHerbTastyTea	002944CD	XP,Herbivore,Hybrid	25	35	35	30	30	Herbivore	Restore HP | Charisma	food		
 Dishes & Teas	Steeped Aster Tea	AsterHerbTastyTea	002944D2		25	35	35	30	30	Herbivore	Restore HP | Intelligence	food		
-Dishes & Teas	Steeped Black Bloodleaf Tea	BloodbloomHerbTastyTea	002944D3		N/A	N/A	N/A	N/A	N/A	Herbivore	Restore HP | Poison Resist	food		not available		
+Dishes & Teas	Steeped Black Bloodleaf Tea	BloodbloomHerbTastyTea	002944D3		N/A	N/A	N/A	N/A	N/A	Herbivore	Restore HP | Poison Resist	food		not available
 Dishes & Teas	Steeped Carrot Flower Tea	CarrotFlowerHerbTastyTea	002944D8		25	35	35	30	30	Herbivore	Restore HP | Perception	food		
 Dishes & Teas	Steeped Fern Flower Tea	FernFlowerHerbTastyTea	002944D9	Herbivore,Hybrid	25	35	35	30	30	Herbivore	Restore HP | Strength	food		
 Dishes & Teas	Steeped Fever Blossom Tea	FeverBlossomHerbTastyTea	002944DA		25	35	35	30	30	Herbivore	Restore HP | AP Regen	food		
 Dishes & Teas	Steeped Gourd Blossom Tea	GourdFlowerHerbTastyTea	002944DB	Herbivore,Hybrid	25	35	35	30	30	Herbivore	Restore HP | Endurance	food		
+Dishes & Teas	Steeped Melon Bloom Tea	MelonBloomHerbTastyTea	002944DD		N/A	N/A	N/A	N/A	N/A	Herbivore	Restore HP | Max AP	food		not available
 Dishes & Teas	Steeped Melon Blossom Chai	MelonFlowerHerbTastyTea	002944DE	Herbivore,Hybrid	25	35	35	30	30	Herbivore	Restore HP | Agility	food		
+Dishes & Teas	Steeped Strangler Bloom Tea	StranglerBloomHerbTastyTea	002944E0		N/A	N/A	N/A	N/A	N/A	Herbivore	Restore HP | Rad Resist	food		not available
 Dishes & Teas	Steeped Strangler Pod Tea	StranglerPodHerbTastyTea	002944E3	Herbivore	25	35	35	30	30	Herbivore	Restore HP | Rad Resist	food		
 Dishes & Teas	Steeped Tato Flower Tea	TatoFlowerHerbTastyTea	002944E4		25	35	35	30	30	Herbivore	Restore HP | Intelligence	food		
 Dishes & Teas	Steeped Thistle Tea	ThistleHerbTastyTea	002944E7		25	35	35	30	30	Herbivore	Restore HP | Crit Damage	food		
@@ -507,8 +509,6 @@ Ingredients	Softshell Mirelurk Meat	MirelurkSoftshellMeat	00033100		N/A	N/A	N/A	
 Ingredients	Soot Flower	SootFlowerHerb	001C3FDC		N/A	N/A	N/A	N/A	N/A	Herbivore		food		
 Ingredients	Squirrel Bits	SquirrelMeat	000366BC		N/A	N/A	N/A	N/A	N/A	Carnivore		food		
 Ingredients	Starlight Berries	StarlightBerries	00384D8C		N/A	N/A	N/A	N/A	N/A	Herbivore		food		
-Dishes & Teas	Steeped Melon Bloom Tea	MelonBloomHerbTastyTea	002944DD		N/A	N/A	N/A	N/A	N/A	Herbivore	Restore HP | Max AP	food		not available
-Dishes & Teas	Steeped Strangler Bloom Tea	StranglerBloomHerbTastyTea	002944E0		N/A	N/A	N/A	N/A	N/A	Herbivore	Restore HP | Rad Resist	food		not available
 Ingredients	Stingwing Meat	StingwingMeat	00074D0F		N/A	N/A	N/A	N/A	N/A	Carnivore		food		
 Ingredients	Strangler Bloom	StranglerBloomHerb	00081FDB		N/A	N/A	N/A	N/A	N/A	Herbivore		ingredient		
 Ingredients	Strangler Pod	StranglerPodHerb	00050DC9		N/A	N/A	N/A	N/A	N/A	Herbivore		food		
@@ -736,9 +736,17 @@ Serums	Talons Serum	Serum_Talons	0050A5F6		100	110	110	15	30			chems
 Serums	Twisted Muscles Serum	Serum_TwistedMuscles	0050A5F9		100	110	110	15	30			chems		
 Serums	Unstable Isotope Serum	Serum_UnstableIsotope	0050A5FC		100	110	110	15	30			chems		
 Soda & Drinks	Lemonade	Lemonade	0045CB9F		25	35	35	50	100	Herbivore	Max AP | AP Regen	soda		
+Soda & Drinks	Nu													
 Soda & Drinks	Nuka-Cherry	NukaColaCherry	00048360		35	45	45	50	100		Restore HP | Restore AP	soda		
 Soda & Drinks	Nuka-Cola	NukaCola	0004835D		N/A	N/A	N/A	N/A	N/A		Restore HP | Restore AP	soda		
 Soda & Drinks	Nuka-Cola Cranberry	NukaColaCranberry	00598DCD		35	45	45	30	30		Restore HP | XP	soda		
 Soda & Drinks	Nuka-Cola Dark	Brew_DLC04_NukaCola_Dark	00113294		35	45	45	50	100		Strength | Endurance | Luck	soda		
 Soda & Drinks	Nuka-Cola My Blood's In It	NukaCola_Vaccine_Blood	005939C8		25	35	35	50	100		Restore HP	drink		
-Soda & Drinks	Nu													
+Soda & Drinks	Nuka-Cola Quantum	NukaColaQuantum	0004835F								Restore HP | Restore AP	drink		
+Soda & Drinks	Nuka-Cola Scorched	NukaCola_Vaccine_Scorched	005939CA		25	35	35				Restore HP	drink		
+Soda & Drinks	Nuka-Cola Twist	NukaCola_Twist	00660864								Restore HP | Restore AP	drink		
+Soda & Drinks	Nuka-Cola Vaccinated	NukaCola_Vaccine_Vaccinated	005939C9		25	35	35				Restore HP	drink		
+Soda & Drinks	Nuka-Cola Wild	DLC04_NukaCola_Wild	0011329B								Restore HP | Restore AP	drink		
+Soda & Drinks	Nuka-Grape	DLC04_NukaCola_Grape	00113292								Restore HP | Restore AP	drink		
+Soda & Drinks	Nuka-Orange	DLC04_NukaCola_Orange	00113298								Restore HP | Restore AP | Rad Resist	drink		
+Soda & Drinks	Volatile Nuka Quantum	Burn_Bounty_IcedNukaCola	0083A263									drink		
