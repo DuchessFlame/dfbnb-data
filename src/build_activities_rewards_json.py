@@ -2819,10 +2819,29 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         xp_glob = (rr.get("NAM7_XPGlobal") or "").strip()
         xp_val = None
         xp_fid = None
+        xp_bonus = None          # flat NAM7 bonus when XPCT is also present
+        xp_bonus_label = None
 
         if xpct:
             xp_val = xp_at_level(xpct)
             xp_fid = xpct.split(":")[0]
+            # When both XPCT and NAM7 exist, the game awards BOTH.
+            # Capture the NAM7 flat bonus separately so the JS can display it.
+            if xp_glob:
+                _b_fid = xp_glob.split(":")[0]
+                _b_edid = xp_glob.split(":")[1] if ":" in xp_glob else xp_glob
+                if _b_fid in glob_vals and "IgnoreMe" not in _b_edid and "XPNone" not in _b_edid:
+                    _b_val = int(glob_vals[_b_fid])
+                    if _b_val > 0:
+                        xp_bonus = _b_val
+                        # Derive label: "XPCranberryBogSmaller" → "Cranberry Bog XP Bonus"
+                        _lbl = re.sub(r'^XP_?', '', _b_edid)
+                        _lbl = re.sub(r'^[A-Z]\d+_[A-Za-z]+_', '', _lbl)   # strip quest prefixes
+                        _lbl = re.sub(r'_?XP$', '', _lbl)
+                        _lbl = re.sub(r'(Smaller|Bigger|Repeated)$', '', _lbl)
+                        _lbl = re.sub(r'_', ' ', _lbl).strip()
+                        _lbl = re.sub(r'([a-z])([A-Z])', r'\1 \2', _lbl)
+                        xp_bonus_label = f"{_lbl} XP Bonus" if _lbl else "XP Bonus"
         elif xp_glob:
             # NAM7 is a flat GLOB value (not curve-based)
             nam7_fid = xp_glob.split(":")[0]
@@ -2835,6 +2854,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             "stage":       stage_num,
             "xp":          xp_val,
             "xpFormID":    xp_fid,
+            "xpBonus":     xp_bonus,
+            "xpBonusLabel": xp_bonus_label,
             "hasRewards":  has_rewards,
             "hasMainLvli": has_main_lvli,
             "isFailure":   is_failure,
@@ -2866,6 +2887,14 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     if _completion and not activity_data["baseRewards"].get("xpBreakdown"):
         activity_data["baseRewards"]["xp"]       = _completion["xp"]
         activity_data["baseRewards"]["xpFormID"]  = _completion["xpFormID"]
+
+    # When the completion stage has both XPCT (curve) and NAM7 (flat bonus),
+    # output the bonus separately so the website can show it as an extra line.
+    if _completion and _completion.get("xpBonus"):
+        activity_data["baseRewards"]["xpBonus"] = {
+            "value": _completion["xpBonus"],
+            "label": _completion["xpBonusLabel"],
+        }
 
     # Emit xpByStage only when there are 2+ distinct stages
     # Order: checkpoints (by stage number) → failure → completion (always last)
