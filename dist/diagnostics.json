@@ -1,20 +1,14 @@
 {
-  "generated": "2026-04-26T07:15:51+00:00",
+  "generated": "2026-04-26T07:49:25+00:00",
   "sections": {
     "menu_items": {
-      "generated": "2026-04-26T07:15:08+00:00",
+      "generated": "2026-04-26T07:49:24+00:00",
       "counts": {
-        "error": 23,
+        "error": 22,
         "warning": 62,
         "info": 8
       },
       "entries": [
-        {
-          "severity": "error",
-          "code": "menu_items.cobj.unreadable",
-          "message": "cobj-recipes.json could not be parsed - every item will be tagged no_cobj.",
-          "detail": "Extra data: line 74584 column 2 (char 2288823)"
-        },
         {
           "severity": "warning",
           "code": "menu_items.missing_limit",
@@ -1276,16 +1270,17 @@
               "Soda & Drinks": 16
             },
             "source": {
-              "no_cobj": 742
+              "no_cobj": 440,
+              "cobj": 302
             }
           }
         }
       ]
     },
     "bnb_menu": {
-      "generated": "2026-04-26T07:15:51+00:00",
+      "generated": "2026-04-26T07:49:24+00:00",
       "counts": {
-        "error": 22,
+        "error": 23,
         "warning": 0,
         "info": 8
       },
@@ -1308,13 +1303,13 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 210: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "message": "Row 207: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
           "detail": "Fried Radroach On A Stick"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 438: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 431: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
@@ -1618,6 +1613,24 @@
           }
         },
         {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 614: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Bobblehead Box"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 616: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 617: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
           "message": "'Lunchbox' (Other) is missing price for: xbox, ps, pc",
@@ -1635,39 +1648,36 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 667: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
-          "detail": "Mystery Bobblehead Box"
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 669: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
-          "detail": "Mystery Magazine Package"
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 670: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
-          "detail": "Mystery Magazine Package"
-        },
-        {
-          "severity": "info",
-          "code": "bnb_menu.row.duplicate",
-          "message": "Row 686: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 683: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 694: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 691: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Volatile Nuka Quantum' (Soda & Drinks) is missing price for: xbox, ps, pc",
+          "detail": "Volatile Nuka Quantum",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
         },
         {
           "severity": "info",
           "code": "bnb_menu.build.summary",
-          "message": "Wrote 742 menu items across 12 categories.",
+          "message": "Wrote 743 menu items across 12 categories.",
           "context": {
-            "total": 742,
+            "total": 743,
             "categories": [
               "Alcohol",
               "Canned",
@@ -1682,6 +1692,452 @@
               "Serums",
               "Soda & Drinks"
             ]
+          }
+        }
+      ]
+    },
+    "cobj_recipes": {
+      "generated": "2026-04-26T07:49:23+00:00",
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "info",
+          "code": "cobj.build.summary",
+          "message": "Extracted 5533 unique recipes from 56209 COBJ rows.",
+          "context": {
+            "unique_recipes": 5533,
+            "region_variant_items": 2,
+            "total_rows": 56209,
+            "skipped_cut": 8274,
+            "no_fvpa": 1404
+          }
+        }
+      ]
+    },
+    "bnb_menu_sync": {
+      "generated": "2026-04-26T07:49:24+00:00",
+      "counts": {
+        "error": 29,
+        "warning": 1,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Volatile Nuka Quantum' -> Soda & Drinks. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=Burn_Bounty_IcedNukaCola, form_id=0083A263",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks",
+            "edid": "Burn_Bounty_IcedNukaCola",
+            "form_id": "0083A263"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Trench-Med' (Chems)",
+          "detail": "Trench-Med",
+          "context": {
+            "name": "Trench-Med",
+            "category": "Chems"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Chicken Thigh' (Ingredients)",
+          "detail": "Chicken Thigh",
+          "context": {
+            "name": "Chicken Thigh",
+            "category": "Ingredients"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Agility' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Agility",
+          "context": {
+            "name": "Glowing Bobblehead: Agility",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Big Guns' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Big Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Big Guns",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Caps' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Caps",
+          "context": {
+            "name": "Glowing Bobblehead: Caps",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Charisma' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Charisma",
+          "context": {
+            "name": "Glowing Bobblehead: Charisma",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Endurance' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Endurance",
+          "context": {
+            "name": "Glowing Bobblehead: Endurance",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Energy Weapons' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Energy Weapons",
+          "context": {
+            "name": "Glowing Bobblehead: Energy Weapons",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Explosive' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Explosive",
+          "context": {
+            "name": "Glowing Bobblehead: Explosive",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Intelligence' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Intelligence",
+          "context": {
+            "name": "Glowing Bobblehead: Intelligence",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Leader' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Leader",
+          "context": {
+            "name": "Glowing Bobblehead: Leader",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Lock Picking' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Lock Picking",
+          "context": {
+            "name": "Glowing Bobblehead: Lock Picking",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Luck' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Luck",
+          "context": {
+            "name": "Glowing Bobblehead: Luck",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Medicine' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Medicine",
+          "context": {
+            "name": "Glowing Bobblehead: Medicine",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Melee' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Melee",
+          "context": {
+            "name": "Glowing Bobblehead: Melee",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Perception' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Perception",
+          "context": {
+            "name": "Glowing Bobblehead: Perception",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Repair' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Repair",
+          "context": {
+            "name": "Glowing Bobblehead: Repair",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Science' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Science",
+          "context": {
+            "name": "Glowing Bobblehead: Science",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Small Guns' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Small Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Small Guns",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Sneak' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Sneak",
+          "context": {
+            "name": "Glowing Bobblehead: Sneak",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Strength' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Strength",
+          "context": {
+            "name": "Glowing Bobblehead: Strength",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Unarmed' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Unarmed",
+          "context": {
+            "name": "Glowing Bobblehead: Unarmed",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Mystery Bobblehead Box' (Magazines & Bobbleheads)",
+          "detail": "Mystery Bobblehead Box",
+          "context": {
+            "name": "Mystery Bobblehead Box",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Mystery Magazine Package' (Magazines & Bobbleheads)",
+          "detail": "Mystery Magazine Package",
+          "context": {
+            "name": "Mystery Magazine Package",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Mystery Magazine Package' (Magazines & Bobbleheads)",
+          "detail": "Mystery Magazine Package",
+          "context": {
+            "name": "Mystery Magazine Package",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Lunchbox' (Other)",
+          "detail": "Lunchbox",
+          "context": {
+            "name": "Lunchbox",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Cotton Candy Bites' (Pre War Food)",
+          "detail": "Cotton Candy Bites",
+          "context": {
+            "name": "Cotton Candy Bites",
+            "category": "Pre War Food"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Gum Drops' (Pre War Food)",
+          "detail": "Gum Drops",
+          "context": {
+            "name": "Gum Drops",
+            "category": "Pre War Food"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Volatile Nuka Quantum' (Soda & Drinks)",
+          "detail": "Volatile Nuka Quantum",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu_sync.summary",
+          "message": "Sync: 750 total, 1 new, 0 updated, 29 unpriced.",
+          "context": {
+            "total": 750,
+            "new": 1,
+            "updated": 0,
+            "unpriced": 29,
+            "skipped": 221
+          }
+        }
+      ]
+    },
+    "bnb_item_categories": {
+      "generated": "2026-04-26T07:49:25+00:00",
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "info",
+          "code": "bnb_categories.build.summary",
+          "message": "Built 261 items across 7 categories",
+          "context": {
+            "total_items": 261,
+            "alch_records": 950,
+            "source_alch": "ALCH_Export_March_2026.tsv",
+            "source_kywd": "KYWD_Export_March_2026_Refs.tsv",
+            "stats": {
+              "food": {
+                "candidates": 582,
+                "excluded_cut": 40,
+                "excluded_no_name": 6,
+                "excluded_by_kywd": 80,
+                "excluded_raw": 384,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 72,
+                "post_included_via_suffix": 0
+              },
+              "canned": {
+                "candidates": 26,
+                "excluded_cut": 3,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 23,
+                "post_included_via_suffix": 0
+              },
+              "nuka_cola": {
+                "candidates": 159,
+                "excluded_cut": 25,
+                "excluded_no_name": 6,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 41,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 69,
+                "included": 18,
+                "post_included_via_suffix": 0
+              },
+              "chems": {
+                "candidates": 81,
+                "excluded_cut": 32,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 49,
+                "post_included_via_suffix": 0
+              },
+              "alcohol": {
+                "candidates": 80,
+                "excluded_cut": 15,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 6,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 59,
+                "post_included_via_suffix": 0
+              },
+              "serums": {
+                "candidates": 21,
+                "excluded_cut": 2,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 19,
+                "post_included_via_suffix": 0
+              },
+              "prewar_candy": {
+                "candidates": 20,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 1,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 21,
+                "post_included_via_suffix": 2
+              }
+            }
           }
         }
       ]
