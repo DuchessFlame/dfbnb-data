@@ -2835,13 +2835,29 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     if _b_val > 0:
                         xp_bonus = _b_val
                         # Derive label: "XPCranberryBogSmaller" → "Cranberry Bog XP Bonus"
-                        _lbl = re.sub(r'^XP_?', '', _b_edid)
-                        _lbl = re.sub(r'^[A-Z]\d+_[A-Za-z]+_', '', _lbl)   # strip quest prefixes
-                        _lbl = re.sub(r'_?XP$', '', _lbl)
-                        _lbl = re.sub(r'(Smaller|Bigger|Repeated)$', '', _lbl)
-                        _lbl = re.sub(r'_', ' ', _lbl).strip()
-                        _lbl = re.sub(r'([a-z])([A-Z])', r'\1 \2', _lbl)
-                        xp_bonus_label = f"{_lbl} XP Bonus" if _lbl else "XP Bonus"
+                        # Manual overrides for EDIDs that don't derive clean labels
+                        _XP_LABEL_OVERRIDES = {
+                            "XP_CB15_Reward":                          "Scorched Earth XP Bonus",
+                            "XP_E09D_GWWS_Base":                       "Most Wanted XP Bonus",
+                            "XP_Storm_Dangerous":                      "Dangerous Pastimes XP Bonus",
+                            "XP_Storm_Boss":                           "Region Boss XP Bonus",
+                            "XP_E05_Caravan_FrontBrahmin_Survived":    "Riding Shotgun XP Bonus",
+                            "XPPowerPlantMinimal":                     "Power Plant XP Bonus",
+                            "XPPowerPlantFull":                        "Power Plant XP Bonus",
+                        }
+                        if _b_edid in _XP_LABEL_OVERRIDES:
+                            xp_bonus_label = _XP_LABEL_OVERRIDES[_b_edid]
+                        else:
+                            _lbl = re.sub(r'^XP_?', '', _b_edid)
+                            _lbl = re.sub(r'^([A-Za-z]*\d[A-Za-z0-9]*_)+', '', _lbl)  # FormID prefixes (CB15_, E09D_)
+                            _lbl = re.sub(r'^(Storm|Vault|Expedition)_', '', _lbl)     # DLC system prefixes
+                            _lbl = re.sub(r'^[A-Z]{2,5}_', '', _lbl)                  # short code prefixes (GWWS_, MQ_)
+                            _lbl = re.sub(r'^[A-Z]\d+_[A-Za-z]+_', '', _lbl)          # legacy quest prefixes
+                            _lbl = re.sub(r'_?XP$', '', _lbl)
+                            _lbl = re.sub(r'(Smaller|Bigger|Repeated)$', '', _lbl)
+                            _lbl = re.sub(r'_', ' ', _lbl).strip()
+                            _lbl = re.sub(r'([a-z])([A-Z])', r'\1 \2', _lbl)
+                            xp_bonus_label = f"{_lbl} XP Bonus" if _lbl else "XP Bonus"
         elif xp_glob:
             # NAM7 is a flat GLOB value (not curve-based)
             nam7_fid = xp_glob.split(":")[0]
@@ -2856,6 +2872,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             "xpFormID":    xp_fid,
             "xpBonus":     xp_bonus,
             "xpBonusLabel": xp_bonus_label,
+            "scalesWithLevel": bool(xpct),
             "hasRewards":  has_rewards,
             "hasMainLvli": has_main_lvli,
             "isFailure":   is_failure,
@@ -2887,6 +2904,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     if _completion and not activity_data["baseRewards"].get("xpBreakdown"):
         activity_data["baseRewards"]["xp"]       = _completion["xp"]
         activity_data["baseRewards"]["xpFormID"]  = _completion["xpFormID"]
+        if _completion.get("scalesWithLevel"):
+            activity_data["baseRewards"]["scalesWithLevel"] = True
 
     # When the completion stage has both XPCT (curve) and NAM7 (flat bonus),
     # output the bonus separately so the website can show it as an extra line.
