@@ -167,12 +167,23 @@ def detect_region(edid: str) -> str:
     return ""
 
 
-def parse_fvpa(fvpa_str: str) -> Dict[str, int]:
-    """Parse FVPA field "Material:Count | Material:Count | ..." -> {mat: count}."""
+def parse_fvpa(fvpa_str: str, yield_count: int = 1) -> Dict[str, int]:
+    """Parse FVPA field "Material:Count | Material:Count | ..." -> {mat: count}.
+
+    The FVPA stores TOTAL ingredient counts per craft batch. When a recipe
+    produces multiple units (yield_count > 1), we divide each ingredient
+    count by the yield and round up so per-unit costs are correct.
+
+    Example: Cranberry Relish yields 3, FVPA says Cranberry:3 — that's
+    1 cranberry per unit, not 3.
+    """
     ingredients: Dict[str, int] = {}
     fvpa_str = clean_str(fvpa_str).strip()
     if not fvpa_str:
         return ingredients
+    # Normalise yield: 0 or negative means 1 (game default)
+    if yield_count < 1:
+        yield_count = 1
     for part in fvpa_str.split("|"):
         part = part.strip()
         if not part or ":" not in part:
@@ -184,6 +195,9 @@ def parse_fvpa(fvpa_str: str) -> Dict[str, int]:
         except (ValueError, TypeError):
             continue
         if mat:
+            # Divide by yield, rounding up so we never under-count
+            if yield_count > 1:
+                count = -(-count // yield_count)  # ceiling division
             ingredients[mat] = ingredients.get(mat, 0) + count
     return ingredients
 
@@ -297,6 +311,15 @@ def build_recipes(
             fnam = row.get("FNAM_Keywords", "")
             bnam_edid = clean_str(row.get("BNAM_EDID", ""))
 
+            # CNAM_Count (NAM1) — yield per craft batch.
+            # Absent or "0" both mean the game produces 1 unit.
+            try:
+                yield_count = int(clean_str(row.get("CNAM_Count", "0")) or "0")
+            except (ValueError, TypeError):
+                yield_count = 1
+            if yield_count < 1:
+                yield_count = 1
+
             if should_skip(edid):
                 total_skipped_cut += 1
                 continue
@@ -304,7 +327,7 @@ def build_recipes(
             if not display_name:
                 continue
 
-            ingredients = parse_fvpa(fvpa)
+            ingredients = parse_fvpa(fvpa, yield_count)
             if not ingredients:
                 total_no_fvpa += 1
                 continue
@@ -336,6 +359,7 @@ def build_recipes(
                     "bnam_edid": bnam_edid,
                     "bench_keywords": keywords,
                     "category": category,
+                    "yield_count": yield_count,
                     "source_file": os.path.basename(source_file),
                 }
             else:
@@ -348,6 +372,7 @@ def build_recipes(
                         "bnam_edid": bnam_edid,
                         "bench_keywords": keywords,
                         "category": category,
+                        "yield_count": yield_count,
                         "source_file": os.path.basename(source_file),
                     }
                 else:
