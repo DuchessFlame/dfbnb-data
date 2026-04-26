@@ -167,37 +167,118 @@ def detect_region(edid: str) -> str:
     return ""
 
 
-def parse_fvpa(fvpa_str: str, yield_count: int = 1) -> Dict[str, int]:
-    """Parse FVPA field "Material:Count | Material:Count | ..." -> {mat: count}.
+def load_curve_tables(curve_dir: str) -> Dict[str, List[Dict[str, float]]]:
+    """Recursively load all curve-table JSONs from *curve_dir*.
 
-    The FVPA stores TOTAL ingredient counts per craft batch. When a recipe
-    produces multiple units (yield_count > 1), we divide each ingredient
-    count by the yield and round up so per-unit costs are correct.
+    Returns a dict keyed by lowercase filename stem (e.g. "food_1_primary")
+    whose value is the sorted list of {x, y} control points.
+    """
+    curves: Dict[str, List[Dict[str, float]]] = {}
+    if not os.path.isdir(curve_dir):
+        return curves
+    for dirpath, _dirs, files in os.walk(curve_dir):
+        for fname in files:
+            if not fname.endswith(".json"):
+                continue
+            stem = fname[:-5].lower()  # strip .json, lowercase
+            fpath = os.path.join(dirpath, fname)
+            try:
+                with open(fpath, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                points = data.get("curve", [])
+                if points:
+                    curves[stem] = sorted(points, key=lambda p: p["x"])
+            except Exception:
+                pass  # skip malformed files silently
+    return curves
 
-    Example: Cranberry Relish yields 3, FVPA says Cranberry:3 — that's
-    1 cranberry per unit, not 3.
+
+def _curv_edid_to_stems(edid: str) -> List[str]:
+    """Generate candidate filename stems from a CURV EditorID.
+
+    Handles multiple naming conventions:
+      CT_COBJ_Cooking_Food_1_Primary  -> food_1_primary  (strip CT_COBJ_Cooking_)
+      COBJ_Workshop_Wood              -> cobj_workshop_wood  (exact lowercase)
+      COBJ_Ammo_Acid                  -> cobj_ammo_acid
+    """
+    e = edid.lower()
+    candidates = [e]
+    if e.startswith("ct_"):
+        without_ct = e[3:]
+        candidates.append(without_ct)
+        # CT_COBJ_Cooking_Food_1_Primary -> strip ct_cobj_{category}_ -> food_1_primary
+        parts = without_ct.split("_", 2)
+        if len(parts) >= 3:
+            candidates.append(parts[2])
+    return candidates
+
+
+def resolve_curve(x: float, points: List[Dict[str, float]]) -> int:
+    """Evaluate a curve table at *x* using linear interpolation.
+
+    The game uses integer X values from FVPA Count and the control points
+    typically have integer X/Y, so the result is rounded to int.
+    Returns 0 if points is empty.
+    """
+    if not points:
+        return 0
+    # Clamp to curve bounds
+    if x <= points[0]["x"]:
+        return round(points[0]["y"])
+    if x >= points[-1]["x"]:
+        return round(points[-1]["y"])
+    # Linear interpolation between bracketing points
+    for i in range(len(points) - 1):
+        x0, y0 = points[i]["x"], points[i]["y"]
+        x1, y1 = points[i + 1]["x"], points[i + 1]["y"]
+        if x0 <= x <= x1:
+            if x1 == x0:
+                return round(y0)
+            t = (x - x0) / (x1 - x0)
+            return round(y0 + t * (y1 - y0))
+    return round(points[-1]["y"])
+
+
+def parse_fvpa(fvpa_str: str, curves: Optional[Dict[str, List[Dict[str, float]]]] = None) -> Dict[str, int]:
+    """Parse FVPA field and resolve ingredient counts via curve tables.
+
+    New format (with curve EDID):
+      ComponentEDID:Count:CurveTableEDID|ComponentEDID:Count:CurveTableEDID|...
+
+    Legacy format (no curve EDID):
+      ComponentEDID:Count|ComponentEDID:Count|...
+
+    When a CurveTableEDID is present and a matching curve JSON exists,
+    the Count (X-axis input) is resolved to the Y-axis output — the
+    actual in-game ingredient cost. Otherwise the raw Count is used.
     """
     ingredients: Dict[str, int] = {}
     fvpa_str = clean_str(fvpa_str).strip()
     if not fvpa_str:
         return ingredients
-    # Normalise yield: 0 or negative means 1 (game default)
-    if yield_count < 1:
-        yield_count = 1
+    if curves is None:
+        curves = {}
     for part in fvpa_str.split("|"):
         part = part.strip()
         if not part or ":" not in part:
             continue
-        mat, cnt = part.split(":", 1)
-        mat = clean_str(mat).strip()
+        fields = part.split(":")
+        mat = clean_str(fields[0]).strip()
         try:
-            count = int(clean_str(cnt).strip())
-        except (ValueError, TypeError):
+            raw_count = int(clean_str(fields[1]).strip())
+        except (ValueError, TypeError, IndexError):
             continue
-        if mat:
-            # Divide by yield, rounding up so we never under-count
-            if yield_count > 1:
-                count = -(-count // yield_count)  # ceiling division
+
+        # Resolve through curve table if CURV EDID is present
+        count = raw_count
+        curv_edid = clean_str(fields[2]).strip() if len(fields) >= 3 else ""
+        if curv_edid and curves:
+            for stem in _curv_edid_to_stems(curv_edid):
+                if stem in curves:
+                    count = resolve_curve(raw_count, curves[stem])
+                    break
+
+        if mat and count > 0:
             ingredients[mat] = ingredients.get(mat, 0) + count
     return ingredients
 
@@ -274,6 +355,7 @@ def resolve_edid_column(row: Dict[str, str]) -> str:
 def build_recipes(
     per_file_rows: List[Tuple[str, List[Dict[str, str]]]],
     diag: Diagnostics,
+    curves: Optional[Dict[str, List[Dict[str, float]]]] = None,
 ) -> Tuple[Dict[str, Dict[str, int]], Dict[str, Dict[str, Any]], Dict[str, List[Dict[str, Any]]]]:
     """Extract recipes + metadata from per-file COBJ rows.
 
@@ -311,15 +393,6 @@ def build_recipes(
             fnam = row.get("FNAM_Keywords", "")
             bnam_edid = clean_str(row.get("BNAM_EDID", ""))
 
-            # CNAM_Count (NAM1) — yield per craft batch.
-            # Absent or "0" both mean the game produces 1 unit.
-            try:
-                yield_count = int(clean_str(row.get("CNAM_Count", "0")) or "0")
-            except (ValueError, TypeError):
-                yield_count = 1
-            if yield_count < 1:
-                yield_count = 1
-
             if should_skip(edid):
                 total_skipped_cut += 1
                 continue
@@ -327,7 +400,7 @@ def build_recipes(
             if not display_name:
                 continue
 
-            ingredients = parse_fvpa(fvpa, yield_count)
+            ingredients = parse_fvpa(fvpa, curves)
             if not ingredients:
                 total_no_fvpa += 1
                 continue
@@ -359,7 +432,7 @@ def build_recipes(
                     "bnam_edid": bnam_edid,
                     "bench_keywords": keywords,
                     "category": category,
-                    "yield_count": yield_count,
+
                     "source_file": os.path.basename(source_file),
                 }
             else:
@@ -372,7 +445,7 @@ def build_recipes(
                         "bnam_edid": bnam_edid,
                         "bench_keywords": keywords,
                         "category": category,
-                        "yield_count": yield_count,
+    
                         "source_file": os.path.basename(source_file),
                     }
                 else:
@@ -464,6 +537,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Build cobj-recipes.json from COBJ TSV export")
     parser.add_argument("--data-dir", type=str, default="tsv", help="TSV input dir (default: tsv)")
     parser.add_argument("--outdir", type=str, default="dist", help="Output dir (default: dist)")
+    parser.add_argument(
+        "--curve-dir", type=str,
+        default=os.path.join("data", "curvetables", "json"),
+        help="Curve-table JSON root dir (default: data/curvetables/json)",
+    )
     args = parser.parse_args()
 
     os.makedirs(args.outdir, exist_ok=True)
@@ -492,7 +570,14 @@ def main() -> None:
     total_rows = sum(len(r) for _, r in per_file_rows)
     print(f"Total rows: {total_rows}", file=sys.stderr)
 
-    recipes, meta, variants = build_recipes(per_file_rows, diag)
+    # Load curve-table JSONs for resolving FVPA counts
+    curves = load_curve_tables(args.curve_dir)
+    if curves:
+        print(f"Loaded {len(curves)} curve table(s) from {args.curve_dir}", file=sys.stderr)
+    else:
+        print(f"WARNING: No curve tables found in {args.curve_dir} — raw FVPA counts will be used", file=sys.stderr)
+
+    recipes, meta, variants = build_recipes(per_file_rows, diag, curves)
 
     output: Dict[str, Any] = {
         "version": today_ymd(),
