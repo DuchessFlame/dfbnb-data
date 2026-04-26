@@ -185,8 +185,14 @@ def build_categories(rows: List[Dict[str, str]], diag: Diagnostics) -> List[Dict
 
         availability = clean(row.get("availability", ""))
 
+        # Public menu page: append "(Seasonal)" to the display name so
+        # customers can see at a glance which items are seasonal.  The
+        # staff portal JS strips this suffix back off and derives the
+        # seasonal list from the availability field instead.
+        display_name = f"{name} (Seasonal)" if availability == "Seasonal" else name
+
         item: Dict[str, Any] = {
-            "name":           name,
+            "name":           display_name,
             "price_xbox":     clean(row.get("price_xbox", "")),
             "price_ps":       clean(row.get("price_ps", "")),
             "price_pc":       clean(row.get("price_pc", "")),
