@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# REWRITE_VERSION: 2026-04-28-v4
+# REWRITE_VERSION: 2026-04-28-v5
 """
 build_seasonal_events_json.py - Seasonal Events Rewards (Tree Rewrite April 2026)
 
@@ -75,6 +75,12 @@ IMAGE_BASE = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/seasona
 
 XP_REFERENCE_LEVEL = 50
 MIN_RATE_DECIMAL = 0.0001  # 0.01% as decimal
+
+# Keyword FormIDs used to flag tradeability / unsellability on item refs.
+# NonPlayerTradable [KYWD:00499F7A] → tradeable: false
+# UnsellableObject  [KYWD:003D4327] → unsellable: true
+_KW_NON_PLAYER_TRADABLE = "00499f7a"
+_KW_UNSELLABLE_OBJECT   = "003d4327"
 
 # ---------------------------------------------------------------------------
 # Event Definitions
@@ -535,6 +541,127 @@ def _gmrw_iter_legendary_sources(gmrw_rows):
 
 
 # ---------------------------------------------------------------------------
+# Tradeable / unsellable keyword index (loaded once, cached)
+# ---------------------------------------------------------------------------
+
+_KYWD_TRADE_CACHE = {"loaded": False, "non_tradable": set(), "unsellable": set()}
+
+
+def _load_kywd_flags():
+    """Load NonPlayerTradable / UnsellableObject keyword refs once. Returns
+    (non_tradable_fids, unsellable_fids). FormIDs are lowercase."""
+    if _KYWD_TRADE_CACHE["loaded"]:
+        return _KYWD_TRADE_CACHE["non_tradable"], _KYWD_TRADE_CACHE["unsellable"]
+    non_tradable = set()
+    unsellable = set()
+    try:
+        path = newest(str(_REPO_ROOT / "tsv" / "KYWD_Export_*_Refs.tsv"))
+        for r in read_tsv(path):
+            kw_fid = (r.get("KeywordFormID") or "").strip().lower()
+            ref_sig = (r.get("RefSignature") or "").strip().upper()
+            ref_fid = (r.get("RefFormID") or "").strip().lower()
+            if not ref_fid:
+                continue
+            if ref_sig in ("ARMO", "BOOK"):
+                if kw_fid == _KW_NON_PLAYER_TRADABLE:
+                    non_tradable.add(ref_fid)
+                elif kw_fid == _KW_UNSELLABLE_OBJECT:
+                    unsellable.add(ref_fid)
+    except (FileNotFoundError, Exception) as e:
+        print("  [WARN] could not load KYWD_Refs: {}".format(e))
+    _KYWD_TRADE_CACHE["non_tradable"] = non_tradable
+    _KYWD_TRADE_CACHE["unsellable"]   = unsellable
+    _KYWD_TRADE_CACHE["loaded"] = True
+    return non_tradable, unsellable
+
+
+# ---------------------------------------------------------------------------
+# Condition simplification (minimal — handles common xEdit condition strings)
+# ---------------------------------------------------------------------------
+
+def _simplify_condition_basic(cond_str):
+    """Convert a raw xEdit condition string into a friendly display string.
+    Returns "" for conditions that should be hidden (internal toggles, etc.).
+    Mirrors the most common cases from build_activities_rewards_json.py's
+    simplify_condition; falls through to "" for unrecognised conditions to
+    avoid showing raw EDID noise to players."""
+    s = (cond_str or "").strip()
+    if not s:
+        return ""
+
+    # Already-translated strings — pass through unchanged
+    if s.startswith(("Requires ", "Won’t drop", "Won't drop",
+                     "Bethesda toggle", "Region: ", "Toggle: ",
+                     "Tradeable", "Not Tradeable",
+                     "Stops dropping", "Continues to drop",
+                     "Cannot be sold")):
+        return s
+
+    # GetQuestCompleted → "Requires the <Quest Name> quest to be completed"
+    if "GetQuestCompleted" in s:
+        m = re.search(r'"([^"]+)"\s*\[QUST:', s)
+        if m:
+            return "Requires the {} quest to be completed".format(m.group(1))
+        return ""
+
+    # GetLevel → "Requires player level X+"
+    if "GetLevel" in s:
+        m = re.search(r'(\d+)\.0+\s*$', s)
+        if m:
+            return "Requires player level {}+".format(m.group(1))
+        return ""
+
+    # GetIsPlayerGhoul → character race restriction
+    if "GetIsPlayerGhoul" in s:
+        if re.search(r'0\.0+\s*$', s):
+            return "Human character only"
+        return "Ghoul character only"
+
+    # HasLearnedRecipe → require/avoid plan learned. Minimal version: detect
+    # comparison and emit generic phrasing (no COBJ resolution available here).
+    if "HasLearnedRecipe" in s:
+        m = re.search(r'(\d+\.\d+)\s*$', s)
+        comp = float(m.group(1)) if m else 1.0
+        if comp >= 1.0:
+            return "Requires the base plan to be learned"
+        return "Won’t drop if you’ve already learned this plan"
+
+    # GetInCurrentLocation → Region: <Name>
+    if "GetInCurrentLocation" in s:
+        m = re.search(r'"([^"]+)"\s*\[LCTN:', s)
+        if m:
+            return "Region: {}".format(m.group(1))
+        return ""
+
+    # Hide internal-only conditions
+    HIDE_PREFIXES = (
+        "GetRandomPercent", "HasEntitlement", "IsActivePlayer",
+        "GetVMQuestVariable", "GetGlobalValue", "GetItemCount",
+        "GetValue", "Subject.", "GetPublicEventHasMutation",
+        "PlayerHasQuest", "GetNumTimesCompletedQuest",
+        "GetStageDoneUniqueQuest", "GetStageDoneCurrentInstance",
+    )
+    for p in HIDE_PREFIXES:
+        if p in s:
+            return ""
+
+    # Unknown — hide rather than show raw EDID noise
+    return ""
+
+
+def _simplify_conditions(conditions):
+    out = []
+    for c in (conditions or []):
+        sub_conds = re.split(r'","?|",', c) if '","' in c or '",' in c else [c]
+        for sc in sub_conds:
+            sc = sc.strip().strip('"')
+            simplified = _simplify_condition_basic(sc)
+            if simplified and simplified not in out:
+                out.append(simplified)
+    return out
+
+
+# ---------------------------------------------------------------------------
 # Default Rewards / Legendary Module split (April 2026)
 # ---------------------------------------------------------------------------
 # Most events' unique Quest_Rewards LVLI contains a `_Default` child plus a
@@ -690,6 +817,8 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
         print("    [ERROR] resolve_deep({}): {}".format(lvli_fid, e))
         return None
 
+    non_tradable_fids, unsellable_fids = _load_kywd_flags()
+
     out_items = []
     seen_fids = set()
     for it in items:
@@ -699,6 +828,7 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
         rate = it.get("dropRate", 0.0)
         qty  = it.get("qty", 1) or 1
         sig  = (it.get("sig") or "").upper()
+        raw_conditions = it.get("conditions") or []
 
         if not fid or not name:
             continue
@@ -710,7 +840,8 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
             continue
         seen_fids.add(fid)
 
-        out_items.append({
+        fid_lc = fid.lower()
+        item_dict = {
             "name":     name,
             "formid":   fid,
             "edid":     edid,
@@ -720,7 +851,18 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
             "tiers":    [{"tier": tier_label_fn({"formid": fid, "name": name}),
                           "qty":  qty,
                           "rate": round(rate * 100, 6)}],
-        })
+        }
+        # Tradeable / unsellable flags — only attach to ARMO and BOOK items
+        # (where the JS Technical: section actually renders something useful).
+        if sig in ("ARMO", "BOOK"):
+            item_dict["tradeable"] = fid_lc not in non_tradable_fids
+            if fid_lc in unsellable_fids:
+                item_dict["unsellable"] = True
+        # Conditions — simplified to friendly strings, empty list dropped.
+        simplified = _simplify_conditions(raw_conditions)
+        if simplified:
+            item_dict["conditions"] = simplified
+        out_items.append(item_dict)
 
     if not out_items:
         return None
@@ -761,7 +903,7 @@ def _merge_tier_nodes(nodes_per_tier):
         for it in node["items"]:
             fid = it["formid"]
             if fid not in merged_items:
-                merged_items[fid] = {
+                merged = {
                     "name":     it["name"],
                     "formid":   fid,
                     "edid":     it["edid"],
@@ -770,6 +912,15 @@ def _merge_tier_nodes(nodes_per_tier):
                     "dropRate": it["dropRate"],
                     "tiers":    [],
                 }
+                # Carry through Plan/Recipe/ARMO metadata so Technical + Drop
+                # Conditions rows still render after a tier merge.
+                if "tradeable" in it:
+                    merged["tradeable"] = it["tradeable"]
+                if "unsellable" in it:
+                    merged["unsellable"] = it["unsellable"]
+                if it.get("conditions"):
+                    merged["conditions"] = list(it["conditions"])
+                merged_items[fid] = merged
             for src_tier in it["tiers"]:
                 merged_items[fid]["tiers"].append({
                     "tier": tier_label,
