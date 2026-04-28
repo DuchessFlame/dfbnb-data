@@ -2858,6 +2858,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                             _lbl = re.sub(r'_', ' ', _lbl).strip()
                             _lbl = re.sub(r'([a-z])([A-Z])', r'\1 \2', _lbl)
                             xp_bonus_label = f"{_lbl} XP Bonus" if _lbl else "XP Bonus"
+                        # Suppress region-based XP bonuses — not useful on activity pages
+                        _SUPPRESS_XP_LABELS = ["Cranberry Bog", "Mountaintop Removal", "Forest"]
+                        if any(s in xp_bonus_label for s in _SUPPRESS_XP_LABELS):
+                            xp_bonus = None
+                            xp_bonus_label = None
         elif xp_glob:
             # NAM7 is a flat GLOB value (not curve-based)
             nam7_fid = xp_glob.split(":")[0]
@@ -2868,6 +2873,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         is_failure = bool(re.search(r'fail', edid, re.IGNORECASE) or re.search(r'fail', xp_glob, re.IGNORECASE))
         _seen_gmrw_stage[gmrw_fid] = {
             "stage":       stage_num,
+            "edid":        edid,
             "xp":          xp_val,
             "xpFormID":    xp_fid,
             "xpBonus":     xp_bonus,
@@ -2922,6 +2928,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         _failures    = [s for s in _stages_with_xp if s.get("isFailure")]
         _ordered     = _checkpoints + _failures + ([_completion] if _completion else [])
 
+        # Notes for specific checkpoint stages (keyed by GMRW EDID substring)
+        _CHECKPOINT_NOTES = {
+            "BoSZ03_Stage200": "Awarded when using artillery to destroy targets",
+        }
+
         _num_checkpoints = len(_checkpoints)
         _xp_by_stage = []
         _cp_counter = 1
@@ -2937,13 +2948,20 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             else:
                 _label = f"Checkpoint {_cp_counter} XP"
                 _cp_counter += 1
-            _xp_by_stage.append({
+            _entry = {
                 "stage":        _s["stage"],
                 "label":        _label,
                 "xp":           _s["xp"],
                 "xpFormID":     _s["xpFormID"],
                 "isCompletion": _is_comp,
-            })
+            }
+            # Attach note if EDID matches a known pattern
+            _s_edid = _s.get("edid", "")
+            for _nk, _nv in _CHECKPOINT_NOTES.items():
+                if _nk in _s_edid:
+                    _entry["note"] = _nv
+                    break
+            _xp_by_stage.append(_entry)
         activity_data["baseRewards"]["xpByStage"] = _xp_by_stage
 
     # Set xpFailed / xpSuccess for the simple success+failure JS render path
