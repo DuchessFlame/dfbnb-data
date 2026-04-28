@@ -2859,7 +2859,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                             _lbl = re.sub(r'([a-z])([A-Z])', r'\1 \2', _lbl)
                             xp_bonus_label = f"{_lbl} XP Bonus" if _lbl else "XP Bonus"
                         # Suppress region-based XP bonuses — not useful on activity pages
-                        _SUPPRESS_XP_LABELS = ["Cranberry Bog", "Mountaintop Removal", "Forest", "Global"]
+                        _SUPPRESS_XP_LABELS = ["Cranberry Bog", "Mountaintop Removal", "Forest", "Global", "Toxic Valley"]
                         if any(s in xp_bonus_label for s in _SUPPRESS_XP_LABELS):
                             xp_bonus = None
                             xp_bonus_label = None
@@ -2930,7 +2930,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
         # Notes for specific checkpoint stages (keyed by GMRW EDID substring)
         _CHECKPOINT_NOTES = {
-            "BoSZ03_Stage200": "Awarded when using artillery to destroy targets",
+            "BoSZ03_Stage200":          "Awarded when using artillery to destroy targets",
+            "FFZ16_Swatter_Stage1500":  "Awarded if the Vertibot escapes before being destroyed",
+            "FFZ11_Pack_Stage1500":     "Awarded if the wolf packs are not eliminated in time",
+            "TW043_Stage60":            "Awarded when a defense section is cleared",
+            "TW043_Stage170":           "Awarded when a defense section is cleared",
         }
 
         _num_checkpoints = len(_checkpoints)
