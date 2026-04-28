@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# REWRITE_VERSION: 2026-04-28-v3
+# REWRITE_VERSION: 2026-04-28-v4
 """
 build_seasonal_events_json.py - Seasonal Events Rewards (Tree Rewrite April 2026)
 
@@ -535,6 +535,149 @@ def _gmrw_iter_legendary_sources(gmrw_rows):
 
 
 # ---------------------------------------------------------------------------
+# Default Rewards / Legendary Module split (April 2026)
+# ---------------------------------------------------------------------------
+# Most events' unique Quest_Rewards LVLI contains a `_Default` child plus a
+# `RESTRICTED_LL_LegendaryModule_*` child alongside the event-specific pools
+# (Headwear, Recipes, etc.). Default + LegendaryModule are surfaced as
+# STANDARD Event Rewards (cracked open / keyword-grouped); everything else
+# stays in Unique Event Rewards.
+
+_DEFAULT_CHILD_PATTERN = re.compile(r"_quest_?rewards?_default\b", re.IGNORECASE)
+_LEGMODULE_CHILD_PATTERN = re.compile(r"legendarymodule", re.IGNORECASE)
+
+# Keyword patterns used to bucket items from the `_Default` LVLI into grouped
+# sub-nodes. First match wins; items with no match become standalone nodes.
+_DEFAULT_GROUPING = [
+    (re.compile(r"stein",         re.IGNORECASE), "Steins"),
+    (re.compile(r"playertitle",   re.IGNORECASE), "Player Titles"),
+    (re.compile(r"banner|flag",   re.IGNORECASE), "Banners"),
+    (re.compile(r"lantern",       re.IGNORECASE), "Lanterns"),
+]
+
+
+def _match_default_group(edid, name):
+    """Return a group label (e.g. "Steins") if EDID/name matches a known
+    grouping keyword, else None."""
+    text = "{} {}".format(edid or "", name or "")
+    for pat, label in _DEFAULT_GROUPING:
+        if pat.search(text):
+            return label
+    return None
+
+
+def _walk_direct_sub_lvlis(parent_lvli_fid, data):
+    """Yield (sub_fid, sub_edid) for each direct child LVLI entry of the
+    parent (skips entries that aren't sub-LVLI references)."""
+    for entry in data.lvli.entries_by_list.get(parent_lvli_fid, []):
+        idx = entry.get("EntryIndex")
+        if idx is None:
+            continue
+        math = data.lvli.math_by_entry.get((parent_lvli_fid, idx))
+        if not math:
+            continue
+        sub_fid = (math.get("SubLVLI_FormID") or "").strip()
+        if not sub_fid:
+            continue
+        sub_edid = data.lvli.edid_for(sub_fid) or ""
+        yield sub_fid, sub_edid
+
+
+def _make_split_subnode(label, items, parent_node):
+    """Build a tree node carrying the given items under the given label,
+    inheriting the parent unique LVLI's metadata."""
+    return {
+        "type":         "lvli",
+        "formid":       parent_node.get("formid", ""),
+        "edid":         parent_node.get("edid", ""),
+        "label":        label,
+        "useAll":       parent_node.get("useAll", False),
+        "entryRate":    parent_node.get("entryRate", 100.0),
+        "gmrwDropRate": parent_node.get("gmrwDropRate", 100.0),
+        "tierLabel":    parent_node.get("tierLabel"),
+        "conditions":   list(parent_node.get("conditions") or []),
+        "items":        items,
+    }
+
+
+def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
+    """Pull `_Default` and `LegendaryModule` child LVLI items out of the
+    parent unique LVLI's flat resolution.
+
+    Returns (event_reward_nodes, remaining_unique_node):
+      event_reward_nodes - list of nodes for the standard Event Rewards tree
+                           (default groups + Legendary Module)
+      remaining_unique_node - parent node with default/legmodule items
+                              filtered out, or None if nothing left.
+    """
+    if not unique_node or not unique_node.get("items"):
+        return [], unique_node
+
+    default_fids = set()
+    legmodule_fids = set()
+
+    for sub_fid, sub_edid in _walk_direct_sub_lvlis(parent_lvli_fid, data):
+        if _DEFAULT_CHILD_PATTERN.search(sub_edid):
+            try:
+                for it in resolver.resolve_deep(sub_fid):
+                    fid = it.get("formid")
+                    if fid:
+                        default_fids.add(fid)
+            except Exception as e:
+                print("    [WARN] resolve_deep _Default {}: {}".format(sub_fid, e))
+        elif _LEGMODULE_CHILD_PATTERN.search(sub_edid):
+            try:
+                for it in resolver.resolve_deep(sub_fid):
+                    fid = it.get("formid")
+                    if fid:
+                        legmodule_fids.add(fid)
+            except Exception as e:
+                print("    [WARN] resolve_deep LegendaryModule {}: {}".format(sub_fid, e))
+
+    if not default_fids and not legmodule_fids:
+        return [], unique_node
+
+    default_items   = []
+    legmodule_items = []
+    remaining_items = []
+    for it in unique_node["items"]:
+        fid = it.get("formid")
+        if fid in default_fids:
+            default_items.append(it)
+        elif fid in legmodule_fids:
+            legmodule_items.append(it)
+        else:
+            remaining_items.append(it)
+
+    event_reward_nodes = []
+
+    if default_items:
+        groups = {}      # label → [items]
+        standalone = []  # items with no group match
+        for it in default_items:
+            grp = _match_default_group(it.get("edid", ""), it.get("name", ""))
+            if grp:
+                groups.setdefault(grp, []).append(it)
+            else:
+                standalone.append(it)
+        for label, items in groups.items():
+            event_reward_nodes.append(_make_split_subnode(label, items, unique_node))
+        for it in standalone:
+            label = it.get("name") or _clean_pool_label(it.get("edid", "")) or "Reward"
+            event_reward_nodes.append(_make_split_subnode(label, [it], unique_node))
+
+    if legmodule_items:
+        event_reward_nodes.append(_make_split_subnode(
+            "Legendary Module", legmodule_items, unique_node
+        ))
+
+    if remaining_items:
+        unique_node["items"] = remaining_items
+        return event_reward_nodes, unique_node
+    return event_reward_nodes, None
+
+
+# ---------------------------------------------------------------------------
 # Tree node construction
 # ---------------------------------------------------------------------------
 
@@ -804,9 +947,24 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
                 if ri in ri_to_tier:
                     node["tierLabel"] = ri_to_tier[ri]
                 if is_unique:
-                    node["isUniqueReward"] = True
-                _collapse_redundant_tiers(node)
-                tree.append(node)
+                    # Split out _Default + LegendaryModule children — these
+                    # render as STANDARD Event Rewards (cracked open / grouped
+                    # for Default, single node for Legendary Module).
+                    extra_nodes, remaining = _split_unique_node(
+                        lvli_fid, node, data, resolver
+                    )
+                    for n in extra_nodes:
+                        if group_key:
+                            n["group"] = group_key
+                        _collapse_redundant_tiers(n)
+                        tree.append(n)
+                    if remaining:
+                        remaining["isUniqueReward"] = True
+                        _collapse_redundant_tiers(remaining)
+                        tree.append(remaining)
+                else:
+                    _collapse_redundant_tiers(node)
+                    tree.append(node)
         else:
             nodes_per_tier = []
             for title, lvli_fid, lvli_edid, ri, _parent_fid, tier_suffix in entries:
