@@ -230,6 +230,37 @@ _LVLI_LABEL_OVERRIDES = {
     "legendaryitems_special_allitems":    "Legendary Items",
 }
 
+# Generic shared LVLIs that appear across many events (caps, gold bullion,
+# public event rewards, etc.). These STAY in the Event Rewards group even
+# though their EDID may match the Quest_Rewards pattern. Substring matched
+# against lowercase EDID.
+_GENERIC_SHARED_LVLI_SUBSTRINGS = (
+    "ll_questreward_goldbullion",
+    "ra_ll_rewards_publicevents",
+    "ra_ll_rewards_activities",
+    "fishing_ll_rewards_improvedbait",
+)
+
+# Pattern that flags an LVLI as the event's own "unique" reward pool.
+# Matches: Quest_Rewards, Quest_Reward, QuestRewards, QuestReward,
+#          Event_Rewards, Event_Reward, EventRewards, EventReward.
+_UNIQUE_LVLI_RE = re.compile(r"(?:Quest|Event)_?Reward(s)?", re.IGNORECASE)
+
+
+def _is_unique_event_lvli(edid):
+    """
+    Return True when an LVLI EDID looks like the event-specific Quest/Event
+    Rewards pool (whose items belong in Unique Event Rewards), False when it's
+    a generic shared LVLI like Gold Bullion or Public Event Rewards.
+    """
+    if not edid:
+        return False
+    el = edid.lower()
+    for shared in _GENERIC_SHARED_LVLI_SUBSTRINGS:
+        if shared in el:
+            return False
+    return bool(_UNIQUE_LVLI_RE.search(edid))
+
 
 def _strip_event_prefix(edid):
     if not edid:
@@ -758,6 +789,9 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
         if quest_to_group and entries:
             group_key = quest_to_group.get(entries[0][4])
 
+        # Detect whether this stem represents the event's unique reward pool
+        is_unique = _is_unique_event_lvli(stem)
+
         if len(entries) == 1:
             title, lvli_fid, lvli_edid, ri, _parent_fid, tier_suffix = entries[0]
             tier_label_for_items = tier_suffix or title
@@ -769,6 +803,8 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
             if node:
                 if ri in ri_to_tier:
                     node["tierLabel"] = ri_to_tier[ri]
+                if is_unique:
+                    node["isUniqueReward"] = True
                 _collapse_redundant_tiers(node)
                 tree.append(node)
         else:
@@ -787,6 +823,8 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
                 merged["label"] = _clean_pool_label(stem)
                 if group_key:
                     merged["group"] = group_key
+                if is_unique:
+                    merged["isUniqueReward"] = True
                 _collapse_redundant_tiers(merged)
                 tree.append(merged)
 
@@ -829,6 +867,10 @@ def _process_container_event(event_def, slug, resolver, data):
     tree = []
     if merged:
         merged["label"] = event_def["name"] + " Rewards"
+        # Container events: the entire merged container content IS the unique
+        # reward pool — Halloween/Holiday/Treasure Hunter players collect these
+        # items as their event prize, not as generic activity rewards.
+        merged["isUniqueReward"] = True
         _collapse_redundant_tiers(merged)
         tree.append(merged)
 
