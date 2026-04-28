@@ -2859,7 +2859,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                             _lbl = re.sub(r'([a-z])([A-Z])', r'\1 \2', _lbl)
                             xp_bonus_label = f"{_lbl} XP Bonus" if _lbl else "XP Bonus"
                         # Suppress region-based XP bonuses — not useful on activity pages
-                        _SUPPRESS_XP_LABELS = ["Cranberry Bog", "Mountaintop Removal", "Forest"]
+                        _SUPPRESS_XP_LABELS = ["Cranberry Bog", "Mountaintop Removal", "Forest", "Global"]
                         if any(s in xp_bonus_label for s in _SUPPRESS_XP_LABELS):
                             xp_bonus = None
                             xp_bonus_label = None
