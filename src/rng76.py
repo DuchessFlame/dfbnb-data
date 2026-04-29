@@ -254,7 +254,8 @@ class ItemNameIndex:
         _safe_load("ARMO_Export_*.tsv", self.load_armo,
                    exclude_suffixes=["_SLOTS"])
         _safe_load("WEAP_Export_*.tsv", self.load_weap)
-        _safe_load("ALCH_Export_*.tsv", self.load_alch)
+        _safe_load("ALCH_Export_*.tsv", self.load_alch,
+                   exclude_suffixes=["_Effects"])
         _safe_load("AMMO_Export_*.tsv", self.load_ammo)
         _safe_load("CREA_Export_*.tsv", self.load_crea)
 

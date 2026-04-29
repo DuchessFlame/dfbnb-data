@@ -515,7 +515,7 @@ try:    MISC = read_tsv(newest("tsv/MISC_Export_*.tsv"))
 except FileNotFoundError: MISC = []
 try:    WEAP = read_tsv(newest("tsv/WEAP_Export_*.tsv"))
 except FileNotFoundError: WEAP = []
-try:    ALCH = read_tsv(newest("tsv/ALCH_Export_*.tsv"))
+try:    ALCH = read_tsv(newest("tsv/ALCH_Export_*.tsv", exclude_substrings=("_Effects",)))
 except FileNotFoundError: ALCH = []
 try:    AMMO = read_tsv(newest("tsv/AMMO_Export_*.tsv"))
 except FileNotFoundError: AMMO = []
