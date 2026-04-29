@@ -184,13 +184,27 @@ def format_item(agg_item):
     qty_min = agg_item["qty_min"]
     qty_max = agg_item["qty_max"]
     qty_str = f"{qty_min}-{qty_max}" if qty_min != qty_max else str(qty_min)
+
+    # Determine tradeable status from conditions
+    name = agg_item.get("name", "")
+    sig = agg_item.get("sig", "")
+    conditions = agg_item.get("conditions", [])
+    tradeable = True
+    for c in conditions:
+        if "NonPlayerTrad" in c or "Untradab" in c or "Untradea" in c:
+            tradeable = False
+            break
+
     return {
-        "name": agg_item["name"],
+        "name": name,
         "form_id": agg_item["formid"],
         "edid": agg_item["edid"],
+        "sig": sig,
         "drop_rate": fmt_pct(agg_item["drop_rate_raw"] * 100),
         "drop_rate_raw": round(agg_item["drop_rate_raw"], 6),
         "qty": qty_str,
+        "conditions": conditions,
+        "tradeable": tradeable,
     }
 
 
@@ -752,6 +766,17 @@ def main():
     print(f"  Regions: {len(regions)}, Maps: {total_maps}")
     print(f"  Shared pools: {len(shared_pools)}, Shared items: {total_shared}")
     print(f"  Region-specific items: {total_region_items}")
+    print(f"  U Mine It tiers: {len(tiers)}, Lucky Maps: {len(lucky['items'])}")
+    print("[build_treasure_maps_json.py] Done.")
+
+    patchlog_dir = DIST_DIR / "patchlogs"
+    os.makedirs(str(patchlog_dir), exist_ok=True)
+    write_empty_patchlog_feed(str(DIST_DIR), "patchlog_latest_df_treasure_maps.json", current_count=total_maps)
+
+
+if __name__ == "__main__":
+    main()
+ic items: {total_region_items}")
     print(f"  U Mine It tiers: {len(tiers)}, Lucky Maps: {len(lucky['items'])}")
     print("[build_treasure_maps_json.py] Done.")
 
