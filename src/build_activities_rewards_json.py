@@ -3379,6 +3379,51 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             r'| ^U-Mine-It'
         )
 
+        # -- Lift LVLIs shared across ALL tiers out as sibling unique rewards --
+        # When a leveled list is awarded by every contribution-level tier
+        # (e.g. the Power Plant Schematic LVLI rolled in both Minimal and Full),
+        # it does not belong inside any single tier wrapper - it should sit
+        # alongside the tiers as a shared unique reward so the page renders
+        # it once instead of duplicating it under each tier.
+        _lvli_tier_membership = {}   # formid -> set(ri) of tiers containing it as a unique LVLI
+        for _ri in _kept_ris:
+            for _n in _tier_trees.get(_ri, []):
+                if _n.get("type") == "leaf":
+                    continue
+                _label_chk = _n.get("label", "")
+                if bool(_STD_RE.search(_label_chk)):
+                    continue
+                _fid_chk = _n.get("formid") or ""
+                if _fid_chk:
+                    _lvli_tier_membership.setdefault(_fid_chk, set()).add(_ri)
+
+        _kept_ri_set = set(_kept_ris)
+        _shared_lvli_fids = {
+            _fid for _fid, _ris in _lvli_tier_membership.items()
+            if len(_ris) >= 2 and _ris == _kept_ri_set
+        }
+
+        _shared_unique_nodes = []
+        _shared_lifted = set()
+        for _fid in sorted(_shared_lvli_fids):
+            for _ri in sorted(_kept_ris):
+                if _fid in _shared_lifted:
+                    break
+                for _n in _tier_trees.get(_ri, []):
+                    if _n.get("formid") == _fid:
+                        _n["isUniqueReward"] = True
+                        _shared_unique_nodes.append(_n)
+                        _shared_lifted.add(_fid)
+                        break
+            for _ri in _kept_ris:
+                _tier_trees[_ri] = [
+                    _n for _n in _tier_trees.get(_ri, [])
+                    if _n.get("formid") != _fid
+                ]
+
+        if _shared_unique_nodes:
+            reward_tree.extend(_shared_unique_nodes)
+
         for ri in sorted(_kept_ris):
             tier_label = _ri_to_tier_label.get(ri, f"Tier {ri}")
             unique_children = []
