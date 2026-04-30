@@ -335,12 +335,18 @@ def build_region_rewards(resolver):
 # (cum_fail = 1.0), the ratio is exactly the path coefficient.
 
 PER_REGION_MOD_BRANCHES = OrderedDict([
-    # branch_key -> (top_pool_id, {region_key: child_entry_formid})
-    # top_pool_id: the LVLI that the shared reward pool resolves; provides the
-    #              full path × subtree rate for Forest leaves we use as the
-    #              empirical reference.
+    # branch_key -> (top_pools, {region_key: child_entry_formid})
+    # top_pools: list of LVLI form IDs that lead to this branch's FirstMatch.
+    #   The 4 entries inside LL_TreasureMap_Reward fire INDEPENDENTLY (UseAll
+    #   with max_count > 4) so an item that's reachable via more than one of
+    #   those entries gets multiple independent chances per dig. Mod boxes
+    #   appear via two of those entries:
+    #     - 003D73D8  weapon-mods-recipes pool   (cn-gated waterfall)
+    #     - 004F6DAD  the all-recipes pool       (pick-one of 4 sub-pools)
+    #   Both ultimately land in 003D73DA → 003136F5 (FirstMatch by region),
+    #   and the per-dig rate is the SUM of contributions from each path.
     ("weapon_mods", {
-        "top_pool": "003D73D8",  # LLS_Loot_Weapons_Any_Mods_Recipes_AllRegions
+        "top_pools": ["003D73D8", "004F6DAD"],
         "branches": OrderedDict([
             ("forest",         "003136C0"),  # LL_Recipes_Mods_Weapons_Any_RegionForest
             ("toxic_valley",   "00313696"),  # LL_Recipes_Mods_Weapons_Any_RegionToxicValley
@@ -351,7 +357,9 @@ PER_REGION_MOD_BRANCHES = OrderedDict([
         ]),
     }),
     ("armour_mods", {
-        "top_pool": "000673A7",  # LLS_Loot_Armor_Mods_Recipes_AllRegions
+        # Armour mods sit behind 000673A7 directly AND behind 004F6DAD via
+        # its armour-recipes sub-pool 003D73D9 — same dual-path setup.
+        "top_pools": ["000673A7", "004F6DAD"],
         "branches": OrderedDict([
             ("forest",         "004F6816"),
             ("toxic_valley",   "004F682D"),
@@ -374,30 +382,38 @@ def _is_mod_box(item_dict):
     return bool(_MOD_BOX_EDID_RE.match(edid))
 
 
-def _compute_path_coeff(resolver, top_pool_id, forest_entry_id):
-    """Empirically derive the path-to-FirstMatch coefficient.
+def _compute_path_coeff(resolver, top_pools, forest_entry_id):
+    """Empirically derive the total path-to-FirstMatch coefficient.
 
     Forest is the first entry in the FirstMatch list, so its cum_fail
-    multiplier is 1.0. Forest items in resolve_deep(top_pool_id) therefore
-    have rate = path_coeff × within_forest_rate, while resolve_deep on
-    forest_entry_id gives just within_forest_rate. Ratio = path_coeff.
+    multiplier is 1.0 within each top pool's resolve. Forest items in
+    resolve_deep(top_pool_id) have rate = path_coeff_for_that_pool ×
+    within_forest_rate. Dividing by within_forest_rate (from a direct
+    resolve of Forest's branch entry) gives path_coeff per pool.
 
-    Uses median of all matching items to absorb tiny floating-point noise.
+    LL_TreasureMap_Reward is UseAll independent (max_count > entry count),
+    so multiple top pools that route to the same FirstMatch contribute
+    INDEPENDENTLY — the total per-dig coefficient is the SUM of each
+    top pool's coefficient.
+
+    Uses median ratio per pool to absorb floating-point noise.
     """
-    full_items   = resolver.resolve_deep(top_pool_id)
     forest_items = resolver.resolve_deep(forest_entry_id)
     forest_by_id = {it["formid"]: it["dropRate"] for it in forest_items}
 
-    ratios = []
-    for it in full_items:
-        fid = it["formid"]
-        ftr = forest_by_id.get(fid)
-        if ftr is not None and ftr > 0 and it["dropRate"] > 0:
-            ratios.append(it["dropRate"] / ftr)
-    if not ratios:
-        return 0.0
-    ratios.sort()
-    return ratios[len(ratios) // 2]  # median
+    total_coeff = 0.0
+    for top_pool_id in top_pools:
+        full_items = resolver.resolve_deep(top_pool_id)
+        ratios = []
+        for it in full_items:
+            fid = it["formid"]
+            ftr = forest_by_id.get(fid)
+            if ftr is not None and ftr > 0 and it["dropRate"] > 0:
+                ratios.append(it["dropRate"] / ftr)
+        if ratios:
+            ratios.sort()
+            total_coeff += ratios[len(ratios) // 2]
+    return total_coeff
 
 
 def build_per_region_mod_items(resolver):
@@ -405,10 +421,10 @@ def build_per_region_mod_items(resolver):
     with rates corrected to per-dig probability."""
     per_region_raw = defaultdict(list)
     for branch_name, cfg in PER_REGION_MOD_BRANCHES.items():
-        top_pool      = cfg["top_pool"]
+        top_pools     = cfg["top_pools"]
         branches      = cfg["branches"]
         forest_entry  = branches["forest"]
-        path_coeff    = _compute_path_coeff(resolver, top_pool, forest_entry)
+        path_coeff    = _compute_path_coeff(resolver, top_pools, forest_entry)
         if path_coeff <= 0:
             continue
         for region_key, entry_fid in branches.items():
