@@ -95,20 +95,23 @@ def pick(row, *keys, default=""):
 
 # Map-name prefixes → region key + location URL
 MAP_PREFIX_TO_REGION = OrderedDict([
-    ("Forest",        {"key": "forest",        "name": "The Forest",             "url": "/df/treasure-maps/forest/"}),
-    ("Toxic Valley",  {"key": "toxic_valley",  "name": "Toxic Valley",           "url": "/df/treasure-maps/toxic-valley/"}),
-    ("Ash Heap",      {"key": "ash_heap",      "name": "Ash Heap",              "url": "/df/treasure-maps/ash-heap/"}),
-    ("Cranberry Bog", {"key": "cranberry_bog",  "name": "Cranberry Bog & The Mire", "url": "/df/treasure-maps/cranberry-bog/"}),
-    ("Mire",          {"key": "cranberry_bog",  "name": "Cranberry Bog & The Mire", "url": "/df/treasure-maps/the-mire/"}),
-    ("Savage Divide", {"key": "savage_divide",  "name": "Savage Divide",          "url": "/df/treasure-maps/savage-divide/"}),
+    ("Forest",        {"key": "forest",        "name": "The Forest",   "url": "/df/treasure-maps/forest/"}),
+    ("Toxic Valley",  {"key": "toxic_valley",  "name": "Toxic Valley", "url": "/df/treasure-maps/toxic-valley/"}),
+    ("Ash Heap",      {"key": "ash_heap",      "name": "Ash Heap",     "url": "/df/treasure-maps/ash-heap/"}),
+    ("Cranberry Bog", {"key": "cranberry_bog", "name": "Cranberry Bog","url": "/df/treasure-maps/cranberry-bog/"}),
+    ("Mire",          {"key": "the_mire",      "name": "The Mire",     "url": "/df/treasure-maps/the-mire/"}),
+    ("Savage Divide", {"key": "savage_divide", "name": "Savage Divide","url": "/df/treasure-maps/savage-divide/"}),
 ])
 
 # Reward pool FormIDs per region (from LLS_TreasureMap_Reward_Base)
+# Note: Cranberry Bog and The Mire share the same reward pool (0050CC2D) but
+# are displayed as separate regions for clarity.
 REWARD_REGION_FORMIDS = {
     "forest":       "0050CC2E",
     "toxic_valley": "0050CC31",
     "ash_heap":     "0050CC30",
     "cranberry_bog":"0050CC2D",
+    "the_mire":     "0050CC2D",
     "savage_divide":"0050CC2F",
 }
 
@@ -122,16 +125,20 @@ SHARED_POOLS = OrderedDict([
 
 # Region display order
 REGION_ORDER = [
-    "forest", "toxic_valley", "ash_heap", "cranberry_bog",
+    "forest", "toxic_valley", "ash_heap", "cranberry_bog", "the_mire",
     "savage_divide", "burning_springs", "skyline_valley",
 ]
 
 # Map drop region LVLIs (for extracting all unique maps)
+# Note: cranberry_bog and the_mire share the same drop pool (LLS_TreasureMap_CB_SF)
+# in the game, but the maps within it are displayed under separate region groups
+# based on their name prefix.
 MAP_POOL_FORMIDS = OrderedDict([
     ("forest",       "003D0CD5"),
     ("toxic_valley", "003D0CD6"),
     ("ash_heap",     "003D0CD7"),
     ("cranberry_bog","003D0CD8"),
+    ("the_mire",     "003D0CD8"),
     ("savage_divide","003D0CD9"),
 ])
 
@@ -315,7 +322,8 @@ REGION_NAMES = OrderedDict([
     ("forest",          "The Forest"),
     ("toxic_valley",    "Toxic Valley"),
     ("ash_heap",        "Ash Heap"),
-    ("cranberry_bog",   "Cranberry Bog & The Mire"),
+    ("cranberry_bog",   "Cranberry Bog"),
+    ("the_mire",        "The Mire"),
     ("savage_divide",   "Savage Divide"),
     ("burning_springs", "Burning Springs"),
     ("skyline_valley",  "Skyline Valley"),
@@ -326,6 +334,7 @@ REGION_LOCATION_URLS = {
     "toxic_valley":    "/df/treasure-maps/toxic-valley/",
     "ash_heap":        "/df/treasure-maps/ash-heap/",
     "cranberry_bog":   "/df/treasure-maps/cranberry-bog/",
+    "the_mire":        "/df/treasure-maps/the-mire/",
     "savage_divide":   "/df/treasure-maps/savage-divide/",
     "burning_springs": "/df/treasure-maps/burning-springs/",
     "skyline_valley":  "/df/treasure-maps/skyline-valley/",
