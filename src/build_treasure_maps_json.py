@@ -776,14 +776,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-ic items: {total_region_items}")
-    print(f"  U Mine It tiers: {len(tiers)}, Lucky Maps: {len(lucky['items'])}")
-    print("[build_treasure_maps_json.py] Done.")
-
-    patchlog_dir = DIST_DIR / "patchlogs"
-    os.makedirs(str(patchlog_dir), exist_ok=True)
-    write_empty_patchlog_feed(str(DIST_DIR), "patchlog_latest_df_treasure_maps.json", current_count=total_maps)
-
-
-if __name__ == "__main__":
-    main()
