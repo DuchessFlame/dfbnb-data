@@ -315,6 +315,128 @@ def build_region_rewards(resolver):
 
 
 # ============================================================
+# Build: Per-Region Mod Boxes (weapon + armour MISC mod items)
+# ============================================================
+#
+# The treasure-map drop tree for weapon and armour mods passes through
+# a FirstMatch-by-region LVLI which routes to a region-specific subtree.
+# rng76's resolve_deep follows ONE branch (the first entry, Forest), so
+# the JSON only ever shows Forest's mod items. The other regions' mod
+# subtrees are never visited.
+#
+# Fix: walk each region's branch directly, then multiply rates by the
+# probability of REACHING the FirstMatch parent in the first place. That
+# probability is identical for every region (it's the path from the
+# treasure map reward down to the FirstMatch list — region-independent).
+#
+# The path coefficient is computed empirically by comparing Forest's
+# items in the full resolve to the same items resolved directly from
+# Forest's branch entry. Since Forest is the FirstMatch's first entry
+# (cum_fail = 1.0), the ratio is exactly the path coefficient.
+
+PER_REGION_MOD_BRANCHES = OrderedDict([
+    # branch_key -> (top_pool_id, {region_key: child_entry_formid})
+    # top_pool_id: the LVLI that the shared reward pool resolves; provides the
+    #              full path × subtree rate for Forest leaves we use as the
+    #              empirical reference.
+    ("weapon_mods", {
+        "top_pool": "003D73D8",  # LLS_Loot_Weapons_Any_Mods_Recipes_AllRegions
+        "branches": OrderedDict([
+            ("forest",         "003136C0"),  # LL_Recipes_Mods_Weapons_Any_RegionForest
+            ("toxic_valley",   "00313696"),  # LL_Recipes_Mods_Weapons_Any_RegionToxicValley
+            ("ash_heap",       "003136E6"),  # LL_Recipes_Mods_Weapons_Any_RegionAshHeap
+            ("cranberry_bog",  "003136E7"),  # LL_Recipes_Mods_Weapons_Any_RegionCranberryBog
+            ("the_mire",       "003136C1"),  # LL_Recipes_Mods_Weapons_Any_RegionMire
+            ("savage_divide",  "00313695"),  # LL_Recipes_Mods_Weapons_Any_RegionSavageDivide
+        ]),
+    }),
+    ("armour_mods", {
+        "top_pool": "000673A7",  # LLS_Loot_Armor_Mods_Recipes_AllRegions
+        "branches": OrderedDict([
+            ("forest",         "004F6816"),
+            ("toxic_valley",   "004F682D"),
+            ("ash_heap",       "004F6829"),
+            ("cranberry_bog",  "004F682A"),
+            ("the_mire",       "004F682B"),
+            ("savage_divide",  "004F682C"),
+        ]),
+    }),
+])
+
+
+_MOD_BOX_EDID_RE = re.compile(r'^(?:dlc\d+_)?miscmod_mod', re.IGNORECASE)
+
+def _is_mod_box(item_dict):
+    """A mod box is a MISC item whose EDID starts with 'miscmod_mod'
+    (optionally prefixed with 'DLC<n>_' for Wastelanders/NW content).
+    Excludes test/debug/cut prefixes like 'zzz_', 'CUT_', 'POST_', 'test_'."""
+    edid = (item_dict.get("edid", "") or "")
+    return bool(_MOD_BOX_EDID_RE.match(edid))
+
+
+def _compute_path_coeff(resolver, top_pool_id, forest_entry_id):
+    """Empirically derive the path-to-FirstMatch coefficient.
+
+    Forest is the first entry in the FirstMatch list, so its cum_fail
+    multiplier is 1.0. Forest items in resolve_deep(top_pool_id) therefore
+    have rate = path_coeff × within_forest_rate, while resolve_deep on
+    forest_entry_id gives just within_forest_rate. Ratio = path_coeff.
+
+    Uses median of all matching items to absorb tiny floating-point noise.
+    """
+    full_items   = resolver.resolve_deep(top_pool_id)
+    forest_items = resolver.resolve_deep(forest_entry_id)
+    forest_by_id = {it["formid"]: it["dropRate"] for it in forest_items}
+
+    ratios = []
+    for it in full_items:
+        fid = it["formid"]
+        ftr = forest_by_id.get(fid)
+        if ftr is not None and ftr > 0 and it["dropRate"] > 0:
+            ratios.append(it["dropRate"] / ftr)
+    if not ratios:
+        return 0.0
+    ratios.sort()
+    return ratios[len(ratios) // 2]  # median
+
+
+def build_per_region_mod_items(resolver):
+    """For each region, return the list of mod-box items (raw rng76 format)
+    with rates corrected to per-dig probability."""
+    per_region_raw = defaultdict(list)
+    for branch_name, cfg in PER_REGION_MOD_BRANCHES.items():
+        top_pool      = cfg["top_pool"]
+        branches      = cfg["branches"]
+        forest_entry  = branches["forest"]
+        path_coeff    = _compute_path_coeff(resolver, top_pool, forest_entry)
+        if path_coeff <= 0:
+            continue
+        for region_key, entry_fid in branches.items():
+            items = resolver.resolve_deep(entry_fid)
+            for it in items:
+                # Only mod-box leaves are relevant here. Other leaves in
+                # this subtree (BOOK plans etc.) already flow through the
+                # shared pools at their correct rates.
+                if not _is_mod_box(it):
+                    continue
+                scaled = dict(it)
+                scaled["dropRate"] = it["dropRate"] * path_coeff
+                per_region_raw[region_key].append(scaled)
+    return per_region_raw
+
+
+def filter_mod_boxes_from_shared(shared_pools):
+    """Strip mod-box (miscmod_mod*) items from shared reward pools — they're
+    served per-region from build_per_region_mod_items so leaving them in
+    shared pools would cause the JS to double-count Forest's mods."""
+    for pool in shared_pools:
+        kept = [it for it in pool["items"] if not _is_mod_box(it)]
+        pool["items"] = kept
+        pool["item_count"] = len(kept)
+    return shared_pools
+
+
+# ============================================================
 # Build: Combined Region Output
 # ============================================================
 
@@ -342,14 +464,22 @@ REGION_LOCATION_URLS = {
 
 
 def build_regions(entries_idx, books, resolver):
-    """Build the full region data: maps + region-specific rewards."""
+    """Build the full region data: maps + region-specific rewards + mod boxes."""
     map_groups = build_map_names(entries_idx, books)
     region_rewards = build_region_rewards(resolver)
+    per_region_mods = build_per_region_mod_items(resolver)
 
     regions = OrderedDict()
     for rkey in REGION_ORDER:
         maps = map_groups.get(rkey, [])
         rewards = region_rewards.get(rkey, [])
+        # Append per-region mod-box items (aggregated + formatted) to this
+        # region's reward items. Items without a region condition are added
+        # so the JS picks them up under this region only.
+        mod_raw = per_region_mods.get(rkey, [])
+        if mod_raw:
+            mod_agg = aggregate_items(mod_raw)
+            rewards = list(rewards) + [format_item(it) for it in mod_agg]
         regions[rkey] = {
             "name": REGION_NAMES[rkey],
             "location_url": REGION_LOCATION_URLS.get(rkey, ""),
@@ -736,6 +866,9 @@ def main():
     regions = build_regions(entries_idx, books, resolver)
     print("  Building shared reward pools...")
     shared_pools = build_shared_rewards(resolver)
+    # Mod-box items are served per-region (see build_per_region_mod_items);
+    # remove them from shared pools to avoid double-counting on the website.
+    shared_pools = filter_mod_boxes_from_shared(shared_pools)
     print("  Building U Mine It...")
     tiers = build_u_mine_it(list_idx, entries_idx, globs, books, misc, alch)
     print("  Building Lucky Maps...")
@@ -760,6 +893,7 @@ def main():
                 "Drop rates resolved via rng76 engine (deep LVLI flattening)",
                 "Shared reward pools apply to ALL treasure map digs",
                 "Region-specific rewards vary by dig location",
+                "Mod boxes (miscmod_mod*) are computed per region, not via shared pools",
                 "GMRW conditions NOT baked in - handled by website JS",
                 "Burning Springs and Skyline Valley are empty placeholders",
             ],
@@ -781,7 +915,6 @@ def main():
     patchlog_dir = DIST_DIR / "patchlogs"
     os.makedirs(str(patchlog_dir), exist_ok=True)
     write_empty_patchlog_feed(str(DIST_DIR), "patchlog_latest_df_treasure_maps.json", current_count=total_maps)
-
 
 
 if __name__ == "__main__":
