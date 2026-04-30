@@ -95,12 +95,12 @@ def pick(row, *keys, default=""):
 
 # Map-name prefixes → region key + location URL
 MAP_PREFIX_TO_REGION = OrderedDict([
-    ("Forest",        {"key": "forest",        "name": "The Forest",   "url": "/df/treasure-maps/forest/"}),
-    ("Toxic Valley",  {"key": "toxic_valley",  "name": "Toxic Valley", "url": "/df/treasure-maps/toxic-valley/"}),
-    ("Ash Heap",      {"key": "ash_heap",      "name": "Ash Heap",     "url": "/df/treasure-maps/ash-heap/"}),
-    ("Cranberry Bog", {"key": "cranberry_bog", "name": "Cranberry Bog","url": "/df/treasure-maps/cranberry-bog/"}),
-    ("Mire",          {"key": "the_mire",      "name": "The Mire",     "url": "/df/treasure-maps/the-mire/"}),
-    ("Savage Divide", {"key": "savage_divide", "name": "Savage Divide","url": "/df/treasure-maps/savage-divide/"}),
+    ("Forest",        {"key": "forest",        "name": "Forest",        "url": "/df/treasure-maps/forest/"}),
+    ("Toxic Valley",  {"key": "toxic_valley",  "name": "Toxic Valley",  "url": "/df/treasure-maps/toxic-valley/"}),
+    ("Ash Heap",      {"key": "ash_heap",      "name": "Ash Heap",      "url": "/df/treasure-maps/ash-heap/"}),
+    ("Cranberry Bog", {"key": "cranberry_bog", "name": "Cranberry Bog", "url": "/df/treasure-maps/cranberry-bog/"}),
+    ("Mire",          {"key": "the_mire",      "name": "The Mire",      "url": "/df/treasure-maps/the-mire/"}),
+    ("Savage Divide", {"key": "savage_divide", "name": "Savage Divide", "url": "/df/treasure-maps/savage-divide/"}),
 ])
 
 # Reward pool FormIDs per region (from LLS_TreasureMap_Reward_Base)
@@ -123,10 +123,10 @@ SHARED_POOLS = OrderedDict([
     ("armour_mods",  {"name": "Armour Mod Plans",  "formid": "000673A7"}),
 ])
 
-# Region display order
+# Region display order (alphabetical; "The Mire" sorts under T)
 REGION_ORDER = [
-    "forest", "toxic_valley", "ash_heap", "cranberry_bog", "the_mire",
-    "savage_divide", "burning_springs", "skyline_valley",
+    "ash_heap", "burning_springs", "cranberry_bog", "forest",
+    "savage_divide", "skyline_valley", "the_mire", "toxic_valley",
 ]
 
 # Map drop region LVLIs (for extracting all unique maps)
@@ -319,7 +319,7 @@ def build_region_rewards(resolver):
 # ============================================================
 
 REGION_NAMES = OrderedDict([
-    ("forest",          "The Forest"),
+    ("forest",          "Forest"),
     ("toxic_valley",    "Toxic Valley"),
     ("ash_heap",        "Ash Heap"),
     ("cranberry_bog",   "Cranberry Bog"),
@@ -781,6 +781,7 @@ def main():
     patchlog_dir = DIST_DIR / "patchlogs"
     os.makedirs(str(patchlog_dir), exist_ok=True)
     write_empty_patchlog_feed(str(DIST_DIR), "patchlog_latest_df_treasure_maps.json", current_count=total_maps)
+
 
 
 if __name__ == "__main__":
