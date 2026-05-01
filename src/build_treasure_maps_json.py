@@ -374,12 +374,50 @@ PER_REGION_MOD_BRANCHES = OrderedDict([
 
 _MOD_BOX_EDID_RE = re.compile(r'^(?:dlc\d+_)?miscmod_mod', re.IGNORECASE)
 
+# More specific patterns for dig-reward categorisation. Armour patterns are
+# checked BEFORE the generic weapon pattern so that, e.g.,
+# `recipe_mod_armor_RaiderMod_*` lands in armour_mod_plans, not weapon_mod_plans.
+_ARMOUR_PLAN_EDID_RE   = re.compile(r'^recipe_mod_(armor|powerarmor|underarmor)', re.IGNORECASE)
+_WEAPON_PLAN_EDID_RE   = re.compile(r'^recipe_mod_', re.IGNORECASE)
+_ARMOUR_MODBOX_EDID_RE = re.compile(r'^(?:dlc\d+_)?miscmod_mod_(armor|powerarmor|underarmor)', re.IGNORECASE)
+
 def _is_mod_box(item_dict):
     """A mod box is a MISC item whose EDID starts with 'miscmod_mod'
     (optionally prefixed with 'DLC<n>_' for Wastelanders/NW content).
     Excludes test/debug/cut prefixes like 'zzz_', 'CUT_', 'POST_', 'test_'."""
     edid = (item_dict.get("edid", "") or "")
     return bool(_MOD_BOX_EDID_RE.match(edid))
+
+
+def categorize_dig_item(item):
+    """Categorise a flattened dig-reward item into one of:
+        weapon_mod_plan  - weapon mod plans (BOOK) and weapon mod boxes (MISC)
+        armour_mod_plan  - armour / PA / underarmour mod plans + matching mod boxes
+        recipe_plan      - general recipes & plans (workshop, food, whole-armour, etc.)
+        region_bonus     - non-plan loot themed to the region (WEAP, ARMO, ALCH, AMMO, junk MISC)
+
+    The buckets map directly to the user-facing Dig Rewards sub-expands."""
+    edid = (item.get("edid", "") or "")
+    sig = (item.get("sig", "") or "").upper()
+
+    # Loose mod boxes (MISC items the player can apply directly to gear).
+    if _MOD_BOX_EDID_RE.match(edid):
+        if _ARMOUR_MODBOX_EDID_RE.match(edid):
+            return "armour_mod_plan"
+        return "weapon_mod_plan"
+
+    # BOOK = plans and recipes.
+    if sig == "BOOK":
+        if _ARMOUR_PLAN_EDID_RE.match(edid):
+            return "armour_mod_plan"
+        if _WEAPON_PLAN_EDID_RE.match(edid):
+            # Every recipe_mod_* that isn't armour-prefixed is a weapon mod plan.
+            return "weapon_mod_plan"
+        return "recipe_plan"
+
+    # Everything else (WEAP / ARMO / ALCH / AMMO / generic MISC) is the
+    # region-themed bonus loot pulled from LLS_TreasureMap_Reward_Region<X>.
+    return "region_bonus"
 
 
 def _compute_path_coeff(resolver, top_pools, forest_entry_id):
@@ -453,6 +491,166 @@ def filter_mod_boxes_from_shared(shared_pools):
 
 
 # ============================================================
+# Per-Region Dig Rewards (categorised + caps + XP)
+# ============================================================
+#
+# Mirrors the JS `collectItemsForRegion` + `categorizeDigItems` logic but runs
+# at build time so the JSON consumer just renders pre-bucketed lists.
+#
+# Categories (each bucket is a sub-expand on the Treasure Maps page):
+#   recipes_plans     - general workshop / food / whole-weapon / whole-armour plans
+#   weapon_mod_plans  - "Plan: <weapon> <mod>" BOOKs + loose weapon mod boxes
+#   armour_mod_plans  - armour / PA / underarmour mod plans
+#   region_bonus      - region-themed bonus loot (food, water, ammo, etc.)
+#
+# Plus quest-script rewards that aren't part of the LVLI tree:
+#   caps              - sourced from LL_Caps_TreasureMap (LLS_Caps_High, qty 3-7)
+#   experience        - script-driven; manually maintained constant below
+
+# Manual XP constant — treasure-map dig XP is granted by a Papyrus script and
+# isn't currently tracked in any TSV export. Update this value if Bethesda
+# changes the dig XP. Set to None to surface a "TBC" placeholder on the site.
+TREASURE_MAP_QUEST_XP_L50 = None
+
+# Region keyword -> our region key. Mirrors REGION_TOKENS in the JS so the
+# Python categoriser sees the same regions the JS does.
+_REGION_TOKENS = {
+    "Forest":            "forest",
+    "ForestFloodlands":  "forest",
+    "ToxicValley":       "toxic_valley",
+    "AshHeap":           "ash_heap",
+    "Mountains":         "savage_divide",
+    "CranberryBog":      "cranberry_bog",
+    "Mire":              "the_mire",
+    "SwampForest":       "the_mire",
+    "BurningSprings":    "burning_springs",
+    "SkylineValley":     "skyline_valley",
+}
+_DROP_REGIONS = ["forest", "toxic_valley", "ash_heap",
+                 "cranberry_bog", "the_mire", "savage_divide"]
+_REGION_LOC_RE = re.compile(r'Region(\w+?)Location')
+
+
+def _regions_for_item(item):
+    """Return the list of region keys an item is gated to via
+    `Subject.GetInCurrentLocation(...Region<X>Location...)` conditions.
+    Items with no region condition are treated as available in all regions."""
+    hits = []
+    for c in (item.get("conditions") or []):
+        if "GetInCurrentLocation" not in c:
+            continue
+        m = _REGION_LOC_RE.search(c)
+        if m and m.group(1) in _REGION_TOKENS:
+            hits.append(_REGION_TOKENS[m.group(1)])
+    return hits if hits else list(_DROP_REGIONS)
+
+
+def _strip_region_conditions(conds):
+    """Drop GetInCurrentLocation conditions — already implied by the region
+    this list is rendered under, so they'd be noise in the output."""
+    return [c for c in (conds or []) if "GetInCurrentLocation" not in c]
+
+
+def build_dig_rewards(region_key, region, shared_pools):
+    """Build the categorised dig-rewards payload for a single region.
+
+    Returns a dict with caps + experience metadata and four flat item lists:
+    recipes_plans, weapon_mod_plans, armour_mod_plans, region_bonus."""
+    by_id = {}
+    caps_item = None
+
+    def add(it):
+        fid = it["form_id"]
+        if fid not in by_id:
+            by_id[fid] = {
+                "name":          it["name"],
+                "form_id":       fid,
+                "edid":          it.get("edid", ""),
+                "sig":           it.get("sig", ""),
+                "qty":           it.get("qty", "1"),
+                "drop_rate_raw": 0.0,
+                "drop_rate":     "",
+                "conditions":    _strip_region_conditions(it.get("conditions", [])),
+                "tradeable":     it.get("tradeable", True) is not False,
+            }
+        by_id[fid]["drop_rate_raw"] += float(it.get("drop_rate_raw", 0) or 0)
+
+    # 1) Items from shared reward pools that match this region. The "caps"
+    #    pool is special-cased and lifted into its own field.
+    for pool in shared_pools or []:
+        if pool.get("pool_key") == "caps":
+            if pool.get("items"):
+                caps_item = pool["items"][0]
+            continue
+        for it in pool.get("items", []):
+            if region_key in _regions_for_item(it):
+                add(it)
+
+    # 2) Region-specific reward items (region bonus loot + per-region mod boxes)
+    for it in (region.get("region_reward_items") or []):
+        add(it)
+
+    # Cap rates at 1.0 and format as percent strings
+    items = []
+    for it in by_id.values():
+        rate = min(it["drop_rate_raw"], 1.0)
+        it["drop_rate_raw"] = round(rate, 6)
+        it["drop_rate"]     = fmt_pct(rate * 100)
+        items.append(it)
+
+    # Categorise into the four buckets
+    buckets = {
+        "recipes_plans":    [],
+        "weapon_mod_plans": [],
+        "armour_mod_plans": [],
+        "region_bonus":     [],
+    }
+    cat_to_bucket = {
+        "recipe_plan":     "recipes_plans",
+        "weapon_mod_plan": "weapon_mod_plans",
+        "armour_mod_plan": "armour_mod_plans",
+        "region_bonus":    "region_bonus",
+    }
+    for it in items:
+        buckets[cat_to_bucket[categorize_dig_item(it)]].append(it)
+
+    # Sort each bucket alphabetically by display name
+    for k in buckets:
+        buckets[k].sort(key=lambda x: (x.get("name") or "").lower())
+
+    caps_payload = None
+    if caps_item:
+        caps_payload = {
+            "name":          caps_item.get("name", "Caps"),
+            "form_id":       caps_item.get("form_id", "0000000F"),
+            "edid":          caps_item.get("edid", "Caps001"),
+            "qty":           caps_item.get("qty", "3-7"),
+            "drop_rate":     caps_item.get("drop_rate", "100%"),
+            "drop_rate_raw": caps_item.get("drop_rate_raw", 1.0),
+            "scales_with_buffs": False,
+            "note":          "Does not scale with player level or other buffs",
+        }
+
+    xp_payload = {
+        "amount":            TREASURE_MAP_QUEST_XP_L50,
+        "level":             50,
+        "scales_with_buffs": True,
+        "note":              ("Treasure-map dig XP is granted by the dig quest "
+                              "script and is not currently sourced from any "
+                              "xEdit TSV export."),
+    }
+
+    return {
+        "caps":             caps_payload,
+        "experience":       xp_payload,
+        "recipes_plans":    buckets["recipes_plans"],
+        "weapon_mod_plans": buckets["weapon_mod_plans"],
+        "armour_mod_plans": buckets["armour_mod_plans"],
+        "region_bonus":     buckets["region_bonus"],
+    }
+
+
+# ============================================================
 # Build: Combined Region Output
 # ============================================================
 
@@ -479,8 +677,10 @@ REGION_LOCATION_URLS = {
 }
 
 
-def build_regions(entries_idx, books, resolver):
-    """Build the full region data: maps + region-specific rewards + mod boxes."""
+def build_regions(entries_idx, books, resolver, shared_pools):
+    """Build the full region data: maps + region-specific rewards + mod boxes
+    + categorised dig_rewards (caps / xp / recipes / weapon mods / armour mods
+    / region bonus)."""
     map_groups = build_map_names(entries_idx, books)
     region_rewards = build_region_rewards(resolver)
     per_region_mods = build_per_region_mod_items(resolver)
@@ -496,13 +696,17 @@ def build_regions(entries_idx, books, resolver):
         if mod_raw:
             mod_agg = aggregate_items(mod_raw)
             rewards = list(rewards) + [format_item(it) for it in mod_agg]
-        regions[rkey] = {
+        region_data = {
             "name": REGION_NAMES[rkey],
             "location_url": REGION_LOCATION_URLS.get(rkey, ""),
             "map_count": len(maps),
             "maps": maps,
             "region_reward_items": rewards,
         }
+        # dig_rewards is the structured per-region payload the JS renders:
+        # caps + xp + categorised plan/recipe/mod buckets.
+        region_data["dig_rewards"] = build_dig_rewards(rkey, region_data, shared_pools)
+        regions[rkey] = region_data
     return regions
 
 
@@ -878,13 +1082,15 @@ def main():
     rng_data = Rng76Data.from_tsv_root(str(TSV_DIR))
     resolver = rng_data.resolver
 
-    print("  Building regions (deep LVLI resolution)...")
-    regions = build_regions(entries_idx, books, resolver)
+    # Shared pools are built first because build_regions now needs them
+    # (per-region dig_rewards walk shared pools to attach the matching items).
     print("  Building shared reward pools...")
     shared_pools = build_shared_rewards(resolver)
     # Mod-box items are served per-region (see build_per_region_mod_items);
     # remove them from shared pools to avoid double-counting on the website.
     shared_pools = filter_mod_boxes_from_shared(shared_pools)
+    print("  Building regions (deep LVLI resolution)...")
+    regions = build_regions(entries_idx, books, resolver, shared_pools)
     print("  Building U Mine It...")
     tiers = build_u_mine_it(list_idx, entries_idx, globs, books, misc, alch)
     print("  Building Lucky Maps...")
@@ -912,6 +1118,9 @@ def main():
                 "Mod boxes (miscmod_mod*) are computed per region, not via shared pools",
                 "GMRW conditions NOT baked in - handled by website JS",
                 "Burning Springs and Skyline Valley are empty placeholders",
+                "Per-region dig_rewards: caps/xp + categorised plan/mod buckets",
+                "Caps sourced from LL_Caps_TreasureMap (LLS_Caps_High, qty 3-7, 100%)",
+                "XP is script-driven and currently a manual constant in build_treasure_maps_json.py (TREASURE_MAP_QUEST_XP_L50)",
             ],
         },
     }
