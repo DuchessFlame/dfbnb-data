@@ -389,6 +389,21 @@ def _is_mod_box(item_dict):
     return bool(_MOD_BOX_EDID_RE.match(edid))
 
 
+def _is_branch_mod_leaf(item_dict):
+    """Items the per-region mod walker is responsible for: MISC mod boxes
+    AND BOOK 'recipe_mod_*' plans. Both kinds of leaf live inside the
+    per-region weapon/armour mod sub-trees. Other leaves (random WEAP/ARMO
+    that may sit alongside) are not handled here — they flow through the
+    shared-pool path or the region-specific reward path instead."""
+    edid = (item_dict.get("edid", "") or "")
+    sig  = (item_dict.get("sig", "") or "").upper()
+    if _MOD_BOX_EDID_RE.match(edid):
+        return True
+    if sig == "BOOK" and _WEAPON_PLAN_EDID_RE.match(edid):
+        return True
+    return False
+
+
 def categorize_dig_item(item):
     """Categorise a flattened dig-reward item into one of:
         weapon_mod_plan  - weapon mod plans (BOOK) and weapon mod boxes (MISC)
@@ -468,10 +483,14 @@ def build_per_region_mod_items(resolver):
         for region_key, entry_fid in branches.items():
             items = resolver.resolve_deep(entry_fid)
             for it in items:
-                # Only mod-box leaves are relevant here. Other leaves in
-                # this subtree (BOOK plans etc.) already flow through the
-                # shared pools at their correct rates.
-                if not _is_mod_box(it):
+                # Keep mod-box (MISC) and recipe_mod_* plan (BOOK) leaves —
+                # both live inside the per-region branch and need the path
+                # coefficient applied. Forest's are also handled here: they
+                # are stripped from the shared pools by
+                # filter_branch_mod_leaves_from_shared so they aren't
+                # double-counted. Other leaves (any WEAP/ARMO that might
+                # sit alongside) are left to the shared-pool path.
+                if not _is_branch_mod_leaf(it):
                     continue
                 scaled = dict(it)
                 scaled["dropRate"] = it["dropRate"] * path_coeff
@@ -479,12 +498,18 @@ def build_per_region_mod_items(resolver):
     return per_region_raw
 
 
-def filter_mod_boxes_from_shared(shared_pools):
-    """Strip mod-box (miscmod_mod*) items from shared reward pools — they're
-    served per-region from build_per_region_mod_items so leaving them in
-    shared pools would cause the JS to double-count Forest's mods."""
+def filter_branch_mod_leaves_from_shared(shared_pools):
+    """Strip per-region branch mod leaves from shared reward pools — both
+    MISC mod boxes ('miscmod_mod*') and BOOK 'recipe_mod_*' plans are served
+    per-region by build_per_region_mod_items, so leaving them in shared
+    pools would cause Forest's items to be counted twice (once via the
+    shared pool's resolve_deep walk of Forest's branch, once via the
+    per-region collector). The per-region collector applies the empirically
+    derived path coefficient that already sums both top_pool contributions,
+    so it produces the correct per-dig rate for every region (including
+    Forest)."""
     for pool in shared_pools:
-        kept = [it for it in pool["items"] if not _is_mod_box(it)]
+        kept = [it for it in pool["items"] if not _is_branch_mod_leaf(it)]
         pool["items"] = kept
         pool["item_count"] = len(kept)
     return shared_pools
@@ -1076,9 +1101,11 @@ def main():
     # (per-region dig_rewards walk shared pools to attach the matching items).
     print("  Building shared reward pools...")
     shared_pools = build_shared_rewards(resolver)
-    # Mod-box items are served per-region (see build_per_region_mod_items);
-    # remove them from shared pools to avoid double-counting on the website.
-    shared_pools = filter_mod_boxes_from_shared(shared_pools)
+    # Mod-box items AND BOOK recipe_mod_* plans are served per-region (see
+    # build_per_region_mod_items); remove them from shared pools to avoid
+    # double-counting Forest's leaves on the website (the shared-pool
+    # resolve_deep only walks Forest's FirstMatch branch).
+    shared_pools = filter_branch_mod_leaves_from_shared(shared_pools)
     print("  Building regions (deep LVLI resolution)...")
     regions = build_regions(entries_idx, books, resolver, shared_pools)
     print("  Building U Mine It...")
