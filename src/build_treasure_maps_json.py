@@ -491,7 +491,7 @@ def filter_mod_boxes_from_shared(shared_pools):
 
 
 # ============================================================
-# Per-Region Dig Rewards (categorised + caps + XP)
+# Per-Region Dig Rewards (categorised + caps)
 # ============================================================
 #
 # Mirrors the JS `collectItemsForRegion` + `categorizeDigItems` logic but runs
@@ -503,14 +503,14 @@ def filter_mod_boxes_from_shared(shared_pools):
 #   armour_mod_plans  - armour / PA / underarmour mod plans
 #   region_bonus      - region-themed bonus loot (food, water, ammo, etc.)
 #
-# Plus quest-script rewards that aren't part of the LVLI tree:
+# Plus the only other dig reward we have data for:
 #   caps              - sourced from LL_Caps_TreasureMap (LLS_Caps_High, qty 3-7)
-#   experience        - script-driven; manually maintained constant below
-
-# Manual XP constant — treasure-map dig XP is granted by a Papyrus script and
-# isn't currently tracked in any TSV export. Update this value if Bethesda
-# changes the dig XP. Set to None to surface a "TBC" placeholder on the site.
-TREASURE_MAP_QUEST_XP_L50 = None
+#
+# NOTE on XP: there is NO treasure-map XP record in any current TSV export
+# (QUEST, GMRW, GLOB, CURV, AVIF). If/when an XP source is found in the data
+# (e.g. a curve referenced from a script, a GMRW entry tied to the mound
+# activator, etc.) add it here. Until then, do not surface XP — no data, no
+# claim.
 
 # Region keyword -> our region key. Mirrors REGION_TOKENS in the JS so the
 # Python categoriser sees the same regions the JS does.
@@ -554,7 +554,7 @@ def _strip_region_conditions(conds):
 def build_dig_rewards(region_key, region, shared_pools):
     """Build the categorised dig-rewards payload for a single region.
 
-    Returns a dict with caps + experience metadata and four flat item lists:
+    Returns a dict with caps metadata and four flat item lists:
     recipes_plans, weapon_mod_plans, armour_mod_plans, region_bonus."""
     by_id = {}
     caps_item = None
@@ -631,18 +631,8 @@ def build_dig_rewards(region_key, region, shared_pools):
             "note":          "Does not scale with player level or other buffs",
         }
 
-    xp_payload = {
-        "amount":            TREASURE_MAP_QUEST_XP_L50,
-        "level":             50,
-        "scales_with_buffs": True,
-        "note":              ("Treasure-map dig XP is granted by the dig quest "
-                              "script and is not currently sourced from any "
-                              "xEdit TSV export."),
-    }
-
     return {
         "caps":             caps_payload,
-        "experience":       xp_payload,
         "recipes_plans":    buckets["recipes_plans"],
         "weapon_mod_plans": buckets["weapon_mod_plans"],
         "armour_mod_plans": buckets["armour_mod_plans"],
@@ -679,8 +669,8 @@ REGION_LOCATION_URLS = {
 
 def build_regions(entries_idx, books, resolver, shared_pools):
     """Build the full region data: maps + region-specific rewards + mod boxes
-    + categorised dig_rewards (caps / xp / recipes / weapon mods / armour mods
-    / region bonus)."""
+    + categorised dig_rewards (caps / recipes / weapon mods / armour mods /
+    region bonus)."""
     map_groups = build_map_names(entries_idx, books)
     region_rewards = build_region_rewards(resolver)
     per_region_mods = build_per_region_mod_items(resolver)
@@ -704,7 +694,7 @@ def build_regions(entries_idx, books, resolver, shared_pools):
             "region_reward_items": rewards,
         }
         # dig_rewards is the structured per-region payload the JS renders:
-        # caps + xp + categorised plan/recipe/mod buckets.
+        # caps + categorised plan/recipe/mod buckets.
         region_data["dig_rewards"] = build_dig_rewards(rkey, region_data, shared_pools)
         regions[rkey] = region_data
     return regions
@@ -1118,9 +1108,9 @@ def main():
                 "Mod boxes (miscmod_mod*) are computed per region, not via shared pools",
                 "GMRW conditions NOT baked in - handled by website JS",
                 "Burning Springs and Skyline Valley are empty placeholders",
-                "Per-region dig_rewards: caps/xp + categorised plan/mod buckets",
+                "Per-region dig_rewards: caps + categorised plan/mod buckets",
                 "Caps sourced from LL_Caps_TreasureMap (LLS_Caps_High, qty 3-7, 100%)",
-                "XP is script-driven and currently a manual constant in build_treasure_maps_json.py (TREASURE_MAP_QUEST_XP_L50)",
+                "No XP field — there is no treasure-map XP record in any current TSV export",
             ],
         },
     }

@@ -3066,12 +3066,6 @@
           "scales_with_buffs": false,
           "note": "Does not scale with player level or other buffs"
         },
-        "experience": {
-          "amount": null,
-          "level": 50,
-          "scales_with_buffs": true,
-          "note": "Treasure-map dig XP is granted by the dig quest script and is not currently sourced from any xEdit TSV export."
-        },
         "recipes_plans": [
           {
             "name": "Plan: Acoustic Instruments",
@@ -5331,12 +5325,6 @@
           "scales_with_buffs": false,
           "note": "Does not scale with player level or other buffs"
         },
-        "experience": {
-          "amount": null,
-          "level": 50,
-          "scales_with_buffs": true,
-          "note": "Treasure-map dig XP is granted by the dig quest script and is not currently sourced from any xEdit TSV export."
-        },
         "recipes_plans": [],
         "weapon_mod_plans": [],
         "armour_mod_plans": [],
@@ -5946,12 +5934,6 @@
           "drop_rate_raw": 1.0,
           "scales_with_buffs": false,
           "note": "Does not scale with player level or other buffs"
-        },
-        "experience": {
-          "amount": null,
-          "level": 50,
-          "scales_with_buffs": true,
-          "note": "Treasure-map dig XP is granted by the dig quest script and is not currently sourced from any xEdit TSV export."
         },
         "recipes_plans": [
           {
@@ -8714,12 +8696,6 @@
           "scales_with_buffs": false,
           "note": "Does not scale with player level or other buffs"
         },
-        "experience": {
-          "amount": null,
-          "level": 50,
-          "scales_with_buffs": true,
-          "note": "Treasure-map dig XP is granted by the dig quest script and is not currently sourced from any xEdit TSV export."
-        },
         "recipes_plans": [
           {
             "name": "Plan: Acoustic Instruments",
@@ -11317,12 +11293,6 @@
           "scales_with_buffs": false,
           "note": "Does not scale with player level or other buffs"
         },
-        "experience": {
-          "amount": null,
-          "level": 50,
-          "scales_with_buffs": true,
-          "note": "Treasure-map dig XP is granted by the dig quest script and is not currently sourced from any xEdit TSV export."
-        },
         "recipes_plans": [
           {
             "name": "Plan: Acoustic Instruments",
@@ -13472,12 +13442,6 @@
           "scales_with_buffs": false,
           "note": "Does not scale with player level or other buffs"
         },
-        "experience": {
-          "amount": null,
-          "level": 50,
-          "scales_with_buffs": true,
-          "note": "Treasure-map dig XP is granted by the dig quest script and is not currently sourced from any xEdit TSV export."
-        },
         "recipes_plans": [],
         "weapon_mod_plans": [],
         "armour_mod_plans": [],
@@ -14093,12 +14057,6 @@
           "drop_rate_raw": 1.0,
           "scales_with_buffs": false,
           "note": "Does not scale with player level or other buffs"
-        },
-        "experience": {
-          "amount": null,
-          "level": 50,
-          "scales_with_buffs": true,
-          "note": "Treasure-map dig XP is granted by the dig quest script and is not currently sourced from any xEdit TSV export."
         },
         "recipes_plans": [
           {
@@ -16792,12 +16750,6 @@
           "scales_with_buffs": false,
           "note": "Does not scale with player level or other buffs"
         },
-        "experience": {
-          "amount": null,
-          "level": 50,
-          "scales_with_buffs": true,
-          "note": "Treasure-map dig XP is granted by the dig quest script and is not currently sourced from any xEdit TSV export."
-        },
         "recipes_plans": [
           {
             "name": "Plan: Acoustic Instruments",
@@ -19429,7 +19381,7 @@
     }
   },
   "meta": {
-    "generated": "2026-05-01T02:55:58Z",
+    "generated": "2026-05-01T03:09:30Z",
     "generator": "build_treasure_maps_json.py",
     "source_files": [
       "LVLI_Export_Full_Apr_2026_LVLI_List.tsv",
@@ -19446,9 +19398,9 @@
       "Mod boxes (miscmod_mod*) are computed per region, not via shared pools",
       "GMRW conditions NOT baked in - handled by website JS",
       "Burning Springs and Skyline Valley are empty placeholders",
-      "Per-region dig_rewards: caps/xp + categorised plan/mod buckets",
+      "Per-region dig_rewards: caps + categorised plan/mod buckets",
       "Caps sourced from LL_Caps_TreasureMap (LLS_Caps_High, qty 3-7, 100%)",
-      "XP is script-driven and currently a manual constant in build_treasure_maps_json.py (TREASURE_MAP_QUEST_XP_L50)"
+      "No XP field — there is no treasure-map XP record in any current TSV export"
     ]
   }
 }
