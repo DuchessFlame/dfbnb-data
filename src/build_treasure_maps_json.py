@@ -152,6 +152,29 @@ UMINE_TIERS = OrderedDict([
     ("excavator",  {"formid": "0032AD61", "edid": "MTRz05_LL_03_ExcavatorMine",   "name": "Excavator Mine"}),
 ])
 
+# ── Lucky Strike shared quest reward pools (fire on every quest completion) ──
+# QuestReward_LLS_Aid_All [LVLI:0043934D] is a pick-one of 6 regional aid pools.
+# Each entry's "ChanceNone" slot is actually a MinLvl GLOB (xEdit export trap —
+# see drop-rate-engine skill section 5 "MinLvl GLOBs"). At Lv50 every region is
+# unlocked, so the pick-one resolves to 1/6 = 16.667% per region pool.
+#
+# Each LL_Aid_<Region> LVLI is then resolved deep via rng76 to flatten its
+# items, and the per-region rates are scaled by the parent 1/6 pick.
+UMINE_AID_PARENT_FORMID = "0043934D"  # QuestReward_LLS_Aid_All
+UMINE_AID_REGIONS = OrderedDict([
+    ("forest",         {"formid": "003CC4A3", "edid": "QuestReward_LLS_Aid_Forest",        "name": "Forest",        "min_lvl": 1}),
+    ("toxic_valley",   {"formid": "003CC4A5", "edid": "QuestReward_LLS_Aid_ToxicValley",   "name": "Toxic Valley",  "min_lvl": 10}),
+    ("savage_divide",  {"formid": "003CC4A1", "edid": "QuestReward_LLS_Aid_SavageDivide",  "name": "Savage Divide", "min_lvl": 15}),
+    ("ash_heap",       {"formid": "003CC4A0", "edid": "QuestReward_LLS_Aid_AshHeap",       "name": "Ash Heap",      "min_lvl": 25}),
+    ("the_mire",       {"formid": "003CC4A4", "edid": "QuestReward_LLS_Aid_Mire",          "name": "The Mire",      "min_lvl": 30}),
+    ("cranberry_bog",  {"formid": "003CC4A2", "edid": "QuestReward_LLS_Aid_CranberryBog",  "name": "Cranberry Bog", "min_lvl": 35}),
+])
+
+# LL_Scrap_Acid [LVLI:007AC791] is the second shared pool — pick-one of 3
+# acid quantity variants (×1, ×2, ×3) at 33.333% each. resolve_deep handles
+# the quantity variants automatically.
+UMINE_ACID_FORMID = "007AC791"  # LL_Scrap_Acid
+
 
 # ============================================================
 # Helpers
@@ -997,6 +1020,98 @@ def build_u_mine_it(list_idx, entries_idx, globs, books, misc, alch):
 
 
 # ============================================================
+# Build: U Mine It shared quest reward pools (Aid + Acid)
+# ============================================================
+#
+# These pools fire alongside the tier-specific mining LVLI on every Lucky
+# Strike quest completion (regardless of tier). Each is resolved deep via
+# rng76 so the JSON carries flattened leaf items the website can render
+# directly under each region sub-expand without any additional lookups.
+#
+# Aid: pick-one of 6 regional LVLIs (LL_Aid_<Region>) at 1/6 each. Each
+# region's items are resolved at the regional LVLI's *internal* rates
+# (i.e. as if you've already been picked into that region). The regional
+# 1/6 pick is held on the parent so the website can show:
+#   Aid Items (parent expand, 100% — always rolled)
+#     ├── Forest          (sub-expand, 16.6667% — chance this region wins)
+#     │     <items at internal rates within Forest's pool>
+#     ├── Toxic Valley    (sub-expand, 16.6667%)
+#     ...
+# The "true" per-item end-to-end rate is internal × 1/6, but showing the
+# internal rate plus the regional pick rate keeps the structure readable
+# and matches the activity-tree convention from the style guide.
+#
+# Acid: pick-one of 3 quantity variants. resolve_deep handles the qty
+# variants — same item formid (Acid) at qty 1/2/3, each at 33.333%.
+def build_u_mine_it_shared_pools(resolver):
+    """Resolve the shared Aid + Acid pools fired on every Lucky Strike completion."""
+
+    # ── Aid: regional sub-pools ─────────────────────────────────────────
+    # Resolve each LL_Aid_<Region> LVLI separately so per-region item lists
+    # can be displayed under their own sub-expand. Items inside each region
+    # are aggregated/sorted by aggregate_items + format_item — same shape
+    # used by build_shared_rewards.
+    aid_regions = []
+    parent_pick_count = len(UMINE_AID_REGIONS)
+    parent_pick_rate = 1.0 / parent_pick_count if parent_pick_count else 0.0
+    for rkey, rinfo in UMINE_AID_REGIONS.items():
+        raw = resolver.resolve_deep(rinfo["formid"])
+        agg = aggregate_items(raw)
+        aid_regions.append({
+            "region_key": rkey,
+            "name": rinfo["name"],
+            "edid": rinfo["edid"],
+            "form_id": rinfo["formid"],
+            "min_lvl": rinfo["min_lvl"],
+            "regional_pick_rate": fmt_pct(parent_pick_rate * 100),
+            "regional_pick_rate_raw": round(parent_pick_rate, 6),
+            "item_count": len(agg),
+            "items": [format_item(it) for it in agg],
+        })
+
+    aid_pool = {
+        "key": "aid",
+        "name": "Aid Items",
+        "form_id": UMINE_AID_PARENT_FORMID,
+        "edid": "QuestReward_LLS_Aid_All",
+        "list_type": "Pick-one of 6 regional LVLIs (MinLvl-gated)",
+        "drop_rate": "100%",
+        "drop_rate_raw": 1.0,
+        "blurb": f"Regional loot pool — one of {parent_pick_count} region pools rolled on quest completion · {parent_pick_count} regions",
+        "regions": aid_regions,
+        "notes": [
+            "Parent LVLI pick-one across 6 LL_Aid_<Region> sub-pools",
+            "Each ChanceNone slot on the parent is actually a MinLvl GLOB (xEdit trap)",
+            "At Lv50 all 6 regions are unlocked → 1/6 = 16.6667% per region",
+            "Per-item rates inside each region are the LL_Aid_<Region> internal rates",
+            "End-to-end per-item rate = internal × 1/6 (computed at display time if needed)",
+        ],
+    }
+
+    # ── Acid: quantity variants ─────────────────────────────────────────
+    raw = resolver.resolve_deep(UMINE_ACID_FORMID)
+    agg = aggregate_items(raw)
+    acid_pool = {
+        "key": "acid",
+        "name": "Acid",
+        "form_id": UMINE_ACID_FORMID,
+        "edid": "LL_Scrap_Acid",
+        "list_type": "Pick-one of 3 quantity variants",
+        "drop_rate": "100%",
+        "drop_rate_raw": 1.0,
+        "blurb": "Guaranteed drop · random quantity 1–3 · 3 picks",
+        "item_count": len(agg),
+        "items": [format_item(it) for it in agg],
+        "notes": [
+            "Pick-one of 3 entries (qty 1, 2, 3) at 33.333% each",
+            "Same item formid in all entries — qty range collapses via aggregate_items",
+        ],
+    }
+
+    return [aid_pool, acid_pool]
+
+
+# ============================================================
 # Build: Lucky Maps (unchanged)
 # ============================================================
 
@@ -1110,6 +1225,8 @@ def main():
     regions = build_regions(entries_idx, books, resolver, shared_pools)
     print("  Building U Mine It...")
     tiers = build_u_mine_it(list_idx, entries_idx, globs, books, misc, alch)
+    print("  Building U Mine It shared pools (Aid + Acid)...")
+    umine_shared = build_u_mine_it_shared_pools(resolver)
     print("  Building Lucky Maps...")
     lucky = build_lucky_maps(entries_idx, books)
     print("  Building teammate reward...")
@@ -1123,7 +1240,7 @@ def main():
         "shared_reward_pools": shared_pools,
         "regions": regions,
         "teammate_reward": teammate,
-        "u_mine_it": {"tiers": tiers, "lucky_maps": lucky},
+        "u_mine_it": {"tiers": tiers, "shared_pools": umine_shared, "lucky_maps": lucky},
         "meta": {
             "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "generator": "build_treasure_maps_json.py",
@@ -1151,7 +1268,14 @@ def main():
     print(f"  Regions: {len(regions)}, Maps: {total_maps}")
     print(f"  Shared pools: {len(shared_pools)}, Shared items: {total_shared}")
     print(f"  Region-specific items: {total_region_items}")
+    aid_region_count = sum(len(p.get("regions", [])) for p in umine_shared if p["key"] == "aid")
+    aid_item_count = sum(
+        sum(r["item_count"] for r in p["regions"])
+        for p in umine_shared if p["key"] == "aid"
+    )
+    acid_item_count = sum(p["item_count"] for p in umine_shared if p["key"] == "acid")
     print(f"  U Mine It tiers: {len(tiers)}, Lucky Maps: {len(lucky['items'])}")
+    print(f"  U Mine It shared pools: Aid ({aid_region_count} regions, {aid_item_count} items), Acid ({acid_item_count} items)")
     print("[build_treasure_maps_json.py] Done.")
 
     patchlog_dir = DIST_DIR / "patchlogs"

@@ -37855,6 +37855,1817 @@
         ]
       }
     },
+    "shared_pools": [
+      {
+        "key": "aid",
+        "name": "Aid Items",
+        "form_id": "0043934D",
+        "edid": "QuestReward_LLS_Aid_All",
+        "list_type": "Pick-one of 6 regional LVLIs (MinLvl-gated)",
+        "drop_rate": "100%",
+        "drop_rate_raw": 1.0,
+        "blurb": "Regional loot pool — one of 6 region pools rolled on quest completion · 6 regions",
+        "regions": [
+          {
+            "region_key": "forest",
+            "name": "Forest",
+            "edid": "QuestReward_LLS_Aid_Forest",
+            "form_id": "003CC4A3",
+            "min_lvl": 1,
+            "regional_pick_rate": "16.666667%",
+            "regional_pick_rate_raw": 0.166667,
+            "item_count": 24,
+            "items": [
+              {
+                "name": "Stimpak: Diluted",
+                "form_id": "003078C2",
+                "edid": "StimpakDiluted",
+                "sig": "ALCH",
+                "drop_rate": "40%",
+                "drop_rate_raw": 0.4,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Purified Water",
+                "form_id": "000366C0",
+                "edid": "WaterPurified",
+                "sig": "ALCH",
+                "drop_rate": "20%",
+                "drop_rate_raw": 0.2,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "RadAway: Diluted",
+                "form_id": "0012D3EF",
+                "edid": "RadAwayDiluted",
+                "sig": "ALCH",
+                "drop_rate": "13.333333%",
+                "drop_rate_raw": 0.133333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 0.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Rad-X: Diluted",
+                "form_id": "0012D3F1",
+                "edid": "RadXDiluted",
+                "sig": "ALCH",
+                "drop_rate": "6.666667%",
+                "drop_rate_raw": 0.066667,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 0.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Buffout",
+                "form_id": "00033778",
+                "edid": "Buffout",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Med-X",
+                "form_id": "00033779",
+                "edid": "MedX",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Mentats",
+                "form_id": "0003377B",
+                "edid": "Mentats",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psycho",
+                "form_id": "0003377D",
+                "edid": "Psycho",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Rad-X",
+                "form_id": "00024057",
+                "edid": "RadX",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "RadAway",
+                "form_id": "00023742",
+                "edid": "RadAway",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak",
+                "form_id": "00023736",
+                "edid": "Stimpak",
+                "sig": "ALCH",
+                "drop_rate": "1.35%",
+                "drop_rate_raw": 0.0135,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychobuff",
+                "form_id": "00058AAC",
+                "edid": "Psychobuff",
+                "sig": "ALCH",
+                "drop_rate": "0.75%",
+                "drop_rate_raw": 0.0075,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychotats",
+                "form_id": "00058AAA",
+                "edid": "Psychotats",
+                "sig": "ALCH",
+                "drop_rate": "0.75%",
+                "drop_rate_raw": 0.0075,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Berry Mentats",
+                "form_id": "000518BB",
+                "edid": "BerryMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Bufftats",
+                "form_id": "00058AA5",
+                "edid": "Bufftats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Grape Mentats",
+                "form_id": "0010129A",
+                "edid": "GrapeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Orange Mentats",
+                "form_id": "000518C5",
+                "edid": "OrangeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Calmex",
+                "form_id": "00058AA7",
+                "edid": "Calmex",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Daddy-O",
+                "form_id": "00156D0B",
+                "edid": "DaddyO",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Day Tripper",
+                "form_id": "00150729",
+                "edid": "DayTripper",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Fury",
+                "form_id": "000628CA",
+                "edid": "Fury",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Overdrive",
+                "form_id": "00058AAD",
+                "edid": "Overdrive",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "X-Cell",
+                "form_id": "001506F4",
+                "edid": "XCell",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak: Super",
+                "form_id": "00117DF9",
+                "edid": "SuperStimpak",
+                "sig": "ALCH",
+                "drop_rate": "0.15%",
+                "drop_rate_raw": 0.0015,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              }
+            ]
+          },
+          {
+            "region_key": "toxic_valley",
+            "name": "Toxic Valley",
+            "edid": "QuestReward_LLS_Aid_ToxicValley",
+            "form_id": "003CC4A5",
+            "min_lvl": 10,
+            "regional_pick_rate": "16.666667%",
+            "regional_pick_rate_raw": 0.166667,
+            "item_count": 24,
+            "items": [
+              {
+                "name": "Stimpak: Diluted",
+                "form_id": "003078C2",
+                "edid": "StimpakDiluted",
+                "sig": "ALCH",
+                "drop_rate": "40%",
+                "drop_rate_raw": 0.4,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Purified Water",
+                "form_id": "000366C0",
+                "edid": "WaterPurified",
+                "sig": "ALCH",
+                "drop_rate": "20%",
+                "drop_rate_raw": 0.2,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "RadAway: Diluted",
+                "form_id": "0012D3EF",
+                "edid": "RadAwayDiluted",
+                "sig": "ALCH",
+                "drop_rate": "13.333333%",
+                "drop_rate_raw": 0.133333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 0.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Rad-X: Diluted",
+                "form_id": "0012D3F1",
+                "edid": "RadXDiluted",
+                "sig": "ALCH",
+                "drop_rate": "6.666667%",
+                "drop_rate_raw": 0.066667,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 0.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Buffout",
+                "form_id": "00033778",
+                "edid": "Buffout",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Med-X",
+                "form_id": "00033779",
+                "edid": "MedX",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Mentats",
+                "form_id": "0003377B",
+                "edid": "Mentats",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psycho",
+                "form_id": "0003377D",
+                "edid": "Psycho",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Rad-X",
+                "form_id": "00024057",
+                "edid": "RadX",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "RadAway",
+                "form_id": "00023742",
+                "edid": "RadAway",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak",
+                "form_id": "00023736",
+                "edid": "Stimpak",
+                "sig": "ALCH",
+                "drop_rate": "1.35%",
+                "drop_rate_raw": 0.0135,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychobuff",
+                "form_id": "00058AAC",
+                "edid": "Psychobuff",
+                "sig": "ALCH",
+                "drop_rate": "0.75%",
+                "drop_rate_raw": 0.0075,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychotats",
+                "form_id": "00058AAA",
+                "edid": "Psychotats",
+                "sig": "ALCH",
+                "drop_rate": "0.75%",
+                "drop_rate_raw": 0.0075,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Berry Mentats",
+                "form_id": "000518BB",
+                "edid": "BerryMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Bufftats",
+                "form_id": "00058AA5",
+                "edid": "Bufftats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Grape Mentats",
+                "form_id": "0010129A",
+                "edid": "GrapeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Orange Mentats",
+                "form_id": "000518C5",
+                "edid": "OrangeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Calmex",
+                "form_id": "00058AA7",
+                "edid": "Calmex",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Daddy-O",
+                "form_id": "00156D0B",
+                "edid": "DaddyO",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Day Tripper",
+                "form_id": "00150729",
+                "edid": "DayTripper",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Fury",
+                "form_id": "000628CA",
+                "edid": "Fury",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Overdrive",
+                "form_id": "00058AAD",
+                "edid": "Overdrive",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "X-Cell",
+                "form_id": "001506F4",
+                "edid": "XCell",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak: Super",
+                "form_id": "00117DF9",
+                "edid": "SuperStimpak",
+                "sig": "ALCH",
+                "drop_rate": "0.15%",
+                "drop_rate_raw": 0.0015,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              }
+            ]
+          },
+          {
+            "region_key": "savage_divide",
+            "name": "Savage Divide",
+            "edid": "QuestReward_LLS_Aid_SavageDivide",
+            "form_id": "003CC4A1",
+            "min_lvl": 15,
+            "regional_pick_rate": "16.666667%",
+            "regional_pick_rate_raw": 0.166667,
+            "item_count": 21,
+            "items": [
+              {
+                "name": "Purified Water",
+                "form_id": "000366C0",
+                "edid": "WaterPurified",
+                "sig": "ALCH",
+                "drop_rate": "100%",
+                "drop_rate_raw": 1.0,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "RadAway",
+                "form_id": "00023742",
+                "edid": "RadAway",
+                "sig": "ALCH",
+                "drop_rate": "100%",
+                "drop_rate_raw": 1.0,
+                "qty": "1-3",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 0.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak",
+                "form_id": "00023736",
+                "edid": "Stimpak",
+                "sig": "ALCH",
+                "drop_rate": "100%",
+                "drop_rate_raw": 1.0,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Buffout",
+                "form_id": "00033778",
+                "edid": "Buffout",
+                "sig": "ALCH",
+                "drop_rate": "11.666667%",
+                "drop_rate_raw": 0.116667,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Med-X",
+                "form_id": "00033779",
+                "edid": "MedX",
+                "sig": "ALCH",
+                "drop_rate": "11.666667%",
+                "drop_rate_raw": 0.116667,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Mentats",
+                "form_id": "0003377B",
+                "edid": "Mentats",
+                "sig": "ALCH",
+                "drop_rate": "11.666667%",
+                "drop_rate_raw": 0.116667,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psycho",
+                "form_id": "0003377D",
+                "edid": "Psycho",
+                "sig": "ALCH",
+                "drop_rate": "11.666667%",
+                "drop_rate_raw": 0.116667,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Rad-X",
+                "form_id": "00024057",
+                "edid": "RadX",
+                "sig": "ALCH",
+                "drop_rate": "11.666667%",
+                "drop_rate_raw": 0.116667,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychobuff",
+                "form_id": "00058AAC",
+                "edid": "Psychobuff",
+                "sig": "ALCH",
+                "drop_rate": "3.75%",
+                "drop_rate_raw": 0.0375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychotats",
+                "form_id": "00058AAA",
+                "edid": "Psychotats",
+                "sig": "ALCH",
+                "drop_rate": "3.75%",
+                "drop_rate_raw": 0.0375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Berry Mentats",
+                "form_id": "000518BB",
+                "edid": "BerryMentats",
+                "sig": "ALCH",
+                "drop_rate": "1.875%",
+                "drop_rate_raw": 0.01875,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Bufftats",
+                "form_id": "00058AA5",
+                "edid": "Bufftats",
+                "sig": "ALCH",
+                "drop_rate": "1.875%",
+                "drop_rate_raw": 0.01875,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Grape Mentats",
+                "form_id": "0010129A",
+                "edid": "GrapeMentats",
+                "sig": "ALCH",
+                "drop_rate": "1.875%",
+                "drop_rate_raw": 0.01875,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Orange Mentats",
+                "form_id": "000518C5",
+                "edid": "OrangeMentats",
+                "sig": "ALCH",
+                "drop_rate": "1.875%",
+                "drop_rate_raw": 0.01875,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Calmex",
+                "form_id": "00058AA7",
+                "edid": "Calmex",
+                "sig": "ALCH",
+                "drop_rate": "1.25%",
+                "drop_rate_raw": 0.0125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Daddy-O",
+                "form_id": "00156D0B",
+                "edid": "DaddyO",
+                "sig": "ALCH",
+                "drop_rate": "1.25%",
+                "drop_rate_raw": 0.0125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Day Tripper",
+                "form_id": "00150729",
+                "edid": "DayTripper",
+                "sig": "ALCH",
+                "drop_rate": "1.25%",
+                "drop_rate_raw": 0.0125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Fury",
+                "form_id": "000628CA",
+                "edid": "Fury",
+                "sig": "ALCH",
+                "drop_rate": "1.25%",
+                "drop_rate_raw": 0.0125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Overdrive",
+                "form_id": "00058AAD",
+                "edid": "Overdrive",
+                "sig": "ALCH",
+                "drop_rate": "1.25%",
+                "drop_rate_raw": 0.0125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "X-Cell",
+                "form_id": "001506F4",
+                "edid": "XCell",
+                "sig": "ALCH",
+                "drop_rate": "1.25%",
+                "drop_rate_raw": 0.0125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak: Super",
+                "form_id": "00117DF9",
+                "edid": "SuperStimpak",
+                "sig": "ALCH",
+                "drop_rate": "0.75%",
+                "drop_rate_raw": 0.0075,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              }
+            ]
+          },
+          {
+            "region_key": "ash_heap",
+            "name": "Ash Heap",
+            "edid": "QuestReward_LLS_Aid_AshHeap",
+            "form_id": "003CC4A0",
+            "min_lvl": 25,
+            "regional_pick_rate": "16.666667%",
+            "regional_pick_rate_raw": 0.166667,
+            "item_count": 21,
+            "items": [
+              {
+                "name": "RadAway",
+                "form_id": "00023742",
+                "edid": "RadAway",
+                "sig": "ALCH",
+                "drop_rate": "27.916667%",
+                "drop_rate_raw": 0.279167,
+                "qty": "1-3",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 0.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak",
+                "form_id": "00023736",
+                "edid": "Stimpak",
+                "sig": "ALCH",
+                "drop_rate": "26.6875%",
+                "drop_rate_raw": 0.266875,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Purified Water",
+                "form_id": "000366C0",
+                "edid": "WaterPurified",
+                "sig": "ALCH",
+                "drop_rate": "25%",
+                "drop_rate_raw": 0.25,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Buffout",
+                "form_id": "00033778",
+                "edid": "Buffout",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Med-X",
+                "form_id": "00033779",
+                "edid": "MedX",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Mentats",
+                "form_id": "0003377B",
+                "edid": "Mentats",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psycho",
+                "form_id": "0003377D",
+                "edid": "Psycho",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Rad-X",
+                "form_id": "00024057",
+                "edid": "RadX",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychobuff",
+                "form_id": "00058AAC",
+                "edid": "Psychobuff",
+                "sig": "ALCH",
+                "drop_rate": "0.9375%",
+                "drop_rate_raw": 0.009375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychotats",
+                "form_id": "00058AAA",
+                "edid": "Psychotats",
+                "sig": "ALCH",
+                "drop_rate": "0.9375%",
+                "drop_rate_raw": 0.009375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Berry Mentats",
+                "form_id": "000518BB",
+                "edid": "BerryMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.46875%",
+                "drop_rate_raw": 0.004688,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Bufftats",
+                "form_id": "00058AA5",
+                "edid": "Bufftats",
+                "sig": "ALCH",
+                "drop_rate": "0.46875%",
+                "drop_rate_raw": 0.004688,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Grape Mentats",
+                "form_id": "0010129A",
+                "edid": "GrapeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.46875%",
+                "drop_rate_raw": 0.004688,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Orange Mentats",
+                "form_id": "000518C5",
+                "edid": "OrangeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.46875%",
+                "drop_rate_raw": 0.004688,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Calmex",
+                "form_id": "00058AA7",
+                "edid": "Calmex",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Daddy-O",
+                "form_id": "00156D0B",
+                "edid": "DaddyO",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Day Tripper",
+                "form_id": "00150729",
+                "edid": "DayTripper",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Fury",
+                "form_id": "000628CA",
+                "edid": "Fury",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Overdrive",
+                "form_id": "00058AAD",
+                "edid": "Overdrive",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "X-Cell",
+                "form_id": "001506F4",
+                "edid": "XCell",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak: Super",
+                "form_id": "00117DF9",
+                "edid": "SuperStimpak",
+                "sig": "ALCH",
+                "drop_rate": "0.1875%",
+                "drop_rate_raw": 0.001875,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              }
+            ]
+          },
+          {
+            "region_key": "the_mire",
+            "name": "The Mire",
+            "edid": "QuestReward_LLS_Aid_Mire",
+            "form_id": "003CC4A4",
+            "min_lvl": 30,
+            "regional_pick_rate": "16.666667%",
+            "regional_pick_rate_raw": 0.166667,
+            "item_count": 21,
+            "items": [
+              {
+                "name": "RadAway",
+                "form_id": "00023742",
+                "edid": "RadAway",
+                "sig": "ALCH",
+                "drop_rate": "27.916667%",
+                "drop_rate_raw": 0.279167,
+                "qty": "1-3",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 0.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak",
+                "form_id": "00023736",
+                "edid": "Stimpak",
+                "sig": "ALCH",
+                "drop_rate": "26.6875%",
+                "drop_rate_raw": 0.266875,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Purified Water",
+                "form_id": "000366C0",
+                "edid": "WaterPurified",
+                "sig": "ALCH",
+                "drop_rate": "25%",
+                "drop_rate_raw": 0.25,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Buffout",
+                "form_id": "00033778",
+                "edid": "Buffout",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Med-X",
+                "form_id": "00033779",
+                "edid": "MedX",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Mentats",
+                "form_id": "0003377B",
+                "edid": "Mentats",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psycho",
+                "form_id": "0003377D",
+                "edid": "Psycho",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Rad-X",
+                "form_id": "00024057",
+                "edid": "RadX",
+                "sig": "ALCH",
+                "drop_rate": "2.916667%",
+                "drop_rate_raw": 0.029167,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychobuff",
+                "form_id": "00058AAC",
+                "edid": "Psychobuff",
+                "sig": "ALCH",
+                "drop_rate": "0.9375%",
+                "drop_rate_raw": 0.009375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychotats",
+                "form_id": "00058AAA",
+                "edid": "Psychotats",
+                "sig": "ALCH",
+                "drop_rate": "0.9375%",
+                "drop_rate_raw": 0.009375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Berry Mentats",
+                "form_id": "000518BB",
+                "edid": "BerryMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.46875%",
+                "drop_rate_raw": 0.004688,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Bufftats",
+                "form_id": "00058AA5",
+                "edid": "Bufftats",
+                "sig": "ALCH",
+                "drop_rate": "0.46875%",
+                "drop_rate_raw": 0.004688,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Grape Mentats",
+                "form_id": "0010129A",
+                "edid": "GrapeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.46875%",
+                "drop_rate_raw": 0.004688,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Orange Mentats",
+                "form_id": "000518C5",
+                "edid": "OrangeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.46875%",
+                "drop_rate_raw": 0.004688,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Calmex",
+                "form_id": "00058AA7",
+                "edid": "Calmex",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Daddy-O",
+                "form_id": "00156D0B",
+                "edid": "DaddyO",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Day Tripper",
+                "form_id": "00150729",
+                "edid": "DayTripper",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Fury",
+                "form_id": "000628CA",
+                "edid": "Fury",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Overdrive",
+                "form_id": "00058AAD",
+                "edid": "Overdrive",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "X-Cell",
+                "form_id": "001506F4",
+                "edid": "XCell",
+                "sig": "ALCH",
+                "drop_rate": "0.3125%",
+                "drop_rate_raw": 0.003125,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak: Super",
+                "form_id": "00117DF9",
+                "edid": "SuperStimpak",
+                "sig": "ALCH",
+                "drop_rate": "0.1875%",
+                "drop_rate_raw": 0.001875,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              }
+            ]
+          },
+          {
+            "region_key": "cranberry_bog",
+            "name": "Cranberry Bog",
+            "edid": "QuestReward_LLS_Aid_CranberryBog",
+            "form_id": "003CC4A2",
+            "min_lvl": 35,
+            "regional_pick_rate": "16.666667%",
+            "regional_pick_rate_raw": 0.166667,
+            "item_count": 21,
+            "items": [
+              {
+                "name": "RadAway",
+                "form_id": "00023742",
+                "edid": "RadAway",
+                "sig": "ALCH",
+                "drop_rate": "22.333333%",
+                "drop_rate_raw": 0.223333,
+                "qty": "1-3",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 0.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak",
+                "form_id": "00023736",
+                "edid": "Stimpak",
+                "sig": "ALCH",
+                "drop_rate": "21.35%",
+                "drop_rate_raw": 0.2135,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Stimpak: Super",
+                "form_id": "00117DF9",
+                "edid": "SuperStimpak",
+                "sig": "ALCH",
+                "drop_rate": "20.15%",
+                "drop_rate_raw": 0.2015,
+                "qty": "1",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Purified Water",
+                "form_id": "000366C0",
+                "edid": "WaterPurified",
+                "sig": "ALCH",
+                "drop_rate": "20%",
+                "drop_rate_raw": 0.2,
+                "qty": "1-3",
+                "conditions": [],
+                "tradeable": true
+              },
+              {
+                "name": "Buffout",
+                "form_id": "00033778",
+                "edid": "Buffout",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Med-X",
+                "form_id": "00033779",
+                "edid": "MedX",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Mentats",
+                "form_id": "0003377B",
+                "edid": "Mentats",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psycho",
+                "form_id": "0003377D",
+                "edid": "Psycho",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Rad-X",
+                "form_id": "00024057",
+                "edid": "RadX",
+                "sig": "ALCH",
+                "drop_rate": "2.333333%",
+                "drop_rate_raw": 0.023333,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychobuff",
+                "form_id": "00058AAC",
+                "edid": "Psychobuff",
+                "sig": "ALCH",
+                "drop_rate": "0.75%",
+                "drop_rate_raw": 0.0075,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Psychotats",
+                "form_id": "00058AAA",
+                "edid": "Psychotats",
+                "sig": "ALCH",
+                "drop_rate": "0.75%",
+                "drop_rate_raw": 0.0075,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Berry Mentats",
+                "form_id": "000518BB",
+                "edid": "BerryMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Bufftats",
+                "form_id": "00058AA5",
+                "edid": "Bufftats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Grape Mentats",
+                "form_id": "0010129A",
+                "edid": "GrapeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Orange Mentats",
+                "form_id": "000518C5",
+                "edid": "OrangeMentats",
+                "sig": "ALCH",
+                "drop_rate": "0.375%",
+                "drop_rate_raw": 0.00375,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Calmex",
+                "form_id": "00058AA7",
+                "edid": "Calmex",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Daddy-O",
+                "form_id": "00156D0B",
+                "edid": "DaddyO",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Day Tripper",
+                "form_id": "00150729",
+                "edid": "DayTripper",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Fury",
+                "form_id": "000628CA",
+                "edid": "Fury",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "Overdrive",
+                "form_id": "00058AAD",
+                "edid": "Overdrive",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              },
+              {
+                "name": "X-Cell",
+                "form_id": "001506F4",
+                "edid": "XCell",
+                "sig": "ALCH",
+                "drop_rate": "0.25%",
+                "drop_rate_raw": 0.0025,
+                "qty": "1",
+                "conditions": [
+                  "Subject.GetIsPlayerGhoul(00 00 00, 00 00, 00 00 00 00, 00 00 00 00, -1) 10000000 1.000000"
+                ],
+                "tradeable": true
+              }
+            ]
+          }
+        ],
+        "notes": [
+          "Parent LVLI pick-one across 6 LL_Aid_<Region> sub-pools",
+          "Each ChanceNone slot on the parent is actually a MinLvl GLOB (xEdit trap)",
+          "At Lv50 all 6 regions are unlocked → 1/6 = 16.6667% per region",
+          "Per-item rates inside each region are the LL_Aid_<Region> internal rates",
+          "End-to-end per-item rate = internal × 1/6 (computed at display time if needed)"
+        ]
+      },
+      {
+        "key": "acid",
+        "name": "Acid",
+        "form_id": "007AC791",
+        "edid": "LL_Scrap_Acid",
+        "list_type": "Pick-one of 3 quantity variants",
+        "drop_rate": "100%",
+        "drop_rate_raw": 1.0,
+        "blurb": "Guaranteed drop · random quantity 1–3 · 3 picks",
+        "item_count": 1,
+        "items": [
+          {
+            "name": "Waste Acid",
+            "form_id": "001BF72D",
+            "edid": "c_Acid_scrap",
+            "sig": "MISC",
+            "drop_rate": "100%",
+            "drop_rate_raw": 1.0,
+            "qty": "1-3",
+            "conditions": [],
+            "tradeable": true
+          }
+        ],
+        "notes": [
+          "Pick-one of 3 entries (qty 1, 2, 3) at 33.333% each",
+          "Same item formid in all entries — qty range collapses via aggregate_items"
+        ]
+      }
+    ],
     "lucky_maps": {
       "vendor_list": "MTRZ05_Vendor_LuckyMaps",
       "vendor_formid": "0086A8AF",
@@ -37922,7 +39733,7 @@
     }
   },
   "meta": {
-    "generated": "2026-05-06T19:55:43Z",
+    "generated": "2026-05-07T05:29:52Z",
     "generator": "build_treasure_maps_json.py",
     "source_files": [
       "LVLI_Export_Full_Apr_2026_LVLI_List.tsv",
