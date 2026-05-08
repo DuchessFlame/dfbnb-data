@@ -180,6 +180,69 @@ UMINE_ACID_FORMID = "007AC791"  # LL_Scrap_Acid
 # Helpers
 # ============================================================
 
+def simplify_condition(cond_str):
+    """Convert verbose xEdit condition strings to human-readable summaries.
+
+    Subset of the activities builder's simplifier — just the conditions that
+    actually appear on treasure-map / U-Mine-It LVLIs (Ghoul gating, FO1st,
+    learned-recipe). Other functions return "" so they're filtered out.
+    """
+    s = (cond_str or "").strip()
+    if not s:
+        return ""
+
+    # GetIsPlayerGhoul → Ghoul / Human character restriction.
+    # Trailing "0.000000" = comparison value 0 (must NOT be ghoul → Human only).
+    # Trailing "1.000000" = comparison value 1 (must be ghoul → Ghoul only).
+    if "GetIsPlayerGhoul" in s:
+        if re.search(r'0\.0+\s*$', s):
+            return "Human character only"
+        return "Ghoul character only"
+
+    # IsPlayerFO1Member → Fallout 1st membership check
+    if "IsPlayerFO1Member" in s:
+        return "Requires Fallout 1st membership"
+
+    # HasLearnedRecipe → check comparison value
+    if "HasLearnedRecipe" in s:
+        if re.search(r'0\.0+\s*$', s):
+            return "Won’t drop if you’ve already learned this plan"
+        return "Requires the base plan to be learned"
+
+    # GetRandomPercent / GetLevel are baked into rates — hide
+    if "GetRandomPercent" in s or "GetLevel" in s:
+        return ""
+
+    # Internal/engine-only checks — hide
+    for _fn in ("GetGlobalValue", "GetInCurrentLocation", "GetInCell",
+                "LocationAliasIsLocation", "GetIsAliasRef", "HasEntitlement",
+                "GetItemCount", "GetValue", "GetNumTimesCompletedQuest",
+                "IsActivePlayer", "GetVMQuestVariable", "GetStageDone",
+                "HasKeyword", "GetRemainingQuestTimeSeconds"):
+        if _fn in s:
+            return ""
+
+    # Raw GLOB / QUST refs without a known wrapper — hide
+    if re.match(r'^[0-9A-Fa-f]{8}:', s) and (":GLOB" in s or ":QUST" in s):
+        return ""
+
+    # Fallback: strip raw numeric flags at end and clean up
+    s = re.sub(r'\s+[01]{8}\s+[\d.]+$', '', s)
+    s = re.sub(r'^Subject\.', '', s)
+    s = re.sub(r'\(00 00 00.*?\)', '()', s)
+    return s.strip() if s.strip() else ""
+
+
+def simplify_conditions(conditions):
+    """Simplify a list of condition strings, dropping empty/internal results."""
+    result = []
+    for c in (conditions or []):
+        s = simplify_condition(c)
+        if s and s not in result:
+            result.append(s)
+    return result
+
+
 def aggregate_items(items):
     """Aggregate resolved leaf items by formid, sum drop rates, track qty range."""
     agg = {}
@@ -215,12 +278,13 @@ def format_item(agg_item):
     qty_max = agg_item["qty_max"]
     qty_str = f"{qty_min}-{qty_max}" if qty_min != qty_max else str(qty_min)
 
-    # Determine tradeable status from conditions
+    # Determine tradeable status from raw conditions BEFORE simplification
+    # (NonPlayerTradable etc. are stripped by simplify_condition)
     name = agg_item.get("name", "")
     sig = agg_item.get("sig", "")
-    conditions = agg_item.get("conditions", [])
+    raw_conditions = agg_item.get("conditions", [])
     tradeable = True
-    for c in conditions:
+    for c in raw_conditions:
         if "NonPlayerTrad" in c or "Untradab" in c or "Untradea" in c:
             tradeable = False
             break
@@ -233,7 +297,7 @@ def format_item(agg_item):
         "drop_rate": fmt_pct(agg_item["drop_rate_raw"] * 100),
         "drop_rate_raw": round(agg_item["drop_rate_raw"], 6),
         "qty": qty_str,
-        "conditions": conditions,
+        "conditions": simplify_conditions(raw_conditions),
         "tradeable": tradeable,
     }
 
@@ -1020,7 +1084,7 @@ def build_u_mine_it(list_idx, entries_idx, globs, books, misc, alch):
 
 
 # ============================================================
-# Build: U Mine It shared quest reward pools (Aid + Acid)
+# Build: U Mine It shared quest reward pools (Aid + Acid + Junk)
 # ============================================================
 #
 # These pools fire alongside the tier-specific mining LVLI on every Lucky
@@ -1028,43 +1092,64 @@ def build_u_mine_it(list_idx, entries_idx, globs, books, misc, alch):
 # rng76 so the JSON carries flattened leaf items the website can render
 # directly under each region sub-expand without any additional lookups.
 #
-# Aid: pick-one of 6 regional LVLIs (LL_Aid_<Region>) at 1/6 each. Each
-# region's items are resolved at the regional LVLI's *internal* rates
-# (i.e. as if you've already been picked into that region). The regional
-# 1/6 pick is held on the parent so the website can show:
-#   Aid Items (parent expand, 100% — always rolled)
-#     ├── Forest          (sub-expand, 16.6667% — chance this region wins)
-#     │     <items at internal rates within Forest's pool>
-#     ├── Toxic Valley    (sub-expand, 16.6667%)
-#     ...
-# The "true" per-item end-to-end rate is internal × 1/6, but showing the
-# internal rate plus the regional pick rate keeps the structure readable
-# and matches the activity-tree convention from the style guide.
+# Aid: parent LVLI 0043934D (QuestReward_LLS_Aid_All) is a pick-one across
+# 6 regional sub-LVLIs gated by LVLV_MinimumLevel (Forest 1, Toxic Valley
+# 10, Savage Divide 15, Ash Heap 25, Mire 30, Cranberry Bog 35). The list
+# has the LVLF "Calculate from all levels" flag set, so at any player
+# level it picks uniformly from every unlocked regional pool. We surface
+# each tier as its own sub-expand labelled by player-level range, since
+# regions are an implementation detail and confuse readers expecting a
+# "your region" gate.
 #
-# Acid: pick-one of 3 quantity variants. resolve_deep handles the qty
-# variants — same item formid (Acid) at qty 1/2/3, each at 33.333%.
+# MISC items inside the regional Aid LVLIs (Waste Acid etc.) are scrap
+# components — they get hoisted out of the Aid pool into a separate
+# Junk & Scrap shared pool so the Aid expand only carries true ALCH
+# consumables.
+#
+# Acid: pick-one of 3 quantity variants on LL_Scrap_Acid. resolve_deep
+# handles the qty variants automatically.
 def build_u_mine_it_shared_pools(resolver):
-    """Resolve the shared Aid + Acid pools fired on every Lucky Strike completion."""
+    """Resolve the shared Aid + Acid + Junk pools fired on every Lucky Strike completion."""
 
-    # ── Aid: regional sub-pools ─────────────────────────────────────────
-    # Resolve each LL_Aid_<Region> LVLI separately so per-region item lists
-    # can be displayed under their own sub-expand. Items inside each region
-    # are aggregated/sorted by aggregate_items + format_item — same shape
-    # used by build_shared_rewards.
+    # ── Aid: tier-labelled sub-pools (one per region) ────────────────────
+    # Build the level-range label from each region's min_lvl + the next
+    # region's min_lvl - 1. Last region gets "X+" since there's no upper bound.
+    # Items are split: ALCH stays in Aid, MISC is collected for the Junk pool.
+    region_keys = list(UMINE_AID_REGIONS.keys())
     aid_regions = []
-    parent_pick_count = len(UMINE_AID_REGIONS)
-    parent_pick_rate = 1.0 / parent_pick_count if parent_pick_count else 0.0
-    for rkey, rinfo in UMINE_AID_REGIONS.items():
+    junk_items_raw = []  # accumulator for MISC items pulled out of regional Aid LVLIs
+
+    for i, rkey in enumerate(region_keys):
+        rinfo = UMINE_AID_REGIONS[rkey]
+        min_lvl = rinfo["min_lvl"]
+        # Tier label: "Player Level 25 to 29" or "Player Level 35+" for the last tier
+        if i + 1 < len(region_keys):
+            next_min = UMINE_AID_REGIONS[region_keys[i + 1]]["min_lvl"]
+            tier_label = f"Player Level {min_lvl} to {next_min - 1}"
+        else:
+            tier_label = f"Player Level {min_lvl}+"
+
         raw = resolver.resolve_deep(rinfo["formid"])
-        agg = aggregate_items(raw)
+        # Split ALCH (Aid) vs MISC (Junk & Scrap). Anything else stays in Aid
+        # by default — no surprises if a new sig appears.
+        alch_raw = []
+        for it in raw:
+            sig = (it.get("sig") or "").upper()
+            if sig == "MISC":
+                junk_items_raw.append(it)
+            else:
+                alch_raw.append(it)
+
+        agg = aggregate_items(alch_raw)
         aid_regions.append({
             "region_key": rkey,
-            "name": rinfo["name"],
+            "name": rinfo["name"],         # kept for legacy/debug, not displayed
+            "tier_label": tier_label,       # e.g. "Player Level 25 to 29"
             "edid": rinfo["edid"],
             "form_id": rinfo["formid"],
-            "min_lvl": rinfo["min_lvl"],
-            "regional_pick_rate": fmt_pct(parent_pick_rate * 100),
-            "regional_pick_rate_raw": round(parent_pick_rate, 6),
+            "min_lvl": min_lvl,
+            "tier_drop_rate": "100%",       # one tier always rolls per quest
+            "tier_drop_rate_raw": 1.0,
             "item_count": len(agg),
             "items": [format_item(it) for it in agg],
         })
@@ -1077,38 +1162,53 @@ def build_u_mine_it_shared_pools(resolver):
         "list_type": "Pick-one of 6 regional LVLIs (MinLvl-gated)",
         "drop_rate": "100%",
         "drop_rate_raw": 1.0,
-        "blurb": f"Regional loot pool — one of {parent_pick_count} region pools rolled on quest completion · {parent_pick_count} regions",
+        "blurb": f"Regional loot pool · {len(region_keys)} player level tiers · one tier always rolls",
         "regions": aid_regions,
         "notes": [
-            "Parent LVLI pick-one across 6 LL_Aid_<Region> sub-pools",
-            "Each ChanceNone slot on the parent is actually a MinLvl GLOB (xEdit trap)",
-            "At Lv50 all 6 regions are unlocked → 1/6 = 16.6667% per region",
-            "Per-item rates inside each region are the LL_Aid_<Region> internal rates",
-            "End-to-end per-item rate = internal × 1/6 (computed at display time if needed)",
+            "Parent LVLI 0043934D is a pick-one across 6 LL_Aid_<Region> sub-pools",
+            "LVLF flag 0x01 (Level Filter) set → picks uniformly from every unlocked tier",
+            "Each tier is shown as 100% because exactly one tier is always rolled",
+            "MISC items (Waste Acid etc.) are pulled out into the Junk & Scrap pool",
         ],
     }
 
-    # ── Acid: quantity variants ─────────────────────────────────────────
-    raw = resolver.resolve_deep(UMINE_ACID_FORMID)
-    agg = aggregate_items(raw)
-    acid_pool = {
-        "key": "acid",
-        "name": "Acid",
-        "form_id": UMINE_ACID_FORMID,
-        "edid": "LL_Scrap_Acid",
-        "list_type": "Pick-one of 3 quantity variants",
+    # ── Junk & Scrap: MISC scrap components, including Waste Acid ───────
+    # Combines two sources into a single expand:
+    #   1. LL_Scrap_Acid (007AC791) — historically rendered as a separate
+    #      "Acid" pool, but the only item it resolves to is Waste Acid
+    #      (001BF72D), a MISC scrap component. It belongs under Junk.
+    #   2. Any MISC items that appeared inside the regional Aid sub-LVLIs
+    #      (currently none, but the filter is in place so a future xEdit
+    #      export that adds MISC entries to those pools is handled
+    #      automatically without another code change).
+    # Items are aggregated by formid so Waste Acid would still appear once
+    # if the same FormID showed up in multiple sources.
+    acid_raw = resolver.resolve_deep(UMINE_ACID_FORMID)
+    junk_combined = list(acid_raw) + list(junk_items_raw)
+    junk_agg = aggregate_items(junk_combined)
+    junk_pool = {
+        "key": "junk_scrap",
+        "name": "Junk & Scrap",
+        "form_id": UMINE_ACID_FORMID,  # primary source FormID
+        "edid": "LL_Scrap_Acid + LL_Aid_<Region> MISC subset",
+        "list_type": "MISC scrap components rolled on every Lucky Strike completion",
         "drop_rate": "100%",
         "drop_rate_raw": 1.0,
-        "blurb": "Guaranteed drop · random quantity 1–3 · 3 picks",
-        "item_count": len(agg),
-        "items": [format_item(it) for it in agg],
+        "blurb": "Guaranteed scrap drop · always rolled",
+        "item_count": len(junk_agg),
+        "items": [format_item(it) for it in junk_agg],
         "notes": [
-            "Pick-one of 3 entries (qty 1, 2, 3) at 33.333% each",
-            "Same item formid in all entries — qty range collapses via aggregate_items",
+            "Combines LL_Scrap_Acid (Waste Acid x1-3) with any MISC items from "
+            "the regional Aid sub-LVLIs",
+            "Waste Acid was historically displayed under a separate 'Acid' "
+            "expand — now consolidated into Junk & Scrap to match its "
+            "MISC signature (it is a scrap component, not a consumable)",
         ],
     }
 
-    return [aid_pool, acid_pool]
+    # Order: Aid → Junk & Scrap. The standalone "Acid" pool is gone; its
+    # single item (Waste Acid) now lives under Junk & Scrap.
+    return [aid_pool, junk_pool]
 
 
 # ============================================================
@@ -1268,14 +1368,14 @@ def main():
     print(f"  Regions: {len(regions)}, Maps: {total_maps}")
     print(f"  Shared pools: {len(shared_pools)}, Shared items: {total_shared}")
     print(f"  Region-specific items: {total_region_items}")
-    aid_region_count = sum(len(p.get("regions", [])) for p in umine_shared if p["key"] == "aid")
+    aid_tier_count = sum(len(p.get("regions", [])) for p in umine_shared if p["key"] == "aid")
     aid_item_count = sum(
         sum(r["item_count"] for r in p["regions"])
         for p in umine_shared if p["key"] == "aid"
     )
-    acid_item_count = sum(p["item_count"] for p in umine_shared if p["key"] == "acid")
+    junk_item_count = sum(p["item_count"] for p in umine_shared if p["key"] == "junk_scrap")
     print(f"  U Mine It tiers: {len(tiers)}, Lucky Maps: {len(lucky['items'])}")
-    print(f"  U Mine It shared pools: Aid ({aid_region_count} regions, {aid_item_count} items), Acid ({acid_item_count} items)")
+    print(f"  U Mine It shared pools: Aid ({aid_tier_count} tiers, {aid_item_count} items), Junk & Scrap ({junk_item_count} items)")
     print("[build_treasure_maps_json.py] Done.")
 
     patchlog_dir = DIST_DIR / "patchlogs"
