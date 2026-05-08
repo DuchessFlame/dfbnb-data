@@ -38388,7 +38388,7 @@
         "edid": "MTRz05_LL_01_MinerMine",
         "form_id": "0032AD5F",
         "list_type": "UseAll Independent (max_count=0)",
-        "entry_count": 6,
+        "entry_count": 7,
         "rewards": [
           {
             "name": "Black Titanium Scrap",
@@ -38477,12 +38477,28 @@
             "notes": [
               "Toggle GLOB: LTT_UMineItLegendary_Toggle [0085DB73]"
             ]
+          },
+          {
+            "name": "Waste Acid",
+            "edid": "c_Acid_scrap",
+            "form_id": "001BF72D",
+            "sig": "MISC",
+            "quantity": 1,
+            "drop_rate": "100%",
+            "drop_rate_raw": 1.0,
+            "tradeable": true,
+            "conditions": [],
+            "notes": [
+              "Source: LL_Scrap_Acid [007AC791] — shared quest reward",
+              "Pick-one of 3 qty variants (×1/×2/×3 at 33.33% each)"
+            ]
           }
         ],
         "notes": [
           "UseAll list, max_count=0 -> Independent",
           "Each entry fires independently at its own rate",
-          "rate = 1 - (ChanceNone / 100)"
+          "rate = 1 - (ChanceNone / 100)",
+          "Waste Acid injected from shared LL_Scrap_Acid pool"
         ]
       },
       "prospector": {
@@ -38490,7 +38506,7 @@
         "edid": "MTRz05_LL_02_ProspectorMine",
         "form_id": "0032AD60",
         "list_type": "UseAll Independent (max_count=0)",
-        "entry_count": 9,
+        "entry_count": 10,
         "rewards": [
           {
             "name": "Black Titanium Scrap",
@@ -38623,12 +38639,28 @@
             "notes": [
               "Toggle GLOB: LTT_UMineItLegendary_Toggle [0085DB73]"
             ]
+          },
+          {
+            "name": "Waste Acid",
+            "edid": "c_Acid_scrap",
+            "form_id": "001BF72D",
+            "sig": "MISC",
+            "quantity": 1,
+            "drop_rate": "100%",
+            "drop_rate_raw": 1.0,
+            "tradeable": true,
+            "conditions": [],
+            "notes": [
+              "Source: LL_Scrap_Acid [007AC791] — shared quest reward",
+              "Pick-one of 3 qty variants (×1/×2/×3 at 33.33% each)"
+            ]
           }
         ],
         "notes": [
           "UseAll list, max_count=0 -> Independent",
           "Each entry fires independently at its own rate",
-          "rate = 1 - (ChanceNone / 100)"
+          "rate = 1 - (ChanceNone / 100)",
+          "Waste Acid injected from shared LL_Scrap_Acid pool"
         ]
       },
       "excavator": {
@@ -38636,7 +38668,7 @@
         "edid": "MTRz05_LL_03_ExcavatorMine",
         "form_id": "0032AD61",
         "list_type": "UseAll Independent (max_count=0)",
-        "entry_count": 12,
+        "entry_count": 13,
         "rewards": [
           {
             "name": "Black Titanium Scrap",
@@ -38815,12 +38847,28 @@
             "notes": [
               "ChanceNone: 98.0"
             ]
+          },
+          {
+            "name": "Waste Acid",
+            "edid": "c_Acid_scrap",
+            "form_id": "001BF72D",
+            "sig": "MISC",
+            "quantity": 1,
+            "drop_rate": "100%",
+            "drop_rate_raw": 1.0,
+            "tradeable": true,
+            "conditions": [],
+            "notes": [
+              "Source: LL_Scrap_Acid [007AC791] — shared quest reward",
+              "Pick-one of 3 qty variants (×1/×2/×3 at 33.33% each)"
+            ]
           }
         ],
         "notes": [
           "UseAll list, max_count=0 -> Independent",
           "Each entry fires independently at its own rate",
-          "rate = 1 - (ChanceNone / 100)"
+          "rate = 1 - (ChanceNone / 100)",
+          "Waste Acid injected from shared LL_Scrap_Acid pool"
         ]
       }
     },
@@ -40608,35 +40656,7 @@
           "Parent LVLI 0043934D is a pick-one across 6 LL_Aid_<Region> sub-pools",
           "LVLF flag 0x01 (Level Filter) set → picks uniformly from every unlocked tier",
           "Each tier is shown as 100% because exactly one tier is always rolled",
-          "MISC items (Waste Acid etc.) are pulled out into the Junk & Scrap pool"
-        ]
-      },
-      {
-        "key": "junk_scrap",
-        "name": "Junk & Scrap",
-        "form_id": "007AC791",
-        "edid": "LL_Scrap_Acid + LL_Aid_<Region> MISC subset",
-        "list_type": "MISC scrap components rolled on every Lucky Strike completion",
-        "drop_rate": "100%",
-        "drop_rate_raw": 1.0,
-        "blurb": "Guaranteed scrap drop · always rolled",
-        "item_count": 1,
-        "items": [
-          {
-            "name": "Waste Acid",
-            "form_id": "001BF72D",
-            "edid": "c_Acid_scrap",
-            "sig": "MISC",
-            "drop_rate": "100%",
-            "drop_rate_raw": 1.0,
-            "qty": "1-3",
-            "conditions": [],
-            "tradeable": true
-          }
-        ],
-        "notes": [
-          "Combines LL_Scrap_Acid (Waste Acid x1-3) with any MISC items from the regional Aid sub-LVLIs",
-          "Waste Acid was historically displayed under a separate 'Acid' expand — now consolidated into Junk & Scrap to match its MISC signature (it is a scrap component, not a consumable)"
+          "MISC items (Waste Acid etc.) are injected into per-tier Junk & Scrap"
         ]
       }
     ],
@@ -40707,7 +40727,7 @@
     }
   },
   "meta": {
-    "generated": "2026-05-08T10:38:15Z",
+    "generated": "2026-05-08T11:28:51Z",
     "generator": "build_treasure_maps_json.py",
     "source_files": [
       "LVLI_Export_Full_Apr_2026_LVLI_List.tsv",
