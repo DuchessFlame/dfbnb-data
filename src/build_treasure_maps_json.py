@@ -1067,24 +1067,45 @@ def build_u_mine_it(list_idx, entries_idx, globs, books, misc, alch):
                 "notes": notes,
             })
 
+        # Inject Waste Acid into the tier rewards so it appears in the
+        # per-tier Junk & Scrap sub-expand instead of a separate shared pool.
+        # LL_Scrap_Acid (007AC791) is a pick-one of 3 qty variants (×1/×2/×3)
+        # at 33.333% each. The JS UMINE_EXPAND table breaks it into 3 rows.
+        rewards.append({
+            "name": "Waste Acid",
+            "edid": "c_Acid_scrap",
+            "form_id": "001BF72D",
+            "sig": "MISC",
+            "quantity": 1,
+            "drop_rate": "100%",
+            "drop_rate_raw": 1.0,
+            "tradeable": True,
+            "conditions": [],
+            "notes": [
+                "Source: LL_Scrap_Acid [007AC791] — shared quest reward",
+                "Pick-one of 3 qty variants (×1/×2/×3 at 33.33% each)",
+            ],
+        })
+
         tiers[tier_key] = {
             "name": tier_info["name"],
             "edid": tier_info["edid"],
             "form_id": fid,
             "list_type": "UseAll Independent (max_count=0)",
-            "entry_count": len(entries),
+            "entry_count": len(entries) + 1,  # +1 for injected Waste Acid
             "rewards": rewards,
             "notes": [
                 f"UseAll list, max_count={max_c} -> Independent",
                 "Each entry fires independently at its own rate",
                 "rate = 1 - (ChanceNone / 100)",
+                "Waste Acid injected from shared LL_Scrap_Acid pool",
             ],
         }
     return tiers
 
 
 # ============================================================
-# Build: U Mine It shared quest reward pools (Aid + Acid + Junk)
+# Build: U Mine It shared quest reward pools (Aid only)
 # ============================================================
 #
 # These pools fire alongside the tier-specific mining LVLI on every Lucky
@@ -1168,47 +1189,18 @@ def build_u_mine_it_shared_pools(resolver):
             "Parent LVLI 0043934D is a pick-one across 6 LL_Aid_<Region> sub-pools",
             "LVLF flag 0x01 (Level Filter) set → picks uniformly from every unlocked tier",
             "Each tier is shown as 100% because exactly one tier is always rolled",
-            "MISC items (Waste Acid etc.) are pulled out into the Junk & Scrap pool",
+            "MISC items (Waste Acid etc.) are injected into per-tier Junk & Scrap",
         ],
     }
 
-    # ── Junk & Scrap: MISC scrap components, including Waste Acid ───────
-    # Combines two sources into a single expand:
-    #   1. LL_Scrap_Acid (007AC791) — historically rendered as a separate
-    #      "Acid" pool, but the only item it resolves to is Waste Acid
-    #      (001BF72D), a MISC scrap component. It belongs under Junk.
-    #   2. Any MISC items that appeared inside the regional Aid sub-LVLIs
-    #      (currently none, but the filter is in place so a future xEdit
-    #      export that adds MISC entries to those pools is handled
-    #      automatically without another code change).
-    # Items are aggregated by formid so Waste Acid would still appear once
-    # if the same FormID showed up in multiple sources.
-    acid_raw = resolver.resolve_deep(UMINE_ACID_FORMID)
-    junk_combined = list(acid_raw) + list(junk_items_raw)
-    junk_agg = aggregate_items(junk_combined)
-    junk_pool = {
-        "key": "junk_scrap",
-        "name": "Junk & Scrap",
-        "form_id": UMINE_ACID_FORMID,  # primary source FormID
-        "edid": "LL_Scrap_Acid + LL_Aid_<Region> MISC subset",
-        "list_type": "MISC scrap components rolled on every Lucky Strike completion",
-        "drop_rate": "100%",
-        "drop_rate_raw": 1.0,
-        "blurb": "Guaranteed scrap drop · always rolled",
-        "item_count": len(junk_agg),
-        "items": [format_item(it) for it in junk_agg],
-        "notes": [
-            "Combines LL_Scrap_Acid (Waste Acid x1-3) with any MISC items from "
-            "the regional Aid sub-LVLIs",
-            "Waste Acid was historically displayed under a separate 'Acid' "
-            "expand — now consolidated into Junk & Scrap to match its "
-            "MISC signature (it is a scrap component, not a consumable)",
-        ],
-    }
+    # ── Waste Acid (LL_Scrap_Acid) is now injected directly into each
+    # tier's rewards in build_u_mine_it() so it appears inside the per-tier
+    # Junk & Scrap sub-expand. No separate shared pool needed.
+    # MISC items from regional Aid LVLIs (junk_items_raw) are also dropped
+    # here — if any appear in future xEdit exports they should be handled
+    # similarly (injected into tier rewards).
 
-    # Order: Aid → Junk & Scrap. The standalone "Acid" pool is gone; its
-    # single item (Waste Acid) now lives under Junk & Scrap.
-    return [aid_pool, junk_pool]
+    return [aid_pool]
 
 
 # ============================================================
@@ -1373,9 +1365,9 @@ def main():
         sum(r["item_count"] for r in p["regions"])
         for p in umine_shared if p["key"] == "aid"
     )
-    junk_item_count = sum(p["item_count"] for p in umine_shared if p["key"] == "junk_scrap")
     print(f"  U Mine It tiers: {len(tiers)}, Lucky Maps: {len(lucky['items'])}")
-    print(f"  U Mine It shared pools: Aid ({aid_tier_count} tiers, {aid_item_count} items), Junk & Scrap ({junk_item_count} items)")
+    print(f"  U Mine It shared pools: Aid ({aid_tier_count} tiers, {aid_item_count} items)")
+    print(f"  Waste Acid injected into each tier's Junk & Scrap sub-expand")
     print("[build_treasure_maps_json.py] Done.")
 
     patchlog_dir = DIST_DIR / "patchlogs"
