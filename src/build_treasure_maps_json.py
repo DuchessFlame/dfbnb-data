@@ -147,9 +147,9 @@ MAP_POOL_FORMIDS = OrderedDict([
 # ============================================================
 
 UMINE_TIERS = OrderedDict([
-    ("miner",      {"formid": "0032AD5F", "edid": "MTRz05_LL_01_MinerMine",      "name": "Miner Mine"}),
-    ("prospector", {"formid": "0032AD60", "edid": "MTRz05_LL_02_ProspectorMine",  "name": "Prospector Mine"}),
-    ("excavator",  {"formid": "0032AD61", "edid": "MTRz05_LL_03_ExcavatorMine",   "name": "Excavator Mine"}),
+    ("miner",      {"formid": "0032AD5F", "edid": "MTRz05_LL_01_MinerMine",      "name": "Miner Map"}),
+    ("prospector", {"formid": "0032AD60", "edid": "MTRz05_LL_02_ProspectorMine",  "name": "Prospector Map"}),
+    ("excavator",  {"formid": "0032AD61", "edid": "MTRz05_LL_03_ExcavatorMine",   "name": "Excavator Map"}),
 ])
 
 # ── Lucky Strike shared quest reward pools (fire on every quest completion) ──
