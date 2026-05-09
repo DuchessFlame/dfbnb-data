@@ -29,10 +29,16 @@ TIER_PRICE = {
 
 MINERVA_DISCOUNT = 0.75  # 25% off
 
+# LVLI lists that are cut / inactive content — references to these do NOT
+# count as a valid Minerva list ref for inclusion purposes.
+CUT_LIST_SUBSTRINGS = [
+    'Minerva_LLS_GoldVendor_Backlog',       # 00618512
+    'Minerva_LLS_GoldVendor_Backlog_2',      # 0063619B
+    'Minerva_LLS_GoldVendor_Backlog_02',     # 0063671E
+    'Minerva_LLS_LegendaryCrafting',         # 006032BF
+]
+
 # Big Sale lists are merge-lists: each includes the 3 preceding emporium lists.
-# A plan in any of those emporium lists also appears at the Big Sale event.
-# Derived from LVLI: 04_M->{1,2,3}, 08_M->{5,6,7}, 12_M->{9,10,11},
-#                    16_M->{13,14,15}, 20_M->{17,18,19}, 24_M->{21,22,23}
 BIG_SALE_MAP = {
     1: 4,  2: 4,  3: 4,
     5: 8,  6: 8,  7: 8,
@@ -42,39 +48,150 @@ BIG_SALE_MAP = {
     21: 24, 22: 24, 23: 24,
 }
 
+# ── Gold bullion vendor LVLI FormIDs ──────────────────────────────────
+# Derived from LVLI_Export — every GoldVendor LVLI mapped to its NPC vendor.
+# A BOOK record referencing any of these FormIDs is sold by that vendor.
+SAMUEL_LVLIS = {
+    '0059672D',  # W05_LLV_GoldVendor_Settler_Samuel
+    '005A0AC3',  # W05_LLV_GoldVendor_Settler_Samuel_6_Ally
+    '005A0AC4',  # W05_LLV_GoldVendor_Settler_Samuel_3_Cooperative
+    '005A0AC5',  # W05_LLV_GoldVendor_Settler_Samuel_1_Cautious
+    '005A0EE3',  # W05_LLV_GoldVendor_Settler_Samuel_4_Friendly
+    '005A0EE9',  # W05_LLV_GoldVendor_Settler_Samuel_5_Neighborly
+}
+
+MORTIMER_LVLIS = {
+    '00596E98',  # W05_LLV_GoldVendor_Raider_Mortimer
+    '005A0EE5',  # W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious
+    '005A0EEB',  # W05_LLV_GoldVendor_Raider_Mortimer_6_Ally
+    '005A0EF4',  # W05_LLV_GoldVendor_Raider_Mortimer_5_Neighborly
+    '005A0EFA',  # W05_LLV_GoldVendor_Raider_Mortimer_4_Friendly
+    '005A0F00',  # W05_LLV_GoldVendor_Raider_Mortimer_3_Cooperative
+    '005A32F9',  # W05_LLV_GoldVendor_Raider_Molly_5_Neighborly
+}
+
+REGS_LVLIS = {
+    '0057CE6E',  # W05_LLV_GoldVendor_SecretService_Reginald
+    '0057CE71',  # W05_LLV_GoldVendor_Recipes_Weapons_Ranged_All
+    '00589627',  # W05_LLV_GoldVendor_Recipes_Weapons_All
+    '00589628',  # W05_LLV_GoldVendor_Recipes_Armor_SecretService_All
+    '00589629',  # W05_LLV_GoldVendor_Recipes_Weapons_Grenades_All
+    '0058962A',  # W05_LLV_GoldVendor_Recipes_Weapons_Melee_All
+    '005A0AC1',  # W05_LLV_GoldVendor_Recipes_Mods_Weapons_Melee_All
+    '005A0AC2',  # W05_LLV_GoldVendor_Recipes_Mods_Weapons_Ranged_All
+    '005A1F42',  # W05_LLV_GoldVendor_Recipes_Mods_Armor_SecretService
+    '005A1F43',  # W05_LLV_GoldVendor_Recipes_Mods_Armor_PowerArmor_T65
+    '005EB042',  # LLV_GoldVendor_BOSInfantry_Mods
+    '005EC6DF',  # LLV_GoldVendor_BOSPistol_Mods
+    '005EC6E0',  # LLV_GoldVendor_BOSRocketLauncher_Mods
+    '005EC6E1',  # LLV_GoldVendor_WarGlaive_Mods
+    '005ECD92',  # LLV_GoldVendor_PlasmaSword_Mods
+    '0060DB15',  # LLV_GoldVendor_Hellcat_Mods
+    '00611A67',  # LLV_GoldVendor_PepperShaker_Mods
+    '0062FEB1',  # LLV_GoldVendor_AlienRifle_Mods
+    '00630C76',  # LLV_GoldVendor_ElectroEnforcer_Mods
+}
+
+# Union of all NPC gold vendor LVLIs — for quick "is this a gold vendor plan?" check
+ALL_VENDOR_LVLIS = SAMUEL_LVLIS | MORTIMER_LVLIS | REGS_LVLIS
+
+# Daily Ops reward LVLI substrings
+DAILY_OPS_SUBS = ['LL_DailyOps_']
+
+# BoS Recipes LVLI (Regs sells these)
+BOS_RECIPES_SUB = 'LL_BoS_Recipes'
+
+
+def _refs_text(row):
+    """Join all field values into one string for substring searching."""
+    return ' '.join(str(v) for v in row.values() if v)
+
+
+def _has_vendor_lvli(refs):
+    """True if refs contain any gold vendor NPC LVLI FormID."""
+    for fid in ALL_VENDOR_LVLIS:
+        if fid in refs:
+            return True
+    if BOS_RECIPES_SUB in refs:
+        return True
+    return False
+
+
+def _has_minerva_list(row):
+    """True if row references a non-cut Minerva rotation list."""
+    for v in row.values():
+        if v and 'Minerva_LLS_GoldVendor' in str(v):
+            v_str = str(v)
+            if not any(cut in v_str for cut in CUT_LIST_SUBSTRINGS):
+                return True
+    return False
+
+
+def _has_daily_ops(refs):
+    """True if refs contain a Daily Ops reward LVLI."""
+    return any(sub in refs for sub in DAILY_OPS_SUBS)
+
+
+def detect_vendor(row, refs):
+    """Return the vendor label for a gold-bullion plan.
+
+    Priority: NPC vendor (Samuel/Mortimer/Regs) > Daily Ops/Minerva > Minerva.
+    """
+    # Check NPC vendor LVLIs
+    is_samuel   = any(fid in refs for fid in SAMUEL_LVLIS)
+    is_mortimer = any(fid in refs for fid in MORTIMER_LVLIS)
+    is_regs     = any(fid in refs for fid in REGS_LVLIS) or BOS_RECIPES_SUB in refs
+
+    if is_samuel:
+        return 'Samuel'
+    if is_mortimer:
+        return 'Mortimer'
+    if is_regs:
+        return 'Regs'
+
+    # No NPC vendor — check Daily Ops + Minerva
+    has_do = _has_daily_ops(refs)
+    has_m  = _has_minerva_list(row)
+
+    if has_do and has_m:
+        return 'Daily Ops/Minerva'
+    if has_m:
+        return 'Minerva'
+    if has_do:
+        return 'Daily Ops'
+
+    # SCORE plans with GoldVendor in EDID but no LVLI ref — sold by Samuel
+    edid = row.get('EDID', '')
+    if 'SCORE' in edid and 'GoldVendor' in edid:
+        return 'Samuel'
+
+    return 'Gold Vendor'
+
+
 def parse_gold_price(row):
-    # BVGO holds the "Base Value GLOB Override" — the Econ_GoldVendor_Tier_XX GLOB
-    # reference that encodes the gold bullion price.  DNAM_Flags is a flags field
-    # (always "000001") and does NOT contain the GLOB ID.
     bvgo = row.get('BVGO', '')
     for glob_id, price in TIER_PRICE.items():
         if glob_id.upper() in bvgo.upper():
             return price
-    # Fallback for items that don't use the tier GLOB system (e.g. Brotherhood
-    # Recon Armor base pieces store their gold price directly in DATA_Value).
     try:
         return int(float(row.get('DATA_Value', 0)))
     except (ValueError, TypeError):
         return 0
+
 
 def get_minerva_lists(row):
     lists = set()
     for val in row.values():
         if not val:
             continue
-        # findall catches ALL list refs in a single field (search only finds the first).
-        # The regex matches plain numbered lists (e.g. GoldVendor_03) but NOT the Big
-        # Sale merge-lists (GoldVendor_04_M) — those are LVLI-only containers that no
-        # BOOK record references directly.
         for num in re.findall(r'BS02_SpecialVendor_Minerva_LLS_GoldVendor_(\d+)', val):
             lists.add(int(num))
-    # Expand: if a plan is in an emporium list that's merged into a Big Sale list,
-    # it also belongs to that Big Sale list.
     for emporium_list in list(lists):
         big_sale = BIG_SALE_MAP.get(emporium_list)
         if big_sale:
             lists.add(big_sale)
     return sorted(lists)
+
 
 def main():
     src = sys.argv[1] if len(sys.argv) > 1 else 'BOOK_Export_March_2026.tsv'
@@ -90,27 +207,36 @@ def main():
 
             if not name.startswith('Plan:'):
                 continue
-            # Three signals that a BOOK record is a gold-bullion plan:
-            #  1. "GoldVendor" in EDID — the standard naming convention.
-            #  2. Non-empty BVGO — an explicit Econ_GoldVendor_Tier_XX GLOB is set,
-            #     meaning the game assigned a gold bullion price (e.g. BOS Recon mods).
-            #  3. References a Minerva-specific LLS list directly (e.g. Brotherhood
-            #     Recon Armor base pieces, Arctic Marine Armor — items sold at Minerva
-            #     that use DATA_Value for their gold price instead of the tier GLOB).
-            bvgo = row.get('BVGO', '').strip()
-            has_gold_vendor = (
-                'GoldVendor' in edid
-                or bool(bvgo)
-                or any('Minerva_LLS_GoldVendor' in str(v) for v in row.values() if v)
-            )
-            if not has_gold_vendor:
+
+            # ── Exclusions ───────────────────────────────────────
+            # Deprecated / cut copies (zzz_ prefix)
+            edid_lower = edid.lower()
+            if edid_lower.startswith('zzz'):
+                continue
+            # Milepost Zero stamp-currency items — not gold bullion
+            if edid.startswith('MILE_'):
+                continue
+
+            # ── Inclusion criteria ───────────────────────────────
+            # A plan qualifies as a gold-bullion plan if ANY of:
+            #   1. "GoldVendor" in EDID (standard naming convention)
+            #   2. References an NPC gold vendor LVLI (Samuel/Mortimer/Regs)
+            #   3. References a non-cut Minerva rotation list
+            refs = _refs_text(row)
+            has_gv_edid       = 'GoldVendor' in edid
+            has_vendor_lvli   = _has_vendor_lvli(refs)
+            has_minerva_ref   = _has_minerva_list(row)
+
+            if not (has_gv_edid or has_vendor_lvli or has_minerva_ref):
                 continue
 
             gold = parse_gold_price(row)
+            vendor = detect_vendor(row, refs)
             entry = {
                 "formid": row.get('FormID', '').strip(),
                 "name": name,
                 "gold": gold,
+                "vendor": vendor,
             }
             all_plans.append(entry)
 
