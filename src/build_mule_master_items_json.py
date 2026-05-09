@@ -7,25 +7,28 @@ Generates dist/mule-master-items.json — a comprehensive item list for the
 staff/member portal Mule tab's "Master List" feature.
 
 Players use the Master List to search and assign items to their mule
-characters. This builder combines data from multiple sources into a
-single flat JSON that the portal JS fetches once:
+characters. This builder pulls from two primary data sources:
+
+  1) menu-items.json  — consumable categories (food, chems, alcohol, etc.)
+  2) Supplement files  — categories not covered by the menu
 
   Category           Source
   ─────────────────  ──────────────────────────────────────────────────
-  junk               dist/mule-defaults.json  (hand-curated junk list)
-  ingredient         ALCH TSV  (raw ingredients filtered by keyword, excl. fish)
-  fish               ALCH TSV  (raw fish: ObjectTypeFish or fish EDID patterns)
-  food_tea           dist/bnb-item-categories.json → food (excl condiment/soda)
-  alcohol            dist/bnb-item-categories.json → alcohol
+  alcohol            menu-items.json → "Alcohol"
+  chem               menu-items.json → "Chems"
+  serum              menu-items.json → "Serums"
+  food_tea           menu-items.json → "Dishes & Teas"
+  fish               menu-items.json → "Fish"
+  ingredient         menu-items.json → "Ingredients"
+  condiment_np       menu-items.json → "Condiments & Non-Perishable"
+                                      + "Pre War Food" + "Canned"
+  soda               menu-items.json → "Soda & Drinks"
   bobblehead         dist/collectables_bobbleheads.json
   magazine           dist/collectables_magazines.json  (individual issues)
   legendary_mod      OMOD TSV  (weapon+armor star 1–4 prefix names)
   headwear           KYWD TSV keyword 0033C76A → ARMO refs (hats/masks)
   clothes            KYWD TSV keyword 0033C76A → ARMO refs (outfits)
-  chem               dist/bnb-item-categories.json → chems
-  serum              dist/bnb-item-categories.json → serums
-  condiment_np       dist/menu-items.json → Condiments & Non-Perishable + Pre War Food
-  soda               dist/menu-items.json → Soda & Drinks
+  junk               dist/mule-defaults.json  (hand-curated junk list)
 
 Output shape
 ────────────
@@ -35,18 +38,7 @@ Output shape
   "categories": {
     "junk":          [ { "name": "Steel" }, ... ],
     "ingredient":    [ { "name": "Corn" }, ... ],
-    "fish":          [ { "name": "Walleye" }, ... ],
-    "food_tea":      [ { "name": "Cranberry Relish" }, ... ],
-    "alcohol":       [ { "name": "Ballistic Bock" }, ... ],
-    "bobblehead":    [ { "name": "Bobblehead: Agility" }, ... ],
-    "magazine":      [ { "name": "Backwoodsman 1" }, ... ],
-    "legendary_mod": [ { "name": "Anti-Armor" }, ... ],
-    "headwear":      [ { "name": "Fasnacht Raven Mask" }, ... ],
-    "clothes":       [ { "name": "Asylum Worker Uniform Blue" }, ... ],
-    "chem":          [ { "name": "Stimpak" }, ... ],
-    "serum":         [ { "name": "Adrenal Reaction Serum" }, ... ],
-    "condiment_np":  [ { "name": "Boiled Water" }, ... ],
-    "soda":          [ { "name": "Nuka-Cola" }, ... ]
+    ...
   }
 }
 
@@ -62,21 +54,9 @@ import datetime as dt
 import glob
 import json
 import os
-import re
 import sys
 import tempfile
 from typing import Any, Dict, List, Set
-
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-try:
-    from cut_content import is_cut  # noqa: E402
-except Exception:
-    def is_cut(edid: str) -> bool:
-        """Fallback cut-content check if module not available."""
-        if not edid:
-            return True
-        prefix = edid.split("_")[0].upper() if "_" in edid else ""
-        return prefix in ("CUT", "ZZZ", "ZZZZ", "POST", "DEL", "TEST", "DEBUG")
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -111,7 +91,69 @@ def sorted_unique_names(names: set[str]) -> list[dict]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Junk from mule-defaults.json
+# PRIMARY SOURCE: menu-items.json
+# ──────────────────────────────────────────────────────────────────────
+# Mapping from mule category key → list of menu-items.json category names.
+# Each mule category pulls from one or more menu categories.
+
+MENU_CATEGORY_MAP = {
+    "alcohol":      ["Alcohol"],
+    "chem":         ["Chems"],
+    "serum":        ["Serums"],
+    "food_tea":     ["Dishes & Teas"],
+    "fish":         ["Fish"],
+    "ingredient":   ["Ingredients"],
+    "condiment_np": ["Condiments & Non-Perishable", "Pre War Food", "Canned"],
+    "soda":         ["Soda & Drinks"],
+}
+
+
+def load_all_menu_categories(dist_dir: str) -> dict[str, list[dict]]:
+    """Load all consumable categories from menu-items.json in one pass.
+
+    Returns a dict of mule_category_key → sorted list of {name} dicts.
+    """
+    path = os.path.join(dist_dir, "menu-items.json")
+    if not os.path.exists(path):
+        print(f"  WARN: {path} not found — all menu categories will be empty")
+        return {k: [] for k in MENU_CATEGORY_MAP}
+
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    items = data.get("menu_items", [])
+
+    # Build a reverse lookup: menu category name → mule category key
+    reverse: dict[str, str] = {}
+    for mule_key, menu_cats in MENU_CATEGORY_MAP.items():
+        for mc in menu_cats:
+            reverse[mc] = mule_key
+
+    # Single pass through all items
+    buckets: dict[str, set[str]] = {k: set() for k in MENU_CATEGORY_MAP}
+
+    for it in items:
+        cat = (it.get("category") or "").strip()
+        mule_key = reverse.get(cat)
+        if mule_key is None:
+            continue  # skip categories not mapped (e.g. "Other", "Magazines & Bobbleheads")
+        name = (it.get("name") or "").strip()
+        if name:
+            buckets[mule_key].add(name)
+
+    # Convert to sorted lists and print counts
+    result: dict[str, list[dict]] = {}
+    for mule_key in MENU_CATEGORY_MAP:
+        names = buckets[mule_key]
+        menu_cats = MENU_CATEGORY_MAP[mule_key]
+        result[mule_key] = sorted_unique_names(names)
+        print(f"  {mule_key}: {len(names)} items from menu-items.json {menu_cats}")
+
+    return result
+
+
+# ──────────────────────────────────────────────────────────────────────
+# SUPPLEMENT: Junk from mule-defaults.json
 # ──────────────────────────────────────────────────────────────────────
 
 def load_junk(dist_dir: str) -> list[dict]:
@@ -133,122 +175,7 @@ def load_junk(dist_dir: str) -> list[dict]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Fish + Ingredients from ALCH TSV
-# ──────────────────────────────────────────────────────────────────────
-
-_FISH_EDID_PREFIXES = ("Fishing_Fish_", "SeasonalFish_", "Burn_Fish_", "Fish_")
-
-
-def _is_fish(edid: str, kw_flat: str) -> bool:
-    """Return True if this ALCH row is a raw fish (not cooked food/tea).
-
-    A raw fish has MealTypeRaw AND either:
-      - ObjectTypeFish keyword, OR
-      - EDID starts with a known fish prefix
-    """
-    if "MealTypeRaw" not in kw_flat:
-        return False
-    if "ObjectTypeFish" in kw_flat:
-        return True
-    return any(edid.startswith(pfx) for pfx in _FISH_EDID_PREFIXES)
-
-
-def load_fish(data_dir: str) -> list[dict]:
-    """Pull raw fish from the ALCH TSV — items with ObjectTypeFish or fish EDID prefix."""
-    alch_path = newest_tsv("ALCH_Export_*.tsv", data_dir)
-    if not alch_path:
-        print("  WARN: ALCH TSV not found — fish list will be empty")
-        return []
-
-    names: set[str] = set()
-    with open(alch_path, "r", encoding="utf-8", errors="replace", newline="") as f:
-        reader = csv.DictReader(f, delimiter="\t")
-        for row in reader:
-            edid = (row.get("ALCH_EDID") or "").strip()
-            name = (row.get("FULL") or "").strip()
-            if not name or is_cut(edid):
-                continue
-            kw_flat = (row.get("Keywords_Flat") or "")
-            if _is_fish(edid, kw_flat):
-                names.add(name)
-
-    print(f"  fish: {len(names)} items from ALCH TSV")
-    return sorted_unique_names(names)
-
-
-def load_ingredients(data_dir: str, dist_dir: str) -> list[dict]:
-    """Pull raw ingredients from the ALCH TSV — items with MealTypeRaw keyword, excluding fish."""
-    alch_path = newest_tsv("ALCH_Export_*.tsv", data_dir)
-    if not alch_path:
-        print("  WARN: ALCH TSV not found — ingredient list will be empty")
-        return []
-
-    names: set[str] = set()
-    with open(alch_path, "r", encoding="utf-8", errors="replace", newline="") as f:
-        reader = csv.DictReader(f, delimiter="\t")
-        for row in reader:
-            edid = (row.get("ALCH_EDID") or "").strip()
-            name = (row.get("FULL") or "").strip()
-            if not name or is_cut(edid):
-                continue
-            kw_flat = (row.get("Keywords_Flat") or "")
-            # MealTypeRaw marks actual raw ingredients (uncooked)
-            # but exclude fish — they go in their own category
-            if "MealTypeRaw" in kw_flat and not _is_fish(edid, kw_flat):
-                names.add(name)
-
-    print(f"  ingredient: {len(names)} items from ALCH TSV")
-    return sorted_unique_names(names)
-
-
-# ──────────────────────────────────────────────────────────────────────
-# Food/Tea, Alcohol, Chems, Serums from bnb-item-categories.json
-# ──────────────────────────────────────────────────────────────────────
-
-def load_from_item_categories(dist_dir: str, cat_key: str, label: str) -> list[dict]:
-    path = os.path.join(dist_dir, "bnb-item-categories.json")
-    if not os.path.exists(path):
-        print(f"  WARN: {path} not found — {label} list will be empty")
-        return []
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    items = data.get("categories", {}).get(cat_key, [])
-    names: set[str] = set()
-    for it in items:
-        name = (it.get("name") or "").strip()
-        if name:
-            names.add(name)
-    print(f"  {label}: {len(names)} items from bnb-item-categories.json[{cat_key}]")
-    return sorted_unique_names(names)
-
-
-# ──────────────────────────────────────────────────────────────────────
-# Condiments & Non-Perishable, Soda & Drinks from menu-items.json
-# ──────────────────────────────────────────────────────────────────────
-
-def load_from_menu_items(dist_dir: str, menu_categories: list[str], label: str) -> list[dict]:
-    """Pull items from menu-items.json matching one or more category names."""
-    path = os.path.join(dist_dir, "menu-items.json")
-    if not os.path.exists(path):
-        print(f"  WARN: {path} not found — {label} list will be empty")
-        return []
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    items = data.get("menu_items", [])
-    cat_set = set(menu_categories)
-    names: set[str] = set()
-    for it in items:
-        cat = (it.get("category") or "").strip()
-        if cat in cat_set:
-            name = (it.get("name") or "").strip()
-            if name:
-                names.add(name)
-    print(f"  {label}: {len(names)} items from menu-items.json categories {menu_categories}")
-    return sorted_unique_names(names)
-
-
-# ──────────────────────────────────────────────────────────────────────
-# Bobbleheads from collectables_bobbleheads.json
+# SUPPLEMENT: Bobbleheads from collectables_bobbleheads.json
 # ──────────────────────────────────────────────────────────────────────
 
 def load_bobbleheads(dist_dir: str) -> list[dict]:
@@ -259,7 +186,6 @@ def load_bobbleheads(dist_dir: str) -> list[dict]:
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
     names: set[str] = set()
-    # Structure: { groups: [ { name, items: [ {name, isCut, ...} ] } ] }
     for group in data.get("groups", []):
         for it in group.get("items", []):
             name = (it.get("name") or "").strip()
@@ -270,7 +196,7 @@ def load_bobbleheads(dist_dir: str) -> list[dict]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Magazines from collectables_magazines.json (individual issues)
+# SUPPLEMENT: Magazines from collectables_magazines.json
 # ──────────────────────────────────────────────────────────────────────
 
 def load_magazines(dist_dir: str) -> list[dict]:
@@ -293,7 +219,6 @@ def load_magazines(dist_dir: str) -> list[dict]:
         edid = (it.get("edid") or "").strip()
         if not name or it.get("isCut"):
             continue
-        # Skip BACKUP_ variants and Plan: entries
         if edid.startswith("BACKUP_") or name.startswith("Plan:"):
             continue
         names.add(name)
@@ -303,7 +228,7 @@ def load_magazines(dist_dir: str) -> list[dict]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Legendary mods from OMOD TSV
+# SUPPLEMENT: Legendary mods from OMOD TSV
 # ──────────────────────────────────────────────────────────────────────
 
 def load_legendary_mods(data_dir: str) -> list[dict]:
@@ -320,18 +245,14 @@ def load_legendary_mods(data_dir: str) -> list[dict]:
             full = (row.get("FULL") or "").strip()
             if not full or not edid:
                 continue
-            # Only legendary mods
             if "mod_Legendary" not in edid:
                 continue
-            # Skip cut content, parent/extract/crafting entries
             edid_up = edid.upper()
             if any(x in edid_up for x in ["ZZZ", "CUT", "_PARENT", "_EXTRACT",
                                             "_CRAFTING", "_CRAFTED", "CIRCUITBREAKER"]):
                 continue
-            # Skip generic/random crafting entries
             if "Random" in edid or "random" in edid:
                 continue
-            # The FULL name is the legendary prefix (e.g. "Anti-Armor")
             names.add(full)
 
     print(f"  legendary_mod: {len(names)} unique prefixes from OMOD TSV")
@@ -339,36 +260,28 @@ def load_legendary_mods(data_dir: str) -> list[dict]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Apparel (headwear + clothes) from KYWD TSV keyword 0033C76A
+# SUPPLEMENT: Apparel (headwear + clothes) from KYWD TSV keyword 0033C76A
 # ──────────────────────────────────────────────────────────────────────
 
-# Exclusion prefixes / substrings applied to the ARMO EDID
 _APPAREL_EXCLUDE_PREFIXES = ("ATX_", "CUT_", "DEL_", "POST_", "SCORE_")
 _APPAREL_EXCLUDE_CONTAINS = ("ZZZ", "NONPLAYABLE", "NON_PLAYABLE")
-
-# Headwear classification: EDID contains any of these (case-insensitive)
 _HEADWEAR_HINTS = ("HEADWEAR", "HAT", "HELMET", "MASK")
 
 
 def _is_excluded_apparel(edid: str) -> bool:
-    """Return True if the ARMO EDID should be excluded from apparel."""
     up = edid.upper()
-    # Prefix checks
     for pfx in _APPAREL_EXCLUDE_PREFIXES:
         if up.startswith(pfx):
             return True
-    # Substring checks
     for sub in _APPAREL_EXCLUDE_CONTAINS:
         if sub in up:
             return True
-    # Kid / Kids check (word boundary-ish: preceded by _ or start)
     if "KID" in up:
         return True
     return False
 
 
 def _is_headwear(edid: str) -> bool:
-    """Return True if the ARMO EDID indicates headwear."""
     up = edid.upper()
     return any(h in up for h in _HEADWEAR_HINTS)
 
@@ -383,14 +296,12 @@ def load_apparel(data_dir: str) -> tuple[list[dict], list[dict]]:
         print("  WARN: KYWD TSV not found — apparel lists will be empty")
         return [], []
 
-    # Build the refs path — same name with _Refs suffix
     base, ext = os.path.splitext(kywd_path)
     refs_path = base + "_Refs" + ext
     if not os.path.exists(refs_path):
         print(f"  WARN: KYWD refs file not found at {refs_path} — apparel lists will be empty")
         return [], []
 
-    # Step 1: Find the keyword row for 0033C76A to get its EDID
     target_fid = "0033C76A"
     target_edid = None
     with open(kywd_path, "r", encoding="utf-8", errors="replace", newline="") as f:
@@ -405,8 +316,6 @@ def load_apparel(data_dir: str) -> tuple[list[dict], list[dict]]:
         print(f"  WARN: Keyword {target_fid} not found in KYWD TSV — apparel lists will be empty")
         return [], []
 
-    # Step 2: Read refs file — find ARMO records referencing this keyword
-    # Refs columns: KeywordEDID, RefSignature, RefEDID, RefName
     headwear: set[str] = set()
     clothes: set[str] = set()
 
@@ -416,19 +325,15 @@ def load_apparel(data_dir: str) -> tuple[list[dict], list[dict]]:
             kw_edid = (row.get("KeywordEDID") or "").strip()
             if kw_edid != target_edid:
                 continue
-
             sig = (row.get("RefSignature") or "").strip().upper()
             if sig != "ARMO":
                 continue
-
             ref_edid = (row.get("RefEDID") or "").strip()
             ref_name = (row.get("RefName") or "").strip()
-
             if not ref_name or not ref_edid:
                 continue
             if _is_excluded_apparel(ref_edid):
                 continue
-
             if _is_headwear(ref_edid):
                 headwear.add(ref_name)
             else:
@@ -445,31 +350,12 @@ def load_apparel(data_dir: str) -> tuple[list[dict], list[dict]]:
 
 def build(data_dir: str, dist_dir: str) -> dict:
     print("Building mule-master-items.json ...")
+    print()
 
-    categories = {}
-    categories["junk"] = load_junk(dist_dir)
-    categories["fish"] = load_fish(data_dir)
-    categories["ingredient"] = load_ingredients(data_dir, dist_dir)
-    categories["food_tea"] = load_from_item_categories(dist_dir, "food", "food_tea")
-    categories["alcohol"] = load_from_item_categories(dist_dir, "alcohol", "alcohol")
-    categories["bobblehead"] = load_bobbleheads(dist_dir)
-    categories["magazine"] = load_magazines(dist_dir)
-    categories["legendary_mod"] = load_legendary_mods(data_dir)
-    categories["chem"] = load_from_item_categories(dist_dir, "chems", "chem")
-    categories["serum"] = load_from_item_categories(dist_dir, "serums", "serum")
-    hw, cl = load_apparel(data_dir)
-    categories["headwear"] = hw
-    categories["clothes"] = cl
-
-    # Condiments & Non-Perishable (pre-made stockpile items + pre-war food)
-    categories["condiment_np"] = load_from_menu_items(
-        dist_dir, ["Condiments & Non-Perishable", "Pre War Food"], "condiment_np"
-    )
-
-    # Soda & Drinks
-    categories["soda"] = load_from_menu_items(
-        dist_dir, ["Soda & Drinks"], "soda"
-    )
+    # ── Primary source: menu-items.json ──
+    print("── menu-items.json (primary) ──")
+    categories = load_all_menu_categories(dist_dir)
+    print()
 
     # Remove any condiment_np / soda items from food_tea to avoid duplicates
     exclude_from_food = set()
@@ -483,6 +369,17 @@ def build(data_dir: str, dist_dir: str) -> dict:
         removed = before - len(categories["food_tea"])
         if removed:
             print(f"  food_tea: removed {removed} items now in condiment_np/soda")
+            print()
+
+    # ── Supplement sources ──
+    print("── Supplement sources ──")
+    categories["junk"] = load_junk(dist_dir)
+    categories["bobblehead"] = load_bobbleheads(dist_dir)
+    categories["magazine"] = load_magazines(dist_dir)
+    categories["legendary_mod"] = load_legendary_mods(data_dir)
+    hw, cl = load_apparel(data_dir)
+    categories["headwear"] = hw
+    categories["clothes"] = cl
 
     total = sum(len(v) for v in categories.values())
     now = dt.datetime.now(dt.timezone.utc)
@@ -494,6 +391,7 @@ def build(data_dir: str, dist_dir: str) -> dict:
         "categories": categories,
     }
 
+    print()
     print(f"  TOTAL: {total} items across {len(categories)} categories")
     return output
 
@@ -510,7 +408,6 @@ def main():
     data = build(args.data_dir, args.outdir)
 
     out_path = os.path.join(args.outdir, "mule-master-items.json")
-    # Atomic write
     fd, tmp = tempfile.mkstemp(dir=args.outdir, suffix=".tmp")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
