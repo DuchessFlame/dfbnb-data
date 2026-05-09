@@ -13,7 +13,8 @@ single flat JSON that the portal JS fetches once:
   Category           Source
   ─────────────────  ──────────────────────────────────────────────────
   junk               dist/mule-defaults.json  (hand-curated junk list)
-  ingredient         ALCH TSV  (raw ingredients filtered by keyword)
+  ingredient         ALCH TSV  (raw ingredients filtered by keyword, excl. fish)
+  fish               ALCH TSV  (raw fish: ObjectTypeFish or fish EDID patterns)
   food_tea           dist/bnb-item-categories.json → food
   alcohol            dist/bnb-item-categories.json → alcohol
   bobblehead         dist/collectables_bobbleheads.json
@@ -32,6 +33,7 @@ Output shape
   "categories": {
     "junk":          [ { "name": "Steel" }, ... ],
     "ingredient":    [ { "name": "Corn" }, ... ],
+    "fish":          [ { "name": "Walleye" }, ... ],
     "food_tea":      [ { "name": "Cranberry Relish" }, ... ],
     "alcohol":       [ { "name": "Ballistic Bock" }, ... ],
     "bobblehead":    [ { "name": "Bobblehead: Agility" }, ... ],
@@ -127,11 +129,51 @@ def load_junk(dist_dir: str) -> list[dict]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Ingredients from ALCH TSV (raw ingredients excluded from food)
+# Fish + Ingredients from ALCH TSV
 # ──────────────────────────────────────────────────────────────────────
 
+_FISH_EDID_PREFIXES = ("Fishing_Fish_", "SeasonalFish_", "Burn_Fish_", "Fish_")
+
+
+def _is_fish(edid: str, kw_flat: str) -> bool:
+    """Return True if this ALCH row is a raw fish (not cooked food/tea).
+
+    A raw fish has MealTypeRaw AND either:
+      - ObjectTypeFish keyword, OR
+      - EDID starts with a known fish prefix
+    """
+    if "MealTypeRaw" not in kw_flat:
+        return False
+    if "ObjectTypeFish" in kw_flat:
+        return True
+    return any(edid.startswith(pfx) for pfx in _FISH_EDID_PREFIXES)
+
+
+def load_fish(data_dir: str) -> list[dict]:
+    """Pull raw fish from the ALCH TSV — items with ObjectTypeFish or fish EDID prefix."""
+    alch_path = newest_tsv("ALCH_Export_*.tsv", data_dir)
+    if not alch_path:
+        print("  WARN: ALCH TSV not found — fish list will be empty")
+        return []
+
+    names: set[str] = set()
+    with open(alch_path, "r", encoding="utf-8", errors="replace", newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            edid = (row.get("ALCH_EDID") or "").strip()
+            name = (row.get("FULL") or "").strip()
+            if not name or is_cut(edid):
+                continue
+            kw_flat = (row.get("Keywords_Flat") or "")
+            if _is_fish(edid, kw_flat):
+                names.add(name)
+
+    print(f"  fish: {len(names)} items from ALCH TSV")
+    return sorted_unique_names(names)
+
+
 def load_ingredients(data_dir: str, dist_dir: str) -> list[dict]:
-    """Pull raw ingredients from the ALCH TSV — items with MealTypeRaw keyword."""
+    """Pull raw ingredients from the ALCH TSV — items with MealTypeRaw keyword, excluding fish."""
     alch_path = newest_tsv("ALCH_Export_*.tsv", data_dir)
     if not alch_path:
         print("  WARN: ALCH TSV not found — ingredient list will be empty")
@@ -145,9 +187,10 @@ def load_ingredients(data_dir: str, dist_dir: str) -> list[dict]:
             name = (row.get("FULL") or "").strip()
             if not name or is_cut(edid):
                 continue
-            # MealTypeRaw marks actual raw ingredients (uncooked)
             kw_flat = (row.get("Keywords_Flat") or "")
-            if "MealTypeRaw" in kw_flat:
+            # MealTypeRaw marks actual raw ingredients (uncooked)
+            # but exclude fish — they go in their own category
+            if "MealTypeRaw" in kw_flat and not _is_fish(edid, kw_flat):
                 names.add(name)
 
     print(f"  ingredient: {len(names)} items from ALCH TSV")
@@ -376,6 +419,7 @@ def build(data_dir: str, dist_dir: str) -> dict:
 
     categories = {}
     categories["junk"] = load_junk(dist_dir)
+    categories["fish"] = load_fish(data_dir)
     categories["ingredient"] = load_ingredients(data_dir, dist_dir)
     categories["food_tea"] = load_from_item_categories(dist_dir, "food", "food_tea")
     categories["alcohol"] = load_from_item_categories(dist_dir, "alcohol", "alcohol")
