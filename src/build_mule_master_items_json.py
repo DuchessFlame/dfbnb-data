@@ -20,8 +20,9 @@ characters. This builder pulls from two primary data sources:
   food_tea           menu-items.json → "Dishes & Teas"
   fish               menu-items.json → "Fish"
   ingredient         menu-items.json → "Ingredients"
+  canned             menu-items.json → "Canned"
   condiment_np       menu-items.json → "Condiments & Non-Perishable"
-                                      + "Pre War Food" + "Canned"
+                                      + "Pre War Food"
   soda               menu-items.json → "Soda & Drinks"
   bobblehead         dist/collectables_bobbleheads.json
   magazine           dist/collectables_magazines.json  (individual issues)
@@ -103,7 +104,8 @@ MENU_CATEGORY_MAP = {
     "food_tea":     ["Dishes & Teas"],
     "fish":         ["Fish"],
     "ingredient":   ["Ingredients"],
-    "condiment_np": ["Condiments & Non-Perishable", "Pre War Food", "Canned"],
+    "canned":       ["Canned"],
+    "condiment_np": ["Condiments & Non-Perishable", "Pre War Food"],
     "soda":         ["Soda & Drinks"],
 }
 
@@ -359,7 +361,7 @@ def build(data_dir: str, dist_dir: str) -> dict:
 
     # Remove any condiment_np / soda items from food_tea to avoid duplicates
     exclude_from_food = set()
-    for item in categories["condiment_np"] + categories["soda"]:
+    for item in categories["condiment_np"] + categories["soda"] + categories["canned"]:
         exclude_from_food.add(item["name"])
     if exclude_from_food:
         before = len(categories["food_tea"])
@@ -368,7 +370,7 @@ def build(data_dir: str, dist_dir: str) -> dict:
         ]
         removed = before - len(categories["food_tea"])
         if removed:
-            print(f"  food_tea: removed {removed} items now in condiment_np/soda")
+            print(f"  food_tea: removed {removed} items now in canned/condiment_np/soda")
             print()
 
     # ── Supplement sources ──
