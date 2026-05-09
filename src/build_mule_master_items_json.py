@@ -17,9 +17,10 @@ single flat JSON that the portal JS fetches once:
   food_tea           dist/bnb-item-categories.json → food
   alcohol            dist/bnb-item-categories.json → alcohol
   bobblehead         dist/collectables_bobbleheads.json
-  magazine           dist/collectables_magazines.json  (series only)
+  magazine           dist/collectables_magazines.json  (individual issues)
   legendary_mod      OMOD TSV  (weapon+armor star 1–4 prefix names)
-  apparel            (manual list — hardcoded below, user maintains)
+  headwear           KYWD TSV keyword 0033C76A → ARMO refs (hats/masks)
+  clothes            KYWD TSV keyword 0033C76A → ARMO refs (outfits)
   chem               dist/bnb-item-categories.json → chems
   serum              dist/bnb-item-categories.json → serums
 
@@ -34,11 +35,12 @@ Output shape
     "food_tea":      [ { "name": "Cranberry Relish" }, ... ],
     "alcohol":       [ { "name": "Ballistic Bock" }, ... ],
     "bobblehead":    [ { "name": "Bobblehead: Agility" }, ... ],
-    "magazine":      [ { "name": "Astoundingly Awesome Tales" }, ... ],
+    "magazine":      [ { "name": "Backwoodsman 1" }, ... ],
     "legendary_mod": [ { "name": "Anti-Armor" }, ... ],
+    "headwear":      [ { "name": "Fasnacht Raven Mask" }, ... ],
+    "clothes":       [ { "name": "Asylum Worker Uniform Blue" }, ... ],
     "chem":          [ { "name": "Stimpak" }, ... ],
-    "serum":         [ { "name": "Adrenal Reaction Serum" }, ... ],
-    "apparel":       [ { "name": "Asylum Worker Uniform Blue" }, ... ]
+    "serum":         [ { "name": "Adrenal Reaction Serum" }, ... ]
   }
 }
 
@@ -196,7 +198,7 @@ def load_bobbleheads(dist_dir: str) -> list[dict]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Magazines from collectables_magazines.json (series names only)
+# Magazines from collectables_magazines.json (individual issues)
 # ──────────────────────────────────────────────────────────────────────
 
 def load_magazines(dist_dir: str) -> list[dict]:
@@ -222,12 +224,9 @@ def load_magazines(dist_dir: str) -> list[dict]:
         # Skip BACKUP_ variants and Plan: entries
         if edid.startswith("BACKUP_") or name.startswith("Plan:"):
             continue
-        # Extract series name (strip " 01", " 02" etc issue numbers)
-        series = re.sub(r"\s+\d{1,2}$", "", name).strip()
-        if series:
-            names.add(series)
+        names.add(name)
 
-    print(f"  magazine: {len(names)} series from collectables_magazines.json")
+    print(f"  magazine: {len(names)} issues from collectables_magazines.json")
     return sorted_unique_names(names)
 
 
@@ -268,20 +267,104 @@ def load_legendary_mods(data_dir: str) -> list[dict]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Apparel — manual list (user-maintained, updated in this file)
+# Apparel (headwear + clothes) from KYWD TSV keyword 0033C76A
 # ──────────────────────────────────────────────────────────────────────
 
-# This list will be populated by the user. Leave empty until they
-# provide the apparel list.
-MANUAL_APPAREL: list[str] = [
-    # User will provide this list — placeholder for now
-]
+# Exclusion prefixes / substrings applied to the ARMO EDID
+_APPAREL_EXCLUDE_PREFIXES = ("ATX_", "CUT_", "DEL_", "POST_", "SCORE_")
+_APPAREL_EXCLUDE_CONTAINS = ("ZZZ", "NONPLAYABLE", "NON_PLAYABLE")
+
+# Headwear classification: EDID contains any of these (case-insensitive)
+_HEADWEAR_HINTS = ("HEADWEAR", "HAT", "HELMET", "MASK")
 
 
-def load_apparel() -> list[dict]:
-    names = set(n.strip() for n in MANUAL_APPAREL if n.strip())
-    print(f"  apparel: {len(names)} items (manual list)")
-    return sorted_unique_names(names)
+def _is_excluded_apparel(edid: str) -> bool:
+    """Return True if the ARMO EDID should be excluded from apparel."""
+    up = edid.upper()
+    # Prefix checks
+    for pfx in _APPAREL_EXCLUDE_PREFIXES:
+        if up.startswith(pfx):
+            return True
+    # Substring checks
+    for sub in _APPAREL_EXCLUDE_CONTAINS:
+        if sub in up:
+            return True
+    # Kid / Kids check (word boundary-ish: preceded by _ or start)
+    if "KID" in up:
+        return True
+    return False
+
+
+def _is_headwear(edid: str) -> bool:
+    """Return True if the ARMO EDID indicates headwear."""
+    up = edid.upper()
+    return any(h in up for h in _HEADWEAR_HINTS)
+
+
+def load_apparel(data_dir: str) -> tuple[list[dict], list[dict]]:
+    """Load apparel from KYWD TSV keyword 0033C76A refs.
+
+    Returns (headwear_items, clothes_items) as sorted unique name lists.
+    """
+    kywd_path = newest_tsv("KYWD_Export_*.tsv", data_dir)
+    if not kywd_path:
+        print("  WARN: KYWD TSV not found — apparel lists will be empty")
+        return [], []
+
+    # Build the refs path — same name with _Refs suffix
+    base, ext = os.path.splitext(kywd_path)
+    refs_path = base + "_Refs" + ext
+    if not os.path.exists(refs_path):
+        print(f"  WARN: KYWD refs file not found at {refs_path} — apparel lists will be empty")
+        return [], []
+
+    # Step 1: Find the keyword row for 0033C76A to get its EDID
+    target_fid = "0033C76A"
+    target_edid = None
+    with open(kywd_path, "r", encoding="utf-8", errors="replace", newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            fid = norm_fid(row.get("FormID") or "")
+            if fid == target_fid:
+                target_edid = (row.get("EDID") or "").strip()
+                break
+
+    if not target_edid:
+        print(f"  WARN: Keyword {target_fid} not found in KYWD TSV — apparel lists will be empty")
+        return [], []
+
+    # Step 2: Read refs file — find ARMO records referencing this keyword
+    # Refs columns: KeywordEDID, RefSignature, RefEDID, RefName
+    headwear: set[str] = set()
+    clothes: set[str] = set()
+
+    with open(refs_path, "r", encoding="utf-8", errors="replace", newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            kw_edid = (row.get("KeywordEDID") or "").strip()
+            if kw_edid != target_edid:
+                continue
+
+            sig = (row.get("RefSignature") or "").strip().upper()
+            if sig != "ARMO":
+                continue
+
+            ref_edid = (row.get("RefEDID") or "").strip()
+            ref_name = (row.get("RefName") or "").strip()
+
+            if not ref_name or not ref_edid:
+                continue
+            if _is_excluded_apparel(ref_edid):
+                continue
+
+            if _is_headwear(ref_edid):
+                headwear.add(ref_name)
+            else:
+                clothes.add(ref_name)
+
+    print(f"  headwear: {len(headwear)} items from KYWD TSV (keyword {target_fid})")
+    print(f"  clothes: {len(clothes)} items from KYWD TSV (keyword {target_fid})")
+    return sorted_unique_names(headwear), sorted_unique_names(clothes)
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -301,7 +384,9 @@ def build(data_dir: str, dist_dir: str) -> dict:
     categories["legendary_mod"] = load_legendary_mods(data_dir)
     categories["chem"] = load_from_item_categories(dist_dir, "chems", "chem")
     categories["serum"] = load_from_item_categories(dist_dir, "serums", "serum")
-    categories["apparel"] = load_apparel()
+    hw, cl = load_apparel(data_dir)
+    categories["headwear"] = hw
+    categories["clothes"] = cl
 
     total = sum(len(v) for v in categories.values())
     now = dt.datetime.now(dt.timezone.utc)
