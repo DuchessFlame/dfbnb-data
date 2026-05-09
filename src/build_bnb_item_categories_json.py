@@ -187,8 +187,6 @@ CATEGORIES: Dict[str, Dict[str, Any]] = {
             "0000CF93",  # DrinkTypeWaterBoiled
             "000F4AED",  # DrinkTypeWater
             "00284969",  # DrinkTypeTea
-            "005477E0", "005477DF", "005477DE", "005477DD", "005477DC",
-            "004869B3",  # ChemTypeFury/DayTripper/DaddyO/Calmex/Bufftats/Buffout
             "0029452F",  # DrinkTypeJuice
         ],
         "exclude_kywds": [
@@ -196,6 +194,15 @@ CATEGORIES: Dict[str, Dict[str, Any]] = {
             "0010C416",  # DrinkTypeAlcohol
             "004878E3",  # DrinkTypeLiquor
             "00864CC6",  # DrinkTypeSarsaparilla
+            # chems: these were previously in include_kywds by mistake,
+            # pulling Buffout / Calmex / Fury / etc into the food list.
+            # They belong exclusively in the chems category.
+            "005477E0", "005477DF", "005477DE", "005477DD", "005477DC",
+            "004869B3",  # ChemTypeFury/DayTripper/DaddyO/Calmex/Bufftats/Buffout
+            "000F4AE7",  # ObjectTypeChem
+            "000F4AEB",  # ObjectTypeStimpak
+            "005477E8", "005477E7", "005477E6", "005477E5", "005477E4",
+            "005477E3", "005477E2", "005477E1",  # Psychotats..Mentats line
         ],
         "exclude_raw": True,
     },

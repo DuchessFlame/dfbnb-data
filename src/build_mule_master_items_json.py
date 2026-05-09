@@ -15,7 +15,7 @@ single flat JSON that the portal JS fetches once:
   junk               dist/mule-defaults.json  (hand-curated junk list)
   ingredient         ALCH TSV  (raw ingredients filtered by keyword, excl. fish)
   fish               ALCH TSV  (raw fish: ObjectTypeFish or fish EDID patterns)
-  food_tea           dist/bnb-item-categories.json → food
+  food_tea           dist/bnb-item-categories.json → food (excl condiment/soda)
   alcohol            dist/bnb-item-categories.json → alcohol
   bobblehead         dist/collectables_bobbleheads.json
   magazine           dist/collectables_magazines.json  (individual issues)
@@ -24,6 +24,8 @@ single flat JSON that the portal JS fetches once:
   clothes            KYWD TSV keyword 0033C76A → ARMO refs (outfits)
   chem               dist/bnb-item-categories.json → chems
   serum              dist/bnb-item-categories.json → serums
+  condiment_np       dist/menu-items.json → Condiments & Non-Perishable + Pre War Food
+  soda               dist/menu-items.json → Soda & Drinks
 
 Output shape
 ────────────
@@ -42,7 +44,9 @@ Output shape
     "headwear":      [ { "name": "Fasnacht Raven Mask" }, ... ],
     "clothes":       [ { "name": "Asylum Worker Uniform Blue" }, ... ],
     "chem":          [ { "name": "Stimpak" }, ... ],
-    "serum":         [ { "name": "Adrenal Reaction Serum" }, ... ]
+    "serum":         [ { "name": "Adrenal Reaction Serum" }, ... ],
+    "condiment_np":  [ { "name": "Boiled Water" }, ... ],
+    "soda":          [ { "name": "Nuka-Cola" }, ... ]
   }
 }
 
@@ -215,6 +219,31 @@ def load_from_item_categories(dist_dir: str, cat_key: str, label: str) -> list[d
         if name:
             names.add(name)
     print(f"  {label}: {len(names)} items from bnb-item-categories.json[{cat_key}]")
+    return sorted_unique_names(names)
+
+
+# ──────────────────────────────────────────────────────────────────────
+# Condiments & Non-Perishable, Soda & Drinks from menu-items.json
+# ──────────────────────────────────────────────────────────────────────
+
+def load_from_menu_items(dist_dir: str, menu_categories: list[str], label: str) -> list[dict]:
+    """Pull items from menu-items.json matching one or more category names."""
+    path = os.path.join(dist_dir, "menu-items.json")
+    if not os.path.exists(path):
+        print(f"  WARN: {path} not found — {label} list will be empty")
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    items = data.get("menu_items", [])
+    cat_set = set(menu_categories)
+    names: set[str] = set()
+    for it in items:
+        cat = (it.get("category") or "").strip()
+        if cat in cat_set:
+            name = (it.get("name") or "").strip()
+            if name:
+                names.add(name)
+    print(f"  {label}: {len(names)} items from menu-items.json categories {menu_categories}")
     return sorted_unique_names(names)
 
 
@@ -431,6 +460,29 @@ def build(data_dir: str, dist_dir: str) -> dict:
     hw, cl = load_apparel(data_dir)
     categories["headwear"] = hw
     categories["clothes"] = cl
+
+    # Condiments & Non-Perishable (pre-made stockpile items + pre-war food)
+    categories["condiment_np"] = load_from_menu_items(
+        dist_dir, ["Condiments & Non-Perishable", "Pre War Food"], "condiment_np"
+    )
+
+    # Soda & Drinks
+    categories["soda"] = load_from_menu_items(
+        dist_dir, ["Soda & Drinks"], "soda"
+    )
+
+    # Remove any condiment_np / soda items from food_tea to avoid duplicates
+    exclude_from_food = set()
+    for item in categories["condiment_np"] + categories["soda"]:
+        exclude_from_food.add(item["name"])
+    if exclude_from_food:
+        before = len(categories["food_tea"])
+        categories["food_tea"] = [
+            it for it in categories["food_tea"] if it["name"] not in exclude_from_food
+        ]
+        removed = before - len(categories["food_tea"])
+        if removed:
+            print(f"  food_tea: removed {removed} items now in condiment_np/soda")
 
     total = sum(len(v) for v in categories.values())
     now = dt.datetime.now(dt.timezone.utc)
