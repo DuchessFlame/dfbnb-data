@@ -265,8 +265,8 @@ def load_legendary_mods(data_dir: str) -> list[dict]:
 # SUPPLEMENT: Apparel (headwear + clothes) from KYWD TSV keyword 0033C76A
 # ──────────────────────────────────────────────────────────────────────
 
-_APPAREL_EXCLUDE_PREFIXES = ("ATX_", "CUT_", "DEL_", "POST_", "SCORE_")
-_APPAREL_EXCLUDE_CONTAINS = ("ZZZ", "NONPLAYABLE", "NON_PLAYABLE")
+_APPAREL_EXCLUDE_PREFIXES = ("CUT_", "DEL_", "POST_")
+_APPAREL_EXCLUDE_CONTAINS = ("ATX", "SCORE", "ZZZ", "NONPLAYABLE", "NON_PLAYABLE", "UNPLAYABLE")
 _HEADWEAR_HINTS = ("HEADWEAR", "HAT", "HELMET", "MASK")
 
 
