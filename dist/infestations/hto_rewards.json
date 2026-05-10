@@ -1,0 +1,1179 @@
+{
+  "byPage": {
+    "infestations-all-rewards": {
+      "name": "Infestations All Rewards",
+      "questFormID": "00865FA8",
+      "gmrwFormID": "00888543",
+      "type": "infestations",
+      "description": "World Activity — not a public event. 7 enemy factions, 51 spawn locations across all regions, only 9 active at any time. Clear the infestation and defeat the boss to earn rewards.",
+      "xp": 5000,
+      "caps": 500,
+      "mobNote": "Mob enemies drop faction-specific bespoke items (grenades, stimpaks, components, or meat depending on creature type) and 5 contextual ammo rounds. Support creatures drop creature-specific components (bones, meat, scrap) and 1 contextual ammo round.",
+      "bossLoot": [
+        {
+          "label": "Legendary",
+          "formid": "0088851D",
+          "subtitle": "Pick one of 4 types · 50% chance of 4-star, 50% chance of 3-star",
+          "dropRate": 100,
+          "children": [
+            {
+              "label": "Weapons (Ranged)",
+              "formid": "00888524",
+              "dropRate": 25,
+              "items": [
+                {
+                  "name": "4★ Ranged Weapon",
+                  "formid": "0088853C",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 50.0,
+                  "note": "HTO-exclusive 4-star legendary"
+                },
+                {
+                  "name": "3★ Ranged Weapon",
+                  "formid": "00417C44",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 50.0,
+                  "note": "Standard 3-star fallback"
+                }
+              ],
+              "mode": "firstmatch"
+            },
+            {
+              "label": "Weapons (Melee)",
+              "formid": "00888522",
+              "dropRate": 25,
+              "items": [
+                {
+                  "name": "4★ Melee Weapon",
+                  "formid": "0088853B",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 50.0
+                },
+                {
+                  "name": "3★ Melee Weapon",
+                  "formid": "00417C48",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 50.0
+                }
+              ],
+              "mode": "firstmatch"
+            },
+            {
+              "label": "Power Armor",
+              "formid": "00888520",
+              "dropRate": 25,
+              "items": [
+                {
+                  "name": "4★ Power Armor",
+                  "formid": "0088853A",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 50.0
+                },
+                {
+                  "name": "3★ Power Armor",
+                  "formid": "00605FC5",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 50.0
+                }
+              ],
+              "mode": "firstmatch"
+            },
+            {
+              "label": "Armor",
+              "formid": "0088851E",
+              "dropRate": 25,
+              "items": [
+                {
+                  "name": "4★ Armor",
+                  "formid": "00888539",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 50.0
+                },
+                {
+                  "name": "3★ Armor",
+                  "formid": "00417C41",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 50.0
+                }
+              ],
+              "mode": "firstmatch"
+            }
+          ],
+          "mode": "pickone"
+        },
+        {
+          "label": "Bobbleheads",
+          "formid": "00888515",
+          "subtitle": "Guaranteed drop · 1 item",
+          "dropRate": 100,
+          "items": [
+            {
+              "name": "Bobblehead Box",
+              "formid": "008B0D63",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 100
+            }
+          ]
+        },
+        {
+          "label": "Magazines",
+          "formid": "00888526",
+          "subtitle": "Guaranteed drop · 1 item",
+          "dropRate": 100,
+          "items": [
+            {
+              "name": "Magazine Book Box",
+              "formid": "008B0D62",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 100
+            }
+          ]
+        },
+        {
+          "label": "Treasure Maps",
+          "formid": "00888537",
+          "subtitle": "Guaranteed drop · 1 map matching the infestation's region",
+          "dropRate": 100,
+          "items": [
+            {
+              "name": "Cranberry Bog / Savage Forest Treasure Map",
+              "formid": "003D0CD8",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 100,
+              "conditions": [
+                "Region: Cranberry Bog or The Mire"
+              ]
+            },
+            {
+              "name": "Forest Treasure Map",
+              "formid": "003D0CD5",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 100,
+              "conditions": [
+                "Region: The Forest"
+              ]
+            },
+            {
+              "name": "Savage Divide Treasure Map",
+              "formid": "003D0CD9",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 100,
+              "conditions": [
+                "Region: Savage Divide"
+              ]
+            },
+            {
+              "name": "The Mire Treasure Map",
+              "formid": "003D0CD7",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 100,
+              "conditions": [
+                "Region: The Mire"
+              ]
+            },
+            {
+              "name": "Toxic Valley Treasure Map",
+              "formid": "003D0CD6",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 100,
+              "conditions": [
+                "Region: Toxic Valley"
+              ]
+            }
+          ],
+          "mode": "regional",
+          "note": "Only the map matching the infestation's region will drop"
+        },
+        {
+          "label": "Resources",
+          "formid": "00893F7C",
+          "subtitle": "Guaranteed drop · 4 items",
+          "dropRate": 100,
+          "items": [
+            {
+              "name": "Scrap-to-Stash",
+              "formid": "008B0D64",
+              "sig": "UTIL",
+              "qty": 1,
+              "dropRate": 100
+            },
+            {
+              "name": "Treasury Note",
+              "formid": "005A5443",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 100
+            },
+            {
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 100
+            },
+            {
+              "name": "Legendary Tokens",
+              "formid": "003F7410",
+              "sig": "CNCY",
+              "qty": 1,
+              "dropRate": 100
+            }
+          ],
+          "mode": "useall"
+        },
+        {
+          "label": "Explosives",
+          "formid": "0088851C",
+          "subtitle": "Guaranteed drop · 1 grenade + 1 mine",
+          "dropRate": 100,
+          "children": [
+            {
+              "label": "Grenades",
+              "formid": "00893F79",
+              "subtitle": "Pick one · 11 items",
+              "dropRate": 100,
+              "items": [
+                {
+                  "name": "Cryo Grenade",
+                  "formid": "0011002F",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Floater Gnasher Grenade",
+                  "formid": "005A70BB",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Floater Flamer Grenade",
+                  "formid": "005A70B6",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Floater Freezer Grenade",
+                  "formid": "005A70BC",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Nuka Grenade",
+                  "formid": "001BBCBC",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Nuka Quantum Grenade",
+                  "formid": "0034E210",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Plasma Grenade",
+                  "formid": "0011002D",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Pulse Grenade",
+                  "formid": "00110030",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Molotov Cocktail",
+                  "formid": "00110031",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Baseball Grenade",
+                  "formid": "0034E212",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                },
+                {
+                  "name": "Frag Grenade",
+                  "formid": "0011002B",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 9.09
+                }
+              ],
+              "mode": "pickone"
+            },
+            {
+              "label": "Mines",
+              "formid": "00888527",
+              "subtitle": "Pick one · 4 items",
+              "dropRate": 100,
+              "items": [
+                {
+                  "name": "Frag Mine",
+                  "formid": "00110034",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 25
+                },
+                {
+                  "name": "Pulse Mine",
+                  "formid": "00110039",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 25
+                },
+                {
+                  "name": "Cryo Mine",
+                  "formid": "00110035",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 25
+                },
+                {
+                  "name": "Plasma Mine",
+                  "formid": "00110038",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 25
+                }
+              ],
+              "mode": "pickone"
+            }
+          ],
+          "mode": "useall"
+        },
+        {
+          "label": "Contextual Ammo",
+          "formid": "00893F76",
+          "subtitle": "Guaranteed drop · 15 rounds matching your equipped weapon",
+          "dropRate": 100,
+          "items": [
+            {
+              "name": "Contextual Ammo",
+              "formid": "0085A375",
+              "sig": "LVLI",
+              "qty": 15,
+              "dropRate": 100
+            }
+          ],
+          "note": "Drops 15 rounds of ammo matching the type your equipped weapon uses"
+        },
+        {
+          "label": "Serums",
+          "formid": "00888532",
+          "subtitle": "20.0% chance to drop · pick one of 19 serums",
+          "dropRate": 20.0,
+          "items": [
+            {
+              "name": "Adrenal Reaction Serum",
+              "formid": "00505BD4",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Bird Bones Serum",
+              "formid": "0050A5BC",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Carnivore Serum",
+              "formid": "0050A5BF",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Chameleon Serum",
+              "formid": "0050A5C6",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Eagle Eyes Serum",
+              "formid": "0050A5C9",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Egg Head Serum",
+              "formid": "0050A5CB",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Electrically Charged Serum",
+              "formid": "0050A5CD",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Empath Serum",
+              "formid": "0050A5D2",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Grounded Serum",
+              "formid": "0050A5D0",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Healing Factor Serum",
+              "formid": "0050A5D6",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Herbivore Serum",
+              "formid": "0050A5C4",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Herd Mentality Serum",
+              "formid": "0050A5E3",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Marsupial Serum",
+              "formid": "0050A5E7",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Plague Walker Serum",
+              "formid": "0050A5EA",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Scaly Skin Serum",
+              "formid": "0050A5F0",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Speed Demon Serum",
+              "formid": "0050A5F3",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Talons Serum",
+              "formid": "0050A5F6",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Twisted Muscles Serum",
+              "formid": "0050A5F9",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            },
+            {
+              "name": "Unstable Isotope Serum",
+              "formid": "0050A5FC",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 1.0526
+            }
+          ],
+          "mode": "pickone",
+          "listChanceNone": 80.0
+        },
+        {
+          "label": "Chems",
+          "formid": "00888517",
+          "subtitle": "Guaranteed drop · 25.0% rare / 75.0% basic",
+          "dropRate": 100,
+          "children": [
+            {
+              "label": "Rare Chems",
+              "formid": "00888519",
+              "subtitle": "Pick one · 11 items",
+              "dropRate": 25.0,
+              "items": [
+                {
+                  "name": "Berry Mentats",
+                  "formid": "000518BB",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Grape Mentats",
+                  "formid": "0010129A",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Orange Mentats",
+                  "formid": "000518C5",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Bufftats",
+                  "formid": "00058AA5",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Psychobuff",
+                  "formid": "00058AAC",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Psychotats",
+                  "formid": "00058AAA",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Daddy-O",
+                  "formid": "00156D0B",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Day Tripper",
+                  "formid": "00150729",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Fury",
+                  "formid": "000628CA",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Calmex",
+                  "formid": "00058AA7",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                },
+                {
+                  "name": "Overdrive",
+                  "formid": "00058AAD",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 2.27
+                }
+              ],
+              "mode": "pickone"
+            },
+            {
+              "label": "Basic Chems",
+              "formid": "00888518",
+              "subtitle": "Pick one · 4 items",
+              "dropRate": 75.0,
+              "items": [
+                {
+                  "name": "Buffout",
+                  "formid": "00033778",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 18.75
+                },
+                {
+                  "name": "Med-X",
+                  "formid": "00033779",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 18.75
+                },
+                {
+                  "name": "Mentats",
+                  "formid": "0003377B",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 18.75
+                },
+                {
+                  "name": "Psycho",
+                  "formid": "0003377D",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 18.75
+                }
+              ],
+              "mode": "pickone"
+            }
+          ],
+          "mode": "firstmatch"
+        },
+        {
+          "label": "Stimpaks",
+          "formid": "00893F83",
+          "subtitle": "Guaranteed drop · 1-3 Super Stimpaks based on RNG tier",
+          "dropRate": 100,
+          "items": [
+            {
+              "name": "Super Stimpak",
+              "formid": "00117DF9",
+              "sig": "ALCH",
+              "qty": 3,
+              "dropRate": 25.0,
+              "note": "Top 25% roll"
+            },
+            {
+              "name": "Super Stimpak",
+              "formid": "00117DF9",
+              "sig": "ALCH",
+              "qty": 2,
+              "dropRate": 25.0,
+              "note": "Middle 25% roll"
+            },
+            {
+              "name": "Super Stimpak",
+              "formid": "00117DF9",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 50.0,
+              "note": "Bottom 50% roll"
+            }
+          ],
+          "mode": "firstmatch"
+        },
+        {
+          "label": "Rads",
+          "formid": "0088852B",
+          "subtitle": "Guaranteed drop · pick one of 2 items",
+          "dropRate": 100,
+          "items": [
+            {
+              "name": "RadAway",
+              "formid": "002049B7",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 50
+            },
+            {
+              "name": "Rad-X",
+              "formid": "002049B8",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 50
+            }
+          ],
+          "mode": "pickone"
+        },
+        {
+          "label": "Scrap",
+          "formid": "0088851A",
+          "subtitle": "Guaranteed drop · 10x from one of 4 rarity tiers",
+          "dropRate": 100,
+          "scrapCount": 10,
+          "children": [
+            {
+              "label": "Very Rare Scrap",
+              "formid": "00893F81",
+              "subtitle": "Pick one · 5 items",
+              "dropRate": 25.0,
+              "items": [
+                {
+                  "name": "Ballistic Fiber",
+                  "formid": "00432C9A",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 5.0
+                },
+                {
+                  "name": "Black Titanium",
+                  "formid": "00432C9D",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 5.0
+                },
+                {
+                  "name": "Nuclear Material",
+                  "formid": "00432CAC",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 5.0
+                },
+                {
+                  "name": "Ultracite",
+                  "formid": "00434513",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 5.0
+                },
+                {
+                  "name": "Vault Steel",
+                  "formid": "00893FBB",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 5.0
+                }
+              ],
+              "mode": "pickone"
+            },
+            {
+              "label": "Rare Scrap",
+              "formid": "00893F7F",
+              "subtitle": "Pick one · 7 items",
+              "dropRate": 25.0,
+              "items": [
+                {
+                  "name": "Antiseptic",
+                  "formid": "00432C9C",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 3.57
+                },
+                {
+                  "name": "Asbestos",
+                  "formid": "00432C9B",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 3.57
+                },
+                {
+                  "name": "Circuitry",
+                  "formid": "00432CA0",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 3.57
+                },
+                {
+                  "name": "Fiber Optics",
+                  "formid": "00432CA7",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 3.57
+                },
+                {
+                  "name": "Gold",
+                  "formid": "00432CAA",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 3.57
+                },
+                {
+                  "name": "Oil",
+                  "formid": "00432CAD",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 3.57
+                },
+                {
+                  "name": "Silver",
+                  "formid": "00432CB1",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 3.57
+                }
+              ],
+              "mode": "pickone"
+            },
+            {
+              "label": "Uncommon Scrap",
+              "formid": "00893F80",
+              "subtitle": "Pick one · 9 items",
+              "dropRate": 25.0,
+              "items": [
+                {
+                  "name": "Acid",
+                  "formid": "00432C99",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 2.78
+                },
+                {
+                  "name": "Adhesive",
+                  "formid": "00432C96",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 2.78
+                },
+                {
+                  "name": "Aluminum",
+                  "formid": "003D0836",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 2.78
+                },
+                {
+                  "name": "Copper",
+                  "formid": "00432CA2",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 2.78
+                },
+                {
+                  "name": "Fiberglass",
+                  "formid": "00432CA6",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 2.78
+                },
+                {
+                  "name": "Gears",
+                  "formid": "00432CA8",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 2.78
+                },
+                {
+                  "name": "Glass",
+                  "formid": "00432CA9",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 2.78
+                },
+                {
+                  "name": "Screws",
+                  "formid": "00432CB0",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 2.78
+                },
+                {
+                  "name": "Springs",
+                  "formid": "00432CB2",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 2.78
+                }
+              ],
+              "mode": "pickone"
+            },
+            {
+              "label": "Common Scrap",
+              "formid": "00893F7E",
+              "subtitle": "Pick one · 13 items",
+              "dropRate": 25.0,
+              "items": [
+                {
+                  "name": "Bone",
+                  "formid": "00432C9F",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Ceramic",
+                  "formid": "00432C9E",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Cloth",
+                  "formid": "00432C97",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Coal",
+                  "formid": "00432CA1",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Concrete",
+                  "formid": "00432C98",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Crystal",
+                  "formid": "00432CA4",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Fertilizer",
+                  "formid": "00432CA5",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Lead",
+                  "formid": "003D0835",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Leather",
+                  "formid": "00432CAB",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Plastic",
+                  "formid": "00432CAE",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Rubber",
+                  "formid": "00432CAF",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Steel",
+                  "formid": "003D0834",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                },
+                {
+                  "name": "Wood",
+                  "formid": "00432CB3",
+                  "sig": "LVLI",
+                  "qty": 10,
+                  "dropRate": 1.92
+                }
+              ],
+              "mode": "pickone"
+            }
+          ],
+          "mode": "firstmatch"
+        },
+        {
+          "label": "Bespoke (Faction-Specific)",
+          "formid": "00893F6F",
+          "subtitle": "Conditional drop · depends on boss faction",
+          "dropRate": 100,
+          "children": [
+            {
+              "label": "Robot Boss",
+              "formid": "00893F73",
+              "subtitle": "Only drops from Robot faction bosses",
+              "dropRate": 100,
+              "conditions": [
+                "Boss is Robot faction"
+              ],
+              "items": [
+                {
+                  "name": "Fusion Cells",
+                  "formid": "00888530",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 100,
+                  "note": "Top 25% roll"
+                },
+                {
+                  "name": "Components",
+                  "formid": "0088852F",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 100,
+                  "note": "Top 50% roll"
+                },
+                {
+                  "name": "Robot Scrap",
+                  "formid": "00888531",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 100,
+                  "note": "Top 75% roll"
+                }
+              ],
+              "mode": "firstmatch"
+            },
+            {
+              "label": "Scorched Boss (Holiday)",
+              "formid": "008B2319",
+              "subtitle": "Only drops from Scorched bosses during seasonal events",
+              "dropRate": 100,
+              "conditions": [
+                "Boss is Scorched faction",
+                "Holiday toggle active"
+              ],
+              "items": [
+                {
+                  "name": "Festive Holiday Gift",
+                  "formid": "0059B558",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 100,
+                  "conditions": [
+                    "Festive Scorched enabled"
+                  ]
+                },
+                {
+                  "name": "Spooky Holiday Gift",
+                  "formid": "008B2531",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 100,
+                  "conditions": [
+                    "Spooky Scorched enabled"
+                  ]
+                }
+              ],
+              "mode": "conditional"
+            }
+          ],
+          "mode": "conditional"
+        }
+      ],
+      "fourStarMods": {
+        "weapons": [
+          {
+            "name": "Tarnished",
+            "formid": "0085B998",
+            "effect": "Damage increases as weapon durability decreases (up to +120%)"
+          },
+          {
+            "name": "Satiated",
+            "formid": "0085B996",
+            "effect": "Details in MGEF — exact effect TBD from PTS testing"
+          }
+        ],
+        "armor": [
+          {
+            "name": "Vector",
+            "formid": "0085B99A",
+            "effect": "Gain 10% Bonus VATS Accuracy Against Distant Targets (up to 50% with 5 pieces)"
+          },
+          {
+            "name": "Raging",
+            "formid": "0085B997",
+            "effect": "Details in MGEF — exact effect TBD from PTS testing"
+          },
+          {
+            "name": "Haulers",
+            "formid": "0085B99B",
+            "effect": "Details in MGEF — exact effect TBD from PTS testing"
+          }
+        ],
+        "note": "4-star legendary mods are exclusive to Infestations. Vector value is 10% per piece (GLOB 00868BD2)."
+      },
+      "challenges": {
+        "lifetime": [
+          {
+            "name": "Discover an Infestation",
+            "target": 1
+          },
+          {
+            "name": "Complete an Infestation",
+            "target": 1
+          },
+          {
+            "name": "Complete 10 Infestations",
+            "target": 10
+          },
+          {
+            "name": "Complete 76 Infestations",
+            "target": 76
+          },
+          {
+            "name": "Complete 760 Infestations",
+            "target": 760
+          },
+          {
+            "name": "Complete an Infestation Involving Every Faction",
+            "target": 7
+          }
+        ],
+        "daily": [
+          {
+            "name": "Kill an Enemy during an Infestation",
+            "target": 3
+          },
+          {
+            "name": "Kill an Enemy during an Infestation (Team)",
+            "target": 3
+          },
+          {
+            "name": "Complete an Infestation",
+            "target": 1
+          },
+          {
+            "name": "Complete an Infestation (Team)",
+            "target": 1
+          }
+        ],
+        "weekly": [
+          {
+            "name": "Kill an Enemy during an Infestation",
+            "target": 10
+          },
+          {
+            "name": "Kill an Enemy during an Infestation (Team)",
+            "target": 10
+          },
+          {
+            "name": "Complete 3 Infestations",
+            "target": 3
+          },
+          {
+            "name": "Complete 3 Infestations (Team)",
+            "target": 3
+          }
+        ]
+      }
+    }
+  }
+}
