@@ -49,8 +49,18 @@ BIG_SALE_MAP = {
 }
 
 # ── Gold bullion vendor LVLI FormIDs ──────────────────────────────────
-# Derived from LVLI_Export — every GoldVendor LVLI mapped to its NPC vendor.
-# A BOOK record referencing any of these FormIDs is sold by that vendor.
+# Derived from LVLI_Export — only LVLIs with refs > 0 (actually connected
+# in the vendor chain).  Orphaned LVLIs (refs=0) are excluded even if
+# they have "GoldVendor" in the EDID — they are not sold by any NPC.
+#
+# Removed orphans:
+#   00589627  W05_LLV_GoldVendor_Recipes_Weapons_All        (routing-only, 0 refs)
+#   00589628  W05_LLV_GoldVendor_Recipes_Armor_SecretService_All (0 refs)
+#   005A1F42  W05_LLV_GoldVendor_Recipes_Mods_Armor_SecretService (0 refs)
+#   005A1F43  W05_LLV_GoldVendor_Recipes_Mods_Armor_PowerArmor_T65 (0 refs)
+#   0062FEB1  LLV_GoldVendor_AlienRifle_Mods                (0 refs)
+#   00630C76  LLV_GoldVendor_ElectroEnforcer_Mods            (0 refs)
+
 SAMUEL_LVLIS = {
     '0059672D',  # W05_LLV_GoldVendor_Settler_Samuel
     '005A0AC3',  # W05_LLV_GoldVendor_Settler_Samuel_6_Ally
@@ -73,14 +83,10 @@ MORTIMER_LVLIS = {
 REGS_LVLIS = {
     '0057CE6E',  # W05_LLV_GoldVendor_SecretService_Reginald
     '0057CE71',  # W05_LLV_GoldVendor_Recipes_Weapons_Ranged_All
-    '00589627',  # W05_LLV_GoldVendor_Recipes_Weapons_All
-    '00589628',  # W05_LLV_GoldVendor_Recipes_Armor_SecretService_All
     '00589629',  # W05_LLV_GoldVendor_Recipes_Weapons_Grenades_All
     '0058962A',  # W05_LLV_GoldVendor_Recipes_Weapons_Melee_All
     '005A0AC1',  # W05_LLV_GoldVendor_Recipes_Mods_Weapons_Melee_All
     '005A0AC2',  # W05_LLV_GoldVendor_Recipes_Mods_Weapons_Ranged_All
-    '005A1F42',  # W05_LLV_GoldVendor_Recipes_Mods_Armor_SecretService
-    '005A1F43',  # W05_LLV_GoldVendor_Recipes_Mods_Armor_PowerArmor_T65
     '005EB042',  # LLV_GoldVendor_BOSInfantry_Mods
     '005EC6DF',  # LLV_GoldVendor_BOSPistol_Mods
     '005EC6E0',  # LLV_GoldVendor_BOSRocketLauncher_Mods
@@ -88,8 +94,6 @@ REGS_LVLIS = {
     '005ECD92',  # LLV_GoldVendor_PlasmaSword_Mods
     '0060DB15',  # LLV_GoldVendor_Hellcat_Mods
     '00611A67',  # LLV_GoldVendor_PepperShaker_Mods
-    '0062FEB1',  # LLV_GoldVendor_AlienRifle_Mods
-    '00630C76',  # LLV_GoldVendor_ElectroEnforcer_Mods
 }
 
 # Union of all NPC gold vendor LVLIs — for quick "is this a gold vendor plan?" check
