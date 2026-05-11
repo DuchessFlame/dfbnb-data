@@ -662,23 +662,25 @@ def _simplify_conditions(conditions):
 
 
 # ---------------------------------------------------------------------------
-# Default Rewards / Legendary Module split (April 2026, revised May 2026)
+# Default Rewards / Legendary Module / Improved Bait split (May 2026 revision)
 # ---------------------------------------------------------------------------
-# Most events' unique Quest_Rewards LVLI contains a `_Default` child plus a
-# `RESTRICTED_LL_LegendaryModule_*` child alongside the event-specific pools
-# (Headwear, Recipes, etc.). The split happens for display granularity, not
-# for classification:
+# Most events' unique Quest_Rewards LVLI contains a `_Default` child plus
+# always-given siblings (LegendaryModule, ImprovedBait) alongside the event-
+# specific pools (Headwear, Recipes, etc.). The split happens for display
+# granularity:
 #   - `_Default` children are unique event rewards (per-event "pick one"
 #     pool: plans, recipes, titles, steins). They get cracked open and
 #     keyword-grouped, then flagged isUniqueReward so the renderer routes
 #     them to Unique Event Rewards.
-#   - `LegendaryModule` is a deterministic always-given reward and stays
-#     in Default Event Rewards (no isUniqueReward flag).
+#   - `LegendaryModule` and `Fishing_LL_Rewards_ImprovedBait` are deterministic
+#     always-given rewards. They stay in Default Event Rewards (no
+#     isUniqueReward flag).
 #   - Everything else in the parent Quest_Rewards LVLI (the big common/rare
 #     pool) is the remaining unique node — also flagged isUniqueReward.
 
 _DEFAULT_CHILD_PATTERN = re.compile(r"_quest_?rewards?_default\b", re.IGNORECASE)
 _LEGMODULE_CHILD_PATTERN = re.compile(r"legendarymodule", re.IGNORECASE)
+_FISHING_BAIT_PATTERN = re.compile(r"fishing.*bait|improvedbait", re.IGNORECASE)
 
 # Keyword patterns used to bucket items from the `_Default` LVLI into grouped
 # sub-nodes. First match wins; items with no match become standalone nodes.
@@ -753,6 +755,7 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
 
     default_fids = set()
     legmodule_fids = set()
+    bait_fids = set()
 
     for sub_fid, sub_edid in _walk_direct_sub_lvlis(parent_lvli_fid, data):
         if _DEFAULT_CHILD_PATTERN.search(sub_edid):
@@ -771,12 +774,21 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
                         legmodule_fids.add(fid)
             except Exception as e:
                 print("    [WARN] resolve_deep LegendaryModule {}: {}".format(sub_fid, e))
+        elif _FISHING_BAIT_PATTERN.search(sub_edid):
+            try:
+                for it in resolver.resolve_deep(sub_fid):
+                    fid = it.get("formid")
+                    if fid:
+                        bait_fids.add(fid)
+            except Exception as e:
+                print("    [WARN] resolve_deep ImprovedBait {}: {}".format(sub_fid, e))
 
-    if not default_fids and not legmodule_fids:
+    if not default_fids and not legmodule_fids and not bait_fids:
         return [], unique_node
 
     default_items   = []
     legmodule_items = []
+    bait_items      = []
     remaining_items = []
     for it in unique_node["items"]:
         fid = it.get("formid")
@@ -784,6 +796,8 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
             default_items.append(it)
         elif fid in legmodule_fids:
             legmodule_items.append(it)
+        elif fid in bait_fids:
+            bait_items.append(it)
         else:
             remaining_items.append(it)
 
@@ -816,6 +830,13 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
         # the Default Event Rewards section (no isUniqueReward flag).
         event_reward_nodes.append(_make_split_subnode(
             "Legendary Module", legmodule_items, unique_node
+        ))
+
+    if bait_items:
+        # Improved Bait is a deterministic always-given reward sibling — stays
+        # in the Default Event Rewards section (no isUniqueReward flag).
+        event_reward_nodes.append(_make_split_subnode(
+            "Improved Bait", bait_items, unique_node
         ))
 
     if remaining_items:
