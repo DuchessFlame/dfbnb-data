@@ -579,6 +579,73 @@ def _load_kywd_flags():
 # Condition simplification (minimal — handles common xEdit condition strings)
 # ---------------------------------------------------------------------------
 
+def _humanize_cobj_edid(edid):
+    """Convert a COBJ EDID into a clean human-readable plan/recipe name.
+    Handles seasonal-events naming patterns:
+      SSE_co_Headwear_FlowerCrown_CarnalWeeper   → 'Flower Crown - Carnal Weeper'
+      workshop_co_Tinkers_SSE_Tier2_HybridFlower → 'Tinkers Hybrid Flower'
+      PlayerTitle_co_CondProxy_Suffix_Gardener   → 'Player Title: Gardener'
+      Workshop_co_Condproxy_FloorDecor_BigBloomStein → 'Big Bloom Stein'
+    Conservative — falls back to a CamelCase-spaced version of the trailing
+    segment when no known pattern matches."""
+    if not edid:
+        return ""
+    s = str(edid).strip()
+    if not s:
+        return ""
+
+    # Player Title / Camp Title → "Player Title: <Name>"
+    m = re.search(r'(Player|CAMP)Title_co_CondProxy_(?:(?:Prefix|Suffix|Both)_)+(\w+)',
+                  s, re.IGNORECASE)
+    if m:
+        title_type = "Camp" if m.group(1).upper() == "CAMP" else "Player"
+        name = re.sub(r"([a-z])([A-Z])", r"\1 \2", m.group(2))
+        return "{} Title: {}".format(title_type, name.strip())
+
+    # Strip leading event/quest/workshop/ATX prefixes. Some EDIDs nest these
+    # (workshop_co_Tinkers_SSE_…) so we run the event-prefix regex twice —
+    # once on the raw EDID, then again after the wrapper prefixes are removed.
+    _EVENT_PREFIX_RE = re.compile(
+        r"^(SSE|MTNZ|MTNS|SFS|CBZ|EN|FS|TWZ|RD|HTO|XPD|MQ|MTRZ|Storm_E)\w*?_"
+    )
+    s = _EVENT_PREFIX_RE.sub("", s)
+    s = re.sub(r"^ATX_", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^[Ww]orkshop_", "", s)
+    s = re.sub(r"^co_(?:CondProxy_)?", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"^Condproxy_", "", s, flags=re.IGNORECASE)
+
+    # Common category prefixes — strip or rewrite for readability
+    s = re.sub(r"^Headwear_", "", s)
+    s = re.sub(r"^FloorDecor_", "", s)
+    s = re.sub(r"^Tinkers_", "", s)
+    s = re.sub(r"^Mod_", "", s, flags=re.IGNORECASE)
+
+    # Second pass — covers nested SSE_/MTNZ_ etc. after Tinkers_ was stripped
+    s = _EVENT_PREFIX_RE.sub("", s)
+
+    # Split underscores; the last two parts (or just last) are usually the
+    # meaningful name.
+    parts = [p for p in s.split("_") if p]
+    if not parts:
+        return ""
+    # If the trailing chunk is a tier ("Tier1", "Tier2"), join with the
+    # final name segment.
+    if len(parts) >= 2 and re.match(r"^Tier\d+$", parts[0], re.IGNORECASE):
+        parts = parts[1:]
+
+    # Join remaining parts with " - " between major segments, then split
+    # CamelCase within each segment.
+    if len(parts) == 1:
+        out = re.sub(r"([a-z])([A-Z])", r"\1 \2", parts[0])
+    else:
+        # Treat first part as category (e.g. "FlowerCrown") and last as the
+        # specific item (e.g. "CarnalWeeper"); join with " - ".
+        segs = [re.sub(r"([a-z])([A-Z])", r"\1 \2", p) for p in parts]
+        out = " - ".join(segs)
+
+    return out.strip()
+
+
 def _simplify_condition_basic(cond_str):
     """Convert a raw xEdit condition string into a friendly display string.
     Returns "" for conditions that should be hidden (internal toggles, etc.).
@@ -617,14 +684,49 @@ def _simplify_condition_basic(cond_str):
             return "Human character only"
         return "Ghoul character only"
 
-    # HasLearnedRecipe → require/avoid plan learned. Minimal version: detect
-    # comparison and emit generic phrasing (no COBJ resolution available here).
+    # HasLearnedRecipe → require/avoid recipe learned. Combines the CTDA
+    # operator byte (first 8-digit hex token) with the comparison value
+    # (trailing float). Per build_titles_json.py convention:
+    #   flag 10000000 = AND (positive — the comparison must be TRUE)
+    #   flag 00000000 = OR / exclusion gate (effectively NOT-equal)
+    # XOR of (op==Equal, value==1.0) → "required" vs "exclusion":
+    #   - (Eq, 1.0)  → required learned
+    #   - (Eq, 0.0)  → required NOT learned  → exclusion
+    #   - (NEq, 1.0) → not equal to 1.0       → exclusion
+    #   - (NEq, 0.0) → not equal to 0.0       → required learned
+    # Also extracts the COBJ EDID and humanises it so each condition
+    # names its own recipe — distinct strings, no dedup collapse.
     if "HasLearnedRecipe" in s:
-        m = re.search(r'(\d+\.\d+)\s*$', s)
-        comp = float(m.group(1)) if m else 1.0
-        if comp >= 1.0:
+        op_match = re.search(r'(\d{8})\s+(\d+\.\d+)\s*$', s)
+        if not op_match:
+            return ""
+        op_code = op_match.group(1)
+        comp_val = float(op_match.group(2))
+        is_equal_op = op_code.startswith("1")
+        positive = (is_equal_op and comp_val >= 1.0) or \
+                   (not is_equal_op and comp_val < 1.0)
+
+        cobj_edid = ""
+        edid_match = re.search(r'HasLearnedRecipe\(\s*(?:[^,]*,\s*){2}(\w+)\s*\[COBJ:', s)
+        if edid_match:
+            cobj_edid = edid_match.group(1)
+        human_name = _humanize_cobj_edid(cobj_edid) if cobj_edid else ""
+
+        # Avoid "Plan: Player Title: X" doubling — when the humanised name
+        # already carries a Player/Camp Title prefix, drop the extra "Plan:".
+        is_title = bool(re.match(r"^(Player|Camp) Title:", human_name))
+        if positive:
+            if human_name:
+                if is_title:
+                    return "Requires {} to be learned".format(human_name)
+                return "Requires Plan: {} to be learned".format(human_name)
             return "Requires the base plan to be learned"
-        return "Won’t drop if you’ve already learned this plan"
+        else:
+            if human_name:
+                if is_title:
+                    return "Won’t drop if you’ve already earned {}".format(human_name)
+                return "Won’t drop if you’ve already learned Plan: {}".format(human_name)
+            return "Won’t drop if you’ve already learned this plan"
 
     # GetInCurrentLocation → Region: <Name>
     if "GetInCurrentLocation" in s:
@@ -1518,7 +1620,9 @@ def main():
 
 if __name__ == "__main__":
     main()
-ary))
+aps"] else "no caps"
+        print("  -> {} tree nodes, {} flat rewards, {}, {}".format(
+            tree_len, rewards_len, xp_summary, caps_summary))
 
         output["byPage"][slug] = page_data
         url_path = "/df/seasonal-events/" + ev_slug + "/" + slug + "/"
