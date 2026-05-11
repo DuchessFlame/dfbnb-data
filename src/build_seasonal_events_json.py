@@ -401,7 +401,7 @@ def _legendary_rank_label(qrlr_str, qrri_str):
     if rank == 1:
         return "Legendary Items (1★)", rank, rank
     if rank is not None:
-        return "Legendary Items (1–{}★)".format(rank), 1, rank
+        return "Legendary Items ({}★)".format(rank), rank, rank
     return "Legendary Items", None, None
 
 
