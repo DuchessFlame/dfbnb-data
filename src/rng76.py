@@ -1065,11 +1065,29 @@ class Rng76Resolver:
             ref_sig = ref.split(":")[-1].upper() if ref.count(":") >= 2 else ""
 
             if r["sub_lvli"]:
+                # Propagate the parent entry's quantity into child items.
+                # Per drop-rate-engine §3g:
+                #   - With For Each (bit 1) CLEAR: the sub-list is evaluated
+                #     once and parent_qty multiplies through into each sub
+                #     item's qty.
+                #   - With For Each SET: the sub-list is rolled parent_qty
+                #     times. For a single-entry sub-list this still yields
+                #     parent_qty × sub_qty total items per drop. For a
+                #     multi-entry sub-list the expected count per item is
+                #     `parent_qty × sub_chance × sub_qty` — multiplying qty
+                #     by parent_qty gives the same expected count when the
+                #     single-roll probability cascade isn't applied here.
+                # Either way, multiplication is the correct display value
+                # for "items received per drop". Without it, Treasury Note
+                # inside Gold_Treasury_Note_QuestReward_Medium (outer qty=3
+                # via GLOB, inner qty=1) was showing as ×1 instead of ×3.
+                parent_qty = r["qty"] if r["qty"] > 0 else 1
                 for sub_item in self.resolve_deep(r["sub_lvli"], depth + 1, seen):
+                    out_qty = sub_item["qty"] * parent_qty
                     items.append({
                         "formid":     sub_item["formid"],
                         "name":       sub_item["name"],
-                        "qty":        sub_item["qty"],
+                        "qty":        out_qty,
                         "dropRate":   sub_item["dropRate"] * dr,
                         "edid":       sub_item["edid"],
                         "sig":        sub_item.get("sig", ""),
@@ -1685,7 +1703,8 @@ def prettify_lvli_label(edid: str) -> str:
 # ============================================================
 
 REGION_BY_SUBLVLI_EDID: Dict[str, str] = {
-    "regionforest":         "Forest",
+    "regionforest":         "Forest",  # sync
+
     "regionashheap":        "Ash Heap",
     "regioncranberrybog":   "Cranberry Bog",
     "regionmire":           "Mire",

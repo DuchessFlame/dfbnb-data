@@ -1838,13 +1838,25 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         region_conds = extract_region_conditions(conditions)
 
         if sub_lvli:
-            # Recurse into sub-LVLI and apply parent drop rate
+            # Recurse into sub-LVLI and apply parent drop rate.
+            #
+            # Per drop-rate-engine §3g: regardless of the sub-LVLI's For
+            # Each flag, parent_qty multiplies through into child item
+            # quantities for "items received per drop". For Each affects
+            # the rate-side cascade (rolled N times), not the total qty
+            # received. Without this, Treasury Note inside Gold_Treasury_-
+            # Note_QuestReward_Medium (outer qty=3 via GLOB, inner qty=1)
+            # displays as ×1 instead of ×3.
+            #
+            # Mirror of the same fix in rng76.py resolve_deep().
+            _parent_qty = qty if qty > 0 else 1
             sub_items = resolve_lvli_items_deep(sub_lvli, depth + 1, seen)
             for sub_item in sub_items:
+                _out_qty = sub_item["qty"] * _parent_qty
                 propagated = {
                     "formid": sub_item["formid"],
                     "name": sub_item["name"],
-                    "qty": sub_item["qty"],
+                    "qty": _out_qty,
                     "dropRate": sub_item["dropRate"] * drop_rate,
                     "edid": sub_item["edid"],
                     "sig": sub_item.get("sig", ""),

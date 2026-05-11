@@ -681,6 +681,119 @@ def _simplify_conditions(conditions):
 _DEFAULT_CHILD_PATTERN = re.compile(r"_quest_?rewards?_default\b", re.IGNORECASE)
 _LEGMODULE_CHILD_PATTERN = re.compile(r"legendarymodule", re.IGNORECASE)
 _FISHING_BAIT_PATTERN = re.compile(r"fishing.*bait|improvedbait", re.IGNORECASE)
+_BASE_FLOWERS_CHILD_PATTERN = re.compile(r"baseflowers", re.IGNORECASE)
+
+
+def _build_flat_lvli_tiers(lvli_fid, data, resolver):
+    """Walk a flat leveled list's entries directly (no recursion into
+    sub-LVLIs) and return a per-FormID tiers map:
+
+        {formid: [{"qty": int, "rate": float}, ...]}
+
+    Used to enrich items whose underlying LVLI has multiple entries pointing
+    at the same FormID with different qtys (e.g. Improved Bait ×1/×2/×3,
+    Legendary Module ×3/×2/×1 with First-Match thresholds, Base Flowers
+    ×5..×10 at uniform pick-one rates).
+
+    Respects the list's LVLF flags:
+      - First Match (bit 6) with GetRandomPercent thresholds → cascading
+        thresholds (drop-rate-engine §3f).
+      - Otherwise → uniform pick-one (1/N each). Per drop-rate-engine §3e
+        this is correct for the three cases this helper targets; ChanceNone
+        and Use-All waterfall logic are intentionally not implemented here
+        because the targeted lists don't use them.
+    """
+    flags = data.lvli.flags_for(lvli_fid)
+    entries = list(data.lvli.entries_by_list.get(lvli_fid, []))
+    if not entries:
+        return {}
+
+    rows = []
+    for e in entries:
+        idx = e.get("EntryIndex")
+        if idx is None:
+            continue
+        math = data.lvli.math_by_entry.get((lvli_fid, idx))
+        if not math:
+            continue
+        qty = resolver._entry_qty(e)
+        conds = resolver._entry_conditions(e)
+        sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
+        # Resolve the leaf FormID for this entry. Direct-ref entries take
+        # FormID from LVLO_Reference. Sub-LVLI entries (e.g. Legendary
+        # Module 1-3 wrapping LegendaryModule_Single) dive into the sub
+        # one level to pick up the leaf item. Multi-leaf sub-LVLIs aren't
+        # expected here for the targeted lists; the first leaf FormID is
+        # used as the row key.
+        if sub_lvli:
+            try:
+                sub_items = resolver.resolve_deep(sub_lvli)
+            except Exception:
+                sub_items = []
+            if not sub_items:
+                continue
+            fid = (sub_items[0].get("formid") or "").strip()
+            if not fid:
+                continue
+        else:
+            ref = (e.get("LVLO_Reference") or "").strip()
+            if ":" not in ref:
+                continue
+            fid = ref.split(":")[0]
+        rows.append({"fid": fid, "qty": qty, "conds": conds})
+
+    if not rows:
+        return {}
+
+    rates = [0.0] * len(rows)
+    is_first_match = flags["first_match"]
+
+    if is_first_match:
+        # Cascading GetRandomPercent thresholds (drop-rate-engine §3f).
+        thresholds = [resolver.extract_grp_threshold(r["conds"]) for r in rows]
+        if any(t is not None for t in thresholds):
+            prev = 0.0
+            for i, t in enumerate(thresholds):
+                if t is not None:
+                    rates[i] = max((t - prev) / 100.0, 0.0)
+                    prev = t
+                else:
+                    rates[i] = max((100.0 - prev) / 100.0, 0.0)
+        else:
+            for i in range(len(rows)):
+                rates[i] = 1.0 / len(rows)
+    else:
+        # Pick-one or Use-All without ChanceNone → uniform 1/N per entry.
+        n = len(rows)
+        for i in range(n):
+            rates[i] = 1.0 / n
+
+    tiers_by_fid = {}
+    for i, r in enumerate(rows):
+        tiers_by_fid.setdefault(r["fid"], []).append({
+            "qty":  r["qty"],
+            "rate": round(rates[i] * 100.0, 6),
+        })
+    return tiers_by_fid
+
+
+def _apply_tiers_to_items(items, tiers_by_fid):
+    """For every item in `items` whose formid has tiers in `tiers_by_fid`,
+    replace `item["tiers"]` with the multi-row breakdown. Updates the
+    top-level qty/dropRate to the first tier (renderer fallback path)."""
+    if not items or not tiers_by_fid:
+        return
+    for it in items:
+        fid = (it.get("formid") or "").strip()
+        tiers = tiers_by_fid.get(fid)
+        if not tiers or len(tiers) <= 1:
+            continue
+        it["tiers"] = [{"qty": t["qty"], "rate": t["rate"]} for t in tiers]
+        # Sync the top-level qty/dropRate so the rendering fallback (no
+        # tiers array) still makes sense if the renderer ever ignores tiers.
+        first = tiers[0]
+        it["qty"] = first["qty"]
+        it["dropRate"] = first["rate"]
 
 # Keyword patterns used to bucket items from the `_Default` LVLI into grouped
 # sub-nodes. First match wins; items with no match become standalone nodes.
@@ -756,6 +869,12 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
     default_fids = set()
     legmodule_fids = set()
     bait_fids = set()
+    # Tier-enrichment sources. Each maps FormID → list of {qty, rate}; the
+    # lead item per FormID picks these up so the renderer shows one row per
+    # (qty, rate) tier instead of collapsing to a single row.
+    legmodule_tiers = {}
+    bait_tiers = {}
+    base_flower_tiers = {}
 
     for sub_fid, sub_edid in _walk_direct_sub_lvlis(parent_lvli_fid, data):
         if _DEFAULT_CHILD_PATTERN.search(sub_edid):
@@ -772,6 +891,10 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
                     fid = it.get("formid")
                     if fid:
                         legmodule_fids.add(fid)
+                # Build per-FormID tier breakdown for the lead item
+                # (RESTRICTED_LL_LegendaryModule_1-3 is First Match — ×3@20%,
+                # ×2@20%, ×1@60% — collapsed by resolve_deep to one row).
+                legmodule_tiers = _build_flat_lvli_tiers(sub_fid, data, resolver)
             except Exception as e:
                 print("    [WARN] resolve_deep LegendaryModule {}: {}".format(sub_fid, e))
         elif _FISHING_BAIT_PATTERN.search(sub_edid):
@@ -780,10 +903,25 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
                     fid = it.get("formid")
                     if fid:
                         bait_fids.add(fid)
+                # Build per-FormID tier breakdown — Improved Bait LVLI has
+                # 3 entries all pointing at Fishing_Bait_Improved at qtys
+                # 1/2/3, pick-one → 33.333% each.
+                bait_tiers = _build_flat_lvli_tiers(sub_fid, data, resolver)
             except Exception as e:
                 print("    [WARN] resolve_deep ImprovedBait {}: {}".format(sub_fid, e))
+        elif _BASE_FLOWERS_CHILD_PATTERN.search(sub_edid):
+            # Base Flowers stay in the unique-node items (renderer pulls them
+            # out by FormID for the Base Flowers expand). We don't filter
+            # them here; we only collect their per-FormID tier breakdown so
+            # each flower shows its ×5..×10 rows. SSE_LL_Quest_Rewards_-
+            # BaseFlowers (007AD25A) is pick-one over 18 entries → 5.555%
+            # each (6 entries per flower across 3 FormIDs).
+            try:
+                base_flower_tiers = _build_flat_lvli_tiers(sub_fid, data, resolver)
+            except Exception as e:
+                print("    [WARN] _build_flat_lvli_tiers BaseFlowers {}: {}".format(sub_fid, e))
 
-    if not default_fids and not legmodule_fids and not bait_fids:
+    if not default_fids and not legmodule_fids and not bait_fids and not base_flower_tiers:
         return [], unique_node
 
     default_items   = []
@@ -826,6 +964,9 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
             event_reward_nodes.append(sub)
 
     if legmodule_items:
+        # Apply tier breakdown (×3@20%, ×2@20%, ×1@60% via First Match
+        # thresholds) so the renderer shows three rows instead of one.
+        _apply_tiers_to_items(legmodule_items, legmodule_tiers)
         # Legendary Module is a deterministic always-given reward — stays in
         # the Default Event Rewards section (no isUniqueReward flag).
         event_reward_nodes.append(_make_split_subnode(
@@ -833,6 +974,8 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
         ))
 
     if bait_items:
+        # Apply tier breakdown (×1/×2/×3 pick-one at 33.333% each).
+        _apply_tiers_to_items(bait_items, bait_tiers)
         # Improved Bait is a deterministic always-given reward sibling — stays
         # in the Default Event Rewards section (no isUniqueReward flag).
         event_reward_nodes.append(_make_split_subnode(
@@ -840,6 +983,11 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
         ))
 
     if remaining_items:
+        # Enrich base-flower items (Carnal Weeper / Crystalcup / Radlily)
+        # with their 6-tier ×5..×10 breakdowns. The renderer pulls them out
+        # of the unique list by FormID and shows them in the Base Flowers
+        # expand using the tiers array.
+        _apply_tiers_to_items(remaining_items, base_flower_tiers)
         unique_node["items"] = remaining_items
         return event_reward_nodes, unique_node
     return event_reward_nodes, None
@@ -1354,6 +1502,23 @@ def main():
         caps_summary = "{} caps".format(page_data["caps"]["value"]) if page_data["caps"] else "no caps"
         print("  -> {} tree nodes, {} flat rewards, {}, {}".format(
             tree_len, rewards_len, xp_summary, caps_summary))
+
+        output["byPage"][slug] = page_data
+        url_path = "/df/seasonal-events/" + ev_slug + "/" + slug + "/"
+        output["byPage"][url_path] = page_data
+        output["byPage"][url_path.rstrip("/")] = page_data
+
+    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = DIST_DIR / "seasonal_events_rewards_by_page.json"
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
+    print("\n[build_seasonal_events] Written: {}".format(out_path))
+    print("[build_seasonal_events] File size: {} bytes".format(out_path.stat().st_size))
+
+
+if __name__ == "__main__":
+    main()
+ary))
 
         output["byPage"][slug] = page_data
         url_path = "/df/seasonal-events/" + ev_slug + "/" + slug + "/"
