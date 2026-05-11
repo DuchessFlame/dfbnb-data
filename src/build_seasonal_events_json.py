@@ -43,6 +43,7 @@ import os
 import re
 import sys
 from collections import defaultdict
+from datetime import datetime
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -64,6 +65,7 @@ from rng76 import (
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 TSV_ROOT   = str(_REPO_ROOT / "tsv")
 DIST_DIR   = _REPO_ROOT / "dist" / "seasonal_events"
+RELEASE_YEARS_PATH = _REPO_ROOT / "data" / "seasonal_events_release_years.json"
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -1551,6 +1553,46 @@ def _build_flat_rewards_from_tree(tree, event_def, groups):
 # Main
 # ---------------------------------------------------------------------------
 
+def _load_release_years():
+    """Load the release-year tracking file. Returns a dict {formid: year}."""
+    if RELEASE_YEARS_PATH.exists():
+        with open(RELEASE_YEARS_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+
+def _save_release_years(tracking):
+    """Save the release-year tracking file back to disk."""
+    RELEASE_YEARS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(RELEASE_YEARS_PATH, "w", encoding="utf-8") as f:
+        json.dump(dict(sorted(tracking.items())), f, indent=2)
+        f.write("\n")
+
+
+def _apply_release_years(output, tracking):
+    """Assign releaseYear to every trackable reward. New FormIDs get the
+    current year and are added to the tracking dict for next time."""
+    current_year = datetime.now().year
+    new_count = 0
+    seen_slugs = set()
+    for key, page_data in output.get("byPage", {}).items():
+        slug = page_data.get("slug", "")
+        if slug in seen_slugs:
+            continue
+        seen_slugs.add(slug)
+        for reward in page_data.get("rewards", []):
+            fid = reward.get("formId", "")
+            if not reward.get("isTrackable"):
+                continue
+            if fid in tracking:
+                reward["releaseYear"] = tracking[fid]
+            else:
+                reward["releaseYear"] = current_year
+                tracking[fid] = current_year
+                new_count += 1
+    return new_count
+
+
 def main():
     print("[build_seasonal_events] Loading rng76 engine...")
     data = Rng76Data.from_tsv_root(TSV_ROOT)
@@ -1560,6 +1602,11 @@ def main():
     gmrw_rows = read_tsv(gmrw_path)
     print("[build_seasonal_events] Loaded {} GMRW rows from {}".format(
         len(gmrw_rows), os.path.basename(gmrw_path)))
+
+    # Load release-year tracking (persistent across builds)
+    release_years = _load_release_years()
+    print("[build_seasonal_events] Loaded {} release-year entries".format(
+        len(release_years)))
 
     output = {"byPage": {}}
 
@@ -1610,24 +1657,11 @@ def main():
         output["byPage"][url_path] = page_data
         output["byPage"][url_path.rstrip("/")] = page_data
 
-    DIST_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = DIST_DIR / "seasonal_events_rewards_by_page.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
-    print("\n[build_seasonal_events] Written: {}".format(out_path))
-    print("[build_seasonal_events] File size: {} bytes".format(out_path.stat().st_size))
-
-
-if __name__ == "__main__":
-    main()
-aps"] else "no caps"
-        print("  -> {} tree nodes, {} flat rewards, {}, {}".format(
-            tree_len, rewards_len, xp_summary, caps_summary))
-
-        output["byPage"][slug] = page_data
-        url_path = "/df/seasonal-events/" + ev_slug + "/" + slug + "/"
-        output["byPage"][url_path] = page_data
-        output["byPage"][url_path.rstrip("/")] = page_data
+    # Assign release years to all trackable rewards
+    new_items = _apply_release_years(output, release_years)
+    print("\n[build_seasonal_events] Release years: {} existing, {} new".format(
+        len(release_years) - new_items, new_items))
+    _save_release_years(release_years)
 
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     out_path = DIST_DIR / "seasonal_events_rewards_by_page.json"
