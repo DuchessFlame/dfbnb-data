@@ -662,13 +662,20 @@ def _simplify_conditions(conditions):
 
 
 # ---------------------------------------------------------------------------
-# Default Rewards / Legendary Module split (April 2026)
+# Default Rewards / Legendary Module split (April 2026, revised May 2026)
 # ---------------------------------------------------------------------------
 # Most events' unique Quest_Rewards LVLI contains a `_Default` child plus a
 # `RESTRICTED_LL_LegendaryModule_*` child alongside the event-specific pools
-# (Headwear, Recipes, etc.). Default + LegendaryModule are surfaced as
-# STANDARD Event Rewards (cracked open / keyword-grouped); everything else
-# stays in Unique Event Rewards.
+# (Headwear, Recipes, etc.). The split happens for display granularity, not
+# for classification:
+#   - `_Default` children are unique event rewards (per-event "pick one"
+#     pool: plans, recipes, titles, steins). They get cracked open and
+#     keyword-grouped, then flagged isUniqueReward so the renderer routes
+#     them to Unique Event Rewards.
+#   - `LegendaryModule` is a deterministic always-given reward and stays
+#     in Default Event Rewards (no isUniqueReward flag).
+#   - Everything else in the parent Quest_Rewards LVLI (the big common/rare
+#     pool) is the remaining unique node — also flagged isUniqueReward.
 
 _DEFAULT_CHILD_PATTERN = re.compile(r"_quest_?rewards?_default\b", re.IGNORECASE)
 _LEGMODULE_CHILD_PATTERN = re.compile(r"legendarymodule", re.IGNORECASE)
@@ -732,10 +739,14 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
     parent unique LVLI's flat resolution.
 
     Returns (event_reward_nodes, remaining_unique_node):
-      event_reward_nodes - list of nodes for the standard Event Rewards tree
-                           (default groups + Legendary Module)
+      event_reward_nodes - extra tree nodes split out for display granularity.
+                           Default-derived nodes carry isUniqueReward=True and
+                           render under Unique Event Rewards; the Legendary
+                           Module node has no flag and renders under Default
+                           Event Rewards.
       remaining_unique_node - parent node with default/legmodule items
-                              filtered out, or None if nothing left.
+                              filtered out, or None if nothing left. The
+                              caller flags this as isUniqueReward=True.
     """
     if not unique_node or not unique_node.get("items"):
         return [], unique_node
@@ -787,13 +798,22 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
                 groups.setdefault(grp, []).append(it)
             else:
                 standalone.append(it)
+        # Default-LVLI items are unique event rewards (the per-event "pick one"
+        # pool: plans, recipes, titles, steins, etc.) — flag them so the
+        # renderer routes them to Unique Event Rewards.
         for label, items in groups.items():
-            event_reward_nodes.append(_make_split_subnode(label, items, unique_node))
+            sub = _make_split_subnode(label, items, unique_node)
+            sub["isUniqueReward"] = True
+            event_reward_nodes.append(sub)
         for it in standalone:
             label = it.get("name") or _clean_pool_label(it.get("edid", "")) or "Reward"
-            event_reward_nodes.append(_make_split_subnode(label, [it], unique_node))
+            sub = _make_split_subnode(label, [it], unique_node)
+            sub["isUniqueReward"] = True
+            event_reward_nodes.append(sub)
 
     if legmodule_items:
+        # Legendary Module is a deterministic always-given reward — stays in
+        # the Default Event Rewards section (no isUniqueReward flag).
         event_reward_nodes.append(_make_split_subnode(
             "Legendary Module", legmodule_items, unique_node
         ))
