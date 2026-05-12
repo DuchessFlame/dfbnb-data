@@ -84,6 +84,16 @@ MIN_RATE_DECIMAL = 0.0001  # 0.01% as decimal
 _KW_NON_PLAYER_TRADABLE = "00499f7a"
 _KW_UNSELLABLE_OBJECT   = "003d4327"
 
+# Named-weapon display overrides. These weapons drop with a custom OMOD that
+# changes their in-game display name (e.g. "Cursed Broadsider"), but the base
+# WEAP record's FULL field only carries the generic name ("Broadsider").
+# Keyed by FormID (lowercase).
+_NAMED_WEAPON_OVERRIDES = {
+    "000fd11b": "Cursed Broadsider",
+    "00142fab": "Cursed Rolling Pin",
+    "000b3293": "Cursed Sickle",
+}
+
 # ---------------------------------------------------------------------------
 # Event Definitions
 # ---------------------------------------------------------------------------
@@ -1138,7 +1148,7 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
     for it in items:
         fid  = it.get("formid", "")
         edid = it.get("edid", "")
-        name = it.get("name", "")
+        name = _NAMED_WEAPON_OVERRIDES.get(fid.lower(), it.get("name", ""))
         rate = it.get("dropRate", 0.0)
         qty  = it.get("qty", 1) or 1
         sig  = (it.get("sig") or "").upper()

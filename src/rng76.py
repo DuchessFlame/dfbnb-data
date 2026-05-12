@@ -252,8 +252,9 @@ class ItemNameIndex:
         _safe_load("KEYM_Export_*.tsv", self.load_keym,
                    exclude_suffixes=["_Locations", "_Refs", "_KYWD"])
         _safe_load("ARMO_Export_*.tsv", self.load_armo,
-                   exclude_suffixes=["_SLOTS"])
-        _safe_load("WEAP_Export_*.tsv", self.load_weap)
+                   exclude_suffixes=["_SLOTS", "_ObjectTemplate"])
+        _safe_load("WEAP_Export_*.tsv", self.load_weap,
+                   exclude_suffixes=["_ObjectTemplate", "_DNAM"])
         _safe_load("ALCH_Export_*.tsv", self.load_alch,
                    exclude_suffixes=["_Effects"])
         _safe_load("AMMO_Export_*.tsv", self.load_ammo)
