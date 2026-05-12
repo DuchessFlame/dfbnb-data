@@ -1593,6 +1593,31 @@ def _apply_release_years(output, tracking):
     return new_count
 
 
+def _stamp_release_years_on_tree(output, tracking):
+    """Stamp releaseYear on eventRewardTree items so the JS renderer can
+    display year pills without consulting the flat rewards[] list.
+
+    The tracking dict is keyed by FormID and valued by year. Only items
+    whose FormID appears in the tracking dict get stamped — this limits
+    year pills to trackable items (Plans / Recipes) which is the same
+    scope as the flat rewards[] list.
+    """
+    seen_slugs = set()
+    stamped = 0
+    for key, page_data in output.get("byPage", {}).items():
+        slug = page_data.get("slug", "")
+        if slug in seen_slugs:
+            continue
+        seen_slugs.add(slug)
+        for node in page_data.get("eventRewardTree", []):
+            for item in node.get("items", []):
+                fid = item.get("formid", "")
+                if fid and fid in tracking:
+                    item["releaseYear"] = tracking[fid]
+                    stamped += 1
+    return stamped
+
+
 def main():
     print("[build_seasonal_events] Loading rng76 engine...")
     data = Rng76Data.from_tsv_root(TSV_ROOT)
@@ -1662,6 +1687,12 @@ def main():
     print("\n[build_seasonal_events] Release years: {} existing, {} new".format(
         len(release_years) - new_items, new_items))
     _save_release_years(release_years)
+
+    # Stamp release years onto eventRewardTree items (the JS renderer reads
+    # from the tree, not from the flat rewards[] list).
+    tree_stamped = _stamp_release_years_on_tree(output, release_years)
+    print("[build_seasonal_events] Stamped releaseYear on {} tree items".format(
+        tree_stamped))
 
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     out_path = DIST_DIR / "seasonal_events_rewards_by_page.json"
