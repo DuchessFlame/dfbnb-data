@@ -171,6 +171,27 @@ EVENTS = {
             {"title": "Regular Mole Miner Pail (Crafted)", "lvliFormID": "005D8059"},
             {"title": "Dusty Mole Miner Pail (Crafted)",   "lvliFormID": "005D8055"},
         ],
+        # After the 6 pails are merged into a single tier-aware node, split
+        # the items into per-category nodes. Each sub-LVLI FormID below maps
+        # to a category. The renderer renders each non-unique category as its
+        # own collapsible expand (Currency, Junk & Scrap, Goodies, Contextual
+        # Ammo), and the unique categories (Rare + Player Titles) stay in the
+        # Unique Event Rewards checklist.
+        "splitByCategory": {
+            "categories": [
+                {"key": "currency",        "label": "Currency",        "isUnique": False,
+                 "subLvliFormIDs": ["005D8058", "0075062D"]},
+                {"key": "junk-scrap",      "label": "Junk & Scrap",    "isUnique": False,
+                 "subLvliFormIDs": ["005A7544"]},
+                {"key": "goodies",         "label": "Goodies",         "isUnique": False,
+                 "subLvliFormIDs": ["0059CACE"]},
+                {"key": "contextual-ammo", "label": "Contextual Ammo", "isUnique": False,
+                 "subLvliFormIDs": ["006A2511"]},
+                {"key": "unique",          "label": "Hunt for the Treasure Hunter Rewards",
+                 "isUnique": True,
+                 "subLvliFormIDs": ["005D8057", "007B2464"]},
+            ],
+        },
     },
     "night-of-the-radtoads-all-rewards": {
         "name": "Night of the Radtoads",
@@ -1467,11 +1488,21 @@ def _process_container_event(event_def, slug, resolver, data):
 
     merged = _merge_tier_nodes(nodes_per_tier)
     tree = []
-    if merged:
+    split_config = event_def.get("splitByCategory")
+    if merged and split_config:
+        # Split the merged node into per-category nodes (e.g. Treasure Hunter
+        # → Currency / Junk & Scrap / Goodies / Contextual Ammo / Unique).
+        # Each category node holds the items whose FormID belongs to one of
+        # that category's sub-LVLIs. Items in non-unique categories will be
+        # rendered as collapsible expands; isUniqueReward category items go
+        # in the Unique Event Rewards checklist.
+        for cat_node in _split_categories(merged, split_config, resolver):
+            tree.append(cat_node)
+    elif merged:
         merged["label"] = event_def["name"] + " Rewards"
         # Container events: the entire merged container content IS the unique
-        # reward pool — Halloween/Holiday/Treasure Hunter players collect these
-        # items as their event prize, not as generic activity rewards.
+        # reward pool — Halloween/Holiday players collect these items as
+        # their event prize, not as generic activity rewards.
         merged["isUniqueReward"] = True
         _collapse_redundant_tiers(merged)
         tree.append(merged)
@@ -1485,6 +1516,86 @@ def _process_container_event(event_def, slug, resolver, data):
         "rewards":         flat_rewards,
         "groups":          event_def.get("groups"),
     }
+
+
+def _split_categories(merged_node, split_config, resolver):
+    """
+    Split a merged container node's items into per-category sub-nodes.
+
+    Each category in split_config["categories"] lists one or more
+    sub-LVLI FormIDs. We resolve_deep each sub-LVLI to discover which
+    FormIDs belong to that category, then bucket the merged node's items
+    accordingly. Returns a list of category nodes in the order declared
+    in split_config (so the renderer can rely on a stable layout).
+    """
+    categories = split_config.get("categories") or []
+    if not categories:
+        return [merged_node]
+
+    # Build FormID → category_key map by resolving each sub-LVLI.
+    fid_to_cat = {}
+    for cat in categories:
+        cat_key = cat.get("key", "")
+        for sub_fid in cat.get("subLvliFormIDs") or []:
+            try:
+                sub_items = resolver.resolve_deep(sub_fid)
+            except Exception as e:
+                print("    [WARN] resolve_deep({}) failed: {}".format(sub_fid, e))
+                continue
+            for sub_it in sub_items:
+                fid = (sub_it.get("formid") or "").lower()
+                if fid and fid not in fid_to_cat:
+                    fid_to_cat[fid] = cat_key
+
+    # Bucket the merged node's items by category.
+    items_by_cat = {c["key"]: [] for c in categories}
+    unmatched = []
+    for it in merged_node.get("items", []):
+        fid = (it.get("formid") or "").lower()
+        cat_key = fid_to_cat.get(fid)
+        if cat_key and cat_key in items_by_cat:
+            items_by_cat[cat_key].append(it)
+        else:
+            unmatched.append(it)
+
+    if unmatched:
+        # Surface items we couldn't categorize — usually a sign that a
+        # sub-LVLI FormID in the config is wrong or out of date.
+        sample = ", ".join(
+            "{} ({})".format(it.get("name", "?"), it.get("formid", "?"))
+            for it in unmatched[:5]
+        )
+        print("    [WARN] {} item(s) not categorized; sample: {}".format(
+            len(unmatched), sample))
+
+    # Build output nodes (preserve declaration order).
+    out_nodes = []
+    for cat in categories:
+        cat_items = items_by_cat.get(cat["key"]) or []
+        if not cat_items:
+            continue
+        node = {
+            "type":         "lvli",
+            "formid":       merged_node.get("formid", ""),
+            "edid":         merged_node.get("edid", ""),
+            "label":        cat.get("label", cat["key"]),
+            "categoryKey":  cat["key"],
+            "useAll":       merged_node.get("useAll", False),
+            "entryRate":    merged_node.get("entryRate", 100.0),
+            "gmrwDropRate": merged_node.get("gmrwDropRate", 100.0),
+            "tierLabel":    None,
+            "conditions":   [],
+            "items":        cat_items,
+        }
+        if cat.get("isUnique"):
+            node["isUniqueReward"] = True
+        # Per-item tier collapse — drop the tiers array when every tier
+        # has identical qty + rate so the table shows a single row instead
+        # of 6 redundant tier rows.
+        _collapse_redundant_tiers(node)
+        out_nodes.append(node)
+
+    return out_nodes
 
 
 # ---------------------------------------------------------------------------
