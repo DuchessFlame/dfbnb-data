@@ -586,6 +586,14 @@ const SKIN_WEAPON_PREREQS = [
   },
 ];
 
+// COBJ EDIDs to explicitly exclude from the Big Bloom calculator. These are
+// COBJ rows whose CNAM points at a leveled list (LL_*) rather than a real
+// ARMO/MISC item, so they have no display name, no real components, and
+// shouldn't appear in the user-facing dropdown.
+const EXCLUDE_COBJ_EDIDS = new Set([
+  "SSE_workshop_co_Displays_HybridFlowers"
+]);
+
 function buildBigBloomCraftingJson(cobjPath, outPath) {
   const { rows } = parseTSV(readText(cobjPath));
 
@@ -635,6 +643,10 @@ function buildBigBloomCraftingJson(cobjPath, outPath) {
 
       // Always require an EDID
       if (!edid) return false;
+
+      // Explicit exclude list (e.g. COBJ rows that point at LL_* leveled lists
+      // rather than real items — no display name, junk in the dropdown).
+      if (EXCLUDE_COBJ_EDIDS.has(stripQuotes(edid))) return false;
 
       // NEW RULE: if the crafted item name exists in big_bloom_images.json, include it
       if (craftedName && imageKeys.has(craftedName.toLowerCase())) return true;
