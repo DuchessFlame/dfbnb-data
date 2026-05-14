@@ -2091,6 +2091,15 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 if cond_val:
                     conditions.append(cond_val)
 
+        # MinLvl GLOBs in the ChanceNone slot encode a player level requirement,
+        # not a drop chance.  Extract the GLOB's FLTV value and surface it as a
+        # condition so the JS can display "Requires player level X+".
+        if _is_minlvl and _ecn_glob:
+            _minlvl_fid = _ecn_glob.split(":")[0] if ":" in _ecn_glob else _ecn_glob
+            _minlvl_val = glob_vals.get(_minlvl_fid)
+            if _minlvl_val is not None and int(float(_minlvl_val)) > 1:
+                conditions.append(f"GetLevel() >= {int(float(_minlvl_val))}")
+
         # For UseAll lists, if entry has a GetRandomPercent condition (with a GLOB
         # or literal threshold), use that as the effective entry rate.  xEdit can't
         # resolve GLOB-referenced conditions, leaving apriori=1.0 (100%).
@@ -4668,16 +4677,18 @@ for key, pages in sorted(reward_pages_by_key.items()):
                     seen_fids = {}
                     for ri in region_items_raw:
                         fid2 = ri["formid"]
+                        rgn2 = ri["region"] or ""
                         ch2  = ri["chance"] * cond_mult
-                        if fid2 not in seen_fids or ch2 > seen_fids[fid2]["dropRate"] / 100:
+                        dedup_key = (fid2, rgn2)
+                        if dedup_key not in seen_fids or ch2 > seen_fids[dedup_key]["dropRate"] / 100:
                             nm2 = resolve_name_for_formid(fid2)
-                            seen_fids[fid2] = {
+                            seen_fids[dedup_key] = {
                                 "formid":   fid2,
                                 "name":     nm2,
                                 "dropRate": pct(ch2),
                                 "qty":      1,
                                 "isPlan":   any(n.startswith(("Plan:", "Recipe:")) for n in [nm2] if n),
-                                "region":   ri["region"] or "",
+                                "region":   rgn2,
                                 "lctn":     ri["lctn"] or "",
                             }
                     items = sorted(seen_fids.values(),
