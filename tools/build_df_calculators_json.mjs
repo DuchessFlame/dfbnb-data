@@ -63,17 +63,43 @@ function splitPipe(s) {
   return t.split("|").map(x => x.trim()).filter(Boolean);
 }
 
-function parseFVPA(fvpaRaw) {
-  // Supports simple exports like:
-  //   "Cloth:3 | Embergold:5"
-  // And also xEdit-ish exports like:
-  //   c_Cloth "Cloth" [CMPO:001223C7]:3 | SSE_Tier2_Embergold_MiscItem "Embergold" [MISC:007ACA4D]:5
-  //
-  // Output names must be clean display names so dependency matching works.
+// Convert a component EDID (or keyword EDID) into a clean display name.
+//   c_Cloth                            -> "Cloth"
+//   c_NuclearMaterial                  -> "Nuclear Material"
+//   SSE_Tier5_Gigablossom_MiscItem     -> "Gigablossom"
+//   SSE_Tier1_CarnalWeeper_MiscItem    -> "Carnal Weeper"
+//   SSE_Tier2_GreenInvader_MiscItem    -> "Green Invader"
+function prettifyComponentEdid(raw) {
+  let n = String(raw || "").trim();
+  if (!n) return "";
 
-  // Strip surrounding quotes from the whole FVPA string first.
-  // xEdit sometimes wraps the entire cell value in double-quotes:
-  //   "\"Cloth:3 | Embergold:5\"" -> "Cloth:3 | Embergold:5"
+  if (/^c_/.test(n)) {
+    n = n.replace(/^c_/, "");
+  } else {
+    const m = n.match(/^SSE_Tier\d+_(.+?)_MiscItem$/);
+    if (m) {
+      n = m[1];
+    } else {
+      n = n.replace(/^SSE_/, "").replace(/_MiscItem$/, "");
+    }
+  }
+
+  n = n.replace(/_/g, " ")
+       .replace(/([a-z])([A-Z])/g, "$1 $2")
+       .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+       .replace(/\s+/g, " ")
+       .trim();
+  return n;
+}
+
+function parseFVPA(fvpaRaw) {
+  // FVPA cell format from xEdit COBJ export:
+  //   <edid>:<qty>:<groupOrEmpty>   joined by " | "
+  // e.g.  c_Cloth:3:  |  SSE_Tier5_Gigablossom_MiscItem:5:
+  //       c_NuclearMaterial:1:COBJ_Workshop_NuclearMaterial
+  // Older / hand-edited inputs may use "<name>:<qty>" without the trailing
+  // group colon — handled by the fallback regex below.
+
   let t = safeText(fvpaRaw).replace(/^"+|"+$/g, "").trim();
   if (!t) return [];
 
@@ -82,39 +108,31 @@ function parseFVPA(fvpaRaw) {
     .map(x => x.trim())
     .filter(Boolean)
     .map(part => {
-      // Pull qty from the end: ":5" (allow trailing junk like quotes/spaces)
-      const qtyMatch = part.match(/:\s*(\d+)\s*$/);
-      let qty = qtyMatch ? parseInt(qtyMatch[1], 10) : 1;
+      let edid = "";
+      let qty  = 0;
 
-      // Name is everything before the last ":<qty>"
-      let nameRaw = qtyMatch ? part.slice(0, qtyMatch.index).trim() : part.trim();
-
-      // If name contains a quoted display name, prefer that
-      const quoted = extractQuotedName(nameRaw);
-      if (quoted) nameRaw = quoted;
-
-      // Some exports accidentally include ":<qty>" inside the quoted name (e.g. "Embergold:5").
-      // If so, split it so recursion can match craftable items properly.
-      const embedded = nameRaw.match(/^(.*?):\s*(\d+)\s*$/);
-      if (embedded) {
-        nameRaw = embedded[1].trim();
-        if (!qtyMatch) qty = parseInt(embedded[2], 10) || qty;
+      let m = part.match(/^(.+?):\s*(\d+)\s*:\s*[^:]*$/);
+      if (m) {
+        edid = m[1].trim();
+        qty  = parseInt(m[2], 10) || 0;
+      } else {
+        m = part.match(/^(.+?):\s*(\d+)\s*$/);
+        if (m) {
+          edid = m[1].trim();
+          qty  = parseInt(m[2], 10) || 0;
+        } else {
+          edid = part.trim();
+          qty  = 1;
+        }
       }
 
-      // Strip surrounding quotes if it's like "Cloth"
-      nameRaw = nameRaw.replace(/^"+|"+$/g, "").replace(/^'+|'+$/g, "").trim();
+      const quoted = extractQuotedName(edid);
+      if (quoted) edid = quoted;
+      edid = edid.replace(/^"+|"+$/g, "").replace(/^'+|'+$/g, "").trim();
+      edid = edid.replace(/\s*\[[^\]]+\]\s*$/g, "").trim();
 
-      // Strip trailing [FORM:ID] if it survived
-      nameRaw = nameRaw.replace(/\s*\[[^\]]+\]\s*$/g, "").trim();
-
-      // If it still looks like "EDID Name" with EDID token first, keep last chunk after first space
-      // (Conservative: only do this when we see an EDID-ish token)
-      const tok = nameRaw.split(/\s+/);
-      if (tok.length >= 2 && /^[A-Za-z0-9_]+$/.test(tok[0]) && tok[0].includes("_")) {
-        nameRaw = nameRaw.slice(tok[0].length).trim();
-      }
-
-      return { name: nameRaw || part.trim(), qty };
+      const name = prettifyComponentEdid(edid) || edid;
+      return { name, qty };
     })
     .filter(x => safeText(x.name) && Number(x.qty) > 0);
 }
