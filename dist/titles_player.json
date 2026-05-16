@@ -1,5 +1,5 @@
 {
-  "generatedAt":"2026-05-16T09:37:21+00:00",
+  "generatedAt":"2026-05-16T11:23:31+00:00",
   "type":"player_titles",
   "items":[
     {
@@ -2702,56 +2702,6 @@
       "formId":"007B2469",
       "edid":"PlayerTitles_Prefix_Festive",
       "titleMale":"Festive",
-      "imageUrl":null,
-      "titleFemale":"Festive",
-      "title":"Festive",
-      "isPrefix":true,
-      "isSuffix":false,
-      "affixType":"Prefix",
-      "conditions":[
-        "Top:Subject.HasLearnedRecipe(PlayerTitle_co_CondProxy_Prefix_Festive [COBJ:007B245A]) = 1.000000"
-      ],
-      "condCount":1,
-      "howToObtain":"Open Crafted Holiday Gifts during the Holiday Scorched seasonal event",
-      "dropRate":"Loot Tier 1 - 0%\nLoot Tier 2 - 0%\nLoot Tier 3 - 0%\nCrafted Tier 1 - 5%\nCrafted Tier 2 - 10%\nCrafted Tier 3 - 25%",
-      "releaseDate":"2026-03-26",
-      "releaseYear":2026,
-      "isNew":false,
-      "tradeable":false,
-      "unlockType":"event_activity",
-      "seasonNumber":null,
-      "cutContent":false,
-      "debug":{
-        "cobjToken":"007B245A",
-        "cobjFormId":"007B245A",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[
-            "007B2463"
-          ],
-          "candidateLvliFormIdsFiltered":[
-            "007B2463"
-          ]
-        },
-        "bookLvliGmrw":{
-          "candidateLvliFormIdsAll":[
-            "007B2463"
-          ],
-          "candidateLvliFormIdsFiltered":[
-            "007B2463"
-          ]
-        },
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"PlayerTitle_Recipe_Prefix_Festive",
-        "cobjGNAM_FULL":"Player Title: Festive",
-        "cobjGNAM_FormID":"007B2443"
-      }
-    },
-    {
-      "formId":"0084CCE5",
-      "edid":"ATX_PlayerTitles_Prefix_Festive",
-      "titleMale":"Festive",
       "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_prefix_festive.avif",
       "titleFemale":"Festive",
       "title":"Festive",
@@ -2759,13 +2709,14 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
+        "Top:Subject.HasLearnedRecipe(PlayerTitle_co_CondProxy_Prefix_Festive [COBJ:007B245A]) = 1.000000",
         "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Festive \"\"\"Festive\"\" Player Title Prefix\" [ENTM:0084CCDC]) = 1.000000"
       ],
-      "condCount":1,
-      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
-      "dropRate":"N/A",
-      "releaseDate":"2025-01-01",
-      "releaseYear":2025,
+      "condCount":2,
+      "howToObtain":"Open Crafted Holiday Gifts during the Holiday Scorched seasonal event",
+      "dropRate":"Loot Tier 1 - 0%\nLoot Tier 2 - 0%\nLoot Tier 3 - 0%\nCrafted Tier 1 - 5%\nCrafted Tier 2 - 10%\nCrafted Tier 3 - 25%",
+      "releaseDate":"2026-03-26",
+      "releaseYear":2026,
       "isNew":false,
       "tradeable":false,
       "unlockType":"atx",
@@ -5493,7 +5444,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Trooper \"\"\"N.C.R. Trooper\"\" Player Title Suffix\" [ENTM:0085B60B]) = 1.000000"
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Trooper \"\"\"NCR Trooper\"\" Player Title Suffix\" [ENTM:0085B60B]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
@@ -6074,6 +6025,36 @@
           "ATX_ENTM_PlayerTitles_Suffix_Prospector"
         ],
         "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_Prospector"
+      }
+    },
+    {
+      "formId":"008F1090",
+      "edid":"ATX_PlayerTitles_Suffix_Protector",
+      "titleMale":"Protector",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_suffix_protector.avif",
+      "titleFemale":"Protector",
+      "title":"Protector",
+      "isPrefix":false,
+      "isSuffix":true,
+      "affixType":"Suffix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Protector \"Protector\" [ENTM:008F108B]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-05-16",
+      "releaseYear":2026,
+      "isNew":true,
+      "tradeable":false,
+      "unlockType":"atx",
+      "seasonNumber":null,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_PlayerTitles_Suffix_Protector"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_Protector"
       }
     },
     {
@@ -8918,18 +8899,53 @@
       "isPrefix":true,
       "isSuffix":false,
       "affixType":"Prefix",
-      "conditions":[],
-      "condCount":0,
-      "howToObtain":"Unlocked by Default",
-      "dropRate":"N/A",
+      "conditions":[
+        "Top:Subject.HasLearnedRecipe(MTRZ05_PlayerTitle_co_CondProxy_Prefix_Treasurer [COBJ:008952DD]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Complete the Event/Activity: (unknown)",
+      "dropRate":"2%",
       "releaseDate":"2026-03-26",
       "releaseYear":2026,
       "isNew":false,
       "tradeable":false,
-      "unlockType":"default",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
-      "debug":{}
+      "debug":{
+        "cobjToken":"008952DD",
+        "cobjFormId":"008952DD",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[
+            "0032AD5F",
+            "0032AD60",
+            "0032AD61"
+          ],
+          "candidateLvliFormIdsFiltered":[
+            "0032AD5F",
+            "0032AD60",
+            "0032AD61"
+          ]
+        },
+        "bookLvliGmrw":{
+          "candidateLvliFormIdsAll":[
+            "0032AD5F",
+            "0032AD60",
+            "0032AD61"
+          ],
+          "candidateLvliFormIdsFiltered":[
+            "0032AD5F",
+            "0032AD60",
+            "0032AD61"
+          ]
+        },
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"MTRZ05_PlayerTitle_Recipe_Prefix_Treasurer",
+        "cobjGNAM_FULL":"Player Title: Treasurer",
+        "cobjGNAM_FormID":"008952DC"
+      }
     },
     {
       "formId":"00872E84",
@@ -10241,6 +10257,36 @@
       "seasonNumber":null,
       "cutContent":true,
       "debug":{}
+    },
+    {
+      "formId":"0084CCE5",
+      "edid":"zzzATX_PlayerTitles_Prefix_Festive",
+      "titleMale":"Festive",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_prefix_festive.avif",
+      "titleFemale":"Festive",
+      "title":"Festive",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Festive \"\"\"Festive\"\" Player Title Prefix\" [ENTM:0084CCDC]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
+      "dropRate":"N/A",
+      "releaseDate":"2025-01-01",
+      "releaseYear":2025,
+      "isNew":false,
+      "tradeable":false,
+      "unlockType":"atx",
+      "seasonNumber":null,
+      "cutContent":true,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_PlayerTitles_Prefix_Festive"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Prefix_Festive"
+      }
     },
     {
       "formId":"0085B132",
