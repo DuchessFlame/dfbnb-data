@@ -429,12 +429,12 @@ def _legendary_rank_label(qrlr_str, qrri_str):
     if min_rank is None and max_rank is None:
         return "Legendary Items", None, None
     if min_rank is not None and max_rank is not None and min_rank != max_rank:
-        return "Legendary Items ({}–{}★)".format(min_rank, max_rank), min_rank, max_rank
+        return "{}–{}★ Legendary Items".format(min_rank, max_rank), min_rank, max_rank
     rank = max_rank if max_rank is not None else min_rank
     if rank == 1:
-        return "Legendary Items (1★)", rank, rank
+        return "1★ Legendary Items", rank, rank
     if rank is not None:
-        return "Legendary Items ({}★)".format(rank), rank, rank
+        return "{}★ Legendary Items".format(rank), rank, rank
     return "Legendary Items", None, None
 
 

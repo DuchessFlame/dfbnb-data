@@ -129,12 +129,12 @@ LVLI_LABEL_PATTERNS = [
     # Enclave Plasma Gun mod boxes
     (r"(?i)enclave.*plasmagun|plasmagun.*all", "Enclave Plasma Gun Mod Boxes"),
     # Legendary items: generative star-count labels from Rank/Star suffixes
-    # e.g. RA_LL_Rewards_LegendaryItems_Rank1 → "Legendary Items (1★)"
+    # e.g. RA_LL_Rewards_LegendaryItems_Rank1 → "1★ Legendary Items"
     (r"(?i)LegendaryItems.*?_Rank(\d+)$",
-     lambda m: f"Legendary Items ({m.group(1)}\u2605)"),
-    # e.g. LLS_Loot_Legendary1Star → "Legendary Items (1★)"
+     lambda m: f"{m.group(1)}\u2605 Legendary Items"),
+    # e.g. LLS_Loot_Legendary1Star → "1★ Legendary Items"
     (r"(?i)Legendary(\d+)Star$",
-     lambda m: f"Legendary Items ({m.group(1)}\u2605)"),
+     lambda m: f"{m.group(1)}\u2605 Legendary Items"),
     # Legendary sub-pools: armour, power armour, weapons
     (r"(?i)LegendaryItems_LL_Armor_All",       "Legendary Armour"),
     (r"(?i)LegendaryItems_LL_PowerArmor_All",  "Legendary Power Armour"),
@@ -509,16 +509,16 @@ _MOD_SLOT_LABELS = {
     "appearance": "Appearance",
     "paint":      "Appearance",
     "weapon_paint": "Appearance",
-    "legendary1":   "Legendary 1★",
-    "legendary_weapon1": "Legendary 1★",
-    "legendary2":   "Legendary 2★",
-    "legendary_weapon2": "Legendary 2★",
-    "legendary3":   "Legendary 3★",
-    "legendary_weapon3": "Legendary 3★",
-    "legendary4":   "Legendary 4★",
-    "legendary_weapon4": "Legendary 4★",
-    "legendary5":   "Legendary 5★",
-    "legendary_weapon5": "Legendary 5★",
+    "legendary1":   "1★ Legendary",
+    "legendary_weapon1": "1★ Legendary",
+    "legendary2":   "2★ Legendary",
+    "legendary_weapon2": "2★ Legendary",
+    "legendary3":   "3★ Legendary",
+    "legendary_weapon3": "3★ Legendary",
+    "legendary4":   "4★ Legendary",
+    "legendary_weapon4": "4★ Legendary",
+    "legendary5":   "5★ Legendary",
+    "legendary_weapon5": "5★ Legendary",
     "custom":    "Unique",
     "receiver":  "Receiver",
     "grip":      "Grip",
@@ -574,7 +574,7 @@ def _classify_mod_slot(mod_ref_str):
 def _mod_slot_sort_key(slot):
     """Sort mod slots: Legendary stars first, then Unique/Custom, then everything else."""
     label = slot.get("label", "")
-    if label.startswith("Legendary"):
+    if "Legendary" in label:
         # Extract star number for sub-sorting (1★ before 2★ etc.)
         m = re.search(r"(\d)", label)
         return (0, int(m.group(1)) if m else 0)
@@ -889,16 +889,16 @@ for fid, combos in _weap_combos.items():
 
 # Armour slot labels — same pattern as weapons but armour-specific keywords
 _ARMOR_MOD_SLOT_LABELS = {
-    "legendary_armor1": "Legendary 1★",
-    "legendary_armor2": "Legendary 2★",
-    "legendary_armor3": "Legendary 3★",
-    "legendary_armor4": "Legendary 4★",
-    "legendary_armor5": "Legendary 5★",
-    "legendary1":       "Legendary 1★",
-    "legendary2":       "Legendary 2★",
-    "legendary3":       "Legendary 3★",
-    "legendary4":       "Legendary 4★",
-    "legendary5":       "Legendary 5★",
+    "legendary_armor1": "1★ Legendary",
+    "legendary_armor2": "2★ Legendary",
+    "legendary_armor3": "3★ Legendary",
+    "legendary_armor4": "4★ Legendary",
+    "legendary_armor5": "5★ Legendary",
+    "legendary1":       "1★ Legendary",
+    "legendary2":       "2★ Legendary",
+    "legendary3":       "3★ Legendary",
+    "legendary4":       "4★ Legendary",
+    "legendary5":       "5★ Legendary",
     "paint":      "Appearance",
     "material_paint": "Appearance",
     "lining":     "Lining",
