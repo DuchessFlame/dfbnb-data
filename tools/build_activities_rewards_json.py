@@ -3712,20 +3712,51 @@ for key, pages in sorted(reward_pages_by_key.items()):
                     _total = sum(probs.values())
                     if _total > 1.0001:
                         probs = {k: v / _total for k, v in probs.items()}
-                    items = sorted([
-                        {
+
+                    # For Power Armor and PA mod pools, attach per-item drop
+                    # conditions (including "Requires player level X+" derived
+                    # from MinLvl GLOBs).  Conditions come from resolve_lvli_-
+                    # items_deep() which already does the recursive walk and
+                    # extracts MinLvl from LVLG, LVLT, the misplaced ChanceNone
+                    # GLOB slot, and LVLV.  JS renders these as a
+                    # "Drop Conditions:" row above the Technical block.
+                    _is_pa_pool = (
+                        "powerarmor" in lvli_edid_lower
+                        or "power_armor" in lvli_edid_lower
+                        or "power_armour" in lvli_edid_lower
+                    )
+                    _pa_conds_by_fid = {}
+                    if _is_pa_pool:
+                        try:
+                            _deep_items = resolve_lvli_items_deep(formid)
+                        except Exception:
+                            _deep_items = []
+                        for _di in _deep_items:
+                            _dfid = _di.get("formid")
+                            _dconds = _di.get("conditions") or []
+                            if not _dfid or not _dconds:
+                                continue
+                            existing = _pa_conds_by_fid.setdefault(_dfid, [])
+                            for _c in _dconds:
+                                if _c not in existing:
+                                    existing.append(_c)
+
+                    items = []
+                    for fid, ch in probs.items():
+                        _name = resolve_name_for_formid(fid)
+                        _entry = {
                             "formid": fid,
-                            "name": resolve_name_for_formid(fid),
+                            "name": _name,
                             "dropRate": pct(ch * cond_mult),
                             "qty": 1,
-                            "isPlan": any(
-                                n.startswith(("Plan:", "Recipe:"))
-                                for n in [resolve_name_for_formid(fid)]
-                                if n
-                            ),
+                            "isPlan": bool(_name and _name.startswith(("Plan:", "Recipe:"))),
                         }
-                        for fid, ch in probs.items()
-                    ], key=lambda x: (x["name"] or "", x["formid"] or ""))
+                        if _is_pa_pool:
+                            _cs = _pa_conds_by_fid.get(fid)
+                            if _cs:
+                                _entry["conditions"] = simplify_conditions(_cs)
+                        items.append(_entry)
+                    items.sort(key=lambda x: (x["name"] or "", x["formid"] or ""))
 
                 pt, ttl = classify_pool(formid)
                 pool_entry = {
