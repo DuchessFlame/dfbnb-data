@@ -32,10 +32,14 @@ OUT_PATH = os.path.join(ROOT, "dist", "calculators", "weak_spot_multipliers.json
 # ---------------------------------------------------------------------------
 # EDID → Display Name(s) override mapping
 # ---------------------------------------------------------------------------
-# This dict overrides the RefBy_RACE_Names from the TSV.  Use it when:
-#   - The RACE FULL name is ugly or too technical (e.g. "HumanRace" → "Human Enemies")
-#   - One EDID should appear under multiple display names (e.g. Dog + Wolf)
-#   - A creature needs a custom label (e.g. "Encrypted Assaultron" variant)
+# Default behaviour: use the RefBy_RACE_Names FULL value from the TSV as-is.
+# Only override when:
+#   - The RACE FULL name is wrong or too generic (Gorilla→Mega Sloth, Human→Human Enemies)
+#   - The name is ugly CamelCase that needs spacing (SentryBot→Sentry Bot)
+#   - The RefBy is empty (no RACE references this BPTD)
+#   - One EDID should appear under multiple display names (ViciousDog → Dog + Wolf)
+#   - The entry needs a Raid/Nuke Boss flag prefix
+#   - The record is internal/companion and should be skipped (empty list)
 #
 # If an EDID is listed here, ONLY these names are used (RefBy is ignored).
 # If an EDID is NOT here, the script uses the first RefBy_RACE_Names value.
@@ -43,24 +47,55 @@ OUT_PATH = os.path.join(ROOT, "dist", "calculators", "weak_spot_multipliers.json
 # ---------------------------------------------------------------------------
 
 EDID_TO_NAMES = {
-    # Overrides where RACE name isn't player-friendly or needs splitting
-    "HumanBodyPartData":                ["Human Enemies"],
-    "ScorchedBodyPartData":             ["Scorched"],
-    "ViciousDogBodyPartData":           ["Dog", "Wolf"],
-    "FeralGhoulBodyPartData":           ["Feral Ghoul", "Feral Ghoul Glowing One"],
-    "AssaultronBodyPartData":           ["Assaultron", "Encrypted Assaultron"],
-    "GorillaBodyPartData":              ["Mega Sloth"],
-    "FEVHoundBodyPartData":             ["Mutant Hound"],
-    "PowerArmorBodyPartData":           ["Power Armor Enemies"],
-    "OwlBodyPartData":                  ["Owlet"],
-    "RadSquirrelBodyPartData":          ["Squirrel"],
-    "TurretTripodBodyPartData":         ["Turret Tripod", "Turret Workshop"],
-    "DLC01_TurretBubbleBodyPartData":   ["Turret Defender"],
-    "MrHandyCreateABotBodyPartData":    ["Mr Handy"],  # merges into same entry as MrHandyBodyPartData
+    # --- Wrong name: RefBy doesn't match in-game display name ---
+    "HumanBodyPartData":                ["Human Enemies"],        # RefBy='Human' (too generic)
+    "GorillaBodyPartData":              ["Mega Sloth"],           # RefBy='Gorilla' (wrong creature)
+    "FEVHoundBodyPartData":             ["Mutant Hound"],         # RefBy='FEV Hound' (internal name)
+    "OwlBodyPartData":                  ["Owlet"],                # RefBy='Owl' (in-game = Owlet)
+    "VertibirdBodyPartData":            ["Vertibird"],            # RefBy='Vertibot' (wrong)
+    "SupermutantBehemothBodyPartData":  ["Super Mutant Behemoth"],# RefBy='Behemoth' (needs context)
+    "DLC01_TurretBubbleBodyPartData":   ["Turret Defender"],      # RefBy='Spotlight' (wrong)
+    "FeralGhoulGlowingOneBodyPartData": ["Feral Ghoul Glowing One"], # RefBy='Feral Ghoul' (same as base)
 
-    # Skip these — internal/companion records, not enemies
+    # --- Prettify ugly CamelCase / no-space RACE names ---
+    "PowerArmorBodyPartData":           ["Power Armor Enemies"],  # RefBy='PowerArmor'
+    "SentryBotBodyPartData":            ["Sentry Bot"],           # RefBy='SentryBot'
+    "EyeBotBodyPartData":               ["Eyebot"],              # RefBy='EyeBot'
+    "MegaSlothBodyPartData":            ["Mega Sloth"],           # RefBy='Megasloth'
+    "RadHogBodyPartData":               ["Rad Hog"],              # RefBy='RadHog'
+    "RadTurkeyBodyPartData":            ["Rad Turkey"],           # RefBy='RadTurkey'
+    "DLC03RoboBrainBodyPartData":       ["Robobrain"],            # RefBy='RoboBrain'
+
+    # --- Split one BPTD into multiple display entries ---
+    "ViciousDogBodyPartData":           ["Dog", "Wolf"],          # RefBy='Wild Mongrel'
+
+    # --- Empty RefBy: need explicit name ---
+    "EncryptedAssaultronBodyPartData":  ["Encrypted Assaultron"],
+    "OvergrownElderBodyPartData":       ["Overgrown Elder"],
+    "DLC03_TurretDefenderBodyPartData": ["Turret Defender"],
+
+    # --- Nuke Bosses: add 'Nuke Boss -' flag ---
+    "WendigoColossusBodyPartData":      ["Nuke Boss - Wendigo Colossus (includes Earle Williams)"],
+    "UltraciteAbominationBodyPartData": ["Nuke Boss - Ultracite Abomination (Titan)"],
+    "StormBossBodyPartData":            ["Nuke Boss - Storm Goliaths"],
+
+    # --- Raid Bosses: add 'Raid -' flag ---
+    "RD01_Enc01_GuardianBotBodyPartData":         ["Raid - Guardian Bot EN06"],
+    "RD01_Enc06_ScorchTongueHeadBodyPartData":    ["Raid - Scorchtongue Head"],
+    "RD01_Enc06_ScorchTongueBodyBodyPartData":    ["Raid - Scorchtongue Body"],
+    "RD01_Enc06_ScorchTongueTailBodyPartData":    ["Raid - Scorchtongue Tail"],
+
+    # --- Skip: internal/companion/duplicate/test records ---
     "DefaultBodyPartData":              [],
     "DogmeatBodyPartData":              [],
+    "CatPetBodyPartData":               [],
+    "DogCollectronBodyPartData":        [],
+    "RedRocketRobotBodyPartData":       [],
+    "DLC04_AnimatronicAlienBodyPartData": [],
+    "zzz_Test01BodyPartData":           [],
+    "VultureBodyPartData":              [],
+    "HoneyBeastBeeSwarmBodyPartData":   [],
+    "DeathclawPetBodyPartData":         [],  # duplicate of DeathclawBodyPartData
 }
 
 # EDIDs to completely skip (no output at all)
@@ -97,6 +132,10 @@ PART_NAME_OVERRIDES = {
         "RightFoot": "Right Foot",
     },
     "GorillaBodyPartData": {
+        "LeftFoot": "Left Foot",
+        "RightFoot": "Right Foot",
+    },
+    "MegaSlothBodyPartData": {
         "LeftFoot": "Left Foot",
         "RightFoot": "Right Foot",
     },
@@ -158,16 +197,6 @@ PART_NAME_OVERRIDES = {
     "mirelurkHunterBodyPartData": {
         "Left foot": "Left Foot",
     },
-}
-
-
-# ---------------------------------------------------------------------------
-# Encrypted Assaultron overrides — different multipliers to the base Assaultron
-# ---------------------------------------------------------------------------
-
-ENCRYPTED_ASSAULTRON_OVERRIDES = {
-    "Head":              0.33,
-    "Combat Inhibitor":  1.00,
 }
 
 
@@ -300,15 +329,6 @@ def build_from_tsv():
                 if name not in raw:
                     raw[name] = []
                 raw[name].append((part_name, mult))
-
-    # Apply Encrypted Assaultron overrides
-    if "Encrypted Assaultron" in raw:
-        updated = []
-        for limb, mult in raw["Encrypted Assaultron"]:
-            if limb in ENCRYPTED_ASSAULTRON_OVERRIDES:
-                mult = ENCRYPTED_ASSAULTRON_OVERRIDES[limb]
-            updated.append((limb, mult))
-        raw["Encrypted Assaultron"] = updated
 
     # Deduplicate: keep first occurrence of each limb name per enemy
     enemies = {}
