@@ -56,14 +56,14 @@ EDID_TO_NAMES = {
     "SupermutantBehemothBodyPartData":  ["Super Mutant Behemoth"],# RefBy='Behemoth' (needs context)
     "DLC01_TurretBubbleBodyPartData":   ["Turret Defender"],      # RefBy='Spotlight' (wrong)
     "FeralGhoulGlowingOneBodyPartData": ["Feral Ghoul Glowing One"], # RefBy='Feral Ghoul' (same as base)
+    "ScorchBeastBodyPartData":          ["Scorchbeast", "Nuke Boss - Scorchbeast Queen"],
 
     # --- Prettify ugly CamelCase / no-space RACE names ---
-    "PowerArmorBodyPartData":           ["Power Armor Enemies"],  # RefBy='PowerArmor'
+    "PowerArmorBodyPartData":           ["Power Armor Enemies"],
     "SentryBotBodyPartData":            ["Sentry Bot"],           # RefBy='SentryBot'
     "EyeBotBodyPartData":               ["Eyebot"],              # RefBy='EyeBot'
     "MegaSlothBodyPartData":            ["Mega Sloth"],           # RefBy='Megasloth'
-    "RadHogBodyPartData":               ["Rad Hog"],              # RefBy='RadHog'
-    "RadTurkeyBodyPartData":            ["Rad Turkey"],           # RefBy='RadTurkey'
+    "RadTurkeyBodyPartData":            ["Thrasher"],             # RefBy='RadTurkey' (in-game = Thrasher)
     "DLC03RoboBrainBodyPartData":       ["Robobrain"],            # RefBy='RoboBrain'
 
     # --- Split one BPTD into multiple display entries ---
