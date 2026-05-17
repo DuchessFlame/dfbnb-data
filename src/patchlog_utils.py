@@ -326,7 +326,8 @@ def write_patchlog_feed(
     a, r, c = len(entry["added"]), len(entry["removed"]), len(entry["changed"])
     print(
         f"[patchlog] {feed_name}: current={entry['current']}  "
-        f"added={a}  removed={r}  changed={c}"
+        f"added={a}  removed={r}  changed={c}",
+        file=sys.stderr,
     )
 
     return entry
@@ -347,4 +348,4 @@ def write_empty_patchlog_feed(dist_dir: str, feed_name: str, current_count: int 
     feed = {"entries": [entry]}
     feed_path = os.path.join(dist_dir, feed_name)
     _write_json(feed_path, feed)
-    print(f"[patchlog] {feed_name}: empty feed (current={current_count})")
+    print(f"[patchlog] {feed_name}: empty feed (current={current_count})", file=sys.stderr)
