@@ -358,6 +358,32 @@ jobs:
           echo "BOOK_TSV=$BOOK" >> $GITHUB_ENV
           echo "Using BOOK TSV: $BOOK"
 
+      # --- MINERVA PLANS ---
+      # Folded in from dfbnb-minerva-build.yml — uses the BOOK_TSV env var
+      # set by "Pick BOOK TSV" above.
+      - name: Build Minerva Plans JSON
+        shell: bash
+        run: |
+          mkdir -p dist/minerva
+          python src/build_minerva.py "$BOOK_TSV" > dist/minerva/minerva_plans.json
+          echo "Built dist/minerva/minerva_plans.json"
+
+      - name: Sanity check Minerva output
+        run: |
+          test -f dist/minerva/minerva_plans.json \
+            && echo "OK minerva_plans.json" \
+            || (echo "MISSING minerva_plans.json" && exit 1)
+          python3 -c "
+          import json, sys
+          d = json.load(open('dist/minerva/minerva_plans.json'))
+          assert 'minerva' in d, 'Missing minerva key'
+          assert 'all_plans' in d, 'Missing all_plans key'
+          assert len(d['minerva']) > 0, 'minerva list is empty'
+          assert len(d['all_plans']) > 0, 'all_plans list is empty'
+          print(f'  Minerva plans: {len(d[\"minerva\"])}')
+          print(f'  All gold vendor plans: {len(d[\"all_plans\"])}')
+          "
+
       - name: Build Allies / Pets / Weather JSON
         run: |
           python src/build_allies_pets_weather_json.py \
@@ -597,6 +623,7 @@ jobs:
           test -f dist/seasonal_events/seasonal_events_rewards_by_page.json && echo "OK seasonal_events_rewards_by_page.json" || (echo "MISSING seasonal_events_rewards_by_page.json" && exit 1)
           test -f dist/reho/reho_rewards_by_page.json && echo "OK reho/reho_rewards_by_page.json" || (echo "MISSING reho/reho_rewards_by_page.json" && exit 1)
           test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
+          test -f dist/minerva/minerva_plans.json      && echo "OK minerva/minerva_plans.json"       || (echo "MISSING minerva/minerva_plans.json" && exit 1)
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
 
       # --- COMMIT ONCE ---

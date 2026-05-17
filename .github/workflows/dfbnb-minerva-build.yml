@@ -1,14 +1,19 @@
-name: DFBNB Minerva Build
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║  DISABLED — Folded into dfbnb-patch-build.yml (May 2026).      ║
+# ║  This file is kept as a reference only. The minerva build step ║
+# ║  now runs inside the patch build workflow after "Pick BOOK TSV" ║
+# ║  and before "Build Allies / Pets / Weather JSON".              ║
+# ╚══════════════════════════════════════════════════════════════════╝
+name: DFBNB Minerva Build (DISABLED)
 
+# All triggers removed — this workflow will never fire.
 on:
   workflow_dispatch:
-  workflow_call:
-  push:
-    branches: [ main ]
-    paths:
-      - "tsv/BOOK_Export_*.tsv"
-      - "src/build_minerva.py"
-      - ".github/workflows/dfbnb-minerva-build.yml"
+    inputs:
+      note:
+        description: "This workflow is disabled. Minerva builds run inside dfbnb-patch-build.yml."
+        required: false
+        default: "disabled"
 
 permissions:
   contents: write
