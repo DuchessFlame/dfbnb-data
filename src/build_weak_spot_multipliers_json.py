@@ -48,18 +48,19 @@ OUT_PATH = os.path.join(ROOT, "dist", "calculators", "weak_spot_multipliers.json
 
 EDID_TO_NAMES = {
     # --- Wrong name: RefBy doesn't match in-game display name ---
-    "HumanBodyPartData":                ["Human Enemies"],        # RefBy='Human' (too generic)
+    "HumanBodyPartData":                ["Human Enemies / Lost"],  # RefBy='Human' — includes Lost
     "GorillaBodyPartData":              ["Mega Sloth"],           # RefBy='Gorilla' (wrong creature)
     "FEVHoundBodyPartData":             ["Mutant Hound"],         # RefBy='FEV Hound' (internal name)
     "OwlBodyPartData":                  ["Owlet"],                # RefBy='Owl' (in-game = Owlet)
     "VertibirdBodyPartData":            ["Vertibird"],            # RefBy='Vertibot' (wrong)
     "SupermutantBehemothBodyPartData":  ["Super Mutant Behemoth"],# RefBy='Behemoth' (needs context)
     "DLC01_TurretBubbleBodyPartData":   ["Turret Defender"],      # RefBy='Spotlight' (wrong)
+    "FeralGhoulBodyPartData":           ["Feral Ghoul / Feral Lost"],  # RefBy='Feral Ghoul | Feral Lost' — combined display
     "FeralGhoulGlowingOneBodyPartData": ["Feral Ghoul Glowing One"], # RefBy='Feral Ghoul' (same as base)
     "ScorchBeastBodyPartData":          ["Scorchbeast", "Nuke Boss - Scorchbeast Queen"],
 
     # --- Prettify ugly CamelCase / no-space RACE names ---
-    "PowerArmorBodyPartData":           ["Power Armor Enemies"],
+    "PowerArmorBodyPartData":           ["Power Armor Enemies", "Raid - Theta (Bloodhound, Lynx & Vulture)"],  # Theta wear PA — have Fusion Core targetable in VATS
     "SentryBotBodyPartData":            ["Sentry Bot"],           # RefBy='SentryBot'
     "EyeBotBodyPartData":               ["Eyebot"],              # RefBy='EyeBot'
     "MegaSlothBodyPartData":            ["Mega Sloth"],           # RefBy='Megasloth'
@@ -73,6 +74,7 @@ EDID_TO_NAMES = {
     "EncryptedAssaultronBodyPartData":  ["Encrypted Assaultron"],
     "OvergrownElderBodyPartData":       ["Overgrown Elder"],
     "DLC03_TurretDefenderBodyPartData": ["Turret Defender"],
+    "DLC04_SwarmBodyPartData":          ["Bee Swarm"],             # RefBy='Swarm' (in-game = Bee Swarm)
 
     # --- Nuke Bosses: add 'Nuke Boss -' flag ---
     "WendigoColossusBodyPartData":      ["Nuke Boss - Wendigo Colossus (includes Earle Williams)"],
@@ -90,12 +92,13 @@ EDID_TO_NAMES = {
     "DogmeatBodyPartData":              [],
     "CatPetBodyPartData":               [],
     "DogCollectronBodyPartData":        [],
-    "RedRocketRobotBodyPartData":       [],
+    "RedRocketRobotBodyPartData":       ["Red Rocket Robot"],     # RefBy='Cat' (wrong)
     "DLC04_AnimatronicAlienBodyPartData": [],
     "zzz_Test01BodyPartData":           [],
     "VultureBodyPartData":              [],
     "HoneyBeastBeeSwarmBodyPartData":   [],
     "DeathclawPetBodyPartData":         [],  # duplicate of DeathclawBodyPartData
+    "RedRocketRobotBodyPartDataDUPLICATE000": [],  # Red Rocket Collectron
 }
 
 # EDIDs to completely skip (no output at all)
