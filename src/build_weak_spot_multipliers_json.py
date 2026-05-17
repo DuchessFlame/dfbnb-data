@@ -81,9 +81,9 @@ EDID_TO_NAMES = {
 
     # --- Raid Bosses: add 'Raid -' flag ---
     "RD01_Enc01_GuardianBotBodyPartData":         ["Raid - Guardian Bot EN06"],
-    "RD01_Enc06_ScorchTongueHeadBodyPartData":    ["Raid - Scorchtongue Head"],
-    "RD01_Enc06_ScorchTongueBodyBodyPartData":    ["Raid - Scorchtongue Body"],
-    "RD01_Enc06_ScorchTongueTailBodyPartData":    ["Raid - Scorchtongue Tail"],
+    "RD01_Enc06_ScorchTongueHeadBodyPartData":    ["Raid - Ultracite Terror Head"],
+    "RD01_Enc06_ScorchTongueBodyBodyPartData":    ["Raid - Ultracite Terror Body"],
+    "RD01_Enc06_ScorchTongueTailBodyPartData":    ["Raid - Ultracite Terror Tail"],
 
     # --- Skip: internal/companion/duplicate/test records ---
     "DefaultBodyPartData":              [],
