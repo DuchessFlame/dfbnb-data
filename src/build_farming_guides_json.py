@@ -732,15 +732,21 @@ def parse_fvpa(fvpa: str) -> List[Tuple[str, int]]:
         token = token.strip()
         if not token or ":" not in token:
             continue
-        edid, qty = token.rsplit(":", 1)
+        # Apr 2026 COBJ exports added a third field (keyword EDID) to each
+        # FVPA entry: "c_Wood:2:COBJ_Workshop_Wood". Earlier exports used
+        # just "c_Wood:2". Split on all colons and take index 0 = EDID,
+        # index 1 = qty; anything beyond that is ignored.
+        parts = token.split(":")
+        edid = parts[0].strip()
+        qty_str = parts[1] if len(parts) > 1 else ""
         try:
-            n = int(qty)
+            n = int(qty_str)
         except ValueError:
             try:
-                n = int(float(qty))
+                n = int(float(qty_str))
             except ValueError:
                 n = 1
-        out.append((edid.strip(), n))
+        out.append((edid, n))
     return out
 
 

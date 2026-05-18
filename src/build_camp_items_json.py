@@ -340,14 +340,16 @@ def parse_season_from_edid(edid: str) -> Optional[int]:
 
 def parse_crafting_components(fvpa: str) -> List[Dict[str, Any]]:
     """Parse 'Circuitry:2 | Glass:2 | Gear:1 | Steel:2' into list of {item, count}."""
+    # FVPA format changed Apr-2026: EDID:qty → EDID:qty:keyword_EDID
+    # Split on ":" and take parts[0]=EDID, parts[1]=qty, ignore parts[2+]
     result = []
     for part in re.split(r"\s*\|\s*", (fvpa or "").strip()):
         part = part.strip()
         if not part:
             continue
-        m = re.match(r"^([^:]+):(\d+)$", part)
-        if m:
-            result.append({"item": m.group(1).strip(), "count": int(m.group(2))})
+        tokens = part.split(":")
+        if len(tokens) >= 2 and tokens[1].strip().isdigit():
+            result.append({"item": tokens[0].strip(), "count": int(tokens[1].strip())})
         else:
             result.append({"item": part, "count": 1})
     return result

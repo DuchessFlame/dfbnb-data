@@ -205,14 +205,18 @@ def resolve_obtain(edid, form_id, xalg):
 
 def parse_components(fvpa):
     """'Steel:3 | Cloth:2' → 'Steel x3, Cloth x2'"""
+    # FVPA format changed Apr-2026: EDID:qty → EDID:qty:keyword_EDID
+    # Split on ":" and take parts[0]=EDID, parts[1]=qty, ignore parts[2+]
     if not fvpa or not fvpa.strip():
         return ""
     parts = []
     for seg in fvpa.split("|"):
         seg = seg.strip()
         if ":" in seg:
-            mat, qty = seg.split(":", 1)
-            parts.append(f"{mat.strip()} x{qty.strip()}")
+            tokens = seg.split(":")
+            mat = tokens[0].strip()
+            qty = tokens[1].strip() if len(tokens) >= 2 else "1"
+            parts.append(f"{mat} x{qty}")
         elif seg:
             parts.append(seg)
     return ", ".join(parts)
