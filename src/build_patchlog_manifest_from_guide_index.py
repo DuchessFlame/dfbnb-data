@@ -189,6 +189,13 @@ def main() -> None:
          "patchlog_latest_df_build_inspiration.json",  "df-build-inspiration"),
         ("/df/calculators/outfit-inspiration-generator/",
          "patchlog_latest_df_outfit_inspiration.json", "df-outfit-inspiration"),
+
+        # The gold-bullion calculator displays EVERY gold-vendor plan (all_plans,
+        # ~397), not just Minerva's 171-plan rotation. Give it its own feed so
+        # new plans from Samuel/Mortimer/Regs/Daily Ops actually appear in the
+        # patch log. Overrides the "/df/minerva/" prefix rule above.
+        ("/df/minerva/gold-bullion-calculator/",
+         "patchlog_latest_df_minerva_calculator.json", "df-minerva-calculator"),
     ]
 
     prefix_rules = [(norm_path(p), feed, label) for (p, feed, label) in PREFIX_RULES]
