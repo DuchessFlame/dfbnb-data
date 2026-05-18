@@ -93,8 +93,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Legendary",
         "formid": "0088851D",
-        "subtitle": ("Container with multiple sub-pools - 4 types "
-                     "(Ranged / Melee / PA / Armor)"),
+        "subtitle": "Each list rolled when you loot the boss · 4 reward lists (Ranged / Melee / PA / Armor)",
         "dropRate": 100,
         "children": [
             {"label": "Weapons (Ranged)", "formid": "00888524", "dropRate": 25,
@@ -124,7 +123,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Bobbleheads",
         "formid": "00888515",
-        "subtitle": "Guaranteed drop - 1 item",
+        "subtitle": "Guaranteed drop · 1 item",
         "dropRate": 100,
         "items": [{"name": "Bobblehead Box", "formid": "008B0D63", "sig": "ALCH", "qty": 1, "dropRate": 100}],
     })
@@ -132,7 +131,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Magazines",
         "formid": "00888526",
-        "subtitle": "Guaranteed drop - 1 item",
+        "subtitle": "Guaranteed drop · 1 item",
         "dropRate": 100,
         "items": [{"name": "Magazine Book Box", "formid": "008B0D62", "sig": "ALCH", "qty": 1, "dropRate": 100}],
     })
@@ -140,7 +139,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Treasure Maps",
         "formid": "00888537",
-        "subtitle": "Regional loot pool - rewards depend on the infestation's region - 5 regions",
+        "subtitle": "Regional loot pool — rewards depend on the infestation's region · 5 regions",
         "dropRate": 100,
         "items": [
             {"name": "Cranberry Bog / Savage Forest Treasure Map", "formid": "003D0CD8", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Cranberry Bog or The Mire"]},
@@ -156,7 +155,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Resources",
         "formid": "00893F7C",
-        "subtitle": "Each item rolls independently - 4 items always drop",
+        "subtitle": "Each item rolls independently · 4 items",
         "dropRate": 100,
         "items": [
             {"name": "Scrap-to-Stash",   "formid": "008B0D64", "sig": "UTIL", "qty": resources_count, "dropRate": 100},
@@ -170,11 +169,11 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Explosives",
         "formid": "0088851C",
-        "subtitle": "Each list rolls independently - 1 grenade + 1 mine",
+        "subtitle": "Each list rolled when you loot the boss · 2 reward lists (grenade + mine)",
         "dropRate": 100,
         "children": [
             {"label": "Grenades", "formid": "00893F79",
-             "subtitle": "Pick one - 11 items", "dropRate": 100,
+             "subtitle": "Pick one · 11 items", "dropRate": 100,
              "items": [
                 {"name": "Cryo Grenade",            "formid": "0011002F", "sig": "LVLI", "qty": 1, "dropRate": round(100/11, 2)},
                 {"name": "Floater Gnasher Grenade", "formid": "005A70BB", "sig": "LVLI", "qty": 1, "dropRate": round(100/11, 2)},
@@ -189,7 +188,7 @@ def build_hto_rewards():
                 {"name": "Frag Grenade",            "formid": "0011002B", "sig": "LVLI", "qty": 1, "dropRate": round(100/11, 2)},
              ], "mode": "pickone"},
             {"label": "Mines", "formid": "00888527",
-             "subtitle": "Pick one - 4 items", "dropRate": 100,
+             "subtitle": "Pick one · 4 items", "dropRate": 100,
              "items": [
                 {"name": "Frag Mine",   "formid": "00110034", "sig": "LVLI", "qty": 1, "dropRate": 25},
                 {"name": "Pulse Mine",  "formid": "00110039", "sig": "LVLI", "qty": 1, "dropRate": 25},
@@ -203,7 +202,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Contextual Ammo",
         "formid": "00893F76",
-        "subtitle": f"Guaranteed drop - {ammo_boss} rounds matching your equipped weapon",
+        "subtitle": f"Guaranteed drop · {ammo_boss} rounds (matched to equipped weapon)",
         "dropRate": 100,
         "items": [{"name": "Contextual Ammo", "formid": "0085A375", "sig": "LVLI", "qty": ammo_boss, "dropRate": 100}],
         "note": f"Drops {ammo_boss} rounds of ammo matching the type your equipped weapon uses.",
@@ -226,7 +225,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Serums",
         "formid": "00888532",
-        "subtitle": f"Chance drop of one item - {len(serum_items)} items ({serum_drop}% list-level)",
+        "subtitle": f"Chance drop of one item · {len(serum_items)} items",
         "dropRate": serum_drop,
         "items": [{"name": n, "formid": f, "sig": "ALCH", "qty": 1,
                    "dropRate": round(serum_drop / len(serum_items), 4)}
@@ -249,17 +248,17 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Chems",
         "formid": "00888517",
-        "subtitle": f"Guaranteed drop - {int(rare_threshold)}% rare tier / {int(basic_threshold)}% basic tier",
+        "subtitle": f"FirstMatch tier router · {int(rare_threshold)}% rare / {int(basic_threshold)}% basic",
         "dropRate": 100,
         "children": [
             {"label": "Rare Chems", "formid": "00888519",
-             "subtitle": f"Pick one - {len(rare_items_raw)} items", "dropRate": rare_threshold,
+             "subtitle": f"Pick one · {len(rare_items_raw)} items", "dropRate": rare_threshold,
              "items": [{"name": n, "formid": f, "sig": "ALCH", "qty": 1,
                         "dropRate": round(rare_threshold / len(rare_items_raw), 4)}
                        for n, f in rare_items_raw],
              "mode": "pickone"},
             {"label": "Basic Chems", "formid": "00888518",
-             "subtitle": "Pick one - 4 items", "dropRate": basic_threshold,
+             "subtitle": "Pick one · 4 items", "dropRate": basic_threshold,
              "items": [
                 {"name": "Buffout", "formid": "00033778", "sig": "ALCH", "qty": 1, "dropRate": round(basic_threshold / 4, 2)},
                 {"name": "Med-X",   "formid": "00033779", "sig": "ALCH", "qty": 1, "dropRate": round(basic_threshold / 4, 2)},
@@ -279,7 +278,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Stimpaks",
         "formid": "00893F83",
-        "subtitle": f"{int(stim_drop)}% chance to drop - 1-3 Super Stimpaks based on RNG tier",
+        "subtitle": f"Chance drop of one item · 3 quantity tiers (5% × 3 + 5% × 2 + 10% × 1)",
         "dropRate": stim_drop,
         "items": [
             {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 3, "dropRate": stim_3x, "note": f"Top {int(cn_high)}% roll"},
@@ -293,7 +292,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Rads",
         "formid": "0088852B",
-        "subtitle": "Guaranteed drop of one item - 2 items",
+        "subtitle": "Guaranteed drop of one item · 2 items",
         "dropRate": 100,
         "items": [
             {"name": "RadAway", "formid": "002049B7", "sig": "LVLI", "qty": 1, "dropRate": 50},
@@ -306,12 +305,12 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Scrap",
         "formid": "0088851A",
-        "subtitle": f"Guaranteed drop - {scrap_count}x from one of 4 rarity tiers",
+        "subtitle": f"FirstMatch tier router · {scrap_count}× from one of 4 rarity tiers",
         "dropRate": 100,
         "scrapCount": scrap_count,
         "children": [
             {"label": "Very Rare Scrap", "formid": "00893F81",
-             "subtitle": "Pick one - 5 items", "dropRate": cn_high,
+             "subtitle": "Pick one · 5 items", "dropRate": cn_high,
              "items": [
                 {"name": "Ballistic Fiber",  "formid": "00432C9A", "sig": "LVLI", "qty": scrap_count, "dropRate": round(cn_high / 5, 2)},
                 {"name": "Black Titanium",   "formid": "00432C9D", "sig": "LVLI", "qty": scrap_count, "dropRate": round(cn_high / 5, 2)},
@@ -320,7 +319,7 @@ def build_hto_rewards():
                 {"name": "Vault Steel",      "formid": "00893FBB", "sig": "LVLI", "qty": scrap_count, "dropRate": round(cn_high / 5, 2)},
              ], "mode": "pickone"},
             {"label": "Rare Scrap", "formid": "00893F7F",
-             "subtitle": "Pick one - 7 items", "dropRate": cn_medium - cn_high,
+             "subtitle": "Pick one · 7 items", "dropRate": cn_medium - cn_high,
              "items": [
                 {"name": "Antiseptic",   "formid": "00432C9C", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_medium - cn_high) / 7, 2)},
                 {"name": "Asbestos",     "formid": "00432C9B", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_medium - cn_high) / 7, 2)},
@@ -331,7 +330,7 @@ def build_hto_rewards():
                 {"name": "Silver",       "formid": "00432CB1", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_medium - cn_high) / 7, 2)},
              ], "mode": "pickone"},
             {"label": "Uncommon Scrap", "formid": "00893F80",
-             "subtitle": "Pick one - 9 items", "dropRate": cn_low - cn_medium,
+             "subtitle": "Pick one · 9 items", "dropRate": cn_low - cn_medium,
              "items": [
                 {"name": "Acid",       "formid": "00432C99", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_low - cn_medium) / 9, 2)},
                 {"name": "Adhesive",   "formid": "00432C96", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_low - cn_medium) / 9, 2)},
@@ -344,7 +343,7 @@ def build_hto_rewards():
                 {"name": "Springs",    "formid": "00432CB2", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_low - cn_medium) / 9, 2)},
              ], "mode": "pickone"},
             {"label": "Common Scrap", "formid": "00893F7E",
-             "subtitle": "Pick one - 13 items", "dropRate": 100 - cn_low,
+             "subtitle": "Pick one · 13 items", "dropRate": 100 - cn_low,
              "items": [
                 {"name": "Bone",       "formid": "00432C9F", "sig": "LVLI", "qty": scrap_count, "dropRate": round((100 - cn_low) / 13, 2)},
                 {"name": "Ceramic",    "formid": "00432C9E", "sig": "LVLI", "qty": scrap_count, "dropRate": round((100 - cn_low) / 13, 2)},
@@ -368,7 +367,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Bespoke (Faction-Specific)",
         "formid": "00893F6F",
-        "subtitle": "Faction-conditional drop - only one entry fires (Robot or Scorched bosses)",
+        "subtitle": "Faction-conditional · only one entry fires (Robot or Scorched bosses)",
         "dropRate": 100,
         "children": [
             {"label": "Robot Boss", "formid": "00893F73",
@@ -422,7 +421,7 @@ def build_hto_rewards():
     mob_loot.append({
         "label": "Legendary",
         "formid": "008F2B1B",
-        "subtitle": f"Pick one of {enabled_count} enabled types - waterfall by category toggle",
+        "subtitle": f"Waterfall by category toggle · {enabled_count} enabled types",
         "dropRate": 100,
         "children": mob_leg_children,
         "mode": "waterfall",
@@ -434,25 +433,25 @@ def build_hto_rewards():
     mob_loot.append({
         "label": "Bespoke (Creature-Specific)",
         "formid": "00893F72",
-        "subtitle": "Creature-conditional drop - only one entry fires (5 creature types)",
+        "subtitle": "Creature-conditional · only one entry fires (5 creature types)",
         "dropRate": 100,
         "children": [
             {
                 "label": "Humanoid Mob",
                 "formid": "00893F71",
-                "subtitle": "UseAll waterfall - 1 grenade roll + 1 stimpak roll",
+                "subtitle": "Each list rolled when the mob dies · 2 reward lists (grenade + stimpak)",
                 "dropRate": 100,
                 "conditions": ["Mob is humanoid (BloodEagle, Cultist, PRC Ghoul, MoleMiner, SuperMutant)"],
                 "children": [
                     {"label": "Mob Grenades", "formid": "0085A377",
-                     "subtitle": "Pick one - 3 items", "dropRate": 100,
+                     "subtitle": "Guaranteed drop of one item · 3 items", "dropRate": 100,
                      "items": [
                         {"name": "Molotov Cocktail", "formid": "00110031", "sig": "LVLI", "qty": 1, "dropRate": round(100/3, 2)},
                         {"name": "Baseball Grenade", "formid": "0034E212", "sig": "LVLI", "qty": 1, "dropRate": round(100/3, 2)},
                         {"name": "Frag Grenade",     "formid": "0011002B", "sig": "LVLI", "qty": 1, "dropRate": round(100/3, 2)},
                      ], "mode": "pickone"},
                     {"label": "Mob Stimpaks", "formid": "00893F84",
-                     "subtitle": "Pick one - 1-3 Stimpaks", "dropRate": 100,
+                     "subtitle": "Guaranteed drop of one item · 3 quantity tiers (1× / 2× / 3×)", "dropRate": 100,
                      "items": [
                         {"name": "Stimpak", "formid": "00023736", "sig": "ALCH", "qty": 3, "dropRate": round(100/3, 2)},
                         {"name": "Stimpak", "formid": "00023736", "sig": "ALCH", "qty": 2, "dropRate": round(100/3, 2)},
@@ -464,36 +463,36 @@ def build_hto_rewards():
             {
                 "label": "Mothman Hatchling Mob",
                 "formid": "0085CDB7",
-                "subtitle": "Single sub-pool - Mothman components",
+                "subtitle": "Single reward list · Mothman components",
                 "dropRate": 100,
                 "conditions": ["Mob has ActorTypeMothmanHatchling keyword"],
                 "children": [
                     {"label": "Mothman Components", "formid": "0088851B",
-                     "subtitle": "Each item rolls independently - 3 entries with own CN",
+                     "subtitle": "Each item rolls independently · 3 items",
                      "dropRate": 100,
                      "items": [
                         {"name": "Neurotoxic Dust", "formid": "003315B5", "sig": "MISC", "qty": 1, "dropRate": 25, "note": "CN=75"},
                         {"name": "Mothman Wing",    "formid": "003315B6", "sig": "MISC", "qty": 1, "dropRate": 50, "note": "CN=50 (entry #1)"},
-                        {"name": "Mothman Wing",    "formid": "003315B6", "sig": "MISC", "qty": 1, "dropRate": 50, "note": "CN=50 (entry #2 - duplicate)"},
+                        {"name": "Mothman Wing",    "formid": "003315B6", "sig": "MISC", "qty": 1, "dropRate": 50, "note": "CN=50 (entry #2 · duplicate)"},
                      ], "mode": "useall"},
                 ],
             },
             {
                 "label": "Floater Mob",
                 "formid": "00893F70",
-                "subtitle": "UseAll waterfall - PusSac + Components",
+                "subtitle": "Each list rolled when the mob dies · 2 reward lists (PusSac + Components)",
                 "dropRate": 100,
                 "conditions": ["Mob has ActorTypeFloater keyword"],
                 "children": [
                     {"label": "Floater Pus Sac", "formid": "00888534",
-                     "subtitle": "Subtype-conditional - 1 of 3 by floater variant", "dropRate": 100,
+                     "subtitle": "Subtype-conditional · 3 outcomes by Floater variant", "dropRate": 100,
                      "items": [
                         {"name": "Flamer Pus Sac",  "formid": "00592EB1", "sig": "MISC", "qty": 1, "dropRate": 100, "conditions": ["ActorTypeFloaterFlamer"]},
                         {"name": "Freezer Pus Sac", "formid": "00592EB0", "sig": "MISC", "qty": 1, "dropRate": 100, "conditions": ["ActorTypeFloaterFreezer"]},
                         {"name": "Gnasher Pus Sac", "formid": "00592EAF", "sig": "MISC", "qty": 1, "dropRate": 100, "conditions": ["ActorTypeFloaterGnasher"]},
                      ], "mode": "conditional"},
                     {"label": "Floater Components", "formid": "00888533",
-                     "subtitle": "Pick one - 5 scrap types x 2 qty tiers (10 entries)", "dropRate": 100,
+                     "subtitle": "Guaranteed drop of one item · 10 items (5 scrap × 2 qty tiers)", "dropRate": 100,
                      "items": [
                         {"name": "Adhesive Scrap",         "formid": "001BF72E", "sig": "MISC", "qty": 1, "dropRate": 10},
                         {"name": "Oil Scrap",              "formid": "001BF732", "sig": "MISC", "qty": 1, "dropRate": 10},
@@ -512,7 +511,7 @@ def build_hto_rewards():
             {
                 "label": "Robot Mob",
                 "formid": "00893F73",
-                "subtitle": "Shared with boss - FirstMatch fusion cells / components / scrap",
+                "subtitle": "FirstMatch tier router · 3 outcomes (fusion cells / components / scrap)",
                 "dropRate": 100,
                 "conditions": ["Mob has ActorTypeRobot keyword"],
                 "items": [
@@ -525,7 +524,7 @@ def build_hto_rewards():
             {
                 "label": "Scorched Mob (Holiday)",
                 "formid": "008B2319",
-                "subtitle": "Holiday-conditional - Festive or Spooky variant",
+                "subtitle": "Holiday-conditional · 2 outcomes (Festive / Spooky)",
                 "dropRate": 100,
                 "conditions": ["Mob has ActorTypeScorched keyword", "Seasonal holiday active"],
                 "items": [
@@ -541,7 +540,7 @@ def build_hto_rewards():
     mob_loot.append({
         "label": "Contextual Ammo",
         "formid": "00893F77",
-        "subtitle": f"Guaranteed drop - {ammo_mob} rounds matching your equipped weapon",
+        "subtitle": f"Guaranteed drop · {ammo_mob} rounds (matched to equipped weapon)",
         "dropRate": 100,
         "items": [{"name": "Contextual Ammo", "formid": "0085A375", "sig": "LVLI", "qty": ammo_mob, "dropRate": 100}],
         "note": f"Drops {ammo_mob} rounds matching the type your equipped weapon uses.",
@@ -577,7 +576,7 @@ def build_hto_rewards():
     support_loot.append({
         "label": "Legendary",
         "formid": "008F2B18",
-        "subtitle": f"Pick one of {sup_enabled_count} enabled types - waterfall by category toggle",
+        "subtitle": f"Waterfall by category toggle · {sup_enabled_count} enabled types",
         "dropRate": 100,
         "children": sup_leg_children,
         "mode": "waterfall",
@@ -587,46 +586,46 @@ def build_hto_rewards():
     support_loot.append({
         "label": "Bespoke (Creature-Specific)",
         "formid": "00893F74",
-        "subtitle": "Creature-conditional drop - only one entry fires (6 creature types)",
+        "subtitle": "Creature-conditional · only one entry fires (6 creature types)",
         "dropRate": 100,
         "children": [
             {"label": "Dog", "formid": "00863222",
-             "subtitle": f"FirstMatch - {int(cn_medium)}% Bones / {int(cn_low - cn_medium)}% Dogmeat",
+             "subtitle": f"FirstMatch · {int(cn_medium)}% Bones / {int(cn_low - cn_medium)}% Dogmeat",
              "dropRate": 100, "conditions": ["Support has ActorTypeDog keyword"],
              "items": [
                 {"name": "Bones (LVLI)",   "formid": "00070511", "sig": "LVLI", "qty": 1, "dropRate": cn_medium,          "note": f"Top {int(cn_medium)}% roll"},
                 {"name": "Dogmeat (LVLI)", "formid": "002165DE", "sig": "LVLI", "qty": 1, "dropRate": cn_low - cn_medium, "note": f"Next {int(cn_low - cn_medium)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Eye Bot", "formid": "00865AF8",
-             "subtitle": f"FirstMatch - {int(cn_medium)}% Components / {int(cn_low - cn_medium)}% Scrap",
+             "subtitle": f"FirstMatch · {int(cn_medium)}% Components / {int(cn_low - cn_medium)}% Scrap",
              "dropRate": 100, "conditions": ["Support has ActorTypeEyebot keyword"],
              "items": [
                 {"name": "Robot Components (LVLI)", "formid": "0088852F", "sig": "LVLI", "qty": 1, "dropRate": cn_medium,          "note": f"Top {int(cn_medium)}% roll"},
                 {"name": "Robot Scrap (LVLI)",      "formid": "00888531", "sig": "LVLI", "qty": 1, "dropRate": cn_low - cn_medium, "note": f"Next {int(cn_low - cn_medium)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Liberator", "formid": "0085B657",
-             "subtitle": f"FirstMatch - {int(cn_high)}% Trinkets / {int(cn_medium - cn_high)}% Components",
+             "subtitle": f"FirstMatch · {int(cn_high)}% Trinkets / {int(cn_medium - cn_high)}% Components",
              "dropRate": 100, "conditions": ["Support has ActorTypeLiberator keyword"],
              "items": [
                 {"name": "Liberator Trinkets (LVLI)",   "formid": "0088852A", "sig": "LVLI", "qty": 1, "dropRate": cn_high,             "note": f"Top {int(cn_high)}% roll"},
                 {"name": "Liberator Components (LVLI)", "formid": "00888529", "sig": "LVLI", "qty": 1, "dropRate": cn_medium - cn_high, "note": f"Next {int(cn_medium - cn_high)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Mole Rat", "formid": "0085DC58",
-             "subtitle": f"FirstMatch - {int(cn_medium)}% Components / {int(cn_low - cn_medium)}% Meat",
+             "subtitle": f"FirstMatch · {int(cn_medium)}% Components / {int(cn_low - cn_medium)}% Meat",
              "dropRate": 100, "conditions": ["Support has ActorTypeMolerat keyword"],
              "items": [
                 {"name": "MoleRat Components (LVLI)", "formid": "00888528", "sig": "LVLI", "qty": 1, "dropRate": cn_medium,          "note": f"Top {int(cn_medium)}% roll"},
                 {"name": "MoleRat Meat (LVLI)",       "formid": "00213D5F", "sig": "LVLI", "qty": 1, "dropRate": cn_low - cn_medium, "note": f"Next {int(cn_low - cn_medium)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Mutant Hound", "formid": "0086242D",
-             "subtitle": f"FirstMatch - {int(cn_high)}% Bones / {int(cn_medium - cn_high)}% Meat",
+             "subtitle": f"FirstMatch · {int(cn_high)}% Bones / {int(cn_medium - cn_high)}% Meat",
              "dropRate": 100, "conditions": ["Support has ActorTypeMutantHound keyword"],
              "items": [
                 {"name": "Bones (LVLI)",             "formid": "00070511", "sig": "LVLI", "qty": 1, "dropRate": cn_high,             "note": f"Top {int(cn_high)}% roll"},
                 {"name": "Mutant Hound Meat (LVLI)", "formid": "00888540", "sig": "LVLI", "qty": 1, "dropRate": cn_medium - cn_high, "note": f"Next {int(cn_medium - cn_high)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Wolf", "formid": "00863223",
-             "subtitle": f"FirstMatch - {int(cn_high)}% Bones / {int(cn_medium - cn_high)}% Meat",
+             "subtitle": f"FirstMatch · {int(cn_high)}% Bones / {int(cn_medium - cn_high)}% Meat",
              "dropRate": 100, "conditions": ["Support has ActorTypeMutatedWolf keyword"],
              "items": [
                 {"name": "Bones (LVLI)",     "formid": "00070511", "sig": "LVLI", "qty": 1, "dropRate": cn_high,             "note": f"Top {int(cn_high)}% roll"},
@@ -639,7 +638,7 @@ def build_hto_rewards():
     support_loot.append({
         "label": "Contextual Ammo",
         "formid": "00893F78",
-        "subtitle": f"Guaranteed drop - {ammo_support} round matching your equipped weapon",
+        "subtitle": f"Guaranteed drop · {ammo_support} round (matched to equipped weapon)",
         "dropRate": 100,
         "items": [{"name": "Contextual Ammo", "formid": "0085A375", "sig": "LVLI", "qty": ammo_support, "dropRate": 100}],
         "note": f"Drops {ammo_support} round matching the type your equipped weapon uses.",
