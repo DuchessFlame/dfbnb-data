@@ -2694,6 +2694,22 @@ def main() -> int:
     player_path = os.path.join(args.outdir, "titles_player.json")
     data_path = os.path.join(args.outdir, "titles_data.json")
 
+    # ── Read previous dist files BEFORE overwriting them (patchlog diff source) ──
+    prev_camp = None
+    prev_player = None
+    try:
+        if os.path.isfile(camp_path):
+            with open(camp_path, "r", encoding="utf-8") as f:
+                prev_camp = json.load(f)
+    except Exception:
+        prev_camp = None
+    try:
+        if os.path.isfile(player_path):
+            with open(player_path, "r", encoding="utf-8") as f:
+                prev_player = json.load(f)
+    except Exception:
+        prev_player = None
+
     with open(camp_path, "w", encoding="utf-8") as f:
         json.dump(camp_json, f, ensure_ascii=False, separators=(",", ":"), indent=2)
     with open(player_path, "w", encoding="utf-8") as f:
@@ -2718,8 +2734,9 @@ def main() -> int:
     with open(data_path, "w", encoding="utf-8") as f:
         json.dump(combined_json, f, ensure_ascii=False, separators=(",", ":"), indent=2)
 
-    prev_camp = git_show_json("HEAD^", "dist/titles_camp.json")
-    prev_player = git_show_json("HEAD^", "dist/titles_player.json")
+    # prev_camp and prev_player were read from disk BEFORE the file writes above.
+    # (Previously used git_show_json("HEAD^", ...) which compared against the
+    #  already-committed previous build — always finding zero changes.)
 
     camp_entry = build_patchlog(prev_camp, camp_json)
     player_entry = build_patchlog(prev_player, player_json)
