@@ -1177,6 +1177,19 @@ def clean_full(full: Optional[str]) -> str:
     s = re.sub(r"\s+", " ", s).strip()
     return s
 
+def _edid_affix_token(edid: str) -> str:
+    """Return the token after _Prefix_ / _Suffix_ / _Both_ in an EDID, or ''."""
+    m = re.search(r"_(?:Prefix|Suffix|Both)_(.+)$", (edid or "").strip(), flags=re.IGNORECASE)
+    return (m.group(1) or "").strip() if m else ""
+
+
+def _prettify_camel(tok: str) -> str:
+    """Convert CamelCase token to spaced display, e.g. AlienSupporter -> 'Alien Supporter'."""
+    spaced = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", tok or "")
+    spaced = re.sub(r"(?<=[A-Z])(?=[A-Z][a-z])", " ", spaced)
+    return spaced.strip()
+
+
 def derive_title_from_conditions(edid: str, conds: List[str]) -> str:
     # When ANAM (camp) / male+female ANAM/BNAM (player) are empty in the TSV,
     # extract a display title from the entitlement FULL string baked into the
@@ -1185,27 +1198,75 @@ def derive_title_from_conditions(edid: str, conds: List[str]) -> str:
     #   ..._Sharpshooters [triple-quote]Sharpshooter's[double-quote] C.A.M.P. ...
     # We pull the first quoted phrase from inside that block.
     #
-    # Falls back to EDID prettification (Prefix_Sharpshooters -> Sharpshooters)
-    # when no quoted phrase can be found.
+    # Disambiguation rule: a CMPT row's HasEntitlement may point at a
+    # DIFFERENT entitlement than its own EDID suggests (Bethesda data quirk —
+    # e.g. CMPT `ATX_CAMPTitles_Suffix_Protector` references entitlement
+    # `ATX_ENTM_CAMPTitles_Suffix_Diner`). Naively taking the entitlement
+    # display name causes duplicate display titles in the list.
+    #
+    # Algorithm:
+    #   1. Compute the EDID-derived name (e.g. "Protector")
+    #   2. For each HasEntitlement condition, compute the entitlement-derived
+    #      affix token + display name.
+    #   3. If the entitlement's affix token matches the CMPT's EDID affix token,
+    #      use the entitlement display name (more accurate — e.g. preserves
+    #      the apostrophe in "Sharpshooter's").
+    #   4. Otherwise, prefer the EDID-derived name (disambiguates).
+    #   5. Fall back to entitlement display name if EDID gives nothing.
+
+    edid_tok = _edid_affix_token(edid)
+    edid_name = _prettify_camel(edid_tok) if edid_tok else ""
+
+    entitlement_name = ""
+    entitlement_matches_edid = False
+
     for c in conds or []:
         if "HasEntitlement" not in c:
             continue
+
+        # Pull the entitlement EDID itself out of the condition so we can compare affix tokens
+        ent_edid_match = re.search(r"HasEntitlement\(\s*([A-Za-z0-9_]+)", c, flags=re.IGNORECASE)
+        if ent_edid_match:
+            ent_edid = ent_edid_match.group(1)
+            ent_tok = _edid_affix_token(ent_edid)
+            if ent_tok and edid_tok and ent_tok.lower() == edid_tok.lower():
+                entitlement_matches_edid = True
+
         m = re.search(r'"""([^"]+?)""', c)
-        if m:
-            return m.group(1).strip()
+        if m and not entitlement_name:
+            entitlement_name = m.group(1).strip()
+            continue
+
         m = re.search(r'"([^"]+?)"\s+[A-Za-z][A-Za-z0-9_\.\- ]*\s*Title', c, flags=re.IGNORECASE)
-        if m:
-            return m.group(1).strip()
+        if m and not entitlement_name:
+            entitlement_name = m.group(1).strip()
 
-    # Fallback: derive from EDID by taking the part after _Prefix_/_Suffix_/_Both_
-    ed = (edid or "").strip()
-    m = re.search(r"_(?:Prefix|Suffix|Both)_(.+)$", ed, flags=re.IGNORECASE)
-    if m:
-        tok = m.group(1)
-        spaced = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", tok)
-        spaced = re.sub(r"(?<=[A-Z])(?=[A-Z][a-z])", " ", spaced)
-        return spaced.strip()
+    # Entitlement display name agrees with EDID identity -> use it (more accurate)
+    if entitlement_matches_edid and entitlement_name:
+        return entitlement_name
 
+    # Otherwise prefer EDID-derived name (disambiguating)
+    if edid_name:
+        return edid_name
+
+    # Last resort: entitlement display name even if it disagrees with EDID
+    return entitlement_name
+
+
+def affix_from_edid(edid: str) -> str:
+    """Detect Prefix / Suffix / Prefix/Suffix from the EDID token.
+
+    Used when PTPR / PTSU columns are empty in the TSV (newer March 2026+
+    exports often have them blank for ATX / SCORE entries even when the
+    EDID clearly contains `_Prefix_` / `_Suffix_` / `_Both_`).
+    """
+    s = (edid or "").upper()
+    if "_BOTH_" in s:
+        return "Prefix/Suffix"
+    if "_PREFIX_" in s:
+        return "Prefix"
+    if "_SUFFIX_" in s:
+        return "Suffix"
     return ""
 
 
@@ -2601,6 +2662,15 @@ def main() -> int:
         is_prefix = (is_prefix_s == "1" or is_prefix_s.lower() == "true")
         is_suffix = (is_suffix_s == "1" or is_suffix_s.lower() == "true")
 
+        # Backfill is_prefix / is_suffix from the EDID when PTPR/PTSU are blank
+        # (March 2026+ exports often leave these empty for ATX / SCORE titles
+        # even though the EDID clearly carries _Prefix_ / _Suffix_ / _Both_).
+        if not is_prefix and not is_suffix:
+            af = affix_from_edid(edid)
+            if af == "Prefix":          is_prefix = True
+            elif af == "Suffix":        is_suffix = True
+            elif af == "Prefix/Suffix": is_prefix = is_suffix = True
+
         conds = extract_conditions(r)
 
         # When ANAM is empty (newer March 2026+ exports), derive title from the
@@ -2665,7 +2735,12 @@ def main() -> int:
             "imageUrl": image_url,
             "isPrefix": is_prefix,
             "isSuffix": is_suffix,
-            "affixType": ("Prefix/Suffix" if (is_prefix and is_suffix) else "Prefix" if is_prefix else "Suffix" if is_suffix else "-"),
+            "affixType": (
+                "Prefix/Suffix" if (is_prefix and is_suffix)
+                else "Prefix" if is_prefix
+                else "Suffix" if is_suffix
+                else (affix_from_edid(edid) or "-")
+            ),
             "conditions": conds,
             "condCount": len(conds),
             "howToObtain": how,
@@ -2693,6 +2768,13 @@ def main() -> int:
         is_suffix_s = (r.get("PTSU - Is Suffix") or "").strip()
         is_prefix = (is_prefix_s == "1" or is_prefix_s.lower() == "true")
         is_suffix = (is_suffix_s == "1" or is_suffix_s.lower() == "true")
+
+        # Same backfill as camp — see camp loop above for rationale.
+        if not is_prefix and not is_suffix:
+            af = affix_from_edid(edid)
+            if af == "Prefix":          is_prefix = True
+            elif af == "Suffix":        is_suffix = True
+            elif af == "Prefix/Suffix": is_prefix = is_suffix = True
 
         conds = extract_conditions(r)
 
@@ -2763,7 +2845,12 @@ def main() -> int:
             "title": title_display,
             "isPrefix": is_prefix,
             "isSuffix": is_suffix,
-            "affixType": ("Prefix/Suffix" if (is_prefix and is_suffix) else "Prefix" if is_prefix else "Suffix" if is_suffix else "-"),
+            "affixType": (
+                "Prefix/Suffix" if (is_prefix and is_suffix)
+                else "Prefix" if is_prefix
+                else "Suffix" if is_suffix
+                else (affix_from_edid(edid) or "-")
+            ),
             "conditions": conds,
             "condCount": len(conds),
             "howToObtain": how,
