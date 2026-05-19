@@ -397,13 +397,62 @@ def starts_cut(edid: str) -> bool:
     return any(e.endswith(s) for s in CUT_SUFFIXES)
 
 
+# ------------------------------------------------------------
+# Condition format normalization.
+#
+# Older xEdit exports wrote conditions in PAREN form, e.g.:
+#   Top:Subject.HasEntitlement(SCORE_S20_ENTM_PlayerTitles_Prefix_Abominable """Abominable"" Player Title Prefix" [ENTM:007D2A1E]) = 1.000000
+#
+# Newer March 2026+ CMPT/PLYT exports write the same data in PIPE form, e.g.:
+#   10000000|1.000000|HasEntitlement|00 00 00|00 00|SCORE_S25_ENTM_CAMPTitles_Prefix_Fortified """Fortified"" C.A.M.P. Title Prefix" [ENTM:008CD143]|00 00 00 00|0|-1|Subject|
+#
+# The downstream classifier (compute_unlock_and_rates) only knows paren form,
+# which is why every newly-exported camp title falls through to
+# "Unlock condition present (unclassified).". Normalize pipe -> paren at
+# extract time so all existing regexes continue to work.
+# ------------------------------------------------------------
+def _normalize_pipe_condition(cond: str) -> str:
+    if not cond:
+        return cond
+    s = cond.strip()
+    if "|" not in s:
+        return s
+    parts = s.split("|")
+    if len(parts) < 6:
+        return s
+
+    flags = (parts[0] or "").strip()
+    value = (parts[1] or "").strip()
+    fname = (parts[2] or "").strip()
+    target = (parts[5] or "").strip()
+
+    # Validate it really looks like the pipe form (flags = digits, fname = identifier)
+    if not re.fullmatch(r"\d+", flags):
+        return s
+    if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", fname):
+        return s
+    if not target:
+        return s
+
+    # runOn is typically parts[9] ("Subject"), default to "Subject"
+    run_on = ""
+    if len(parts) > 9:
+        run_on = (parts[9] or "").strip()
+    if not run_on:
+        run_on = "Subject"
+
+    # Compose a synthetic paren-form line so the existing regex classifiers match:
+    #   Top:{runOn}.{fname}({target}) = {value}
+    return f"Top:{run_on}.{fname}({target}) = {value}"
+
+
 def extract_conditions(row: Dict[str, str]) -> List[str]:
     c = safe_int(row.get("CondCount", "0"))
     out: List[str] = []
     for i in range(1, c + 1):
         v = (row.get(f"Cond{i}") or "").strip()
         if v:
-            out.append(v)
+            out.append(_normalize_pipe_condition(v))
     return out
 
 def seasons_map(seasons_path: Optional[str]) -> Dict[int, str]:
@@ -1127,6 +1176,38 @@ def clean_full(full: Optional[str]) -> str:
     # Collapse whitespace
     s = re.sub(r"\s+", " ", s).strip()
     return s
+
+def derive_title_from_conditions(edid: str, conds: List[str]) -> str:
+    # When ANAM (camp) / male+female ANAM/BNAM (player) are empty in the TSV,
+    # extract a display title from the entitlement FULL string baked into the
+    # condition row. xEdit doubles the embedded quotes when exporting TSV, so
+    # the target text looks like:
+    #   ..._Sharpshooters [triple-quote]Sharpshooter's[double-quote] C.A.M.P. ...
+    # We pull the first quoted phrase from inside that block.
+    #
+    # Falls back to EDID prettification (Prefix_Sharpshooters -> Sharpshooters)
+    # when no quoted phrase can be found.
+    for c in conds or []:
+        if "HasEntitlement" not in c:
+            continue
+        m = re.search(r'"""([^"]+?)""', c)
+        if m:
+            return m.group(1).strip()
+        m = re.search(r'"([^"]+?)"\s+[A-Za-z][A-Za-z0-9_\.\- ]*\s*Title', c, flags=re.IGNORECASE)
+        if m:
+            return m.group(1).strip()
+
+    # Fallback: derive from EDID by taking the part after _Prefix_/_Suffix_/_Both_
+    ed = (edid or "").strip()
+    m = re.search(r"_(?:Prefix|Suffix|Both)_(.+)$", ed, flags=re.IGNORECASE)
+    if m:
+        tok = m.group(1)
+        spaced = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", tok)
+        spaced = re.sub(r"(?<=[A-Z])(?=[A-Z][a-z])", " ", spaced)
+        return spaced.strip()
+
+    return ""
+
 
 def parse_entitlement_edid_from_condition(cond: str) -> Optional[str]:
     m = re.search(r"HasEntitlement\(\s*([^\s\)]+)", cond, flags=re.IGNORECASE)
@@ -2522,6 +2603,11 @@ def main() -> int:
 
         conds = extract_conditions(r)
 
+        # When ANAM is empty (newer March 2026+ exports), derive title from the
+        # entitlement FULL embedded in the conditions (or, last resort, EDID).
+        if not title:
+            title = derive_title_from_conditions(edid, conds)
+
         how, dr, sn, unlock_type, extra = compute_unlock_and_rates(
             kind="camp",
             title_display=title,
@@ -2609,6 +2695,14 @@ def main() -> int:
         is_suffix = (is_suffix_s == "1" or is_suffix_s.lower() == "true")
 
         conds = extract_conditions(r)
+
+        # When ANAM/BNAM are empty, derive title from the entitlement FULL in conditions.
+        if not title_display:
+            title_display = derive_title_from_conditions(edid, conds)
+            if not title_m:
+                title_m = title_display
+            if not title_f:
+                title_f = title_display
 
         how, dr, sn, unlock_type, extra = compute_unlock_and_rates(
             kind="player",
