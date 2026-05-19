@@ -1,5 +1,5 @@
 {
-  "generatedAt":"2026-05-19T03:43:05+00:00",
+  "generatedAt":"2026-05-19T05:49:00+00:00",
   "type":"camp_titles",
   "items":[
     {
@@ -59,8 +59,8 @@
       "title":"Alien Supporter",
       "imageUrl":"/wp-content/uploads/storefront/titles-camp/atx_camptitles_suffix_aliensupporter.avif",
       "isPrefix":false,
-      "isSuffix":false,
-      "affixType":"-",
+      "isSuffix":true,
+      "affixType":"Suffix",
       "conditions":[
         "Top:Subject.HasEntitlement(ATX_ENTM_CAMPTitles_Suffix_AlienSupporter \"\"\"Alien Supporter\"\" C.A.M.P. Title Suffix\" [ENTM:008C939D]) = 1.000000"
       ],
@@ -251,8 +251,8 @@
       "title":"Arsenal",
       "imageUrl":"/wp-content/uploads/storefront/titles-camp/score_miniseason_2026_weaponsexpert_camptitles_suffix_arsenal.avif",
       "isPrefix":false,
-      "isSuffix":false,
-      "affixType":"-",
+      "isSuffix":true,
+      "affixType":"Suffix",
       "conditions":[
         "Top:Subject.HasEntitlement(SCORE_MiniSeason_2026_WeaponsExpert_ENTM_CAMPTitles_Suffix_Arsenal \"\"\"Arsenal\"\" C.A.M.P. Title Suffix\" [ENTM:008B12D2]) = 1.000000"
       ],
@@ -449,8 +449,8 @@
       "title":"Bunker",
       "imageUrl":"/wp-content/uploads/storefront/titles-camp/score_s25_camptitles_suffix_bunker.avif",
       "isPrefix":false,
-      "isSuffix":false,
-      "affixType":"-",
+      "isSuffix":true,
+      "affixType":"Suffix",
       "conditions":[
         "Top:Subject.HasEntitlement(SCORE_S25_ENTM_CAMPTitles_Suffix_Bunker \"\"\"Bunker\"\" C.A.M.P. Title Suffix\" [ENTM:008CD145]) = 1.000000"
       ],
@@ -828,8 +828,8 @@
       "title":"Daring Supporter",
       "imageUrl":"/wp-content/uploads/storefront/titles-camp/atx_camptitles_suffix_daringsupporter.avif",
       "isPrefix":false,
-      "isSuffix":false,
-      "affixType":"-",
+      "isSuffix":true,
+      "affixType":"Suffix",
       "conditions":[
         "Top:Subject.HasEntitlement(ATX_ENTM_CAMPTitles_Suffix_DaringSupporter \"\"\"Daring Supporter\"\" C.A.M.P. Title Suffix\" [ENTM:008C939C]) = 1.000000"
       ],
@@ -987,34 +987,6 @@
       "releaseDate":"2026-03-15",
       "releaseYear":2026,
       "isNew":false,
-      "tradeable":false,
-      "unlockType":"atx",
-      "seasonNumber":null,
-      "cutContent":false,
-      "debug":{
-        "entitlementEdids":[
-          "ATX_ENTM_CAMPTitles_Suffix_Diner"
-        ],
-        "imageEntitlementEdid":"ATX_ENTM_CAMPTitles_Suffix_Diner"
-      }
-    },
-    {
-      "formId":"008F1082",
-      "edid":"ATX_CAMPTitles_Suffix_Protector",
-      "title":"Diner",
-      "imageUrl":"/wp-content/uploads/storefront/titles-camp/atx_camptitles_suffix_diner.avif",
-      "isPrefix":false,
-      "isSuffix":false,
-      "affixType":"-",
-      "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_CAMPTitles_Suffix_Diner \"\"\"Diner\"\" C.A.M.P. Title Suffix\" [ENTM:008A7797]) = 1.000000"
-      ],
-      "condCount":1,
-      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
-      "dropRate":"N/A",
-      "releaseDate":"2026-05-16",
-      "releaseYear":2026,
-      "isNew":true,
       "tradeable":false,
       "unlockType":"atx",
       "seasonNumber":null,
@@ -1210,9 +1182,9 @@
       "edid":"SCORE_S25_CAMPTitles_Prefix_Fortified",
       "title":"Fortified",
       "imageUrl":"/wp-content/uploads/storefront/titles-camp/score_s25_camptitles_prefix_fortified.avif",
-      "isPrefix":false,
+      "isPrefix":true,
       "isSuffix":false,
-      "affixType":"-",
+      "affixType":"Prefix",
       "conditions":[
         "Top:Subject.HasEntitlement(SCORE_S25_ENTM_CAMPTitles_Prefix_Fortified \"\"\"Fortified\"\" C.A.M.P. Title Prefix\" [ENTM:008CD143]) = 1.000000"
       ],
@@ -1611,8 +1583,8 @@
       "title":"Last Stand",
       "imageUrl":"/wp-content/uploads/storefront/titles-camp/score_s25_camptitles_suffix_laststand.avif",
       "isPrefix":false,
-      "isSuffix":false,
-      "affixType":"-",
+      "isSuffix":true,
+      "affixType":"Suffix",
       "conditions":[
         "Top:Subject.HasEntitlement(SCORE_S25_ENTM_CAMPTitles_Suffix_LastStand \"\"\"Last Stand\"\" C.A.M.P. Title Suffix\" [ENTM:008CD146]) = 1.000000"
       ],
@@ -1982,6 +1954,34 @@
       }
     },
     {
+      "formId":"008F1082",
+      "edid":"ATX_CAMPTitles_Suffix_Protector",
+      "title":"Protector",
+      "imageUrl":"/wp-content/uploads/storefront/titles-camp/atx_camptitles_suffix_diner.avif",
+      "isPrefix":false,
+      "isSuffix":true,
+      "affixType":"Suffix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_CAMPTitles_Suffix_Diner \"\"\"Diner\"\" C.A.M.P. Title Suffix\" [ENTM:008A7797]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-05-16",
+      "releaseYear":2026,
+      "isNew":true,
+      "tradeable":false,
+      "unlockType":"atx",
+      "seasonNumber":null,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_CAMPTitles_Suffix_Diner"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_CAMPTitles_Suffix_Diner"
+      }
+    },
+    {
       "formId":"0088DA1A",
       "edid":"SCORE_S22_CAMPTitles_Prefix_Renovated",
       "title":"Renovated",
@@ -2099,9 +2099,9 @@
       "edid":"SCORE_S25_CAMPTitles_Prefix_Safeguarded",
       "title":"Safeguarded",
       "imageUrl":"/wp-content/uploads/storefront/titles-camp/score_s25_camptitles_prefix_safeguarded.avif",
-      "isPrefix":false,
+      "isPrefix":true,
       "isSuffix":false,
-      "affixType":"-",
+      "affixType":"Prefix",
       "conditions":[
         "Top:Subject.HasEntitlement(SCORE_S25_ENTM_CAMPTitles_Prefix_Safeguarded \"\"\"Safeguarded\"\" C.A.M.P. Title Prefix\" [ENTM:008CD144]) = 1.000000"
       ],
@@ -2169,9 +2169,9 @@
       "edid":"SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters",
       "title":"Sharpshooter's",
       "imageUrl":"/wp-content/uploads/storefront/titles-camp/score_miniseason_2026_weaponsexpert_camptitles_prefix_sharpshooters.avif",
-      "isPrefix":false,
+      "isPrefix":true,
       "isSuffix":false,
-      "affixType":"-",
+      "affixType":"Prefix",
       "conditions":[
         "Top:Subject.HasEntitlement(SCORE_MiniSeason_2026_WeaponsExpert_ENTM_CAMPTitles_Prefix_Sharpshooters \"\"\"Sharpshooter's\"\" C.A.M.P. Title Prefix\" [ENTM:008B12D1]) = 1.000000"
       ],
@@ -2271,9 +2271,9 @@
       "edid":"CAMPTitles_Lifetime_Prefix_Solar",
       "title":"Solar",
       "imageUrl":null,
-      "isPrefix":false,
+      "isPrefix":true,
       "isSuffix":false,
-      "affixType":"-",
+      "affixType":"Prefix",
       "conditions":[
         "Top:Subject.HasLearnedRecipe(CAMPTitle_co_CondProxy_Prefix_Solar [COBJ:008B3D5C]) = 1.000000"
       ],
