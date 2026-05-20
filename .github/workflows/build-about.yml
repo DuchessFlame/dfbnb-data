@@ -1,0 +1,66 @@
+name: Build About Data
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'src/about/**'
+      - 'src/build_about_json.py'
+      - '.github/workflows/build-about.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build About JSON
+        shell: bash
+        run: |
+          mkdir -p dist
+          python src/build_about_json.py --src src/about --outdir dist
+
+      - name: Sanity check About output
+        run: |
+          test -f dist/about.json \
+            && echo "OK about.json ($(wc -c < dist/about.json) bytes)" \
+            || (echo "MISSING dist/about.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/about.json'))
+          required = ['vault-legends','community-groups','contact','follow','support-my-work']
+          for k in required:
+              assert k in d, f'Missing key {k!r}'
+              assert 'title' in d[k] and 'subtitle' in d[k], f'{k!r} missing title/subtitle'
+          assert isinstance(d['vault-legends'].get('donors'), list), 'vault-legends.donors must be a list'
+          print(f'  vault-legends donors: {len(d[\"vault-legends\"][\"donors\"])}')
+          for k in required[1:]:
+              print(f'  {k}: title={d[k][\"title\"]!r}')
+          "
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/about.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build About data"
+            git fetch origin main
+            git pull --rebase origin main
+            git push
+          fi
