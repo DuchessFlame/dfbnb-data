@@ -42,6 +42,50 @@ VAULT_LEGENDS_SUBTITLE = (
 
 PLACEHOLDER_SUBTITLE = "Coming soon."
 
+# Support My Work — narrative + action cards. Edit this constant to update
+# the page content; the workflow regenerates dist/about.json on push.
+SUPPORT_MY_WORK = {
+    "title": "Support My Work",
+    "subtitle": "Hey there, I\u2019m Kat, also known as Duchess!",
+    "intro": [
+        "I\u2019m an Aussie data miner who creates guides for farming, "
+        "events, and food buffs in Fallout 76.",
+        "I firmly believe that knowledge should be accessible to everyone, "
+        "so my guides will always be free. However, maintaining a website "
+        "and using photo and video editing software can be costly.",
+        "If you find my guides useful, here are a few ways you can support me:",
+    ],
+    "actions": [
+        {
+            "label": "Share My Guides",
+            "description": "Help your fellow vault dwellers by sharing my "
+                           "guides and reward checklists.",
+        },
+        {
+            "label": "Follow Me on Social Media",
+            "description": "Keep up with my latest updates by following me "
+                           "on social media.",
+            "url": "/about/follow/",  # internal — JS prepends current brand (/df or /bnb)
+        },
+        {
+            "label": "One-Time Donation",
+            "description": "Buy me a Ko-fi (coffee).",
+            "url": "https://ko-fi.com/duchessflame",
+        },
+        {
+            "label": "Monthly Contribution",
+            "description": "Become a regular supporter by subscribing to my "
+                           "Ko-fi page.",
+            "url": "https://ko-fi.com/duchessflame",
+        },
+    ],
+    "closing": [
+        "Every bit of support helps cover the costs of creating these "
+        "guides and maybe even gets me a cup of coffee or three ;)",
+        "Thanks for your support!",
+    ],
+}
+
 
 def read_tsv_column(path: Path, column: str) -> list[str]:
     """Read a single column out of a TSV, stripping blanks. Returns [] if the
@@ -69,13 +113,17 @@ def build(src_dir: Path) -> dict:
         "donors": donors,
     }
 
-    # Other /about/ pages — placeholder until TSVs are added.
+    # Support My Work — narrative + action cards.
+    # Content is static prose so it lives here in the build script rather
+    # than a TSV (TSVs are for tabular/growing data like donor lists).
+    about["support-my-work"] = SUPPORT_MY_WORK
+
+    # Other /about/ pages — placeholder until content is added.
     # Each is keyed by URL slug; the JS module dispatches by slug.
     for slug, title in [
         ("community-groups", "Community Groups"),
         ("contact",          "Contact"),
         ("follow",           "Follow"),
-        ("support-my-work",  "Support My Work"),
     ]:
         about[slug] = {
             "title": title,
@@ -105,7 +153,8 @@ def main() -> int:
 
     print(f"Wrote {out_path}")
     print(f"  vault-legends donors: {len(data['vault-legends']['donors'])}")
-    for k in ("community-groups", "contact", "follow", "support-my-work"):
+    print(f"  support-my-work    actions: {len(data['support-my-work']['actions'])}")
+    for k in ("community-groups", "contact", "follow"):
         print(f"  {k:<18} title={data[k]['title']!r}, subtitle={data[k]['subtitle']!r}")
 
     return 0
