@@ -206,7 +206,7 @@
           "dropRate": 100,
           "items": [
             {
-              "name": "Scrap-to-Stash",
+              "name": "Scrap Kit",
               "formid": "008B0D64",
               "sig": "UTIL",
               "qty": 1,
@@ -528,15 +528,109 @@
           "listChanceNone": 80.0
         },
         {
-          "label": "Chems",
-          "formid": "00888517",
-          "subtitle": "FirstMatch tier router · 25% rare / 75% basic",
+          "label": "Aid",
+          "formid": "aid-combined",
+          "subtitle": "Each list rolled when you loot the boss · 4 reward lists",
           "dropRate": 100,
           "children": [
             {
+              "label": "Stimpaks",
+              "formid": "00893F83",
+              "subtitle": "Chance drop of one item · 3 quantity tiers (5% × 3 + 5% × 2 + 10% × 1)",
+              "dropRate": 20.0,
+              "items": [
+                {
+                  "name": "Super Stimpak",
+                  "formid": "00117DF9",
+                  "sig": "ALCH",
+                  "qty": 3,
+                  "dropRate": 5.0,
+                  "note": "Top 25% roll"
+                },
+                {
+                  "name": "Super Stimpak",
+                  "formid": "00117DF9",
+                  "sig": "ALCH",
+                  "qty": 2,
+                  "dropRate": 5.0,
+                  "note": "Middle 25% roll"
+                },
+                {
+                  "name": "Super Stimpak",
+                  "formid": "00117DF9",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 10.0,
+                  "note": "Bottom 50% roll"
+                }
+              ],
+              "mode": "firstmatch",
+              "listChanceNone": 80.0
+            },
+            {
+              "label": "Rads",
+              "formid": "0088852B",
+              "subtitle": "Guaranteed drop of one item · 2 items",
+              "dropRate": 100,
+              "items": [
+                {
+                  "name": "RadAway",
+                  "formid": "002049B7",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 50
+                },
+                {
+                  "name": "Rad-X",
+                  "formid": "002049B8",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 50
+                }
+              ],
+              "mode": "pickone"
+            },
+            {
+              "label": "Basic Chems",
+              "formid": "00888518",
+              "subtitle": "Guaranteed drop of one item · 4 items",
+              "dropRate": 75.0,
+              "items": [
+                {
+                  "name": "Buffout",
+                  "formid": "00033778",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 18.75
+                },
+                {
+                  "name": "Med-X",
+                  "formid": "00033779",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 18.75
+                },
+                {
+                  "name": "Mentats",
+                  "formid": "0003377B",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 18.75
+                },
+                {
+                  "name": "Psycho",
+                  "formid": "0003377D",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 18.75
+                }
+              ],
+              "mode": "pickone"
+            },
+            {
               "label": "Rare Chems",
               "formid": "00888519",
-              "subtitle": "Pick one · 12 items",
+              "subtitle": "Guaranteed drop of one item · 12 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -625,103 +719,9 @@
                 }
               ],
               "mode": "pickone"
-            },
-            {
-              "label": "Basic Chems",
-              "formid": "00888518",
-              "subtitle": "Pick one · 4 items",
-              "dropRate": 75.0,
-              "items": [
-                {
-                  "name": "Buffout",
-                  "formid": "00033778",
-                  "sig": "ALCH",
-                  "qty": 1,
-                  "dropRate": 18.75
-                },
-                {
-                  "name": "Med-X",
-                  "formid": "00033779",
-                  "sig": "ALCH",
-                  "qty": 1,
-                  "dropRate": 18.75
-                },
-                {
-                  "name": "Mentats",
-                  "formid": "0003377B",
-                  "sig": "ALCH",
-                  "qty": 1,
-                  "dropRate": 18.75
-                },
-                {
-                  "name": "Psycho",
-                  "formid": "0003377D",
-                  "sig": "ALCH",
-                  "qty": 1,
-                  "dropRate": 18.75
-                }
-              ],
-              "mode": "pickone"
             }
           ],
-          "mode": "firstmatch"
-        },
-        {
-          "label": "Stimpaks",
-          "formid": "00893F83",
-          "subtitle": "Chance drop of one item · 3 quantity tiers (5% × 3 + 5% × 2 + 10% × 1)",
-          "dropRate": 20.0,
-          "items": [
-            {
-              "name": "Super Stimpak",
-              "formid": "00117DF9",
-              "sig": "ALCH",
-              "qty": 3,
-              "dropRate": 5.0,
-              "note": "Top 25% roll"
-            },
-            {
-              "name": "Super Stimpak",
-              "formid": "00117DF9",
-              "sig": "ALCH",
-              "qty": 2,
-              "dropRate": 5.0,
-              "note": "Middle 25% roll"
-            },
-            {
-              "name": "Super Stimpak",
-              "formid": "00117DF9",
-              "sig": "ALCH",
-              "qty": 1,
-              "dropRate": 10.0,
-              "note": "Bottom 50% roll"
-            }
-          ],
-          "mode": "firstmatch",
-          "listChanceNone": 80.0
-        },
-        {
-          "label": "Rads",
-          "formid": "0088852B",
-          "subtitle": "Guaranteed drop of one item · 2 items",
-          "dropRate": 100,
-          "items": [
-            {
-              "name": "RadAway",
-              "formid": "002049B7",
-              "sig": "LVLI",
-              "qty": 1,
-              "dropRate": 50
-            },
-            {
-              "name": "Rad-X",
-              "formid": "002049B8",
-              "sig": "LVLI",
-              "qty": 1,
-              "dropRate": 50
-            }
-          ],
-          "mode": "pickone"
+          "mode": "container"
         },
         {
           "label": "Scrap",

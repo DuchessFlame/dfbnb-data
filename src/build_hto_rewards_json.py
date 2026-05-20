@@ -158,7 +158,7 @@ def build_hto_rewards():
         "subtitle": "Each item rolls independently · 4 items",
         "dropRate": 100,
         "items": [
-            {"name": "Scrap-to-Stash",   "formid": "008B0D64", "sig": "UTIL", "qty": resources_count, "dropRate": 100},
+            {"name": "Scrap Kit",        "formid": "008B0D64", "sig": "UTIL", "qty": resources_count, "dropRate": 100},
             {"name": "Treasury Note",    "formid": "005A5443", "sig": "MISC", "qty": resources_count, "dropRate": 100},
             {"name": "Legendary Module", "formid": "005652F9", "sig": "MISC", "qty": resources_count, "dropRate": 100},
             {"name": "Legendary Tokens", "formid": "003F7410", "sig": "CNCY", "qty": resources_count, "dropRate": 100},
@@ -234,7 +234,10 @@ def build_hto_rewards():
         "listChanceNone": serum_list_cn,
     })
 
-    # Chems - FirstMatch ChemsList: high% rare, rest basic
+    # Aid wrapper — holds Stimpaks, Rads, Basic Chems, Rare Chems as 4 sub-expands.
+    # Subtitle uses the style-guide "Container with multiple sub-pools" template
+    # (sub-expand blurb-template alignment) with the infestations-specific verb
+    # "when you loot the boss" matching the rest of this page.
     rare_threshold  = cn_high
     basic_threshold = 100 - rare_threshold
     rare_items_raw = [
@@ -245,60 +248,59 @@ def build_hto_rewards():
         ("Fury",           "000628CA"), ("Calmex",         "00058AA7"),
         ("Overdrive",      "00058AAD"), ("X-Cell",         "001506F4"),
     ]
+    stim_drop = round(100 - stimpak_list_cn, 2)
+    stim_3x   = round(stim_drop * cn_high / 100.0, 2)
+    stim_2x   = round(stim_drop * (cn_medium - cn_high) / 100.0, 2)
+    stim_1x   = round(stim_drop * (100 - cn_medium) / 100.0, 2)
+
     boss_loot.append({
-        "label": "Chems",
-        "formid": "00888517",
-        "subtitle": f"FirstMatch tier router · {int(rare_threshold)}% rare / {int(basic_threshold)}% basic",
+        "label": "Aid",
+        "formid": "aid-combined",
+        "subtitle": "Each list rolled when you loot the boss · 4 reward lists",
         "dropRate": 100,
         "children": [
-            {"label": "Rare Chems", "formid": "00888519",
-             "subtitle": f"Pick one · {len(rare_items_raw)} items", "dropRate": rare_threshold,
-             "items": [{"name": n, "formid": f, "sig": "ALCH", "qty": 1,
-                        "dropRate": round(rare_threshold / len(rare_items_raw), 4)}
-                       for n, f in rare_items_raw],
+            # 1. Stimpaks — wrapper (00893F83) UseAll with list-level CN=80 -> 20% to fire.
+            #    Inside: StimPaks_Boss (0085A378) FirstMatch with quantity tiers.
+            {"label": "Stimpaks", "formid": "00893F83",
+             "subtitle": f"Chance drop of one item · 3 quantity tiers (5% × 3 + 5% × 2 + 10% × 1)",
+             "dropRate": stim_drop,
+             "items": [
+                {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 3, "dropRate": stim_3x, "note": f"Top {int(cn_high)}% roll"},
+                {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 2, "dropRate": stim_2x, "note": f"Middle {int(cn_medium - cn_high)}% roll"},
+                {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 1, "dropRate": stim_1x, "note": f"Bottom {int(100 - cn_medium)}% roll"},
+             ],
+             "mode": "firstmatch",
+             "listChanceNone": stimpak_list_cn},
+            # 2. Rads — pick-one of 2 at 100% (guaranteed drop)
+            {"label": "Rads", "formid": "0088852B",
+             "subtitle": "Guaranteed drop of one item · 2 items",
+             "dropRate": 100,
+             "items": [
+                {"name": "RadAway", "formid": "002049B7", "sig": "LVLI", "qty": 1, "dropRate": 50},
+                {"name": "Rad-X",   "formid": "002049B8", "sig": "LVLI", "qty": 1, "dropRate": 50},
+             ],
              "mode": "pickone"},
+            # 3. Basic Chems — half of the Chems FirstMatch tier router (75% if Chems fires)
             {"label": "Basic Chems", "formid": "00888518",
-             "subtitle": "Pick one · 4 items", "dropRate": basic_threshold,
+             "subtitle": "Guaranteed drop of one item · 4 items",
+             "dropRate": basic_threshold,
              "items": [
                 {"name": "Buffout", "formid": "00033778", "sig": "ALCH", "qty": 1, "dropRate": round(basic_threshold / 4, 2)},
                 {"name": "Med-X",   "formid": "00033779", "sig": "ALCH", "qty": 1, "dropRate": round(basic_threshold / 4, 2)},
                 {"name": "Mentats", "formid": "0003377B", "sig": "ALCH", "qty": 1, "dropRate": round(basic_threshold / 4, 2)},
                 {"name": "Psycho",  "formid": "0003377D", "sig": "ALCH", "qty": 1, "dropRate": round(basic_threshold / 4, 2)},
-             ], "mode": "pickone"},
+             ],
+             "mode": "pickone"},
+            # 4. Rare Chems — the other half of the Chems FirstMatch tier router (25% if Chems fires)
+            {"label": "Rare Chems", "formid": "00888519",
+             "subtitle": f"Guaranteed drop of one item · {len(rare_items_raw)} items",
+             "dropRate": rare_threshold,
+             "items": [{"name": n, "formid": f, "sig": "ALCH", "qty": 1,
+                        "dropRate": round(rare_threshold / len(rare_items_raw), 4)}
+                       for n, f in rare_items_raw],
+             "mode": "pickone"},
         ],
-        "mode": "firstmatch",
-    })
-
-    # Stimpaks - wrapper (00893F83) UseAll with list-level CN=80 -> 20% to fire.
-    # Inside: StimPaks_Boss (0085A378) FirstMatch with quantity tiers.
-    stim_drop = round(100 - stimpak_list_cn, 2)
-    stim_3x   = round(stim_drop * cn_high / 100.0, 2)
-    stim_2x   = round(stim_drop * (cn_medium - cn_high) / 100.0, 2)
-    stim_1x   = round(stim_drop * (100 - cn_medium) / 100.0, 2)
-    boss_loot.append({
-        "label": "Stimpaks",
-        "formid": "00893F83",
-        "subtitle": f"Chance drop of one item · 3 quantity tiers (5% × 3 + 5% × 2 + 10% × 1)",
-        "dropRate": stim_drop,
-        "items": [
-            {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 3, "dropRate": stim_3x, "note": f"Top {int(cn_high)}% roll"},
-            {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 2, "dropRate": stim_2x, "note": f"Middle {int(cn_medium - cn_high)}% roll"},
-            {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 1, "dropRate": stim_1x, "note": f"Bottom {int(100 - cn_medium)}% roll"},
-        ],
-        "mode": "firstmatch",
-        "listChanceNone": stimpak_list_cn,
-    })
-
-    boss_loot.append({
-        "label": "Rads",
-        "formid": "0088852B",
-        "subtitle": "Guaranteed drop of one item · 2 items",
-        "dropRate": 100,
-        "items": [
-            {"name": "RadAway", "formid": "002049B7", "sig": "LVLI", "qty": 1, "dropRate": 50},
-            {"name": "Rad-X",   "formid": "002049B8", "sig": "LVLI", "qty": 1, "dropRate": 50},
-        ],
-        "mode": "pickone",
+        "mode": "container",
     })
 
     # Scrap - FirstMatch tiers
