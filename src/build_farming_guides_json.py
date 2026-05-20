@@ -1062,6 +1062,70 @@ def load_weight_backfill(alch_paths: List[str]) -> Dict[str, float]:
 
 
 # ---------------------------------------------------------------------------
+# Effect name / duration helpers
+# ---------------------------------------------------------------------------
+
+# Suffixes stripped from MGEF_FULL names for display. Order matters — first
+# match wins so "Eating: Radiation Damage" is handled before the generic
+# " Food" / " Drink" strip.
+_EFFECT_RENAME: List[Tuple[re.Pattern, str]] = [
+    # Exact matches first (engine-internal names)
+    (re.compile(r'^Eating:\s*Radiation Damage$', re.I),             "Rads"),
+    (re.compile(r'^Radiation Exposure$', re.I),                     "Rads"),
+    (re.compile(r'^SURV_Food_Effect$', re.I),                       "Satisfy Hunger"),
+    (re.compile(r'^SURV_Drink_Effect$', re.I),                      "Quench Thirst"),
+    (re.compile(r'^SURV_DiseaseVector_Food_Effect$', re.I),         "Disease Chance"),
+    (re.compile(r'^SURV_DiseaseVector_Drink_Effect$', re.I),        "Disease Chance"),
+    (re.compile(r'^SURV_AddHunger_Potion_Effect$', re.I),           "Increase Hunger"),
+    (re.compile(r'^SURV_AddThirst_Potion_Effect_NotChem$', re.I),   "Increase Thirst"),
+    (re.compile(r'^SURV_DiseaseCure.*Effect.*$', re.I),             "Cure Disease"),
+    (re.compile(r'^SURV_IncreaseDiseaseResistance.*Effect$', re.I), "Disease Resist"),
+    (re.compile(r'^SURV_ReduceDiseaseResistance.*Effect$', re.I),   "Reduce Disease Resist"),
+    # Prefix strips
+    (re.compile(r'^Alcohol:\s*'),                                   ""),
+    (re.compile(r'^Chem:\s*'),                                      ""),
+    (re.compile(r'^Psycho:\s*'),                                    ""),
+    (re.compile(r'^Food:\s*'),                                      ""),
+    # Suffix strips
+    (re.compile(r'\s+Food$'),                                       ""),
+    (re.compile(r'\s+Drink$'),                                      ""),
+    (re.compile(r'\s+Eating$'),                                     ""),
+]
+
+
+def _clean_effect_name(raw: str) -> str:
+    """Turn an engine MGEF_FULL into a player-friendly display name."""
+    s = raw.strip()
+    for rx, repl in _EFFECT_RENAME:
+        if repl == "":
+            s = rx.sub("", s).strip()
+        else:
+            m = rx.match(s)
+            if m:
+                return repl
+    return s
+
+
+def _format_effect_duration(seconds: Optional[float]) -> Optional[str]:
+    """Format an effect duration in seconds for display."""
+    if seconds is None or seconds <= 0:
+        return None
+    s = int(seconds)
+    if s < 60:
+        return f"{s}s"
+    hours = s // 3600
+    mins = (s % 3600) // 60
+    parts = []
+    if hours == 1:
+        parts.append("1 hour")
+    elif hours > 1:
+        parts.append(f"{hours} hours")
+    if mins:
+        parts.append(f"{mins} min")
+    return " ".join(parts) if parts else f"{s}s"
+
+
+# ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
 
@@ -1129,15 +1193,47 @@ def build(data_dir: str, outdir: str) -> str:
     alch_by_fid: Dict[str, Dict[str, str]] = {r["ALCH_FormID"]: r for r in alch}
     alch_by_edid: Dict[str, Dict[str, str]] = {r["ALCH_EDID"]: r for r in alch}
 
-    # Effects -> by ALCH FormID -> list of MGEF full names (de-duped, ordered)
-    eff_by_fid: Dict[str, List[str]] = defaultdict(list)
+    # Effects -> by ALCH FormID -> list of structured effect dicts.
+    # Each effect resolves its magnitude and duration from GLOB overrides
+    # (MAGG_GLOB / DURG_GLOB -> FLTV) with fallback to the raw EFIT columns.
+    eff_by_fid: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for e in effects:
         fid = e.get("ALCH_FormID", "")
-        name = (e.get("MGEF_FULL") or e.get("MGEF_EDID") or "").strip()
-        if not fid or not name:
+        raw_name = (e.get("MGEF_FULL") or e.get("MGEF_EDID") or "").strip()
+        mgef_edid = (e.get("MGEF_EDID") or "").strip()
+        if not fid or not raw_name:
             continue
-        if name not in eff_by_fid[fid]:
-            eff_by_fid[fid].append(name)
+        # Skip duplicate effects on the same ALCH (keyed by MGEF_EDID)
+        if any(ex.get("edid") == mgef_edid for ex in eff_by_fid[fid]):
+            continue
+
+        # Resolve magnitude: GLOB override -> EFIT fallback
+        mag_glob_edid = (e.get("MAGG_GLOB_EDID") or "").strip()
+        mag = glob_values.get(mag_glob_edid) if mag_glob_edid else None
+        if mag is None:
+            mag = safe_float(e.get("EFIT_Magnitude", ""))
+
+        # Resolve duration: GLOB override -> EFIT fallback
+        dur_glob_edid = (e.get("DURG_GLOB_EDID") or "").strip()
+        dur = glob_values.get(dur_glob_edid) if dur_glob_edid else None
+        if dur is None:
+            dur = safe_float(e.get("EFIT_Duration", ""))
+
+        # Clean the display name
+        display = _clean_effect_name(raw_name)
+
+        # Format duration for display
+        dur_display = _format_effect_duration(dur)
+
+        eff_by_fid[fid].append({
+            "name":      display,
+            "edid":      mgef_edid,
+            "magnitude": round(mag, 4) if mag is not None else None,
+            "duration":  round(dur, 4) if dur is not None else None,
+            "dur_display": dur_display,
+            "mag_glob":  mag_glob_edid or None,
+            "dur_glob":  dur_glob_edid or None,
+        })
 
     # Pre-compute ALCH "lite" record (used both for the ingredient list and
     # as the recipe's `output` block).
