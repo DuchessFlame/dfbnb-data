@@ -1,0 +1,77 @@
+name: Build Data Miner Patch Notes
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'src/build_data_miner_patch_notes_json.py'
+      - '.github/workflows/build-data-miner-patch-notes.yml'
+
+  schedule:
+    # First of every month at 04:17 UTC. Off-peak time to avoid the
+    # cron-rush at xx:00 that GitHub recommends staggering away from.
+    - cron: '17 4 1 * *'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build Data Miner Patch Notes JSON
+        env:
+          # Forward the default GH Actions token so we hit the 5000/hr
+          # API limit instead of 60/hr. The script reads GITHUB_TOKEN
+          # from env if present and falls back to anonymous otherwise.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          mkdir -p dist
+          python src/build_data_miner_patch_notes_json.py --outdir dist
+
+      - name: Sanity check output
+        run: |
+          test -f dist/data-miner-patch-notes.json \
+            && echo "OK data-miner-patch-notes.json ($(wc -c < dist/data-miner-patch-notes.json) bytes)" \
+            || (echo "MISSING dist/data-miner-patch-notes.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/data-miner-patch-notes.json'))
+          assert 'title' in d and 'subtitle' in d
+          assert 'years' in d and isinstance(d['years'], list)
+          assert d['source']['count'] >= 1, 'Expected at least one patch-notes entry'
+          for y in d['years']:
+              assert 'year' in y and 'entries' in y
+              for e in y['entries']:
+                  for k in ('name','slug','url','first_commit_at'):
+                      assert k in e, f'Missing {k!r} on entry {e!r}'
+          print(f'  years: {[y[\"year\"] for y in d[\"years\"]]}')
+          print(f'  total entries: {d[\"source\"][\"count\"]}')
+          "
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/data-miner-patch-notes.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Data Miner Patch Notes data"
+            git fetch origin main
+            git pull --rebase origin main
+            git push
+          fi
