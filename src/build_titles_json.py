@@ -500,6 +500,60 @@ def release_label_from_yearmonth(
     return label, f"{y:04d}-{m:02d}-01", y
 
 
+def resolve_phrase_release(
+    edid: str,
+    how_to_obtain: str,
+    season_number: Optional[int],
+    entitlement_edids: List[str],
+    ltb_dates: Dict[str, str],
+    seasons_start: Dict[int, str],
+) -> Tuple[Optional[str], Optional[str]]:
+    """
+    Look at a title's identity + howToObtain + entitlements and decide if we
+    can pin down a precise release date that's better than the first-seen
+    TSV month. Returns (release_date YYYY-MM-DD, releaseLabel) or (None, None)
+    if no rule matches.
+
+    Rule order (mutually exclusive in practice):
+
+      1. HTO_PlayerTitles_* / HTO_CAMPTitles_* EDID prefix
+            -> Patch 68 / Infestations launch: 2026-06-02 ("June 2026")
+      2. Any entitlement EDID maps to an LTB bundle in atom_shop.json
+            -> bundle's released date (covers the 6 ATX bundle titles today
+               and any future bundles automatically)
+      3. howToObtain matches "Purchase with tickets from ... Scoreboard"
+         AND we know the seasonNumber AND we have that season's StartDate
+            -> season StartDate's month/year (e.g. S20 -> March 2025)
+
+    Notes:
+    - We do NOT touch "Unlocked if you have claimed the {season} Gameboard /
+      Framed Art / Scoreboard / Corkboard" titles (these are back-dated
+      rewards from old seasons; the user wants them left at year-only).
+    - We do NOT touch generic event/activity/challenge titles either.
+    """
+    ed = (edid or "").lower()
+    how = (how_to_obtain or "")
+
+    # (1) HTO / Hostile Takeover / Infestations
+    if ed.startswith("hto_playertitles_") or ed.startswith("hto_camptitles_"):
+        return "2026-06-02", "June 2026"
+
+    # (2) ATX limited-time bundle title -> use bundle release date
+    if ltb_dates:
+        for e in (entitlement_edids or []):
+            d = ltb_dates.get((e or "").lower())
+            if d:
+                return d, release_label_from_yyyymmdd(d)
+
+    # (3) "Purchase with tickets from the {season} Scoreboard"
+    if "Purchase with tickets" in how and season_number:
+        sd = seasons_start.get(int(season_number))
+        if sd:
+            return sd, release_label_from_yyyymmdd(sd)
+
+    return None, None
+
+
 def release_label_from_yyyymmdd(date_str: str) -> str:
     """
     Format a YYYY-MM-DD release date as 'Month YYYY' if it looks
@@ -729,6 +783,95 @@ def extract_conditions(row: Dict[str, str]) -> List[str]:
         if v:
             out.append(_normalize_pipe_condition(v))
     return out
+
+def seasons_start_date_map(seasons_path: Optional[str]) -> Dict[int, str]:
+    """
+    Parse fallout76_seasons.tsv and return { season_num: "YYYY-MM-DD" } from
+    the StartDate column. Input dates are DD/MM/YYYY (e.g. "18/03/2025").
+
+    Used by the release-date resolver to give "Purchase with tickets from
+    the {Season Name} Scoreboard" titles the actual season-launch month
+    instead of the year-only first-seen fallback.
+    """
+    if not seasons_path or not os.path.exists(seasons_path):
+        return {}
+
+    try:
+        with open(seasons_path, "r", encoding="utf-8-sig", errors="replace", newline="") as f:
+            head = f.readline()
+            f.seek(0)
+            delim = "\t" if "\t" in head else ("," if "," in head else "\t")
+            reader = csv.DictReader(f, delimiter=delim)
+            rows = [dict(r) for r in reader]
+    except Exception:
+        rows = read_tsv_rows(seasons_path)
+
+    out: Dict[int, str] = {}
+    for r in rows:
+        sn_s = (r.get("SeasonNumber") or r.get("Season") or r.get("Number") or "").strip()
+        sd_s = (r.get("StartDate") or r.get("Start Date") or "").strip()
+        n = safe_int(sn_s, 0)
+        if not n or not sd_s:
+            continue
+        # Accept DD/MM/YYYY or D/M/YYYY (single-digit day/month)
+        m = re.match(r"^\s*(\d{1,2})/(\d{1,2})/(\d{4})\s*$", sd_s)
+        if not m:
+            continue
+        d, mo, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        if 1 <= mo <= 12 and 1 <= d <= 31:
+            out[n] = f"{y:04d}-{mo:02d}-{d:02d}"
+    return out
+
+
+def load_ltb_title_dates(dist_dir: Optional[str]) -> Dict[str, str]:
+    """
+    Read dist/atom_shop.json and return { entitlement_edid_lower: "YYYY-MM-DD" }
+    for every title-bearing item inside the 'ltb' (Limited Time Bundles) array.
+
+    Used to give ATX bundle titles (Gleaming, Technician, Contessa, Buoy,
+    AdVictoriam, Tribune, etc) their actual bundle-launch date instead of
+    falling back to first-seen TSV month or the today fallback. The file
+    auto-updates whenever new bundles ship, so no maintenance is needed
+    when future bundles include titles.
+
+    Match keys cover the item's own EDID AND any relatedEdids, lowercased.
+    """
+    if not dist_dir:
+        return {}
+    path = os.path.join(dist_dir, "atom_shop.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return {}
+
+    out: Dict[str, str] = {}
+    for b in (data.get("ltb") or []):
+        if not isinstance(b, dict):
+            continue
+        rel = (b.get("released") or "").strip()
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", rel):
+            continue
+        for it in (b.get("items") or []):
+            if not isinstance(it, dict):
+                continue
+            ed = (it.get("edid") or "").strip().lower()
+            # Only map title-bearing items
+            is_title = ("title" in ed) or any(
+                "title" in (r or "").lower() for r in (it.get("relatedEdids") or [])
+            )
+            if not is_title:
+                continue
+            if ed:
+                out[ed] = rel
+            for r in (it.get("relatedEdids") or []):
+                rl = (r or "").strip().lower()
+                if rl:
+                    out[rl] = rel
+    return out
+
 
 def seasons_map(seasons_path: Optional[str]) -> Dict[int, str]:
     if not seasons_path or not os.path.exists(seasons_path):
@@ -2808,6 +2951,13 @@ def main() -> int:
     # ------------------------------------------------------------
     overrides = load_release_overrides(args.tsv_root)
 
+    # Season StartDate map (e.g. {20: "2025-03-18", 24: "2026-03-03"}) and
+    # LTB bundle date map (entitlement EDID -> bundle.released). These power
+    # the resolve_phrase_release() rules slotted between manual overrides
+    # and the first-seen TSV scan.
+    seasons_start_dates = seasons_start_date_map(args.seasons)
+    ltb_title_dates = load_ltb_title_dates(args.outdir)
+
     # First-seen scan (chronological CMPT_/PLYT_Export_*.tsv walk)
     _camp_first_seen_raw, _camp_oldest_raw = build_first_seen_map(args.tsv_root, "CMPT", "camp")
     _player_first_seen_raw, _player_oldest_raw = build_first_seen_map(args.tsv_root, "PLYT", "player")
@@ -3022,13 +3172,31 @@ def main() -> int:
 
         fid8 = (form_id or "").strip().upper()
 
-        # Priority: overrides > first-seen TSV month > prev dist > today (new)
-        # When first-seen month is used, also compute a friendly releaseLabel
-        # ("April 2026" or year-only "2025" if first seen in the oldest TSV).
+        # Priority chain:
+        #   1. Manual override in tsv/title_release_overrides.json
+        #   2. Phrase / EDID rules (HTO -> June 2026, ATX bundle -> ltb date,
+        #      "Purchase with tickets from {season}" -> season StartDate)
+        #   3. First-seen TSV month (year-only if first seen in oldest TSV)
+        #   4. Previous dist date (persistence)
+        #   5. Today (truly new, not yet picked up by the first-seen scan)
         release_label = ""
+        _phrase_date, _phrase_label = (None, None)
+        if fid8 not in overrides:
+            _phrase_date, _phrase_label = resolve_phrase_release(
+                edid=edid,
+                how_to_obtain=how,
+                season_number=sn,
+                entitlement_edids=(extra.get("entitlementEdids") or []),
+                ltb_dates=ltb_title_dates,
+                seasons_start=seasons_start_dates,
+            )
+
         if fid8 in overrides:
             release_date = overrides[fid8]
             release_label = release_label_from_yyyymmdd(release_date)
+        elif _phrase_date:
+            release_date = _phrase_date
+            release_label = _phrase_label or release_label_from_yyyymmdd(_phrase_date)
         elif fid8 in camp_first_seen:
             release_label, _rd, _ry = release_label_from_yearmonth(
                 camp_first_seen[fid8], camp_oldest_ym
@@ -3142,12 +3310,25 @@ def main() -> int:
 
         fid8 = (form_id or "").strip().upper()
 
-        # Priority: overrides > first-seen TSV month > prev dist > today (new).
-        # See camp-titles loop for full notes.
+        # See camp-titles loop above for full notes on the priority chain.
         release_label = ""
+        _phrase_date, _phrase_label = (None, None)
+        if fid8 not in overrides:
+            _phrase_date, _phrase_label = resolve_phrase_release(
+                edid=edid,
+                how_to_obtain=how,
+                season_number=sn,
+                entitlement_edids=(extra.get("entitlementEdids") or []),
+                ltb_dates=ltb_title_dates,
+                seasons_start=seasons_start_dates,
+            )
+
         if fid8 in overrides:
             release_date = overrides[fid8]
             release_label = release_label_from_yyyymmdd(release_date)
+        elif _phrase_date:
+            release_date = _phrase_date
+            release_label = _phrase_label or release_label_from_yyyymmdd(_phrase_date)
         elif fid8 in player_first_seen:
             release_label, _rd, _ry = release_label_from_yearmonth(
                 player_first_seen[fid8], player_oldest_ym
