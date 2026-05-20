@@ -248,6 +248,275 @@ def load_previous_release_dates(dist_path: str) -> Dict[str, str]:
         return {}
 
 
+# ----------------------------------------------------------------------
+# TSV-history first-seen scan
+# ----------------------------------------------------------------------
+# Walks every CMPT_Export_*.tsv (camp titles) or PLYT_Export_*.tsv (player
+# titles) in chronological order based on the Month_Year fragment in the
+# filename, records the EARLIEST TSV month each FormID appears in, and
+# persists the result to tsv/title_first_seen.json so the history survives
+# even if older TSV files are later rotated out of the repo.
+#
+# Output schema for tsv/title_first_seen.json:
+#   {
+#     "schema": 1,
+#     "oldestKnownByKind": { "camp": "YYYY-MM", "player": "YYYY-MM" },
+#     "byFormId": {
+#       "00ABCDEF": { "kind": "player|camp", "yearMonth": "YYYY-MM" },
+#       ...
+#     }
+#   }
+# ----------------------------------------------------------------------
+
+_MONTH_NAMES_FULL = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+]
+_MONTH_TOKEN_TO_NUM = {
+    "jan": 1, "january": 1,
+    "feb": 2, "february": 2,
+    "mar": 3, "march": 3,
+    "apr": 4, "april": 4,
+    "may": 5,
+    "jun": 6, "june": 6,
+    "jul": 7, "july": 7,
+    "aug": 8, "august": 8,
+    "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10,
+    "nov": 11, "november": 11,
+    "dec": 12, "december": 12,
+}
+
+
+def _parse_tsv_month_year(filename: str) -> Optional[Tuple[int, int]]:
+    """Given e.g. 'CMPT_Export_April_2026.tsv', return (2026, 4). None if can't parse."""
+    m = re.search(r"_(?:Export_)?([A-Za-z]+)_(\d{4})\.tsv$", filename, flags=re.IGNORECASE)
+    if not m:
+        return None
+    mon_tok = m.group(1).lower()
+    year = int(m.group(2))
+    month = _MONTH_TOKEN_TO_NUM.get(mon_tok)
+    if month is None:
+        return None
+    return (year, month)
+
+
+def _read_tsv_rows_min(path: str) -> List[Dict[str, str]]:
+    """Tiny CSV-DictReader-style read for the first-seen scan (no aliasing)."""
+    rows: List[Dict[str, str]] = []
+    try:
+        with open(path, "r", encoding="utf-8-sig", newline="") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            for r in reader:
+                rows.append({(k or "").strip(): (v if v is not None else "") for k, v in r.items()})
+    except Exception:
+        pass
+    return rows
+
+
+def build_first_seen_map(
+    tsv_root: str,
+    prefix: str,  # "CMPT" or "PLYT"
+    kind_label: str,  # "camp" or "player"
+) -> Tuple[Dict[str, str], Optional[str]]:
+    """
+    Scan all <prefix>_Export_*.tsv files in tsv_root in chronological order.
+    Returns:
+      ({ "FORMID8": "YYYY-MM" }, "YYYY-MM" of oldest TSV considered)
+
+    Handles legacy TSVs that lack a FormID column by resolving EDID->FormID
+    against the union of all later TSVs that DO have FormID.
+    """
+    if not tsv_root or not os.path.isdir(tsv_root):
+        return {}, None
+
+    # Discover candidate files
+    candidates: List[Tuple[Tuple[int, int], str]] = []
+    pat = re.compile(rf"^{re.escape(prefix)}_Export_[A-Za-z]+_\d{{4}}\.tsv$", re.IGNORECASE)
+    for fn in os.listdir(tsv_root):
+        if not pat.match(fn):
+            continue
+        ym = _parse_tsv_month_year(fn)
+        if not ym:
+            continue
+        candidates.append((ym, os.path.join(tsv_root, fn)))
+
+    if not candidates:
+        return {}, None
+
+    candidates.sort(key=lambda x: x[0])  # chronological ascending
+    oldest_ym = candidates[0][0]
+    oldest_ym_str = f"{oldest_ym[0]:04d}-{oldest_ym[1]:02d}"
+
+    # Build EDID -> FormID resolver from every TSV that has FormID.
+    # (Later TSVs win on conflicts, which is fine for stable EDIDs.)
+    edid_to_formid: Dict[str, str] = {}
+    for _ym, path in candidates:
+        rows = _read_tsv_rows_min(path)
+        for r in rows:
+            fid = (r.get("FormID") or "").strip().upper()
+            if not re.fullmatch(r"[0-9A-F]{8}", fid):
+                continue
+            edid = (
+                r.get("EDID")
+                or r.get("EDID - Editor ID")
+                or r.get("EditorID")
+                or ""
+            ).strip()
+            if edid:
+                edid_to_formid[edid] = fid
+
+    # Walk chronologically, record FIRST month each FormID appears
+    first_seen: Dict[str, str] = {}
+    for ym, path in candidates:
+        ym_str = f"{ym[0]:04d}-{ym[1]:02d}"
+        rows = _read_tsv_rows_min(path)
+        for r in rows:
+            fid = (r.get("FormID") or "").strip().upper()
+            if not re.fullmatch(r"[0-9A-F]{8}", fid):
+                # Legacy row with no FormID column — try EDID resolve
+                edid = (
+                    r.get("EDID")
+                    or r.get("EDID - Editor ID")
+                    or r.get("EditorID")
+                    or ""
+                ).strip()
+                fid = edid_to_formid.get(edid, "")
+                if not re.fullmatch(r"[0-9A-F]{8}", fid or ""):
+                    continue
+            if fid not in first_seen:
+                first_seen[fid] = ym_str
+
+    return first_seen, oldest_ym_str
+
+
+def load_or_merge_first_seen_store(
+    tsv_root: Optional[str],
+    camp_first_seen: Dict[str, str],
+    camp_oldest_ym: Optional[str],
+    player_first_seen: Dict[str, str],
+    player_oldest_ym: Optional[str],
+) -> Tuple[Dict[str, str], Dict[str, str], Optional[str], Optional[str]]:
+    """
+    Read tsv/title_first_seen.json (if any), merge with freshly-scanned data
+    keeping the EARLIER yearMonth on conflict, and persist back to disk.
+
+    Returns merged (camp_first_seen, player_first_seen, camp_oldest_ym, player_oldest_ym).
+    The persisted store guards against history loss if older TSVs are rotated
+    out of the repo later.
+    """
+    if not tsv_root:
+        return camp_first_seen, player_first_seen, camp_oldest_ym, player_oldest_ym
+
+    store_path = os.path.join(tsv_root, "title_first_seen.json")
+    persisted: Dict[str, Any] = {}
+    if os.path.exists(store_path):
+        try:
+            with open(store_path, "r", encoding="utf-8") as f:
+                persisted = json.load(f) or {}
+        except Exception:
+            persisted = {}
+
+    by_fid = persisted.get("byFormId") or {}
+    oldest_known = persisted.get("oldestKnownByKind") or {}
+
+    def _merge_one(scanned: Dict[str, str], kind: str) -> Dict[str, str]:
+        out: Dict[str, str] = dict(scanned)
+        for fid, rec in by_fid.items():
+            if not isinstance(rec, dict):
+                continue
+            if (rec.get("kind") or "") != kind:
+                continue
+            ym = (rec.get("yearMonth") or "").strip()
+            if not re.fullmatch(r"\d{4}-\d{2}", ym):
+                continue
+            fid_u = (fid or "").strip().upper()
+            if not re.fullmatch(r"[0-9A-F]{8}", fid_u):
+                continue
+            cur = out.get(fid_u)
+            # Keep the EARLIER yearMonth (string compare works for YYYY-MM)
+            if cur is None or ym < cur:
+                out[fid_u] = ym
+        return out
+
+    camp_merged = _merge_one(camp_first_seen, "camp")
+    player_merged = _merge_one(player_first_seen, "player")
+
+    # Oldest-TSV-known: earliest of scanned vs persisted
+    def _earliest_ym(a: Optional[str], b: Optional[str]) -> Optional[str]:
+        candidates = [x for x in (a, b) if x and re.fullmatch(r"\d{4}-\d{2}", x)]
+        return min(candidates) if candidates else None
+
+    camp_oldest_merged = _earliest_ym(camp_oldest_ym, oldest_known.get("camp"))
+    player_oldest_merged = _earliest_ym(player_oldest_ym, oldest_known.get("player"))
+
+    # Persist back so history survives TSV rotation
+    out_by_fid: Dict[str, Dict[str, str]] = {}
+    for fid, ym in camp_merged.items():
+        out_by_fid[fid] = {"kind": "camp", "yearMonth": ym}
+    for fid, ym in player_merged.items():
+        out_by_fid[fid] = {"kind": "player", "yearMonth": ym}
+
+    try:
+        with open(store_path, "w", encoding="utf-8") as f:
+            json.dump({
+                "schema": 1,
+                "oldestKnownByKind": {
+                    "camp": camp_oldest_merged,
+                    "player": player_oldest_merged,
+                },
+                "byFormId": dict(sorted(out_by_fid.items())),
+            }, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+    return camp_merged, player_merged, camp_oldest_merged, player_oldest_merged
+
+
+def release_label_from_yearmonth(
+    ym: Optional[str],
+    oldest_known_ym: Optional[str],
+) -> Tuple[str, Optional[str], int]:
+    """
+    Given a "YYYY-MM" first-seen value and the oldest TSV month we have,
+    return (releaseLabel, releaseDateYYYYMMDD, releaseYear).
+
+    If the title's first-seen month equals the oldest TSV month, the real
+    release could be anywhere from then back to game launch — so we drop
+    month precision and return year-only ("2025").
+    Otherwise we return e.g. "April 2026" and a YYYY-MM-01 date.
+    """
+    if not ym or not re.fullmatch(r"\d{4}-\d{2}", ym):
+        return "", None, 0
+    y = int(ym[:4])
+    m = int(ym[5:7])
+
+    # If we only saw this title in the oldest TSV we have, we can't be
+    # confident about the month — fall back to year-only.
+    if oldest_known_ym and ym == oldest_known_ym:
+        return str(y), f"{y:04d}-01-01", y
+
+    label = f"{_MONTH_NAMES_FULL[m - 1]} {y}"
+    return label, f"{y:04d}-{m:02d}-01", y
+
+
+def release_label_from_yyyymmdd(date_str: str) -> str:
+    """
+    Format a YYYY-MM-DD release date as 'Month YYYY' if it looks
+    month-precision (day==01 or non-Jan-01), or as 'YYYY' if it's a
+    bare year placeholder (YYYY-01-01).
+    """
+    if not date_str or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date_str):
+        return ""
+    y = int(date_str[:4])
+    m = int(date_str[5:7])
+    d = int(date_str[8:10])
+    # Treat YYYY-01-01 as year-only placeholder
+    if m == 1 and d == 1:
+        return str(y)
+    return f"{_MONTH_NAMES_FULL[m - 1]} {y}"
+
+
 def safe_int(s: str, default: int = 0) -> int:
     try:
         return int(str(s).strip())
@@ -2523,11 +2792,35 @@ def main() -> int:
 
     # ------------------------------------------------------------
     # Release dates
-    # - If item already existed in dist, keep its releaseDate
-    # - Else if override exists, use override
-    # - Else assign today's date (UTC)
+    # Priority (highest first):
+    #   1. Manual override in tsv/title_release_overrides.json
+    #   2. First-seen TSV month (derived from CMPT_/PLYT_Export_<Month>_<Year>.tsv
+    #      history, persisted to tsv/title_first_seen.json so old TSVs can be
+    #      rotated out without losing the date)
+    #   3. Previously-stored releaseDate in dist/titles_camp.json /
+    #      dist/titles_player.json (persistence across runs)
+    #   4. Today's date (UTC) — only hit for a brand new title that has not
+    #      yet been picked up by the first-seen scan
+    #
+    # If a title is first seen in the OLDEST TSV available for its kind, the
+    # month is dropped (year-only) because the real release could pre-date
+    # our oldest snapshot — see release_label_from_yearmonth().
     # ------------------------------------------------------------
     overrides = load_release_overrides(args.tsv_root)
+
+    # First-seen scan (chronological CMPT_/PLYT_Export_*.tsv walk)
+    _camp_first_seen_raw, _camp_oldest_raw = build_first_seen_map(args.tsv_root, "CMPT", "camp")
+    _player_first_seen_raw, _player_oldest_raw = build_first_seen_map(args.tsv_root, "PLYT", "player")
+    (
+        camp_first_seen,
+        player_first_seen,
+        camp_oldest_ym,
+        player_oldest_ym,
+    ) = load_or_merge_first_seen_store(
+        args.tsv_root,
+        _camp_first_seen_raw, _camp_oldest_raw,
+        _player_first_seen_raw, _player_oldest_raw,
+    )
 
     prev_camp_release = load_previous_release_dates(os.path.join(args.outdir, "titles_camp.json"))
     prev_player_release = load_previous_release_dates(os.path.join(args.outdir, "titles_player.json"))
@@ -2729,13 +3022,24 @@ def main() -> int:
 
         fid8 = (form_id or "").strip().upper()
 
-        # Priority: overrides (explicit manual) > prev dist (persistence) > today (new)
+        # Priority: overrides > first-seen TSV month > prev dist > today (new)
+        # When first-seen month is used, also compute a friendly releaseLabel
+        # ("April 2026" or year-only "2025" if first seen in the oldest TSV).
+        release_label = ""
         if fid8 in overrides:
             release_date = overrides[fid8]
+            release_label = release_label_from_yyyymmdd(release_date)
+        elif fid8 in camp_first_seen:
+            release_label, _rd, _ry = release_label_from_yearmonth(
+                camp_first_seen[fid8], camp_oldest_ym
+            )
+            release_date = _rd or today_str
         elif fid8 in prev_camp_release:
             release_date = prev_camp_release[fid8]
+            release_label = release_label_from_yyyymmdd(release_date)
         else:
             release_date = today_str
+            release_label = release_label_from_yyyymmdd(release_date)
 
         release_year = int(release_date[:4])
 
@@ -2758,6 +3062,7 @@ def main() -> int:
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,
+            "releaseLabel": release_label,
             "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
             "unlockType": unlock_type,
@@ -2837,13 +3142,23 @@ def main() -> int:
 
         fid8 = (form_id or "").strip().upper()
 
-        # Priority: overrides (explicit manual) > prev dist (persistence) > today (new)
+        # Priority: overrides > first-seen TSV month > prev dist > today (new).
+        # See camp-titles loop for full notes.
+        release_label = ""
         if fid8 in overrides:
             release_date = overrides[fid8]
+            release_label = release_label_from_yyyymmdd(release_date)
+        elif fid8 in player_first_seen:
+            release_label, _rd, _ry = release_label_from_yearmonth(
+                player_first_seen[fid8], player_oldest_ym
+            )
+            release_date = _rd or today_str
         elif fid8 in prev_player_release:
             release_date = prev_player_release[fid8]
+            release_label = release_label_from_yyyymmdd(release_date)
         else:
             release_date = today_str
+            release_label = release_label_from_yyyymmdd(release_date)
 
         release_year = int(release_date[:4])
 
@@ -2868,6 +3183,7 @@ def main() -> int:
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,
+            "releaseLabel": release_label,
             "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
             "unlockType": unlock_type,
