@@ -94,6 +94,12 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
     # Treasure Hunter — title drops from Crafted Mole Miner Pails only
     "playertitles_suffix_surveyor":
         "Open Crafted Mole Miner Pails during the Treasure Hunter seasonal event",
+    # Lucky Strike — title drops from the Miner/Prospector/Excavator mine LL stages
+    # (MTRz05_LL_01/02/03_*Mine via QuestReward_MTRZ05_Lucky_Stage255_01 GMRW).
+    # The auto-resolver finds the LVLI candidates but can't pick a ParentQuest label
+    # from this GMRW row shape, so it falls back to "(unknown)".
+    "mtrz05_playertitles_prefix_treasurer":
+        "Complete the Activity: Lucky Strike",
     # Spooky Scorched — title drops from Spooky Treat Bags
     "playertitles_prefix_spooky":
         "Drops from Spooky Treat Bags during the Spooky Scorched seasonal event",
@@ -2257,7 +2263,12 @@ def compute_unlock_and_rates(
 
             # --- COBJ GNAM -> CHALLENGE unlock ---
             # Example: GNAM_EDID = Challenge_Lifetime_... and GNAM_FULL = "Build decorative furnishings..."
-            if gnam_edid.startswith("Challenge_") or (gnam_form and gnam_full and "CHAL:" in gnam_full):
+            # Also catches namespaced challenge prefixes like HTO_Challenge_Lifetime_... (Hostile Takeover / Infestations).
+            if (
+                gnam_edid.startswith("Challenge_")
+                or re.match(r"^[A-Za-z0-9]+_Challenge_", gnam_edid)
+                or (gnam_form and gnam_full and "CHAL:" in gnam_full)
+            ):
                                # Resolve CHAL strictly by EDID as exported (no prefix stripping)
                 # Note: chal_by_edid uses lowercase keys
                 chal_key = gnam_edid
