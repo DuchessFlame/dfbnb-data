@@ -85,9 +85,7 @@ DIR_FILTER          = "PTS-Patch-Notes"          # case-insensitive substring
 PAGE_TITLE          = "Data Miner Patch Notes"
 PAGE_SUBTITLE       = (
     "Scratchy's annotated PTS patch notes for Fallout 76 — every set of "
-    "data-mined notes the Data Miners Discord community has published, "
-    "kept in sync with Scratchy's GitHub. The latest year is open by "
-    "default; tap a previous year to expand."
+    "data-mined notes the Data Miners Discord community has published."
 )
 
 
