@@ -46,43 +46,68 @@ PLACEHOLDER_SUBTITLE = "Coming soon."
 # the page content; the workflow regenerates dist/about.json on push.
 SUPPORT_MY_WORK = {
     "title": "Support My Work",
-    "subtitle": "Hey there, I\u2019m Kat, also known as Duchess!",
+    "subtitle": "Hey there, I’m Kat — also known as Duchess!",
     "intro": [
-        "I\u2019m an Aussie data miner who creates guides for farming, "
-        "events, and food buffs in Fallout 76.",
-        "I firmly believe that knowledge should be accessible to everyone, "
-        "so my guides will always be free. However, maintaining a website "
-        "and using photo and video editing software can be costly.",
-        "If you find my guides useful, here are a few ways you can support me:",
+        "I’m an Australian data miner and content creator who makes "
+        "Fallout 76 guides — farming routes, event reward breakdowns, "
+        "food and chem buff math, season pass tracking, plan checklists, "
+        "and everything in between. Most of what’s on this site started "
+        "life as a problem I wanted to solve for myself, then it kept growing.",
+        "I firmly believe knowledge should be accessible to everyone, so the "
+        "guides will always be free and ad-free. No paywalls, no popups, no "
+        "“subscribe for premium drop rates.”",
+        "That said, running a site like this isn’t free. Web hosting, "
+        "the build pipeline that re-runs after every Bethesda patch, image "
+        "and video storage, photo and video editing software, and the hours "
+        "of comparing game files at 2am all add up. If the guides have saved "
+        "you grind time, helped you finish a season pass, or just made the "
+        "wasteland a little less confusing, here are a few ways you can help "
+        "keep them going:",
     ],
     "actions": [
         {
             "label": "Share My Guides",
-            "description": "Help your fellow vault dwellers by sharing my "
-                           "guides and reward checklists.",
+            "description": "The single most valuable thing you can do. Drop "
+                           "a guide link in your friend group, mention me "
+                           "when someone asks “where do I find X” "
+                           "on Reddit, share a checklist with your team "
+                           "before a public event. Word of mouth is what "
+                           "keeps fan sites alive.",
         },
         {
             "label": "Follow Me on Social Media",
-            "description": "Keep up with my latest updates by following me "
-                           "on social media.",
+            "description": "Following on Facebook, Twitter, Bluesky and "
+                           "Discord helps each post reach more vault "
+                           "dwellers (the algorithms reward engagement) and "
+                           "means you’ll see new guides and patch "
+                           "breakdowns the moment they go live.",
             "url": "/about/follow/",  # internal — JS prepends current brand (/df or /bnb)
         },
         {
             "label": "One-Time Donation",
-            "description": "Buy me a Ko-fi (coffee).",
+            "description": "Buy me a Ko-fi (coffee). Caffeine is what gets "
+                           "me through patch days when Bethesda drops a "
+                           "4 GB update at 1am my time and the whole "
+                           "pipeline needs to be re-run from scratch.",
             "url": "https://ko-fi.com/duchessflame",
         },
         {
             "label": "Monthly Contribution",
-            "description": "Become a regular supporter by subscribing to my "
-                           "Ko-fi page.",
+            "description": "Become a regular supporter on Ko-fi. Recurring "
+                           "support lets me plan ahead — hosting "
+                           "upgrades, better tools, and keeping things "
+                           "steady through the quiet months between big "
+                           "Fallout updates.",
             "url": "https://ko-fi.com/duchessflame",
         },
     ],
     "closing": [
-        "Every bit of support helps cover the costs of creating these "
-        "guides and maybe even gets me a cup of coffee or three ;)",
-        "Thanks for your support!",
+        "Every bit of support — money, time, a share, a kind word in "
+        "my DMs — helps keep this thing going. Honestly, knowing the "
+        "guides are useful to someone is the biggest part of what keeps me "
+        "at it.",
+        "Thanks for being here ;)",
+        "— Kat",
     ],
 }
 
