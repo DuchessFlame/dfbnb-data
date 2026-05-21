@@ -3,7 +3,7 @@
 build_data_miner_patch_notes_json.py
 ====================================
 Builds dist/data-miner-patch-notes.json for the
-/df/useful-links/data-miner-patch-notes/ (and BNB mirror) page on
+/df/data-mining/data-miner-patch-notes/ page on
 buffsnbrew.com / theduchessflame.com (rendered by
 df-bnb-data-miner-patch-notes.js in the dfbnb-child theme).
 
