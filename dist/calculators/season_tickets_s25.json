@@ -1,31 +1,28 @@
 {
   "_notes": {
-    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets).",
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
     "how_to_update_each_season": [
-      "1. Update 'seasonNumber' to the new season number (e.g. 26).",
-      "2. Update 'seasonName' to the new season name (e.g. 'New Season Name').",
-      "3. Update 'unlockRequiredCount' — the number of items a player must claim to unlock Bonus Page 2.",
-      "4. Update 'unlockRankRequired' — the rank the player must reach to unlock Bonus Page 2.",
-      "5. Update 'unlockLineText' — the human-readable string shown for the unlock requirement.",
-      "6. WIPE the 'items' array and replace with all items from the new season.",
-      "7. For each item, follow the item schema below. Add 'tallyCategory' to any item that matches a tally category.",
-      "8. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
-      "9. Pages are '1' through '9' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
-      "10. The tally table in the calculator counts items from pages 1-9 and B1 only. B2 is intentionally EXCLUDED from the tally.",
-      "11. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
     ],
     "item_schema": {
-      "id": "STRING - Unique ID. Pattern: S{seasonNum}_P{pageNum}_{snake_name} or S{seasonNum}_B{bonusNum}_{snake_name}",
-      "page": "STRING - Page number. Use '1'-'9' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
-      "name": "STRING - Display name shown in the calculator.",
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
       "cost": "NUMBER - Ticket cost (0 if free).",
-      "isFirst": "BOOLEAN (optional) - Set true if this item is exclusive to Fallout First members.",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
       "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
-      "kind": "STRING (optional) - Used for titles/icons: 'playerIcon', 'campTitlePrefix', 'campTitleSuffix', 'playerTitlePrefix', 'playerTitleSuffix', 'playerTitlePrefixSuffix'.",
-      "value": "STRING (optional) - The title/icon label value when 'kind' is set.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
       "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
       "imageUrl": "STRING (optional) - URL to item image.",
-      "description": "STRING (optional) - Item description shown in expanded detail panel."
+      "description": "STRING (optional) - Item description."
     },
     "tally_category_valid_values": {
       "atoms": "Atoms",
@@ -50,9 +47,10 @@
       "stamps": "Stamps",
       "superb_bait": "Superb Bait"
     },
-    "tally_behaviour": "The tally table in the JS counts how many items in the visible list (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
     "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
-    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes."
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 25,
   "seasonName": "Appalachia Under Siege",
