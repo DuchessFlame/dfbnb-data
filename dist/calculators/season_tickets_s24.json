@@ -1,0 +1,1114 @@
+{
+  "_notes": {
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets).",
+    "how_to_update_each_season": [
+      "1. Update 'seasonNumber' to the new season number (e.g. 25).",
+      "2. Update 'seasonName' to the new season name (e.g. 'New Season Name').",
+      "3. Update 'unlockRequiredCount' — the number of items a player must claim to unlock Bonus Page 2.",
+      "4. Update 'unlockRankRequired' — the rank the player must reach to unlock Bonus Page 2.",
+      "5. Update 'unlockLineText' — the human-readable string shown for the unlock requirement.",
+      "6. WIPE the 'items' array and replace with all items from the new season.",
+      "7. For each item, follow the item schema below. Add 'tallyCategory' to any item that matches a tally category.",
+      "8. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "9. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "10. The tally table in the calculator counts items from pages 1-10 and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "11. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{seasonNum}_P{pageNum}_{snake_name} or S{seasonNum}_B{bonusNum}_{snake_name}",
+      "page": "STRING - Page number. Use '1'-'10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "name": "STRING - Display name shown in the calculator.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - Set true if this item is exclusive to Fallout First members. When the user has NOT toggled 'Fallout First Member' on, these items are hidden and excluded from all counts.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table shown below 'Total Ticket Cost'. See valid values below.",
+      "kind": "STRING (optional) - Used for titles/icons: 'playerIcon', 'campTitlePrefix', 'campTitleSuffix', 'playerTitlePrefix', 'playerTitleSuffix', 'playerTitlePrefixSuffix'.",
+      "value": "STRING (optional) - The title/icon label value when 'kind' is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description shown in expanded detail panel."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles (includes all CAMP title prefixes/suffixes and player title prefixes/suffixes)",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters (includes any S.C.O.R.E. Boost % items)",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table in the JS counts how many items in the visible list (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes."
+  },
+  "seasonNumber": 24,
+  "seasonName": "Cryptids From Beyond the Cosmos",
+  "unlockRequiredCount": 59,
+  "unlockRankRequired": 150,
+  "unlockLineText": "Reach Rank 150 AND claim 59 more Season Reward(s) to unlock this page",
+  "items": [
+    {
+      "id": "S24_P01_score_boost_5",
+      "page": "1",
+      "name": "5% S.C.O.R.E. Boost",
+      "cost": 0,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Account_ScoreBoost_1",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_account_scoreboost_1.webp",
+      "description": "Gain 5% bonus S.C.O.R.E. when you complete challenges for the rest of Season 24!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
+      "tallyCategory": "score_booster"
+    },
+    {
+      "id": "S24_P01_ufo_fishing_bobber_mod",
+      "page": "1",
+      "name": "UFO Fishing Bobber Mod",
+      "cost": 25,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Weapons_Fishing_mod_FishingRod_Weapon_RodBobber_UFOBobber",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_weapons_fishing_mod_fishingrod_weapon_rodbobber_ufobobber.webp",
+      "description": "Abduct those fish with the UFO Fishing Bobber!    - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE  FISHING ROD. -"
+    },
+    {
+      "id": "S24_P01_bloody_space_helmet",
+      "page": "1",
+      "name": "Bloody Space Helmet",
+      "cost": 25,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Apparel_Headwear_SpaceSuitBloody",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_apparel_headwear_spacesuitbloody.webp",
+      "description": "What REALLY happens if you shoot for the stars and miss!    - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S24_P01_200_atoms",
+      "page": "1",
+      "name": "200 Atoms",
+      "cost": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P01_bloody_space_suit",
+      "page": "1",
+      "name": "Bloody Space Suit",
+      "cost": 40,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Apparel_Outfit_SpaceSuitBloody",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_apparel_outfit_spacesuitbloody.webp",
+      "description": "What REALLY happens if you shoot for the stars and miss!    - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S24_P01_superb_bait_x5",
+      "page": "1",
+      "name": "Superb Bait x5",
+      "cost": 0,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_superbait.webp",
+      "tallyCategory": "superb_bait"
+    },
+    {
+      "id": "S24_P01_space_cow_icon",
+      "page": "1",
+      "name": "Player Icon: Space Cow",
+      "cost": 15,
+      "kind": "playerIcon",
+      "value": "Space Cow",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_SpaceCow",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_spacecow.webp",
+      "description": "Moooooving along a new frontier.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S24_P02_alien_ammo_box",
+      "page": "2",
+      "name": "Alien Ammo Box",
+      "cost": 30,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_AmmoBox_AlienBox",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_ammobox_alienbox.webp",
+      "description": "Even advanced cosmic civilizations need storage!    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P02_prefix_alien",
+      "page": "2",
+      "name": "CAMP Title Prefix: \"Alien\"",
+      "cost": 25,
+      "isFirst": true,
+      "kind": "campTitlePrefix",
+      "value": "Alien",
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_Alien",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_alien.webp",
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Alien\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P02_improved_bait_x5",
+      "page": "2",
+      "name": "Improved Bait x5",
+      "cost": 0,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_improvedbait.webp",
+      "tallyCategory": "improved_bait"
+    },
+    {
+      "id": "S24_P02_alien_warning_signs",
+      "page": "2",
+      "name": "Alien Warning Signs",
+      "cost": 15,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_WallDecor_AlienWarningSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_walldecor_alienwarningsign.webp",
+      "description": "Warn others of the intergalactic threat with the Alien Warning Signs!    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P02_repair_kit",
+      "page": "2",
+      "name": "Repair Kit",
+      "cost": 10,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S24_P02_starlight_drive_in_marquee",
+      "page": "2",
+      "name": "Starlight Drive-In Marquee",
+      "cost": 50,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Structure_DriveinSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_structure_driveinsign.webp",
+      "description": "Get the popcorn and a frosty Nuka-Cola, because the Starlight Drive-In Marquee is close by!    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P02_200_atoms",
+      "page": "2",
+      "name": "200 Atoms",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P02_alien_patch_icon",
+      "page": "2",
+      "name": "Player Icon: Alien Patch",
+      "cost": 25,
+      "kind": "playerIcon",
+      "value": "Alien Patch",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_AlienPatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_alienpatch.webp",
+      "description": "They're amongst us, in the stars and in Appalachia.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S24_P03_alien_aid_box",
+      "page": "3",
+      "name": "Alien Aid Box",
+      "cost": 25,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_AidBox_AlienBox",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_aidbox_alienbox.webp",
+      "description": "Even advanced cosmic civilizations need storage!    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P03_score_booster_x3",
+      "page": "3",
+      "name": "S.C.O.R.E. Booster x3",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_scorebooster.webp",
+      "tallyCategory": "score_booster"
+    },
+    {
+      "id": "S24_P03_gold_bullion_x",
+      "page": "3",
+      "name": "Gold Bullion",
+      "cost": 0,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S24_P03_flatwoods_monster_patch_icon",
+      "page": "3",
+      "name": "Player Icon: Flatwoods Monster Patch",
+      "cost": 25,
+      "kind": "playerIcon",
+      "value": "Flatwoods Monster Patch",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_FlatwoodsMonsterPatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_flatwoodsmonsterpatch.webp",
+      "description": "Time to play.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S24_P03_abduction_icon",
+      "page": "3",
+      "name": "Player Icon: Abduction",
+      "cost": 25,
+      "isFirst": true,
+      "kind": "playerIcon",
+      "value": "Abduction",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_UFOAbduction",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_ufoabduction.webp",
+      "description": "They're taking them to the Mooon.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S24_P03_bigfoot_stein_display",
+      "page": "3",
+      "name": "Bigfoot Stein Display",
+      "cost": 40,
+      "storefrontEntitlement": "SCORE_S24_ENTM_DisplayCase_BeerSteins_BigfootSteinDisplay",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_displaycase_beersteins_bigfootsteindisplay.webp",
+      "description": "You know what they say about guys with big feet? Big stein collection!    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P03_prefix_suffix_alien",
+      "page": "3",
+      "name": "Player Title Prefix/Suffix: \"Alien\"",
+      "cost": 20,
+      "kind": "playerTitlePrefixSuffix",
+      "value": "Alien",
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_Alien",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_alien.webp",
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Alien\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P03_200_atoms",
+      "page": "3",
+      "name": "200 Atoms",
+      "cost": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P04_healing_arch",
+      "page": "4",
+      "name": "Healing Arch",
+      "cost": 50,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Utility_HealingArch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_utility_healingarch.webp",
+      "description": "Revitalize yourself by stepping through this Healing Arch.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P04_200_atoms",
+      "page": "4",
+      "name": "200 Atoms",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P04_lunchbox_x3",
+      "page": "4",
+      "name": "Lunchbox x3",
+      "cost": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S24_P04_score_boost_10",
+      "page": "4",
+      "name": "10% S.C.O.R.E. Boost",
+      "cost": 0,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Account_ScoreBoost_3",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_account_scoreboost_3.webp",
+      "description": "Gain another 10% bonus S.C.O.R.E. when you complete challenges for the rest of Season 24!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E.. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
+      "tallyCategory": "score_booster"
+    },
+    {
+      "id": "S24_P04_legendary_scrip_x100",
+      "page": "4",
+      "name": "Legendary Scrip x100",
+      "cost": 25,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S24_P04_suffix_retreat",
+      "page": "4",
+      "name": "CAMP Title Suffix: \"Retreat\"",
+      "cost": 25,
+      "kind": "campTitleSuffix",
+      "value": "Retreat",
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Suffix_Retreat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_suffix_retreat.webp",
+      "description": "Unlocks the C.A.M.P. Title Suffix \"Retreat\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P04_alien_scrap_box",
+      "page": "4",
+      "name": "Alien Scrap Box",
+      "cost": 35,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_scrapbox_AlienBox",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_scrapbox_alienbox.webp",
+      "description": "Even advanced cosmic civilizations need storage!    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P04_prefix_space",
+      "page": "4",
+      "name": "Player Title Prefix: \"Space\"",
+      "cost": 25,
+      "kind": "playerTitlePrefix",
+      "value": "Space",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Space",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_space.webp",
+      "description": "Unlocks the Player Title Prefix \"Space\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P04_legendary_module_x3",
+      "page": "4",
+      "name": "Legendary Module x3",
+      "cost": 0,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S24_P04_stamps_x10",
+      "page": "4",
+      "name": "Stamps x10",
+      "cost": 25,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
+    },
+    {
+      "id": "S24_P05_fur_carpet",
+      "page": "5",
+      "name": "Fur Carpet",
+      "cost": 50,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Floor_FurCarpet",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_floor_furcarpet.webp",
+      "description": "Sink your feet into luxury! This plush pre-war rug brings warmth, comfort, and just a hint of wilderness chic to any camp.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P05_survival_cache",
+      "page": "5",
+      "name": "Survival Cache",
+      "cost": 60,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_collector_survivalcache.webp",
+      "description": "A rugged supply stash inspired by Rip Daring's legendary expeditions.    This item cannot be built inside of a Shelter.    - CAMP ITEMS APPEAR WHILE IN CAMP MODE. -"
+    },
+    {
+      "id": "S24_P05_rip_daring_logo_neon_wall_sign",
+      "page": "5",
+      "name": "Rip Daring Logo Neon Wall Sign",
+      "cost": 35,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Lights_Wall_DaringNeonSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_lights_wall_daringneonsign.webp",
+      "description": "Light up your C.A.M.P. with this neon sign that's as bright as Rip Daring himself! Especially when it's off.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P05_nuclear_keycard_x5",
+      "page": "5",
+      "name": "Nuclear Keycard x5",
+      "cost": 15,
+      "tallyCategory": "nuclear_keycard"
+    },
+    {
+      "id": "S24_P05_carry_weight_booster_x5",
+      "page": "5",
+      "name": "Carry Weight Booster x5",
+      "cost": 15,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S24_P05_prefix_suffix_bigfoot",
+      "page": "5",
+      "name": "Player Title Prefix/Suffix: \"Bigfoot\"",
+      "cost": 25,
+      "kind": "playerTitlePrefixSuffix",
+      "value": "Bigfoot",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Both_Bigfoot",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_both_bigfoot.webp",
+      "description": "Unlocks the Player Title Prefix & Suffix \"Bigfoot\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P05_re_roller_x5",
+      "page": "5",
+      "name": "Re-Roller x5",
+      "cost": 15,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp",
+      "tallyCategory": "re_roller"
+    },
+    {
+      "id": "S24_P05_repair_kit",
+      "page": "5",
+      "name": "Repair Kit",
+      "cost": 15,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S24_P05_legendary_scrip_x100",
+      "page": "5",
+      "name": "Legendary Scrip x100",
+      "cost": 0,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S24_P05_200_atoms",
+      "page": "5",
+      "name": "200 Atoms",
+      "cost": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P06_daring_devil_pip_boy_paint",
+      "page": "6",
+      "name": "Daring Devil Pip-Boy Paint",
+      "cost": 25,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Skin_PipBoySkin_Cremator",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_skin_pipboyskin_cremator.webp",
+      "description": "This Daring Devil Pip-Boy Paint is too hot for most to handle.    - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S24_P06_smiling_man_patch_icon",
+      "page": "6",
+      "name": "Player Icon: Smiling Man Patch",
+      "cost": 20,
+      "kind": "playerIcon",
+      "value": "Smiling Man Patch",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_SmilingManPatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_smilingmanpatch.webp",
+      "description": "A big smile that somehow feels Cold.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S24_P06_ranger_obsidian_paint",
+      "page": "6",
+      "name": "Ranger Obsidian Paint",
+      "cost": 40,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Skin_Clothing_RangersUniform_Paint_BlackRanger",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_skin_clothing_rangersuniform_paint_blackranger.webp",
+      "description": "Command the shadows with the Obsidian Paint for the Ranger Armor Outfit.     Compatible with the standard Ranger Armor Outfit included with Fallout 1st!    Exclusive to Fallout 1st Members    - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S24_P06_suffix_extraterrestrial",
+      "page": "6",
+      "name": "Player Title Suffix: \"Extraterrestrial\"",
+      "cost": 0,
+      "kind": "playerTitleSuffix",
+      "value": "Extraterrestrial",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Suffix_Extraterrestrial",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_suffix_extraterrestrial.webp",
+      "description": "Unlocks the Player Title Suffix \"Extraterrestrial\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P06_alien_display",
+      "page": "6",
+      "name": "Alien Display",
+      "cost": 50,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Displaycase_AlienDisplay",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_displaycase_aliendisplay.webp",
+      "description": "Show off your favorite stuff with an out of this world display!    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P06_200_atoms",
+      "page": "6",
+      "name": "200 Atoms",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P06_legendary_module_x10",
+      "page": "6",
+      "name": "Legendary Module x10",
+      "cost": 25,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S24_P06_mystery_bobblehead_x3",
+      "page": "6",
+      "name": "Mystery Bobblehead x3",
+      "cost": 15,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_mysterybobblehead.webp",
+      "tallyCategory": "mystery_bobblehead"
+    },
+    {
+      "id": "S24_P06_mystery_magazine_package_x3",
+      "page": "6",
+      "name": "Mystery Magazine Package x3",
+      "cost": 15,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_magazinebookbox.webp",
+      "tallyCategory": "mystery_magazine"
+    },
+    {
+      "id": "S24_P06_gold_bullion_x100",
+      "page": "6",
+      "name": "Gold Bullion x100",
+      "cost": 15,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S24_P07_phoropter",
+      "page": "7",
+      "name": "Phoropter",
+      "cost": 60,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Utility_Phoropter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_utility_phoropter.webp",
+      "description": "Your eyes aren't playing tricks on you, it's a Phoropter!     - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P07_re_roller_x5",
+      "page": "7",
+      "name": "Re-Roller x5",
+      "cost": 25,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp",
+      "tallyCategory": "re_roller"
+    },
+    {
+      "id": "S24_P07_score_boost_10",
+      "page": "7",
+      "name": "10% S.C.O.R.E. Boost",
+      "cost": 0,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Account_ScoreBoost_3",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_account_scoreboost_3.webp",
+      "description": "Gain another 10% bonus S.C.O.R.E. when you complete challenges for the rest of Season 24!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E.. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
+      "tallyCategory": "score_booster"
+    },
+    {
+      "id": "S24_P07_200_atoms",
+      "page": "7",
+      "name": "200 Atoms",
+      "cost": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P07_prefix_rip",
+      "page": "7",
+      "name": "Player Title Prefix: \"Rip\"",
+      "cost": 0,
+      "kind": "playerTitlePrefix",
+      "value": "Rip",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Rip",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_rip.webp",
+      "description": "Unlocks the Player Title Prefix \"Rip\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P07_prefix_bigfoots",
+      "page": "7",
+      "name": "CAMP Title Prefix: \"Bigfoot's\"",
+      "cost": 25,
+      "isFirst": true,
+      "kind": "campTitlePrefix",
+      "value": "Bigfoot's",
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_Bigfoots",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_bigfoots.webp",
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Bigfoot's\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P07_unknown_origins_curio_cabinet",
+      "page": "7",
+      "name": "Unknown Origins Curio Cabinet",
+      "cost": 40,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Collector_StrangeCurioCabinet",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_collector_strangecuriocabinet.webp",
+      "description": "Oddities from beyond human knowledge, directly in your C.A.M.P. for your viewing pleasure!    Generates Adhesive, Asbestos, and Ceramic.    This item cannot be built inside of a Shelter.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P07_sugar_free_nukashine",
+      "page": "7",
+      "name": "Sugar-Free Nukashine",
+      "cost": 25,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_item_nukashine_sugarfree.webp",
+      "tallyCategory": "nukashine"
+    },
+    {
+      "id": "S24_P07_carry_weight_booster_x5",
+      "page": "7",
+      "name": "Carry Weight Booster x5",
+      "cost": 25,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S24_P07_jersey_devil_patch_icon",
+      "page": "7",
+      "name": "Player Icon: Jersey Devil Patch",
+      "cost": 30,
+      "kind": "playerIcon",
+      "value": "Jersey Devil Patch",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_JerseyDevilPatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_jerseydevilpatch.webp",
+      "description": "This patch appears Once in a Blue Moon.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S24_P08_200_atoms",
+      "page": "8",
+      "name": "200 Atoms",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P08_stamps_x10",
+      "page": "8",
+      "name": "Stamps x10",
+      "cost": 15,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
+    },
+    {
+      "id": "S24_P08_perk_coin_x50",
+      "page": "8",
+      "name": "Perk Coin x50",
+      "cost": 15,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp",
+      "tallyCategory": "perk_coins"
+    },
+    {
+      "id": "S24_P08_rip_daring_cosmos_photomode_logo",
+      "page": "8",
+      "name": "Rip Daring Cosmos Photomode Logo",
+      "cost": 25,
+      "storefrontEntitlement": "SCORE_S24_RipDaringCosmos_Photomode_Logo_Marquee",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_ripdaringcosmos_photomode_logo_marquee.webp",
+      "description": "Flex your photogenic, American self anywhere in the Universe with the Rip Daring and The Cryptids from Beyond the Cosmos Photomode Logo!    - UNLOCKS A PHOTOMODE LOGO. -"
+    },
+    {
+      "id": "S24_P08_taxidermy_beast_of_beckley",
+      "page": "8",
+      "name": "Taxidermy Beast of Beckley",
+      "cost": 75,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_FloorDecor_TaxidermyBeast",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_floordecor_taxidermybeast.webp",
+      "description": "A gruesome trophy from Appalachian legend. Locals say it once stalked Beckly's ruins - now it guards your camp instead. Still smells a bit... fresh.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P08_framed_house_kit",
+      "page": "8",
+      "name": "Framed House Kit",
+      "cost": 50,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Kit_Framed",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_kit_framed.webp",
+      "description": "It's a work in progress, with some tarps to try and keep things dry.    Includes new Wall and Roof items.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P08_mothman_patch_icon",
+      "page": "8",
+      "name": "Player Icon: Mothman Patch",
+      "cost": 25,
+      "isFirst": true,
+      "kind": "playerIcon",
+      "value": "Mothman Patch",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_MothmanPatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_mothmanpatch.webp",
+      "description": "This patch will help you find His Light.    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S24_P08_prefix_guineveres",
+      "page": "8",
+      "name": "Player Title Prefix: \"Guinevere's\"",
+      "cost": 25,
+      "kind": "playerTitlePrefix",
+      "value": "Guinevere's",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Guinevere",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_guinevere.webp",
+      "description": "Unlocks the Player Title Prefix \"Guinevere's\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P08_scouts_banner_x5",
+      "page": "8",
+      "name": "Scout's Banner x5",
+      "cost": 0,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_coen_utility_banner.webp",
+      "tallyCategory": "scouts_banner"
+    },
+    {
+      "id": "S24_P08_repair_kit",
+      "page": "8",
+      "name": "Repair Kit",
+      "cost": 25,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S24_P09_weather_station_alien_invasion",
+      "page": "9",
+      "name": "Weather Station (Alien Invasion)",
+      "cost": 75,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Utility_WeatherStation_Invasion",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_utility_weatherstation_invasion.webp",
+      "description": "They're just floating there... menacingly.    Weather Control Station will change weather in the C.A.M.P. radius when connected to power.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P09_prefix_suffix_cryptid_hunter",
+      "page": "9",
+      "name": "Player Title Prefix/Suffix: \"Cryptid Hunter\"",
+      "cost": 30,
+      "kind": "playerTitlePrefixSuffix",
+      "value": "Cryptid Hunter",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Both_CryptidHunter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_both_cryptidhunter.webp",
+      "description": "Unlocks the Player Title Prefix & Suffix \"Cryptid Hunter\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P09_grafton_monster_patch_icon",
+      "page": "9",
+      "name": "Player Icon: Grafton Monster Patch",
+      "cost": 30,
+      "kind": "playerIcon",
+      "value": "Grafton Monster Patch",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_GraftonMonsterPatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_graftonmonsterpatch.webp",
+      "description": "Don't forget to pick one up for Grafton Day!    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S24_P09_re_roller_x5",
+      "page": "9",
+      "name": "Re-Roller x5",
+      "cost": 0,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp",
+      "tallyCategory": "re_roller"
+    },
+    {
+      "id": "S24_P09_mystery_magazine_package_x3",
+      "page": "9",
+      "name": "Mystery Magazine Package x3",
+      "cost": 0,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_magazinebookbox.webp",
+      "tallyCategory": "mystery_magazine"
+    },
+    {
+      "id": "S24_P09_abduction_stein",
+      "page": "9",
+      "name": "Abduction Stein",
+      "cost": 45,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_FloorDecor_Stein_Abduction",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_floordecor_stein_abduction.webp",
+      "description": "For those who want to believe.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P09_caps_x5000",
+      "page": "9",
+      "name": "Caps x5000",
+      "cost": 25,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S24_P09_interstellar_daring_power_armor_paint",
+      "page": "9",
+      "name": "Interstellar Daring Power Armor Paint",
+      "cost": 75,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Skin_PowerArmor_Model_Armed",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_skin_powerarmor_model_armed.webp",
+      "description": "A prop for the film, \"Rip Daring and the Cryptids From Beyond the Cosmos.\" Despite being finished, it went unreleased due to the start of the Great War.    This is a unique skin that alters the appearance of your Power Armor. It can be equipped on all base Power Armors.    - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S24_P09_200_atoms",
+      "page": "9",
+      "name": "200 Atoms",
+      "cost": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P09_legendary_module_x10",
+      "page": "9",
+      "name": "Legendary Module x10",
+      "cost": 25,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S24_P10_space_glasses",
+      "page": "10",
+      "name": "Space Glasses",
+      "cost": 100,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Apparel_Headwear_SpaceAgeGlasses",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_apparel_headwear_spaceageglasses.webp",
+      "description": "This pre-war toy will let you see how space really looks! Which is apparently green.    2 craftable variants: Regular headwear and a headwear that changes the world to be green tinted    - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S24_P10_200_atoms",
+      "page": "10",
+      "name": "200 Atoms",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_P10_prefix_interstellar",
+      "page": "10",
+      "name": "Player Title Prefix: \"Interstellar\"",
+      "cost": 30,
+      "isFirst": true,
+      "kind": "playerTitlePrefix",
+      "value": "Interstellar",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Interstellar",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_interstellar.webp",
+      "description": "Unlocks the Player Title Prefix \"Interstellar\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_P10_carry_weight_booster_x5",
+      "page": "10",
+      "name": "Carry Weight Booster x5",
+      "cost": 30,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S24_P10_rip_daring_ammo_construction_appliance",
+      "page": "10",
+      "name": "Rip Daring Ammo Construction Appliance",
+      "cost": 75,
+      "storefrontEntitlement": "SCORE_S24_ENTM_AmmoConstructionmachine_Collector_RipArmCo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_ammoconstructionmachine_collector_riparmco.webp",
+      "description": "There is nothing better than the smell of fresh, American ammo in your C.A.M.P. in the morning.    This item cannot be built inside of a Shelter.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P10_film_noir_light_style",
+      "page": "10",
+      "name": "Film Noir Light Style",
+      "cost": 100
+    },
+    {
+      "id": "S24_P10_drive_in_ufo_sculpture",
+      "page": "10",
+      "name": "Drive-In UFO Sculpture",
+      "cost": 40,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Structure_DriveInStatue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_structure_driveinstatue.webp",
+      "description": "Do you believe that this is more than just a statue?    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P10_framed_cryptids_from_beyond_the_cosmos",
+      "page": "10",
+      "name": "Framed Cryptids From Beyond the Cosmos",
+      "cost": 25,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_WallDecor_EndOfSeasonArt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_walldecor_endofseasonart.webp",
+      "description": "Reminisce on another out of this world adventure with Rip Daring when you look at this framed art.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_P10_cold_shoulder_pip_boy_paint",
+      "page": "10",
+      "name": "Cold Shoulder Pip-Boy Paint",
+      "cost": 30,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S24_ENTM_Skin_PipBoySkin_ColdShoulder",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_skin_pipboyskin_coldshoulder.webp",
+      "description": "Give your enemies the frosty feeling of the Cold Shoulder, now conveniently located on your wrist!    - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S24_P10_suffix_terrestrial",
+      "page": "10",
+      "name": "Player Title Suffix: \"Terrestrial\"",
+      "cost": 0,
+      "kind": "playerTitleSuffix",
+      "value": "Terrestrial",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Suffix_Terrestrial",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_suffix_terrestrial.webp",
+      "description": "Unlocks the Player Title Suffix \"Terrestrial\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_B01_prefix_rip_darings",
+      "page": "B1",
+      "name": "CAMP Title Prefix: \"Rip Daring's\"",
+      "cost": 100,
+      "kind": "campTitlePrefix",
+      "value": "Rip Daring's",
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_RipDarings",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_ripdarings.webp",
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Rip Daring's\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_B01_glowing_cat",
+      "page": "B1",
+      "name": "Glowing Cat",
+      "cost": 200,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_CAMPPets_Cat_GlowingCat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_camppets_cat_glowingcat.webp",
+      "description": "A radiant feline friend to light your way through the wasteland! Equal parts adorable and radioactive. Comes with a cozy radiation bed!    - C.A.M.P. PETS  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_B01_pip_boy_display_stand",
+      "page": "B1",
+      "name": "Pip-Boy Display Stand",
+      "cost": 225,
+      "storefrontEntitlement": "SCORE_S24_ENTM_PipBoyReplica_DisplayStand",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_pipboyreplica_displaystand.webp",
+      "description": "Decorate with the finest RobCo technology when you bring home the Pip-Boy Display Stand!  Note: Only displays non-functioning Replica Pip-Boys.    - Replica Pip-Boys can be crafted at an Armor Workbench -"
+    },
+    {
+      "id": "S24_B01_guinevere_in_space_icon",
+      "page": "B1",
+      "name": "Player Icon: Guinevere in Space",
+      "cost": 100,
+      "kind": "playerIcon",
+      "value": "Guinevere in Space",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_SpaceGuinevere",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_spaceguinevere.webp",
+      "description": "In space, no one will hear Rip scream post-treatment!    - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S24_B01_prefix_armed",
+      "page": "B1",
+      "name": "Player Title Prefix: \"Armed\"",
+      "cost": 100,
+      "kind": "playerTitlePrefix",
+      "value": "Armed",
+      "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Armed",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_armed.webp",
+      "description": "Unlocks the Player Title Prefix \"Armed\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S24_B01_mountain_retreat_home",
+      "page": "B1",
+      "name": "Mountain Retreat Home",
+      "cost": 225,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Structure_Prefab_MountainRetreat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_structure_prefab_mountainretreat.webp",
+      "description": "This Mountain Retreat Home is the perfect place to get away from the hustle and bustle of the city life!    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_B01_orange_tarp_roof_kit",
+      "page": "B1",
+      "name": "Orange Tarp Roof Kit",
+      "cost": 200,
+      "storefrontEntitlement": "SCORE_S24_ENTM_CAMP_Roofs_Kit_Framed_Tarped",
+      "imageUrl": "/wp-content/uploads/season_images/score_s24_camp_roofs_kit_framed_tarped.webp",
+      "description": "It's a colorful work in progress.     Includes new Roof items.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S24_B01_stamps_x10",
+      "page": "B1",
+      "name": "Stamps x10",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
+    },
+    {
+      "id": "S24_B02_scouts_banner_x5",
+      "page": "B2",
+      "name": "Scout's Banner x5",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_coen_utility_banner.webp",
+      "tallyCategory": "scouts_banner"
+    },
+    {
+      "id": "S24_B02_caps_x5000",
+      "page": "B2",
+      "name": "Caps x5000",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S24_B02_perk_coin_x25",
+      "page": "B2",
+      "name": "Perk Coin x25",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp",
+      "tallyCategory": "perk_coins"
+    },
+    {
+      "id": "S24_B02_score_booster_x3",
+      "page": "B2",
+      "name": "S.C.O.R.E. Booster x3",
+      "cost": 125,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_scorebooster.webp",
+      "tallyCategory": "score_booster"
+    },
+    {
+      "id": "S24_B02_lunchbox_x5",
+      "page": "B2",
+      "name": "Lunchbox x5",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S24_B02_100_atoms",
+      "page": "B2",
+      "name": "100 Atoms",
+      "cost": 250,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S24_B02_superb_bait_x5",
+      "page": "B2",
+      "name": "Superb Bait x5",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_superbait.webp",
+      "tallyCategory": "superb_bait"
+    },
+    {
+      "id": "S24_B02_stamps_x10",
+      "page": "B2",
+      "name": "Stamps x10",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
+    },
+    {
+      "id": "S24_B02_gold_bullion_x100",
+      "page": "B2",
+      "name": "Gold Bullion x100",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S24_B02_re_roller_x5",
+      "page": "B2",
+      "name": "Re-Roller x5",
+      "cost": 125,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp",
+      "tallyCategory": "re_roller"
+    }
+  ]
+}
