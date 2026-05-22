@@ -904,49 +904,65 @@ function parseSeasonDate(raw) {
   return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
 }
 
-function buildScoreProgressionJson(seasonsTsvPath, outPath) {
+function buildScoreProgressionJson(seasonsTsvPath, outDir) {
   const { rows } = parseTSV(readText(seasonsTsvPath));
 
   if (!rows.length) throw new Error("fallout76_seasons.tsv is empty");
 
-  // Pick the row with the latest EndDate — that is always the current/upcoming season.
-  // Rows are chronological so we can just take the last non-empty one, but we parse
-  // and compare properly for safety.
+  const generatedAt = new Date().toISOString();
+  const parsed = [];
   let best = null;
   let bestEnd = "";
 
   for (const r of rows.map(upperKeyed)) {
-    const endIso = parseSeasonDate(r.EndDate);
+    const startIso = parseSeasonDate(r.StartDate);
+    const endIso   = parseSeasonDate(r.EndDate);
     if (!endIso) continue;
+
+    const number = parseInt(safeText(r.SeasonNumber), 10) || null;
+    const name   = safeText(r.SeasonName);
+    const days   = parseInt(safeText(r.Days), 10) || null;
+
+    const entry = { number, name, startDate: startIso, endDate: endIso, days };
+    parsed.push(entry);
+
     if (!best || endIso > bestEnd) {
-      best    = r;
+      best    = entry;
       bestEnd = endIso;
     }
   }
 
   if (!best) throw new Error("No valid season row found in fallout76_seasons.tsv");
 
-  const startIso = parseSeasonDate(best.StartDate);
-  const endIso   = parseSeasonDate(best.EndDate);
-  const number   = parseInt(safeText(best.SeasonNumber), 10) || null;
-  const name     = safeText(best.SeasonName);
-  const days     = parseInt(safeText(best.Days), 10) || null;
+  ensureDir(outDir);
 
-  const out = {
-    generatedAt:  new Date().toISOString(),
-    kind:         "score_progression",
-    season: {
-      number,
-      name,
-      startDate:  startIso,
-      endDate:    endIso,
-      days,
-    }
+  // 1) Per-season files: score_progression_s{N}.json
+  for (const s of parsed) {
+    const out = { generatedAt, kind: "score_progression", season: s };
+    const fname = `score_progression_s${s.number}.json`;
+    fs.writeFileSync(path.join(outDir, fname), JSON.stringify(out, null, 2));
+    console.log(`  ${fname}  ->  Season ${s.number}: ${s.name}  (${s.startDate} – ${s.endDate})`);
+  }
+
+  // 2) Backwards-compat: score_progression.json → latest season
+  const latestOut = { generatedAt, kind: "score_progression", season: best };
+  fs.writeFileSync(path.join(outDir, "score_progression.json"), JSON.stringify(latestOut, null, 2));
+  console.log(`  score_progression.json  ->  Season ${best.number} (latest)`);
+
+  // 3) Index: all_seasons.json — used by the JS to list available seasons + detect current
+  const index = {
+    generatedAt,
+    kind: "all_seasons",
+    seasons: parsed.map(s => ({
+      number:    s.number,
+      name:      s.name,
+      startDate: s.startDate,
+      endDate:   s.endDate,
+      days:      s.days,
+    }))
   };
-
-  ensureDir(path.dirname(outPath));
-  fs.writeFileSync(outPath, JSON.stringify(out, null, 2));
-  console.log(`  score_progression.json  ->  Season ${number}: ${name}  (${startIso} – ${endIso})`);
+  fs.writeFileSync(path.join(outDir, "all_seasons.json"), JSON.stringify(index, null, 2));
+  console.log(`  all_seasons.json  ->  ${parsed.length} seasons`);
 }
 
 /* =========================================================
@@ -1001,7 +1017,7 @@ if (FLST_ENTRIES_TSV) {
 }
 buildOutfitInspirationJson(ARMO_TSV, path.join(OUT_DIR, "outfit_inspiration.json"), ENTM_TSV, COBJ_TSV);
 buildBigBloomCraftingJson(COBJ_TSV, path.join(OUT_DIR, "big_bloom_crafting.json"));
-if (SEASONS_TSV) buildScoreProgressionJson(SEASONS_TSV, path.join(OUT_DIR, "score_progression.json"));
+if (SEASONS_TSV) buildScoreProgressionJson(SEASONS_TSV, OUT_DIR);
 
 /* =========================================================
    PATCHLOGS — build_inspiration + outfit_inspiration
