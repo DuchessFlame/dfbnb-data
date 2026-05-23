@@ -132,6 +132,36 @@ NAME_OVERRIDES = {
     "E07A_Mothman_LoadScreen":          "The Mothman Equinox",
     "Storm_E01_Dangerous_LoadScreen":   "Dangerous Pastimes",
 
+    # Events — names matched from QUEST TSV cross-reference
+    "Event_E03A_Mischief":              "Mischief Night",
+    "Event_MN2_Mischief":               "Mischief Night (Rapidan Camp)",
+    "Event_E07B_Invaders":              "Invaders from Beyond",
+    "Event_76ExitEventQuest":           "Vault 76 Exit Event",
+    "Event_RE_Scene_MTNZ05_Messenger":  "Messenger Event",
+    "Event_PowerPlantEvent":            "Power Plant Event",
+    "Event_TW003":                      "Manhunt",
+    "Event_TW006":                      "Protest March",
+    "Event_TW009":                      "The Battle that Never Was",
+    "Event_TW043":                      "Patrol Duty",
+    "Event_TWZ07":                      "Grafton Day",
+    "Event_BoSZ03":                     "Distant Thunder",
+    "Event_ENz01_Above":                "Dropped Connection",
+    "Event_ENz04_Bots":                 "Bots on Parade",
+    "Event_ENs02_Blast":                "A Real Blast",
+    "Event_CB06_ASAM":                  "Surface to Air",
+    "Event_CBZ09_Census":               "Census Violence",
+    "Event_CBZ13_Robots":               "AWOL Armaments",
+    "Event_FF09_Reaper":                "Fertile Soil",
+    "Event_FF11_Raid":                  "Collision Course",
+    "Event_FF12_Bell":                  "The Bell Tolls",
+    "Event_FFZ11_Pack":                 "Leader of the Pack",
+    "Event_FFZ16_Swatter":              "Fly Swatter",
+    "Event_FSS01_Trap":                 "It's a Trap",
+    "Event_MTR05_Mother_Breach":        "Breach and Clear",
+    "Event_MTR10_Battle":               "Battle Bots",
+    "Event_RS02_Beat":                  "Back on the Beat",
+    "Event_SFZ08_Fear":                 "Irrational Fear",
+
     # Photomode
     "Photomode_PersonalLoadScreen":     "Photomode Personal Loading Screens",
 
@@ -282,6 +312,12 @@ def extract_name(edid, lsst=None, category=None):
             e = e[len(pfx):]
             break
 
+    # 4b. For Events, strip remaining internal code prefixes (CB02_, FF01_, etc.)
+    #     Also strip RE_Scene_ and any secondary code prefix after it.
+    if category == "Events":
+        e = re.sub(r'^RE_Scene_', '', e)
+        e = re.sub(r'^[A-Za-z]{2,4}\d{1,3}_', '', e)
+
     # 5. Handle Power Armour names specially
     #    "PowerArmor_T45" → "T-45 Power Armour"
     if "Armor_" in edid and "PowerArmor_" in edid:
@@ -430,6 +466,9 @@ def main():
         lsst_count = sum(1 for i in cat["items"] if i["hasLsst"])
         lsst_str = f" ({lsst_count} with LSST)" if lsst_count else ""
         print(f"    {cat['name']}: {cat['count']}{lsst_str}")
+
+    # Write output
+    os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
 
     # Write output
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
