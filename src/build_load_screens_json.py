@@ -93,7 +93,6 @@ CATEGORY_ORDER = [
     "Armour & Power Armour",
     "Chems, Food & Aid",
     "Creatures",
-    "Cut Content",
     "Events",
     "Factions",
     "General Gameplay",
@@ -104,6 +103,7 @@ CATEGORY_ORDER = [
     "Perks & S.P.E.C.I.A.L.",
     "Vaults",
     "Weapons",
+    "Cut Content",
 ]
 
 
