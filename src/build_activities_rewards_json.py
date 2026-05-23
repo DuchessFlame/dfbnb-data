@@ -1135,6 +1135,7 @@ for r in GLOB:
                 glob_vals[fid] = v
         except ValueError: pass
 
+
 # --------------------------------------------------
 # Index: COBJ (constructible objects / recipes)
 # Maps COBJ FormID → {edid, created_name, created_formid}
