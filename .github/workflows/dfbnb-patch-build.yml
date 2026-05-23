@@ -501,6 +501,10 @@ jobs:
       - name: Build Legendary Mods JSON
         run: python src/build_legendary_mods_json.py
 
+      # --- LOAD SCREENS ---
+      - name: Build Load Screens JSON
+        run: python src/build_load_screens_json.py --data-dir tsv --out dist/load_screens.json
+
       # --- PERK CARDS ---
       - name: Build Perk Cards JSON
         run: python src/build_perk_cards_json.py
@@ -616,6 +620,7 @@ jobs:
           test -f dist/menu-items.json               && echo "OK menu-items.json"               || (echo "MISSING menu-items.json" && exit 1)
           test -f dist/bnb-menu.json                 && echo "OK bnb-menu.json"                 || (echo "MISSING bnb-menu.json" && exit 1)
           test -f dist/bnb-item-categories.json      && echo "OK bnb-item-categories.json"      || (echo "MISSING bnb-item-categories.json" && exit 1)
+          test -f dist/load_screens.json              && echo "OK load_screens.json"              || (echo "MISSING load_screens.json" && exit 1)
           test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
           test -f dist/seasonal-fish.json            && echo "OK seasonal-fish.json"            || (echo "MISSING seasonal-fish.json" && exit 1)
           test -f dist/infestations/hto_rewards.json && echo "OK infestations/hto_rewards.json" || (echo "MISSING infestations/hto_rewards.json" && exit 1)
