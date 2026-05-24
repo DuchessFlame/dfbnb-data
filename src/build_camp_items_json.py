@@ -1,41 +1,27 @@
 from __future__ import annotations
 
 """
-DF/BNB — Camp Items JSON Builder
+DF/BNB - Camp Items JSON Builder
 Produces:
-  dist/collectrons.json          → /bnb/camp-items/collectrons/collectrons/
-  dist/resource_producers.json   → /bnb/camp-items/resource-producers/food|junk|other/
-
-Data sources (all in dfbnb-data/tsv/):
-  RESO_Export_*.tsv
-  CONT_Export_*.tsv
-  ENTM_Export_*.tsv
-  COBJ_Export_*.tsv
-  BOOK_Export_*.tsv
-  LVLI_Export_*_LVLI_List.tsv
-  LVLI_Export_*_LVLI_Entries.tsv
-  GLOB_Export_*.tsv          (optional — needed for intervals + Gold Bullion prices)
+  dist/collectrons.json          -> /bnb/camp-items/collectrons/collectrons/
+  dist/resource_producers.json   -> /bnb/camp-items/resource-producers/food|junk|other/
 """
 
 import argparse
 import csv
 import datetime as dt
-import glob
 import json
 import os
 import re
 import sys
-from typing import Any, Dict, List, Optional, Tuple
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 from patchlog_utils import write_patchlog_feed, diff_item_lists
 
-# ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
-
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
+EXCLUDE_PATTERNS = re.compile(r"repair|repairbot", re.IGNORECASE)
 
-# FOOD subcategory keywords (matched against RESO EDID + ENTM DESC lowercase)
 FOOD_KEYWORDS = (
     "milk", "cake", "egg", "tea", "coffee", "candy", "popcorn", "beer",
     "pemmican", "apple", "turkey", "cookie", "mirelurk", "_food", "snack",
@@ -44,7 +30,6 @@ FOOD_KEYWORDS = (
     "brahmin", "slocum", "oven", "kettle", "steamer", "edible",
 )
 
-# JUNK subcategory keywords
 JUNK_KEYWORDS = (
     "_wood", "lumber", "_oil", "flora", "_junk", "_scrap", "acid",
     "cement", "fertilizer", "nuclear", "_bone", "steel", "lead", "glass",
@@ -53,644 +38,589 @@ JUNK_KEYWORDS = (
     "apothecary", "butterfly", "morbid",
 )
 
-# Vendor name extraction from LVLI EDID
 VENDOR_MAP = {
-    "samuel":  "Samuel",
-    "regs":    "Regs",
-    "freeman": "Freeman",
-    "radcliff": "Radcliff",
-    "gold":    "a Gold Bullion Vendor",
+    "samuel": "Samuel", "regs": "Regs", "freeman": "Freeman",
+    "radcliff": "Radcliff", "gold": "a Gold Bullion Vendor",
 }
 
-# ---------------------------------------------------------------------------
-# Utilities
-# ---------------------------------------------------------------------------
+MODE_SUFFIXES = (
+    "_MeleeAndAmmo", "_AlcoholAndChems", "_WeaponsAndAmmo",
+    "_Proletariat", "_Revolutionary", "_Party", "_Treats", "_Junk", "_All",
+)
 
-def now_iso() -> str:
-    return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat()
+MODE_DISPLAY_MAP = {
+    "MeleeAndAmmo": "Weapons & Ammo", "WeaponsAndAmmo": "Weapons & Ammo",
+    "AlcoholAndChems": "Alcohol & Chems", "Proletariat": "Proletariat",
+    "Revolutionary": "Revolutionary", "Party": "Party Supplies",
+    "Treats": "Treats", "Electronics": "Electronics",
+    "Electronics_Junk": "Junkyard", "All": "All",
+}
 
-def today_ymd() -> str:
-    return dt.datetime.now(dt.UTC).strftime("%Y-%m-%d")
+SEASON_DATES = {
+    1: "2020-06-30", 2: "2020-09-15", 3: "2020-12-15",
+    4: "2021-03-23", 5: "2021-06-29", 6: "2021-09-21",
+    7: "2021-12-14", 8: "2022-04-19", 9: "2022-07-05",
+    10: "2022-10-04", 11: "2023-01-03", 12: "2023-04-04",
+    13: "2023-07-18", 14: "2023-10-03", 15: "2024-01-23",
+    16: "2024-04-30", 17: "2024-07-30", 18: "2024-10-08",
+    19: "2025-01-28", 20: "2025-04-29", 21: "2025-07-29",
+    22: "2025-10-28", 23: "2026-01-27", 24: "2026-04-29",
+}
 
-def safe_float(s: str, default: Optional[float] = None) -> Optional[float]:
-    try:
-        return float(str(s or "").strip())
-    except Exception:
-        return default
+RE_RAND_PCT = re.compile(r"GetRandomPercent.*\)\s+[0-9A-Fa-f]+\s+(\d+\.\d+)\s*$", re.IGNORECASE)
+RE_RAND_PCT_GLOB_EDID = re.compile(r"GetRandomPercent.*\)\s+[0-9A-Fa-f]+\s+(\S+)\s*$", re.IGNORECASE)
+RE_GLOB_IN_COND = re.compile(r"\[GLOB:([0-9A-Fa-f]{8})\]", re.IGNORECASE)
 
-def safe_int(s: str, default: int = 0) -> int:
-    try:
-        return int(str(s or "").strip())
-    except Exception:
-        return default
+def now_iso():
+    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
-def starts_cut(edid: str) -> bool:
+def today_ymd():
+    return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")
+
+def safe_float(s, default=None):
+    try: return float(str(s or "").strip())
+    except Exception: return default
+
+def safe_int(s, default=0):
+    try: return int(str(s or "").strip())
+    except Exception: return default
+
+def starts_cut(edid):
     e = (edid or "").strip().upper()
     return any(e.startswith(p) for p in CUT_PREFIXES)
 
-def clean_str(s: Any) -> str:
-    if s is None:
-        return ""
+def is_excluded(edid):
+    if starts_cut(edid): return True
+    if EXCLUDE_PATTERNS.search(edid or ""): return True
+    return False
+
+def clean_str(s):
+    if s is None: return ""
     s = str(s).strip()
     if len(s) >= 2 and s.startswith('"') and s.endswith('"'):
         s = s[1:-1].strip()
     return re.sub(r"\s{2,}", " ", s).strip()
 
-def clean_desc(s: str) -> str:
-    """Remove boilerplate from DESC fields."""
+def clean_desc(s):
     s = clean_str(s)
-    # Remove trailing C.A.M.P. boilerplate after the real desc
     s = re.sub(r"\s*-\s*C\.A\.M\.P\. ITEMS APPEAR.*$", "", s, flags=re.IGNORECASE)
-    s = re.sub(r"\s*This item cannot be built inside a Shelter\.?\s*", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s*-\s*THIS ITEM APPEARS WHILE.*$", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s*This item cannot be built inside (?:of )?a Shelter\.?\s*", "", s, flags=re.IGNORECASE)
     s = re.sub(r"\s*-\s*AVAILABLE FOR GOLD BULLION.*$", "", s, flags=re.IGNORECASE)
-    # Collapse leftover whitespace
+    s = re.sub(r"\s*-\s*APPAREL IS CRAFTABLE.*$", "", s, flags=re.IGNORECASE)
     s = re.sub(r"\s{2,}", " ", s).strip()
-    return s
+    return re.sub(r"\s*-\s*$", "", s).strip()
 
-def formid8(s: str) -> str:
+def formid8(s):
     s = (s or "").strip().upper().replace("0X", "")
-    if len(s) > 8:
-        s = s[-8:]
+    if len(s) > 8: s = s[-8:]
     return s.zfill(8)
 
-def extract_formid_from_ref(ref_str: str) -> Optional[str]:
-    """Extract leading 8-hex FormID from strings like '00771DC4:SomeName:TYPE'."""
+def extract_formid_from_ref(ref_str):
     m = re.match(r"^([0-9A-Fa-f]{8}):", (ref_str or "").strip())
     return m.group(1).upper() if m else None
 
-def extract_avif_formid(field: str) -> Optional[str]:
-    """Parse '00771DC6:SCORE_S17_ResourceAV_Collectron_Scoutmaster:AVIF' → '00771DC6'."""
-    if not field:
-        return None
-    m = re.match(r"^([0-9A-Fa-f]{8}):", field.strip())
-    if m:
-        return m.group(1).upper()
-    # bracket notation: [AVIF:00771DC6]
-    m2 = re.search(r"\[AVIF:([0-9A-Fa-f]{8})\]", field)
-    return m2.group(1).upper() if m2 else None
+def extract_ref_parts(ref_str):
+    parts = (ref_str or "").strip().split(":")
+    fid = parts[0].upper() if parts else ""
+    name = parts[1] if len(parts) >= 2 else ""
+    rectype = parts[2] if len(parts) >= 3 else ""
+    return (fid, name, rectype)
 
-def extract_glob_formid(field: str) -> Optional[str]:
-    """Parse GLOB FormID from fields like '00555DB0:SomeEdid:GLOB' or '[GLOB:XXXXXXXX]'."""
-    if not field:
-        return None
-    m = re.match(r"^([0-9A-Fa-f]{8}):", field.strip())
-    if m:
-        return m.group(1).upper()
-    m2 = re.search(r"\[GLOB:([0-9A-Fa-f]{8})\]", field)
-    return m2.group(1).upper() if m2 else None
-
-# ---------------------------------------------------------------------------
-# TSV loading
-# ---------------------------------------------------------------------------
-
-def read_tsv(path: str) -> List[Dict[str, str]]:
-    with open(path, "r", encoding="utf-8", errors="replace", newline="") as f:
-        reader = csv.DictReader(f, delimiter="\t")
-        return [dict(r) for r in reader]
-
-def load_tsvs(patterns: List[str], tsv_root: Optional[str] = None) -> List[Dict[str, str]]:
-    rows: List[Dict[str, str]] = []
-    for pat in patterns:
-        paths = glob.glob(pat, recursive=True)
-        if not paths and tsv_root:
-            paths = glob.glob(os.path.join(tsv_root, "**", pat), recursive=True)
-        for p in sorted(set(paths)):
-            rows.extend(read_tsv(p))
-    return rows
-
-def _autofill(tsv_root: Optional[str], given: Optional[List[str]], globs: List[str]) -> List[str]:
-    if given:
-        return given
-    if not tsv_root:
-        return []
-    hits: List[str] = []
-    for g in globs:
-        hits.extend(glob.glob(os.path.join(tsv_root, g), recursive=True))
-    return sorted(set(hits))
-
-# ---------------------------------------------------------------------------
-# Index builders
-# ---------------------------------------------------------------------------
-
-def build_index(rows: List[Dict[str, str]], key_field: str) -> Dict[str, Dict[str, str]]:
-    idx: Dict[str, Dict[str, str]] = {}
-    for r in rows:
-        k = (r.get(key_field) or "").strip().upper()
-        if k:
-            idx[k] = r
-    return idx
-
-def glob_fltv(glob_rows: List[Dict[str, str]], glob_formid: str) -> Optional[float]:
-    """Return FLTV float for a GLOB FormID, or None."""
-    fid = (glob_formid or "").strip().upper()
-    for r in glob_rows:
-        if (r.get("FormID") or "").strip().upper() == fid:
-            return safe_float(r.get("FLTV") or r.get("DATA") or "")
+def extract_avif_edid(field):
+    if not field: return None
+    field = field.strip()
+    m = re.match(r'^([A-Za-z_][A-Za-z0-9_]*)\s', field)
+    if m: return m.group(1)
+    parts = field.split(":")
+    if len(parts) >= 3 and parts[2].strip().upper() == "AVIF": return parts[1].strip()
+    if len(parts) >= 2: return parts[1].strip()
     return None
 
-def interval_display(hours: float) -> str:
+def extract_glob_formid(field):
+    if not field: return None
+    m2 = re.search(r"\[GLOB:([0-9A-Fa-f]{8})\]", field)
+    if m2: return m2.group(1).upper()
+    m = re.match(r"^([0-9A-Fa-f]{8}):", field.strip())
+    return m.group(1).upper() if m else None
+
+def extract_lvli_formid(field):
+    if not field: return None
+    m2 = re.search(r"\[LVLI:([0-9A-Fa-f]{8})\]", field)
+    if m2: return m2.group(1).upper()
+    m = re.match(r"^([0-9A-Fa-f]{8}):", field.strip())
+    return m.group(1).upper() if m else None
+
+def parse_season_from_edid(edid):
+    m = re.search(r"SCORE[_-]?S(\d+)[_-]", (edid or ""), re.IGNORECASE)
+    return int(m.group(1)) if m else None
+
+# --- TSV loading ---
+def read_tsv(path):
+    with open(path, "r", encoding="utf-8", errors="replace", newline="") as f:
+        return [dict(r) for r in csv.DictReader(f, delimiter="\t")]
+
+MONTH_ORD = {"jan":1,"feb":2,"mar":3,"march":3,"apr":4,"april":4,"may":5,"jun":6,"june":6,
+    "jul":7,"july":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
+
+def _tsv_date_key(path):
+    """Extract (year, month_number) from TSV filename for sorting. Returns (0,0) if unparseable."""
+    bn = os.path.basename(path)
+    m = re.search(r"(Jan|Feb|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|Sep|Oct|Nov|Dec)(?:uary|ruary|ch|il|e|ust|tember|ober|ember)?[_-](\d{4})", bn, re.IGNORECASE)
+    if m:
+        month_num = MONTH_ORD.get(m.group(1).lower(), 0)
+        return (int(m.group(2)), month_num)
+    return (0, 0)
+
+def _find_latest_tsv(tsv_root, glob_pattern):
+    import glob as globmod
+    hits = globmod.glob(os.path.join(tsv_root, glob_pattern), recursive=True)
+    if not hits: return None
+    return sorted(hits, key=_tsv_date_key, reverse=True)[0]
+
+def load_latest_tsv(tsv_root, given, glob_pattern):
+    if given:
+        rows = []
+        for p in given:
+            if os.path.isfile(p): rows.extend(read_tsv(p))
+        return rows
+    if not tsv_root: return []
+    path = _find_latest_tsv(tsv_root, glob_pattern)
+    return read_tsv(path) if path else []
+
+# --- Index builders ---
+def build_index(rows, key_field):
+    idx = {}
+    for r in rows:
+        k = (r.get(key_field) or "").strip().upper()
+        if k: idx[k] = r
+    return idx
+
+def build_multi_index(rows, key_field):
+    idx = {}
+    for r in rows:
+        k = (r.get(key_field) or "").strip().upper()
+        if k: idx.setdefault(k, []).append(r)
+    return idx
+
+def glob_fltv(glob_index, glob_formid):
+    r = glob_index.get((glob_formid or "").strip().upper())
+    return safe_float(r.get("FLTV") or r.get("DATA") or "") if r else None
+
+def glob_fltv_by_edid(glob_edid_index, edid):
+    r = glob_edid_index.get((edid or "").strip())
+    return safe_float(r.get("FLTV") or r.get("DATA") or "") if r else None
+
+def interval_display(hours):
     total_seconds = hours * 3600
-    total_minutes = int(total_seconds // 60)
+    mins = int(total_seconds // 60)
     secs = round(total_seconds % 60)
-    if total_minutes == 0:
-        return f"{secs} sec"
-    if secs == 0:
-        return f"{total_minutes} min"
-    return f"{total_minutes} min {secs} sec"
+    if mins == 0: return "{} sec".format(secs)
+    if secs == 0: return "{} min".format(mins)
+    return "{} min {} sec".format(mins, secs)
 
-# ---------------------------------------------------------------------------
-# LVLI drop rate calculation (First-match / GetRandomPercent chain)
-# ---------------------------------------------------------------------------
+# --- LVLI drop rate calculation ---
+def parse_rand_pct_threshold(cond, glob_index, glob_edid_index=None):
+    cond = (cond or "").strip()
+    if "GetRandomPercent" not in cond: return None
+    # Try literal numeric threshold first
+    m = RE_RAND_PCT.search(cond)
+    if m: return float(m.group(1))
+    # Try [GLOB:XXXXXXXX] format
+    mg = RE_GLOB_IN_COND.search(cond)
+    if mg:
+        fltv = glob_fltv(glob_index, mg.group(1).upper())
+        if fltv is not None: return fltv
+    # Try raw GLOB EDID format (e.g. "...11000100 ATX_CNone_Collectron_...")
+    if glob_edid_index:
+        me = RE_RAND_PCT_GLOB_EDID.search(cond)
+        if me:
+            edid_str = me.group(1)
+            # Make sure it's not a number (already handled above)
+            if not edid_str.replace('.','').isdigit():
+                fltv = glob_fltv_by_edid(glob_edid_index, edid_str)
+                if fltv is not None: return fltv
+    return None
 
-RE_RAND_PCT = re.compile(r"GetRandomPercent[^0-9]*(\d+(?:\.\d+)?)\s*$", re.IGNORECASE)
+def resolve_lvli(lvli_formid, entries_index, list_index, glob_index, depth=0, glob_edid_index=None):
+    if depth > 20: return []
+    fid = (lvli_formid or "").strip().upper()
+    list_row = list_index.get(fid)
+    entries = entries_index.get(fid, [])
+    if not entries: return []
+    flags = (list_row.get("LVLF_Flags") or "").strip() if list_row else ""
+    max_count_val = safe_float(list_row.get("LVMV_MaxValue") or "0") or 0.0 if list_row else 0.0
+    use_all = len(flags) >= 3 and flags[2] == '1'
+    first_match = len(flags) >= 7 and flags[6] == '1'
+    entries = sorted(entries, key=lambda r: safe_int(r.get("EntryIndex") or "0"))
+    if first_match:
+        return _resolve_first_match(entries, entries_index, list_index, glob_index, depth, glob_edid_index)
+    elif use_all and max_count_val == 1.0:
+        return _resolve_waterfall(entries, entries_index, list_index, glob_index, depth, glob_edid_index)
+    elif use_all:
+        return _resolve_independent(entries, entries_index, list_index, glob_index, depth, glob_edid_index)
+    else:
+        return _resolve_pick_one(entries, entries_index, list_index, glob_index, depth, glob_edid_index)
 
-def parse_rand_pct_threshold(cond: str) -> Optional[float]:
-    """Extract the >= threshold from 'Subject.GetRandomPercent(...) 11000000 98.000000'."""
-    m = RE_RAND_PCT.search((cond or "").strip())
-    return float(m.group(1)) if m else None
+def _get_entry_cn_factor(entry, glob_index):
+    cn = safe_float(entry.get("LVOV_ChanceNoneValue") or "0") or 0.0
+    if cn > 0: return 1.0 - cn / 100.0
+    cn_glob = (entry.get("LVOG_ChanceNoneGlobal") or "").strip()
+    if cn_glob:
+        glob_fid = extract_glob_formid(cn_glob)
+        if glob_fid:
+            fltv = glob_fltv(glob_index, glob_fid)
+            if fltv is not None and fltv > 0: return 1.0 - fltv / 100.0
+    return 1.0
 
-def compute_drop_table(lvli_formid: str, lvli_entry_rows: List[Dict[str, str]]) -> List[Dict[str, Any]]:
-    """
-    Compute First-match drop rates for a LVLI.
-    Returns list of {item, formId, chance} sorted by EntryIndex.
-    """
-    entries = [r for r in lvli_entry_rows
-               if (r.get("LVLI_FormID") or "").strip().upper() == lvli_formid.upper()]
+def _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index=None):
+    ref = clean_str(entry.get("LVLO_Reference") or "")
+    if not ref: return []
+    fid, name, rectype = extract_ref_parts(ref)
+    if rectype.upper() == "LVLI":
+        return resolve_lvli(fid, entries_index, list_index, glob_index, depth + 1, glob_edid_index)
+    return [{"item": name, "formId": fid, "chance": 100.0, "recType": rectype}]
 
-    if not entries:
-        return []
-
-    # Sort by EntryIndex
-    def _idx(r: Dict[str, str]) -> int:
-        return safe_int(r.get("EntryIndex") or r.get("EntryIndex") or "0")
-
-    entries.sort(key=_idx)
-
-    drops: List[Dict[str, Any]] = []
-    remaining = 1.0
-
-    for r in entries:
-        ref = clean_str(r.get("LVLO_Reference") or "")
-        ref_fid = extract_formid_from_ref(ref)
-        ref_parts = ref.split(":")
-        item_name = ref_parts[1] if len(ref_parts) >= 2 else ref
-        item_fid = ref_fid or ""
-
-        # Parse condition
-        cond_count = safe_int(r.get("CondCount") or "0")
-        threshold: Optional[float] = None
-        if cond_count > 0:
-            cond1 = clean_str(r.get("Cond1") or "")
-            threshold = parse_rand_pct_threshold(cond1)
-
+def _resolve_first_match(entries, entries_index, list_index, glob_index, depth, glob_edid_index=None):
+    """Independent-rolls FirstMatch: each entry evaluates GetRandomPercent
+    independently. Entry i wins if its condition passes AND all previous
+    entries' conditions failed. GetRandomPercent >= threshold means
+    P(pass) = (100 - threshold) / 100."""
+    drops, remaining = [], 1.0
+    for entry in entries:
+        cn_factor = _get_entry_cn_factor(entry, glob_index)
+        threshold = None
+        if safe_int(entry.get("CondCount") or "0") > 0:
+            threshold = parse_rand_pct_threshold(
+                clean_str(entry.get("Cond1") or ""), glob_index, glob_edid_index)
         if threshold is not None:
             base = (100.0 - threshold) / 100.0
-            chance = base * remaining
+            entry_chance = base * remaining * cn_factor
             remaining *= (1.0 - base)
         else:
-            # No condition — guaranteed fallback (takes whatever remains)
-            chance = remaining
+            entry_chance = remaining * cn_factor
             remaining = 0.0
-
-        drops.append({
-            "item": item_name,
-            "formId": item_fid,
-            "chance": round(chance * 100, 5),
-        })
-
+        for si in _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index):
+            drops.append({"item": si["item"], "formId": si["formId"],
+                "chance": round(si["chance"] / 100.0 * entry_chance * 100, 5),
+                "recType": si.get("recType", "")})
     return drops
 
-# ---------------------------------------------------------------------------
-# CONT property parsing
-# ---------------------------------------------------------------------------
+def _resolve_waterfall(entries, entries_index, list_index, glob_index, depth, glob_edid_index=None):
+    drops, remaining = [], 1.0
+    for entry in entries:
+        cn_factor = _get_entry_cn_factor(entry, glob_index)
+        entry_chance = remaining * cn_factor
+        remaining *= (1.0 - cn_factor)
+        for si in _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index):
+            drops.append({"item": si["item"], "formId": si["formId"],
+                "chance": round(si["chance"] / 100.0 * entry_chance * 100, 5),
+                "recType": si.get("recType", "")})
+    return drops
 
-def parse_cont_properties(cont_row: Dict[str, str]) -> Dict[str, Any]:
-    """
-    Extract capacity, flamingo units, power required from CONT property strings.
-    Property format: 'ActorValue=FORMID:EDID:AVIF | Value=N.N | CurveTable=...'
-    """
-    result: Dict[str, Any] = {
-        "capacity": None,
-        "powerRequired": False,
-        "flamingoUnits": None,
-        "lockable": None,
-    }
+def _resolve_independent(entries, entries_index, list_index, glob_index, depth, glob_edid_index=None):
+    drops = []
+    for entry in entries:
+        cn_factor = _get_entry_cn_factor(entry, glob_index)
+        for si in _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index):
+            drops.append({"item": si["item"], "formId": si["formId"],
+                "chance": round(si["chance"] / 100.0 * cn_factor * 100, 5),
+                "recType": si.get("recType", "")})
+    return drops
 
-    # Keywords
-    kw_blob = " ".join(
-        str(cont_row.get(f"KW{i}") or "") for i in range(1, 12)
-    ).lower()
+def _resolve_pick_one(entries, entries_index, list_index, glob_index, depth, glob_edid_index=None):
+    drops = []
+    n = len(entries)
+    if n == 0: return drops
+    per_entry = 1.0 / n
+    for entry in entries:
+        cn_factor = _get_entry_cn_factor(entry, glob_index)
+        for si in _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index):
+            drops.append({"item": si["item"], "formId": si["formId"],
+                "chance": round(si["chance"] / 100.0 * per_entry * cn_factor * 100, 5),
+                "recType": si.get("recType", "")})
+    return drops
 
+def consolidate_drops(drops):
+    merged = {}
+    for d in drops:
+        key = d["formId"]
+        if key in merged:
+            # Use max instead of sum: duplicate entries represent quantity, not extra probability
+            merged[key]["chance"] = round(max(merged[key]["chance"], d["chance"]), 5)
+        else:
+            merged[key] = dict(d)
+    result = sorted(merged.values(), key=lambda x: (-x["chance"], (x.get("item") or "").lower()))
+    for r in result: r.pop("recType", None)
+    return result
+
+# --- CONT ---
+def parse_cont_properties(cont_row):
+    result = {"capacity": None, "powerRequired": False, "flamingoUnits": None, "lockable": None}
+    kw_blob = " ".join(str(cont_row.get("KW{}".format(i)) or "") for i in range(1, 12)).lower()
     if "workshopcanpowered" in kw_blob or "workshopcanbepowered" in kw_blob:
         result["powerRequired"] = True
     if "containertakeonly" in kw_blob:
         result["lockable"] = True
-
-    # Properties
-    prop_blob = " ".join(
-        str(cont_row.get(f"Prop{i}") or "") for i in range(1, 7)
-    )
-
-    # CarryWeight -> capacity
-    m = re.search(r"CarryWeight[^|]*\|\s*Value\s*=\s*([\d.]+)", prop_blob, re.IGNORECASE)
-    if m:
-        result["capacity"] = int(float(m.group(1)))
-
-    # WorkshopBudgetObjectMultiplier -> flamingo units
-    m = re.search(r"WorkshopBudgetObjectMultiplier[^|]*\|\s*Value\s*=\s*([\d.]+)", prop_blob, re.IGNORECASE)
-    if m:
-        result["flamingoUnits"] = int(float(m.group(1)))
-
+    prop_count = safe_int(cont_row.get("PropertyCount") or "0")
+    for i in range(1, min(prop_count, 6) + 1):
+        av = (cont_row.get("Prop_{}_AV".format(i)) or "").strip().lower()
+        val = safe_float(cont_row.get("Prop_{}_Val".format(i)) or "")
+        if av == "carryweight" and val is not None: result["capacity"] = int(val)
+        elif av == "workshopbudgetobjectmultiplier" and val is not None: result["flamingoUnits"] = int(val)
+        elif av == "powerrequired" and val is not None and val > 0: result["powerRequired"] = True
     return result
 
-# ---------------------------------------------------------------------------
-# COBJ — crafting recipe data
-# ---------------------------------------------------------------------------
+def extract_cont_avif_edids(cont_row):
+    edids = set()
+    prop_count = safe_int(cont_row.get("PropertyCount") or "0")
+    for i in range(1, min(prop_count, 6) + 1):
+        av = (cont_row.get("Prop_{}_AV".format(i)) or "").strip()
+        if av and "ResourceAV" in av: edids.add(av)
+    return edids
 
-def find_cobj_for_cont(cobj_rows: List[Dict[str, str]], cont_formid: str) -> Optional[Dict[str, str]]:
-    """Find the build COBJ where CNAM_FormID matches the CONT FormID."""
-    fid = (cont_formid or "").strip().upper()
-    for r in cobj_rows:
-        if (r.get("CNAM_FormID") or "").strip().upper() == fid:
-            return r
-    return None
+def build_avif_edid_to_cont(cont_rows):
+    idx = {}
+    for r in cont_rows:
+        if starts_cut((r.get("EDID") or "").strip()): continue
+        for ae in extract_cont_avif_edids(r): idx[ae.upper()] = r
+    return idx
 
-def find_condproxy_cobj(cobj_rows: List[Dict[str, str]], name_token: str) -> Optional[Dict[str, str]]:
-    """Find the CondProxy COBJ for a collectron/resource by name token."""
-    tok = (name_token or "").lower()
-    for r in cobj_rows:
-        edid = (r.get("COBJ_EDID") or r.get("EDID") or "").lower()
-        if "condproxy" in edid and tok in edid:
-            return r
-    return None
-
-def find_goldvendor_cobj(cobj_rows: List[Dict[str, str]], name_token: str) -> Optional[Dict[str, str]]:
-    """Find the GoldVendor plan COBJ for a collectron."""
-    tok = (name_token or "").lower()
-    for r in cobj_rows:
-        edid = (r.get("COBJ_EDID") or r.get("EDID") or "").lower()
-        if "goldvendor" in edid and tok in edid:
-            return r
-    return None
-
-def parse_season_from_edid(edid: str) -> Optional[int]:
-    """Extract season number from EDID like 'SCORE_S17_...'."""
-    m = re.search(r"SCORE[_-]?S(\d+)[_-]", (edid or ""), re.IGNORECASE)
-    return int(m.group(1)) if m else None
-
-def parse_crafting_components(fvpa: str) -> List[Dict[str, Any]]:
-    """Parse 'Circuitry:2 | Glass:2 | Gear:1 | Steel:2' into list of {item, count}."""
-    # FVPA format changed Apr-2026: EDID:qty → EDID:qty:keyword_EDID
-    # Split on ":" and take parts[0]=EDID, parts[1]=qty, ignore parts[2+]
+# --- COBJ ---
+def parse_crafting_components(fvpa):
     result = []
     for part in re.split(r"\s*\|\s*", (fvpa or "").strip()):
         part = part.strip()
-        if not part:
-            continue
+        if not part: continue
         tokens = part.split(":")
-        if len(tokens) >= 2 and tokens[1].strip().isdigit():
-            result.append({"item": tokens[0].strip(), "count": int(tokens[1].strip())})
-        else:
-            result.append({"item": part, "count": 1})
+        name = tokens[0].strip()
+        if name.startswith("c_"): name = name[2:]
+        count = safe_int(tokens[1].strip(), default=1) if len(tokens) >= 2 else 1
+        if name: result.append({"item": name, "count": count})
     return result
 
-# ---------------------------------------------------------------------------
-# BOOK — plan data (tradeable, gold bullion, vendor)
-# ---------------------------------------------------------------------------
+def build_cobj_cnam_index(cobj_rows):
+    idx = {}
+    for r in cobj_rows:
+        cnam = (r.get("CNAM_FormID") or "").strip().upper()
+        if cnam and cnam != "00000000": idx[cnam] = r
+    return idx
 
-def parse_book_for_plan(book_row: Optional[Dict[str, str]], glob_rows: List[Dict[str, str]]) -> Dict[str, Any]:
-    """Extract plan name, tradeable flag, gold bullion price + vendor from BOOK row."""
-    result: Dict[str, Any] = {
-        "planName": None,
-        "tradeable": None,
-        "goldBullionPrice": None,
-        "vendor": None,
-        "vendorLvliEdid": None,
-    }
-    if not book_row:
-        return result
-
+# --- BOOK ---
+def parse_book_for_plan(book_row, glob_index):
+    result = {"planName": None, "tradeable": None, "goldBullionPrice": None, "vendor": None}
+    if not book_row: return result
     result["planName"] = clean_str(book_row.get("FULL") or "")
-
-    # Tradeable check
     blob = " ".join(str(v) for v in book_row.values()).lower()
-    non_trade = "nonplayertradeable" in blob or "nonplayertradable" in blob or "unsellableobject" in blob
-    result["tradeable"] = not non_trade
-
-    # BVGO -> GLOB -> price
+    result["tradeable"] = not ("nonplayertradeable" in blob or "nonplayertradable" in blob or "unsellableobject" in blob)
     bvgo = clean_str(book_row.get("BVGO") or "")
     if bvgo:
-        glob_fid = extract_glob_formid(bvgo)
-        if glob_fid:
-            price = glob_fltv(glob_rows, glob_fid)
-            if price is not None:
-                result["goldBullionPrice"] = int(price)
-
-    # Vendor from Ref* -> LVLI with GoldVendor in EDID
+        gf = extract_glob_formid(bvgo)
+        if gf:
+            price = glob_fltv(glob_index, gf)
+            if price is not None: result["goldBullionPrice"] = int(price)
     ref_count = safe_int(book_row.get("ReferencedByCount") or "0")
-    for i in range(1, ref_count + 1):
-        ref = clean_str(book_row.get(f"Ref{i}") or "")
-        if ":LVLI" not in ref.upper():
-            continue
-        ref_edid_parts = ref.split(":")
-        if len(ref_edid_parts) >= 2:
-            edid_part = ref_edid_parts[1].lower()
-            if "goldvendor" in edid_part:
-                result["vendorLvliEdid"] = ref_edid_parts[1]
-                # Extract vendor name
-                for vk, vname in VENDOR_MAP.items():
-                    if vk in edid_part:
-                        result["vendor"] = vname
-                        break
-                if not result["vendor"]:
-                    result["vendor"] = "a Gold Bullion Vendor"
-                break
-
+    for i in range(1, min(ref_count, 30) + 1):
+        ref = clean_str(book_row.get("Ref{}".format(i)) or book_row.get("Ref_{}".format(i)) or "")
+        if ":LVLI" not in ref.upper(): continue
+        rp = ref.split(":")
+        if len(rp) >= 2 and "goldvendor" in rp[1].lower():
+            for vk, vn in VENDOR_MAP.items():
+                if vk in rp[1].lower(): result["vendor"] = vn; break
+            if not result["vendor"]: result["vendor"] = "a Gold Bullion Vendor"
+            break
     return result
 
-# ---------------------------------------------------------------------------
-# Obtain method resolution
-# ---------------------------------------------------------------------------
-
-def resolve_obtain(
-    entm_edid: str,
-    entm_xalg: str,
-    book_data: Dict[str, Any],
-    cobj_condproxy: Optional[Dict[str, str]],
-) -> Dict[str, Any]:
-    """
-    Determine how to obtain an item.
-    Returns dict with: method, seasonNumber, goldBullionPrice, vendor,
-                       tradeable, planName, display, badge
-    badge: "atom" | "scoreboard" | "gold" | "f1" | "default"
-    """
+# --- Obtain ---
+def resolve_obtain(entm_edid, book_data):
     edid_l = (entm_edid or "").lower()
-    edid_u = (entm_edid or "").upper()
     season = parse_season_from_edid(entm_edid)
-
-    result: Dict[str, Any] = {
-        "method": "unknown",
-        "seasonNumber": season,
-        "goldBullionPrice": book_data.get("goldBullionPrice"),
-        "vendor": book_data.get("vendor"),
-        "tradeable": book_data.get("tradeable"),
-        "planName": book_data.get("planName"),
-        "display": "",
-        "badge": "default",
-    }
-
-    # Fallout 1st
+    result = {"method": "unknown", "seasonNumber": season, "goldBullionPrice": book_data.get("goldBullionPrice"),
+        "vendor": book_data.get("vendor"), "tradeable": book_data.get("tradeable"),
+        "planName": book_data.get("planName"), "display": "", "badge": "default"}
     if "atx_f1_" in edid_l or "_f1_entm_" in edid_l:
-        result["method"] = "f1"
-        result["badge"] = "f1"
-        result["display"] = "Free to claim from the Atom Shop for Fallout 1st members."
+        result.update(method="f1", badge="f1", display="Free to claim from the Atom Shop for Fallout 1st members.")
         return result
-
-    # Atom Shop (pure ATX, non-season)
-    if edid_u.startswith("ATX_") and not edid_u.startswith("ATX_COMMUNITY"):
-        result["method"] = "atom"
-        result["badge"] = "atom"
-        result["display"] = "Purchase from the Atom Shop."
+    if "community" in edid_l:
+        result.update(method="community", display="Awarded through a Bethesda community event or promotion.")
         return result
-
-    # Community
-    if "community" in edid_l or "atx_community" in edid_l:
-        result["method"] = "community"
-        result["badge"] = "default"
-        result["display"] = "Awarded through a Bethesda community event or promotion."
-        return result
-
-    # Season Scoreboard
     if season:
-        # Gold Bullion sub-path
         if result["goldBullionPrice"] and result["vendor"]:
-            result["method"] = "gold"
-            result["badge"] = "gold"
-            price = result["goldBullionPrice"]
-            vendor = result["vendor"]
-            result["display"] = (
-                f"Purchase from {vendor} for {price} Gold Bullion. "
-                f"Requires unlocking Season {season} Scoreboard."
-            )
+            result.update(method="gold", badge="gold",
+                display="Purchase from {} for {} Gold Bullion. Requires unlocking Season {} Scoreboard.".format(
+                    result["vendor"], result["goldBullionPrice"], season))
         else:
-            result["method"] = "scoreboard"
-            result["badge"] = "scoreboard"
-            result["display"] = f"Unlock via the Season {season} Scoreboard."
+            result.update(method="scoreboard", badge="scoreboard",
+                display="Unlock via the Season {} Scoreboard.".format(season))
         return result
-
-    # Default / base game
-    result["method"] = "default"
-    result["badge"] = "default"
-    result["display"] = "Available in the base game."
+    if (entm_edid or "").upper().startswith("ATX_"):
+        result.update(method="atom", badge="atom", display="Purchase from the Atom Shop.")
+        return result
+    result.update(method="default", display="Available in the base game.")
     return result
 
-# ---------------------------------------------------------------------------
-# Subcategory for resource producers
-# ---------------------------------------------------------------------------
-
-def resource_subcategory(reso_edid: str, entm_desc: str) -> str:
-    """Classify into 'food', 'junk', or 'other'."""
+# --- Subcategory ---
+def resource_subcategory(reso_edid, entm_desc):
     blob = ((reso_edid or "") + " " + (entm_desc or "")).lower()
-
     for kw in FOOD_KEYWORDS:
-        if kw in blob:
-            return "food"
+        if kw in blob: return "food"
     for kw in JUNK_KEYWORDS:
-        if kw in blob:
-            return "junk"
+        if kw in blob: return "junk"
     return "other"
 
-# ---------------------------------------------------------------------------
-# ENTM matching
-# ---------------------------------------------------------------------------
-
-def _name_token(edid: str) -> str:
-    """Extract the 'unique name' part from an EDID for fuzzy matching."""
-    s = (edid or "").lower()
-    # Remove common prefixes
-    for prefix in ("score_s\\d+_", "atx_f1_", "atx_"):
-        s = re.sub(f"^{prefix}", "", s)
-    # Remove ENTM/CAMP/Utility/Resource markers
-    s = re.sub(r"^(entm_|camp_|utility_|resource_|resources?_|collector_|collectron_)+", "", s)
-    s = re.sub(r"_(entm|camp|utility|resource|collector|collectron)_", "_", s)
-    return s
-
-def find_entm_for_reso(entm_rows: List[Dict[str, str]], reso_edid: str) -> Optional[Dict[str, str]]:
-    """
-    Find the best matching ENTM for a RESO entry by EDID token matching.
-    Strategy:
-    1. Extract unique name from RESO EDID
-    2. Find ENTM containing both 'Collectron'/'Collector' and that name token
-    """
-    reso_tok = _name_token(reso_edid).replace("_", " ").strip()
-    if not reso_tok:
-        return None
-
-    # Also try full suffix after "Collectron_" or "Collector_"
-    collectron_suffix = ""
-    m = re.search(r"(?:_Collectron_|_Collector_)(.+)$", reso_edid, re.IGNORECASE)
-    if m:
-        collectron_suffix = m.group(1).lower()
-
-    best: Optional[Dict[str, str]] = None
-    best_score = 0
-
-    for r in entm_rows:
-        edid = (r.get("EDID") or "").strip()
-        if not edid or starts_cut(edid):
-            continue
-        edid_l = edid.lower()
-
-        # Must be a camp utility/collector/collectron ENTM
-        if "_entm_" not in edid_l:
-            continue
-        if "camp" not in edid_l:
-            continue
-
-        score = 0
-
-        # Exact suffix match
-        if collectron_suffix and collectron_suffix in edid_l:
-            score += 10
-
-        # Token match (word by word)
-        for word in reso_tok.split():
-            if len(word) >= 4 and word in edid_l:
-                score += 2
-
-        # Prefer same season
-        reso_season = parse_season_from_edid(reso_edid)
-        entm_season = parse_season_from_edid(edid)
-        if reso_season and reso_season == entm_season:
-            score += 5
-        elif reso_season and entm_season and reso_season != entm_season:
-            score -= 3
-
-        if score > best_score:
-            best_score = score
-            best = r
-
-    return best if best_score >= 4 else None
-
-def find_cont_via_avif(cont_rows: List[Dict[str, str]], avif_formid: str) -> Optional[Dict[str, str]]:
-    """Find CONT that references a specific AVIF FormID in its properties."""
-    if not avif_formid:
-        return None
-    avif_u = avif_formid.strip().upper()
-    for r in cont_rows:
-        props = " ".join(str(r.get(f"Prop{i}") or "") for i in range(1, 7)).upper()
-        if avif_u in props:
-            return r
-    return None
-
-def find_book_by_edid_token(book_rows: List[Dict[str, str]], name_token: str) -> Optional[Dict[str, str]]:
-    """Find plan BOOK whose EDID or FULL contains the name token."""
-    tok = (name_token or "").lower()
-    for r in book_rows:
-        edid = (r.get("EDID") or "").lower()
-        full = (r.get("FULL") or "").lower()
-        if tok in edid or tok in full:
-            return r
-    return None
-
-# ---------------------------------------------------------------------------
-# Image URL helper
-# ---------------------------------------------------------------------------
-
-def image_webp_url(entm_row: Optional[Dict[str, str]], subfolder: str) -> Optional[str]:
-    """
-    Build the final WEBP URL on the website.
-    Convention: /wp-content/uploads/storefront/{subfolder}/{entm_edid_lower}.webp
-    """
-    if not entm_row:
-        return None
+# --- Image + release date ---
+def image_webp_url(entm_row, subfolder):
+    if not entm_row: return None
     edid = (entm_row.get("EDID") or "").strip().lower()
-    if not edid:
-        return None
-    return f"/wp-content/uploads/storefront/{subfolder}/{edid}.webp"
+    return "/wp-content/uploads/storefront/{}/{}.webp".format(subfolder, edid) if edid else None
 
-def image_carousel_urls(entm_row: Optional[Dict[str, str]], subfolder: str) -> List[str]:
-    """Build carousel image URLs from ECIL_* fields."""
-    if not entm_row:
-        return []
-    # ECIL_* fields contain DDS filenames (without path)
-    folder = (entm_row.get("ETIP") or "").strip()  # e.g. Textures/ATX/Storefront/Camp/Utility/
-    count = safe_int(entm_row.get("ECIL_Count") or "0")
-    edid = (entm_row.get("EDID") or "").strip().lower()
+def image_carousel_urls(entm_row, subfolder):
+    if not entm_row: return []
     result = []
-    for i in range(1, count + 1):
-        dds = clean_str(entm_row.get(f"ECIL_{i}") or "")
-        if dds:
-            # Convert DDS filename to expected WEBP name
-            base = os.path.splitext(dds)[0].lower()
-            result.append(f"/wp-content/uploads/storefront/{subfolder}/{base}.webp")
+    for i in range(1, safe_int(entm_row.get("ECIL_Count") or "0") + 1):
+        dds = clean_str(entm_row.get("ECIL_{}".format(i)) or "")
+        if dds: result.append("/wp-content/uploads/storefront/{}/{}.webp".format(subfolder, os.path.splitext(dds)[0].lower()))
     return result
 
-def release_date_from_edid(edid: str) -> Optional[str]:
-    """
-    Best-effort release date from season number.
-    Returns None if unknown — will be set to today by build script.
-    """
-    # Known season approximate dates (extend as needed)
-    SEASON_DATES = {
-        1:  "2020-06-30", 2:  "2020-09-15", 3:  "2020-12-15",
-        4:  "2021-03-23", 5:  "2021-06-29", 6:  "2021-09-21",
-        7:  "2021-12-14", 8:  "2022-04-19", 9:  "2022-07-05",
-        10: "2022-10-04", 11: "2023-01-03", 12: "2023-04-04",
-        13: "2023-07-18", 14: "2023-10-03", 15: "2024-01-23",
-        16: "2024-04-30", 17: "2024-07-30", 18: "2024-10-08",
-        19: "2025-01-28", 20: "2025-04-29", 21: "2025-07-29",
-        22: "2025-10-28", 23: "2026-01-27", 24: "2026-04-29",
-    }
+def release_date_from_edid(edid):
     sn = parse_season_from_edid(edid)
-    if sn and sn in SEASON_DATES:
-        return SEASON_DATES[sn]
-    edid_l = (edid or "").lower()
-    if edid_l.startswith("atx_"):
-        return None  # unknown ATX release date — will be today
+    return SEASON_DATES.get(sn) if sn else None
+
+def load_previous_release_dates(dist_path):
+    if not dist_path or not os.path.exists(dist_path): return {}
+    try:
+        with open(dist_path, "r", encoding="utf-8") as f: data = json.load(f)
+        out = {}
+        for it in (data.get("items") or []):
+            fid = str(it.get("formId") or "").strip().upper()
+            rd = str(it.get("releaseDate") or "").strip()
+            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", rd): out[fid] = rd
+        return out
+    except Exception: return {}
+
+# --- RESO filtering ---
+def is_camp_resource(reso_edid):
+    edid_u = (reso_edid or "").strip().upper()
+    # Standard ATX / SCORE / F1 prefixed camp items
+    if re.match(r"^(ATX_|SCORE_S\d+_|ATX_F1_)", edid_u):
+        if any(kw in edid_u for kw in ("RESOURCE", "COLLECTRON", "COLLECTOR", "BEEHIVE",
+                                         "CHICKENCOOP", "BRAHMIN", "MORBIDWELL", "TOXICBOB",
+                                         "PEPPINO", "SIRLOIN", "LIBERATED", "EVIDENCE")):
+            return True
+    # Pets resource producers
+    if re.match(r"^PETS_", edid_u) and "RESOURCE" in edid_u: return True
+    # Catch-all for any RESO with "Resource" or "Collector" anywhere in EDID
+    if "RESOURCE" in edid_u or "COLLECTOR" in edid_u or "COLLECTRON" in edid_u:
+        return True
+    # Explicit whitelist for edge cases
+    if edid_u in ("ATX_MORBIDWELL",): return True
+    return False
+
+def is_collectron_edid(reso_edid):
+    return bool(re.search(r"Collectron", reso_edid or "", re.IGNORECASE))
+
+# --- ENTM matching ---
+def find_entm_via_cont_refs(cont_row, entm_formid_index):
+    for i in range(1, min(safe_int(cont_row.get("ReferencedByCount") or "0"), 1225) + 1):
+        ref = clean_str(cont_row.get("Ref_{}".format(i)) or "")
+        if ref and ":ENTM" in ref.upper():
+            fid = extract_formid_from_ref(ref)
+            if fid and fid in entm_formid_index: return entm_formid_index[fid]
     return None
 
-def load_previous_release_dates(dist_path: str) -> Dict[str, str]:
-    if not dist_path or not os.path.exists(dist_path):
-        return {}
-    try:
-        with open(dist_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        out: Dict[str, str] = {}
-        for it in (data.get("items") or []):
-            fid = (str(it.get("formId") or "")).strip().upper()
-            rd = (str(it.get("releaseDate") or "")).strip()
-            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", rd):
-                out[fid] = rd
-        return out
-    except Exception:
-        return {}
+def find_entm_via_cobj_refs(cont_formid, cobj_rows, entm_formid_index):
+    cont_fid = (cont_formid or "").strip().upper()
+    if not cont_fid: return None
+    for r in cobj_rows:
+        if (r.get("CNAM_FormID") or "").strip().upper() != cont_fid: continue
+        all_refs = []
+        rf = clean_str(r.get("ReferencedBy_Flat") or "")
+        if rf: all_refs.append(rf)
+        for i in range(1, min(safe_int(r.get("ReferencedByCount") or "0"), 37) + 1):
+            ref = clean_str(r.get("Ref_{}".format(i)) or "")
+            if ref: all_refs.append(ref)
+        for ref_str in all_refs:
+            for seg in ref_str.split("|"):
+                seg = seg.strip()
+                if ":ENTM" in seg.upper():
+                    fid = extract_formid_from_ref(seg)
+                    if fid and fid in entm_formid_index: return entm_formid_index[fid]
+    return None
 
-# ---------------------------------------------------------------------------
-# Core builder
-# ---------------------------------------------------------------------------
+def _name_token(edid):
+    s = (edid or "").lower()
+    for prefix in (r"score_s\d+_", r"atx_f1_", r"atx_community\d*_\w+_", r"atx_"):
+        s = re.sub("^{}".format(prefix), "", s)
+    s = re.sub(r"^(entm_|camp_|utility_|resource_|resources?_|collector_|collectron_)+", "", s)
+    return re.sub(r"_(entm|camp|utility|resource|collector|collectron)_", "_", s)
 
-def build_item(
-    reso_row: Dict[str, str],
-    entm_row: Optional[Dict[str, str]],
-    cont_row: Optional[Dict[str, str]],
-    cobj_row: Optional[Dict[str, str]],
-    book_row: Optional[Dict[str, str]],
-    glob_rows: List[Dict[str, str]],
-    lvli_entry_rows: List[Dict[str, str]],
-    is_collectron: bool,
-    subfolder: str,
-    prev_release_dates: Dict[str, str],
-    today: str,
-) -> Optional[Dict[str, Any]]:
+def find_entm_by_token_match(entm_rows, reso_edid):
+    reso_tok = _name_token(reso_edid).replace("_", " ").strip()
+    if not reso_tok: return None
+    collectron_suffix = ""
+    m = re.search(r"(?:_Collectron_?|_Collector_?|_Resource_?)(.+)$", reso_edid, re.IGNORECASE)
+    if m: collectron_suffix = m.group(1).lower().rstrip("_").replace("_resource", "").replace("_collector", "")
+    best, best_score = None, 0
+    for r in entm_rows:
+        edid = (r.get("EDID") or "").strip()
+        if not edid or starts_cut(edid): continue
+        edid_l = edid.lower()
+        if "_entm_" not in edid_l or "camp" not in edid_l: continue
+        score = 0
+        if collectron_suffix and collectron_suffix in edid_l: score += 10
+        for word in reso_tok.split():
+            if len(word) >= 4 and word in edid_l: score += 2
+        rs = parse_season_from_edid(reso_edid)
+        es = parse_season_from_edid(edid)
+        if rs and rs == es: score += 5
+        elif rs and es and rs != es: score -= 3
+        if score > best_score: best_score, best = score, r
+    return best if best_score >= 4 else None
 
-    reso_edid = clean_str(reso_row.get("EDID") or "")
-    reso_fid = clean_str(reso_row.get("FormID") or "")
+# --- Terminal mode grouping ---
+def detect_mode_name(reso_edid):
+    m = re.search(r"(?:Collectron|Collector)_([A-Za-z_]+?)(?:_resource)?$", (reso_edid or "").strip(), re.IGNORECASE)
+    if m:
+        suffix = m.group(1)
+        if suffix in MODE_DISPLAY_MAP: return MODE_DISPLAY_MAP[suffix]
+        name = re.sub(r"([a-z])([A-Z])", r"\1 \2", suffix)
+        return name.replace("_", " ").replace("And", "&").strip()
+    return "Default"
 
-    if starts_cut(reso_edid):
-        return None
+def _reso_station_base(reso_edid):
+    edid = (reso_edid or "").strip()
+    for suffix in MODE_SUFFIXES:
+        if edid.endswith(suffix): return edid[:-len(suffix)]
+    return edid
 
-    # --- Display name + description from ENTM (preferred) or CONT ---
+def group_reso_by_station(reso_rows, avif_edid_to_cont):
+    eligible = []
+    for reso_row in reso_rows:
+        reso_edid = clean_str(reso_row.get("EDID") or "")
+        if not reso_edid or is_excluded(reso_edid) or not is_camp_resource(reso_edid): continue
+        avif_edid = extract_avif_edid(clean_str(reso_row.get("NAM1_ActorValue") or ""))
+        cont_row = avif_edid_to_cont.get((avif_edid or "").upper()) if avif_edid else None
+        cont_fid = (cont_row.get("FormID") or "").strip().upper() if cont_row else None
+        eligible.append((_reso_station_base(reso_edid), cont_fid, reso_row))
+    base_to_cont = {}
+    for base_edid, cont_fid, _ in eligible:
+        if cont_fid and base_edid not in base_to_cont: base_to_cont[base_edid] = cont_fid
+    groups = {}
+    for base_edid, cont_fid, reso_row in eligible:
+        gk = cont_fid or base_to_cont.get(base_edid) or "BASE_{}".format(base_edid)
+        groups.setdefault(gk, []).append(reso_row)
+    return groups
+
+# --- Core builder ---
+def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
+    glob_index, glob_edid_index, entries_index, list_index, is_collectron, subfolder, prev_release_dates, today):
+    primary_reso = reso_rows[0]
+    for r in reso_rows:
+        edid = clean_str(r.get("EDID") or "")
+        if not re.search(r"_(MeleeAndAmmo|AlcoholAndChems|WeaponsAndAmmo|Proletariat|Revolutionary|Party|Treats|Electronics_Junk|All)$", edid, re.IGNORECASE):
+            primary_reso = r; break
+    primary_edid = clean_str(primary_reso.get("EDID") or "")
+    primary_fid = clean_str(primary_reso.get("FormID") or "")
     if entm_row:
         display_name = clean_str(entm_row.get("FULL") or entm_row.get("NNAM") or "")
         description = clean_desc(entm_row.get("DESC") or "")
@@ -698,337 +628,185 @@ def build_item(
         display_name = clean_str(cont_row.get("FULL") or "")
         description = ""
     else:
-        display_name = reso_edid  # last resort
-        description = ""
-
-    if not display_name:
-        return None
-
-    # --- Production interval from GLOB ---
-    interval_hours: Optional[float] = None
-    interval_str: Optional[str] = None
-    nam4 = clean_str(reso_row.get("NAM4_Interval") or "")
+        display_name, description = primary_edid, ""
+    if not display_name: return None
+    modes = []
+    for reso_row in reso_rows:
+        re_edid = clean_str(reso_row.get("EDID") or "")
+        re_fid = clean_str(reso_row.get("FormID") or "")
+        mode_name = detect_mode_name(re_edid) if len(reso_rows) > 1 else "Default"
+        lvli_fid = extract_lvli_formid(clean_str(reso_row.get("NAM2_Produce") or ""))
+        drops = consolidate_drops(resolve_lvli(lvli_fid, entries_index, list_index, glob_index, 0, glob_edid_index)) if lvli_fid else []
+        modes.append({"name": mode_name, "resoFormId": re_fid, "lvliFormId": lvli_fid or "", "drops": drops})
+    interval_hours, interval_str = None, None
+    nam4 = clean_str(primary_reso.get("NAM4_Interval") or "")
     if nam4:
-        glob_fid = extract_glob_formid(nam4)
-        if glob_fid:
-            fltv = glob_fltv(glob_rows, glob_fid)
-            if fltv is not None:
-                interval_hours = fltv
-                interval_str = interval_display(fltv)
-
-    # --- Drop table from LVLI ---
-    drops: List[Dict[str, Any]] = []
-    lvli_fid_raw = clean_str(reso_row.get("NAM2_Produce") or "")
-    if lvli_fid_raw:
-        lvli_fid = extract_formid_from_ref(lvli_fid_raw)
-        if lvli_fid:
-            drops = compute_drop_table(lvli_fid, lvli_entry_rows)
-
-    # --- CONT properties ---
-    cont_props = parse_cont_properties(cont_row) if cont_row else {
-        "capacity": None, "powerRequired": False, "flamingoUnits": None, "lockable": None
-    }
-
-    # --- COBJ crafting components ---
-    components: List[Dict[str, Any]] = []
-    if cobj_row:
-        fvpa = clean_str(cobj_row.get("FVPA") or "")
-        components = parse_crafting_components(fvpa)
-
-    # --- BOOK plan info ---
-    book_data = parse_book_for_plan(book_row, glob_rows)
-
-    # --- Obtain method ---
-    entm_edid = clean_str(entm_row.get("EDID") or reso_edid) if entm_row else reso_edid
-    entm_xalg = clean_str(entm_row.get("XALG") or "") if entm_row else ""
-    condproxy = None  # could add CondProxy lookup here
-    obtain = resolve_obtain(entm_edid, entm_xalg, book_data, condproxy)
-
-    # --- Images ---
-    main_image = image_webp_url(entm_row, subfolder)
-    carousel = image_carousel_urls(entm_row, subfolder)
-    image_dds = clean_str(entm_row.get("ETDI") or "") if entm_row else ""
-    image_folder = clean_str(entm_row.get("ETIP") or "") if entm_row else ""
-
-    # --- Release date ---
-    fid8_up = formid8(reso_fid)
-    if fid8_up in prev_release_dates:
-        release_date = prev_release_dates[fid8_up]
-    else:
-        release_date = release_date_from_edid(entm_edid) or today
-
-    # --- Season number (for display) ---
-    season = parse_season_from_edid(entm_edid)
-
-    # --- Subcategory (resource producers only) ---
-    subcategory: Optional[str] = None
-    if not is_collectron:
-        subcategory = resource_subcategory(reso_edid, description)
-
+        gfid = extract_glob_formid(nam4)
+        if gfid:
+            fltv = glob_fltv(glob_index, gfid)
+            if fltv is not None: interval_hours, interval_str = fltv, interval_display(fltv)
+    cont_props = parse_cont_properties(cont_row) if cont_row else {"capacity": None, "powerRequired": False, "flamingoUnits": None, "lockable": None}
+    components = parse_crafting_components(clean_str(cobj_row.get("FVPA") or "")) if cobj_row else []
+    book_data = parse_book_for_plan(book_row, glob_index)
+    entm_edid = clean_str(entm_row.get("EDID") or primary_edid) if entm_row else primary_edid
+    obtain = resolve_obtain(entm_edid, book_data)
     cont_fid = clean_str(cont_row.get("FormID") or "") if cont_row else ""
     entm_fid = clean_str(entm_row.get("FormID") or "") if entm_row else ""
-
-    item: Dict[str, Any] = {
-        "formId": reso_fid,
-        "edid": reso_edid,
-        "contFormId": cont_fid,
+    fid_key = formid8(entm_fid or primary_fid)
+    release_date = prev_release_dates.get(fid_key) or release_date_from_edid(entm_edid) or today
+    # Flat drops list for backward compat: merge all mode drops, dedup by formId
+    flat_drops = []
+    seen_drop_fids = set()
+    for m in modes:
+        for d in m.get("drops", []):
+            if d["formId"] not in seen_drop_fids:
+                seen_drop_fids.add(d["formId"])
+                flat_drops.append(d)
+    flat_drops.sort(key=lambda d: -d.get("chance", 0))
+    season_num = obtain.get("seasonNumber")
+    item = {
+        "formId": entm_fid or primary_fid, "edid": entm_edid,
+        "resoFormId": primary_fid, "contFormId": cont_fid,
         "entmFormId": entm_fid,
-        "displayName": display_name,
-        "description": description,
-        "imageUrl": main_image,
-        "imageCarousel": carousel,
-        "imageDds": image_dds,
-        "imageFolder": image_folder,
+        "displayName": display_name, "description": description,
+        "imageUrl": image_webp_url(entm_row, subfolder),
+        "imageCarousel": image_carousel_urls(entm_row, subfolder),
+        "imageDds": clean_str(entm_row.get("ETDI") or "") if entm_row else "",
+        "imageFolder": clean_str(entm_row.get("ETIP") or "") if entm_row else "",
+        "isCollectron": is_collectron,
         "production": {
-            "intervalHours": interval_hours,
-            "intervalDisplay": interval_str,
-            "drops": drops,
+            "intervalHours": interval_hours, "intervalDisplay": interval_str,
+            "drops": flat_drops, "modes": modes,
         },
-        "station": {
-            "capacity": cont_props["capacity"],
-            "powerRequired": cont_props["powerRequired"],
-            "flamingoUnits": cont_props["flamingoUnits"],
-            "lockable": cont_props["lockable"],
-        },
-        "crafting": {
-            "components": components,
-        },
+        "station": cont_props,
+        "crafting": {"components": components},
         "howToObtain": obtain,
-        "seasonNumber": season,
+        "seasonNumber": season_num,
         "releaseDate": release_date,
-        "cutContent": starts_cut(reso_edid),
+        "cutContent": starts_cut(primary_edid),
     }
-
-    if not is_collectron:
-        item["subcategory"] = subcategory
-
+    if not is_collectron: item["subcategory"] = resource_subcategory(primary_edid, description)
     return item
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
-
-def main() -> int:
+# --- Main ---
+def main():
     ap = argparse.ArgumentParser(description="Build collectrons + resource producers JSON")
-    ap.add_argument("--tsv-root", default=None,
-                    help="Root folder for TSV auto-discovery (e.g. dfbnb-data/tsv)")
-    ap.add_argument("--reso",  action="append")
-    ap.add_argument("--cont",  action="append")
-    ap.add_argument("--entm",  action="append")
-    ap.add_argument("--cobj",  action="append")
-    ap.add_argument("--book",  action="append")
-    ap.add_argument("--lvli-list",    action="append")
-    ap.add_argument("--lvli-entries", action="append")
-    ap.add_argument("--glob",  action="append")
+    ap.add_argument("--tsv-root", default=None)
+    ap.add_argument("--reso", action="append"); ap.add_argument("--cont", action="append")
+    ap.add_argument("--entm", action="append"); ap.add_argument("--cobj", action="append")
+    ap.add_argument("--book", action="append"); ap.add_argument("--lvli-list", action="append")
+    ap.add_argument("--lvli-entries", action="append"); ap.add_argument("--glob", action="append")
     ap.add_argument("--outdir", required=True)
     args = ap.parse_args()
-
     root = args.tsv_root
-
-    reso_paths  = _autofill(root, args.reso,  ["**/RESO_Export*.tsv"])
-    cont_paths  = _autofill(root, args.cont,  ["**/CONT_Export*.tsv"])
-    entm_paths  = _autofill(root, args.entm,  ["**/ENTM_Export*.tsv"])
-    cobj_paths  = _autofill(root, args.cobj,  ["**/COBJ_Export*.tsv"])
-    book_paths  = _autofill(root, args.book,  ["**/BOOK_Export*.tsv"])
-    lvli_list_paths    = _autofill(root, args.lvli_list,    ["**/*LVLI*List*.tsv"])
-    lvli_entry_paths   = _autofill(root, args.lvli_entries, ["**/*LVLI*Entries*.tsv", "**/*LVLI*Math*.tsv"])
-    glob_paths  = _autofill(root, args.glob,  ["**/GLOB_Export*.tsv"])
-
-    missing = []
-    for name, paths in [("RESO", reso_paths), ("CONT", cont_paths),
-                        ("ENTM", entm_paths), ("COBJ", cobj_paths),
-                        ("BOOK", book_paths), ("LVLI Entries", lvli_entry_paths)]:
-        if not paths:
-            missing.append(name)
-
-    if missing:
-        print(f"[WARN] Missing TSV sources: {', '.join(missing)}", file=sys.stderr)
-
-    if not glob_paths:
-        print("[WARN] No GLOB TSV found — production intervals and Gold Bullion prices will be null.", file=sys.stderr)
-
-    # Load all rows
     print("Loading TSVs...", file=sys.stderr)
-    reso_rows        = load_tsvs(reso_paths)
-    cont_rows        = load_tsvs(cont_paths)
-    entm_rows        = load_tsvs(entm_paths)
-    cobj_rows        = load_tsvs(cobj_paths)
-    book_rows        = load_tsvs(book_paths)
-    lvli_entry_rows  = load_tsvs(lvli_entry_paths)
-    glob_rows        = load_tsvs(glob_paths)
-
-    print(f"  RESO: {len(reso_rows)}  CONT: {len(cont_rows)}  ENTM: {len(entm_rows)}  "
-          f"COBJ: {len(cobj_rows)}  BOOK: {len(book_rows)}  "
-          f"LVLI_Entries: {len(lvli_entry_rows)}  GLOB: {len(glob_rows)}", file=sys.stderr)
-
+    reso_rows = load_latest_tsv(root, args.reso, "**/RESO_Export_*.tsv")
+    cont_rows = load_latest_tsv(root, args.cont, "**/CONT_Export_*.tsv")
+    entm_rows = load_latest_tsv(root, args.entm, "**/ENTM_Export_*.tsv")
+    cobj_rows = load_latest_tsv(root, args.cobj, "**/COBJ_Export_*.tsv")
+    book_rows = load_latest_tsv(root, args.book, "**/BOOK_Export_*.tsv")
+    lvli_list_rows = load_latest_tsv(root, args.lvli_list, "**/*LVLI*List*.tsv")
+    lvli_entry_rows = load_latest_tsv(root, args.lvli_entries, "**/*LVLI*Entries*.tsv")
+    glob_rows = load_latest_tsv(root, args.glob, "**/GLOB_Export_*.tsv")
+    for name, rows in [("RESO", reso_rows), ("CONT", cont_rows), ("ENTM", entm_rows),
+                        ("COBJ", cobj_rows), ("BOOK", book_rows), ("LVLI Entries", lvli_entry_rows)]:
+        if not rows: print("[WARN] Missing: {}".format(name), file=sys.stderr)
+    print("  RESO:{} CONT:{} ENTM:{} COBJ:{} BOOK:{} LVLI_L:{} LVLI_E:{} GLOB:{}".format(
+        len(reso_rows), len(cont_rows), len(entm_rows), len(cobj_rows),
+        len(book_rows), len(lvli_list_rows), len(lvli_entry_rows), len(glob_rows)), file=sys.stderr)
     os.makedirs(args.outdir, exist_ok=True)
-
     today = today_ymd()
-    prev_col_dates  = load_previous_release_dates(os.path.join(args.outdir, "collectrons.json"))
-    prev_res_dates  = load_previous_release_dates(os.path.join(args.outdir, "resource_producers.json"))
-
-    # Build AVIF → CONT lookup
-    print("Building AVIF → CONT index...", file=sys.stderr)
-    # For each CONT, extract its property AVIF FormIDs
-    avif_to_cont: Dict[str, Dict[str, str]] = {}
-    for r in cont_rows:
-        edid = (r.get("EDID") or "").strip()
-        if starts_cut(edid):
-            continue
-        # Only consider station-type containers (have WorkshopCollectorObject or similar)
-        kw_blob = " ".join(str(r.get(f"KW{i}") or "") for i in range(1, 12)).lower()
-        if "workshop" not in kw_blob and "collectron" not in edid.lower() and "collector" not in edid.lower():
-            continue
-        prop_blob = " ".join(str(r.get(f"Prop{i}") or "") for i in range(1, 7))
-        for m in re.finditer(r"ActorValue=([0-9A-Fa-f]{8}):", prop_blob):
-            avif_to_cont[m.group(1).upper()] = r
-
-    # Build CONT FormID → COBJ lookup
-    cont_to_cobj: Dict[str, Dict[str, str]] = {}
-    for r in cobj_rows:
-        cnam = (r.get("CNAM_FormID") or "").strip().upper()
-        if cnam:
-            cont_to_cobj[cnam] = r
-
-    # Build BOOK FormID index
-    book_by_fid = build_index(book_rows, "FormID")
-
-    collectron_items: List[Dict[str, Any]] = []
-    resource_items:   List[Dict[str, Any]] = []
-
-    print("Processing RESO entries...", file=sys.stderr)
-    for reso_row in reso_rows:
-        reso_edid = clean_str(reso_row.get("EDID") or "")
-        reso_fid  = clean_str(reso_row.get("FormID") or "")
-
-        if not reso_edid or starts_cut(reso_edid):
-            continue
-
-        # Filter: must be a resource/collectron station RESO
-        # RESO EDID pattern: ATX_Resource_*, SCORE_S##_Resource_*
-        if not re.search(r"_Resource_", reso_edid, re.IGNORECASE):
-            continue
-
-        is_collectron = bool(re.search(r"Collectron", reso_edid, re.IGNORECASE))
-
-        # Find CONT via AVIF
-        avif_fid = extract_avif_formid(clean_str(reso_row.get("NAM1_ActorValue") or ""))
-        cont_row = avif_to_cont.get(avif_fid, None) if avif_fid else None
-
-        # Find ENTM by token matching
-        entm_row = find_entm_for_reso(entm_rows, reso_edid)
-
-        # Find COBJ for CONT
-        cobj_row = None
-        if cont_row:
-            cont_fid = (cont_row.get("FormID") or "").strip().upper()
-            cobj_row = cont_to_cobj.get(cont_fid)
-
-        # Find BOOK (the plan/recipe)
-        book_row: Optional[Dict[str, str]] = None
+    prev_col = load_previous_release_dates(os.path.join(args.outdir, "collectrons.json"))
+    prev_res = load_previous_release_dates(os.path.join(args.outdir, "resource_producers.json"))
+    print("Building indices...", file=sys.stderr)
+    glob_index = build_index(glob_rows, "FormID")
+    glob_edid_index = build_index(glob_rows, "EDID")
+    list_index = build_index(lvli_list_rows, "LVLI_FormID")
+    entries_index = build_multi_index(lvli_entry_rows, "LVLI_FormID")
+    entm_fid_idx = build_index(entm_rows, "FormID")
+    avif_to_cont = build_avif_edid_to_cont(cont_rows)
+    cobj_idx = build_cobj_cnam_index(cobj_rows)
+    book_idx = build_index(book_rows, "FormID")
+    cont_idx = build_index(cont_rows, "FormID")
+    print("Grouping RESO...", file=sys.stderr)
+    station_groups = group_reso_by_station(reso_rows, avif_to_cont)
+    print("  {} groups, {} RESOs".format(len(station_groups), sum(len(v) for v in station_groups.values())), file=sys.stderr)
+    col_items, res_items, seen = [], [], set()
+    for cont_key, grp in station_groups.items():
+        primary_edid = clean_str(grp[0].get("EDID") or "")
+        cont_row = cont_idx.get(cont_key) if not cont_key.startswith("BASE_") else None
+        if not cont_row:
+            for rr in grp:
+                ae = extract_avif_edid(clean_str(rr.get("NAM1_ActorValue") or ""))
+                if ae:
+                    cont_row = avif_to_cont.get(ae.upper())
+                    if cont_row: break
+        entm_row = None
+        if cont_row: entm_row = find_entm_via_cont_refs(cont_row, entm_fid_idx)
+        if cont_row and not entm_row:
+            entm_row = find_entm_via_cobj_refs((cont_row.get("FormID") or "").strip().upper(), cobj_rows, entm_fid_idx)
+        if not entm_row: entm_row = find_entm_by_token_match(entm_rows, primary_edid)
+        cobj_row = cobj_idx.get((cont_row.get("FormID") or "").strip().upper()) if cont_row else None
+        book_row = None
         if cobj_row:
-            gnam_fid = (cobj_row.get("GNAM_FormID") or "").strip().upper()
-            if gnam_fid:
-                book_row = book_by_fid.get(gnam_fid)
+            gf = (cobj_row.get("GNAM_FormID") or "").strip().upper()
+            if gf and gf != "00000000": book_row = book_idx.get(gf)
         if not book_row:
-            # Try by name token
-            m = re.search(r"(?:_Collectron_|_Collector_|_Resource_)(.+)$", reso_edid, re.IGNORECASE)
+            m = re.search(r"(?:_Collectron_|_Collector_|_Resource_)(.+?)(?:_resource)?$", primary_edid, re.IGNORECASE)
             if m:
                 tok = m.group(1).lower()
-                book_row = find_book_by_edid_token(book_rows, tok)
-
-        subfolder = "camp-items-collectrons" if is_collectron else "camp-items-resource-producers"
-        prev_dates = prev_col_dates if is_collectron else prev_res_dates
-
-        item = build_item(
-            reso_row, entm_row, cont_row, cobj_row, book_row,
-            glob_rows, lvli_entry_rows, is_collectron, subfolder, prev_dates, today
-        )
-
-        if item is None:
-            continue
-
-        if is_collectron:
-            collectron_items.append(item)
-        else:
-            resource_items.append(item)
-
-    # Sort by display name (cut content last)
-    def _sort_key(x: Dict[str, Any]) -> Tuple:
-        return (x.get("cutContent", False), (x.get("displayName") or "").lower())
-
-    collectron_items.sort(key=_sort_key)
-    resource_items.sort(key=_sort_key)
-
-    # Write outputs
-    col_out = {
-        "generatedAt": now_iso(),
-        "type": "collectrons",
-        "count": len(collectron_items),
-        "items": collectron_items,
-    }
-    res_out = {
-        "generatedAt": now_iso(),
-        "type": "resource_producers",
-        "count": len(resource_items),
-        "items": resource_items,
-    }
-
-    col_path = os.path.join(args.outdir, "collectrons.json")
-    res_path = os.path.join(args.outdir, "resource_producers.json")
-
-    with open(col_path, "w", encoding="utf-8") as f:
-        json.dump(col_out, f, ensure_ascii=False, indent=2)
-    with open(res_path, "w", encoding="utf-8") as f:
-        json.dump(res_out, f, ensure_ascii=False, indent=2)
-
-    print(f"[OK] collectrons.json: {len(collectron_items)} items", file=sys.stderr)
-    print(f"[OK] resource_producers.json: {len(resource_items)} items", file=sys.stderr)
-    print(f"[OK] Written to: {args.outdir}", file=sys.stderr)
-
-    # Generate combined patchlog feed from all output files
-    combined_items = collectron_items + resource_items
-
-    # Load previous versions of both files for combined diff
-    prev_combined_items = []
+                for br in book_rows:
+                    if tok in (br.get("EDID") or "").lower() or tok in (br.get("FULL") or "").lower():
+                        book_row = br; break
+        # Check RESO EDID first, then ENTM EDID, then CONT EDID for collectron classification
+        is_col = any(is_collectron_edid(clean_str(r.get("EDID") or "")) for r in grp)
+        if not is_col and entm_row:
+            entm_edid = clean_str(entm_row.get("EDID") or "")
+            if re.search(r"_Utility_Collectron_", entm_edid, re.IGNORECASE):
+                is_col = True
+        if not is_col and cont_row:
+            cont_edid = clean_str(cont_row.get("EDID") or "")
+            if re.search(r"_Collectron_", cont_edid, re.IGNORECASE):
+                is_col = True
+        sf = "camp-items-collectrons" if is_col else "camp-items-resource-producers"
+        item = build_station_item(grp, cont_row, entm_row, cobj_row, book_row,
+            glob_index, glob_edid_index, entries_index, list_index, is_col, sf, prev_col if is_col else prev_res, today)
+        if item is None: continue
+        fid = item["formId"]
+        if fid in seen: continue
+        seen.add(fid)
+        (col_items if is_col else res_items).append(item)
+    sk = lambda x: (x.get("cutContent", False), (x.get("displayName") or "").lower())
+    col_items.sort(key=sk); res_items.sort(key=sk)
+    for fname, typ, items in [("collectrons.json", "collectrons", col_items),
+                               ("resource_producers.json", "resource_producers", res_items)]:
+        out = {"generatedAt": now_iso(), "type": typ, "count": len(items), "items": items}
+        with open(os.path.join(args.outdir, fname), "w", encoding="utf-8") as f:
+            json.dump(out, f, ensure_ascii=False, indent=2)
+        print("[OK] {}: {} items".format(fname, len(items)), file=sys.stderr)
+    # Patchlog
+    combined = col_items + res_items
+    prev_combined = []
     try:
         import subprocess
-        for json_file in ["dist/collectrons.json", "dist/resource_producers.json"]:
+        for jf in ["dist/collectrons.json", "dist/resource_producers.json"]:
             try:
-                out = subprocess.check_output(
-                    ["git", "show", f"HEAD^:{json_file}"],
-                    stderr=subprocess.DEVNULL,
-                    timeout=30,
-                )
-                data = json.loads(out.decode("utf-8"))
-                prev_combined_items.extend(data.get("items", []))
+                cmd = ["git", "show", "HEAD^:" + jf]
+                o = subprocess.check_output(cmd, stderr=subprocess.DEVNULL, timeout=30)
+                prev_combined.extend(json.loads(o.decode("utf-8")).get("items", []))
             except Exception:
                 pass
     except Exception:
         pass
-
-    # Generate patchlog entry and write feed
     entry = diff_item_lists(
-        prev_items=prev_combined_items,
-        curr_items=combined_items,
-        key_field="formId",
+        prev_items=prev_combined, curr_items=combined, key_field="formId",
         name_field="displayName,edid",
-        compare_fields=["displayName", "description", "production", "imageUrl"],
-    )
-    feed = {"entries": [entry]}
-    feed_path = os.path.join(args.outdir, "patchlog_latest_bnb_camp_items.json")
-    with open(feed_path, "w", encoding="utf-8") as f:
-        json.dump(feed, f, ensure_ascii=False, indent=2)
-
-    a, r, c = len(entry["added"]), len(entry["removed"]), len(entry["changed"])
-    print(
-        f"[patchlog] patchlog_latest_bnb_camp_items.json: current={entry['current']}  "
-        f"added={a}  removed={r}  changed={c}",
-        file=sys.stderr,
-    )
-
+        compare_fields=["displayName", "description", "production", "imageUrl"])
+    with open(os.path.join(args.outdir, "patchlog_latest_bnb_camp_items.json"), "w", encoding="utf-8") as f:
+        json.dump({"entries": [entry]}, f, ensure_ascii=False, indent=2)
+    print("[patchlog] current={} added={} removed={} changed={}".format(
+        entry['current'], len(entry["added"]), len(entry["removed"]), len(entry["changed"])), file=sys.stderr)
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())
