@@ -1368,21 +1368,25 @@ class Rng76Resolver:
                 if y is not None:
                     return y
 
-            # ChanceNoneCurve field holds a GLOB ref (no actual curve points).
-            # The GLOB's FLTV IS the ChanceNone value — use it directly.
-            #
-            # DO NOT look up _lvli_to_curv here.  That mapping is built from
-            # the CURV main-file reference lists, which include every LVLI
-            # that appears in ANY context referencing a given curve (e.g.
-            # container-loot curves list sub-LVLIs like LLS_Scrap_Screws
-            # even though screws never uses that curve for its own entries).
-            # Using the mapping here produces false positives — tier 10 into
-            # Container_Item3_ChanceNone gives Y=90 (ChanceNone 90%) instead
-            # of the correct direct value of 10 (ChanceNone 10%).
+            # ChanceNoneCurve field holds a GLOB ref (no actual curve
+            # points in the CURV index for that FormID).  The GLOB's FLTV
+            # is the X index into a CURV table that the LVLI references
+            # via its LVOT field (not exported by the TSV script).
+            # Use curv_for_lvli() to find the mapped CURV, then
+            # interpolate GLOB FLTV (X) → Y = actual ChanceNone.
             if not has_pts and curv_fid:
                 tier_fltv = self.globs.value(curv_fid)
-                if tier_fltv is not None and glob_fltv is None:
-                    glob_fltv = tier_fltv
+                if tier_fltv is not None:
+                    lvli_fid = (math_row.get("LVLI_FormID") or "").strip()
+                    if self.curvs and lvli_fid:
+                        mapped_curv = self.curvs.curv_for_lvli(lvli_fid)
+                        if mapped_curv:
+                            y = self.curvs.interpolate(mapped_curv, tier_fltv)
+                            if y is not None:
+                                return y
+                    # No mapped curve found — fall back to GLOB value
+                    if glob_fltv is None:
+                        glob_fltv = tier_fltv
 
         # Fall back to xEdit's pre-computed Resolved value (skip when a
         # MinLvl GLOB contaminated it — the Resolved value would be the
