@@ -165,7 +165,7 @@
       "name": "Cannery Recipe Bundle #1",
       "cost": 0,
       "imageUrl": "/wp-content/uploads/season_images/score_s25_utility_canneryrecipebundle1.webp",
-      "description": "Learn new recipes from Mama Dolce's Cannery!"
+      "description": "Learn new recipes from Mama Dolce's Cannery! Includes: Canned Tato Salad, Canned Broiled Scorchbeast Brain, Canned Brain Bombs."
     },
     {
       "id": "S25_P02_timber_sawgill_icon",
@@ -263,7 +263,7 @@
       "name": "Cannery Recipe Bundle #2",
       "cost": 40,
       "imageUrl": "/wp-content/uploads/season_images/score_s25_utility_canneryrecipebundle2.webp",
-      "description": "Learn more recipes from Mama Dolce's Cannery!"
+      "description": "Learn more recipes from Mama Dolce's Cannery! Includes: Canned Blight Soup, Canned Smoked Mirelurk Fillets, Canned Deathclaw Wellington."
     },
     {
       "id": "S25_P03_legendary_module_x10",
@@ -490,50 +490,41 @@
       "description": "Suit up in Responders Civil Engineer Armor and serve the community!    - ITEM IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
-      "id": "S25_P06_suffix_outdoor",
+      "id": "S25_P06_prefix_outdoor",
       "page": "6",
-      "name": "Player Title Suffix: \"Outdoor\"",
-      "cost": 0,
-      "isFirst": true,
-      "kind": "playerTitleSuffix",
-      "value": "Outdoor",
-      "imageUrl": "/wp-content/uploads/season_images/score_s25_playertitles_suffix_outdoor.webp",
-      "description": "Unlocks the Player Title Suffix \"Outdoor\".    - PLAYER TITLES ARE SELECTABLE IN THE PLAYER MENU. -",
-      "tallyCategory": "camp_player_title"
-    },
-    {
-      "id": "S25_P06_cyclone_icon",
-      "page": "6",
-      "name": "Player Icon: Cyclone",
+      "name": "Player Title Prefix: \"Outdoor\"",
       "cost": 25,
-      "kind": "playerIcon",
-      "value": "Cyclone",
-      "imageUrl": "/wp-content/uploads/season_images/score_s25_playericon_cyclone.webp",
-      "description": "An ominous cyclone sweeps across Appalachia.    - UNLOCKS A PLAYER ICON. -",
-      "tallyCategory": "player_icon"
+      "isFirst": true,
+      "kind": "playerTitlePrefix",
+      "value": "Outdoor",
+      "imageUrl": "/wp-content/uploads/season_images/score_s25_playertitles_prefix_outdoor.webp",
+      "description": "Unlocks the Player Title Prefix \"Outdoor\".    - PLAYER TITLES ARE SELECTABLE IN THE PLAYER MENU. -",
+      "tallyCategory": "camp_player_title"
     },
     {
       "id": "S25_P06_10_score_boost",
       "page": "6",
       "name": "10% S.C.O.R.E. Boost",
       "cost": 0,
+      "isFirst": true,
       "imageUrl": "/wp-content/uploads/season_images/score_s25_account_scoreboost_3.webp",
       "description": "Gain 10% bonus S.C.O.R.E. when you complete challenges for the rest of Season 25!    - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -    - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E. -    - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
       "tallyCategory": "score_booster"
     },
     {
-      "id": "S25_P06_rubber_gloves",
+      "id": "S25_P06_woodland_camo_compound_bow",
       "page": "6",
-      "name": "Responders Long Gloves",
+      "name": "Woodland Camo Paint (Compound Bow)",
       "cost": 50,
-      "imageUrl": "/wp-content/uploads/season_images/score_s25_apparel_responders_longgloves.webp",
-      "description": "Keep your hands protected in Responders Long Gloves!    - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+      "imageUrl": "/wp-content/uploads/season_images/score_s25_weapons_paint_woodlandcamo_compoundbow.webp",
+      "description": "Blend into the Appalachian wilds with the Woodland Camo paint for the Compound Bow!    - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
-      "id": "S25_P06_glowing_dog_platter_icon",
+      "id": "S25_P06_glowing_dog_icon",
       "page": "6",
       "name": "Player Icon: Glowing Dog",
       "cost": 25,
+      "isFirst": true,
       "kind": "playerIcon",
       "value": "Glowing Dog",
       "imageUrl": "/wp-content/uploads/season_images/score_s25_playericon_glowingdog.webp",
@@ -544,8 +535,7 @@
       "id": "S25_P06_200_atoms",
       "page": "6",
       "name": "200 Atoms",
-      "cost": 20,
-      "isFirst": true,
+      "cost": 25,
       "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
       "tallyCategory": "atoms"
     },
@@ -554,6 +544,7 @@
       "page": "6",
       "name": "Glowing Dog",
       "cost": 60,
+      "isFirst": true,
       "imageUrl": "/wp-content/uploads/season_images/score_s25_camp_glowingdog.webp",
       "description": "A loyal companion that lights up the darkness.    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
@@ -566,18 +557,27 @@
       "description": "An underarmor bearing the Responders Civil Engineer insignia.    - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
-      "id": "S25_P06_tinkerers_ranger_icon",
+      "id": "S25_P06_scouts_banner_x5",
       "page": "6",
-      "name": "Legendary Scrip x100",
+      "name": "Scout's Banner x5",
       "cost": 25,
-      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_legendaryscrip.webp",
-      "tallyCategory": "legendary_scrip"
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_scoutsbanner.webp",
+      "tallyCategory": "scouts_banner"
+    },
+    {
+      "id": "S25_P06_mystery_magazine_x3",
+      "page": "6",
+      "name": "Mystery Magazine Package x3",
+      "cost": 25,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_mysterymagazine.webp",
+      "tallyCategory": "mystery_magazine"
     },
     {
       "id": "S25_P06_mama_dolces_cannery",
       "page": "6",
       "name": "Mama Dolce's Cannery",
-      "cost": 80,
+      "cost": 75,
       "imageUrl": "/wp-content/uploads/season_images/score_s25_camp_mamadolcescannery.webp",
       "description": "Bring the iconic Mama Dolce's Cannery to your C.A.M.P.!    - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
