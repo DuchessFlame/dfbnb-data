@@ -87,8 +87,11 @@ TYPE_PATTERNS = [
     ("Weapons Workbench",   [r"workbench.*weapon", r"weapon.*workbench", r"workbenchweapons"]),
     ("Armor Workbench",     [r"workbench.*armor",  r"armor.*workbench",  r"workbencharmor"]),
     ("Tinker's Workbench",  [r"workbench.*tinker", r"tinker.*workbench", r"workbenchtinkers"]),
+    # NOTE: 'campfire' deliberately omitted from Cooking — base records
+    # like Moon_CampfireGuitar would otherwise mis-classify as Cooking.
+    # All real survival-tent cooking stations match 'cooking'/'bbq'/etc.
     ("Cooking",             [r"cooking", r"bbq_?grill", r"bbqgrill",
-                             r"workbenchcooking", r"campfire"]),
+                             r"workbenchcooking"]),
     ("Sleeping",            [r"sleepingbag", r"sleeping_bag", r"\bcot\b",
                              r"\bbed\b", r"hammock", r"npcbed"]),
     ("Ammo Storage",        [r"ammo.?storage", r"ammostoragebox"]),
@@ -97,9 +100,12 @@ TYPE_PATTERNS = [
     ("Stash Box",           [r"stash.?box", r"stashbox", r"stash_container", r"stashcontainer"]),
     ("Light",               [r"\blight", r"lamp", r"lightbulb"]),
     ("Radio",               [r"radio"]),
-    ("Instrument",          [r"instrument_", r"banjo", r"guitar"]),
-    ("Chair",               [r"\bchair\b", r"throne", r"asylum_chair"]),
-    ("Decor",               [r"barrel", r"metalbarrel"]),
+    # Instrument before Chair — "CampfireGuitar" should be Instrument, not
+    # caught by a stray pattern elsewhere.
+    ("Instrument",          [r"instrument_", r"banjo", r"guitar", r"metalbarrel"]),
+    ("Chair",               [r"\bchair\b", r"throne", r"asylum_chair",
+                             r"\bbench\b", r"npcbench"]),
+    ("Decor",               [r"\bbarrel\b"]),
 ]
 
 _COMPILED_TYPE_PATTERNS = [
