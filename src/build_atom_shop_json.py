@@ -159,10 +159,10 @@ LTB_BUNDLES = [
         "platforms": ["Steam", "PlayStation", "Xbox"],
         "imageUrl":  "",
         "items": [
-            {"name": "1000 (+500 Bonus) Atoms", "desc": "In-game currency for the Atomic Shop.",           "formId": "", "edid": "", "imageUrl": ""},
+            {"name": "1000 (+500 Bonus) Atoms", "desc": "In-game currency for the Atomic Shop.",           "formId": "", "edid": "", "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/score_currency_atoms.avif"},
             {"name": "Mechanist's Outfit",       "desc": "The Mechanist's signature outfit.",               "formId": "0054ED63", "edid": "ATX_ENTM_Apparel_Outfit_MechanistsOutfit_MP3",    "imageUrl": "ATX_Apparel_Outfit_MechanistOutfit_MP3.avif"},
             {"name": "Mechanist's Helmet",       "desc": "The Mechanist's iconic helmet.",                  "formId": "00559BBC", "edid": "ATX_ENTM_Apparel_Headwear_MechanistsOutfit_MP3",  "imageUrl": "ATX_Apparel_Headwear_MechanistOutfit_MP3.avif"},
-            {"name": "6x Repair Kits",           "desc": "Standard Repair Kits.",                           "formId": "", "edid": "", "imageUrl": ""},
+            {"name": "6x Repair Kits",           "desc": "Standard Repair Kits.",                           "formId": "", "edid": "", "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.avif"},
         ],
     },
     {
@@ -173,9 +173,9 @@ LTB_BUNDLES = [
         "platforms": ["Steam", "PlayStation", "Xbox"],
         "imageUrl":  "",
         "items": [
-            {"name": "1000 (+500 Bonus) Atoms", "desc": "In-game currency for the Atomic Shop.",           "formId": "", "edid": "", "imageUrl": ""},
+            {"name": "1000 (+500 Bonus) Atoms", "desc": "In-game currency for the Atomic Shop.",           "formId": "", "edid": "", "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/score_currency_atoms.avif"},
             {"name": "Elder's Battlecoat",       "desc": "The distinguished coat of a Brotherhood Elder.",  "formId": "00544670", "edid": "ATX_ENTM_Apparel_Outfit_ElderBattlecoat_MP1",     "imageUrl": "ATX_Apparel_Outfit_ElderBattlecoat_MP1.avif"},
-            {"name": "6x Repair Kits",           "desc": "Standard Repair Kits.",                           "formId": "", "edid": "", "imageUrl": ""},
+            {"name": "6x Repair Kits",           "desc": "Standard Repair Kits.",                           "formId": "", "edid": "", "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.avif"},
         ],
     },
     {
@@ -186,9 +186,9 @@ LTB_BUNDLES = [
         "platforms": ["Steam", "PlayStation", "Xbox"],
         "imageUrl":  "",
         "items": [
-            {"name": "1000 (+500 Bonus) Atoms",          "desc": "In-game currency for the Atomic Shop.",              "formId": "", "edid": "", "imageUrl": ""},
+            {"name": "1000 (+500 Bonus) Atoms",          "desc": "In-game currency for the Atomic Shop.",              "formId": "", "edid": "", "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/score_currency_atoms.avif"},
             {"name": "Revolutionary General's Uniform",  "desc": "Suit up in the uniform of a Revolutionary General.", "formId": "0054ED62", "edid": "ATX_ENTM_Apparel_Outfit_GeneralsUniform_MP2",    "imageUrl": "ATX_Apparel_Outfit_GeneralsUniform_MP2.avif"},
-            {"name": "3x Repair Kits",                   "desc": "Standard Repair Kits.",                              "formId": "", "edid": "", "imageUrl": ""},
+            {"name": "3x Repair Kits",                   "desc": "Standard Repair Kits.",                              "formId": "", "edid": "", "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.avif"},
             {"name": "3x Scrap Kits",                    "desc": "Standard Scrap Kits.",                               "formId": "", "edid": "", "imageUrl": ""},
         ],
     },
@@ -200,10 +200,10 @@ LTB_BUNDLES = [
         "platforms": ["Steam", "PlayStation", "Xbox"],
         "imageUrl":  "",
         "items": [
-            {"name": "1000 (+500 Bonus) Atoms",    "desc": "In-game currency for the Atomic Shop.",            "formId": "", "edid": "", "imageUrl": ""},
+            {"name": "1000 (+500 Bonus) Atoms",    "desc": "In-game currency for the Atomic Shop.",            "formId": "", "edid": "", "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/score_currency_atoms.avif"},
             {"name": "Pint-Sized Slasher Costume", "desc": "The full Pint-Sized Slasher outfit.",              "formId": "0054ED64", "edid": "ATX_ENTM_Apparel_Outfit_PintsizedSlasher_MP4",     "imageUrl": "ATX_Apparel_Outfit_PintsizedSlasher_MP4.avif"},
             {"name": "Pint-Sized Slasher Knife",   "desc": "The Pint-Sized Slasher's signature knife.",        "formId": "00559BBE", "edid": "ATX_ENTM_WeaponModel_Machete_PintSizedSlasher_MP4", "imageUrl": "ATX_WeaponModel_Machete_PintSizedSlasher.avif"},
-            {"name": "3x Repair Kits",             "desc": "Standard Repair Kits.",                             "formId": "", "edid": "", "imageUrl": ""},
+            {"name": "3x Repair Kits",             "desc": "Standard Repair Kits.",                             "formId": "", "edid": "", "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.avif"},
             {"name": "3x Scrap Kits",              "desc": "Standard Scrap Kits.",                              "formId": "", "edid": "", "imageUrl": ""},
         ],
     },
@@ -215,11 +215,11 @@ LTB_BUNDLES = [
         "platforms": ["Steam", "PlayStation", "Xbox"],
         "imageUrl":  "",
         "items": [
-            {"name": "800 (+300 Bonus) Atoms",  "desc": "In-game currency for the Atomic Shop.",                                                       "formId": "",         "edid": "",                                            "imageUrl": ""},
+            {"name": "800 (+300 Bonus) Atoms",  "desc": "In-game currency for the Atomic Shop.",                                                       "formId": "",         "edid": "",                                            "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/score_currency_atoms.avif"},
             {"name": "Piper's Press Outfit",    "desc": "Dress as our favourite investigative reporter and uncover the dark secrets of Appalachia!",   "formId": "004FA0A1", "edid": "ATX_ENTM_Apparel_Outfit_Piper_SP1",           "imageUrl": "ATX_Apparel_Outfit_Piper.avif"},
             {"name": "Piper's Press Cap",       "desc": "Dress as our favourite investigative reporter and uncover the dark secrets of Appalachia!",   "formId": "004FA0DC", "edid": "ATX_ENTM_Apparel_Headwear_Piper_Cap_SP1",    "imageUrl": "ATX_Apparel_Headwear_Piper_Cap.avif"},
             {"name": "Piper's Road Goggles",    "desc": "Dress as our favourite investigative reporter and uncover the dark secrets of Appalachia!",   "formId": "004FA0DD", "edid": "ATX_ENTM_Apparel_Headwear_Piper_Goggles_SP1","imageUrl": "ATX_Apparel_Headwear_PiperGoggles.avif"},
-            {"name": "5x Repair Kits",           "desc": "Standard Repair Kits.",                                                                       "formId": "",         "edid": "",                                            "imageUrl": ""},
+            {"name": "5x Repair Kits",           "desc": "Standard Repair Kits.",                                                                       "formId": "",         "edid": "",                                            "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.avif"},
             {"name": "5x Scrap Kits",            "desc": "Standard Scrap Kits.",                                                                        "formId": "",         "edid": "",                                            "imageUrl": ""},
         ],
     },
