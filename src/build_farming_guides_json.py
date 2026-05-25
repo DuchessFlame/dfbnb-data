@@ -155,6 +155,21 @@ MGEF_GLOBS = [
     "MGEF_Export_Feb_2026.tsv",
     "MGEF_Export_Dec_2025.tsv",
 ]
+# BOOK records — used to resolve plan names ("Recipe: Blight Soup") for the
+# Food-That-Can-Be-Canned page. Each canned variant is unlocked by reading
+# the BASE food's plan (e.g. learning "Recipe: Blight Soup" also unlocks
+# Canned Blight Soup). Some bases are learned by default with no plan;
+# canned variants whose COBJ EDID starts with SCORE_S{N}_ are additionally
+# gated behind a Scoreboard season.
+BOOK_GLOBS = [
+    "BOOK_Export_May_2026.tsv",
+    "BOOK_Export_Apr_2026.tsv",
+    "BOOK_Export_March_2026.tsv",
+]
+# Seasons reference table — maps SCORE_S{N} keys to the human-readable
+# season name (e.g. "Appalachia Under Siege" for Season 25).
+SEASONS_TSV = "fallout76_seasons.tsv"
+
 
 # Workbench EDID -> (category slug, friendly label). Labels mirror the
 # in-game station names so "Workbench: Cooking Station" reads naturally.
@@ -1129,12 +1144,92 @@ def _format_effect_duration(seconds: Optional[float]) -> Optional[str]:
 # Build
 # ---------------------------------------------------------------------------
 
+
+# ---------------------------------------------------------------------------
+# Canned-page helpers: plan lookup + season detection
+# ---------------------------------------------------------------------------
+
+def load_book_plans_by_full(book_path: Optional[str]) -> Dict[str, Dict[str, str]]:
+    """Index BOOK records by their FULL field, so we can look up a plan by
+    its in-game name (e.g. "Recipe: Blight Soup"). The first BOOK with that
+    FULL wins — duplicates are rare and the FULL string is the same anyway."""
+    if not book_path or not os.path.exists(book_path):
+        return {}
+    out: Dict[str, Dict[str, str]] = {}
+    with open(book_path, encoding="utf-8", newline="") as f:
+        rdr = csv.DictReader(f, delimiter="\t")
+        for row in rdr:
+            full = (row.get("FULL") or "").strip()
+            if not full or full in out:
+                continue
+            out[full] = row
+    return out
+
+
+def load_seasons_by_key(seasons_path: Optional[str]) -> Dict[str, Dict[str, str]]:
+    """Index fallout76_seasons.tsv by SeasonKey (e.g. SCORE_S25 ->
+    {SeasonName: "Appalachia Under Siege", SeasonNumber: "25", ...})."""
+    if not seasons_path or not os.path.exists(seasons_path):
+        return {}
+    out: Dict[str, Dict[str, str]] = {}
+    with open(seasons_path, encoding="utf-8", newline="") as f:
+        rdr = csv.DictReader(f, delimiter="\t")
+        for row in rdr:
+            key = (row.get("SeasonKey") or "").strip()
+            if key:
+                out[key] = row
+    return out
+
+
+_SEASON_PREFIX_RE = re.compile(r"^SCORE_S?(\d+)_")
+
+
+def detect_canned_season(
+    cobj_edid: Optional[str],
+    seasons_by_key: Dict[str, Dict[str, str]],
+) -> Tuple[Optional[str], Optional[str]]:
+    """Given a canned recipe's COBJ EDID, return (season_number_str,
+    season_name) if it's a Scoreboard season reward, else (None, None)."""
+    if not cobj_edid:
+        return (None, None)
+    m = _SEASON_PREFIX_RE.match(cobj_edid)
+    if not m:
+        return (None, None)
+    num = m.group(1)
+    # Normalise to SCORE_S{NN} (zero-padded) — the lookup key in the
+    # seasons TSV. We try both padded and unpadded forms because older
+    # COBJ EDIDs use SCORE_25_ while newer ones use SCORE_S25_.
+    padded = f"SCORE_S{int(num):02d}"
+    srow = seasons_by_key.get(padded) or seasons_by_key.get(f"SCORE_S{num}")
+    season_name = (srow.get("SeasonName") if srow else None) or None
+    return (num, season_name)
+
+
+def lookup_canned_plan(
+    base_name: Optional[str],
+    book_by_full: Dict[str, Dict[str, str]],
+) -> Optional[str]:
+    """Return the BOOK FULL (e.g. "Recipe: Blight Soup") for the plan that
+    teaches the base food, or None if the base recipe is learned by default
+    (no plan exists)."""
+    if not base_name:
+        return None
+    plan = book_by_full.get(f"Recipe: {base_name}")
+    if plan:
+        return (plan.get("FULL") or "").strip() or None
+    return None
+
+
 def build(data_dir: str, outdir: str) -> str:
     alch_path = find_first(data_dir, ALCH_GLOBS)
     cobj_path = find_first(data_dir, COBJ_GLOBS)
     eff_path  = find_first(data_dir, ALCH_EFFECTS_GLOBS)
     kywd_refs_path = find_first(data_dir, KYWD_REFS_GLOBS)
     misc_path = find_first(data_dir, MISC_GLOBS)
+    book_path = find_first(data_dir, BOOK_GLOBS)
+    seasons_path = os.path.join(data_dir, SEASONS_TSV)
+    if not os.path.exists(seasons_path):
+        seasons_path = None
 
     if not alch_path or not cobj_path:
         raise SystemExit(
@@ -1150,6 +1245,14 @@ def build(data_dir: str, outdir: str) -> str:
     # (e.g. c_Wood -> "Wood", Cannery_Clean_Can -> "Clean Can").
     cmpo_names = load_cmpo_names(kywd_refs_path)
     misc_names = load_misc_names(misc_path)
+
+    # Plan / season lookups for the Food-That-Can-Be-Canned page. BOOK
+    # provides the human plan name ("Recipe: Blight Soup"); the seasons
+    # TSV provides the marketing name for each Scoreboard season.
+    book_by_full = load_book_plans_by_full(book_path)
+    seasons_by_key = load_seasons_by_key(seasons_path)
+    if not book_path:
+        warnings.setdefault("missing_book_tsv", True)
 
     # Live spoil-time data: {curve_edid: Y@X=1 in minutes}. Merges three
     # sources — the CURV POINTS TSV (xEdit export of curves that had a
@@ -1399,19 +1502,63 @@ def build(data_dir: str, outdir: str) -> str:
     # Sort ingredients alphabetically by display name
     ingredients.sort(key=lambda i: (i["name"] or "").lower())
 
-    # Food-that-can-be-canned page list
+    # Food-that-can-be-canned page list.
+    #
+    # Each item gets:
+    #   - plan_name:   the FULL of the BOOK that teaches the BASE recipe
+    #                  (e.g. "Recipe: Blight Soup"). When present, this is
+    #                  the plan players must read to unlock both the base
+    #                  recipe and its canned variant. None = base recipe
+    #                  is learned by default (no plan exists for it).
+    #   - season_number / season_name: if the canned recipe's COBJ EDID
+    #                  starts with SCORE_S{N}_, this is the Scoreboard
+    #                  season that gates the canned variant. The base
+    #                  recipe may still be learnable by reading its own
+    #                  plan year-round; only the canned variant is the
+    #                  season reward. Both fields are None for non-season
+    #                  canned items.
+    #
+    # We need the canned recipe COBJ EDID to detect the season prefix. The
+    # ingredients list above doesn't expose canned items as ingredients
+    # (canned outputs aren't recipe inputs themselves), so we look it up
+    # from the ingredient_uses map — for each base ingredient, one of the
+    # recipes that consume it will be the canning recipe. Easier: scan
+    # cobj directly for entries whose output (CNAM) matches the canned
+    # ALCH FormID.
+    canned_recipe_edid_by_output_fid: Dict[str, str] = {}
+    for r in cobj:
+        out_fid = r.get("CNAM_FormID", "")
+        if not out_fid:
+            continue
+        # Prefer the FIRST recipe found (alphabetical COBJ EDID); skip cuts.
+        if is_cut(r.get("COBJ_EDID", "")):
+            continue
+        if out_fid not in canned_recipe_edid_by_output_fid:
+            canned_recipe_edid_by_output_fid[out_fid] = r.get("COBJ_EDID", "")
+
     canned_items: List[Dict[str, Any]] = []
     for r in alch:
         if (r.get("ENIT_IsCanned") or "").strip().lower() != "true":
             continue
         if is_cut(r.get("ALCH_EDID", "")):
             continue
+        alch_fid = r.get("ALCH_FormID", "")
+        canned_recipe_edid = canned_recipe_edid_by_output_fid.get(alch_fid)
+        base_name = (r.get("ENIT_CannedBase_FULL") or "").strip() or None
+        plan_name = lookup_canned_plan(base_name, book_by_full)
+        season_number, season_name = detect_canned_season(
+            canned_recipe_edid, seasons_by_key
+        )
         canned_items.append({
-            "edid":         r.get("ALCH_EDID", ""),
-            "formId":       r.get("ALCH_FormID", ""),
-            "name":         r.get("FULL") or r.get("ALCH_EDID") or "",
-            "canned_base":  r.get("ENIT_CannedBase_FULL") or None,
-            "canned_base_edid": r.get("ENIT_CannedBase_EDID") or None,
+            "edid":              r.get("ALCH_EDID", ""),
+            "formId":            alch_fid,
+            "name":              r.get("FULL") or r.get("ALCH_EDID") or "",
+            "canned_base":       base_name,
+            "canned_base_edid":  r.get("ENIT_CannedBase_EDID") or None,
+            "canned_recipe_edid": canned_recipe_edid or None,
+            "plan_name":         plan_name,
+            "season_number":     season_number,
+            "season_name":       season_name,
         })
     canned_items.sort(key=lambda i: (i["name"] or "").lower())
 
