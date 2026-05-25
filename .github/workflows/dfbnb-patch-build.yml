@@ -580,6 +580,16 @@ jobs:
       - name: Build Fishing JSON
         run: python src/build_fishing_json.py
 
+      # --- SEASONS ---
+      # Reads tsv/fallout76_seasons.tsv and emits dist/seasons.json — the
+      # canonical season-number -> {name, dates, etc.} lookup. Consumed by
+      # the website wherever "(Season N) Gameboard" labels appear so the
+      # JS doesn't have to hardcode a SEASON_NAMES map every patch.
+      # Cheap to build; runs before Atom Shop so any future builder that
+      # wants to enrich items with season metadata can read it.
+      - name: Build Seasons JSON
+        run: python src/build_seasons_json.py
+
       # --- ATOM SHOP ---
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
@@ -625,6 +635,7 @@ jobs:
           test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
           test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
           test -f dist/atom_shop.json                && echo "OK atom_shop.json"                || (echo "MISSING atom_shop.json" && exit 1)
+          test -f dist/seasons.json                  && echo "OK seasons.json"                  || (echo "MISSING seasons.json" && exit 1)
           test -f dist/survival_tent_interiors.json  && echo "OK survival_tent_interiors.json"  || (echo "MISSING survival_tent_interiors.json" && exit 1)
           test -f dist/camp.json                     && echo "OK camp.json"                     || (echo "MISSING camp.json" && exit 1)
           test -f dist/cobj-recipes.json             && echo "OK cobj-recipes.json"             || (echo "MISSING cobj-recipes.json" && exit 1)
