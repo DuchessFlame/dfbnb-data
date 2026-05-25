@@ -509,8 +509,107 @@ def build_recipes(
             by_region[r] for r in sorted(by_region.keys())
         ]
 
+    # ── Detect ingredient alternates ───────────────────────────────────
+    # An "ingredient alternates" pattern is when 2+ COBJ records share the
+    # same display name AND the same recipe shape EXCEPT for ONE varying
+    # ingredient slot. Canonical case: "Fish Bits" has 57 COBJ records,
+    # each consuming a different fish species (Leatherback, Potbelly Kelt,
+    # Alpine Sawgill, ...) but all producing the same Fish_Fishbits output.
+    # In-game the player can use ANY of those fish to craft Fish Bits.
+    #
+    # The existing dedup logic picks one arbitrary winner, which is fine
+    # for `recipes` (where we just need a representative recipe), but
+    # downstream consumers (farming planner, chef portal) need the full
+    # alternates list so they can display "Any Fish" or similar rather
+    # than the misleading "Small Raw Savage Leatherback".
+    #
+    # To avoid mixing legacy/dirty entries from older TSV exports
+    # (e.g. older months where ingredient slots used display names like
+    # "Static Sawgill" instead of FormID-backed EDIDs), alternates are
+    # detected only against entries from the SINGLE most recent source
+    # file. We rank source files by parsing month-year tokens from the
+    # filename so chronology — not alphabetic order — wins.
+    _MONTH_TOKEN = {
+        "Jan": 1, "Feb": 2, "March": 3, "Apr": 4, "April": 4,
+        "May": 5, "June": 6, "July": 7, "Aug": 8, "Sept": 9,
+        "Oct": 10, "Nov": 11, "Dec": 12,
+    }
+    def _source_file_rank(fname: str) -> Tuple[int, int]:
+        m = re.search(r"_([A-Za-z]+)_(\d{4})", fname)
+        if not m:
+            return (0, 0)
+        return (int(m.group(2)), _MONTH_TOKEN.get(m.group(1), 0))
+
+    latest_basename = ""
+    if per_file_rows:
+        latest_basename = os.path.basename(
+            max((sf for sf, _ in per_file_rows), key=_source_file_rank)
+        )
+
+    def _derive_alternates_label(edids: List[str]) -> str:
+        """Heuristic label for an alternates group based on edid patterns.
+        Returns "" if no pattern matches; downstream consumers should fall
+        back to a generic "Any of N options" label in that case.
+        Order matters — most specific patterns first."""
+        if not edids:
+            return ""
+        # Seasonal Fish — most specific, check before generic Fish.
+        if all(re.match(r"^SeasonalFish_Meal_", e, re.IGNORECASE) for e in edids):
+            return "Seasonal Fish"
+        # Fish: any prefix that contains "_Fish_Meal_" — covers Fishing_*,
+        # Burn_*, and any future region prefix the game adds for fish.
+        if all(re.search(r"Fish_Meal_", e) for e in edids):
+            return "Fish"
+        # Legendary shards (tier 2/3 variants of the same SPECIAL stat)
+        if all(re.match(r"^LegendaryShard_", e, re.IGNORECASE) for e in edids):
+            return "Legendary Shard"
+        return ""
+
+    alternates_count = 0
+    for display_name, entries in raw_by_name.items():
+        # Use only entries from the latest source file (avoid legacy noise)
+        scope = [e for e in entries if e.get("source_file") == latest_basename]
+        if len(scope) < 2:
+            continue
+        all_sets = [set(e["ingredients"].keys()) for e in scope]
+        common = set.intersection(*all_sets)
+        # Each entry must have all common ingredients + exactly one varying
+        if not all(
+            (set(e["ingredients"].keys()) & common) == common
+            and len(set(e["ingredients"].keys()) - common) == 1
+            for e in scope
+        ):
+            continue
+        varying = set()
+        varying_qty = None
+        consistent_qty = True
+        for e in scope:
+            diff = set(e["ingredients"].keys()) - common
+            for edid in diff:
+                varying.add(edid)
+                q = e["ingredients"][edid]
+                if varying_qty is None:
+                    varying_qty = q
+                elif varying_qty != q:
+                    consistent_qty = False
+        if len(varying) < 2 or not consistent_qty:
+            continue
+        # Skip if the recipe entry we kept doesn't actually contain one of
+        # the alternates (defensive — should always match in practice)
+        recipe = recipes.get(display_name) or {}
+        if not any(edid in recipe for edid in varying):
+            continue
+        alt_list = sorted(varying)
+        meta.setdefault(display_name, {})["alternates"] = {
+            "label": _derive_alternates_label(alt_list),
+            "qty": varying_qty,
+            "ingredients": alt_list,
+        }
+        alternates_count += 1
+
     print(f"Recipes extracted: {len(recipes)}", file=sys.stderr)
     print(f"Region variants: {len(variants)} items with per-region recipes", file=sys.stderr)
+    print(f"Ingredient alternates: {alternates_count} items with alternate-ingredient slots", file=sys.stderr)
     print(f"Skipped (cut content): {total_skipped_cut}", file=sys.stderr)
     print(f"Rows without ingredients: {total_no_fvpa}", file=sys.stderr)
 
@@ -520,6 +619,7 @@ def build_recipes(
         context={
             "unique_recipes": len(recipes),
             "region_variant_items": len(variants),
+            "ingredient_alternates": alternates_count,
             "total_rows": total_rows,
             "skipped_cut": total_skipped_cut,
             "no_fvpa": total_no_fvpa,
