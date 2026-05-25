@@ -584,6 +584,16 @@ jobs:
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
 
+      # --- SURVIVAL TENT INTERIORS ---
+      # Reads the latest tsv/SurvivalTentInteriors_Export_*.tsv (produced
+      # by !!!Wordpress - ExportSurvivalTentInteriorsToTSV.pas in xEdit)
+      # and emits dist/survival_tent_interiors.json — consumed by the
+      # tents page (df-bnb-atom-shop.js) to list each tent's interior
+      # items. Self-contained; runs after Atom Shop because it's the
+      # same page family.
+      - name: Build Survival Tent Interiors JSON
+        run: python src/build_survival_tent_interiors_json.py
+
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |
@@ -615,6 +625,7 @@ jobs:
           test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
           test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
           test -f dist/atom_shop.json                && echo "OK atom_shop.json"                || (echo "MISSING atom_shop.json" && exit 1)
+          test -f dist/survival_tent_interiors.json  && echo "OK survival_tent_interiors.json"  || (echo "MISSING survival_tent_interiors.json" && exit 1)
           test -f dist/camp.json                     && echo "OK camp.json"                     || (echo "MISSING camp.json" && exit 1)
           test -f dist/cobj-recipes.json             && echo "OK cobj-recipes.json"             || (echo "MISSING cobj-recipes.json" && exit 1)
           test -f dist/menu-items.json               && echo "OK menu-items.json"               || (echo "MISSING menu-items.json" && exit 1)
