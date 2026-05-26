@@ -93,7 +93,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Legendary",
         "formid": "0088851D",
-        "subtitle": "Each list rolled when you loot the boss · 4 reward lists (Ranged / Melee / PA / Armor)",
+        "subtitle": "Each list rolled when you loot the boss corpse · 4 reward lists (Ranged / Melee / PA / Armor)",
         "dropRate": 100,
         "children": [
             {"label": "Weapons (Ranged)", "formid": "00888524", "dropRate": 25,
@@ -139,7 +139,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Treasure Maps",
         "formid": "00888537",
-        "subtitle": "Regional loot pool — rewards depend on the infestation's region · 5 regions",
+        "subtitle": "Regional loot pool — rewards depend on which region the infestation is active in · 5 regions",
         "dropRate": 100,
         "items": [
             {"name": "Cranberry Bog / Savage Forest Treasure Map", "formid": "003D0CD8", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Cranberry Bog or The Mire"]},
@@ -169,11 +169,11 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Explosives",
         "formid": "0088851C",
-        "subtitle": "Each list rolled when you loot the boss · 2 reward lists (grenade + mine)",
+        "subtitle": "Each list rolled when you loot the boss corpse · 2 reward lists (grenade + mine)",
         "dropRate": 100,
         "children": [
             {"label": "Grenades", "formid": "00893F79",
-             "subtitle": "Pick one · 11 items", "dropRate": 100,
+             "subtitle": "Guaranteed drop of one item · 11 items", "dropRate": 100,
              "items": [
                 {"name": "Cryo Grenade",            "formid": "0011002F", "sig": "LVLI", "qty": 1, "dropRate": round(100/11, 2)},
                 {"name": "Floater Gnasher Grenade", "formid": "005A70BB", "sig": "LVLI", "qty": 1, "dropRate": round(100/11, 2)},
@@ -188,7 +188,7 @@ def build_hto_rewards():
                 {"name": "Frag Grenade",            "formid": "0011002B", "sig": "LVLI", "qty": 1, "dropRate": round(100/11, 2)},
              ], "mode": "pickone"},
             {"label": "Mines", "formid": "00888527",
-             "subtitle": "Pick one · 4 items", "dropRate": 100,
+             "subtitle": "Guaranteed drop of one item · 4 items", "dropRate": 100,
              "items": [
                 {"name": "Frag Mine",   "formid": "00110034", "sig": "LVLI", "qty": 1, "dropRate": 25},
                 {"name": "Pulse Mine",  "formid": "00110039", "sig": "LVLI", "qty": 1, "dropRate": 25},
@@ -256,7 +256,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Aid",
         "formid": "aid-combined",
-        "subtitle": "Each list rolled when you loot the boss · 4 reward lists",
+        "subtitle": "Each list rolled when you loot the boss corpse · 4 reward lists",
         "dropRate": 100,
         "children": [
             # 1. Stimpaks — wrapper (00893F83) UseAll with list-level CN=80 -> 20% to fire.
@@ -312,7 +312,7 @@ def build_hto_rewards():
         "scrapCount": scrap_count,
         "children": [
             {"label": "Very Rare Scrap", "formid": "00893F81",
-             "subtitle": "Pick one · 5 items", "dropRate": cn_high,
+             "subtitle": "Guaranteed drop of one item · 5 items", "dropRate": cn_high,
              "items": [
                 {"name": "Ballistic Fiber",  "formid": "00432C9A", "sig": "LVLI", "qty": scrap_count, "dropRate": round(cn_high / 5, 2)},
                 {"name": "Black Titanium",   "formid": "00432C9D", "sig": "LVLI", "qty": scrap_count, "dropRate": round(cn_high / 5, 2)},
@@ -321,7 +321,7 @@ def build_hto_rewards():
                 {"name": "Vault Steel",      "formid": "00893FBB", "sig": "LVLI", "qty": scrap_count, "dropRate": round(cn_high / 5, 2)},
              ], "mode": "pickone"},
             {"label": "Rare Scrap", "formid": "00893F7F",
-             "subtitle": "Pick one · 7 items", "dropRate": cn_medium - cn_high,
+             "subtitle": "Guaranteed drop of one item · 7 items", "dropRate": cn_medium - cn_high,
              "items": [
                 {"name": "Antiseptic",   "formid": "00432C9C", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_medium - cn_high) / 7, 2)},
                 {"name": "Asbestos",     "formid": "00432C9B", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_medium - cn_high) / 7, 2)},
@@ -332,7 +332,7 @@ def build_hto_rewards():
                 {"name": "Silver",       "formid": "00432CB1", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_medium - cn_high) / 7, 2)},
              ], "mode": "pickone"},
             {"label": "Uncommon Scrap", "formid": "00893F80",
-             "subtitle": "Pick one · 9 items", "dropRate": cn_low - cn_medium,
+             "subtitle": "Guaranteed drop of one item · 9 items", "dropRate": cn_low - cn_medium,
              "items": [
                 {"name": "Acid",       "formid": "00432C99", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_low - cn_medium) / 9, 2)},
                 {"name": "Adhesive",   "formid": "00432C96", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_low - cn_medium) / 9, 2)},
@@ -345,7 +345,7 @@ def build_hto_rewards():
                 {"name": "Springs",    "formid": "00432CB2", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_low - cn_medium) / 9, 2)},
              ], "mode": "pickone"},
             {"label": "Common Scrap", "formid": "00893F7E",
-             "subtitle": "Pick one · 13 items", "dropRate": 100 - cn_low,
+             "subtitle": "Guaranteed drop of one item · 13 items", "dropRate": 100 - cn_low,
              "items": [
                 {"name": "Bone",       "formid": "00432C9F", "sig": "LVLI", "qty": scrap_count, "dropRate": round((100 - cn_low) / 13, 2)},
                 {"name": "Ceramic",    "formid": "00432C9E", "sig": "LVLI", "qty": scrap_count, "dropRate": round((100 - cn_low) / 13, 2)},
@@ -373,7 +373,8 @@ def build_hto_rewards():
         "dropRate": 100,
         "children": [
             {"label": "Robot Boss", "formid": "00893F73",
-             "subtitle": "Only drops from Robot faction bosses", "dropRate": 100,
+             "subtitle": "FirstMatch tier router · 3 outcomes (fusion cells / components / scrap)",
+             "dropRate": 100,
              "conditions": ["Boss is Robot faction"],
              "items": [
                 {"name": "Fusion Cells", "formid": "00888530", "sig": "LVLI", "qty": 1, "dropRate": cn_high,             "note": f"Top {int(cn_high)}% roll"},
@@ -381,7 +382,8 @@ def build_hto_rewards():
                 {"name": "Robot Scrap",  "formid": "00888531", "sig": "LVLI", "qty": 1, "dropRate": 100 - cn_medium,     "note": f"Bottom {int(100 - cn_medium)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Scorched Boss (Holiday)", "formid": "008B2319",
-             "subtitle": "Only drops from Scorched bosses during seasonal events", "dropRate": 100,
+             "subtitle": "Holiday-conditional · 2 outcomes (Festive / Spooky)",
+             "dropRate": 100,
              "conditions": ["Boss is Scorched faction", "Holiday toggle active"],
              "items": [
                 {"name": "Festive Holiday Gift", "formid": "0059B558", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Festive Scorched enabled"]},
@@ -487,7 +489,7 @@ def build_hto_rewards():
                 "conditions": ["Mob has ActorTypeFloater keyword"],
                 "children": [
                     {"label": "Floater Pus Sac", "formid": "00888534",
-                     "subtitle": "Subtype-conditional · 3 outcomes by Floater variant", "dropRate": 100,
+                     "subtitle": "Subtype-conditional · only one entry fires (3 Floater variants)", "dropRate": 100,
                      "items": [
                         {"name": "Flamer Pus Sac",  "formid": "00592EB1", "sig": "MISC", "qty": 1, "dropRate": 100, "conditions": ["ActorTypeFloaterFlamer"]},
                         {"name": "Freezer Pus Sac", "formid": "00592EB0", "sig": "MISC", "qty": 1, "dropRate": 100, "conditions": ["ActorTypeFloaterFreezer"]},
@@ -592,42 +594,42 @@ def build_hto_rewards():
         "dropRate": 100,
         "children": [
             {"label": "Dog", "formid": "00863222",
-             "subtitle": f"FirstMatch · {int(cn_medium)}% Bones / {int(cn_low - cn_medium)}% Dogmeat",
+             "subtitle": f"FirstMatch tier router · {int(cn_medium)}% Bones / {int(cn_low - cn_medium)}% Dogmeat",
              "dropRate": 100, "conditions": ["Support has ActorTypeDog keyword"],
              "items": [
                 {"name": "Bones (LVLI)",   "formid": "00070511", "sig": "LVLI", "qty": 1, "dropRate": cn_medium,          "note": f"Top {int(cn_medium)}% roll"},
                 {"name": "Dogmeat (LVLI)", "formid": "002165DE", "sig": "LVLI", "qty": 1, "dropRate": cn_low - cn_medium, "note": f"Next {int(cn_low - cn_medium)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Eye Bot", "formid": "00865AF8",
-             "subtitle": f"FirstMatch · {int(cn_medium)}% Components / {int(cn_low - cn_medium)}% Scrap",
+             "subtitle": f"FirstMatch tier router · {int(cn_medium)}% Components / {int(cn_low - cn_medium)}% Scrap",
              "dropRate": 100, "conditions": ["Support has ActorTypeEyebot keyword"],
              "items": [
                 {"name": "Robot Components (LVLI)", "formid": "0088852F", "sig": "LVLI", "qty": 1, "dropRate": cn_medium,          "note": f"Top {int(cn_medium)}% roll"},
                 {"name": "Robot Scrap (LVLI)",      "formid": "00888531", "sig": "LVLI", "qty": 1, "dropRate": cn_low - cn_medium, "note": f"Next {int(cn_low - cn_medium)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Liberator", "formid": "0085B657",
-             "subtitle": f"FirstMatch · {int(cn_high)}% Trinkets / {int(cn_medium - cn_high)}% Components",
+             "subtitle": f"FirstMatch tier router · {int(cn_high)}% Trinkets / {int(cn_medium - cn_high)}% Components",
              "dropRate": 100, "conditions": ["Support has ActorTypeLiberator keyword"],
              "items": [
                 {"name": "Liberator Trinkets (LVLI)",   "formid": "0088852A", "sig": "LVLI", "qty": 1, "dropRate": cn_high,             "note": f"Top {int(cn_high)}% roll"},
                 {"name": "Liberator Components (LVLI)", "formid": "00888529", "sig": "LVLI", "qty": 1, "dropRate": cn_medium - cn_high, "note": f"Next {int(cn_medium - cn_high)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Mole Rat", "formid": "0085DC58",
-             "subtitle": f"FirstMatch · {int(cn_medium)}% Components / {int(cn_low - cn_medium)}% Meat",
+             "subtitle": f"FirstMatch tier router · {int(cn_medium)}% Components / {int(cn_low - cn_medium)}% Meat",
              "dropRate": 100, "conditions": ["Support has ActorTypeMolerat keyword"],
              "items": [
                 {"name": "MoleRat Components (LVLI)", "formid": "00888528", "sig": "LVLI", "qty": 1, "dropRate": cn_medium,          "note": f"Top {int(cn_medium)}% roll"},
                 {"name": "MoleRat Meat (LVLI)",       "formid": "00213D5F", "sig": "LVLI", "qty": 1, "dropRate": cn_low - cn_medium, "note": f"Next {int(cn_low - cn_medium)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Mutant Hound", "formid": "0086242D",
-             "subtitle": f"FirstMatch · {int(cn_high)}% Bones / {int(cn_medium - cn_high)}% Meat",
+             "subtitle": f"FirstMatch tier router · {int(cn_high)}% Bones / {int(cn_medium - cn_high)}% Meat",
              "dropRate": 100, "conditions": ["Support has ActorTypeMutantHound keyword"],
              "items": [
                 {"name": "Bones (LVLI)",             "formid": "00070511", "sig": "LVLI", "qty": 1, "dropRate": cn_high,             "note": f"Top {int(cn_high)}% roll"},
                 {"name": "Mutant Hound Meat (LVLI)", "formid": "00888540", "sig": "LVLI", "qty": 1, "dropRate": cn_medium - cn_high, "note": f"Next {int(cn_medium - cn_high)}% roll"},
              ], "mode": "firstmatch"},
             {"label": "Wolf", "formid": "00863223",
-             "subtitle": f"FirstMatch · {int(cn_high)}% Bones / {int(cn_medium - cn_high)}% Meat",
+             "subtitle": f"FirstMatch tier router · {int(cn_high)}% Bones / {int(cn_medium - cn_high)}% Meat",
              "dropRate": 100, "conditions": ["Support has ActorTypeMutatedWolf keyword"],
              "items": [
                 {"name": "Bones (LVLI)",     "formid": "00070511", "sig": "LVLI", "qty": 1, "dropRate": cn_high,             "note": f"Top {int(cn_high)}% roll"},
