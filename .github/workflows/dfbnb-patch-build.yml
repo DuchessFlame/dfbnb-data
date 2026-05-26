@@ -300,6 +300,34 @@ jobs:
           cp dist/calculators/build_inspiration_patchlog.json  dist/patchlog_latest_df_build_inspiration.json
           cp dist/calculators/outfit_inspiration_patchlog.json dist/patchlog_latest_df_outfit_inspiration.json
 
+      # --- DF SCOREBOARDS (placeholder patchlog) ---
+      - name: Stage scoreboards patchlog feed (placeholder)
+        # No dedicated builder for the scoreboards category yet — the Season
+        # Ticket Calculator and S.C.O.R.E. Progression Calculator pages live
+        # under /df/scoreboards/ but their underlying season-ticket reward and
+        # SCORE challenge data isn't diffed into a patchlog yet. Emit a
+        # minimal valid stub so the patchlog manifest URL resolves (no 404)
+        # and the patchlog UI on those pages just shows "no recent changes".
+        # When real change tracking is wired up (e.g. extend
+        # build_score_challenges_json.py / build_seasons_json.py to emit a
+        # scoreboards_patchlog.json), replace this step with a `cp` from the
+        # builder output, same pattern as the DF calculators step above.
+        run: |
+          TS=$(date -u +%FT%T+00:00)
+          cat > dist/patchlog_latest_df_scoreboards.json <<EOF
+          {
+            "entries": [
+              {
+                "ts": "${TS}",
+                "current": 0,
+                "added": [],
+                "removed": [],
+                "changed": []
+              }
+            ]
+          }
+          EOF
+
       # --- ARMOUR DATA ---
       - name: Build Armour Data JSON
         run: python src/build_armour_json.py --data-dir tsv --out dist/armour.json

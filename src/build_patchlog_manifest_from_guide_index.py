@@ -143,6 +143,7 @@ def main() -> None:
         ("/df/raids/",                     "patchlog_latest_df_raids.json",                   "df-raids"),
         ("/df/random-encounters/",         "patchlog_latest_df_random_encounters.json",       "df-random-encounters"),
         ("/df/score-challenges/",          "patchlog_latest_df_score_challenges.json",        "df-score-challenges"),
+        ("/df/scoreboards/",               "patchlog_latest_df_scoreboards.json",             "df-scoreboards"),
         ("/df/scouts/",                    "patchlog_latest_df_scouts.json",                  "df-scouts"),
         ("/df/seasonal-events/",           "patchlog_latest_df_seasonal_events.json",         "df-seasonal-events"),
         ("/df/seasons/",                   "patchlog_latest_df_seasons.json",                 "df-seasons"),
