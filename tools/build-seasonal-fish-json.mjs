@@ -314,6 +314,86 @@ const SEASON_META = {
   winter: { label: "Winter", months: [12, 1, 2]  }
 };
 
+
+/* ------------------------------------------------------------------ */
+/* Location -> region mapping (Local Legends)                          */
+/* ------------------------------------------------------------------ */
+//
+// Local Legend fish don't live in regional Fishing_LLS_FishCollection_<Region>_Uncommon
+// lists; they live in Fishing_LLS_FishCollection_LocalLegends with a
+// GetInCurrentLocation condition pinning them to one named location. The location
+// EDID is namespaced by region prefix (LocCranberry*, LocForest*, LocBurn*, etc.)
+// so we map the prefix to the same region display string we use elsewhere.
+//
+// Ordering note: longer prefixes are checked first ("SavageDivide" before "Savage")
+// so we don't accidentally classify Savage Divide as a sub-region of itself.
+const LOCATION_PREFIX_TO_REGION = {
+  Cranberry:    { keyword: "cranberry",      display: "Cranberry Bog" },
+  Forest:       { keyword: "forest",         display: "The Forest" },
+  Ash:          { keyword: "ash",            display: "Ash Heap" },
+  SavageDivide: { keyword: "savagedivide",   display: "Savage Divide" },
+  Savage:       { keyword: "savagedivide",   display: "Savage Divide" },
+  Skyline:      { keyword: "skyline",        display: "Skyline Valley" },
+  Toxic:        { keyword: "toxic",          display: "Toxic Valley" },
+  Mire:         { keyword: "mire",           display: "The Mire" },
+  Swamp:        { keyword: "mire",           display: "The Mire" },
+  Burn:         { keyword: "burningsprings", display: "Burning Springs" }
+};
+
+// Parse a single condition string. Returns { keyword, display } or null.
+//
+// Example condition value (TSV cell, including the wrapping double-quotes that the
+// xEdit CSV→TSV pipeline leaves in place):
+//   "Subject.GetInCurrentLocation(00 00 00, 00 00, LocCranberryGlassedCavernLocation ""Glassed Cavern"" [LCTN:00081B25], 00 00 00 00, -1) 10000000 1.000000"
+//
+// The doubled "" are CSV-escaped quotes from the original export; we use a +
+// quantifier on " so single- and double-wrapped values both match.
+function parseLocationConditionForLL(condStr) {
+  if (!condStr || !condStr.includes("GetInCurrentLocation")) return null;
+  const m = condStr.match(/Loc([A-Za-z0-9]+?)Location\s*"+([^"]+)"+/);
+  if (!m) return null;
+  const prefixRaw = m[1];
+  const display = m[2].trim();
+  if (!display) return null;
+  const prefixes = Object.keys(LOCATION_PREFIX_TO_REGION).sort((a, b) => b.length - a.length);
+  for (const p of prefixes) {
+    if (prefixRaw.startsWith(p)) {
+      const r = LOCATION_PREFIX_TO_REGION[p];
+      return { keyword: r.keyword, display: `${display} (${r.display})` };
+    }
+  }
+  // Unknown region prefix — emit the location name on its own so the site still has
+  // something meaningful to render.
+  return { keyword: null, display };
+}
+
+// Walk Fishing_LLS_FishCollection_LocalLegends and pull region info for one fish.
+function locationsForLocalLegendFish(lvliEntriesRows, fishEdid) {
+  const regions = [];
+  const regionKeywords = [];
+  const rows = lvliEntriesRows.filter(
+    (r) => String(r.LVLI_EDID || "").trim() === "Fishing_LLS_FishCollection_LocalLegends"
+  );
+  for (const r of rows) {
+    const ref = String(r.LVLO_Reference || "");
+    const fm = ref.match(/:([^:]+):FISH\b/i);
+    if (!fm) continue;
+    if (fm[1].toLowerCase() !== fishEdid.toLowerCase()) continue;
+    for (const k of Object.keys(r)) {
+      if (!/^Cond\d+$/i.test(k)) continue;
+      const parsed = parseLocationConditionForLL(r[k]);
+      if (!parsed) continue;
+      if (parsed.keyword && !regionKeywords.includes(parsed.keyword)) {
+        regionKeywords.push(parsed.keyword);
+      }
+      if (parsed.display && !regions.includes(parsed.display)) {
+        regions.push(parsed.display);
+      }
+    }
+  }
+  return { regions, regionKeywords };
+}
+
 /* ------------------------------------------------------------------ */
 /* Main                                                                */
 /* ------------------------------------------------------------------ */
@@ -428,17 +508,24 @@ function main() {
     };
   }
 
-  // Local legends — attach by their own season tag (from EDID).
+  // Local legends — attach by their own season tag (from EDID). LL fish are
+  // gated by a GetInCurrentLocation condition on the LocalLegends LVLI entry,
+  // not by the regional Fish-Collection refs the medium/small seasonal fish
+  // use, so we look up the location condition explicitly and emit its display
+  // name (e.g. "Glassed Cavern (Cranberry Bog)") as the region.
   for (const fish of seasonalFishByEdid.values()) {
     if (!fish.isLocalLegend || !fish.seasonTag) continue;
     const key = fish.seasonTag;
     if (!seasons[key]) continue;
+    const llLoc = locationsForLocalLegendFish(lvliEntriesRows, fish.fishEditorId);
+    const regions = llLoc.regions.length ? llLoc.regions : fish.regions;
+    const regionKeywords = llLoc.regionKeywords.length ? llLoc.regionKeywords : fish.regionKeywords;
     seasons[key].localLegend = {
       name: fish.name,
       fishFormId: fish.fishFormId,
       fishEditorId: fish.fishEditorId,
-      regionKeywords: fish.regionKeywords,
-      regions: fish.regions,
+      regionKeywords,
+      regions,
       image: existingImages.get(fish.fishEditorId.toLowerCase()) || ""
     };
   }
