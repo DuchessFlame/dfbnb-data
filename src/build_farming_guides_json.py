@@ -740,20 +740,45 @@ def pretty_variant_label(token: str) -> str:
 
 
 def parse_fvpa(fvpa: str) -> List[Tuple[str, int]]:
-    out: List[Tuple[str, int]] = []
+    """Legacy shim. Returns (edid, qty) tuples — qty is the FVPA second
+    field as-is (NOT curve-resolved). Used by the duplicate-detection
+    pass where the literal token-set matters, not the in-game qty.
+    For recipe-output ingredient lists, use parse_fvpa_with_curve +
+    resolve_ingredient_qty so that CT_COBJ_Cooking_* curves are applied.
+    """
+    return [(edid, n) for edid, n, _curve in parse_fvpa_with_curve(fvpa)]
+
+
+def parse_fvpa_with_curve(fvpa: str) -> List[Tuple[str, int, Optional[str]]]:
+    """Parse an FVPA field into (edid, fvpa_value, curve_edid_or_None).
+
+    FVPA format (May 2026 exports):
+        c_Wood:3:CT_COBJ_Cooking_Food_5_Wood|...
+
+    - Field 0: ingredient EDID
+    - Field 1: integer. For ingredients with a CT_COBJ_Cooking_* curve
+      in field 2, this is the **recipe tier** (the X coordinate to
+      look up in the curve, NOT the literal qty). For ingredients with
+      no curve, or with a COBJ_Workshop_* workshop-component lookup in
+      field 2 (which doesn't modify qty), this IS the literal qty.
+    - Field 2 (optional): the curve / lookup EDID. CT_COBJ_Cooking_*
+      curves modify qty; COBJ_Workshop_* and empty don't.
+
+    Callers that need the real ingredient qty should pass each row
+    through resolve_ingredient_qty() with a curves dict from
+    load_ingredient_qty_curves().
+    """
+    out: List[Tuple[str, int, Optional[str]]] = []
     if not fvpa:
         return out
     for token in fvpa.split("|"):
         token = token.strip()
         if not token or ":" not in token:
             continue
-        # Apr 2026 COBJ exports added a third field (keyword EDID) to each
-        # FVPA entry: "c_Wood:2:COBJ_Workshop_Wood". Earlier exports used
-        # just "c_Wood:2". Split on all colons and take index 0 = EDID,
-        # index 1 = qty; anything beyond that is ignored.
         parts = token.split(":")
         edid = parts[0].strip()
         qty_str = parts[1] if len(parts) > 1 else ""
+        curve_edid = parts[2].strip() if len(parts) > 2 and parts[2].strip() else None
         try:
             n = int(qty_str)
         except ValueError:
@@ -761,8 +786,89 @@ def parse_fvpa(fvpa: str) -> List[Tuple[str, int]]:
                 n = int(float(qty_str))
             except ValueError:
                 n = 1
-        out.append((edid, n))
+        out.append((edid, n, curve_edid))
     return out
+
+
+def load_ingredient_qty_curves(
+    curvetables_roots: List[str],
+) -> Dict[str, Dict[int, int]]:
+    """Return {curve_edid: {x: y}} for CT_COBJ_Cooking_* curves.
+
+    These curves drive ingredient quantities for cooking COBJs — the
+    integer in FVPA field 1 is the X coordinate (recipe tier 1-4),
+    and Y at that X is the real ingredient qty. Without applying the
+    curve, every Tasty (tier 3) recipe would emit "3× wood" instead
+    of the in-game "1× wood".
+
+    Source: data/curvetables/json/cobj/cooking/*.json — committed JSONs
+    exported by ExportCURVToTSV.pas. Filename stem maps to curve EDID
+    via PascalCase underscore-split rule
+    (food_5_wood.json -> CT_COBJ_Cooking_Food_5_Wood).
+    """
+    out: Dict[str, Dict[int, int]] = {}
+    for root in curvetables_roots:
+        if not root or not os.path.isdir(root):
+            continue
+        cooking_dir = os.path.join(root, "cobj", "cooking")
+        if not os.path.isdir(cooking_dir):
+            continue
+        for fname in os.listdir(cooking_dir):
+            if not fname.lower().endswith(".json"):
+                continue
+            stem = os.path.splitext(fname)[0]
+            pascal = "_".join(p.capitalize() for p in stem.split("_"))
+            edid = "CT_COBJ_Cooking_" + pascal
+            if edid in out:
+                continue
+            try:
+                with open(os.path.join(cooking_dir, fname), encoding="utf-8") as f:
+                    jd = json.load(f)
+            except (OSError, ValueError):
+                continue
+            for pt in jd.get("curve", []):
+                try:
+                    x = int(pt.get("x"))
+                    y = int(pt.get("y"))
+                except (TypeError, ValueError):
+                    continue
+                out.setdefault(edid, {})[x] = y
+    return out
+
+
+def resolve_ingredient_qty(
+    fvpa_value: int,
+    curve_edid: Optional[str],
+    qty_curves: Dict[str, Dict[int, int]],
+    warnings: Dict[str, Any],
+) -> int:
+    """Return the real in-game qty for an FVPA ingredient row.
+
+    Most callers should pass the (edid, fvpa_value, curve_edid) tuple
+    from parse_fvpa_with_curve() through this. Behaviour:
+
+    - No curve, or a non-cooking lookup like COBJ_Workshop_Steel:
+      fvpa_value IS the literal qty -> return as-is.
+    - CT_COBJ_Cooking_* curve present: fvpa_value is the X coordinate;
+      look up the curve's Y at that X and return it. If the curve isn't
+      loaded or doesn't have a point at X, fall back to fvpa_value and
+      log a warning so the build surfaces the gap.
+    """
+    if not curve_edid or not curve_edid.startswith("CT_COBJ_Cooking_"):
+        return fvpa_value
+    curve = qty_curves.get(curve_edid)
+    if not curve:
+        warnings.setdefault("missing_qty_curve", {})[curve_edid] = (
+            warnings.get("missing_qty_curve", {}).get(curve_edid, 0) + 1
+        )
+        return fvpa_value
+    if fvpa_value in curve:
+        return curve[fvpa_value]
+    key = curve_edid + "@X=" + str(fvpa_value)
+    warnings.setdefault("qty_curve_missing_tier", {})[key] = (
+        warnings.get("qty_curve_missing_tier", {}).get(key, 0) + 1
+    )
+    return fvpa_value
 
 
 def safe_float(s: str) -> Optional[float]:
@@ -1266,6 +1372,12 @@ def build(data_dir: str, outdir: str) -> str:
         curv_points_paths, curv_record_paths, curvetables_roots
     )
 
+    # Cooking-ingredient qty curves. Without these, every cooking recipe
+    # emits the wrong qty (tier index instead of real qty). Tier 3 Tasty
+    # meals are the common case; without curves they'd all say 3x wood
+    # when the in-game cost is 1x wood.
+    ingredient_qty_curves = load_ingredient_qty_curves(curvetables_roots)
+
     # Live data for spoil modifiers — storage (GLOB), perks (SPEL), mods
     # (ENCH). Replaces the old hardcoded SPOIL_REDUCTIONS list; every
     # number below is now pulled from the engine TSVs each build.
@@ -1407,9 +1519,18 @@ def build(data_dir: str, outdir: str) -> str:
         if recipe_edid in skip_edids:
             continue
 
-        ings = parse_fvpa(r.get("FVPA", ""))
-        if not ings:
+        ings_raw = parse_fvpa_with_curve(r.get("FVPA", ""))
+        if not ings_raw:
             continue
+        # Curve-resolve every ingredient qty. For cooking recipes the
+        # FVPA "qty" is actually the tier index; the real qty comes
+        # from the CT_COBJ_Cooking_* curve at X=tier. For non-curve or
+        # COBJ_Workshop_* ingredients, the FVPA value is the qty as-is.
+        ings = [
+            (edid, resolve_ingredient_qty(
+                fvpa_val, curve_edid, ingredient_qty_curves, warnings))
+            for edid, fvpa_val, curve_edid in ings_raw
+        ]
 
         out_alch = alch_by_fid.get(out_fid)
         # Only interested in recipes whose OUTPUT is an ALCH (= consumable).
@@ -1562,6 +1683,43 @@ def build(data_dir: str, outdir: str) -> str:
         })
     canned_items.sort(key=lambda i: (i["name"] or "").lower())
 
+    # ---- Clean Can recipe ---------------------------------------------
+    # Every canned recipe needs 1x Clean Can in addition to its base food.
+    # Clean Cans aren't food (they don't show up in the ingredient-search
+    # list), so they don't have a recipe entry in the per-ingredient
+    # output above — we look them up directly from the COBJ TSV by EDID
+    # and emit a single shared clean_can_recipe block at the page level.
+    # The canned page renders this once, alongside the base food recipe.
+    clean_can_recipe = None
+    for r in cobj:
+        if r.get("COBJ_EDID") != "ATX_co_Cannery_Junk_TinCan_Crafted":
+            continue
+        cc_raw = parse_fvpa_with_curve(r.get("FVPA", ""))
+        cc_ings: List[Dict[str, Any]] = []
+        for ing_edid, fvpa_val, curve_edid in cc_raw:
+            qty = resolve_ingredient_qty(
+                fvpa_val, curve_edid, ingredient_qty_curves, warnings
+            )
+            ing_row = alch_by_edid.get(ing_edid)
+            ing_name = (
+                INGREDIENT_NAME_OVERRIDES.get(ing_edid)
+                or (ing_row.get("FULL") if ing_row else None)
+                or cmpo_names.get(ing_edid)
+                or misc_names.get(ing_edid)
+                or ing_edid
+            )
+            cc_ings.append({"edid": ing_edid, "name": ing_name, "qty": qty})
+        _wb_cat, wb_label = workbench_category(
+            r.get("BNAM_EDID", ""), r.get("BNAM_FULL", "")
+        )
+        clean_can_recipe = {
+            "recipe_edid":     r.get("COBJ_EDID", ""),
+            "recipe_name":     "Clean Can",
+            "workbench":       wb_label,
+            "all_ingredients": cc_ings,
+        }
+        break
+
     payload = {
         "version":   today_ymd(),
         "generated": now_iso(),
@@ -1585,8 +1743,9 @@ def build(data_dir: str, outdir: str) -> str:
                 "_status": "static",
             },
             "food-that-can-be-canned": {
-                "count_items": len(canned_items),
-                "items":       canned_items,
+                "count_items":      len(canned_items),
+                "items":            canned_items,
+                "clean_can_recipe": clean_can_recipe,
             },
         },
     }
@@ -1627,6 +1786,8 @@ def build(data_dir: str, outdir: str) -> str:
             "using_spoil_fallback":    "HealthCurves served from 2022 fallback (CURV export missing these)",
             "missing_spoil_source":    "Spoil-tier source records not found in GLOB/SPEL/ENCH exports",
             "unknown_workbench":       "BNAM workbench refs that fell through to 'Other'",
+            "missing_qty_curve":       "CT_COBJ_Cooking_* curve referenced by an FVPA but not loaded from curvetables/json",
+            "qty_curve_missing_tier":  "FVPA tier (X) had no Y point in the referenced curve",
             "unresolved_ingredients":  "Ingredient EDIDs with no ALCH/CMPO/MISC name",
         }
         for key, entries in warnings_summary.items():
