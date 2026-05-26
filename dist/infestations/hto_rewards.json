@@ -13,7 +13,7 @@
         {
           "label": "Legendary",
           "formid": "0088851D",
-          "subtitle": "Each list rolled when you loot the boss · 4 reward lists (Ranged / Melee / PA / Armor)",
+          "subtitle": "Each list rolled when you loot the boss corpse · 4 reward lists (Ranged / Melee / PA / Armor)",
           "dropRate": 100,
           "children": [
             {
@@ -142,7 +142,7 @@
         {
           "label": "Treasure Maps",
           "formid": "00888537",
-          "subtitle": "Regional loot pool — rewards depend on the infestation's region · 5 regions",
+          "subtitle": "Regional loot pool — rewards depend on which region the infestation is active in · 5 regions",
           "dropRate": 100,
           "items": [
             {
@@ -239,13 +239,13 @@
         {
           "label": "Explosives",
           "formid": "0088851C",
-          "subtitle": "Each list rolled when you loot the boss · 2 reward lists (grenade + mine)",
+          "subtitle": "Each list rolled when you loot the boss corpse · 2 reward lists (grenade + mine)",
           "dropRate": 100,
           "children": [
             {
               "label": "Grenades",
               "formid": "00893F79",
-              "subtitle": "Pick one · 11 items",
+              "subtitle": "Guaranteed drop of one item · 11 items",
               "dropRate": 100,
               "items": [
                 {
@@ -331,7 +331,7 @@
             {
               "label": "Mines",
               "formid": "00888527",
-              "subtitle": "Pick one · 4 items",
+              "subtitle": "Guaranteed drop of one item · 4 items",
               "dropRate": 100,
               "items": [
                 {
@@ -530,7 +530,7 @@
         {
           "label": "Aid",
           "formid": "aid-combined",
-          "subtitle": "Each list rolled when you loot the boss · 4 reward lists",
+          "subtitle": "Each list rolled when you loot the boss corpse · 4 reward lists",
           "dropRate": 100,
           "children": [
             {
@@ -733,7 +733,7 @@
             {
               "label": "Very Rare Scrap",
               "formid": "00893F81",
-              "subtitle": "Pick one · 5 items",
+              "subtitle": "Guaranteed drop of one item · 5 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -777,7 +777,7 @@
             {
               "label": "Rare Scrap",
               "formid": "00893F7F",
-              "subtitle": "Pick one · 7 items",
+              "subtitle": "Guaranteed drop of one item · 7 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -835,7 +835,7 @@
             {
               "label": "Uncommon Scrap",
               "formid": "00893F80",
-              "subtitle": "Pick one · 9 items",
+              "subtitle": "Guaranteed drop of one item · 9 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -907,7 +907,7 @@
             {
               "label": "Common Scrap",
               "formid": "00893F7E",
-              "subtitle": "Pick one · 13 items",
+              "subtitle": "Guaranteed drop of one item · 13 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -1016,7 +1016,7 @@
             {
               "label": "Robot Boss",
               "formid": "00893F73",
-              "subtitle": "Only drops from Robot faction bosses",
+              "subtitle": "FirstMatch tier router · 3 outcomes (fusion cells / components / scrap)",
               "dropRate": 100,
               "conditions": [
                 "Boss is Robot faction"
@@ -1052,7 +1052,7 @@
             {
               "label": "Scorched Boss (Holiday)",
               "formid": "008B2319",
-              "subtitle": "Only drops from Scorched bosses during seasonal events",
+              "subtitle": "Holiday-conditional · 2 outcomes (Festive / Spooky)",
               "dropRate": 100,
               "conditions": [
                 "Boss is Scorched faction",
@@ -1299,7 +1299,7 @@
                 {
                   "label": "Floater Pus Sac",
                   "formid": "00888534",
-                  "subtitle": "Subtype-conditional · 3 outcomes by Floater variant",
+                  "subtitle": "Subtype-conditional · only one entry fires (3 Floater variants)",
                   "dropRate": 100,
                   "items": [
                     {
@@ -1595,7 +1595,7 @@
             {
               "label": "Dog",
               "formid": "00863222",
-              "subtitle": "FirstMatch · 50% Bones / 25% Dogmeat",
+              "subtitle": "FirstMatch tier router · 50% Bones / 25% Dogmeat",
               "dropRate": 100,
               "conditions": [
                 "Support has ActorTypeDog keyword"
@@ -1623,7 +1623,7 @@
             {
               "label": "Eye Bot",
               "formid": "00865AF8",
-              "subtitle": "FirstMatch · 50% Components / 25% Scrap",
+              "subtitle": "FirstMatch tier router · 50% Components / 25% Scrap",
               "dropRate": 100,
               "conditions": [
                 "Support has ActorTypeEyebot keyword"
@@ -1651,7 +1651,7 @@
             {
               "label": "Liberator",
               "formid": "0085B657",
-              "subtitle": "FirstMatch · 25% Trinkets / 25% Components",
+              "subtitle": "FirstMatch tier router · 25% Trinkets / 25% Components",
               "dropRate": 100,
               "conditions": [
                 "Support has ActorTypeLiberator keyword"
@@ -1679,7 +1679,7 @@
             {
               "label": "Mole Rat",
               "formid": "0085DC58",
-              "subtitle": "FirstMatch · 50% Components / 25% Meat",
+              "subtitle": "FirstMatch tier router · 50% Components / 25% Meat",
               "dropRate": 100,
               "conditions": [
                 "Support has ActorTypeMolerat keyword"
@@ -1707,7 +1707,7 @@
             {
               "label": "Mutant Hound",
               "formid": "0086242D",
-              "subtitle": "FirstMatch · 25% Bones / 25% Meat",
+              "subtitle": "FirstMatch tier router · 25% Bones / 25% Meat",
               "dropRate": 100,
               "conditions": [
                 "Support has ActorTypeMutantHound keyword"
@@ -1735,7 +1735,7 @@
             {
               "label": "Wolf",
               "formid": "00863223",
-              "subtitle": "FirstMatch · 25% Bones / 25% Meat",
+              "subtitle": "FirstMatch tier router · 25% Bones / 25% Meat",
               "dropRate": 100,
               "conditions": [
                 "Support has ActorTypeMutatedWolf keyword"
