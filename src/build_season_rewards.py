@@ -65,6 +65,7 @@ NOTES = {
                 "playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
         "value": "STRING (optional) - The title/icon label value when kind is set.",
         "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+        "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
         "imageUrl": "STRING (optional) - URL to item image.",
         "description": "STRING (optional) - Item description.",
     },
@@ -161,6 +162,16 @@ def build_item(row: dict) -> dict:
     tally = row.get("tallyCategory", "").strip()
     if tally:
         item["tallyCategory"] = tally
+
+    # reappearances — populated by check_season_reward_reappearances.py. Stored
+    # in the TSV as a pipe-separated string ("Atom Shop|Gold Bullion vendor")
+    # and unpacked here into a JSON array so df-bnb-seasons.js can iterate
+    # without re-parsing.
+    reapp = row.get("reappearances", "").strip()
+    if reapp:
+        parts = [p.strip() for p in reapp.split("|") if p.strip()]
+        if parts:
+            item["reappearances"] = parts
 
     return item
 
@@ -259,20 +270,11 @@ def build_all_seasons(meta: dict) -> dict:
 
 def cross_reference_reappearances(rewards: list[dict]) -> None:
     """
-    Placeholder for cross-referencing season reward items against game file
-    exports to flag items that have reappeared in the Atom Shop, Stamps vendor,
-    Gold Bullion vendor, etc.
-
-    When game file export data becomes available, this function should:
-    1. Load export TSVs (e.g., atom_shop_items.tsv, stamps_vendor.tsv) from
-       the tsv/ directory.
-    2. Match items by storefrontEntitlement or name.
-    3. Populate the 'reappearances' column with pipe-separated location keys
-       (e.g., "atom_shop|gold_bullion_vendor|stamps_vendor").
-    4. Write the updated rows back to season_rewards.tsv.
-
-    For now, this is a no-op — the reappearances column stays empty until
-    cross-reference data is available.
+    Cross-referencing is handled by the standalone script
+    src/check_season_reward_reappearances.py — run that ahead of this build
+    to refresh the 'reappearances' column in season_rewards.tsv. This
+    function is kept as a documentation anchor; the actual values are
+    already in `rewards` by the time this build runs.
     """
     pass
 
