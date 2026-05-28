@@ -21,6 +21,7 @@ No external dependencies — runs on stdlib only.
 
 import json
 import os
+import re
 import sys
 import glob as globmod
 from datetime import datetime, timezone
@@ -58,19 +59,16 @@ AXOLOTL_MONTHS = {
     "10": "Spotted",    "11": "Speckled",  "12": "Stone",
 }
 
-AXOLOTL_MONTH_REGIONS = {
-    "01": ["Skyline Valley", "Savage Divide"],
-    "02": ["Cranberry Bog", "Forest"],
-    "03": ["Skyline Valley", "Toxic Valley"],
-    "04": ["Mire", "Ash Heap"],
-    "05": ["Skyline Valley", "Cranberry Bog"],
-    "06": ["Mire", "Toxic Valley"],
-    "07": ["Ash Heap", "Forest"],
-    "08": ["Mire", "Skyline Valley"],
-    "09": ["Ash Heap", "Toxic Valley"],
-    "10": ["Toxic Valley", "Savage Divide"],
-    "11": ["Forest", "Cranberry Bog"],
-    "12": ["Ash Heap", "Toxic Valley"],
+# LVLI keyword -> friendly region name (used to parse axolotl conditions)
+LOC_KEYWORD_MAP = {
+    "LocRegionBurningSprings":   "Burning Springs",
+    "LocRegionMountain":         "Savage Divide",
+    "LocRegionCranberryBog":     "Cranberry Bog",
+    "LocRegionForestFloodlands": "Forest",
+    "LocRegionStorm":            "Skyline Valley",
+    "LocRegionSwampForest":      "Mire",
+    "LocRegionMTR":              "Ash Heap",
+    "LocRegionToxicValley":      "Toxic Valley",
 }
 
 # ── Local Legend locations ───────────────────────────────────────────────────
@@ -82,10 +80,10 @@ LEGEND_LOCATIONS = {
     "SummerGlassGhost": "Glassed Cavern",
 }
 
-# ── Seasonal fish: season index → season name ───────────────────────────────
+# ── Seasonal fish: season index -> season name ───────────────────────────────
 SEASON_INDEX = {1: "Spring", 2: "Summer", 3: "Fall", 4: "Winter"}
 
-# Seasonal fish → which regions they appear in (from LVLI entries data)
+# Seasonal fish -> which regions they appear in (from LVLI entries data)
 SEASONAL_FISH_REGIONS = {
     "Orange Overseer":  {"season": "Spring", "seasonIndex": 1,
                          "regions": ["Savage Divide", "Skyline Valley", "Toxic Valley"]},
@@ -125,7 +123,6 @@ def find_latest_tsv(pattern):
 
 def extract_quoted_name(field):
     """Extract display name from a field like: EditorID "Display Name" [TYPE:ID]"""
-    import re
     if not field or not field.strip():
         return None
     m = re.search(r'"([^"]+)"', field)
@@ -138,11 +135,69 @@ def extract_quoted_name(field):
     return None
 
 
+def parse_axolotl_regions(lvli_entries_file):
+    """Extract axolotl month-to-regions mapping from LVLI entries data."""
+    rows = read_tsv(lvli_entries_file)
+    header = rows[0] if rows else []
+    col_idx = {}
+    for i, col_name in enumerate(header):
+        col_idx[col_name.strip()] = i
+
+    edid_col = col_idx.get("LVLI_EDID", 1)
+    cond_cols = []
+    for c in range(1, 11):
+        key = f"Cond{c}"
+        if key in col_idx:
+            cond_cols.append(col_idx[key])
+
+    month_regions = {}
+    for row in rows[1:]:
+        if len(row) <= edid_col:
+            continue
+        if row[edid_col].strip() != "Fishing_LLS_FishCollection_Axolotls":
+            continue
+
+        regions = []
+        month_num = None
+        for ci in cond_cols:
+            if ci >= len(row) or not row[ci].strip():
+                continue
+            cond = row[ci].strip()
+
+            loc_match = re.search(
+                r'LocationHierarchyHasKeyword\(.+?,\s*(LocRegion\w+)\s*\[', cond)
+            if loc_match:
+                kw = loc_match.group(1)
+                friendly = LOC_KEYWORD_MAP.get(kw)
+                if friendly:
+                    regions.append(friendly)
+                else:
+                    print(f"[fishing] Warning: unknown axolotl region keyword '{kw}'",
+                          file=sys.stderr)
+                    regions.append(kw)
+                continue
+
+            month_match = re.search(
+                r'GetGlobalValue\(.+?LCP_Fishing_Axolotl_MonthlyIndex.+?\)\s+\S+\s+([\d.]+)',
+                cond)
+            if month_match:
+                month_num = int(float(month_match.group(1)))
+
+        if month_num and regions:
+            month_str = f"{month_num:02d}"
+            month_regions[month_str] = regions
+
+    if len(month_regions) < 12:
+        print(f"[fishing] Warning: only found {len(month_regions)}/12 axolotl month-region "
+              f"mappings from LVLI data", file=sys.stderr)
+
+    return month_regions
+
+
 # ── Fish EDID parser ─────────────────────────────────────────────────────────
 
 def parse_fish_edid(edid):
     """Extract type, region, size, and other attributes from fish EDID."""
-    # Skip deprecated/test records
     if edid.startswith("zzz_"):
         return None
 
@@ -155,7 +210,6 @@ def parse_fish_edid(edid):
     season = None
     is_seasonal = False
 
-    # ── Seasonal fish ────────────────────────────────────────────────────
     if edid.startswith("SeasonalFish_"):
         is_seasonal = True
         if "LocalLegend" in edid:
@@ -165,10 +219,8 @@ def parse_fish_edid(edid):
                     legend_location = loc_name
                     break
         else:
-            # Seasonal uncommon fish (they join the Uncommon pool)
             fish_type = "Seasonal"
 
-        # Determine season from keyword
         if "Seasonal_Spring" in edid or "_Spring" in edid:
             season = "Spring"
         elif "Seasonal_Summer" in edid or "_Summer" in edid:
@@ -178,7 +230,6 @@ def parse_fish_edid(edid):
         elif "Seasonal_Winter" in edid or "_Winter" in edid:
             season = "Winter"
 
-    # ── Waterlogged gifts ────────────────────────────────────────────────
     elif edid.startswith("LTT_Fish_WaterLoggedGift"):
         fish_type = "Waterlogged Gift"
         if "Tier_03" in edid:
@@ -193,7 +244,6 @@ def parse_fish_edid(edid):
             "legendLocation": None, "season": None, "isSeasonal": False,
         }
 
-    # ── Standard fish types ──────────────────────────────────────────────
     elif "Junk_Common" in edid or "Junk_Rare" in edid:
         fish_type = "Junk"
         if "Rare" in edid:
@@ -220,20 +270,17 @@ def parse_fish_edid(edid):
     elif "Generic" in edid:
         fish_type = "Generic Fish"
     else:
-        # Check if region is in EDID → Uncommon Region Fish
         for region_key in REGION_MAP:
             if region_key in edid:
                 fish_type = "Uncommon Region Fish"
                 break
 
-    # ── Extract region ───────────────────────────────────────────────────
     if not is_seasonal or fish_type == "Local Legend":
         for region_key, region_name in REGION_MAP.items():
             if region_key in edid:
                 region = region_name
                 break
 
-    # ── Extract size ─────────────────────────────────────────────────────
     if size is None:
         for size_key, size_name in SIZE_MAP.items():
             if size_key in edid:
@@ -261,7 +308,6 @@ def parse_fish_edid(edid):
 
 def main():
     try:
-        # ── Find latest TSV files ────────────────────────────────────────
         fish_file = find_latest_tsv("FISH_Export_*.tsv")
         glob_file = find_latest_tsv("GLOB_Export_*.tsv")
         lvli_entries_file = find_latest_tsv("LVLI_Export_*_LVLI_Entries.tsv")
@@ -276,15 +322,25 @@ def main():
         fish_rows = read_tsv(fish_file)
         glob_rows = read_tsv(glob_file)
 
-        # ── Build column index from FISH header ──────────────────────────
+        # Extract axolotl month-to-region mapping from LVLI data
+        axolotl_month_regions = parse_axolotl_regions(lvli_entries_file)
+        if axolotl_month_regions:
+            print(f"[fishing] Axolotl regions extracted from LVLI: "
+                  f"{len(axolotl_month_regions)} months")
+            for m in sorted(axolotl_month_regions):
+                print(f"  Month {m} ({AXOLOTL_MONTHS.get(m, '?')}): "
+                      f"{', '.join(axolotl_month_regions[m])}")
+        else:
+            print("[fishing] Warning: no axolotl regions found in LVLI",
+                  file=sys.stderr)
+
         fish_header = fish_rows[0] if fish_rows else []
         col_idx = {}
-        for i, h in enumerate(fish_header):
-            col_idx[h.strip()] = i
+        for i, col_name in enumerate(fish_header):
+            col_idx[col_name.strip()] = i
         firi_col = col_idx.get("FIRI", 16)
         full_col = col_idx.get("FULL", 2)
 
-        # ── Parse FISH records ───────────────────────────────────────────
         fish_data = {}
         all_regions = set()
         has_burning_springs = False
@@ -322,16 +378,14 @@ def main():
                 "isSeasonal": parsed.get("isSeasonal", False),
             }
 
-            # Axolotl month handling
             if parsed["axolotlMonth"]:
                 entry["month"] = parsed["axolotlMonth"]
                 mn = parsed["axolotlMonth"]
                 if mn in AXOLOTL_MONTHS:
                     entry["monthVariant"] = AXOLOTL_MONTHS[mn]
-                if mn in AXOLOTL_MONTH_REGIONS:
-                    entry["monthRegions"] = AXOLOTL_MONTH_REGIONS[mn]
+                if mn in axolotl_month_regions:
+                    entry["monthRegions"] = axolotl_month_regions[mn]
 
-            # Seasonal fish region data
             if parsed.get("isSeasonal") and name in SEASONAL_FISH_REGIONS:
                 sf = SEASONAL_FISH_REGIONS[name]
                 entry["season"] = sf["season"]
@@ -342,7 +396,6 @@ def main():
                     entry["legendLocation"] = sf.get("location")
                     entry["isSeasonal"] = True
 
-            # Collect regions
             if entry["region"] and entry["region"] not in ("Unknown", "All Regions"):
                 all_regions.add(entry["region"])
                 if entry["region"] == "Burning Springs":
@@ -356,7 +409,7 @@ def main():
 
             fish_data[form_id] = entry
 
-        # ── Parse GLOB values ────────────────────────────────────────────
+        # Parse GLOB values
         glob_values = {}
         junk_rare_chance = 33.33
         waterlogged_gift_odds = 15.0
@@ -385,21 +438,22 @@ def main():
                     fish_type = "_".join(parts[4:])
                     glob_values[f"{weather}_{bait}_{fish_type}"] = value
 
-        # ── Build cascade spawn rates ────────────────────────────────────
+        # Build cascade spawn rates
         weathers = ["No", "Rain", "Nuke"]
         baits = ["Common", "Improved", "Superb"]
         spawn_rates = {}
         spawn_rates_no_legend = {}
 
         for weather_short in weathers:
-            wk = {"No": "NoWeather", "Rain": "RainWeather", "Nuke": "NukeWeather"}[weather_short]
+            wk = {"No": "NoWeather", "Rain": "RainWeather",
+                  "Nuke": "NukeWeather"}[weather_short]
             spawn_rates[weather_short] = {}
             spawn_rates_no_legend[weather_short] = {}
 
             for bait in baits:
-                bk = {"Common": "CommonBait", "Improved": "ImprovedBait", "Superb": "SuperbBait"}[bait]
+                bk = {"Common": "CommonBait", "Improved": "ImprovedBait",
+                      "Superb": "SuperbBait"}[bait]
 
-                # Define cascade steps per bait
                 if bait == "Common":
                     steps = [
                         ("Local Legend Fish", f"{wk}_{bk}_LocalLegendFish"),
@@ -418,7 +472,7 @@ def main():
                         ("Common Region Fish",   f"{wk}_{bk}_CommonRegionFish"),
                         ("Generic Fish",         f"{wk}_{bk}_GenericFish"),
                     ]
-                else:  # Superb
+                else:
                     steps = [
                         ("Local Legend Fish", f"{wk}_{bk}_LocalLegendFish"),
                         ("Glowing Fish",     f"{wk}_{bk}_GlowingFish"),
@@ -426,7 +480,6 @@ def main():
                         ("Uncommon Region Fish", None),
                     ]
 
-                # Cascade WITH Local Legend
                 rates = {}
                 cum_fail = 1.0
                 for i, (step_name, glob_key) in enumerate(steps):
@@ -443,9 +496,9 @@ def main():
                     if not is_last or glob_key:
                         cum_fail *= (1.0 - raw)
 
-                # Cascade WITHOUT Local Legend
                 rates_nl = {}
-                filtered = [(sn, gk) for sn, gk in steps if sn != "Local Legend Fish"]
+                filtered = [(sn, gk) for sn, gk in steps
+                            if sn != "Local Legend Fish"]
                 cum_fail_nl = 1.0
                 for i, (step_name, glob_key) in enumerate(filtered):
                     is_last = (i == len(filtered) - 1)
@@ -464,16 +517,16 @@ def main():
                 spawn_rates[weather_short][bait] = rates
                 spawn_rates_no_legend[weather_short][bait] = rates_nl
 
-        # ── Build axolotl rotation ───────────────────────────────────────
+        # Build axolotl rotation
         axolotl_rotation = []
         for month_num in sorted(AXOLOTL_MONTHS.keys()):
             axolotl_rotation.append({
                 "month": int(month_num),
                 "variant": AXOLOTL_MONTHS[month_num],
-                "regions": AXOLOTL_MONTH_REGIONS.get(month_num, []),
+                "regions": axolotl_month_regions.get(month_num, []),
             })
 
-        # ── Build seasonal fish data ─────────────────────────────────────
+        # Build seasonal fish data
         seasonal_fish_list = []
         for name, sf in SEASONAL_FISH_REGIONS.items():
             seasonal_fish_list.append({
@@ -485,7 +538,7 @@ def main():
                 "location": sf.get("location"),
             })
 
-        # ── Build waterlogged gift data ──────────────────────────────────
+        # Build waterlogged gift data
         waterlogged_gifts = {
             "odds": round(waterlogged_gift_odds, 2),
             "tiers": [
@@ -495,7 +548,7 @@ def main():
             ],
         }
 
-        # ── Weekend seasonal fish event data ─────────────────────────────
+        # Weekend seasonal fish event data
         weekend_seasonal = {
             "odds": round(weekend_seasonal_fish_odds, 2),
             "baitPools": {
@@ -505,9 +558,8 @@ def main():
             },
         }
 
-        # ── Assemble output ──────────────────────────────────────────────
-        # Filter out waterlogged gifts from the main fish list
-        fish_list = [f for f in fish_data.values() if f["type"] != "Waterlogged Gift"]
+        # Assemble output
+        fish_list = list(fish_data.values())
 
         output = {
             "generated": datetime.now(timezone.utc).isoformat(),
@@ -523,17 +575,16 @@ def main():
             "weekendSeasonalFish": weekend_seasonal,
         }
 
-        # ── Write ────────────────────────────────────────────────────────
         os.makedirs(DIST_DIR, exist_ok=True)
         with open(DIST_FILE, "w", encoding="utf-8") as f:
             json.dump(output, f, indent=2, ensure_ascii=False)
             f.write("\n")
 
-        print(f"[fishing] OK — {len(fish_list)} fish, {len(all_regions)} regions"
+        print(f"[fishing] OK: {len(fish_list)} fish, {len(all_regions)} regions"
               + (", Burning Springs detected" if has_burning_springs else "")
               + f", waterlogged odds {waterlogged_gift_odds}%"
               + f", seasonal odds {weekend_seasonal_fish_odds}%"
-              + f" → dist/fishing.json")
+              + f" -> dist/fishing.json")
 
     except Exception as e:
         print(f"[fishing] Error: {e}", file=sys.stderr)
