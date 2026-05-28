@@ -8,7 +8,7 @@ on:
       - 'tsv/GLOB_Export_*.tsv'
       - 'tsv/LVLI_Export_*_LVLI_Entries.tsv'
       - 'tsv/LVLI_Export_*_LVLI_List.tsv'
-      - 'src/build_fishing_json.py'
+      - 'src/build_fishing_calculator_json.py'
   workflow_dispatch:
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
           python-version: "3.11"
 
       - name: Build fishing.json
-        run: python src/build_fishing_json.py
+        run: python src/build_fishing_calculator_json.py
 
       - name: Sanity check output
         run: |
@@ -43,11 +43,33 @@ jobs:
               d = json.load(f)
           fish = d.get('fish', [])
           rates = d.get('spawnRates', {})
+          globs = d.get('globs', {})
+          regions = d.get('regions', [])
+          axolotl = d.get('axolotlRotation', [])
+          seasonal = d.get('seasonalFish', [])
+          wl = d.get('waterloggedGifts', {})
+          ws = d.get('weekendSeasonalFish', {})
+          errs = []
           if len(fish) < 40:
-              print(f'Too few fish: {len(fish)}', file=sys.stderr); sys.exit(1)
+              errs.append(f'Too few fish: {len(fish)}')
           if len(rates) != 3:
-              print(f'Expected 3 bait types, got {len(rates)}', file=sys.stderr); sys.exit(1)
-          print(f'OK: {len(fish)} fish, {len(rates)} bait types')
+              errs.append(f'Expected 3 weather keys in spawnRates, got {len(rates)}')
+          if len(globs) < 30:
+              errs.append(f'Too few globs: {len(globs)}')
+          if len(regions) < 6:
+              errs.append(f'Too few regions: {len(regions)}')
+          if len(axolotl) != 12:
+              errs.append(f'Expected 12 axolotl months, got {len(axolotl)}')
+          if len(seasonal) < 4:
+              errs.append(f'Too few seasonal fish: {len(seasonal)}')
+          if not wl.get('odds'):
+              errs.append('Missing waterloggedGifts odds')
+          if not ws.get('odds'):
+              errs.append('Missing weekendSeasonalFish odds')
+          if errs:
+              for e in errs: print(e, file=sys.stderr)
+              sys.exit(1)
+          print(f'OK: {len(fish)} fish, {len(regions)} regions, {len(globs)} globs, {len(axolotl)} axolotl months, {len(seasonal)} seasonal fish')
           "
 
       - name: Commit dist
