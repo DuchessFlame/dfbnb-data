@@ -31,7 +31,6 @@ def load_tsv(filepath):
 
 SEASON_PREFIX_RE = re.compile(r"^SCORE_S(\d+)_", re.IGNORECASE)
 MINI_SEASON_PREFIX_RE = re.compile(r"^SCORE_MiniSeason_(\d{4})_([A-Za-z0-9]+)_", re.IGNORECASE)
-
 SEASON_YEAR = {14:2023,15:2023,16:2023,17:2024,18:2024,19:2024,20:2024,21:2024,22:2025,23:2025,24:2025,25:2025,26:2026,27:2026}
 
 def classify_edid(edid):
@@ -189,7 +188,7 @@ def build():
     season_map = load_season_rewards_map()
 
     rod_skins, bobbers = [], []
-    enriched_chal = 0; enriched_score = 0
+    enriched_chal = 0; enriched_score = 0; skipped_cut = 0
 
     for row in rows:
         if len(row) <= idx[col_full]: continue
@@ -200,6 +199,12 @@ def build():
         if not (is_rod_skin(edid) or is_bobber(edid)): continue
 
         obtain = classify_edid(edid)
+        # Skip cut / pre-release / disabled content entirely — page should
+        # only list items players can actually obtain in-game.
+        if obtain["method"] == "unknown":
+            skipped_cut += 1
+            continue
+
         chal = lookup_unlock(edid, book_map, gmrw_to_chal, chal_map)
         if chal:
             unlock_text = build_unlock_text(chal)
@@ -223,11 +228,11 @@ def build():
             enriched_score += 1
             break
 
-        item = {"formId":form_id,"edid":edid,"name":full or edid,"imageFilename":image_filename(edid),"imageUrl":"","howToObtain":obtain,"cutContent":obtain["method"]=="unknown"}
+        item = {"formId":form_id,"edid":edid,"name":full or edid,"imageFilename":image_filename(edid),"imageUrl":"","howToObtain":obtain,"cutContent":False}
         if is_rod_skin(edid): rod_skins.append(item)
         else: bobbers.append(item)
 
-    method_order = {"default":0,"burning-springs":1,"scoreboard":2,"mini-season":3,"atom":4,"unknown":9}
+    method_order = {"default":0,"burning-springs":1,"scoreboard":2,"mini-season":3,"atom":4}
     def sort_key(it): return (method_order.get(it["howToObtain"]["method"], 8), it["name"].lower())
     rod_skins.sort(key=sort_key); bobbers.sort(key=sort_key)
 
@@ -241,7 +246,7 @@ def build():
     os.makedirs(DIST_DIR, exist_ok=True)
     with open(DIST_FILE, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False); f.write("\n")
-    print(f"[fishing-equipment] OK: {len(rod_skins)} rod skins, {len(bobbers)} bobbers & floats (CHAL: {enriched_chal}, Scoreboard: {enriched_score}) -> {DIST_FILE}")
+    print(f"[fishing-equipment] OK: {len(rod_skins)} rod skins, {len(bobbers)} bobbers & floats (CHAL: {enriched_chal}, Scoreboard: {enriched_score}, skipped cut: {skipped_cut}) -> {DIST_FILE}")
 
 if __name__ == "__main__":
     build()
