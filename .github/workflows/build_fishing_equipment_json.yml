@@ -1,0 +1,69 @@
+name: Build Fishing Equipment JSON
+
+# Builds dist/fishing_equipment.json — the data backing the
+# /df/fishing/fishing-bobbers-floats/ page (Fishing Rod Skins +
+# Fishing Bobbers & Floats). Reads OMOD_Export_*.tsv and emits
+# the categorised item list.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tsv/OMOD_Export_*.tsv'
+      - 'src/build_fishing_equipment_json.py'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest (rebase)
+        run: |
+          git fetch origin
+          git pull --rebase origin main
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build fishing_equipment.json
+        run: python src/build_fishing_equipment_json.py
+
+      - name: Sanity check output
+        run: |
+          test -f dist/fishing_equipment.json || { echo "dist/fishing_equipment.json not found"; exit 1; }
+          python -c "
+          import json, sys
+          with open('dist/fishing_equipment.json') as f:
+              d = json.load(f)
+          rs = d.get('rodSkins', [])
+          bf = d.get('bobbersAndFloats', [])
+          errs = []
+          if len(rs) < 4:
+              errs.append(f'Too few rod skins: {len(rs)}')
+          if len(bf) < 10:
+              errs.append(f'Too few bobbers & floats: {len(bf)}')
+          if not d.get('imageBases', {}).get('rodSkin'):
+              errs.append('Missing imageBases.rodSkin')
+          if not d.get('imageBases', {}).get('bobber'):
+              errs.append('Missing imageBases.bobber')
+          if errs:
+              for e in errs: print(e, file=sys.stderr)
+              sys.exit(1)
+          print(f'OK: {len(rs)} rod skins, {len(bf)} bobbers & floats')
+          "
+
+      - name: Commit dist
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/fishing_equipment.json
+          git diff --cached --quiet || git commit -m "chore: build fishing_equipment.json [skip ci]"
+          git push

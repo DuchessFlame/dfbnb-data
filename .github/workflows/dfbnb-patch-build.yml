@@ -616,6 +616,15 @@ jobs:
       - name: Build Fishing JSON
         run: python src/build_fishing_calculator_json.py
 
+      # --- FISHING EQUIPMENT (rod skins + bobbers & floats) ---
+      # Reads OMOD_Export_*.tsv and emits dist/fishing_equipment.json
+      # describing every fishing rod skin and bobber/float in the game,
+      # classified by how it is obtained (base game / Atomic Shop /
+      # Scoreboard season / Mini-Season event / Burning Springs).
+      # Consumed by the /df/fishing/fishing-bobbers-floats/ page.
+      - name: Build Fishing Equipment JSON
+        run: python src/build_fishing_equipment_json.py
+
       # --- SEASONS ---
       # Reads tsv/fallout76_seasons.tsv and emits dist/seasons.json — the
       # canonical season-number -> {name, dates, etc.} lookup. Consumed by
@@ -680,6 +689,7 @@ jobs:
           test -f dist/bnb-item-categories.json      && echo "OK bnb-item-categories.json"      || (echo "MISSING bnb-item-categories.json" && exit 1)
           test -f dist/load_screens.json              && echo "OK load_screens.json"              || (echo "MISSING load_screens.json" && exit 1)
           test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
+          test -f dist/fishing_equipment.json        && echo "OK fishing_equipment.json"        || (echo "MISSING fishing_equipment.json" && exit 1)
           test -f dist/seasonal-fish.json            && echo "OK seasonal-fish.json"            || (echo "MISSING seasonal-fish.json" && exit 1)
           test -f dist/infestations/hto_rewards.json && echo "OK infestations/hto_rewards.json" || (echo "MISSING infestations/hto_rewards.json" && exit 1)
           test -f dist/seasonal_events/seasonal_events_rewards.json && echo "OK seasonal_events_rewards.json" || (echo "MISSING seasonal_events_rewards.json" && exit 1)
