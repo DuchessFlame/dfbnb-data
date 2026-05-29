@@ -604,9 +604,17 @@ jobs:
 
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
-      # fish metadata + spawn rate tables per bait type. Self-contained.
+      # fish metadata, spawn rate tables per bait type, axolotl monthly
+      # rotation, seasonal fish, waterlogged gifts, and weekend seasonal
+      # event data. Self-contained.
+      #
+      # IMPORTANT: use build_fishing_calculator_json.py (the full builder),
+      # NOT build_fishing_json.py — the latter is the legacy script that
+      # only emits fish/spawnRates/globs and strips axolotlRotation,
+      # seasonalFish, waterloggedGifts, weekendSeasonalFish from the
+      # output. The calculator page on the site needs those keys.
       - name: Build Fishing JSON
-        run: python src/build_fishing_json.py
+        run: python src/build_fishing_calculator_json.py
 
       # --- SEASONS ---
       # Reads tsv/fallout76_seasons.tsv and emits dist/seasons.json — the
