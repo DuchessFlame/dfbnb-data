@@ -51,13 +51,11 @@ SUPPORT_MY_WORK = {
         "I’m an Australian data miner and content creator who makes "
         "Fallout 76 guides — farming routes, event reward breakdowns, "
         "food and chem buff math, season pass tracking, plan checklists, "
-        "and everything in between. Most of what’s on this site started "
-        "life as a problem I wanted to solve for myself, then it kept growing.",
+        "and everything in between.",
         "I firmly believe knowledge should be accessible to everyone, so the "
-        "guides will always be free and ad-free. No paywalls, no popups, no "
-        "“subscribe for premium drop rates.”",
+        “guides will always be free and ad-free. No paywalls, no popups.”,
         "That said, running a site like this isn’t free. Web hosting, "
-        "the build pipeline that re-runs after every Bethesda patch, image "
+        "the build pipeline that needs to be ran after every patch and update, image "
         "and video storage, photo and video editing software, and the hours "
         "of comparing game files at 2am all add up. If the guides have saved "
         "you grind time, helped you finish a season pass, or just made the "
@@ -102,11 +100,11 @@ SUPPORT_MY_WORK = {
         },
     ],
     "closing": [
-        "Every bit of support — money, time, a share, a kind word in "
-        "my DMs — helps keep this thing going. Honestly, knowing the "
-        "guides are useful to someone is the biggest part of what keeps me "
-        "at it.",
-        "Thanks for being here ;)",
+        "Every bit of support — a kind word in my DMs, a share, your "
+        "time, or a donation — helps keep this thing going. Honestly, "
+        "knowing the guides are useful to someone is the biggest part of "
+        "what keeps me at it.",
+        "Thanks for being here :)",
         "— Kat",
     ],
 }
