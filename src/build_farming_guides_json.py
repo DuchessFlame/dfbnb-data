@@ -1485,6 +1485,11 @@ def build(data_dir: str, outdir: str) -> str:
             "effects":     eff_by_fid.get(fid, []),
             "addiction_name":   r.get("ENIT_Addiction_FULL", "").strip() or None,
             "addiction_chance":  safe_float(r.get("ENIT_AddictionChance", "")),
+            # Perk-card classification flags — used by the frontend to
+            # decide which perk sub-rows to render in the effects table.
+            "is_alcohol":   "DrinkTypeAlcohol" in kws,
+            "is_nuka_cola": "DrinkTypeSoda" in kws,
+            "is_chem":      "ObjectTypeChem" in kws,
         }
 
     # Discover duplicate-workbench pairs and variant recipes from the data
