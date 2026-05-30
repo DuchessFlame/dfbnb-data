@@ -198,6 +198,10 @@ jobs:
       - name: Build Infestations (HTO) Rewards JSON
         run: python src/build_hto_rewards_json.py
 
+      # --- INFESTATIONS (HTO) LOCATIONS ---
+      - name: Build Infestations (HTO) Locations JSON
+        run: python src/build_hto_locations_json.py
+
       # --- SEASONAL EVENTS REWARDS ---
       - name: Build Seasonal Events Rewards JSON
         run: python src/build_seasonal_events_json.py
@@ -691,7 +695,8 @@ jobs:
           test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
           test -f dist/fishing_equipment.json        && echo "OK fishing_equipment.json"        || (echo "MISSING fishing_equipment.json" && exit 1)
           test -f dist/seasonal-fish.json            && echo "OK seasonal-fish.json"            || (echo "MISSING seasonal-fish.json" && exit 1)
-          test -f dist/infestations/hto_rewards.json && echo "OK infestations/hto_rewards.json" || (echo "MISSING infestations/hto_rewards.json" && exit 1)
+          test -f dist/infestations/hto_rewards.json   && echo "OK infestations/hto_rewards.json"   || (echo "MISSING infestations/hto_rewards.json" && exit 1)
+          test -f dist/infestations/hto_locations.json  && echo "OK infestations/hto_locations.json"  || (echo "MISSING infestations/hto_locations.json" && exit 1)
           test -f dist/seasonal_events/seasonal_events_rewards.json && echo "OK seasonal_events_rewards.json" || (echo "MISSING seasonal_events_rewards.json" && exit 1)
           test -f dist/seasonal_events/seasonal_events_rewards_by_page.json && echo "OK seasonal_events_rewards_by_page.json" || (echo "MISSING seasonal_events_rewards_by_page.json" && exit 1)
           test -f dist/reho/reho_rewards_by_page.json && echo "OK reho/reho_rewards_by_page.json" || (echo "MISSING reho/reho_rewards_by_page.json" && exit 1)

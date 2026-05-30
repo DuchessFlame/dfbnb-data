@@ -1,0 +1,77 @@
+name: Build Infestations (HTO) Locations
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/KYWD_Export_*_Refs.tsv'
+      - 'src/build_hto_locations_json.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Pull latest
+        run: git pull origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build Infestations (HTO) Locations JSON
+        run: |
+          python -V
+          python src/build_hto_locations_json.py
+
+      - name: Sanity check output
+        run: |
+          test -f dist/infestations/hto_locations.json \
+            && echo "OK infestations/hto_locations.json ($(wc -c < dist/infestations/hto_locations.json) bytes)" \
+            || (echo "MISSING infestations/hto_locations.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/infestations/hto_locations.json'))
+          locs = d['locations']
+          assert len(locs) > 0, 'No locations found'
+          regions = set(l['region'] for l in locs)
+          print(f'  Locations: {len(locs)}')
+          print(f'  Regions:   {len(regions)}')
+          for r in sorted(regions):
+              c = sum(1 for l in locs if l['region'] == r)
+              print(f'    {r}: {c}')
+          "
+
+      - name: Commit dist outputs
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/infestations/hto_locations.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build Infestations (HTO) Locations JSON"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main
