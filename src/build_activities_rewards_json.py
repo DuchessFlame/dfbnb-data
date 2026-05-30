@@ -2752,6 +2752,20 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     _entry["condition"] = True
                 _xp_tiers.append(_entry)
 
+        # Dedup location-variant XP entries: when the same XP reward
+        # (same FormID) appears under multiple location-conditioned RIs,
+        # keep only the first occurrence.
+        _xp_seen_fids = set()
+        _xp_deduped = []
+        for t in _xp_tiers:
+            fid = t.get("xpFormID")
+            if fid and fid in _xp_seen_fids:
+                continue
+            if fid:
+                _xp_seen_fids.add(fid)
+            _xp_deduped.append(t)
+        _xp_tiers = _xp_deduped
+
         # Caps breakdown: collect from ALL RIs (not just deduped ones),
         # because each RI with caps represents a separate bonus objective.
         # Use the caps GLOB EDID for labels (preserves package numbers).
@@ -2764,6 +2778,17 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "caps": caps_val,
                     "condition": True,
                 })
+
+        # Dedup location-variant Caps entries (same label + value = same reward)
+        _caps_seen = set()
+        _caps_deduped = []
+        for t in _caps_tiers:
+            key = (t.get("label"), t.get("caps"))
+            if key in _caps_seen:
+                continue
+            _caps_seen.add(key)
+            _caps_deduped.append(t)
+        _caps_tiers = _caps_deduped
 
         # Only apply dedup if we actually collapsed something
         _did_location_dedup = len(_kept_ris) < len(_by_ri)
@@ -3001,6 +3026,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
     # Process GMRW rows (caps, legendary rank, LVLI rewards)
     _seen_plan_fids = set()
+    _seen_decomposed_lvli = set()   # dedup: avoid re-processing same LVLI from different kept RIs
     for rr in gmrw_rows:
         # Caps
         caps_ref = (rr.get("NAM8_CapsGlobal") or "").strip()
@@ -3027,8 +3053,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         lvli_edid = lvli_edid_by_formid.get(formid, "")
         lvli_edid_lower = lvli_edid.lower()
 
-        # Decompose activities list
+        # Decompose activities list (skip if already processed from another RI)
         if "rewards_activities" in lvli_edid_lower or "ra_ll_rewards" in lvli_edid_lower:
+            if formid in _seen_decomposed_lvli:
+                continue
+            _seen_decomposed_lvli.add(formid)
             buckets = decompose_activities_lvli(formid)
 
             # Process caps
@@ -3868,6 +3897,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
     if smart_categories:
         activity_data["smartMachine"] = smart_categories
 
+    # Surface location-dedup info so the caller can filter its own gmrw_rows
+    # to avoid tripled pools/freeRewards.
+    if _did_location_dedup:
+        activity_data["_kept_ris"] = list(_kept_ris)
+
     return activity_data
 
 # --------------------------------------------------
@@ -4564,9 +4598,20 @@ for key, pages in sorted(reward_pages_by_key.items()):
                     is_activity = True
                     break
 
+        _activity_kept_ris = None   # set below if location dedup applied
         if is_activity:
             event["type"] = "activity"
             event["activityData"] = build_activity_data(gmrw_rows, key, event.get("regionLocations", []))
+            # Apply the same location dedup to the caller's gmrw_rows so
+            # the pool/freeRewards builders below don't create per-location
+            # duplicates (e.g. Powering Up tripling every pool × 3 stations).
+            _raw_kept = event["activityData"].pop("_kept_ris", None)
+            if _raw_kept is not None:
+                _activity_kept_ris = set(_raw_kept)
+                gmrw_rows = [
+                    rr for rr in gmrw_rows
+                    if int(rr.get("RewardIndex") or 0) in _activity_kept_ris
+                ]
 
         # freeRewards (legacy / base tier only, for backward compat)
         pool_seen = set()
@@ -4632,7 +4677,13 @@ for key, pages in sorted(reward_pages_by_key.items()):
             # display — no need to add them as separate conditions text.
 
             if kind.upper() == "LVLI":
-                pool_key = (formid, rr.get("RewardIndex") or "")
+                # For location-deduped activities, key by formid alone so the
+                # same LVLI from different kept RIs (e.g. Minimal + Full both
+                # awarding RA_LL_Rewards_Activities) only creates one pool.
+                if _activity_kept_ris:
+                    pool_key = (formid,)
+                else:
+                    pool_key = (formid, rr.get("RewardIndex") or "")
                 if pool_key in pool_seen: continue
                 pool_seen.add(pool_key)
                 lvli_edid = lvli_edid_by_formid.get(formid, "")
