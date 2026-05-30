@@ -1581,6 +1581,17 @@ def build(data_dir: str, outdir: str) -> str:
                     warnings.get("unresolved_ingredients", {}).get(ing_edid, 0) + 1
                 )
                 ing_name = ing_edid
+
+            # Pattern-based overrides — fish meals from any species should
+            # display as a generic "Any Fish" since any fish can be used.
+            # Covers Fishing_Fish_Meal_*, Burn_Fish_Meal_*, and seasonal.
+            # Regular fish (Fishing_Fish_Meal_*, Burn_Fish_Meal_*) can be
+            # any species — display generically. Seasonal fish keep their
+            # specific names since each fillet needs that season's fish.
+            if not re.match(r"SeasonalFish_", ing_edid, re.IGNORECASE) \
+               and re.search(r"Fish_Meal_", ing_edid):
+                ing_name = "Any Fish"
+
             all_ings_resolved.append({
                 "edid": ing_edid,
                 "name": ing_name,
