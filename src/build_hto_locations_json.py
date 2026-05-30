@@ -25,6 +25,7 @@ _MAPPALACHIA_CANDIDATES = [
 ]
 
 KEYWORD_FORMID = "008A1490"
+WORKSHOP_KEYWORD = "000234F1"  # LocTypeWorkshop
 
 EDID_REGION_MAP = {
     "LocForest":     "The Forest",
@@ -122,19 +123,31 @@ def build():
     print(f"Reading: {os.path.basename(refs_path)}")
 
     rows = read_tsv(refs_path)
+
+    # Collect workshop LCTN FormIDs from LocTypeWorkshop keyword
+    workshop_formids = set()
+    for row in rows:
+        if row.get("KeywordFormID") != WORKSHOP_KEYWORD:
+            continue
+        if row.get("RefSignature") != "LCTN":
+            continue
+        workshop_formids.add(row["RefFormID"].upper())
+    print(f"Workshop LCTN refs found: {len(workshop_formids)}")
+
     locations = []
     for row in rows:
         if row.get("KeywordFormID") != KEYWORD_FORMID:
             continue
         if row.get("RefSignature") != "LCTN":
             continue
+        fid = row["RefFormID"]
         locations.append({
-            "formid":   row["RefFormID"],
+            "formid":   fid,
             "edid":     row["RefEDID"],
             "name":     row["RefName"],
             "index":    int(row["RefIndex"]),
             "region":   region_from_edid(row["RefEDID"]),
-            "workshop": "Workshop" in row["RefEDID"],
+            "workshop": fid.upper() in workshop_formids,
         })
 
     print(f"Found {len(locations)} LCTN entries on keyword {KEYWORD_FORMID}")
