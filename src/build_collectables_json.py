@@ -144,30 +144,80 @@ def starts_cut(edid):
 
 def starts_cut_notes(edid):
     """
-    Check if EDID indicates a cut note, with additional CUT infixes
-    and an explicit list of known cut EDIDs whose naming convention
-    doesn't follow the standard CUT/DEL/POST/ZZZ prefixes.
+    Check if EDID indicates a cut note, with additional CUT infixes,
+    dev/test/template prefixes, and an explicit list of known cut EDIDs
+    whose naming convention doesn't follow the standard patterns.
     """
     if starts_cut(edid):
         return True
 
+    e = (edid or "").strip()
+    eu = e.upper()
+
     # Additional infixes for notes
-    e = (edid or "").upper()
-    if "_CUT_" in e or "BURN_CUT_" in e or "ZZZBURN_" in e:
+    if "_CUT_" in eu or "BURN_CUT_" in eu or "ZZZBURN_" in eu:
         return True
 
+    # Dev/test/debug/template prefixes — these are Bethesda internal items
+    if (eu.startswith("TEMPLATE_") or eu.startswith("TEST") or
+            eu.startswith("DEBUG")):
+        return True
+
+    # _Unused suffix
+    if eu.endswith("_UNUSED"):
+        return True
+
+    # Note: _OLD suffix is NOT checked as a blanket rule because some _OLD
+    # EDIDs are the only version (e.g. MTR06_StudyMaterials_FirstAid_OLD
+    # is the Fire Breathers study note — 1 ref, no replacement exists).
+    # Specific confirmed-cut _OLD items go in _MANUAL_CUT_EDIDS instead.
+
+    # COPY0000 suffix (xEdit copy artifacts) — but not DUPLICATE000 items
+    # that are the only version of legitimate content
+    if "COPY0000" in eu or "COPY00" in eu:
+        # Exclude known legitimate items that happen to have COPY in their EDID
+        if e not in _MANUAL_CUT_EXCLUSIONS:
+            return True
+
     # Explicit list of known cut notes whose EDIDs don't follow standard
-    # CUT naming. These have been verified as cut from the game (no valid
-    # REFR placement, not obtainable in-game).
-    _MANUAL_CUT_EDIDS = {
-        "Morgantown_Lore_MartialLawNotice",   # Public Notice - Martial Law
-        "Morgantown_Lore_RallyNotice",         # Rally for Justice!
-        "Morgantown_Lore_RallyFlyer",          # Rally Flyer
-    }
-    if edid in _MANUAL_CUT_EDIDS:
+    # CUT naming. Verified as cut from the game (no valid REFR placement,
+    # not obtainable in-game).
+    if e in _MANUAL_CUT_EDIDS:
         return True
 
     return False
+
+
+# EDIDs with COPY/DUPLICATE that are actually the ONLY version of
+# legitimate in-game content — do NOT mark as cut
+_MANUAL_CUT_EXCLUSIONS = {
+    "E08B_Note_Rads_2DUPLICATE000",          # Crater Observations 2 — only version
+    "LC044_JeremiahWardNote01DUPLICATE000",   # Last Will and Testament — only version, 3 refs
+}
+
+_MANUAL_CUT_EDIDS = {
+    # Original manual cut list
+    "Morgantown_Lore_MartialLawNotice",       # Public Notice - Martial Law
+    "Morgantown_Lore_RallyNotice",            # Rally for Justice!
+    "Morgantown_Lore_RallyFlyer",             # Rally Flyer
+    # Skyline Valley dev notes
+    "76StormCDB_TestNote",                    # "My Test Note" — CDB test
+    "Storm_PresidentalNote",                  # "President Test Note" — rendering test
+    "Storm_Test_EasyReadStressTest",          # UI stress test, 0 refs
+    # Temp/placeholder notes
+    "W05_RE_TempClueNote01",                  # "Clue 01" — dev placeholder, 0 refs
+    "W05_RE_TempClueNote02",                  # "Clue 02" — dev placeholder, 0 refs
+    # Superseded versions with _OLD suffix that didn't match the suffix rule
+    "LC167_CEONoteOLD",                       # "Notebook 02 Test Note" — 0 refs
+    "LC149_Jesse_White_Set_List_old",         # Superseded by LC149_Jesse_White_Set_List
+    # Copy artifacts
+    "BMO_BunkerNote03_MarketingMemoCOPY0000", # Duplicate of BMO_BunkerNote03_MarketingMemo, 0 refs
+    # Blank / unused
+    "Burn_AshCave_Unused",                    # "BlankNote" — explicitly unused, 0 refs
+    # Watoga Underground placeholders (real lore content but 0 refs, never placed)
+    "WU_HolotapePlaceholder01",               # "Alex's Observations 8" — Placeholder EDID, 0 refs
+    "WU_HolotapePlaceholder02",               # "Alex's Observations 2" — Placeholder EDID, 0 refs
+}
 
 
 def is_alias_template_name(full):
