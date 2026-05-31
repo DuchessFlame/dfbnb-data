@@ -18,14 +18,95 @@ Usage:
 import argparse
 import csv
 import json
+import os
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from html.parser import HTMLParser
 from html import unescape
 
 from patchlog_utils import write_patchlog_feed, _git_show_json, diff_item_lists, _write_json
+
+
+# -----------------------------------------------------------------------
+# First-seen persistence — tracks when each collectable FormID was first
+# observed by the build pipeline.  Used to compute `isNew` (30-day
+# rolling flag) without requiring manual release dates.
+#
+# Schema for tsv/collectables_first_seen.json:
+#   {
+#     "schema": 1,
+#     "byFormId": { "00ABCDEF": "2026-05-01", ... }
+#   }
+# -----------------------------------------------------------------------
+
+_FIRST_SEEN_FILENAME = "collectables_first_seen.json"
+_NEW_CUTOFF_DAYS = 30
+
+
+def load_first_seen(tsv_root):
+    """Load the first-seen persistence file, returning {formId: "YYYY-MM-DD"}."""
+    path = os.path.join(tsv_root, _FIRST_SEEN_FILENAME)
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data.get("byFormId", {})
+    except Exception as e:
+        print(f"  WARNING: Could not load {_FIRST_SEEN_FILENAME}: {e}", file=sys.stderr)
+        return {}
+
+
+def update_first_seen(first_seen, all_formids, bootstrap=False):
+    """
+    Update the first-seen map with any new FormIDs.
+
+    - New FormIDs get today's date.
+    - On bootstrap (empty persistence file), existing items get a seed date
+      far enough in the past that they won't show as "new" (2020-01-01).
+    - Existing entries are never overwritten.
+
+    Returns the updated map (mutated in place).
+    """
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    seed_date = "2020-01-01"
+
+    for fid in all_formids:
+        if fid not in first_seen:
+            first_seen[fid] = seed_date if bootstrap else today
+
+    return first_seen
+
+
+def save_first_seen(tsv_root, first_seen):
+    """Write the first-seen persistence file."""
+    path = os.path.join(tsv_root, _FIRST_SEEN_FILENAME)
+    data = {
+        "schema": 1,
+        "byFormId": first_seen,
+    }
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    print(f"  Saved {_FIRST_SEEN_FILENAME} ({len(first_seen)} entries)")
+
+
+def compute_new_cutoff():
+    """Return the YYYY-MM-DD cutoff string for the isNew flag."""
+    cutoff = datetime.now(timezone.utc) - timedelta(days=_NEW_CUTOFF_DAYS)
+    return cutoff.strftime("%Y-%m-%d")
+
+
+def apply_is_new(items, first_seen, cutoff_str):
+    """
+    Add isNew field to each item based on its first-seen date.
+    Items first seen within the cutoff window get isNew=True.
+    """
+    for item in items:
+        fid = item.get("formId", "")
+        seen_date = first_seen.get(fid, "2020-01-01")
+        item["isNew"] = (seen_date >= cutoff_str)
 
 
 class HTMLStripper(HTMLParser):
@@ -1825,6 +1906,37 @@ def main():
     # Build keys (from KEYM + MISC)
     print("Building keys...")
     keys, keys_cut = build_keys(keym_rows, misc_rows, keym_locations=keym_locations)
+
+    # ---- First-seen persistence & isNew flag ----
+    print("Loading first-seen data...")
+    first_seen = load_first_seen(str(tsv_root))
+    is_bootstrap = len(first_seen) == 0
+
+    # Collect ALL live FormIDs across every collectable type
+    all_live_formids = set()
+    for g in bobblehead_groups:
+        for it in g.get("items", []):
+            all_live_formids.add(it["formId"])
+    for lst in [plushies, notes, holotape_games, magazines, holotapes, keys]:
+        for it in lst:
+            all_live_formids.add(it["formId"])
+
+    update_first_seen(first_seen, all_live_formids, bootstrap=is_bootstrap)
+    save_first_seen(str(tsv_root), first_seen)
+
+    new_cutoff = compute_new_cutoff()
+    print(f"  isNew cutoff: {new_cutoff} (items first seen on or after this date)")
+
+    # Apply isNew to all live item lists
+    for g in bobblehead_groups:
+        apply_is_new(g.get("items", []), first_seen, new_cutoff)
+    for lst in [plushies, notes, holotape_games, magazines, holotapes, keys]:
+        apply_is_new(lst, first_seen, new_cutoff)
+
+    new_count = sum(1 for fid in all_live_formids if first_seen.get(fid, "2020-01-01") >= new_cutoff)
+    print(f"  {new_count} items flagged as new")
+    if is_bootstrap:
+        print("  (Bootstrap run — all existing items seeded with 2020-01-01, none will show as new)")
 
     # Generate timestamp
     generated_at = datetime.now(timezone.utc).isoformat()

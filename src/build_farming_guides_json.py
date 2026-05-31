@@ -1451,8 +1451,9 @@ def build(data_dir: str, outdir: str) -> str:
         })
 
     # Pre-compute ALCH "lite" record (used both for the ingredient list and
-    # as the recipe's `output` block).
-    def alch_lite(r: Dict[str, str]) -> Dict[str, Any]:
+    # as the recipe's `output` block).  _depth prevents infinite recursion
+    # when a fermented item itself spoils into a vintage variant.
+    def alch_lite(r: Dict[str, str], _depth: int = 0) -> Dict[str, Any]:
         kws = parse_keywords(r.get("Keywords_Flat", ""))
         fid = r.get("ALCH_FormID", "")
         weight = safe_float(r.get("Weight", ""))
@@ -1470,7 +1471,17 @@ def build(data_dir: str, outdir: str) -> str:
             ench_mags,
             warnings,
         )
-        return {
+
+        # Resolve the spoiled-to ALCH record (e.g. Fermentable → finished
+        # alcohol).  Only one level deep to avoid chaining through vintages.
+        spoiled_to_output = None
+        if _depth == 0:
+            spoil_fid = r.get("ENIT_SpoiledItem_FormID", "").strip()
+            spoil_row = alch_by_fid.get(spoil_fid) if spoil_fid else None
+            if spoil_row and eff_by_fid.get(spoil_fid):
+                spoiled_to_output = alch_lite(spoil_row, _depth=1)
+
+        result = {
             "edid":        r.get("ALCH_EDID", ""),
             "formId":      fid,
             "name":        r.get("FULL") or r.get("ALCH_EDID") or "",
@@ -1491,6 +1502,9 @@ def build(data_dir: str, outdir: str) -> str:
             "is_nuka_cola": "DrinkTypeSoda" in kws,
             "is_chem":      "ObjectTypeChem" in kws,
         }
+        if spoiled_to_output is not None:
+            result["spoiled_to_output"] = spoiled_to_output
+        return result
 
     # Discover duplicate-workbench pairs and variant recipes from the data
     # itself — no hardcoded region list, no EDID-suffix matching. The
