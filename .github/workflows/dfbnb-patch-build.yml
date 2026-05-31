@@ -606,6 +606,13 @@ jobs:
       - name: Build BnB Item Categories JSON
         run: python src/build_bnb_item_categories_json.py --data-dir tsv --outdir dist
 
+      # --- RECIPE GUIDE (public recipe page at /df/plan-checklists/recipe/) ---
+      # Reads dist/farming_guides.json + dist/cobj-recipes.json +
+      # dist/bnb-item-categories.json + COBJ TSV refs. Must run AFTER all three
+      # upstream builds (farming guides, COBJ recipes, BnB item categories).
+      - name: Build Recipe Guide JSON
+        run: python src/build_recipe_guide_json.py --data-dir tsv --outdir dist
+
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
       # fish metadata, spawn rate tables per bait type, axolotl monthly
@@ -691,6 +698,7 @@ jobs:
           test -f dist/menu-items.json               && echo "OK menu-items.json"               || (echo "MISSING menu-items.json" && exit 1)
           test -f dist/bnb-menu.json                 && echo "OK bnb-menu.json"                 || (echo "MISSING bnb-menu.json" && exit 1)
           test -f dist/bnb-item-categories.json      && echo "OK bnb-item-categories.json"      || (echo "MISSING bnb-item-categories.json" && exit 1)
+          test -f dist/recipe_guide.json              && echo "OK recipe_guide.json"              || (echo "MISSING recipe_guide.json" && exit 1)
           test -f dist/load_screens.json              && echo "OK load_screens.json"              || (echo "MISSING load_screens.json" && exit 1)
           test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
           test -f dist/fishing_equipment.json        && echo "OK fishing_equipment.json"        || (echo "MISSING fishing_equipment.json" && exit 1)
