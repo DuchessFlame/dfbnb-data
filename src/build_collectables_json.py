@@ -298,6 +298,8 @@ _MANUAL_CUT_EDIDS = {
     # Watoga Underground placeholders (real lore content but 0 refs, never placed)
     "WU_HolotapePlaceholder01",               # "Alex's Observations 8" — Placeholder EDID, 0 refs
     "WU_HolotapePlaceholder02",               # "Alex's Observations 2" — Placeholder EDID, 0 refs
+    # Duplicate entry that cannot be found in-game
+    "LC148_Sutton_PartyHouse_EndoftheWorldParty02",  # End of the World Party Flier — unfindable second version
 }
 
 
@@ -975,7 +977,8 @@ def build_plushies(kywd_refs_rows, misc_rows, seasons, gmrw_pq_map):
 
 _GRAFTON_PAWN_NOTE = (
     "Can be initially collected from its delivery package, "
-    "but once placed on the wall at Grafton Pawn Shop it can only be read."
+    "but once pinned to the wall at Grafton Pawn Shop it is removed from "
+    "your inventory and can only be read."
 )
 
 NOTE_OVERRIDES = {
@@ -984,11 +987,11 @@ NOTE_OVERRIDES = {
         "location": "Silva Homestead\n(In the package for Madeleine de Silva)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Holland Chase Invoice #9021": {
+    "Holland Chase Invoice # 9021": {
         "location": "Charleston Capitol Building\n(In the package for Sam Blackwell)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Holland Chase Invoice #9033": {
+    "Holland Chase Invoice # 9033": {
         "location": "Charleston Capitol Building\n(In the package for Sam Blackwell)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
@@ -1008,43 +1011,43 @@ NOTE_OVERRIDES = {
         "location": "Monongah Police Station — front desk\n(In the package for Sheriff Darcy)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Suspicious death at Harpers Ferry": {
+    "Suspicious Death at Harpers Ferry": {
         "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Suspicious death of Alicia Shay": {
+    "Suspicious Death of Alicia Shay": {
         "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Suspicious death of Emmanuel Tillings": {
+    "Suspicious Death of Emmanuel Tillings": {
         "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Suspicious deaths overview": {
+    "Suspicious Deaths Overview": {
         "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Vigilant Citizen's note to Blackwell": {
+    "Vigilant Citizen's Note to Blackwell": {
         "location": "Charleston Capitol Building\n(In the package for Sam Blackwell)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Vigilant Citizen's note to Carter": {
+    "Vigilant Citizen's Note to Carter": {
         "location": "Charleston Herald building\n(In the package for Quinn Carter)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Vigilant Citizen's note to Leah de Silva": {
+    "Vigilant Citizen's Note to Leah de Silva": {
         "location": "Silva Homestead\n(In the package for Madeleine de Silva)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Vigilant Citizen's note to Sheriff Darcy": {
+    "Vigilant Citizen's Note to Sheriff Darcy": {
         "location": "Monongah Police Station\n(In the package for Sheriff Darcy)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Vigilant Citizen's note to Van Lowe": {
+    "Vigilant Citizen's Note to Van Lowe": {
         "location": "Van Lowe Taxidermy\n(In the package for Calvin van Lowe)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
-    "Weigh station logs": {
+    "Weigh Station Logs": {
         "location": "Charleston Herald building\n(In the package for Quinn Carter)",
         "technicalNote": _GRAFTON_PAWN_NOTE,
     },
@@ -1085,9 +1088,43 @@ NOTE_OVERRIDES = {
     "Postcard from Elizabeth": {
         "location": "Morgantown",
     },
+    # ----- Inaccurate locations (xEdit resolved wrong or vague cell) -----
+    "Pete's Journal": {
+        "location": "Outside Nuka World On Tour\n(In the cluster of trailers south of Wild West Showdown)",
+    },
+    "Trouble with Radiation": {
+        "location": "Morgantown (on the roof of a house)",
+    },
+    "Note to Pete": {
+        "location": "Outside Nuka World On Tour\n(In the cluster of trailers south of Wild West Showdown)",
+    },
+    "Del's Journal": {
+        "location": "Outside Nuka World On Tour\n(In the cluster of trailers south of Wild West Showdown)",
+    },
+    "Pat's Journal": {
+        "location": "Outside Nuka World On Tour\n(In the cluster of trailers south of Wild West Showdown)",
+    },
+    "Betty's Journal": {
+        "location": "Outside Nuka World On Tour\n(In the cluster of trailers south of Wild West Showdown)",
+    },
+    "Angry Note": {
+        "location": "Outside Nuka World On Tour\n(In the cluster of trailers south of Wild West Showdown)",
+    },
+    "Gunther's Journal": {
+        "location": "Outside Nuka World On Tour\n(In the cluster of trailers south of Wild West Showdown)",
+    },
+    "The Plan": {
+        "location": "Freddy Fear's House of Scares",
+    },
+    "Mission 099-01 Orders": {
+        "location": "Fort Defiance",
+    },
     # ----- Vague/incorrect locations (xEdit resolved nearby cell, not actual spawn) -----
     "A Father's Lament": {
         "location": "South River Bridge — on the edge of the bridge itself",
+    },
+    "Ben's Diary Entry 1": {
+        "location": "South River Bridge (on the crashed bus)",
     },
     "Birthday Letter From Dad": {
         "location": "South River Bridge (inside the crashed bus)",
@@ -1104,7 +1141,7 @@ NOTE_OVERRIDES = {
     "To Addie": {
         "location": "Gilman Lumber Mill",
     },
-    "A failed dinner": {
+    "A Failed Dinner": {
         "location": "Old Danielson Cabin",
     },
     "Change of Plans": {
@@ -1117,26 +1154,43 @@ NOTE_OVERRIDES = {
     "Adelaide Reminder": {
         "canCollect": True,
     },
+    # ----- Location fix for Rich Taylor's Testament -----
+    "Rich Taylor's Testament": {
+        "location": "NW of Pylon V-13",
+    },
+}
+
+# EDID-based overrides — for notes with duplicate display names where
+# name-based matching would be ambiguous.
+NOTE_OVERRIDES_BY_EDID = {
+    "LC148_Sutton_HorseshoeHouse_ShoppingList": {
+        "location": "Sutton",
+    },
 }
 
 
 def apply_note_overrides(items_live, items_cut):
     """
-    Apply NOTE_OVERRIDES to notes after xEdit-derived data is built.
+    Apply NOTE_OVERRIDES (by name) and NOTE_OVERRIDES_BY_EDID to notes
+    after xEdit-derived data is built.
     Patches location, canCollect, and/or technicalNote in-place.
     Logs each override applied.
     """
     all_items = items_live + items_cut
     applied = 0
     for item in all_items:
+        # Try name-based override first, then EDID-based
         override = NOTE_OVERRIDES.get(item.get('name', ''))
+        if not override:
+            override = NOTE_OVERRIDES_BY_EDID.get(item.get('edid', ''))
         if not override:
             continue
         for field, value in override.items():
             item[field] = value
         applied += 1
-        print(f"    Override applied: {item['name']!r}", file=sys.stderr)
-    print(f"  Applied {applied} note overrides ({len(NOTE_OVERRIDES)} defined)", file=sys.stderr)
+        print(f"    Override applied: {item['name']!r} ({item.get('edid', '')})", file=sys.stderr)
+    total_defined = len(NOTE_OVERRIDES) + len(NOTE_OVERRIDES_BY_EDID)
+    print(f"  Applied {applied} note overrides ({total_defined} defined)", file=sys.stderr)
 
 
 def _is_note_model(model):
@@ -1161,14 +1215,25 @@ def _is_note_model(model):
     return bool(model) and 'note' in model.lower()
 
 
+# Keywords that mark a BOOK record as a note item, even if the 3D model
+# doesn't contain 'note'.  Checked against the Keywords_Flat field.
+NOTE_KEYWORDS = {'MiscNote01', 'MiscNote02', 'MiscNote03_Torn'}
+
+
+def _has_note_keyword(kw_flat):
+    """Return True if Keywords_Flat contains any of the note keywords."""
+    return any(kw in kw_flat for kw in NOTE_KEYWORDS)
+
+
 def build_notes(book_path, locations=None):
     """
     Build notes list from BOOK TSV.
     Streams BOOK file to avoid OOM on large files.
 
     Identifies notes by their 3D Model field (any model path containing
-    'note'), which is more reliable than the previous HTML-in-DESC check.
-    Recipes/plans that happen to use a note model are excluded by EDID/FULL.
+    'note') OR by note keywords (MiscNote01, MiscNote02, MiscNote03_Torn),
+    which is more reliable than the previous HTML-in-DESC check.
+    Recipes/plans and treasure maps are excluded by EDID/FULL.
 
     Returns (live_items, cut_items).
 
@@ -1194,10 +1259,12 @@ def build_notes(book_path, locations=None):
                     print(f"    Read {count} BOOK rows...", file=sys.stderr)
 
                 model = row.get('Model', '').strip()
+                kw_flat = row.get('Keywords_Flat', '').strip()
 
-                # Primary filter: Model field must be a note model.
+                # Primary filter: Model field must be a note model OR the
+                # record must carry a note keyword (MiscNote01/02/03_Torn).
                 # This catches all notes regardless of whether DESC has HTML.
-                if not _is_note_model(model):
+                if not _is_note_model(model) and not _has_note_keyword(kw_flat):
                     continue
 
                 desc = row.get('DESC', '').strip()
@@ -1208,6 +1275,11 @@ def build_notes(book_path, locations=None):
                 # (e.g. 16 recipes use props\note_classified.nif)
                 if (edid.lower().startswith('recipe_') or
                     full.startswith('Plan:') or full.startswith('Recipe:')):
+                    continue
+
+                # Exclude treasure maps — they use note models but aren't
+                # notes in this context
+                if 'treasure map' in full.lower():
                     continue
 
                 # Must have a display name
