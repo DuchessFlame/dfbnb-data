@@ -2766,6 +2766,21 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             _xp_deduped.append(t)
         _xp_tiers = _xp_deduped
 
+        # Remove flat NAM7 bonus entries from xpBreakdown when a curve-based
+        # entry with the SAME label already exists.  The flat NAM7 value is
+        # a duplicate bonus captured separately via xpBonus and should not
+        # be double-counted in the breakdown.
+        # (e.g. Powering Up: NAM7 "XPPowerPlantMinimal" = 450 duplicates
+        #  the XPCT curve entry "Power Plant Minimal Repair" = 170.)
+        # This does NOT remove legitimate non-curve entries with unique labels
+        # (e.g. "Mutated Events" 500 XP on Lode Baring / Moonshine Jamboree).
+        _curve_labels = {t["label"] for t in _xp_tiers if t.get("scalesWithLevel")}
+        if _curve_labels:
+            _xp_tiers = [
+                t for t in _xp_tiers
+                if t.get("scalesWithLevel") or t["label"] not in _curve_labels
+            ]
+
         # Caps breakdown: collect from ALL RIs (not just deduped ones),
         # because each RI with caps represents a separate bonus objective.
         # Use the caps GLOB EDID for labels (preserves package numbers).
@@ -2962,7 +2977,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
 
     # When the completion stage has both XPCT (curve) and NAM7 (flat bonus),
     # output the bonus separately so the website can show it as an extra line.
-    if _completion and _completion.get("xpBonus"):
+    # Skip when xpBreakdown already exists — the bonus is already accounted for
+    # (or intentionally excluded as a duplicate tier entry).
+    if _completion and _completion.get("xpBonus") and not activity_data["baseRewards"].get("xpBreakdown"):
         activity_data["baseRewards"]["xpBonus"] = {
             "value": _completion["xpBonus"],
             "label": _completion["xpBonusLabel"],
