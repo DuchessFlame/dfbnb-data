@@ -213,6 +213,88 @@ EVENTS = {
 }
 
 # ---------------------------------------------------------------------------
+# Party Crasher / Invaders detection (generative from QUEST TSV)
+# ---------------------------------------------------------------------------
+
+def _load_quest_index(tsv_root):
+    """Load QUEST TSV and index rows by FormID for fast lookup."""
+    path = newest(os.path.join(tsv_root, "QUEST_Export_*.tsv"))
+    if not path:
+        print("[build_seasonal_events] WARNING: No QUEST_Export TSV found")
+        return {}
+    rows = read_tsv(path)
+    print("[build_seasonal_events] Loaded {} QUEST rows from {}".format(
+        len(rows), os.path.basename(path)))
+    idx = {}
+    for r in rows:
+        fid = pick(r, "QUEST_FormID", "FormID")
+        if fid:
+            idx[fid.upper()] = r
+    return idx
+
+
+def _humanize_party_crasher_name(raw):
+    """Convert a PartyCrasher NPC EDID into a readable name."""
+    s = (raw or "").strip()
+    if not s:
+        return "Party Crasher"
+    edid = s.split(":", 1)[1] if ":" in s else s
+    edid = re.sub(r"^Lvl", "", edid)
+    edid = re.sub(r"_?PartyCrasher$", "", edid)
+    edid = re.sub(r"_", " ", edid).strip()
+    edid = re.sub(r"(?<!^)(?=[A-Z])", " ", edid).strip()
+    return edid if edid else "Party Crasher"
+
+
+def _detect_event_flags(quest_fids, quest_index, globs):
+    """Detect party crashers and invaders flag from QUEST TSV data.
+
+    Returns dict with keys:
+      partyCrashers  - str or None
+      invadersEvent  - str or None
+    """
+    result = {"partyCrashers": None, "invadersEvent": None}
+    if not quest_fids:
+        return result
+
+    pc_lines = []
+    has_invaders = False
+
+    for fid in quest_fids:
+        q = quest_index.get(fid.upper())
+        if not q:
+            continue
+
+        # Invaders flag
+        if str(q.get("InvadersTakeOver") or "0").strip() == "1":
+            has_invaders = True
+
+        # Party Crashers - read PartyCrasherCount and iterate NPC/GLOB pairs
+        pc_count = int(q.get("PartyCrasherCount") or 0)
+        for i in range(pc_count):
+            npc_raw  = q.get("PartyCrasher_NPC_{}".format(i))
+            glob_raw = q.get("PartyCrasher_GLOB_{}".format(i))
+            if not npc_raw or not glob_raw:
+                continue
+            glob_fid = glob_raw.split(":")[0] if ":" in str(glob_raw) else str(glob_raw)
+            spawn_pct = globs.value(glob_fid)
+            name = _humanize_party_crasher_name(npc_raw)
+            if spawn_pct is not None:
+                pct_val = round(max(0.0, spawn_pct) * 100, 6)
+                pc_lines.append("{} \u2014 {}% chance to spawn at the end of the event.".format(
+                    name, pct_val))
+            else:
+                pc_lines.append("{} can spawn at the end of the event.".format(name))
+
+    if pc_lines:
+        result["partyCrashers"] = " ".join(pc_lines)
+    if has_invaders:
+        result["invadersEvent"] = "Yes."
+
+    return result
+
+
+# ---------------------------------------------------------------------------
 # Generic helpers
 # ---------------------------------------------------------------------------
 
@@ -1749,6 +1831,9 @@ def main():
     print("[build_seasonal_events] Loaded {} GMRW rows from {}".format(
         len(gmrw_rows), os.path.basename(gmrw_path)))
 
+    # Load QUEST TSV for party-crasher / invaders detection
+    quest_index = _load_quest_index(TSV_ROOT)
+
     # Load release-year tracking (persistent across builds)
     release_years = _load_release_years()
     print("[build_seasonal_events] Loaded {} release-year entries".format(
@@ -1760,6 +1845,10 @@ def main():
         ev_name = event_def["name"]
         ev_slug = event_def["eventSlug"]
         print("\n[build_seasonal_events] Processing: {} ({})".format(ev_name, slug))
+
+        # Detect party-crasher / invaders flags from QUEST TSV
+        quest_fids = event_def.get("questFormIDs") or []
+        event_flags = _detect_event_flags(quest_fids, quest_index, data.globs)
 
         page_data = {
             "name":            ev_name,
@@ -1774,6 +1863,10 @@ def main():
             "groups":          event_def.get("groups"),
             "gallery":         [],
         }
+        if event_flags["partyCrashers"]:
+            page_data["partyCrashers"] = event_flags["partyCrashers"]
+        if event_flags["invadersEvent"]:
+            page_data["invadersEvent"] = event_flags["invadersEvent"]
 
         try:
             if event_def["isContainerLoot"]:
