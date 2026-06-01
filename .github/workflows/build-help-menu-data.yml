@@ -1,0 +1,44 @@
+name: Build Help Menu Data
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/MESG_Help_*.tsv'
+      - 'src/build_help_menu_json.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Check data files exist
+        run: |
+          if [ ! -d "tsv" ]; then
+            echo "ERROR: tsv/ directory not found."
+            exit 1
+          fi
+          echo "Found TSV files:"
+          ls -lh tsv/MESG_Help_*.tsv 2>/dev/null || { echo "ERROR: No MESG Help TSV in tsv/"; exit 1; }
+
+      - name: Run build script
+        run: |
+          mkdir -p dist
+          python src/build_help_menu_json.py --data-dir tsv --out dist/help_menu.json
+
+      - name: Commit and push dist/help_menu.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/help_menu.json dist/patchlog_latest_help_menu.json
+          git diff --cached --quiet || git commit -m "chore: rebuild help_menu.json [skip ci]"
+          git push

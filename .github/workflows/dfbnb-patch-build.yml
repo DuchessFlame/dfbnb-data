@@ -537,6 +537,10 @@ jobs:
       - name: Build Load Screens JSON
         run: python src/build_load_screens_json.py --data-dir tsv --out dist/load_screens.json
 
+      # --- HELP MENU (MESG) ---
+      - name: Build Help Menu JSON
+        run: python src/build_help_menu_json.py --data-dir tsv --out dist/help_menu.json
+
       # --- PERK CARDS ---
       - name: Build Perk Cards JSON
         run: python src/build_perk_cards_json.py
@@ -700,6 +704,7 @@ jobs:
           test -f dist/bnb-item-categories.json      && echo "OK bnb-item-categories.json"      || (echo "MISSING bnb-item-categories.json" && exit 1)
           test -f dist/recipe_guide.json              && echo "OK recipe_guide.json"              || (echo "MISSING recipe_guide.json" && exit 1)
           test -f dist/load_screens.json              && echo "OK load_screens.json"              || (echo "MISSING load_screens.json" && exit 1)
+          test -f dist/help_menu.json                 && echo "OK help_menu.json"                 || (echo "MISSING help_menu.json" && exit 1)
           test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
           test -f dist/fishing_equipment.json        && echo "OK fishing_equipment.json"        || (echo "MISSING fishing_equipment.json" && exit 1)
           test -f dist/seasonal-fish.json            && echo "OK seasonal-fish.json"            || (echo "MISSING seasonal-fish.json" && exit 1)
