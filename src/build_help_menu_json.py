@@ -37,11 +37,11 @@ from patchlog_utils import diff_item_lists, _write_json, _git_show_json
 # We merge these into a single entry and tag the platform.
 
 def _detect_platform(edid):
-    """Return ('Console', stripped_edid) or ('PC', stripped_edid) or (None, edid)."""
+    """Return ('Console', edid) or ('PC', edid) or (None, edid)."""
     if edid.endswith("_Console"):
-        return "Console", edid[:-len("_Console")]
+        return "Console", edid
     if edid.endswith("_PC"):
-        return "PC", edid[:-len("_PC")]
+        return "PC", edid
     return None, edid
 
 
@@ -52,8 +52,7 @@ def _detect_platform(edid):
 def build_help_menu(tsv_path):
     """Read the MESG Help TSV and return the structured JSON data."""
 
-    # Intermediate: keyed by base EDID (without _Console/_PC)
-    merged = {}      # base_edid → { ... }
+    items = []
     raw_count = 0
 
     with open(tsv_path, encoding="latin-1") as f:
@@ -83,50 +82,26 @@ def build_help_menu(tsv_path):
             if not name and not desc:
                 continue
 
-            platform, base_edid = _detect_platform(edid)
+            platform, _ = _detect_platform(edid)
 
-            if base_edid not in merged:
-                merged[base_edid] = {
-                    "formId":   form_id,
-                    "edid":     edid,
-                    "baseEdid": base_edid,
-                    "name":     name or _name_from_edid(base_edid),
-                    "desc":     desc,
-                    "platform": platform,         # None = universal
-                    "formIds":  {platform or "universal": form_id},
-                }
-            else:
-                entry = merged[base_edid]
-                # Store additional platform form ID
-                entry["formIds"][platform or "universal"] = form_id
-                # If this variant has a better desc, use it
-                if desc and not entry["desc"]:
-                    entry["desc"] = desc
-                if name and not entry["name"]:
-                    entry["name"] = name
-                # Mark as multi-platform
-                if platform and entry["platform"] != platform:
-                    entry["platform"] = "both"
+            item = {
+                "formId": form_id,
+                "edid":   edid,
+                "name":   name or _name_from_edid(edid),
+                "desc":   desc,
+            }
+            if platform:
+                item["platform"] = platform
 
-    # Build flat item list
-    items = []
-    for base_edid, entry in merged.items():
-        item = {
-            "formId": entry["formId"],
-            "edid":   entry["baseEdid"],
-            "name":   entry["name"],
-            "desc":   entry["desc"],
-        }
-        # Only include platform info if there are Console/PC variants
-        if entry["platform"] == "both":
-            item["platforms"] = entry["formIds"]
-        elif entry["platform"] in ("Console", "PC"):
-            item["platform"] = entry["platform"]
+            items.append(item)
 
-        items.append(item)
+    # Sort alphabetically by name, then platform (Console before PC before universal)
+    def sort_key(x):
+        plat = x.get("platform", "")
+        plat_order = {"Console": 0, "PC": 1}.get(plat, 2)
+        return ((x["name"] or "").lower(), plat_order)
 
-    # Sort alphabetically by name
-    items.sort(key=lambda x: (x["name"] or "").lower())
+    items.sort(key=sort_key)
 
     return {
         "generated":  __import__("datetime").date.today().isoformat(),
