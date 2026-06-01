@@ -807,18 +807,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-            os.unlink(tmp_path)
-        except OSError:
-            pass
-        diag.error("cobj.publish.failed", "Failed to replace cobj-recipes.json", detail=str(e))
-        diag.save()
-        print(f"ERROR publishing {output_path}: {e}", file=sys.stderr)
-        sys.exit(1)
-
-    diag.save()
-    print("Done.", file=sys.stderr)
-
-
-if __name__ == "__main__":
-    main()

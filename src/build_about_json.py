@@ -53,7 +53,7 @@ SUPPORT_MY_WORK = {
         "food and chem buff math, season pass tracking, plan checklists, "
         "and everything in between.",
         "I firmly believe knowledge should be accessible to everyone, so the "
-        “guides will always be free and ad-free. No paywalls, no popups.”,
+        "guides will always be free and ad-free. No paywalls, no popups.",
         "That said, running a site like this isn’t free. Web hosting, "
         "the build pipeline that needs to be ran after every patch and update, image "
         "and video storage, photo and video editing software, and the hours "
