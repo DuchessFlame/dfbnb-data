@@ -676,24 +676,25 @@ def build_hto_rewards():
                 },
                 "challenges": {
                     "lifetime": [
-                        {"name": "Discover an Infestation",                     "target": 1},
-                        {"name": "Complete an Infestation",                     "target": 1},
-                        {"name": "Complete 10 Infestations",                    "target": 10},
-                        {"name": "Complete 76 Infestations",                    "target": 76},
-                        {"name": "Complete 760 Infestations",                   "target": 760},
-                        {"name": "Complete an Infestation Involving Every Faction", "target": 7},
+                        {"name": "Discover an Infestation",                        "target": 1,   "reward": "Title: Harbinger",    "prereq": "Emerge from Vault 76"},
+                        {"name": "Complete an Infestation",                        "target": 1,   "reward": "Title: Eliminator",   "prereq": "Emerge from Vault 76"},
+                        {"name": "Complete an Infestation",                        "target": 10,  "reward": "Title: Vanquisher",   "prereq": "Complete an Infestation (×1)"},
+                        {"name": "Complete an Infestation",                        "target": 76,  "reward": "Title: Annihilator",  "prereq": "Complete an Infestation (×10)"},
+                        {"name": "Complete an Infestation",                        "target": 760, "reward": "Title: Conquerer",    "prereq": "Complete an Infestation (×76)"},
+                        {"name": "Complete an Infestation Involving Every Faction", "target": 7,   "reward": "Title: Terminator",
+                         "factions": ["Blood Eagles", "Communists", "Cultists", "Mole Miners", "Robots", "Scorched", "Super Mutants"]},
                     ],
                     "daily": [
-                        {"name": "Kill an Enemy during an Infestation",            "target": 3},
-                        {"name": "Kill an Enemy during an Infestation (Team)",     "target": 3},
-                        {"name": "Complete an Infestation",                        "target": 1},
-                        {"name": "Complete an Infestation (Team)",                 "target": 1},
+                        {"name": "Kill an Enemy during an Infestation",            "target": 3,  "reward": "Score"},
+                        {"name": "Kill an Enemy during an Infestation while on a Team", "target": 3, "reward": "Score"},
+                        {"name": "Complete an Infestation",                        "target": 1,  "reward": "Score"},
+                        {"name": "Complete an Infestation while on a Team",        "target": 1,  "reward": "Score"},
                     ],
                     "weekly": [
-                        {"name": "Kill an Enemy during an Infestation",            "target": 10},
-                        {"name": "Kill an Enemy during an Infestation (Team)",     "target": 10},
-                        {"name": "Complete 3 Infestations",                        "target": 3},
-                        {"name": "Complete 3 Infestations (Team)",                 "target": 3},
+                        {"name": "Kill an Enemy during an Infestation",            "target": 10, "reward": "Score"},
+                        {"name": "Kill an Enemy during an Infestation while on a Team", "target": 10, "reward": "Score"},
+                        {"name": "Complete an Infestation",                        "target": 3,  "reward": "Score"},
+                        {"name": "Complete an Infestation while on a Team",        "target": 3,  "reward": "Score"},
                     ]
                 }
             }
@@ -704,7 +705,7 @@ def build_hto_rewards():
 
 
 def main():
-    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    os.makedirs(DIST_DIR, exist_ok=True)
     data = build_hto_rewards()
     out_path = DIST_DIR / "hto_rewards.json"
     with open(out_path, "w", encoding="utf-8") as f:
