@@ -38,9 +38,9 @@ from patchlog_utils import diff_item_lists, _write_json, _git_show_json
 
 def _detect_platform(edid):
     """Return ('Console', edid) or ('PC', edid) or (None, edid)."""
-    if edid.endswith("_Console"):
+    if edid.endswith("_Console") or edid.endswith("tConsole"):
         return "Console", edid
-    if edid.endswith("_PC"):
+    if edid.endswith("_PC") or edid.endswith("tPC"):
         return "PC", edid
     return None, edid
 

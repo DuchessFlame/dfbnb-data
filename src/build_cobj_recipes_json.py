@@ -198,6 +198,7 @@ def _curv_edid_to_stems(edid: str) -> List[str]:
 
     Handles multiple naming conventions:
       CT_COBJ_Cooking_Food_1_Primary  -> food_1_primary  (strip CT_COBJ_Cooking_)
+      COBJ_Brewing_WaterIngredient    -> brewing_wateringredient  (strip COBJ_)
       COBJ_Workshop_Wood              -> cobj_workshop_wood  (exact lowercase)
       COBJ_Ammo_Acid                  -> cobj_ammo_acid
     """
@@ -210,6 +211,13 @@ def _curv_edid_to_stems(edid: str) -> List[str]:
         parts = without_ct.split("_", 2)
         if len(parts) >= 3:
             candidates.append(parts[2])
+    if e.startswith("cobj_"):
+        without_cobj = e[5:]
+        candidates.append(without_cobj)
+        # COBJ_Brewing_WaterIngredient -> strip cobj_{category}_ -> wateringredient
+        parts = without_cobj.split("_", 1)
+        if len(parts) >= 2:
+            candidates.append(parts[1])
     return candidates
 
 
@@ -785,6 +793,21 @@ def main() -> None:
         print(f"Wrote {output_path}", file=sys.stderr)
     except Exception as e:
         try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
+        diag.error("cobj.publish.failed", "Failed to replace cobj-recipes.json", detail=str(e))
+        diag.save()
+        print(f"ERROR publishing {output_path}: {e}", file=sys.stderr)
+        sys.exit(1)
+
+    diag.save()
+    print("Done.", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()
+
             os.unlink(tmp_path)
         except OSError:
             pass
