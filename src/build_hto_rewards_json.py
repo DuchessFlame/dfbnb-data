@@ -665,7 +665,7 @@ def build_hto_rewards():
                 "fourStarMods": {
                     "weapons": [
                         {"name": "Tarnished", "formid": "0085B998", "effect": "Damage increases as weapon durability decreases (up to +120%)"},
-                        {"name": "Satiated",  "formid": "0085B996", "effect": "Hunger & Thirst Fill With Each Kill"},
+                        {"name": "Satiated",  "formid": "0085B996", "effect": "Kills Restore Hunger and Thirst"},
                     ],
                     "armor": [
                         {"name": "Vector",  "formid": "0085B99A", "effect": "Gain 10% Bonus V.A.T.S. Accuracy Against Distant Targets (up to 50% with 5 pieces)"},
@@ -677,7 +677,7 @@ def build_hto_rewards():
                         {"name": "Raging",   "formid": "0085B999", "effect": "Upon being hit, deal +3% Damage for 10 seconds"},
                         {"name": "Hauler's", "formid": "0085B99C", "effect": "Increases Carrying Capacity by 30"},
                     ],
-                    "note": "4-star legendary mods are exclusive to Infestations. Vector value is 10% per piece (GLOB 00868BD2). Satiated is Human only — Ghoul version currently disabled. Tarnished description removed in May 2026 data — effect may have been reworked."
+                    "note": "4-star legendary mods are exclusive to Infestations. Vector value is 10% per piece (GLOB 00868BD2). Satiated: Human = Kills Restore Hunger and Thirst, Ghoul = Kills Restore Feral. Tarnished perk effect still active — old spell system deprecated in May 2026."
                 },
                 "challenges": {
                     "lifetime": [
