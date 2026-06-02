@@ -656,7 +656,7 @@ def build_hto_rewards():
                 "questFormID": "00865FA8",
                 "gmrwFormID": "00888543",
                 "type": "infestations",
-                "description": "World Activity — not a public event. 7 enemy factions, 51 spawn locations across all regions, only 9 active at any time. Clear the infestation and defeat the boss to earn rewards.",
+                "description": "World Activity — not a public event. 7 enemy factions, 51 spawn locations across all regions, only 5 active at any time. Clear the infestation and defeat the boss to earn rewards.",
                 "xp": xp,
                 "caps": caps,
                 "bossLoot": boss_loot,
@@ -669,12 +669,12 @@ def build_hto_rewards():
                     ],
                     "armor": [
                         {"name": "Vector",  "formid": "0085B99A", "effect": "Gain 10% Bonus V.A.T.S. Accuracy Against Distant Targets (up to 50% with 5 pieces)"},
-                        {"name": "Raging",  "formid": "0085B997", "effect": "Upon being hit, deal +3% Damage for 10 seconds"},
+                        {"name": "Raging",  "formid": "0085B997", "effect": "Upon being hit, deal +5% Damage for 10 seconds per piece (up to +25% with 5 pieces)"},
                         {"name": "Hauler's", "formid": "0085B99B", "effect": "Increases Carry Capacity by 30"},
                     ],
                     "powerArmor": [
                         {"name": "Vector",   "formid": "0085B99D", "effect": "Gain 10% Bonus VATS Accuracy Against Distant Targets (up to 50% with 5 pieces)"},
-                        {"name": "Raging",   "formid": "0085B999", "effect": "Upon being hit, deal +3% Damage for 10 seconds"},
+                        {"name": "Raging",   "formid": "0085B999", "effect": "Upon being hit, deal +5% Damage for 10 seconds per piece (up to +25% with 5 pieces)"},
                         {"name": "Hauler's", "formid": "0085B99C", "effect": "Increases Carrying Capacity by 30"},
                     ],
                     "note": "4-star legendary mods are exclusive to Infestations. Vector value is 10% per piece (GLOB 00868BD2). Satiated: Human = Kills Restore Hunger and Thirst, Ghoul = Kills Restore Feral. Tarnished perk effect still active — old spell system deprecated in May 2026."
