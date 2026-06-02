@@ -115,7 +115,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Legendary Items",
         "formid": "0088851D",
-        "subtitle": leg_subtitle,
+        "blurb": leg_subtitle,
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "children": [
@@ -171,7 +171,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Bobbleheads",
         "formid": "00888515",
-        "subtitle": "Guaranteed drop · 1 item",
+        "blurb": "Guaranteed drop · 1 item",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "items": [{"name": "Bobblehead Box", "formid": "008B0D63", "sig": "ALCH", "qty": 1, "dropRate": 100}]
@@ -181,7 +181,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Magazines",
         "formid": "00888526",
-        "subtitle": "Guaranteed drop · 1 item",
+        "blurb": "Guaranteed drop · 1 item",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "items": [{"name": "Magazine Book Box", "formid": "008B0D62", "sig": "ALCH", "qty": 1, "dropRate": 100}]
@@ -191,7 +191,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Treasure Maps",
         "formid": "00888537",
-        "subtitle": "Guaranteed drop · 1 map matching the infestation's region",
+        "blurb": "Guaranteed drop · 1 map matching the infestation's region",
         "dropRate": 100,
         "items": [
             {"name": "Cranberry Bog / Savage Forest Treasure Map", "formid": "003D0CD8", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Cranberry Bog or The Mire"]},
@@ -208,14 +208,14 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Resources",
         "formid": "00893F7C",
-        "subtitle": "Guaranteed drop · 4 items",
+        "blurb": "Each item rolls independently · 4 items",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "items": [
-            {"name": "Scrap-to-Stash",    "formid": "008B0D64", "sig": "UTIL", "qty": 1, "dropRate": 100},
+            {"name": "Scrap Kit",          "formid": "008B0D64", "sig": "UTIL", "qty": 1, "dropRate": 100},
             {"name": "Treasury Note",      "formid": "005A5443", "sig": "MISC", "qty": 1, "dropRate": 100},
             {"name": "Legendary Module",   "formid": "005652F9", "sig": "MISC", "qty": 1, "dropRate": 100},
-            {"name": "Legendary Tokens",   "formid": "003F7410", "sig": "CNCY", "qty": 1, "dropRate": 100},
+            {"name": "Legendary Scrip",    "formid": "003F7410", "sig": "CNCY", "qty": 1, "dropRate": 100},
         ],
         "mode": "useall"
     })
@@ -224,14 +224,14 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Explosives",
         "formid": "0088851C",
-        "subtitle": "Guaranteed drop · 1 grenade + 1 mine",
+        "blurb": "2 reward lists · each list rolled when you loot the boss corpse",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "children": [
             {
                 "label": "Grenades",
                 "formid": "00893F79",
-                "subtitle": f"Pick one · {11} items",
+                "blurb": f"Guaranteed drop of one item · {11} items",
                 "dropRate": 100,
                 "items": [
                     {"name": "Cryo Grenade",             "formid": "0011002F", "sig": "LVLI", "qty": 1, "dropRate": round(100/11, 2)},
@@ -251,7 +251,7 @@ def build_hto_rewards():
             {
                 "label": "Mines",
                 "formid": "00888527",
-                "subtitle": "Pick one · 4 items",
+                "blurb": "Guaranteed drop of one item · 4 items",
                 "dropRate": 100,
                 "items": [
                     {"name": "Frag Mine",   "formid": "00110034", "sig": "LVLI", "qty": 1, "dropRate": 25},
@@ -269,7 +269,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Contextual Ammo",
         "formid": "00893F76",
-        "subtitle": f"Guaranteed drop · {ammo_boss} rounds matching your equipped weapon",
+        "blurb": f"Guaranteed drop · {ammo_boss} rounds matching your equipped weapon",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "items": [{"name": "Contextual Ammo", "formid": "0085A375", "sig": "LVLI", "qty": ammo_boss, "dropRate": 100}],
@@ -292,7 +292,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Serums",
         "formid": "00888532",
-        "subtitle": f"{serum_drop}% chance to drop · pick one of {len(serum_items)} serums",
+        "blurb": f"Chance drop of one item · {len(serum_items)} items",
         "dropRate": serum_drop,
         "warningNote": TOGGLE_WARNING,
         "items": [{"name": n, "formid": f, "sig": "ALCH", "qty": 1, "dropRate": round(serum_drop / len(serum_items), 4)} for n, f in serum_items],
@@ -306,14 +306,14 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Chems",
         "formid": "00888517",
-        "subtitle": f"Guaranteed drop · {int(rare_threshold)}% rare / {int(basic_threshold)}% basic",
+        "blurb": "Guaranteed drop of one item · 2 reward tiers",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "children": [
             {
                 "label": "Rare Chems",
                 "formid": "00888519",
-                "subtitle": f"Pick one · 11 items",
+                "blurb": f"Guaranteed drop of one item · 11 items",
                 "dropRate": rare_threshold,
                 "items": [
                     {"name": "Berry Mentats",   "formid": "000518BB", "sig": "ALCH", "qty": 1, "dropRate": round(rare_threshold / 11, 2)},
@@ -333,7 +333,7 @@ def build_hto_rewards():
             {
                 "label": "Basic Chems",
                 "formid": "00888518",
-                "subtitle": "Pick one · 4 items",
+                "blurb": "Guaranteed drop of one item · 4 items",
                 "dropRate": basic_threshold,
                 "items": [
                     {"name": "Buffout",  "formid": "00033778", "sig": "ALCH", "qty": 1, "dropRate": round(basic_threshold / 4, 2)},
@@ -352,7 +352,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Stimpaks",
         "formid": "00893F83",
-        "subtitle": f"{int(stim_pct)}% chance to drop · 1-3 Super Stimpaks",
+        "blurb": "Chance drop · 1 item",
         "dropRate": stim_pct,
         "warningNote": TOGGLE_WARNING,
         "items": [
@@ -368,7 +368,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Rads",
         "formid": "0088852B",
-        "subtitle": "Guaranteed drop · pick one of 2 items",
+        "blurb": "Guaranteed drop of one item · 2 items",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "items": [
@@ -382,7 +382,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Scrap",
         "formid": "0088851A",
-        "subtitle": f"Guaranteed drop · {scrap_count}x from one of 4 rarity tiers",
+        "blurb": "Guaranteed drop of one item · 4 reward tiers",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "scrapCount": scrap_count,
@@ -390,7 +390,7 @@ def build_hto_rewards():
             {
                 "label": "Very Rare Scrap",
                 "formid": "00893F81",
-                "subtitle": f"Pick one · 5 items",
+                "blurb": f"Guaranteed drop of one item · 5 items",
                 "dropRate": cn_high,
                 "items": [
                     {"name": "Ballistic Fiber", "formid": "00432C9A", "sig": "LVLI", "qty": scrap_count, "dropRate": round(cn_high / 5, 2)},
@@ -404,7 +404,7 @@ def build_hto_rewards():
             {
                 "label": "Rare Scrap",
                 "formid": "00893F7F",
-                "subtitle": f"Pick one · 7 items",
+                "blurb": f"Guaranteed drop of one item · 7 items",
                 "dropRate": cn_medium - cn_high,
                 "items": [
                     {"name": "Antiseptic",    "formid": "00432C9C", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_medium - cn_high) / 7, 2)},
@@ -420,7 +420,7 @@ def build_hto_rewards():
             {
                 "label": "Uncommon Scrap",
                 "formid": "00893F80",
-                "subtitle": f"Pick one · 9 items",
+                "blurb": f"Guaranteed drop of one item · 9 items",
                 "dropRate": cn_low - cn_medium,
                 "items": [
                     {"name": "Acid",       "formid": "00432C99", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_low - cn_medium) / 9, 2)},
@@ -438,7 +438,7 @@ def build_hto_rewards():
             {
                 "label": "Common Scrap",
                 "formid": "00893F7E",
-                "subtitle": f"Pick one · 13 items",
+                "blurb": f"Guaranteed drop of one item · 13 items",
                 "dropRate": 100 - cn_low,
                 "items": [
                     {"name": "Bone",       "formid": "00432C9F", "sig": "LVLI", "qty": scrap_count, "dropRate": round((100 - cn_low) / 13, 2)},
@@ -466,14 +466,14 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Bespoke (Faction-Specific)",
         "formid": "00893F6F",
-        "subtitle": "Conditional drop · depends on boss faction",
+        "blurb": "Conditional drop · depends on boss faction",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "children": [
             {
                 "label": "Robot Boss",
                 "formid": "00893F73",
-                "subtitle": "Only drops from Robot faction bosses",
+                "blurb": "Only drops from Robot faction bosses",
                 "dropRate": 100,
                 "conditions": ["Boss is Robot faction"],
                 "items": [
@@ -486,7 +486,7 @@ def build_hto_rewards():
             {
                 "label": "Scorched Boss (Holiday)",
                 "formid": "008B2319",
-                "subtitle": "Only drops from Scorched bosses during seasonal events",
+                "blurb": "Only drops from Scorched bosses during seasonal events",
                 "dropRate": 100,
                 "conditions": ["Boss is Scorched faction", "Holiday toggle active"],
                 "items": [
@@ -527,7 +527,7 @@ def build_hto_rewards():
     mob_loot.append({
         "label": "Legendary Items",
         "formid": "008F2B1B",
-        "subtitle": f"Waterfall — at most one drop · {mob_leg_total}% overall chance · 3★ only",
+        "blurb": f"Waterfall — at most one drop · {len(mob_leg_items)} items · 3★ only",
         "dropRate": mob_leg_total,
         "warningNote": TOGGLE_WARNING,
         "items": mob_leg_items,
@@ -538,35 +538,35 @@ def build_hto_rewards():
     mob_loot.append({
         "label": "Bespoke (Faction-Specific)",
         "formid": "00893F72",
-        "subtitle": "Conditional drop · depends on mob faction",
+        "blurb": "Conditional drop · depends on mob faction",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "children": [
             {
                 "label": "Humanoid Mobs",
                 "formid": "00893F71",
-                "subtitle": "Grenades + Stimpaks",
+                "blurb": "Grenades + Stimpaks",
                 "dropRate": 100,
                 "conditions": ["Mob is humanoid faction (Blood Eagles, Cultists, Ghouls, Scorched, Super Mutants)"],
             },
             {
                 "label": "Robot Mobs",
                 "formid": "00893F73",
-                "subtitle": "Fusion Cells + Components + Scrap",
+                "blurb": "Fusion Cells + Components + Scrap",
                 "dropRate": 100,
                 "conditions": ["Mob is Robot faction"],
             },
             {
                 "label": "Floater Mobs",
                 "formid": "00893F70",
-                "subtitle": "Pus Sac + Components",
+                "blurb": "Pus Sac + Components",
                 "dropRate": 100,
                 "conditions": ["Mob is Floater"],
             },
             {
                 "label": "Mothman Hatchling",
                 "formid": "0085CDB7",
-                "subtitle": "Components",
+                "blurb": "Components",
                 "dropRate": 100,
                 "conditions": ["Mob is Cultist Mothman Hatchling"],
             },
@@ -578,7 +578,7 @@ def build_hto_rewards():
     mob_loot.append({
         "label": "Contextual Ammo",
         "formid": "00893F77",
-        "subtitle": f"Guaranteed drop · {ammo_mob} rounds matching your equipped weapon",
+        "blurb": f"Guaranteed drop · {ammo_mob} rounds matching your equipped weapon",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "items": [{"name": "Contextual Ammo", "formid": "0085A375", "sig": "LVLI", "qty": ammo_mob, "dropRate": 100}],
@@ -612,7 +612,7 @@ def build_hto_rewards():
     support_loot.append({
         "label": "Legendary Items",
         "formid": "008F2B18",
-        "subtitle": f"Waterfall — at most one drop · {sup_leg_total}% overall chance · 3★ only",
+        "blurb": f"Waterfall — at most one drop · {len(sup_leg_items)} items · 3★ only",
         "dropRate": sup_leg_total,
         "warningNote": TOGGLE_WARNING,
         "items": sup_leg_items,
@@ -623,16 +623,16 @@ def build_hto_rewards():
     support_loot.append({
         "label": "Bespoke (Creature-Specific)",
         "formid": "00893F74",
-        "subtitle": "Conditional drop · depends on creature type",
+        "blurb": "Conditional drop · depends on creature type",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "children": [
-            {"label": "Attack Dog",    "formid": "00863222", "subtitle": "Bones + Meat", "dropRate": 100},
-            {"label": "EyeBot",        "formid": "00865AF8", "subtitle": "Components + Scrap", "dropRate": 100},
-            {"label": "Liberator",     "formid": "0085B657", "subtitle": "Trinkets + Components", "dropRate": 100},
-            {"label": "Mole Rat",      "formid": "0085DC58", "subtitle": "Components + Meat", "dropRate": 100},
-            {"label": "Mutant Hound",  "formid": "0086242D", "subtitle": "Bones + Meat", "dropRate": 100},
-            {"label": "Wolf",          "formid": "00863223", "subtitle": "Bones + Meat", "dropRate": 100},
+            {"label": "Attack Dog",    "formid": "00863222", "blurb": "Bones + Meat", "dropRate": 100},
+            {"label": "EyeBot",        "formid": "00865AF8", "blurb": "Components + Scrap", "dropRate": 100},
+            {"label": "Liberator",     "formid": "0085B657", "blurb": "Trinkets + Components", "dropRate": 100},
+            {"label": "Mole Rat",      "formid": "0085DC58", "blurb": "Components + Meat", "dropRate": 100},
+            {"label": "Mutant Hound",  "formid": "0086242D", "blurb": "Bones + Meat", "dropRate": 100},
+            {"label": "Wolf",          "formid": "00863223", "blurb": "Bones + Meat", "dropRate": 100},
         ],
         "mode": "conditional"
     })
@@ -641,7 +641,7 @@ def build_hto_rewards():
     support_loot.append({
         "label": "Contextual Ammo",
         "formid": "00893F78",
-        "subtitle": f"Guaranteed drop · {ammo_support} round matching your equipped weapon",
+        "blurb": f"Guaranteed drop · {ammo_support} round matching your equipped weapon",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "items": [{"name": "Contextual Ammo", "formid": "0085A375", "sig": "LVLI", "qty": ammo_support, "dropRate": 100}],
@@ -716,10 +716,11 @@ def main():
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"[HTO] Wrote {out_path}")
-    print(f"[HTO] XP={data['byPage']['infestations-all-rewards']['xp']}, "
-          f"Caps={data['byPage']['infestations-all-rewards']['caps']}, "
-          f"Boss loot pools={len(data['byPage']['infestations-all-rewards']['bossLoot'])}")
+    page = data['byPage']['infestations-all-rewards']
+    print(f"[HTO] XP={page['xp']}, Caps={page['caps']}, Boss loot pools={len(page['bossLoot'])}")
 
 
 if __name__ == "__main__":
-    main()
+    main()  # entry point
+
+in()  # entry point

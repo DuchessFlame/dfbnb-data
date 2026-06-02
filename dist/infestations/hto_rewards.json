@@ -12,7 +12,7 @@
         {
           "label": "Legendary Items",
           "formid": "0088851D",
-          "subtitle": "Guaranteed drop of one item when active · 4★ guaranteed",
+          "blurb": "Guaranteed drop of one item when active · 4★ guaranteed",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "children": [
@@ -114,7 +114,7 @@
         {
           "label": "Bobbleheads",
           "formid": "00888515",
-          "subtitle": "Guaranteed drop · 1 item",
+          "blurb": "Guaranteed drop · 1 item",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
@@ -130,7 +130,7 @@
         {
           "label": "Magazines",
           "formid": "00888526",
-          "subtitle": "Guaranteed drop · 1 item",
+          "blurb": "Guaranteed drop · 1 item",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
@@ -146,7 +146,7 @@
         {
           "label": "Treasure Maps",
           "formid": "00888537",
-          "subtitle": "Guaranteed drop · 1 map matching the infestation's region",
+          "blurb": "Guaranteed drop · 1 map matching the infestation's region",
           "dropRate": 100,
           "items": [
             {
@@ -206,12 +206,12 @@
         {
           "label": "Resources",
           "formid": "00893F7C",
-          "subtitle": "Guaranteed drop · 4 items",
+          "blurb": "Each item rolls independently · 4 items",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
             {
-              "name": "Scrap-to-Stash",
+              "name": "Scrap Kit",
               "formid": "008B0D64",
               "sig": "UTIL",
               "qty": 1,
@@ -232,7 +232,7 @@
               "dropRate": 100
             },
             {
-              "name": "Legendary Tokens",
+              "name": "Legendary Scrip",
               "formid": "003F7410",
               "sig": "CNCY",
               "qty": 1,
@@ -244,14 +244,14 @@
         {
           "label": "Explosives",
           "formid": "0088851C",
-          "subtitle": "Guaranteed drop · 1 grenade + 1 mine",
+          "blurb": "2 reward lists · each list rolled when you loot the boss corpse",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "children": [
             {
               "label": "Grenades",
               "formid": "00893F79",
-              "subtitle": "Pick one · 11 items",
+              "blurb": "Guaranteed drop of one item · 11 items",
               "dropRate": 100,
               "items": [
                 {
@@ -337,7 +337,7 @@
             {
               "label": "Mines",
               "formid": "00888527",
-              "subtitle": "Pick one · 4 items",
+              "blurb": "Guaranteed drop of one item · 4 items",
               "dropRate": 100,
               "items": [
                 {
@@ -377,7 +377,7 @@
         {
           "label": "Contextual Ammo",
           "formid": "00893F76",
-          "subtitle": "Guaranteed drop · 15 rounds matching your equipped weapon",
+          "blurb": "Guaranteed drop · 15 rounds matching your equipped weapon",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
@@ -393,7 +393,7 @@
         {
           "label": "Serums",
           "formid": "00888532",
-          "subtitle": "20.0% chance to drop · pick one of 19 serums",
+          "blurb": "Chance drop of one item · 19 items",
           "dropRate": 20.0,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
@@ -537,14 +537,14 @@
         {
           "label": "Chems",
           "formid": "00888517",
-          "subtitle": "Guaranteed drop · 25% rare / 75% basic",
+          "blurb": "Guaranteed drop of one item · 2 reward tiers",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "children": [
             {
               "label": "Rare Chems",
               "formid": "00888519",
-              "subtitle": "Pick one · 11 items",
+              "blurb": "Guaranteed drop of one item · 11 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -630,7 +630,7 @@
             {
               "label": "Basic Chems",
               "formid": "00888518",
-              "subtitle": "Pick one · 4 items",
+              "blurb": "Guaranteed drop of one item · 4 items",
               "dropRate": 75.0,
               "items": [
                 {
@@ -670,7 +670,7 @@
         {
           "label": "Stimpaks",
           "formid": "00893F83",
-          "subtitle": "20% chance to drop · 1-3 Super Stimpaks",
+          "blurb": "Chance drop · 1 item",
           "dropRate": 20.0,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
@@ -702,7 +702,7 @@
         {
           "label": "Rads",
           "formid": "0088852B",
-          "subtitle": "Guaranteed drop · pick one of 2 items",
+          "blurb": "Guaranteed drop of one item · 2 items",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
@@ -726,7 +726,7 @@
         {
           "label": "Scrap",
           "formid": "0088851A",
-          "subtitle": "Guaranteed drop · 10x from one of 4 rarity tiers",
+          "blurb": "Guaranteed drop of one item · 4 reward tiers",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "scrapCount": 10,
@@ -734,7 +734,7 @@
             {
               "label": "Very Rare Scrap",
               "formid": "00893F81",
-              "subtitle": "Pick one · 5 items",
+              "blurb": "Guaranteed drop of one item · 5 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -778,7 +778,7 @@
             {
               "label": "Rare Scrap",
               "formid": "00893F7F",
-              "subtitle": "Pick one · 7 items",
+              "blurb": "Guaranteed drop of one item · 7 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -836,7 +836,7 @@
             {
               "label": "Uncommon Scrap",
               "formid": "00893F80",
-              "subtitle": "Pick one · 9 items",
+              "blurb": "Guaranteed drop of one item · 9 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -908,7 +908,7 @@
             {
               "label": "Common Scrap",
               "formid": "00893F7E",
-              "subtitle": "Pick one · 13 items",
+              "blurb": "Guaranteed drop of one item · 13 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -1011,14 +1011,14 @@
         {
           "label": "Bespoke (Faction-Specific)",
           "formid": "00893F6F",
-          "subtitle": "Conditional drop · depends on boss faction",
+          "blurb": "Conditional drop · depends on boss faction",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "children": [
             {
               "label": "Robot Boss",
               "formid": "00893F73",
-              "subtitle": "Only drops from Robot faction bosses",
+              "blurb": "Only drops from Robot faction bosses",
               "dropRate": 100,
               "conditions": [
                 "Boss is Robot faction"
@@ -1054,7 +1054,7 @@
             {
               "label": "Scorched Boss (Holiday)",
               "formid": "008B2319",
-              "subtitle": "Only drops from Scorched bosses during seasonal events",
+              "blurb": "Only drops from Scorched bosses during seasonal events",
               "dropRate": 100,
               "conditions": [
                 "Boss is Scorched faction",
@@ -1092,7 +1092,7 @@
         {
           "label": "Legendary Items",
           "formid": "008F2B1B",
-          "subtitle": "Waterfall — at most one drop · 59.04% overall chance · 3★ only",
+          "blurb": "Waterfall — at most one drop · 4 items · 3★ only",
           "dropRate": 59.04,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
@@ -1130,14 +1130,14 @@
         {
           "label": "Bespoke (Faction-Specific)",
           "formid": "00893F72",
-          "subtitle": "Conditional drop · depends on mob faction",
+          "blurb": "Conditional drop · depends on mob faction",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "children": [
             {
               "label": "Humanoid Mobs",
               "formid": "00893F71",
-              "subtitle": "Grenades + Stimpaks",
+              "blurb": "Grenades + Stimpaks",
               "dropRate": 100,
               "conditions": [
                 "Mob is humanoid faction (Blood Eagles, Cultists, Ghouls, Scorched, Super Mutants)"
@@ -1146,7 +1146,7 @@
             {
               "label": "Robot Mobs",
               "formid": "00893F73",
-              "subtitle": "Fusion Cells + Components + Scrap",
+              "blurb": "Fusion Cells + Components + Scrap",
               "dropRate": 100,
               "conditions": [
                 "Mob is Robot faction"
@@ -1155,7 +1155,7 @@
             {
               "label": "Floater Mobs",
               "formid": "00893F70",
-              "subtitle": "Pus Sac + Components",
+              "blurb": "Pus Sac + Components",
               "dropRate": 100,
               "conditions": [
                 "Mob is Floater"
@@ -1164,7 +1164,7 @@
             {
               "label": "Mothman Hatchling",
               "formid": "0085CDB7",
-              "subtitle": "Components",
+              "blurb": "Components",
               "dropRate": 100,
               "conditions": [
                 "Mob is Cultist Mothman Hatchling"
@@ -1176,7 +1176,7 @@
         {
           "label": "Contextual Ammo",
           "formid": "00893F77",
-          "subtitle": "Guaranteed drop · 5 rounds matching your equipped weapon",
+          "blurb": "Guaranteed drop · 5 rounds matching your equipped weapon",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
@@ -1194,7 +1194,7 @@
         {
           "label": "Legendary Items",
           "formid": "008F2B18",
-          "subtitle": "Waterfall — at most one drop · 34.39% overall chance · 3★ only",
+          "blurb": "Waterfall — at most one drop · 4 items · 3★ only",
           "dropRate": 34.39,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
@@ -1232,44 +1232,44 @@
         {
           "label": "Bespoke (Creature-Specific)",
           "formid": "00893F74",
-          "subtitle": "Conditional drop · depends on creature type",
+          "blurb": "Conditional drop · depends on creature type",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "children": [
             {
               "label": "Attack Dog",
               "formid": "00863222",
-              "subtitle": "Bones + Meat",
+              "blurb": "Bones + Meat",
               "dropRate": 100
             },
             {
               "label": "EyeBot",
               "formid": "00865AF8",
-              "subtitle": "Components + Scrap",
+              "blurb": "Components + Scrap",
               "dropRate": 100
             },
             {
               "label": "Liberator",
               "formid": "0085B657",
-              "subtitle": "Trinkets + Components",
+              "blurb": "Trinkets + Components",
               "dropRate": 100
             },
             {
               "label": "Mole Rat",
               "formid": "0085DC58",
-              "subtitle": "Components + Meat",
+              "blurb": "Components + Meat",
               "dropRate": 100
             },
             {
               "label": "Mutant Hound",
               "formid": "0086242D",
-              "subtitle": "Bones + Meat",
+              "blurb": "Bones + Meat",
               "dropRate": 100
             },
             {
               "label": "Wolf",
               "formid": "00863223",
-              "subtitle": "Bones + Meat",
+              "blurb": "Bones + Meat",
               "dropRate": 100
             }
           ],
@@ -1278,7 +1278,7 @@
         {
           "label": "Contextual Ammo",
           "formid": "00893F78",
-          "subtitle": "Guaranteed drop · 1 round matching your equipped weapon",
+          "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "items": [
