@@ -187,18 +187,25 @@ def build_hto_rewards():
         "items": [{"name": "Magazine Book Box", "formid": "008B0D62", "sig": "ALCH", "qty": 1, "dropRate": 100}]
     })
 
-    # 4. Treasure Maps — region-conditional, pick-one from region match
+    # 4. Treasure Maps — region-conditional, each pool is a mixed bag of maps.
+    #    Condition determines which pool is used, but pools contain maps from
+    #    multiple regions (not just the matching one).
+    #    CB_SF (003D0CD8): Cranberry Bog OR The Mire → 10 SD + 5 Mire + 4 CB = 19
+    #    FF    (003D0CD5): The Forest              → 10 Forest + 10 SD + 4 TV + 2 AH = 26
+    #    MTN   (003D0CD9): Savage Divide           → all 35 maps from every region
+    #    MTR   (003D0CD7): Ash Heap                → 10 Forest + 10 SD + 2 AH = 22
+    #    TV    (003D0CD6): Toxic Valley            → 10 Forest + 10 SD + 4 TV = 24
     boss_loot.append({
         "label": "Treasure Maps",
         "formid": "00888537",
-        "blurb": "Guaranteed drop · 1 map matching the infestation's region",
+        "blurb": "Guaranteed drop · 1 random treasure map",
         "dropRate": 100,
         "items": [
-            {"name": "Cranberry Bog / Savage Forest Treasure Map", "formid": "003D0CD8", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Cranberry Bog or The Mire"]},
-            {"name": "Forest Treasure Map",                       "formid": "003D0CD5", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: The Forest"]},
-            {"name": "Savage Divide Treasure Map",                "formid": "003D0CD9", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Savage Divide"]},
-            {"name": "The Mire Treasure Map",                     "formid": "003D0CD7", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: The Mire"]},
-            {"name": "Toxic Valley Treasure Map",                 "formid": "003D0CD6", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Toxic Valley"]},
+            {"name": "Random Treasure Map", "formid": "003D0CD8", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Cranberry Bog or The Mire"],  "note": "Pool: 10 Savage Divide, 5 Mire, 4 Cranberry Bog"},
+            {"name": "Random Treasure Map", "formid": "003D0CD5", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: The Forest"],                 "note": "Pool: 10 Forest, 10 Savage Divide, 4 Toxic Valley, 2 Ash Heap"},
+            {"name": "Random Treasure Map", "formid": "003D0CD9", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Savage Divide"],               "note": "Pool: all 35 maps from every region"},
+            {"name": "Random Treasure Map", "formid": "003D0CD7", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Ash Heap"],                    "note": "Pool: 10 Forest, 10 Savage Divide, 2 Ash Heap"},
+            {"name": "Random Treasure Map", "formid": "003D0CD6", "sig": "LVLI", "qty": 1, "dropRate": 100, "conditions": ["Region: Toxic Valley"],                "note": "Pool: 10 Forest, 10 Savage Divide, 4 Toxic Valley"},
         ],
         "mode": "regional",
         "warningNote": TOGGLE_WARNING,
@@ -382,7 +389,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Scrap",
         "formid": "0088851A",
-        "blurb": "Guaranteed drop of one item · 4 reward tiers",
+        "blurb": "Guaranteed drop · 1 random scrap from 4 rarity tiers",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "scrapCount": scrap_count,
@@ -390,7 +397,7 @@ def build_hto_rewards():
             {
                 "label": "Very Rare Scrap",
                 "formid": "00893F81",
-                "blurb": f"Guaranteed drop of one item · 5 items",
+                "blurb": f"Pick one of 5 items",
                 "dropRate": cn_high,
                 "items": [
                     {"name": "Ballistic Fiber", "formid": "00432C9A", "sig": "LVLI", "qty": scrap_count, "dropRate": round(cn_high / 5, 2)},
@@ -404,7 +411,7 @@ def build_hto_rewards():
             {
                 "label": "Rare Scrap",
                 "formid": "00893F7F",
-                "blurb": f"Guaranteed drop of one item · 7 items",
+                "blurb": f"Pick one of 7 items",
                 "dropRate": cn_medium - cn_high,
                 "items": [
                     {"name": "Antiseptic",    "formid": "00432C9C", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_medium - cn_high) / 7, 2)},
@@ -420,7 +427,7 @@ def build_hto_rewards():
             {
                 "label": "Uncommon Scrap",
                 "formid": "00893F80",
-                "blurb": f"Guaranteed drop of one item · 9 items",
+                "blurb": f"Pick one of 9 items",
                 "dropRate": cn_low - cn_medium,
                 "items": [
                     {"name": "Acid",       "formid": "00432C99", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_low - cn_medium) / 9, 2)},
@@ -438,7 +445,7 @@ def build_hto_rewards():
             {
                 "label": "Common Scrap",
                 "formid": "00893F7E",
-                "blurb": f"Guaranteed drop of one item · 13 items",
+                "blurb": f"Pick one of 13 items",
                 "dropRate": 100 - cn_low,
                 "items": [
                     {"name": "Bone",       "formid": "00432C9F", "sig": "LVLI", "qty": scrap_count, "dropRate": round((100 - cn_low) / 13, 2)},

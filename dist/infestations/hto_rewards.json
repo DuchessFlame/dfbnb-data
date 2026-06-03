@@ -146,58 +146,63 @@
         {
           "label": "Treasure Maps",
           "formid": "00888537",
-          "blurb": "Guaranteed drop · 1 map matching the infestation's region",
+          "blurb": "Guaranteed drop · 1 random treasure map",
           "dropRate": 100,
           "items": [
             {
-              "name": "Cranberry Bog / Savage Forest Treasure Map",
+              "name": "Random Treasure Map",
               "formid": "003D0CD8",
               "sig": "LVLI",
               "qty": 1,
               "dropRate": 100,
               "conditions": [
                 "Region: Cranberry Bog or The Mire"
-              ]
+              ],
+              "note": "Pool: 10 Savage Divide, 5 Mire, 4 Cranberry Bog"
             },
             {
-              "name": "Forest Treasure Map",
+              "name": "Random Treasure Map",
               "formid": "003D0CD5",
               "sig": "LVLI",
               "qty": 1,
               "dropRate": 100,
               "conditions": [
                 "Region: The Forest"
-              ]
+              ],
+              "note": "Pool: 10 Forest, 10 Savage Divide, 4 Toxic Valley, 2 Ash Heap"
             },
             {
-              "name": "Savage Divide Treasure Map",
+              "name": "Random Treasure Map",
               "formid": "003D0CD9",
               "sig": "LVLI",
               "qty": 1,
               "dropRate": 100,
               "conditions": [
                 "Region: Savage Divide"
-              ]
+              ],
+              "note": "Pool: all 35 maps from every region"
             },
             {
-              "name": "The Mire Treasure Map",
+              "name": "Random Treasure Map",
               "formid": "003D0CD7",
               "sig": "LVLI",
               "qty": 1,
               "dropRate": 100,
               "conditions": [
-                "Region: The Mire"
-              ]
+                "Region: Ash Heap"
+              ],
+              "note": "Pool: 10 Forest, 10 Savage Divide, 2 Ash Heap"
             },
             {
-              "name": "Toxic Valley Treasure Map",
+              "name": "Random Treasure Map",
               "formid": "003D0CD6",
               "sig": "LVLI",
               "qty": 1,
               "dropRate": 100,
               "conditions": [
                 "Region: Toxic Valley"
-              ]
+              ],
+              "note": "Pool: 10 Forest, 10 Savage Divide, 4 Toxic Valley"
             }
           ],
           "mode": "regional",
@@ -726,7 +731,7 @@
         {
           "label": "Scrap",
           "formid": "0088851A",
-          "blurb": "Guaranteed drop of one item · 4 reward tiers",
+          "blurb": "Guaranteed drop · 1 random scrap from 4 rarity tiers",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "scrapCount": 10,
@@ -734,7 +739,7 @@
             {
               "label": "Very Rare Scrap",
               "formid": "00893F81",
-              "blurb": "Guaranteed drop of one item · 5 items",
+              "blurb": "Pick one of 5 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -778,7 +783,7 @@
             {
               "label": "Rare Scrap",
               "formid": "00893F7F",
-              "blurb": "Guaranteed drop of one item · 7 items",
+              "blurb": "Pick one of 7 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -836,7 +841,7 @@
             {
               "label": "Uncommon Scrap",
               "formid": "00893F80",
-              "blurb": "Guaranteed drop of one item · 9 items",
+              "blurb": "Pick one of 9 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -908,7 +913,7 @@
             {
               "label": "Common Scrap",
               "formid": "00893F7E",
-              "blurb": "Guaranteed drop of one item · 13 items",
+              "blurb": "Pick one of 13 items",
               "dropRate": 25.0,
               "items": [
                 {
