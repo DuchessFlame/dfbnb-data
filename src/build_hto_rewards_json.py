@@ -195,13 +195,20 @@ def build_hto_rewards():
     #    MTN   (003D0CD9): Savage Divide           → all 35 maps from every region
     #    MTR   (003D0CD7): Ash Heap                → 10 Forest + 10 SD + 2 AH = 22
     #    TV    (003D0CD6): Toxic Valley            → 10 Forest + 10 SD + 4 TV = 24
+    # Map number ranges per region (from BOOK export)
+    _MAP_RANGES = {
+        "Ash Heap": (1, 2), "Cranberry Bog": (1, 4), "Forest": (1, 10),
+        "Mire": (1, 5), "Savage Divide": (1, 10), "Toxic Valley": (1, 4),
+    }
+
     def _map_pool(label, formid, total, breakdown):
         """Build a treasure map sub-pool with per-region % chances."""
         items = []
         for region_name, count in breakdown:
             pct = round(count / total * 100, 2)
-            items.append({"name": f"{region_name} Treasure Map", "formid": formid, "sig": "LVLI", "qty": 1, "dropRate": pct,
-                          "note": f"× {count} maps in pool"})
+            lo, hi = _MAP_RANGES.get(region_name, (1, count))
+            name = f"{region_name} Treasure Map #{lo:02d} to #{hi:02d}" if hi > 1 else f"{region_name} Treasure Map #{lo:02d}"
+            items.append({"name": name, "formid": formid, "sig": "LVLI", "qty": 1, "dropRate": pct})
         n = len(breakdown)
         return {
             "label": label,
