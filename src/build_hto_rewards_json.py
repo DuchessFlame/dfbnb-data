@@ -200,11 +200,13 @@ def build_hto_rewards():
         items = []
         for region_name, count in breakdown:
             pct = round(count / total * 100, 2)
-            items.append({"name": f"{region_name} Treasure Map", "formid": formid, "sig": "LVLI", "qty": 1, "dropRate": pct})
+            items.append({"name": f"{region_name} Treasure Map", "formid": formid, "sig": "LVLI", "qty": 1, "dropRate": pct,
+                          "note": f"× {count} maps in pool"})
+        n = len(breakdown)
         return {
             "label": label,
             "formid": formid,
-            "blurb": f"Chance to drop 1 of {total} maps",
+            "blurb": f"Guaranteed drop of one item · {n} {'item' if n == 1 else 'items'}",
             "dropRate": 100,
             "items": items,
             "mode": "pickone"
@@ -213,7 +215,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Treasure Maps",
         "formid": "00888537",
-        "blurb": "Guaranteed drop · 1 treasure map based on infestation region",
+        "blurb": f"Regional loot pool — rewards depend on which region the infestation is active in · 5 regions",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "children": [
@@ -415,7 +417,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Scrap",
         "formid": "0088851A",
-        "blurb": "Guaranteed drop · 1 random scrap from 4 rarity tiers",
+        "blurb": "Guaranteed drop of one item · 4 reward tiers",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "scrapCount": scrap_count,
@@ -423,7 +425,7 @@ def build_hto_rewards():
             {
                 "label": "Very Rare Scrap",
                 "formid": "00893F81",
-                "blurb": f"Chance to drop 1 of 5 items",
+                "blurb": f"Chance drop of one item · 5 items",
                 "dropRate": cn_high,
                 "items": [
                     {"name": "Ballistic Fiber", "formid": "00432C9A", "sig": "LVLI", "qty": scrap_count, "dropRate": round(cn_high / 5, 2)},
@@ -437,7 +439,7 @@ def build_hto_rewards():
             {
                 "label": "Rare Scrap",
                 "formid": "00893F7F",
-                "blurb": f"Chance to drop 1 of 7 items",
+                "blurb": f"Chance drop of one item · 7 items",
                 "dropRate": cn_medium - cn_high,
                 "items": [
                     {"name": "Antiseptic",    "formid": "00432C9C", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_medium - cn_high) / 7, 2)},
@@ -453,7 +455,7 @@ def build_hto_rewards():
             {
                 "label": "Uncommon Scrap",
                 "formid": "00893F80",
-                "blurb": f"Chance to drop 1 of 9 items",
+                "blurb": f"Chance drop of one item · 9 items",
                 "dropRate": cn_low - cn_medium,
                 "items": [
                     {"name": "Acid",       "formid": "00432C99", "sig": "LVLI", "qty": scrap_count, "dropRate": round((cn_low - cn_medium) / 9, 2)},
@@ -471,7 +473,7 @@ def build_hto_rewards():
             {
                 "label": "Common Scrap",
                 "formid": "00893F7E",
-                "blurb": f"Chance to drop 1 of 13 items",
+                "blurb": f"Chance drop of one item · 13 items",
                 "dropRate": 100 - cn_low,
                 "items": [
                     {"name": "Bone",       "formid": "00432C9F", "sig": "LVLI", "qty": scrap_count, "dropRate": round((100 - cn_low) / 13, 2)},
