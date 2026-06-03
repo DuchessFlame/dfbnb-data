@@ -196,24 +196,23 @@ def build_hto_rewards():
     #    MTR   (003D0CD7): Ash Heap                → 10 Forest + 10 SD + 2 AH = 22
     #    TV    (003D0CD6): Toxic Valley            → 10 Forest + 10 SD + 4 TV = 24
     # Map number ranges per region (from BOOK export)
-    _MAP_RANGES = {
-        "Ash Heap": (1, 2), "Cranberry Bog": (1, 4), "Forest": (1, 10),
-        "Mire": (1, 5), "Savage Divide": (1, 10), "Toxic Valley": (1, 4),
+    _MAP_COUNTS = {
+        "Ash Heap": 2, "Cranberry Bog": 4, "Forest": 10,
+        "Mire": 5, "Savage Divide": 10, "Toxic Valley": 4,
     }
 
-    def _map_pool(label, formid, total, breakdown):
-        """Build a treasure map sub-pool with per-region % chances."""
+    def _map_pool(label, formid, total, regions):
+        """Build a treasure map sub-pool listing every individual map."""
         items = []
-        for region_name, count in breakdown:
-            pct = round(count / total * 100, 2)
-            lo, hi = _MAP_RANGES.get(region_name, (1, count))
-            name = f"{region_name} Treasure Map #{lo:02d} to #{hi:02d}" if hi > 1 else f"{region_name} Treasure Map #{lo:02d}"
-            items.append({"name": name, "formid": formid, "sig": "LVLI", "qty": 1, "dropRate": pct})
-        n = len(breakdown)
+        for region_name, count in regions:
+            pct = round(100 / total, 2)
+            for i in range(1, count + 1):
+                items.append({"name": f"{region_name} Treasure Map #{i:02d}", "formid": formid, "sig": "LVLI", "qty": 1, "dropRate": pct})
+        items.sort(key=lambda x: x["name"])
         return {
             "label": label,
             "formid": formid,
-            "blurb": f"Guaranteed drop of one item · {n} {'item' if n == 1 else 'items'}",
+            "blurb": f"Guaranteed drop of one item · {total} items",
             "dropRate": 100,
             "items": items,
             "mode": "pickone"
@@ -266,7 +265,7 @@ def build_hto_rewards():
     boss_loot.append({
         "label": "Explosives",
         "formid": "0088851C",
-        "blurb": "2 reward lists · each list rolled when you loot the boss corpse",
+        "blurb": "2 reward lists · each rolled on completion",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "children": [
