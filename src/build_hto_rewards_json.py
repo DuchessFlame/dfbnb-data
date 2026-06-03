@@ -335,20 +335,48 @@ def build_hto_rewards():
         "listChanceNone": serum_list_cn
     })
 
-    # 9. Chems — FirstMatch: 25% rare tier, 75% basic tier. Toggle: 00893F8D
+    # 9–11. Aid — combined wrapper for Stimpaks + Rads + Chems.
+    #   Chems is FirstMatch: 25% rare tier, 75% basic tier → flattened into 2 sub-expands.
+    #   Stimpaks: 80% listChanceNone → 20% chance to drop at all.
+    #   Rads: pick-one of RadAway / Rad-X, guaranteed.
+    #   Toggle: 00893F8D (chems), 00893FB8 (stimpaks), 00893FA9 (rads)
     rare_threshold = cn_high   # 25%
     basic_threshold = 100 - rare_threshold  # 75%
     boss_loot.append({
-        "label": "Chems",
+        "label": "Aid",
         "formid": "00888517",
-        "blurb": "Guaranteed drop of one item · 2 reward tiers",
+        "blurb": "4 reward lists · each rolled on completion",
         "dropRate": 100,
         "warningNote": TOGGLE_WARNING,
         "children": [
             {
+                "label": "Stimpaks",
+                "formid": "00893F83",
+                "blurb": f"Chance drop of one item · 3 items",
+                "dropRate": stim_pct,
+                "items": [
+                    {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 3, "dropRate": round(stim_pct * cn_high / 100, 2)},
+                    {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 2, "dropRate": round(stim_pct * (cn_medium - cn_high) / 100, 2)},
+                    {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 1, "dropRate": round(stim_pct * (100 - cn_medium) / 100, 2)},
+                ],
+                "mode": "firstmatch",
+                "listChanceNone": stim_list_cn
+            },
+            {
+                "label": "Rads",
+                "formid": "0088852B",
+                "blurb": "Guaranteed drop of one item · 2 items",
+                "dropRate": 100,
+                "items": [
+                    {"name": "RadAway",  "formid": "002049B7", "sig": "LVLI", "qty": 1, "dropRate": 50},
+                    {"name": "Rad-X",    "formid": "002049B8", "sig": "LVLI", "qty": 1, "dropRate": 50},
+                ],
+                "mode": "pickone"
+            },
+            {
                 "label": "Rare Chems",
                 "formid": "00888519",
-                "blurb": f"Guaranteed drop of one item · 11 items",
+                "blurb": f"Chance drop of one item · 11 items",
                 "dropRate": rare_threshold,
                 "items": [
                     {"name": "Berry Mentats",   "formid": "000518BB", "sig": "ALCH", "qty": 1, "dropRate": round(rare_threshold / 11, 2)},
@@ -368,7 +396,7 @@ def build_hto_rewards():
             {
                 "label": "Basic Chems",
                 "formid": "00888518",
-                "blurb": "Guaranteed drop of one item · 4 items",
+                "blurb": "Chance drop of one item · 4 items",
                 "dropRate": basic_threshold,
                 "items": [
                     {"name": "Buffout",  "formid": "00033778", "sig": "ALCH", "qty": 1, "dropRate": round(basic_threshold / 4, 2)},
@@ -379,38 +407,6 @@ def build_hto_rewards():
                 "mode": "pickone"
             },
         ],
-        "mode": "firstmatch"
-    })
-
-    # 10. Stimpaks — List-level ChanceNone 80 (20% chance to drop at all),
-    #     then FirstMatch tiers for quantity. Toggle: 00893FB8
-    boss_loot.append({
-        "label": "Stimpaks",
-        "formid": "00893F83",
-        "blurb": "Chance drop · 1 item",
-        "dropRate": stim_pct,
-        "warningNote": TOGGLE_WARNING,
-        "items": [
-            {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 3, "dropRate": round(stim_pct * cn_high / 100, 2)},
-            {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 2, "dropRate": round(stim_pct * (cn_medium - cn_high) / 100, 2)},
-            {"name": "Super Stimpak", "formid": "00117DF9", "sig": "ALCH", "qty": 1, "dropRate": round(stim_pct * (100 - cn_medium) / 100, 2)},
-        ],
-        "mode": "firstmatch",
-        "listChanceNone": stim_list_cn
-    })
-
-    # 11. Rads (RadAway / Rad-X) — pick-one from 2. Toggle: 00893FA9
-    boss_loot.append({
-        "label": "Rads",
-        "formid": "0088852B",
-        "blurb": "Guaranteed drop of one item · 2 items",
-        "dropRate": 100,
-        "warningNote": TOGGLE_WARNING,
-        "items": [
-            {"name": "RadAway",  "formid": "002049B7", "sig": "LVLI", "qty": 1, "dropRate": 50},
-            {"name": "Rad-X",    "formid": "002049B8", "sig": "LVLI", "qty": 1, "dropRate": 50},
-        ],
-        "mode": "pickone"
     })
 
     # 12. Scrap — FirstMatch tiers, count from GLOB (10). Toggle: 00893FB4

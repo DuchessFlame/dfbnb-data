@@ -682,16 +682,70 @@
           "listChanceNone": 80.0
         },
         {
-          "label": "Chems",
+          "label": "Aid",
           "formid": "00888517",
-          "blurb": "Guaranteed drop of one item · 2 reward tiers",
+          "blurb": "4 reward lists · each rolled on completion",
           "dropRate": 100,
           "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
           "children": [
             {
+              "label": "Stimpaks",
+              "formid": "00893F83",
+              "blurb": "Chance drop of one item · 3 items",
+              "dropRate": 20.0,
+              "items": [
+                {
+                  "name": "Super Stimpak",
+                  "formid": "00117DF9",
+                  "sig": "ALCH",
+                  "qty": 3,
+                  "dropRate": 5.0
+                },
+                {
+                  "name": "Super Stimpak",
+                  "formid": "00117DF9",
+                  "sig": "ALCH",
+                  "qty": 2,
+                  "dropRate": 5.0
+                },
+                {
+                  "name": "Super Stimpak",
+                  "formid": "00117DF9",
+                  "sig": "ALCH",
+                  "qty": 1,
+                  "dropRate": 10.0
+                }
+              ],
+              "mode": "firstmatch",
+              "listChanceNone": 80.0
+            },
+            {
+              "label": "Rads",
+              "formid": "0088852B",
+              "blurb": "Guaranteed drop of one item · 2 items",
+              "dropRate": 100,
+              "items": [
+                {
+                  "name": "RadAway",
+                  "formid": "002049B7",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 50
+                },
+                {
+                  "name": "Rad-X",
+                  "formid": "002049B8",
+                  "sig": "LVLI",
+                  "qty": 1,
+                  "dropRate": 50
+                }
+              ],
+              "mode": "pickone"
+            },
+            {
               "label": "Rare Chems",
               "formid": "00888519",
-              "blurb": "Guaranteed drop of one item · 11 items",
+              "blurb": "Chance drop of one item · 11 items",
               "dropRate": 25.0,
               "items": [
                 {
@@ -777,7 +831,7 @@
             {
               "label": "Basic Chems",
               "formid": "00888518",
-              "blurb": "Guaranteed drop of one item · 4 items",
+              "blurb": "Chance drop of one item · 4 items",
               "dropRate": 75.0,
               "items": [
                 {
@@ -811,64 +865,7 @@
               ],
               "mode": "pickone"
             }
-          ],
-          "mode": "firstmatch"
-        },
-        {
-          "label": "Stimpaks",
-          "formid": "00893F83",
-          "blurb": "Chance drop · 1 item",
-          "dropRate": 20.0,
-          "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
-          "items": [
-            {
-              "name": "Super Stimpak",
-              "formid": "00117DF9",
-              "sig": "ALCH",
-              "qty": 3,
-              "dropRate": 5.0
-            },
-            {
-              "name": "Super Stimpak",
-              "formid": "00117DF9",
-              "sig": "ALCH",
-              "qty": 2,
-              "dropRate": 5.0
-            },
-            {
-              "name": "Super Stimpak",
-              "formid": "00117DF9",
-              "sig": "ALCH",
-              "qty": 1,
-              "dropRate": 10.0
-            }
-          ],
-          "mode": "firstmatch",
-          "listChanceNone": 80.0
-        },
-        {
-          "label": "Rads",
-          "formid": "0088852B",
-          "blurb": "Guaranteed drop of one item · 2 items",
-          "dropRate": 100,
-          "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
-          "items": [
-            {
-              "name": "RadAway",
-              "formid": "002049B7",
-              "sig": "LVLI",
-              "qty": 1,
-              "dropRate": 50
-            },
-            {
-              "name": "Rad-X",
-              "formid": "002049B8",
-              "sig": "LVLI",
-              "qty": 1,
-              "dropRate": 50
-            }
-          ],
-          "mode": "pickone"
+          ]
         },
         {
           "label": "Scrap",
