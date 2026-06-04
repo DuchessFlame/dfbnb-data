@@ -1,0 +1,81 @@
+name: Build Bounty Hunting Rewards
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/GLOB_Export_*.tsv'
+      - 'tsv/LVLI_Export_*.tsv'
+      - 'src/build_bounty_hunting_rewards_json.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Pull latest
+        run: git pull origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build Bounty Hunting Rewards JSON
+        run: |
+          python -V
+          python src/build_bounty_hunting_rewards_json.py
+
+      - name: Sanity check output
+        run: |
+          test -f dist/bounty-hunting/bounty_hunting_rewards.json \
+            && echo "OK bounty_hunting_rewards.json ($(wc -c < dist/bounty-hunting/bounty_hunting_rewards.json) bytes)" \
+            || (echo "MISSING bounty_hunting_rewards.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/bounty-hunting/bounty_hunting_rewards.json'))
+          for slug in ('grunt-hunt-rewards', 'head-hunt-rewards'):
+              page = d['byPage'][slug]
+              assert page['eventRewards'], f'Missing eventRewards on {slug}'
+              assert page['bossLoot'],     f'Missing bossLoot on {slug}'
+              assert page['mobLoot'],      f'Missing mobLoot on {slug}'
+              assert page['supportLoot'],  f'Missing supportLoot on {slug}'
+              print(f'  {slug}:')
+              print(f'    Event pools:   {len(page[\"eventRewards\"])}')
+              print(f'    Boss pools:    {len(page[\"bossLoot\"])}')
+              print(f'    Mob pools:     {len(page[\"mobLoot\"])}')
+              print(f'    Support pools: {len(page[\"supportLoot\"])}')
+          "
+
+      - name: Commit dist outputs
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/bounty-hunting/bounty_hunting_rewards.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build Bounty Hunting Rewards JSON"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

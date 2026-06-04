@@ -1,0 +1,88 @@
+name: Build Head Hunt Bosses
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/CHAL_Export_*.tsv'
+      - 'tsv/FLST_Export_*_Entries.tsv'
+      - 'tsv/KYWD_Export_*.tsv'
+      - 'tsv/LVLI_Export_*_Entries.tsv'
+      - 'tsv/WEAP_Export_*_Base.tsv'
+      - 'tsv/WEAP_Export_*_DNAM.tsv'
+      - 'tsv/ENCH_Export_*.tsv'
+      - 'tsv/MGEF_Export_*.tsv'
+      - 'tsv/OMOD_Export_*.tsv'
+      - 'tsv/SPEL_Export_*.tsv'
+      - 'src/build_head_hunt_bosses_json.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Pull latest
+        run: git pull origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build Head Hunt Bosses JSON
+        run: |
+          python -V
+          python src/build_head_hunt_bosses_json.py
+
+      - name: Sanity check output
+        run: |
+          test -f dist/bounty-hunting/head_hunt_bosses.json \
+            && echo "OK head_hunt_bosses.json ($(wc -c < dist/bounty-hunting/head_hunt_bosses.json) bytes)" \
+            || (echo "MISSING head_hunt_bosses.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/bounty-hunting/head_hunt_bosses.json'))
+          assert d['groupCount'] == 7, f'Expected 7 groups, got {d[\"groupCount\"]}'
+          assert d['totalBosses'] == 30, f'Expected 30 bosses, got {d[\"totalBosses\"]}'
+          for g in d['groups']:
+              gn = g['groupNumber']
+              bc = g['bossCount']
+              names = ', '.join(b['name'] for b in g['bosses'])
+              print(f'  Group {gn}: {bc} bosses - {names}')
+              for b in g['bosses']:
+                  assert b.get('weapon'), f'Group {gn} boss {b[\"name\"]} missing weapon'
+          print(f'All {d[\"totalBosses\"]} bosses verified.')
+          "
+
+      - name: Commit dist outputs
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/bounty-hunting/head_hunt_bosses.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build Head Hunt Bosses JSON"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main
