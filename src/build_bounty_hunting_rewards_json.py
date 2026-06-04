@@ -447,7 +447,7 @@ def build_bounty_hunting_rewards():
             {
                 "label": "Contextual Ammo",
                 "formid": "00621922",
-                "blurb": "Ammo matching your equipped weapon",
+                "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
                 "dropRate": 100,
                 "items": [
                     {"name": "Contextual Ammo", "formid": "00621922",
@@ -529,7 +529,7 @@ def build_bounty_hunting_rewards():
             {
                 "label": "Contextual Ammo",
                 "formid": "00621922",
-                "blurb": "Ammo matching your equipped weapon",
+                "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
                 "dropRate": 100,
                 "items": [
                     {"name": "Contextual Ammo", "formid": "00621922",
@@ -609,7 +609,7 @@ def build_bounty_hunting_rewards():
             {
                 "label": "Contextual Ammo",
                 "formid": "00621922",
-                "blurb": "Ammo matching your equipped weapon",
+                "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
                 "dropRate": 100,
                 "items": [
                     {"name": "Contextual Ammo", "formid": "00621922",
