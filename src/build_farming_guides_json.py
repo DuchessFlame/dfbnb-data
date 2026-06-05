@@ -1700,6 +1700,10 @@ def build(data_dir: str, outdir: str) -> str:
         season_number, season_name = detect_canned_season(
             canned_recipe_edid, seasons_by_key
         )
+        # Super Duper: True if the item does NOT have BlockSuperDuperPerk.
+        kw_flat = r.get("Keywords_Flat") or ""
+        super_duper = "BlockSuperDuperPerk" not in kw_flat
+
         canned_items.append({
             "edid":              r.get("ALCH_EDID", ""),
             "formId":            alch_fid,
@@ -1710,6 +1714,7 @@ def build(data_dir: str, outdir: str) -> str:
             "plan_name":         plan_name,
             "season_number":     season_number,
             "season_name":       season_name,
+            "super_duper":       super_duper,
         })
     canned_items.sort(key=lambda i: (i["name"] or "").lower())
 
@@ -1841,6 +1846,15 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--data-dir", default="tsv",
                     help="Directory holding the xEdit TSV exports")
     ap.add_argument("--outdir",   default="dist",
+                    help="Directory to write farming_guides.json into")
+    args = ap.parse_args(argv)
+    build(args.data_dir, args.outdir)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+dir",   default="dist",
                     help="Directory to write farming_guides.json into")
     args = ap.parse_args(argv)
     build(args.data_dir, args.outdir)
