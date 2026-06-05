@@ -1854,12 +1854,3 @@ def main(argv: Optional[List[str]] = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-dir",   default="dist",
-                    help="Directory to write farming_guides.json into")
-    args = ap.parse_args(argv)
-    build(args.data_dir, args.outdir)
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
