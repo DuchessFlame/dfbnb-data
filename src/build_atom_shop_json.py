@@ -52,6 +52,23 @@ OLD_IMAGE_BASES = [
 # imageUrl fields use filenames only; LTB_IMAGE_BASE_URL is prepended by the JS.
 LTB_BUNDLES = [
     {
+        "id":        "deathclaw-pet-bundle",
+        "name":      "Deathclaw Pet Bundle",
+        "released":  "2026-06-02",
+        "update":    "Invaders",
+        "platforms": ["Steam", "PlayStation", "Xbox"],
+        "imageUrl":  "",
+        "items": [
+            {"name": "Deathclaw",                  "desc": "Your very own cuddly, carnivorous companion. A fully domesticated Deathclaw CAMP pet that roams your settlement — deployed from its Deathclaw Cage, with Sit, Pet and Speak interactions.", "formId": "008A52B4", "edid": "ATX_ENTM_CAMP_CAMPPets_Deathclaw_DC",                            "imageUrl": "ATX_CAMP_CAMPPets_Deathclaw_DC.avif"},
+            {"name": "Deathclaw Cage",             "desc": "The cage your Deathclaw pet calls home. Place it in your C.A.M.P. to deploy and house your domesticated Deathclaw.",                                                              "formId": "008A52AF", "edid": "ATX_CAMPPets_SpawnFurniture_Deathclaw_DC",                    "imageUrl": "ATX_CAMPPets_SpawnFurniture_Deathclaw_DC.avif"},
+            {"name": "Claw Sharpener",             "desc": "An idle furnishing for your Deathclaw pet to keep its claws nice and deadly.",                                                                                              "formId": "008A52B5", "edid": "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Deathclaw_ClawSharpener", "imageUrl": "ATX_CAMP_CAMPPets_IdleFurniture_Deathclaw_ClawSharpener.avif"},
+            {"name": "Viscera Bowl",               "desc": "A hearty bowl of viscera to keep your domesticated Deathclaw well fed and content.",                                                                                       "formId": "008A52B6", "edid": "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Deathclaw_VisceraBowl",   "imageUrl": "ATX_CAMP_CAMPPets_IdleFurniture_Deathclaw_VisceraBowl.avif"},
+            {"name": "Ochre Plating (Deathclaw)",  "desc": "An ochre-toned armour plating skin for your Deathclaw pet — helmet and matching shoulder plates.",                                                                          "formId": "008A52B3", "edid": "ATX_ENTM_Apparel_CAMPPets_Deathclaw_Outfit_DCPlating",       "imageUrl": "ATX_Apparel_CAMPPets_Deathclaw_Outfit_DCPlating.avif"},
+            {"name": "Steel Plating (Deathclaw)",  "desc": "A steel armour plating skin variant for your Deathclaw pet — helmet and matching shoulder plates.",                                                                         "formId": "008AF6AF", "edid": "ATX_ENTM_Apparel_CAMPPets_Deathclaw_Outfit_DCPlating2",      "imageUrl": "ATX_Apparel_CAMPPets_Deathclaw_Outfit_DCPlating2.avif"},
+            {"name": "Don't Pet the Deathclaw Sign", "desc": "A wall sign to warn unwary visitors that, no, they really shouldn't pet the Deathclaw.",                                                                                "formId": "008B1E5D", "edid": "ATX_ENTM_CAMP_WallDecor_DontPet",                            "imageUrl": "ATX_CAMP_WallDecor_DontPet.avif"},
+        ],
+    },
+    {
         "id":        "mojave-bundle",
         "name":      "Mojave Bundle",
         "released":  "2026-01-29",
