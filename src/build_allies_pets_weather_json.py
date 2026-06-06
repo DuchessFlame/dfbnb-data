@@ -509,24 +509,42 @@ def _wthr_kw_edids(wthr_row):
     return kws
 
 def _classify_wthr_keywords(kw_set):
-    """Map a WTHR's keyword set to a short fishing-weather label.
+    """Map a WTHR's keyword set to a fishing catch-condition label.
 
-    Returns one of: 'Radstorm', 'Sandstorm', 'Rainy', 'Clear', 'Cloudy',
-    or 'Generic CAMP Weather' when no recognisable keyword is present.
-    CNDF precedence: a WTHR can satisfy multiple rules (e.g. Radstorm also
-    has PermanentAurora), so we match most-specific (Radstorm) first.
+    The fishing catch lists (Fishing_LL_*) test exactly these CAMP-weather
+    conditions, in this precedence:
+      Fishing_IsCampGlowingWeather_Condition  — s_wt_StormRad OR s_wt_StormNuke
+      Fishing_IsCampRainyWeather_Condition    — rain-type keywords
+      Fishing_IsCampAnyFallbackWeather_Condition — anything else ("No Weather")
+    s_wt_Sandstorm is only tested by the Burning Springs sandstorm fishing
+    CHALLENGES (Fishing_IsCampSandstormWeather_Condition) — no catch table.
+
+    Returns one of: 'Nuke Storm', 'Rad Storm', 'Sandstorm', 'Rain',
+    'No Weather'. Nuke before Rad so the Nuke Zone station (which carries
+    BOTH keywords) labels as Nuke Storm; both trigger the same glowing
+    catch table.
     """
-    if kw_set & FISHING_GLOWING_KWS:
-        return "Radstorm"
+    if "s_wt_StormNuke" in kw_set:
+        return "Nuke Storm"
+    if "s_wt_StormRad" in kw_set:
+        return "Rad Storm"
     if kw_set & FISHING_SANDSTORM_KWS:
         return "Sandstorm"
     if kw_set & FISHING_RAINY_KWS:
-        return "Rainy"
-    if "s_wt_Clear" in kw_set:
-        return "Clear"
-    if "s_wt_Cloudy" in kw_set:
-        return "Cloudy"
-    return "Generic CAMP Weather"
+        return "Rain"
+    return "No Weather"
+
+# Display overrides where the data-accurate label needs a word of explanation
+# (verified against WTHR keywords, June 2026 TSVs).
+FISHING_LABEL_OVERRIDES = {
+    "atx_weather_rainbow":
+        "Rad Storm (yes, really — the Rainbow weather carries the rad storm keyword)",
+    "atx_weather_rainbowlightrain":
+        "No Weather (despite the name — no rain keyword on this weather)",
+    "atx_weather_burningsandstorm":
+        "Sandstorm (counts for the Burning Springs sandstorm fishing challenges — "
+        "no special catch table)",
+}
 
 # Build the WTHR classification lookups: by FormID and by lowercase EDID.
 wthr_class_by_fid  = {}
@@ -662,6 +680,7 @@ def build_weather_stations():
         _wthr_edid   = ENTM_SUFFIX_TO_WTHR_EDID.get(_edid_suffix, "")
         if _wthr_edid and wthr_class_by_edid:
             _fishing = wthr_class_by_edid.get(_wthr_edid.lower(), "")
+            _fishing = FISHING_LABEL_OVERRIDES.get(_wthr_edid.lower(), _fishing)
             if not _fishing:
                 # WTHR EDID was mapped but not found in the current WTHR TSV —
                 # surface a build-time warning so we notice stale mappings.
@@ -729,7 +748,7 @@ def build_weather_stations():
             "buildInfo":            _build_info,
             "craftingRequirements": "Circuitry ×2\nRubber ×2\nSteel ×4\nScrew ×2",
             "fishingCondition":     _fishing,    # Back-compat: same as fishingWeather
-            "fishingWeather":       _fishing,    # Short label: Radstorm/Sandstorm/Rainy/Clear/...
+            "fishingWeather":       _fishing,    # Catch label: No Weather/Rad Storm/Nuke Storm/Sandstorm/Rain
             "wthrEdid":             _wthr_edid,  # WTHR record whose keywords drive the label
             "cutContent":           False,
         })
