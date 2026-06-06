@@ -772,9 +772,9 @@ REPAIR_BOT_NPC_INFO = {
     "008571F1": {"npcFormId": "008571F7", "npcEdid": "ATX_RepairBot_EmergencyTech", "race": "Mr. Handy"},
 }
 
-# Fallback NPC stats (NPC_Export_June_2026_PRPS) — identical across all four
-# bots. Used when the NPC PRPS TSV isn't available to the build.
-REPAIR_BOT_NPC_STAT_FALLBACK = {"Health": "170", "Action Points": "50", "Perception": "4"}
+# NOTE: bot NPC combat stats (Health/AP/Perception) were dropped from the
+# page output June 2026 — the npc_prps_by_id map stays available for future
+# stat displays (e.g. pets).
 
 # Crafting COBJ: ATX_workshop_co_CategoryResources_RepairBot (007AE545).
 # Its CNAM is the LVLI ATX_workshop_LL_RepairBots (007AE547) — entries are
@@ -847,14 +847,7 @@ def build_repair_bots():
             f"Shelter Placement: No"
         )
 
-        # --- Bot NPC stats (NPC PRPS TSV → fallback constants) ---
-        npc_id    = npc_info.get("npcFormId", "")
-        npc_stats = npc_prps_by_id.get(npc_id) or REPAIR_BOT_NPC_STAT_FALLBACK
-        stat_lines = []
-        for label in ("Health", "Action Points", "Perception"):
-            v = fmt_num(npc_stats.get(label, ""))
-            if v and v != "0":
-                stat_lines.append(f"Bot {label}: {v}")
+        npc_id = npc_info.get("npcFormId", "")
 
         technical_notes = "\n".join([
             f"Pod EDID: {furn.get('FURN_EDID', '') or '—'}",
@@ -862,7 +855,6 @@ def build_repair_bots():
             f"Bot NPC EDID: {npc_info.get('npcEdid', '') or '—'}",
             f"Bot NPC FormID: {npc_id or '—'}",
             f"Bot Race: {npc_info.get('race', '') or '—'}",
-            *stat_lines,
             f"Repair Rate AV (ATX_RepairBot_RepairRate): {repair_rate}",
         ])
 
