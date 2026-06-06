@@ -55,7 +55,7 @@ LTB_BUNDLES = [
         "id":        "deathclaw-pet-bundle",
         "name":      "Deathclaw Pet Bundle",
         "released":  "2026-06-02",
-        "update":    "Invaders",
+        "update":    "Infestations",
         "platforms": ["Steam", "PlayStation", "Xbox"],
         "imageUrl":  "",
         "items": [
