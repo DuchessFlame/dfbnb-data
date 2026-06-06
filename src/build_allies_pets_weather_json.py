@@ -796,6 +796,21 @@ REPAIR_BOT_HOW_OVERRIDE = {
                  "(released 3 December 2024 with the Gleaming Depths update)."),
 }
 
+# Hand-uploaded page images (June 2026) — these live in guide-images, NOT the
+# storefront folder, and the filename suffixes are not uniform (base / _c1 /
+# _c2 / _l), so each bot maps to an explicit file list. First entry = primary.
+REPAIR_BOT_IMG_BASE = "/wp-content/uploads/guide-images/camp-items/repair-bots/"
+REPAIR_BOT_IMAGES = {
+    "0082BED5": ["atx_camp_utility_repairbot_company.avif",
+                 "atx_camp_utility_repairbot_company_c2.avif"],
+    "008571F1": ["atx_camp_utility_repairbot_emergencytech_c1.avif",
+                 "atx_camp_utility_repairbot_emergencytech_l.avif"],
+    "007AE546": ["atx_camp_utility_repairbot_enclave.avif",
+                 "atx_camp_utility_repairbot_enclave_c2.avif"],
+    "0084920E": ["atx_camp_utility_repairbot_santashelper.avif",
+                 "atx_camp_utility_repairbot_santashelper_c2.avif"],
+}
+
 
 def build_repair_bots():
     # Crafting requirements — parsed from the shared COBJ FVPA components.
@@ -832,9 +847,17 @@ def build_repair_bots():
 
         desc      = clean_desc(entm.get("DESC", ""))
         display   = entm.get("FULL", "")
-        _etdi     = entm.get("ETDI", "").strip()
-        carousel  = ecil_images(entm, "camp-utility")
-        image_url = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
+
+        # Images: prefer the hand-uploaded guide-images set; fall back to the
+        # storefront ECIL-derived URLs for any future bot not yet mapped.
+        _hand = REPAIR_BOT_IMAGES.get(entm_id)
+        if _hand:
+            carousel  = [REPAIR_BOT_IMG_BASE + f for f in _hand]
+            image_url = carousel[0]
+        else:
+            _etdi     = entm.get("ETDI", "").strip()
+            carousel  = ecil_images(entm, "camp-utility")
+            image_url = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
 
         # --- Output data (from the pod FURN PRPS) ---
         repair_rate = fmt_num(furn_prps_value(furn_id, "ATX_RepairBot_RepairRate")) or "2"
