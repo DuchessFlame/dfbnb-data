@@ -693,7 +693,7 @@ def build_hto_rewards():
                 "questFormID": "00865FA8",
                 "gmrwFormID": "00888543",
                 "type": "infestations",
-                "description": "World Activity — not a public event. 7 enemy factions, 51 spawn locations across all regions, only 5 active at any time. Clear the infestation and defeat the boss to earn rewards.",
+                "description": "World Activity — not a public event. 7 enemy factions, 36 spawn locations across all regions, only 5 active at any time. Clear the infestation and defeat the boss to earn rewards.",
                 "xp": xp,
                 "caps": caps,
                 "bossLoot": boss_loot,

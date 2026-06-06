@@ -3,9 +3,13 @@
 build_hto_locations_json.py
 Build HTO (Infestations) location JSON for buffsnbrew.com.
 
-Reads the LocTypeHostileTakeover keyword (008A1490) refs from TSV to get
-the game-defined list of infestation spawn locations, then looks up map
-coordinates from data/mappalachia_coords.json (static, committed to repo).
+Source of truth is the CURATED_LOCATIONS allowlist below — the dev-verified
+list of confirmed infestation spawn locations. The LocTypeHostileTakeover
+keyword (008A1490) extraction pulled in extra/incorrect locations, so the
+curated list is authoritative. Formids are kept where known; map coordinates
+are looked up from data/mappalachia_coords.json (static, committed to repo).
+
+To add/remove a spawn location, edit CURATED_LOCATIONS.
 
 Output: dist/infestations/hto_locations.json
 """
@@ -40,6 +44,53 @@ EDID_REGION_MAP = {
 }
 
 REGION_ORDER = ["Ash Heap","Cranberry Bog","Savage Divide","The Forest","The Mire","Toxic Valley","Unknown"]
+
+# ── Curated, dev-verified spawn locations (source of truth) ──────────────────
+# (name, region, formid)  — formid "" where unknown (new locations).
+CURATED_LOCATIONS = [
+    # Cranberry Bog
+    ("Fort Defiance",                    "Cranberry Bog", "00004143"),
+    ("Appalachian Antiques",             "Cranberry Bog", "00004148"),
+    ("The General's Steakhouse",         "Cranberry Bog", "0000E131"),
+    ("Ranger District Office",           "Cranberry Bog", "0009A026"),
+    # The Forest
+    ("Aaronholt Homestead",              "The Forest",    "00004145"),
+    ("Bolton Greens",                    "The Forest",    "00096ABB"),
+    ("Charleston Trainyard",             "The Forest",    "0010CCE9"),
+    ("The Giant Teapot",                 "The Forest",    "0009A04F"),
+    ("Greg's Mine Supply",               "The Forest",    "00091F0A"),
+    ("Morgantown",                       "The Forest",    "00048318"),
+    ("Morgantown Trainyard",             "The Forest",    "0008CD53"),
+    ("New Gad",                          "The Forest",    "0009A24F"),
+    ("Poseidon Energy Plant WV-06",      "The Forest",    ""),
+    ("Summersville Dam",                 "The Forest",    "002E8048"),
+    ("Summersville Docks",               "The Forest",    "0009A18D"),
+    ("Tyler County Fairgrounds",         "The Forest",    "000A1B7E"),
+    # Savage Divide
+    ("Huntersville",                     "Savage Divide", "0008FEE3"),
+    ("New Appalachian Central Trainyard","Savage Divide", "00095519"),
+    ("Sons of Dane Compound",            "Savage Divide", "0010A0B8"),
+    ("Palace of the Winding Path",       "Savage Divide", "00096A63"),
+    ("Pleasant Valley Cabins",           "Savage Divide", "000193A9"),
+    ("Pleasant Valley Ski Resort",       "Savage Divide", "000193A7"),
+    ("Seneca Rocks Visitor Center",      "Savage Divide", "0009A0D1"),
+    ("Sunnytop Ski Lanes",               "Savage Divide", "00007332"),
+    ("The Whitespring Golf Club",        "Savage Divide", "0009A451"),
+    # Ash Heap
+    ("AMS Testing Site",                 "Ash Heap",      "003919F5"),
+    ("Beckley",                          "Ash Heap",      "00329729"),
+    ("Brim Quarry",                      "Ash Heap",      "00217A8D"),
+    ("Lewisburg",                        "Ash Heap",      "0009056E"),
+    ("Mount Blair Trainyard",            "Ash Heap",      "00093D5F"),
+    ("Welch",                            "Ash Heap",      "000B4871"),
+    # The Mire
+    ("Berkeley Springs",                 "The Mire",      "00299948"),
+    ("Dyer Chemical",                    "The Mire",      "00055E01"),
+    ("Harpers Ferry",                    "The Mire",      "00070368"),
+    # Toxic Valley
+    ("Grafton",                          "Toxic Valley",  "0006DE2D"),
+    ("Grafton Steel",                    "Toxic Valley",  "0006D2F2"),
+]
 
 
 def newest(pattern):
@@ -116,44 +167,11 @@ def build():
     print("build_hto_locations_json.py")
     print("=" * 60)
 
-    refs_path = newest("KYWD_Export_*_Refs.tsv")
-    if not refs_path:
-        print("ERROR: No KYWD_Export_*_Refs.tsv found in", TSV_DIR)
-        return
-    print(f"Reading: {os.path.basename(refs_path)}")
-
-    rows = read_tsv(refs_path)
-
-    # Collect workshop LCTN FormIDs from LocTypeWorkshop keyword
-    workshop_formids = set()
-    for row in rows:
-        if row.get("KeywordFormID") != WORKSHOP_KEYWORD:
-            continue
-        if row.get("RefSignature") != "LCTN":
-            continue
-        workshop_formids.add(row["RefFormID"].upper())
-    print(f"Workshop LCTN refs found: {len(workshop_formids)}")
-
-    locations = []
-    for row in rows:
-        if row.get("KeywordFormID") != KEYWORD_FORMID:
-            continue
-        if row.get("RefSignature") != "LCTN":
-            continue
-        fid = row["RefFormID"]
-        locations.append({
-            "formid":   fid,
-            "edid":     row["RefEDID"],
-            "name":     row["RefName"],
-            "index":    int(row["RefIndex"]),
-            "region":   region_from_edid(row["RefEDID"]),
-            "workshop": fid.upper() in workshop_formids,
-        })
-
-    print(f"Found {len(locations)} LCTN entries on keyword {KEYWORD_FORMID}")
-    if not locations:
-        print("ERROR: No locations found.")
-        return
+    locations = [
+        {"formid": fid, "name": name, "region": region, "workshop": False}
+        for (name, region, fid) in CURATED_LOCATIONS
+    ]
+    print(f"Curated spawn locations: {len(locations)}")
 
     coords_lookup = load_coords()
     coords_found = 0
@@ -184,7 +202,7 @@ def build():
     output = {
         "_meta": {
             "generator": "build_hto_locations_json.py",
-            "keyword": KEYWORD_FORMID,
+            "source": "curated allowlist (dev-verified)",
             "keyword_edid": "LocTypeHostileTakeover",
             "total_locations": len(locations),
             "coords_source": "Mappalachia" if coords_found else "none",
