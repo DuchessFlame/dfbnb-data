@@ -787,6 +787,15 @@ REPAIR_BOT_LVLI_ID = "007AE547"
 REPAIR_BOT_LIMIT_CAMP     = "1"
 REPAIR_BOT_LIMIT_WORKSHOP = "1"
 
+# Per-bot howToObtain overrides. The Enclave Repair Bot is NOT an Atoms
+# purchase — it shipped in the real-money Enclave Armory Bundle
+# (dist/atom_shop.json "ltb" section: released 2024-12-03, Gleaming Depths,
+# Steam / PlayStation / Xbox).
+REPAIR_BOT_HOW_OVERRIDE = {
+    "007AE546": ("Real-money Limited Time Bundle: Enclave Armory Bundle "
+                 "(released 3 December 2024 with the Gleaming Depths update)."),
+}
+
 
 def build_repair_bots():
     # Crafting requirements — parsed from the shared COBJ FVPA components.
@@ -833,9 +842,7 @@ def build_repair_bots():
 
         output_info = (
             "Automatically repairs damaged objects in your C.A.M.P. while deployed.\n"
-            "Cannot rebuild objects that have been completely destroyed.\n"
-            "All four repair bots are skins of the same machine — they repair at "
-            "the same speed and there is no functional difference between them."
+            "Cannot rebuild objects that have been completely destroyed."
         )
 
         # --- Build information (weather-station buildInfo format) ---
@@ -870,7 +877,8 @@ def build_repair_bots():
             "displayName":  display,
             "description":  desc,
             "obtainSource": source,
-            "howToObtain":  scoreboard_how(season_num) if season_num else ATX_HOW,
+            "howToObtain":  REPAIR_BOT_HOW_OVERRIDE.get(entm_id)
+                            or (scoreboard_how(season_num) if season_num else ATX_HOW),
             "dropRate":     "N/A",
             "seasonNumber": season_num,
             "tradeable":    False,  # no plan book exists — account-bound CAMP skin
@@ -878,7 +886,7 @@ def build_repair_bots():
             "imageUrl":     image_url,
             "imageCarousel": carousel,
             "outputInfo":   output_info,
-            "repairRate":   repair_rate,
+            "repairRate":   f"{repair_rate}% per hour",
             "buildInfo":    build_info,
             "craftingRequirements": _craft,
             "technicalNotes": technical_notes,
