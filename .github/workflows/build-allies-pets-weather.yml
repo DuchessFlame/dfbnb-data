@@ -11,6 +11,7 @@ on:
       - 'tsv/BOOK_Export_*.tsv'
       - 'tsv/ACTI_Export_*_ACTI.tsv'
       - 'tsv/WTHR_Export_*_WTHR.tsv'
+      - 'tsv/NPC_Export_*_PRPS.tsv'
       - '!tsv/BOOK_Export_*_Locations.tsv'
       - 'src/build_allies_pets_weather_json.py'
 
@@ -69,6 +70,7 @@ jobs:
             }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-)
           ACTI=$(pick_newest "tsv/ACTI_Export_*_ACTI.tsv")
           WTHR=$(pick_newest "tsv/WTHR_Export_*_WTHR.tsv")
+          NPCP=$(pick_newest "tsv/NPC_Export_*_PRPS.tsv")
 
           echo "COBJ_TSV=$COBJ"           >> $GITHUB_ENV
           echo "ENTM_TSV=$ENTM"           >> $GITHUB_ENV
@@ -77,6 +79,7 @@ jobs:
           echo "BOOK_TSV=$BOOK"           >> $GITHUB_ENV
           echo "ACTI_TSV=$ACTI"           >> $GITHUB_ENV
           echo "WTHR_TSV=$WTHR"           >> $GITHUB_ENV
+          echo "NPC_PRPS_TSV=$NPCP"       >> $GITHUB_ENV
 
           echo "  COBJ: $COBJ"
           echo "  ENTM: $ENTM"
@@ -85,6 +88,7 @@ jobs:
           echo "  BOOK: $BOOK"
           echo "  ACTI: $ACTI"
           echo "  WTHR: $WTHR"
+          echo "  NPC PRPS: $NPCP"
 
       - name: Build JSON files
         run: |

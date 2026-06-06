@@ -91,6 +91,13 @@ try:
 except FileNotFoundError:
     WTHR_PATH = None
 
+# NPC PRPS TSV — optional. Only repair bot NPC stats (Health/AP/Perception)
+# use it; if absent the builder falls back to the hardcoded June 2026 values.
+try:
+    NPC_PRPS_PATH = _resolve_tsv("NPC_PRPS_TSV", "NPC_Export_*_PRPS.tsv", "NPC_Export_PRPS.tsv")
+except FileNotFoundError:
+    NPC_PRPS_PATH = None
+
 # Seasons TSV — optional, falls back gracefully if missing
 _SEASONS_PATH = TSV_DIR / "fallout76_seasons.tsv"
 
@@ -162,6 +169,15 @@ def clean_desc(raw):
     return text
 
 
+def safe_int(raw, default=0):
+    """int() that tolerates the malformed cells some exports produce
+    (e.g. a ReferencedBy value spilling into ECIL_Count)."""
+    try:
+        return int(float(str(raw).strip() or default))
+    except (ValueError, TypeError):
+        return default
+
+
 def is_cut(edid):
     """Return True if the EDID marks cut/unreleased content."""
     s = str(edid or "").strip().upper()
@@ -208,6 +224,7 @@ print(f"  FLST: {FLST_PATH}")
 print(f"  BOOK: {BOOK_PATH}")
 print(f"  ACTI: {ACTI_PATH}")
 print(f"  WTHR: {WTHR_PATH if WTHR_PATH else '(not found — weather-station fishing classification disabled)'}")
+print(f"  NPC PRPS: {NPC_PRPS_PATH if NPC_PRPS_PATH else '(not found — repair bot NPC stats falling back to June 2026 constants)'}")
 
 cobj_rows      = load_tsv(COBJ_PATH)
 entm_rows      = load_tsv(ENTM_PATH)
@@ -216,6 +233,7 @@ flst_entries   = load_tsv(FLST_PATH)
 book_rows      = load_tsv(BOOK_PATH)
 acti_rows      = load_tsv(ACTI_PATH)
 wthr_rows      = load_tsv(WTHR_PATH) if WTHR_PATH else []
+npc_prps_rows  = load_tsv(NPC_PRPS_PATH) if NPC_PRPS_PATH else []
 
 # ---------------------------------------------------------------------------
 # Build lookup maps
@@ -235,6 +253,14 @@ for r in cobj_rows:
 
 # FURN by FormID
 furn_by_id = {r["FURN_FormID"]: r for r in furn_rows}
+
+# NPC PRPS: map NPC FormID → {ActorValue name → value} (repair bot stats)
+npc_prps_by_id = {}
+for r in npc_prps_rows:
+    fid = r.get("NPC_FormID", "").strip()
+    av  = r.get("ActorValue_Name", "").strip() or r.get("ActorValue_EDID", "").strip()
+    if fid and av:
+        npc_prps_by_id.setdefault(fid, {})[av] = r.get("Value", "").strip()
 
 # ACTI by EDID — used to pull PRPS properties (e.g. PowerRequired) for weather stations
 acti_by_edid = {r["ACTI_EDID"]: r for r in acti_rows}
@@ -327,7 +353,7 @@ def get_entm_for_cobj(cobj_row):
     """
     cobj_id = cobj_row["COBJ_FormID"]
     for entm in entm_rows:
-        count = int(entm.get("ECIL_Count", 0) or 0)
+        count = safe_int(entm.get("ECIL_Count", 0))
         for i in range(1, count + 1):
             ecil = entm.get(f"ECIL_{i}", "").strip()
             if ecil == cobj_id:
@@ -336,13 +362,20 @@ def get_entm_for_cobj(cobj_row):
 
 
 def ecil_images(entm_row, folder=""):
-    """Extract carousel images from ENTM ECIL columns."""
+    """Extract carousel images from ENTM ECIL columns.
+
+    Some exports (June 2026+) concatenate every carousel filename into ECIL_1
+    with no separator ('Foo_C1.ddsFoo_C2.dds') and leave ECIL_2+ empty, so
+    each cell is regex-split on .dds boundaries instead of being taken whole.
+    """
     images = []
-    count = int(entm_row.get("ECIL_Count", 0) or 0)
+    count = safe_int(entm_row.get("ECIL_Count", 0))
     for i in range(1, count + 1):
         val = entm_row.get(f"ECIL_{i}", "").strip()
-        if val and val.lower().endswith(".dds"):
-            url = storefront_img_url(val, folder)
+        if not val:
+            continue
+        for dds in re.findall(r"[^\\/:*?\"<>|]+?\.dds", val, flags=re.IGNORECASE):
+            url = storefront_img_url(dds, folder)
             if url:
                 images.append(url)
     return images
@@ -373,6 +406,55 @@ def acti_prps_value(acti_edid: str, av_name: str) -> str:
         if row.get(f"Prop_{i}_AV", "").strip().lower() == av_name.lower():
             return row.get(f"Prop_{i}_Val", "").strip()
     return ""
+
+
+def furn_prps_value(furn_id: str, av_name: str) -> str:
+    """
+    Return the float value (as a string) for a named Actor Value from a FURN
+    record's PRPS properties, or '' if not found. Same dynamic column layout
+    as acti_prps_value:  Prop_1_AV | Prop_1_Val | Prop_1_Curve …
+    The Prop_N_AV cells hold the AV EDID directly (e.g. ATX_RepairBot_RepairRate).
+    """
+    row = furn_by_id.get(furn_id, {})
+    if not row:
+        return ""
+    prop_count = int(row.get("PropCount", 0) or 0)
+    for i in range(1, prop_count + 1):
+        if row.get(f"Prop_{i}_AV", "").strip().lower() == av_name.lower():
+            return row.get(f"Prop_{i}_Val", "").strip()
+    return ""
+
+
+def fmt_num(raw: str) -> str:
+    """'2.000000' → '2', '0.5000' → '0.5', '' → ''."""
+    s = str(raw or "").strip()
+    if not s:
+        return ""
+    try:
+        f = float(s)
+        return str(int(f)) if f == int(f) else str(f)
+    except (ValueError, TypeError):
+        return s
+
+
+def fvpa_to_text(fvpa: str) -> str:
+    """
+    Convert a COBJ FVPA component string to display text.
+      'c_Circuitry:1:COBJ_Workshop_Circuitry|c_Steel:3:COBJ_Workshop_Steel'
+      → 'Circuitry ×1\nSteel ×3'
+    """
+    parts = []
+    for chunk in str(fvpa or "").split("|"):
+        bits = chunk.strip().split(":")
+        if len(bits) < 2:
+            continue
+        name = re.sub(r"^c_", "", bits[0].strip())
+        # CamelCase → spaced words (e.g. 'NuclearMaterial' → 'Nuclear Material')
+        name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", name)
+        qty  = bits[1].strip()
+        if name and qty:
+            parts.append(f"{name} ×{qty}")
+    return "\n".join(parts)
 
 
 # ---------------------------------------------------------------------------
@@ -671,23 +753,61 @@ REPAIR_BOT_ENTM_IDS = [
     "008571F1",  # Emergency Technician Repair Bot
 ]
 
-# ENTM FormID → FURN FormID.
-# Repair bot source (Atom Shop) is resolved directly from the ENTM XALG flag,
-# so FURN lookup is not required for source detection. The dict is kept for
-# completeness in case FURN records are needed in future (e.g. for plan FormIDs).
-REPAIR_BOT_FURN_IDS: dict = {}
+# ENTM FormID → FURN FormID (the placeable pod / station record).
+# The pod carries the PRPS data: ATX_RepairBot_RepairRate and
+# WorkshopBudgetObjectMultiplier.
+REPAIR_BOT_FURN_IDS = {
+    "007AE546": "007AE499",  # ATX_RepairBotPod_Enclave
+    "0082BED5": "008109D1",  # ATX_RepairBot_Pod_Company
+    "0084920E": "0084920C",  # ATX_RepairBotPod_SantasHelper
+    "008571F1": "00884077",  # ATX_RepairBot_Pod_EmergencyTech
+}
+
+# ENTM FormID → bot NPC record + race (from NPC_Export_June_2026).
+# The walking robot is a separate NPC_ record from the pod FURN.
+REPAIR_BOT_NPC_INFO = {
+    "007AE546": {"npcFormId": "007AE49A", "npcEdid": "ATX_RepairBot_Enclave",       "race": "Protectron"},
+    "0082BED5": {"npcFormId": "008109D4", "npcEdid": "ATX_RepairBot_Company",       "race": "Protectron"},
+    "0084920E": {"npcFormId": "0084920D", "npcEdid": "ATX_RepairBot_SantasHelper",  "race": "Protectron"},
+    "008571F1": {"npcFormId": "008571F7", "npcEdid": "ATX_RepairBot_EmergencyTech", "race": "Mr. Handy"},
+}
+
+# Fallback NPC stats (NPC_Export_June_2026_PRPS) — identical across all four
+# bots. Used when the NPC PRPS TSV isn't available to the build.
+REPAIR_BOT_NPC_STAT_FALLBACK = {"Health": "170", "Action Points": "50", "Perception": "4"}
+
+# Crafting COBJ: ATX_workshop_co_CategoryResources_RepairBot (007AE545).
+# Its CNAM is the LVLI ATX_workshop_LL_RepairBots (007AE547) — entries are
+# entitlement-gated so the one COBJ crafts whichever skin you own.
+REPAIR_BOT_LVLI_ID = "007AE547"
+
+# Build limit GLOBs (GLOB_Export_Jun_2026):
+#   008020FB ATX_WorkshopCount_RepairBot_CAMP = 1
+#   008020FA ATX_WorkshopCount_RepairBot      = 1
+REPAIR_BOT_LIMIT_CAMP     = "1"
+REPAIR_BOT_LIMIT_WORKSHOP = "1"
 
 
 def build_repair_bots():
+    # Crafting requirements — parsed from the shared COBJ FVPA components.
+    # Falls back to the June 2026 values if the COBJ row is missing.
+    _craft = ""
+    for _cobj in cobj_by_cnam.get(REPAIR_BOT_LVLI_ID, []):
+        _craft = fvpa_to_text(_cobj.get("FVPA", ""))
+        if _craft:
+            break
+    if not _craft:
+        _craft = "Circuitry ×1\nCopper ×1\nGears ×1\nSteel ×3"
+
     items = []
     for entm_id in REPAIR_BOT_ENTM_IDS:
         entm = entm_by_id.get(entm_id, {})
         if not entm:
             continue
 
-        # FURN lookup kept for forward-compat; currently no FURN IDs are mapped.
         furn_id  = REPAIR_BOT_FURN_IDS.get(entm_id, "")
         furn     = furn_by_id.get(furn_id, {})
+        npc_info = REPAIR_BOT_NPC_INFO.get(entm_id, {})
 
         # Source: prefer FURN XALG_Flags if a FURN exists, otherwise fall back
         # to the ENTM XALG field. All current skins are Atom Shop.
@@ -707,12 +827,54 @@ def build_repair_bots():
         carousel  = ecil_images(entm, "camp-utility")
         image_url = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
 
+        # --- Output data (from the pod FURN PRPS) ---
+        repair_rate = fmt_num(furn_prps_value(furn_id, "ATX_RepairBot_RepairRate")) or "2"
+        budget_mult = fmt_num(furn_prps_value(furn_id, "WorkshopBudgetObjectMultiplier")) or "5"
+
+        output_info = (
+            "Automatically repairs damaged objects in your C.A.M.P. while deployed.\n"
+            "Cannot rebuild objects that have been completely destroyed.\n"
+            "All four repair bots are skins of the same machine — they repair at "
+            "the same speed and there is no functional difference between them."
+        )
+
+        # --- Build information (weather-station buildInfo format) ---
+        build_info = (
+            f"Build Limit per Camp: {REPAIR_BOT_LIMIT_CAMP}\n"
+            f"Build Limit per Workshop: {REPAIR_BOT_LIMIT_WORKSHOP}\n"
+            f"Power Required: 0\n"
+            f"Flamingo Units: {budget_mult}\n"
+            f"Shelter Placement: No"
+        )
+
+        # --- Bot NPC stats (NPC PRPS TSV → fallback constants) ---
+        npc_id    = npc_info.get("npcFormId", "")
+        npc_stats = npc_prps_by_id.get(npc_id) or REPAIR_BOT_NPC_STAT_FALLBACK
+        stat_lines = []
+        for label in ("Health", "Action Points", "Perception"):
+            v = fmt_num(npc_stats.get(label, ""))
+            if v and v != "0":
+                stat_lines.append(f"Bot {label}: {v}")
+
+        technical_notes = "\n".join([
+            f"Pod EDID: {furn.get('FURN_EDID', '') or '—'}",
+            f"Pod FormID: {furn_id or '—'}",
+            f"Bot NPC EDID: {npc_info.get('npcEdid', '') or '—'}",
+            f"Bot NPC FormID: {npc_id or '—'}",
+            f"Bot Race: {npc_info.get('race', '') or '—'}",
+            *stat_lines,
+            f"Repair Rate AV (ATX_RepairBot_RepairRate): {repair_rate}",
+        ])
+
         items.append({
             "formId":       furn_id or entm_id,
             "entmFormId":   entm_id,
             "furnFormId":   furn_id,
             "edid":         edid,
             "furnEdid":     furn.get("FURN_EDID", ""),
+            "npcFormId":    npc_id,
+            "npcEdid":      npc_info.get("npcEdid", ""),
+            "race":         npc_info.get("race", ""),
             "displayName":  display,
             "description":  desc,
             "obtainSource": source,
@@ -723,6 +885,11 @@ def build_repair_bots():
             "planName":     "",
             "imageUrl":     image_url,
             "imageCarousel": carousel,
+            "outputInfo":   output_info,
+            "repairRate":   repair_rate,
+            "buildInfo":    build_info,
+            "craftingRequirements": _craft,
+            "technicalNotes": technical_notes,
             "xalgFlags":    xalg_raw,
             "cutContent":   is_cut(edid),
         })
@@ -776,7 +943,7 @@ def find_entm_for_cobj_id(cobj_id):
     if cobj_id in _ally_entm_cache:
         return _ally_entm_cache[cobj_id]
     for entm in entm_rows:
-        count = int(entm.get("ECIL_Count", 0) or 0)
+        count = safe_int(entm.get("ECIL_Count", 0))
         for i in range(1, count + 1):
             if entm.get(f"ECIL_{i}", "").strip() == cobj_id:
                 _ally_entm_cache[cobj_id] = entm
