@@ -2,63 +2,51 @@
   "groups": [
     {
       "key": "strength",
-      "label": "Strength",
-      "blurb": "+2 Strength for 30 minutes — solo buff (player only)."
+      "label": "Strength"
     },
     {
       "key": "perception",
-      "label": "Perception",
-      "blurb": "+2 Perception for 30 minutes — solo buff (player only)."
+      "label": "Perception"
     },
     {
       "key": "endurance",
-      "label": "Endurance",
-      "blurb": "+2 Endurance for 30 minutes — solo buff (player only)."
+      "label": "Endurance"
     },
     {
       "key": "charisma",
-      "label": "Charisma",
-      "blurb": "+2 Charisma for 30 minutes — solo buff (player only)."
+      "label": "Charisma"
     },
     {
       "key": "intelligence",
-      "label": "Intelligence",
-      "blurb": "+2 Intelligence for 30 minutes — solo buff (player only)."
+      "label": "Intelligence"
     },
     {
       "key": "agility",
-      "label": "Agility",
-      "blurb": "+2 Agility for 30 minutes — solo buff (player only)."
+      "label": "Agility"
     },
     {
       "key": "luck",
-      "label": "Luck",
-      "blurb": "+2 Luck for 30 minutes — solo buff (player only)."
+      "label": "Luck"
     },
     {
       "key": "experience",
-      "label": "Experience (XP)",
-      "blurb": "Stations and furniture that grant a +5% XP buff."
+      "label": "Experience (XP)"
     },
     {
       "key": "unique",
-      "label": "Unique Buffs",
-      "blurb": "One-of-a-kind buff stations."
+      "label": "Unique Buffs"
     },
     {
       "key": "utility",
-      "label": "Utility",
-      "blurb": "Stations with a useful function rather than a timed buff."
+      "label": "Utility"
     },
     {
       "key": "wellrested",
-      "label": "Well Rested",
-      "blurb": "Beds and furniture that grant the Rested / Well Rested buff."
+      "label": "Well Rested"
     },
     {
       "key": "welltuned",
-      "label": "Well Tuned",
-      "blurb": "Musical instruments — +25 AP regeneration for 60 minutes (solo buff, player only)."
+      "label": "Well Tuned"
     }
   ],
   "items": [
@@ -355,15 +343,15 @@
       "displayName": "Weight Bench",
       "description": "Get that beefy Wastelander look with the Weight Bench! - Using the weight bench will grant a Strength Boost",
       "obtainSource": "",
-      "howToObtain": "Purchase with tickets from the Armor Ace and the Power Patrol Scoreboard (Season 2)",
+      "howToObtain": "Purchase with tickets from the Armor Ace and the Power Patrol Scoreboard (Season 2)\n\nGold Bullion: Plan: Weight Bench — sold by Mortimer at The Crater for 1,250 gold bullion. Requires Raiders reputation rank Cautious to appear in his inventory. Available once per character.",
       "dropRate": "N/A",
       "seasonNumber": 2,
       "tradeable": false,
-      "planName": "",
+      "planName": "Plan: Weight Bench",
       "imageUrl": "/wp-content/uploads/guide-images/camp-items/buff-stations/score_s1_camp_utility_weightbench.avif",
       "outputInfo": "+2 Strength for 30 minutes.\nSolo buff — applies to the player only.",
       "craftingRequirements": "",
-      "technicalNotes": "FURN EDID: SCORE_S2_Furniture_Weightbench\nFURN FormID: 0056744C\nENTM EDID: SCORE_S2_ENTM_Utility_WeightBench\nENTM FormID: 0053E448\nStrength Keyword: 005B359F ATX_FurnituretypeStrength\nStrength Spell: 005B519D ATX_BuffStrength\nDuration Global: ATX_SPECIAL_BuffDurationGlobal (0065015E) = 1800s\nMagnitude Global: ATX_SPECIAL_BuffMagnitudeGlobal (0065015F) = +2",
+      "technicalNotes": "FURN EDID: SCORE_S2_Furniture_Weightbench\nFURN FormID: 0056744C\nENTM EDID: SCORE_S2_ENTM_Utility_WeightBench\nENTM FormID: 0053E448\nStrength Keyword: 005B359F ATX_FurnituretypeStrength\nStrength Spell: 005B519D ATX_BuffStrength\nDuration Global: ATX_SPECIAL_BuffDurationGlobal (0065015E) = 1800s\nMagnitude Global: ATX_SPECIAL_BuffMagnitudeGlobal (0065015F) = +2\nGold Vendor FURN: SCORE_S2_Furniture_Weightbench_GoldVendor (005F56CA)\nGold Vendor Plan: SCORE_Recipe_workshop_CAMP_Utility_WeightBench_GoldVendor (005F56C8)\nVendor List: 005A0EE5 W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious\nPrice Global: 005A504D Econ_GoldVendor_Tier_10 = 1250",
       "buffTypes": [
         "strength"
       ],
@@ -422,15 +410,15 @@
       "displayName": "Antique Speed Bag",
       "description": "Build up your agility with the Antique Speed Bag!",
       "obtainSource": "",
-      "howToObtain": "Purchase with tickets from the The Scribe of Avalon Scoreboard (Season 3)",
+      "howToObtain": "Purchase with tickets from the The Scribe of Avalon Scoreboard (Season 3)\n\nGold Bullion: Plan: Speed Bag — sold by Mortimer at The Crater for 1,250 gold bullion. Requires Raiders reputation rank Cautious to appear in his inventory. Available once per character.",
       "dropRate": "N/A",
       "seasonNumber": 3,
       "tradeable": false,
-      "planName": "",
+      "planName": "Plan: Speed Bag",
       "imageUrl": "/wp-content/uploads/guide-images/camp-items/buff-stations/atx_camp_floordecor_exerciseequipment_antiquespeedbag.avif",
       "outputInfo": "+2 Agility for 30 minutes.\nSolo buff — applies to the player only.",
       "craftingRequirements": "",
-      "technicalNotes": "FURN EDID: SCORE_S3_Antique_Speed_Bag\nFURN FormID: 005D80E0\nENTM EDID: SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag\nENTM FormID: 005EDEDF\nAgility Keyword: 005EDEE0 ATX_FurnituretypeAgility\nAgility Spell: 005EDEE5 ATX_BuffAgility\nDuration Global: ATX_SPECIAL_BuffDurationGlobal (0065015E) = 1800s\nMagnitude Global: ATX_SPECIAL_BuffMagnitudeGlobal (0065015F) = +2",
+      "technicalNotes": "FURN EDID: SCORE_S3_Antique_Speed_Bag\nFURN FormID: 005D80E0\nENTM EDID: SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag\nENTM FormID: 005EDEDF\nAgility Keyword: 005EDEE0 ATX_FurnituretypeAgility\nAgility Spell: 005EDEE5 ATX_BuffAgility\nDuration Global: ATX_SPECIAL_BuffDurationGlobal (0065015E) = 1800s\nMagnitude Global: ATX_SPECIAL_BuffMagnitudeGlobal (0065015F) = +2\nGold Vendor FURN: SCORE_S3_Antique_Speed_Bag_GoldVendor (00609E0A)\nGold Vendor Plan: SCORE_Recipe_workshop_CAMP_Utility_SpeedBag_GoldVendor (00609E06)\nVendor List: 005A0EE5 W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious\nPrice Global: 005A504D Econ_GoldVendor_Tier_10 = 1250",
       "buffTypes": [
         "agility"
       ],
@@ -455,28 +443,6 @@
       "technicalNotes": "FURN EDID: Workshop_Symptomatic\nFURN FormID: 005D98A5\nKeyword: 005D98A6 FurnitureTypeDiseaseCure",
       "buffTypes": [
         "utility"
-      ],
-      "singleExpand": false,
-      "cutContent": false
-    },
-    {
-      "formId": "005F56CA",
-      "entmFormId": "0053E448",
-      "edid": "SCORE_S2_Furniture_Weightbench_GoldVendor",
-      "displayName": "Weight Bench (Gold Vendor)",
-      "description": "Get that beefy Wastelander look with the Weight Bench! - Using the weight bench will grant a Strength Boost",
-      "obtainSource": "",
-      "howToObtain": "Purchase the plan for gold bullion (available once per character).",
-      "dropRate": "N/A",
-      "seasonNumber": 2,
-      "tradeable": false,
-      "planName": "Plan: Lighter Build Secret Service Armor Limbs",
-      "imageUrl": "/wp-content/uploads/guide-images/camp-items/buff-stations/score_s1_camp_utility_weightbench.avif",
-      "outputInfo": "+2 Strength for 30 minutes.\nSolo buff — applies to the player only.",
-      "craftingRequirements": "Cork ×4\nFiberglass ×4\nAdhesive ×3\nRubber ×3",
-      "technicalNotes": "FURN EDID: SCORE_S2_Furniture_Weightbench_GoldVendor\nFURN FormID: 005F56CA\nENTM EDID: SCORE_S2_ENTM_Utility_WeightBench\nENTM FormID: 0053E448\nStrength Keyword: 005B359F ATX_FurnituretypeStrength\nStrength Spell: 005B519D ATX_BuffStrength\nDuration Global: ATX_SPECIAL_BuffDurationGlobal (0065015E) = 1800s\nMagnitude Global: ATX_SPECIAL_BuffMagnitudeGlobal (0065015F) = +2",
-      "buffTypes": [
-        "strength"
       ],
       "singleExpand": false,
       "cutContent": false
@@ -522,28 +488,6 @@
       "buffTypes": [
         "experience",
         "wellrested"
-      ],
-      "singleExpand": false,
-      "cutContent": false
-    },
-    {
-      "formId": "00609E0A",
-      "entmFormId": "005EDEDF",
-      "edid": "SCORE_S3_Antique_Speed_Bag_GoldVendor",
-      "displayName": "Antique Speed Bag (Gold Vendor)",
-      "description": "Build up your agility with the Antique Speed Bag!",
-      "obtainSource": "",
-      "howToObtain": "Purchase the plan for gold bullion (available once per character).",
-      "dropRate": "N/A",
-      "seasonNumber": 3,
-      "tradeable": false,
-      "planName": "Plan: Lighter Build Secret Service Armor Limbs",
-      "imageUrl": "/wp-content/uploads/guide-images/camp-items/buff-stations/atx_camp_floordecor_exerciseequipment_antiquespeedbag.avif",
-      "outputInfo": "+2 Agility for 30 minutes.\nSolo buff — applies to the player only.",
-      "craftingRequirements": "Cork ×4\nFiberglass ×4\nAdhesive ×3\nRubber ×3",
-      "technicalNotes": "FURN EDID: SCORE_S3_Antique_Speed_Bag_GoldVendor\nFURN FormID: 00609E0A\nENTM EDID: SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag\nENTM FormID: 005EDEDF\nAgility Keyword: 005EDEE0 ATX_FurnituretypeAgility\nAgility Spell: 005EDEE5 ATX_BuffAgility\nDuration Global: ATX_SPECIAL_BuffDurationGlobal (0065015E) = 1800s\nMagnitude Global: ATX_SPECIAL_BuffMagnitudeGlobal (0065015F) = +2",
-      "buffTypes": [
-        "agility"
       ],
       "singleExpand": false,
       "cutContent": false

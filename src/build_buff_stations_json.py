@@ -145,32 +145,21 @@ def fvpa_to_text(fvpa):
 
 
 # ---------------------------------------------------------------- groups
+# No blurbs on group headers (user requirement, 7 Jun 2026) — the group
+# expand shows the label + count only.
 GROUPS = [
-    {"key": "strength",     "label": "Strength",
-     "blurb": "+2 Strength for 30 minutes — solo buff (player only)."},
-    {"key": "perception",   "label": "Perception",
-     "blurb": "+2 Perception for 30 minutes — solo buff (player only)."},
-    {"key": "endurance",    "label": "Endurance",
-     "blurb": "+2 Endurance for 30 minutes — solo buff (player only)."},
-    {"key": "charisma",     "label": "Charisma",
-     "blurb": "+2 Charisma for 30 minutes — solo buff (player only)."},
-    {"key": "intelligence", "label": "Intelligence",
-     "blurb": "+2 Intelligence for 30 minutes — solo buff (player only)."},
-    {"key": "agility",      "label": "Agility",
-     "blurb": "+2 Agility for 30 minutes — solo buff (player only)."},
-    {"key": "luck",         "label": "Luck",
-     "blurb": "+2 Luck for 30 minutes — solo buff (player only)."},
-    {"key": "experience",   "label": "Experience (XP)",
-     "blurb": "Stations and furniture that grant a +5% XP buff."},
-    {"key": "unique",       "label": "Unique Buffs",
-     "blurb": "One-of-a-kind buff stations."},
-    {"key": "utility",      "label": "Utility",
-     "blurb": "Stations with a useful function rather than a timed buff."},
-    {"key": "wellrested",   "label": "Well Rested",
-     "blurb": "Beds and furniture that grant the Rested / Well Rested buff."},
-    {"key": "welltuned",    "label": "Well Tuned",
-     "blurb": "Musical instruments — +25 AP regeneration for 60 minutes "
-              "(solo buff, player only)."},
+    {"key": "strength",     "label": "Strength"},
+    {"key": "perception",   "label": "Perception"},
+    {"key": "endurance",    "label": "Endurance"},
+    {"key": "charisma",     "label": "Charisma"},
+    {"key": "intelligence", "label": "Intelligence"},
+    {"key": "agility",      "label": "Agility"},
+    {"key": "luck",         "label": "Luck"},
+    {"key": "experience",   "label": "Experience (XP)"},
+    {"key": "unique",       "label": "Unique Buffs"},
+    {"key": "utility",      "label": "Utility"},
+    {"key": "wellrested",   "label": "Well Rested"},
+    {"key": "welltuned",    "label": "Well Tuned"},
 ]
 GROUP_ORDER = {g["key"]: i for i, g in enumerate(GROUPS)}
 
@@ -256,10 +245,50 @@ MANUAL_ITEMS = [
      "buff": "+5% XP for 60 minutes — team buff, applied by your companion."},
 ]
 
+# Gold-vendor re-releases of scoreboard items are the SAME item with a second
+# purchase route — they merge into the base entry instead of getting their own
+# sub-expand (user requirement, 7 Jun 2026). The base item's How to Obtain
+# lists the scoreboard first, then the gold bullion route with vendor name,
+# reputation rank needed for it to appear in their inventory, and cost.
+# Source: BOOK VendorList LVLI (W05_LLV_GoldVendor_*) + Econ_GoldVendor_Tier
+# GLOBs. Same item with a DIFFERENT SKIN stays a separate sub-expand
+# (beds/sleeping bags excepted — they stay aggregated).
+GOLD_MERGED = {
+    "005F56CA": "0056744C",   # Weight Bench (Gold Vendor)      → Weight Bench
+    "00609E0A": "005D80E0",   # Antique Speed Bag (Gold Vendor) → Antique Speed Bag
+}
+
+# Gold bullion line appended to the base item's How to Obtain.
+GOLD_HOW = {
+    "0056744C": "Gold Bullion: Plan: Weight Bench — sold by Mortimer at The Crater "
+                "for 1,250 gold bullion. Requires Raiders reputation rank Cautious "
+                "to appear in his inventory. Available once per character.",
+    "005D80E0": "Gold Bullion: Plan: Speed Bag — sold by Mortimer at The Crater "
+                "for 1,250 gold bullion. Requires Raiders reputation rank Cautious "
+                "to appear in his inventory. Available once per character.",
+}
+
+# Correct plan names for the merged items (the auto COBJ token-fallback
+# previously mismatched these to an unrelated GoldVendor recipe).
+PLAN_OVERRIDES = {
+    "0056744C": "Plan: Weight Bench",
+    "005D80E0": "Plan: Speed Bag",
+}
+
+# Extra Technical lines for merged gold-vendor records
+GOLD_TECH = {
+    "0056744C": ["Gold Vendor FURN: SCORE_S2_Furniture_Weightbench_GoldVendor (005F56CA)",
+                 "Gold Vendor Plan: SCORE_Recipe_workshop_CAMP_Utility_WeightBench_GoldVendor (005F56C8)",
+                 "Vendor List: 005A0EE5 W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious",
+                 "Price Global: 005A504D Econ_GoldVendor_Tier_10 = 1250"],
+    "005D80E0": ["Gold Vendor FURN: SCORE_S3_Antique_Speed_Bag_GoldVendor (00609E0A)",
+                 "Gold Vendor Plan: SCORE_Recipe_workshop_CAMP_Utility_SpeedBag_GoldVendor (00609E06)",
+                 "Vendor List: 005A0EE5 W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious",
+                 "Price Global: 005A504D Econ_GoldVendor_Tier_10 = 1250"],
+}
+
 # ---------------------------------------------------------------- overrides
 NAME_OVERRIDES = {
-    "005F56CA": "Weight Bench (Gold Vendor)",
-    "00609E0A": "Antique Speed Bag (Gold Vendor)",
     "00668025": "Nuka-lele (Quantum)",
     "0062C3E2": "Pipe Organ (Atom Shop)",
     "00678D16": "Resonator Guitar B",
@@ -271,8 +300,6 @@ NAME_OVERRIDES = {
 }
 
 HOW_OVERRIDES = {
-    "005F56CA": "Purchase the plan for gold bullion (available once per character).",
-    "00609E0A": "Purchase the plan for gold bullion (available once per character).",
     "007CF731": "Plan: Cosmic Capture — rare reward drop from the Invaders from Beyond seasonal event.",
     "008B12E0": "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.",
     "008B1553": "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.",
@@ -298,9 +325,7 @@ TRADEABLE_OVERRIDES = {
 # ENTM matches the FULL-name auto-lookup can't resolve (shared or differing names)
 ENTM_OVERRIDES = {
     "0056744C": "SCORE_S2_ENTM_Utility_WeightBench",
-    "005F56CA": "SCORE_S2_ENTM_Utility_WeightBench",
     "005D80E0": "SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag",
-    "00609E0A": "SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag",
     "006628D9": "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_D_WoodGreen",
     "006628DB": "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_C_Green",
     "00684BAA": "ATX_ENTM_CAMP_Utility_ArmWrestleMachine_VaultGirl",
@@ -341,7 +366,7 @@ for r in rows(KYWD_REFS_PATH):
     if k not in KW_TO_GROUPS:
         continue
     fid = r["RefFormID"]
-    if fid in EXCLUDED:
+    if fid in EXCLUDED or fid in GOLD_MERGED:
         continue
     rec = FURN.get(fid) or ACTI.get(fid)
     if not rec:
@@ -508,7 +533,13 @@ for fid in sorted(discovered):
         tradeable = TRADEABLE_OVERRIDES[fid]
 
     how = spec.get("how") or auto_how(fid, furn_edid, entm, premium, season)
+    # Merged gold-vendor route: scoreboard line first, then the gold bullion
+    # line (vendor, reputation rank, cost).
+    if fid in GOLD_HOW:
+        how = f"{how}\n\n{GOLD_HOW[fid]}"
     crafting, plan = crafting_for(fid, furn_edid)
+    if fid in PLAN_OVERRIDES:
+        plan = PLAN_OVERRIDES[fid]
 
     tech = [f"EDID: {furn_edid}", f"FormID: {fid}"] if furn_edid else [f"FormID: {fid}"]
     # rename first line label for FURN records (historic format)
@@ -533,6 +564,8 @@ for fid in sorted(discovered):
         tech.append(f"Spell: {SPELL_NOTES[fid]}")
     if spec.get("spell"):
         tech.append(f"Spell: {spec['spell']}")
+    if fid in GOLD_TECH:
+        tech += GOLD_TECH[fid]
 
     items_out.append({
         "formId": fid,
