@@ -71,6 +71,7 @@ jobs:
           ACTI=$(pick_newest "tsv/ACTI_Export_*_ACTI.tsv")
           WTHR=$(pick_newest "tsv/WTHR_Export_*_WTHR.tsv")
           NPCP=$(pick_newest "tsv/NPC_Export_*_PRPS.tsv")
+          GLOB=$(pick_newest "tsv/GLOB_Export_*.tsv")
 
           echo "COBJ_TSV=$COBJ"           >> $GITHUB_ENV
           echo "ENTM_TSV=$ENTM"           >> $GITHUB_ENV
@@ -80,6 +81,7 @@ jobs:
           echo "ACTI_TSV=$ACTI"           >> $GITHUB_ENV
           echo "WTHR_TSV=$WTHR"           >> $GITHUB_ENV
           echo "NPC_PRPS_TSV=$NPCP"       >> $GITHUB_ENV
+          echo "GLOB_TSV=$GLOB"           >> $GITHUB_ENV
 
           echo "  COBJ: $COBJ"
           echo "  ENTM: $ENTM"

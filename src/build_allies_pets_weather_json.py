@@ -98,6 +98,14 @@ try:
 except FileNotFoundError:
     NPC_PRPS_PATH = None
 
+# GLOB TSV — optional. Used to resolve gold-vendor plan prices
+# (BOOK BVGO → Econ_GoldVendor_Tier_NN → FLTV). If absent, gold-vendor
+# How to Obtain blocks fall back to omitting the price line.
+try:
+    GLOB_PATH = _resolve_tsv("GLOB_TSV", "GLOB_Export_*.tsv", "GLOB_Export.tsv")
+except FileNotFoundError:
+    GLOB_PATH = None
+
 # Seasons TSV — optional, falls back gracefully if missing
 _SEASONS_PATH = TSV_DIR / "fallout76_seasons.tsv"
 
@@ -117,7 +125,10 @@ def scoreboard_how(season_num):
     """Return the full howToObtain string for a scoreboard item."""
     name = SEASON_NAMES.get(season_num, "")
     if name:
-        return f"Purchase with tickets from the {name} Scoreboard (Season {season_num})"
+        # Avoid "the The Big Score Scoreboard" when the season name
+        # already starts with "The".
+        article = "" if name.lower().startswith("the ") else "the "
+        return f"Purchase with tickets from {article}{name} Scoreboard (Season {season_num})"
     return f"Purchase with tickets from the Season {season_num} Scoreboard"
 
 
@@ -234,6 +245,19 @@ book_rows      = load_tsv(BOOK_PATH)
 acti_rows      = load_tsv(ACTI_PATH)
 wthr_rows      = load_tsv(WTHR_PATH) if WTHR_PATH else []
 npc_prps_rows  = load_tsv(NPC_PRPS_PATH) if NPC_PRPS_PATH else []
+glob_rows      = load_tsv(GLOB_PATH) if GLOB_PATH else []
+
+# GLOB: FormID → float value AND EDID → float value (gold vendor tiers etc.)
+glob_fltv_by_id:   dict = {}
+glob_fltv_by_edid: dict = {}
+for r in glob_rows:
+    _v = (r.get("FLTV") or "").strip()
+    if not _v:
+        continue
+    if r.get("FormID"):
+        glob_fltv_by_id[r["FormID"].strip()] = _v
+    if r.get("EDID"):
+        glob_fltv_by_edid[r["EDID"].strip().lower()] = _v
 
 # ---------------------------------------------------------------------------
 # Build lookup maps
@@ -277,15 +301,78 @@ for r in flst_entries:
 # (e.g. LL_DailyOps_Rewards_HighLVL_Chase_RareUntradable).
 # ---------------------------------------------------------------------------
 
+# Gold-vendor LVLI ref pattern inside BOOK ReferencedBy columns, e.g.
+#   005A0AC5:W05_LLV_GoldVendor_Settler_Samuel_1_Cautious:LVLI
+# → faction "Settler", vendor "Samuel", reputation rank "Cautious"
+_GOLD_VENDOR_LVLI_RE = re.compile(
+    r"W05_LLV_GoldVendor_(?P<faction>[A-Za-z]+)_(?P<vendor>[A-Za-z]+)_\d+_(?P<rank>[A-Za-z]+)",
+    re.IGNORECASE,
+)
+# BVGO column, e.g. "Econ_GoldVendor_Tier_10 [GLOB:005A504D]"
+_BVGO_RE = re.compile(r"^\s*(?P<edid>\S+)\s*\[GLOB:(?P<fid>[0-9A-Fa-f]+)\]")
+
 book_by_id: dict = {}
 for r in book_rows:
     ref_vals = [r.get(f"Ref{i}", "") for i in range(1, 44)]
     is_untrad = any("Untradable" in v or "Untradeable" in v for v in ref_vals)
+
+    # Gold-vendor data (vendor + rank from refs, price tier from BVGO)
+    _gv_vendor, _gv_rank = "", ""
+    for v in ref_vals:
+        m = _GOLD_VENDOR_LVLI_RE.search(v or "")
+        if m:
+            _gv_vendor, _gv_rank = m.group("vendor"), m.group("rank")
+            break
+    _gv_price = ""
+    _bvgo_m = _BVGO_RE.match(r.get("BVGO", "") or "")
+    if _bvgo_m:
+        _fltv = (glob_fltv_by_id.get(_bvgo_m.group("fid").upper().zfill(8))
+                 or glob_fltv_by_id.get(_bvgo_m.group("fid"))
+                 or glob_fltv_by_edid.get(_bvgo_m.group("edid").lower()))
+        if _fltv:
+            try:
+                _gv_price = str(int(float(_fltv)))
+            except (ValueError, TypeError):
+                _gv_price = _fltv
+
     book_by_id[r["FormID"]] = {
-        "full":          r.get("FULL", ""),
-        "edid":          r.get("EDID", ""),
-        "is_untradeable": is_untrad,
+        "full":            r.get("FULL", ""),
+        "edid":            r.get("EDID", ""),
+        "is_untradeable":  is_untrad,
+        "gold_vendor":     _gv_vendor,
+        "gold_rank":       _gv_rank,
+        "gold_price":      _gv_price,
     }
+
+
+def plan_purchase_block(book_fid: str) -> str:
+    """
+    How to Obtain block for a physical purchasable plan (user template,
+    June 2026):
+
+        Plan: {BOOK plan name}
+        {Vendor} - {Reputation rank} reputation   (gold-bullion vendors)
+        {price} Gold Bullion
+
+    All three lines are data-derived from the BOOK record (FULL, the
+    W05_LLV_GoldVendor_* LVLI ref, and the BVGO price-tier GLOB). Lines
+    whose data is missing are omitted. Returns "" if the BOOK is unknown.
+    Caps/Stamps vendor plans: no reliable purchase-price field in the
+    current exports — extend here when one becomes available.
+    """
+    b = book_by_id.get(book_fid)
+    if not b:
+        return ""
+    lines = []
+    full = (b["full"] or "").strip()
+    if full:
+        lines.append(full if full.lower().startswith("plan") else f"Plan: {full}")
+    if b["gold_vendor"]:
+        lines.append(f"{b['gold_vendor']} - {b['gold_rank']} reputation"
+                     if b["gold_rank"] else b["gold_vendor"])
+    if b["gold_price"]:
+        lines.append(f"{b['gold_price']} Gold Bullion")
+    return "\n".join(lines)
 
 # COBJ: CNAM FormID → {gnam_fid, gnam_full} (direct crafted-item → plan-book)
 # Only rows with a non-empty GNAM_FormID are stored.
@@ -628,10 +715,13 @@ def build_weather_stations():
     # Labels emitted: 'Radstorm', 'Sandstorm', 'Rainy', 'Clear', 'Cloudy',
     # or 'Generic CAMP Weather'.
 
-    # ── How to Obtain — richer per-station detail ──
-    # Keyed by ENTM FormID for items that need more detail than EDID-prefix classification.
-    WEATHER_HOW_TO_OBTAIN = {
-        "0073ABA6": "Gold Bullion - Samuel - Cautious - 1250 Bullion",  # Atlantic City Fog
+    # ── Physical plan books per station ──
+    # ENTM FormID → BOOK FormID. The CondProxy token lookup false-positives
+    # on weather stations, so the BOOK link stays a manual override — but the
+    # How to Obtain wording (plan name / vendor / rank / price) is derived
+    # from the BOOK record via plan_purchase_block().
+    WEATHER_PLAN_BOOKS = {
+        "0073ABA6": "0075FF95",  # Atlantic City Fog — gold-vendor plan (Samuel)
     }
 
     items = []
@@ -669,10 +759,10 @@ def build_weather_stations():
         # All other weather stations are entitlement-based with no player-purchasable plan.
         # CondProxy token lookups false-positive on some stations — hard-clear for non-AC-Fog.
         _ws_tradeable = False
-        if entm_id == "0073ABA6":
-            _ws_plan_name = "Plan: Weather Control Station (Atlantic City Fog)"
-        else:
-            _ws_plan_name = ""
+        _ws_book = book_by_id.get(WEATHER_PLAN_BOOKS.get(entm_id, ""), {})
+        _ws_plan_name = (_ws_book.get("full") or "").strip()
+        if _ws_plan_name and not _ws_plan_name.lower().startswith("plan"):
+            _ws_plan_name = f"Plan: {_ws_plan_name}"
 
         # ── Fishing-weather classification: ENTM suffix → WTHR → keywords ──
         _suffix_m    = _ENTM_PREFIX_RE.match(edid)
@@ -695,9 +785,13 @@ def build_weather_stations():
                 print(f"  [WARN] NEW weather station suffix '{_edid_suffix}' has no "
                       f"WTHR mapping — Fishing label will show '—' until mapped")
 
-        # ── How to Obtain — use richer detail if available ──
-        if entm_id in WEATHER_HOW_TO_OBTAIN:
-            _how = WEATHER_HOW_TO_OBTAIN[entm_id]
+        # ── How to Obtain ──
+        # Scoreboard / Atom Shop use the standard templates. Stations with a
+        # physical plan get the plan-purchase block (gold-merge convention:
+        # scoreboard line first, then the plan/vendor/price lines).
+        _plan_block = plan_purchase_block(WEATHER_PLAN_BOOKS.get(entm_id, ""))
+        if _plan_block:
+            _how = f"{scoreboard_how(season_num)}\n{_plan_block}" if season_num else _plan_block
         elif season_num:
             _how = scoreboard_how(season_num)
         else:
@@ -1463,8 +1557,13 @@ CRYO_ENTM_IDS = sorted({
     and not is_cut(_e.get("EDID", ""))
 })
 
-CRYO_GOLDVENDOR = {
-    "006C2F42": "00732A95",
+# ENTM FormID → gold-vendor plan BOOK FormID (was the CondProxy COBJ
+# 00732A95 pre-June-2026; now the BOOK 00732A91 so plan_purchase_block()
+# can derive the plan name / vendor / rank / price from the record).
+# NOTE: the old hardcoded "Samuel" line was wrong — the BOOK's vendor LVLI
+# is W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious (Mortimer, not Samuel).
+CRYO_PLAN_BOOKS = {
+    "006C2F42": "00732A91",  # Military Cryo-Freezer
 }
 
 
@@ -1482,12 +1581,22 @@ def build_cryos():
         _etdi    = entm.get("ETDI", "").strip()
         carousel = ecil_images(entm, "camp-utility")
         img      = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
-        gv       = CRYO_GOLDVENDOR.get(entm_id, "")
+        gv       = CRYO_PLAN_BOOKS.get(entm_id, "")
         edid     = entm.get("EDID", "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
-        how        = scoreboard_how(season_num) if season_num else ("Gold Bullion - Samuel - Cautious - 1250 Bullion" if gv else ATX_HOW)
+        # How to Obtain — standard templates; gold-merge convention puts the
+        # scoreboard line first, then the data-derived plan/vendor/price block.
+        _gv_block = plan_purchase_block(gv) if gv else ""
+        if season_num and _gv_block:
+            how = f"{scoreboard_how(season_num)}\n{_gv_block}"
+        elif season_num:
+            how = scoreboard_how(season_num)
+        elif _gv_block:
+            how = _gv_block
+        else:
+            how = ATX_HOW
         tradeable  = not bool(season_num)
 
         # Tradeable via plan: match ENTM EDID suffix against CondProxy tokens
