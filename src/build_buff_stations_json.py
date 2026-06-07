@@ -584,7 +584,13 @@ for fid in sorted(discovered):
         "craftingRequirements": crafting,
         "technicalNotes": "\n".join(tech),
         "buffTypes": groups,
-        "singleExpand": "welltuned" in groups,
+        # All items use the 4-sub-expand layout now — Well Tuned instruments
+        # included (user requirement, 7 Jun 2026).
+        "singleExpand": False,
+        # Output stacking rows (rendered as aligned label/value rows).
+        # Well Tuned stacks with other AP regen buffs but not with itself.
+        "outputRows": (["Stacks with other buffs: Yes", "Stacks on itself: No"]
+                       if "welltuned" in groups else []),
         "cutContent": False,
     })
 
