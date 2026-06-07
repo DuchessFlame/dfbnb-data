@@ -88,7 +88,10 @@ WEATHER_BUILD_INFO = (
 
 # ─── CUT CONTENT ─────────────────────────────────────────────────────────────
 
-CUT_PREFIXES = ("ZZZ_", "ZZZZ_", "DEL_", "CUT_", "POST_")
+# "ZZZ" without the underscore too — Bethesda's deprecated records aren't
+# consistent (e.g. zzzATX_ENTM_CAMP_Utility_WeatherStation_Falls_Leaves),
+# and the old "ZZZ_" check let that one through as a duplicate Fall station.
+CUT_PREFIXES = ("ZZZ", "DEL_", "CUT_", "POST_")
 
 def is_cut(edid):
     u = str(edid or "").upper().strip()
