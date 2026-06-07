@@ -1,0 +1,84 @@
+name: Build Buff Stations JSON
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tsv/FURN_Export_*_FURN.tsv'
+      - 'tsv/ACTI_Export_*_ACTI.tsv'
+      - 'tsv/ENTM_Export_*.tsv'
+      - 'tsv/KYWD_Export_*_Refs.tsv'
+      - 'tsv/PERK_Export_*.tsv'
+      - 'tsv/COBJ_Export_*.tsv'
+      - 'src/build_buff_stations_json.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Pick newest TSV exports
+        id: pick_tsvs
+        run: |
+          # Pick file with latest Month_Year in filename (mtimes are equal on Actions)
+          pick_newest() {
+            local files
+            files=$(ls -1 $1 2>/dev/null)
+            [ -z "$files" ] && return
+            echo "$files" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+
+          FURN=$(pick_newest "tsv/FURN_Export_*_FURN.tsv")
+          ACTI=$(pick_newest "tsv/ACTI_Export_*_ACTI.tsv")
+          ENTM=$(pick_newest "tsv/ENTM_Export_*.tsv")
+          KYWD=$(pick_newest "tsv/KYWD_Export_*_Refs.tsv")
+          PERK=$(pick_newest "tsv/PERK_Export_*.tsv")
+          COBJ=$(pick_newest "tsv/COBJ_Export_*.tsv")
+
+          echo "FURN_TSV=$FURN"      >> $GITHUB_ENV
+          echo "ACTI_TSV=$ACTI"      >> $GITHUB_ENV
+          echo "ENTM_TSV=$ENTM"      >> $GITHUB_ENV
+          echo "KYWD_REFS_TSV=$KYWD" >> $GITHUB_ENV
+          echo "PERK_TSV=$PERK"      >> $GITHUB_ENV
+          echo "COBJ_TSV=$COBJ"      >> $GITHUB_ENV
+
+          echo "  FURN: $FURN"
+          echo "  ACTI: $ACTI"
+          echo "  ENTM: $ENTM"
+          echo "  KYWD Refs: $KYWD"
+          echo "  PERK: $PERK"
+          echo "  COBJ: $COBJ"
+
+      - name: Build JSON file
+        run: |
+          mkdir -p dist
+          python src/build_buff_stations_json.py \
+            --tsv-dir tsv \
+            --out-dir dist
+
+      - name: Commit updated JSON
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild buff-stations JSON [skip ci]"
+          file_pattern: |
+            dist/buff-stations.json
