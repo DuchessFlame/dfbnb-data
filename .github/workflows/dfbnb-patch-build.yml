@@ -416,6 +416,42 @@ jobs:
           print(f'  All gold vendor plans: {len(d[\"all_plans\"])}')
           "
 
+      - name: Pick TSVs (Allies extras + Buff Stations)
+        shell: bash
+        run: |
+          # Month-aware picker — plain sorted() globs put May after June
+          # alphabetically, so these MUST be picked by month/year.
+          newest_by_name() {
+            local files
+            files=$(ls -1 $1 2>/dev/null)
+            [ -z "$files" ] && return
+            echo "$files" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+          ACTI=$(newest_by_name "tsv/ACTI_Export_*_ACTI.tsv")
+          WTHR=$(newest_by_name "tsv/WTHR_Export_*_WTHR.tsv")
+          NPCP=$(newest_by_name "tsv/NPC_Export_*_PRPS.tsv")
+          KYWD=$(newest_by_name "tsv/KYWD_Export_*_Refs.tsv")
+          PERK=$(newest_by_name "tsv/PERK_Export_*.tsv")
+          echo "ACTI_TSV=$ACTI"      >> $GITHUB_ENV
+          echo "WTHR_TSV=$WTHR"      >> $GITHUB_ENV
+          echo "NPC_PRPS_TSV=$NPCP"  >> $GITHUB_ENV
+          echo "KYWD_REFS_TSV=$KYWD" >> $GITHUB_ENV
+          echo "PERK_TSV=$PERK"      >> $GITHUB_ENV
+          echo "  ACTI: $ACTI"; echo "  WTHR: $WTHR"; echo "  NPC PRPS: $NPCP"
+          echo "  KYWD Refs: $KYWD"; echo "  PERK: $PERK"
+
       - name: Build Allies / Pets / Weather JSON
         run: |
           python src/build_allies_pets_weather_json.py \
@@ -427,6 +463,23 @@ jobs:
           FURN_TSV:         ${{ env.FURN_TSV }}
           FLST_ENTRIES_TSV: ${{ env.FLST_ENTRIES_TSV }}
           BOOK_TSV:         ${{ env.BOOK_TSV }}
+          ACTI_TSV:         ${{ env.ACTI_TSV }}
+          WTHR_TSV:         ${{ env.WTHR_TSV }}
+          NPC_PRPS_TSV:     ${{ env.NPC_PRPS_TSV }}
+
+      # --- BUFF STATIONS (auto-discovers from buff-furniture keywords) ---
+      - name: Build Buff Stations JSON
+        run: |
+          python src/build_buff_stations_json.py \
+            --tsv-dir tsv \
+            --out-dir dist
+        env:
+          FURN_TSV:      ${{ env.FURN_TSV }}
+          ACTI_TSV:      ${{ env.ACTI_TSV }}
+          ENTM_TSV:      ${{ env.ENTM_TSV }}
+          KYWD_REFS_TSV: ${{ env.KYWD_REFS_TSV }}
+          PERK_TSV:      ${{ env.PERK_TSV }}
+          COBJ_TSV:      ${{ env.COBJ_TSV }}
 
       # --- PLAN MASTER ---
       - name: Build Plan Master JSON
@@ -690,6 +743,7 @@ jobs:
           test -f dist/cryos.json                  && echo "OK cryos.json"                  || (echo "MISSING cryos.json" && exit 1)
           test -f dist/fridges.json                && echo "OK fridges.json"                || (echo "MISSING fridges.json" && exit 1)
           test -f dist/repair-bots.json            && echo "OK repair-bots.json"            || (echo "MISSING repair-bots.json" && exit 1)
+          test -f dist/buff-stations.json          && echo "OK buff-stations.json"          || (echo "MISSING buff-stations.json" && exit 1)
           test -f dist/collectables_bobbleheads.json && echo "OK collectables_bobbleheads.json" || (echo "MISSING collectables_bobbleheads.json" && exit 1)
           test -f dist/collectables_plushies.json    && echo "OK collectables_plushies.json"    || (echo "MISSING collectables_plushies.json" && exit 1)
           test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
