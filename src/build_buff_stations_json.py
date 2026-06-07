@@ -5,11 +5,17 @@ build_buff_stations_json.py
 Reads xEdit TSV exports and builds dist/buff-stations.json for the
 DF/BNB Buff Stations page (df-bnb-camp-items.js, page type "buff-stations").
 
+AUTO-DISCOVERY (titles.js pattern): membership is derived from the
+buff-furniture KEYWORDS in the game data, so new stations Bethesda adds
+appear automatically on the next TSV drop. Manual tables below only hold
+overrides (names, obtain text, ENTM matches) and known exclusions.
+
 Groups (root expands), display order:
   SPECIAL spelled out: Strength, Perception, Endurance, Charisma,
   Intelligence, Agility, Luck — then ABC:
   Experience (XP), Unique Buffs, Utility, Well Rested, Well Tuned
-Items granting two buffs carry both group keys in buffTypes.
+Items granting two buffs carry both group keys in buffTypes (automatic —
+an item with both the Agility and Perception keywords lands in both).
 
 Inputs (from tsv/ in the repo):
   FURN_Export_*_FURN.tsv      (env: FURN_TSV)
@@ -49,7 +55,6 @@ def _newest_glob(pattern):
 
 
 def _resolve_tsv(env_var, glob_pattern, fallback_name):
-    """Resolve a TSV path via env var -> glob -> bare fallback."""
     v = os.environ.get(env_var, "").strip()
     if v and Path(v).exists():
         return Path(v)
@@ -81,9 +86,13 @@ for _n, _p in [("FURN", FURN_PATH), ("ACTI", ACTI_PATH), ("ENTM", ENTM_PATH),
 IMG_BASE = "/wp-content/uploads/guide-images/camp-items/buff-stations/"
 ATX_HOW  = "Can be purchased with certain bundles from the Atom Shop."
 
+
 def rows(path):
     with open(path, encoding="utf-8", errors="replace", newline="") as f:
         yield from csv.DictReader(f, delimiter="\t")
+
+
+# ---------------------------------------------------------------- TSV loads
 FURN = {}
 for r in rows(FURN_PATH):
     FURN[r["FURN_FormID"]] = r
@@ -104,35 +113,13 @@ for r in rows(ENTM_PATH):
 
 SEASON_NAMES = {}
 if SEASONS_PATH.exists():
-  for r in rows(SEASONS_PATH):
-      if r["SeasonNumber"].strip().isdigit():
-          SEASON_NAMES[int(r["SeasonNumber"])] = r["SeasonName"].strip()
+    for r in rows(SEASONS_PATH):
+        if r["SeasonNumber"].strip().isdigit():
+            SEASON_NAMES[int(r["SeasonNumber"])] = r["SeasonName"].strip()
 
-# Bed name lists from bed-type keyword refs
-BED_KW = {"003CD038": "sleepingbag", "003CD037": "mattress", "003CD036": "comfy"}
-bed_names = {"sleepingbag": [], "mattress": [], "comfy": []}
-CUT_RE = re.compile(r"^(zzz|test|chargen|post_|npc|workshopnpc)", re.I)
-for r in rows(KYWD_REFS_PATH):
-    k = r["KeywordFormID"]
-    if k in BED_KW:
-        fr = FURN.get(r["RefFormID"])
-        if not fr:
-            continue
-        edid, full = fr["FURN_EDID"], (fr["FURN_FULL"] or "").strip()
-        if not full or CUT_RE.match(edid):
-            continue
-        lst = bed_names[BED_KW[k]]
-        if full not in lst:
-            lst.append(full)
-for v in bed_names.values():
-    v.sort()
-
-# Homebody perk (PERK 00393F6E Homebody01)
-HOMEBODY_DESC = ""
-for r in rows(PERK_PATH):
-    if r["PERK_EDID"] == "Homebody01":
-        HOMEBODY_DESC = r["DESC"].strip()
-        break
+# Homebody perk (PERK 00393F6E Homebody01) — stats verified June 2026:
+# SPEL 00393F6F AbPerkHomebody = Heal Rate +2, Limb Regeneration +200;
+# SURV_WellRested2 carries 7200s/10800s paired rows (2h base, 3h with perk).
 HOMEBODY_LINE = ("Homebody Perk: while in your C.A.M.P. or workshop — "
                  "Heal Rate +2 and Limb Regeneration +200. "
                  "Also extends the Comfy Bed Well Rested buff from 2 hours to 3 hours.")
@@ -144,6 +131,7 @@ for r in rows(COBJ_PATH):
     if cn:
         COBJ_BY_CNAM.setdefault(cn, []).append(r)
 
+
 def fvpa_to_text(fvpa):
     parts = []
     for chunk in (fvpa or "").split("|"):
@@ -154,6 +142,7 @@ def fvpa_to_text(fvpa):
             name = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
             parts.append(f"{name} ×{bits[1].strip()}")
     return "\n".join(parts)
+
 
 # ---------------------------------------------------------------- groups
 GROUPS = [
@@ -183,6 +172,7 @@ GROUPS = [
      "blurb": "Musical instruments — +25 AP regeneration for 60 minutes "
               "(solo buff, player only)."},
 ]
+GROUP_ORDER = {g["key"]: i for i, g in enumerate(GROUPS)}
 
 STAT_NAME = {"strength": "Strength", "perception": "Perception",
              "endurance": "Endurance", "charisma": "Charisma",
@@ -198,115 +188,198 @@ SPECIAL_KW = {
     "luck":         ("0065015C ATX_FurnituretypeLuck",         "0060497D ATX_BuffLuck"),
 }
 
-# ---------------------------------------------------------------- item list
-# (furnFormId, groups, entmEdid or None, source key or literal howToObtain)
-# source keys: atx / score / gold / f1st, anything else = literal text
-I = []
-def item(fid, groups, entm=None, how=None, **kw):
-    I.append(dict(fid=fid, groups=groups, entm=entm, how=how, **kw))
+DUR_NOTE = ("Duration Global: ATX_SPECIAL_BuffDurationGlobal (0065015E) = 1800s\n"
+            "Magnitude Global: ATX_SPECIAL_BuffMagnitudeGlobal (0065015F) = +2")
 
-# Strength
-item("0056744C", ["strength"], "SCORE_S2_ENTM_Utility_WeightBench", "score")
-item("005F56CA", ["strength"], "SCORE_S2_ENTM_Utility_WeightBench", "gold",
-     name="Weight Bench (Gold Vendor)")
-# Agility
-item("005D80E0", ["agility"], "SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag", "score")
-item("00609E0A", ["agility"], "SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag", "gold",
-     name="Antique Speed Bag (Gold Vendor)")
-item("00804F5B", ["agility"], "ATX_ENTM_CAMP_FloorDecor_ExerciseEquipment_RaiderSpeedBag", "atx")
-item("007CF731", ["agility"], None,
-     "Plan: Cosmic Capture — rare reward drop from the Invaders from Beyond seasonal event.")
-item("006F459F", ["agility", "perception"], "ATX_ENTM_CAMP_Furniture_BoardwalkBonanzaPinballMachine", "atx")
-item("0076E0FF", ["agility", "perception"], "ATX_ENTM_CAMP_Furniture_GameCabinet_AstroAttack", "atx")
-item("007DB370", ["agility", "perception"], "ATX_ENTM_CAMP_Furniture_VaultTecPinballMachine", "atx")
-item("008B12E0", ["agility", "perception"], "SCORE_MiniSeason_2026_WeaponsExpert_ENTM_CAMP_Furniture_RipDaringPinballMachine",
-     "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.")
-item("0076A6C0", ["agility", "perception"], "ATX_ENTM_CAMP_Furniture_AtomicRoller", "atx")
-item("007CEA86", ["agility", "luck"], "ATX_ENTM_CAMP_FloorDecor_FiveFingerFiletTable", "atx")
-# Endurance
-item("00644EA2", ["endurance"], "SCORE_S8_ENTM_CAMP_Utility_ExerciseBike", "score")
-# Charisma
-item("006628DA", ["charisma"], "SCORE_S15_ENTM_CAMP_Furniture_Table_Special_9BallTable_B_Blue", "score")
-item("006628D8", ["charisma"], "ATX_F1_ENTM_CAMP_Furniture_Table_Special_9BallTable_Red", "f1st")
-item("006628D9", ["charisma"], "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_D_WoodGreen", "atx")
-item("006628DB", ["charisma"], "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_C_Green", "atx")
-item("00840E70", ["charisma"], "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_Rustic_HandmadePoolTable", "atx")
-item("00646D80", ["charisma"], "SCORE_S9_ENTM_CAMP_Utility_ArmWrestleMachine", "score")
-item("00684BAA", ["charisma"], "ATX_ENTM_CAMP_Utility_ArmWrestleMachine_VaultGirl", "atx",
-     name="Vault Girl Arm Wrestle Machine")
-item("007DBEAA", ["charisma"], "SCORE_S21_ENTM_CAMP_Utility_ArmWrestleMachine_Poseidon", "score")
-item("006A274D", ["charisma"], "SCORE_S13_ENTM_CAMP_Utility_HollywoodVanity", "score")
-item("007267B6", ["charisma"], None, "atx", name="Hollywood Vanity (Free)")
-item("006E739E", ["charisma"], "ATX_ENTM_CAMP_Furniture_ShoeshineMachine", "atx")
-item("006A910B", ["charisma", "luck"], "ATX_ENTM_Structure_Furniture_BowlingAlleyLane", "atx")
-item("006EB2BF", ["charisma", "luck"], "ATX_TP_ENTM_Structure_Furniture_BowlingAlleyLane_Americana", "atx")
-# Perception
-item("006628DF", ["perception"], None, "atx", name="Radiation Glove Box")
-item("00766AA3", ["perception"], None,
-     "Plan: Stargazer's Telescope — sold by the Milepost Zero vendors (imported goods).",
-     name="Stargazer's Telescope")
-# Intelligence
-item("007D6A59", ["intelligence"], "ATX_ENTM_CAMP_FloorDecor_SummoningCircle", "atx")
-# Luck
-item("006C50B8", ["luck", "perception"], "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine", "atx")
-item("006FA9F0", ["luck", "perception"], "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine_StarsAndStrikes", "atx")
-item("006FCB2E", ["luck", "perception"], "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine_RollingStars", "atx")
-item("008B12DC", ["luck", "perception"], "SCORE_S25_ENTM_CAMP_Furniture_CamdenClawMachine", "score")
-# Unique Buffs
-item("0089ADB0", ["unique"], "SCORE_S24_ENTM_CAMP_Utility_Phoropter", "score",
-     buff="Accuracy Boost: +25% V.A.T.S. Accuracy for 2 hours.",
-     spell="0089ADB5 “Accuracy Boost”", kwline="0089ADB2 FurnituretypeAccuracy")
-item("00897409", ["unique"], "SCORE_MiniSeason_LoveHurts_ENTM_CAMP_Furniture_Chair_LethalSeat",
-     "Purchase with tickets from the Love Hurts Mini Season reward shop.",
-     buff="Rush of Love: +25% Chem Duration for 60 minutes.",
-     spell="00897408 “Rush of Love”", kwline="00897407 LoveHurts_FurnituretypeChemDuration")
-item("008B1D5A", ["unique"], "ATX_ENTM_CAMP_Utility_Sharpening", "atx",
-     buff="Sharpening Stone: 5% chance to gain a Blood Pack on melee kills for 30 minutes.",
-     spell="008D1C9C “Sharpening Stone”")
-item("008B1553", ["unique"], "SCORE_MiniSeason_2026_WeaponsExpert_ENTM_CAMP_Furniture_RipBoyStatue",
-     "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.",
-     buff="Rip’s Bounty: cryptids may drop extra scraps for 60 minutes.",
-     spell="008B1D5E “Rip’s Bounty”")
-# Utility
-item("005D98A5", ["utility"], None, "atx", name="Sympto-matic",
-     buff="Cures all diseases when used.",
-     kwline="005D98A6 FurnitureTypeDiseaseCure")
-item("007B2841", ["utility"], "ATX_ENTM_CAMP_FloorDecor_BloodTransfusionPump", "atx",
-     buff="Restores health and removes rads when used.\n"
-          "Ghoul characters gain rads instead.\n15 minute cooldown between uses.")
-# Experience (XP)
-item("00755EB1", ["experience"], None,
-     "Reward from the Mothman Equinox seasonal event. Not craftable.",
-     name="Sacred Mothman Tome",
-     buff="+5% XP for 60 minutes — solo buff (player only).",
-     kwline="0076B52B FurnitureTypeXPBonus")
-item("0068D3D5", ["experience"], None,
-     "Placed and used by Lite Ally: Steven Scarberry (Season 12 Scoreboard) — "
-     "the ally applies the buff to your team.",
-     name="Scarberry’s Shrine",
-     buff="+5% XP for 60 minutes — team buff, applied by your companion.")
-# Well Rested — rested-type furniture (also give the XP buff → both groups)
-for fid, entm, how in [
-    ("005A2C4B", "ATX_ENTM_CAMP_Decoration_Communal_Firepit", "atx"),
-    ("0060212D", "ATX_ENTM_CAMP_Decoration_HotTub", "atx"),
-    ("0060EC27", "ATX_ENTM_CAMP_Decoration_VaultTecSpa", "atx"),
-    ("00677B9B", "SCORE_S11_ENTM_CAMP_Furniture_CappyHotTub", "score"),
-    ("0068380D", "SCORE_S20_ENTM_CAMP_Decoration_GooTub", "score"),
-    ("0068DF0A", "ATX_ENTM_CAMP_Furniture_SkullsFirePit", "atx"),
-    ("0079B885", None, "Plan: Cauldron Hot Tub — event-specific reward during the "
-                       "Mischief Night event."),
-]:
-    item(fid, ["wellrested", "experience"], entm, how,
-         buff="Rested: +5% XP for 60 minutes — solo buff (player only).",
-         kwline="005A4E2B ATX_FurnituretypeRested",
-         homebody=True)
+WT_TECH = ["Instrument Keyword: 0050CD11 FurnitureTypeInstrument",
+           "Buff Spell: 0050CD15 SURV_WellTunedSpell “Well Tuned”",
+           "Buff Effect: 0050CD14 SURV_WellTunedEffect — +25 AP regen, 3600s"]
+WT_OUT = ("Well Tuned: +25 Action Point regeneration for 60 minutes.\n"
+          "Solo buff — applies to the player only.")
+
+RESTED_OUT = "Rested: +5% XP for 60 minutes — solo buff (player only)."
+
+# ================================================================ AUTO-DISCOVERY
+# Buff-furniture keyword → page group(s). An item carrying two of these
+# keywords (e.g. a pinball machine with Agility + Perception) automatically
+# lands in BOTH groups — no manual dual-stat list needed.
+KW_TO_GROUPS = {
+    "005B359F": ["strength"],
+    "0065015D": ["perception"],
+    "00644EA3": ["endurance"],
+    "0065015A": ["charisma"],
+    "0065015B": ["intelligence"],
+    "005EDEE0": ["agility"],
+    "0065015C": ["luck"],
+    "0050CD11": ["welltuned"],                  # FurnitureTypeInstrument
+    "005A4E2B": ["wellrested", "experience"],   # ATX_FurnituretypeRested (Rested = +5% XP)
+    "0076B52B": ["experience"],                 # FurnitureTypeXPBonus
+    "0089ADB2": ["unique"],                     # FurnituretypeAccuracy (Phoropter)
+    "00897407": ["unique"],                     # LoveHurts ChemDuration (Lethal Loveseat)
+    "008B1D60": ["unique"],                     # WeaponsExpert GatheringBuff (Rip statue)
+    "005D98A6": ["utility"],                    # FurnitureTypeDiseaseCure (Sympto-matic)
+}
+
+# Records that carry a buff keyword but must NOT be on the page.
+# World-placed objects (REFR only, no buildable COBJ) and quest/companion props.
+EXCLUDED = {
+    "006B8E0F",  # Casino Pool Table — world object, Expedition: Atlantic City
+    "0078CA7D",  # Pool Table — world object, Storm questline
+    "00692563",  # Communal Campfire — event-placed, crafting recipe is cut
+    "006D1DD7",  # Arm Wrestle Machine — world object, EXP17
+    "006B8E0E",  # Drum Set — world object, EXP17
+    "00684B85",  # Moon_CampfireGuitar — event-placed world guitar
+    "00769104",  # AC_MQ01 Tuba — quest prop, EDID says NONPLAYER
+    "005856C7",  # Wanderer's Guitar — companion camp object, not buildable
+    "0061E075",  # ATX_COMP_Mechanic guitar — companion camp object
+    "0052A8F9",  # CharGen guitar
+    "00830006",  # Ice Bath — ZZZ deprecated (S22)
+}
+
+CUT_RE = re.compile(r"^(zzz|test|chargen|post_)", re.I)
+
+# Items that grant a buff but carry NO detectable buff keyword — added manually.
+MANUAL_ITEMS = [
+    {"fid": "007B2841", "groups": ["utility"],
+     "entm": "ATX_ENTM_CAMP_FloorDecor_BloodTransfusionPump", "how": None,
+     "buff": "Restores health and removes rads when used.\n"
+             "Ghoul characters gain rads instead.\n15 minute cooldown between uses."},
+    {"fid": "008B1D5A", "groups": ["unique"],
+     "entm": "ATX_ENTM_CAMP_Utility_Sharpening", "how": None,
+     "buff": "Sharpening Stone: 5% chance to gain a Blood Pack on melee kills for 30 minutes.",
+     "spell": "008D1C9C “Sharpening Stone”"},
+    {"fid": "0068D3D5", "groups": ["experience"],
+     "entm": None,
+     "how": "Placed and used by Lite Ally: Steven Scarberry (Season 12 Scoreboard) — "
+            "the ally applies the buff to your team.",
+     "name": "Scarberry’s Shrine",
+     "buff": "+5% XP for 60 minutes — team buff, applied by your companion."},
+]
+
+# ---------------------------------------------------------------- overrides
+NAME_OVERRIDES = {
+    "005F56CA": "Weight Bench (Gold Vendor)",
+    "00609E0A": "Antique Speed Bag (Gold Vendor)",
+    "00668025": "Nuka-lele (Quantum)",
+    "0062C3E2": "Pipe Organ (Atom Shop)",
+    "00678D16": "Resonator Guitar B",
+    "007AE386": "Accordion (Free)",
+    "00691B73": "Violin",
+    "00684BAA": "Vault Girl Arm Wrestle Machine",
+    "007267B6": "Hollywood Vanity (Free)",
+    "006FA9F0": "Stars and Strikes Bowling Arcade Machine",
+}
+
+HOW_OVERRIDES = {
+    "005F56CA": "Purchase the plan for gold bullion (available once per character).",
+    "00609E0A": "Purchase the plan for gold bullion (available once per character).",
+    "007CF731": "Plan: Cosmic Capture — rare reward drop from the Invaders from Beyond seasonal event.",
+    "008B12E0": "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.",
+    "008B1553": "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.",
+    "00897409": "Purchase with tickets from the Love Hurts Mini Season reward shop.",
+    "00766AA3": "Plan: Stargazer's Telescope — sold by the Milepost Zero vendors (imported goods).",
+    "0079B885": "Plan: Cauldron Hot Tub — event-specific reward during the Mischief Night event.",
+    "0078C78E": "Plan: Rusty Saxophone — Milepost Zero reward.",
+    "00755EB1": "Reward from the Mothman Equinox seasonal event. Not craftable.",
+    "007AE386": "Free reward — unlocked for all players.",
+    "007267B6": "Free reward — unlocked for all players.",
+    "005D98A5": ATX_HOW,   # Sympto-matic — Atom Shop item with unbranded EDID
+    "006628D8": "Available to Fallout 1st members.",
+}
+
+# Free-from-ATX unlocks have no tradeable plan; Milepost saxophone plan is
+# untradeable per the published data set.
+TRADEABLE_OVERRIDES = {
+    "007AE386": False,  # Accordion (Free)
+    "007267B6": False,  # Hollywood Vanity (Free)
+    "0078C78E": False,  # Rusty Saxophone
+}
+
+# ENTM matches the FULL-name auto-lookup can't resolve (shared or differing names)
+ENTM_OVERRIDES = {
+    "0056744C": "SCORE_S2_ENTM_Utility_WeightBench",
+    "005F56CA": "SCORE_S2_ENTM_Utility_WeightBench",
+    "005D80E0": "SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag",
+    "00609E0A": "SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag",
+    "006628D9": "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_D_WoodGreen",
+    "006628DB": "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_C_Green",
+    "00684BAA": "ATX_ENTM_CAMP_Utility_ArmWrestleMachine_VaultGirl",
+    "0068DF0A": "ATX_ENTM_CAMP_Furniture_SkullsFirePit",
+    "00691B73": "SCORE_S12_ENTM_CAMP_Furniture_Instrument_ViolinChair",
+    "0062C3E2": "ATX_ENTM_CAMP_Furniture_Instrument_Pipe_Organ",
+    "00678D16": "ATX_ENTM_CAMP_Furniture_Instrument_ResonatorGuitar",
+    "006FA9F0": "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine_StarsAndStrikes",
+    "007AE386": "ATX_ENTM_CAMP_Furniture_Instrument_Accordion",  # free version shares the ATX art
+}
+
+# Custom Output text for non-SPECIAL, non-instrument, non-rested items
+BUFF_TEXT = {
+    "0089ADB0": "Accuracy Boost: +25% V.A.T.S. Accuracy for 2 hours.",
+    "00897409": "Rush of Love: +25% Chem Duration for 60 minutes.",
+    "008B1553": "Rip’s Bounty: cryptids may drop extra scraps for 60 minutes.",
+    "005D98A5": "Cures all diseases when used.",
+    "00755EB1": "+5% XP for 60 minutes — solo buff (player only).",
+}
+
+SPELL_NOTES = {
+    "0089ADB0": "0089ADB5 “Accuracy Boost”",
+    "00897409": "00897408 “Rush of Love”",
+    "008B1553": "008B1D5E “Rip’s Bounty”",
+}
+KW_NOTES = {
+    "0089ADB0": "0089ADB2 FurnituretypeAccuracy",
+    "00897409": "00897407 LoveHurts_FurnituretypeChemDuration",
+    "005D98A5": "005D98A6 FurnitureTypeDiseaseCure",
+    "008B1553": "008B1D60 WeaponsExpert_StatueTypeItem_GatheringBuff",
+    "00755EB1": "0076B52B FurnitureTypeXPBonus",
+}
+
+# ---------------------------------------------------------------- discovery
+discovered = {}  # fid -> set(groups)
+for r in rows(KYWD_REFS_PATH):
+    k = r["KeywordFormID"]
+    if k not in KW_TO_GROUPS:
+        continue
+    fid = r["RefFormID"]
+    if fid in EXCLUDED:
+        continue
+    rec = FURN.get(fid) or ACTI.get(fid)
+    if not rec:
+        continue
+    edid = rec["FURN_EDID"]
+    if CUT_RE.match(edid) or "nonplayer" in edid.lower():
+        continue
+    discovered.setdefault(fid, set()).update(KW_TO_GROUPS[k])
+
+for spec in MANUAL_ITEMS:
+    discovered.setdefault(spec["fid"], set()).update(spec["groups"])
+MANUAL_BY_FID = {m["fid"]: m for m in MANUAL_ITEMS}
+
+# Bed name lists (for the three aggregate bed entries)
+BED_KW = {"003CD038": "sleepingbag", "003CD037": "mattress", "003CD036": "comfy"}
+BED_CUT_RE = re.compile(r"^(zzz|test|chargen|post_|npc|workshopnpc)", re.I)
+bed_names = {"sleepingbag": [], "mattress": [], "comfy": []}
+for r in rows(KYWD_REFS_PATH):
+    k = r["KeywordFormID"]
+    if k in BED_KW:
+        fr = FURN.get(r["RefFormID"])
+        if not fr:
+            continue
+        edid, full = fr["FURN_EDID"], (fr["FURN_FULL"] or "").strip()
+        if not full or BED_CUT_RE.match(edid):
+            continue
+        lst = bed_names[BED_KW[k]]
+        if full not in lst:
+            lst.append(full)
+for v in bed_names.values():
+    v.sort()
 
 # ---------------------------------------------------------------- helpers
 def clean_desc(desc):
-    """Strip storefront boilerplate segments like '- C.A.M.P. ITEMS APPEAR ... -'."""
     s = (desc or "").strip()
     s = re.sub(r"\s*-\s+[A-Z0-9’'.,&%/!:()\- ]{12,}\s+-\s*", " ", s)
     return re.sub(r"\s{2,}", " ", s).strip()
+
 
 def season_from_edid(*edids):
     for e in edids:
@@ -315,18 +388,35 @@ def season_from_edid(*edids):
             return int(m.group(1))
     return None
 
+
 def score_how(season):
     name = SEASON_NAMES.get(season, "")
     if name:
         return f"Purchase with tickets from the {name} Scoreboard (Season {season})"
     return f"Purchase with tickets from the Season {season} Scoreboard"
 
-def entm_lookup(spec, full_name):
+
+def entm_lookup(fid, full_name, furn_edid=""):
+    spec = ENTM_OVERRIDES.get(fid)
     if spec:
         return ENTM_BY_EDID.get(spec)
     cands = [r for r in ENTM_BY_FULL.get((full_name or "").lower(), [])
              if not r["EDID"].upper().startswith(("ZZZ", "POST_", "DEL_", "CUT_"))]
-    return cands[0] if cands else None
+    if not cands:
+        return None
+    # Guard: a BASE-GAME record (unbranded EDID) must not adopt a paid
+    # variant's ENTM just because the display names collide (e.g. base
+    # Pipe Organ vs the Atom Shop Pipe Organ). FROMATX records are the
+    # exception — they're free copies of the ATX item and share its art.
+    e = (furn_edid or "").upper()
+    fr = FURN.get(fid) or ACTI.get(fid) or {}
+    is_premium = "Premium" in (fr.get("XALG_Flags") or "")
+    branded = (e.startswith(("ATX_", "SCORE_", "MILE_", "F1_"))
+               or "FROMATX" in e or is_premium)
+    if not branded and cands[0]["EDID"].upper().startswith(("ATX_", "SCORE_")):
+        return None
+    return cands[0]
+
 
 def image_for(entm, furn_edid):
     if entm:
@@ -335,13 +425,13 @@ def image_for(entm, furn_edid):
             return IMG_BASE + tex[:-4].lower() + ".avif"
     return IMG_BASE + (furn_edid or "").lower() + ".avif"
 
+
 def crafting_for(fid, furn_edid):
     for c in COBJ_BY_CNAM.get(fid, []):
         txt = fvpa_to_text(c.get("FVPA", ""))
         plan = (c.get("GNAM_FULL") or "").strip()
         if txt or plan:
             return txt, plan
-    # fall back: COBJ EDID token match
     token = re.sub(r"^(ATX_|SCORE_S\d+_|SCORE_)", "", furn_edid or "").split("_")[-1].lower()
     if len(token) >= 6:
         for clist in COBJ_BY_CNAM.values():
@@ -350,13 +440,32 @@ def crafting_for(fid, furn_edid):
                     return fvpa_to_text(c.get("FVPA", "")), (c.get("GNAM_FULL") or "").strip()
     return "", ""
 
-DUR_NOTE = ("Duration Global: ATX_SPECIAL_BuffDurationGlobal (0065015E) = 1800s\n"
-            "Magnitude Global: ATX_SPECIAL_BuffMagnitudeGlobal (0065015F) = +2")
 
-def build_output(groups, spec):
-    """Output box text — the buff(s) the item gives."""
-    if "buff" in spec and spec["buff"]:
-        lines = [spec["buff"]]
+def auto_how(fid, furn_edid, entm, premium, season):
+    """EDID/flag-driven obtain text. New items get a sensible default and an
+    [INFO] line in the build log so the wording can be reviewed."""
+    if fid in HOW_OVERRIDES:
+        return HOW_OVERRIDES[fid]
+    e = (furn_edid or "").upper()
+    if season:
+        return score_how(season)
+    if e.startswith(("ATX_", "F1_ATX_")) or (entm and entm["EDID"].upper().startswith("ATX_")):
+        return ATX_HOW
+    if e.startswith("MILE_"):
+        return "Milepost Zero reward."
+    if not premium and e.startswith(("INSTRUMENT_", "FURNITURE_")):
+        return "Base game — craftable at a C.A.M.P. or workshop after learning the plan."
+    print(f"  [INFO] auto obtain text unknown for {fid} {furn_edid} — review wording")
+    return "—"
+
+
+def build_output(fid, groups):
+    if fid in BUFF_TEXT:
+        lines = [BUFF_TEXT[fid]]
+    elif "welltuned" in groups:
+        lines = [WT_OUT]
+    elif "wellrested" in groups:
+        lines = [RESTED_OUT]
     else:
         stats = [STAT_NAME[g] for g in groups if g in STAT_NAME]
         if stats:
@@ -364,17 +473,68 @@ def build_output(groups, spec):
             lines = [f"{joined} for 30 minutes.", "Solo buff — applies to the player only."]
         else:
             lines = []
-    if spec.get("homebody"):
-        lines.append("")
-        lines.append(HOMEBODY_LINE)
+    if "wellrested" in groups:
+        lines += ["", HOMEBODY_LINE]
+    spec = MANUAL_BY_FID.get(fid)
+    if spec and spec.get("buff") and fid not in BUFF_TEXT:
+        lines = [spec["buff"]]
     return "\n".join(lines).strip()
+
 
 # ---------------------------------------------------------------- build
 items_out = []
 
-def emit(fid, groups, display, desc, how, season, tradeable, entm, furn_edid,
-         output, tech_extra, crafting, plan, single=False):
-    rec = {
+for fid in sorted(discovered):
+    groups = sorted(discovered[fid], key=lambda g: GROUP_ORDER.get(g, 99))
+    fr = FURN.get(fid) or ACTI.get(fid)
+    furn_edid = fr["FURN_EDID"] if fr else ""
+    base_name = (fr["FURN_FULL"].strip() if fr and fr["FURN_FULL"] else "")
+    spec = MANUAL_BY_FID.get(fid, {})
+
+    entm = entm_lookup(fid, NAME_OVERRIDES.get(fid) or spec.get("name") or base_name,
+                       furn_edid) \
+        if not spec.get("entm") else ENTM_BY_EDID.get(spec["entm"])
+    display = (NAME_OVERRIDES.get(fid) or spec.get("name") or base_name
+               or ((entm["FULL"] or "").strip() if entm else "")
+               or furn_edid or fid)
+    desc = clean_desc(entm["DESC"]) if entm else ""
+    season = season_from_edid(furn_edid, entm["EDID"] if entm else "")
+
+    premium = "Premium" in ((entm and entm["XALG_Flags"]) or "") or \
+              "Premium" in ((fr and fr.get("XALG_Flags")) or "")
+    f1 = "Fallout 1st" in ((fr and fr.get("XALG_Flags")) or "")
+    tradeable = False if (premium or f1 or (furn_edid or "").upper().startswith(("ATX_", "SCORE_"))) else True
+    if fid in TRADEABLE_OVERRIDES:
+        tradeable = TRADEABLE_OVERRIDES[fid]
+
+    how = spec.get("how") or auto_how(fid, furn_edid, entm, premium, season)
+    crafting, plan = crafting_for(fid, furn_edid)
+
+    tech = [f"EDID: {furn_edid}", f"FormID: {fid}"] if furn_edid else [f"FormID: {fid}"]
+    # rename first line label for FURN records (historic format)
+    tech = [f"FURN EDID: {furn_edid}", f"FURN FormID: {fid}"] if FURN.get(fid) else \
+           [f"EDID: {furn_edid}", f"FormID: {fid}"]
+    if entm:
+        tech += [f"ENTM EDID: {entm['EDID']}", f"ENTM FormID: {entm['FormID']}"]
+    g0 = [g for g in groups if g in SPECIAL_KW]
+    for g in g0:
+        kw, sp = SPECIAL_KW[g]
+        tech.append(f"{STAT_NAME[g]} Keyword: {kw}")
+        tech.append(f"{STAT_NAME[g]} Spell: {sp}")
+    if g0:
+        tech += DUR_NOTE.split("\n")
+    if "welltuned" in groups:
+        tech += WT_TECH
+    if "wellrested" in groups:
+        tech.append("Keyword: 005A4E2B ATX_FurnituretypeRested")
+    if fid in KW_NOTES:
+        tech.append(f"Keyword: {KW_NOTES[fid]}")
+    if fid in SPELL_NOTES:
+        tech.append(f"Spell: {SPELL_NOTES[fid]}")
+    if spec.get("spell"):
+        tech.append(f"Spell: {spec['spell']}")
+
+    items_out.append({
         "formId": fid,
         "entmFormId": entm["FormID"] if entm else "",
         "edid": furn_edid,
@@ -387,63 +547,13 @@ def emit(fid, groups, display, desc, how, season, tradeable, entm, furn_edid,
         "tradeable": tradeable,
         "planName": plan,
         "imageUrl": image_for(entm, furn_edid),
-        "outputInfo": output,
+        "outputInfo": build_output(fid, groups),
         "craftingRequirements": crafting,
-        "technicalNotes": tech_extra,
+        "technicalNotes": "\n".join(tech),
         "buffTypes": groups,
-        "singleExpand": single,
+        "singleExpand": "welltuned" in groups,
         "cutContent": False,
-    }
-    items_out.append(rec)
-
-for spec in I:
-    fid = spec["fid"]
-    fr = FURN.get(fid) or ACTI.get(fid)
-    furn_edid = fr["FURN_EDID"] if fr else ""
-    base_name = (fr["FURN_FULL"].strip() if fr and fr["FURN_FULL"] else "")
-    entm = entm_lookup(spec.get("entm"), spec.get("name") or base_name)
-    display = (spec.get("name") or base_name
-               or ((entm["FULL"] or "").strip() if entm else "")
-               or furn_edid or fid)
-    desc = clean_desc(entm["DESC"]) if entm else ""
-    season = season_from_edid(furn_edid, entm["EDID"] if entm else "")
-
-    how = spec.get("how")
-    if how == "atx":
-        how = ATX_HOW
-    elif how == "score":
-        how = score_how(season) if season else "Scoreboard reward."
-    elif how == "gold":
-        how = "Purchase the plan for gold bullion (available once per character)."
-    elif how == "f1st":
-        how = "Available to Fallout 1st members."
-
-    premium = "Premium" in ((entm and entm["XALG_Flags"]) or "") or \
-              "Premium" in ((fr and fr["XALG_Flags"]) or "")
-    f1 = "Fallout 1st" in ((fr and fr["XALG_Flags"]) or "")
-    tradeable = False if (premium or f1 or (furn_edid or "").upper().startswith(("ATX_", "SCORE_"))) else True
-
-    crafting, plan = crafting_for(fid, furn_edid)
-
-    tech = [f"FURN EDID: {furn_edid}", f"FURN FormID: {fid}"]
-    if entm:
-        tech.append(f"ENTM EDID: {entm['EDID']}")
-        tech.append(f"ENTM FormID: {entm['FormID']}")
-    g0 = [g for g in spec["groups"] if g in SPECIAL_KW]
-    for g in g0:
-        kw, sp = SPECIAL_KW[g]
-        tech.append(f"{STAT_NAME[g]} Keyword: {kw}")
-        tech.append(f"{STAT_NAME[g]} Spell: {sp}")
-    if g0:
-        tech.extend(DUR_NOTE.split("\n"))
-    if spec.get("kwline"):
-        tech.append(f"Keyword: {spec['kwline']}")
-    if spec.get("spell"):
-        tech.append(f"Spell: {spec['spell']}")
-
-    emit(fid, spec["groups"], display, desc, how, season, tradeable, entm,
-         furn_edid, build_output(spec["groups"], spec), "\n".join(tech),
-         crafting, plan)
+    })
 
 # ----- aggregate bed entries -------------------------------------------------
 BED_ENTRIES = [
@@ -461,7 +571,6 @@ for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
     names = bed_names[bkey]
     tech = [f"Bed Type Keyword: {kwline}", f"Buff Spell: {spell}", "",
             f"Counts As ({len(names)}):"] + names
-    out = buff + "\n\n" + HOMEBODY_LINE
     items_out.append({
         "formId": fid, "entmFormId": "", "edid": kwline.split(" ")[1],
         "displayName": label,
@@ -470,81 +579,12 @@ for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
         "obtainSource": "", "howToObtain": "Various — base game, Atom Shop and Scoreboard bed plans all qualify.",
         "dropRate": "N/A", "seasonNumber": None, "tradeable": None, "planName": "",
         "imageUrl": IMG_BASE + label.lower().replace(" ", "_") + ".avif",
-        "outputInfo": out, "craftingRequirements": "",
+        "outputInfo": buff + "\n\n" + HOMEBODY_LINE,
+        "craftingRequirements": "",
         "technicalNotes": "\n".join(tech),
         "buffTypes": ["wellrested", "experience"],
         "singleExpand": False, "cutContent": False,
     })
-
-# ----- instruments (Well Tuned) ---------------------------------------------
-INSTRUMENTS = [
-    # (furnFormId, entmEdid or None, override name or None, source)
-    ("0000CFA7", None, "Acoustic Guitar", "base"),
-    ("0000C22A", None, "Banjo", "base"),
-    ("00006F48", None, "Steel Guitar", "base"),
-    ("00044DBC", None, "Snare Drum", "base"),
-    ("0010F30F", None, "Grand Piano", "base"),
-    ("0010F3BC", None, "Upright Piano", "base"),
-    ("0034D1F5", None, "Tuba", "base"),
-    ("0037B7F4", None, "Bass", "base"),
-    ("003B7692", None, "Frame Drum", "base"),
-    ("001199CA", None, "Chemical Barrel", "base"),
-    ("0033AE56", None, "Metal Barrel", "base"),
-    ("004E0FA9", None, "Mouth Harp", "base"),
-    ("00662764", None, "Nuka-lele", "base"),
-    ("00668025", None, "Nuka-lele (Quantum)", "base"),
-    ("006381B4", None, "Pipe Organ", "base"),
-    ("0055A338", "ATX_ENTM_CAMP_Furniture_Instrument_Theremin", None, "atx"),
-    ("005D1C15", "ATX_ENTM_CAMP_Furniture_Instrument_Orgatronic", None, "atx"),
-    ("005FD994", "ATX_ENTM_CAMP_Furniture_Instrument_DrumSet", None, "atx"),
-    ("0062C3E2", "ATX_ENTM_CAMP_Furniture_Instrument_Pipe_Organ", "Pipe Organ (Atom Shop)", "atx"),
-    ("0064E9E7", "ATX_ENTM_CAMP_Furniture_Instrument_DrumSet_Skull", None, "atx"),
-    ("0065BFF1", "ATX_ENTM_CAMP_Furniture_Instrument_ResonatorGuitar", None, "atx"),
-    ("00678D16", "ATX_ENTM_CAMP_Furniture_Instrument_ResonatorGuitar", "Resonator Guitar B", "atx"),
-    ("00664E7D", "ATX_ENTM_CAMP_Furniture_Instrument_HamboneChair", None, "atx"),
-    ("0066F201", "SCORE_S16_ENTM_CAMP_Furniture_Instrument_HomemadeXylophone", None, "score"),
-    ("00691B73", "SCORE_S12_ENTM_CAMP_Furniture_Instrument_ViolinChair", "Violin", "score"),
-    ("00728409", "ATX_ENTM_CAMP_Furniture_Instrument_Xylophone", None, "atx"),
-    ("007746A5", "ATX_ENTM_CAMP_Furniture_Instrument_Accordion", None, "atx"),
-    ("007AE386", None, "Accordion (Free)", "Free reward — unlocked for all players."),
-    ("0078C78E", None, "Rusty Saxophone", "Plan: Rusty Saxophone — Milepost Zero reward."),
-    ("007AE566", None, "Chemical Barrel Drum (Blue)", "score"),
-    ("007AE563", None, "Radioactive Barrel Drum", "score"),
-    ("007AE564", None, "Metal Barrel Drum", "score"),
-    ("007AE565", None, "Chemical Barrel Drum", "score"),
-]
-WT_TECH = ["Instrument Keyword: 0050CD11 FurnitureTypeInstrument",
-           "Buff Spell: 0050CD15 SURV_WellTunedSpell “Well Tuned”",
-           "Buff Effect: 0050CD14 SURV_WellTunedEffect — +25 AP regen, 3600s"]
-WT_OUT = ("Well Tuned: +25 Action Point regeneration for 60 minutes.\n"
-          "Solo buff — applies to the player only.")
-
-for fid, entm_edid, name_over, src in INSTRUMENTS:
-    fr = FURN.get(fid)
-    furn_edid = fr["FURN_EDID"] if fr else ""
-    base_name = (fr["FURN_FULL"].strip() if fr and fr["FURN_FULL"] else "")
-    display = name_over or base_name or furn_edid
-    entm = entm_lookup(entm_edid, base_name)
-    desc = clean_desc(entm["DESC"]) if entm else ""
-    season = season_from_edid(furn_edid, entm["EDID"] if entm else "")
-    if src == "base":
-        how = "Base game — craftable at a C.A.M.P. or workshop after learning the plan."
-    elif src == "atx":
-        how = ATX_HOW
-    elif src == "score":
-        how = score_how(season) if season else "Scoreboard reward."
-    else:
-        how = src
-    premium = "Premium" in ((entm and entm["XALG_Flags"]) or "") or \
-              "Premium" in ((fr and fr["XALG_Flags"]) or "")
-    tradeable = not premium and src == "base"
-    crafting, plan = crafting_for(fid, furn_edid)
-    tech = [f"FURN EDID: {furn_edid}", f"FURN FormID: {fid}"]
-    if entm:
-        tech += [f"ENTM EDID: {entm['EDID']}", f"ENTM FormID: {entm['FormID']}"]
-    tech += WT_TECH
-    emit(fid, ["welltuned"], display, desc, how, season, tradeable, entm,
-         furn_edid, WT_OUT, "\n".join(tech), crafting, plan, single=True)
 
 # ---------------------------------------------------------------- write
 data = {"groups": GROUPS, "items": items_out}

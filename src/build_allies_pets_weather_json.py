@@ -688,6 +688,12 @@ def build_weather_stations():
                       f"'{_wthr_edid}' but that WTHR wasn't found in the TSV")
         else:
             _fishing = ""
+            if _edid_suffix:
+                # NEW station not in ENTM_SUFFIX_TO_WTHR_EDID — it will still
+                # appear on the page but its Fishing line shows "—" until a
+                # one-line suffix→WTHR mapping is added above.
+                print(f"  [WARN] NEW weather station suffix '{_edid_suffix}' has no "
+                      f"WTHR mapping — Fishing label will show '—' until mapped")
 
         # ── How to Obtain — use richer detail if available ──
         if entm_id in WEATHER_HOW_TO_OBTAIN:
@@ -763,33 +769,54 @@ def build_weather_stations():
 # Source: ENTM_Export_March_2026.tsv — all ATX_ENTM_CAMP_Utility_RepairBot_* records.
 # All four skins are Atom Shop (XALG flag 000000001 = Premium/ATX).
 # No base/default repair bot exists as a separate ENTM entry.
-# Add new FormIDs here as new skins are released.
+#
+# AUTO-DISCOVERY (titles.js pattern): bots are found by EDID — every skin's
+# storefront record matches ENTM_CAMP_Utility_RepairBot_<Suffix>, and the
+# pod FURN matches RepairBot(_)?Pod_<Suffix>. New skins appear automatically
+# on the next TSV drop; unmatched parts log a [WARN].
 
-REPAIR_BOT_ENTM_IDS = [
-    "007AE546",  # Enclave Repair Bot
-    "0082BED5",  # Company Repair Bot
-    "0084920E",  # Santa's Helper Repair Bot
-    "008571F1",  # Emergency Technician Repair Bot
-]
+def _rb_norm(s):
+    return re.sub(r"[^a-z0-9]", "", str(s).lower())
 
-# ENTM FormID → FURN FormID (the placeable pod / station record).
-# The pod carries the PRPS data: ATX_RepairBot_RepairRate and
-# WorkshopBudgetObjectMultiplier.
-REPAIR_BOT_FURN_IDS = {
-    "007AE546": "007AE499",  # ATX_RepairBotPod_Enclave
-    "0082BED5": "008109D1",  # ATX_RepairBot_Pod_Company
-    "0084920E": "0084920C",  # ATX_RepairBotPod_SantasHelper
-    "008571F1": "00884077",  # ATX_RepairBot_Pod_EmergencyTech
+REPAIR_BOT_ENTM_IDS = []
+_rb_suffix_by_entm = {}
+for _e in entm_rows:
+    _m = re.search(r"ENTM_CAMP_Utility_RepairBot_(.+)$", _e.get("EDID", ""), re.I)
+    if _m and not is_cut(_e.get("EDID", "")):
+        REPAIR_BOT_ENTM_IDS.append(_e["FormID"])
+        _rb_suffix_by_entm[_e["FormID"]] = _rb_norm(_m.group(1))
+REPAIR_BOT_ENTM_IDS.sort()
+
+# Pod FURN per suffix (the pod carries PRPS: ATX_RepairBot_RepairRate etc.)
+_rb_furn_by_suffix = {}
+for _f in furn_rows:
+    _m = re.search(r"RepairBot_?Pod_(.+)$", _f.get("FURN_EDID", ""), re.I)
+    if _m:
+        _rb_furn_by_suffix[_rb_norm(_m.group(1))] = _f.get("FURN_FormID", "")
+
+REPAIR_BOT_FURN_IDS = {}
+for _eid, _sfx in _rb_suffix_by_entm.items():
+    _fid = _rb_furn_by_suffix.get(_sfx, "")
+    if not _fid:
+        print(f"  [WARN] repair bot '{_sfx}': no pod FURN matched — pod stats will be blank")
+    REPAIR_BOT_FURN_IDS[_eid] = _fid
+
+# Bot NPC record + race per suffix (NPC actor TSV isn't loaded here — manual).
+# A new bot without an entry still builds; it just logs a [WARN] and leaves
+# the NPC fields blank until the suffix is added below.
+_RB_NPC_BY_SUFFIX = {
+    "enclave":       {"npcFormId": "007AE49A", "npcEdid": "ATX_RepairBot_Enclave",       "race": "Protectron"},
+    "company":       {"npcFormId": "008109D4", "npcEdid": "ATX_RepairBot_Company",       "race": "Protectron"},
+    "santashelper":  {"npcFormId": "0084920D", "npcEdid": "ATX_RepairBot_SantasHelper",  "race": "Protectron"},
+    "emergencytech": {"npcFormId": "008571F7", "npcEdid": "ATX_RepairBot_EmergencyTech", "race": "Mr. Handy"},
 }
-
-# ENTM FormID → bot NPC record + race (from NPC_Export_June_2026).
-# The walking robot is a separate NPC_ record from the pod FURN.
-REPAIR_BOT_NPC_INFO = {
-    "007AE546": {"npcFormId": "007AE49A", "npcEdid": "ATX_RepairBot_Enclave",       "race": "Protectron"},
-    "0082BED5": {"npcFormId": "008109D4", "npcEdid": "ATX_RepairBot_Company",       "race": "Protectron"},
-    "0084920E": {"npcFormId": "0084920D", "npcEdid": "ATX_RepairBot_SantasHelper",  "race": "Protectron"},
-    "008571F1": {"npcFormId": "008571F7", "npcEdid": "ATX_RepairBot_EmergencyTech", "race": "Mr. Handy"},
-}
+REPAIR_BOT_NPC_INFO = {}
+for _eid, _sfx in _rb_suffix_by_entm.items():
+    _info = _RB_NPC_BY_SUFFIX.get(_sfx)
+    if not _info:
+        print(f"  [WARN] repair bot '{_sfx}': no NPC info — add to _RB_NPC_BY_SUFFIX")
+        _info = {"npcFormId": "", "npcEdid": "", "race": ""}
+    REPAIR_BOT_NPC_INFO[_eid] = _info
 
 # NOTE: bot NPC combat stats (Health/AP/Perception) were dropped from the
 # page output June 2026 — the npc_prps_by_id map stays available for future
@@ -977,6 +1004,25 @@ ALLY_COBJ_FURN = {
     "007FDC17": {"furn": "007FDC1B", "name": "Dottie's Strange Boxes",  "obtain": "Atom Shop"},
 }
 
+# Drift check: warn when a NEW ally camp object exists that isn't mapped.
+# Ally COBJ EDIDs match COMP_Constructible_CampObject (or LiteAlly for the
+# Initiate). Allies need a manual COBJ→FURN pair, so new ones are flagged.
+_known_ally_cobjs = set(ALLY_COBJ_FURN)
+_ALLY_DRIFT_EXCLUDE = {
+    # Cut content (confirmed by Duchess, 7 Jun 2026) — never shipped:
+    "005856BA",  # Beggar
+    "00585CD1",  # Hunter (Chopping Block)
+    "00620A16",  # Doberman (Doghouse)
+}
+for _c in cobj_rows:
+    _ce = _c.get("COBJ_EDID", "")
+    if (re.search(r"COMP_Constructible_CampObject|LiteAlly", _ce, re.I)
+            and not is_cut(_ce)):
+        _cid = _c.get("COBJ_FormID", "")
+        if _cid and _cid not in _known_ally_cobjs and _cid not in _ALLY_DRIFT_EXCLUDE:
+            print(f"  [WARN] NEW ally camp object not in ALLY_COBJ_FURN: {_cid} {_ce} "
+                  f"— add the COBJ→FURN mapping")
+
 # ENTM → COBJ link: scan ENTM ECIL cols for our COBJ FormIDs
 _ally_entm_cache = {}
 
@@ -1114,6 +1160,7 @@ PET_ANIMAL_MAP = {
     "_cat_": "cat", "_cats_": "cat",
     "_dog_": "dog", "_dogs_": "dog",
     "_radhog_": "radhog", "_radhogs_": "radhog",
+    "_deathclaw_": "deathclaw",
 }
 
 
@@ -1153,7 +1200,27 @@ SPAWN_FURN_TO_ENTM = {
     "0085B0CA": "0085B0C9",  # RoboPaw Blue Dog    (dog)
     "0089A8C5": "0089A8C4",  # Rooter Radhog       (radhog)
     "008A5DF5": "008A5DF4",  # Glowing Cat         (cat)  S24 Scoreboard
+    "008AFDFF": "008AFE00",  # Goodboy             (dog)
+    "008AFF66": "008AFF64",  # Cyprus Cat          (cat)  S25 Scoreboard
+    "008B1207": "008B1206",  # Mr Pebbles          (cat)
+    "008B1550": "008B154F",  # Gruyere             (radhog)
+    "008B1D6D": "008B1D6C",  # Glowing Dog         (dog)  S25 Scoreboard
+    "008B1F0B": "008B1F0A",  # Glowing Hog         (radhog) S25 Scoreboard
+    "008A52AF": "008A52B4",  # Deathclaw           (deathclaw) — Deathclaw Cage spawn
 }
+
+# Drift check: warn when a NEW pet ENTM exists that isn't mapped above.
+# Pets need a manual FURN→ENTM pair (regex suffix matching is unreliable for
+# spawn furniture), so new pets are flagged here instead of auto-added.
+_known_pet_entms = set(SPAWN_FURN_TO_ENTM.values())
+for _e in entm_rows:
+    _ed = _e.get("EDID", "")
+    if (re.search(r"ENTM_CAMP_CAMPPets_", _ed, re.I)
+            and not re.search(r"Furniture|Apparel|Emote", _ed, re.I)
+            and not is_cut(_ed)
+            and _e["FormID"] not in _known_pet_entms):
+        print(f"  [WARN] NEW pet not in SPAWN_FURN_TO_ENTM: {_e['FormID']} {_ed} "
+              f"— add the spawn FURN→ENTM pair")
 
 # ---------------------------------------------------------------------------
 # Authoritative ENTM ID list for pet idle furniture.
@@ -1162,26 +1229,14 @@ SPAWN_FURN_TO_ENTM = {
 # Switched to ENTM-first approach (same pattern as pet apparel) because
 # some items lack or have inconsistent FURN EDID IdleFurniture patterns.
 # ---------------------------------------------------------------------------
-PET_FURNITURE_ENTM_IDS = [
-    # Cat items
-    "0078B4FE",  # Cat Tree
-    "007A27AD",  # Catctus Scratching Post      (S19 Scoreboard)
-    "007DC478",  # Knick Knack Table
-    "0082EF12",  # Mushroom Scratching Post     (S22 Scoreboard)
-    "00853B8A",  # Skeletal Scratching Post     (S23 Scoreboard)
-    # Dog items
-    "0078B4FF",  # Dog Dirt Pile
-    "007A27AC",  # Dog Leaf Pile                (S19 Scoreboard)
-    "007B290F",  # Mr. Fuzzy Chew Toy
-    "007B2910",  # Junkyard Food Bowl
-    "00804F59",  # Raider Skull Pile
-    # Radhog items
-    "00852172",  # Scratching Post (RadHog)
-    "00853B8A",  # Skeletal Scratching Post — shared cat/radhog? keep once
-    "00868F73",  # Feeding Trough (RadHog)
-]
-# Deduplicate while preserving order
-PET_FURNITURE_ENTM_IDS = list(dict.fromkeys(PET_FURNITURE_ENTM_IDS))
+# AUTO-DISCOVERY: every pet idle-furniture storefront record matches
+# CAMPPets_(Idle)Furniture in its ENTM EDID. New items appear automatically;
+# unknown animal types log a [WARN] (add to PET_FURNITURE_ANIMAL below).
+PET_FURNITURE_ENTM_IDS = sorted({
+    _e["FormID"] for _e in entm_rows
+    if re.search(r"CAMPPets_(Idle)?Furniture", _e.get("EDID", ""), re.I)
+    and not is_cut(_e.get("EDID", ""))
+})
 
 # Animal type for each furniture ENTM (for grouping on page)
 PET_FURNITURE_ANIMAL = {
@@ -1319,17 +1374,13 @@ def build_pet_furniture():
 # ---------------------------------------------------------------------------
 # 9 COBJ items crafted at Armor Workbench
 
-PET_APPAREL_ENTM_IDS = [
-    "0078B503",  # Red Bow Collar (Cat)
-    "0078B502",  # Red Bow Collar (Dog)
-    "007B285E",  # Rusted Chain Collar (Dog)
-    "007DBEF0",  # Leather Collar (Cat)
-    "00840E0F",  # Responders Bandana (Dog)
-    "00852177",  # Nose Ring (Radhog)
-    "00853B81",  # Rusty Nails Collar (Cat)
-    "00853B82",  # Rusty Nails Collar (Dog)
-    "00868F71",  # Sooie-Heart Ring (Radhog)
-]
+# AUTO-DISCOVERY: every pet apparel storefront record matches
+# ENTM_Apparel_CAMPPets_ in its EDID; animal comes from the EDID token.
+PET_APPAREL_ENTM_IDS = sorted({
+    _e["FormID"] for _e in entm_rows
+    if re.search(r"ENTM_Apparel_CAMPPets_", _e.get("EDID", ""), re.I)
+    and not is_cut(_e.get("EDID", ""))
+})
 
 PET_APPAREL_ANIMAL = {
     "0078B503": "cat", "0078B502": "dog",
@@ -1351,7 +1402,7 @@ def build_pet_apparel():
         display  = entm.get("FULL", "")
         xalg     = entm.get("XALG", "")
         source   = xalg_to_source(xalg) or "Atom Shop"
-        animal   = PET_APPAREL_ANIMAL.get(entm_id, "other")
+        animal   = PET_APPAREL_ANIMAL.get(entm_id, animal_from_edid(entm.get("EDID", "")))
         carousel = ecil_images(entm, "camp-pets")
         # Pet apparel imageUrl: ETDI is the reliable base icon filename.
         # ECIL_1 has a _C1 suffix which does NOT match the uploaded texture icon.
@@ -1404,11 +1455,13 @@ def build_pet_apparel():
 # CRYOS
 # ---------------------------------------------------------------------------
 
-CRYO_ENTM_IDS = [
-    "006C2F42",  # Military Cryo-Freezer
-    "00773E30",  # Nuka-Cola Cryo-Freezer
-    "007D70D2",  # Fishing Cooler Cryo Freezer
-]
+# AUTO-DISCOVERY: cryo freezer storefront records match CAMP_Utility_*Cryo*Fre*
+# in the ENTM EDID (covers the in-data "CryoFrezer" typo too).
+CRYO_ENTM_IDS = sorted({
+    _e["FormID"] for _e in entm_rows
+    if re.search(r"CAMP_Utility_.*Cryo.*Fre", _e.get("EDID", ""), re.I)
+    and not is_cut(_e.get("EDID", ""))
+})
 
 CRYO_GOLDVENDOR = {
     "006C2F42": "00732A95",
@@ -1473,31 +1526,16 @@ def build_cryos():
 # FRIDGES
 # ---------------------------------------------------------------------------
 
-FRIDGE_ENTM_IDS = [
-    # ── Upright refrigerators ──
-    "0055FA66",  # Refrigerator (base)
-    "0055FA5F",  # Bloody Arktos Refrigerator
-    "0055FA60",  # Nuka-Cola Refrigerator
-    "0055FA61",  # Stainless Steel Refrigerator
-    "0056B910",  # Blood Spattered Refrigerator
-    "005DBDBD",  # Beer Barrel Fridge
-    "005F56CB",  # Vault-Tec Refrigerator
-    "00692CCB",  # The Meat Locker
-    "006F7E74",  # Sugar Bombs Refrigerator
-    "007703CC",  # Camping Cooler           (S17 Scoreboard)
-    "007DC658",  # Gone Fission Camping Cooler (S21 Scoreboard)
-    "0082F826",  # Pink Modern Home Refrigerator (S22 Scoreboard)
-    # ── Chest / cooler style (50% spoilage) ──
-    "005A18C6",  # The Cooler
-    "005A1B8B",  # Nuka-Cola Cooler
-    "005A3584",  # The Ice Box
-    "005ADDA0",  # Red Rocket Cooler
-    "0079A1CF",  # Nuka-Cola Quantum Cooler
-    # ── Beer kegs / dispensers ──
-    "0058BCF9",  # Beer Keg
-    "00773E31",  # Beer Mystery Machine
-    "00795285",  # Blue Ridge Beer Keg Set  (S18 Scoreboard)
-]
+# AUTO-DISCOVERY: fridges/coolers match ENTM_CAMP_Utility_Refrigerator*;
+# beer kegs/dispensers match ENTM_CAMP_Utility_*Beer* (Beer Keg, Beer
+# Mystery Machine, Blue Ridge Beer Keg). Cryos are a separate page.
+FRIDGE_ENTM_IDS = sorted({
+    _e["FormID"] for _e in entm_rows
+    if (re.search(r"ENTM_CAMP_Utility_Refrigerator", _e.get("EDID", ""), re.I)
+        or re.search(r"ENTM_CAMP_Utility_\w*Beer", _e.get("EDID", ""), re.I))
+    and not re.search(r"Cryo", _e.get("EDID", ""), re.I)
+    and not is_cut(_e.get("EDID", ""))
+})
 
 
 def build_fridges():
