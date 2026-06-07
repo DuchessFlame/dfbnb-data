@@ -791,7 +791,7 @@ def build_weather_stations():
         # scoreboard line first, then the plan/vendor/price lines).
         _plan_block = plan_purchase_block(WEATHER_PLAN_BOOKS.get(entm_id, ""))
         if _plan_block:
-            _how = f"{scoreboard_how(season_num)}\n{_plan_block}" if season_num else _plan_block
+            _how = f"{scoreboard_how(season_num)}\nOR\n{_plan_block}" if season_num else _plan_block
         elif season_num:
             _how = scoreboard_how(season_num)
         else:
@@ -1590,7 +1590,7 @@ def build_cryos():
         # scoreboard line first, then the data-derived plan/vendor/price block.
         _gv_block = plan_purchase_block(gv) if gv else ""
         if season_num and _gv_block:
-            how = f"{scoreboard_how(season_num)}\n{_gv_block}"
+            how = f"{scoreboard_how(season_num)}\nOR\n{_gv_block}"
         elif season_num:
             how = scoreboard_how(season_num)
         elif _gv_block:
