@@ -468,6 +468,79 @@ def resource_subcategory(reso_edid, entm_desc):
         if kw in blob: return "junk"
     return "other"
 
+# --- Output-type buckets (resource generators) ---
+# Root expands on the Resource Generators page are grouped by what a producer
+# OUTPUTS. The bucket is derived generatively from the produced items (majority
+# vote), with a producer-EDID fallback for stations that resolve to no drops.
+# Empty buckets are still rendered (handled on the front end).
+BUCKET_ORDER = [
+    "Raw Ingredients", "Cooked Dishes", "Candy", "Drinks",
+    "Dirty Water", "Boiled Water", "Purified Water", "Toxic Goo",
+    "Ammo", "Chems", "Scrap & Crafting Materials", "Misc Junk",
+]
+
+_CHEM_ITEMS = {
+    "stimpak", "stimpakdiluted", "superstimpak", "radaway", "radx", "psycho",
+    "psychobuff", "psychotats", "buffout", "bufftats", "mentats", "berrymentats",
+    "grapementats", "orangementats", "medx", "daytripper", "fury", "overdrive",
+    "xcell", "calmex", "daddyo", "bloodpack", "bloodpackirradiated", "healingsalve",
+    "ratpoison",
+}
+_CANDY_ITEMS = {"sugarbombs", "fancyladsnackcakes", "dandyboyapples"}
+_DRINK_TOKENS = ("brew_", "whiskey", "bourbon", "beer", "lager", "pilsner", "ale_",
+    "nukacola", "nukavictory", "nukaquantum", "_tea", "companytea", "coffee")
+
+def _item_bucket(edid):
+    """Classify a single produced item EDID into one output-type bucket."""
+    el = (edid or "").strip().lower()
+    base = re.sub(r"_prewar.*$", "", el)
+    base = re.sub(r"_clean$", "", base)
+    # Waters / goo
+    if "watertoxicgoo" in el: return "Toxic Goo"
+    if "waterdirty" in el: return "Dirty Water"
+    if "waterboiled" in el: return "Boiled Water"
+    if "waterpurified" in el: return "Purified Water"
+    # Ammo (incl. fusion-core and plasma-core rechargers)
+    if el.startswith("ammo") or "fusioncore" in el or "plasmacore" in el: return "Ammo"
+    # Candy
+    if "candy" in el or base in _CANDY_ITEMS: return "Candy"
+    # Drinks (soda + alcohol + tea/coffee)
+    if any(t in el for t in _DRINK_TOKENS): return "Drinks"
+    # Chems
+    if base in _CHEM_ITEMS or "stimpak" in el or "mentats" in el or "bloodpack" in el:
+        return "Chems"
+    # Cooked dishes / prepared food
+    if any(t in el for t in ("cooked", "jerky", "gourmet", "soup", "tasty", "hotdog",
+            "smores", "pemmican", "popcorn", "cakeslice", "pieslice", "mudcookie",
+            "macandcheese", "instamash", "salisburysteak", "dogfood", "slimecake")):
+        return "Cooked Dishes"
+    # Raw ingredients
+    if "scrap" not in el and any(t in el for t in ("meat", "herb", "_egg", "egg_",
+            "milk", "honey", "cookingflavor", "cookingoil", "_food", "fishing_fish_meal",
+            "fishing_bait", "flora", "fruit", "mothmanegg")):
+        return "Raw Ingredients"
+    # Scrap / crafting materials (incl. smelted ore)
+    if (el.startswith("c_") and el.endswith("_scrap")) or "chem_smelting_ore" in el or "_scrap" in el:
+        return "Scrap & Crafting Materials"
+    return "Misc Junk"
+
+def classify_producer_bucket(drops, *edids):
+    """Bucket a producer by majority vote over its produced items; fall back to
+    producer-EDID keywords when the station resolves to no drops."""
+    from collections import Counter
+    votes = Counter(_item_bucket(d.get("item") or "") for d in (drops or []))
+    if votes:
+        return sorted(votes.items(), key=lambda kv: (-kv[1], BUCKET_ORDER.index(kv[0])))[0][0]
+    blob = " ".join(e for e in edids if e).lower()
+    if "steamboiler" in blob or "boiler" in blob: return "Boiled Water"
+    if "dirtywater" in blob: return "Dirty Water"
+    if "purifiedwater" in blob or "waterresource" in blob or "cooler" in blob: return "Purified Water"
+    if "toxicgoo" in blob: return "Toxic Goo"
+    if "ammo" in blob: return "Ammo"
+    if "food" in blob or "meat" in blob: return "Raw Ingredients"
+    if "scrap" in blob or "junk" in blob or "ore" in blob: return "Scrap & Crafting Materials"
+    return "Misc Junk"
+
 # --- Image + release date ---
 def image_webp_url(entm_row, subfolder):
     if not entm_row: return None
@@ -685,7 +758,9 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
         "releaseDate": release_date,
         "cutContent": starts_cut(primary_edid),
     }
-    if not is_collectron: item["subcategory"] = resource_subcategory(primary_edid, description)
+    if not is_collectron:
+        item["subcategory"] = resource_subcategory(primary_edid, description)
+        item["bucket"] = classify_producer_bucket(flat_drops, primary_edid, entm_edid)
     return item
 
 # --- Main ---
