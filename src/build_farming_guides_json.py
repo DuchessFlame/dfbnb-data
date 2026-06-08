@@ -1687,6 +1687,20 @@ def build(data_dir: str, outdir: str) -> str:
         if out_fid not in canned_recipe_edid_by_output_fid:
             canned_recipe_edid_by_output_fid[out_fid] = r.get("COBJ_EDID", "")
 
+    # Map every COBJ EDID -> set of its ingredient EDIDs (parsed from FVPA).
+    # Used below to detect the canning workflow per item. We only need the
+    # ingredient identities here, not quantities/curves, so a light split is
+    # enough (FVPA segments are "<edid>:<qty>:<curve?>" joined by "|").
+    cobj_ings_by_edid: Dict[str, set] = {}
+    for r in cobj:
+        edid = r.get("COBJ_EDID", "")
+        if not edid:
+            continue
+        fvpa = r.get("FVPA", "") or ""
+        cobj_ings_by_edid[edid] = {
+            seg.split(":", 1)[0] for seg in fvpa.split("|") if seg
+        }
+
     canned_items: List[Dict[str, Any]] = []
     for r in alch:
         if (r.get("ENIT_IsCanned") or "").strip().lower() != "true":
@@ -1704,6 +1718,26 @@ def build(data_dir: str, outdir: str) -> str:
         kw_flat = r.get("Keywords_Flat") or ""
         super_duper = "BlockSuperDuperPerk" not in kw_flat
 
+        # Canning workflow - generative from the canning recipe's ingredient
+        # list. Two ways the game lets you can a food:
+        #   "cook_first": the canning recipe consumes the already-cooked base
+        #                 food itself (its ALCH EDID appears as an ingredient),
+        #                 so you cook the food first, then can the cooked item.
+        #   "raw":        the canning recipe consumes raw ingredients (the base
+        #                 food's EDID is NOT an ingredient), so it cooks and
+        #                 cans in a single step at the Canning Station.
+        # Derived purely from data, so if Bethesda changes a recipe the next
+        # COBJ export flips this automatically - no code edit needed. None when
+        # the canning recipe can't be resolved (don't guess).
+        base_edid = (r.get("ENIT_CannedBase_EDID") or "").strip()
+        recipe_ings = cobj_ings_by_edid.get(canned_recipe_edid or "")
+        if not canned_recipe_edid or not recipe_ings:
+            canning_method = None
+        elif base_edid and base_edid in recipe_ings:
+            canning_method = "cook_first"
+        else:
+            canning_method = "raw"
+
         canned_items.append({
             "edid":              r.get("ALCH_EDID", ""),
             "formId":            alch_fid,
@@ -1715,6 +1749,7 @@ def build(data_dir: str, outdir: str) -> str:
             "season_number":     season_number,
             "season_name":       season_name,
             "super_duper":       super_duper,
+            "canning_method":    canning_method,
         })
     canned_items.sort(key=lambda i: (i["name"] or "").lower())
 
