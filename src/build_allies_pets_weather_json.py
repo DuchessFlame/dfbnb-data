@@ -328,6 +328,57 @@ for r in glob_rows:
         glob_fltv_by_edid[r["EDID"].strip().lower()] = _v
 
 # ---------------------------------------------------------------------------
+# WorkshopCount build-limit GLOBs → normalised-token lookup.
+# Naming conventions present in the data:
+#   ATX_WorkshopCount_<Token>        (per-workshop)  / _CAMP  (per-camp)
+#   WorkshopCount_<Token>_Workshop   (per-workshop)  / _Camp  (per-camp)
+#   SCORE_S##_WorkshopCount_<Token>  (+ _CAMP)
+# A bare token (no _CAMP/_Camp/_Workshop suffix) is the per-workshop value.
+# These globals are NOT referenced by the item's FURN/ACTI/COBJ record in the
+# xEdit export, so the link is by token. Values are read straight from the
+# GLOB FLTV — never hardcoded.
+def _wc_norm(tok):
+    return re.sub(r"[^a-z0-9]", "", tok.lower())
+
+
+workshop_count_by_token: dict = {}
+for r in glob_rows:
+    _ed = (r.get("EDID") or "").strip()
+    _v  = (r.get("FLTV") or "").strip()
+    if "WorkshopCount" not in _ed or not _v:
+        continue
+    if _ed.lower().startswith("zzz"):          # deprecated/cut globals
+        continue
+    _core = re.sub(r"^(ATX_|SCORE_S\d+_|F1_|MILE_)", "", _ed)
+    _core = re.sub(r"^WorkshopCount_", "", _core)
+    _low  = _core.lower()
+    if _low.endswith("_camp"):
+        _kind, _tok = "camp", _core[:-5]
+    elif _low.endswith("_workshop"):
+        _kind, _tok = "workshop", _core[:-9]
+    else:
+        _kind, _tok = "workshop", _core
+    try:
+        _wc_val = int(float(_v))
+    except (ValueError, TypeError):
+        continue
+    workshop_count_by_token.setdefault(_wc_norm(_tok), {})[_kind] = _wc_val
+
+
+def workshop_count_for(*tokens):
+    """Return (camp, workshop) build limits for the first matching token, or
+    (None, None) when no WorkshopCount GLOB exists for any token supplied."""
+    for t in tokens:
+        entry = workshop_count_by_token.get(_wc_norm(t))
+        if entry:
+            return entry.get("camp"), entry.get("workshop")
+    return None, None
+
+
+def _limit_str(v):
+    return str(v) if v is not None else "—"
+
+# ---------------------------------------------------------------------------
 # Build lookup maps
 # ---------------------------------------------------------------------------
 
@@ -905,12 +956,21 @@ def build_weather_stations():
         # it up without needing a new Wix field mapping. Falls back to an
         # em-dash when the ENTM isn't in our suffix→WTHR map (unknown or newly
         # added station) or when the WTHR TSV is missing.
+        # Build limits from the WorkshopCount_WeatherStation_Camp / _Workshop
+        # globals; Flamingo Units from the ACTI WorkshopBudgetObjectMultiplier
+        # (defaults to 1 — base CAMP budget cost — when the property is absent).
+        _ws_camp, _ws_workshop = workshop_count_for("WeatherStation")
+        _ws_flam_raw = acti_prps_value(_acti_edid, "WorkshopBudgetObjectMultiplier")
+        try:
+            _ws_flamingo = str(int(float(_ws_flam_raw))) if _ws_flam_raw else "1"
+        except (ValueError, TypeError):
+            _ws_flamingo = "1"
         _fishing_line = _fishing if _fishing else "—"
         _build_info = (
-            f"Build Limit per Camp: 1\n"
-            f"Build Limit per Workshop: 0\n"
+            f"Build Limit per Camp: {_limit_str(_ws_camp)}\n"
+            f"Build Limit per Workshop: {_limit_str(_ws_workshop)}\n"
             f"Power Required: {_power_val}\n"
-            f"Flamingo Units: 1\n"
+            f"Flamingo Units: {_ws_flamingo}\n"
             f"Fishing Weather: {_fishing_line}"
         )
 
@@ -1006,11 +1066,9 @@ for _eid, _sfx in _rb_suffix_by_entm.items():
 # entitlement-gated so the one COBJ crafts whichever skin you own.
 REPAIR_BOT_LVLI_ID = "007AE547"
 
-# Build limit GLOBs (GLOB_Export_Jun_2026):
-#   008020FB ATX_WorkshopCount_RepairBot_CAMP = 1
-#   008020FA ATX_WorkshopCount_RepairBot      = 1
-REPAIR_BOT_LIMIT_CAMP     = "1"
-REPAIR_BOT_LIMIT_WORKSHOP = "1"
+# Build limits are read at build time from the WorkshopCount GLOBs via
+# workshop_count_for("RepairBot") — globals 008020FB ATX_WorkshopCount_RepairBot_CAMP
+# and 008020FA ATX_WorkshopCount_RepairBot. No hardcoded values.
 
 # Per-bot howToObtain overrides. The Enclave Repair Bot is NOT an Atoms
 # purchase — it shipped in the real-money Enclave Armory Bundle
@@ -1087,6 +1145,13 @@ def build_repair_bots():
         # --- Output data (from the pod FURN PRPS) ---
         repair_rate = fmt_num(furn_prps_value(furn_id, "ATX_RepairBot_RepairRate")) or "2"
         budget_mult = fmt_num(furn_prps_value(furn_id, "WorkshopBudgetObjectMultiplier")) or "5"
+        _rb_camp, _rb_workshop = workshop_count_for("RepairBot")
+        # Power Required from FURN PRPS; absent property = needs no power (0).
+        _rb_power_raw = furn_prps_value(furn_id, "PowerRequired")
+        try:
+            _rb_power = str(int(float(_rb_power_raw))) if _rb_power_raw else "0"
+        except (ValueError, TypeError):
+            _rb_power = "0"
 
         output_info = (
             "Automatically repairs damaged objects in your C.A.M.P. while deployed.\n"
@@ -1095,9 +1160,9 @@ def build_repair_bots():
 
         # --- Build information (weather-station buildInfo format) ---
         build_info = (
-            f"Build Limit per Camp: {REPAIR_BOT_LIMIT_CAMP}\n"
-            f"Build Limit per Workshop: {REPAIR_BOT_LIMIT_WORKSHOP}\n"
-            f"Power Required: 0\n"
+            f"Build Limit per Camp: {_limit_str(_rb_camp)}\n"
+            f"Build Limit per Workshop: {_limit_str(_rb_workshop)}\n"
+            f"Power Required: {_rb_power}\n"
             f"Flamingo Units: {budget_mult}\n"
             f"Shelter Placement: No"
         )
