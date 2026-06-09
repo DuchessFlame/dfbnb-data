@@ -933,9 +933,12 @@ def build_weather_stations():
         _obtain_routes = make_obtain_routes(_populated_routes)
 
         # ── Build Information — PowerRequired read from ACTI PRPS ──
-        # The ACTI EDID for weather stations follows the pattern:
-        #   ATX_Weather_WeatherStation_<Suffix>  (or SCORE_S##_ prefix)
-        # We derive it from the ENTM EDID by swapping the ENTM prefix.
+        # The ACTI EDID for weather stations follows two patterns:
+        #   Atom-shop:  ATX_Weather_WeatherStation_<Suffix>
+        #   Scoreboard: SCORE_S##_Weather_WeatherStation_<Suffix>  (no ATX_)
+        # We derive it from the ENTM EDID by swapping the ENTM prefix. The
+        # season-scoreboard records drop the ATX_ stem, so resolve against
+        # whichever ACTI record actually exists rather than assuming ATX_.
         _acti_suffix    = re.sub(
             r"^(?:SCORE_S\d+_)?(?:ATX_)?ENTM_CAMP_Utility_WeatherStation_",
             "", edid, flags=re.IGNORECASE
@@ -943,6 +946,11 @@ def build_weather_stations():
         _season_prefix_m = re.match(r"^(SCORE_S\d+_)", edid, re.IGNORECASE)
         _season_prefix   = _season_prefix_m.group(1) if _season_prefix_m else ""
         _acti_edid       = f"{_season_prefix}ATX_Weather_WeatherStation_{_acti_suffix}"
+        for _stem in ("Weather_WeatherStation_", "ATX_Weather_WeatherStation_"):
+            _cand = f"{_season_prefix}{_stem}{_acti_suffix}"
+            if _cand in acti_by_edid:
+                _acti_edid = _cand
+                break
 
         _power_raw = acti_prps_value(_acti_edid, "PowerRequired")
         try:
