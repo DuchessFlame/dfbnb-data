@@ -146,15 +146,62 @@ def scoreboard_how(season_num):
     # S1-S15 was claim-as-you-rank; S16+ is the ticket/Season Pass system.
     verb = "Claim from" if (season_num or 0) <= 15 else "Purchase with tickets from"
     if name:
-        # Avoid "the The Big Score Scoreboard" when the season name
-        # already starts with "The".
-        article = "" if name.lower().startswith("the ") else "the "
-        return f"{verb} {article}{name} Scoreboard (Season {season_num})"
+        # Drop the leading "The " of the theme name so we emit a single
+        # lowercase article: "...the Big Score Scoreboard" — never
+        # "...The Big Score" (no article) or "...the The Big Score" (doubled).
+        # A mid-name "The" (e.g. "Gleaming Depths: The Scientific Forge") is
+        # left untouched.
+        if name.lower().startswith("the "):
+            name = name[4:]
+        return f"{verb} the {name} Scoreboard (Season {season_num})"
     return f"{verb} the Season {season_num} Scoreboard"
 
 
 # Standard Atom Shop howToObtain string used across all builders.
 ATX_HOW = "Can be purchased with certain bundles from the Atom Shop."
+
+# ---------------------------------------------------------------------------
+# OBTAIN ROUTES (camp-item-expands spec — fixed 9-route How to Obtain list)
+# ---------------------------------------------------------------------------
+# Every CAMP item renders a fixed list of obtain routes, always in this order.
+# Populated routes carry detail line(s) + a per-route tradeable pill and a
+# drop-rate pill ("N/A" for buy/unlock/vendor/scoreboard sources). Unpopulated
+# routes are emitted too (dimmed "N/A" in the renderer) so the reader can see
+# we checked every source — they carry no pills.
+OBTAIN_ROUTE_ORDER = [
+    "Caps",
+    "Stamps",
+    "Scoreboard",
+    "Gold Bullion",
+    "Atom Shop",
+    "Limited Time Bundle",
+    "Events & Activities",
+    "Quests",
+    "Challenges",
+]
+
+
+def make_obtain_routes(populated):
+    """Build the fixed 9-route array.
+
+    `populated` maps route name -> (lines, tradeable, drop_rate). Routes not in
+    the map are emitted as empty/N/A (no pills).
+    """
+    routes = []
+    for name in OBTAIN_ROUTE_ORDER:
+        if name in populated:
+            lines, tradeable, drop_rate = populated[name]
+            lines = [ln for ln in lines if str(ln).strip()]
+        else:
+            lines, tradeable, drop_rate = [], None, None
+        routes.append({
+            "route":     name,
+            "populated": bool(lines),
+            "lines":     lines,
+            "tradeable": tradeable if lines else None,
+            "dropRate":  (drop_rate if lines else None),
+        })
+    return routes
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -818,6 +865,22 @@ def build_weather_stations():
         else:
             _how = ATX_HOW
 
+        # ── Structured 9-route obtain list (camp-item-expands spec) ──
+        # Mirrors the _how branches above, but as per-route data so the
+        # renderer can show every source (populated or dimmed N/A) with
+        # per-route tradeable/drop pills. Drop rate is "N/A" for all weather
+        # stations (vendor/scoreboard/unlock sources — none are drops).
+        _populated_routes = {}
+        if season_num:
+            _populated_routes["Scoreboard"] = (
+                [scoreboard_how(season_num)], False, "N/A")
+        if _plan_block:
+            _populated_routes["Gold Bullion"] = (
+                _plan_block.split("\n"), _ws_tradeable, "N/A")
+        if not season_num and not _plan_block:
+            _populated_routes["Atom Shop"] = ([ATX_HOW], _ws_tradeable, "N/A")
+        _obtain_routes = make_obtain_routes(_populated_routes)
+
         # ── Build Information — PowerRequired read from ACTI PRPS ──
         # The ACTI EDID for weather stations follows the pattern:
         #   ATX_Weather_WeatherStation_<Suffix>  (or SCORE_S##_ prefix)
@@ -861,6 +924,7 @@ def build_weather_stations():
             "obtainSource":         source,
             "seasonNumber":         season_num,
             "howToObtain":          _how,
+            "obtainRoutes":         _obtain_routes,
             "dropRate":             "N/A",
             "tradeable":            _ws_tradeable,
             "planName":             _ws_plan_name,
