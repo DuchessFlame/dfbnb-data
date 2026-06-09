@@ -438,9 +438,95 @@ def score_how(season):
     # S16+ = ticket/Season Pass system.
     verb = "Claim from" if (season or 0) <= 15 else "Purchase with tickets from"
     if name:
-        article = "" if name.lower().startswith("the ") else "the "
-        return f"{verb} {article}{name} Scoreboard (Season {season})"
+        # Drop the leading "The " of the theme so we emit a single lowercase
+        # article ("...the Big Score Scoreboard"); a mid-name "The" is kept.
+        if name.lower().startswith("the "):
+            name = name[4:]
+        return f"{verb} the {name} Scoreboard (Season {season})"
     return f"{verb} the Season {season} Scoreboard"
+
+
+# ---------------------------------------------------------------------------
+# OBTAIN ROUTES (camp-item-expands spec — fixed 9-route How to Obtain list,
+# plus buff-station extra routes for sources outside the standard taxonomy:
+# base-game craftables, Fallout 1st, free unlocks, aggregated beds).
+# ---------------------------------------------------------------------------
+OBTAIN_ROUTE_ORDER = [
+    "Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
+    "Limited Time Bundle", "Events & Activities", "Quests", "Challenges",
+]
+# Extra rows appended after the 9 standard routes, only when populated.
+EXTRA_ROUTE_ORDER = ["Base Game", "Fallout 1st", "Free Unlock",
+                     "Various Sources", "Other"]
+
+
+def _route_entry(name, lines, tradeable, drop_rate):
+    lines = [ln for ln in lines if str(ln).strip()]
+    return {
+        "route":     name,
+        "populated": bool(lines),
+        "lines":     lines,
+        "tradeable": tradeable if lines else None,
+        "dropRate":  (drop_rate if lines else None),
+    }
+
+
+def classify_segment(seg):
+    """Map one How-to-Obtain text segment to a route name + cleaned text."""
+    s = seg.strip()
+    low = s.lower()
+    if low.startswith("gold bullion:"):
+        return "Gold Bullion", s.split(":", 1)[1].strip()
+    # Multi-source aggregate (beds) — checked before Scoreboard because the
+    # text itself names "...Scoreboard bed plans all qualify".
+    if low.startswith("various") or "all qualify" in low:
+        return "Various Sources", s
+    if (low.startswith(("claim from", "purchase with tickets"))
+            or "scoreboard" in low or "mini season" in low):
+        return "Scoreboard", s
+    if s == ATX_HOW or "atom shop" in low:
+        return "Atom Shop", s
+    if low.startswith("base game"):
+        return "Base Game", s
+    if low.startswith("free reward") or "unlocked for all" in low:
+        return "Free Unlock", s
+    if "fallout 1st" in low:
+        return "Fallout 1st", s
+    if ("milepost" in low or "seasonal event" in low or "event-specific" in low
+            or "reward drop from" in low or "equinox" in low
+            or "mischief night" in low):
+        return "Events & Activities", s
+    return "Other", s
+
+
+def buff_obtain_routes(how, tradeable):
+    """Build the 9 standard routes (N/A where empty) plus any populated extra
+    routes, by classifying each segment of the resolved How-to-Obtain text."""
+    segs = [seg for seg in re.split(r"\n\n+", how or "") if seg.strip()]
+    std, extra = {}, {}
+    for seg in segs:
+        route, text = classify_segment(seg)
+        lines = [ln for ln in text.split("\n") if ln.strip()]
+        bucket = std if route in OBTAIN_ROUTE_ORDER else extra
+        if route in bucket:
+            bucket[route] = (bucket[route][0] + lines, tradeable, "N/A")
+        else:
+            bucket[route] = (lines, tradeable, "N/A")
+
+    routes = []
+    for name in OBTAIN_ROUTE_ORDER:
+        if name in std:
+            lines, trad, drop = std[name]
+            routes.append(_route_entry(name, lines, trad, drop))
+        else:
+            routes.append(_route_entry(name, [], None, None))
+    for name in EXTRA_ROUTE_ORDER:
+        if name in extra:
+            lines, trad, drop = extra[name]
+            entry = _route_entry(name, lines, trad, drop)
+            if entry["populated"]:
+                routes.append(entry)
+    return routes
 
 
 def entm_lookup(fid, full_name, furn_edid=""):
@@ -594,6 +680,7 @@ for fid in sorted(discovered):
     # line (vendor, reputation rank, cost).
     if fid in GOLD_HOW:
         how = f"{how}\n\n{GOLD_HOW[fid]}"
+    obtain_routes = buff_obtain_routes(how, tradeable)
     crafting, plan = crafting_for(fid, furn_edid)
     if fid in PLAN_OVERRIDES:
         plan = PLAN_OVERRIDES[fid]
@@ -632,6 +719,7 @@ for fid in sorted(discovered):
         "description": desc,
         "obtainSource": "",
         "howToObtain": how,
+        "obtainRoutes": obtain_routes,
         "dropRate": "N/A",
         "seasonNumber": season,
         "tradeable": tradeable,
@@ -674,6 +762,7 @@ for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
         "description": f"Any bed that counts as a {label[:-1].lower()} grants this buff when you sleep in it. "
                        "The full list of qualifying items is in the Technical section.",
         "obtainSource": "", "howToObtain": "Various — base game, Atom Shop and Scoreboard bed plans all qualify.",
+        "obtainRoutes": buff_obtain_routes("Various — base game, Atom Shop and Scoreboard bed plans all qualify.", None),
         "dropRate": "N/A", "seasonNumber": None, "tradeable": None, "planName": "",
         "imageUrl": IMG_BASE + label.lower().replace(" ", "_") + ".avif",
         "outputInfo": buff + "\n\n" + HOMEBODY_LINE,

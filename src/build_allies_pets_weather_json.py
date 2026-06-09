@@ -1104,6 +1104,22 @@ def build_repair_bots():
 
         npc_id = npc_info.get("npcFormId", "")
 
+        # ── Structured 9-route obtain list (camp-item-expands spec) ──
+        # Mirrors the howToObtain choice below: scoreboard (future), the
+        # Enclave real-money Limited Time Bundle override, or the Atom Shop
+        # default. Drop rate is "N/A" (no drop sources) and all skins are
+        # account-bound (Non-tradeable).
+        _rb_how = (REPAIR_BOT_HOW_OVERRIDE.get(entm_id)
+                   or (scoreboard_how(season_num) if season_num else ATX_HOW))
+        _rb_populated = {}
+        if season_num:
+            _rb_populated["Scoreboard"] = ([_rb_how], False, "N/A")
+        elif entm_id in REPAIR_BOT_HOW_OVERRIDE:
+            _rb_populated["Limited Time Bundle"] = ([_rb_how], False, "N/A")
+        else:
+            _rb_populated["Atom Shop"] = ([ATX_HOW], False, "N/A")
+        _rb_routes = make_obtain_routes(_rb_populated)
+
         technical_notes = "\n".join([
             f"Pod EDID: {furn.get('FURN_EDID', '') or '—'}",
             f"Pod FormID: {furn_id or '—'}",
@@ -1125,8 +1141,8 @@ def build_repair_bots():
             "displayName":  display,
             "description":  desc,
             "obtainSource": source,
-            "howToObtain":  REPAIR_BOT_HOW_OVERRIDE.get(entm_id)
-                            or (scoreboard_how(season_num) if season_num else ATX_HOW),
+            "howToObtain":  _rb_how,
+            "obtainRoutes": _rb_routes,
             "dropRate":     "N/A",
             "seasonNumber": season_num,
             "tradeable":    False,  # no plan book exists — account-bound CAMP skin
