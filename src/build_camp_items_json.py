@@ -19,6 +19,20 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 from patchlog_utils import write_patchlog_feed, diff_item_lists
 
+# Shared drop-rate engine — single source of truth. This module used to carry
+# its own standalone copy of the LVLI resolver; it now delegates to rng76.py
+# (the same engine build_drop_rates.py uses) so the two can never drift.
+try:
+    from rng76 import Rng76Data
+except ImportError:
+    _SRC_DIR = Path(__file__).resolve().parent
+    if str(_SRC_DIR) not in sys.path:
+        sys.path.insert(0, str(_SRC_DIR))
+    from rng76 import Rng76Data
+
+# Populated once in main() from the TSV root; resolve_drops_via_rng76() reads it.
+_RNG_RESOLVER = None
+
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
 EXCLUDE_PATTERNS = re.compile(r"repair|repairbot", re.IGNORECASE)
 
@@ -230,127 +244,32 @@ def interval_display(hours):
     if secs == 0: return "{} min".format(mins)
     return "{} min {} sec".format(mins, secs)
 
-# --- LVLI drop rate calculation ---
-def parse_rand_pct_threshold(cond, glob_index, glob_edid_index=None):
-    cond = (cond or "").strip()
-    if "GetRandomPercent" not in cond: return None
-    # Try literal numeric threshold first
-    m = RE_RAND_PCT.search(cond)
-    if m: return float(m.group(1))
-    # Try [GLOB:XXXXXXXX] format
-    mg = RE_GLOB_IN_COND.search(cond)
-    if mg:
-        fltv = glob_fltv(glob_index, mg.group(1).upper())
-        if fltv is not None: return fltv
-    # Try raw GLOB EDID format (e.g. "...11000100 ATX_CNone_Collectron_...")
-    if glob_edid_index:
-        me = RE_RAND_PCT_GLOB_EDID.search(cond)
-        if me:
-            edid_str = me.group(1)
-            # Make sure it's not a number (already handled above)
-            if not edid_str.replace('.','').isdigit():
-                fltv = glob_fltv_by_edid(glob_edid_index, edid_str)
-                if fltv is not None: return fltv
-    return None
-
-def resolve_lvli(lvli_formid, entries_index, list_index, glob_index, depth=0, glob_edid_index=None):
-    if depth > 20: return []
+# --- LVLI drop rate calculation (delegated to rng76.py) ---
+# This module previously carried a standalone re-implementation of the engine
+# (waterfall / pick-one / first-match / independent). That copy diverged from
+# rng76.py — it never read the ChanceNoneCurve column, had no MinLvl-GLOB guard
+# and no list-level ChanceNone — so it could emit wrong rates. Per the
+# drop-rate-engine skill's "Standalone Copy Rule", produce LVLIs are now
+# resolved through the shared rng76 engine (one source of truth with
+# build_drop_rates.py). The rng76 resolver also reads a separate LVLI Math TSV,
+# which the old copy did not.
+def resolve_drops_via_rng76(resolver, lvli_formid):
+    """Resolve a produce LVLI to [{item, name, formId, chance}] via rng76.
+    `chance` is a 0-100 percentage. Returns [] when the list is unresolved or
+    the engine is unavailable."""
     fid = (lvli_formid or "").strip().upper()
-    list_row = list_index.get(fid)
-    entries = entries_index.get(fid, [])
-    if not entries: return []
-    flags = (list_row.get("LVLF_Flags") or "").strip() if list_row else ""
-    max_count_val = safe_float(list_row.get("LVMV_MaxValue") or "0") or 0.0 if list_row else 0.0
-    use_all = len(flags) >= 3 and flags[2] == '1'
-    first_match = len(flags) >= 7 and flags[6] == '1'
-    entries = sorted(entries, key=lambda r: safe_int(r.get("EntryIndex") or "0"))
-    if first_match:
-        return _resolve_first_match(entries, entries_index, list_index, glob_index, depth, glob_edid_index)
-    elif use_all and max_count_val == 1.0:
-        return _resolve_waterfall(entries, entries_index, list_index, glob_index, depth, glob_edid_index)
-    elif use_all:
-        return _resolve_independent(entries, entries_index, list_index, glob_index, depth, glob_edid_index)
-    else:
-        return _resolve_pick_one(entries, entries_index, list_index, glob_index, depth, glob_edid_index)
-
-def _get_entry_cn_factor(entry, glob_index):
-    cn = safe_float(entry.get("LVOV_ChanceNoneValue") or "0") or 0.0
-    if cn > 0: return 1.0 - cn / 100.0
-    cn_glob = (entry.get("LVOG_ChanceNoneGlobal") or "").strip()
-    if cn_glob:
-        glob_fid = extract_glob_formid(cn_glob)
-        if glob_fid:
-            fltv = glob_fltv(glob_index, glob_fid)
-            if fltv is not None and fltv > 0: return 1.0 - fltv / 100.0
-    return 1.0
-
-def _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index=None):
-    ref = clean_str(entry.get("LVLO_Reference") or "")
-    if not ref: return []
-    fid, name, rectype = extract_ref_parts(ref)
-    if rectype.upper() == "LVLI":
-        return resolve_lvli(fid, entries_index, list_index, glob_index, depth + 1, glob_edid_index)
-    return [{"item": name, "formId": fid, "chance": 100.0, "recType": rectype}]
-
-def _resolve_first_match(entries, entries_index, list_index, glob_index, depth, glob_edid_index=None):
-    """Independent-rolls FirstMatch: each entry evaluates GetRandomPercent
-    independently. Entry i wins if its condition passes AND all previous
-    entries' conditions failed. GetRandomPercent >= threshold means
-    P(pass) = (100 - threshold) / 100."""
-    drops, remaining = [], 1.0
-    for entry in entries:
-        cn_factor = _get_entry_cn_factor(entry, glob_index)
-        threshold = None
-        if safe_int(entry.get("CondCount") or "0") > 0:
-            threshold = parse_rand_pct_threshold(
-                clean_str(entry.get("Cond1") or ""), glob_index, glob_edid_index)
-        if threshold is not None:
-            base = (100.0 - threshold) / 100.0
-            entry_chance = base * remaining * cn_factor
-            remaining *= (1.0 - base)
-        else:
-            entry_chance = remaining * cn_factor
-            remaining = 0.0
-        for si in _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index):
-            drops.append({"item": si["item"], "formId": si["formId"],
-                "chance": round(si["chance"] / 100.0 * entry_chance * 100, 5),
-                "recType": si.get("recType", "")})
-    return drops
-
-def _resolve_waterfall(entries, entries_index, list_index, glob_index, depth, glob_edid_index=None):
-    drops, remaining = [], 1.0
-    for entry in entries:
-        cn_factor = _get_entry_cn_factor(entry, glob_index)
-        entry_chance = remaining * cn_factor
-        remaining *= (1.0 - cn_factor)
-        for si in _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index):
-            drops.append({"item": si["item"], "formId": si["formId"],
-                "chance": round(si["chance"] / 100.0 * entry_chance * 100, 5),
-                "recType": si.get("recType", "")})
-    return drops
-
-def _resolve_independent(entries, entries_index, list_index, glob_index, depth, glob_edid_index=None):
-    drops = []
-    for entry in entries:
-        cn_factor = _get_entry_cn_factor(entry, glob_index)
-        for si in _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index):
-            drops.append({"item": si["item"], "formId": si["formId"],
-                "chance": round(si["chance"] / 100.0 * cn_factor * 100, 5),
-                "recType": si.get("recType", "")})
-    return drops
-
-def _resolve_pick_one(entries, entries_index, list_index, glob_index, depth, glob_edid_index=None):
-    drops = []
-    n = len(entries)
-    if n == 0: return drops
-    per_entry = 1.0 / n
-    for entry in entries:
-        cn_factor = _get_entry_cn_factor(entry, glob_index)
-        for si in _resolve_entry_ref(entry, entries_index, list_index, glob_index, depth, glob_edid_index):
-            drops.append({"item": si["item"], "formId": si["formId"],
-                "chance": round(si["chance"] / 100.0 * per_entry * cn_factor * 100, 5),
-                "recType": si.get("recType", "")})
-    return drops
+    if not fid or resolver is None:
+        return []
+    out = []
+    for it in resolver.resolve_deep(fid):
+        rate = float(it.get("dropRate") or 0.0)
+        out.append({
+            "item":   it.get("edid") or it.get("name") or it.get("formid") or "",
+            "name":   it.get("name") or "",
+            "formId": (it.get("formid") or "").upper(),
+            "chance": round(rate * 100.0, 5),
+        })
+    return out
 
 def consolidate_drops(drops):
     merged = {}
@@ -720,7 +639,7 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
         re_fid = clean_str(reso_row.get("FormID") or "")
         mode_name = detect_mode_name(re_edid) if len(reso_rows) > 1 else "Default"
         lvli_fid = extract_lvli_formid(clean_str(reso_row.get("NAM2_Produce") or ""))
-        drops = consolidate_drops(resolve_lvli(lvli_fid, entries_index, list_index, glob_index, 0, glob_edid_index)) if lvli_fid else []
+        drops = consolidate_drops(resolve_drops_via_rng76(_RNG_RESOLVER, lvli_fid)) if lvli_fid else []
         modes.append({"name": mode_name, "resoFormId": re_fid, "lvliFormId": lvli_fid or "", "drops": drops})
     interval_hours, interval_str = None, None
     nam4 = clean_str(primary_reso.get("NAM4_Interval") or "")
@@ -800,6 +719,14 @@ def main():
     print("  RESO:{} CONT:{} ENTM:{} COBJ:{} BOOK:{} LVLI_L:{} LVLI_E:{} GLOB:{}".format(
         len(reso_rows), len(cont_rows), len(entm_rows), len(cobj_rows),
         len(book_rows), len(lvli_list_rows), len(lvli_entry_rows), len(glob_rows)), file=sys.stderr)
+    # Build the shared rng76 resolver once from the same TSV root. Produce
+    # LVLIs are resolved through this (see resolve_drops_via_rng76).
+    global _RNG_RESOLVER
+    if root:
+        print("Loading rng76 drop-rate engine...", file=sys.stderr)
+        _RNG_RESOLVER = Rng76Data.from_tsv_root(root).resolver
+    else:
+        print("[WARN] No --tsv-root; drop rates will be empty.", file=sys.stderr)
     os.makedirs(args.outdir, exist_ok=True)
     today = today_ymd()
     prev_col = load_previous_release_dates(os.path.join(args.outdir, "collectrons.json"))
