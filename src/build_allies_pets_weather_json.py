@@ -53,11 +53,29 @@ OUT_DIR = Path(args.out_dir)
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
+_MONTH_ORD = {"jan": 1, "feb": 2, "mar": 3, "march": 3, "apr": 4, "april": 4,
+              "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7, "aug": 8,
+              "sep": 9, "oct": 10, "nov": 11, "dec": 12}
+
+
+def _tsv_date_key(path):
+    """(year, month) from the TSV filename so the chronologically newest export
+    wins — plain alphabetical sorting picks May/March over June."""
+    bn = re.split(r"[\\/]", path)[-1]
+    m = re.search(r"(Jan|Feb|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|Sep|Oct|Nov|Dec)[a-z]*[_-](\d{4})",
+                  bn, re.IGNORECASE)
+    if m:
+        return (int(m.group(2)), _MONTH_ORD.get(m.group(1).lower(), 0))
+    return (0, 0)
+
+
 def _newest_glob(pattern, exclude_suffix=None):
-    matches = sorted(glob.glob(pattern))
+    matches = glob.glob(pattern)
     if exclude_suffix:
         matches = [m for m in matches if not m.lower().endswith(exclude_suffix.lower())]
-    return matches[-1] if matches else None
+    if not matches:
+        return None
+    return sorted(matches, key=_tsv_date_key)[-1]
 
 
 def _resolve_tsv(env_var, glob_pattern, fallback_name, exclude_suffix=None):
@@ -124,12 +142,15 @@ if _SEASONS_PATH.exists():
 def scoreboard_how(season_num):
     """Return the full howToObtain string for a scoreboard item."""
     name = SEASON_NAMES.get(season_num, "")
+    # Reward model changed at Season 16 (Duel with the Devil, 26 Mar 2024):
+    # S1-S15 was claim-as-you-rank; S16+ is the ticket/Season Pass system.
+    verb = "Claim from" if (season_num or 0) <= 15 else "Purchase with tickets from"
     if name:
         # Avoid "the The Big Score Scoreboard" when the season name
         # already starts with "The".
         article = "" if name.lower().startswith("the ") else "the "
-        return f"Purchase with tickets from {article}{name} Scoreboard (Season {season_num})"
-    return f"Purchase with tickets from the Season {season_num} Scoreboard"
+        return f"{verb} {article}{name} Scoreboard (Season {season_num})"
+    return f"{verb} the Season {season_num} Scoreboard"
 
 
 # Standard Atom Shop howToObtain string used across all builders.
@@ -1158,6 +1179,30 @@ def find_ally_entm_for_furn(furn_edid: str):
     return None
 
 
+# Fallback ally ENTM match by OWNER NAME + season. Ally items are named
+# "Owner's Thing" and the ENTM EDID carries the owner name
+# (e.g. "Adelaide's Table" -> SCORE_S16_ENTM_CAMP_Ally_Adelaide). The
+# prefix/ETDI match misses these because the FURN EDID word order differs.
+_ALLY_ENTMS_TOK = [e for e in entm_rows
+                   if re.search(r"ENTM_CAMP_Ally", e.get("EDID", ""), re.IGNORECASE)
+                   and not is_cut(e.get("EDID", ""))]
+
+
+def find_ally_entm_by_token(display_name, season_num):
+    owner = re.split(r"[’']s\b", display_name or "", maxsplit=1)[0]
+    words = [w.lower() for w in re.split(r"[^A-Za-z]+", owner) if len(w) >= 4]
+    if not words:
+        return None
+    fallback = None
+    for e in _ALLY_ENTMS_TOK:
+        ed = e.get("EDID", "").lower()
+        if any(w in ed for w in words):
+            if season_num and re.search(rf"_s0*{season_num}_", ed):
+                return e
+            fallback = fallback or e
+    return fallback
+
+
 def build_allies():
     items = []
     for cobj_id, meta in ALLY_COBJ_FURN.items():
@@ -1174,6 +1219,9 @@ def build_allies():
             entm = find_ally_entm_for_furn(furn_edid_val) if furn_edid_val else None
             if not entm:
                 entm = find_entm_for_cobj_id(cobj_id)
+            if not entm:
+                _sm = re.search(r"SCORE_S(\d+)_", (furn_edid_val or ""), re.IGNORECASE)
+                entm = find_ally_entm_by_token(meta["name"], int(_sm.group(1)) if _sm else None)
 
         display  = meta["name"]
         obtain   = meta["obtain"]

@@ -49,9 +49,27 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 OUT = OUT_DIR / "buff-stations.json"
 
 
+_MONTH_ORD = {"jan": 1, "feb": 2, "mar": 3, "march": 3, "apr": 4, "april": 4,
+              "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7, "aug": 8,
+              "sep": 9, "oct": 10, "nov": 11, "dec": 12}
+
+
+def _tsv_date_key(path):
+    """(year, month) parsed from the TSV filename so the *chronologically*
+    newest export wins — plain alphabetical sorting picks March over June."""
+    bn = os.path.basename(path)
+    m = re.search(r"(Jan|Feb|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|Sep|Oct|Nov|Dec)[a-z]*[_-](\d{4})",
+                  bn, re.IGNORECASE)
+    if m:
+        return (int(m.group(2)), _MONTH_ORD.get(m.group(1).lower(), 0))
+    return (0, 0)
+
+
 def _newest_glob(pattern):
-    matches = sorted(glob.glob(pattern))
-    return matches[-1] if matches else None
+    matches = glob.glob(pattern)
+    if not matches:
+        return None
+    return sorted(matches, key=_tsv_date_key)[-1]
 
 
 def _resolve_tsv(env_var, glob_pattern, fallback_name):
@@ -416,9 +434,13 @@ def season_from_edid(*edids):
 
 def score_how(season):
     name = SEASON_NAMES.get(season, "")
+    # Season 16 (Duel with the Devil) cutoff: S1-S15 = claim-as-you-rank,
+    # S16+ = ticket/Season Pass system.
+    verb = "Claim from" if (season or 0) <= 15 else "Purchase with tickets from"
     if name:
-        return f"Purchase with tickets from the {name} Scoreboard (Season {season})"
-    return f"Purchase with tickets from the Season {season} Scoreboard"
+        article = "" if name.lower().startswith("the ") else "the "
+        return f"{verb} {article}{name} Scoreboard (Season {season})"
+    return f"{verb} the Season {season} Scoreboard"
 
 
 def entm_lookup(fid, full_name, furn_edid=""):
@@ -482,6 +504,41 @@ def auto_how(fid, furn_edid, entm, premium, season):
         return "Base game — craftable at a C.A.M.P. or workshop after learning the plan."
     print(f"  [INFO] auto obtain text unknown for {fid} {furn_edid} — review wording")
     return "—"
+
+
+def build_info_for(fid):
+    """Generative Build Information from the FURN record: Power Required (from
+    the PowerRequired property or a WorkshopCanBePowered/PowerConnection
+    keyword) and Flamingo Units (the WorkshopBudgetObjectMultiplier property —
+    the item's C.A.M.P. budget cost). Per-camp / per-workshop build limits are
+    not present in the FURN export, so they are not emitted (no fabrication)."""
+    r = FURN.get(fid)
+    if not r:
+        return ""
+    flamingo = None
+    power = False
+    for i in range(1, 11):
+        av = (r.get(f"Prop_{i}_AV") or "").strip()
+        val = (r.get(f"Prop_{i}_Val") or "").strip()
+        if av == "WorkshopBudgetObjectMultiplier":
+            try:
+                flamingo = int(float(val))
+            except ValueError:
+                pass
+        elif av == "PowerRequired":
+            try:
+                if float(val) > 0:
+                    power = True
+            except ValueError:
+                pass
+    for i in range(1, 11):
+        kw = (r.get(f"KW_{i}") or "").strip().lower()
+        if "workshopcanbepowered" in kw or "workshoppowerconnection" in kw:
+            power = True
+    lines = [f"Power Required: {'Yes' if power else 'No'}"]
+    if flamingo is not None:
+        lines.append(f"Flamingo Units: {flamingo}")
+    return "\n".join(lines)
 
 
 def build_output(fid, groups):
@@ -581,6 +638,7 @@ for fid in sorted(discovered):
         "planName": plan,
         "imageUrl": image_for(entm, furn_edid),
         "outputInfo": build_output(fid, groups),
+        "buildInfo": build_info_for(fid),
         "craftingRequirements": crafting,
         "technicalNotes": "\n".join(tech),
         "buffTypes": groups,

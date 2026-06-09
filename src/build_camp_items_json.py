@@ -155,6 +155,17 @@ def parse_season_from_edid(edid):
     m = re.search(r"SCORE[_-]?S(\d+)[_-]", (edid or ""), re.IGNORECASE)
     return int(m.group(1)) if m else None
 
+def prettify_edid_name(s):
+    """Turn a raw RESO/EDID token into a readable display name for producers
+    that have no ENTM/CONT FULL name (e.g. 'AdhesiveResource' -> 'Adhesive',
+    'FoodPackagedResource01' -> 'Food Packaged')."""
+    t = re.sub(r"^(ATX_F1_|ATX_|SCORE_S\d+_|SCORE_\w+?_|F1_|PETS_|W05_|SSE_|ENTM_)", "", s or "", flags=re.IGNORECASE)
+    t = re.sub(r"_?(Resource\d*|Collector|Collectron|_resource)$", "", t, flags=re.IGNORECASE)
+    t = re.sub(r"_+", " ", t)
+    t = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", t)
+    t = re.sub(r"\s{2,}", " ", t).strip()
+    return t or (s or "")
+
 # --- TSV loading ---
 def read_tsv(path):
     with open(path, "r", encoding="utf-8", errors="replace", newline="") as f:
@@ -701,7 +712,7 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
         display_name = clean_str(cont_row.get("FULL") or "")
         description = ""
     else:
-        display_name, description = primary_edid, ""
+        display_name, description = prettify_edid_name(primary_edid), ""
     if not display_name: return None
     modes = []
     for reso_row in reso_rows:
