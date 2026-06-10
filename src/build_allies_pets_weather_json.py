@@ -663,6 +663,24 @@ def fvpa_to_text(fvpa: str) -> str:
     return "\n".join(parts)
 
 
+def fvpa_to_array(fvpa: str) -> list:
+    """Parse COBJ FVPA string to [{"name": "...", "qty": N}, ...]."""
+    result = []
+    for chunk in str(fvpa or "").split("|"):
+        bits = chunk.strip().split(":")
+        if len(bits) < 2:
+            continue
+        name = re.sub(r"^c_", "", bits[0].strip())
+        name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", name)
+        try:
+            qty = int(bits[1].strip())
+        except (ValueError, TypeError):
+            qty = 1
+        if name:
+            result.append({"name": name, "qty": qty})
+    return result
+
+
 # ---------------------------------------------------------------------------
 # WEATHER STATIONS — fishing-weather classification from WTHR keywords
 # ---------------------------------------------------------------------------
@@ -973,6 +991,24 @@ def build_weather_stations():
             _ws_flamingo = str(int(float(_ws_flam_raw))) if _ws_flam_raw else "1"
         except (ValueError, TypeError):
             _ws_flamingo = "1"
+        # ── Crafting Requirements — pull from COBJ via ACTI FormID ──
+        _acti_row = acti_by_edid.get(_acti_edid, {})
+        _acti_fid = (_acti_row.get("ACTI_FormID") or "").strip()
+        _ws_craft_arr = []
+        if _acti_fid:
+            for _c in cobj_by_cnam.get(_acti_fid, []):
+                _ws_craft_arr = fvpa_to_array(_c.get("FVPA", ""))
+                if _ws_craft_arr:
+                    break
+        if not _ws_craft_arr:
+            # Fallback: all weather stations share the same recipe
+            _ws_craft_arr = [
+                {"name": "Circuitry", "qty": 2},
+                {"name": "Rubber", "qty": 2},
+                {"name": "Steel", "qty": 4},
+                {"name": "Screw", "qty": 2},
+            ]
+
         _fishing_line = _fishing if _fishing else "—"
         _build_info = (
             f"Build Limit per Camp: {_limit_str(_ws_camp)}\n"
@@ -999,7 +1035,7 @@ def build_weather_stations():
             "imageUrl":             image_url,
             "imageCarousel":        carousel,
             "buildInfo":            _build_info,
-            "craftingRequirements": "Circuitry ×2\nRubber ×2\nSteel ×4\nScrew ×2",
+            "craftingRequirements": _ws_craft_arr,
             "fishingCondition":     _fishing,    # Back-compat: same as fishingWeather
             "fishingWeather":       _fishing,    # Catch label: No Weather/Rad Storm/Nuke Storm/Sandstorm/Rain
             "wthrEdid":             _wthr_edid,  # WTHR record whose keywords drive the label
@@ -1106,13 +1142,18 @@ REPAIR_BOT_IMAGES = {
 def build_repair_bots():
     # Crafting requirements — parsed from the shared COBJ FVPA components.
     # Falls back to the June 2026 values if the COBJ row is missing.
-    _craft = ""
+    _craft_arr = []
     for _cobj in cobj_by_cnam.get(REPAIR_BOT_LVLI_ID, []):
-        _craft = fvpa_to_text(_cobj.get("FVPA", ""))
-        if _craft:
+        _craft_arr = fvpa_to_array(_cobj.get("FVPA", ""))
+        if _craft_arr:
             break
-    if not _craft:
-        _craft = "Circuitry ×1\nCopper ×1\nGears ×1\nSteel ×3"
+    if not _craft_arr:
+        _craft_arr = [
+            {"name": "Circuitry", "qty": 1},
+            {"name": "Copper", "qty": 1},
+            {"name": "Gears", "qty": 1},
+            {"name": "Steel", "qty": 3},
+        ]
 
     items = []
     for entm_id in REPAIR_BOT_ENTM_IDS:
@@ -1225,7 +1266,7 @@ def build_repair_bots():
             "outputInfo":   output_info,
             "repairRate":   f"{repair_rate}% per hour",
             "buildInfo":    build_info,
-            "craftingRequirements": _craft,
+            "craftingRequirements": _craft_arr,
             "technicalNotes": technical_notes,
             "xalgFlags":    xalg_raw,
             "cutContent":   is_cut(edid),
@@ -1415,6 +1456,13 @@ def build_allies():
         _ally_gnam_fid, _ally_plan_name = plan_for_condproxy_token(_ally_token)
         _ally_tradeable = tradeable_from_plan(_ally_gnam_fid)
 
+        # Crafting Requirements — pull from COBJ via FURN FormID
+        _ally_craft = []
+        for _c in cobj_by_cnam.get(furn_id, []):
+            _ally_craft = fvpa_to_array(_c.get("FVPA", ""))
+            if _ally_craft:
+                break
+
         items.append({
             "formId":           furn_id or cobj_id,
             "cobjFormId":       cobj_id,
@@ -1434,6 +1482,7 @@ def build_allies():
             "xalgFlags":        xalg,
             "buffsAndFunctions": "",
             "inventory":        "",
+            "craftingRequirements": _ally_craft,
             "cutContent":       is_cut(_ally_furn_edid),
         })
 
@@ -1600,6 +1649,7 @@ def build_pets():
             "homeImageUrl":  home_img,
             "imageCarousel": carousel,
             "xalgFlags":     xalg,
+            "craftingRequirements": [],
             "cutContent":    is_cut(furn_edid),
         })
 
@@ -1657,6 +1707,7 @@ def build_pet_furniture():
             "imageUrl":      img,
             "imageCarousel": carousel,
             "xalgFlags":     xalg,
+            "craftingRequirements": [],
             "cutContent":    is_cut(edid),
         })
 
@@ -1739,6 +1790,7 @@ def build_pet_apparel():
             "imageUrl":     img,
             "imageCarousel": carousel,
             "xalgFlags":    xalg,
+            "craftingRequirements": [],
             "cutContent":   is_cut(edid),
         })
 
@@ -1825,6 +1877,7 @@ def build_cryos():
             "imageCarousel":  carousel,
             "spoilageReduction": "100% (no spoilage)",
             "xalgFlags":      xalg,
+            "craftingRequirements": [],
             "cutContent":     is_cut(edid),
         })
 
@@ -1888,6 +1941,7 @@ def build_fridges():
             "imageCarousel": carousel,
             "spoilageReduction": "-50%",
             "xalgFlags":     xalg,
+            "craftingRequirements": [],
             "cutContent":    is_cut(edid),
         })
 

@@ -329,6 +329,21 @@ def parse_crafting_components(fvpa):
         if name: result.append({"item": name, "count": count})
     return result
 
+
+def fvpa_to_array(fvpa):
+    """Parse COBJ FVPA string to [{"name": "...", "qty": N}, ...]."""
+    result = []
+    for part in re.split(r"\s*\|\s*", (fvpa or "").strip()):
+        part = part.strip()
+        if not part: continue
+        tokens = part.split(":")
+        name = tokens[0].strip()
+        if name.startswith("c_"): name = name[2:]
+        name = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
+        qty = safe_int(tokens[1].strip(), default=1) if len(tokens) >= 2 else 1
+        if name: result.append({"name": name, "qty": qty})
+    return result
+
 def build_cobj_cnam_index(cobj_rows):
     idx = {}
     for r in cobj_rows:
@@ -683,6 +698,7 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
         },
         "station": cont_props,
         "crafting": {"components": components},
+        "craftingRequirements": fvpa_to_array(clean_str(cobj_row.get("FVPA") or "")) if cobj_row else [],
         "howToObtain": obtain,
         "seasonNumber": season_num,
         "releaseDate": release_date,

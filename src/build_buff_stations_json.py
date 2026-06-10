@@ -162,6 +162,24 @@ def fvpa_to_text(fvpa):
     return "\n".join(parts)
 
 
+def fvpa_to_array(fvpa):
+    """Parse COBJ FVPA string to [{"name": "...", "qty": N}, ...]."""
+    result = []
+    for chunk in (fvpa or "").split("|"):
+        bits = chunk.strip().split(":")
+        if len(bits) >= 2 and bits[0].strip():
+            name = bits[0].strip()
+            name = re.sub(r"^c_", "", name)
+            name = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
+            try:
+                qty = int(bits[1].strip())
+            except (ValueError, TypeError):
+                qty = 1
+            if name:
+                result.append({"name": name, "qty": qty})
+    return result
+
+
 # ---------------------------------------------------------------- groups
 # No blurbs on group headers (user requirement, 7 Jun 2026) — the group
 # expand shows the label + count only.
@@ -562,16 +580,19 @@ def image_for(entm, furn_edid):
 def crafting_for(fid, furn_edid):
     for c in COBJ_BY_CNAM.get(fid, []):
         txt = fvpa_to_text(c.get("FVPA", ""))
+        arr = fvpa_to_array(c.get("FVPA", ""))
         plan = (c.get("GNAM_FULL") or "").strip()
         if txt or plan:
-            return txt, plan
+            return txt, plan, arr
     token = re.sub(r"^(ATX_|SCORE_S\d+_|SCORE_)", "", furn_edid or "").split("_")[-1].lower()
     if len(token) >= 6:
         for clist in COBJ_BY_CNAM.values():
             for c in clist:
                 if token in c.get("COBJ_EDID", "").lower():
-                    return fvpa_to_text(c.get("FVPA", "")), (c.get("GNAM_FULL") or "").strip()
-    return "", ""
+                    return (fvpa_to_text(c.get("FVPA", "")),
+                            (c.get("GNAM_FULL") or "").strip(),
+                            fvpa_to_array(c.get("FVPA", "")))
+    return "", "", []
 
 
 def auto_how(fid, furn_edid, entm, premium, season):
@@ -681,7 +702,7 @@ for fid in sorted(discovered):
     if fid in GOLD_HOW:
         how = f"{how}\n\n{GOLD_HOW[fid]}"
     obtain_routes = buff_obtain_routes(how, tradeable)
-    crafting, plan = crafting_for(fid, furn_edid)
+    crafting, plan, crafting_arr = crafting_for(fid, furn_edid)
     if fid in PLAN_OVERRIDES:
         plan = PLAN_OVERRIDES[fid]
 
@@ -727,7 +748,7 @@ for fid in sorted(discovered):
         "imageUrl": image_for(entm, furn_edid),
         "outputInfo": build_output(fid, groups),
         "buildInfo": build_info_for(fid),
-        "craftingRequirements": crafting,
+        "craftingRequirements": crafting_arr,
         "technicalNotes": "\n".join(tech),
         "buffTypes": groups,
         # All items use the 4-sub-expand layout now — Well Tuned instruments
@@ -766,7 +787,7 @@ for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
         "dropRate": "N/A", "seasonNumber": None, "tradeable": None, "planName": "",
         "imageUrl": IMG_BASE + label.lower().replace(" ", "_") + ".avif",
         "outputInfo": buff + "\n\n" + HOMEBODY_LINE,
-        "craftingRequirements": "",
+        "craftingRequirements": [],
         "technicalNotes": "\n".join(tech),
         "buffTypes": ["wellrested", "experience"],
         "singleExpand": False, "cutContent": False,
