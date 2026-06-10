@@ -142,12 +142,41 @@ HOMEBODY_LINE = ("Homebody Perk: while in your C.A.M.P. or workshop — "
                  "Heal Rate +2 and Limb Regeneration +200. "
                  "Also extends the Comfy Bed Well Rested buff from 2 hours to 3 hours.")
 
-# COBJ — crafting components + plan names, matched by created-object FormID
+# COBJ — crafting components + plan names, matched by created-object FormID.
+# PLAN_NAME_BY_NORMEDID lets a grouped/proxy component recipe (FVPA present,
+# GNAM_FULL empty) borrow the plan FULL name from its sibling CondProxy row,
+# which carries the plan name but no components. Both rows normalise to the same
+# EDID once the CondProxy_/ATX_/_b suffixes are stripped.
 COBJ_BY_CNAM = {}
+PLAN_NAME_BY_NORMEDID = {}
+
+
+def _norm_cobj_edid(edid):
+    e = (edid or "").lower()
+    e = re.sub(r"^(atx_|z+_|f1_|score_s\d+_|score_)", "", e)
+    e = e.replace("condproxy_", "")
+    e = re.sub(r"_(goldvendor|a|b|c)$", "", e)
+    return e
+
+
 for r in rows(COBJ_PATH):
     cn = r.get("CNAM_FormID", "").strip()
     if cn:
         COBJ_BY_CNAM.setdefault(cn, []).append(r)
+    _gf = (r.get("GNAM_FULL") or "").strip().strip('"')
+    if _gf:
+        _ne = _norm_cobj_edid(r.get("COBJ_EDID", ""))
+        if _ne:
+            PLAN_NAME_BY_NORMEDID.setdefault(_ne, _gf)
+
+
+def plan_name_for_row(c):
+    """Plan FULL name for a COBJ row: its own GNAM_FULL, else a sibling's
+    (same normalised EDID) plan name. Empty string if none resolves."""
+    plan = (c.get("GNAM_FULL") or "").strip().strip('"')
+    if plan:
+        return plan
+    return PLAN_NAME_BY_NORMEDID.get(_norm_cobj_edid(c.get("COBJ_EDID", "")), "")
 
 
 def fvpa_to_text(fvpa):
@@ -581,7 +610,7 @@ def crafting_for(fid, furn_edid):
     for c in COBJ_BY_CNAM.get(fid, []):
         txt = fvpa_to_text(c.get("FVPA", ""))
         arr = fvpa_to_array(c.get("FVPA", ""))
-        plan = (c.get("GNAM_FULL") or "").strip()
+        plan = plan_name_for_row(c)
         if txt or plan:
             return txt, plan, arr
     token = re.sub(r"^(ATX_|SCORE_S\d+_|SCORE_)", "", furn_edid or "").split("_")[-1].lower()
@@ -590,7 +619,7 @@ def crafting_for(fid, furn_edid):
             for c in clist:
                 if token in c.get("COBJ_EDID", "").lower():
                     return (fvpa_to_text(c.get("FVPA", "")),
-                            (c.get("GNAM_FULL") or "").strip(),
+                            plan_name_for_row(c),
                             fvpa_to_array(c.get("FVPA", "")))
     return "", "", []
 
