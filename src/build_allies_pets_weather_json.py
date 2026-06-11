@@ -1106,12 +1106,16 @@ def build_weather_stations():
         _obtain_routes = make_obtain_routes(_populated_routes)
 
         # ── Build Information — PowerRequired read from ACTI PRPS ──
-        # The ACTI EDID for weather stations follows two patterns:
+        # The ACTI EDID for weather stations follows these patterns:
         #   Atom-shop:  ATX_Weather_WeatherStation_<Suffix>
         #   Scoreboard: SCORE_S##_Weather_WeatherStation_<Suffix>  (no ATX_)
-        # We derive it from the ENTM EDID by swapping the ENTM prefix. The
-        # season-scoreboard records drop the ATX_ stem, so resolve against
-        # whichever ACTI record actually exists rather than assuming ATX_.
+        # We derive it from the ENTM EDID by swapping the ENTM prefix. BUT a few
+        # seasonal stations keep an ATX_ ACTI record with NO season prefix
+        # (e.g. SCORE_S15 ENTM "XPDACBoardwalk" → ACTI
+        # "ATX_Weather_WeatherStation_XPDACBoardwalk", because AC Fog is also a
+        # Gold Bullion/Atom item). So try the season prefix first, then fall
+        # back to the unprefixed (ATX) form — resolve against whichever ACTI
+        # record actually exists rather than assuming the prefix.
         _acti_suffix    = re.sub(
             r"^(?:SCORE_S\d+_)?(?:ATX_)?ENTM_CAMP_Utility_WeatherStation_",
             "", edid, flags=re.IGNORECASE
@@ -1119,11 +1123,41 @@ def build_weather_stations():
         _season_prefix_m = re.match(r"^(SCORE_S\d+_)", edid, re.IGNORECASE)
         _season_prefix   = _season_prefix_m.group(1) if _season_prefix_m else ""
         _acti_edid       = f"{_season_prefix}ATX_Weather_WeatherStation_{_acti_suffix}"
-        for _stem in ("Weather_WeatherStation_", "ATX_Weather_WeatherStation_"):
-            _cand = f"{_season_prefix}{_stem}{_acti_suffix}"
-            if _cand in acti_by_edid:
-                _acti_edid = _cand
+        _acti_found = False
+        for _pfx in (_season_prefix, ""):
+            for _stem in ("Weather_WeatherStation_", "ATX_Weather_WeatherStation_"):
+                _cand = f"{_pfx}{_stem}{_acti_suffix}"
+                if _cand in acti_by_edid:
+                    _acti_edid = _cand
+                    _acti_found = True
+                    break
+            if _acti_found:
                 break
+
+        # Fallback: the ACTI EDID's suffix sometimes drifts from the ENTM's —
+        # a case difference (Radstorm vs RadStorm), a trailing number
+        # (Halloween → Halloween01), or a dropped Standard_/Storm_ stem
+        # (Standard_LightRain → LightRain). When the exact lookups above miss,
+        # match on a normalised token (lowercased, leading Standard_/Storm_
+        # and trailing digits stripped, non-alphanumerics removed) across all
+        # non-cut weather ACTI records so PowerRequired/Flamingo still resolve.
+        if not _acti_found:
+            def _ws_acti_norm(tok):
+                tok = re.sub(r"^(?:standard_|storm_)", "", tok.lower())
+                tok = re.sub(r"[^a-z0-9]", "", tok)
+                return re.sub(r"\d+$", "", tok)
+            _want_norm = _ws_acti_norm(_acti_suffix)
+            for _ae in acti_by_edid:
+                _ael = _ae.lower()
+                if ("weatherstation" not in _ael or _ael.startswith("zzz")
+                        or "entrancebutton" in _ael or "deafult" in _ael):
+                    continue
+                _ae_suffix = (_ae.split("WeatherStation_", 1)[1]
+                              if "WeatherStation_" in _ae else _ae)
+                if _ws_acti_norm(_ae_suffix) == _want_norm:
+                    _acti_edid = _ae
+                    _acti_found = True
+                    break
 
         _power_raw = acti_prps_value(_acti_edid, "PowerRequired")
         try:
