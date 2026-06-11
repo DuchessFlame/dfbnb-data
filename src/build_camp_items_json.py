@@ -85,6 +85,26 @@ RE_RAND_PCT = re.compile(r"GetRandomPercent.*\)\s+[0-9A-Fa-f]+\s+(\d+\.\d+)\s*$"
 RE_RAND_PCT_GLOB_EDID = re.compile(r"GetRandomPercent.*\)\s+[0-9A-Fa-f]+\s+(\S+)\s*$", re.IGNORECASE)
 RE_GLOB_IN_COND = re.compile(r"\[GLOB:([0-9A-Fa-f]{8})\]", re.IGNORECASE)
 
+# --- Season theme lookup (for scoreboard wording) ---
+# Loaded once in main() from fallout76_seasons.tsv.
+_SEASON_THEMES: Dict[int, str] = {}
+
+def _load_season_themes(tsv_root: str):
+    """Load season number → theme name from fallout76_seasons.tsv."""
+    global _SEASON_THEMES
+    path = os.path.join(tsv_root, "fallout76_seasons.tsv")
+    if not os.path.isfile(path):
+        print("[WARN] fallout76_seasons.tsv not found — scoreboard wording will be generic.", file=sys.stderr)
+        return
+    for row in read_tsv(path):
+        sn = safe_int(row.get("SeasonNumber"))
+        name = (row.get("SeasonName") or "").strip()
+        if sn and name:
+            # Drop leading "The" per camp-item-expands skill spec
+            if name.lower().startswith("the "):
+                name = name[4:]
+            _SEASON_THEMES[sn] = name
+
 def now_iso():
     return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
@@ -390,19 +410,75 @@ def resolve_obtain(entm_edid, book_data):
         result.update(method="community", display="Awarded through a Bethesda community event or promotion.")
         return result
     if season:
+        theme = _SEASON_THEMES.get(season, "")
+        sb_label = "{} Scoreboard (Season {})".format(theme, season) if theme else "Season {} Scoreboard".format(season)
         if result["goldBullionPrice"] and result["vendor"]:
             result.update(method="gold", badge="gold",
-                display="Purchase from {} for {} Gold Bullion. Requires unlocking Season {} Scoreboard.".format(
-                    result["vendor"], result["goldBullionPrice"], season))
+                display="Purchase from {} for {} Gold Bullion. Requires unlocking the {}.".format(
+                    result["vendor"], result["goldBullionPrice"], sb_label))
         else:
-            result.update(method="scoreboard", badge="scoreboard",
-                display="Unlock via the Season {} Scoreboard.".format(season))
+            # Camp-item-expands skill: S≤15 "Claim from", S≥16 "Purchase with tickets from"
+            if season <= 15:
+                result.update(method="scoreboard", badge="scoreboard",
+                    display="Claim from the {}".format(sb_label))
+            else:
+                result.update(method="scoreboard", badge="scoreboard",
+                    display="Purchase with tickets from the {}".format(sb_label))
         return result
     if (entm_edid or "").upper().startswith("ATX_"):
         result.update(method="atom", badge="atom", display="Purchase from the Atom Shop.")
         return result
     result.update(method="default", display="Available in the base game.")
     return result
+
+# --- 9-route obtain routes (camp-item-expands spec) ---
+OBTAIN_ROUTE_ORDER = [
+    "Caps", "Stamps", "Scoreboard", "Gold Bullion",
+    "Atom Shop", "Limited Time Bundle", "Events & Activities",
+    "Quests", "Challenges",
+]
+
+def build_obtain_routes(obtain, book_data):
+    """Build the 9-route obtainRoutes array per the camp-item-expands skill spec.
+    Each route: {route, populated, lines[], tradeable, dropRate}."""
+    method = obtain.get("method", "unknown")
+    tradeable = obtain.get("tradeable")
+    routes = []
+    for route_label in OBTAIN_ROUTE_ORDER:
+        entry = {"route": route_label, "populated": False, "lines": [], "tradeable": None, "dropRate": None}
+        if route_label == "Scoreboard" and method == "scoreboard":
+            entry["populated"] = True
+            entry["lines"] = [obtain.get("display", "")]
+            entry["tradeable"] = tradeable
+            entry["dropRate"] = "N/A"
+        elif route_label == "Gold Bullion" and method == "gold":
+            entry["populated"] = True
+            lines = []
+            plan = obtain.get("planName")
+            if plan: lines.append("Plan: {}".format(plan))
+            vendor = obtain.get("vendor", "")
+            if vendor: lines.append("{} — Gold Bullion vendor".format(vendor))
+            price = obtain.get("goldBullionPrice")
+            if price: lines.append("{} Gold Bullion".format(price))
+            if not lines: lines = [obtain.get("display", "")]
+            entry["lines"] = lines
+            entry["tradeable"] = tradeable
+            entry["dropRate"] = "N/A"
+        elif route_label == "Atom Shop" and method in ("atom", "f1"):
+            entry["populated"] = True
+            entry["lines"] = [obtain.get("display", "Can be purchased with certain bundles from the Atom Shop.")]
+            entry["tradeable"] = tradeable
+            entry["dropRate"] = "N/A"
+        elif route_label == "Events & Activities" and method == "community":
+            entry["populated"] = True
+            entry["lines"] = [obtain.get("display", "")]
+            entry["tradeable"] = tradeable
+            entry["dropRate"] = "N/A"
+        elif route_label == "Caps" and method == "default":
+            # Base game items typically available via plan vendor
+            pass  # leave as N/A unless we have specific vendor data
+        routes.append(entry)
+    return routes
 
 # --- Subcategory ---
 def resource_subcategory(reso_edid, entm_desc):
@@ -668,6 +744,7 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
     book_data = parse_book_for_plan(book_row, glob_index)
     entm_edid = clean_str(entm_row.get("EDID") or primary_edid) if entm_row else primary_edid
     obtain = resolve_obtain(entm_edid, book_data)
+    obtain_routes = build_obtain_routes(obtain, book_data)
     cont_fid = clean_str(cont_row.get("FormID") or "") if cont_row else ""
     entm_fid = clean_str(entm_row.get("FormID") or "") if entm_row else ""
     fid_key = formid8(entm_fid or primary_fid)
@@ -700,6 +777,12 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
         "crafting": {"components": components},
         "craftingRequirements": fvpa_to_array(clean_str(cobj_row.get("FVPA") or "")) if cobj_row else [],
         "howToObtain": obtain,
+        "obtainRoutes": obtain_routes,
+        "buildInfo": "Build Limit per Camp: {}\nBuild Limit per Workshop: {}\nPower Required: {}\nFlamingo Units: {}".format(
+            1, 0,
+            "Yes" if cont_props.get("powerRequired") else "No",
+            cont_props.get("flamingoUnits") or "—",
+        ),
         "seasonNumber": season_num,
         "releaseDate": release_date,
         "cutContent": starts_cut(primary_edid),
@@ -735,6 +818,9 @@ def main():
     print("  RESO:{} CONT:{} ENTM:{} COBJ:{} BOOK:{} LVLI_L:{} LVLI_E:{} GLOB:{}".format(
         len(reso_rows), len(cont_rows), len(entm_rows), len(cobj_rows),
         len(book_rows), len(lvli_list_rows), len(lvli_entry_rows), len(glob_rows)), file=sys.stderr)
+    # Load season themes for scoreboard wording (≤15 "Claim from" / ≥16 "Purchase with tickets from")
+    if root:
+        _load_season_themes(root)
     # Build the shared rng76 resolver once from the same TSV root. Produce
     # LVLIs are resolved through this (see resolve_drops_via_rng76).
     global _RNG_RESOLVER
