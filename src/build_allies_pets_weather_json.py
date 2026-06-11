@@ -203,6 +203,32 @@ def make_obtain_routes(populated):
         })
     return routes
 
+
+def simple_obtain_routes(season_num=None, gold_block="", atom_shop=False,
+                         tradeable=None):
+    """Build the 9-route obtain array for the simpler camp item types
+    (pets / pet furniture / pet apparel / cryos / fridges / allies) from the
+    same signals their howToObtain string is built from.
+
+    Returns an EMPTY list when none of Scoreboard / Gold Bullion / Atom Shop
+    apply (e.g. a craft-only or quest/event source) so the renderer falls back
+    to the flat howToObtain line instead of showing nine dimmed N/A routes.
+    All these sources are vendor/unlock/claim — never drops — so dropRate is
+    always "N/A". Scoreboard items are bound at claim, hence tradeable=False on
+    that route regardless of the item's overall tradeability."""
+    populated = {}
+    if season_num:
+        populated["Scoreboard"] = ([scoreboard_how(season_num)], False, "N/A")
+    if gold_block:
+        populated["Gold Bullion"] = (
+            [ln for ln in str(gold_block).split("\n") if str(ln).strip()],
+            tradeable, "N/A")
+    if atom_shop:
+        populated["Atom Shop"] = ([ATX_HOW], tradeable, "N/A")
+    if not populated:
+        return []
+    return make_obtain_routes(populated)
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -1513,6 +1539,13 @@ def build_allies():
             "seasonNumber":     season_num,
             "tradeable":        _ally_tradeable,
             "planName":         _ally_plan_name,
+            # Scoreboard when seasonal, Atom Shop when the source resolves to
+            # ATX; quest/event/vendor allies leave this empty so the flat
+            # howToObtain line shows instead.
+            "obtainRoutes":     simple_obtain_routes(
+                                    season_num=season_num,
+                                    atom_shop=(not season_num and obtain == ATX_HOW),
+                                    tradeable=_ally_tradeable),
             "imageUrl":         img,
             "imageCarousel":    carousel,
             "xalgFlags":        xalg,
@@ -1681,6 +1714,10 @@ def build_pets():
             "seasonNumber":  season_num,
             "tradeable":     False,
             "planName":      "",
+            "obtainRoutes":  simple_obtain_routes(
+                                 season_num=season_num,
+                                 atom_shop=(season_num is None),
+                                 tradeable=False),
             "imageUrl":      pet_img,
             "homeImageUrl":  home_img,
             "imageCarousel": carousel,
@@ -1740,6 +1777,10 @@ def build_pet_furniture():
             "seasonNumber":  season_num,
             "tradeable":     False,
             "planName":      "",
+            "obtainRoutes":  simple_obtain_routes(
+                                 season_num=season_num,
+                                 atom_shop=(season_num is None),
+                                 tradeable=False),
             "imageUrl":      img,
             "imageCarousel": carousel,
             "xalgFlags":     xalg,
@@ -1823,6 +1864,12 @@ def build_pet_apparel():
             "seasonNumber": season_num,
             "tradeable":    _ap_tradeable,  # False for all current items (no plan books exist)
             "planName":     _ap_plan_name,
+            # Craftable at the Armor Workbench — only seasonal apparel carries a
+            # vendor (Scoreboard) route; otherwise this stays empty so the flat
+            # "Craft at Armor Workbench" line shows instead of nine N/A rows.
+            "obtainRoutes": simple_obtain_routes(
+                                season_num=season_num,
+                                tradeable=_ap_tradeable),
             "imageUrl":     img,
             "imageCarousel": carousel,
             "xalgFlags":    xalg,
@@ -1909,6 +1956,11 @@ def build_cryos():
             "seasonNumber":   season_num,
             "tradeable":      _cryo_tradeable,
             "planName":       _cryo_plan_name,
+            "obtainRoutes":   simple_obtain_routes(
+                                  season_num=season_num,
+                                  gold_block=_gv_block,
+                                  atom_shop=(not season_num and not _gv_block),
+                                  tradeable=_cryo_tradeable),
             "imageUrl":       img,
             "imageCarousel":  carousel,
             "spoilageReduction": "100% (no spoilage)",
@@ -1973,6 +2025,10 @@ def build_fridges():
             "seasonNumber":  season_num,
             "tradeable":     False,
             "planName":      "",
+            "obtainRoutes":  simple_obtain_routes(
+                                 season_num=season_num,
+                                 atom_shop=(season_num is None),
+                                 tradeable=False),
             "imageUrl":      img,
             "imageCarousel": carousel,
             "spoilageReduction": "-50%",
