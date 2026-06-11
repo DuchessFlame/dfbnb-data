@@ -402,7 +402,22 @@ def workshop_count_for(*tokens):
 
 
 def _limit_str(v):
-    return str(v) if v is not None else "—"
+    """Format a WorkshopCount build-limit value for display.
+
+    Three distinct cases — the 0 vs None distinction matters because a bare
+    "0" reads to players as "no limit" when it means the opposite:
+      • None → no WorkshopCount GLOB exists for this item: there is no hard cap,
+               so you can place as many as your CAMP budget allows.
+      • 0    → a GLOB is present and explicitly set to 0: the item cannot be
+               built via this route at all (spelled out so 0 isn't misread as
+               "unlimited").
+      • N    → the literal build cap.
+    """
+    if v is None:
+        return "As many as your CAMP budget allows"
+    if v == 0:
+        return "0 — Cannot be built"
+    return str(v)
 
 # ---------------------------------------------------------------------------
 # Build lookup maps
@@ -705,11 +720,28 @@ def fmt_num(raw: str) -> str:
         return s
 
 
+# Failsafe for curve-table-driven component counts.
+# Every camp recipe today uses a plain positive integer, but Bethesda drives
+# some armour/weapon mod counts from a curve table; in the xEdit export those
+# arrive as "0" (or, if they ever change the format, a non-numeric token) in the
+# quantity slot. A literal "0"/"1" would misrepresent a level-scaled amount, so
+# we flag those components as variable instead.
+def _parse_fvpa_qty(raw):
+    """Return (qty, scaled): a positive int when the count is fixed, or
+    (None, True) when it's curve-driven (0 / blank / non-numeric)."""
+    try:
+        n = int(str(raw).strip())
+    except (ValueError, TypeError):
+        return None, True          # non-numeric → curve/level-scaled
+    return (n, False) if n > 0 else (None, True)   # 0 → curve-driven, not "none"
+
+
 def fvpa_to_text(fvpa: str) -> str:
     """
     Convert a COBJ FVPA component string to display text.
       'c_Circuitry:1:COBJ_Workshop_Circuitry|c_Steel:3:COBJ_Workshop_Steel'
       → 'Circuitry ×1\nSteel ×3'
+    A curve-driven count renders as '×(varies)' rather than a misleading ×0.
     """
     parts = []
     for chunk in str(fvpa or "").split("|"):
@@ -719,14 +751,17 @@ def fvpa_to_text(fvpa: str) -> str:
         name = re.sub(r"^c_", "", bits[0].strip())
         # CamelCase → spaced words (e.g. 'NuclearMaterial' → 'Nuclear Material')
         name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", name)
-        qty  = bits[1].strip()
-        if name and qty:
-            parts.append(f"{name} ×{qty}")
+        if not name:
+            continue
+        qty, scaled = _parse_fvpa_qty(bits[1])
+        parts.append(f"{name} ×(varies)" if scaled else f"{name} ×{qty}")
     return "\n".join(parts)
 
 
 def fvpa_to_array(fvpa: str) -> list:
-    """Parse COBJ FVPA string to [{"name": "...", "qty": N}, ...]."""
+    """Parse COBJ FVPA string to [{"name": "...", "qty": N}, ...].
+    Curve-driven counts emit {"name": ..., "qty": None, "scaled": True} so the
+    renderer can show a variable amount instead of ×0 / ×1 / ×NaN."""
     result = []
     for chunk in str(fvpa or "").split("|"):
         bits = chunk.strip().split(":")
@@ -734,11 +769,12 @@ def fvpa_to_array(fvpa: str) -> list:
             continue
         name = re.sub(r"^c_", "", bits[0].strip())
         name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", name)
-        try:
-            qty = int(bits[1].strip())
-        except (ValueError, TypeError):
-            qty = 1
-        if name:
+        if not name:
+            continue
+        qty, scaled = _parse_fvpa_qty(bits[1])
+        if scaled:
+            result.append({"name": name, "qty": None, "scaled": True})
+        else:
             result.append({"name": name, "qty": qty})
     return result
 

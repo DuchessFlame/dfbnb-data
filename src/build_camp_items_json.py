@@ -337,6 +337,18 @@ def build_avif_edid_to_cont(cont_rows):
     return idx
 
 # --- COBJ ---
+def _parse_fvpa_qty(raw):
+    """Failsafe for curve-table-driven component counts. Returns (qty, scaled):
+    a positive int for a fixed count, or (None, True) when the count is
+    curve-driven (exported as 0 / blank / non-numeric). Keeps a stray
+    level-scaled material from rendering as a misleading ×0 / ×1."""
+    try:
+        n = int(str(raw).strip())
+    except (ValueError, TypeError):
+        return None, True
+    return (n, False) if n > 0 else (None, True)
+
+
 def parse_crafting_components(fvpa):
     result = []
     for part in re.split(r"\s*\|\s*", (fvpa or "").strip()):
@@ -345,13 +357,16 @@ def parse_crafting_components(fvpa):
         tokens = part.split(":")
         name = tokens[0].strip()
         if name.startswith("c_"): name = name[2:]
-        count = safe_int(tokens[1].strip(), default=1) if len(tokens) >= 2 else 1
-        if name: result.append({"item": name, "count": count})
+        count, scaled = _parse_fvpa_qty(tokens[1]) if len(tokens) >= 2 else (1, False)
+        if name:
+            if scaled: result.append({"item": name, "count": None, "scaled": True})
+            else:      result.append({"item": name, "count": count})
     return result
 
 
 def fvpa_to_array(fvpa):
-    """Parse COBJ FVPA string to [{"name": "...", "qty": N}, ...]."""
+    """Parse COBJ FVPA string to [{"name": "...", "qty": N}, ...].
+    Curve-driven counts emit qty=None + scaled=True (failsafe)."""
     result = []
     for part in re.split(r"\s*\|\s*", (fvpa or "").strip()):
         part = part.strip()
@@ -360,8 +375,10 @@ def fvpa_to_array(fvpa):
         name = tokens[0].strip()
         if name.startswith("c_"): name = name[2:]
         name = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
-        qty = safe_int(tokens[1].strip(), default=1) if len(tokens) >= 2 else 1
-        if name: result.append({"name": name, "qty": qty})
+        qty, scaled = _parse_fvpa_qty(tokens[1]) if len(tokens) >= 2 else (1, False)
+        if name:
+            if scaled: result.append({"name": name, "qty": None, "scaled": True})
+            else:      result.append({"name": name, "qty": qty})
     return result
 
 def build_cobj_cnam_index(cobj_rows):

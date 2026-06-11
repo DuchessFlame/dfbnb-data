@@ -251,6 +251,19 @@ def _row_fvpa(c):
     return fv if fv else _components_via_lvli(c)
 
 
+def _parse_fvpa_qty(raw):
+    """Failsafe for curve-table-driven component counts. Returns (qty, scaled):
+    a positive int when the count is fixed, or (None, True) when it's
+    curve-driven (exported as 0 / blank / non-numeric). Camp recipes use plain
+    integers today, but some armour/weapon mod counts are curve-scaled and this
+    keeps a stray one from rendering as a misleading ×0."""
+    try:
+        n = int(str(raw).strip())
+    except (ValueError, TypeError):
+        return None, True
+    return (n, False) if n > 0 else (None, True)
+
+
 def fvpa_to_text(fvpa):
     parts = []
     for chunk in (fvpa or "").split("|"):
@@ -259,12 +272,14 @@ def fvpa_to_text(fvpa):
             name = bits[0].strip()
             name = re.sub(r"^c_", "", name)
             name = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
-            parts.append(f"{name} ×{bits[1].strip()}")
+            qty, scaled = _parse_fvpa_qty(bits[1])
+            parts.append(f"{name} ×(varies)" if scaled else f"{name} ×{qty}")
     return "\n".join(parts)
 
 
 def fvpa_to_array(fvpa):
-    """Parse COBJ FVPA string to [{"name": "...", "qty": N}, ...]."""
+    """Parse COBJ FVPA string to [{"name": "...", "qty": N}, ...].
+    Curve-driven counts emit qty=None + scaled=True (failsafe)."""
     result = []
     for chunk in (fvpa or "").split("|"):
         bits = chunk.strip().split(":")
@@ -272,11 +287,10 @@ def fvpa_to_array(fvpa):
             name = bits[0].strip()
             name = re.sub(r"^c_", "", name)
             name = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
-            try:
-                qty = int(bits[1].strip())
-            except (ValueError, TypeError):
-                qty = 1
-            if name:
+            qty, scaled = _parse_fvpa_qty(bits[1])
+            if scaled:
+                result.append({"name": name, "qty": None, "scaled": True})
+            else:
                 result.append({"name": name, "qty": qty})
     return result
 
