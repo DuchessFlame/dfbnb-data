@@ -971,6 +971,19 @@ def build_weather_stations():
         "00743E6E": ["atx_camp_utility_weatherstation_thunderstorm.avif", "atx_camp_utility_weatherstation_thunderstorm_c1.avif", "atx_camp_utility_weatherstation_thunderstorm_c2.avif"],  # Weather Station (Thunderstorm)
     }
 
+    # ── Real-money Limited Time Bundle overrides ──
+    # A few weather stations were NOT Atom-shop purchases — they shipped in a
+    # paid (real-money) bundle. Same treatment as the Enclave Repair Bot
+    # (REPAIR_BOT_HOW_OVERRIDE): the How to Obtain line + populated route move
+    # from "Atom Shop" to "Limited Time Bundle". Sourced from atom_shop.json
+    # "ltb" section. Keyed by ENTM FormID.
+    #   007586AC — Skyline Valley station → Skyline Valley — Lost Treasures
+    #              Bundle (2024-06-12, Skyline Valley update, Steam/PS/Xbox).
+    WEATHER_HOW_OVERRIDE = {
+        "007586AC": ("Real-money Limited Time Bundle: Skyline Valley — Lost Treasures Bundle "
+                     "(released 12 June 2024 with the Skyline Valley update)."),
+    }
+
     # Fishing-weather classification is derived at build time by:
     #   1. Looking up the WTHR record that a given weather station activates
     #      (ENTM_SUFFIX_TO_WTHR_EDID table above — to be replaced with a
@@ -1067,6 +1080,8 @@ def build_weather_stations():
             _how = f"{scoreboard_how(season_num)}\nOR\n{_plan_block}" if season_num else _plan_block
         elif season_num:
             _how = scoreboard_how(season_num)
+        elif entm_id in WEATHER_HOW_OVERRIDE:
+            _how = WEATHER_HOW_OVERRIDE[entm_id]
         else:
             _how = ATX_HOW
 
@@ -1083,7 +1098,11 @@ def build_weather_stations():
             _populated_routes["Gold Bullion"] = (
                 _plan_block.split("\n"), _ws_tradeable, "N/A")
         if not season_num and not _plan_block:
-            _populated_routes["Atom Shop"] = ([ATX_HOW], _ws_tradeable, "N/A")
+            if entm_id in WEATHER_HOW_OVERRIDE:
+                _populated_routes["Limited Time Bundle"] = (
+                    [WEATHER_HOW_OVERRIDE[entm_id]], _ws_tradeable, "N/A")
+            else:
+                _populated_routes["Atom Shop"] = ([ATX_HOW], _ws_tradeable, "N/A")
         _obtain_routes = make_obtain_routes(_populated_routes)
 
         # ── Build Information — PowerRequired read from ACTI PRPS ──
