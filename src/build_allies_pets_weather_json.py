@@ -940,6 +940,37 @@ def build_weather_stations():
         "0073ABA6": False,  # Weather Control Station (Atlantic City Fog) — Gold Bullion plan, NonPlayerTradable
     }
 
+    # ── Hand-uploaded page images (June 2026) ──
+    # Mirrors the repair-bot approach: these AVIFs live in guide-images
+    # (NOT the storefront folder) and the suffixes aren't uniform (base / _l /
+    # _c1 / _c2 / _c3), so each station maps to an explicit ordered file list.
+    # ORDER MATTERS: the primary render (no _c suffix — bare or _l) is first so
+    # it becomes imageUrl / the row thumbnail; the _c1/_c2/_c3 colourways follow.
+    # Up to 4 images per station. Stations not in this map fall back to the
+    # storefront ECIL-derived URLs.
+    WEATHER_STATION_IMG_BASE = "/wp-content/uploads/guide-images/camp-items/weather-stations/"
+    WEATHER_STATION_IMG_MAP = {
+        "008998E2": ["score_s24_camp_utility_weatherstation_invasion_l.avif", "score_s24_camp_utility_weatherstation_invasion_c1.avif", "score_s24_camp_utility_weatherstation_invasion_c2.avif"],  # Weather Station (Alien Invasion)
+        "0073ABA6": ["score_s15_camp_utility_weatherstation_xpdacboardwalk_l.avif", "score_s15_camp_utility_weatherstation_xpdacboardwalk_c1.avif", "score_s15_camp_utility_weatherstation_xpdacboardwalk_c2.avif", "score_s15_camp_utility_weatherstation_xpdacboardwalk_c3.avif"],  # Weather Station (Atlantic City Fog)
+        "007B28BB": ["atx_camp_utility_weatherstation_verdantpollen_l.avif", "atx_camp_utility_weatherstation_verdantpollen_c1.avif", "atx_camp_utility_weatherstation_verdantpollen_c2.avif", "atx_camp_utility_weatherstation_verdantpollen_c3.avif"],  # Weather Station (Blooming Haze)
+        "0084CCD5": ["atx_camp_utility_weatherstation_burningnight.avif", "atx_camp_utility_weatherstation_burningnight_c1.avif", "atx_camp_utility_weatherstation_burningnight_c2.avif", "atx_camp_utility_weatherstation_burningnight_c3.avif"],  # Weather Station (Burning Night)
+        "0084CCD6": ["atx_camp_utility_weatherstation_burningsandstorm.avif", "atx_camp_utility_weatherstation_burningsandstorm_c1.avif", "atx_camp_utility_weatherstation_burningsandstorm_c2.avif", "atx_camp_utility_weatherstation_burningsandstorm_c3.avif"],  # Weather Station (Burning Sandstorm)
+        "006EE8EE": ["atx_camp_utility_weatherstation_standard_clear_l.avif", "atx_camp_utility_weatherstation_standard_clear_c1.avif", "atx_camp_utility_weatherstation_standard_clear_c2.avif", "atx_camp_utility_weatherstation_standard_clear_c3.avif"],  # Weather Station (Clear)
+        "0078DB68": ["atx_camp_utility_weatherstation_fallfoliage_l.avif", "atx_camp_utility_weatherstation_fallfoliage_c1.avif", "atx_camp_utility_weatherstation_fallfoliage_c2.avif", "atx_camp_utility_weatherstation_fallfoliage_c3.avif"],  # Weather Station (Fall)
+        "007D70D3": ["atx_camp_utility_weatherstation_fireworks_l.avif", "atx_camp_utility_weatherstation_fireworks_c1.avif", "atx_camp_utility_weatherstation_fireworks_c2.avif", "atx_camp_utility_weatherstation_fireworks_c3.avif"],  # Weather Station (Fireworks)
+        "00787EE2": ["atx_camp_utility_weatherstation_halloween_l.avif", "atx_camp_utility_weatherstation_halloween_c1.avif", "atx_camp_utility_weatherstation_halloween_c2.avif", "atx_camp_utility_weatherstation_halloween_c3.avif"],  # Weather Station (Halloween)
+        "008319F2": ["atx_camp_utility_weatherstation_standard_lightrain_l.avif", "atx_camp_utility_weatherstation_standard_lightrain_c1.avif", "atx_camp_utility_weatherstation_standard_lightrain_c2.avif", "atx_camp_utility_weatherstation_standard_lightrain_c3.avif"],  # Weather Station (Light Rain)
+        "00781421": ["atx_camp_utility_weatherstation_mothman_l.avif", "atx_camp_utility_weatherstation_mothman_c1.avif", "atx_camp_utility_weatherstation_mothman_c2.avif", "atx_camp_utility_weatherstation_mothman_c3.avif"],  # Weather Station (Mothman)
+        "007990A2": ["score_s19_camp_utility_weatherstation_nukezone_l.avif", "score_s19_camp_utility_weatherstation_nukezone_c1.avif", "score_s19_camp_utility_weatherstation_nukezone_c2.avif"],  # Weather Station (Nuke Zone)
+        "0085B5FA": ["atx_camp_utility_weatherstation_outwaste_l.avif", "atx_camp_utility_weatherstation_outwaste_c1.avif", "atx_camp_utility_weatherstation_outwaste_c2.avif", "atx_camp_utility_weatherstation_outwaste_c3.avif"],  # Weather Station (Outwaste)
+        "006F0693": ["atx_camp_utility_weatherstation_standard_radstorm.avif", "atx_camp_utility_weatherstation_standard_radstorm_c1.avif", "atx_camp_utility_weatherstation_standard_radstorm_c2.avif", "atx_camp_utility_weatherstation_standard_radstorm_c3.avif"],  # Weather Station (Radstorm)
+        "008B0D76": ["score_s25_camp_utility_weatherstation_rainbow_l.avif", "score_s25_camp_utility_weatherstation_rainbow_c1.avif", "score_s25_camp_utility_weatherstation_rainbow_c2.avif"],  # Weather Station (Rainbow)
+        "007586AC": ["atx_camp_utility_weatherstation_storm_skylinevalley_l.avif", "atx_camp_utility_weatherstation_storm_skylinevalley_c1.avif", "atx_camp_utility_weatherstation_storm_skylinevalley_c2.avif"],  # Weather Station (Skyline Valley)
+        "0079A1D2": ["atx_camp_utility_weatherstation_snowaurora.avif", "atx_camp_utility_weatherstation_snowaurora_c1.avif", "atx_camp_utility_weatherstation_snowaurora_c2.avif"],  # Weather Station (Snow Aurora)
+        "007263C0": ["atx_camp_utility_weatherstation_snowman_snow_l.avif", "atx_camp_utility_weatherstation_snowman_snow_c1.avif", "atx_camp_utility_weatherstation_snowman_snow_c2.avif", "atx_camp_utility_weatherstation_snowman_snow_c3.avif"],  # Weather Station (Snow)
+        "00743E6E": ["atx_camp_utility_weatherstation_thunderstorm.avif", "atx_camp_utility_weatherstation_thunderstorm_c1.avif", "atx_camp_utility_weatherstation_thunderstorm_c2.avif"],  # Weather Station (Thunderstorm)
+    }
+
     # Fishing-weather classification is derived at build time by:
     #   1. Looking up the WTHR record that a given weather station activates
     #      (ENTM_SUFFIX_TO_WTHR_EDID table above — to be replaced with a
@@ -975,10 +1006,17 @@ def build_weather_stations():
         xalg_flag = entm.get("XALG", "")
         source    = xalg_to_source(xalg_flag) or "Atom Shop"
 
-        # Use ETDI for the icon image (not ECIL_1 which has _C1 suffix)
+        # Images: prefer the hand-uploaded guide-images set (up to 4 per
+        # station — primary render first, then colourways); fall back to the
+        # storefront ECIL-derived URLs for any station not yet mapped.
         _etdi     = entm.get("ETDI", "").strip()
-        carousel  = ecil_images(entm, "camp-utility")
-        image_url = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
+        _hand     = WEATHER_STATION_IMG_MAP.get(entm_id)
+        if _hand:
+            carousel  = [WEATHER_STATION_IMG_BASE + f for f in _hand]
+            image_url = carousel[0]
+        else:
+            carousel  = ecil_images(entm, "camp-utility")
+            image_url = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
