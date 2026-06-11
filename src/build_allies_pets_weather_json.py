@@ -980,8 +980,21 @@ def build_weather_stations():
     #   007586AC — Skyline Valley station → Skyline Valley — Lost Treasures
     #              Bundle (2024-06-12, Skyline Valley update, Steam/PS/Xbox).
     WEATHER_HOW_OVERRIDE = {
-        "007586AC": ("Real-money Limited Time Bundle: Skyline Valley — Lost Treasures Bundle "
+        "007586AC": ("Limited Time Bundle: Skyline Valley — Lost Treasures Bundle "
                      "(released 12 June 2024 with the Skyline Valley update)."),
+    }
+
+    # ── Atom Shop catch-up bundle additions ──
+    # Stations that were originally Scoreboard-only but later returned for sale
+    # in an Atom Shop (Fallout 1st) catch-up bundle. This ADDS an "Atom Shop"
+    # route on top of the existing Scoreboard route. Verified in-store from the
+    # live Atom Shop — the bundle does not yet appear in the ENTM/COBJ export,
+    # so the line is hardcoded here. Keyed by ENTM FormID.
+    #   007990A2 — Nuke Zone (S19) → Fallout 1st Enclave Field Supplies
+    #              Catch Up Bundle (1,500 Atoms, Fallout 1st members).
+    WEATHER_ATOM_SHOP_ALSO = {
+        "007990A2": ("Atom Shop: included in the Fallout 1st Enclave Field Supplies "
+                     "Catch Up Bundle (1,500 Atoms, Fallout 1st members)."),
     }
 
     # Fishing-weather classification is derived at build time by:
@@ -1085,6 +1098,11 @@ def build_weather_stations():
         else:
             _how = ATX_HOW
 
+        # Catch-up bundle stations gain an extra Atom Shop line on the combined
+        # How to Obtain (Scoreboard line first, then the Atom Shop bundle line).
+        if entm_id in WEATHER_ATOM_SHOP_ALSO:
+            _how = f"{_how}\nOR\n{WEATHER_ATOM_SHOP_ALSO[entm_id]}"
+
         # ── Structured 9-route obtain list (camp-item-expands spec) ──
         # Mirrors the _how branches above, but as per-route data so the
         # renderer can show every source (populated or dimmed N/A) with
@@ -1094,6 +1112,9 @@ def build_weather_stations():
         if season_num:
             _populated_routes["Scoreboard"] = (
                 [scoreboard_how(season_num)], False, "N/A")
+        if entm_id in WEATHER_ATOM_SHOP_ALSO:
+            _populated_routes["Atom Shop"] = (
+                [WEATHER_ATOM_SHOP_ALSO[entm_id]], _ws_tradeable, "N/A")
         if _plan_block:
             _populated_routes["Gold Bullion"] = (
                 _plan_block.split("\n"), _ws_tradeable, "N/A")
@@ -1308,7 +1329,7 @@ REPAIR_BOT_LVLI_ID = "007AE547"
 # (dist/atom_shop.json "ltb" section: released 2024-12-03, Gleaming Depths,
 # Steam / PlayStation / Xbox).
 REPAIR_BOT_HOW_OVERRIDE = {
-    "007AE546": ("Real-money Limited Time Bundle: Enclave Armory Bundle "
+    "007AE546": ("Limited Time Bundle: Enclave Armory Bundle "
                  "(released 3 December 2024 with the Gleaming Depths update)."),
 }
 
