@@ -95,6 +95,10 @@ KYWD_REFS_PATH = _resolve_tsv("KYWD_REFS_TSV", "KYWD_Export_*_Refs.tsv", "KYWD_E
 PERK_PATH      = _resolve_tsv("PERK_TSV",      "PERK_Export_*.tsv",      "PERK_Export.tsv")
 COBJ_PATH      = _resolve_tsv("COBJ_TSV",      "COBJ_Export_*.tsv",      "COBJ_Export.tsv")
 SEASONS_PATH   = TSV_DIR / "fallout76_seasons.tsv"
+try:
+    LVLI_ENTRIES_PATH = _resolve_tsv("LVLI_ENTRIES_TSV", "*LVLI*Entries*.tsv", "LVLI_Entries.tsv")
+except FileNotFoundError:
+    LVLI_ENTRIES_PATH = None
 
 print("Loading TSVs…")
 for _n, _p in [("FURN", FURN_PATH), ("ACTI", ACTI_PATH), ("ENTM", ENTM_PATH),
@@ -148,6 +152,7 @@ HOMEBODY_LINE = ("Homebody Perk: while in your C.A.M.P. or workshop — "
 # which carries the plan name but no components. Both rows normalise to the same
 # EDID once the CondProxy_/ATX_/_b suffixes are stripped.
 COBJ_BY_CNAM = {}
+ALL_COBJ_ROWS = []
 PLAN_NAME_BY_NORMEDID = {}
 
 
@@ -160,6 +165,7 @@ def _norm_cobj_edid(edid):
 
 
 for r in rows(COBJ_PATH):
+    ALL_COBJ_ROWS.append(r)
     cn = r.get("CNAM_FormID", "").strip()
     if cn:
         COBJ_BY_CNAM.setdefault(cn, []).append(r)
@@ -177,6 +183,72 @@ def plan_name_for_row(c):
     if plan:
         return plan
     return PLAN_NAME_BY_NORMEDID.get(_norm_cobj_edid(c.get("COBJ_EDID", "")), "")
+
+
+# Instruments (and other grouped CAMP objects) are crafted from a recipe whose
+# CNAM is a leveled list; each individual FURN is an ENTRY of that list. So the
+# component recipe for, e.g., Steel Guitar is found by: FURN FormID -> the LVLI
+# it belongs to -> the COBJ whose CNAM == that LVLI -> its FVPA.
+# LVLI_BY_MEMBER maps each member FormID to the LVLI FormIDs it appears in.
+LVLI_BY_MEMBER = {}
+if LVLI_ENTRIES_PATH:
+    for r in rows(LVLI_ENTRIES_PATH):
+        lvli = (r.get("LVLI_FormID") or "").strip().upper()
+        # Only index workshop build leveled lists, so membership can't pull a
+        # recipe from an unrelated list (loot tables, quest rewards, etc.).
+        if "workshop" not in (r.get("LVLI_EDID") or "").lower():
+            continue
+        ref = (r.get("LVLO_Reference") or "").strip()
+        member = ref.split(":")[0].strip().upper() if ref else ""
+        if lvli and member:
+            LVLI_BY_MEMBER.setdefault(member, []).append(lvli)
+
+
+def crafting_via_lvli_membership(fid):
+    """For a FURN that is an entry of a workshop leveled-list recipe (e.g.
+    instruments), return (fvpa_str, plan_name) from the COBJ whose CNAM is that
+    LVLI. ('', '') if the FURN isn't a grouped-recipe member."""
+    for lvli in LVLI_BY_MEMBER.get((fid or "").upper(), []):
+        for c in COBJ_BY_CNAM.get(lvli, []):
+            fv = (c.get("FVPA") or "").strip()
+            if fv:
+                return fv, plan_name_for_row(c)
+    return "", ""
+
+
+def _refby_lvli_fids(c):
+    """FormIDs of the LVLI leveled lists that reference this COBJ row, parsed
+    from ReferencedBy_Flat + Ref_1..Ref_37. Entry format
+    '<FID>:<EDID>:<TYPE>'; we keep the FIDs whose TYPE is LVLI."""
+    fids = []
+    blobs = [c.get("ReferencedBy_Flat", "")] + [c.get(f"Ref_{i}", "") for i in range(1, 38)]
+    for blob in blobs:
+        for piece in (blob or "").split("|"):
+            bits = piece.split(":")
+            if len(bits) >= 3 and bits[2].strip() == "LVLI" and bits[0].strip():
+                fids.append(bits[0].strip())
+    return fids
+
+
+def _components_via_lvli(c):
+    """Grouped workshop items (e.g. exercise equipment, containers) place their
+    components on a shared recipe whose CNAM is a leveled list, while the
+    per-item CondProxy row carries only the plan name. When a matched COBJ row
+    has no FVPA of its own, follow its ReferencedBy LVLI(s) to that shared
+    recipe (COBJ whose CNAM == the LVLI FormID) and borrow its FVPA. Returns the
+    FVPA string, or '' if nothing resolves."""
+    for fid in _refby_lvli_fids(c):
+        for sib in COBJ_BY_CNAM.get(fid, []):
+            fv = (sib.get("FVPA") or "").strip()
+            if fv:
+                return fv
+    return ""
+
+
+def _row_fvpa(c):
+    """FVPA for a COBJ row: its own, else borrowed from the shared LVLI recipe."""
+    fv = (c.get("FVPA") or "").strip()
+    return fv if fv else _components_via_lvli(c)
 
 
 def fvpa_to_text(fvpa):
@@ -608,19 +680,32 @@ def image_for(entm, furn_edid):
 
 def crafting_for(fid, furn_edid):
     for c in COBJ_BY_CNAM.get(fid, []):
-        txt = fvpa_to_text(c.get("FVPA", ""))
-        arr = fvpa_to_array(c.get("FVPA", ""))
+        fv = _row_fvpa(c)
         plan = plan_name_for_row(c)
-        if txt or plan:
-            return txt, plan, arr
+        if fv or plan:
+            return fvpa_to_text(fv), plan, fvpa_to_array(fv)
     token = re.sub(r"^(ATX_|SCORE_S\d+_|SCORE_)", "", furn_edid or "").split("_")[-1].lower()
     if len(token) >= 6:
-        for clist in COBJ_BY_CNAM.values():
-            for c in clist:
-                if token in c.get("COBJ_EDID", "").lower():
-                    return (fvpa_to_text(c.get("FVPA", "")),
-                            plan_name_for_row(c),
-                            fvpa_to_array(c.get("FVPA", "")))
+        # Scan every COBJ row (CondProxy rows have no CNAM, so they're not in
+        # COBJ_BY_CNAM). Prefer a token-matched row that actually yields
+        # components — its own FVPA, or borrowed from a shared LVLI recipe —
+        # over a bare name-only proxy row.
+        fallback = None
+        for c in ALL_COBJ_ROWS:
+            if token in c.get("COBJ_EDID", "").lower():
+                fv = _row_fvpa(c)
+                plan = plan_name_for_row(c)
+                if fv:
+                    return fvpa_to_text(fv), plan, fvpa_to_array(fv)
+                if fallback is None and plan:
+                    fallback = ("", plan, [])
+        if fallback:
+            return fallback
+    # Last resort: grouped recipes (instruments, etc.) where the FURN is an
+    # entry of a workshop leveled-list whose CNAM recipe carries the components.
+    fv, plan = crafting_via_lvli_membership(fid)
+    if fv:
+        return fvpa_to_text(fv), plan, fvpa_to_array(fv)
     return "", "", []
 
 

@@ -371,6 +371,134 @@ def build_cobj_cnam_index(cobj_rows):
         if cnam and cnam != "00000000": idx[cnam] = r
     return idx
 
+
+# Grouped workshop items (exercise equipment, containers, decor, etc.) keep
+# their components on a shared recipe whose CNAM is a leveled list, while the
+# per-item COBJ/CondProxy row carries only the plan name. _COBJ_FVPA_BY_CNAM
+# maps every CNAM FormID that owns components to its FVPA so an empty-FVPA row
+# can borrow them via its ReferencedBy LVLI(s). _CATEGORY_RECIPE_FVPA maps a
+# shared category recipe's CNAM EDID (e.g. ATX_workshop_LL_Collectrons) to its
+# FVPA — every collectron is an entry in that leveled list and shares the one
+# recipe, but the per-item rows don't carry it, so we assign by category.
+# Populated once in main().
+_COBJ_FVPA_BY_CNAM = {}
+_CATEGORY_RECIPE_FVPA = {}
+# Workshop CAMP-build recipes matched by EDID name when there's no structural
+# link from the item to its recipe (collectors / resource producers keep the
+# recipe on a created-object FormID, not the container). Each entry is
+# (name_key, fvpa). Only recipes crafted at the CAMP build bench
+# (BNAM WorkshopWorkbench*) are eligible, which excludes cooking/brewing/chem
+# recipes that merely share the item's name.
+_WORKSHOP_RECIPES = []
+
+# Structural EDID words to drop before name-matching. Only structural/category
+# tokens — never product or material words, so e.g. "BrahminMilkMachine" and
+# "BabeBrahmin" don't both collapse to "brahmin".
+_RECIPE_NOISE = set((
+    "score workshop co camp entm reso resource resources collector collectron "
+    "utility generators generator decorations decoration containers container "
+    "empty atx community f1 the copy condproxy cond proxy category "
+    "categoryresources goldvendor vendor w05 babylon"
+).split())
+_RECIPE_MIN_KEY = 7  # min shared key length to accept a name match
+
+
+def recipe_name_key(edid):
+    """Distinctive lower-case name key for a COBJ/item EDID: split camelCase,
+    drop structural words and numeric tokens, keep the rest joined."""
+    s = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", edid or "")
+    s = re.sub(r"[^A-Za-z0-9]", " ", s).lower()
+    out = []
+    for w in s.split():
+        if w in _RECIPE_NOISE:
+            continue
+        if re.fullmatch(r"s?\d+|w\d+|\d+mm|\d+|\d+caliber|556", w):
+            continue
+        if len(w) >= 3:
+            out.append(w)
+    return "".join(out)
+
+
+def init_cobj_lvli_index(cobj_rows):
+    _COBJ_FVPA_BY_CNAM.clear()
+    _CATEGORY_RECIPE_FVPA.clear()
+    _WORKSHOP_RECIPES.clear()
+    for r in cobj_rows:
+        cnam = (r.get("CNAM_FormID") or "").strip().upper()
+        fv = (r.get("FVPA") or "").strip()
+        if cnam and fv:
+            _COBJ_FVPA_BY_CNAM.setdefault(cnam, fv)
+        cnam_edid = (r.get("CNAM_EDID") or "").strip()
+        if cnam_edid and fv:
+            _CATEGORY_RECIPE_FVPA.setdefault(cnam_edid, fv)
+    # Second pass (needs the LVLI index above for effective_fvpa).
+    for r in cobj_rows:
+        if "WorkshopWorkbench" not in (r.get("BNAM_EDID") or ""):
+            continue
+        fv = effective_fvpa(r)
+        if not fv:
+            continue
+        k = recipe_name_key(r.get("COBJ_EDID") or "")
+        if len(k) >= _RECIPE_MIN_KEY:
+            _WORKSHOP_RECIPES.append((k, fv))
+
+
+def match_workshop_recipe(*edids):
+    """FVPA of the CAMP-build recipe whose EDID name best matches any of the
+    item's EDIDs (entm / reso / cont). Returns '' if nothing clears the
+    threshold. Best = longest shared key, tie-broken by closest length so a
+    specific recipe wins over a generic one."""
+    best_fv, best_len, best_diff = "", 0, 999
+    for edid in edids:
+        ik = recipe_name_key(edid)
+        if len(ik) < _RECIPE_MIN_KEY:
+            continue
+        for rk, fv in _WORKSHOP_RECIPES:
+            if ik in rk or rk in ik:
+                L = min(len(ik), len(rk))
+                diff = abs(len(ik) - len(rk))
+                if L > best_len or (L == best_len and diff < best_diff):
+                    best_fv, best_len, best_diff = fv, L, diff
+    return best_fv
+
+
+# CNAM EDID of the shared leveled-list recipe every collectron is built from.
+COLLECTRON_RECIPE_CNAM_EDID = "ATX_workshop_LL_Collectrons"
+
+
+def collectron_shared_fvpa():
+    """FVPA shared by all collectrons (Circuitry/Copper/Gears/Steel), resolved
+    from the COBJ whose CNAM is the collectron leveled list. '' if not found."""
+    return _CATEGORY_RECIPE_FVPA.get(COLLECTRON_RECIPE_CNAM_EDID, "")
+
+
+def refby_lvli_fids(cobj_row):
+    """FormIDs of LVLI leveled lists referencing this COBJ row, from
+    ReferencedBy_Flat + Ref_1..Ref_37. Entry format '<FID>:<EDID>:<TYPE>'."""
+    fids = []
+    blobs = [cobj_row.get("ReferencedBy_Flat", "")]
+    blobs += [cobj_row.get("Ref_{}".format(i), "") for i in range(1, 38)]
+    for blob in blobs:
+        for piece in (blob or "").split("|"):
+            bits = piece.split(":")
+            if len(bits) >= 3 and bits[2].strip() == "LVLI" and bits[0].strip():
+                fids.append(bits[0].strip().upper())
+    return fids
+
+
+def effective_fvpa(cobj_row):
+    """FVPA for a COBJ row: its own, else borrowed from the shared LVLI recipe
+    (CONDPROXY -> ReferencedBy LVLI -> COBJ whose CNAM == that LVLI)."""
+    if not cobj_row:
+        return ""
+    fv = clean_str(cobj_row.get("FVPA") or "").strip()
+    if fv:
+        return fv
+    for fid in refby_lvli_fids(cobj_row):
+        if fid in _COBJ_FVPA_BY_CNAM:
+            return _COBJ_FVPA_BY_CNAM[fid]
+    return ""
+
 # --- BOOK ---
 def parse_book_for_plan(book_row, glob_index):
     result = {"planName": None, "tradeable": None, "goldBullionPrice": None, "vendor": None}
@@ -740,7 +868,21 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
             fltv = glob_fltv(glob_index, gfid)
             if fltv is not None: interval_hours, interval_str = fltv, interval_display(fltv)
     cont_props = parse_cont_properties(cont_row) if cont_row else {"capacity": None, "powerRequired": False, "flamingoUnits": None, "lockable": None}
-    components = parse_crafting_components(clean_str(cobj_row.get("FVPA") or "")) if cobj_row else []
+    _cobj_fvpa = effective_fvpa(cobj_row)
+    if not _cobj_fvpa and is_collectron:
+        # Every collectron is built from the one shared leveled-list recipe; the
+        # per-item COBJ rows don't carry the FVPA, so assign it by category.
+        _cobj_fvpa = collectron_shared_fvpa()
+    if not _cobj_fvpa:
+        # Collectors / resource producers keep their recipe on a created-object
+        # FormID, not the container, so cobj_idx misses them. Match the CAMP
+        # build recipe by EDID name (workshop bench only — see match_workshop_recipe).
+        _cobj_fvpa = match_workshop_recipe(
+            clean_str(entm_row.get("EDID") or "") if entm_row else "",
+            primary_edid,
+            clean_str(cont_row.get("EDID") or "") if cont_row else "",
+        )
+    components = parse_crafting_components(_cobj_fvpa) if _cobj_fvpa else []
     book_data = parse_book_for_plan(book_row, glob_index)
     entm_edid = clean_str(entm_row.get("EDID") or primary_edid) if entm_row else primary_edid
     obtain = resolve_obtain(entm_edid, book_data)
@@ -775,7 +917,7 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
         },
         "station": cont_props,
         "crafting": {"components": components},
-        "craftingRequirements": fvpa_to_array(clean_str(cobj_row.get("FVPA") or "")) if cobj_row else [],
+        "craftingRequirements": fvpa_to_array(_cobj_fvpa) if _cobj_fvpa else [],
         "howToObtain": obtain,
         "obtainRoutes": obtain_routes,
         "buildInfo": "Build Limit per Camp: {}\nBuild Limit per Workshop: {}\nPower Required: {}\nFlamingo Units: {}".format(
@@ -841,6 +983,7 @@ def main():
     entm_fid_idx = build_index(entm_rows, "FormID")
     avif_to_cont = build_avif_edid_to_cont(cont_rows)
     cobj_idx = build_cobj_cnam_index(cobj_rows)
+    init_cobj_lvli_index(cobj_rows)
     book_idx = build_index(book_rows, "FormID")
     cont_idx = build_index(cont_rows, "FormID")
     print("Grouping RESO...", file=sys.stderr)

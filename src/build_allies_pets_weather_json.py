@@ -389,10 +389,46 @@ entm_by_edid = {r["EDID"]: r for r in entm_rows}
 
 # COBJ: map CNAM_FormID → list of COBJ rows (multiple COBJs can share a CNAM)
 cobj_by_cnam = {}
+# CNAM FormID → FVPA, for every recipe that owns components. Grouped workshop
+# items keep components on a shared recipe whose CNAM is a leveled list, while
+# the per-item CondProxy row carries only the plan name; an empty-FVPA row can
+# borrow them via its ReferencedBy LVLI(s).
+cobj_fvpa_by_cnam = {}
 for r in cobj_rows:
     cnam = r.get("CNAM_FormID", "").strip()
     if cnam:
         cobj_by_cnam.setdefault(cnam, []).append(r)
+        _fv = (r.get("FVPA") or "").strip()
+        if _fv:
+            cobj_fvpa_by_cnam.setdefault(cnam.upper(), _fv)
+
+
+def refby_lvli_fids(cobj_row) -> list:
+    """FormIDs of LVLI leveled lists referencing this COBJ row, from
+    ReferencedBy_Flat + Ref_1..Ref_37. Entry format '<FID>:<EDID>:<TYPE>'."""
+    fids = []
+    blobs = [cobj_row.get("ReferencedBy_Flat", "")]
+    blobs += [cobj_row.get("Ref_{}".format(i), "") for i in range(1, 38)]
+    for blob in blobs:
+        for piece in (blob or "").split("|"):
+            bits = piece.split(":")
+            if len(bits) >= 3 and bits[2].strip() == "LVLI" and bits[0].strip():
+                fids.append(bits[0].strip().upper())
+    return fids
+
+
+def effective_fvpa(cobj_row) -> str:
+    """FVPA for a COBJ row: its own, else borrowed from the shared LVLI recipe
+    (CondProxy -> ReferencedBy LVLI -> COBJ whose CNAM == that LVLI)."""
+    if not cobj_row:
+        return ""
+    fv = (cobj_row.get("FVPA") or "").strip()
+    if fv:
+        return fv
+    for fid in refby_lvli_fids(cobj_row):
+        if fid in cobj_fvpa_by_cnam:
+            return cobj_fvpa_by_cnam[fid]
+    return ""
 
 # FURN by FormID
 furn_by_id = {r["FURN_FormID"]: r for r in furn_rows}
@@ -997,7 +1033,7 @@ def build_weather_stations():
         _ws_craft_arr = []
         if _acti_fid:
             for _c in cobj_by_cnam.get(_acti_fid, []):
-                _ws_craft_arr = fvpa_to_array(_c.get("FVPA", ""))
+                _ws_craft_arr = fvpa_to_array(effective_fvpa(_c))
                 if _ws_craft_arr:
                     break
         if not _ws_craft_arr:
@@ -1144,7 +1180,7 @@ def build_repair_bots():
     # Falls back to the June 2026 values if the COBJ row is missing.
     _craft_arr = []
     for _cobj in cobj_by_cnam.get(REPAIR_BOT_LVLI_ID, []):
-        _craft_arr = fvpa_to_array(_cobj.get("FVPA", ""))
+        _craft_arr = fvpa_to_array(effective_fvpa(_cobj))
         if _craft_arr:
             break
     if not _craft_arr:
@@ -1459,7 +1495,7 @@ def build_allies():
         # Crafting Requirements — pull from COBJ via FURN FormID
         _ally_craft = []
         for _c in cobj_by_cnam.get(furn_id, []):
-            _ally_craft = fvpa_to_array(_c.get("FVPA", ""))
+            _ally_craft = fvpa_to_array(effective_fvpa(_c))
             if _ally_craft:
                 break
 
