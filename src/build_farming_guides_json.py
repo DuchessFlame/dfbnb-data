@@ -1489,6 +1489,75 @@ def build_verdant_buff_chart(data_dir: str) -> Dict[str, Any]:
 
 
 
+# ---------------------------------------------------------------------------
+# Verdant Season buff stacking — worked examples (generative)
+#
+# Editorial scenarios showing how the farming buffs combine on a single
+# plant. Each buff is either an "add" buff (+N to the count) or a "mult"
+# buff (doubles the running total). The maths is:
+#       total = (base + sum of adds) * product of mult factors
+# Totals are computed here so the displayed rows and the printed total can
+# never drift apart. Each row carries a note with the buff's activation
+# chance / condition (e.g. Backwoodsman 4 only fires ~50% of the time).
+# ---------------------------------------------------------------------------
+
+_VS_EXAMPLE_BUFFS = {
+    "backwoodsman": {"label": "Backwoodsman 4",             "kind": "add",  "amount": 1, "note": "50% chance"},
+    "verdant":      {"label": "Verdant Season",             "kind": "add",  "amount": 1, "note": "33% chance"},
+    "gamma":        {"label": "Gamma Green Tea",            "kind": "add",  "amount": 1, "note": "while active"},
+    "sam":          {"label": "Sam Camp Ally Harvest Buff", "kind": "mult", "factor": 2, "note": "while active"},
+    "green_thumb":  {"label": "Green Thumb",                "kind": "mult", "factor": 2, "note": "while equipped"},
+}
+# Canonical display order: add buffs first, then the multipliers.
+_VS_EXAMPLE_ORDER = ["backwoodsman", "verdant", "gamma", "sam", "green_thumb"]
+# Hand-picked scenarios (each is the set of buff keys that are active).
+_VS_EXAMPLE_SCENARIOS = [
+    [],
+    ["green_thumb"],
+    ["backwoodsman", "green_thumb"],
+    ["backwoodsman", "gamma", "green_thumb"],
+    ["backwoodsman"],
+    ["backwoodsman", "verdant"],
+    ["backwoodsman", "verdant", "green_thumb"],
+    ["backwoodsman", "verdant", "gamma", "green_thumb"],
+    ["backwoodsman", "verdant", "gamma", "sam", "green_thumb"],
+]
+# Known-good totals — the build asserts the computed values match these, so a
+# bad edit to the catalog/scenarios fails loudly instead of shipping silently.
+_VS_EXAMPLE_EXPECTED = [1, 2, 4, 6, 2, 3, 6, 8, 16]
+
+
+def build_verdant_buff_examples() -> Dict[str, Any]:
+    examples: List[Dict[str, Any]] = []
+    for scen in _VS_EXAMPLE_SCENARIOS:
+        rows: List[Dict[str, Any]] = [{"text": "Base = 1", "note": ""}]
+        adds = 0
+        factor = 1
+        for key in _VS_EXAMPLE_ORDER:
+            if key not in scen:
+                continue
+            b = _VS_EXAMPLE_BUFFS[key]
+            if b["kind"] == "add":
+                adds += b["amount"]
+                op = "+%d" % b["amount"]
+            else:
+                factor *= b["factor"]
+                op = "×%d" % b["factor"]
+            rows.append({"text": "%s %s" % (b["label"], op), "note": b["note"]})
+        total = (1 + adds) * factor
+        examples.append({"rows": rows, "total": total})
+
+    got = [e["total"] for e in examples]
+    if got != _VS_EXAMPLE_EXPECTED:
+        raise ValueError(
+            "verdant buff-example totals drifted: %r != %r" % (got, _VS_EXAMPLE_EXPECTED))
+
+    return {
+        "total_label": "Total possible harvest from one plant",
+        "examples": examples,
+    }
+
+
 def build(data_dir: str, outdir: str) -> str:
     alch_path = find_first(data_dir, ALCH_GLOBS)
     cobj_path = find_first(data_dir, COBJ_GLOBS)
@@ -1982,6 +2051,7 @@ def build(data_dir: str, outdir: str) -> str:
             },
             "verdant-season": {
                 "buff_chart": build_verdant_buff_chart(data_dir),
+                "buff_examples": build_verdant_buff_examples(),
             },
         },
     }
