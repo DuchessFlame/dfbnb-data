@@ -1376,6 +1376,66 @@ _VS_FN = {
     "WildMelonFlower": "Wild Melon Flower", "WildTatoFlower": "Wild Tato Flower",
     "Radlily": "Radlily", "CarnalWeeper": "Carnal Weeper", "CrystalCup": "Crystal Cup",
 }
+
+# --- Nuked plant -> original (base flora) name -------------------------------
+# Pulled straight from the game data: each nuked plant is a FloraRad* form
+# whose EDID stem (minus the FloraRad/Burn_/Trap/UseLPI wrappers + trailing
+# digits) names its base flora. We resolve that stem against _VS_FN (the same
+# canonical name map used for the normal-plant rows), so the original name
+# comes from the files, not a hand-typed list. e.g. FloraRadFlashFern ->
+# stem "flashfern" contains "fern" -> _VS_FN["Fern"] = "Fern Flower".
+_VS_FN_NORM_CACHE = None
+
+
+def _vs_fn_norm():
+    global _VS_FN_NORM_CACHE
+    if _VS_FN_NORM_CACHE is None:
+        pairs = []
+        for k, v in _VS_FN.items():
+            kn = re.sub(r"[^a-z]", "", k.lower())
+            if kn:
+                pairs.append((kn, v))
+        _VS_FN_NORM_CACHE = pairs
+    return _VS_FN_NORM_CACHE
+
+
+def _vs_base_stem(edid):
+    e = re.sub(r"^(Burn_|Trap|UseLPI_|DEBUG)", "", edid, flags=re.I)
+    e = re.sub(r"florarad", "", e, flags=re.I)
+    e = re.sub(r"\d+$", "", e)
+    return re.sub(r"[^a-z]", "", e.lower())
+
+
+def _vs_original_name(edids, nuked_display):
+    nd = re.sub(r"[^a-z]", "", nuked_display.lower())
+    # Prefer a base token that sits INSIDE the form stem (e.g. "fern" in
+    # "flashfern"); only if none is found, fall back to the form stem sitting
+    # inside a longer base key (e.g. "slippercactus" in "slippercactusbig").
+    # This stops a more-specific key (SwampPodFlower) beating the real base.
+    primary = None
+    fallback = None
+    for ed in edids:
+        stem = _vs_base_stem(ed)
+        if not stem:
+            continue
+        for kn, name in _vs_fn_norm():
+            if len(kn) < 3:
+                continue
+            if kn in stem:
+                if primary is None or len(kn) > primary[0]:
+                    primary = (len(kn), name)
+            elif stem in kn:
+                if fallback is None or len(kn) > fallback[0]:
+                    fallback = (len(kn), name)
+    chosen = primary or fallback
+    if chosen is None:
+        return ""
+    name = chosen[1]
+    if re.sub(r"[^a-z]", "", name.lower()) == nd:
+        return ""
+    return name
+
+
 _VS_POTS = ["Pot o' Radlily", "Pot o' Crystalcup", "Pot o' Carnal Weeper"]
 
 
@@ -1476,7 +1536,7 @@ def build_verdant_buff_chart(data_dir: str) -> Dict[str, Any]:
         eds = nuk_edids[nm]
         G = 1 if (eds & gg_eds) else 0
         T = 1 if (eds & gt_eds) else 0
-        nuked.append([nm, 0, G, 0, T, T])
+        nuked.append([nm, 0, G, 0, T, T, _vs_original_name(eds, nm)])
 
     return {
         "columns": ["plant", "verdant_season", "gamma_green_tea",
