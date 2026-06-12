@@ -68,15 +68,18 @@ from cut_content import is_cut
 # Order matters — first match wins when the same export exists for several
 # months. Newer first.
 ALCH_GLOBS = [
+    "ALCH_Export_June_2026.tsv",
     "ALCH_Export_Apr_2026.tsv",
     "ALCH_Export_March_2026.tsv",
     "ALCH_Export_Feb_2026.tsv",
     "ALCH_Export_Dec_2025.tsv",
 ]
 ALCH_EFFECTS_GLOBS = [
+    "ALCH_Export_June_2026_Effects.tsv",
     "ALCH_Export_Apr_2026_Effects.tsv",
 ]
 COBJ_GLOBS = [
+    "COBJ_Export_Jun_2026.tsv",
     "COBJ_Export_Apr_2026.tsv",
     "COBJ_Export_March_2026.tsv",
     "COBJ_Export_Feb_2026.tsv",
@@ -85,12 +88,14 @@ COBJ_GLOBS = [
 # KYWD refs includes CMPO (Component) records — used to resolve ingredient
 # EDIDs like "c_Wood" to their pretty names ("Wood").
 KYWD_REFS_GLOBS = [
+    "KYWD_Export_Jun_2026_Refs.tsv",
     "KYWD_Export_Apr_2026_Refs.tsv",
     "KYWD_Export_March_2026_Refs.tsv",
 ]
 # MISC records cover raw materials / containers used as recipe components
 # (e.g. Cannery_Clean_Can -> "Clean Can") that don't appear in ALCH.
 MISC_GLOBS = [
+    "MISC_Export_Jun_2026.tsv",
     "MISC_Export_Apr_2026.tsv",
     "MISC_Export_Mar_2026.tsv",
 ]
@@ -102,6 +107,7 @@ MISC_GLOBS = [
 # *_CurvePoints.tsv (with the double-`.tsv` bug) and the March file are
 # kept as fallbacks so previously-committed exports still work.
 CURV_POINTS_GLOBS = [
+    "CURV_Export_Jun_2026_POINTS.tsv",
     "CURV_Export_Apr_2026_POINTS.tsv",
     "CURV_Export_Apr_2026.tsv_CurvePoints.tsv",
     "CURV_Export_March_2026_POINTS.tsv",
@@ -111,6 +117,7 @@ CURV_POINTS_GLOBS = [
 # to its raw JSON file on disk when the POINTS TSV doesn't include it
 # (common for non-Large food curves whose CURV record has no JASF_Path).
 CURV_RECORD_GLOBS = [
+    "CURV_Export_Jun_2026_CURV.tsv",
     # Preferred new naming (matches tools\build-curv-points.ps1 output)
     "CURV_Export_Apr_2026_CURV.tsv",
     # Legacy double-extension name from the old xEdit script — kept as
@@ -124,6 +131,7 @@ CURV_RECORD_GLOBS = [
 # (refrigerator / freezer / fermenter). GLOB.FLTV is the actual numeric
 # value of the global.
 GLOB_GLOBS = [
+    "GLOB_Export_Jun_2026.tsv",
     "GLOB_Export_Apr_2026.tsv",
     "GLOB_Export_March_2026.tsv",
     "GLOB_Export_Feb_2026.tsv",
@@ -134,6 +142,7 @@ GLOB_GLOBS = [
 # per rank (index 0 = Rank 1, index 1 = Rank 2). Magnitudes are stored
 # as fractions (0.45 = 45%).
 SPEL_EFFECTS_GLOBS = [
+    "SPEL_Export_June_2026_EFFECTS.tsv",
     "SPEL_Export_Apr_2026_EFFECTS.tsv",
     "SPEL_Export_March_2026_EFFECTS.tsv",
     "SPEL_Export_Feb_2026_EFFECTS.tsv",
@@ -142,6 +151,7 @@ SPEL_EFFECTS_GLOBS = [
 # on its ENCH. The Apr export doesn't include ENCH so we fall back to
 # the March one (the last one that existed when this was last exported).
 ENCH_GLOBS = [
+    "ENCH_Export_Jun_2026.tsv",
     "ENCH_Export_Apr_2026.tsv",
     "ENCH_Export_March_2026.tsv",
     "ENCH_Export_Feb_2026.tsv",
@@ -150,6 +160,7 @@ ENCH_GLOBS = [
 # MGEF descriptions — used to parse inline "does not stack" hints and
 # other caveats that the game surfaces to players.
 MGEF_GLOBS = [
+    "MGEF_Export_Jun_2026.tsv",
     "MGEF_Export_Apr_2026.tsv",
     "MGEF_Export_March_2026.tsv",
     "MGEF_Export_Feb_2026.tsv",
@@ -162,6 +173,7 @@ MGEF_GLOBS = [
 # canned variants whose COBJ EDID starts with SCORE_S{N}_ are additionally
 # gated behind a Scoreboard season.
 BOOK_GLOBS = [
+    "BOOK_Export_Jun_2026.tsv",
     "BOOK_Export_May_2026.tsv",
     "BOOK_Export_Apr_2026.tsv",
     "BOOK_Export_March_2026.tsv",
@@ -1326,6 +1338,157 @@ def lookup_canned_plan(
     return None
 
 
+# ---------------------------------------------------------------------------
+# Verdant Season buff chart (generative)
+# ---------------------------------------------------------------------------
+# Which farming buff works on which plant, derived from the engine exports:
+#   - Verdant Season   -> LVLI list on GLOB SQ_VerdantSeasonExtraHarvestChance
+#   - Backwoodsman 4   -> LVLI list on GLOB Backwoodsman04_Chance_Global
+#   - Gamma Green Tea  -> flora carrying keyword SSE_PerkHarvestFlowers
+#   - Green Thumb / Sam (Mechanic ally "Tune-Up") -> keyword PerkGreenThumbValidFlora
+# Two tables: normal plants (from the Verdant/Backwoodsman lists + the Pot o'
+# planters) and nuked plants (the FloraRad* forms). Row = [name, verdant,
+# gamma_green_tea, backwoodsman, green_thumb, sam].
+#
+# Naming notes: the game's "Slipper Cactus" is "Prickeye" on-site; the
+# "Angler Plant" LVLI points at a never-removed debug flora ("Lure Weed")
+# that has one live spawn in the Tunnel of Love, so it stays under that name.
+_VS_FN = {
+    "AnglerPlant": "Lure Weed", "AshRose": "Ash Rose", "Aster": "Aster",
+    "Blackberry": "Blackberry", "Blight": "Blight", "Bloodleaf": "Bloodleaf",
+    "Carrot": "Carrot", "Corn": "Corn", "Cranberry": "Cranberry",
+    "CranberryDiseased": "Diseased Cranberry", "Fern": "Fern Flower",
+    "FeverBlossom": "Fever Blossom", "Firecap": "Firecap",
+    "Firecracker": "Firecracker Berry", "FungusBrain": "Brain Fungus",
+    "FungusGlowing": "Glowing Fungus", "FungusMegaSloth": "Megasloth Mushroom",
+    "Ginseng": "Ginseng Root", "Gourd": "Gourd", "GutShroom01": "Gut Shroom",
+    "Kaleidopore": "Kaleidopore", "Melon": "Melon", "Mutfruit": "Mutfruit",
+    "PitcherPlant": "Pitcher Plant", "Pumpkin": "Pumpkin",
+    "PumpkinVine01": "Pumpkin", "Razorgrain": "Razorgrain",
+    "Rhododendron": "Rhododendron", "Sap": "Sap", "Siltbean": "Silt Bean",
+    "SlipperCactus_Big": "Prickeye", "SlipperCactus_Medium": "Prickeye",
+    "SlipperCactus_Small": "Prickeye", "SnapTail": "Snaptail",
+    "SootFlower": "Soot Flower", "StarlightCreeper": "Starlight Creeper",
+    "SwampPlant": "Swamp Plant", "SwampPod01": "Swamp Pod",
+    "SwampPodFlower01": "Swamp Pod Flower", "Tarberry": "Tarberry",
+    "Tato": "Tato", "Thistle": "Thistle", "ToxicSootFlower": "Toxic Soot Flower",
+    "WildCarrotFlower": "Wild Carrot Flower", "WildGourdFlower": "Wild Gourd Flower",
+    "WildMelonFlower": "Wild Melon Flower", "WildTatoFlower": "Wild Tato Flower",
+    "Radlily": "Radlily", "CarnalWeeper": "Carnal Weeper", "CrystalCup": "Crystal Cup",
+}
+_VS_POTS = ["Pot o' Radlily", "Pot o' Crystalcup", "Pot o' Carnal Weeper"]
+
+
+def _vs_read_lines(path: Optional[str]) -> List[str]:
+    if not path or not os.path.isfile(path):
+        return []
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        return fh.read().splitlines()
+
+
+def build_verdant_buff_chart(data_dir: str) -> Dict[str, Any]:
+    glob_lines = _vs_read_lines(find_first(data_dir, GLOB_GLOBS))
+    kywd_lines = _vs_read_lines(find_first(data_dir, KYWD_REFS_GLOBS))
+
+    def lvli_bases(pat: str) -> set:
+        for line in glob_lines:
+            if pat in line:
+                bs = set()
+                for cell in line.split("\t"):
+                    m = re.match(r"^[0-9A-Fa-f]+:(.+):LVLI$", cell)
+                    if m:
+                        bs.add(re.sub(r"^(SSE_Resources_LL_|LL_Flora_)", "", m.group(1)))
+                return bs
+        return set()
+
+    verdant = lvli_bases("SQ_VerdantSeasonExtraHarvestChance")
+    back = lvli_bases("Backwoodsman04_Chance_Global")
+
+    def kw_pairs(kwid: str) -> List[Tuple[str, str]]:
+        out = []
+        for line in kywd_lines:
+            c = line.split("\t")
+            if len(c) >= 7 and c[1] == kwid and c[6].strip():
+                if c[4].startswith(("ATX_COMP", "CUT_")):
+                    continue
+                out.append((c[4], c[6].strip()))
+        return out
+
+    gt = kw_pairs("PerkGreenThumbValidFlora")
+    gg = kw_pairs("SSE_PerkHarvestFlowers")
+    gt_eds = {e for e, _ in gt}
+    gg_eds = {e for e, _ in gg}
+
+    def is_nuked(ed: str) -> bool:
+        return bool(re.search(r"florarad", ed, re.I))
+
+    def is_pot(ed: str) -> bool:
+        return "pot" in ed.lower()
+
+    def normed(ed: str) -> str:
+        e = re.sub(r"^(Burn_|Trap|UseLPI_|DEBUG|SSE_Resources_LL_|SSE_Flora_|LL_Flora_)", "", ed, flags=re.I)
+        e = re.sub(r"^FloraRad", "", e, flags=re.I)
+        e = re.sub(r"^Flora", "", e, flags=re.I)
+        return re.sub(r"[^a-z]", "", e.lower())
+
+    def has_kw(base: str, florlist: List[Tuple[str, str]], want_nuked: bool) -> bool:
+        bn = re.sub(r"[^a-z]", "", base.lower())
+        bn = re.sub(r"(big|medium|small|vine|plant|stalk|flower|diseased)$", "", bn)
+        for ed, _ in florlist:
+            if is_nuked(ed) != want_nuked or is_pot(ed):
+                continue
+            if bn and bn in normed(ed):
+                return True
+        return False
+
+    # Normal plants
+    rows: Dict[str, list] = {}
+    for base in sorted(verdant | back):
+        nm = _VS_FN.get(base)
+        if not nm:
+            warnings.setdefault("verdant_unmapped_plant", {})
+            warnings["verdant_unmapped_plant"][base] = warnings["verdant_unmapped_plant"].get(base, 0) + 1
+            continue
+        V = 1 if base in verdant else 0
+        B = 1 if base in back else 0
+        G = 1 if has_kw(base, gg, False) else 0
+        T = 1 if has_kw(base, gt, False) else 0
+        if nm in rows:
+            r = rows[nm]
+            r[1] |= V; r[2] |= G; r[3] |= B; r[4] |= T; r[5] |= T
+        else:
+            rows[nm] = [nm, V, G, B, T, T]
+    for p in _VS_POTS:
+        rows[p] = [p, 0, 1, 0, 1, 1]
+    plants = sorted(rows.values(), key=lambda r: r[0].lower())
+
+    # Nuked plants (FloraRad* forms)
+    nuk_edids: Dict[str, set] = {}
+    for line in kywd_lines:
+        c = line.split("\t")
+        if len(c) >= 7 and is_nuked(c[4]) and c[6].strip():
+            nm = c[6].strip()
+            if nm == "Springtime Splendor":
+                continue
+            nuk_edids.setdefault(nm, set()).add(c[4])
+    nuked = []
+    for nm in sorted(nuk_edids, key=lambda s: s.lower()):
+        eds = nuk_edids[nm]
+        G = 1 if (eds & gg_eds) else 0
+        T = 1 if (eds & gt_eds) else 0
+        nuked.append([nm, 0, G, 0, T, T])
+
+    return {
+        "columns": ["plant", "verdant_season", "gamma_green_tea",
+                    "backwoodsman_4", "green_thumb", "sam_camp_ally"],
+        "count_plants": len(plants),
+        "count_nuked": len(nuked),
+        "plants": plants,
+        "nuked": nuked,
+    }
+
+
+
 def build(data_dir: str, outdir: str) -> str:
     alch_path = find_first(data_dir, ALCH_GLOBS)
     cobj_path = find_first(data_dir, COBJ_GLOBS)
@@ -1816,6 +1979,9 @@ def build(data_dir: str, outdir: str) -> str:
                 "count_items":      len(canned_items),
                 "items":            canned_items,
                 "clean_can_recipe": clean_can_recipe,
+            },
+            "verdant-season": {
+                "buff_chart": build_verdant_buff_chart(data_dir),
             },
         },
     }
