@@ -891,6 +891,7 @@ def is_completion(edid):
     clean = re.sub(r'^(ZZZ_|CUT_|DEL_)', '', edid)
     return bool(
         re.search(r'_(Week\d_Complete|MiniSeason_Complete|Challenge_Complete|Event_Complete|EventDUPLICATE|Challenge_Week\d_Complete)$', clean) or
+        re.search(r'_ChallengeComplete_', clean) or  # Summer Sock Hop weekly rollups (no _Week#_ marker)
         re.search(r'_META$', clean)
     )
 
@@ -948,6 +949,23 @@ MANUAL_WEEK_OVERRIDES = {
     'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Any':             'bonus',
     'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_Ballistic':       'bonus',
     'ATX_DE2026_WeaponsExpert_Challenge_Deal_Damage_MeleeAny':        'bonus',
+
+    # Summer Sock Hop — Week 1 (from ChallengeComplete_Emote_All_Locations GetIsForm refs)
+    'DE2026_SockHop_Challenge_Emote_SandySockHop_Location':           'week1',
+    'DE2026_SockHop_Challenge_Emote_CamdenPark_Location':             'week1',
+    'DE2026_SockHop_Challenge_Emote_BerkeleySprings_Location':        'week1',
+    'DE2026_SockHop_Challenge_Emote_BlackBearLodge_Location':         'week1',
+    'DE2026_SockHop_Challenge_Emote_CAMP_Other':                      'week1',
+    'DE2026_SockHop_Challenge_Emote_Event_Activity':                  'week1',
+    'DE2026_SockHop_Challenge_Kill_Blood_Eagle':                      'week1',
+    # Summer Sock Hop — Week 2 (from ChallengeComplete_Other GetIsForm refs)
+    'DE2026_SockHop_Challenge_Emote_CAMP_Own':                        'week2',
+    'DE2026_SockHop_Challenge_Emote_MakeoutPoint_Location':           'week2',
+    'DE2026_SockHop_Challenge_Emote_MorgantownHighSchoolDungeon_Location': 'week2',
+    'DE2026_SockHop_Challenge_Emote_Shelter_Other':                   'week2',
+    'DE2026_SockHop_Challenge_Emote_SunnytopSkiLanes_Location':       'week2',
+    'DE2026_SockHop_Challenge_Emote_WatogaHighSchoolDungeon_Location': 'week2',
+    'DE2026_SockHop_Challenge_Kill_RustRaider':                       'week2',
 }
 
 
