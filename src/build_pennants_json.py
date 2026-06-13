@@ -113,6 +113,17 @@ TEX_BY_TOKEN = [
 ]
 
 # Source classification + a default obtain blurb per source.
+# Human-readable unlock hint shown when there is no richer CNDF breakdown
+# (pennant STATs are only gated by a HasEntitlement check).
+def unlock_hint(source: str) -> str:
+    return {
+        "PTS": "Log into the Public Test Server (PTS) while this pennant's test cycle is active to unlock it. Once granted it carries over to your live account.",
+        "Nuclear Winter": "Earned for taking part in Nuclear Winter. With that mode retired it can no longer be obtained.",
+        "Milestone": "Granted automatically as a milestone / login reward.",
+        "Atom Shop": "Purchased from the Atom Shop with Atoms.",
+    }.get(source, "Unlock requirements are unknown.")
+
+
 def classify_source(entm_edid: str, flag: str) -> tuple[str, str]:
     e = entm_edid
     if e.startswith("Babylon_"):
@@ -295,6 +306,7 @@ def main() -> int:
             "name": name,
             "source": source,
             "obtain": obtain,
+            "unlock_hint": unlock_hint(source),
             "desc": desc,
             "condition": cond_txt,
             "entitlement": {"formid": ent_fid, "edid": edid},
