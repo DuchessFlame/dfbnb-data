@@ -1438,6 +1438,49 @@ def _vs_original_name(edids, nuked_display):
 
 _VS_POTS = ["Pot o' Radlily", "Pot o' Crystalcup", "Pot o' Carnal Weeper"]
 
+# Radlily, Crystal Cup and Carnal Weeper can ONLY be farmed from the Pot o'
+# planters, so they are shown as the single "Pot o' ..." rows above and the
+# plain-name rows are suppressed (they are in the Verdant/Backwoodsman LVLI
+# lists, which would otherwise create duplicate, half-filled rows). The planter
+# flora (SSE_Flora_Pot*) carry the Green Thumb + Gamma keywords, and the
+# resource lists are in the Verdant/Backwoodsman GLOBs, so all five buffs apply.
+_VS_POT_BASES = {"Radlily", "CrystalCup", "CarnalWeeper"}
+
+# Plants that Gamma Green Tea (SSE_PerkHarvestFlowers) actually works on — the
+# "flower" harvest set. Verified against KYWD_Export (June 2026): only these
+# canonical plants have flora carrying SSE_PerkHarvestFlowers. The food crops
+# (Gourd, Melon, Carrot, Tato, Swamp Pod) do NOT, despite sharing a name stem
+# with their wild-flower cousins — the old fuzzy matcher wrongly ticked them.
+# "Swamp Plant" is included because its resource list (LL_Flora_SwampPlant)
+# harvests the Strangler Bloom (Swamp Pod Flower), which carries the keyword.
+_VS_GAMMA_PLANTS = {
+    "Ash Rose", "Aster", "Fern Flower", "Fever Blossom", "Kaleidopore",
+    "Rhododendron", "Snaptail", "Soot Flower", "Swamp Plant",
+    "Swamp Pod Flower", "Thistle", "Toxic Soot Flower",
+    "Wild Carrot Flower", "Wild Gourd Flower", "Wild Melon Flower",
+    "Wild Tato Flower",
+    "Pot o' Radlily", "Pot o' Crystalcup", "Pot o' Carnal Weeper",
+}
+
+# Base-plant note for nuked plants whose EDID carries no base token, so the
+# stem matcher returns blank. Resolved from the LPI_Flora<Base> harvest list
+# that swaps in each FloraRad* form (verified against LVLI_Export June 2026).
+# Decay Vine is intentionally absent: it is an orphan form with no harvest
+# list, resource, or ingredient in the game data, so no base can be derived.
+_VS_NUKED_BASE_OVERRIDE = {
+    "Afterwind Vine": "Tato",
+    "Blast Berry": "Cranberry",
+    "Fission Fruit": "Mutfruit",
+    "Wild Fission Fruit": "Mutfruit",
+    "Gamma Dogwood": "Bleach Dogwood",
+    "Geiger Blossom": "Soot Flower",
+    "Glowing Mutshoot Fungus": "Glowing Fungus",
+    "Ionized Cackleberry": "Mothman Eggs",
+    "Irradiroot": "Carrot",
+    "Neutron Pod": "Silt Bean",
+    "Quantum Leaf": "Bloodleaf",
+}
+
 
 def _vs_read_lines(path: Optional[str]) -> List[str]:
     if not path or not os.path.isfile(path):
@@ -1491,19 +1534,16 @@ def build_verdant_buff_chart(data_dir: str) -> Dict[str, Any]:
         e = re.sub(r"^Flora", "", e, flags=re.I)
         return re.sub(r"[^a-z]", "", e.lower())
 
-    def has_kw(base: str, florlist: List[Tuple[str, str]], want_nuked: bool) -> bool:
-        bn = re.sub(r"[^a-z]", "", base.lower())
-        bn = re.sub(r"(big|medium|small|vine|plant|stalk|flower|diseased)$", "", bn)
-        for ed, _ in florlist:
-            if is_nuked(ed) != want_nuked or is_pot(ed):
-                continue
-            if bn and bn in normed(ed):
-                return True
-        return False
-
-    # Normal plants
+    # Normal plants. Columns: [name, verdant, gamma, backwoodsman, green_thumb, sam].
+    # Verdant / Backwoodsman come straight from the LVLI lists. Gamma uses the
+    # verified _VS_GAMMA_PLANTS set (the old fuzzy name-matcher produced both
+    # false positives and false negatives). Green Thumb (and Sam's Tune-Up,
+    # which shares its flora list) applies to every farmable plant in these
+    # lists, so both are set to 1.
     rows: Dict[str, list] = {}
     for base in sorted(verdant | back):
+        if base in _VS_POT_BASES:
+            continue  # shown only as the Pot o' rows below
         nm = _VS_FN.get(base)
         if not nm:
             warnings.setdefault("verdant_unmapped_plant", {})
@@ -1511,15 +1551,15 @@ def build_verdant_buff_chart(data_dir: str) -> Dict[str, Any]:
             continue
         V = 1 if base in verdant else 0
         B = 1 if base in back else 0
-        G = 1 if has_kw(base, gg, False) else 0
-        T = 1 if has_kw(base, gt, False) else 0
+        G = 1 if nm in _VS_GAMMA_PLANTS else 0
         if nm in rows:
             r = rows[nm]
-            r[1] |= V; r[2] |= G; r[3] |= B; r[4] |= T; r[5] |= T
+            r[1] |= V; r[2] |= G; r[3] |= B
         else:
-            rows[nm] = [nm, V, G, B, T, T]
+            rows[nm] = [nm, V, G, B, 1, 1]
+    # Pot o' planter flowers — single merged row each; all five buffs apply.
     for p in _VS_POTS:
-        rows[p] = [p, 0, 1, 0, 1, 1]
+        rows[p] = [p, 1, 1, 1, 1, 1]
     plants = sorted(rows.values(), key=lambda r: r[0].lower())
 
     # Nuked plants (FloraRad* forms)
@@ -1536,7 +1576,8 @@ def build_verdant_buff_chart(data_dir: str) -> Dict[str, Any]:
         eds = nuk_edids[nm]
         G = 1 if (eds & gg_eds) else 0
         T = 1 if (eds & gt_eds) else 0
-        nuked.append([nm, 0, G, 0, T, T, _vs_original_name(eds, nm)])
+        orig = _VS_NUKED_BASE_OVERRIDE.get(nm) or _vs_original_name(eds, nm)
+        nuked.append([nm, 0, G, 0, T, T, orig])
 
     return {
         "columns": ["plant", "verdant_season", "gamma_green_tea",
