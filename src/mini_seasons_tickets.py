@@ -64,6 +64,10 @@ TICKET_REWARDS = {
 
     # ── Rip Daring's Weapons Expert Extraordinaire (2026) ──
     # (values pending — fill in from screenshots)
+
+    # ── Summer Sock Hop (2026-07-21 → 2026-08-04) ──
+    # EDID prefix: (ATX_)DE2026_SockHop_*  (challenges not yet in CHAL export)
+    # (ticket values pending — fill in from in-game scoreboard screenshots once live)
 }
 
 
@@ -89,6 +93,10 @@ TICKET_COSTS = {
 
     # ── Rip Daring's Weapons Expert Extraordinaire (2026) ──
     'SCORE_MiniSeason_2026_WeaponsExpert_ENTM_CAMP_Furniture_RipBoyStatue': 0,  # Rip Daring Vault Boy Statue — free starter
+
+    # ── Summer Sock Hop (2026-07-21 → 2026-08-04) ──
+    # Reward EDID prefix: SCORE_MiniSeason_2026_SockHop_*  (ENTM rewards not yet in ENTM export)
+    # (ticket costs pending — fill in from in-game scoreboard screenshots once live)
 }
 
 

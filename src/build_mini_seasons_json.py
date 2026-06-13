@@ -555,6 +555,7 @@ def parse_tsv_nosnam(path):
 
 EVENT_DEFS = OrderedDict([
     # ── Mini Seasons (ticket system: complete tasks → earn tickets → buy rewards) ──
+    ('summer-sock-hop',     {'title': 'Summer Sock Hop',                                  'url': '/df/mini-seasons/summer-sock-hop/challenge-checklist/',                              'patterns': [r'(?:ATX_)?DE2026_SockHop'],              'type': 'mini_season',       'start_date': '2026-07-21', 'end_date': '2026-08-04'}),
     ('love-hurts',          {'title': 'Love Hurts',                                      'url': '/df/mini-seasons/love-hurts/challenge-checklist/',                                   'patterns': [r'ATX_DE2025_LoveHurts'],                'type': 'mini_season',       'start_date': '2026-02-03', 'end_date': '2026-02-17'}),
     ('sunset-stranger',     {'title': 'Sunset Stranger',                                  'url': '/df/mini-seasons/sunset-stranger/challenge-checklist/',                               'patterns': [r'ATX_DE2025_SunsetStranger'],            'type': 'mini_season',       'start_date': '2025-12-23', 'end_date': '2026-01-06'}),
     ('night-at-the-morgue', {'title': 'Night at the Morgue',                              'url': '/df/mini-seasons/night-at-the-morgue/challenge-checklist/',                           'patterns': [r'ATX_DE2025_Halloween'],                 'type': 'mini_season',       'start_date': '2025-10-21', 'end_date': '2025-11-04'}),
@@ -591,6 +592,7 @@ EVENT_DEFS = OrderedDict([
 # Each event key maps to a list of regex patterns that match its ENTM EDIDs.
 ENTM_PATTERNS = {
     # ── Mini Seasons ──
+    'summer-sock-hop':     [r'(?i)SCORE_MiniSeason_2026_SockHop'],
     'love-hurts':          [r'(?i)SCORE_MiniSeason.*LoveHurts'],
     'sunset-stranger':     [r'(?i)SCORE_MiniSeason_2025_SunsetStranger'],
     'night-at-the-morgue': [r'(?i)SCORE_MiniSeason_2025_NightAtTheMorgue'],
@@ -1372,7 +1374,7 @@ def main():
         # For challenges with no SNAM (new additions), try nosnam parse
         nosnam = parse_tsv_nosnam(f)
         for edid, row in nosnam.items():
-            if edid not in merged and 'WeaponsExpert' in edid:
+            if edid not in merged and ('WeaponsExpert' in edid or 'SockHop' in edid):
                 merged[edid] = row
         merged.update(data)
 
