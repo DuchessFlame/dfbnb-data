@@ -1,0 +1,81 @@
+name: Build Patch Release Dates
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/fallout76_patches.tsv'
+      - 'tsv/fallout76_seasons.tsv'
+      - 'src/build_patches_json.py'
+      - 'src/build_seasons_json.py'
+      - '.github/workflows/build-patches.yml'
+
+  schedule:
+    # First of every month at 04:23 UTC. Off-peak, staggered away from
+    # the xx:00 cron-rush and from the other monthly builds.
+    - cron: '23 4 1 * *'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Rebuild seasons JSON (so patch season-joins stay fresh)
+        shell: bash
+        run: |
+          mkdir -p dist
+          python src/build_seasons_json.py || echo "seasons build skipped"
+
+      - name: Build Patch Release Dates JSON
+        shell: bash
+        run: |
+          mkdir -p dist
+          python src/build_patches_json.py --outdir dist
+
+      - name: Sanity check output
+        run: |
+          test -f dist/patch-release-dates.json \
+            && echo "OK patch-release-dates.json ($(wc -c < dist/patch-release-dates.json) bytes)" \
+            || (echo "MISSING dist/patch-release-dates.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/patch-release-dates.json'))
+          assert 'title' in d and 'subtitle' in d
+          assert 'years' in d and isinstance(d['years'], list)
+          assert d['source']['count'] >= 50, 'Expected the full patch history'
+          for y in d['years']:
+              assert 'year' in y and 'entries' in y
+              for e in y['entries']:
+                  for k in ('version','name','type','release_date'):
+                      assert k in e, f'Missing {k!r} on entry {e!r}'
+          print(f'  years: {[y[\"year\"] for y in d[\"years\"]]}')
+          print(f'  total entries: {d[\"source\"][\"count\"]}')
+          "
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/patch-release-dates.json dist/seasons.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Patch Release Dates data"
+            git fetch origin main
+            git pull --rebase origin main
+            git push
+          fi
