@@ -149,6 +149,58 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
 
     # ---- CAMP Titles: Challenges ----
     # (Removed — auto-resolver now correctly appends x## counts from TNAM)
+
+    # ---- CAMP Titles: Shadows of the Dead ----
+    "sdow_camptitles_suffix_cemetery":
+        "Drops from the Shadows of the Dead seasonal quest",
+
+    # ---- Player Titles: Shadows of the Dead ----
+    "sdow_playertitles_prefix_pintsized":
+        "Drops from Daily Ops during the Shadows of the Dead seasonal event",
+    "sdow_playertitles_suffix_slasher":
+        "Drops from Infestations during the Shadows of the Dead seasonal event",
+    "sdow_playertitles_prefix_grave":
+        "Drops from the Shadows of the Dead seasonal quest",
+    "sdow_playertitles_suffix_keeper":
+        "Drops from the Shadows of the Dead seasonal quest",
+
+    # ---- Player Titles: World Pets — Pet Levelling rewards ----
+    # Cat
+    "worldpets_playertitles_prefix_cat01":
+        "Level up your Pet Cat to Level 10",
+    "worldpets_playertitles_suffix_cat01":
+        "Level up your Pet Cat to Level 55",
+    "worldpets_playertitles_prefix_cat02":
+        "Level up your Pet Cat to Level 90",
+    "worldpets_playertitles_suffix_cat02":
+        "Level up your Pet Cat to Level 130",
+    # Dog
+    "worldpets_playertitles_prefix_dog01":
+        "Level up your Pet Dog to Level 10",
+    "worldpets_playertitles_suffix_dog01":
+        "Level up your Pet Dog to Level 55",
+    "worldpets_playertitles_prefix_dog02":
+        "Level up your Pet Dog to Level 90",
+    "worldpets_playertitles_suffix_dog02":
+        "Level up your Pet Dog to Level 130",
+    # Radhog
+    "worldpets_playertitles_prefix_radhog01":
+        "Level up your Pet Radhog to Level 10",
+    "worldpets_playertitles_suffix_radhog01":
+        "Level up your Pet Radhog to Level 55",
+    "worldpets_playertitles_prefix_radhog02":
+        "Level up your Pet Radhog to Level 90",
+    "worldpets_playertitles_suffix_radhog02":
+        "Level up your Pet Radhog to Level 130",
+    # Deathclaw
+    "worldpets_playertitles_prefix_deathclaw01":
+        "Level up your Pet Deathclaw to Level 10",
+    "worldpets_playertitles_suffix_deathclaw01":
+        "Level up your Pet Deathclaw to Level 55",
+    "worldpets_playertitles_prefix_deathclaw02":
+        "Level up your Pet Deathclaw to Level 90",
+    "worldpets_playertitles_suffix_deathclaw02":
+        "Level up your Pet Deathclaw to Level 130",
 }
 
 # ---- Manual dropRate overrides (keyed by PLYT/CMPT EDID, lower-cased) ----
@@ -173,11 +225,11 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
 
 
 def now_iso() -> str:
-    return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat()
+    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
 
 def today_ymd_utc() -> str:
-    return dt.datetime.now(dt.UTC).strftime("%Y-%m-%d")
+    return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")
 
 
 def load_release_overrides(tsv_root: Optional[str]) -> Dict[str, str]:
@@ -1602,9 +1654,18 @@ def _edid_affix_token(edid: str) -> str:
 
 
 def _prettify_camel(tok: str) -> str:
-    """Convert CamelCase token to spaced display, e.g. AlienSupporter -> 'Alien Supporter'."""
-    spaced = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", tok or "")
+    """Convert CamelCase token to spaced display, e.g. AlienSupporter -> 'Alien Supporter'.
+
+    Also converts underscores to spaces so compound tokens like
+    LifetimeChallenge_Cat01 become 'Lifetime Challenge Cat01' instead of
+    keeping the raw underscore in the display name.
+    """
+    # Replace underscores with spaces first
+    cleaned = (tok or "").replace("_", " ")
+    spaced = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", cleaned)
     spaced = re.sub(r"(?<=[A-Z])(?=[A-Z][a-z])", " ", spaced)
+    # Collapse multiple spaces
+    spaced = re.sub(r"\s+", " ", spaced)
     return spaced.strip()
 
 
@@ -2486,6 +2547,34 @@ def compute_unlock_and_rates(
                 cobj_row = rr
                 break
 
+        # Fallback: when COBJ row is missing from the export (common for
+        # newer content like WorldPets / SDOW titles), reverse-lookup via
+        # BOOK rows that reference this COBJ FormID in their Ref* columns.
+        # This gives us the BOOK row, from which we can extract the LVLI
+        # references and continue the normal resolution chain.
+        if not cobj_row:
+            for br in book_rows:
+                for bk, bv in br.items():
+                    if not bk.startswith("Ref") or not bv:
+                        continue
+                    if cobj_formid in (bv or "").upper():
+                        # Build a synthetic cobj_row with GNAM pointing to this BOOK
+                        cobj_row = {
+                            "FormID": cobj_formid,
+                            "GNAM_FormID": (br.get("FormID") or "").strip(),
+                            "GNAM_EDID": (br.get("EDID") or "").strip(),
+                            "GNAM_FULL": (br.get("FULL") or "").strip(),
+                        }
+                        # Copy BOOK Ref* columns so the COBJ fallback LVLI scan
+                        # (further below) can find [LVLI:...] references.
+                        for rk, rv in br.items():
+                            if rk.startswith("Ref") and rv:
+                                cobj_row[rk] = rv
+                        extra["cobjSynthFromBook"] = True
+                        break
+                if cobj_row:
+                    break
+
         if cobj_row:
             gnam_edid = (cobj_row.get("GNAM_EDID") or "").strip()
             gnam_full = (cobj_row.get("GNAM_FULL") or "").strip()
@@ -2980,7 +3069,7 @@ def main() -> int:
     # "New" cutoff: any item whose releaseDate is within the last 30 days
     # gets isNew=True, so the frontend can flag recent additions for easy
     # visual scanning. Rolls off automatically — no manual maintenance.
-    _new_cutoff_dt = dt.datetime.now(dt.UTC) - dt.timedelta(days=30)
+    _new_cutoff_dt = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=30)
     new_cutoff_str = _new_cutoff_dt.strftime("%Y-%m-%d")
 
     seasons = {}
@@ -3109,10 +3198,10 @@ def main() -> int:
     for r in cmpt_rows:
         form_id = (r.get("FormID") or "").strip()
         edid = (r.get("EDID") or "").strip()
-        title = (r.get("ANAM - Title") or "").strip()
+        title = (r.get("ANAM - Title") or r.get("ANAM") or "").strip()
 
-        is_prefix_s = (r.get("PTPR - Is Prefix") or "").strip()
-        is_suffix_s = (r.get("PTSU - Is Suffix") or "").strip()
+        is_prefix_s = (r.get("PTPR - Is Prefix") or r.get("PTPR") or "").strip()
+        is_suffix_s = (r.get("PTSU - Is Suffix") or r.get("PTSU") or "").strip()
         is_prefix = (is_prefix_s == "1" or is_prefix_s.lower() == "true")
         is_suffix = (is_suffix_s == "1" or is_suffix_s.lower() == "true")
 
@@ -3464,6 +3553,7 @@ def main() -> int:
 
             dbg = it.get("debug") or {}
 
+
             # Only use the selected title image entitlement
             img_ent = dbg.get("imageEntitlementEdid")
             if not img_ent:
@@ -3575,4 +3665,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
