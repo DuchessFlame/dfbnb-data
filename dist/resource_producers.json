@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T12:14:08+00:00",
+  "generatedAt": "2026-06-14T22:36:19+00:00",
   "type": "resource_producers",
   "count": 128,
   "items": [
@@ -139,7 +139,7 @@
       "formId": "008E062B",
       "edid": "SCORE_S26_ENTM_CAMP_Collector_SkullCollector",
       "resoFormId": "008E0631",
-      "contFormId": "",
+      "contFormId": "008E062A",
       "entmFormId": "008E062B",
       "displayName": "Altar of Bones",
       "description": "This Altar of Bones will serve your C.A.M.P. as a resting place for those whom have had their spirits laid to rest. Generates Bone scraps and skulls. -",
@@ -298,10 +298,10 @@
         ]
       },
       "station": {
-        "capacity": null,
+        "capacity": 10,
         "powerRequired": false,
-        "flamingoUnits": null,
-        "lockable": null
+        "flamingoUnits": 1,
+        "lockable": true
       },
       "crafting": {
         "components": []
@@ -384,7 +384,7 @@
           "dropRate": null
         }
       ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 1",
       "seasonNumber": 26,
       "releaseDate": "2026-06-14",
       "cutContent": false,
@@ -7242,9 +7242,35 @@
         "lockable": null
       },
       "crafting": {
-        "components": []
+        "components": [
+          {
+            "item": "Steel",
+            "count": 2
+          },
+          {
+            "item": "Wood",
+            "count": 5
+          },
+          {
+            "item": "Concrete",
+            "count": 2
+          }
+        ]
       },
-      "craftingRequirements": [],
+      "craftingRequirements": [
+        {
+          "name": "Steel",
+          "qty": 2
+        },
+        {
+          "name": "Wood",
+          "qty": 5
+        },
+        {
+          "name": "Concrete",
+          "qty": 2
+        }
+      ],
       "howToObtain": {
         "method": "default",
         "seasonNumber": null,
@@ -7374,9 +7400,35 @@
         "lockable": null
       },
       "crafting": {
-        "components": []
+        "components": [
+          {
+            "item": "Steel",
+            "count": 2
+          },
+          {
+            "item": "Wood",
+            "count": 5
+          },
+          {
+            "item": "Concrete",
+            "count": 2
+          }
+        ]
       },
-      "craftingRequirements": [],
+      "craftingRequirements": [
+        {
+          "name": "Steel",
+          "qty": 2
+        },
+        {
+          "name": "Wood",
+          "qty": 5
+        },
+        {
+          "name": "Concrete",
+          "qty": 2
+        }
+      ],
       "howToObtain": {
         "method": "atom",
         "seasonNumber": null,
@@ -22401,7 +22453,7 @@
       "formId": "008B5404",
       "edid": "ATX_ENTM_CAMP_Collector_TeaWizard",
       "resoFormId": "008B53B3",
-      "contFormId": "",
+      "contFormId": "008B5408",
       "entmFormId": "008B5404",
       "displayName": "Tea Wizard",
       "description": "Turn your teammates into tea mates! Produces 4 cups of Lucky Leaf Tea each time an Event begins. -",
@@ -22440,15 +22492,33 @@
         ]
       },
       "station": {
-        "capacity": null,
+        "capacity": 2,
         "powerRequired": false,
-        "flamingoUnits": null,
-        "lockable": null
+        "flamingoUnits": 1,
+        "lockable": true
       },
       "crafting": {
-        "components": []
+        "components": [
+          {
+            "item": "Ceramic",
+            "count": 2
+          },
+          {
+            "item": "Steel",
+            "count": 3
+          }
+        ]
       },
-      "craftingRequirements": [],
+      "craftingRequirements": [
+        {
+          "name": "Ceramic",
+          "qty": 2
+        },
+        {
+          "name": "Steel",
+          "qty": 3
+        }
+      ],
       "howToObtain": {
         "method": "atom",
         "seasonNumber": null,
@@ -22526,7 +22596,7 @@
           "dropRate": null
         }
       ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 1",
       "seasonNumber": null,
       "releaseDate": "2026-06-14",
       "cutContent": false,
@@ -23643,7 +23713,7 @@
       "formId": "008D2AFA",
       "edid": "ATX_ENTM_CAMP_Utility_VaultTecGelatinCake",
       "resoFormId": "008D2B01",
-      "contFormId": "",
+      "contFormId": "008D2AF9",
       "entmFormId": "008D2AFA",
       "displayName": "Vault-Tec Gelatin Cake",
       "description": "Enjoy this delightfully wobbly treat straight from Vault-Tec's test kitchen. - Collects a Slice of Vault-Tec Gelatin Cake over time",
@@ -23682,15 +23752,49 @@
         ]
       },
       "station": {
-        "capacity": null,
+        "capacity": 2,
         "powerRequired": false,
-        "flamingoUnits": null,
-        "lockable": null
+        "flamingoUnits": 2,
+        "lockable": true
       },
       "crafting": {
-        "components": []
+        "components": [
+          {
+            "item": "CookingFlavor_Sugar",
+            "count": 2
+          },
+          {
+            "item": "CookingFlavor_Spices",
+            "count": 2
+          },
+          {
+            "item": "Milk_Brahmin",
+            "count": 2
+          },
+          {
+            "item": "Cooking_Razorgrain_Flour",
+            "count": 2
+          }
+        ]
       },
-      "craftingRequirements": [],
+      "craftingRequirements": [
+        {
+          "name": "Cooking Flavor_Sugar",
+          "qty": 2
+        },
+        {
+          "name": "Cooking Flavor_Spices",
+          "qty": 2
+        },
+        {
+          "name": "Milk_Brahmin",
+          "qty": 2
+        },
+        {
+          "name": "Cooking_Razorgrain_Flour",
+          "qty": 2
+        }
+      ],
       "howToObtain": {
         "method": "atom",
         "seasonNumber": null,
@@ -23768,7 +23872,7 @@
           "dropRate": null
         }
       ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 2",
       "seasonNumber": null,
       "releaseDate": "2026-06-14",
       "cutContent": false,
