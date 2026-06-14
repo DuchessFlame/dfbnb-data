@@ -136,6 +136,41 @@ ADDED_BY_ENTM = {
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P68": "Jun 2026",            # Patch 68 / Infestations, 2 Jun 2026
 }
 
+# Ordered list of web image basenames (.avif, no extension) per pennant, served
+# from /wp-content/uploads/guide-images/plan-checklist/pennants/. Order follows
+# the house rule: the Atom-Shop "_l" render first, then colour variants
+# (_c1/_c2/_c3...), then the flat diffuse art. Built from the uploaded asset set
+# (C:\...\.Plan Checklist\Pennants, converted DDS->AVIF); update here when new
+# pennant art is added. The renderer reads pennants.json `images`.
+IMAGES_BY_ID = {
+    "PENNANT_PTS": ["atx_camp_walldeco_pennant_pts_l", "atx_pts_pennant_d", "atx_pts_pennant_02_d"],
+    "PENNANT_PATCH24PTS": ["atx_camp_walldeco_pennant_patch24pts_l", "atx_pts_pennant_d", "atx_pts_pennant_02_d"],
+    "PENNANT_PATCH26PTS": ["atx_camp_walldeco_pennant_patch26pts_l", "atx_camp_walldeco_pennant_patch26pts_c1", "atx_camp_walldeco_pennant_patch26pts_c2", "atx_pts_pennant_03_d"],
+    "PENNANT_PTS_BOS": ["atx_camp_walldeco_pennant_pts_bos_l", "atx_camp_walldeco_pennant_pts_bos_c1", "atx_camp_walldeco_pennant_pts_bos_c2", "atx_pts_pennant_rahmani_d", "atx_pts_pennant_shin_d"],
+    "PENNANT_PTS_WORLDS": ["atx_camp_walldeco_pennant_pts_worlds_l", "atx_camp_walldeco_pennant_pts_worlds_c1", "atx_camp_walldeco_pennant_pts_worlds_c2", "atx_pennant_worlds_d"],
+    "PENNANT_PTS_MOTHMAN": ["atx_camp_walldeco_pennant_pts_mothman_l", "atx_camp_walldeco_pennant_pts_mothman_c1", "atx_pennant_mothman_d"],
+    "PENNANT_PTS_INVADERS": ["atx_camp_walldeco_pennant_pts_invaders_l", "atx_camp_walldeco_pennant_pts_invaders_c1", "atx_pennant_invaders_d"],
+    "PENNANT_NUCLEARWINTER": ["atx_camp_walldeco_pennant_nuclearwinter_l", "atx_camp_walldeco_pennant_nuclearwinter_c1", "atx_camp_walldeco_pennant_nuclearwinter_c2", "atx_pennant_nw_d"],
+    "PENNANT_PTS_TESTYOURMETAL": ["atx_camp_walldeco_pennant_pts_testyourmetal_l", "atx_camp_walldeco_pennant_pts_testyourmetal_c1", "atx_camp_walldeco_pennant_pts_testyourmetal_c2", "atx_pts_pennant_testmetal_d"],
+    "PENNANT_PTS_PITT": ["atx_camp_walldeco_pennant_pts_pitt", "atx_camp_walldeco_pennant_pts_pitt_c1", "atx_camp_walldeco_pennant_pts_pitt_c2", "atx_pts_pennant_thepitt_d"],
+    "PENNANT_PTS_NWOT": ["atx_camp_walldeco_pennant_pts_nwot_l", "atx_camp_walldeco_pennant_pts_nwot_c1", "atx_camp_walldeco_pennant_pts_nwot_c2", "atx_pts_pennant_nwot_d"],
+    "PENNANT_PTS_P42": ["atx_camp_walldeco_pennant_pts_p42", "atx_camp_walldeco_pennant_pts_p42_c1", "atx_camp_walldeco_pennant_pts_p42_c2", "atx_pts_pennant_mutatedevents_d"],
+    "PENNANT_PTS_P44": ["atx_camp_walldeco_pennant_pts_p44__l", "atx_camp_walldeco_pennant_pts_p44_c1", "atx_camp_walldeco_pennant_pts_p44_c2", "atx_pts_pennant_bluemoon"],
+    "PENNANT_PTS_P46": ["atx_camp_walldeco_pennant_pts_p46_l", "atx_camp_walldeco_pennant_pts_p46_c1", "atx_pts_pennant_p46_d"],
+    "PENNANT_PTS_P48": ["atx_camp_walldeco_pennant_pts_p48_l", "atx_camp_walldeco_pennant_pts_p48_c1", "atx_camp_walldeco_pennant_pts_p48_c2"],
+    "PENNANT_PTS_P50": ["atx_camp_walldeco_pennant_pts_p50", "atx_camp_walldeco_pennant_pts_p50_c1", "atx_pennant_playground_d"],
+    "PENNANT_PTS_P52": ["atx_camp_walldeco_pennant_pts_p52_l", "atx_camp_walldeco_pennant_pts_p52_c1", "storm_shenandoahpennant_d"],
+    "PENNANT_PTS_P54": ["atx_camp_walldeco_pennant_pts_p54_l", "atx_camp_walldeco_pennant_pts_p54_c1", "atx_pts_pennant_p54_d"],
+    "PENNANT_PTS_P56": ["atx_camp_walldeco_pennant_pts_p56_l", "atx_camp_walldeco_pennant_pts_p56_c1", "atx_camp_walldeco_pennant_pts_p56_c2", "atx_pts_pennant_p56_d"],
+    "PENNANT_PTS_P58_COPY01": ["atx_camp_walldeco_pennant_pts_p58_l", "atx_camp_walldeco_pennant_pts_p58_c1", "atx_pts_pennant_p58_d"],
+    "PENNANT_PTS_P60": ["atx_camp_walldeco_pennant_pts_p60_l", "atx_camp_walldeco_pennant_pts_p60_c1", "atx_pts_pennant_p60_d"],
+    "PENNANT_PTS_P62": ["atx_camp_walldeco_pennant_pts_p62", "atx_camp_walldeco_pennant_pts_p62_c1", "atx_pts_pennant_p62_d"],
+    "PENNANT_MILE_ENTM_CAMP_WALLDECO_PENNANT_CARAVANS": ["p64_caravansshutdown_pennant_d"],
+    "PENNANT_PTS_P64": ["atx_camp_walldeco_pennant_pts_p64", "atx_camp_walldeco_pennant_pts_p64_c1", "atx_camp_walldeco_pennant_pts_p64_c2", "atx_pts_pennant_p64_d"],
+    "PENNANT_PTS_P66": ["atx_camp_walldeco_pennant_pts_p66_l", "atx_camp_walldeco_pennant_pts_p66_c1", "atx_camp_walldeco_pennant_pts_p66_c2", "atx_pts_pennant_p66_d"],
+    "PENNANT_PTS_P68": ["atx_pts_pennant_p68_d"],
+}
+
 # Filename month token -> (sort_index, "MMM"). Handles the spellings the xEdit
 # exports actually use (March, Sept, etc.) alongside the 3-letter forms.
 _MONTHS = {
@@ -422,8 +457,9 @@ def main() -> int:
             f"Requires entitlement: {edid} [ENTM:{ent_fid}]"
             if edid else f"Requires entitlement [ENTM:{ent_fid}]"
         )
+        pid = "PENNANT_" + (edid or ent_fid).replace("ATX_ENTM_CAMP_WallDeco_Pennant_", "").replace("ATX_ENTM_CAMP_Decoration_", "").upper()
         pennants.append({
-            "id": "PENNANT_" + (edid or ent_fid).replace("ATX_ENTM_CAMP_WallDeco_Pennant_", "").replace("ATX_ENTM_CAMP_Decoration_", "").upper(),
+            "id": pid,
             "name": name,
             "source": source,
             "obtain": obtain,
@@ -431,6 +467,7 @@ def main() -> int:
             "desc": desc,
             "condition": cond_txt,
             "added": resolve_added(ent_fid, edid),
+            "images": IMAGES_BY_ID.get(pid, []),
             "entitlement": {"formid": ent_fid, "edid": edid},
             "items": items,
             "cut": False,
