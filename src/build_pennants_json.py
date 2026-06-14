@@ -84,6 +84,119 @@ THEME_BY_ENTM = {
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P68": "Rediscovering Appalachia (Pet)",
 }
 
+# ---------------------------------------------------------------------------
+# "added" date per pennant (format: "MMM YYYY", e.g. "Jun 2024").
+#
+# Two mechanisms feed the `added` field:
+#   1. ADDED_BY_ENTM (below) — researched real-world Fallout 76 patch release
+#      months, keyed by entitlement EDID. This is the authoritative source for
+#      every pennant that predates the ENTM TSV export history (the oldest
+#      export is Dec 2025, but most pennants shipped 2021-2025). Dates were
+#      web-verified against the patch number encoded in the EDID (…_PTS_P52 =>
+#      Patch 52 => Skyline Valley => Jun 2024, etc.) and the major-update
+#      timeline. The 2021 entries are approximate (placed by FormID ordering
+#      against the Steel Reign / Fallout Worlds anchors) but are well outside
+#      the ★ NEW window so exact days don't matter.
+#   2. Forward-looking fallback — scan every ENTM_Export_*.tsv in tsv/ and take
+#      the earliest month each entitlement FormID appears (earliest_entm_month).
+#      Any pennant NOT in ADDED_BY_ENTM auto-registers its `added` from the
+#      first month its entitlement entered the data, so future pennants need no
+#      manual date.
+#
+# Resolution order: ADDED_BY_ENTM wins; otherwise the forward-looking month;
+# otherwise "" (unknown). The NEW pill in the JS treats `added` as the 1st of
+# that month and fires when it is within ~31 days of today.
+ADDED_BY_ENTM = {
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS": "Apr 2021",
+    "ATX_ENTM_CAMP_WallDeco_Pennant_Patch24PTS": "May 2021",
+    "ATX_ENTM_CAMP_WallDeco_Pennant_Patch26PTS": "Jul 2021",
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_BoS": "Jul 2021",            # Steel Reign, 7 Jul 2021
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_Worlds": "Sep 2021",         # Fallout Worlds, 8 Sep 2021
+    "ATX_ENTM_CAMP_WallDeco_Pennant_NuclearWinter": "Sep 2021",      # commemorative, NW retired w/ Worlds
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_Mothman": "Dec 2021",        # Night of the Moth, 8 Dec 2021
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_Invaders": "Mar 2022",       # Invaders from Beyond, 1 Mar 2022
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_TestYourMetal": "Jun 2022",  # Test Your Metal, 14 Jun 2022
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_PITT": "Sep 2022",           # Expeditions: The Pitt, 13 Sep 2022
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_NWOT": "Dec 2022",           # Nuka-World on Tour, 6 Dec 2022
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P42": "Feb 2023",            # Patch 42 / Mutation Invasion, 28 Feb 2023
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P44": "Jun 2023",            # Patch 44 / Once in a Blue Moon, 20 Jun 2023
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P46": "Aug 2023",            # Patch 46 / Season 14, 22 Aug 2023
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P48": "Dec 2023",            # Patch 48 / Atlantic City, 5 Dec 2023
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P50": "Mar 2024",            # Patch 50 / America's Playground, 26 Mar 2024
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P52": "Jun 2024",            # Patch 52 / Skyline Valley, 12 Jun 2024
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P54": "Sep 2024",            # Patch 54 / Milepost Zero, 3 Sep 2024
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P56": "Dec 2024",            # Patch 56 / Gleaming Depths, 3 Dec 2024
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P58": "Mar 2025",            # Patch 58 / Ghoul Within, 18 Mar 2025
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P58_Copy01": "Mar 2025",     # Player Ghoul, same cycle
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P60": "Jun 2025",            # Patch 60 / Gone Fission, 3 Jun 2025
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P62": "Sep 2025",            # Patch 62 / C.A.M.P. Revamp, 2 Sep 2025
+    "MILE_ENTM_CAMP_WallDeco_Pennant_Caravans": "Dec 2025",          # Milestone reward, P64 era
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P64": "Dec 2025",            # Patch 64 / Burning Springs, 2 Dec 2025
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P66": "Mar 2026",            # Patch 66 / The Backwoods, 3 Mar 2026
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P68": "Jun 2026",            # Patch 68 / Infestations, 2 Jun 2026
+}
+
+# Filename month token -> (sort_index, "MMM"). Handles the spellings the xEdit
+# exports actually use (March, Sept, etc.) alongside the 3-letter forms.
+_MONTHS = {
+    "jan": (1, "Jan"), "january": (1, "Jan"),
+    "feb": (2, "Feb"), "february": (2, "Feb"),
+    "mar": (3, "Mar"), "march": (3, "Mar"),
+    "apr": (4, "Apr"), "april": (4, "Apr"),
+    "may": (5, "May"),
+    "jun": (6, "Jun"), "june": (6, "Jun"),
+    "jul": (7, "Jul"), "july": (7, "Jul"),
+    "aug": (8, "Aug"), "august": (8, "Aug"),
+    "sep": (9, "Sep"), "sept": (9, "Sep"), "september": (9, "Sep"),
+    "oct": (10, "Oct"), "october": (10, "Oct"),
+    "nov": (11, "Nov"), "november": (11, "Nov"),
+    "dec": (12, "Dec"), "december": (12, "Dec"),
+}
+
+_ENTM_FILE_RE = re.compile(r"ENTM_Export_([A-Za-z]+)_(\d{4})", re.IGNORECASE)
+
+
+def month_from_entm_filename(path: str):
+    """Return (year, month_index, 'MMM YYYY') parsed from an ENTM export
+    filename, or None if it doesn't match."""
+    m = _ENTM_FILE_RE.search(os.path.basename(path))
+    if not m:
+        return None
+    tok = m.group(1).lower()
+    if tok not in _MONTHS:
+        return None
+    idx, mmm = _MONTHS[tok]
+    year = int(m.group(2))
+    return (year, idx, f"{mmm} {year}")
+
+
+def earliest_entm_appearance(data_dir: str) -> dict[str, str]:
+    """Scan every ENTM_Export_*.tsv and return {entitlement_formid -> 'MMM YYYY'}
+    for the earliest month each FormID appears (forward-looking mechanism)."""
+    files = []
+    for p in glob.glob(os.path.join(data_dir, "ENTM_Export_*.tsv")):
+        info = month_from_entm_filename(p)
+        if info:
+            files.append((info[0], info[1], info[2], p))
+    files.sort(key=lambda t: (t[0], t[1]))  # oldest month first
+    earliest: dict[str, str] = {}
+    for _y, _m, label, path in files:
+        try:
+            h, rows = read_tsv(path)
+        except OSError:
+            continue
+        c = col(h, "FormID")
+        if c < 0:
+            continue
+        for r in rows:
+            if c >= len(r):
+                continue
+            fid = r[c].strip().upper()
+            if fid and fid not in earliest:
+                earliest[fid] = label  # first (oldest) month wins
+    return earliest
+
+
 # Best-effort STAT EDID token -> diffuse texture filename (relative to TEX_ROOT).
 # Tokens are checked in order; first match wins. Unmatched STATs get "".
 TEX_BY_TOKEN = [
@@ -228,6 +341,14 @@ def main() -> int:
         print(f"[pennants] Missing TSVs. LVLI={lvli_path} ENTM={entm_path}", file=sys.stderr)
         return 1
 
+    # Forward-looking "added" source: earliest month each entitlement FormID
+    # appears across every ENTM export. Used as the fallback when an
+    # entitlement isn't in the researched ADDED_BY_ENTM backfill map.
+    earliest_entm = earliest_entm_appearance(args.data_dir)
+
+    def resolve_added(ent_fid: str, edid: str) -> str:
+        return ADDED_BY_ENTM.get(edid) or earliest_entm.get((ent_fid or "").upper(), "")
+
     # --- ENTM lookup ------------------------------------------------------
     eh, erows = read_tsv(entm_path)
     c_fid, c_edid, c_full, c_desc, c_flag = (
@@ -309,6 +430,7 @@ def main() -> int:
             "unlock_hint": unlock_hint(source),
             "desc": desc,
             "condition": cond_txt,
+            "added": resolve_added(ent_fid, edid),
             "entitlement": {"formid": ent_fid, "edid": edid},
             "items": items,
             "cut": False,
@@ -331,6 +453,7 @@ def main() -> int:
                     "obtain": "Nuclear Winter reward. Learn the plan, then craft at a workshop bench (2x Wood).",
                     "desc": "Put your school spirit on display with this Vault-Tec University flag!",
                     "condition": f"Learn plan: {r[b_edid]} [BOOK:{plan_fid}]",
+                    "added": resolve_added("00569B78", "Babylon_ENTM_CAMP_Decoration_VTU_Pennant"),
                     "entitlement": {"formid": "00569B78", "edid": "Babylon_ENTM_CAMP_Decoration_VTU_Pennant"},
                     "items": [{
                         "label": "Pennant",
