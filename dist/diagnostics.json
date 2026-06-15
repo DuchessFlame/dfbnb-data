@@ -1,8 +1,8 @@
 {
-  "generated": "2026-06-13T09:10:26+00:00",
+  "generated": "2026-06-15T04:30:37+00:00",
   "sections": {
     "bnb_item_categories": {
-      "generated": "2026-06-13T09:10:26+00:00",
+      "generated": "2026-06-15T04:30:36+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -102,7 +102,7 @@
       ]
     },
     "cobj_recipes": {
-      "generated": "2026-06-13T09:10:25+00:00",
+      "generated": "2026-06-15T04:30:35+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -112,20 +112,20 @@
         {
           "severity": "info",
           "code": "cobj.build.summary",
-          "message": "Extracted 5712 unique recipes from 84878 COBJ rows.",
+          "message": "Extracted 5839 unique recipes from 85284 COBJ rows.",
           "context": {
-            "unique_recipes": 5712,
+            "unique_recipes": 5839,
             "region_variant_items": 2,
-            "ingredient_alternates": 11,
-            "total_rows": 84878,
-            "skipped_cut": 12470,
-            "no_fvpa": 2072
+            "ingredient_alternates": 14,
+            "total_rows": 85284,
+            "skipped_cut": 12612,
+            "no_fvpa": 2064
           }
         }
       ]
     },
     "menu_items": {
-      "generated": "2026-06-13T09:10:25+00:00",
+      "generated": "2026-06-15T04:30:35+00:00",
       "counts": {
         "error": 23,
         "warning": 63,
@@ -1430,13 +1430,93 @@
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-06-13T09:10:25+00:00",
+      "generated": "2026-06-15T04:30:35+00:00",
       "counts": {
-        "error": 29,
-        "warning": 0,
+        "error": 33,
+        "warning": 6,
         "info": 1
       },
       "entries": [
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Slice of Vault-Tec Gelatin Cake' -> Dishes & Teas. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=VaultTecGelatinCakeSlice, form_id=008D2AF6",
+          "context": {
+            "name": "Slice of Vault-Tec Gelatin Cake",
+            "category": "Dishes & Teas",
+            "edid": "VaultTecGelatinCakeSlice",
+            "form_id": "008D2AF6"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Ghost Boy' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=SDOW_SlasherGhostBoy, form_id=008E06F0",
+          "context": {
+            "name": "Ghost Boy",
+            "category": "Other",
+            "edid": "SDOW_SlasherGhostBoy",
+            "form_id": "008E06F0"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Sludge Eye' -> Fish. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=SeasonalFish_Meal_LocalLegend_Raw_SludgeEye, form_id=008EFCA6",
+          "context": {
+            "name": "Sludge Eye",
+            "category": "Fish",
+            "edid": "SeasonalFish_Meal_LocalLegend_Raw_SludgeEye",
+            "form_id": "008EFCA6"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_limits",
+          "message": "New item 'River Salad' -> Fish. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
+          "detail": "edid=SeasonalFish_Meal_FallSalad, form_id=008EFCA7",
+          "context": {
+            "name": "River Salad",
+            "category": "Fish",
+            "edid": "SeasonalFish_Meal_FallSalad",
+            "form_id": "008EFCA7",
+            "ingredient_count": 4,
+            "price_xbox": "20",
+            "price_ps": "30",
+            "price_pc": "30"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_limits",
+          "message": "New item 'Spicy Eelgrass Soup' -> Fish. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
+          "detail": "edid=SeasonalFish_Meal_FallSoup, form_id=008EFCA8",
+          "context": {
+            "name": "Spicy Eelgrass Soup",
+            "category": "Fish",
+            "edid": "SeasonalFish_Meal_FallSoup",
+            "form_id": "008EFCA8",
+            "ingredient_count": 5,
+            "price_xbox": "25",
+            "price_ps": "35",
+            "price_pc": "35"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Lucky Leaf Tea' -> Dishes & Teas. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=ATX_TeaWizard_LuckyLeaf, form_id=008FBA0C",
+          "context": {
+            "name": "Lucky Leaf Tea",
+            "category": "Dishes & Teas",
+            "edid": "ATX_TeaWizard_LuckyLeaf",
+            "form_id": "008FBA0C"
+          }
+        },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
@@ -1445,6 +1525,36 @@
           "context": {
             "name": "Trench-Med",
             "category": "Chems"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Lucky Leaf Tea' (Dishes & Teas)",
+          "detail": "Lucky Leaf Tea",
+          "context": {
+            "name": "Lucky Leaf Tea",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Slice of Vault-Tec Gelatin Cake' (Dishes & Teas)",
+          "detail": "Slice of Vault-Tec Gelatin Cake",
+          "context": {
+            "name": "Slice of Vault-Tec Gelatin Cake",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Sludge Eye' (Fish)",
+          "detail": "Sludge Eye",
+          "context": {
+            "name": "Sludge Eye",
+            "category": "Fish"
           }
         },
         {
@@ -1690,6 +1800,16 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Ghost Boy' (Other)",
+          "detail": "Ghost Boy",
+          "context": {
+            "name": "Ghost Boy",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
           "message": "No price set: 'Lunchbox' (Other)",
           "detail": "Lunchbox",
           "context": {
@@ -1730,21 +1850,21 @@
         {
           "severity": "info",
           "code": "bnb_menu_sync.summary",
-          "message": "Sync: 750 total, 0 new, 0 updated, 29 unpriced.",
+          "message": "Sync: 756 total, 6 new, 1 updated, 33 unpriced.",
           "context": {
-            "total": 750,
-            "new": 0,
-            "updated": 0,
-            "unpriced": 29,
+            "total": 756,
+            "new": 6,
+            "updated": 1,
+            "unpriced": 33,
             "skipped": 221
           }
         }
       ]
     },
     "bnb_menu": {
-      "generated": "2026-06-13T09:10:25+00:00",
+      "generated": "2026-06-15T04:30:35+00:00",
       "counts": {
-        "error": 23,
+        "error": 27,
         "warning": 0,
         "info": 8
       },
@@ -1771,9 +1891,54 @@
           "detail": "Fried Radroach On A Stick"
         },
         {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Lucky Leaf Tea' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Lucky Leaf Tea",
+          "context": {
+            "name": "Lucky Leaf Tea",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Slice of Vault-Tec Gelatin Cake' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Slice of Vault-Tec Gelatin Cake",
+          "context": {
+            "name": "Slice of Vault-Tec Gelatin Cake",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Sludge Eye' (Fish) is missing price for: xbox, ps, pc",
+          "detail": "Sludge Eye",
+          "context": {
+            "name": "Sludge Eye",
+            "category": "Fish",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 431: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 436: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
@@ -2079,20 +2244,35 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 614: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 619: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Bobblehead Box"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 616: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 621: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 617: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 622: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Ghost Boy' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Ghost Boy",
+          "context": {
+            "name": "Ghost Boy",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
         },
         {
           "severity": "error",
@@ -2112,13 +2292,13 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 683: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 689: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 691: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 697: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
@@ -2139,9 +2319,9 @@
         {
           "severity": "info",
           "code": "bnb_menu.build.summary",
-          "message": "Wrote 743 menu items across 12 categories.",
+          "message": "Wrote 749 menu items across 12 categories.",
           "context": {
-            "total": 743,
+            "total": 749,
             "categories": [
               "Alcohol",
               "Canned",
@@ -2161,7 +2341,7 @@
       ]
     },
     "recipe_guide": {
-      "generated": "2026-06-13T09:10:26+00:00",
+      "generated": "2026-06-15T04:30:37+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -2171,17 +2351,17 @@
         {
           "severity": "info",
           "code": "recipe_guide.build.summary",
-          "message": "Built recipe guide with 317 consumable recipes across 5 categories.",
+          "message": "Built recipe guide with 320 consumable recipes across 5 categories.",
           "context": {
-            "total": 317,
+            "total": 320,
             "by_category": {
-              "food": 220,
+              "food": 223,
               "chems": 45,
               "alcohol": 30,
               "serums": 19,
               "nuka_cola": 3
             },
-            "skipped_other": 5395,
+            "skipped_other": 5519,
             "skipped_cut": 0
           }
         }

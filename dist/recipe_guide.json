@@ -1,7 +1,7 @@
 {
-  "version": "2026-06-13",
-  "generated": "2026-06-13T09:10:26+00:00",
-  "count": 317,
+  "version": "2026-06-15",
+  "generated": "2026-06-15T04:30:37+00:00",
+  "count": 320,
   "category_labels": {
     "food": "Food",
     "chems": "Chems",
@@ -19,7 +19,7 @@
   "categories": {
     "food": {
       "label": "Food",
-      "count": 220,
+      "count": 223,
       "items": [
         {
           "name": "Aged Mirelurk Queen Steak",
@@ -8282,12 +8282,12 @@
           ],
           "howToObtain": [],
           "output": {
-            "name": "Fall Filet",
-            "edid": "SeasonalFish_Meal_FallFillet",
+            "name": "Fall Sour Eelgrass",
+            "edid": "SeasonalFish_Meal_FallEelgrass",
             "formId": "008B76CF",
             "weight": null,
             "value": 8,
-            "mutation": "Carnivore",
+            "mutation": "Herbivore",
             "effects": [
               {
                 "name": "Satisfy Hunger",
@@ -8317,12 +8317,12 @@
                 "dur_glob": "SURV_Food_Heal_Mag_1_Tiny"
               }
             ],
-            "spoils_to": "Spoiled Meat",
+            "spoils_to": "Spoiled Vegetables",
             "spoil_time": {
               "base_minutes": 75,
-              "curve_type": "Raw Meat",
-              "curve_edid": "CT_FoodHealth_RawMeat",
-              "curve_formId": "0052B5BD",
+              "curve_type": "Raw Vegetable",
+              "curve_edid": "CT_FoodHealth_RawVegetable",
+              "curve_formId": "0052B5BE",
               "source": "curv_points",
               "scope": "food",
               "tiers": [
@@ -8380,6 +8380,129 @@
             "bench_keywords": [
               "Meal_Recipe_Food",
               "Meal_Recipe_FishBits"
+            ]
+          }
+        },
+        {
+          "name": "Fall Sour Eelgrass",
+          "recipe_edid": "SeasonalFish_CO_Meal_FallFilletFromFesterkoi",
+          "category": "food",
+          "workbench": "Cooking Station",
+          "ingredients": [
+            {
+              "edid": "SeasonalFish_Meal_Medium_Raw_Festerkoi",
+              "name": "Fester Koi",
+              "qty": 1
+            }
+          ],
+          "howToObtain": [],
+          "output": {
+            "name": "Fall Sour Eelgrass",
+            "edid": "SeasonalFish_Meal_FallEelgrass",
+            "formId": "008B76CF",
+            "weight": null,
+            "value": 8,
+            "mutation": "Herbivore",
+            "effects": [
+              {
+                "name": "Satisfy Hunger",
+                "edid": "SURV_Food_Effect",
+                "magnitude": 240.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RestoreHunger_Mag_1_Tiny",
+                "dur_glob": null
+              },
+              {
+                "name": "Rads",
+                "edid": "DamageRadiationEating",
+                "magnitude": 2.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                "dur_glob": null
+              },
+              {
+                "name": "Restore Health",
+                "edid": "RestoreHealthFood",
+                "magnitude": 0.16,
+                "duration": 0.16,
+                "dur_display": "0s",
+                "mag_glob": "SURV_Food_Heal_Mag_1_Tiny",
+                "dur_glob": "SURV_Food_Heal_Mag_1_Tiny"
+              }
+            ],
+            "spoils_to": "Spoiled Vegetables",
+            "spoil_time": {
+              "base_minutes": 75,
+              "curve_type": "Raw Vegetable",
+              "curve_edid": "CT_FoodHealth_RawVegetable",
+              "curve_formId": "0052B5BE",
+              "source": "curv_points",
+              "scope": "food",
+              "tiers": [
+                {
+                  "kind": "storage",
+                  "label": "Fridge",
+                  "rate_mult": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 150.0,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                },
+                {
+                  "kind": "storage",
+                  "label": "Freezer",
+                  "rate_mult": 0.0,
+                  "reduction_pct": 100,
+                  "minutes": null,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 1",
+                  "magnitude": 0.45,
+                  "reduction_pct": 45,
+                  "minutes": 136.36,
+                  "source": "SPEL:AbPerkGoodWithSalt[0]"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 2",
+                  "magnitude": 0.9,
+                  "reduction_pct": 90,
+                  "minutes": 750.0,
+                  "source": "SPEL:AbPerkGoodWithSalt[1]"
+                },
+                {
+                  "kind": "mod",
+                  "label": "Refrigerated Backpack mod",
+                  "magnitude": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 150.0,
+                  "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                }
+              ]
+            },
+            "addiction_name": null,
+            "addiction_chance": 0.0
+          },
+          "technical": {
+            "recipe_edid": "SeasonalFish_CO_Meal_FallFilletFromFesterkoi",
+            "output_edid": "SeasonalFish_Meal_FallEelgrass",
+            "output_formId": "008B76CF",
+            "bnam_edid": "Workbench_Crafting_Cooking",
+            "cnam_edid": "SeasonalFish_Meal_FallEelgrass",
+            "bench_keywords": [
+              "Meal_Recipe_Food",
+              "Meal_Recipe_FishBits"
+            ]
+          },
+          "alternates": {
+            "label": "Seasonal Fish",
+            "qty": 1,
+            "ingredients": [
+              "SeasonalFish_Meal_LocalLegend_Raw_SludgeEye",
+              "SeasonalFish_Meal_Medium_Raw_Festerkoi"
             ]
           }
         },
@@ -19726,6 +19849,60 @@
           }
         },
         {
+          "name": "River Salad",
+          "recipe_edid": "co_meal_Fishing_FallSalad",
+          "category": "food",
+          "workbench": "Cooking Station",
+          "ingredients": [
+            {
+              "edid": "CarrotVegetable",
+              "name": "Carrot",
+              "qty": 2
+            },
+            {
+              "edid": "CookingFlavor_Pepper",
+              "name": "Pepper",
+              "qty": 1
+            },
+            {
+              "edid": "SeasonalFish_Meal_FallEelgrass",
+              "name": "Seasonal Fish_Meal_Fall Eelgrass",
+              "qty": 1
+            },
+            {
+              "edid": "TatoVegetableFruit",
+              "name": "Tato",
+              "qty": 1
+            }
+          ],
+          "howToObtain": [],
+          "output": {
+            "name": "River Salad",
+            "edid": "SeasonalFish_Meal_FallSalad",
+            "formId": "",
+            "weight": null,
+            "value": null,
+            "mutation": "",
+            "effects": [],
+            "spoils_to": "",
+            "spoil_time": null,
+            "addiction_name": "",
+            "addiction_chance": null
+          },
+          "technical": {
+            "recipe_edid": "co_meal_Fishing_FallSalad",
+            "output_edid": "SeasonalFish_Meal_FallSalad",
+            "output_formId": "",
+            "bnam_edid": "Workbench_Crafting_Cooking",
+            "cnam_edid": "SeasonalFish_Meal_FallSalad",
+            "bench_keywords": [
+              "Meal_Recipe_Plants",
+              "Meal_Recipe_Food",
+              "Meal_Recipe_Prepared"
+            ]
+          }
+        },
+        {
           "name": "Roast Megasloth",
           "recipe_edid": "co_Meal_MegaslothMeatCooked",
           "category": "food",
@@ -22610,6 +22787,65 @@
             "bench_keywords": [
               "Meal_Recipe_Plants",
               "Meal_Recipe_Drink",
+              "Meal_Recipe_Prepared"
+            ]
+          }
+        },
+        {
+          "name": "Spicy Eelgrass Soup",
+          "recipe_edid": "co_meal_Fishing_FallSoup",
+          "category": "food",
+          "workbench": "Cooking Station",
+          "ingredients": [
+            {
+              "edid": "CookingFlavor_Spices",
+              "name": "Spices",
+              "qty": 1
+            },
+            {
+              "edid": "SeasonalFish_Meal_FallEelgrass",
+              "name": "Seasonal Fish_Meal_Fall Eelgrass",
+              "qty": 5
+            },
+            {
+              "edid": "SwampPlantCookedTofu",
+              "name": "Swamp Plant Cooked Tofu",
+              "qty": 1
+            },
+            {
+              "edid": "VegetableSlipperCactus",
+              "name": "Prickeye",
+              "qty": 1
+            },
+            {
+              "edid": "WaterBoiled",
+              "name": "Boiled Water",
+              "qty": 1
+            }
+          ],
+          "howToObtain": [],
+          "output": {
+            "name": "Spicy Eelgrass Soup",
+            "edid": "SeasonalFish_Meal_FallSoup",
+            "formId": "",
+            "weight": null,
+            "value": null,
+            "mutation": "",
+            "effects": [],
+            "spoils_to": "",
+            "spoil_time": null,
+            "addiction_name": "",
+            "addiction_chance": null
+          },
+          "technical": {
+            "recipe_edid": "co_meal_Fishing_FallSoup",
+            "output_edid": "SeasonalFish_Meal_FallSoup",
+            "output_formId": "",
+            "bnam_edid": "Workbench_Crafting_Cooking",
+            "cnam_edid": "SeasonalFish_Meal_FallSoup",
+            "bench_keywords": [
+              "Meal_Recipe_Plants",
+              "Meal_Recipe_Food",
               "Meal_Recipe_Prepared"
             ]
           }
