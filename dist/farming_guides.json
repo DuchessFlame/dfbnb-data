@@ -1,9 +1,9 @@
 {
-  "version": "2026-06-13",
-  "generated": "2026-06-13T09:10:07+00:00",
+  "version": "2026-06-15",
+  "generated": "2026-06-15T04:30:14+00:00",
   "sources": {
     "alch": "ALCH_Export_June_2026.tsv",
-    "cobj": "COBJ_Export_Jun_2026.tsv",
+    "cobj": "COBJ_Export_Apr_2026.tsv",
     "alch_effects": "ALCH_Export_June_2026_Effects.tsv"
   },
   "pages": {
@@ -48857,18 +48857,18 @@
               "workbench": "Cooking Station",
               "category": "cooking",
               "output": {
-                "edid": "SeasonalFish_Meal_FallFillet",
+                "edid": "SeasonalFish_Meal_FallEelgrass",
                 "formId": "008B76CF",
-                "name": "Fall Filet",
+                "name": "Fall Sour Eelgrass",
                 "type": "Raw",
                 "weight": null,
                 "value": 8,
-                "spoils_to": "Spoiled Meat",
+                "spoils_to": "Spoiled Vegetables",
                 "spoil_time": {
                   "base_minutes": 75,
-                  "curve_type": "Raw Meat",
-                  "curve_edid": "CT_FoodHealth_RawMeat",
-                  "curve_formId": "0052B5BD",
+                  "curve_type": "Raw Vegetable",
+                  "curve_edid": "CT_FoodHealth_RawVegetable",
+                  "curve_formId": "0052B5BE",
                   "source": "curv_points",
                   "scope": "food",
                   "tiers": [
@@ -48916,7 +48916,7 @@
                 },
                 "is_canned": false,
                 "canned_base": null,
-                "mutation": "Carnivore",
+                "mutation": "Herbivore",
                 "effects": [
                   {
                     "name": "Satisfy Hunger",
@@ -48952,11 +48952,11 @@
                 "is_nuka_cola": false,
                 "is_chem": false,
                 "spoiled_to_output": {
-                  "edid": "SpoiledFood_Meat",
-                  "formId": "0037E133",
-                  "name": "Spoiled Meat",
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
                   "type": "Raw",
-                  "weight": 0.25,
+                  "weight": 0.1,
                   "value": 0,
                   "spoils_to": null,
                   "spoil_time": null,
@@ -48967,19 +48967,19 @@
                     {
                       "name": "Rads",
                       "edid": "DamageRadiationEating",
-                      "magnitude": 15.0,
+                      "magnitude": 5.0,
                       "duration": 0.0,
                       "dur_display": null,
-                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
                       "dur_glob": null
                     },
                     {
                       "name": "Disease Chance",
                       "edid": "SURV_DiseaseVector_Food_Effect",
-                      "magnitude": 9.0,
+                      "magnitude": 6.0,
                       "duration": 0.0,
                       "dur_display": null,
-                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
                       "dur_glob": null
                     },
                     {
@@ -144786,7 +144786,7 @@
           "plan_name": "Recipe: Swamp Tofu Soup",
           "season_number": null,
           "season_name": null,
-          "super_duper": true,
+          "super_duper": false,
           "canning_method": "cook_first"
         },
         {
