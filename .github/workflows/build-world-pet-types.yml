@@ -1,0 +1,89 @@
+name: Build World Pet Types JSON
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tsv/NPC_Export_*.tsv'
+      - 'tsv/ENTM_Export_*.tsv'
+      - 'tsv/ALCH_Export_*.tsv'
+      - 'tsv/COBJ_Export_*.tsv'
+      - 'tsv/GLOB_Export_*.tsv'
+      - 'src/build_world_pet_types_json.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Pick newest TSV exports
+        id: pick_tsvs
+        run: |
+          # Pick file with latest Month_Year in filename (mtimes are equal on Actions).
+          # Optional 2nd arg = grep -iv exclude pattern (for sibling tables that
+          # share a prefix, e.g. NPC_Export_*_PRPS / *_Refs, ALCH_Export_*_Effects).
+          pick_newest() {
+            local files
+            files=$(ls -1 $1 2>/dev/null)
+            if [ -n "$2" ]; then files=$(echo "$files" | grep -iv "$2"); fi
+            [ -z "$files" ] && return
+            echo "$files" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+
+          # NPC actor table — exclude the _PRPS and _Refs sibling exports.
+          NPC=$(pick_newest "tsv/NPC_Export_*.tsv" "_prps\|_refs")
+          ENTM=$(pick_newest "tsv/ENTM_Export_*.tsv")
+          # Main ALCH table — exclude the _Effects sibling; pick _Effects separately.
+          ALCH=$(pick_newest "tsv/ALCH_Export_*.tsv" "_effects")
+          ALCHE=$(pick_newest "tsv/ALCH_Export_*_Effects.tsv")
+          COBJ=$(pick_newest "tsv/COBJ_Export_*.tsv")
+          GLOB=$(pick_newest "tsv/GLOB_Export_*.tsv")
+
+          echo "NPC_TSV=$NPC"            >> $GITHUB_ENV
+          echo "ENTM_TSV=$ENTM"          >> $GITHUB_ENV
+          echo "ALCH_TSV=$ALCH"          >> $GITHUB_ENV
+          echo "ALCH_EFFECTS_TSV=$ALCHE" >> $GITHUB_ENV
+          echo "COBJ_TSV=$COBJ"          >> $GITHUB_ENV
+          echo "GLOB_TSV=$GLOB"          >> $GITHUB_ENV
+
+          echo "  NPC:  $NPC"
+          echo "  ENTM: $ENTM"
+          echo "  ALCH: $ALCH"
+          echo "  ALCH effects: $ALCHE"
+          echo "  COBJ: $COBJ"
+          echo "  GLOB: $GLOB"
+
+      - name: Build JSON file
+        run: |
+          mkdir -p dist
+          python src/build_world_pet_types_json.py \
+            --tsv-dir tsv \
+            --out-dir dist
+
+      - name: Commit updated JSON
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild world_pet_types JSON [skip ci]"
+          file_pattern: |
+            dist/world_pet_types.json
+            dist/patchlog_latest_world_pet_types.json
