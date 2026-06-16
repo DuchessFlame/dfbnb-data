@@ -1366,6 +1366,7 @@ def load_entm_rewards(tsv_root):
                         'name':        display_name,
                         'description': desc,
                         'edid':        edid,
+                        'form_id':     (row.get('FormID', '') or '').strip().rstrip('\r'),
                         'image_url':   image_url,
                     })
                     break  # Don't double-match same row

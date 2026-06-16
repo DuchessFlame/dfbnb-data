@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-16T04:46:37.865561Z",
+  "generated": "2026-06-16T06:37:56.112375Z",
   "source": "CHAL/CNDF TSV exports (build_world_pet_challenges_json.py)",
   "total": 20,
   "groups": [
@@ -17,7 +17,7 @@
           "type_label": "Lifetime",
           "required": 1,
           "counter": "World Pet Activated",
-          "desc": "Open your Pip-Boy and activate a World Pet. Only one pet can be active at a time — this is the first thing you do with the system.",
+          "desc": "Activate a World Pet from your Pip-Boy. Only one pet can be active at a time.",
           "reward": "10 Caps",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
@@ -34,7 +34,7 @@
           "type_label": "Lifetime",
           "required": 3,
           "counter": "World Pet Commanded",
-          "desc": "Issue a command to your active pet (move / attack / interact).",
+          "desc": "Issue a command to your active pet.",
           "reward": "10 Caps",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
@@ -51,7 +51,7 @@
           "type_label": "Tier I",
           "required": 25,
           "counter": "World Pet Healed",
-          "desc": "Heal your active pet when it takes damage. Higher tiers require more heals.",
+          "desc": "Heal your active pet when it takes damage.",
           "reward": "",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
@@ -68,7 +68,7 @@
           "type_label": "Tier II",
           "required": 500,
           "counter": "World Pet Healed",
-          "desc": "Heal your active pet when it takes damage. Higher tiers require more heals.",
+          "desc": "Heal your active pet when it takes damage.",
           "reward": "",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
@@ -85,7 +85,7 @@
           "type_label": "Tier III",
           "required": 2000,
           "counter": "World Pet Healed",
-          "desc": "Heal your active pet when it takes damage. Higher tiers require more heals.",
+          "desc": "Heal your active pet when it takes damage.",
           "reward": "",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
@@ -102,7 +102,7 @@
           "type_label": "Tier I",
           "required": 25,
           "counter": "Total Enemies Killed",
-          "desc": "Have your active pet land the killing blow on hostiles. Higher tiers require more kills.",
+          "desc": "Have your active pet land the killing blow on hostiles.",
           "reward": "",
           "conditions_display": [
             ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
@@ -120,7 +120,7 @@
           "type_label": "Tier II",
           "required": 500,
           "counter": "Total Enemies Killed",
-          "desc": "Have your active pet land the killing blow on hostiles. Higher tiers require more kills.",
+          "desc": "Have your active pet land the killing blow on hostiles.",
           "reward": "",
           "conditions_display": [
             ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
@@ -138,7 +138,7 @@
           "type_label": "Tier III",
           "required": 2000,
           "counter": "Total Enemies Killed",
-          "desc": "Have your active pet land the killing blow on hostiles. Higher tiers require more kills.",
+          "desc": "Have your active pet land the killing blow on hostiles.",
           "reward": "",
           "conditions_display": [
             ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
@@ -161,7 +161,7 @@
           "type_label": "Tier I",
           "required": 25,
           "counter": "Fish Caught",
-          "desc": "Catch fish while a Pet Cat is your active World Pet. Ties into the Cat's bait/fishing theme.",
+          "desc": "Catch fish while a Pet Cat is your active World Pet.",
           "reward": "100 Caps",
           "conditions_display": [
             ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
@@ -217,7 +217,7 @@
           "type_label": "Tier I",
           "required": 3,
           "counter": "Quests Completed",
-          "desc": "Complete Bounty Hunts while a Pet Dog is active. Ties into the Dog's Bounty Sniffer buff.",
+          "desc": "Complete Bounty Hunts while a Pet Dog is active.",
           "reward": "100 Caps",
           "conditions_display": [
             ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
@@ -279,7 +279,7 @@
           "type_label": "Tier I",
           "required": 25,
           "counter": "Plants Harvested",
-          "desc": "Collect Flux while a Pet Radhog is active. Ties into the Radhog's nuke/flux theme.",
+          "desc": "Collect Flux while a Pet Radhog is active.",
           "reward": "100 Caps",
           "conditions_display": [
             ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
@@ -350,7 +350,7 @@
           "type_label": "Tier I",
           "required": 20,
           "counter": "Total Enemies Killed",
-          "desc": "Kill Infestation enemies while a Pet Deathclaw is active. Ties into the Deathclaw's Fun-Festation buff.",
+          "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
           "reward": "100 Caps",
           "conditions_display": [
             ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
