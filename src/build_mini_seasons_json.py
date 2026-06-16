@@ -91,6 +91,64 @@ def parse_condition_display(raw):
         return re.sub(r'^Top:', '', c)
 
 
+# ─────────────────────────────────────────────────────────────
+# CNDF leaf-expansion (challenge-style-guide decision: Technical → Conditions
+# shows the underlying leaf check, e.g. an IsTrueForConditionForm(... [CNDF:x])
+# is resolved to HasKeyword(ObjectTypeFish [KYWD:...])). Mirrors the same logic
+# in build_challenges_json_v3.py. _load_cndf() must run before parse_chal_tsv().
+# ─────────────────────────────────────────────────────────────
+_CNDF_BY_FID = {}
+
+def _load_cndf(tsv_root):
+    files = sorted(glob.glob(os.path.join(tsv_root, 'CNDF_Export_*.tsv')), key=os.path.getmtime)
+    if not files:
+        return
+    with open(files[-1], 'r', encoding='utf-8-sig', errors='replace') as fh:
+        for row in csv.DictReader(fh, delimiter='\t'):
+            fid = (row.get('FormID', '') or '').strip().upper()
+            if not fid:
+                continue
+            try:
+                n = int((row.get('CondCount', '') or '0').strip())
+            except Exception:
+                n = 76
+            conds = []
+            for i in range(1, min(n + 1, 77)):
+                v = (row.get(f'Cond{i}', '') or '').strip()
+                if v:
+                    conds.append(v)
+            _CNDF_BY_FID[fid] = conds
+
+def _is_null_leaf(line):
+    return bool(re.search(r'\[(?:FORM|KYWD):0+\]', line or '') or re.search(r'\(0+\s', line or ''))
+
+def expand_condition_display(raw, _seen=None):
+    """One raw condition -> display string(s), leaf-expanding CNDF condition-forms."""
+    if _seen is None:
+        _seen = set()
+    s = str(raw or '').strip()
+    if not s:
+        return []
+    if '|' in s and s.count('|') >= 5:
+        parts = s.split('|')
+        func = parts[2] if len(parts) > 2 else ''
+        param = parts[5] if len(parts) > 5 else ''
+        if func == 'IsTrueForConditionForm':
+            m = re.search(r'\[CNDF:([0-9A-Fa-f]+)\]', param)
+            if m:
+                cfid = m.group(1).upper()
+                if cfid not in _seen and cfid in _CNDF_BY_FID:
+                    _seen.add(cfid)
+                    leaves = []
+                    for ic in _CNDF_BY_FID[cfid]:
+                        leaves.extend(expand_condition_display(ic, _seen))
+                    meaningful = [l for l in leaves if not _is_null_leaf(l)]
+                    if meaningful:
+                        return meaningful
+    pc = parse_condition_display(raw)
+    return [pc] if pc else []
+
+
 def extract_chal_refs(raw_conds):
     """Extract challenge EDIDs referenced in GetIsForm conditions."""
     refs = []
@@ -518,7 +576,7 @@ def parse_chal_tsv(path):
                 'tnam':     (row.get('TNAM', '') or '').strip().rstrip('\r'),
                 'cnam':     (row.get('CNAM', '') or '').strip().rstrip('\r'),
                 'enam':     (row.get('ENAM', '') or '').strip().rstrip('\r'),
-                'conditions':     [pc for rc in raw if (pc := parse_condition_display(rc))],
+                'conditions':     [pc for rc in raw for pc in expand_condition_display(rc)],
                 'raw_conditions': raw,
             }
     return out
@@ -543,7 +601,7 @@ def parse_tsv_nosnam(path):
                 'form_id':  (row.get('FormID', '') or '').strip().rstrip('\r'),
                 'edid': edid, 'full': full,
                 'snam': '', 'tnam': '', 'cnam': '', 'enam': '',
-                'conditions':     [pc for rc in raw if (pc := parse_condition_display(rc))],
+                'conditions':     [pc for rc in raw for pc in expand_condition_display(rc)],
                 'raw_conditions': raw,
             }
     return out
@@ -1378,6 +1436,10 @@ def main():
     parser.add_argument('--guide-index', default='tsv/guide_index.tsv',
                         help='Path to guide_index.tsv for guide linking')
     args = parser.parse_args()
+
+    # Load CNDF condition-forms first so conditions can be leaf-expanded.
+    _load_cndf(args.tsv_root)
+    print(f"  CNDF: {len(_CNDF_BY_FID)} condition-forms loaded")
 
     # Find all CHAL TSVs, sort by name (oldest first so newest wins)
     tsv_files = sorted(glob.glob(os.path.join(args.tsv_root, 'CHAL_Export_*.tsv')))

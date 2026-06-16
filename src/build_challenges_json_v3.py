@@ -124,6 +124,9 @@ BOOK = read_tsv(newest("tsv/BOOK_Export_*.tsv"))
 KYWD = read_tsv(newest("tsv/KYWD_Export_*.tsv"))
 FLST_ENTRIES = read_tsv(newest("tsv/FLST_Export_*_Entries.tsv"))
 
+_cndf_path = newest("tsv/CNDF_Export_*.tsv")
+CNDF = read_tsv(_cndf_path) if _cndf_path else []
+
 _cobj_path = newest("tsv/COBJ_Export_*.tsv")
 COBJ = read_tsv(_cobj_path) if _cobj_path else []
 
@@ -187,6 +190,12 @@ gmrw_by_fid = defaultdict(list)
 for row in GMRW:
     fid = pick(row, "FormID")
     if fid: gmrw_by_fid[fid].append(row)
+
+cndf_by_fid = {}
+for row in CNDF:
+    fid = pick(row, "FormID")
+    if fid: cndf_by_fid[fid.upper()] = row
+print(f"  CNDF: {len(cndf_by_fid)} rows")
 
 # Guide index
 guide_links = []
@@ -361,6 +370,120 @@ def parse_condition_items(conditions):
     return {"items": items, "keywords": keywords}
 
 
+# ==================================================================
+# xEdit-format condition decode (leaf-expands CNDF condition-forms)
+# Output: ".{Func}({ResolvedName [REC:FormID]}) = {value}"  (leading "."
+# from a Subject run-on; other run-ons are prefixed by name). Any
+# IsTrueForConditionForm(... [CNDF:x]) is resolved down to the leaf check
+# (e.g. HasKeyword CampPets_Cat) per the challenge-style-guide decision.
+# ==================================================================
+
+# Raw numeric condition-function indices that the export leaves undecoded.
+# The World Pet species CNDFs use these with a CampPets_* keyword param, so
+# they read as a keyword check. Extend as more indices are encountered.
+FUNC_INDEX = {
+    "940": "HasKeyword",
+    "941": "HasKeyword",
+}
+
+def _fid_from_bytes(b):
+    """'1C AF 79 00' -> '0079AF1C' (little-endian form ref); else None."""
+    parts = str(b or "").strip().split()
+    if len(parts) == 4 and all(re.fullmatch(r"[0-9A-Fa-f]{2}", p) for p in parts):
+        return "".join(reversed([p.upper() for p in parts]))
+    return None
+
+def _fmt_cond_value(v):
+    try:
+        f = float(v)
+        return str(int(f)) if f == int(f) else f"{f:.6f}"
+    except Exception:
+        return str(v or "").strip()
+
+def _cond_param_label(param):
+    """Resolve a condition param into (display, '[REC:FormID]')."""
+    p = str(param or "").strip()
+    ref_m = re.search(r'\[(\w+):([0-9A-Fa-f]+)\]', p)
+    if ref_m:
+        rec, fid = ref_m.group(1), ref_m.group(2).upper()
+        qm = re.search(r'"([^"]+)"', p)
+        edid_m = re.match(r'([A-Za-z0-9_]+)\s*[\["]', p)
+        hint = qm.group(1) if qm else (edid_m.group(1) if edid_m else "")
+        resolved = resolve_name_from_fid(fid)
+        disp = resolved if (resolved and resolved != fid) else hint
+        return (disp or hint or fid), f"[{rec}:{fid}]"
+    fid = _fid_from_bytes(p)
+    if fid:
+        resolved = resolve_name_from_fid(fid)
+        sig = "KYWD" if fid in kywd_by_fid else "FORM"
+        return (resolved if resolved and resolved != fid else fid), f"[{sig}:{fid}]"
+    return p, ""
+
+def _cndf_conditions(row):
+    """Pull Cond1..N off a CNDF row."""
+    out = []
+    count = safe_int(pick(row, "CondCount"), 76) or 76
+    for i in range(1, min(count + 1, 77)):
+        c = pick(row, f"Cond{i}")
+        if c: out.append(c)
+    return out
+
+def _is_null_leaf(line):
+    """True for an uninformative leaf whose form ref resolved to all-zeros
+    (e.g. an engine check that takes no form param, like the IsPet active check)."""
+    return bool(re.search(r'\[(?:FORM|KYWD):0+\]', line) or re.search(r'\(0+\s', line))
+
+def decode_condition(cond_str, _seen=None):
+    """One raw pipe condition -> list of xEdit display lines, CNDF-leaf-expanded."""
+    if _seen is None: _seen = set()
+    s = str(cond_str or "").strip()
+    if not s: return []
+    if "|" not in s:  # already human/decoded — pass through, strip flag prefix
+        return [re.sub(r'^(Top|More|And|Or):', '', s).strip()]
+    parts = s.split("|")
+    value = _fmt_cond_value(parts[1] if len(parts) > 1 else "")
+    func = parts[2] if len(parts) > 2 else ""
+    func = FUNC_INDEX.get(func.strip(), func.strip())
+    param = parts[5] if len(parts) > 5 else ""
+    runon = (parts[9].strip() if len(parts) > 9 else "") or "Subject"
+    prefix = "." if runon == "Subject" else f"{runon}."
+    # Leaf-expand IsTrueForConditionForm(CNDF) down to the underlying check, but
+    # only when the leaf is informative. If every inner leaf resolves to a null
+    # form ref (an engine check with no form param), keep the named condition-form
+    # line instead — its EDID is self-descriptive (e.g. ...CheckPetActive...IsPet).
+    if func == "IsTrueForConditionForm":
+        ref_m = re.search(r'\[CNDF:([0-9A-Fa-f]+)\]', param)
+        if ref_m:
+            cfid = ref_m.group(1).upper()
+            if cfid not in _seen and cfid in cndf_by_fid:
+                _seen.add(cfid)
+                leaves = []
+                for ic in _cndf_conditions(cndf_by_fid[cfid]):
+                    leaves.extend(decode_condition(ic, _seen))
+                meaningful = [l for l in leaves if not _is_null_leaf(l)]
+                if meaningful:
+                    return meaningful
+    disp, ref = _cond_param_label(param)
+    if ref:
+        return [f"{prefix}{func}({disp} {ref}) = {value}"]
+    if disp:
+        return [f"{prefix}{func}({disp}) = {value}"]
+    return [f"{prefix}{func}() = {value}"]
+
+def conditions_display(conditions):
+    """All raw conditions -> deduped xEdit display lines. Skips engine-plumbing
+    checks (IsFalloutWorlds -> shown as a notice; GetIsForm -> sub-challenge wiring)."""
+    out, seen = [], set()
+    for c in (conditions or []):
+        cs = str(c or "")
+        if "IsFalloutWorlds" in cs or "GetIsForm" in cs:
+            continue
+        for line in decode_condition(cs):
+            if line and line not in seen:
+                seen.add(line); out.append(line)
+    return out
+
+
 def humanize_condition(cond_str):
     s = str(cond_str or "").strip()
     if not s: return ""
@@ -510,6 +633,7 @@ def row_to_item(row, rewards_override=None):
     reward_unknown = len(rewards) == 0
     parsed_conds = parse_condition_items(conditions)
     human_conditions = [hc for c in conditions if (hc := humanize_condition(c))]
+    display_conditions = conditions_display(conditions)
     item_draft = {"form_id": form_id, "edid": edid, "full": full, "conditions": conditions}
     guides = find_related_guides(item_draft)
     image_url = find_challenge_image(conditions, edid)
@@ -519,6 +643,7 @@ def row_to_item(row, rewards_override=None):
         "snam": snam if snam and snam != "NONE" else "",
         "required": required, "scope": cnam, "classification": enam,
         "conditions": conditions, "conditions_human": human_conditions,
+        "conditions_display": display_conditions,
         "condition_items": parsed_conds.get("items", []),
         "condition_keywords": parsed_conds.get("keywords", []),
         "rewards": rewards, "reward_unknown": reward_unknown,
