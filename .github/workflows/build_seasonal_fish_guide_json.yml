@@ -1,0 +1,70 @@
+name: Build Seasonal Fish Guide JSON
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tsv/FISH_Export_*.tsv'
+      - 'tsv/ALCH_Export_*.tsv'
+      - 'tsv/COBJ_Export_*.tsv'
+      - 'tsv/CHAL_Export_*.tsv'
+      - 'src/build_seasonal_fish_guide_json.py'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest (rebase)
+        run: |
+          git fetch origin
+          git pull --rebase origin main
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build seasonal_fish_guide.json
+        run: python src/build_seasonal_fish_guide_json.py
+
+      - name: Sanity check output
+        run: |
+          test -f dist/seasonal_fish_guide.json || { echo "dist/seasonal_fish_guide.json not found"; exit 1; }
+          python -c "
+          import json, sys
+          with open('dist/seasonal_fish_guide.json') as f:
+              d = json.load(f)
+          seasons = d.get('seasons', [])
+          errs = []
+          if len(seasons) != 4:
+              errs.append(f'Expected 4 seasons, got {len(seasons)}')
+          total_fish = sum(len(s.get('fish', [])) for s in seasons)
+          if total_fish < 4:
+              errs.append(f'Too few seasonal fish: {total_fish}')
+          if not d.get('seasonRule', {}).get('rolloverDates'):
+              errs.append('Missing seasonRule.rolloverDates')
+          if not d.get('weekendEvent'):
+              errs.append('Missing weekendEvent')
+          for s in seasons:
+              if not s.get('label') or 'seasonIndex' not in s:
+                  errs.append(f'Malformed season: {s.get(\"key\")}')
+          if errs:
+              for e in errs: print(e, file=sys.stderr)
+              sys.exit(1)
+          print(f'OK: {len(seasons)} seasons, {total_fish} seasonal fish')
+          "
+
+      - name: Commit dist
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/seasonal_fish_guide.json
+          git diff --cached --quiet || git commit -m "chore: build seasonal_fish_guide.json [skip ci]"
+          git push

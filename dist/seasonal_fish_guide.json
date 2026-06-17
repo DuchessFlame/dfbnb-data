@@ -1,0 +1,530 @@
+{
+  "generated": "2026-06-17T06:55:39.340107+00:00",
+  "source": {
+    "fishTsv": "FISH_Export_June_2026.tsv",
+    "alchTsv": "ALCH_Export_June_2026.tsv",
+    "cobjTsv": "COBJ_Export_June_2026.tsv",
+    "chalTsv": "CHAL_Export_June_2026.tsv"
+  },
+  "timezone": "America/New_York",
+  "seasonRule": {
+    "method": "first_tuesday_after_equinox_na",
+    "description": "Each seasonal fish is catchable for its whole season. The season rotates on the first Tuesday strictly after the North American equinox/solstice.",
+    "rolloverDates": [
+      {
+        "date": "2024-03-26",
+        "season": "spring"
+      },
+      {
+        "date": "2024-06-25",
+        "season": "summer"
+      },
+      {
+        "date": "2024-09-24",
+        "season": "fall"
+      },
+      {
+        "date": "2024-12-24",
+        "season": "winter"
+      },
+      {
+        "date": "2025-03-25",
+        "season": "spring"
+      },
+      {
+        "date": "2025-06-24",
+        "season": "summer"
+      },
+      {
+        "date": "2025-09-23",
+        "season": "fall"
+      },
+      {
+        "date": "2025-12-23",
+        "season": "winter"
+      },
+      {
+        "date": "2026-03-24",
+        "season": "spring"
+      },
+      {
+        "date": "2026-06-23",
+        "season": "summer"
+      },
+      {
+        "date": "2026-09-29",
+        "season": "fall"
+      },
+      {
+        "date": "2026-12-22",
+        "season": "winter"
+      },
+      {
+        "date": "2027-03-23",
+        "season": "spring"
+      },
+      {
+        "date": "2027-06-22",
+        "season": "summer"
+      },
+      {
+        "date": "2027-09-28",
+        "season": "fall"
+      },
+      {
+        "date": "2027-12-28",
+        "season": "winter"
+      },
+      {
+        "date": "2028-03-21",
+        "season": "spring"
+      },
+      {
+        "date": "2028-06-27",
+        "season": "summer"
+      },
+      {
+        "date": "2028-09-26",
+        "season": "fall"
+      },
+      {
+        "date": "2028-12-26",
+        "season": "winter"
+      },
+      {
+        "date": "2029-03-27",
+        "season": "spring"
+      },
+      {
+        "date": "2029-06-26",
+        "season": "summer"
+      },
+      {
+        "date": "2029-09-25",
+        "season": "fall"
+      },
+      {
+        "date": "2029-12-25",
+        "season": "winter"
+      },
+      {
+        "date": "2030-03-26",
+        "season": "spring"
+      },
+      {
+        "date": "2030-06-25",
+        "season": "summer"
+      },
+      {
+        "date": "2030-09-24",
+        "season": "fall"
+      },
+      {
+        "date": "2030-12-24",
+        "season": "winter"
+      }
+    ]
+  },
+  "weekendEvent": {
+    "windowWeeks": [
+      1,
+      6
+    ],
+    "window": "Thursday 12:00 PM -> Monday 12:00 PM (game time)",
+    "note": "A Weekender event runs in week 1 and week 6 of every season, boosting your chance of catching seasonal fish on top of the normal catch rates."
+  },
+  "catchInfo": {
+    "summary": "Seasonal fish join the Uncommon Region Fish pool in their listed regions during their season. Local Legends sit at the very top of the catch cascade but only at one specific spot.",
+    "baitNote": "Better bait raises your odds of the rarer rungs of the cascade: Superb Bait gives the best shot at Uncommon Region (seasonal) and Local Legend fish. Improved or Superb Bait is required for Axolotls but is not needed for seasonal fish.",
+    "calculatorNote": "Use the Fishing Calculator for exact per-cast percentages by weather, bait and region."
+  },
+  "metaChallenges": [
+    {
+      "edid": "Challenge_Lifetime_Fishing_SeasonalFish_AllSeasons_META",
+      "name": "Catch Fish From Every Season",
+      "tracker": "",
+      "count": 4,
+      "isLocalLegend": false
+    }
+  ],
+  "seasons": [
+    {
+      "key": "spring",
+      "label": "Spring",
+      "seasonIndex": 1,
+      "months": [
+        3,
+        4,
+        5
+      ],
+      "fish": [
+        {
+          "name": "Orange Overseer",
+          "formId": "008A5821",
+          "edid": "SeasonalFish_Fish_Medium_OrangeOverseer",
+          "season": "Spring",
+          "size": "Medium",
+          "isLocalLegend": false,
+          "regions": [
+            "Savage Divide",
+            "Skyline Valley",
+            "Toxic Valley"
+          ],
+          "location": null,
+          "rawMeal": {
+            "name": "Orange Overseer",
+            "subtitle": "Medium Spring Fish",
+            "value": 5
+          },
+          "filet": {
+            "name": "Spring Filet",
+            "edid": "SeasonalFish_Meal_SpringFillet"
+          },
+          "catchType": "Joins the Uncommon Region pool in-season"
+        }
+      ],
+      "recipes": [],
+      "challenges": [],
+      "comingSoon": [
+        "Spring Local Legend -- not yet released",
+        "Spring cooked recipes -- only the base filet exists so far"
+      ]
+    },
+    {
+      "key": "summer",
+      "label": "Summer",
+      "seasonIndex": 2,
+      "months": [
+        6,
+        7,
+        8
+      ],
+      "fish": [
+        {
+          "name": "Fernskipper",
+          "formId": "008A581F",
+          "edid": "SeasonalFish_Fish_Small_Fernskipper",
+          "season": "Summer",
+          "size": "Small",
+          "isLocalLegend": false,
+          "regions": [
+            "Cranberry Bog",
+            "The Mire",
+            "Skyline Valley"
+          ],
+          "location": null,
+          "rawMeal": {
+            "name": "Fernskipper",
+            "subtitle": "Small Summer Fish",
+            "value": 5
+          },
+          "filet": {
+            "name": "Summer Filet",
+            "edid": "SeasonalFish_Meal_SummerFillet"
+          },
+          "catchType": "Joins the Uncommon Region pool in-season"
+        },
+        {
+          "name": "Glass Ghost",
+          "formId": "008A45C4",
+          "edid": "SeasonalFish_Fish_LocalLegend_SummerGlassGhost",
+          "season": "Summer",
+          "size": "Medium",
+          "isLocalLegend": true,
+          "regions": [
+            "Cranberry Bog"
+          ],
+          "location": "Glassed Cavern (Cranberry Bog)",
+          "rawMeal": {
+            "name": "Glass Ghost",
+            "subtitle": "Medium Summer Fish",
+            "value": 50
+          },
+          "filet": {
+            "name": "Summer Filet",
+            "edid": "SeasonalFish_Meal_SummerFillet"
+          },
+          "catchType": "Local Legend (top of the cascade at its location)"
+        }
+      ],
+      "recipes": [
+        {
+          "name": "Jellied Fish",
+          "subtitle": "",
+          "value": 40,
+          "ingredients": [
+            {
+              "item": "Wood",
+              "edid": "c_Wood",
+              "qty": 3
+            },
+            {
+              "item": "Boiled Water",
+              "edid": "WaterBoiled",
+              "qty": 1
+            },
+            {
+              "item": "Deathclaw Egg",
+              "edid": "DeathclawEgg",
+              "qty": 2
+            },
+            {
+              "item": "Carrot",
+              "edid": "CarrotVegetable",
+              "qty": 2
+            },
+            {
+              "item": "Summer Filet",
+              "edid": "SeasonalFish_Meal_SummerFillet",
+              "qty": 5
+            }
+          ],
+          "station": "Cooking Station",
+          "unlock": "Catch Summer Seasonal Local Legend: \"Glass Ghost\""
+        },
+        {
+          "name": "Wasteland Fish Sandwich",
+          "subtitle": "",
+          "value": 40,
+          "ingredients": [
+            {
+              "item": "Wood",
+              "edid": "c_Wood",
+              "qty": 3
+            },
+            {
+              "item": "Cooking Oil",
+              "edid": "CookingOil",
+              "qty": 1
+            },
+            {
+              "item": "Razorgrain Flour",
+              "edid": "Cooking_Razorgrain_Flour",
+              "qty": 1
+            },
+            {
+              "item": "Summer Filet",
+              "edid": "SeasonalFish_Meal_SummerFillet",
+              "qty": 1
+            }
+          ],
+          "station": "Cooking Station",
+          "unlock": "Summer Filet"
+        }
+      ],
+      "challenges": [
+        {
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any",
+          "name": "Catch A Summer Seasonal Fish",
+          "tracker": "Fish Caught",
+          "count": 1,
+          "isLocalLegend": false
+        },
+        {
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any_02",
+          "name": "Catch Summer Seasonal Fish",
+          "tracker": "Fish Caught",
+          "count": 15,
+          "isLocalLegend": false
+        },
+        {
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Summer_LocalLegend",
+          "name": "Catch Summer Seasonal Local Legend: \"Glass Ghost\"",
+          "tracker": "Fish Caught",
+          "count": 1,
+          "isLocalLegend": true
+        }
+      ],
+      "comingSoon": []
+    },
+    {
+      "key": "fall",
+      "label": "Fall",
+      "seasonIndex": 3,
+      "months": [
+        9,
+        10,
+        11
+      ],
+      "fish": [
+        {
+          "name": "Fester Koi",
+          "formId": "008A5820",
+          "edid": "SeasonalFish_Fish_Medium_Festerkoi",
+          "season": "Fall",
+          "size": "Medium",
+          "isLocalLegend": false,
+          "regions": [
+            "Ash Heap",
+            "Toxic Valley",
+            "Burning Springs"
+          ],
+          "location": null,
+          "rawMeal": {
+            "name": "Fester Koi",
+            "subtitle": "Medium Fall Fish",
+            "value": 10
+          },
+          "filet": {
+            "name": "Fall Sour Eelgrass",
+            "edid": "SeasonalFish_Meal_FallEelgrass"
+          },
+          "catchType": "Joins the Uncommon Region pool in-season"
+        },
+        {
+          "name": "Sludge Eye",
+          "formId": "008EFCB5",
+          "edid": "SeasonalFish_Fish_LocalLegend_SludgeEye",
+          "season": "Fall",
+          "size": "Small",
+          "isLocalLegend": true,
+          "regions": [
+            "Ash Heap"
+          ],
+          "location": "Ash Heap",
+          "rawMeal": {
+            "name": "Sludge Eye",
+            "subtitle": "Small Fall Fish",
+            "value": 50
+          },
+          "filet": {
+            "name": "Fall Sour Eelgrass",
+            "edid": "SeasonalFish_Meal_FallEelgrass"
+          },
+          "catchType": "Local Legend (top of the cascade at its location)"
+        }
+      ],
+      "recipes": [
+        {
+          "name": "River Salad",
+          "subtitle": "",
+          "value": 40,
+          "ingredients": [
+            {
+              "item": "Tato",
+              "edid": "TatoVegetableFruit",
+              "qty": 1
+            },
+            {
+              "item": "Carrot",
+              "edid": "CarrotVegetable",
+              "qty": 2
+            },
+            {
+              "item": "Pepper",
+              "edid": "CookingFlavor_Pepper",
+              "qty": 1
+            },
+            {
+              "item": "Fall Sour Eelgrass",
+              "edid": "SeasonalFish_Meal_FallEelgrass",
+              "qty": 1
+            }
+          ],
+          "station": "Cooking Station",
+          "unlock": "Fall Sour Eelgrass"
+        },
+        {
+          "name": "Spicy Eelgrass Soup",
+          "subtitle": "",
+          "value": 40,
+          "ingredients": [
+            {
+              "item": "Boiled Water",
+              "edid": "WaterBoiled",
+              "qty": 1
+            },
+            {
+              "item": "Spices",
+              "edid": "CookingFlavor_Spices",
+              "qty": 1
+            },
+            {
+              "item": "Cooked Tofu",
+              "edid": "SwampPlantCookedTofu",
+              "qty": 1
+            },
+            {
+              "item": "Slipper Cactus",
+              "edid": "VegetableSlipperCactus",
+              "qty": 1
+            },
+            {
+              "item": "Fall Sour Eelgrass",
+              "edid": "SeasonalFish_Meal_FallEelgrass",
+              "qty": 5
+            }
+          ],
+          "station": "Cooking Station",
+          "unlock": "Catch Fall Seasonal Local Legend: \"Sludge Eye\""
+        }
+      ],
+      "challenges": [
+        {
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Fall_Any",
+          "name": "Catch A Fall Seasonal Fish",
+          "tracker": "Fish Caught",
+          "count": 1,
+          "isLocalLegend": false
+        },
+        {
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Fall_Any_02",
+          "name": "Catch Fall Seasonal Fish",
+          "tracker": "Fish Caught",
+          "count": 15,
+          "isLocalLegend": false
+        },
+        {
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Fall_LocalLegend",
+          "name": "Catch Fall Seasonal Local Legend: \"Sludge Eye\"",
+          "tracker": "Fish Caught",
+          "count": 1,
+          "isLocalLegend": true
+        }
+      ],
+      "comingSoon": []
+    },
+    {
+      "key": "winter",
+      "label": "Winter",
+      "seasonIndex": 4,
+      "months": [
+        12,
+        1,
+        2
+      ],
+      "fish": [
+        {
+          "name": "Bog Sucker",
+          "formId": "008A45C8",
+          "edid": "SeasonalFish_Fish_Medium_Bogsucker",
+          "season": "Winter",
+          "size": "Medium",
+          "isLocalLegend": false,
+          "regions": [
+            "The Forest",
+            "Ash Heap",
+            "Savage Divide"
+          ],
+          "location": null,
+          "rawMeal": {
+            "name": "Bog Sucker",
+            "subtitle": "Medium Winter Fish",
+            "value": 10
+          },
+          "filet": {
+            "name": "Winter Filet",
+            "edid": "SeasonalFish_Meal_WinterFillet"
+          },
+          "catchType": "Joins the Uncommon Region pool in-season"
+        }
+      ],
+      "recipes": [],
+      "challenges": [],
+      "comingSoon": [
+        "Winter Local Legend -- not yet released",
+        "Winter cooked recipes -- only the base filet exists so far"
+      ]
+    }
+  ]
+}
