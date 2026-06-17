@@ -292,11 +292,71 @@
         "hp": 114518
       }
     ],
+    "baseDamage": [
+      {
+        "lvl": 1,
+        "dmg": [40, 80, 121, 161, 201]
+      },
+      {
+        "lvl": 50,
+        "dmg": [62, 125, 187, 249, 311]
+      },
+      {
+        "lvl": 100,
+        "dmg": [97, 194, 291, 388, 485]
+      },
+      {
+        "lvl": 150,
+        "dmg": [151, 302, 453, 604, 755]
+      }
+    ],
+    "damageMult": [
+      {
+        "progLvl": "1–49",
+        "mult": 1
+      },
+      {
+        "progLvl": "50–99",
+        "mult": 2
+      },
+      {
+        "progLvl": "100–149",
+        "mult": 3.5
+      },
+      {
+        "progLvl": "150–199",
+        "mult": 5.5
+      },
+      {
+        "progLvl": "200",
+        "mult": 8
+      }
+    ],
+    "incomingDamageMult": [
+      {
+        "progLvl": "1–49",
+        "mult": 1
+      },
+      {
+        "progLvl": "50–99",
+        "mult": 0.8
+      },
+      {
+        "progLvl": "100–149",
+        "mult": 0.6
+      },
+      {
+        "progLvl": "150–199",
+        "mult": 0.4
+      },
+      {
+        "progLvl": "200",
+        "mult": 0.2
+      }
+    ],
     "resistances": 0,
     "levelling": {
-      "totalXp": 303770,
-      "perDayCap": 12000,
-      "days": 26
+      "totalXp": 303770
     }
   },
   "playerGift": {

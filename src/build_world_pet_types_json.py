@@ -644,10 +644,36 @@ def build_stats():
             {"lvl": 100, "hp": 48628},
             {"lvl": 150, "hp": 114518},
         ],
+        # Base damage per hit — CURVs WorldPets_PetProwess_Damage{0-4}.json (key levels).
+        # Each row: combat level → [prowess 0, prowess 1, prowess 2, prowess 3, prowess 4].
+        "baseDamage": [
+            {"lvl": 1,   "dmg": [40, 80, 121, 161, 201]},
+            {"lvl": 50,  "dmg": [62, 125, 187, 249, 311]},
+            {"lvl": 100, "dmg": [97, 194, 291, 388, 485]},
+            {"lvl": 150, "dmg": [151, 302, 453, 604, 755]},
+        ],
+        # Damage dealt multiplier — CURV WorldPets_PetProwess_DamageMult0.json.
+        # Keyed by pet progression level (steps at 50/100/150/200).
+        "damageMult": [
+            {"progLvl": "1–49",    "mult": 1},
+            {"progLvl": "50–99",   "mult": 2},
+            {"progLvl": "100–149", "mult": 3.5},
+            {"progLvl": "150–199", "mult": 5.5},
+            {"progLvl": "200",          "mult": 8},
+        ],
+        # Incoming damage multiplier — CURV WorldPets_PetProwess_IncomingDamageMult0.json.
+        "incomingDamageMult": [
+            {"progLvl": "1–49",    "mult": 1},
+            {"progLvl": "50–99",   "mult": 0.8},
+            {"progLvl": "100–149", "mult": 0.6},
+            {"progLvl": "150–199", "mult": 0.4},
+            {"progLvl": "200",          "mult": 0.2},
+        ],
         # All six WorldPets_Resist_* curves read 0 (placeholders, June 2026).
         "resistances": 0,
-        # Total Pet XP to 200 ≈ 303,770 (CURV XP curve); 12,000/day cap ≈ 26 days.
-        "levelling": {"totalXp": 303770, "perDayCap": 12000, "days": 26},
+        # Total Pet XP to 200 ≈ 303,770 (CURV 008AFDF9 XP curve). No daily cap —
+        # Pet XP ticks once per minute while you earn player XP (12k/day cap removed).
+        "levelling": {"totalXp": 303770},
     }
 
 
