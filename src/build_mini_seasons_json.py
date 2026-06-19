@@ -707,6 +707,15 @@ GALLERY_IMAGES = {
     ],
 }
 
+# ── Per-event reward image subfolder ─────────────────────────────────
+# Maps event_key → subfolder under mini-seasons/ where its reward images
+# live. When set, auto-generated image URLs include this subfolder so the
+# path matches the FileZilla upload location.
+EVENT_IMAGE_SUBDIR = {
+    'summer-sock-hop': 'summer-sock-hop',
+}
+
+
 # ── Per-event reward image overrides ──────────────────────────────────
 # Maps event_key → {img_edid (lowercase, _entm_ stripped) → actual URL}.
 # Used by load_entm_rewards() to override the auto-generated image_url
@@ -1349,7 +1358,9 @@ def load_entm_rewards(tsv_root):
                     if img_edid in override_map:
                         image_url = override_map[img_edid]
                     else:
-                        image_url = f"/wp-content/uploads/guide-images/mini-seasons/{img_edid}.avif"
+                        subdir = EVENT_IMAGE_SUBDIR.get(key, '')
+                        sub = f"{subdir}/" if subdir else ''
+                        image_url = f"/wp-content/uploads/guide-images/mini-seasons/{sub}{img_edid}.avif"
 
                     # Derive display name — title rewards get suffix like
                     # "Arsenal Suffix Camp Title" per user convention.

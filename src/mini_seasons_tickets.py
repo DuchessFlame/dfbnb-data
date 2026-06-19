@@ -95,8 +95,25 @@ TICKET_COSTS = {
     'SCORE_MiniSeason_2026_WeaponsExpert_ENTM_CAMP_Furniture_RipBoyStatue': 0,  # Rip Daring Vault Boy Statue — free starter
 
     # ── Summer Sock Hop (2026-07-21 → 2026-08-04) ──
-    # Reward EDID prefix: SCORE_MiniSeason_2026_SockHop_*  (ENTM rewards not yet in ENTM export)
-    # (ticket costs pending — fill in from in-game scoreboard screenshots once live)
+    # Reward EDID prefix: SCORE_MiniSeason_2026_SockHop_*
+    'SCORE_MiniSeason_2026_SockHop_ENTM_Emotes_ShimmyDance': 0,  # Shimmy Dance emote — free first reward (0 tickets)
+    # (remaining ticket costs pending — fill in from in-game scoreboard screenshots once live)
+}
+
+
+# ─────────────────────────────────────────────────────────────
+# Buff details to append to a reward's DESC. Some scoreboard CAMP items
+# grant a player buff whose magnitude/duration is NOT in the ENTM DESC —
+# it lives in the FURN/SPEL/MGEF records (mirrored in buff-stations.json).
+# Key: reward EDID (ENTM). Value: text appended after the game DESC.
+# ─────────────────────────────────────────────────────────────
+REWARD_DESC_APPEND = {
+    # ── Summer Sock Hop (2026-07-21 → 2026-08-04) ──
+    # Source: dist/buff-stations.json (FURN/SPEL effect records)
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMP_Furniture_Instrument_BlackPiano':
+        'Buff — Well Tuned: +25 Action Point regeneration for 60 minutes. Solo buff (applies to the player only).',
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMP_FloorDecor_Lonecycle':
+        'Buff: +2 Endurance and +2 Charisma for 30 minutes. Solo buff (applies to the player only).',
 }
 
 
@@ -220,6 +237,7 @@ def apply_ticket_overlay(output):
     chal_ticket_hits = 0
     rew_ticket_hits = 0
     chal_reward_hits = 0
+    desc_append_hits = 0
 
     for ev in output.values():
         # Collect every challenge bucket once (week1–week8 + bonus + cut).
@@ -257,9 +275,17 @@ def apply_ticket_overlay(output):
             if edid in TICKET_COSTS:
                 rew['ticket_cost'] = TICKET_COSTS[edid]
                 rew_ticket_hits += 1
+            # 4) Append buff magnitude/duration to the reward DESC.
+            if edid in REWARD_DESC_APPEND:
+                extra = REWARD_DESC_APPEND[edid]
+                desc = (rew.get('description', '') or '').strip()
+                if extra not in desc:
+                    rew['description'] = (desc + '  ' + extra).strip() if desc else extra
+                    desc_append_hits += 1
 
     return {
         'challenges_ticket_updated':  chal_ticket_hits,
         'rewards_ticket_updated':     rew_ticket_hits,
         'challenges_reward_updated':  chal_reward_hits,
+        'rewards_desc_appended':      desc_append_hits,
     }
