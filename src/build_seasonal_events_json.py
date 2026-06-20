@@ -136,16 +136,19 @@ EVENTS = {
         "isContainerLoot": False,
         "questFormIDs": ["00620F7B"],
     },
-    "meat-week-all-rewards": {
-        "name": "Meat Week",
+    "grahms-meat-cook-all-rewards": {
+        "name": "Grahm's Meat-Cook",
         "eventSlug": "meat-week",
-        "description": "Help Grahm prepare for the cookout! Cook meat, collect prime cuts, and earn unique rewards.",
+        "description": "Help Grahm cook up a feast at the grill during Meat Week and earn unique rewards.",
         "isContainerLoot": False,
-        "questFormIDs": ["0054B3FA", "0054B3F3"],
-        "groups": [
-            {"key": "cook", "label": "Grahm's Meat-Cook Rewards", "questFormID": "0054B3FA"},
-            {"key": "hunt", "label": "Primal Cuts Rewards", "questFormID": "0054B3F3"},
-        ],
+        "questFormIDs": ["0054B3FA"],
+    },
+    "primal-cuts-all-rewards": {
+        "name": "Primal Cuts",
+        "eventSlug": "meat-week",
+        "description": "Hunt creatures across Appalachia and harvest prime cuts for Grahm during Meat Week to earn unique rewards.",
+        "isContainerLoot": False,
+        "questFormIDs": ["0054B3F3"],
     },
     "mischief-night-all-rewards": {
         "name": "Mischief Night",
@@ -231,6 +234,47 @@ def _load_quest_index(tsv_root):
         if fid:
             idx[fid.upper()] = r
     return idx
+
+
+def _norm_event_name(s):
+    """Normalise an event name for region/location lookup (mirrors the
+    activities build's norm_name): lowercase, drop bracketed bits, keep
+    only alphanumerics."""
+    s = (s or "").lower()
+    s = re.sub(r"\(.*?\)", "", s)
+    s = re.sub(r"<.*?>", "", s)
+    s = re.sub(r"[^a-z0-9]+", "", s)
+    return s.strip()
+
+
+def _load_region_location_tsv(tsv_root):
+    """Read events_region_location.tsv → { norm_name(event): [{region, location}] }.
+
+    Same source and shape used by the activities build so seasonal pages
+    rendered in the activity layout show matching Region/Location header
+    lines. Columns: 'Activity / Event Name', 'Region', 'Location / LCTN'.
+    """
+    from collections import defaultdict
+    out = defaultdict(list)
+    path = os.path.join(tsv_root, "events_region_location.tsv")
+    try:
+        rows = read_tsv(path)
+    except Exception as e:
+        print("[build_seasonal_events] WARNING: could not read {}: {}".format(path, e))
+        return {}
+    for row in rows:
+        name     = str(row.get("Activity / Event Name") or "").strip()
+        region   = str(row.get("Region") or "").strip()
+        location = str(row.get("Location / LCTN") or "").strip()
+        if not name:
+            continue
+        bare = re.sub(r"^(enclave\s+)?activity:\s*", "", name, flags=re.IGNORECASE).strip()
+        bare = re.sub(r"^event:\s*", "", bare, flags=re.IGNORECASE).strip()
+        key = _norm_event_name(bare)
+        if key:
+            out[key].append({"region": region, "location": location})
+    print("[build_seasonal_events] Loaded region/location rows for {} events".format(len(out)))
+    return dict(out)
 
 
 def _humanize_party_crasher_name(raw):
@@ -1834,6 +1878,10 @@ def main():
     # Load QUEST TSV for party-crasher / invaders detection
     quest_index = _load_quest_index(TSV_ROOT)
 
+    # Load region/location lookup (shared with the activities build) so pages
+    # rendered in the activity layout can show Region/Location header lines.
+    region_locations = _load_region_location_tsv(TSV_ROOT)
+
     # Load release-year tracking (persistent across builds)
     release_years = _load_release_years()
     print("[build_seasonal_events] Loaded {} release-year entries".format(
@@ -1862,6 +1910,7 @@ def main():
             "rewards":         [],
             "groups":          event_def.get("groups"),
             "gallery":         [],
+            "regionLocations": region_locations.get(_norm_event_name(ev_name), []),
         }
         if event_flags["partyCrashers"]:
             page_data["partyCrashers"] = event_flags["partyCrashers"]
