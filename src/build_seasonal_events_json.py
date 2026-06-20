@@ -149,6 +149,34 @@ EVENTS = {
         "description": "Hunt creatures across Appalachia and harvest prime cuts for Grahm during Meat Week to earn unique rewards.",
         "isContainerLoot": False,
         "questFormIDs": ["0054B3F3"],
+        # Per-region detail (difficulty / enemies / end boss / Prime Meat).
+        # Confirmed by hand — the GMRW grants Prime Meat ×3/×4/×5 on one stage
+        # condition with no region attached, and per-region creatures are
+        # runtime/encounter-driven, so none of this is derivable from the TSVs.
+        # Keys must match the regionLocations region names.
+        "regionInfo": {
+            "Forest":        {"difficulty": "Easy",   "enemies": ["Wolves", "Yao Guai"],                                        "boss": "Deathclaw",             "primeMeat": 3},
+            "Toxic Valley":  {"difficulty": "Easy",   "enemies": ["Radtoads", "Mongrels", "Snallygasters"],                     "boss": "Grafton Monster",       "primeMeat": 3},
+            "Ash Heap":      {"difficulty": "Medium", "enemies": ["Radrats", "Radscorpions", "Cave Crickets"],                  "boss": "Sheepsquatch",          "primeMeat": 4},
+            "Savage Divide": {"difficulty": "Medium", "enemies": ["Yao Guai", "Honeybeasts", "Wolves"],                         "boss": "Hermit Crab",           "primeMeat": 4},
+            "The Mire":      {"difficulty": "Hard",   "enemies": ["Radtoads", "Mirelurk Kings", "Gulpers"],                     "boss": "Mirelurk Queen",        "primeMeat": 5},
+            "Cranberry Bog": {"difficulty": "Hard",   "enemies": ["Fog Crawlers", "Radscorpions", "Mirelurk Kings", "Insects"], "boss": "Super Mutant Behemoth", "primeMeat": 5},
+        },
+        # Direct ALCH reward the LVLI walk does not capture; injected into the
+        # tree after the synthetic Caps node. Prime Meat qty scales by region
+        # difficulty (3 / 4 / 5).
+        "extraRewardNodes": [
+            {
+                "type": "lvli", "formid": "005527C2", "edid": "E02A_Meat_PrimeMeat",
+                "label": "Prime Meat", "useAll": False, "entryRate": 100.0,
+                "gmrwDropRate": 100.0, "tierLabel": None, "conditions": [],
+                "items": [
+                    {"name": "Prime Meat (Easy — Forest, Toxic Valley)", "formid": "005527C2", "edid": "E02A_Meat_PrimeMeat", "sig": "ALCH", "qty": 3, "dropRate": 100.0},
+                    {"name": "Prime Meat (Medium — Ash Heap, Savage Divide)", "formid": "005527C2", "edid": "E02A_Meat_PrimeMeat", "sig": "ALCH", "qty": 4, "dropRate": 100.0},
+                    {"name": "Prime Meat (Hard — The Mire, Cranberry Bog)", "formid": "005527C2", "edid": "E02A_Meat_PrimeMeat", "sig": "ALCH", "qty": 5, "dropRate": 100.0},
+                ],
+            },
+        ],
     },
     "mischief-night-all-rewards": {
         "name": "Mischief Night",
@@ -1911,6 +1939,7 @@ def main():
             "groups":          event_def.get("groups"),
             "gallery":         [],
             "regionLocations": region_locations.get(_norm_event_name(ev_name), []),
+            "regionInfo":      event_def.get("regionInfo"),
         }
         if event_flags["partyCrashers"]:
             page_data["partyCrashers"] = event_flags["partyCrashers"]
@@ -1932,6 +1961,19 @@ def main():
         page_data["eventRewardTree"] = ev.get("eventRewardTree") or []
         page_data["rewards"]         = ev.get("rewards") or []
         page_data["groups"]          = ev.get("groups")
+
+        # Inject any hand-authored extra reward nodes (e.g. direct ALCH rewards
+        # the LVLI walk doesn't capture) after the synthetic Caps node.
+        extra_nodes = event_def.get("extraRewardNodes") or []
+        if extra_nodes:
+            tree = page_data["eventRewardTree"]
+            insert_at = next(
+                (i + 1 for i, n in enumerate(tree)
+                 if "synthetic_caps" in str(n.get("edid", "")).lower()),
+                0,
+            )
+            for off, node in enumerate(extra_nodes):
+                tree.insert(insert_at + off, node)
 
         tree_len = len(page_data["eventRewardTree"])
         rewards_len = len(page_data["rewards"])
