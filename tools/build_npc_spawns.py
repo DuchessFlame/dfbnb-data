@@ -33,7 +33,10 @@ REPO = os.path.dirname(HERE)
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 CHAL_TSV       = os.environ.get("CHAL_TSV",       os.path.join(REPO, "tsv", "CHAL_Export_June_2026.tsv"))
 DIG_DIR        = os.environ.get("DIG_DIR",        os.path.join(REPO, "data", "npc_spawns", "digs"))
-OUT_JSON       = os.environ.get("OUT_JSON",       r"C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\npc-spawns\npc_spawns.json")
+OUT_JSON       = os.environ.get("OUT_JSON",       os.path.join(REPO, "dist", "npc_spawns.json"))
+# DB-derived per-location geo (region + companions) is cached here so the patch
+# build can rebuild every 6h without the (large, local-only) Mappalachia DB.
+GEO_CACHE      = os.environ.get("GEO_CACHE",      os.path.join(REPO, "data", "npc_spawns", "geo_cache.json"))
 
 CREDIT = "With thanks to Nerditbabe and Mappalachia."
 
@@ -217,33 +220,65 @@ def used_for(chal, keywords, name_match):
   order = ["Score Challenge — Daily", "Score Challenge — Weekly", "Lifetime Challenge", "Challenge Events"]
   return {k: groups[k] for k in order if k in groups}
 
+# ---- geo cache (region + companions) -----------------------------------------
+def load_geo_cache():
+  try:
+    return json.load(open(GEO_CACHE, encoding="utf-8"))
+  except Exception:
+    return {}
+
+def save_geo_cache(cache):
+  os.makedirs(os.path.dirname(GEO_CACHE), exist_ok=True)
+  json.dump(cache, open(GEO_CACHE, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
 # ---- build -------------------------------------------------------------------
 def main():
-  con, cur, rings, markers = load_mappalachia()
+  # The Mappalachia DB is large and local-only. When present (local runs) we
+  # compute regions/companions fresh AND refresh geo_cache.json. When absent
+  # (GitHub Actions) we fall back to the committed cache so the patch build can
+  # still rebuild dig counts + "Used For" every 6h.
+  db_ok = os.path.isfile(MAPPALACHIA_DB)
+  if db_ok:
+    con, cur, rings, markers = load_mappalachia()
+    print(f"[npc_spawns] Mappalachia DB found — computing fresh regions/companions, refreshing geo cache.")
+  else:
+    cur = rings = markers = None
+    print(f"[npc_spawns] Mappalachia DB not found at {MAPPALACHIA_DB} — CI mode: using committed geo cache ({GEO_CACHE}).")
+  cache = load_geo_cache()
   chal = load_chal()
   out = {"_meta": {"generated": datetime.date.today().isoformat(),
                    "source": "Mappalachia dig (counts) + Mappalachia DB (regions, companions) + CHAL export (Used For)"},
          "npcs": {}}
   for cfg in NPCS:
+    slug = cfg["slug"]
     dig = parse_dig(os.path.join(DIG_DIR, cfg["dig_file"]), cfg["dig_header"])
-    comp = companion_counts(cur, markers, cfg["companion_match"])
+    comp = companion_counts(cur, markers, cfg["companion_match"]) if db_ok else None
+    slug_cache = cache.get(slug, {})
+    fresh_cache = {}
     locs = []
-    for nm, ct in dig["open"]:
-      locs.append({"name": nm, "type": "Open World",
-                   "region": region_for(cur, rings, nm, cfg["interior_region_overrides"]),
-                   "count": ct, "companions": comp.get(nm, 0), "image": ""})
-    for nm, ct in dig["interior"]:
-      locs.append({"name": nm, "type": "Interior",
-                   "region": region_for(cur, rings, nm, cfg["interior_region_overrides"]),
-                   "count": ct, "companions": comp.get(nm, 0), "image": ""})
+    for section, typ in (("open", "Open World"), ("interior", "Interior")):
+      for nm, ct in dig[section]:
+        if db_ok:
+          region = region_for(cur, rings, nm, cfg["interior_region_overrides"])
+          companions = comp.get(nm, 0)
+        else:
+          cached = slug_cache.get(nm, {})
+          region = cached.get("region", cfg["interior_region_overrides"].get(nm, ""))
+          companions = cached.get("companions", 0)
+        fresh_cache[nm] = {"region": region, "companions": companions}
+        locs.append({"name": nm, "type": typ, "region": region,
+                     "count": ct, "companions": companions, "image": ""})
     locs.sort(key=lambda x: -x["count"])
-    out["npcs"][cfg["slug"]] = {
+    cache[slug] = fresh_cache if db_ok else slug_cache
+    out["npcs"][slug] = {
       "name": cfg["name"], "page_title": cfg["page_title"], "blurb": cfg["blurb"],
       "credit": CREDIT, "companion_label": cfg["companion_label"],
       "total": dig["total"], "notes": cfg["notes"],
       "used_for": used_for(chal, cfg["usedfor_keywords"], cfg["usedfor_name_match"]),
       "locations": locs,
     }
+  if db_ok:
+    save_geo_cache(cache)
   os.makedirs(os.path.dirname(OUT_JSON), exist_ok=True)
   json.dump(out, open(OUT_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
   for slug, d in out["npcs"].items():

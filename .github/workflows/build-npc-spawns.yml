@@ -1,0 +1,86 @@
+name: Build NPC Spawns Data
+
+# Builds dist/npc_spawns.json (Score Challenges spawn-location pages) for the
+# df-bnb-npc-spawns.js renderer, served via raw.githubusercontent.
+#
+# The full generator (tools/build_npc_spawns.py) reads the local-only Mappalachia
+# SQLite DB for regions + companion counts. GitHub Actions doesn't have that DB,
+# so here it runs in CACHE mode: regions/companions come from the committed
+# data/npc_spawns/geo_cache.json, while spawn counts (dig .txt) and "Used For"
+# (CHAL export) are rebuilt from the committed inputs.
+#
+# To refresh regions/companions, DuchessFlame runs the script locally WITH the
+# Mappalachia DB and commits the updated geo_cache.json + dist/npc_spawns.json.
+#
+# The 6-hourly rebuild happens inside dfbnb-patch-build.yml (this NPC spawns step
+# runs there too). This standalone workflow is for on-demand / on-change builds.
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [ main ]
+    paths:
+      - 'data/npc_spawns/**'
+      - 'tsv/CHAL_Export_*.tsv'
+      - 'tools/build_npc_spawns.py'
+      - '.github/workflows/build-npc-spawns.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build NPC Spawns JSON (cache mode — no Mappalachia DB in CI)
+        run: |
+          python -V
+          python tools/build_npc_spawns.py
+
+      - name: Verify output
+        run: |
+          test -f dist/npc_spawns.json \
+            && echo "OK npc_spawns.json" \
+            || (echo "MISSING npc_spawns.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/npc_spawns.json'))
+          assert 'npcs' in d and d['npcs'], 'npcs missing/empty'
+          for slug, n in d['npcs'].items():
+              assert n.get('locations'), f'{slug} has no locations'
+              print(f'  {slug}: {len(n[\"locations\"])} locations, total {n.get(\"total\")}')
+          "
+
+      - name: Commit dist output
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+
+          git add dist/npc_spawns.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build NPC Spawns data"
+          git fetch origin main
+          git pull --rebase --autostash origin main
+          git push origin main

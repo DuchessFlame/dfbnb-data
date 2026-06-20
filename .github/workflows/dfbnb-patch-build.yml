@@ -622,6 +622,43 @@ jobs:
       - name: Build Weapons JSON
         run: python src/build_weapons_json.py
 
+      # --- PENNANTS (Pennants checklist page) ---
+      # Outputs dist/pennants.json, served via raw.githubusercontent to
+      # df-bnb-plan-checklists.js. Previously had no workflow and went stale.
+      - name: Build Pennants JSON
+        run: python src/build_pennants_json.py --data-dir tsv --outdir dist
+
+      # --- WORLD PET CHALLENGES (World Pet Challenges page) ---
+      # Outputs dist/world_pet_challenges.json for df-bnb-world-pets.js.
+      - name: Build World Pet Challenges JSON
+        run: python src/build_world_pet_challenges_json.py --tsv-dir tsv --out-dir dist
+
+      # --- WEAK SPOT MULTIPLIERS (BnB calculators) ---
+      # Outputs dist/calculators/weak_spot_multipliers.json for df-bnb-bnb-calculators.js.
+      - name: Build Weak Spot Multipliers JSON
+        run: python src/build_weak_spot_multipliers_json.py
+
+      # --- DROP CHANCES DATA (Drop Chances page) ---
+      # Outputs dist/drop_chances_data.json for df-bnb-drop-chances.js.
+      - name: Build Drop Chances Data JSON
+        run: python src/build_drop_chances_data.py --tsv-root tsv --outdir dist
+
+      # --- LEGENDARY MOD DROP CHANCES (Legendary mod calculator) ---
+      # Outputs dist/legendary_mod_drop_chances.json for df-bnb-legendary-mod-calc.js.
+      - name: Build Legendary Mod Drop Chances JSON
+        run: python src/build_legendary_mod_drop_chances_json.py
+
+      # --- NPC SPAWNS (Score Challenges spawn-location pages) ---
+      # tools/build_npc_spawns.py outputs dist/npc_spawns.json for df-bnb-npc-spawns.js.
+      # The Mappalachia DB is large and local-only, so in CI this runs in CACHE
+      # mode: it reads data/npc_spawns/geo_cache.json (committed) for regions +
+      # companions and refreshes dig counts + "Used For" from the committed dig
+      # .txt and CHAL export every 6h. Regions/companions only change when
+      # DuchessFlame re-runs the script locally with the DB and commits a fresh
+      # geo_cache.json (which also retriggers this build via the data/** path).
+      - name: Build NPC Spawns JSON
+        run: python tools/build_npc_spawns.py
+
       # --- CULT OF THE LAMB ---
       - name: Build Cult of the Lamb JSON
         run: python src/build_cult_of_the_lamb_json.py
@@ -770,6 +807,12 @@ jobs:
           test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
           test -f dist/minerva/minerva_plans.json      && echo "OK minerva/minerva_plans.json"       || (echo "MISSING minerva/minerva_plans.json" && exit 1)
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
+          test -f dist/pennants.json                 && echo "OK pennants.json"                 || (echo "MISSING pennants.json" && exit 1)
+          test -f dist/world_pet_challenges.json     && echo "OK world_pet_challenges.json"     || (echo "MISSING world_pet_challenges.json" && exit 1)
+          test -f dist/calculators/weak_spot_multipliers.json && echo "OK weak_spot_multipliers.json" || (echo "MISSING weak_spot_multipliers.json" && exit 1)
+          test -f dist/drop_chances_data.json        && echo "OK drop_chances_data.json"        || (echo "MISSING drop_chances_data.json" && exit 1)
+          test -f dist/legendary_mod_drop_chances.json && echo "OK legendary_mod_drop_chances.json" || (echo "MISSING legendary_mod_drop_chances.json" && exit 1)
+          test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
 
       # --- COMMIT ONCE ---
       - name: Commit & Push
