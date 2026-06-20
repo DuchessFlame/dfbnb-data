@@ -32,6 +32,7 @@ REPO = os.path.dirname(HERE)
 
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 CHAL_TSV       = os.environ.get("CHAL_TSV",       os.path.join(REPO, "tsv", "CHAL_Export_June_2026.tsv"))
+NPC_TSV        = os.environ.get("NPC_TSV",        os.path.join(REPO, "tsv", "NPC_Export_June_2026.tsv"))
 DIG_DIR        = os.environ.get("DIG_DIR",        os.path.join(REPO, "data", "npc_spawns", "digs"))
 OUT_JSON       = os.environ.get("OUT_JSON",       os.path.join(REPO, "dist", "npc_spawns.json"))
 # DB-derived per-location geo (region + companions) is cached here so the patch
@@ -52,7 +53,9 @@ NPCS = [
     "page_title": "Blood Eagle Spawn Locations",
     "dig_file": "BloodEagle_RustRaider_spawns.txt",
     "dig_header": "# BLOOD EAGLE",
-    "blurb": "Every location where Blood Eagles spawn, ordered from most to fewest. Blood Eagles are Human enemies, so these spots also work for any Human challenge.",
+    "blurb": "Every location where Blood Eagles spawn, ordered from most to fewest.",
+    "category": "Score Challenges",
+    # keywords (Race + Faction) are derived generatively from the NPC export — see derive_keywords()
     "companion_label": "Attack dogs",
     "companion_match": ["bloodeagledog"],          # all substrings must be in the form editorID
     "usedfor_keywords": ["00571D9F"],              # ActorTypeBloodEagle
@@ -69,7 +72,9 @@ NPCS = [
     "page_title": "Rust Raider Spawn Locations",
     "dig_file": "BloodEagle_RustRaider_spawns.txt",
     "dig_header": "# RUST RAIDER",
-    "blurb": "Every location where Rust Raiders spawn, ordered from most to fewest. Rust Raiders are Human enemies and only appear in the Burning Springs region.",
+    "blurb": "Every location where Rust Raiders spawn, ordered from most to fewest.",
+    "category": "Score Challenges",
+    # keywords (Race + Faction) are derived generatively from the NPC export — see derive_keywords()
     "companion_label": "Deathclaws",
     "companion_match": ["rustraider", "deathclaw"],
     "usedfor_keywords": [],
@@ -181,6 +186,66 @@ def load_chal():
 def conds(r):
   return [r.get(f"Cond{i}") or "" for i in range(1, 53) if r.get(f"Cond{i}")]
 
+def humanize(token):
+  """Split a camelCase / digit-run editor token into spaced words.
+     'ScienceOfLove' -> 'Science Of Love', 'RustRaider' -> 'Rust Raider'."""
+  words = re.findall(r"[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|[A-Z]+|\d+", token or "")
+  return " ".join(words).strip() or (token or "")
+
+def season_from_edid(ed):
+  """Mini-season / seasonal-event name lives in the challenge EDID, e.g.
+     ATX_DE2025_Halloween_Week2_Challenge_...  -> 'Halloween'
+     DE2026_SockHop_Challenge_...              -> 'Sock Hop'
+     ATX_DE2024_ScienceOfLove_Week1_...        -> 'Science Of Love'
+     Returns '' when no DE<year>_<Event> token is present."""
+  m = re.search(r"DE\d{4}_([A-Za-z0-9]+)", ed or "")
+  return humanize(m.group(1)) if m else ""
+
+# ---- generative keywords (Race + Faction) from the NPC export -----------------
+def load_npc_tsv():
+  import csv
+  try:
+    return list(csv.DictReader(open(NPC_TSV, encoding="utf-8", errors="replace"), delimiter="\t"))
+  except Exception as e:
+    print(f"[npc_spawns] WARN: could not read NPC_TSV ({NPC_TSV}): {e}")
+    return []
+
+# variants/companions/corpses we don't want skewing the creature's own Race
+_KW_EXCLUDE = ("corpse", "attack dog", "deathclaw", " dog")
+
+def derive_keywords(npc_rows, name, name_match=None, exclude=_KW_EXCLUDE):
+  """Race + Faction for a creature, read straight from the NPC export.
+     - rows are matched by name (defaults to the creature name, lowercased)
+     - the creature's own faction = the most common Factions_Flat among matches
+     - Race = most common RNAM_Name among rows carrying that faction
+     - Faction is humanised: strip a leading region prefix (e.g. 'Burn_') and the
+       trailing 'Faction', then camelCase-split. 'Burn_RustRaiderFaction' -> 'Rust Raider'."""
+  matches = [m.lower() for m in (name_match or [name.lower()])]
+  rows = []
+  for r in npc_rows:
+    full = (r.get("FULL") or "").lower()
+    if not any(m in full for m in matches):
+      continue
+    if any(x in full for x in exclude):
+      continue
+    rows.append(r)
+  if not rows:
+    return []
+  def fac_edid(r):
+    return (r.get("Factions_Flat") or "").split("[")[0].split(",")[0].strip()
+  fac_counter = Counter(fac_edid(r) for r in rows if fac_edid(r))
+  faction_edid = fac_counter.most_common(1)[0][0] if fac_counter else ""
+  race_counter = Counter(
+    (r.get("RNAM_Name") or "").strip()
+    for r in rows
+    if (not faction_edid or fac_edid(r) == faction_edid) and (r.get("RNAM_Name") or "").strip()
+  )
+  race = race_counter.most_common(1)[0][0] if race_counter else ""
+  fac = re.sub(r"Faction$", "", faction_edid)
+  fac = re.sub(r"^[A-Za-z][A-Za-z0-9]*_", "", fac)   # drop a leading region/DLC prefix e.g. 'Burn_'
+  faction = humanize(fac)
+  return [k for k in (race, faction) if k]
+
 def used_for(chal, keywords, name_match):
   allowed = set(keywords) | HUMAN_IDS
   def human_ok(r):
@@ -215,8 +280,14 @@ def used_for(chal, keywords, name_match):
     if not g: continue
     epic = full.lower().startswith("epic -") or ed.endswith("_Epic")
     nm = re.sub(r"^[Ee]pic - ", "", full).strip()
-    if not any(n == nm and e == epic for n, e in groups[g]):
-      groups[g].append((nm, epic))
+    try:
+      count = int(float(r.get("TNAM") or 0))
+    except (TypeError, ValueError):
+      count = 0
+    season = season_from_edid(ed) if g == "Challenge Events" else ""
+    entry = {"name": nm, "epic": epic, "count": count, "season": season}
+    if entry not in groups[g]:
+      groups[g].append(entry)
   order = ["Score Challenge — Daily", "Score Challenge — Weekly", "Lifetime Challenge", "Challenge Events"]
   return {k: groups[k] for k in order if k in groups}
 
@@ -246,6 +317,7 @@ def main():
     print(f"[npc_spawns] Mappalachia DB not found at {MAPPALACHIA_DB} — CI mode: using committed geo cache ({GEO_CACHE}).")
   cache = load_geo_cache()
   chal = load_chal()
+  npc_rows = load_npc_tsv()
   out = {"_meta": {"generated": datetime.date.today().isoformat(),
                    "source": "Mappalachia dig (counts) + Mappalachia DB (regions, companions) + CHAL export (Used For)"},
          "npcs": {}}
@@ -272,6 +344,8 @@ def main():
     cache[slug] = fresh_cache if db_ok else slug_cache
     out["npcs"][slug] = {
       "name": cfg["name"], "page_title": cfg["page_title"], "blurb": cfg["blurb"],
+      "category": cfg.get("category", "Score Challenges"),
+      "keywords": cfg.get("keywords") or derive_keywords(npc_rows, cfg["name"], cfg.get("npc_name_match")),
       "credit": CREDIT, "companion_label": cfg["companion_label"],
       "total": dig["total"], "notes": cfg["notes"],
       "used_for": used_for(chal, cfg["usedfor_keywords"], cfg["usedfor_name_match"]),
