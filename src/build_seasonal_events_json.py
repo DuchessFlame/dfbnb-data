@@ -1158,6 +1158,7 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
     default_fids = set()
     legmodule_fids = set()
     bait_fids = set()
+    bait_sub_fid = None
     # Tier-enrichment sources. Each maps FormID → list of {qty, rate}; the
     # lead item per FormID picks these up so the renderer shows one row per
     # (qty, rate) tier instead of collapsing to a single row.
@@ -1188,6 +1189,7 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
                 print("    [WARN] resolve_deep LegendaryModule {}: {}".format(sub_fid, e))
         elif _FISHING_BAIT_PATTERN.search(sub_edid):
             try:
+                bait_sub_fid = sub_fid
                 for it in resolver.resolve_deep(sub_fid):
                     fid = it.get("formid")
                     if fid:
@@ -1267,9 +1269,16 @@ def _split_unique_node(parent_lvli_fid, unique_node, data, resolver):
         _apply_tiers_to_items(bait_items, bait_tiers)
         # Improved Bait is a deterministic always-given reward sibling — stays
         # in the Default Event Rewards section (no isUniqueReward flag).
-        event_reward_nodes.append(_make_split_subnode(
-            "Improved Bait", bait_items, unique_node
-        ))
+        bait_node = _make_split_subnode("Improved Bait", bait_items, unique_node)
+        # Attach the bait LVLI's own list-level conditions (e.g. "Requires the
+        # Casting Off quest to be completed"). The split subnode wraps items
+        # lifted from the parent pool, so the sub-list's conditions must be
+        # pulled in explicitly here. Mirrors build_activities_rewards_json.py.
+        if bait_sub_fid:
+            for _c in _simplify_conditions(data.lvli.list_conditions_for(bait_sub_fid)):
+                if _c not in bait_node["conditions"]:
+                    bait_node["conditions"].append(_c)
+        event_reward_nodes.append(bait_node)
 
     if remaining_items:
         # Enrich base-flower items (Carnal Weeper / Crystalcup / Radlily)
@@ -1356,7 +1365,7 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
         "entryRate":    100.0,
         "gmrwDropRate": 100.0,
         "tierLabel":    None,
-        "conditions":   [],
+        "conditions":   _simplify_conditions(resolver.lvli.list_conditions_for(lvli_fid)),
         "items":        out_items,
     }
     if group_key:

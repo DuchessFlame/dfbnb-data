@@ -574,6 +574,26 @@ class LvliIndex:
                     "level_filter": False, "first_match": False}
         return parse_lvlf_flags(pick(row, "LVLF_Flags", default=""))
 
+    def list_conditions_for(self, formid: str) -> List[str]:
+        """Return the raw list-level condition strings (ListCond1..N) attached
+        to the LVLI itself, in order. These come from the LVLI_List TSV's
+        ListCondCount / ListCond1.. columns (populated by the xEdit export) and
+        are SEPARATE from per-entry conditions. Returns [] when the list has no
+        conditions or the columns are absent. Mirrors the LVLI_LIST_CONDITIONS
+        builder in build_activities_rewards_json.py."""
+        row = self.list_by_formid.get(formid)
+        if not row:
+            return []
+        lcc = (row.get("ListCondCount") or "").strip()
+        if not lcc or lcc == "0":
+            return []
+        out: List[str] = []
+        for ci in range(1, 26):  # up to ListCond25
+            cv = (row.get("ListCond{}".format(ci)) or "").strip()
+            if cv:
+                out.append(cv)
+        return out
+
     def max_count_for(
         self,
         formid: str,
