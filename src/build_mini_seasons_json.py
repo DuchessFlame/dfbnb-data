@@ -359,6 +359,17 @@ KEYWORD_GUIDES = {
 }
 
 
+# Enemy actor-type keyword EDID → spawn-location guide.
+# When a challenge requires killing one of these enemies, the spawn-location page
+# is the only relevant guide, so it OVERRIDES any meat/race/keyword auto-matches
+# (e.g. a "Kill a Blood Eagle" challenge also carries a GetIsRace(Ghoul) condition
+# that would otherwise wrongly attach the Glowing Meat Guide).
+ENEMY_SPAWN_GUIDES = {
+    'ActorTypeBloodEagle':        ('Blood Eagle Spawn Locations', '/df/score-challenges/npc-spawns/blood-eagle-spawn-locations/'),
+    'Burn_ActorTypeRustKingArmy': ('Rust Raider Spawn Locations',  '/df/score-challenges/npc-spawns/rust-raider-spawn-locations/'),
+}
+
+
 def load_guide_index(guide_tsv_path):
     """Load guide_index.tsv and build a subCategory → (title, url) lookup.
 
@@ -437,6 +448,15 @@ def resolve_guide_links(conditions, guide_lookup, challenge_name=''):
     Returns list of {title, url} dicts.
     """
     items = extract_item_names(conditions)
+
+    # ── Enemy-kill override ──
+    # If the challenge requires killing a mapped enemy, the spawn-location page is
+    # the only relevant guide — return it and skip all other auto-matching (meat,
+    # race, keyword) so no stray guides are attached.
+    for item_name, rtype in items:
+        if item_name.startswith('KYWD:') and item_name[5:] in ENEMY_SPAWN_GUIDES:
+            title, url = ENEMY_SPAWN_GUIDES[item_name[5:]]
+            return [{'title': title, 'url': url}]
 
     seen_urls = set()
     links = []

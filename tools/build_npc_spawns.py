@@ -22,6 +22,10 @@ Data sources & why:
     a creature satisfies a challenge whose Target conditions reference one of its keywords/race,
     excluding challenges that require a different faction's actor-type keyword. Cut/dev/atom
     duplicates (CUT_, zzz_, ATOMS_, HTO_) are dropped.
+  - SPAWN TYPE (quest gating) per interior is read from the LCTN "LCSR" export
+    (LCSR_TSV): placed actors tied to quest combat -> "Quest area"; actors that are
+    only extra-during / removed-during a quest get an explanatory note. Open-world
+    spawns aren't cell-named in that export, so they stay "Always available".
 """
 
 import os, re, json, sqlite3, datetime
@@ -33,6 +37,7 @@ REPO = os.path.dirname(HERE)
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 CHAL_TSV       = os.environ.get("CHAL_TSV",       os.path.join(REPO, "tsv", "CHAL_Export_June_2026.tsv"))
 NPC_TSV        = os.environ.get("NPC_TSV",        os.path.join(REPO, "tsv", "NPC_Export_June_2026.tsv"))
+LCSR_TSV       = os.environ.get("LCSR_TSV",       os.path.join(REPO, "tsv", "LCTN_Export_June_2026_LCSR.tsv"))
 DIG_DIR        = os.environ.get("DIG_DIR",        os.path.join(REPO, "data", "npc_spawns", "digs"))
 OUT_JSON       = os.environ.get("OUT_JSON",       os.path.join(REPO, "dist", "npc_spawns.json"))
 # DB-derived per-location geo (region + companions) is cached here so the patch
@@ -58,6 +63,7 @@ NPCS = [
     # keywords (Race + Faction) are derived generatively from the NPC export — see derive_keywords()
     "companion_label": "Attack dogs",
     "companion_match": ["bloodeagledog"],          # all substrings must be in the form editorID
+    "enemy_lcsr": ("lvlbloodeagle", "dog"),        # (match, exclude) for the LCSR quest-gating pass
     "usedfor_keywords": ["00571D9F"],              # ActorTypeBloodEagle
     "usedfor_name_match": [],
     "interior_region_overrides": {"Little Rob's Hideout": "Savage Divide", "High Knob Fire Tower": "Skyline Valley"},
@@ -77,6 +83,7 @@ NPCS = [
     # keywords (Race + Faction) are derived generatively from the NPC export — see derive_keywords()
     "companion_label": "Deathclaws",
     "companion_match": ["rustraider", "deathclaw"],
+    "enemy_lcsr": ("lvlrustraider", "deathclaw"),  # (match, exclude) for the LCSR quest-gating pass
     "usedfor_keywords": [],
     "usedfor_name_match": ["rust raider"],
     "interior_region_overrides": {"Rust Kingdom Arena": "Burning Springs"},
@@ -157,6 +164,84 @@ def companion_counts(cur, markers, match_subs):
                           (WORLDSPACE, *forms)):
     c[nearest(x, y)] += 1
   return c
+
+# ---- quest gating (from the location-reference / LCSR export) -----------------
+# A spawn page lists every place an enemy is *placed*, but some of those placed
+# actors only matter during a quest (or are removed during one). We read the LCTN
+# "LCSR" export (placed-actor location references) and, per interior cell, decide
+# whether the spawns there are normal, quest-tied, or quest-removed. Open-world
+# spawns aren't cell-named in this export, so only interiors are classified;
+# everything else stays "Always available".
+QUEST_NAMES = [
+  ("BS02",               "Steel Reign"),
+  ("BS01",               "Steel Dawn"),
+  ("COMP_Outro_Beckett", "Beckett's questline"),
+  ("AC_SQ",              "a side quest"),
+  ("Storm",              "a Skyline Valley quest"),
+]
+_QUEST_RE = re.compile(r"^(BS0\d|AC_SQ\d|COMP_Outro|Storm_|W0\d|EN\d|E0\d|MQ\d|SQ\d)")
+
+def _quest_name(refs):
+  for pre, nm in QUEST_NAMES:
+    if any(r.startswith(pre) for r in refs):
+      return nm
+  return "a quest"
+
+def quest_flags(match_sub, exclude_sub):
+  """Return {interior_cell_name: {"spawn_type":.., "spawn_note":..}} for one enemy.
+     - 'Quest area'  : the majority of placed actors here are tied to quest combat.
+     - 'Always available' + note : a minority are quest extras, OR the actors are
+       only *removed* during a quest (disable refs)."""
+  import csv
+  try:
+    f = open(LCSR_TSV, encoding="utf-8", errors="replace")
+  except Exception as e:
+    print(f"[npc_spawns] WARN: no LCSR export ({LCSR_TSV}) — skipping quest gating: {e}")
+    return {}
+  cells = defaultdict(lambda: {"all": set(), "active": set(), "disable": set(),
+                               "arefs": set(), "drefs": set()})
+  rd = csv.reader(f, delimiter="\t"); next(rd, None)
+  for row in rd:
+    if len(row) < 7:
+      continue
+    loctype, disp = row[4], row[6]
+    low = disp.lower()
+    if match_sub not in low or exclude_sub in low:
+      continue
+    cm = re.search(r'in [A-Za-z0-9_]+ "([^"]+)"', disp)   # quoted interior cell name
+    if not cm:
+      continue                                            # open-world ref, no named cell
+    cell = cm.group(1)
+    am = re.search(r"\[(?:ACHR|REFR):([0-9A-F]+)\]", disp)
+    fid = am.group(1) if am else disp[:18]
+    d = cells[cell]; d["all"].add(fid)
+    if not _QUEST_RE.match(loctype):
+      continue
+    tl = loctype.lower()
+    if "nonquest" in tl:                                  # explicitly the non-quest population
+      continue
+    if "disable" in tl:
+      d["disable"].add(fid); d["drefs"].add(loctype)
+    else:
+      d["active"].add(fid);  d["arefs"].add(loctype)
+  out = {}
+  for cell, d in cells.items():
+    tot, act, dis = len(d["all"]), len(d["active"]), len(d["disable"])
+    if act and tot and act / tot >= 0.5:
+      q = _quest_name(d["arefs"])
+      out[cell] = {"spawn_type": "Quest area",
+                   "spawn_note": f"This is part of the {q} questline — these spawns may only "
+                                 f"appear during the quest, and the area may not be freely "
+                                 f"accessible otherwise."}
+    elif act:
+      q = _quest_name(d["arefs"])
+      out[cell] = {"spawn_type": "Always available",
+                   "spawn_note": f"Most spawns here are always present; some extra appear during {q}."}
+    elif dis:
+      q = _quest_name(d["drefs"])
+      out[cell] = {"spawn_type": "Always available",
+                   "spawn_note": f"These spawns are temporarily removed during {q}."}
+  return out
 
 # ---- dig parsing -------------------------------------------------------------
 def parse_dig(path, header):
@@ -319,12 +404,13 @@ def main():
   chal = load_chal()
   npc_rows = load_npc_tsv()
   out = {"_meta": {"generated": datetime.date.today().isoformat(),
-                   "source": "Mappalachia dig (counts) + Mappalachia DB (regions, companions) + CHAL export (Used For)"},
+                   "source": "Mappalachia dig (counts) + Mappalachia DB (regions, companions) + CHAL export (Used For) + LCSR export (quest gating)"},
          "npcs": {}}
   for cfg in NPCS:
     slug = cfg["slug"]
     dig = parse_dig(os.path.join(DIG_DIR, cfg["dig_file"]), cfg["dig_header"])
     comp = companion_counts(cur, markers, cfg["companion_match"]) if db_ok else None
+    qflags = quest_flags(*cfg["enemy_lcsr"]) if cfg.get("enemy_lcsr") else {}
     slug_cache = cache.get(slug, {})
     fresh_cache = {}
     locs = []
@@ -338,8 +424,11 @@ def main():
           region = cached.get("region", cfg["interior_region_overrides"].get(nm, ""))
           companions = cached.get("companions", 0)
         fresh_cache[nm] = {"region": region, "companions": companions}
+        qinfo = qflags.get(nm) if typ == "Interior" else None
         locs.append({"name": nm, "type": typ, "region": region,
-                     "count": ct, "companions": companions, "image": ""})
+                     "count": ct, "companions": companions, "image": "",
+                     "spawn_type": (qinfo or {}).get("spawn_type", "Always available"),
+                     "spawn_note": (qinfo or {}).get("spawn_note", "")})
     locs.sort(key=lambda x: -x["count"])
     cache[slug] = fresh_cache if db_ok else slug_cache
     out["npcs"][slug] = {
