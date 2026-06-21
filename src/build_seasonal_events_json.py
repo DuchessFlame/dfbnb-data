@@ -67,6 +67,23 @@ TSV_ROOT   = str(_REPO_ROOT / "tsv")
 DIST_DIR   = _REPO_ROOT / "dist" / "seasonal_events"
 RELEASE_YEARS_PATH = _REPO_ROOT / "data" / "seasonal_events_release_years.json"
 
+# Per-page gallery image strips (bottom-of-page). Keyed by page slug; filenames
+# resolve under guide-images/seasonal-events/<eventSlug>/<page-slug>/ on the site.
+EVENT_GALLERIES = {
+    "primal-cuts-all-rewards": [
+        {"src": "forest-location.avif",        "alt": "Forest — Primal Cuts event location"},
+        {"src": "toxic-valley-location.avif",  "alt": "Toxic Valley — Primal Cuts event location"},
+        {"src": "ash-heap-location.avif",      "alt": "Ash Heap — Primal Cuts event location"},
+        {"src": "savage-divide-location.avif", "alt": "Savage Divide — Primal Cuts event location"},
+        {"src": "the-mire-location.avif",      "alt": "The Mire — Primal Cuts event location"},
+        {"src": "cranberry-bog-location.avif", "alt": "Cranberry Bog — Primal Cuts event location"},
+        {"src": "primal-cut-drums.avif",       "alt": "Primal cut collection drums"},
+        {"src": "turn-in.avif",                "alt": "Turning prime cuts in to Grahm"},
+        {"src": "meat-per-region.avif",        "alt": "Prime Meat reward quantity per region"},
+        {"src": "ash-heap-scenic.avif",        "alt": "Ash Heap during Primal Cuts"},
+    ],
+}
+
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
@@ -1946,7 +1963,7 @@ def main():
             "eventRewardTree": [],
             "rewards":         [],
             "groups":          event_def.get("groups"),
-            "gallery":         [],
+            "gallery":         list(EVENT_GALLERIES.get(slug, [])),
             "regionLocations": region_locations.get(_norm_event_name(ev_name), []),
             "regionInfo":      event_def.get("regionInfo"),
         }
