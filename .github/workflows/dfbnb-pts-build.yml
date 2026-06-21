@@ -1,34 +1,30 @@
-name: DFBNB Patch Build
+name: DFBNB PTS Build
+
+# Builds the PTS (public test server) data channel into dist/pts/.
+# This MIRRORS dfbnb-patch-build.yml step-for-step on purpose.
+#
+# >>> SYNC NOTE <<<
+# When you add / remove / reorder a build step in dfbnb-patch-build.yml,
+# make the SAME change here. The ONLY intended differences are:
+#   * triggers on tsv/pts/** (not tsv/**)
+#   * a "Normalize PTS TSV" + "Clear dist" step before the builds
+#   * the final steps relocate dist/ -> dist/pts/ and commit ONLY dist/pts/
+# Live dist/ and tsv/ are never modified by this workflow.
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 */6 * * *'
   push:
     branches: [ main ]
     paths:
-      # tsv/** intentionally broad — covers CHAL, KYWD, LVLI, CURV, BOOK, ARMO,
-      # COBJ, FURN, FLST, ENTM, ALCH, FISH, GLOB, etc. Do NOT narrow this glob
-      # without auditing which downstream builds depend on which TSVs. In
-      # particular, mini-seasons keyword pill resolution (Archaic, Bow, etc.)
-      # depends on KYWD_Export_*_Refs.tsv — if the glob is narrowed to only
-      # CHAL exports, weapon renames from Bethesda won't rebuild mini_seasons.
-      - "tsv/**"
-      # PTS data lives in tsv/pts/ and has its own workflow (dfbnb-pts-build.yml).
-      # Exclude it so PTS pulls don't trigger a wasteful live rebuild.
-      - "!tsv/pts/**"
-      - "tools/**"
-      - "src/**"
-      - "data/**"
-      - ".github/workflows/dfbnb-patch-build.yml"
+      - "tsv/pts/**"
+      - ".github/workflows/dfbnb-pts-build.yml"
 
 permissions:
   contents: write
 
 concurrency:
-  group: dist-main
+  group: dist-pts
   cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -53,6 +49,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pandas
+
+      # ===== PTS CHANNEL SETUP =====
+      # Overwrite the dated exports in the (ephemeral) tsv/ checkout with the
+      # newest PTS pull, normalized to live-style names so every downstream
+      # builder works unchanged. Then wipe dist/ so whatever remains after the
+      # build is PURE PTS output (no leftover live files).
+      - name: Normalize PTS TSV into tsv/
+        run: python src/normalize_pts_tsv.py --src tsv/pts --dst tsv --in-place
+
+      - name: Clear dist for a clean PTS build
+        run: rm -rf dist && mkdir -p dist
 
       # ===== DROP RATES (must run before titles, events) =====
       - name: Build Drop Rates JSON
@@ -817,23 +824,41 @@ jobs:
           test -f dist/legendary_mod_drop_chances.json && echo "OK legendary_mod_drop_chances.json" || (echo "MISSING legendary_mod_drop_chances.json" && exit 1)
           test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
 
-      # --- COMMIT ONCE ---
-      - name: Commit & Push
+      # --- RELOCATE TO dist/pts AND COMMIT (PTS channel) ---
+      - name: Relocate build output into dist/pts
+        shell: bash
+        run: |
+          shopt -s extglob dotglob
+          mkdir -p dist/pts
+          for item in dist/!(pts); do
+            mv "$item" dist/pts/
+          done
+          echo "dist/pts now contains:"; ls -1 dist/pts | head -50
+
+      - name: Generate PTS vs Live changelog
+        shell: bash
+        run: |
+          # Restore live dist/ alongside dist/pts so we can diff the two channels.
+          git checkout HEAD -- dist 2>/dev/null || true
+          python src/diff_live_pts.py --live dist --pts dist/pts --json || true
+
+      - name: Commit & Push (dist/pts only)
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@users.noreply.github.com"
 
-          git add dist/
-          git add tsv/BnB_Menu_Items.tsv
-          # Stage regenerated CURV POINTS TSV (built by build_curv_points_tsv.py)
-          git add tsv/CURV_Export_*_POINTS.tsv 2>/dev/null || true
-
+          # Stage ONLY dist/pts. This run overwrote tsv/ and cleared dist/ in the
+          # ephemeral checkout; commit dist/pts, then discard everything else so
+          # the rebase/push stays clean and live tsv/ + dist/ are untouched.
+          git add dist/pts
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+            echo "No PTS changes to commit."
           else
-            git commit -m "DFBNB Patch Build update"
+            git commit -m "DFBNB PTS Build update" -- dist/pts
+            git checkout -- . 2>/dev/null || true
+            git clean -fd tsv dist 2>/dev/null || true
             git fetch origin main
-            # --autostash handles any remaining unstaged changes during rebase
-            git pull --rebase --autostash origin main
+            git pull --rebase origin main
             git push origin main
           fi
