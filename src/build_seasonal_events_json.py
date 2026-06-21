@@ -2005,6 +2005,119 @@ def _stamp_release_years_on_tree(output, tracking):
     return stamped
 
 
+# ---------------------------------------------------------------------------
+# Meat Week Guide page (hand-written guide + data-driven plans & challenges)
+# ---------------------------------------------------------------------------
+# Grahm's vendor recipe stock. Flat pick-one list (For Each flag, no UseAll /
+# FirstMatch), no per-entry or list ChanceNone, no conditions -> every recipe
+# in it has an equal 100/N chance per drop-rate-engine section 3e. The guide
+# tracks the furniture/decor subset below; the rate is computed from the live
+# list length so it stays correct as Bethesda adds plans.
+GRAHM_PLAN_VENDOR_LVLI = "003A0815"  # LLV_Vendor_Recipes_Workshop_GQ10
+
+MEAT_WEEK_TRACKED_PLANS = [
+    "Plan: Black Domestic Kitchen Tables",
+    "Plan: Brown Domestic Kitchen Tables",
+    "Plan: Clean Park Bench",
+    "Plan: Domestic Kitchen Tables",
+    "Plan: Metal Picnic Table",
+    "Plan: Mirror Ball",
+    "Plan: Mirror Ball - Blue",
+    "Plan: Mirror Ball - Green",
+    "Plan: Mirror Ball - Pink",
+    "Plan: Mirror Ball - Red",
+    "Plan: Park Bench",
+    "Plan: Picnic Table - Blue",
+    "Plan: Picnic Table - Green",
+    "Plan: Picnic Table - Pink",
+    "Plan: Picnic Table - Red",
+    "Plan: Picnic Table - White",
+    "Plan: Radiation Emitter",
+    "Plan: Starburst Clock",
+    "Plan: Stone Benches",
+    "Plan: Suitcase - Black",
+    "Plan: Suitcase - Blue",
+    "Plan: Suitcase - Green",
+    "Plan: Suitcase - Orange",
+    "Plan: Suitcase - Pink",
+    "Plan: Suitcase - Purple",
+    "Plan: Suitcase - Red",
+    "Plan: Suitcase - Yellow",
+    "Plan: White Domestic Kitchen Tables",
+]
+
+
+def _grahm_plan_pool_size(tsv_root):
+    """Count entries in Grahm's vendor recipe list (pick-one denominator N)."""
+    entries_path = newest(os.path.join(tsv_root, "LVLI_Export_*_LVLI_Entries.tsv"))
+    if not entries_path:
+        return 0
+    n = 0
+    for row in read_tsv(entries_path):
+        if (row.get("LVLI_FormID") or "").upper() == GRAHM_PLAN_VENDOR_LVLI:
+            n += 1
+    return n
+
+
+def _meat_week_challenges(tsv_root):
+    """Meat Week SCORE challenges from the CHAL TSV (reward = SCORE progress)."""
+    chal_path = newest(os.path.join(tsv_root, "CHAL_Export_*.tsv"))
+    out = []
+    if not chal_path:
+        return out
+    for row in read_tsv(chal_path):
+        edid = row.get("EDID") or ""
+        if not edid.startswith("SCORE_Challenge_"):
+            continue
+        if "Event_Seasonal_Meat" not in edid:
+            continue
+        cadence = "Daily" if "_Daily_" in edid else ("Weekly" if "_Weekly_" in edid else "")
+        try:
+            required = int(float(row.get("TNAM") or 0))
+        except (TypeError, ValueError):
+            required = 0
+        out.append({
+            "cadence":  cadence,
+            "name":     row.get("FULL") or "",
+            "required": required,
+            "reward":   "SCORE",
+            "formid":   row.get("FormID") or "",
+        })
+    order = {"Daily": 0, "Weekly": 1, "": 2}
+    out.sort(key=lambda c: (order.get(c["cadence"], 3), c["required"]))
+    return out
+
+
+def _build_meat_week_guide(tsv_root):
+    """Page data for /df/seasonal-events/meat-week/meat-week-guide/.
+
+    The hand-written prose / images live in the JS renderer; this carries only
+    the data-driven pieces (Grahm's rare-plan rate + the Meat Week challenges).
+    """
+    n = _grahm_plan_pool_size(tsv_root)
+    rate = round(100.0 / n, 2) if n else None
+    plans = [{"name": nm, "rate": rate} for nm in MEAT_WEEK_TRACKED_PLANS]
+    challenges = _meat_week_challenges(tsv_root)
+    print("[build_seasonal_events] Meat Week Guide: Grahm plan pool N={} "
+          "-> {}% each, {} challenges".format(n, rate, len(challenges)))
+    return {
+        "name":             "Meat Week Guide",
+        "slug":             "meat-week-guide",
+        "eventSlug":        "meat-week",
+        "guidePage":        True,
+        "description":      "Grahm's Meat-Cook walkthrough for Meat Week - task "
+                            "breakdown, Chally's Feed recipe, challenges and "
+                            "Grahm's rare plans.",
+        "grahmPlanPoolSize": n,
+        "rarePlans":        plans,
+        "planRecipe":       {"name": "Recipe: Chally's Feed", "rate": 100.0},
+        "challenges":       challenges,
+        # carried for parity with other pages (renderer ignores when guidePage)
+        "eventRewardTree":  [],
+        "rewards":          [],
+    }
+
+
 def main():
     print("[build_seasonal_events] Loading rng76 engine...")
     data = Rng76Data.from_tsv_root(TSV_ROOT)
@@ -2102,6 +2215,14 @@ def main():
         url_path = "/df/seasonal-events/" + ev_slug + "/" + slug + "/"
         output["byPage"][url_path] = page_data
         output["byPage"][url_path.rstrip("/")] = page_data
+
+    # Meat Week Guide (hand-written guide page; data-driven plans + challenges)
+    print("\n[build_seasonal_events] Processing: Meat Week Guide (meat-week-guide)")
+    _mwg = _build_meat_week_guide(TSV_ROOT)
+    _mwg_url = "/df/seasonal-events/meat-week/meat-week-guide/"
+    output["byPage"]["meat-week-guide"] = _mwg
+    output["byPage"][_mwg_url] = _mwg
+    output["byPage"][_mwg_url.rstrip("/")] = _mwg
 
     # Assign release years to all trackable rewards
     new_items = _apply_release_years(output, release_years)
