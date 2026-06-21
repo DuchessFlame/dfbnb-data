@@ -71,18 +71,104 @@ RELEASE_YEARS_PATH = _REPO_ROOT / "data" / "seasonal_events_release_years.json"
 # resolve under guide-images/seasonal-events/<eventSlug>/<page-slug>/ on the site.
 EVENT_GALLERIES = {
     "primal-cuts-all-rewards": [
-        {"src": "forest-location.avif",        "alt": "Forest — Primal Cuts event location"},
-        {"src": "toxic-valley-location.avif",  "alt": "Toxic Valley — Primal Cuts event location"},
-        {"src": "ash-heap-location.avif",      "alt": "Ash Heap — Primal Cuts event location"},
-        {"src": "savage-divide-location.avif", "alt": "Savage Divide — Primal Cuts event location"},
-        {"src": "the-mire-location.avif",      "alt": "The Mire — Primal Cuts event location"},
-        {"src": "cranberry-bog-location.avif", "alt": "Cranberry Bog — Primal Cuts event location"},
-        {"src": "primal-cut-drums.avif",       "alt": "Primal cut collection drums"},
-        {"src": "turn-in.avif",                "alt": "Turning prime cuts in to Grahm"},
-        {"src": "meat-per-region.avif",        "alt": "Prime Meat reward quantity per region"},
-        {"src": "ash-heap-scenic.avif",        "alt": "Ash Heap during Primal Cuts"},
+        {"src": "forest-location.avif",        "alt": "Forest Primal Cuts Location"},
+        {"src": "toxic-valley-location.avif",  "alt": "Toxic Valley Primal Cuts Location"},
+        {"src": "ash-heap-location.avif",      "alt": "Ash Heap Primal Cuts Location"},
+        {"src": "savage-divide-location.avif", "alt": "Savage Divide Primal Cuts Location"},
+        {"src": "the-mire-location.avif",      "alt": "The Mire Primal Cuts Location"},
+        {"src": "cranberry-bog-location.avif", "alt": "Cranberry Bog Primal Cuts Location"},
+        {"src": "primal-cut-drums.avif",       "alt": "Primal Cut Drums"},
+        {"src": "turn-in.avif",                "alt": "Turn Primal Cuts In"},
+        {"src": "meat-per-region.avif",        "alt": "Meat List Per Region"},
+        {"src": "ash-heap-scenic.avif",        "alt": "Ash Heap Primal Cuts"},
     ],
 }
+
+# Meat Sweats buff (Prime Meat turn-in). EFFECT magnitudes are read GENERATIVELY
+# from the SPEL EFFECTS TSV; only the MGEF -> friendly-text mapping and the
+# per-tier turn-in amounts are fixed here.
+_MEAT_SWEATS_TIERS = [
+    ("MeatSweats_Lvl1", "5 (one stack)"),
+    ("MeatSweats_Lvl2", "10 (two stacks)"),
+    ("MeatSweats_Lvl3", "15 (three stacks)"),
+]
+
+
+def _meat_sweats_effect(mgef_edid, mag, poison=None):
+    """Map a Meat Sweats MGEF + magnitude to a (sort_key, friendly_text) tuple,
+    or None to skip (base food carrier / unknown effect). `poison` is an optional
+    (damage, seconds) tuple describing the gas-discharge Noxious Gas sub-effect."""
+    e = mgef_edid or ""
+    if e == "MeatSweats_GasExplosion":
+        txt = "Taking damage may result in gaseous discharge"
+        if poison:
+            txt += " (poisons nearby enemies for {} damage over {} seconds)".format(poison[0], poison[1])
+        return (0, txt + ".")
+    if e == "MeatSweats_RemoveHungerPerk":
+        return (1, "Hunger does not decay (your hunger bar is paused).")
+    if e == "MeatSweats_FortifyHealthFood":
+        return (2, "+{} maximum HP.".format(int(round(mag))))
+    if e == "MeatSweats_FortifyXPBonusFood":
+        return (3, "+{}% bonus XP.".format(int(round(mag))))
+    return None
+
+
+def _build_prime_meat_buff(tsv_root):
+    """Build the Meat Sweats turn-in buff (3 tiers) generatively from the SPEL
+    HEADER + EFFECTS TSVs. Returns None if the records aren't present."""
+    eff_path = newest(os.path.join(tsv_root, "SPEL_Export_*_EFFECTS.tsv"))
+    hdr_path = newest(os.path.join(tsv_root, "SPEL_Export_*_HEADER.tsv"))
+    if not eff_path or not hdr_path:
+        return None
+    full_by_edid = {}
+    for r in read_tsv(hdr_path):
+        full_by_edid[r.get("SPEL_EDID", "")] = r.get("SPEL_FULL", "")
+    eff_by_edid = defaultdict(list)
+    duration = 0
+    poison = None  # (damage, seconds) for the gas-discharge Noxious Gas sub-effect
+    for r in read_tsv(eff_path):
+        se = r.get("SPEL_EDID", "")
+        if se == "MeatSweats_PoisonSpell":
+            if "DamageHealthPoison" in r.get("EFID_MGEF_EDID", ""):
+                try:
+                    pmag = int(round(float(r.get("EFIT_Magnitude") or 0)))
+                except ValueError:
+                    pmag = 0
+                try:
+                    pdur = int(float(r.get("EFIT_Duration") or 0))
+                except ValueError:
+                    pdur = 0
+                if pmag and pdur:
+                    poison = (pmag, pdur)
+            continue
+        if not se.startswith("MeatSweats_Lvl"):
+            continue
+        try:
+            mag = float(r.get("EFIT_Magnitude") or 0)
+        except ValueError:
+            mag = 0.0
+        try:
+            d = int(float(r.get("EFIT_Duration") or 0))
+        except ValueError:
+            d = 0
+        if d:
+            duration = d
+        eff_by_edid[se].append((r.get("EFID_MGEF_EDID", ""), mag))
+    tiers = []
+    for edid, amount in _MEAT_SWEATS_TIERS:
+        rows = eff_by_edid.get(edid)
+        if not rows:
+            continue
+        effs = [x for x in (_meat_sweats_effect(m, g, poison) for m, g in rows) if x]
+        effs.sort(key=lambda x: x[0])
+        tiers.append({
+            "amount":     amount,
+            "pipBoyName": full_by_edid.get(edid, edid),
+            "effects":    [s for _, s in effs],
+        })
+    if not tiers:
+        return None
+    return {"name": "Meat Sweats", "durationSeconds": duration, "tiers": tiers}
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -1971,6 +2057,10 @@ def main():
             page_data["partyCrashers"] = event_flags["partyCrashers"]
         if event_flags["invadersEvent"]:
             page_data["invadersEvent"] = event_flags["invadersEvent"]
+        if slug == "primal-cuts-all-rewards":
+            _pmb = _build_prime_meat_buff(TSV_ROOT)
+            if _pmb:
+                page_data["primeMeatBuff"] = _pmb
 
         try:
             if event_def["isContainerLoot"]:

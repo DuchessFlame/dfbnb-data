@@ -66511,16 +66511,16 @@
       ],
       "groups": null,
       "gallery": [
-        { "src": "forest-location.avif", "alt": "Forest — Primal Cuts event location" },
-        { "src": "toxic-valley-location.avif", "alt": "Toxic Valley — Primal Cuts event location" },
-        { "src": "ash-heap-location.avif", "alt": "Ash Heap — Primal Cuts event location" },
-        { "src": "savage-divide-location.avif", "alt": "Savage Divide — Primal Cuts event location" },
-        { "src": "the-mire-location.avif", "alt": "The Mire — Primal Cuts event location" },
-        { "src": "cranberry-bog-location.avif", "alt": "Cranberry Bog — Primal Cuts event location" },
-        { "src": "primal-cut-drums.avif", "alt": "Primal cut collection drums" },
-        { "src": "turn-in.avif", "alt": "Turning prime cuts in to Grahm" },
-        { "src": "meat-per-region.avif", "alt": "Prime Meat reward quantity per region" },
-        { "src": "ash-heap-scenic.avif", "alt": "Ash Heap during Primal Cuts" }
+        { "src": "forest-location.avif", "alt": "Forest Primal Cuts Location" },
+        { "src": "toxic-valley-location.avif", "alt": "Toxic Valley Primal Cuts Location" },
+        { "src": "ash-heap-location.avif", "alt": "Ash Heap Primal Cuts Location" },
+        { "src": "savage-divide-location.avif", "alt": "Savage Divide Primal Cuts Location" },
+        { "src": "the-mire-location.avif", "alt": "The Mire Primal Cuts Location" },
+        { "src": "cranberry-bog-location.avif", "alt": "Cranberry Bog Primal Cuts Location" },
+        { "src": "primal-cut-drums.avif", "alt": "Primal Cut Drums" },
+        { "src": "turn-in.avif", "alt": "Turn Primal Cuts In" },
+        { "src": "meat-per-region.avif", "alt": "Meat List Per Region" },
+        { "src": "ash-heap-scenic.avif", "alt": "Ash Heap Primal Cuts" }
       ],
       "regionLocations": [
         {
@@ -66610,7 +66610,16 @@
           "primeMeat": 5
         }
       },
-      "partyCrashers": "Bigfoot — 33.0% chance to spawn at the end of the event."
+      "partyCrashers": "Bigfoot — 33.0% chance to spawn at the end of the event.",
+      "primeMeatBuff": {
+        "name": "Meat Sweats",
+        "durationSeconds": 900,
+        "tiers": [
+          { "amount": "5 (one stack)", "pipBoyName": "Mild Meat Sweats", "effects": ["Taking damage may result in gaseous discharge (poisons nearby enemies for 5 damage over 5 seconds).", "Hunger does not decay (your hunger bar is paused)."] },
+          { "amount": "10 (two stacks)", "pipBoyName": "Meat Sweats", "effects": ["Taking damage may result in gaseous discharge (poisons nearby enemies for 5 damage over 5 seconds).", "Hunger does not decay (your hunger bar is paused).", "+15 maximum HP."] },
+          { "amount": "15 (three stacks)", "pipBoyName": "Strong Meat Sweats", "effects": ["Taking damage may result in gaseous discharge (poisons nearby enemies for 5 damage over 5 seconds).", "Hunger does not decay (your hunger bar is paused).", "+30 maximum HP.", "+5% bonus XP."] }
+        ]
+      }
     },
     "/df/seasonal-events/meat-week/primal-cuts-all-rewards/": {
       "name": "Primal Cuts",
@@ -66814,16 +66823,16 @@
       ],
       "groups": null,
       "gallery": [
-        { "src": "forest-location.avif", "alt": "Forest — Primal Cuts event location" },
-        { "src": "toxic-valley-location.avif", "alt": "Toxic Valley — Primal Cuts event location" },
-        { "src": "ash-heap-location.avif", "alt": "Ash Heap — Primal Cuts event location" },
-        { "src": "savage-divide-location.avif", "alt": "Savage Divide — Primal Cuts event location" },
-        { "src": "the-mire-location.avif", "alt": "The Mire — Primal Cuts event location" },
-        { "src": "cranberry-bog-location.avif", "alt": "Cranberry Bog — Primal Cuts event location" },
-        { "src": "primal-cut-drums.avif", "alt": "Primal cut collection drums" },
-        { "src": "turn-in.avif", "alt": "Turning prime cuts in to Grahm" },
-        { "src": "meat-per-region.avif", "alt": "Prime Meat reward quantity per region" },
-        { "src": "ash-heap-scenic.avif", "alt": "Ash Heap during Primal Cuts" }
+        { "src": "forest-location.avif", "alt": "Forest Primal Cuts Location" },
+        { "src": "toxic-valley-location.avif", "alt": "Toxic Valley Primal Cuts Location" },
+        { "src": "ash-heap-location.avif", "alt": "Ash Heap Primal Cuts Location" },
+        { "src": "savage-divide-location.avif", "alt": "Savage Divide Primal Cuts Location" },
+        { "src": "the-mire-location.avif", "alt": "The Mire Primal Cuts Location" },
+        { "src": "cranberry-bog-location.avif", "alt": "Cranberry Bog Primal Cuts Location" },
+        { "src": "primal-cut-drums.avif", "alt": "Primal Cut Drums" },
+        { "src": "turn-in.avif", "alt": "Turn Primal Cuts In" },
+        { "src": "meat-per-region.avif", "alt": "Meat List Per Region" },
+        { "src": "ash-heap-scenic.avif", "alt": "Ash Heap Primal Cuts" }
       ],
       "regionLocations": [
         {
@@ -66913,7 +66922,16 @@
           "primeMeat": 5
         }
       },
-      "partyCrashers": "Bigfoot — 33.0% chance to spawn at the end of the event."
+      "partyCrashers": "Bigfoot — 33.0% chance to spawn at the end of the event.",
+      "primeMeatBuff": {
+        "name": "Meat Sweats",
+        "durationSeconds": 900,
+        "tiers": [
+          { "amount": "5 (one stack)", "pipBoyName": "Mild Meat Sweats", "effects": ["Taking damage may result in gaseous discharge (poisons nearby enemies for 5 damage over 5 seconds).", "Hunger does not decay (your hunger bar is paused)."] },
+          { "amount": "10 (two stacks)", "pipBoyName": "Meat Sweats", "effects": ["Taking damage may result in gaseous discharge (poisons nearby enemies for 5 damage over 5 seconds).", "Hunger does not decay (your hunger bar is paused).", "+15 maximum HP."] },
+          { "amount": "15 (three stacks)", "pipBoyName": "Strong Meat Sweats", "effects": ["Taking damage may result in gaseous discharge (poisons nearby enemies for 5 damage over 5 seconds).", "Hunger does not decay (your hunger bar is paused).", "+30 maximum HP.", "+5% bonus XP."] }
+        ]
+      }
     },
     "/df/seasonal-events/meat-week/primal-cuts-all-rewards": {
       "name": "Primal Cuts",
@@ -67117,16 +67135,16 @@
       ],
       "groups": null,
       "gallery": [
-        { "src": "forest-location.avif", "alt": "Forest — Primal Cuts event location" },
-        { "src": "toxic-valley-location.avif", "alt": "Toxic Valley — Primal Cuts event location" },
-        { "src": "ash-heap-location.avif", "alt": "Ash Heap — Primal Cuts event location" },
-        { "src": "savage-divide-location.avif", "alt": "Savage Divide — Primal Cuts event location" },
-        { "src": "the-mire-location.avif", "alt": "The Mire — Primal Cuts event location" },
-        { "src": "cranberry-bog-location.avif", "alt": "Cranberry Bog — Primal Cuts event location" },
-        { "src": "primal-cut-drums.avif", "alt": "Primal cut collection drums" },
-        { "src": "turn-in.avif", "alt": "Turning prime cuts in to Grahm" },
-        { "src": "meat-per-region.avif", "alt": "Prime Meat reward quantity per region" },
-        { "src": "ash-heap-scenic.avif", "alt": "Ash Heap during Primal Cuts" }
+        { "src": "forest-location.avif", "alt": "Forest Primal Cuts Location" },
+        { "src": "toxic-valley-location.avif", "alt": "Toxic Valley Primal Cuts Location" },
+        { "src": "ash-heap-location.avif", "alt": "Ash Heap Primal Cuts Location" },
+        { "src": "savage-divide-location.avif", "alt": "Savage Divide Primal Cuts Location" },
+        { "src": "the-mire-location.avif", "alt": "The Mire Primal Cuts Location" },
+        { "src": "cranberry-bog-location.avif", "alt": "Cranberry Bog Primal Cuts Location" },
+        { "src": "primal-cut-drums.avif", "alt": "Primal Cut Drums" },
+        { "src": "turn-in.avif", "alt": "Turn Primal Cuts In" },
+        { "src": "meat-per-region.avif", "alt": "Meat List Per Region" },
+        { "src": "ash-heap-scenic.avif", "alt": "Ash Heap Primal Cuts" }
       ],
       "regionLocations": [
         {
@@ -67216,7 +67234,16 @@
           "primeMeat": 5
         }
       },
-      "partyCrashers": "Bigfoot — 33.0% chance to spawn at the end of the event."
+      "partyCrashers": "Bigfoot — 33.0% chance to spawn at the end of the event.",
+      "primeMeatBuff": {
+        "name": "Meat Sweats",
+        "durationSeconds": 900,
+        "tiers": [
+          { "amount": "5 (one stack)", "pipBoyName": "Mild Meat Sweats", "effects": ["Taking damage may result in gaseous discharge (poisons nearby enemies for 5 damage over 5 seconds).", "Hunger does not decay (your hunger bar is paused)."] },
+          { "amount": "10 (two stacks)", "pipBoyName": "Meat Sweats", "effects": ["Taking damage may result in gaseous discharge (poisons nearby enemies for 5 damage over 5 seconds).", "Hunger does not decay (your hunger bar is paused).", "+15 maximum HP."] },
+          { "amount": "15 (three stacks)", "pipBoyName": "Strong Meat Sweats", "effects": ["Taking damage may result in gaseous discharge (poisons nearby enemies for 5 damage over 5 seconds).", "Hunger does not decay (your hunger bar is paused).", "+30 maximum HP.", "+5% bonus XP."] }
+        ]
+      }
     },
     "mischief-night-all-rewards": {
       "name": "Mischief Night",
