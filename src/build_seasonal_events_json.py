@@ -879,7 +879,7 @@ def _load_kywd_flags():
             ref_fid = (r.get("RefFormID") or "").strip().lower()
             if not ref_fid:
                 continue
-            if ref_sig in ("ARMO", "BOOK"):
+            if ref_sig in ("ARMO", "BOOK", "WEAP"):
                 if kw_fid == _KW_NON_PLAYER_TRADABLE:
                     non_tradable.add(ref_fid)
                 elif kw_fid == _KW_UNSELLABLE_OBJECT:
@@ -890,6 +890,45 @@ def _load_kywd_flags():
     _KYWD_TRADE_CACHE["unsellable"]   = unsellable
     _KYWD_TRADE_CACHE["loaded"] = True
     return non_tradable, unsellable
+
+
+# ---------------------------------------------------------------------------
+# Grahm's Meat-Cook — unique-pool item grouping (data-driven, by EDID)
+# ---------------------------------------------------------------------------
+# The Best-tier quest reward pool flattens to 80 items: 6 brews, 14 cooked
+# foods and 60 true-unique rewards. The brews + cooked foods are pulled out of
+# the checklist into their own compact tables, so the renderer needs a `group`
+# tag on every unique-pool item. Classification is purely by EDID so it stays
+# robust to new items appearing in future TSV exports:
+#   - Alcohol     → EDID starts "Brew_"
+#   - Cooked Foods→ EDID ends "MeatCooked", plus "MeatWeek_TatoSaladCooked"
+#   - True Unique → everything else (the 60 trackable checklist items)
+
+def _meat_item_group(edid):
+    e = edid or ""
+    if e.startswith("Brew_"):
+        return "alcohol"
+    if e.endswith("MeatCooked") or e == "MeatWeek_TatoSaladCooked":
+        return "cooked"
+    return "unique"
+
+
+def _classify_meat_groups(tree):
+    """Tag every unique-pool item with a `group` (alcohol / cooked / unique)
+    and make sure `tradeable` is resolved for non-ARMO/BOOK sigs too (WEAP
+    rewards like the Meat Cleaver / Tenderizer). Scoped to Grahm's Meat-Cook
+    via the caller's slug check so no other event is affected."""
+    non_tradable, unsellable = _load_kywd_flags()
+    for node in tree:
+        if not node.get("isUniqueReward"):
+            continue
+        for it in node.get("items", []):
+            it["group"] = _meat_item_group(it.get("edid", ""))
+            fid = (it.get("formid") or "").lower()
+            if "tradeable" not in it:
+                it["tradeable"] = fid not in non_tradable
+            if fid in unsellable and "unsellable" not in it:
+                it["unsellable"] = True
 
 
 # ---------------------------------------------------------------------------
@@ -1910,6 +1949,11 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
                 node["tierLabel"] = ri_to_tier[ri]
             tree.append(node)
 
+    # Grahm's Meat-Cook: split the unique pool into alcohol / cooked / unique
+    # so the renderer can route brews + cooked foods into their own tables.
+    if slug == "grahms-meat-cook-all-rewards":
+        _classify_meat_groups(tree)
+
     flat_rewards = _build_flat_rewards_from_tree(tree, event_def, groups)
 
     return {
@@ -2097,19 +2141,21 @@ def _build_flat_rewards_from_tree(tree, event_def, groups):
                     "imageUrl":     _imgs[0],
                     "images":       _imgs,
                     "releaseYear":  None,
-                    "tradeable":    None,
+                    "tradeable":    it.get("tradeable"),
                     "isTrackable":  is_trackable(name),
                     "howToObtain":  "<strong>Source:</strong> " + node_label,
-                    "group":        node.get("group"),
+                    "group":        it.get("group") or node.get("group"),
                     "dropRates":    [],
                 }
+                if "unsellable" in it:
+                    by_fid[fid]["unsellable"] = it["unsellable"]
             for tier in it.get("tiers") or [{"tier": node_label, "rate": it["dropRate"]}]:
                 by_fid[fid]["dropRates"].append({
                     "tier": tier.get("tier") or node_label,
                     "rate": fmt_pct(tier.get("rate", it["dropRate"])),
                 })
-            if node.get("group") and not by_fid[fid].get("group"):
-                by_fid[fid]["group"] = node.get("group")
+            if (it.get("group") or node.get("group")) and not by_fid[fid].get("group"):
+                by_fid[fid]["group"] = it.get("group") or node.get("group")
 
     return sorted(by_fid.values(), key=lambda r: r["name"].lower())
 
