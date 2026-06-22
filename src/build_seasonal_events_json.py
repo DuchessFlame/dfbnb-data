@@ -866,6 +866,143 @@ def _load_kywd_flags():
 
 
 # ---------------------------------------------------------------------------
+# Object-template mod slots (legendary roles / custom mods for named ARMO/WEAP)
+# Mirrors the activity-page resolver (build_activities_rewards_json.py): group
+# OBTE rows by CombinationIndex, pick the combination carrying the most
+# legendary mods, and surface its custom mod + 1★-4★ legendary effects + lining.
+# ---------------------------------------------------------------------------
+
+# Slot-label keywords matched against the OMOD EDID (longest/most-specific first).
+_OT_SLOT_LABELS = [
+    ("legendary_armor1", "1★ Legendary"), ("legendary_weapon1", "1★ Legendary"),
+    ("legendary_armor2", "2★ Legendary"), ("legendary_weapon2", "2★ Legendary"),
+    ("legendary_armor3", "3★ Legendary"), ("legendary_weapon3", "3★ Legendary"),
+    ("legendary_armor4", "4★ Legendary"), ("legendary_weapon4", "4★ Legendary"),
+    ("legendary1", "1★ Legendary"), ("legendary2", "2★ Legendary"),
+    ("legendary3", "3★ Legendary"), ("legendary4", "4★ Legendary"),
+    ("material_paint", "Appearance"), ("paint", "Appearance"),
+    ("lining", "Lining"),
+]
+
+# OMOD display values that are engine defaults / placeholders — never shown.
+_OT_JUNK_VALUES = {
+    "standard", "no misc", "no paint", "no upgrade", "no customization",
+    "no custom", "none", "default", "default appearance",
+}
+
+# Cache: {sig: [rows]} for the newest ARMO/WEAP ObjectTemplate exports.
+_OT_ROWS_CACHE = {}
+
+
+def _ot_rows(sig):
+    """Load and cache the newest ObjectTemplate TSV rows for ARMO or WEAP."""
+    sig = sig.upper()
+    if sig in _OT_ROWS_CACHE:
+        return _OT_ROWS_CACHE[sig]
+    rows = []
+    try:
+        path = newest(str(_REPO_ROOT / "tsv" / (sig + "_Export_*_ObjectTemplate.tsv")))
+        rows = read_tsv(path)
+    except (FileNotFoundError, Exception) as e:
+        print("  [WARN] could not load {} ObjectTemplate: {}".format(sig, e))
+    _OT_ROWS_CACHE[sig] = rows
+    return rows
+
+
+def _ot_classify(mod_ref):
+    """Return (label, value, edid_lower) for an Include_Mod reference string like
+    'mod_Legendary_Armor1_Overeater "Overeater\\'s" [OMOD:00606C84]'."""
+    if not mod_ref:
+        return None, None, ""
+    s = mod_ref.strip()
+    m = re.search(r'"([^"]+)"', s)
+    value = m.group(1).strip() if m else ""
+    edid = re.split(r'["\[]', s)[0].strip()
+    edid_lower = edid.lower()
+    label = None
+    for kw, lab in _OT_SLOT_LABELS:
+        if kw in edid_lower:
+            label = lab
+            break
+    if not value:
+        value = re.sub(r"^mod_", "", edid, flags=re.IGNORECASE).replace("_", " ").strip()
+    return label, value, edid_lower
+
+
+def _resolve_mod_slots(fid, sig):
+    """Resolve {customModName, customModDescription, modSlots[]} for a named
+    ARMO/WEAP FormID, or None if it carries no legendary combination.
+
+    Picks the combination index with the most legendary slots (the "reward"
+    preset), then returns its custom mod + legendary 1★-4★ (padded with N/A) +
+    lining, skipping engine-default junk values."""
+    if not fid or sig.upper() not in ("ARMO", "WEAP"):
+        return None
+    fid_u = fid.upper()
+    fid_col = sig.upper() + "_FormID"
+    combos = {}  # combo_idx -> list of raw Include_Mod strings
+    for r in _ot_rows(sig):
+        rfid = (pick(r, fid_col, "FormID") or "").upper()
+        if rfid != fid_u:
+            continue
+        mod_ref = pick(r, "Include_Mod", "Mod") or ""
+        if not mod_ref:
+            continue
+        try:
+            ci = int(pick(r, "CombinationIndex", default="0") or 0)
+        except ValueError:
+            ci = 0
+        combos.setdefault(ci, []).append(mod_ref)
+    if not combos:
+        return None
+
+    def legendary_count(refs):
+        n = 0
+        for ref in refs:
+            lab, _, _ = _ot_classify(ref)
+            if lab and "Legendary" in lab:
+                n += 1
+        return n
+
+    best_ci = max(combos, key=lambda ci: (legendary_count(combos[ci]), ci))
+    if legendary_count(combos[best_ci]) == 0:
+        return None
+
+    custom_name = ""
+    legendaries = {}   # star int -> value
+    extras = []        # [(label, value)]
+    for ref in combos[best_ci]:
+        lab, value, edid_lower = _ot_classify(ref)
+        if (value or "").strip().lower() in _OT_JUNK_VALUES:
+            continue
+        if edid_lower.startswith("mod_custom_") or "mod_custom_" in edid_lower:
+            if value:
+                custom_name = value
+            continue
+        if lab and "Legendary" in lab:
+            star = int(re.search(r"(\d)", lab).group(1))
+            legendaries[star] = value
+        elif lab in ("Lining", "Appearance"):
+            extras.append((lab, value))
+
+    mod_slots = []
+    if legendaries:
+        top = max(4, max(legendaries))  # always show through 4★ when any present
+        for star in range(1, top + 1):
+            mod_slots.append({
+                "label": "{}★ Legendary".format(star),
+                "value": legendaries.get(star),  # None → renders as N/A
+            })
+    for lab, value in extras:
+        mod_slots.append({"label": lab, "value": value})
+
+    out = {"modSlots": mod_slots}
+    if custom_name:
+        out["customModName"] = custom_name
+    return out
+
+
+# ---------------------------------------------------------------------------
 # Condition simplification (minimal — handles common xEdit condition strings)
 # ---------------------------------------------------------------------------
 
@@ -1448,6 +1585,14 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
             item_dict["tradeable"] = fid_lc not in non_tradable_fids
             if fid_lc in unsellable_fids:
                 item_dict["unsellable"] = True
+        # Legendary roles / custom mod for named ARMO/WEAP rewards (e.g. the
+        # Trapper Left Arm) — resolved from the ObjectTemplate the same way the
+        # activity page does.
+        mods = _resolve_mod_slots(fid, sig)
+        if mods:
+            item_dict["modSlots"] = mods["modSlots"]
+            if mods.get("customModName"):
+                item_dict["customModName"] = mods["customModName"]
         # Conditions — simplified to friendly strings, empty list dropped.
         simplified = _simplify_conditions(raw_conditions)
         if simplified:
@@ -1508,6 +1653,10 @@ def _merge_tier_nodes(nodes_per_tier):
                     merged["tradeable"] = it["tradeable"]
                 if "unsellable" in it:
                     merged["unsellable"] = it["unsellable"]
+                if it.get("modSlots"):
+                    merged["modSlots"] = it["modSlots"]
+                if it.get("customModName"):
+                    merged["customModName"] = it["customModName"]
                 if it.get("conditions"):
                     merged["conditions"] = list(it["conditions"])
                 merged_items[fid] = merged
@@ -1977,6 +2126,7 @@ def _apply_release_years(output, tracking):
                 reward["releaseYear"] = current_year
                 tracking[fid] = current_year
                 new_count += 1
+            reward["isNew"] = (reward["releaseYear"] == current_year)
     return new_count
 
 
@@ -1989,6 +2139,7 @@ def _stamp_release_years_on_tree(output, tracking):
     year pills to trackable items (Plans / Recipes) which is the same
     scope as the flat rewards[] list.
     """
+    current_year = datetime.now().year
     seen_slugs = set()
     stamped = 0
     for key, page_data in output.get("byPage", {}).items():
@@ -2001,6 +2152,7 @@ def _stamp_release_years_on_tree(output, tracking):
                 fid = item.get("formid", "")
                 if fid and fid in tracking:
                     item["releaseYear"] = tracking[fid]
+                    item["isNew"] = (tracking[fid] == current_year)
                     stamped += 1
     return stamped
 
