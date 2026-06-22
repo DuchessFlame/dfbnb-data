@@ -185,6 +185,7 @@ _BUFF_EFFECT_MAP = {
     "FortifyMeleeDamageFood":    ("Melee Damage", True, False),
     "FortifyResistFireFood":     ("Fire Resistance", False, False),
     "FortifyResistPoisonFood":   ("Poison Resistance", False, False),
+    "FortifyResistRadsFood":     ("Radiation Resistance", False, False),
     "FortifyCharismaAlcohol":    ("Charisma", False, False),
     "FortifyCharismaFood":       ("Charisma", False, False),
     "ReduceIntelligenceAlcohol": ("Intelligence", False, True),
@@ -1316,6 +1317,76 @@ def _ot_classify(mod_ref):
     return label, value, edid_lower
 
 
+# Custom-mod buff descriptions. The unique mod's effect text comes from the
+# OMOD DESC field; many custom mods (e.g. "Road Kill") leave DESC empty and
+# instead deliver their effect through a linked perk (OMOD property type 18 →
+# PERK), so we fall back to that perk's DESC. Mirrors the activity-page pipeline
+# (OMOD DESC) but adds the perk fallback so perk-driven mods get text too.
+_OMOD_DESC_CACHE = None
+
+
+def _omod_desc_by_fid():
+    """Return {OMOD_FormID_upper: description}, reading every OMOD export. For
+    OMODs whose own DESC is empty but which add a perk, substitute the perk's
+    DESC (parsed lightly — the PERK export is very wide)."""
+    global _OMOD_DESC_CACHE
+    if _OMOD_DESC_CACHE is not None:
+        return _OMOD_DESC_CACHE
+
+    import glob as _glob
+    desc = {}        # omod_fid -> description
+    omod_perk = {}   # omod_fid -> linked perk fid (from property type 18)
+    for f in sorted(_glob.glob(str(_REPO_ROOT / "tsv" / "OMOD_Export_*.tsv")),
+                    key=lambda p: os.path.getmtime(p)):
+        try:
+            rows = read_tsv(f)
+        except Exception:
+            continue
+        for r in rows:
+            ofid = (pick(r, "OMOD_FormID", "FormID") or "").strip().upper()
+            if not ofid:
+                continue
+            d = (pick(r, "DESC") or "").strip()
+            if d and (ofid not in desc or len(d) > len(desc[ofid])):
+                desc[ofid] = d
+            if ofid not in omod_perk:
+                props = pick(r, "Properties_Flat") or pick(r, "DATA_Flat") or ""
+                m = (re.search(r"Prop=18;[^|]*?V1=[^\[]*\[([0-9A-Fa-f]{8})\]", props)
+                     or re.search(r"Value 1=[^\[]*\[PERK:([0-9A-Fa-f]{8})\]", props))
+                if m:
+                    omod_perk[ofid] = m.group(1).upper()
+
+    needed = {p for o, p in omod_perk.items() if o not in desc}
+    if needed:
+        perk_desc = {}
+        for f in sorted(_glob.glob(str(_REPO_ROOT / "tsv" / "PERK_Export_*.tsv")),
+                        key=lambda p: os.path.getmtime(p)):
+            try:
+                with open(f, encoding="utf-8", errors="replace") as fh:
+                    header = fh.readline().rstrip("\n").split("\t")
+                    try:
+                        fi = header.index("PERK_FormID")
+                        di = header.index("DESC")
+                    except ValueError:
+                        continue
+                    for line in fh:
+                        cols = line.rstrip("\n").split("\t")
+                        if len(cols) <= max(fi, di):
+                            continue
+                        pf = cols[fi].strip().upper()
+                        pd = cols[di].strip()
+                        if pf in needed and pd and (pf not in perk_desc or len(pd) > len(perk_desc[pf])):
+                            perk_desc[pf] = pd
+            except Exception:
+                continue
+        for ofid, pf in omod_perk.items():
+            if ofid not in desc and pf in perk_desc:
+                desc[ofid] = perk_desc[pf]
+
+    _OMOD_DESC_CACHE = desc
+    return desc
+
+
 def _resolve_mod_slots(fid, sig):
     """Resolve {customModName, customModDescription, modSlots[]} for a named
     ARMO/WEAP FormID, or None if it carries no legendary combination.
@@ -1356,6 +1427,7 @@ def _resolve_mod_slots(fid, sig):
         return None
 
     custom_name = ""
+    custom_desc = ""
     legendaries = {}   # star int -> value
     extras = []        # [(label, value)]
     for ref in combos[best_ci]:
@@ -1365,6 +1437,11 @@ def _resolve_mod_slots(fid, sig):
         if edid_lower.startswith("mod_custom_") or "mod_custom_" in edid_lower:
             if value:
                 custom_name = value
+            mfid = re.search(r"\[OMOD:([0-9A-Fa-f]+)\]", ref)
+            if mfid:
+                d = _omod_desc_by_fid().get(mfid.group(1).upper(), "")
+                if d and d.strip().lower() not in _OT_JUNK_VALUES:
+                    custom_desc = d.strip()
             continue
         if lab and "Legendary" in lab:
             star = int(re.search(r"(\d)", lab).group(1))
@@ -1386,6 +1463,8 @@ def _resolve_mod_slots(fid, sig):
     out = {"modSlots": mod_slots}
     if custom_name:
         out["customModName"] = custom_name
+    if custom_desc:
+        out["customModDescription"] = custom_desc
     return out
 
 
