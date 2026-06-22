@@ -171,6 +171,219 @@ def _build_prime_meat_buff(tsv_root):
     return {"name": "Meat Sweats", "durationSeconds": duration, "tiers": tiers}
 
 # ---------------------------------------------------------------------------
+# Food buff effects — generative from ALCH Effects / MGEF / KYWD / COBJ TSVs
+# ---------------------------------------------------------------------------
+# Whitelist: only these MGEF EDIDs are displayed as food/drink buff effects.
+# Map: MGEF_EDID → (friendly_name, is_percent, is_negative)
+_BUFF_EFFECT_MAP = {
+    "FortifyHealthFood":         ("Max HP", False, False),
+    "FortifyActionPointsFood":   ("Max AP", False, False),
+    "FortifyCarryWeightFood":    ("Carry Weight", False, False),
+    "FortifyStrengthFood":       ("Strength", False, False),
+    "FortifyStrengthAlcohol":    ("Strength", False, False),
+    "FortifyLuckFood":           ("Luck", False, False),
+    "FortifyMeleeDamageFood":    ("Melee Damage", True, False),
+    "FortifyResistFireFood":     ("Fire Resistance", False, False),
+    "FortifyResistPoisonFood":   ("Poison Resistance", False, False),
+    "FortifyCharismaAlcohol":    ("Charisma", False, False),
+    "FortifyCharismaFood":       ("Charisma", False, False),
+    "ReduceIntelligenceAlcohol": ("Intelligence", False, True),
+    "FortifyEnduranceFood":      ("Endurance", False, False),
+    "FortifyPerceptionFood":     ("Perception", False, False),
+    "FortifyAgilityFood":        ("Agility", False, False),
+    "FortifyIntelligenceFood":   ("Intelligence", False, False),
+    "FortifyXPBonusFood":        ("XP Gain", True, False),
+}
+
+
+def _fmt_buff_duration(seconds):
+    """Format a duration in seconds to player-friendly text."""
+    if seconds <= 0:
+        return ""
+    if seconds >= 3600 and seconds % 3600 == 0:
+        h = seconds // 3600
+        return "{} hr".format(h) if h == 1 else "{} hrs".format(h)
+    if seconds >= 60:
+        m = seconds // 60
+        return "{} min".format(m)
+    return "{}s".format(seconds)
+
+
+def _build_food_buff_index(tsv_root, globs):
+    """Read ALCH effects TSV and build per-FormID buff data.
+
+    Returns {alch_formid_upper: {"buffs": ["text1", ...], "duration": int}}.
+    Only includes items that have at least one recognised buff effect.
+    """
+    eff_path = newest(os.path.join(tsv_root, "ALCH_Export_*_Effects.tsv"))
+    if not eff_path:
+        print("  [WARN] No ALCH_Export_*_Effects.tsv found for food buffs")
+        return {}
+
+    raw = defaultdict(list)
+    for row in read_tsv(eff_path):
+        fid = (row.get("ALCH_FormID") or "").strip().upper()
+        if not fid:
+            continue
+        mgef_edid = (row.get("MGEF_EDID") or "").strip()
+        if mgef_edid not in _BUFF_EFFECT_MAP:
+            continue
+
+        try:
+            mag = float(row.get("EFIT_Magnitude") or 0)
+        except (ValueError, TypeError):
+            mag = 0.0
+        try:
+            dur = int(float(row.get("EFIT_Duration") or 0))
+        except (ValueError, TypeError):
+            dur = 0
+
+        mag_glob_fid = (row.get("MAGG_GLOB_FormID") or "").strip()
+        dur_glob_fid = (row.get("DURG_GLOB_FormID") or "").strip()
+        raw[fid].append((mgef_edid, mag, dur, mag_glob_fid, dur_glob_fid))
+
+    index = {}
+    for fid, effects in raw.items():
+        buffs = []
+        max_dur = 0
+        for mgef_edid, mag, dur, mag_glob, dur_glob in effects:
+            name, is_pct, is_neg = _BUFF_EFFECT_MAP[mgef_edid]
+
+            if mag == 0 and mag_glob:
+                resolved = globs.value(mag_glob)
+                if resolved is not None:
+                    mag = resolved
+            if dur == 0 and dur_glob:
+                resolved = globs.value(dur_glob)
+                if resolved is not None:
+                    dur = int(resolved)
+
+            if mag == 0:
+                continue
+            if dur > max_dur:
+                max_dur = dur
+
+            sign = "-" if is_neg else "+"
+            val = int(round(mag))
+            pct = "%" if is_pct else ""
+            dur_str = _fmt_buff_duration(dur)
+            buff_text = "{}{}{} {}".format(sign, val, pct, name)
+            if dur_str:
+                buff_text += " for {}".format(dur_str)
+            buffs.append(buff_text)
+
+        if buffs:
+            index[fid] = {"buffs": buffs, "duration": max_dur}
+
+    print("  [food buffs] Indexed {} ALCH items with buff effects".format(len(index)))
+    return index
+
+
+def _build_diet_index(tsv_root):
+    """Read KYWD refs TSV and determine diet type per ALCH FormID.
+
+    Uses IngredientType keywords as proxy for Herbivore/Carnivore mutation
+    affinity:
+      IngredientTypeMeat                 → "Carnivore"
+      IngredientTypeFruit / Vegetable    → "Herbivore"
+
+    Returns {alch_formid_upper: "Carnivore" | "Herbivore"}.
+    Items with no diet keyword are omitted from the dict.
+    """
+    path = newest(os.path.join(tsv_root, "KYWD_Export_*_Refs.tsv"))
+    if not path:
+        print("  [WARN] No KYWD_Export_*_Refs.tsv found for diet index")
+        return {}
+
+    diet = {}
+    for row in read_tsv(path):
+        ref_sig = (row.get("RefSignature") or "").strip().upper()
+        if ref_sig != "ALCH":
+            continue
+        ref_fid = (row.get("RefFormID") or "").strip().upper()
+        kw_edid = (row.get("KeywordEDID") or "").strip()
+
+        if "IngredientTypeMeat" in kw_edid:
+            diet[ref_fid] = "Carnivore"
+        elif any(x in kw_edid for x in (
+            "IngredientTypeFruit", "IngredientTypeVegetable", "IngredientTypePlant",
+        )):
+            diet.setdefault(ref_fid, "Herbivore")
+
+    print("  [food buffs] Diet index: {} Carnivore, {} Herbivore".format(
+        sum(1 for v in diet.values() if v == "Carnivore"),
+        sum(1 for v in diet.values() if v == "Herbivore"),
+    ))
+    return diet
+
+
+def _build_recipe_to_alch_map(tsv_root):
+    """Read COBJ TSV and map recipe condition EDIDs → ALCH output FormIDs.
+
+    The COBJ record's GNAM_EDID is the recipe gate (which shares the same
+    EDID as the BOOK item), and CNAM_FormID is the created ALCH item.
+
+    Returns {recipe_edid: alch_formid_upper}.
+    """
+    path = newest(os.path.join(tsv_root, "COBJ_Export_*.tsv"))
+    if not path:
+        print("  [WARN] No COBJ_Export TSV found for recipe mapping")
+        return {}
+
+    mapping = {}
+    for row in read_tsv(path):
+        gnam_edid = (row.get("GNAM_EDID") or "").strip()
+        cnam_fid = (row.get("CNAM_FormID") or "").strip().upper()
+        if not gnam_edid or not cnam_fid:
+            continue
+        if gnam_edid.startswith("Recipe_Cooking"):
+            mapping[gnam_edid] = cnam_fid
+
+    print("  [food buffs] Mapped {} cooking recipes to ALCH outputs".format(len(mapping)))
+    return mapping
+
+
+def _attach_food_buffs(tree, data):
+    """Attach buffEffects and dietType to food/drink items in the Meat Cook tree.
+
+    For ALCH items: look up buff data directly by FormID.
+    For BOOK recipe items (name starts with "Recipe:"): trace via COBJ to
+    the ALCH output and use that item's buff + diet data.
+    """
+    buff_index = _build_food_buff_index(TSV_ROOT, data.globs)
+    diet_index = _build_diet_index(TSV_ROOT)
+    recipe_map = _build_recipe_to_alch_map(TSV_ROOT)
+
+    tagged = 0
+    for node in tree:
+        for item in node.get("items", []):
+            sig = (item.get("sig") or "").upper()
+            fid = (item.get("formid") or "").strip().upper()
+            edid = (item.get("edid") or "").strip()
+            name = (item.get("name") or "").strip()
+
+            alch_fid = None
+            if sig == "ALCH":
+                alch_fid = fid
+            elif sig == "BOOK" and name.lower().startswith("recipe:"):
+                alch_fid = recipe_map.get(edid)
+
+            if not alch_fid:
+                continue
+
+            buff_data = buff_index.get(alch_fid)
+            if buff_data:
+                item["buffEffects"] = buff_data["buffs"]
+                tagged += 1
+
+            diet = diet_index.get(alch_fid)
+            if diet:
+                item["dietType"] = diet
+
+    print("    Tagged {} Meat Cook items with food buff effects".format(tagged))
+
+
+# ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 _EXCLUDE_RE = re.compile(r"^(zzz_|CUT_|POST_|DEL_|P62_)", re.IGNORECASE)
@@ -929,6 +1142,114 @@ def _classify_meat_groups(tree):
                 it["tradeable"] = fid not in non_tradable
             if fid in unsellable and "unsellable" not in it:
                 it["unsellable"] = True
+
+
+# ---------------------------------------------------------------------------
+# Grahm's Meat-Cook — source pool tagging (RareRewards / UncommonRewards /
+# DefaultRewards) and per-tier pool self-chance metadata
+# ---------------------------------------------------------------------------
+# The Best-tier quest reward LVLI is a UseAll max_count=1 waterfall over
+# three sub-LVLIs:
+#   LLS_RareRewards        — 20 pick-one items, CN 15/90/95 per tier
+#   LLS_UncommonRewards    — 35 pick-one items, CN 50/50/50 per tier
+#   LL_Quest_Rewards_Default — 2 UseAll items, guaranteed (learn-gated)
+#
+# classifyPoolTier() in the JS uses a flat 6% rate threshold that lumps
+# Rare and Uncommon together. This function tags each item with its true
+# source pool so the renderer can split them correctly.
+
+_MEAT_POOL_PATTERNS = [
+    (re.compile(r"RareRewards", re.IGNORECASE), "RareRewards"),
+    (re.compile(r"UncommonRewards", re.IGNORECASE), "UncommonRewards"),
+    (re.compile(r"Quest_Rewards_Default", re.IGNORECASE), "DefaultRewards"),
+]
+
+
+def _tag_meat_source_pools(tree, data, resolver, tier_variants):
+    """Tag each Meat Cook unique-pool item with its source pool name
+    (RareRewards / UncommonRewards / DefaultRewards) from the LVLI tree,
+    and attach per-tier pool self-chances as ``poolMeta`` on the unique node.
+
+    *tier_variants*: ``[(tier_label, lvli_fid), ...]`` — the Best/Good/Bad
+                     tier LVLIs from the GMRW stem split.
+    """
+    if not tier_variants:
+        print("    [WARN] No tier variants for Meat Cook source pool tagging")
+        return
+
+    # 1. Build FormID → sourcePool mapping using the first tier variant.
+    #    All tier variants share the same child structure (same items,
+    #    different ChanceNone), so any one works for identification.
+    first_fid = tier_variants[0][1]
+    fid_to_pool = {}
+    for sub_fid, sub_edid in _walk_direct_sub_lvlis(first_fid, data):
+        pool_name = None
+        for pat, name in _MEAT_POOL_PATTERNS:
+            if pat.search(sub_edid):
+                pool_name = name
+                break
+        if not pool_name:
+            continue
+        try:
+            for it in resolver.resolve_deep(sub_fid):
+                fid = it.get("formid")
+                if fid:
+                    fid_to_pool[fid] = pool_name
+        except Exception as e:
+            print("    [WARN] resolve_deep {} for sourcePool: {}".format(sub_fid, e))
+
+    if not fid_to_pool:
+        print("    [WARN] No FormID -> sourcePool mapping found")
+        return
+
+    # 2. Tag items in the tree.
+    tagged = 0
+    for node in tree:
+        if not node.get("isUniqueReward"):
+            continue
+        for it in node.get("items", []):
+            pool = fid_to_pool.get(it.get("formid"))
+            if pool:
+                it["sourcePool"] = pool
+                tagged += 1
+
+    # 3. Compute pool self-chances per tier variant.
+    #    For each tier (Best/Good/Bad), walk its children, identify the
+    #    sub-pool by EDID pattern, and read the entry's cn_factor (which
+    #    equals 1 - ChanceNone/100 for entries with no list-level CN).
+    pool_meta = {}
+    for tier_label, tier_fid in tier_variants:
+        for entry in data.lvli.entries_by_list.get(tier_fid, []):
+            idx = entry.get("EntryIndex")
+            if idx is None:
+                continue
+            math = data.lvli.math_by_entry.get((tier_fid, idx))
+            if not math:
+                continue
+            sub_fid = (math.get("SubLVLI_FormID") or "").strip()
+            if not sub_fid:
+                continue
+            sub_edid = data.lvli.edid_for(sub_fid) or ""
+            pool_name = None
+            for pat, name in _MEAT_POOL_PATTERNS:
+                if pat.search(sub_edid):
+                    pool_name = name
+                    break
+            if not pool_name:
+                continue
+            _pw, cn = resolver._entry_pick_and_cn(math, entry, tier_fid)
+            self_chance = round(cn * 100, 2)
+            pool_meta.setdefault(pool_name, {})[tier_label] = self_chance
+
+    # 4. Attach poolMeta to the unique node.
+    for node in tree:
+        if node.get("isUniqueReward"):
+            node["poolMeta"] = pool_meta
+            break
+
+    print("    Tagged {} Meat Cook items with sourcePool".format(tagged))
+    for pn, chances in sorted(pool_meta.items()):
+        print("      {}: {}".format(pn, chances))
 
 
 # ---------------------------------------------------------------------------
@@ -1881,6 +2202,8 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
             stem_order.append(stem)
         by_stem[stem].append((title, lvli_fid, lvli_edid, ri, parent_fid, tier))
 
+    _meat_tier_variants = []  # [(tier_label, lvli_fid)] for Meat Cook source pools
+
     for stem in stem_order:
         entries = by_stem[stem]
 
@@ -1922,6 +2245,13 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
                     _collapse_redundant_tiers(node)
                     tree.append(node)
         else:
+            # Save Meat Cook tier variants for source pool tagging later.
+            if slug == "grahms-meat-cook-all-rewards" and is_unique:
+                _meat_tier_variants = [
+                    (tier or title, lvli_fid)
+                    for title, lvli_fid, _, _, _, tier in entries
+                ]
+
             nodes_per_tier = []
             for title, lvli_fid, lvli_edid, ri, _parent_fid, tier_suffix in entries:
                 tlabel = tier_suffix or title
@@ -1950,9 +2280,13 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
             tree.append(node)
 
     # Grahm's Meat-Cook: split the unique pool into alcohol / cooked / unique
-    # so the renderer can route brews + cooked foods into their own tables.
+    # so the renderer can route brews + cooked foods into their own tables,
+    # then tag each item with its source pool (RareRewards / UncommonRewards /
+    # DefaultRewards) for the three-pool tier display.
     if slug == "grahms-meat-cook-all-rewards":
         _classify_meat_groups(tree)
+        _tag_meat_source_pools(tree, data, resolver, _meat_tier_variants)
+        _attach_food_buffs(tree, data)
 
     flat_rewards = _build_flat_rewards_from_tree(tree, event_def, groups)
 
