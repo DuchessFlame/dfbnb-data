@@ -242,6 +242,9 @@ EVENTS = {
     "grahms-meat-cook-all-rewards": {
         "name": "Grahm's Meat-Cook",
         "eventSlug": "meat-week",
+        # Reward images live in their own subfolder on the server
+        # (…/guide-images/seasonal-events/meat-week/meat-cook/rewards/<slug>.avif).
+        "imageDir": "meat-week/meat-cook/rewards",
         "description": "Help Grahm cook up a feast at the grill during Meat Week and earn unique rewards.",
         "isContainerLoot": False,
         "questFormIDs": ["0054B3FA"],
@@ -496,7 +499,31 @@ def slugify_item(name):
 
 
 def build_image_url(event_slug, item_name):
-    return IMAGE_BASE + event_slug + "/" + slugify_item(item_name) + ".avif"
+    # event_slug may be a multi-segment path (e.g. "meat-week/meat-cook/rewards")
+    # when a page stores its reward images in a dedicated subfolder.
+    return IMAGE_BASE + event_slug.strip("/") + "/" + slugify_item(item_name) + ".avif"
+
+
+# Reward slugs that have more than one uploaded view (front/back, the three
+# decoy ducks, etc.). Value = total number of images, named <slug>.avif,
+# <slug>-2.avif, <slug>-3.avif … The first is the primary / row thumbnail.
+# Keyed by image-folder slug so it is page-agnostic.
+IMAGE_GALLERIES = {
+    "decoy-ducks": 3,
+    "meat-week-souvenir-beer-stein": 2,
+    "bloody-chef-outfit": 2,
+    "chally-the-moo-moo-outfit": 2,
+}
+
+
+def build_image_list(event_slug, item_name):
+    """Return the ordered list of image URLs for an item (primary first)."""
+    base = event_slug.strip("/") + "/" + slugify_item(item_name)
+    n = IMAGE_GALLERIES.get(slugify_item(item_name), 1)
+    urls = [IMAGE_BASE + base + ".avif"]
+    for i in range(2, n + 1):
+        urls.append(IMAGE_BASE + base + "-{}.avif".format(i))
+    return urls
 
 
 def parse_ref(ref):
@@ -2053,7 +2080,7 @@ def _build_caps_block_summary(caps_breakdown):
 
 def _build_flat_rewards_from_tree(tree, event_def, groups):
     """Produce the legacy flat rewards[] list from the event reward tree."""
-    ev_slug = event_def["eventSlug"]
+    ev_slug = event_def.get("imageDir") or event_def["eventSlug"]
     by_fid = {}
     for node in tree:
         node_label = node.get("label", "")
@@ -2062,11 +2089,13 @@ def _build_flat_rewards_from_tree(tree, event_def, groups):
             name = it["name"]
             edid = it["edid"]
             if fid not in by_fid:
+                _imgs = build_image_list(ev_slug, name)
                 by_fid[fid] = {
                     "name":         name,
                     "formId":       fid,
                     "edid":         edid,
-                    "imageUrl":     build_image_url(ev_slug, name),
+                    "imageUrl":     _imgs[0],
+                    "images":       _imgs,
                     "releaseYear":  None,
                     "tradeable":    None,
                     "isTrackable":  is_trackable(name),
