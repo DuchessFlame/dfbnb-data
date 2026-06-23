@@ -1,0 +1,74 @@
+name: Build Axolotl Guide JSON
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tsv/FISH_Export_*.tsv'
+      - 'tsv/ALCH_Export_*.tsv'
+      - 'tsv/CHAL_Export_*.tsv'
+      - 'tsv/LVLI_Export_*_LVLI_Entries.tsv'
+      - 'dist/axolotl-rotations.json'
+      - 'src/build_axolotl_guide_json.py'
+      - 'src/fishing_challenge_rewards.json'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest (rebase)
+        run: |
+          git fetch origin
+          git pull --rebase origin main
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build axolotl_guide.json (live)
+        run: python src/build_axolotl_guide_json.py
+
+      - name: Build axolotl_guide_pts.json (PTS preview, if PTS exports present)
+        run: |
+          if ls tsv/pts/FISH_Export_*.tsv >/dev/null 2>&1; then
+            python src/build_axolotl_guide_json.py --pts
+          else
+            echo "No PTS exports present -- skipping axolotl_guide_pts.json"
+          fi
+
+      - name: Sanity check output
+        run: |
+          test -f dist/axolotl_guide.json || { echo "dist/axolotl_guide.json not found"; exit 1; }
+          python -c "
+          import json, sys
+          with open('dist/axolotl_guide.json') as f:
+              d = json.load(f)
+          v = d.get('variants', [])
+          errs = []
+          if len(v) != 12:
+              errs.append(f'Expected 12 monthly variants, got {len(v)}')
+          for x in v:
+              if not x.get('name') or 'monthIndex' not in x or len(x.get('regions', [])) != 2:
+                  errs.append(f'Malformed variant: {x.get(\"monthIndex\")}')
+          if errs:
+              for e in errs: print(e, file=sys.stderr)
+              sys.exit(1)
+          print(f'OK: {len(v)} monthly variants')
+          "
+
+      - name: Commit dist
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/axolotl_guide.json
+          [ -f dist/axolotl_guide_pts.json ] && git add dist/axolotl_guide_pts.json || true
+          git diff --cached --quiet || git commit -m "chore: build axolotl_guide.json [skip ci]"
+          git push

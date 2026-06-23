@@ -387,17 +387,22 @@ def _attach_food_buffs(tree, data):
 # ---------------------------------------------------------------------------
 # Weapon / weapon-mod effects (Meat Cook)
 # ---------------------------------------------------------------------------
-# Verified against xEdit TSV data (June 2026 + Dec 2025 property exports).
+# Verified against xEdit TSV data (June 2026 + Dec 2025 exports) and xEdit
+# screenshots for _PARENT_mod_melee_weapon_SpikesLarge.
 #
-# ENCH/MGEF magnitudes (fire, bleed, poison) are exact values from the
-# enchantment records.  OMOD Float V2 property values (DamageBonusMult,
-# ArmorPenetration) are NOT captured by the current xEdit export script —
-# the Dec 2025 OMOD Properties_Flat shows the property TYPE and FUNC but
-# leaves the Float V2 field empty.  Those values need an updated xEdit
-# script to extract.
+# Exact values confirmed:
+#   - ENCH/MGEF magnitudes (fire 22/5s, bleed 7/11s & 13/11s, poison 5/12s)
+#   - CURV damage split (Poisoned_Split3: −40% phys / +36% poison)
+#   - WEAP DNAM (base damage, speed, weight, stagger, crit multiplier)
+#   - SpikesLarge parent properties from xEdit (DamageBonusMult 0.25,
+#     ArmorPenetration 22, Durability −0.125, Weight +0.30, Value +0.35)
 #
-# CURV data is exact (damage split percentages for Poisoned parent).
-# WEAP DNAM values (base damage, speed, weight, stagger) are exact.
+# Still need re-export with updated xEdit script for:
+#   - Peppered: DamageBonusMult + STAT_DmgLimbs exact values
+#   - Salty: ArmorPenetration + DamageBonusMult exact values
+#   - Electrified parent (Shock_High): DamageTypeValues (Energy) exact value
+#   - Saw-Bladed parent (Bleed): AttackDamage exact value
+#   - Rusted parent (Poisoned_Split3): DamageTypeValues (Poison) exact value
 
 _WEAPON_MOD_EFFECTS = {
     # ── Tenderizer ───────────────────────────────────────────────────────────
@@ -408,15 +413,17 @@ _WEAPON_MOD_EFFECTS = {
         "Medium stagger · 3× crit multiplier",
     ],
     # OMOD 005528E4 · Props: DamageBonusMult (ADD) + Limb Damage (ADD)
+    # TODO: update with exact values after xEdit re-export
     "recipe_mod_melee_MeatTenderizer_Peppered": [
-        "Adds bonus melee damage (DamageBonusMult)",
+        "Adds bonus melee damage",
         "Increases limb damage",
     ],
     # OMOD 005528E5 · ENCH enchModArmorPenetration · AVIF ArmorPenetration
     # Also has DamageBonusMult (ADD)
+    # TODO: update with exact values after xEdit re-export
     "recipe_mod_melee_MeatTenderizer_Salted": [
         "Adds armour penetration",
-        "Adds bonus melee damage (DamageBonusMult)",
+        "Adds bonus melee damage",
     ],
     # OMOD 005528E3 · ENCH ench_Tenderizer_Mod_Fire (00844909)
     # MGEF FXFireHitVisuals · Magnitude 22 · Duration 5
@@ -441,9 +448,9 @@ _WEAPON_MOD_EFFECTS = {
     ],
     # OMOD 008B3A22 · Parent: _PARENT_mod_melee_weapon_Shock_High
     # Adds DamageTypeValues: dtEnergy (Energy Damage) + shock FX
+    # TODO: update with exact energy damage value after xEdit re-export
     "Recipe_Mod_Melee_HogSplitter_Electrified": [
-        "Adds energy damage (DamageTypeValues: Energy)",
-        "Adds shock visual FX",
+        "Adds energy damage",
     ],
     # OMOD 008B3A23 · ENCH ench_Hogsplitter_Poison (008B3A2B)
     # MGEF dtPoisonEffectChanceAlways · Magnitude 5 · Duration 12
@@ -459,9 +466,12 @@ _WEAPON_MOD_EFFECTS = {
         "Adds 13 bleed damage over 11 sec",
     ],
     # OMOD 008B3A1F · Parent: _PARENT_mod_melee_weapon_SpikesLarge
-    # Adds enchModArmorPenetration + AVIF ArmorPenetration
+    # From xEdit: DamageBonusMult ADD 0.25, ArmorPenetration ADD 22,
+    #             Durability MUL+ADD −0.125, Weight MUL+ADD +0.30,
+    #             Value MUL+ADD +0.35, enchModArmorPenetration
     "Recipe_Mod_Melee_HogSplitter_Spiked": [
-        "Adds armour penetration",
+        "+25% bonus damage · +22 armour penetration",
+        "−12.5% durability · +30% weight",
     ],
 }
 

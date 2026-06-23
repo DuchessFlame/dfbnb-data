@@ -136,7 +136,8 @@
   "catchInfo": {
     "summary": "Seasonal fish join the Uncommon Region Fish pool in their listed regions during their season. Local Legends sit at the very top of the catch cascade but only at one specific spot.",
     "baitNote": "Better bait raises your odds of the rarer rungs of the cascade: Superb Bait gives the best shot at Uncommon Region (seasonal) and Local Legend fish. Improved or Superb Bait is required for Axolotls but is not needed for seasonal fish.",
-    "calculatorNote": "Use the Fishing Calculator for exact per-cast percentages by weather, bait and region."
+    "calculatorNote": "Use the Fishing Calculator for exact per-cast percentages by weather, bait and region.",
+    "legendsNote": "This guide covers the SEASONAL Local Legends only -- the ones locked to a single spot during one season (Glass Ghost at Glassed Cavern in Summer, Sludge Eye at The Sludge Works in Fall). The year-round \"full-time\" Local Legends (Maw Begotten, Wavy Willard, Organ Grinder, Deathjaw) share the same catch pool but are covered separately."
   },
   "metaChallenges": [
     {
@@ -144,7 +145,8 @@
       "name": "Catch Fish From Every Season",
       "tracker": "",
       "count": 4,
-      "isLocalLegend": false
+      "isLocalLegend": false,
+      "reward": "Atoms"
     }
   ],
   "seasons": [
@@ -234,7 +236,7 @@
           "regions": [
             "Cranberry Bog"
           ],
-          "location": "Glassed Cavern (Cranberry Bog)",
+          "location": "Glassed Cavern",
           "rawMeal": {
             "name": "Glass Ghost",
             "subtitle": "Medium Summer Fish",
@@ -318,21 +320,24 @@
           "name": "Catch A Summer Seasonal Fish",
           "tracker": "Fish Caught",
           "count": 1,
-          "isLocalLegend": false
+          "isLocalLegend": false,
+          "reward": "Atoms"
         },
         {
           "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any_02",
           "name": "Catch Summer Seasonal Fish",
           "tracker": "Fish Caught",
           "count": 15,
-          "isLocalLegend": false
+          "isLocalLegend": false,
+          "reward": "Atoms"
         },
         {
           "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Summer_LocalLegend",
           "name": "Catch Summer Seasonal Local Legend: \"Glass Ghost\"",
           "tracker": "Fish Caught",
           "count": 1,
-          "isLocalLegend": true
+          "isLocalLegend": true,
+          "reward": "Atoms"
         }
       ],
       "comingSoon": []
@@ -381,7 +386,7 @@
           "regions": [
             "Ash Heap"
           ],
-          "location": "Ash Heap",
+          "location": "The Sludge Works",
           "rawMeal": {
             "name": "Sludge Eye",
             "subtitle": "Small Fall Fish",
@@ -465,21 +470,24 @@
           "name": "Catch A Fall Seasonal Fish",
           "tracker": "Fish Caught",
           "count": 1,
-          "isLocalLegend": false
+          "isLocalLegend": false,
+          "reward": "Atoms"
         },
         {
           "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Fall_Any_02",
           "name": "Catch Fall Seasonal Fish",
           "tracker": "Fish Caught",
           "count": 15,
-          "isLocalLegend": false
+          "isLocalLegend": false,
+          "reward": "Atoms"
         },
         {
           "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Fall_LocalLegend",
           "name": "Catch Fall Seasonal Local Legend: \"Sludge Eye\"",
           "tracker": "Fish Caught",
           "count": 1,
-          "isLocalLegend": true
+          "isLocalLegend": true,
+          "reward": "Atoms"
         }
       ],
       "comingSoon": []

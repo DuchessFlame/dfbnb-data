@@ -35,6 +35,35 @@ TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
 DIST_DIR = os.path.join(SCRIPT_DIR, "..", "dist")
 DIST_FILE = os.path.join(DIST_DIR, "seasonal_fish_guide.json")
 
+# Lifetime-challenge rewards (Atoms / Score) are NOT carried in the CHAL export
+# (ENAM is empty on every lifetime challenge) and the seasonal fishing challenges
+# have no GMRW link either, so the reward label cannot be derived from the TSVs.
+# This small hand-maintained file lets the reward be shown next to each challenge.
+# Key = challenge EDID, value = reward label string (e.g. "Atoms", "Score",
+# "50 Score"). Edit it once and it persists across rebuilds. Missing keys fall
+# back to a generic "Atoms" label for lifetime challenges.
+REWARD_OVERRIDES_FILE = os.path.join(SCRIPT_DIR, "fishing_challenge_rewards.json")
+
+
+def load_reward_overrides():
+    try:
+        with open(REWARD_OVERRIDES_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return {str(k): str(v) for k, v in (data.get("rewards", data)).items()}
+    except (IOError, ValueError):
+        return {}
+
+
+def reward_for_challenge(edid, overrides):
+    """Reward label for a challenge: override if present, else a sensible default."""
+    if edid in overrides:
+        return overrides[edid]
+    # Lifetime challenges pay Atoms or Score; without data we default to Atoms and
+    # let the overrides file correct any that actually pay Score.
+    if edid.startswith("Challenge_Lifetime_"):
+        return "Atoms"
+    return None
+
 # Season index <-> name (verified against the in-game Fishing Report notes)
 SEASON_ORDER = ["spring", "summer", "fall", "winter"]
 SEASON_LABEL = {"spring": "Spring", "summer": "Summer", "fall": "Fall", "winter": "Winter"}
@@ -55,10 +84,19 @@ FISHTYPE_REGION_KEYWORD = {
     "007BC5EA": "Ash Heap",           # Fishing_FishType_AshHeap
 }
 
-# Hand-curated specific spots for Local Legends (the named fishing hole).
+# Specific spots for the SEASONAL Local Legends (the named fishing hole), derived
+# from the GetInCurrentLocation(...) conditions on each entry of the
+# Fishing_LLS_FishCollection_LocalLegends LVLI (00804F7F), cross-checked against
+# LCTN_Export. The legend only bites at this one spot, during its season.
+#   Glass Ghost -> LocCranberryGlassedCavernLocation (00081B25) = Glassed Cavern
+#   Sludge Eye  -> LocMTRSludgeWorksLocation         (00553509) = The Sludge Works
+# NOTE: the full-time Local Legends (Maw Begotten/Big Maw, Wavy Willard/Wavy
+# Willard's Water Park, Organ Grinder/Organ Cave, Deathjaw/Ash Cave) sit in the
+# SAME LVLI pool but are NOT seasonal -- they are intentionally kept out of this
+# guide for now (see legendsNote in catchInfo).
 LEGEND_LOCATION = {
-    "SeasonalFish_Fish_LocalLegend_SummerGlassGhost": "Glassed Cavern (Cranberry Bog)",
-    "SeasonalFish_Fish_LocalLegend_SludgeEye": "Ash Heap",
+    "SeasonalFish_Fish_LocalLegend_SummerGlassGhost": "Glassed Cavern",
+    "SeasonalFish_Fish_LocalLegend_SludgeEye": "The Sludge Works",
 }
 
 # Region keyword (in the Uncommon LVLI editor id) -> display name.
@@ -322,8 +360,9 @@ def parse_cobj(cobj_rows):
     return by_output, filet_from
 
 
-def parse_challenges(chal_rows):
+def parse_challenges(chal_rows, reward_overrides=None):
     """Live seasonal-fishing challenges grouped by season, plus the META."""
+    reward_overrides = reward_overrides or {}
     idx = header_index(chal_rows)
     by_season = {s: [] for s in SEASON_ORDER}
     meta = []
@@ -340,6 +379,7 @@ def parse_challenges(chal_rows):
             "tracker": cell(row, idx.get("SNAM")),
             "count": count or 1,
             "isLocalLegend": "_LocalLegend" in edid,
+            "reward": reward_for_challenge(edid, reward_overrides),
         }
         if "AllSeasons_META" in edid:
             rec["count"] = count or 4
@@ -372,7 +412,8 @@ def main():
         fish = parse_seasonal_fish(read_tsv(fish_file))
         alch_by_id, alch_by_edid, season_meals = parse_alch(read_tsv(alch_file))
         cobj_by_output, raw_meal_edid_to_output = parse_cobj(read_tsv(cobj_file))
-        chal_by_season, meta = parse_challenges(read_tsv(chal_file))
+        reward_overrides = load_reward_overrides()
+        chal_by_season, meta = parse_challenges(read_tsv(chal_file), reward_overrides)
 
         seasons = []
         for s in SEASON_ORDER:
@@ -471,6 +512,14 @@ def main():
                             "is not needed for seasonal fish.",
                 "calculatorNote": "Use the Fishing Calculator for exact per-cast "
                                   "percentages by weather, bait and region.",
+                "legendsNote": "This guide covers the SEASONAL Local Legends only "
+                               "-- the ones locked to a single spot during one "
+                               "season (Glass Ghost at Glassed Cavern in Summer, "
+                               "Sludge Eye at The Sludge Works in Fall). The "
+                               "year-round \"full-time\" Local Legends (Maw "
+                               "Begotten, Wavy Willard, Organ Grinder, Deathjaw) "
+                               "share the same catch pool but are covered "
+                               "separately.",
             },
             "metaChallenges": meta,
             "seasons": seasons,
