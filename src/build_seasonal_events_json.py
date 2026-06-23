@@ -385,6 +385,106 @@ def _attach_food_buffs(tree, data):
 
 
 # ---------------------------------------------------------------------------
+# Weapon / weapon-mod effects (Meat Cook)
+# ---------------------------------------------------------------------------
+# Verified against xEdit TSV data (June 2026 + Dec 2025 property exports).
+#
+# ENCH/MGEF magnitudes (fire, bleed, poison) are exact values from the
+# enchantment records.  OMOD Float V2 property values (DamageBonusMult,
+# ArmorPenetration) are NOT captured by the current xEdit export script —
+# the Dec 2025 OMOD Properties_Flat shows the property TYPE and FUNC but
+# leaves the Float V2 field empty.  Those values need an updated xEdit
+# script to extract.
+#
+# CURV data is exact (damage split percentages for Poisoned parent).
+# WEAP DNAM values (base damage, speed, weight, stagger) are exact.
+
+_WEAPON_MOD_EFFECTS = {
+    # ── Tenderizer ───────────────────────────────────────────────────────────
+    # WEAP 00553295 · BaseDmg 40 · Speed 1.0 · Weight 20 · CritMult 3×
+    # Damage curve: CT_Player_Damage_Universal_Tier37 (Lv50 = 244)
+    "Recipe_Weapon_Melee_MeatTenderizer": [
+        "2-handed melee · 40 base damage · Speed 1.0 · Weight 20",
+        "Medium stagger · 3× crit multiplier",
+    ],
+    # OMOD 005528E4 · Props: DamageBonusMult (ADD) + Limb Damage (ADD)
+    "recipe_mod_melee_MeatTenderizer_Peppered": [
+        "Adds bonus melee damage (DamageBonusMult)",
+        "Increases limb damage",
+    ],
+    # OMOD 005528E5 · ENCH enchModArmorPenetration · AVIF ArmorPenetration
+    # Also has DamageBonusMult (ADD)
+    "recipe_mod_melee_MeatTenderizer_Salted": [
+        "Adds armour penetration",
+        "Adds bonus melee damage (DamageBonusMult)",
+    ],
+    # OMOD 005528E3 · ENCH ench_Tenderizer_Mod_Fire (00844909)
+    # MGEF FXFireHitVisuals · Magnitude 22 · Duration 5
+    "recipe_mod_melee_MeatTenderizer_Heated": [
+        "Adds 22 fire damage over 5 sec",
+    ],
+    # Weapon drop (WEAP 00553295)
+    "MeatTenderizer": [
+        "2-handed melee · 40 base damage · Speed 1.0 · Weight 20",
+        "Medium stagger · 3× crit multiplier",
+    ],
+    # ── Hog Splitter ─────────────────────────────────────────────────────────
+    # WEAP 008B4129 · BaseDmg 25 · Speed 1.0 · Weight 10 · CritMult 4×
+    # Damage curve: CT_Player_Damage_Universal_Tier37 (same as Tenderizer)
+    # ENCH EnchWeapModBleed_HogSplitter · Bleed Mag 7 · Dur 11
+    # OnHit: Dismember only
+    "Recipe_Weapon_Melee_HogSplitter": [
+        "2-handed melee · 25 base damage · Speed 1.0 · Weight 10",
+        "Medium stagger · 4× crit multiplier",
+        "Built-in bleed: 7 damage over 11 sec",
+        "Can dismember targets",
+    ],
+    # OMOD 008B3A22 · Parent: _PARENT_mod_melee_weapon_Shock_High
+    # Adds DamageTypeValues: dtEnergy (Energy Damage) + shock FX
+    "Recipe_Mod_Melee_HogSplitter_Electrified": [
+        "Adds energy damage (DamageTypeValues: Energy)",
+        "Adds shock visual FX",
+    ],
+    # OMOD 008B3A23 · ENCH ench_Hogsplitter_Poison (008B3A2B)
+    # MGEF dtPoisonEffectChanceAlways · Magnitude 5 · Duration 12
+    # Parent: _PARENT_mod_WEAPON_GENERIC_Poisoned_Split3
+    # CURV: primary −40%, secondary (poison) +36%
+    "Recipe_Mod_Melee_HogSplitter_PoisonedRusted": [
+        "Adds 5 poison damage over 12 sec",
+        "Splits base damage: −40% physical, +36% poison",
+    ],
+    # OMOD 008B3A21 · ENCH EnchWeapModBleed_HogSplitter_AddBleed (008DA59E)
+    # MGEF modWeapSecondaryBleedEffect · Magnitude 13 · Duration 11
+    "Recipe_Mod_Melee_HogSplitter_Sawbladed": [
+        "Adds 13 bleed damage over 11 sec",
+    ],
+    # OMOD 008B3A1F · Parent: _PARENT_mod_melee_weapon_SpikesLarge
+    # Adds enchModArmorPenetration + AVIF ArmorPenetration
+    "Recipe_Mod_Melee_HogSplitter_Spiked": [
+        "Adds armour penetration",
+    ],
+}
+
+
+def _attach_weapon_mod_effects(tree):
+    """Tag weapon and weapon-mod plan items with their gameplay effects.
+
+    Scoped to the Meat Cook unique pool — called after _attach_food_buffs.
+    Effects were extracted from ENCH / MGEF / WEAP TSV data; OMOD property
+    entries aren't available in the xEdit export so values are hard-coded.
+    """
+    tagged = 0
+    for node in tree:
+        for item in node.get("items", []):
+            edid = (item.get("edid") or "").strip()
+            effects = _WEAPON_MOD_EFFECTS.get(edid)
+            if effects:
+                item["weaponModEffects"] = list(effects)
+                tagged += 1
+    print("    Tagged {} items with weapon mod effects".format(tagged))
+
+
+# ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 _EXCLUDE_RE = re.compile(r"^(zzz_|CUT_|POST_|DEL_|P62_)", re.IGNORECASE)
@@ -2370,6 +2470,7 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
         _classify_meat_groups(tree)
         _tag_meat_source_pools(tree, data, resolver, _meat_tier_variants)
         _attach_food_buffs(tree, data)
+        _attach_weapon_mod_effects(tree)
 
     flat_rewards = _build_flat_rewards_from_tree(tree, event_def, groups)
 
@@ -2566,6 +2667,13 @@ def _build_flat_rewards_from_tree(tree, event_def, groups):
                 }
                 if "unsellable" in it:
                     by_fid[fid]["unsellable"] = it["unsellable"]
+                # Carry effect metadata to flat rewards for gallery export.
+                if it.get("buffEffects"):
+                    by_fid[fid]["buffEffects"] = it["buffEffects"]
+                if it.get("dietType"):
+                    by_fid[fid]["dietType"] = it["dietType"]
+                if it.get("weaponModEffects"):
+                    by_fid[fid]["weaponModEffects"] = it["weaponModEffects"]
             for tier in it.get("tiers") or [{"tier": node_label, "rate": it["dropRate"]}]:
                 by_fid[fid]["dropRates"].append({
                     "tier": tier.get("tier") or node_label,
