@@ -2348,7 +2348,11 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
                     merged["group"] = group_key
                 if is_unique:
                     merged["isUniqueReward"] = True
-                _collapse_redundant_tiers(merged)
+                # Grahm's Meat-Cook keeps every item's per-tier rates so the
+                # renderer can show true Best/Good/Bad odds as table columns —
+                # don't collapse identical/single tiers into one row here.
+                if not (slug == "grahms-meat-cook-all-rewards" and is_unique):
+                    _collapse_redundant_tiers(merged)
                 tree.append(merged)
 
     for title, lvli_fid, lvli_edid, ri in _gmrw_iter_legendary_sources(rows):
