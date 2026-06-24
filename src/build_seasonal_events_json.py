@@ -385,6 +385,74 @@ def _attach_food_buffs(tree, data):
 
 
 # ---------------------------------------------------------------------------
+# Resource-producer output (Meat Cook)
+# ---------------------------------------------------------------------------
+# Some reward plans build a CAMP resource producer (e.g. the Weenie Wagon,
+# which produces Canned Dog Food). dist/resource_producers.json already resolves
+# what each station produces, how often, and its storage capacity, so we join
+# to it by display name and attach a compact `production` block that the
+# renderer turns into an "Output" sub-expand.
+
+RESOURCE_PRODUCERS_PATH = _REPO_ROOT / "dist" / "resource_producers.json"
+
+
+def _norm_producer_name(s):
+    s = (s or "").strip()
+    for pre in ("Plan:", "Recipe:"):
+        if s.lower().startswith(pre.lower()):
+            s = s[len(pre):].strip()
+            break
+    return s.lower()
+
+
+def _build_producer_index():
+    """Map normalised producer display name -> compact production block."""
+    index = {}
+    try:
+        with open(RESOURCE_PRODUCERS_PATH, encoding="utf-8") as fh:
+            doc = json.load(fh)
+    except (OSError, ValueError):
+        return index
+    for it in doc.get("items", []):
+        prod = it.get("production") or {}
+        drops = prod.get("drops") or []
+        if not drops:
+            continue
+        produces = [
+            {"name": d.get("name") or d.get("item") or "", "chance": d.get("chance")}
+            for d in drops
+        ]
+        block = {"produces": produces}
+        if prod.get("intervalDisplay"):
+            block["intervalDisplay"] = prod["intervalDisplay"]
+        cap = (it.get("station") or {}).get("capacity")
+        if cap:
+            block["capacity"] = cap
+        key = _norm_producer_name(it.get("displayName"))
+        if key:
+            index[key] = block
+    return index
+
+
+def _attach_producer_output(tree):
+    """Attach a `production` block to reward plans that build a resource producer.
+
+    Joins reward items to dist/resource_producers.json by display name (the
+    reward "Plan: <X>" / "Recipe: <X>" matches the producer displayName "<X>").
+    """
+    index = _build_producer_index()
+    if not index:
+        return
+    tagged = 0
+    for node in tree:
+        for item in node.get("items", []):
+            block = index.get(_norm_producer_name(item.get("name")))
+            if block:
+                item["production"] = block
+                tagged += 1
+    print("    Tagged {} Meat Cook items with producer output".format(tagged))
+
+# ---------------------------------------------------------------------------
 # Weapon / weapon-mod effects (Meat Cook)
 # ---------------------------------------------------------------------------
 # Verified against xEdit TSV data (June 2026 + Dec 2025 exports) and xEdit
@@ -2481,6 +2549,7 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
         _tag_meat_source_pools(tree, data, resolver, _meat_tier_variants)
         _attach_food_buffs(tree, data)
         _attach_weapon_mod_effects(tree)
+        _attach_producer_output(tree)
 
     flat_rewards = _build_flat_rewards_from_tree(tree, event_def, groups)
 
@@ -2684,6 +2753,8 @@ def _build_flat_rewards_from_tree(tree, event_def, groups):
                     by_fid[fid]["dietType"] = it["dietType"]
                 if it.get("weaponModEffects"):
                     by_fid[fid]["weaponModEffects"] = it["weaponModEffects"]
+                if it.get("production"):
+                    by_fid[fid]["production"] = it["production"]
             for tier in it.get("tiers") or [{"tier": node_label, "rate": it["dropRate"]}]:
                 by_fid[fid]["dropRates"].append({
                     "tier": tier.get("tier") or node_label,

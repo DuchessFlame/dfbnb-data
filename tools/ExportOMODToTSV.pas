@@ -129,13 +129,23 @@ end;
 
 function ExportProperties(rec: IInterface; const omodFID, omodEDID: string): Integer;
 var
-  props, prop, elV1, elV2, elCT: IInterface;
+  props, prop, elV1, elV2, elCT, elData: IInterface;
   linkedRef: IInterface;
   i, cnt: Integer;
   sVT, sFT, sProp, sV1, sV2, sCT, row: string;
 begin
   Result := 0;
-  props := ElementByName(rec, 'Properties (sorted)');
+  // FO76 OMOD layout: "Properties (sorted)" lives UNDER the DATA struct, not at
+  // the record top level. ElementByName(rec, ...) only checks direct children,
+  // so it returned nil for every record => empty export. Resolve robustly.
+  props := nil;
+  elData := ElementBySignature(rec, 'DATA');
+  if Assigned(elData) then
+    props := ElementByName(elData, 'Properties (sorted)');
+  if not Assigned(props) then
+    props := ElementByPath(rec, 'DATA\Properties (sorted)');
+  if not Assigned(props) then
+    props := ElementByName(rec, 'Properties (sorted)');
   if not Assigned(props) then Exit;
 
   cnt := ElementCount(props);
@@ -152,8 +162,12 @@ begin
     // Property (enum name: DamageBonusMult, ArmorPenetration, etc.)
     sProp := GEV(prop, 'Property');
 
-    // Value 1 — may be a float, int, or FormID reference
-    elV1 := ElementByName(prop, 'Value 1');
+    // Value 1 — xEdit names this by Value Type ("Value 1 - Float" /
+    // "Value 1 - Int" / "Value 1 - FormID"); try each, then bare "Value 1".
+    elV1 := ElementByName(prop, 'Value 1 - Float');
+    if not Assigned(elV1) then elV1 := ElementByName(prop, 'Value 1 - FormID');
+    if not Assigned(elV1) then elV1 := ElementByName(prop, 'Value 1 - Int');
+    if not Assigned(elV1) then elV1 := ElementByName(prop, 'Value 1');
     if Assigned(elV1) then begin
       linkedRef := LinksTo(elV1);
       if Assigned(linkedRef) then
@@ -163,8 +177,12 @@ begin
     end else
       sV1 := '';
 
-    // Value 2 — the critical Float/Int value the old export missed
-    elV2 := ElementByName(prop, 'Value 2');
+    // Value 2 — the critical Float/Int value the old export missed; same
+    // type-suffixed naming as Value 1.
+    elV2 := ElementByName(prop, 'Value 2 - Float');
+    if not Assigned(elV2) then elV2 := ElementByName(prop, 'Value 2 - Int');
+    if not Assigned(elV2) then elV2 := ElementByName(prop, 'Value 2 - FormID');
+    if not Assigned(elV2) then elV2 := ElementByName(prop, 'Value 2');
     if Assigned(elV2) then begin
       linkedRef := LinksTo(elV2);
       if Assigned(linkedRef) then
