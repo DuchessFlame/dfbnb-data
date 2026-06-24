@@ -149,6 +149,48 @@ def expand_condition_display(raw, _seen=None):
     return [pc] if pc else []
 
 
+def expand_raw_conditions(raw_list, _seen=None):
+    """Leaf-expand IsTrueForConditionForm(... [CNDF:x]) into the CNDF's own RAW
+    pipe-format conditions, so guide/keyword extraction can see the nested
+    HasKeyword(...) checks (e.g. a "Kill a Rust Raider" challenge whose enemy
+    keyword lives inside a Burn_Challenge_Kill_RustRaider_Condition form).
+
+    Non-CNDF conditions pass through unchanged. Negated leaves (comparison
+    value 0 — i.e. the target must NOT have that keyword) are dropped so
+    exclusions don't spawn spurious guides or keyword containers.
+    Returns a flat list of raw condition strings.
+    """
+    if _seen is None:
+        _seen = set()
+    out = []
+    for s in raw_list:
+        s = str(s or '').strip()
+        if not s:
+            continue
+        if '|' in s and s.count('|') >= 5:
+            parts = s.split('|')
+            func = parts[2] if len(parts) > 2 else ''
+            param = parts[5] if len(parts) > 5 else ''
+            if func == 'IsTrueForConditionForm':
+                m = re.search(r'\[CNDF:([0-9A-Fa-f]+)\]', param)
+                if m:
+                    cfid = m.group(1).upper()
+                    if cfid not in _seen and cfid in _CNDF_BY_FID:
+                        _seen.add(cfid)
+                        for ic in expand_raw_conditions(_CNDF_BY_FID[cfid], _seen):
+                            ip = ic.split('|')
+                            val = ip[1] if len(ip) > 1 else '1'
+                            try:
+                                if float(val) == 0:
+                                    continue  # negated leaf — exclusion, skip
+                            except ValueError:
+                                pass
+                            out.append(ic)
+                        continue
+        out.append(s)
+    return out
+
+
 def extract_chal_refs(raw_conds):
     """Extract challenge EDIDs referenced in GetIsForm conditions."""
     refs = []
@@ -1545,14 +1587,19 @@ def main():
             if edid.startswith('SCORE_') and not any(k in edid for k in ['FreeCam', 'St_Patrick', 'BigBloom']):
                 continue
 
+            # Leaf-expand CNDF condition-forms so nested HasKeyword(...) checks
+            # (e.g. Rust Raider's enemy keyword) are visible to guide/keyword
+            # resolution, then resolve from the expanded raw conditions.
+            raw_expanded = expand_raw_conditions(row['raw_conditions'])
+
             # Resolve guide links from raw conditions (has quoted names + FormIDs)
-            guide_links = resolve_guide_links(row['raw_conditions'], guide_lookup, row['full'])
+            guide_links = resolve_guide_links(raw_expanded, guide_lookup, row['full'])
             guide_link_stats['total'] += 1
             if guide_links:
                 guide_link_stats['linked'] += 1
 
             # Resolve keyword items (e.g. Archaic → list of player weapons)
-            kw_items = resolve_keyword_items(row['raw_conditions'], kywd_lookup)
+            kw_items = resolve_keyword_items(raw_expanded, kywd_lookup)
             if kw_items:
                 kw_items_stats['with'] += 1
             else:
