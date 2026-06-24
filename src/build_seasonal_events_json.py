@@ -453,6 +453,71 @@ def _attach_producer_output(tree):
     print("    Tagged {} Meat Cook items with producer output".format(tagged))
 
 # ---------------------------------------------------------------------------
+# Resource-producer output (Meat Cook)
+# ---------------------------------------------------------------------------
+# Some reward plans build a CAMP resource producer (e.g. the Weenie Wagon,
+# which produces Canned Dog Food). dist/resource_producers.json already resolves
+# what each station produces, how often, and its storage capacity, so we join
+# to it by display name and attach a compact `production` block that the
+# renderer turns into an "Output" sub-expand.
+
+RESOURCE_PRODUCERS_PATH = _REPO_ROOT / "dist" / "resource_producers.json"
+
+
+def _norm_producer_name(s):
+    s = (s or "").strip()
+    for pre in ("Plan:", "Recipe:"):
+        if s.lower().startswith(pre.lower()):
+            s = s[len(pre):].strip()
+            break
+    return s.lower()
+
+
+def _build_producer_index():
+    """Map normalised producer display name -> compact production block."""
+    index = {}
+    try:
+        with open(RESOURCE_PRODUCERS_PATH, encoding="utf-8") as fh:
+            doc = json.load(fh)
+    except (OSError, ValueError):
+        return index
+    for it in doc.get("items", []):
+        prod = it.get("production") or {}
+        drops = prod.get("drops") or []
+        if not drops:
+            continue
+        produces = [
+            {"name": d.get("name") or d.get("item") or "", "chance": d.get("chance")}
+            for d in drops
+        ]
+        block = {"produces": produces}
+        if prod.get("intervalDisplay"):
+            block["intervalDisplay"] = prod["intervalDisplay"]
+        cap = (it.get("station") or {}).get("capacity")
+        if cap:
+            block["capacity"] = cap
+        key = _norm_producer_name(it.get("displayName"))
+        if key:
+            index[key] = block
+    return index
+
+
+def _attach_producer_output(tree):
+    """Attach a `production` block to reward plans that build a resource producer."""
+    index = _build_producer_index()
+    if not index:
+        return
+    tagged = 0
+    for node in tree:
+        for item in node.get("items", []):
+            block = index.get(_norm_producer_name(item.get("name")))
+            if block:
+                item["production"] = block
+                tagged += 1
+    print("    Tagged {} Meat Cook items with producer output".format(tagged))
+
+
+# ---------------------------------------------------------------------------
 # Weapon / weapon-mod effects (Meat Cook)
 # ---------------------------------------------------------------------------
 # Verified against xEdit TSV data (June 2026 + Dec 2025 exports) and xEdit
@@ -465,12 +530,14 @@ def _attach_producer_output(tree):
 #   - SpikesLarge parent properties from xEdit (DamageBonusMult 0.25,
 #     ArmorPenetration 22, Durability −0.125, Weight +0.30, Value +0.35)
 #
-# Still need re-export with updated xEdit script for:
-#   - Peppered: DamageBonusMult + STAT_DmgLimbs exact values
-#   - Salty: ArmorPenetration + DamageBonusMult exact values
-#   - Electrified parent (Shock_High): DamageTypeValues (Energy) exact value
-#   - Saw-Bladed parent (Bleed): AttackDamage exact value
-#   - Rusted parent (Poisoned_Split3): DamageTypeValues (Poison) exact value
+# Confirmed from the June 2026 OMOD_Properties re-export:
+#   - Peppered (005528E4): DamageBonusMult ADD +0.25, STAT_DmgLimbs ADD +25
+#   - Salty (005528E5): DamageBonusMult ADD +0.25, ArmorPenetration ADD +25
+#   - Electrified parent Shock_High (001793A0): AttackDamage MUL+ADD -0.40,
+#     DamageTypeValues dtEnergy MUL+ADD +0.60
+#   - Saw-Bladed (008B3A21): bleed enchantment + keyword only - no AttackDamage
+#     penalty on the mod itself (generic Bleed parent 000B974A is NOT used here)
+#   - Rusted parent (Poisoned_Split3): CURV split -40% phys / +36% poison (above)
 
 _WEAPON_MOD_EFFECTS = {
     # ── Tenderizer ───────────────────────────────────────────────────────────
@@ -480,18 +547,17 @@ _WEAPON_MOD_EFFECTS = {
         "2-handed melee · 40 base damage · Speed 1.0 · Weight 20",
         "Medium stagger · 3× crit multiplier",
     ],
-    # OMOD 005528E4 · Props: DamageBonusMult (ADD) + Limb Damage (ADD)
-    # TODO: update with exact values after xEdit re-export
+    # OMOD 005528E4 · xEdit June 2026: DamageBonusMult ADD +0.25,
+    #   STAT_DmgLimbs (Limb Damage) ADD +25, Durability -0.15, Weight +0.15
     "recipe_mod_melee_MeatTenderizer_Peppered": [
-        "Adds bonus melee damage",
-        "Increases limb damage",
+        "+25% bonus damage · +25 limb damage",
+        "−15% durability · +15% weight",
     ],
-    # OMOD 005528E5 · ENCH enchModArmorPenetration · AVIF ArmorPenetration
-    # Also has DamageBonusMult (ADD)
-    # TODO: update with exact values after xEdit re-export
+    # OMOD 005528E5 · xEdit June 2026: DamageBonusMult ADD +0.25,
+    #   ArmorPenetration ADD +25 (enchModArmorPenetration), Durability -0.15, Weight +0.15
     "recipe_mod_melee_MeatTenderizer_Salted": [
-        "Adds armour penetration",
-        "Adds bonus melee damage",
+        "+25% bonus damage · +25 armour penetration",
+        "−15% durability · +15% weight",
     ],
     # OMOD 005528E3 · ENCH ench_Tenderizer_Mod_Fire (00844909)
     # MGEF FXFireHitVisuals · Magnitude 22 · Duration 5
@@ -514,11 +580,11 @@ _WEAPON_MOD_EFFECTS = {
         "Built-in bleed: 7 damage over 11 sec",
         "Can dismember targets",
     ],
-    # OMOD 008B3A22 · Parent: _PARENT_mod_melee_weapon_Shock_High
-    # Adds DamageTypeValues: dtEnergy (Energy Damage) + shock FX
-    # TODO: update with exact energy damage value after xEdit re-export
+    # OMOD 008B3A22 · Parent: _PARENT_mod_melee_weapon_Shock_High (001793A0)
+    # xEdit June 2026: AttackDamage MUL+ADD -0.40, DamageTypeValues dtEnergy
+    #   MUL+ADD +0.60, Durability -0.05 · ENCH EnchWeapModShock_FXOnly
     "Recipe_Mod_Melee_HogSplitter_Electrified": [
-        "Adds energy damage",
+        "Splits base damage: −40% physical, +60% energy",
     ],
     # OMOD 008B3A23 · ENCH ench_Hogsplitter_Poison (008B3A2B)
     # MGEF dtPoisonEffectChanceAlways · Magnitude 5 · Duration 12
@@ -2550,6 +2616,7 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
         _attach_food_buffs(tree, data)
         _attach_weapon_mod_effects(tree)
         _attach_producer_output(tree)
+        _attach_producer_output(tree)
 
     flat_rewards = _build_flat_rewards_from_tree(tree, event_def, groups)
 
@@ -2753,6 +2820,8 @@ def _build_flat_rewards_from_tree(tree, event_def, groups):
                     by_fid[fid]["dietType"] = it["dietType"]
                 if it.get("weaponModEffects"):
                     by_fid[fid]["weaponModEffects"] = it["weaponModEffects"]
+                if it.get("production"):
+                    by_fid[fid]["production"] = it["production"]
                 if it.get("production"):
                     by_fid[fid]["production"] = it["production"]
             for tier in it.get("tiers") or [{"tier": node_label, "rate": it["dropRate"]}]:
