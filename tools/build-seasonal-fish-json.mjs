@@ -268,6 +268,49 @@ function seasonFromLocalLegendEdid(edid) {
   return tok === "autumn" ? "fall" : tok;
 }
 
+// Fallback: derive the season from the Fishing_FishType_Seasonal_<Season>
+// keyword carried in the FISH row. Needed for Local Legends whose EDID does
+// NOT embed the season — e.g. SeasonalFish_Fish_LocalLegend_SludgeEye, which
+// only declares its season via the Fishing_FishType_Seasonal_Fall keyword.
+function seasonFromSeasonalKeyword(row) {
+  const blob = [row.KW1, row.KW2, row.KW3, row.KW4, row.KW5]
+    .map((v) => String(v || "")).join(" ");
+  const m = blob.match(/Fishing_FishType_Seasonal_(Spring|Summer|Fall|Autumn|Winter)\b/i);
+  if (!m) return null;
+  const tok = m[1].toLowerCase();
+  return tok === "autumn" ? "fall" : tok;
+}
+
+// Map a Fishing_FishType_<Region> keyword (carried on the FISH row) to the same
+// region display/keyword pair used elsewhere. This is the fallback region for a
+// Local Legend whose pinned location prefix isn't a region namespace (e.g. the
+// Sludge Eye's LocMTRSludgeWorksLocation), so it still resolves to "Ash Heap".
+const FISHTYPE_SUFFIX_TO_REGION = {
+  cranberrybog:   { keyword: "cranberry",      display: "Cranberry Bog" },
+  ashheap:        { keyword: "ash",            display: "Ash Heap" },
+  themire:        { keyword: "mire",           display: "The Mire" },
+  mire:           { keyword: "mire",           display: "The Mire" },
+  theforest:      { keyword: "forest",         display: "The Forest" },
+  forest:         { keyword: "forest",         display: "The Forest" },
+  savagedivide:   { keyword: "savagedivide",   display: "Savage Divide" },
+  toxicvalley:    { keyword: "toxic",          display: "Toxic Valley" },
+  skylinevalley:  { keyword: "skyline",        display: "Skyline Valley" },
+  burningsprings: { keyword: "burningsprings", display: "Burning Springs" }
+};
+
+function fishTypeRegionFromRow(row) {
+  const blob = [row.KW1, row.KW2, row.KW3, row.KW4, row.KW5]
+    .map((v) => String(v || "")).join(" ");
+  const re = /Fishing_FishType_([A-Za-z]+)\b/g;
+  let m;
+  while ((m = re.exec(blob))) {
+    const suf = m[1].toLowerCase();
+    if (suf === "locallegend" || suf.startsWith("seasonal")) continue;
+    if (FISHTYPE_SUFFIX_TO_REGION[suf]) return FISHTYPE_SUFFIX_TO_REGION[suf];
+  }
+  return null;
+}
+
 /* ------------------------------------------------------------------ */
 /* LVLI_Entries parsing — season index per fish                        */
 /* ------------------------------------------------------------------ */
@@ -353,22 +396,24 @@ function parseLocationConditionForLL(condStr) {
   const m = condStr.match(/Loc([A-Za-z0-9]+?)Location\s*"+([^"]+)"+/);
   if (!m) return null;
   const prefixRaw = m[1];
-  const display = m[2].trim();
-  if (!display) return null;
+  const locationName = m[2].trim();
+  if (!locationName) return null;
   const prefixes = Object.keys(LOCATION_PREFIX_TO_REGION).sort((a, b) => b.length - a.length);
   for (const p of prefixes) {
     if (prefixRaw.startsWith(p)) {
       const r = LOCATION_PREFIX_TO_REGION[p];
-      return { keyword: r.keyword, display: `${display} (${r.display})` };
+      return { keyword: r.keyword, regionDisplay: r.display, locationName };
     }
   }
-  // Unknown region prefix — emit the location name on its own so the site still has
-  // something meaningful to render.
-  return { keyword: null, display };
+  // Unknown region prefix (e.g. LocMTRSludgeWorksLocation) — return the bare
+  // location name; the caller can supply the region from the FishType keyword.
+  return { keyword: null, regionDisplay: null, locationName };
 }
 
 // Walk Fishing_LLS_FishCollection_LocalLegends and pull region info for one fish.
-function locationsForLocalLegendFish(lvliEntriesRows, fishEdid) {
+// `fallbackRegion` ({ keyword, display } from the FISH FishType keyword, or null)
+// supplies the region when the pinned location's prefix isn't a region namespace.
+function locationsForLocalLegendFish(lvliEntriesRows, fishEdid, fallbackRegion) {
   const regions = [];
   const regionKeywords = [];
   const rows = lvliEntriesRows.filter(
@@ -383,11 +428,16 @@ function locationsForLocalLegendFish(lvliEntriesRows, fishEdid) {
       if (!/^Cond\d+$/i.test(k)) continue;
       const parsed = parseLocationConditionForLL(r[k]);
       if (!parsed) continue;
-      if (parsed.keyword && !regionKeywords.includes(parsed.keyword)) {
-        regionKeywords.push(parsed.keyword);
+      const regionDisplay = parsed.regionDisplay || (fallbackRegion && fallbackRegion.display) || null;
+      const keyword = parsed.keyword || (fallbackRegion && fallbackRegion.keyword) || null;
+      const display = regionDisplay
+        ? `${parsed.locationName} (${regionDisplay})`
+        : parsed.locationName;
+      if (keyword && !regionKeywords.includes(keyword)) {
+        regionKeywords.push(keyword);
       }
-      if (parsed.display && !regions.includes(parsed.display)) {
-        regions.push(parsed.display);
+      if (display && !regions.includes(display)) {
+        regions.push(display);
       }
     }
   }
@@ -440,7 +490,12 @@ function main() {
     const name = displayFromMealRef(rewardRef) || String(r.FULL || "").trim();
     const { regions, regionKeywords } = regionsFromFishRefs(r);
     const isLocalLegend = /_LocalLegend_/i.test(edid);
-    const seasonTag = isLocalLegend ? seasonFromLocalLegendEdid(edid) : null;
+    // Season for a Local Legend: prefer the EDID token (SummerGlassGhost), fall
+    // back to the Fishing_FishType_Seasonal_<Season> keyword (SludgeEye has no
+    // season in its EDID, only the keyword).
+    const seasonTag = isLocalLegend
+      ? (seasonFromLocalLegendEdid(edid) || seasonFromSeasonalKeyword(r))
+      : null;
 
     seasonalFishByEdid.set(edid.toLowerCase(), {
       fishFormId: String(r.FormID || "").trim(),
@@ -449,7 +504,8 @@ function main() {
       regions,
       regionKeywords,
       isLocalLegend,
-      seasonTag // only populated for local legends
+      seasonTag, // only populated for local legends
+      fishTypeRegion: isLocalLegend ? fishTypeRegionFromRow(r) : null // region fallback for LLs
     });
   }
 
@@ -517,7 +573,7 @@ function main() {
     if (!fish.isLocalLegend || !fish.seasonTag) continue;
     const key = fish.seasonTag;
     if (!seasons[key]) continue;
-    const llLoc = locationsForLocalLegendFish(lvliEntriesRows, fish.fishEditorId);
+    const llLoc = locationsForLocalLegendFish(lvliEntriesRows, fish.fishEditorId, fish.fishTypeRegion);
     const regions = llLoc.regions.length ? llLoc.regions : fish.regions;
     const regionKeywords = llLoc.regionKeywords.length ? llLoc.regionKeywords : fish.regionKeywords;
     seasons[key].localLegend = {
