@@ -427,6 +427,12 @@ def extract_item_names(conditions):
             edid = m.group(1)
             items.append((f'KYWD:{edid}', 'KYWD'))
 
+        # Match RAW pipe-delimited keyword fields: KeywordEdid [KYWD:FormID]
+        # (raw_conditions are unparsed TSV strings where HasKeyword has no
+        # parentheses, e.g. "...|HasKeyword|...|ActorTypeBloodEagle [KYWD:00571D9F]|...")
+        for m in re.finditer(r'(\w+)\s+\[KYWD:', cond):
+            items.append((f'KYWD:{m.group(1)}', 'KYWD'))
+
         # Also match quoted names without brackets (rare edge case)
         if '[' not in cond:
             for m in re.finditer(r'"([^"]+)"', cond):
