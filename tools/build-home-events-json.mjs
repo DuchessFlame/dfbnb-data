@@ -88,6 +88,49 @@ function toIntOrNull(v) {
   return Number.isFinite(n) ? n : null;
 }
 
+// Default label for a guide link when none is supplied in the TSV.
+// "...-all-rewards" pages are reward galleries; everything else is a guide.
+function inferGuideLabel(url) {
+  return /-all-rewards\/?$/.test((url ?? "").trim()) ? "Event Rewards" : "Event Guide";
+}
+
+// Parse the optional "Guides" column into an ordered array of { label, url }.
+// Syntax: "Label|https://url ;; Label2|https://url2"
+//   - links are separated by " ;; "
+//   - a link may omit "Label|" and just be a bare URL (label is then inferred)
+// Falls back to the legacy single "Url" column when "Guides" is empty.
+function parseGuides(guidesRaw, urlRaw) {
+  const guides = [];
+  const raw = (guidesRaw ?? "").trim();
+
+  if (raw) {
+    for (const part of raw.split(";;")) {
+      const seg = part.trim();
+      if (!seg) continue;
+      const bar = seg.indexOf("|");
+      let label;
+      let url;
+      if (bar === -1) {
+        url = seg;
+        label = inferGuideLabel(url);
+      } else {
+        label = seg.slice(0, bar).trim();
+        url = seg.slice(bar + 1).trim();
+        if (!label) label = inferGuideLabel(url);
+      }
+      if (url) guides.push({ label, url });
+    }
+  } else {
+    // Legacy single-link events: leave the label blank so the renderer keeps
+    // its existing badge-aware default ("Event Guide" / "Minerva's List" /
+    // "Watch Live"). Only the Guides column carries explicit labels.
+    const u = (urlRaw ?? "").trim();
+    if (u) guides.push({ label: "", url: u });
+  }
+
+  return guides;
+}
+
 function buildEvents(tsvRows) {
   const events = [];
 
@@ -108,6 +151,8 @@ const endTime = normaliseTime12h(r.EndTime, startTime || "12:00 PM");
     const badge = (r.Badge ?? "").trim();
     const notes = (r.Notes ?? "").trim();
 
+    const guides = parseGuides(r.Guides, url);
+
     if (!isValidISODate(start)) throw new Error(`events.tsv:${id} StartDate must be YYYY-MM-DD, got "${start}"`);
     if (!isValidISODate(end)) throw new Error(`events.tsv:${id} EndDate must be YYYY-MM-DD, got "${end}"`);
 
@@ -119,7 +164,11 @@ const endTime = normaliseTime12h(r.EndTime, startTime || "12:00 PM");
       startTime,
       endDate: end,
       endTime,
-      url: url || null,
+      // Legacy single-link field, kept for backward compatibility.
+      // Points at the first guide so existing renderers keep working.
+      url: (guides[0] && guides[0].url) || url || null,
+      // New: ordered list of guide links rendered as pills under the event.
+      guides,
       badge: badge || null,
       notes: notes || null,
       sort: toIntOrNull(r.Sort),
