@@ -22,12 +22,13 @@ never hook one). All of this is derived generatively from the game-data exports:
 Variant artwork is merged in from dist/axolotl-rotations.json (month -> image).
 
 Two modes:
-  (default / live)  reads tsv/      -> dist/axolotl_guide.json     (12 variants)
-  --pts             reads tsv/pts/  -> dist/axolotl_guide_pts.json (12 variants
+  (default / live)  reads tsv/      -> dist/axolotl_guide.json      (12 variants)
+  --pts             reads tsv/pts/  -> dist/pts/axolotl_guide.json  (12 variants
                     + the Golden Axolotl preview block)
 
-The live page loads axolotl_guide.json; a "PTS Preview" toggle lazy-loads
-axolotl_guide_pts.json to reveal the Golden Axolotl.
+The global PTS toggle (df-bnb-pts.js) redirects fetch requests from dist/ to
+dist/pts/, so when PTS preview is ON the renderer automatically loads the PTS
+version of axolotl_guide.json without any page-specific toggle.
 
 Env overrides (used by the in-session sandbox verifier, ignored in CI):
   AXO_TSV_DIR   override the TSV directory
@@ -384,8 +385,9 @@ def main():
                         "PTS Preview toggle.",
             }
 
-        out_file = os.environ.get("AXO_OUT") or os.path.join(
-            DIST_DIR, "axolotl_guide_pts.json" if PTS else "axolotl_guide.json")
+        out_file = os.environ.get("AXO_OUT") or (
+            os.path.join(DIST_DIR, "pts", "axolotl_guide.json") if PTS
+            else os.path.join(DIST_DIR, "axolotl_guide.json"))
         os.makedirs(os.path.dirname(out_file), exist_ok=True)
         with open(out_file, "w", encoding="utf-8") as f:
             json.dump(output, f, indent=2, ensure_ascii=False)

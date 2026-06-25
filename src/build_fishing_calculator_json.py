@@ -78,6 +78,7 @@ LEGEND_LOCATIONS = {
     "OrganGrinder": "Organ Cave",
     "Deathjaw": "Hocking Hill",
     "SummerGlassGhost": "Glassed Cavern",
+    "SludgeEye": "The Sludge Works",
 }
 
 # ── Seasonal fish: season index -> season name ───────────────────────────────
@@ -97,6 +98,10 @@ SEASONAL_FISH_REGIONS = {
                          "regions": ["Cranberry Bog"],
                          "isLocalLegend": True,
                          "location": "Glassed Cavern"},
+    "Sludge Eye":       {"season": "Fall",   "seasonIndex": 3,
+                         "regions": ["Ash Heap"],
+                         "isLocalLegend": True,
+                         "location": "The Sludge Works"},
 }
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -116,9 +121,11 @@ def read_tsv(filepath, encoding_fallbacks=None):
 
 
 def find_latest_tsv(pattern):
-    """Find the latest TSV file matching a pattern."""
-    files = sorted(globmod.glob(os.path.join(TSV_DIR, pattern)))
-    return files[-1] if files else None
+    """Find the latest TSV file matching a pattern (by modification time)."""
+    files = globmod.glob(os.path.join(TSV_DIR, pattern))
+    if not files:
+        return None
+    return max(files, key=os.path.getmtime)
 
 
 def extract_quoted_name(field):
@@ -590,6 +597,7 @@ def main():
         print(f"[fishing] Error: {e}", file=sys.stderr)
         import traceback
         traceback.print_exc(file=sys.stderr)
+   
         sys.exit(1)
 
 

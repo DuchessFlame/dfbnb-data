@@ -69,6 +69,6 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add dist/axolotl_guide.json
-          [ -f dist/axolotl_guide_pts.json ] && git add dist/axolotl_guide_pts.json || true
+          [ -f dist/pts/axolotl_guide.json ] && git add dist/pts/axolotl_guide.json || true
           git diff --cached --quiet || git commit -m "chore: build axolotl_guide.json [skip ci]"
           git push

@@ -513,7 +513,10 @@ jobs:
       - name: Build Home Events JSON
         run: node tools/build-home-events-json.mjs
 
-      # --- BUNDLES (now handled by Build Atom Shop JSON below) ---
+      # --- BUNDLES ---
+      # Extracts bundle items from dist/atom_shop.json into dist/bundles.json
+      # for df-bnb-bundles.js. Must run AFTER Build Atom Shop JSON (below).
+      # Deferred to after the Atom Shop step — see "Build Bundles JSON" below.
 
       # ===== GAP-FILLER CATEGORY BUILDS (scaffolded — real logic TBD) =====
 
@@ -595,6 +598,13 @@ jobs:
       # --- LEGENDARY MODS ---
       - name: Build Legendary Mods JSON
         run: python src/build_legendary_mods_json.py
+
+      # --- LEGENDARY CRAFTING PLANNER ---
+      # Reads COBJ (shard-crafting + random-roll recipes), resolves ingredient
+      # quantities via CURV_POINTS, and looks up display names from OMOD/ALCH/MISC.
+      # Outputs dist/legendary_crafting_planner.json for df-bnb-legendary-crafting-planner.js.
+      - name: Build Legendary Crafting Planner JSON
+        run: python src/build_legendary_crafting_planner_json.py
 
       # --- LOAD SCREENS ---
       - name: Build Load Screens JSON
@@ -753,6 +763,12 @@ jobs:
       # --- ATOM SHOP ---
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
+
+      # --- BUNDLES (extracted from Atom Shop JSON) ---
+      # Filters atom_shop.json for bundle items + LTB bundles → dist/bundles.json
+      # for df-bnb-bundles.js (Items Available to Request page).
+      - name: Build Bundles JSON
+        run: python src/build_bundles_json.py
 
       # --- SURVIVAL TENT INTERIORS ---
       # Reads the latest tsv/SurvivalTentInteriors_Export_*.tsv (produced
