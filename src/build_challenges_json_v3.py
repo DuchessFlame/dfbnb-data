@@ -739,6 +739,23 @@ def classify_lifetime_page(item):
     if "burningsprings" in edid: return "springs"
     return CLASSIFICATION_TO_SLUG.get(enam, "world")
 
+# ---- Fishing-page sub-grouping (Daily / Weekly / Lifetime / Event) ----
+# Fishing challenges carry no CNAM scope, so every one lands in the
+# "lifetime" bucket and routes onto the fishing page. The actual cadence
+# lives in the EDID, so derive a display group from it. Mini-season fishing
+# challenges are excluded from the fishing page — they belong on their own
+# mini-season checklist page.
+
+def is_mini_season_edid(edid):
+    return bool(re.search(r"MiniSeason_?\d{4}", str(edid or ""), re.IGNORECASE))
+
+def fishing_group(edid):
+    e = str(edid or "")
+    if re.search(r"ATX_DE\d{4}", e, re.IGNORECASE):  return "Event"
+    if re.search(r"_Daily_", e, re.IGNORECASE):      return "Daily"
+    if re.search(r"_Weekly_", e, re.IGNORECASE):     return "Weekly"
+    return "Lifetime"
+
 # ==================================================================
 # Build pages dict
 # ==================================================================
@@ -751,7 +768,13 @@ for item in buckets.get("weekly", []):
 for item in buckets.get("event", []):
     pages.setdefault("events", []).append(item)
 for item in buckets.get("lifetime", []):
-    pages.setdefault(classify_lifetime_page(item), []).append(item)
+    slug = classify_lifetime_page(item)
+    if slug == "fishing":
+        # Mini-season fishing challenges live on their own page, not here.
+        if is_mini_season_edid(item.get("edid")):
+            continue
+        item["group"] = fishing_group(item.get("edid"))
+    pages.setdefault(slug, []).append(item)
 pages["cut"] = buckets.get("cut", [])
 for slug, items in season_buckets.items():
     pages[f"season:{slug}"] = items
