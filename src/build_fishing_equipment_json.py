@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """build_fishing_equipment_json.py — see header in repo."""
 import glob, json, os, re, sys
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
@@ -10,6 +10,49 @@ DIST_FILE = os.path.join(DIST_DIR, "fishing_equipment.json")
 
 IMAGE_BASE_ROD_SKIN = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/fishing/rod-skins/"
 IMAGE_BASE_BOBBER   = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/fishing/bobbers-floats/"
+
+# -----------------------------------------------------------------------
+# First-seen persistence — tracks when each FormID was first observed by
+# the build pipeline. Used to compute `isNew` (30-day rolling flag / NEW
+# pill) without requiring manual release dates. Mirrors the pattern in
+# build_collectables_json.py and build_titles_json.py.
+#
+# Schema for tsv/fishing_equipment_first_seen.json:
+#   { "schema": 1, "byFormId": { "007AE10B": "2026-06-26", ... } }
+# -----------------------------------------------------------------------
+_FIRST_SEEN_FILENAME = "fishing_equipment_first_seen.json"
+_NEW_CUTOFF_DAYS = 30
+
+def load_first_seen():
+    path = os.path.join(TSV_DIR, _FIRST_SEEN_FILENAME)
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return (json.load(f) or {}).get("byFormId", {})
+    except Exception as e:
+        print(f"[fishing-equipment] WARNING: could not load {_FIRST_SEEN_FILENAME}: {e}", file=sys.stderr)
+        return {}
+
+def update_first_seen(first_seen, all_formids, bootstrap):
+    """New FormIDs get today's date; on bootstrap (empty file) existing
+    items are seeded far in the past so nothing shows as new. Existing
+    entries are never overwritten."""
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    seed = "2020-01-01"
+    for fid in all_formids:
+        if fid and fid not in first_seen:
+            first_seen[fid] = seed if bootstrap else today
+    return first_seen
+
+def save_first_seen(first_seen):
+    path = os.path.join(TSV_DIR, _FIRST_SEEN_FILENAME)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump({"schema": 1, "byFormId": dict(sorted(first_seen.items()))}, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+def compute_new_cutoff():
+    return (datetime.now(timezone.utc) - timedelta(days=_NEW_CUTOFF_DAYS)).strftime("%Y-%m-%d")
 
 def find_latest_tsv(pattern):
     files = sorted(f for f in glob.glob(os.path.join(TSV_DIR, pattern)) if "Locations" not in f)
@@ -228,7 +271,7 @@ def build():
             enriched_score += 1
             break
 
-        item = {"formId":form_id,"edid":edid,"name":full or edid,"imageFilename":image_filename(edid),"imageUrl":"","howToObtain":obtain,"cutContent":False}
+        item = {"formId":form_id,"edid":edid,"name":full or edid,"imageFilename":image_filename(edid),"imageUrl":"","howToObtain":obtain,"isNew":False,"cutContent":False}
         if is_rod_skin(edid): rod_skins.append(item)
         else: bobbers.append(item)
 
@@ -236,9 +279,25 @@ def build():
     def sort_key(it): return (method_order.get(it["howToObtain"]["method"], 8), it["name"].lower())
     rod_skins.sort(key=sort_key); bobbers.sort(key=sort_key)
 
+    # ---- First-seen persistence & isNew (NEW pill) ----
+    all_items = rod_skins + bobbers
+    first_seen_path = os.path.join(TSV_DIR, _FIRST_SEEN_FILENAME)
+    bootstrap = not os.path.exists(first_seen_path)
+    first_seen = load_first_seen()
+    update_first_seen(first_seen, [it["formId"] for it in all_items], bootstrap)
+    save_first_seen(first_seen)
+    cutoff = compute_new_cutoff()
+    new_count = 0
+    for it in all_items:
+        seen = first_seen.get(it["formId"], "2020-01-01")
+        it["isNew"] = (seen >= cutoff)
+        if it["isNew"]:
+            new_count += 1
+
     payload = {
         "generated": datetime.now(timezone.utc).isoformat(),
-        "schemaVersion": 2,
+        "schemaVersion": 3,
+        "newCutoffDays": _NEW_CUTOFF_DAYS,
         "imageBases": {"rodSkin": IMAGE_BASE_ROD_SKIN, "bobber": IMAGE_BASE_BOBBER},
         "rodSkins": rod_skins,
         "bobbersAndFloats": bobbers,
@@ -246,7 +305,8 @@ def build():
     os.makedirs(DIST_DIR, exist_ok=True)
     with open(DIST_FILE, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False); f.write("\n")
-    print(f"[fishing-equipment] OK: {len(rod_skins)} rod skins, {len(bobbers)} bobbers & floats (CHAL: {enriched_chal}, Scoreboard: {enriched_score}, skipped cut: {skipped_cut}) -> {DIST_FILE}")
+    boot_note = " [bootstrap: seeded existing as not-new]" if bootstrap else ""
+    print(f"[fishing-equipment] OK: {len(rod_skins)} rod skins, {len(bobbers)} bobbers & floats (CHAL: {enriched_chal}, Scoreboard: {enriched_score}, skipped cut: {skipped_cut}, NEW: {new_count}){boot_note} -> {DIST_FILE}")
 
 if __name__ == "__main__":
     build()
