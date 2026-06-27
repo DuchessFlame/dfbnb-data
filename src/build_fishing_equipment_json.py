@@ -237,17 +237,44 @@ def gate_type(edid):
     if "quest" in e or "_mq" in e or e.endswith(":qust"): return "quest"
     return "challenge"
 
+def titles_challenge_display(full, tnam):
+    """Titles-page key/legend format for a challenge unlock:
+        Complete the Challenge:
+        <Challenge FULL name> x<count>
+    The `x<count>` suffix comes from the CHAL TNAM (required count), exactly
+    like the player-titles checklist. The count is omitted when it is 1 or
+    missing, or already present at the end of the FULL name (e.g. a name that
+    already reads '... for 7600 Hours')."""
+    full = (full or "").strip()
+    if not full:
+        return ""
+    s = "Complete the Challenge:\n" + full
+    try:
+        n = int(str(tnam).strip())
+    except (TypeError, ValueError):
+        n = None
+    if n and n > 1 and not re.search(r"(?:x0*|\b)%d$" % n, full):
+        s += f" x{n}"
+    return s
+
 def build_unlock_text(chal):
-    full = chal.get("full") or ""
-    snam = chal.get("snam") or ""
-    tnam = chal.get("tnam") or ""
-    try: n = int(tnam)
-    except (TypeError, ValueError): n = None
-    bits = []
-    if full: bits.append(f'Complete the "{full}" challenge')
-    if n and snam: bits.append(f"{n} {snam}")
-    elif n: bits.append(f"target: {n}")
-    return " — ".join(bits).strip() or full or ""
+    """Now mirrors the player-titles 'Complete the Challenge:' wording."""
+    return titles_challenge_display(chal.get("full"), chal.get("tnam"))
+
+def challenge_obtain_from_fid(chal_fid, chal_map, fallback_full=""):
+    """Resolve a CHAL FormID into (display, challenge_dict) using the real
+    CHAL row (FULL name + TNAM required count). Used by the COBJ-gate route so
+    challenge-locked rods/bobbers read like the titles page."""
+    fid = (chal_fid or "").strip().upper()
+    chal = chal_map.get(fid) if fid else None
+    full = ((chal.get("full") if chal else "") or fallback_full or "").strip()
+    tnam = (chal.get("tnam") if chal else "") or ""
+    snam = (chal.get("snam") if chal else "") or ""
+    display = titles_challenge_display(full, tnam) or (
+        f'Complete the Challenge:\n{full}' if full else "")
+    challenge = {"name": full or None, "counter": snam or None,
+                 "target": tnam or None, "chalFormId": fid or None}
+    return display, challenge
 
 def lookup_unlock(omod_edid, book_map, gmrw_to_chal, chal_map):
     m = OMOD_TAIL_RE.match(omod_edid or "")
@@ -332,7 +359,10 @@ def build():
             unlock_text = build_unlock_text(chal)
             if unlock_text:
                 obtain["challenge"] = {"name":chal.get("full"),"counter":chal.get("snam"),"target":chal.get("tnam"),"chalFormId":chal.get("chalFormId"),"bookFormId":chal.get("bookFormId"),"bookEdid":chal.get("bookEdid"),"bookName":chal.get("bookName")}
-                obtain["display"] = unlock_text + ". " + obtain["display"]
+                # Titles-page wording, replacing (not appended to) the base line.
+                obtain["display"] = unlock_text
+                obtain["method"] = "challenge"
+                obtain["badge"] = "Challenge"
                 enriched_chal += 1
 
         for cand in omod_to_possible_entm_edids(edid):
@@ -371,16 +401,30 @@ def build():
             obtain["releaseYear"] = 2025
             if gate_full:
                 gt = gate_type(gate_edid)
-                obtain["method"] = "challenge"
-                obtain["badge"] = "Challenge"
-                obtain["display"] = f'Unlocked by completing the "{gate_full}" {gt}.'
-                obtain["challenge"] = {"name": gate_full, "chalFormId": gate_fid or None}
+                if gt == "challenge":
+                    disp, ch = challenge_obtain_from_fid(gate_fid, chal_map, gate_full)
+                    obtain["method"] = "challenge"
+                    obtain["badge"] = "Challenge"
+                    obtain["display"] = disp
+                    obtain["challenge"] = ch
+                    enriched_chal += 1
+                else:
+                    # Quest-gated unlock — same key/legend style, quest wording.
+                    obtain["method"] = "challenge"
+                    obtain["badge"] = "Quest"
+                    obtain["display"] = f'Complete the Quest:\n{gate_full}'
+                    obtain["challenge"] = {"name": gate_full, "chalFormId": gate_fid or None}
             else:
                 obtain["display"] = "Unlocked by default — available to every player once fishing is unlocked."
         elif obtain["method"] == "burning-springs" and gate_full:
             gt = gate_type(gate_edid)
-            obtain["display"] = f'Unlocked by completing the "{gate_full}" {gt}.'
-            obtain["challenge"] = {"name": gate_full, "chalFormId": gate_fid or None}
+            if gt == "challenge":
+                disp, ch = challenge_obtain_from_fid(gate_fid, chal_map, gate_full)
+                obtain["display"] = disp
+                obtain["challenge"] = ch
+            else:
+                obtain["display"] = f'Complete the Quest:\n{gate_full}'
+                obtain["challenge"] = {"name": gate_full, "chalFormId": gate_fid or None}
             enriched_chal += 1
 
         item = {"formId":form_id,"edid":edid,"name":full or edid,"imageFilename":image_filename(edid),"imageUrl":"","cobjFormId":cobj_form,"cobjEdid":cobj_edid,"howToObtain":obtain,"isNew":False,"cutContent":False}
