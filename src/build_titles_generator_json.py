@@ -62,26 +62,35 @@ def truthy(v: str) -> bool:
     return str(v).strip().lower() in ("true", "1", "yes", "y")
 
 
-def camp_extract(rows: List[Dict[str, str]]) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
+def camp_extract(headers: List[str], rows: List[Dict[str, str]]) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
     """
-    CMPT_Export_March_2026.tsv headers:
-      FormID, EDID, ANAM - Title, PTPR - Is Prefix, PTSU - Is Suffix, ...
+    Supports both column-name styles found in CMPT exports:
+      - Short headers:  FormID, EDID, ANAM, PTPR, PTSU, CondCount, ...
+      - Long headers:   FormID, EDID, ANAM - Title, PTPR - Is Prefix,
+                        PTSU - Is Suffix, CondCount, ...
     """
     prefixes: List[Dict[str, str]] = []
     suffixes: List[Dict[str, str]] = []
 
+    is_long = "ANAM - Title" in headers
+
     for r in rows:
         formid = (r.get("FormID", "") or "").strip()
         edid = (r.get("EDID", "") or "").strip()
-        text = (r.get("ANAM - Title", "") or "").strip()
+
+        if is_long:
+            text = (r.get("ANAM - Title", "") or "").strip()
+            is_prefix = truthy(r.get("PTPR - Is Prefix", ""))
+            is_suffix = truthy(r.get("PTSU - Is Suffix", ""))
+        else:
+            text = (r.get("ANAM", "") or "").strip()
+            is_prefix = truthy(r.get("PTPR", ""))
+            is_suffix = truthy(r.get("PTSU", ""))
 
         if not text:
             continue
         if is_cut(edid, text):
             continue
-
-        is_prefix = truthy(r.get("PTPR - Is Prefix", ""))
-        is_suffix = truthy(r.get("PTSU - Is Suffix", ""))
 
         # Some entries are both prefix and suffix.
         item = {"id": formid or edid, "text": text}
@@ -197,7 +206,7 @@ def main() -> int:
     camp_headers, camp_rows = read_tsv(camp_path)
     player_headers, player_rows = read_tsv(player_path)
 
-    camp_prefixes, camp_suffixes = camp_extract(camp_rows)
+    camp_prefixes, camp_suffixes = camp_extract(camp_headers, camp_rows)
     player_prefixes, player_suffixes = player_extract(player_headers, player_rows)
 
     camp_payload = build_payload("camp", camp_prefixes, camp_suffixes)

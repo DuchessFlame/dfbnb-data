@@ -1,0 +1,53 @@
+{
+  "_README": "Hand-maintained OVERRIDES for the Perk Cards curve-tables page. Everything else (SPECIAL, race restriction, names, curve linkage, points) is pulled automatically from the PCRD + CURV exports by build_perk_cards_json.py. Only put a card here when you need to override the auto data: a renamed card (former), a nicer display name, a written 'understand the perk' sentence (explain), or corrected chart axis labels / units / decimals for a curve. Key each card by its PCRD_EDID (quotes stripped). Inside 'curves', key by the curve EDID.",
+
+  "ShotgunnerMasterCard": {
+    "displayName": "Shotgun Champ",
+    "former": "Shotgunner Master",
+    "curves": {
+      "ShotgunnerMasterBonus": {
+        "xLabel": "Projectiles",
+        "yLabel": "Bonus Damage %",
+        "unit": "%",
+        "decimals": 2,
+        "explain": "Shotgun Champ increases shotgun damage based on the number of projectiles your weapon fires. Each projectile provides an additional 10% damage bonus, scaling linearly with the number of projectiles fired."
+      }
+    }
+  },
+
+  "AdrenalineCard": {
+    "curves": {
+      "AdrenalineBonus": {
+        "xLabel": "Kills",
+        "yLabel": "Bonus Damage %",
+        "unit": "%",
+        "decimals": 2,
+        "explain": "Adrenaline increases your damage with each kill. Each kill grants an additional damage bonus, scaling up to its cap as your kill streak climbs."
+      }
+    }
+  },
+
+  "BarbarianCard": {
+    "curves": {
+      "BarbarianBonus": {
+        "xLabel": "Strength",
+        "yLabel": "Perk Bonus %",
+        "unit": "%",
+        "decimals": 2,
+        "explain": "Barbarian's bonus scales with the input value, climbing fastest at low values and tapering off as it approaches its cap."
+      }
+    }
+  },
+
+  "ScienceCard": {
+    "curves": {
+      "ScienceBonus": {
+        "xLabel": "Input",
+        "yLabel": "Multiplier",
+        "unit": "x",
+        "decimals": 3,
+        "explain": "Science scales an energy-damage multiplier with the input value, rising from its minimum toward its cap."
+      }
+    }
+  }
+}

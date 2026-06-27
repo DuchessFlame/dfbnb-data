@@ -775,6 +775,8 @@ jobs:
           test -f dist/titles_camp.json            && echo "OK titles_camp.json"            || (echo "MISSING titles_camp.json" && exit 1)
           test -f dist/titles_player.json          && echo "OK titles_player.json"          || (echo "MISSING titles_player.json" && exit 1)
           test -f dist/titles_manifest.json        && echo "OK titles_manifest.json"        || (echo "MISSING titles_manifest.json" && exit 1)
+          test -f dist/titles_camp_generator.json  && echo "OK titles_camp_generator.json"  || (echo "MISSING titles_camp_generator.json" && exit 1)
+          test -f dist/titles_player_generator.json && echo "OK titles_player_generator.json" || (echo "MISSING titles_player_generator.json" && exit 1)
           test -f dist/curves/index.json           && echo "OK curves/index.json"           || (echo "MISSING curves/index.json" && exit 1)
           test -f dist/events/events_rewards.json  && echo "OK events_rewards.json"         || (echo "MISSING events_rewards.json" && exit 1)
           test -f dist/activities/activities_rewards.json && echo "OK activities_rewards.json" || (echo "MISSING activities_rewards.json" && exit 1)

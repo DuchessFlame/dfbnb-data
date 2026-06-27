@@ -35,9 +35,33 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 # ---------------------------------------------------------------------------
 # TSV helpers
 # ---------------------------------------------------------------------------
+_MONTH_ORDER = {
+    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9, "oct": 10,
+    "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
+}
+
+def _filename_date_key(path):
+    """Extract (year, month_number) from filenames like CHAL_Export_June_2026.tsv."""
+    base = os.path.basename(path).lower()
+    m = re.search(r'_([a-z]+)_(\d{4})', base)
+    if m:
+        month_num = _MONTH_ORDER.get(m.group(1), 0)
+        if month_num:
+            return (int(m.group(2)), month_num)
+    return (0, 0)
+
 def newest(pattern):
+    """Pick the most recent file matching *pattern*.
+    Primary sort: parsed year+month from filename (reliable on GitHub Actions
+    where git checkout mtimes vary by checkout order, not commit date).
+    Tiebreaker: file mtime (useful on local machines)."""
     fs = glob.glob(str(TSV_DIR / pattern))
-    return max(fs, key=os.path.getmtime) if fs else None
+    if not fs:
+        return None
+    fs.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    return fs[-1]
 
 def read_tsv(path):
     if not path or not os.path.exists(path): return []
@@ -172,10 +196,7 @@ def extract_conditions(row):
     return conds
 
 # ---------------------------------------------------------------------------
-# Editorial overlay — desc (how-to) + reward summary, keyed by the EDID tail
-# after "WorldPets_Challenge_Lifetime_". Ported verbatim from the previous
-# hand-authored CHALLENGES_LIST in df-bnb-world-pets.js. Factual fields
-# (name, required, conditions, FormID) are NOT here — they come from the TSV.
+# Editorial overlay
 # ---------------------------------------------------------------------------
 OVERLAY = {
     "AnyPet_ActivatePet01":   ("Activate a World Pet from your Pip-Boy. Only one pet can be active at a time.", "10 Caps"),
@@ -200,7 +221,6 @@ OVERLAY = {
     "Deathclaw_InfestationKills03": ("Kill Infestation enemies while a Pet Deathclaw is active.", ""),
 }
 
-# species key (first EDID token after the prefix) -> group label + active-pet label
 SPECIES = {
     "AnyPet":    ("Any Pet",   "Any World Pet"),
     "Cat":       ("Cat",       "Pet Cat"),
@@ -217,7 +237,6 @@ def species_key(edid):
     return tail.split("_", 1)[0]
 
 def line_base(edid):
-    """EDID with the trailing NN stripped — groups tiers of the same challenge."""
     return re.sub(r"\d+$", "", edid)
 
 def tier_num(edid):
@@ -229,7 +248,6 @@ def tier_num(edid):
 # ---------------------------------------------------------------------------
 wp_rows = [r for r in CHAL if pick(r, "EDID").startswith(PREFIX)]
 
-# Count members per line base so single challenges get no tier.
 line_counts = {}
 for r in wp_rows:
     line_counts[line_base(pick(r, "EDID"))] = line_counts.get(line_base(pick(r, "EDID")), 0) + 1
@@ -257,7 +275,7 @@ for r in wp_rows:
         "tier":      tier,
         "type_label": type_label,
         "required":  safe_int(required, required) if required not in ("", "0") else required,
-        "counter":   pick(r, "SNAM").lstrip(),          # informational only (SNAM)
+        "counter":   pick(r, "SNAM").lstrip(),
         "desc":      desc,
         "reward":    reward,
         "conditions_display": conditions_display(extract_conditions(r)),
@@ -265,7 +283,6 @@ for r in wp_rows:
     groups_map.setdefault(group_label, []).append(item)
     total += 1
 
-# Keep a stable order inside each group: by EDID (so tiers run 01,02,03).
 groups = []
 for label in GROUP_ORDER:
     items = sorted(groups_map.get(label, []), key=lambda x: x["edid"])

@@ -7,33 +7,89 @@ on:
     paths:
       - 'tsv/**'
       - 'src/build_perk_cards_json.py'
+      - 'data/perk_cards_meta.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
-      - name: Run build script
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+
+      # The perk-cards enrichment joins onto dist/curves/perk_cards.json (curve
+      # linkage) + dist/curves/index.json (labels), so build the curves first.
+      - name: Locate latest CURV points TSV
+        shell: bash
         run: |
-          mkdir -p dist
-          python src/build_perk_cards_json.py
+          newest_by_name() {
+            local files
+            files=$(ls -1 $1 2>/dev/null)
+            [ -z "$files" ] && return
+            echo "$files" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+          FILE=$(newest_by_name "tsv/CURV_Export_*_POINTS.tsv")
+          if [ -z "$FILE" ]; then
+            echo "ERROR: No CURV_Export_*_POINTS.tsv found in tsv/"
+            exit 1
+          fi
+          echo "CURV_POINTS_TSV=$FILE" >> $GITHUB_ENV
+          echo "Using CURV points TSV: $FILE"
+
+      - name: Build curves JSON (provides linkage + index)
+        shell: bash
+        run: |
+          mkdir -p dist/curves
+          CURV_POINTS_TSV="${CURV_POINTS_TSV}" \
+          CURV_OUT_DIR="dist/curves" \
+          CURV_CHUNK_MAX_CURVES="200" \
+          node tools/build_curves_json.mjs
+
+      - name: Build perk cards JSON (live + PTS)
+        run: python src/build_perk_cards_json.py --channel both
 
       - name: Commit and push
+        shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions@users.noreply.github.com"
-          git add dist/
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
+          if git status --porcelain dist/curves dist/perk_cards.json dist/perk_cards.pts.json | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/curves dist/perk_cards.json dist/perk_cards.pts.json
+            git commit -m "Build Perk Cards data (live + PTS)"
+            git fetch origin main
+            git pull --rebase origin main
+            git push origin main
           else
-            git commit -m "Build Perk Cards data"
-            git push
+            echo "No dist/curves changes."
           fi

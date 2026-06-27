@@ -113,7 +113,7 @@ def classify_edid(edid, season_names=None, mini_names=None):
     if s.startswith("ZZZ_"):
         return {"method":"unknown","seasonNumber":None,"seasonName":None,"eventCode":None,"eventName":None,"eventYear":None,"releaseYear":None,"tradeable":False,"display":"Pre-release content. Not currently available in-game.","badge":"Unreleased"}
     if s.startswith("ATX_"):
-        return {"method":"atom","seasonNumber":None,"seasonName":None,"eventCode":None,"eventName":None,"eventYear":None,"releaseYear":None,"tradeable":False,"display":"Purchased from the Atomic Shop for Atoms.","badge":"Atomic Shop"}
+        return {"method":"atom","seasonNumber":None,"seasonName":None,"eventCode":None,"eventName":None,"eventYear":None,"releaseYear":None,"tradeable":False,"display":"Can be purchased with certain bundles from the Atom Shop.","badge":"Atomic Shop"}
     m = MINI_SEASON_PREFIX_RE.match(s)
     if m:
         year, code = int(m.group(1)), m.group(2)
@@ -202,6 +202,41 @@ def load_chal_map():
         out[fid] = {"full":(row[idx["FULL"]] or "").strip() if "FULL" in idx else "","snam":(row[idx["SNAM"]] or "").strip() if "SNAM" in idx else "","tnam":(row[idx["TNAM"]] or "").strip() if "TNAM" in idx else ""}
     return out
 
+def load_cobj_map():
+    """OMOD FormID (upper) -> {cobjFormId, cobjEdid, gateFormId, gateEdid,
+    gateFull}. The craftable bobber/float/rod recipe (COBJ 'co_CondProxy_…')
+    carries a GNAM gate pointing at the CHAL/QUST that unlocks it — this is the
+    real source of truth for challenge-/quest-locked items. Also exposes the
+    COBJ FormID/EDID for the Technical block."""
+    path = find_latest_tsv("COBJ_Export_*.tsv")
+    out = {}
+    if not path:
+        return out
+    idx, rows = load_tsv(path)
+    need = ("COBJ_FormID","COBJ_EDID","CNAM_FormID","CNAM_EDID","GNAM_FormID","GNAM_EDID","GNAM_FULL")
+    if any(c not in idx for c in need):
+        return out
+    for row in rows:
+        if len(row) <= idx["CNAM_EDID"]:
+            continue
+        cnam_edid = (row[idx["CNAM_EDID"]] or "")
+        if not re.search(r"_mod_FishingRod_Weapon_(RodBobber|RodBase)", cnam_edid):
+            continue
+        omod = (row[idx["CNAM_FormID"]] or "").strip().upper()
+        if not omod:
+            continue
+        g = lambda k: (row[idx[k]].strip() if idx[k] < len(row) and row[idx[k]] else "")
+        out[omod] = {"cobjFormId": g("COBJ_FormID"), "cobjEdid": g("COBJ_EDID"),
+                     "gateFormId": g("GNAM_FormID"), "gateEdid": g("GNAM_EDID"),
+                     "gateFull": g("GNAM_FULL")}
+    return out
+
+def gate_type(edid):
+    e = (edid or "").lower()
+    if "challenge" in e: return "challenge"
+    if "quest" in e or "_mq" in e or e.endswith(":qust"): return "quest"
+    return "challenge"
+
 def build_unlock_text(chal):
     full = chal.get("full") or ""
     snam = chal.get("snam") or ""
@@ -272,6 +307,7 @@ def build():
     chal_map = load_chal_map()
     season_map = load_season_rewards_map()
     season_names = load_season_names()
+    cobj_map = load_cobj_map()
 
     rod_skins, bobbers = [], []
     enriched_chal = 0; enriched_score = 0; skipped_cut = 0
@@ -322,11 +358,36 @@ def build():
             enriched_score += 1
             break
 
-        item = {"formId":form_id,"edid":edid,"name":full or edid,"imageFilename":image_filename(edid),"imageUrl":"","howToObtain":obtain,"isNew":False,"cutContent":False}
+        # ---- COBJ gate (challenge / quest unlock) + Technical FormID/EDID ----
+        cobj = cobj_map.get((form_id or "").upper())
+        cobj_form = cobj.get("cobjFormId") if cobj else None
+        cobj_edid = cobj.get("cobjEdid") if cobj else None
+        gate_full = (cobj.get("gateFull") if cobj else "") or ""
+        gate_fid  = (cobj.get("gateFormId") if cobj else "") or ""
+        gate_edid = (cobj.get("gateEdid") if cobj else "") or ""
+
+        if obtain["method"] == "default":
+            # Fishing shipped with Season 21 (June 2025).
+            obtain["releaseYear"] = 2025
+            if gate_full:
+                gt = gate_type(gate_edid)
+                obtain["method"] = "challenge"
+                obtain["badge"] = "Challenge"
+                obtain["display"] = f'Unlocked by completing the "{gate_full}" {gt}.'
+                obtain["challenge"] = {"name": gate_full, "chalFormId": gate_fid or None}
+            else:
+                obtain["display"] = "Unlocked by default — available to every player once fishing is unlocked."
+        elif obtain["method"] == "burning-springs" and gate_full:
+            gt = gate_type(gate_edid)
+            obtain["display"] = f'Unlocked by completing the "{gate_full}" {gt}.'
+            obtain["challenge"] = {"name": gate_full, "chalFormId": gate_fid or None}
+            enriched_chal += 1
+
+        item = {"formId":form_id,"edid":edid,"name":full or edid,"imageFilename":image_filename(edid),"imageUrl":"","cobjFormId":cobj_form,"cobjEdid":cobj_edid,"howToObtain":obtain,"isNew":False,"cutContent":False}
         if is_rod_skin(edid): rod_skins.append(item)
         else: bobbers.append(item)
 
-    method_order = {"default":0,"burning-springs":1,"scoreboard":2,"mini-season":3,"atom":4}
+    method_order = {"default":0,"challenge":0,"burning-springs":1,"scoreboard":2,"mini-season":3,"atom":4}
     def sort_key(it): return (method_order.get(it["howToObtain"]["method"], 8), it["name"].lower())
     rod_skins.sort(key=sort_key); bobbers.sort(key=sort_key)
 

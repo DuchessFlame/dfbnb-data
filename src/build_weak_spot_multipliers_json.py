@@ -22,11 +22,46 @@ Usage:
 import json
 import os
 import csv
+import glob
+import re
 from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TSV_PATH = os.path.join(ROOT, "tsv", "BPTD_Export_May_2026.tsv")
 OUT_PATH = os.path.join(ROOT, "dist", "calculators", "weak_spot_multipliers.json")
+
+# Month-name → sort-order for picking the newest TSV by filename.
+_MONTH_ORDER = {
+    "jan": 1, "january": 1, "feb": 2, "february": 2,
+    "mar": 3, "march": 3, "apr": 4, "april": 4,
+    "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10, "nov": 11, "november": 11,
+    "dec": 12, "december": 12,
+}
+
+
+def _find_newest_bptd_tsv():
+    """Glob for BPTD_Export_*.tsv and pick the newest by embedded month/year."""
+    pattern = os.path.join(ROOT, "tsv", "BPTD_Export_*.tsv")
+    candidates = sorted(glob.glob(pattern))
+    if not candidates:
+        return None
+    best = None
+    best_key = (-1, -1)
+    for path in candidates:
+        fname = os.path.basename(path).lower()
+        parts = re.split(r'[_./]', fname)
+        cm, cy = 0, 0
+        for tok in parts:
+            if tok in _MONTH_ORDER:
+                cm = _MONTH_ORDER[tok]
+            if re.fullmatch(r'\d{4}', tok):
+                cy = int(tok)
+        key = (cy, cm)
+        if key >= best_key:
+            best_key = key
+            best = path
+    return best
 
 
 # ---------------------------------------------------------------------------
@@ -278,11 +313,11 @@ def get_display_names(edid, refby_race_names):
 # Build
 # ---------------------------------------------------------------------------
 
-def build_from_tsv():
+def build_from_tsv(tsv_path):
     """Parse the BPTD TSV and return {enemy_name: [{limb, multiplier}, ...]}."""
     raw = {}  # name → list of (limb, mult)
 
-    with open(TSV_PATH, "r", encoding="utf-8") as f:
+    with open(tsv_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
 
         # Check if the new RefBy columns exist
@@ -378,13 +413,15 @@ def merge_manual_entries(tsv_enemies):
 
 
 def main():
-    if not os.path.isfile(TSV_PATH):
-        print(f"[weak_spot] ERROR: No TSV at {TSV_PATH}")
+    tsv_path = _find_newest_bptd_tsv()
+    if not tsv_path:
+        print("[weak_spot] ERROR: No BPTD_Export_*.tsv found in tsv/")
         print("[weak_spot] Run the xEdit BPTD export script first.")
         return
 
-    print(f"[weak_spot] Building from TSV: {TSV_PATH}")
-    tsv_enemies = build_from_tsv()
+    tsv_name = os.path.basename(tsv_path)
+    print(f"[weak_spot] Building from TSV: {tsv_path}")
+    tsv_enemies = build_from_tsv(tsv_path)
     print(f"[weak_spot] Parsed {len(tsv_enemies)} enemies from TSV")
 
     # Merge in manually curated entries that don't have a TSV match
@@ -395,7 +432,7 @@ def main():
 
     output = {
         "generated": str(date.today()),
-        "source": "BPTD_Export_May_2026.tsv",
+        "source": tsv_name,
         "enemies": sorted_enemies
     }
 
