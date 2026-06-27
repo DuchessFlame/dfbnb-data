@@ -1,0 +1,4 @@
+# Force LF line endings for JSON data files to prevent CRLF corruption
+# during OneDrive sync (extra CR bytes truncate file content).
+*.json eol=lf
+*.tsv  eol=lf
