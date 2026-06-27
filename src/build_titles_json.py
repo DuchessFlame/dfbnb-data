@@ -760,6 +760,12 @@ def merge_rows_by_key(row_sets: List[List[Dict[str, str]]], key_field: str) -> L
     return list(merged.values())
 
 
+def _is_pts_path(p: str) -> bool:
+    """Return True if path goes through a /pts/ subdirectory (PTS channel data)."""
+    norm = p.replace("\\", "/").lower()
+    return "/pts/" in norm or norm.endswith("/pts")
+
+
 def _autofill_paths(tsv_root: Optional[str], provided: Optional[List[str]], patterns: List[str]) -> List[str]:
     if provided:
         return provided
@@ -768,6 +774,11 @@ def _autofill_paths(tsv_root: Optional[str], provided: Optional[List[str]], patt
     hits: List[str] = []
     for pat in patterns:
         hits.extend(glob.glob(os.path.join(tsv_root, pat), recursive=True))
+    # Exclude PTS channel TSVs — PTS builds are handled by dfbnb-pts-build.yml
+    # which normalizes tsv/pts/ into tsv/ before calling this script.  When
+    # running a LIVE build, PTS files must never be picked up or their
+    # unreleased content leaks into the live JSON output.
+    hits = [h for h in hits if not _is_pts_path(h)]
     return sorted(set(hits))
 
 

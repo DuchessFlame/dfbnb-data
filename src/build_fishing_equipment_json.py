@@ -76,23 +76,65 @@ SEASON_PREFIX_RE = re.compile(r"^SCORE_S(\d+)_", re.IGNORECASE)
 MINI_SEASON_PREFIX_RE = re.compile(r"^SCORE_MiniSeason_(\d{4})_([A-Za-z0-9]+)_", re.IGNORECASE)
 SEASON_YEAR = {14:2023,15:2023,16:2023,17:2024,18:2024,19:2024,20:2024,21:2024,22:2025,23:2025,24:2025,25:2025,26:2026,27:2026}
 
-def classify_edid(edid):
+# Mini-season event code -> full event name. Mini-seasons use short codes in
+# the EDID (e.g. MMMFE) that don't prettify cleanly, so map them explicitly.
+# Mirror new codes here as Bethesda ships them.
+MINI_SEASON_NAMES = {
+    "MMMFE": "Marshal Mallow's Marvelous Fishing Excursion",
+}
+
+def load_season_names():
+    """season number -> SeasonName, parsed from tsv/fallout76_seasons.tsv.
+    Same source the titles pipeline uses, so the scoreboard prose reads
+    identically (e.g. 'Gone Fission Scoreboard (Season 21)')."""
+    path = os.path.join(TSV_DIR, "fallout76_seasons.tsv")
+    out = {}
+    if not os.path.isfile(path):
+        return out
+    try:
+        idx, rows = load_tsv(path)
+        if "SeasonNumber" not in idx or "SeasonName" not in idx:
+            return out
+        for row in rows:
+            if len(row) <= max(idx["SeasonNumber"], idx["SeasonName"]):
+                continue
+            num = (row[idx["SeasonNumber"]] or "").strip()
+            name = (row[idx["SeasonName"]] or "").strip()
+            if num.isdigit() and name:
+                out[int(num)] = name
+    except Exception as e:
+        print(f"[fishing-equipment] WARNING: could not load season names: {e}", file=sys.stderr)
+    return out
+
+def classify_edid(edid, season_names=None, mini_names=None):
+    season_names = season_names or {}
+    mini_names = mini_names or MINI_SEASON_NAMES
     s = edid or ""
     if s.startswith("ZZZ_"):
-        return {"method":"unknown","seasonNumber":None,"eventCode":None,"eventYear":None,"releaseYear":None,"tradeable":False,"display":"Pre-release content. Not currently available in-game.","badge":"Unreleased"}
+        return {"method":"unknown","seasonNumber":None,"seasonName":None,"eventCode":None,"eventName":None,"eventYear":None,"releaseYear":None,"tradeable":False,"display":"Pre-release content. Not currently available in-game.","badge":"Unreleased"}
     if s.startswith("ATX_"):
-        return {"method":"atom","seasonNumber":None,"eventCode":None,"eventYear":None,"releaseYear":None,"tradeable":False,"display":"Available in the Atomic Shop.","badge":"Atomic Shop"}
+        return {"method":"atom","seasonNumber":None,"seasonName":None,"eventCode":None,"eventName":None,"eventYear":None,"releaseYear":None,"tradeable":False,"display":"Purchased from the Atomic Shop for Atoms.","badge":"Atomic Shop"}
     m = MINI_SEASON_PREFIX_RE.match(s)
     if m:
         year, code = int(m.group(1)), m.group(2)
-        return {"method":"mini-season","seasonNumber":None,"eventCode":code,"eventYear":year,"releaseYear":year,"tradeable":False,"display":f"Available via the {year} Mini-Season event scoreboard ({code}).","badge":f"Mini-Season {year}"}
+        name = mini_names.get(code.upper())
+        if name:
+            display = f"Purchase with tickets from the {name} Mini-Season scoreboard ({year})."
+        else:
+            display = f"Purchase with tickets from the {year} Mini-Season event scoreboard ({code})."
+        return {"method":"mini-season","seasonNumber":None,"seasonName":None,"eventCode":code,"eventName":name,"eventYear":year,"releaseYear":year,"tradeable":False,"display":display,"badge":f"Mini-Season {year}"}
     m = SEASON_PREFIX_RE.match(s)
     if m:
         season = int(m.group(1))
-        return {"method":"scoreboard","seasonNumber":season,"eventCode":None,"eventYear":None,"releaseYear":SEASON_YEAR.get(season),"tradeable":False,"display":f"Available via the Season {season} Scoreboard.","badge":f"Season {season}"}
+        sname = season_names.get(season)
+        if sname:
+            display = f"Purchase with tickets from the {sname} Scoreboard (Season {season})."
+        else:
+            display = f"Purchase with tickets from the Season {season} Scoreboard."
+        return {"method":"scoreboard","seasonNumber":season,"seasonName":sname,"eventCode":None,"eventName":None,"eventYear":None,"releaseYear":SEASON_YEAR.get(season),"tradeable":False,"display":display,"badge":f"Season {season}"}
     if s.startswith("Burn_"):
-        return {"method":"burning-springs","seasonNumber":None,"eventCode":None,"eventYear":None,"releaseYear":2025,"tradeable":False,"display":"Tied to the Burning Springs region content.","badge":"Burning Springs"}
-    return {"method":"default","seasonNumber":None,"eventCode":None,"eventYear":None,"releaseYear":2024,"tradeable":False,"display":"Available in the base game.","badge":"Base Game"}
+        return {"method":"burning-springs","seasonNumber":None,"seasonName":None,"eventCode":None,"eventName":None,"eventYear":None,"releaseYear":2025,"tradeable":False,"display":"Earned through the Burning Springs region content, introduced in the Blood x Rust update (Season 23).","badge":"Burning Springs"}
+    return {"method":"default","seasonNumber":None,"seasonName":None,"eventCode":None,"eventName":None,"eventYear":None,"releaseYear":2024,"tradeable":False,"display":"Unlocked by default — available to all players in the base game.","badge":"Base Game"}
 
 PREFIX_STRIP_RE = re.compile(r"^(ATX_|SCORE_S\d+_|SCORE_MiniSeason_\d{4}_[A-Za-z0-9]+_|Burn_|ZZZ_(?:SCORE_S\d+_)?)", re.IGNORECASE)
 
@@ -229,6 +271,7 @@ def build():
     gmrw_to_chal = load_gmrw_to_chal_map()
     chal_map = load_chal_map()
     season_map = load_season_rewards_map()
+    season_names = load_season_names()
 
     rod_skins, bobbers = [], []
     enriched_chal = 0; enriched_score = 0; skipped_cut = 0
@@ -241,7 +284,7 @@ def build():
         if not edid or "_mod_FishingRod_Weapon_" not in edid: continue
         if not (is_rod_skin(edid) or is_bobber(edid)): continue
 
-        obtain = classify_edid(edid)
+        obtain = classify_edid(edid, season_names, MINI_SEASON_NAMES)
         # Skip cut / pre-release / disabled content entirely — page should
         # only list items players can actually obtain in-game.
         if obtain["method"] == "unknown":
@@ -260,14 +303,22 @@ def build():
             sr = season_map.get(cand.lower())
             if not sr: continue
             obtain["scoreboard"] = sr
-            page = sr.get("page"); cost = sr.get("cost")
+            # Keep the rich season-name prose from classify_edid as the headline
+            # source line; the structured scoreboard{} (page / cost / description)
+            # is rendered separately by the page so we don't flatten it into one
+            # terse sentence. Only synthesise a display if classify produced none.
             season_no = sr.get("seasonNumber") or (obtain.get("seasonNumber") or "")
-            bits = []
-            if season_no: bits.append(f"Season {season_no} Scoreboard")
-            if page: bits.append(f"page {page}")
-            if cost: bits.append(f"costs {cost} S.C.O.R.E.")
-            if bits:
-                obtain["display"] = "Available via the " + bits[0] + (", " + ", ".join(bits[1:]) if len(bits) > 1 else "") + "."
+            if not obtain.get("display"):
+                sname = season_names.get(int(season_no)) if str(season_no).isdigit() else None
+                if sname:
+                    obtain["display"] = f"Purchase with tickets from the {sname} Scoreboard (Season {season_no})."
+                elif season_no:
+                    obtain["display"] = f"Purchase with tickets from the Season {season_no} Scoreboard."
+            if season_no and not obtain.get("seasonNumber"):
+                try: obtain["seasonNumber"] = int(season_no)
+                except (TypeError, ValueError): pass
+            if not obtain.get("seasonName") and str(season_no).isdigit():
+                obtain["seasonName"] = season_names.get(int(season_no))
             enriched_score += 1
             break
 

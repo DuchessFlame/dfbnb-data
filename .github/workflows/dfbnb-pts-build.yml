@@ -653,6 +653,16 @@ jobs:
       - name: Build World Pet Challenges JSON
         run: python src/build_world_pet_challenges_json.py --tsv-dir tsv --out-dir dist
 
+      # --- WORLD PET TYPES (per-species World Pet pages) ---
+      # Outputs dist/world_pet_types.json for df-bnb-world-pets.js.
+      # Reads NPC, ENTM, ALCH, ALCH_Effects, COBJ, GLOB TSVs (resolved
+      # internally via glob patterns — no explicit env vars needed).
+      - name: Build World Pet Types JSON
+        run: |
+          python src/build_world_pet_types_json.py \
+            --tsv-dir tsv \
+            --out-dir dist
+
       # --- WEAK SPOT MULTIPLIERS (BnB calculators) ---
       # Outputs dist/calculators/weak_spot_multipliers.json for df-bnb-bnb-calculators.js.
       - name: Build Weak Spot Multipliers JSON
@@ -810,6 +820,10 @@ jobs:
           test -f dist/collectables_bobbleheads.json && echo "OK collectables_bobbleheads.json" || (echo "MISSING collectables_bobbleheads.json" && exit 1)
           test -f dist/collectables_plushies.json    && echo "OK collectables_plushies.json"    || (echo "MISSING collectables_plushies.json" && exit 1)
           test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
+          test -f dist/collectables_holotape_games.json && echo "OK collectables_holotape_games.json" || (echo "MISSING collectables_holotape_games.json" && exit 1)
+          test -f dist/collectables_magazines.json    && echo "OK collectables_magazines.json"    || (echo "MISSING collectables_magazines.json" && exit 1)
+          test -f dist/collectables_holotapes.json    && echo "OK collectables_holotapes.json"    || (echo "MISSING collectables_holotapes.json" && exit 1)
+          test -f dist/collectables_keys.json         && echo "OK collectables_keys.json"         || (echo "MISSING collectables_keys.json" && exit 1)
           test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
           test -f dist/atom_shop.json                && echo "OK atom_shop.json"                || (echo "MISSING atom_shop.json" && exit 1)
           test -f dist/seasons.json                  && echo "OK seasons.json"                  || (echo "MISSING seasons.json" && exit 1)
@@ -835,6 +849,7 @@ jobs:
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
           test -f dist/pennants.json                 && echo "OK pennants.json"                 || (echo "MISSING pennants.json" && exit 1)
           test -f dist/world_pet_challenges.json     && echo "OK world_pet_challenges.json"     || (echo "MISSING world_pet_challenges.json" && exit 1)
+          test -f dist/world_pet_types.json          && echo "OK world_pet_types.json"          || (echo "MISSING world_pet_types.json" && exit 1)
           test -f dist/calculators/weak_spot_multipliers.json && echo "OK weak_spot_multipliers.json" || (echo "MISSING weak_spot_multipliers.json" && exit 1)
           test -f dist/drop_chances_data.json        && echo "OK drop_chances_data.json"        || (echo "MISSING drop_chances_data.json" && exit 1)
           test -f dist/legendary_mod_drop_chances.json && echo "OK legendary_mod_drop_chances.json" || (echo "MISSING legendary_mod_drop_chances.json" && exit 1)

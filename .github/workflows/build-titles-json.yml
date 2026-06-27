@@ -6,6 +6,9 @@ on:
     branches: [ main ]
     paths:
       - "tsv/**"
+      # PTS data lives in tsv/pts/ and has its own workflow (dfbnb-pts-build.yml).
+      # Exclude it so PTS pulls don't trigger a wasteful live rebuild.
+      - "!tsv/pts/**"
       - "src/build_titles_json.py"
       - "src/build_drop_rates.py"
       - "src/rng76.py"
