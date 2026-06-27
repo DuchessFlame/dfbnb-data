@@ -84,6 +84,7 @@ CUT_PATTERNS = [
     re.compile(r"^FloraSpecimenJarYellow$", re.IGNORECASE),
 
     # ── No-COBJ / no-recipe item families ──────────────────────────────
+    re.compile(r"^Fish_Fishbits_Glowing$", re.IGNORECASE),  # "Glowing Fish Bits" — cut content
     re.compile(r"^Fishing_.*_Glowing$", re.IGNORECASE),
     re.compile(r"^ZZZ_Fishing_.*_Glowing", re.IGNORECASE),
 ]
