@@ -795,22 +795,22 @@ EVENT_IMAGE_SUBDIR = {
 LOCATION_IMAGES = {
     # Summer Sock Hop — Week 1
     '008D494B': ('Berkeley Springs',
-                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/berkeley-springs.avif'),
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/berkeley-springs.avif'),
     '008D494C': ('Black Bear Lodge',
-                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/black-bear-lodge.avif'),
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/black-bear-lodge.avif'),
     '008D494D': ('Camden Park',
-                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/camden-park.avif'),
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/camden-park.avif'),
     '008D3566': ("Sandy's Sock Hop",
-                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/sandys-sock-hop.avif'),
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/sandys-sock-hop.avif'),
     # Summer Sock Hop — Week 2
     '008D4947': ('Makeout Point',
-                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/makeout-point.avif'),
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/makeout-point.avif'),
     '008D4946': ('Morgantown High School',
-                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/morgantown-high-school.avif'),
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/morgantown-high-school.avif'),
     '008D494A': ('Sunnytop Ski Lanes',
-                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/sunnytop-ski-lanes.avif'),
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/sunnytop-ski-lanes.avif'),
     '008D4949': ('Watoga High School',
-                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/watoga-high-school.avif'),
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/watoga-high-school.avif'),
 }
 
 
