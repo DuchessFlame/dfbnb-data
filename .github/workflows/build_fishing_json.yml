@@ -9,6 +9,7 @@ on:
       - 'tsv/LVLI_Export_*_LVLI_Entries.tsv'
       - 'tsv/LVLI_Export_*_LVLI_List.tsv'
       - 'src/build_fishing_calculator_json.py'
+      - 'tsv/GMRW_Export_*.tsv'
   workflow_dispatch:
 
 jobs:
@@ -66,6 +67,9 @@ jobs:
               errs.append('Missing waterloggedGifts odds')
           if not ws.get('odds'):
               errs.append('Missing weekendSeasonalFish odds')
+          pe = d.get('whatsBiting', {}).get('publicEvents', [])
+          if len(pe) < 30:
+              errs.append(f'Too few whatsBiting publicEvents: {len(pe)}')
           if errs:
               for e in errs: print(e, file=sys.stderr)
               sys.exit(1)

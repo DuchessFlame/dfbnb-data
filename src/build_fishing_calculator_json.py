@@ -31,6 +31,115 @@ TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
 DIST_DIR = os.path.join(SCRIPT_DIR, "..", "dist")
 DIST_FILE = os.path.join(DIST_DIR, "fishing.json")
 
+# ── What's Biting? — Public Events that reward Improved Bait ──────────────────
+# The "Public Events" list under Improved Bait on the What's Biting guide is
+# GENERATIVE and DATA-DERIVED, straight from the game exports — not a guess at
+# "which public events probably give bait".
+#
+# In the game files the Improved Bait MISC item is handed out through a leveled
+# list, Fishing_LL_Rewards_ImprovedBait (form id WB_BAIT_POOL_FID). A handful of
+# reward leveled-lists distribute that pool (e.g. RA_LL_Rewards_PublicEvents,
+# the per-quest reward lists for Jail Break, Scorched Earth, the Skyline caravan
+# escort and the public bounty hunt). An event grants Improved Bait iff its
+# GMRW quest-reward references one of those lists. We compute it in two steps:
+#   1. walk the LVLI tree up from the bait pool to every list that distributes
+#      it (handles any future nesting automatically), then
+#   2. scan GMRW for every event whose reward references one of those lists.
+#
+# This auto-updates when Bethesda attaches/detaches the reward, and naturally
+# EXCLUDES public events that don't grant bait (Welcoming Committee, Monster
+# Mash, Gearin' Up …) and the non-event sources listed elsewhere on the guide
+# (the Casting Off quest and the daily "Big Fish in a Small Pond").
+WB_BAIT_POOL_FID = "0081137A"   # Fishing_LL_Rewards_ImprovedBait
+
+# Optional manual additions — e.g. cut content you want kept with a strike
+# through. Set "cut": True to render the name struck through. Empty by default;
+# the live list is fully data-derived.
+WB_EVENTS_EXTRA = []
+
+def _wb_latest(rel_pattern):
+    """Newest file under the repo root matching a tsv/ glob pattern."""
+    matches = sorted(globmod.glob(os.path.join(SCRIPT_DIR, "..", rel_pattern)))
+    return matches[-1] if matches else None
+
+def _wb_read_rows(path):
+    """Read a TSV into a list of split rows, tolerant of export encodings."""
+    for enc in ("utf-8", "utf-8-sig", "latin-1"):
+        try:
+            with open(path, encoding=enc) as f:
+                return [ln.rstrip("\n").split("\t") for ln in f]
+        except UnicodeDecodeError:
+            continue
+    return []
+
+def build_whats_biting_public_events():
+    """Data-derived list of public events that reward Improved Bait.
+
+    Traces the bait pool (Fishing_LL_Rewards_ImprovedBait, WB_BAIT_POOL_FID) up
+    the leveled-list tree to the reward lists that distribute it, then reads
+    GMRW for every event whose quest reward uses one of those lists. Returns
+    [{"name": str, "cut"?: bool}, ...] sorted by name, or None if the exports
+    can't be read (the front-end then uses its built-in fallback list)."""
+    lvli = _wb_latest("tsv/LVLI_Export_*_LVLI_Entries.tsv")
+    gmrw = _wb_latest("tsv/GMRW_Export_*.tsv")
+    if not lvli or not gmrw:
+        print("[fishing] whatsBiting: LVLI/GMRW export missing — "
+              "skipping publicEvents (front-end will use its fallback)",
+              file=sys.stderr)
+        return None
+
+    # child fid → set of parent leveled-list fids
+    parents = {}
+    for row in _wb_read_rows(lvli):
+        if len(row) < 4:
+            continue
+        lst = row[0].strip().upper()
+        for cell in row[3:]:
+            m = re.match(r"([0-9A-Fa-f]{8}):", cell)
+            if m:
+                parents.setdefault(m.group(1).upper(), set()).add(lst)
+
+    # Upward closure: every list that distributes the bait pool.
+    bait_lists = set()
+    frontier = {WB_BAIT_POOL_FID.upper()}
+    while frontier:
+        nxt = set()
+        for fid in frontier:
+            for parent in parents.get(fid, ()):
+                if parent not in bait_lists:
+                    bait_lists.add(parent)
+                    nxt.add(parent)
+        frontier = nxt
+    if not bait_lists:
+        print(f"[fishing] whatsBiting: bait pool {WB_BAIT_POOL_FID} not "
+              "referenced by any leveled list", file=sys.stderr)
+        return None
+
+    lvli_ref = re.compile(r"([0-9A-Fa-f]{8}):[^:\t]*:LVLI")
+    prefix = re.compile(r"^(Event:|Activity:)\s*")
+    names = set()
+    for row in _wb_read_rows(gmrw):
+        if len(row) < 4:
+            continue
+        row_fids = {m.upper() for m in lvli_ref.findall("\t".join(row))}
+        if not (row_fids & bait_lists):
+            continue
+        name = prefix.sub("", (row[2] or "").strip()).strip()
+        if name:
+            names.add(name)
+    if not names:
+        print("[fishing] whatsBiting: no events reference the bait reward "
+              "lists — skipping publicEvents", file=sys.stderr)
+        return None
+
+    events = [{"name": n} for n in names]
+    have = {e["name"] for e in events}
+    for extra in WB_EVENTS_EXTRA:
+        if extra.get("name") and extra["name"] not in have:
+            events.append(dict(extra))
+    events.sort(key=lambda e: e["name"].lower())
+    return events
+
 # ── Region mappings ──────────────────────────────────────────────────────────
 REGION_MAP = {
     "_Forest_": "Forest",
@@ -582,6 +691,11 @@ def main():
             "weekendSeasonalFish": weekend_seasonal,
         }
 
+        # Generative "What's Biting" public-events list (Improved Bait sources).
+        wb_events = build_whats_biting_public_events()
+        if wb_events:
+            output["whatsBiting"] = {"publicEvents": wb_events}
+
         os.makedirs(DIST_DIR, exist_ok=True)
         with open(DIST_FILE, "w", encoding="utf-8") as f:
             json.dump(output, f, indent=2, ensure_ascii=False)
@@ -591,6 +705,7 @@ def main():
               + (", Burning Springs detected" if has_burning_springs else "")
               + f", waterlogged odds {waterlogged_gift_odds}%"
               + f", seasonal odds {weekend_seasonal_fish_odds}%"
+              + (f", {len(wb_events)} public events" if wb_events else "")
               + f" -> dist/fishing.json")
 
     except Exception as e:
