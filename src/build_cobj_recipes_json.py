@@ -24,6 +24,7 @@ Output:
         "bnam_edid": "Workbench_Cooking" | "",   # BNAM (FO76 workbench ref)
         "bench_keywords": ["Meal_Recipe_Food", ...],
         "category": "food" | "chem" | "other",
+        "output_qty": 1,                         # items produced per craft (default 1)
         "source_file": "COBJ_Export_March_2026.tsv"
     } }
   }
@@ -67,6 +68,22 @@ DISPLAY_NAME_OVERRIDES: Dict[str, str] = {
     "Slipper Cactus":           "Prickeye",
     "Vegetable Slipper Cactus": "Prickeye",
 }
+
+# Output-quantity overrides: CNAM_EDID -> qty produced per craft.
+# The xEdit COBJ TSV export does not currently include the NAM1 (output
+# count) subrecord. Until the export script is updated, recipes that
+# produce more than 1 item per craft must be listed here. When the TSV
+# gains a NAM1/Output_Qty/CreatedObjectCount column the build script will
+# read it automatically and this map serves only as an override layer
+# (override wins over TSV value).
+OUTPUT_QTY_OVERRIDES: Dict[str, int] = {
+    "SeasonalFish_Meal_SummerFillet": 2,  # Summer Filet — crafts 2 per cook
+}
+
+# TSV column names the script will check (in order) when looking for the
+# output-quantity value. First match wins. Add new names here if xEdit
+# export conventions change.
+_OUTPUT_QTY_COLUMNS = ("NAM1", "Output_Qty", "CreatedObjectCount", "INTV")
 
 # FNAM_Keywords -> menu category classification.
 # These patterns are matched against each extracted keyword EDID.
@@ -356,6 +373,35 @@ def resolve_edid_column(row: Dict[str, str]) -> str:
     return ""
 
 
+def resolve_output_qty(row: Dict[str, str], cnam_edid: str) -> int:
+    """Return the number of items produced per craft for a COBJ row.
+
+    Resolution order (first positive value wins):
+      1. OUTPUT_QTY_OVERRIDES keyed by CNAM_EDID — manual map for recipes
+         whose TSV export doesn't include the count.
+      2. TSV column — checks _OUTPUT_QTY_COLUMNS names in order; used when
+         the xEdit export script includes NAM1 / Output_Qty / etc.
+      3. Default: 1 (the vast majority of recipes produce 1 item).
+    """
+    # 1. Manual override (always wins)
+    if cnam_edid and cnam_edid in OUTPUT_QTY_OVERRIDES:
+        return OUTPUT_QTY_OVERRIDES[cnam_edid]
+
+    # 2. TSV column (forward-compatible with future xEdit exports)
+    for col in _OUTPUT_QTY_COLUMNS:
+        raw = clean_str(row.get(col, ""))
+        if raw:
+            try:
+                val = int(raw)
+                if val > 0:
+                    return val
+            except (ValueError, TypeError):
+                pass
+
+    # 3. Default
+    return 1
+
+
 # ---------------------------------------------------------------------------
 # Recipe extraction
 # ---------------------------------------------------------------------------
@@ -418,6 +464,8 @@ def build_recipes(
 
             keywords = parse_fnam_keywords(fnam)
             category = classify_category(keywords, bnam_edid)
+            cnam_edid = clean_str(row.get("CNAM_EDID", ""))
+            output_qty = resolve_output_qty(row, cnam_edid)
 
             # Track every recipe under its display name so we can later
             # extract region variants. This is additive to the dedup
@@ -436,11 +484,11 @@ def build_recipes(
                 recipes[display_name] = ingredients
                 meta[display_name] = {
                     "edid": clean_str(edid),
-                    "cnam_edid": clean_str(row.get("CNAM_EDID", "")),
+                    "cnam_edid": cnam_edid,
                     "bnam_edid": bnam_edid,
                     "bench_keywords": keywords,
                     "category": category,
-
+                    "output_qty": output_qty,
                     "source_file": os.path.basename(source_file),
                 }
             else:
@@ -449,20 +497,25 @@ def build_recipes(
                     recipes[display_name] = ingredients
                     meta[display_name] = {
                         "edid": clean_str(edid),
-                        "cnam_edid": clean_str(row.get("CNAM_EDID", "")),
+                        "cnam_edid": cnam_edid,
                         "bnam_edid": bnam_edid,
                         "bench_keywords": keywords,
                         "category": category,
-    
+                        "output_qty": output_qty,
                         "source_file": os.path.basename(source_file),
                     }
                 else:
-                    # Back-fill keywords / BNAM / category if earlier entry lacked them
+                    # Back-fill keywords / BNAM / category / output_qty
+                    # if earlier entry lacked them
                     existing = meta.get(display_name, {})
                     if not existing.get("bench_keywords") and keywords:
                         existing["bench_keywords"] = keywords
                     if not existing.get("bnam_edid") and bnam_edid:
                         existing["bnam_edid"] = bnam_edid
+                    # Back-fill output_qty if existing is still 1 and
+                    # this row has a higher value (override or TSV column)
+                    if existing.get("output_qty", 1) == 1 and output_qty > 1:
+                        existing["output_qty"] = output_qty
                     # Re-classify if we now have a BNAM we didn't before
                     if existing.get("category") == "other" and (bnam_edid or keywords):
                         existing["category"] = classify_category(
