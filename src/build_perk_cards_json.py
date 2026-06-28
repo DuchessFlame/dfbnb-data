@@ -82,8 +82,10 @@ def col(row, *names):
 
 def section_for(edid):
     u = strip_quotes(edid).upper()
+    # Legendary takes priority: ghoul-legendary perks (GHL_LGN_*) are Legendary
+    # cards, not Ghoul cards, so check for the LGN marker before the GHL prefix.
+    if u.startswith("LGN_") or "_LGN_" in u: return "Legendary Perk Cards"
     if u.startswith("GHL_"): return "Ghoul Perk Cards"
-    if u.startswith("LGN_"): return "Legendary Perk Cards"
     return "Human Perk Cards"
 
 def normalize_special(s):
@@ -99,6 +101,32 @@ def humanize_name(s):
     s = re.sub(r"(?<=[A-Z])(?=[A-Z][a-z])", " ", s)
     s = s.replace("_", " ")
     return re.sub(r"\s+", " ", s).strip() or strip_quotes(s)
+
+def norm_name(s):
+    return re.sub(r"[^a-z0-9]", "", str(s or "").lower())
+
+def resolve_card_name(row, edid, meta_card):
+    """Return (display_name, former).
+
+    Display name = the card's CURRENT in-game perk name (Rank 1 perk FULL) when
+    present, else the humanized card record name (MNAM). `former` = the humanized
+    record name, but ONLY when it genuinely differs from the current name
+    (punctuation/case differences are ignored, so "Can Do" -> "Can Do!" is not a
+    rename). A hand override in perk_cards_meta.json (displayName / former) always
+    wins. This is what auto-detects renamed cards (e.g. Archer -> Hat Trick)
+    straight from the PCRD export, instead of hand-maintaining each one.
+    """
+    record = humanize_name(col(row, "MNAM_MaleName", "MNAM_Name") or edid)
+    current_raw = strip_quotes(col(row, "RankPERK_1_FULL", "Rank_1_MalePerk_FULL"))
+    current = current_raw or record
+    display = meta_card.get("displayName") or current
+    if meta_card.get("former"):
+        former = meta_card["former"]
+    elif current_raw and norm_name(record) != norm_name(current):
+        former = record
+    else:
+        former = ""
+    return display, former
 
 def interp_y(points, x):
     if x <= points[0][0]: return points[0][1]
@@ -209,13 +237,13 @@ def build_channel(channel, pcrd_tsv, points_by_edid, labels, linkage, meta,
         edid = col(r, "PCRD_EDID")
         if not edid or is_cut(edid): counts["cut"] += 1; continue
         key = strip_quotes(edid)
-        name = humanize_name(col(r, "MNAM_MaleName", "MNAM_Name", "FNAM_FemaleName") or key)
         special = normalize_special(col(r, "DATA_Special"))
         race = col(r, "DATA_RaceRestriction", "DATA_SpeciesText", "DATA_Species") or "None"
         if special == "Unknown" and key in class_index:
             special = normalize_special(class_index[key]["special"])
             if race in ("", "None"): race = class_index[key]["race"]
         section = section_for(edid); meta_card = meta.get(key, {})
+        disp_name, former_name = resolve_card_name(r, key, meta_card)
         curve_edids = list(meta_card.get("curveEdids") or linkage.get(key, []))
         curves = []
         for ce in curve_edids:
@@ -225,7 +253,7 @@ def build_channel(channel, pcrd_tsv, points_by_edid, labels, linkage, meta,
         else: counts["no_curve"] += 1
         perks.append({
             "pcrdFormId": col(r, "PCRD_FormID"), "pcrdEdid": key,
-            "name": meta_card.get("displayName") or name, "former": meta_card.get("former") or "",
+            "name": disp_name, "former": former_name,
             "section": section, "special": special, "minLevel": col(r, "DATA_MinLevel"),
             "humanOnly": (race.strip().lower() == "human"), "raceRestriction": race, "curves": curves,
         })
@@ -308,29 +336,30 @@ def build_checklist_channel(channel, pcrd_tsv, perk_descs, meta,
         if not edid: continue
         key = strip_quotes(edid)
         if is_cut(edid): cut_count += 1; continue
-        male_raw = col(r, "MNAM_MaleName", "MNAM_Name")
-        female_raw = col(r, "FNAM_FemaleName")
         meta_card = meta.get(key, {})
-        name = _friendly_name(male_raw, female_raw, key, meta_card)
-        former = meta_card.get("former", "")
+        name, former = resolve_card_name(r, key, meta_card)
         special = normalize_special(col(r, "DATA_Special"))
         race = col(r, "DATA_RaceRestriction", "DATA_SpeciesText", "DATA_Species") or "None"
         if special == "Unknown" and key in class_index:
             special = normalize_special(class_index[key]["special"])
             if race in ("", "None"): race = class_index[key].get("race", "None")
         section = section_for(edid)
+        # A perk card has an animated (gold-back) copy IFF it carries a PCDV
+        # "Perk Card Value" rarity GLOB (PerkCard_Caps_Common/Uncommon/Rare/
+        # Unique). Cards without one (e.g. all Legendary perk cards) have no
+        # animated version. NOTE: ANAM_PerkCardFlags is NOT the animated flag
+        # and must not be used here.
         rarity_edid = col(r, "PCDV_GLOB_EDID")
         rarity = RARITY_MAP.get(rarity_edid, "")
-        anim_flag = col(r, "ANAM_PerkCardFlags")
-        animated = (anim_flag == "1") or (key in anim_index)
+        animated = bool(rarity)
         rank_count_raw = col(r, "RankCount")
         try: rank_count = int(rank_count_raw)
         except (TypeError, ValueError): rank_count = 1
         if rank_count < 1: rank_count = 1
         ranks = []
         for rn in range(1, rank_count + 1):
-            perk_edid = col(r, f"Rank_{rn}_MalePerk_EDID")
-            perk_name = col(r, f"Rank_{rn}_MalePerk_FULL")
+            perk_edid = col(r, f"RankPERK_{rn}_EDID", f"Rank_{rn}_MalePerk_EDID")
+            perk_name = col(r, f"RankPERK_{rn}_FULL", f"Rank_{rn}_MalePerk_FULL")
             perk_desc = perk_descs.get(perk_edid, "")
             ranks.append({"rank": rn, "perkEdid": perk_edid, "perkName": perk_name, "desc": perk_desc})
         if not ranks or not ranks[0].get("perkEdid"):

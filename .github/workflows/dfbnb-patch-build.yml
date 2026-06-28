@@ -651,6 +651,11 @@ jobs:
       - name: Build Weak Spot Multipliers JSON
         run: python src/build_weak_spot_multipliers_json.py
 
+      # --- HEALING CALCULATOR (BnB calculators) ---
+      # Outputs dist/calculators/healing_calculator.json for df-bnb-bnb-calculators.js.
+      - name: Build Healing Calculator JSON
+        run: python src/build_healing_calculator_json.py
+
       # --- DROP CHANCES DATA (Drop Chances page) ---
       # Outputs dist/drop_chances_data.json for df-bnb-drop-chances.js.
       - name: Build Drop Chances Data JSON
@@ -830,6 +835,7 @@ jobs:
           test -f dist/world_pet_challenges.json     && echo "OK world_pet_challenges.json"     || (echo "MISSING world_pet_challenges.json" && exit 1)
           test -f dist/world_pet_types.json          && echo "OK world_pet_types.json"          || (echo "MISSING world_pet_types.json" && exit 1)
           test -f dist/calculators/weak_spot_multipliers.json && echo "OK weak_spot_multipliers.json" || (echo "MISSING weak_spot_multipliers.json" && exit 1)
+          test -f dist/calculators/healing_calculator.json && echo "OK healing_calculator.json" || (echo "MISSING healing_calculator.json" && exit 1)
           test -f dist/drop_chances_data.json        && echo "OK drop_chances_data.json"        || (echo "MISSING drop_chances_data.json" && exit 1)
           test -f dist/legendary_mod_drop_chances.json && echo "OK legendary_mod_drop_chances.json" || (echo "MISSING legendary_mod_drop_chances.json" && exit 1)
           test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
