@@ -784,6 +784,36 @@ EVENT_IMAGE_SUBDIR = {
 }
 
 
+# ── Per-challenge map LOCATION images ─────────────────────────────────
+# Keyed by challenge FormID. For challenges that happen at a fixed map
+# location, attach the location name + screenshot. The renderer shows
+# these under the "How to Complete" expand as a clickable lightbox image.
+# Images are .avif under guide-images/mini-seasons/<event>/locations/ and
+# uploaded via FileZilla to the matching /wp-content/uploads/... path.
+# Challenges with no fixed location (your C.A.M.P., another player's,
+# events/activities, kills) are intentionally omitted.
+LOCATION_IMAGES = {
+    # Summer Sock Hop — Week 1
+    '008D494B': ('Berkeley Springs',
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/berkeley-springs.avif'),
+    '008D494C': ('Black Bear Lodge',
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/black-bear-lodge.avif'),
+    '008D494D': ('Camden Park',
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/camden-park.avif'),
+    '008D3566': ("Sandy's Sock Hop",
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/sandys-sock-hop.avif'),
+    # Summer Sock Hop — Week 2
+    '008D4947': ('Makeout Point',
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/makeout-point.avif'),
+    '008D4946': ('Morgantown High School',
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/morgantown-high-school.avif'),
+    '008D494A': ('Sunnytop Ski Lanes',
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/sunnytop-ski-lanes.avif'),
+    '008D4949': ('Watoga High School',
+                 '/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/locations/watoga-high-school.avif'),
+}
+
+
 # ── Per-event reward image overrides ──────────────────────────────────
 # Maps event_key → {img_edid (lowercase, _entm_ stripped) → actual URL}.
 # Used by load_entm_rewards() to override the auto-generated image_url
@@ -1620,6 +1650,13 @@ def main():
                 'is_cut':        is_cut,
                 'is_completion': is_completion(edid),
             }
+
+            # Attach a fixed map-location image where one exists for this
+            # challenge (renders under "How to Complete" as a lightbox image).
+            loc = LOCATION_IMAGES.get(str(row['form_id']).upper())
+            if loc:
+                entry['location'] = loc[0]
+                entry['location_image'] = loc[1]
 
             # For LTE events, attach per-challenge reward
             if evdef.get('type') == 'limited_time_event':
