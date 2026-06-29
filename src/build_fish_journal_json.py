@@ -30,14 +30,19 @@ IMAGE_OVERRIDES = {
     "Stone Axolotl": "axolotl-images/axolotl_stone", "Clay Axolotl": "axolotl-images/axolotl_clay",
     "Striped Axolotl": "axolotl-images/axolotl_striped", "Scaled Axolotl": "axolotl-images/axolotl_scaled",
     "Shadow Axolotl": "axolotl-images/axolotl_shadow", "Speckled Axolotl": "axolotl-images/axolotl_speckled",
+    "Spotted Axolotl": "axolotl-images/axolotl_spotted",
     "Charcoal Axolotl": "axolotl-images/axolotl_charcoal", "Banded Axolotl": "axolotl-images/axolotl_banded",
     "Pink Axolotl": "axolotl-images/axolotl_pink",
 }
+# Records to drop from the journal: leftover/duplicate game-data entries that are
+# not part of the live monthly rotation. Slot 02 is Pink on live; "Peach Axolotl"
+# is a cut twin of that slot that still lingers in the FISH export.
+DROP_NAMES = {"Peach Axolotl"}
 CASCADES = [
     ("season",  "Seasonal Fish",     "Rotates with the in-game season. Each is catchable only during its window before the next swaps in."),
     ("legend",  "Local Legend",      "Unique named bosses at fixed spots. Top of the cascade — first pick of the roll, with max fight and length."),
     ("glow",    "Glowing",           "Irradiated variants, one per region. A rare shimmer that rolls just below the legends."),
-    ("axolotl", "Axolotl",           "Thirteen colour morphs of the prize amphibian. Only rolls on Improved or Superb bait."),
+    ("axolotl", "Axolotl",           "Twelve colour morphs of the prize amphibian, one per calendar month. Only rolls on Improved or Superb bait."),
     ("uncommon","Uncommon",          "Region signature fish, two per region. The middle of the cascade."),
     ("common",  "Common",            "One sawgill per region — the reliable everyday catch that fills most casts."),
     ("generic", "Generic",           "Plain fish found in any water. Bottom of the cascade, right before the junk."),
@@ -51,16 +56,38 @@ REGION_KW = {"Forest": "The Forest", "AshHeap": "Ash Heap", "CranberryBog": "Cra
 SEASON_OF = {"Orange Overseer": "Spring", "Fernskipper": "Summer", "Glass Ghost": "Summer",
     "Fester Koi": "Fall", "Sludge Eye": "Fall", "Bog Sucker": "Winter"}
 
-def newest_tsv():
+def newest_tsv(directory=TSV_DIR, pts=False):
+    """Newest FISH_Export in `directory`. Live names are '<Month>_<Year>'; PTS names
+    are 'PTS_<YYYY-MM-DD>_<HHMM>'."""
     months = {"Jan":1,"Feb":2,"March":3,"Apr":4,"May":5,"June":6,"July":7,"Aug":8,
               "Sep":9,"Oct":10,"Nov":11,"Dec":12}
-    best, bestkey = None, (-1,-1)
-    for p in glob.glob(os.path.join(TSV_DIR, "FISH_Export_*.tsv")):
-        m = re.search(r"FISH_Export_([A-Za-z]+)_(\d{4})", os.path.basename(p))
-        if not m: continue
-        mo = months.get(m.group(1), 0); yr = int(m.group(2))
-        if (yr, mo) > bestkey: bestkey, best = (yr, mo), p
+    best, bestkey = None, (-1, -1, -1, -1)
+    for p in glob.glob(os.path.join(directory, "FISH_Export_*.tsv")):
+        b = os.path.basename(p)
+        if pts:
+            m = re.search(r"FISH_Export_PTS_(\d{4})-(\d{2})-(\d{2})_(\d{4})", b)
+            if not m: continue
+            key = (int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4)))
+        else:
+            if "PTS" in b: continue
+            m = re.search(r"FISH_Export_([A-Za-z]+)_(\d{4})", b)
+            if not m: continue
+            key = (int(m.group(2)), months.get(m.group(1), 0), 0, 0)
+        if key > bestkey: bestkey, best = key, p
     return best
+
+def load_axolotl_months(guide_filename):
+    """Map axolotl display name -> active month name, from a built axolotl guide feed."""
+    p = os.path.join(DIST, guide_filename)
+    out = {}
+    try:
+        d = json.load(open(p, encoding="utf-8"))
+        for v in d.get("variants", []):
+            if v.get("name") and v.get("monthName"):
+                out[v["name"]] = v["monthName"]
+    except (IOError, ValueError):
+        pass
+    return out
 
 def kws(r): return [r.get(k, "") for k in ("KW1","KW2","KW3","KW4","KW5")]
 def has_kw(r, t): return any("FishType_%s:" % t in v for v in kws(r))
@@ -100,18 +127,27 @@ def load_rollovers():
     for cand in ("seasonal-fish.json", "seasonal_fish_guide.json"):
         p = os.path.join(DIST, cand)
         if os.path.exists(p):
-            d = json.load(open(p, encoding="utf-8"))
+            try:
+                d = json.load(open(p, encoding="utf-8"))
+            except (ValueError, IOError):
+                continue  # skip a malformed candidate (e.g. trailing data) and try the next
             roll = (d.get("seasonRule") or {}).get("rolloverDates")
             if roll: return roll
     return []
 
-def build(tsv_path):
+def build(tsv_path, month_map=None):
+    month_map = month_map or {}
     rows = list(csv.DictReader(open(tsv_path, encoding="utf-8"), delimiter="\t"))
     bucket = {cid: [] for cid, _, _ in CASCADES}
     seen = {cid: set() for cid, _, _ in CASCADES}
     for r in rows:
         nm = disp(r)
+        # Skip cut content: Bethesda prefixes deprecated/removed records' EDIDs with
+        # "zzz_" (the display name stays clean, so check the EDID too). e.g. the Golden
+        # Axolotl was a live PTS record on 2026-06-21 but cut by the 2026-06-27 build.
+        if r.get("EDID", "").startswith("zzz"): continue
         if nm.startswith("zzz") or nm.startswith("Fishing_"): continue
+        if nm in DROP_NAMES: continue
         cid = cascade_of(r)
         if not cid: continue
         def rec(c):
@@ -120,6 +156,9 @@ def build(tsv_path):
             o = {"name": nm, "size": size_of(r), "maxLengthCm": int(float(r["FIHA"])),
                  "fight": int(float(r["FIHS"])), "region": region_of(r), "image": image_for(nm, c)}
             if nm in SEASON_OF: o["season"] = SEASON_OF[nm]
+            if c == "axolotl":
+                mo = month_map.get(nm)
+                if mo: o["month"] = mo
             return o
         m = rec(cid)
         if m: bucket[cid].append(m)
@@ -138,15 +177,25 @@ def build(tsv_path):
     return out
 
 def main():
-    tsv = newest_tsv()
-    if not tsv: raise SystemExit("No FISH_Export TSV found in %s" % TSV_DIR)
-    data = build(tsv)
     os.makedirs(DIST, exist_ok=True)
     os.makedirs(os.path.join(DIST, "pts"), exist_ok=True)
+
+    # ---- Live feed: newest live FISH export, months from the live axolotl guide ----
+    tsv = newest_tsv()
+    if not tsv: raise SystemExit("No FISH_Export TSV found in %s" % TSV_DIR)
+    live_data = build(tsv, load_axolotl_months("axolotl_guide.json"))
     live = os.path.join(DIST, "fish_journal.json")
-    pts  = os.path.join(DIST, "pts", "fish_journal.json")
-    json.dump(data, open(live, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    json.dump(data, open(pts,  "w", encoding="utf-8"), ensure_ascii=False, indent=2)  # PTS mirrors live until a PTS export diverges
+    json.dump(live_data, open(live, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
+    # ---- PTS feed: newest PTS FISH export (includes the Golden Axolotl) ----
+    pts_dir = os.path.join(TSV_DIR, "pts")
+    pts_tsv = newest_tsv(pts_dir, pts=True)
+    pts_months = load_axolotl_months("axolotl_guide_pts.json") or load_axolotl_months("axolotl_guide.json")
+    pts_data = build(pts_tsv, pts_months) if pts_tsv else live_data
+    pts = os.path.join(DIST, "pts", "fish_journal.json")
+    json.dump(pts_data, open(pts, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
+    data = live_data  # for the summary print below
     tot = sum(len(c["fish"]) for c in data["cascades"])
     print("Source:", data["source"])
     for c in data["cascades"]:
