@@ -237,6 +237,137 @@ def find_latest_tsv(pattern):
     return max(files, key=os.path.getmtime)
 
 
+# ---------------------------------------------------------------------------
+# WHAT'S BITING — generative weather conditions + qualifying weather stations
+# ---------------------------------------------------------------------------
+# The weather expands on the What's Biting guide list, per fishing-weather type:
+#   * natural conditions  — derived from the Fishing_IsNatural*Weather_Condition
+#     CNDF records (CNDF_Export_*.tsv). Each condition tests for weather keywords
+#     via GetCurrentWeatherHasKeyword; we map each keyword to a readable line.
+#   * weather stations    — read from dist/weather_stations.json, which already
+#     classifies every CAMP weather station into a fishing-weather category
+#     (built by build_allies_pets_weather_json.py from the WTHR keywords).
+# Both lists therefore auto-update as Bethesda adds/removes weather or stations.
+
+# Weather keyword EDID -> the human line shown in the guide. Keyed by the game's
+# own weather keywords so the set is data-driven; only a brand-new keyword needs
+# a line added here (until then _pretty_keyword() gives a sensible fallback).
+WB_KEYWORD_LABELS = {
+    "s_wt_StormMistyRainy":                   "It’s misty and rainy",
+    "s_wt_StormRain":                         "It’s raining",
+    "s_wt_StormRainOcclusion":                "It’s heavy rain with low visibility",
+    "ATX_Weather_WeatherTypeKW_ThunderStorm": "There’s a thunderstorm",
+    "s_wt_StormRad":                          "There’s a radiation storm",
+    "s_wt_StormNuke":                         "There’s a Nuke Zone",
+    "s_wt_Sandstorm":                         "There’s a sandstorm",
+}
+
+# Which Fishing_IsNatural*Weather_Condition feeds each guide weather category,
+# in the order the keyword lines should appear. No Weather is the catch-all
+# fallback (any other CAMP weather), so it has no natural keyword list.
+WB_NATURAL_CNDF = {
+    "rainy":     ["Fishing_IsNaturalRainyWeather_Condition"],
+    "nuclear":   ["Fishing_IsNaturalRadWeather_Condition",
+                  "Fishing_IsNaturalNukeWeather_Condition"],
+    "sandstorm": ["Fishing_IsNaturalSandstormWeather_Condition"],
+    "noWeather": [],
+}
+
+# weather_stations.json fishingWeather label (may carry a trailing note in
+# parentheses) -> guide category. Matched on prefix. Nuke + Rad both => nuclear.
+WB_STATION_CATEGORY = [
+    ("No Weather", "noWeather"),
+    ("Rain",       "rainy"),
+    ("Nuke Storm", "nuclear"),
+    ("Rad Storm",  "nuclear"),
+    ("Sandstorm",  "sandstorm"),
+]
+
+WB_CATEGORY_ORDER = ["noWeather", "rainy", "nuclear", "sandstorm"]
+
+
+def _pretty_keyword(edid):
+    """Fallback readable line for a weather keyword not in WB_KEYWORD_LABELS."""
+    s = edid
+    for pre in ("ATX_Weather_WeatherTypeKW_", "ATX_Weather_", "s_wt_Storm", "s_wt_"):
+        if s.startswith(pre):
+            s = s[len(pre):]
+            break
+    s = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", s).strip()
+    return "There’s " + ((s[:1].lower() + s[1:]) if s else edid) + " weather"
+
+
+def _cndf_keyword_lines(cndf_rows, edid_wanted):
+    """Readable lines for the natural-weather keywords tested by one CNDF record."""
+    if not cndf_rows:
+        return []
+    header = cndf_rows[0]
+    try:
+        i_edid = header.index("EDID")
+    except ValueError:
+        i_edid = 1
+    cond_idx = [i for i, h in enumerate(header) if h.startswith("Cond")]
+    lines, seen = [], set()
+    for row in cndf_rows[1:]:
+        if len(row) <= i_edid or row[i_edid] != edid_wanted:
+            continue
+        for ci in cond_idx:
+            if ci >= len(row):
+                continue
+            cell = row[ci].strip()
+            if not cell:
+                continue
+            parts = cell.split("|")
+            # parts[2] = function name, parts[5] = "<KW_EDID> [KYWD:xxxxxx]"
+            if len(parts) < 6 or parts[2].strip() != "GetCurrentWeatherHasKeyword":
+                continue
+            kw = parts[5].split(" [")[0].strip()
+            if not kw or kw in seen:
+                continue
+            seen.add(kw)
+            lines.append(WB_KEYWORD_LABELS.get(kw) or _pretty_keyword(kw))
+    return lines
+
+
+def build_whats_biting_weather(cndf_file):
+    """Generative weather-conditions block for the What's Biting guide.
+
+    Returns {"order": [...], "categories": {cat: {naturalConditions, stations}}}.
+    """
+    cndf_rows = read_tsv(cndf_file) if cndf_file else None
+
+    # Qualifying weather stations per category, from the committed feed.
+    stations = {k: [] for k in WB_CATEGORY_ORDER}
+    ws_path = os.path.join(DIST_DIR, "weather_stations.json")
+    try:
+        with open(ws_path, "r", encoding="utf-8") as f:
+            ws = json.load(f)
+        for item in ws.get("items", []):
+            fw = (item.get("fishingWeather") or "").strip()
+            if not fw:
+                continue
+            cat = next((c for pre, c in WB_STATION_CATEGORY if fw.startswith(pre)), None)
+            if not cat:
+                continue
+            m = re.search(r"\(([^)]+)\)", item.get("displayName") or "")
+            if m:
+                stations[cat].append(m.group(1).strip())
+    except (IOError, ValueError):
+        print("[fishing] whatsBitingWeather: weather_stations.json missing — "
+              "station lists skipped", file=sys.stderr)
+
+    categories = {}
+    for cat in WB_CATEGORY_ORDER:
+        nat = []
+        for edid in WB_NATURAL_CNDF.get(cat, []):
+            nat.extend(_cndf_keyword_lines(cndf_rows, edid))
+        categories[cat] = {
+            "naturalConditions": nat,
+            "stations": sorted(set(stations.get(cat, []))),
+        }
+    return {"order": WB_CATEGORY_ORDER, "categories": categories}
+
+
 def extract_quoted_name(field):
     """Extract display name from a field like: EditorID "Display Name" [TYPE:ID]"""
     if not field or not field.strip():
@@ -695,6 +826,10 @@ def main():
         wb_events = build_whats_biting_public_events()
         if wb_events:
             output["whatsBiting"] = {"publicEvents": wb_events}
+
+        # Generative weather conditions + qualifying weather stations.
+        cndf_file = find_latest_tsv("CNDF_Export_*.tsv")
+        output["whatsBitingWeather"] = build_whats_biting_weather(cndf_file)
 
         os.makedirs(DIST_DIR, exist_ok=True)
         with open(DIST_FILE, "w", encoding="utf-8") as f:
