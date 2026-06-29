@@ -856,18 +856,6 @@ def _classify_wthr_keywords(kw_set):
         return "Rain"
     return "No Weather"
 
-# Display overrides where the data-accurate label needs a word of explanation
-# (verified against WTHR keywords, June 2026 TSVs).
-FISHING_LABEL_OVERRIDES = {
-    "atx_weather_rainbow":
-        "Rad Storm (yes, really — the Rainbow weather carries the rad storm keyword)",
-    "atx_weather_rainbowlightrain":
-        "No Weather (despite the name — no rain keyword on this weather)",
-    "atx_weather_burningsandstorm":
-        "Sandstorm (counts for the Burning Springs sandstorm fishing challenges — "
-        "no special catch table)",
-}
-
 # Build the WTHR classification lookups: by FormID and by lowercase EDID.
 wthr_class_by_fid  = {}
 wthr_class_by_edid = {}
@@ -883,34 +871,51 @@ for _w in wthr_rows:
     if _edid:
         wthr_class_by_edid[_edid.lower()] = _cls
 
-# ENTM EDID suffix (lower-cased, after stripping SCORE_S##_ + ATX_/ENTM_CAMP_Utility_WeatherStation_)
-# → the WTHR EDID whose keywords define the fishing bonus at that station.
-#
-# This is a manual table for now. When the ACTI VMAD export lands we can
-# derive this automatically from the weather station's Papyrus script
-# properties, but the mapping is ~18 entries and rarely changes.
-ENTM_SUFFIX_TO_WTHR_EDID = {
-    "standard_clear":           "NewWeatherClear_DONOTUSE",   # Generic clear weather
-    "standard_radstorm":        "NewWeatherRadstorm",
-    "snowman_snow":             "NewWeatherRain",             # Snowman → rain-type weather
-    "xpdacboardwalk":           "ATX_Weather_XPD_AC_Boardwalk_Fog",
-    "thunderstorm":             "ATX_Weather_Thunderstorm",
-    "storm_skylinevalley":      "ATX_Weather_Storm_DeadZone_New",
-    "mothman":                  "ATX_Weather_MothmanEquinox",
-    "halloween":                "ATX_Weather_HalloweenOvercast01",
-    "fallfoliage":              "ATX_Weather_FallFoliage",
-    "nukezone":                 "NewWeatherPostNukeBlast",
-    "snowaurora":               "ATX_Weather_SnowAurora01",
-    "verdantpollen":            "ATX_Weather_VerdantPollen",
-    "fireworks":                "ATX_Weather_Fireworks",
-    "standard_lightrain":       "ATX_Weather_LightRain",
-    "burningnight":             "ATX_Weather_BurningNight",
-    "burningsandstorm":         "ATX_Weather_BurningSandStorm",
-    "outwaste":                 "ATX_Weather_Outwaste",
-    "invasion":                 "ATX_Weather_Invasion",
-    "rainbow":                  "ATX_Weather_Rainbow",
-    "rainbowlightrain":         "ATX_Weather_RainbowLightRain",
-}
+# ---------------------------------------------------------------------------
+# Authoritative station -> fishing-weather class, via the parallel FormLists
+# ATX_Weather_FormList_WeatherStations (006EE8F0) and ...Weathers (006EE8EF).
+# The two lists are index-aligned: the station ACTI at row i sets the weather
+# (WTHR) at row i. We pair them by EntryIndex, classify the paired WTHR's
+# keywords (_classify_wthr_keywords via wthr_class_by_*), and key the result on
+# the station's display-name parenthetical ("Weather Control Station (Mothman)"
+# -> "mothman") so it joins back to the ENTM record. This replaces the old
+# hand-maintained ENTM_SUFFIX_TO_WTHR_EDID table and stays correct automatically
+# as Bethesda adds new stations or re-points existing ones to a new weather.
+WEATHER_STATIONS_FLST = "006EE8F0"
+WEATHER_WEATHERS_FLST  = "006EE8EF"
+
+def _station_paren_key(full):
+    """('Weather Control Station (Atlantic City Fog)') -> 'atlantic city fog'."""
+    m = re.search(r"\(([^)]+)\)", full or "")
+    return m.group(1).strip().lower() if m else ""
+
+def _build_station_fishing_class():
+    """Parenthetical station name -> fishing-weather class, paired straight from
+    the two FormLists. Empty string when the paired WTHR isn't in the current
+    WTHR export (the Fishing label then renders as '—')."""
+    def _by_index(list_fid):
+        out = {}
+        for r in flst_by_list.get(list_fid, []):
+            idx = (r.get("EntryIndex") or "").strip()
+            if idx.isdigit():
+                out[int(idx)] = r
+        return out
+    st = _by_index(WEATHER_STATIONS_FLST)
+    we = _by_index(WEATHER_WEATHERS_FLST)
+    out = {}
+    for i, srow in st.items():
+        wrow = we.get(i)
+        if not wrow:
+            continue
+        wedid = (wrow.get("Entry_EDID") or "").strip()
+        wfid  = (wrow.get("Entry_FormID") or "").upper()
+        cls = wthr_class_by_fid.get(wfid) or wthr_class_by_edid.get(wedid.lower()) or ""
+        key = _station_paren_key(srow.get("Entry_FULL", ""))
+        if key:
+            out[key] = (cls, wedid)   # (fishing-weather label, paired WTHR EDID)
+    return out
+
+STATION_FISHING_CLASS = _build_station_fishing_class()
 
 
 # Suffix extractor for ACTI EDID
@@ -998,14 +1003,14 @@ def build_weather_stations():
     }
 
     # Fishing-weather classification is derived at build time by:
-    #   1. Looking up the WTHR record that a given weather station activates
-    #      (ENTM_SUFFIX_TO_WTHR_EDID table above — to be replaced with a
-    #      VMAD-derived map once the ACTI export gains script-property data).
+    #   1. Pairing the station to the weather it sets via the index-aligned
+    #      FormLists 006EE8F0 (stations) <-> 006EE8EF (weathers) — see
+    #      STATION_FISHING_CLASS above. No manual station->WTHR table.
     #   2. Classifying that WTHR's keywords via _classify_wthr_keywords()
     #      using the fishing-CNDF keyword sets.
     #
-    # Labels emitted: 'Radstorm', 'Sandstorm', 'Rainy', 'Clear', 'Cloudy',
-    # or 'Generic CAMP Weather'.
+    # Labels emitted: 'Nuke Storm', 'Rad Storm', 'Sandstorm', 'Rain', or
+    # 'No Weather' (empty string if the paired weather isn't in the WTHR export).
 
     # ── Physical plan books per station ──
     # ENTM FormID → BOOK FormID. The CondProxy token lookup false-positives
@@ -1063,26 +1068,20 @@ def build_weather_stations():
         if _ws_plan_name and not _ws_plan_name.lower().startswith("plan"):
             _ws_plan_name = f"Plan: {_ws_plan_name}"
 
-        # ── Fishing-weather classification: ENTM suffix → WTHR → keywords ──
-        _suffix_m    = _ENTM_PREFIX_RE.match(edid)
-        _edid_suffix = _suffix_m.group(1).lower() if _suffix_m else ""
-        _wthr_edid   = ENTM_SUFFIX_TO_WTHR_EDID.get(_edid_suffix, "")
-        if _wthr_edid and wthr_class_by_edid:
-            _fishing = wthr_class_by_edid.get(_wthr_edid.lower(), "")
-            _fishing = FISHING_LABEL_OVERRIDES.get(_wthr_edid.lower(), _fishing)
-            if not _fishing:
-                # WTHR EDID was mapped but not found in the current WTHR TSV —
-                # surface a build-time warning so we notice stale mappings.
-                print(f"  [WARN] ENTM suffix '{_edid_suffix}' maps to WTHR "
-                      f"'{_wthr_edid}' but that WTHR wasn't found in the TSV")
-        else:
-            _fishing = ""
-            if _edid_suffix:
-                # NEW station not in ENTM_SUFFIX_TO_WTHR_EDID — it will still
-                # appear on the page but its Fishing line shows "—" until a
-                # one-line suffix→WTHR mapping is added above.
-                print(f"  [WARN] NEW weather station suffix '{_edid_suffix}' has no "
-                      f"WTHR mapping — Fishing label will show '—' until mapped")
+        # ── Fishing-weather classification ──
+        # Authoritative: the weather this station actually sets is paired in the
+        # parallel FormLists (006EE8F0 <-> 006EE8EF); STATION_FISHING_CLASS holds
+        # the classified result keyed on the display-name parenthetical.
+        _paren = _station_paren_key(display)
+        _sc = STATION_FISHING_CLASS.get(_paren)
+        _fishing   = _sc[0] if _sc else ""
+        _wthr_edid = _sc[1] if _sc else ""
+        if _sc is None:
+            # Station not yet in the weather-station FormList (brand-new) — it
+            # still appears on the page, but its Fishing line shows "—" until the
+            # next FLST export pairs it with a weather.
+            print(f"  [WARN] weather station '{display}' not in FormList 006EE8F0 — "
+                  f"Fishing label will show '—'")
 
         # ── How to Obtain ──
         # Scoreboard / Atom Shop use the standard templates. Stations with a
