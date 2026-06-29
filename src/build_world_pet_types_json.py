@@ -49,9 +49,13 @@ from patchlog_utils import write_patchlog_feed
 parser = argparse.ArgumentParser()
 parser.add_argument("--tsv-dir", default="tsv",  help="Folder containing TSV exports")
 parser.add_argument("--out-dir", default="dist", help="Output folder for JSON files")
+parser.add_argument("--pts", action="store_true", help="Build PTS variant (reads from tsv/pts/)")
 args = parser.parse_args()
 
 TSV_DIR = Path(args.tsv_dir)
+PTS_MODE = args.pts
+if PTS_MODE:
+    TSV_DIR = TSV_DIR / "pts"
 OUT_DIR = Path(args.out_dir)
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -110,6 +114,17 @@ ALCH_EFFECTS_PATH = _resolve_tsv("ALCH_EFFECTS_TSV", "ALCH_Export_*_Effects.tsv"
 COBJ_PATH = _resolve_tsv("COBJ_TSV", "COBJ_Export_*.tsv", "COBJ_Export.tsv")
 GLOB_PATH = _resolve_tsv("GLOB_TSV", "GLOB_Export_*.tsv", "GLOB_Export.tsv")
 
+# Optional TSVs — combat data (WEAP DNAM for per-species attack stats, EMOT for commands)
+try:
+    WEAP_DNAM_PATH = _resolve_tsv("WEAP_DNAM_TSV", "WEAP_Export_*_DNAM.tsv",
+                                  "WEAP_Export_DNAM.tsv")
+except FileNotFoundError:
+    WEAP_DNAM_PATH = None
+try:
+    EMOT_PATH = _resolve_tsv("EMOT_TSV", "EMOT_Export_*.tsv", "EMOT_Export.tsv")
+except FileNotFoundError:
+    EMOT_PATH = None
+
 # The _NPC_PATH glob can still grab NPC_Export_*_Refs.tsv (doesn't end _prps). Guard:
 if NPC_PATH.name.lower().endswith(("_refs.tsv", "_prps.tsv")):
     _bare = _newest_glob(str(TSV_DIR / "NPC_Export_*.tsv"))
@@ -152,6 +167,10 @@ print(f"  ALCH: {ALCH_PATH}")
 print(f"  ALCH effects: {ALCH_EFFECTS_PATH}")
 print(f"  COBJ: {COBJ_PATH}")
 print(f"  GLOB: {GLOB_PATH}")
+if WEAP_DNAM_PATH:
+    print(f"  WEAP DNAM: {WEAP_DNAM_PATH}")
+if EMOT_PATH:
+    print(f"  EMOT: {EMOT_PATH}")
 
 npc_rows          = load_tsv(NPC_PATH)
 entm_rows         = load_tsv(ENTM_PATH)
@@ -171,6 +190,18 @@ for r in glob_rows:
 
 def glob_val(edid, default=None):
     return glob_by_edid.get(str(edid).lower(), default)
+
+
+# WEAP DNAM — per-species attack stats (speed, reach, delay)
+weap_dnam_rows = load_tsv(WEAP_DNAM_PATH) if WEAP_DNAM_PATH else []
+weap_by_edid = {}
+for r in weap_dnam_rows:
+    ed = (r.get("WEAP_EDID") or "").strip()
+    if ed:
+        weap_by_edid[ed.lower()] = r
+
+# EMOT — pet command emotes
+emot_rows = load_tsv(EMOT_PATH) if EMOT_PATH else []
 
 
 # ---------------------------------------------------------------------------
@@ -418,6 +449,76 @@ SPECIES_META = {
 SPECIES_ABC = ["cat", "deathclaw", "dog", "radhog"]
 
 
+# ---------------------------------------------------------------------------
+# COMBAT — per-species WEAP stats + command emotes from EMOT
+# ---------------------------------------------------------------------------
+
+# WEAP EDID -> species key mapping
+WEAP_SPECIES_MAP = {
+    "crunarmedworldpet_cat":       "cat",
+    "crunarmedworldpet_dog":       "dog",
+    "crunarmedworldpet_radhog":    "radhog",
+    "crunarmedworldpet_deathclaw": "deathclaw",
+}
+
+# Attack type labels (from Bethesda article: dogs bite, deathclaws/cats scratch, radhogs ram)
+ATTACK_LABELS = {
+    "cat":       "Scratch",
+    "dog":       "Bite",
+    "radhog":    "Ram",
+    "deathclaw": "Scratch",
+}
+
+# NPC DNAM_CalcHealth base health multipliers (from NPC records)
+NPC_BASE_HEALTH = {
+    "cat":       15,
+    "dog":       190,
+    "radhog":    450,
+    "deathclaw": 450,
+}
+
+
+def build_species_combat():
+    """Per-species combat stats from WEAP DNAM TSV."""
+    combat = {}
+    for edid_lc, sk in WEAP_SPECIES_MAP.items():
+        row = weap_by_edid.get(edid_lc)
+        if not row:
+            continue
+        combat[sk] = {
+            "weapFormId":    (row.get("WEAP_FormID") or "").strip(),
+            "weapEdid":      (row.get("WEAP_EDID") or "").strip(),
+            "attackType":    ATTACK_LABELS.get(sk, "Melee"),
+            "speed":         fmt_num(row.get("DNAM_Speed")),
+            "reach":         fmt_num(row.get("DNAM_Reach")),
+            "minRange":      fmt_num(row.get("DNAM_MinRange")),
+            "maxRange":      fmt_num(row.get("DNAM_MaxRange")),
+            "attackDelay":   fmt_num(row.get("DNAM_AttackDelaySeconds")),
+            "critDmgMult":   fmt_num(row.get("DNAM_DamageOutOfRangeMult")),
+            "npcBaseHealth": NPC_BASE_HEALTH.get(sk),
+        }
+    return combat
+
+
+def build_commands():
+    """Pet command emotes from EMOT TSV."""
+    cmds = []
+    for r in emot_rows:
+        edid = (r.get("EDID") or "").strip()
+        if not edid.startswith("WorldPets_Emote_Command_"):
+            continue
+        cmd_name = edid.replace("WorldPets_Emote_Command_", "")
+        cmds.append({
+            "formId":    (r.get("FormID") or "").strip(),
+            "edid":      edid,
+            "name":      (r.get("FULL") or "").strip(),
+            "animation": (r.get("SNAM") or "").strip(),
+            "command":   cmd_name,
+        })
+    cmds.sort(key=lambda c: c["formId"])
+    return cmds
+
+
 def buff_ranks(glob_token, n=3):
     """[rank1, rank2, rank3] from WorldPets_Buff_{token}01/02/03 GLOBs."""
     out = []
@@ -428,6 +529,7 @@ def buff_ranks(glob_token, n=3):
 
 
 def build_species():
+    species_combat = build_species_combat()
     species = []
     for sk in SPECIES_ABC:
         meta = SPECIES_META[sk]
@@ -490,6 +592,7 @@ def build_species():
             "treasure":  dict(meta["treasure"], qtyByRank=[2, 4, 6]),
             "foodTypes": meta["foodTypes"],
             "skins":     skins,
+            "combat":    species_combat.get(sk, {}),
         })
     return species
 
@@ -645,7 +748,7 @@ def build_stats():
             {"lvl": 150, "hp": 114518},
         ],
         # Base damage per hit — CURVs WorldPets_PetProwess_Damage{0-4}.json (key levels).
-        # Each row: combat level → [prowess 0, prowess 1, prowess 2, prowess 3, prowess 4].
+        # Each row: combat level -> [prowess 0, prowess 1, prowess 2, prowess 3, prowess 4].
         "baseDamage": [
             {"lvl": 1,   "dmg": [40, 80, 121, 161, 201]},
             {"lvl": 50,  "dmg": [62, 125, 187, 249, 311]},
@@ -655,25 +758,27 @@ def build_stats():
         # Damage dealt multiplier — CURV WorldPets_PetProwess_DamageMult0.json.
         # Keyed by pet progression level (steps at 50/100/150/200).
         "damageMult": [
-            {"progLvl": "1–49",    "mult": 1},
-            {"progLvl": "50–99",   "mult": 2},
-            {"progLvl": "100–149", "mult": 3.5},
-            {"progLvl": "150–199", "mult": 5.5},
-            {"progLvl": "200",          "mult": 8},
+            {"progLvl": "1-49",    "mult": 1},
+            {"progLvl": "50-99",   "mult": 2},
+            {"progLvl": "100-149", "mult": 3.5},
+            {"progLvl": "150-199", "mult": 5.5},
+            {"progLvl": "200",     "mult": 8},
         ],
         # Incoming damage multiplier — CURV WorldPets_PetProwess_IncomingDamageMult0.json.
         "incomingDamageMult": [
-            {"progLvl": "1–49",    "mult": 1},
-            {"progLvl": "50–99",   "mult": 0.8},
-            {"progLvl": "100–149", "mult": 0.6},
-            {"progLvl": "150–199", "mult": 0.4},
-            {"progLvl": "200",          "mult": 0.2},
+            {"progLvl": "1-49",    "mult": 1},
+            {"progLvl": "50-99",   "mult": 0.8},
+            {"progLvl": "100-149", "mult": 0.6},
+            {"progLvl": "150-199", "mult": 0.4},
+            {"progLvl": "200",     "mult": 0.2},
         ],
         # All six WorldPets_Resist_* curves read 0 (placeholders, June 2026).
         "resistances": 0,
-        # Total Pet XP to 200 ≈ 303,770 (CURV 008AFDF9 XP curve). No daily cap —
+        # Total Pet XP to 200 ~ 303,770 (CURV 008AFDF9 XP curve). No daily cap —
         # Pet XP ticks once per minute while you earn player XP (12k/day cap removed).
         "levelling": {"totalXp": 303770},
+        "commands": build_commands(),
+        "immunities": ["Radiation", "Disease", "Fall damage"],
     }
 
 
@@ -681,7 +786,8 @@ def build_stats():
 # Assemble + write
 # ---------------------------------------------------------------------------
 data = {
-    "meta": {"export": "June 2026", "featureAdded": "Jun 2026"},
+    "meta": {"export": "June 2026", "featureAdded": "Jun 2026",
+             "channel": "pts" if PTS_MODE else "live"},
     "routes": list(OBTAIN_ROUTE_ORDER),
     "foods": build_foods(),
     "buffs": build_buffs(),
@@ -693,7 +799,7 @@ data = {
     "species": build_species(),
 }
 
-out_path = OUT_DIR / "world_pet_types.json"
+out_path = OUT_DIR / ("world_pet_types_pts.json" if PTS_MODE else "world_pet_types.json")
 with open(out_path, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
     f.write("\n")

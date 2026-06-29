@@ -2,7 +2,7 @@
   "meta": {
     "export": "June 2026",
     "featureAdded": "Jun 2026",
-    "channel": "live"
+    "channel": "pts"
   },
   "routes": [
     "Caps",
@@ -240,14 +240,184 @@
           70,
           170
         ]
+      },
+      "petCombatProwess": {
+        "levels": [
+          50,
+          100,
+          150,
+          200
+        ],
+        "damage": [
+          200,
+          350,
+          550,
+          800
+        ],
+        "damageMult": [
+          2,
+          3.5,
+          5.5,
+          8
+        ],
+        "takenMult": [
+          0.8,
+          0.6,
+          0.4,
+          0.2
+        ]
       }
     }
   },
   "stats": {
+    "combat": {
+      "minLvl": 1,
+      "maxLvl": 150
+    },
     "progressionMax": 200,
+    "baseHealth": [
+      {
+        "lvl": 1,
+        "hp": 1981
+      },
+      {
+        "lvl": 50,
+        "hp": 19871
+      },
+      {
+        "lvl": 100,
+        "hp": 48628
+      },
+      {
+        "lvl": 150,
+        "hp": 114518
+      }
+    ],
+    "baseDamage": [
+      {
+        "lvl": 1,
+        "dmg": [
+          40,
+          80,
+          121,
+          161,
+          201
+        ]
+      },
+      {
+        "lvl": 50,
+        "dmg": [
+          62,
+          125,
+          187,
+          249,
+          311
+        ]
+      },
+      {
+        "lvl": 100,
+        "dmg": [
+          97,
+          194,
+          291,
+          388,
+          485
+        ]
+      },
+      {
+        "lvl": 150,
+        "dmg": [
+          151,
+          302,
+          453,
+          604,
+          755
+        ]
+      }
+    ],
+    "damageMult": [
+      {
+        "progLvl": "1-49",
+        "mult": 1
+      },
+      {
+        "progLvl": "50-99",
+        "mult": 2
+      },
+      {
+        "progLvl": "100-149",
+        "mult": 3.5
+      },
+      {
+        "progLvl": "150-199",
+        "mult": 5.5
+      },
+      {
+        "progLvl": "200",
+        "mult": 8
+      }
+    ],
+    "incomingDamageMult": [
+      {
+        "progLvl": "1-49",
+        "mult": 1
+      },
+      {
+        "progLvl": "50-99",
+        "mult": 0.8
+      },
+      {
+        "progLvl": "100-149",
+        "mult": 0.6
+      },
+      {
+        "progLvl": "150-199",
+        "mult": 0.4
+      },
+      {
+        "progLvl": "200",
+        "mult": 0.2
+      }
+    ],
+    "resistances": 0,
     "levelling": {
       "totalXp": 303770
-    }
+    },
+    "commands": [
+      {
+        "formId": "00916200",
+        "edid": "WorldPets_Emote_Command_Stay",
+        "name": "(Command) Wait",
+        "animation": "PetStay1",
+        "command": "Stay"
+      },
+      {
+        "formId": "00916201",
+        "edid": "WorldPets_Emote_Command_Follow",
+        "name": "(Command) Follow Neutral",
+        "animation": "PetFollow1",
+        "command": "Follow"
+      },
+      {
+        "formId": "00916202",
+        "edid": "WorldPets_Emote_Command_Defend",
+        "name": "(Command) Follow Protect",
+        "animation": "PetDefend1",
+        "command": "Defend"
+      },
+      {
+        "formId": "00916203",
+        "edid": "WorldPets_Emote_Command_Attack",
+        "name": "(Command) Follow Attack",
+        "animation": "PetAttack1",
+        "command": "Attack"
+      }
+    ],
+    "immunities": [
+      "Radiation",
+      "Disease",
+      "Fall damage"
+    ]
   },
   "playerGift": {
     "interval": 7000,
@@ -1114,7 +1284,19 @@
             }
           ]
         }
-      ]
+      ],
+      "combat": {
+        "weapFormId": "008E529C",
+        "weapEdid": "crUnarmedWorldPet_Cat",
+        "attackType": "Scratch",
+        "speed": 1,
+        "reach": 0.5,
+        "minRange": 100,
+        "maxRange": 2000,
+        "attackDelay": 0.2,
+        "critDmgMult": 1,
+        "npcBaseHealth": 15
+      }
     },
     {
       "key": "deathclaw",
@@ -1315,7 +1497,19 @@
             }
           ]
         }
-      ]
+      ],
+      "combat": {
+        "weapFormId": "008E529A",
+        "weapEdid": "crUnarmedWorldPet_Deathclaw",
+        "attackType": "Scratch",
+        "speed": 1,
+        "reach": 1,
+        "minRange": 50,
+        "maxRange": 2000,
+        "attackDelay": 0,
+        "critDmgMult": 1,
+        "npcBaseHealth": 450
+      }
     },
     {
       "key": "dog",
@@ -2176,7 +2370,19 @@
           ],
           "seasonNumber": 19
         }
-      ]
+      ],
+      "combat": {
+        "weapFormId": "008E529B",
+        "weapEdid": "crUnarmedWorldPet_Dog",
+        "attackType": "Bite",
+        "speed": 1,
+        "reach": 1,
+        "minRange": 50,
+        "maxRange": 2000,
+        "attackDelay": 0,
+        "critDmgMult": 1,
+        "npcBaseHealth": 190
+      }
     },
     {
       "key": "radhog",
@@ -2511,7 +2717,19 @@
             }
           ]
         }
-      ]
+      ],
+      "combat": {
+        "weapFormId": "008E5299",
+        "weapEdid": "crUnarmedWorldPet_Radhog",
+        "attackType": "Ram",
+        "speed": 1,
+        "reach": 1,
+        "minRange": 50,
+        "maxRange": 2000,
+        "attackDelay": 0,
+        "critDmgMult": 1,
+        "npcBaseHealth": 450
+      }
     }
   ]
 }
