@@ -758,6 +758,14 @@ jobs:
       - name: Build Seasons JSON
         run: python src/build_seasons_json.py
 
+      # --- PTS SEASON SCOREBOARD ---
+      # Generative builder: discovers SCORE_S{N}_ENTM entries in the
+      # ENTM export and produces provisional season_tickets_s{N}.json
+      # for seasons that don't yet have curated data in season_rewards.tsv.
+      # Safe to run on every build — no-ops when there's nothing new.
+      - name: Build PTS Season Scoreboard JSON
+        run: python src/build_pts_season_scoreboard.py
+
       # --- ATOM SHOP ---
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
