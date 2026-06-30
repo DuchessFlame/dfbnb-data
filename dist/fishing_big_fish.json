@@ -1,0 +1,429 @@
+{
+  "generated": "2026-06-30T11:03:09.385904+00:00",
+  "isPts": false,
+  "source": {
+    "gmrwTsv": "GMRW_Export_June_2026.tsv",
+    "tsvDir": "tsv"
+  },
+  "quest": {
+    "formId": "007B95E1",
+    "edid": "Fishing_BigFish",
+    "name": "Big Fish in a Small Pond",
+    "gameName": "Daily: Big Fish in a Small Pond",
+    "description": "Grab a rod and scour Appalachia's waters for fish!",
+    "fishRequired": 7,
+    "npc": "Captain Raymond",
+    "location": "Fisherman's Rest",
+    "rewardGmrwEdid": "Fishing_BigFish_Reward"
+  },
+  "baseRewards": [
+    {
+      "label": "XP",
+      "value": 500,
+      "meta": {
+        "source": "GMRW",
+        "globRef": "007DC661:XP_Daily_Fishing:GLOB"
+      }
+    },
+    {
+      "label": "Caps",
+      "value": 80,
+      "meta": {
+        "source": "GMRW",
+        "globRef": "007DC660:Caps_Daily_Fishing:GLOB"
+      }
+    },
+    {
+      "label": "Legendary Scrip",
+      "value": 2,
+      "meta": {
+        "source": "GMRW",
+        "globRef": "007DC662:LegendaryToken_Daily_Fishing:GLOB"
+      }
+    },
+    {
+      "label": "Contextual Ammo",
+      "value": null,
+      "meta": {
+        "source": "LVLI",
+        "note": "Scaled to your level & loadout."
+      }
+    },
+    {
+      "label": "Aid",
+      "value": null,
+      "meta": {
+        "source": "LVLI",
+        "note": "Stimpaks, RadAway and chems."
+      }
+    }
+  ],
+  "pools": [
+    {
+      "key": "bait",
+      "title": "Fishing Bait",
+      "lvliFormID": "007DC665",
+      "lvliEdid": "Fishing_BigFish_LL_Quest_Rewards_Bait",
+      "poolChance": 100.0,
+      "perItem": "100% each",
+      "legends": [
+        "Always drops"
+      ],
+      "tradeable": true,
+      "droppable": true,
+      "note": "Handed out every single time you complete the daily.",
+      "relatedGuide": null,
+      "items": [
+        {
+          "formId": "007FDC33",
+          "name": "Improved Bait",
+          "qty": 5,
+          "dropRate": 100.0,
+          "isPlan": false,
+          "sig": "MISC"
+        },
+        {
+          "formId": "007AC1AF",
+          "name": "Bait - Common",
+          "qty": 10,
+          "dropRate": 100.0,
+          "isPlan": false,
+          "sig": "MISC"
+        }
+      ]
+    },
+    {
+      "key": "curvedDisplay",
+      "title": "Curved Fish Display",
+      "bookFormID": "007B704D",
+      "bookEdid": "Fishing_Workshop_Recipe_FishDisplay_Curved",
+      "poolChance": 100.0,
+      "perItem": null,
+      "legends": [
+        "Stops dropping once learnt"
+      ],
+      "tradeable": true,
+      "droppable": true,
+      "note": "A CAMP display plaque. Drops at 100% until you learn it, then it leaves the pool.",
+      "items": [
+        {
+          "formId": "007B704D",
+          "name": "Plan: Curved Fish Display",
+          "qty": 1,
+          "dropRate": 100.0,
+          "isPlan": true,
+          "sig": "BOOK"
+        }
+      ]
+    },
+    {
+      "key": "regionalWeaponMod",
+      "title": "Regional Weapon Mod",
+      "poolChance": 100.0,
+      "perItem": "1 random mod",
+      "legends": [
+        "Always drops"
+      ],
+      "tradeable": true,
+      "droppable": true,
+      "note": "One random Yellow-Box weapon mod from the region Captain Raymond sent you to. You always receive exactly one.",
+      "regions": [
+        {
+          "region": "The Forest",
+          "lvliFormID": "00313562",
+          "lvliEdid": "LL_Mods_Weapons_Any_RegionForest",
+          "possibleMods": 195
+        },
+        {
+          "region": "Toxic Valley",
+          "lvliFormID": "00313558",
+          "lvliEdid": "LL_Mods_Weapons_Any_RegionToxicValley",
+          "possibleMods": 580
+        },
+        {
+          "region": "Savage Divide",
+          "lvliFormID": "0031355C",
+          "lvliEdid": "LL_Mods_Weapons_Any_RegionSavageDivide",
+          "possibleMods": 1191
+        },
+        {
+          "region": "Ash Heap",
+          "lvliFormID": "00313574",
+          "lvliEdid": "LL_Mods_Weapons_Any_RegionAshHeap",
+          "possibleMods": 1479
+        },
+        {
+          "region": "The Mire",
+          "lvliFormID": "0031355B",
+          "lvliEdid": "LL_Mods_Weapons_Any_RegionMire",
+          "possibleMods": 1805
+        },
+        {
+          "region": "Cranberry Bog",
+          "lvliFormID": "00313561",
+          "lvliEdid": "LL_Mods_Weapons_Any_RegionCranberryBog",
+          "possibleMods": 2053
+        }
+      ]
+    },
+    {
+      "key": "hookMods",
+      "title": "Fishing Hook Mod Plans",
+      "lvliFormID": "008033EF",
+      "lvliEdid": "Fishing_BigFish_LL_Quest_Rewards_HookMods",
+      "poolChance": 20.0,
+      "perItem": "4% each",
+      "legends": [
+        "Stops dropping once learnt"
+      ],
+      "tradeable": true,
+      "droppable": true,
+      "note": "The five hook upgrades. The pool only fires 20% of the time, and when it does it picks one plan — so each plan is ~4% per hand-in. Each plan stops dropping once you have learnt it.",
+      "relatedGuide": {
+        "label": "Reel Talk: Rod Mods, Hooks & Reels",
+        "url": "/df/fishing/reel-talk/"
+      },
+      "items": [
+        {
+          "formId": "007FB5C5",
+          "name": "Plan: Attractive Hook",
+          "qty": 1,
+          "dropRate": 4.0,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007FB5C6",
+          "name": "Plan: Improved Bearing",
+          "qty": 1,
+          "dropRate": 4.0,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007FB5C7",
+          "name": "Plan: Advanced Drag",
+          "qty": 1,
+          "dropRate": 4.0,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007FB5C8",
+          "name": "Plan: Stabilized Gear Ratio",
+          "qty": 1,
+          "dropRate": 4.0,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007FB5C9",
+          "name": "Plan: Steady Handle",
+          "qty": 1,
+          "dropRate": 4.0,
+          "isPlan": true,
+          "sig": "BOOK"
+        }
+      ]
+    },
+    {
+      "key": "campRecipePlans",
+      "title": "CAMP & Recipe Plans",
+      "lvliFormID": "007DC664",
+      "lvliEdid": "Fishing_BigFish_LL_Quest_Rewards_Recipes",
+      "poolChance": 100.0,
+      "perItem": "7.69% each",
+      "legends": [
+        "Keeps dropping once learnt"
+      ],
+      "tradeable": true,
+      "droppable": true,
+      "note": "Drops every hand-in and KEEPS dropping even after they are learnt — perfect for collecting duplicates to trade or gift.",
+      "relatedGuide": null,
+      "items": [
+        {
+          "formId": "007CF671",
+          "name": "Plan: Eel in a Bottle",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007B704C",
+          "name": "Plan: Drowned Signal Lantern",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "008033EA",
+          "name": "Plan: Drowned Box Lamp",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "008033EB",
+          "name": "Plan: Drowned Flood Light",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "00803E2E",
+          "name": "Plan: Fishing Rod Display",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007AE101",
+          "name": "Plan: Drowned Coffee Table",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007B7046",
+          "name": "Plan: Drowned Presidential Desk",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007B235A",
+          "name": "Plan: Drowned Fancy Desk",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007B2517",
+          "name": "Plan: Chum Trough",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007B9270",
+          "name": "Plan: Drowned Chesterfield Sofa",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007B926F",
+          "name": "Plan: Drowned Chesterfield Chair",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007AED81",
+          "name": "Recipe: Fish and Tatos",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        },
+        {
+          "formId": "007B3FB7",
+          "name": "Recipe: Fish Chowder",
+          "qty": 1,
+          "dropRate": 7.6923,
+          "isPlan": true,
+          "sig": "BOOK"
+        }
+      ]
+    },
+    {
+      "key": "contextualAid",
+      "title": "Contextual Aid & Ammo",
+      "lvliFormID": "0043B776",
+      "lvliEdid": "QuestReward_LLS_AllRegions_Any",
+      "poolChance": 100.0,
+      "perItem": null,
+      "legends": [
+        "Always drops"
+      ],
+      "tradeable": false,
+      "droppable": true,
+      "note": "A scaling bundle of aid (stimpaks, RadAway, chems) and ammo appropriate to your level and loadout.",
+      "summary": {
+        "aidTypes": 221,
+        "ammoTypes": 193,
+        "examples": [
+          "Stimpak",
+          "RadAway",
+          "Rad-X",
+          "5mm / 10mm / .44 ammo"
+        ]
+      },
+      "items": []
+    }
+  ],
+  "blurbLegend": [
+    {
+      "term": "Always drops",
+      "desc": "Guaranteed every time you hand the daily in."
+    },
+    {
+      "term": "Stops dropping once learnt",
+      "desc": "Removed from the reward pool for that character once you have learnt the plan."
+    },
+    {
+      "term": "Keeps dropping once learnt",
+      "desc": "Continues to drop even after you have learnt it, so you can stockpile duplicates."
+    },
+    {
+      "term": "Tradeable",
+      "desc": "Can be traded to other players."
+    },
+    {
+      "term": "Droppable",
+      "desc": "Can be dropped from your inventory (e.g. to gift to a new player)."
+    },
+    {
+      "term": "Pool chance",
+      "desc": "How often this reward group appears at all on a hand-in."
+    },
+    {
+      "term": "Per-item chance",
+      "desc": "The chance of a specific item within the group, factoring the pool chance in."
+    }
+  ],
+  "relatedGuides": [
+    {
+      "label": "Hook, Line & Ledger — fishing system overview",
+      "url": "/df/fishing/hook-line-ledger/"
+    },
+    {
+      "label": "Reel Talk — rod mods, hooks & reels",
+      "url": "/df/fishing/reel-talk/"
+    },
+    {
+      "label": "What's Biting? — fish, bait & weather",
+      "url": "/df/fishing/whats-biting/"
+    },
+    {
+      "label": "Linda-Lee & the Chum Trough",
+      "url": "/df/fishing/linda-lee-chum-trough-rewards/"
+    }
+  ],
+  "additionalRewards": {
+    "note": "Big Fish in a Small Pond also unlocks lifetime-challenge rewards (plushies and more). These are tracked on the all-rewards checklist rather than listed here.",
+    "url": "/df/fishing/all-rewards-checklist/",
+    "label": "Fishing — All Rewards Checklist"
+  }
+}
