@@ -37,11 +37,40 @@ IMG_BASE = "/wp-content/uploads/guide-images/fishing"
 
 # Confirmed server filenames (display name -> file, no extension). Extend as folders fill.
 IMAGE_OVERRIDES = {
-    "Ryl-Tkannoth, Maw-Begotten": "local-legends/mudskipper_mawbegotten",
-    "Wavy Willard": "local-legends/suckerfish_wavywillard",
-    "Organ Grinder": "local-legends/Organ Grinder",
+    # Local Legends — display-name files (wavy willard is lower-case on the server)
     "Glass Ghost": "local-legends/Glass Ghost",
+    "Hocking Hill Hellion": "local-legends/Hocking Hill Hellion",
+    "Organ Grinder": "local-legends/Organ Grinder",
+    "Ryl-Tkannoth, Maw-Begotten": "local-legends/Ryl-Tkannoth, Maw-Begotten",
+    "Sludge Eye": "local-legends/Sludge Eye",
+    "Wavy Willard": "local-legends/wavy willard",
+    # Seasonal
     "Fernskipper": "seasonal-fish-images/Fernskipper",
+    # Generic (the fish-trap fish)
+    "Brook Silverside": "generic-fish/Brook Silverside", "Redbelly": "generic-fish/Redbelly",
+    "Sunscream": "generic-fish/Sunscream", "Chain Pickerel": "generic-fish/Chain Pickerel",
+    "Ridge Trout": "generic-fish/Ridge Trout", "Smoky Salmon": "generic-fish/Smoky Salmon",
+    "Walleye": "generic-fish/Walleye", "Yellow Bullhead": "generic-fish/Yellow Bullhead",
+    # Common — Sawgills
+    "Alpine Sawgill": "common-fish/Alpine Sawgill", "Bog Sawgill": "common-fish/Bog Sawgill",
+    "Muddy Sawgill": "common-fish/Muddy Sawgill", "Noxious Sawgill": "common-fish/Noxious Sawgill",
+    "Rusted Sawgill": "common-fish/Rusted Sawgill", "Sooty Sawgill": "common-fish/Sooty Sawgill",
+    "Static Sawgill": "common-fish/Static Sawgill", "Timber Sawgill": "common-fish/Timber Sawgill",
+    # Uncommon (Bog Lurker is lower-case on the server)
+    "Armored Spinefish": "uncommon-fish/Armored Spinefish", "Ashen Ambusher": "uncommon-fish/Ashen Ambusher",
+    "Blisterfish": "uncommon-fish/Blisterfish", "Bloodwhisker": "uncommon-fish/Bloodwhisker",
+    "Bluefin Zapper": "uncommon-fish/Bluefin Zapper", "Bog Lurker": "uncommon-fish/bog lurker",
+    "Deathjaw": "uncommon-fish/Deathjaw", "Gulpy": "uncommon-fish/Gulpy",
+    "Kanawha Piranha": "uncommon-fish/Kanawha Piranha", "Leatherback": "uncommon-fish/Leatherback",
+    "Potbelly Kelt": "uncommon-fish/Potbelly Kelt", "Purple Radpole": "uncommon-fish/Purple Radpole",
+    "Spikesnapper": "uncommon-fish/Spikesnapper", "Stormswimmer": "uncommon-fish/Stormswimmer",
+    "Brahfin": "uncommon-fish/Brahfin", "Withered Radeye": "uncommon-fish/Withered Radeye",
+    # Glowing — all lower-case on the server
+    "Glowing Ambusher": "glowing-fish/glowing ambusher", "Glowing Bog Lurker": "glowing-fish/glowing bog lurker",
+    "Glowing Gulpy": "glowing-fish/glowing gulpy", "Glowing Kanawha Piranha": "glowing-fish/glowing kanawha piranha",
+    "Glowing Potbelly Kelt": "glowing-fish/glowing potbelly kelt", "Glowing Spinefish": "glowing-fish/glowing spinefish",
+    "Glowing Stormswimmer": "glowing-fish/glowing stormswimmer", "Glowing Brahfin": "glowing-fish/glowing brahfin",
+    # Axolotls — mesh-name files
     "Dotted Axolotl": "axolotl-images/axolotl_dotted", "Purple Axolotl": "axolotl-images/axolotl_purple",
     "Stone Axolotl": "axolotl-images/axolotl_stone", "Clay Axolotl": "axolotl-images/axolotl_clay",
     "Striped Axolotl": "axolotl-images/axolotl_striped", "Scaled Axolotl": "axolotl-images/axolotl_scaled",
@@ -49,6 +78,15 @@ IMAGE_OVERRIDES = {
     "Spotted Axolotl": "axolotl-images/axolotl_spotted",
     "Charcoal Axolotl": "axolotl-images/axolotl_charcoal", "Banded Axolotl": "axolotl-images/axolotl_banded",
     "Pink Axolotl": "axolotl-images/axolotl_pink",
+    # Junk & Waterlogged Gifts — both live in one server folder: /junk-and-gifts/
+    "Baseball Glove": "junk-and-gifts/Baseball Glove", "Broken Camera": "junk-and-gifts/Broken Camera",
+    "Dirty Pillow": "junk-and-gifts/Dirty Pillow", "Doll Head": "junk-and-gifts/Doll Head",
+    "Handcuffs": "junk-and-gifts/Handcuffs", "Luxobrew Coffee Pot": "junk-and-gifts/Luxobrew Coffee Pot",
+    "Military Ammo Bag": "junk-and-gifts/Military Ammo Bag", "Oil Can": "junk-and-gifts/Oil Can",
+    "Pack of Duct Tape": "junk-and-gifts/Pack of Duct Tape", "Toothbrush": "junk-and-gifts/Toothbrush",
+    "Large Waterlogged Gift": "junk-and-gifts/Large Waterlogged Gift",
+    "Small Waterlogged Gift": "junk-and-gifts/Small Waterlogged Gift",
+    "Waterlogged Gift": "junk-and-gifts/Waterlogged Gift",
 }
 
 # Curated, non-game-data fields. The hole name and the flavour description aren't in
