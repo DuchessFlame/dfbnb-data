@@ -83,6 +83,27 @@ SEASON_OF = {"Orange Overseer": "Spring", "Fernskipper": "Summer", "Glass Ghost"
 # Fish Bits yield by size (not in the export; the in-game scrap yield scales with size).
 FISHBITS_BY_SIZE = {"Small": 1, "Medium": 3, "Large": 5}
 
+# Axolotls fillet for a flat 25 Fish Bits regardless of their Small size class.
+# The COBJ that makes Fish Bits from a raw axolotl is in the export, but xEdit's
+# created-object count (NNAM) is not one of the exported columns, so the yield
+# cannot yet be read from the game files — it is pinned here. If a future COBJ
+# export adds the create count, source it from that recipe instead.
+AXOLOTL_FISHBITS = 25
+
+# Region keyword -> friendly name (same mapping as build_axolotl_guide_json.py).
+LOC_KEYWORD_MAP = {
+    "LocRegionBurningSprings":   "Burning Springs",
+    "LocRegionMountain":         "Savage Divide",
+    "LocRegionCranberryBog":     "Cranberry Bog",
+    "LocRegionForestFloodlands": "Forest",
+    "LocRegionStorm":            "Skyline Valley",
+    "LocRegionSwampForest":      "Mire",
+    "LocRegionMTR":              "Ash Heap",
+    "LocRegionToxicValley":      "Toxic Valley",
+}
+MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
+               "July", "August", "September", "October", "November", "December"]
+
 # Display names for crafting components whose EDID has no FULL anywhere in the exports.
 COMPONENT_NAMES = {
     "c_Wood": "Wood", "Wood": "Wood", "CookingOil": "Cooking Oil",
@@ -445,22 +466,67 @@ def load_rollovers():
             if roll: return roll
     return []
 
-def load_axolotl_months(guide_filename):
-    p = os.path.join(DIST, guide_filename)
+# ---- Axolotl monthly rotation, read straight from the game LVLI export --------
+# The Fishing_LLS_FishCollection_Axolotls leveled list encodes, per entry, the
+# fish it points at plus the CTDA conditions that gate it: a MonthlyIndex check
+# (which calendar month the colour is active) and two LocationHierarchyHasKeyword
+# checks (the two regions it spawns in that month). Both facts are parsed here
+# generatively, so the field journal no longer depends on dist/axolotl_guide.json.
+
+def newest_lvli_entries(directory, pts=False):
+    """Newest LVLI_Export_*_LVLI_Entries.tsv in `directory`, honouring the same
+    live/PTS filename conventions as newest()."""
+    months = {"Jan":1,"Feb":2,"March":3,"Mar":3,"Apr":4,"May":5,"June":6,"Jun":6,
+              "July":7,"Jul":7,"Aug":8,"Sep":9,"Oct":10,"Nov":11,"Dec":12}
+    best, bestkey = None, (-1, -1, -1, -1)
+    for p in glob.glob(os.path.join(directory, "LVLI_Export_*_LVLI_Entries.tsv")):
+        b = os.path.basename(p)
+        if pts:
+            m = re.search(r"_PTS_(\d{4})-(\d{2})-(\d{2})_(\d{4})", b)
+            if not m: continue
+            key = (int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4)))
+        else:
+            if "PTS" in b: continue
+            m = re.search(r"_([A-Za-z]+)_(\d{4})", b)
+            if not m: continue
+            key = (int(m.group(2)), months.get(m.group(1), 0), 0, 0)
+        if key > bestkey: bestkey, best = key, p
+    return best
+
+def parse_axolotl_rotation(path, list_edid="Fishing_LLS_FishCollection_Axolotls"):
+    """month-number (1-12) -> {refFormId, regions[]} from a fishing axolotl LVLI."""
     out = {}
-    try:
-        d = json.load(open(p, encoding="utf-8"))
-        for v in d.get("variants", []):
-            if v.get("name") and v.get("monthName"):
-                out[v["name"]] = v["monthName"]
-    except (IOError, ValueError):
-        pass
+    for r in read_rows(path):
+        if (r.get("LVLI_EDID") or "") != list_edid: continue
+        ref = r.get("LVLO_Reference", "") or ""
+        ref_fid = ref.split(":")[0].upper() if ref else ""
+        regions, month = [], None
+        for k, v in r.items():
+            if not k or not k.startswith("Cond") or not v: continue
+            mreg = re.search(r"LocationHierarchyHasKeyword\(.+?,\s*(LocRegion\w+)\s*\[", v)
+            if mreg: regions.append(LOC_KEYWORD_MAP.get(mreg.group(1), mreg.group(1)))
+            mmon = re.search(r"MonthlyIndex.+?\)\s+\S+\s+([\d.]+)", v)
+            if mmon: month = int(float(mmon.group(1)))
+        if month: out[month] = {"refFormId": ref_fid, "regions": regions}
+    return out
+
+def load_axolotl_rotation(directory, pts=False):
+    """FormID (upper) -> {'month': 'June', 'regions': [...]} for each axolotl,
+    derived from the newest LVLI entries export in `directory`. Returns an empty
+    map (and the caller falls back) if no LVLI entries export is present."""
+    path = newest_lvli_entries(directory, pts)
+    out = {}
+    if path:
+        for month, rec in parse_axolotl_rotation(path).items():
+            if rec["refFormId"]:
+                out[rec["refFormId"]] = {"month": MONTH_NAMES[month - 1],
+                                         "regions": rec["regions"]}
     return out
 
 # ---------------------------------------------------------------- build
 
-def build(tsv_path, ctx, month_map=None):
-    month_map = month_map or {}
+def build(tsv_path, ctx, axolotl_map=None):
+    axolotl_map = axolotl_map or {}
     rows = read_rows(tsv_path)
     bucket = {cid: [] for cid, _, _ in CASCADES}
     seen = {cid: set() for cid, _, _ in CASCADES}
@@ -505,8 +571,11 @@ def build(tsv_path, ctx, month_map=None):
             }
             if season: o["season"] = season
             if c == "axolotl":
-                mo = month_map.get(nm)
-                if mo: o["month"] = mo
+                info = axolotl_map.get((r.get("FormID") or "").upper()) or {}
+                if info.get("month"): o["month"] = info["month"]
+                if info.get("regions"): o["regions"] = info["regions"]
+                # Fixed 25 Fish Bits on fillet (not in the export; see AXOLOTL_FISHBITS).
+                o["fishBits"] = AXOLOTL_FISHBITS
             ov = TEMPLATE_OVERRIDES.get(nm)
             if ov:
                 if ov.get("hole"): o["hole"] = ov["hole"]
@@ -558,7 +627,8 @@ def main():
     tsv = newest(TSV_DIR, "FISH_Export_")
     if not tsv: raise SystemExit("No FISH_Export TSV found in %s" % TSV_DIR)
     live_ctx = make_ctx(TSV_DIR)
-    live_data = build(tsv, live_ctx, load_axolotl_months("axolotl_guide.json"))
+    live_axo = load_axolotl_rotation(TSV_DIR)
+    live_data = build(tsv, live_ctx, live_axo)
     live = os.path.join(DIST, "fish_journal.json")
     json.dump(live_data, open(live, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
@@ -570,8 +640,9 @@ def main():
         # PTS context may be sparse; fall back to live indices where empty.
         for k in ("alch", "effects", "names", "cobj_out", "cobj_comp", "chal"):
             if not pts_ctx.get(k): pts_ctx[k] = live_ctx[k]
-        pts_months = load_axolotl_months("axolotl_guide_pts.json") or load_axolotl_months("axolotl_guide.json")
-        pts_data = build(pts_tsv, pts_ctx, pts_months)
+        # PTS axolotl rotation from the PTS LVLI export; fall back to live if absent.
+        pts_axo = load_axolotl_rotation(pts_dir, pts=True) or live_axo
+        pts_data = build(pts_tsv, pts_ctx, pts_axo)
     else:
         pts_data = live_data
     pts = os.path.join(DIST, "pts", "fish_journal.json")
