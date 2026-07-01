@@ -555,11 +555,15 @@ def build(tsv_path, ctx, axolotl_map=None):
                 "id": (r.get("FormID") or "").upper(),
                 "edid": r.get("EDID", ""),
                 "name": nm,
-                "size": size_of(r),
+                # Junk and waterlogged gifts carry the in-game Small size keyword,
+                # but they are not fish — they don't fillet, so they have no fish
+                # size class and yield no Fish Bits. (The raw keyword is still shown
+                # in the Technical section via keywords_of.)
+                "size": (None if c in ("junk", "gift") else size_of(r)),
                 "region": region_of(r),
                 "image": image_for(nm),
                 "value": (alch["value"] if alch else None),
-                "fishBits": FISHBITS_BY_SIZE.get(size_of(r)),
+                "fishBits": (None if c in ("junk", "gift") else FISHBITS_BY_SIZE.get(size_of(r))),
                 "legendary": is_legendary(r),
                 "splash": splash_of(r),
                 "stats": stats_of(r),
