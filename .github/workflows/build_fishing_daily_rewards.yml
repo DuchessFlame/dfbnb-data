@@ -1,0 +1,105 @@
+name: Build Fishing Daily Rewards JSON
+
+# Builds the "Big Fish in a Small Pond" daily reward feed (live + PTS twins) used
+# by df-bnb-fishing-guides.add.js -> renderBigFishGuide. Drop rates are resolved
+# through the shared rng76.py engine, so this rebuilds whenever the reward source
+# TSVs (GMRW / LVLI / GLOB / QUEST) or the builder/engine change.
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [main]
+    paths:
+      - 'tsv/GMRW_Export_*.tsv'
+      - 'tsv/QUEST_Export_*.tsv'
+      - 'tsv/GLOB_Export_*.tsv'
+      - 'tsv/LVLI_Export_*_LVLI_List.tsv'
+      - 'tsv/LVLI_Export_*_LVLI_Entries.tsv'
+      - 'tsv/LVLI_Export_*_LVLI_Math.tsv'
+      - 'tsv/pts/GMRW_Export_*.tsv'
+      - 'tsv/pts/QUEST_Export_*.tsv'
+      - 'tsv/pts/GLOB_Export_*.tsv'
+      - 'tsv/pts/LVLI_Export_*_LVLI_*.tsv'
+      - 'src/build_fishing_daily_rewards_json.py'
+      - 'src/rng76.py'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest (rebase)
+        run: |
+          git fetch origin
+          git pull --rebase origin main
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build live + PTS feeds
+        run: |
+          python src/build_fishing_daily_rewards_json.py
+          python src/build_fishing_daily_rewards_json.py --pts
+
+      - name: Sanity check output
+        run: |
+          python - <<'PY'
+          import json, sys
+          errs = []
+          for path, is_pts in [("dist/fishing_big_fish.json", False),
+                               ("dist/pts/fishing_big_fish.json", True)]:
+              try:
+                  d = json.load(open(path))
+              except Exception as e:
+                  errs.append(f"{path}: invalid JSON ({e})"); continue
+              if d.get("isPts") != is_pts:
+                  errs.append(f"{path}: isPts flag mismatch")
+              q = d.get("quest", {})
+              if q.get("edid") != "Fishing_BigFish":
+                  errs.append(f"{path}: wrong quest edid {q.get('edid')}")
+              pools = {p["key"]: p for p in d.get("pools", [])}
+              for k in ("bait", "curvedDisplay", "regionalWeaponMod",
+                        "hookMods", "campRecipePlans"):
+                  if k not in pools:
+                      errs.append(f"{path}: missing pool '{k}'")
+              # Known good rates (auto-computed, must stay stable).
+              hm = pools.get("hookMods", {})
+              if abs(hm.get("poolChance", 0) - 20.0) > 0.01:
+                  errs.append(f"{path}: hookMods pool != 20% ({hm.get('poolChance')})")
+              cr = pools.get("campRecipePlans", {})
+              if len(cr.get("items", [])) != 13:
+                  errs.append(f"{path}: campRecipePlans != 13 items ({len(cr.get('items', []))})")
+              rg = pools.get("regionalWeaponMod", {})
+              if len(rg.get("regions", [])) < 6:
+                  errs.append(f"{path}: < 6 regional mod pools ({len(rg.get('regions', []))})")
+              if not d.get("blurbLegend"):
+                  errs.append(f"{path}: missing blurbLegend")
+          if errs:
+              for e in errs: print(e, file=sys.stderr)
+              sys.exit(1)
+          print("OK: fishing_big_fish live + PTS feeds valid")
+          PY
+
+      - name: Commit dist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/fishing_big_fish.json dist/pts/fishing_big_fish.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Rebuild fishing_big_fish reward feed (live + PTS)"
+            git pull --rebase origin main
+            git push origin main
+          fi
