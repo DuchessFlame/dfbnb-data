@@ -92,11 +92,37 @@ IMAGE_OVERRIDES = {
 # Curated, non-game-data fields. The hole name and the flavour description aren't in
 # the export; everything else on the card is generated. Keyed by display name.
 TEMPLATE_OVERRIDES = {
+    # ── Seasonal Local Legends (location-locked + season-locked) ──────────
     "Glass Ghost": {
         "hole": "Glassed Cavern",
         "description": "Can only be caught at <b>Glassed Cavern</b> in the Cranberry Bog, and only "
                        "while <b>Summer</b> is in season. Once the season turns, the Glass Ghost "
                        "vanishes until next summer.",
+    },
+    "Sludge Eye": {
+        "hole": "The Sludge Works",
+        "description": "Can only be caught at <b>The Sludge Works</b> in the Ash Heap, and only "
+                       "while <b>Fall</b> is in season. Once the season turns, the Sludge Eye "
+                       "vanishes until next fall.",
+    },
+    # ── Full-time Local Legends (location-locked, year-round) ─────────────
+    # Derived from GetInCurrentLocation conditions on each entry of the
+    # Fishing_LLS_FishCollection_LocalLegends LVLI (00804F7F).
+    "Wavy Willard": {
+        "hole": "Wavy Willard's Water Park",
+        "region": "Toxic Valley",
+    },
+    "Organ Grinder": {
+        "hole": "Organ Cave",
+        "region": "The Forest",
+    },
+    "Ryl-Tkannoth, Maw-Begotten": {
+        "hole": "Big Maw",
+        "region": "The Mire",
+    },
+    "Hocking Hill Hellion": {
+        "hole": "Ash Cave",
+        "region": "Burning Springs",
     },
 }
 
@@ -621,7 +647,7 @@ def build(tsv_path, ctx, axolotl_map=None):
                 o["fishBits"] = AXOLOTL_FISHBITS
             if c == "gift":
                 # Waterlogged Gifts are a limited-time event catch (Festive_WaterLoggedHolidayGift,
-                # gated by GLOB LTT_WaterLoggedGifts_Toggle) — NOT year-round. The gift tier is
+                # gated by GLOB LTT_WaterLoggedGifts_Toggle) -- NOT year-round. The gift tier is
                 # bait-locked in the LVLI Fishing_LL_LTT_WaterLoggedGifts (FirstMatch on bait):
                 #   Tier_01 Small = Basic, Tier_02 Waterlogged = Improved, Tier_03 Large = Superb.
                 o["event"] = "Waterlogged Gifts event"
@@ -630,6 +656,7 @@ def build(tsv_path, ctx, axolotl_map=None):
             ov = TEMPLATE_OVERRIDES.get(nm)
             if ov:
                 if ov.get("hole"): o["hole"] = ov["hole"]
+                if ov.get("region"): o["region"] = ov["region"]
                 if ov.get("description"): o["description"] = ov["description"]
             return o
 
