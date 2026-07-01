@@ -384,9 +384,10 @@ def baits_for(cid):
     if cid == "junk":    return ["Basic"]
     return ["Basic", "Improved", "Superior"]
 
-# All three weather buckets exist for every fish; weather changes the rate, not the
-# availability. Displayed as the three in-game fishing weather states.
-WEATHER = ["Clear", "Rain", "Rad Storm"]
+# The four fishing weather states, from the CNDF Fishing_IsNatural*Weather conditions:
+# clear fallback + Rainy + Rad Storm (the Rad/Nuke conditions are the same rad-storm
+# state) + Sandstorm. Weather changes the rate, not availability, so every catch lists all four.
+WEATHER = ["Clear", "Rain", "Rad Storm", "Sandstorm"]
 
 # ---------------------------------------------------------------- recipe + challenge resolution
 
@@ -580,6 +581,14 @@ def build(tsv_path, ctx, axolotl_map=None):
                 if info.get("regions"): o["regions"] = info["regions"]
                 # Fixed 25 Fish Bits on fillet (not in the export; see AXOLOTL_FISHBITS).
                 o["fishBits"] = AXOLOTL_FISHBITS
+            if c == "gift":
+                # Waterlogged Gifts are a limited-time event catch (Festive_WaterLoggedHolidayGift,
+                # gated by GLOB LTT_WaterLoggedGifts_Toggle) — NOT year-round. The gift tier is
+                # bait-locked in the LVLI Fishing_LL_LTT_WaterLoggedGifts (FirstMatch on bait):
+                #   Tier_01 Small = Basic, Tier_02 Waterlogged = Improved, Tier_03 Large = Superb.
+                o["event"] = "Waterlogged Gifts event"
+                tier = (o.get("edid") or "")[-2:]
+                o["bait"] = {"01": ["Basic"], "02": ["Improved"], "03": ["Superior"]}.get(tier, o["bait"])
             ov = TEMPLATE_OVERRIDES.get(nm)
             if ov:
                 if ov.get("hole"): o["hole"] = ov["hole"]
