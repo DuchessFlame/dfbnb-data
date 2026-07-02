@@ -575,6 +575,28 @@ def region_of(r):
         if has_kw(r, k): return v
     if has_kw(r, "Generic"): return "All regions"
     return "Special"
+
+# Region collection token (Fishing_LLS_FishCollection_<token>_<rarity>) -> friendly
+# region name. A fish that belongs to several region collections is catchable in each
+# of those regions, even though its signature FishType keyword names only one — e.g.
+# seasonal uncommons like the Fernskipper sit in Cranberry + Mire + Skyline.
+COLL_REGION = {
+    "Forest": "The Forest", "Toxic": "Toxic Valley", "SavageDivide": "Savage Divide",
+    "Mire": "The Mire", "Cranberry": "Cranberry Bog", "Ash": "Ash Heap",
+    "Skyline": "Skyline Valley", "BurningSprings": "Burning Springs",
+}
+_REGION_DISPLAY_ORDER = ["The Forest", "Toxic Valley", "Savage Divide", "The Mire",
+    "Cranberry Bog", "Ash Heap", "Skyline Valley", "Burning Springs"]
+
+def regions_of(r):
+    """Every region a fish can be caught in, read from its FishCollection LVLI
+    memberships (in a fixed display order). Non-region collections are ignored."""
+    found = set()
+    for coll in colls(r):
+        m = re.match(r"Fishing_LLS_FishCollection_([A-Za-z]+)_", coll)
+        if m and m.group(1) in COLL_REGION:
+            found.add(COLL_REGION[m.group(1)])
+    return [x for x in _REGION_DISPLAY_ORDER if x in found]
 def cascade_of(r):
     cl, nm = colls(r), disp(r)
     if has_kw(r, "LocalLegend") or any("LocalLegends" in c for c in cl): return "legend"
@@ -839,6 +861,12 @@ def build(tsv_path, ctx, axolotl_map=None):
                 "bait": baits_for(c),
             }
             if season: o["season"] = season
+            # Multi-region fish (e.g. seasonal uncommons) list every region they can be
+            # caught in. Single-region fish keep the plain `region` field; axolotls carry
+            # their own monthly `regions`, and junk/gifts aren't region-bound.
+            if c not in ("axolotl", "junk", "gift"):
+                _regs = regions_of(r)
+                if len(_regs) >= 2: o["catchRegions"] = _regs
             if c == "axolotl":
                 info = axolotl_map.get((r.get("FormID") or "").upper()) or {}
                 if info.get("month"): o["month"] = info["month"]
