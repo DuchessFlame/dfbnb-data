@@ -383,6 +383,19 @@ def build_cobj_index(cobj_rows):
             by_component.setdefault(c["edid"], []).append(rec)
     return recipes, by_output, by_component
 
+def _is_dead_chal(edid, full):
+    """True for cut / deleted / test / placeholder challenge records that should
+       never surface on the site."""
+    e = (edid or "").lower()
+    f = (full or "").lower()
+    if e.startswith("zzz"):
+        return True
+    if re.search(r"(^|_)(cut|del|deleted|test|debug)(_|$)", e):
+        return True
+    if re.search(r"\b(cut|zzz|deleted?|test|placeholder|do not use)\b", f):
+        return True
+    return False
+
 def _reward_item_name(spec, name_map):
     """spec like '005652F9:LegendaryModule:MISC' -> friendly item name."""
     parts = (spec or "").split(":")
@@ -447,7 +460,7 @@ def build_score_fishing_challenges(chal_rows):
     seen = {"Daily": set(), "Weekly": set()}
     for r in chal_rows:
         e = r.get("EDID", "") or ""
-        if e.lower().startswith("zzz"):
+        if _is_dead_chal(e, r.get("FULL", "")):
             continue
         m = re.match(r"SCORE_Challenge_(Daily|Weekly)_Fishing", e)
         if not m:
@@ -491,12 +504,36 @@ def build_challenge_groups(lifetime_list, fish_region, score_ch, is_real_fish):
     add_region(score_ch["region"]["Weekly"], weekly)
     return {"lifetime": lifetime_list, "daily": daily, "weekly": weekly}
 
+def _parent_meta_edid(edid):
+    """Given a lifetime SUB/component challenge EDID, return the EDID of the META
+       (collection) challenge it rolls up into, or None."""
+    e = edid or ""
+    # Region collections: ..._Region_<Group>_(Common|Unique|Glowing)Fish##_SUB
+    m = re.match(r"(.*_Region_[A-Za-z]+)_(?:Common|Unique|Glowing)Fish\d+_SUB$", e)
+    if m:
+        return m.group(1) + "_META"
+    # Fish-quest progress steps: ..._Progress_0#_<Fish>_SUB
+    m = re.match(r"(.*_Progress_\d+)_.+_SUB$", e)
+    if m:
+        return m.group(1) + "_META"
+    # Burning Springs: Burn_..._BurningSprings_SUB_<X>
+    m = re.match(r"(.*_BurningSprings)_SUB_.+$", e)
+    if m:
+        return m.group(1) + "_META"
+    # Axolotl months: ..._Axolotl_##_SUB  ->  ..._Axolotls_META
+    if re.match(r".*_Axolotl_\d+_SUB$", e):
+        return "Challenge_Lifetime_Fishing_Axolotls_META"
+    # Seasonal fish (per-season Any / LocalLegend) -> the every-season META
+    if "_SeasonalFish_" in e and not e.endswith("_META"):
+        return "Challenge_Lifetime_Fishing_SeasonalFish_AllSeasons_META"
+    return None
+
 def build_chal_index(chal_rows):
     """List of challenges with the CNDF condition formids they reference."""
     out = []
     for r in chal_rows:
         edid = r.get("EDID", "")
-        if edid.startswith("zzz"): continue
+        if _is_dead_chal(edid, r.get("FULL", "")): continue
         conds = []
         for k, v in r.items():
             if k and k.startswith("Cond") and v:
@@ -641,6 +678,14 @@ def resolve_challenges(cndf_ids, season, chal_list, by_output, name_map, reward_
     out, seen = [], set()
     cndf_set = set(cndf_ids or [])
     reward_map = reward_map or {}
+    # EDID -> FULL for every collection (META) challenge, to caption its sub-challenges.
+    meta_names = {ch["edid"]: ch["name"] for ch in chal_list
+                  if ch["edid"].endswith("_META") and ch.get("name")}
+
+    def note_for(edid):
+        parent = _parent_meta_edid(edid)
+        nm = meta_names.get(parent) if parent else None
+        return ("Counts toward: " + nm) if nm else ""
 
     def reward_for(chal_fid):
         if chal_fid in reward_map:
@@ -660,7 +705,10 @@ def resolve_challenges(cndf_ids, season, chal_list, by_output, name_map, reward_
         if not hit: continue
         if ch["name"] in seen: continue
         seen.add(ch["name"])
-        out.append({"name": ch["name"], "reward": reward_for(ch["fid"])})
+        entry = {"name": ch["name"], "reward": reward_for(ch["fid"])}
+        note = note_for(ch["edid"])
+        if note: entry["note"] = note
+        out.append(entry)
     return out
 
 # ---------------------------------------------------------------- season rule
