@@ -168,6 +168,32 @@ LOC_KEYWORD_MAP = {
 MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
                "July", "August", "September", "October", "November", "December"]
 
+# SCORE daily/weekly fishing "catch a fish" challenges reference this condition form.
+FISH_CATCH_CNDF = "007FE614"   # Challenge_Fishing_Fish_Condition
+
+# Region location-keyword EDID -> the region name used by region_of() (REGION_KW style,
+# i.e. "The Forest" / "The Mire"), so a fish's region can be matched to a region challenge.
+SCORE_REGION_KW = {
+    "LocRegionStorm":            "Skyline Valley",
+    "LocRegionMountain":         "Savage Divide",
+    "LocRegionSwampForest":      "The Mire",
+    "LocRegionMTR":              "Ash Heap",
+    "LocRegionForestFloodlands": "The Forest",
+    "LocRegionToxicValley":      "Toxic Valley",
+    "LocRegionCranberryBog":     "Cranberry Bog",
+    "LocRegionBurningSprings":   "Burning Springs",
+}
+
+# Friendly names for GMRW reward items whose EDID has no FULL in the exports.
+REWARD_ITEM_NAMES = {
+    "LegendaryModule":     "Legendary Module",
+    "Treasury_Note":       "Treasury Note",
+    "Fishing_Bait_Common": "Common Bait",
+    "Fishing_Bait_Improved": "Improved Bait",
+    "Fishing_Bait_Superb": "Superb Bait",
+    "Caps001":             "Caps",
+}
+
 # Display names for crafting components whose EDID has no FULL anywhere in the exports.
 COMPONENT_NAMES = {
     "c_Wood": "Wood", "Wood": "Wood", "CookingOil": "Cooking Oil",
@@ -308,8 +334,17 @@ def render_effect(mg_name, mag, dur):
     # SPECIAL buffs: "Fortify Intelligence Food" -> "+4 Intelligence"
     stat = next((s for s in SPECIAL if s in n), None)
     label = stat if stat else re.sub(r"\b(Food|Fortify|Restore)\b", "", n).strip()
-    sign = "+" if (mag and mag > 0) else ""
-    magtxt = ("%g" % mag) if mag else ""
+    # Tidy leftover punctuation/whitespace, e.g. "Food: Fortify XP Bonus" -> "XP Bonus"
+    label = re.sub(r"\s{2,}", " ", label.strip(" :")).strip()
+    # XP Bonus magnitudes are stored as a fraction (0.05 = 5%), render as a percentage.
+    is_xp = "XP" in n
+    if is_xp:
+        label = "XP"
+    sign = "+" if (mag and mag > 0) else ("-" if (mag and mag < 0) else "")
+    if is_xp:
+        magtxt = ("%g%%" % (mag * 100)) if mag else ""
+    else:
+        magtxt = ("%g" % mag) if mag else ""
     out = (sign + magtxt + " " + label).strip()
     if dur and dur >= 1:
         mins = int(round(dur / 60.0)) if dur >= 60 else None
@@ -347,6 +382,114 @@ def build_cobj_index(cobj_rows):
         for c in comps:
             by_component.setdefault(c["edid"], []).append(rec)
     return recipes, by_output, by_component
+
+def _reward_item_name(spec, name_map):
+    """spec like '005652F9:LegendaryModule:MISC' -> friendly item name."""
+    parts = (spec or "").split(":")
+    edid = parts[1] if len(parts) > 1 else (spec or "")
+    if edid in REWARD_ITEM_NAMES:
+        return REWARD_ITEM_NAMES[edid]
+    if edid.startswith("Fishing_Recipe_"):
+        base = re.sub(r"^Fishing_Recipe_(mod_)?", "", edid)
+        return "Recipe: " + prettify(base, name_map)
+    return prettify(edid, name_map)
+
+def _glob_edid(spec):
+    """'00805AC0:Fishing_LocalLegendChallenge_CapReward:GLOB' -> the EDID."""
+    parts = (spec or "").split(":")
+    return parts[1] if len(parts) > 1 else ""
+
+def build_gmrw_rewards(gmrw_rows, glob_map, name_map):
+    """CHAL formid -> readable reward string, sourced from the GMRW export
+       (fishing challenge rewards are NOT in CHAL — they live in GMRW)."""
+    out = {}
+    for r in gmrw_rows:
+        chal_ids = []
+        for i in range(1, 21):
+            v = r.get("Ref%d" % i, "") or ""
+            m = re.match(r"([0-9A-Fa-f]{6,8}):[^:]*:CHAL", v)
+            if m:
+                chal_ids.append(m.group(1).upper())
+        if not chal_ids:
+            continue
+        parts = []
+        # Rewarded item (MISC/BOOK/LVLI etc.)
+        item = r.get("RewardedItem", "") or ""
+        if item:
+            cnt = (r.get("RewardedItemCount", "") or "").strip()
+            nm = _reward_item_name(item, name_map)
+            try:
+                n = int(float(cnt))
+            except (TypeError, ValueError):
+                n = 0
+            parts.append(("%d× %s" % (n, nm)) if n > 1 else nm)
+        # Caps from a GLOB (e.g. Local Legend cap reward)
+        caps = r.get("NAM8_CapsGlobal", "") or ""
+        if caps:
+            edid = _glob_edid(caps)
+            val = glob_map.get(edid)
+            parts.append(("%d Caps" % int(val)) if val else "Caps")
+        # Legendary item reward list
+        if (r.get("QRLI_LegendaryItemRewardList", "") or "").strip():
+            parts.append("Legendary item")
+        if not parts:
+            continue
+        reward = " + ".join(parts)
+        for cid in chal_ids:
+            out.setdefault(cid, reward)
+    return out
+
+def build_score_fishing_challenges(chal_rows):
+    """Daily/Weekly SCORE fishing 'catch a fish' challenges, split into generic
+       (any region) and region-specific (matched via a LocRegion keyword)."""
+    generic = {"Daily": [], "Weekly": []}
+    region  = {"Daily": {}, "Weekly": {}}
+    seen = {"Daily": set(), "Weekly": set()}
+    for r in chal_rows:
+        e = r.get("EDID", "") or ""
+        if e.lower().startswith("zzz"):
+            continue
+        m = re.match(r"SCORE_Challenge_(Daily|Weekly)_Fishing", e)
+        if not m:
+            continue
+        period = m.group(1)
+        full = r.get("FULL", "") or ""
+        conds = " ".join(v for k, v in r.items() if k and k.startswith("Cond") and v)
+        if FISH_CATCH_CNDF not in conds.upper():
+            continue
+        if "catch" not in full.lower():        # exclude Eat / Craft / Cook variants
+            continue
+        reg = None
+        for kw, name in SCORE_REGION_KW.items():
+            if kw in conds:
+                reg = name
+                break
+        key = (full, reg)
+        if key in seen[period]:
+            continue
+        seen[period].add(key)
+        entry = {"name": full, "reward": "Score"}
+        if reg:
+            region[period].setdefault(reg, []).append(entry)
+        else:
+            generic[period].append(entry)
+    return {"generic": generic, "region": region}
+
+def build_challenge_groups(lifetime_list, fish_region, score_ch, is_real_fish):
+    """Assemble the per-fish {lifetime, daily, weekly} challenge groups."""
+    if not is_real_fish:
+        return {"lifetime": lifetime_list, "daily": [], "weekly": []}
+    daily  = [dict(x) for x in score_ch["generic"]["Daily"]]
+    weekly = [dict(x) for x in score_ch["generic"]["Weekly"]]
+    def add_region(period_map, target):
+        if fish_region == "All regions":
+            for lst in period_map.values():
+                target.extend(dict(x) for x in lst)
+        elif fish_region in period_map:
+            target.extend(dict(x) for x in period_map[fish_region])
+    add_region(score_ch["region"]["Daily"], daily)
+    add_region(score_ch["region"]["Weekly"], weekly)
+    return {"lifetime": lifetime_list, "daily": daily, "weekly": weekly}
 
 def build_chal_index(chal_rows):
     """List of challenges with the CNDF condition formids they reference."""
@@ -491,14 +634,17 @@ def resolve_recipes(raw_meal_edid, by_output, by_component, name_map, eff_map):
             add(pr)
     return out
 
-def resolve_challenges(cndf_ids, season, chal_list, by_output, name_map):
-    """Challenges whose condition references one of this fish's CNDF forms, plus the
-       season-wide 'Catch a <Season> Seasonal Fish' challenges. Reward is the recipe
-       a challenge unlocks (a COBJ requiring that challenge), else '—'."""
+def resolve_challenges(cndf_ids, season, chal_list, by_output, name_map, reward_map=None):
+    """Lifetime challenges whose condition references one of this fish's CNDF forms,
+       plus the season-wide 'Catch a <Season> Seasonal Fish' challenges. Reward comes
+       from the GMRW export, else the recipe a challenge unlocks, else '—'."""
     out, seen = [], set()
     cndf_set = set(cndf_ids or [])
+    reward_map = reward_map or {}
 
     def reward_for(chal_fid):
+        if chal_fid in reward_map:
+            return reward_map[chal_fid]
         for rec in by_output.values():
             if rec["req_fid"] and rec["req_fid"] == chal_fid:
                 nm = rec["out_name"] or prettify(rec["out_edid"], name_map)
@@ -614,8 +760,14 @@ def build(tsv_path, ctx, axolotl_map=None):
             season = SEASON_OF.get(nm)
             recipes = resolve_recipes(raw_meal_edid, ctx["cobj_out"], ctx["cobj_comp"],
                                       ctx["names"], ctx["effects"])
-            challenges = resolve_challenges(alch["cndf"] if alch else [], season,
-                                            ctx["chal"], ctx["cobj_out"], ctx["names"])
+            lifetime = resolve_challenges(alch["cndf"] if alch else [], season,
+                                          ctx["chal"], ctx["cobj_out"], ctx["names"],
+                                          ctx.get("rewards"))
+            # Effective region (template overrides win) for region-challenge matching.
+            _ov = TEMPLATE_OVERRIDES.get(nm)
+            eff_region = (_ov.get("region") if _ov and _ov.get("region") else region_of(r))
+            challenges = build_challenge_groups(lifetime, eff_region, ctx["score_ch"],
+                                                c not in ("junk", "gift"))
             o = {
                 "id": (r.get("FormID") or "").upper(),
                 "edid": r.get("EDID", ""),
@@ -686,6 +838,7 @@ def make_ctx(directory, pts=False):
     misc = read_rows(newest(directory, "MISC_Export_", pts))
     cobj = read_rows(newest(directory, "COBJ_Export_", pts))
     chal = read_rows(newest(directory, "CHAL_Export_", pts))
+    gmrw = read_rows(newest(directory, "GMRW_Export_", pts))
     names = build_name_map(alch_main, misc, cobj)
     recipes, cobj_out, cobj_comp = build_cobj_index(cobj)
     return {
@@ -695,6 +848,8 @@ def make_ctx(directory, pts=False):
         "cobj_out": cobj_out,
         "cobj_comp": cobj_comp,
         "chal": build_chal_index(chal),
+        "rewards": build_gmrw_rewards(gmrw, glob_map, names),
+        "score_ch": build_score_fishing_challenges(chal),
     }
 
 def main():
@@ -716,7 +871,8 @@ def main():
     if pts_tsv:
         pts_ctx = make_ctx(pts_dir, pts=True)
         # PTS context may be sparse; fall back to live indices where empty.
-        for k in ("alch", "effects", "names", "cobj_out", "cobj_comp", "chal"):
+        for k in ("alch", "effects", "names", "cobj_out", "cobj_comp", "chal",
+                  "rewards", "score_ch"):
             if not pts_ctx.get(k): pts_ctx[k] = live_ctx[k]
         # PTS axolotl rotation from the PTS LVLI export; fall back to live if absent.
         pts_axo = load_axolotl_rotation(pts_dir, pts=True) or live_axo
