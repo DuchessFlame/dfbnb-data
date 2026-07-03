@@ -546,6 +546,73 @@ def build_chal_index(chal_rows):
         })
     return out
 
+# ---------------------------------------------------------------- scrap yields
+# Junk pulled from the water scraps into crafting components. What a junk item
+# yields is a two-table join (same model as build_scrap_breakdown_json.py, kept
+# inline here so the journal build stays self-contained):
+#   MISC.MCQP = item  -> {component EDID : tier keyword}   (c_Plastic:ComponentQuantityLow)
+#   CMPO.CVPA = comp  -> {tier keyword : amount}            (ComponentQuantityLow -> 1)
+# The amount is per-component, so the same tier resolves to different counts on
+# different components (Steel Bulk=30 vs Plastic Bulk=10) — always read the count
+# from that component's CVPA row, never assume a fixed tier->number map.
+_SCRAP_CUT_RE = re.compile(
+    r"^(zz|zzz|del_|cut_|post_|test_|debug_|deprecated_|pts_)", re.IGNORECASE)
+
+def _scrap_is_cut(edid):
+    return bool(edid) and bool(_SCRAP_CUT_RE.match(edid))
+
+def build_cmpo_tiers(cmpo_rows):
+    """component EDID -> {name, tiers{tier keyword: amount}} from the CMPO CVPA table."""
+    out = {}
+    for r in cmpo_rows:
+        edid = (r.get("CMPO_EDID") or "").strip()
+        if not edid or _scrap_is_cut(edid):
+            continue
+        tiers = {}
+        for ent in (r.get("CVPA") or "").strip().split("|"):
+            if not ent:
+                continue
+            parts = ent.split(":")          # tier : count : curve
+            if len(parts) < 2:
+                continue
+            tier, cnt = parts[0].strip(), _intval(parts[1])
+            if tier and cnt is not None:
+                tiers[tier] = cnt
+        out[edid] = {"name": (r.get("FULL") or "").strip() or edid, "tiers": tiers}
+    return out
+
+def build_scrap_yields(misc_rows, cmpo_rows):
+    """display name -> scrap yield string, e.g. 'Baseball Glove' -> '3x Leather, 1x Cloth'.
+    First non-cut MISC row per display name wins (duplicate junk records share MCQP)."""
+    comps = build_cmpo_tiers(cmpo_rows)
+    out = {}
+    for r in misc_rows:
+        mcqp = (r.get("MCQP") or "").strip()
+        if not mcqp:
+            continue
+        edid = (r.get("EDID") or r.get("MISC_EDID") or "").strip()
+        if _scrap_is_cut(edid):
+            continue
+        name = (r.get("FULL") or "").strip()
+        if not name or name in out:
+            continue
+        parts = []
+        for pair in mcqp.split("|"):
+            p = pair.split(":", 1)          # component EDID : tier keyword
+            if len(p) < 2:
+                continue
+            comp_edid, tier = p[0].strip(), p[1].strip()
+            cinfo = comps.get(comp_edid)
+            if not cinfo:
+                continue
+            amount = cinfo["tiers"].get(tier)
+            if amount is None:
+                continue
+            parts.append("%dx %s" % (amount, cinfo["name"]))
+        if parts:
+            out[name] = ", ".join(parts)
+    return out
+
 def _intval(s):
     try: return int(float(s))
     except (TypeError, ValueError): return None
@@ -873,6 +940,11 @@ def build(tsv_path, ctx, axolotl_map=None):
                 if info.get("regions"): o["regions"] = info["regions"]
                 # Fixed 25 Fish Bits on fillet (not in the export; see AXOLOTL_FISHBITS).
                 o["fishBits"] = AXOLOTL_FISHBITS
+            if c == "junk":
+                # Junk isn't a fish — it doesn't fillet. Instead it scraps into
+                # crafting components (MISC.MCQP × CMPO.CVPA join), shown as the
+                # "Yields" row on the fish-types guide, e.g. "3x Leather, 1x Cloth".
+                o["scrapYield"] = ctx["scrap"].get(nm)
             if c == "gift":
                 # Waterlogged Gifts are a limited-time event catch (Festive_WaterLoggedHolidayGift,
                 # gated by GLOB LTT_WaterLoggedGifts_Toggle) -- NOT year-round. The gift tier is
@@ -912,6 +984,7 @@ def make_ctx(directory, pts=False):
         if pts == ("PTS" in os.path.basename(p)):
             eff_path = p
     misc = read_rows(newest(directory, "MISC_Export_", pts))
+    cmpo = read_rows(newest(directory, "CMPO_Export_", pts))
     cobj = read_rows(newest(directory, "COBJ_Export_", pts))
     chal = read_rows(newest(directory, "CHAL_Export_", pts))
     gmrw = read_rows(newest(directory, "GMRW_Export_", pts))
@@ -926,6 +999,8 @@ def make_ctx(directory, pts=False):
         "chal": build_chal_index(chal),
         "rewards": build_gmrw_rewards(gmrw, glob_map, names),
         "score_ch": build_score_fishing_challenges(chal),
+        # Junk -> crafting-component scrap yields (MISC.MCQP × CMPO.CVPA join).
+        "scrap": build_scrap_yields(misc, cmpo),
     }
 
 def main():
