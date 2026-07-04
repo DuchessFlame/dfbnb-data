@@ -1,0 +1,4 @@
+{
+  "_note": "OPTIONAL manual override for the Fishing Challenges Checklist page. This is intentionally EMPTY — rewards are derived generatively from the game TSVs by build_fishing_challenges_checklist_json.py: (1) COBJ GNAM links give the plan/title a challenge unlocks (plushies, floats/bobbers, displays, cooking recipes, player/CAMP titles), (2) 'Score' for SCORE_ daily/weekly, (3) a non-zzz GMRW ChallengeReward record (Intro bait, Progress rod recipes, Local Legend caps/modules bundle). Only add an entry here (keyed by challenge EDID -> reward label) to override the generated value for a specific challenge; anything left out is resolved from the TSVs. The deprecated zzz_ChallengeReward_* records (all '5x Bait - Common') are ignored.",
+  "rewards": {}
+}

@@ -1,0 +1,117 @@
+name: Build Fishing Challenges Checklist JSON
+
+# Builds the data feed for the /df/fishing/challenges-checklist/ page (live + PTS
+# twins), rendered in the mini-season style by renderFishingChallengesChecklist()
+# in df-bnb-fishing.js. Groups the fishing CHAL rows into Daily / Weekly / Big Fish
+# in a Little Pond / Lifetime and resolves rewards (Score + GMRW + overlay).
+#
+# It consumes dist/challenges/challenges.json (leaf-expanded fishing challenges from
+# build_challenges_json_v3.py) and dist/fishing_big_fish.json (the Big Fish quest
+# intro), so this workflow rebuilds those prerequisites first, then commits only the
+# fishing_challenges_checklist output.
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [main]
+    paths:
+      - 'tsv/CHAL_Export_*.tsv'
+      - 'tsv/CNDF_Export_*.tsv'
+      - 'tsv/GMRW_Export_*.tsv'
+      - 'tsv/COBJ_Export_*.tsv'
+      - 'tsv/MISC_Export_*.tsv'
+      - 'tsv/QUEST_Export_*.tsv'
+      - 'tsv/pts/CHAL_Export_*.tsv'
+      - 'tsv/pts/GMRW_Export_*.tsv'
+      - 'tsv/pts/COBJ_Export_*.tsv'
+      - 'tsv/pts/QUEST_Export_*.tsv'
+      - 'src/build_fishing_challenges_checklist_json.py'
+      - 'src/fishing_challenges_checklist_rewards.json'
+      - 'src/build_challenges_json_v3.py'
+      - 'src/build_fishing_daily_rewards_json.py'
+      - 'src/rng76.py'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest (rebase)
+        run: |
+          git fetch origin
+          git pull --rebase origin main
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build prerequisites (challenges + Big Fish rewards)
+        run: |
+          python src/build_challenges_json_v3.py
+          python src/build_fishing_daily_rewards_json.py
+          python src/build_fishing_daily_rewards_json.py --pts
+
+      - name: Build live + PTS feeds
+        run: |
+          python src/build_fishing_challenges_checklist_json.py
+          python src/build_fishing_challenges_checklist_json.py --pts
+
+      - name: Sanity check output
+        run: |
+          python - <<'PY'
+          import json, sys
+          errs = []
+          for path, is_pts in [("dist/fishing_challenges_checklist.json", False),
+                               ("dist/pts/fishing_challenges_checklist.json", True)]:
+              try:
+                  d = json.load(open(path))
+              except Exception as e:
+                  errs.append(f"{path}: invalid JSON ({e})"); continue
+              if d.get("isPts") != is_pts:
+                  errs.append(f"{path}: isPts flag mismatch")
+              groups = {g["key"]: g for g in d.get("groups", [])}
+              for k in ("daily", "weekly", "bigfish", "lifetime"):
+                  if k not in groups:
+                      errs.append(f"{path}: missing group '{k}'")
+              # Daily/Weekly must not be trackable; Big Fish/Lifetime must be.
+              if groups.get("daily", {}).get("trackable") is not False:
+                  errs.append(f"{path}: daily should not be trackable")
+              if groups.get("lifetime", {}).get("trackable") is not True:
+                  errs.append(f"{path}: lifetime should be trackable")
+              # Big Fish plushie rewards must resolve from the overlay.
+              bf = {i["edid"]: i for i in groups.get("bigfish", {}).get("items", [])}
+              m = bf.get("Challenge_Lifetime_Fishing_CompleteDailies_01", {})
+              if "Plushie" not in (m.get("reward") or ""):
+                  errs.append(f"{path}: CompleteDailies_01 reward not resolved ({m.get('reward')!r})")
+              # Lifetime must nest at least the region METAs' sub-challenges.
+              nested = sum(len(i.get("children", [])) for i in groups.get("lifetime", {}).get("items", []))
+              if nested < 20:
+                  errs.append(f"{path}: too few nested sub-challenges ({nested})")
+          if errs:
+              for e in errs: print(e, file=sys.stderr)
+              sys.exit(1)
+          print("OK: fishing_challenges_checklist live + PTS feeds valid")
+          PY
+
+      - name: Commit dist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/fishing_challenges_checklist.json dist/pts/fishing_challenges_checklist.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Rebuild fishing_challenges_checklist feed (live + PTS)"
+            git pull --rebase origin main
+            git push origin main
+          fi

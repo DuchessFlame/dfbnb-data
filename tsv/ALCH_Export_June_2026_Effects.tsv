@@ -2874,7 +2874,7 @@ ALCH_FormID	ALCH_EDID	EffectCount	EffectIndex	MGEF_FormID	MGEF_EDID	MGEF_FULL	EF
 007FDA62	RadscorpionMeatCooked_Cannery	4	0	00024056	DamageRadiationEating	Eating: Radiation Damage	3	10.000000	0	0		002DBF8E	SURV_Food_RadiationDamage_Mag_3_High											0
 007FDA62	RadscorpionMeatCooked_Cannery	4	1	00026874	SURV_Food_Effect	SURV_Food_Effect	4	5400.000000	0	0		002DBF82	SURV_Food_RestoreHunger_Mag_5_VeryLarge											0
 007FDA62	RadscorpionMeatCooked_Cannery	4	2	0000397E	RestoreHealthFood	Restore Health	1	1.200000	0	25		002DB596	SURV_Food_Heal_Mag_5_VeryLarge		002DB4F2	SURV_Food_Heal_Dur_Standard								0
-007FDA62	RadscorpionMeatCooked_Cannery	4	3	0022699F	FortifyResistEnergyFood	Fortify Energy Resist Food	2	25.000000	0	1800		002DBFB1	SURV_Food_Effect_FortifyResistEnergy_Mag_2_Medium		002DBF92	SURV_Food_Effect_Any_Dur_1_Short								0
+007FDA62	RadscorpionMeatCooked_Cannery	4	3	00150736	FortifyResistFireFood	Fortify Fire Resist Food	5	75.000000	0	1800					002DBF92	SURV_Food_Effect_Any_Dur_1_Short								0
 007FDA60	StingwingMeatTastyStew_Cannery	5	0	00024056	DamageRadiationEating	Eating: Radiation Damage	3	0.000000	0	0		002DBF8C	SURV_Food_RadiationDamage_Mag_1_Low											0
 007FDA60	StingwingMeatTastyStew_Cannery	5	1	00026874	SURV_Food_Effect	SURV_Food_Effect	4	0.000000	0	0		002DBF81	SURV_Food_RestoreHunger_Mag_4_Large_Improved											0
 007FDA60	StingwingMeatTastyStew_Cannery	5	2	00134836	SURV_Drink_Effect	SURV_Drink_Effect	5	0.000000	0	0		00284962	SURV_Drink_RestoreThirst_Mag_1_Normal											0
@@ -3189,5 +3189,15 @@ ALCH_FormID	ALCH_EDID	EffectCount	EffectIndex	MGEF_FormID	MGEF_EDID	MGEF_FULL	EF
 008EFCA8	SeasonalFish_Meal_FallSoup	4	3	00150731	FortifyHealthFood	Fortify Health Food	6	60.000000	0	3600														0
 008FBA0C	ATX_TeaWizard_LuckyLeaf	4	0	00024056	DamageRadiationEating	Eating: Radiation Damage	3	0.000000	0	0		002DBF8C	SURV_Food_RadiationDamage_Mag_1_Low											0
 008FBA0C	ATX_TeaWizard_LuckyLeaf	4	1	00134836	SURV_Drink_Effect	SURV_Drink_Effect	4	0.000000	0	0		0050FD00	SURV_Drink_RestoreThirst_Mag_1_Large											0
-008FBA0C	ATX_TeaWizard_LuckyLeaf	4	2	00905315	ATX_FortifyLuck_TeaWizard_LuckyLeaf_AddPerk	Lucky Leaf Tea - Add Perk	8	1.000000	0	600					0050C206	SURV_Chem_Dur_Long								0
-008FBA0C	ATX_TeaWizard_LuckyLeaf	4	3	008FBA0E	ATX_FortifyLuck_TeaWizard_LuckyLeaf	Lucky Leaf Tea - Fortify Luck	9	1.000000	0	600					0050C206	SURV_Chem_Dur_Long								0
+008FBA0C	ATX_TeaWizard_LuckyLeaf	4	2	00905315	ATX_FortifyLuck_TeaWizard_LuckyLeaf_AddPerk	Lucky-Leaf Tea - Add Perk	8	1.000000	0	600					0050C206	SURV_Chem_Dur_Long								0
+008FBA0C	ATX_TeaWizard_LuckyLeaf	4	3	008FBA0E	ATX_FortifyLuck_TeaWizard_LuckyLeaf	Lucky-Leaf Tea - Fortify Luck	9	1.000000	0	600					0050C206	SURV_Chem_Dur_Long								0
+00913919	zzz_Fishing_Fish_Meal_Small_Raw_Axolotl_Gold	4	0	00026874	SURV_Food_Effect	SURV_Food_Effect	0	360.000000	0	0		002DBF7C	SURV_Food_RestoreHunger_Mag_2_Small											0
+00913919	zzz_Fishing_Fish_Meal_Small_Raw_Axolotl_Gold	4	1	0009A41B	SURV_DiseaseVector_Food_Effect	SURV_DiseaseVector_Food_Effect	0	1.000000	0	0		002DBF85	SURV_Food_DiseaseChance_Mag_1_Low											0
+00913919	zzz_Fishing_Fish_Meal_Small_Raw_Axolotl_Gold	4	2	00024056	DamageRadiationEating	Eating: Radiation Damage	0	2.000000	0	0		002DBF8C	SURV_Food_RadiationDamage_Mag_1_Low											0
+00913919	zzz_Fishing_Fish_Meal_Small_Raw_Axolotl_Gold	4	3	0000397E	RestoreHealthFood	Restore Health	0	0.400000	0	25		002DB4F7	SURV_Food_Heal_Mag_2_Small		002DB4F2	SURV_Food_Heal_Dur_Standard								0
+00914FE9	zzz_Fishing_GoldenSoup	6	0	00024056	DamageRadiationEating	Eating: Radiation Damage	3	5.000000	0	0		002DBF8D	SURV_Food_RadiationDamage_Mag_2_Medium											0
+00914FE9	zzz_Fishing_GoldenSoup	6	1	00134836	SURV_Drink_Effect	SURV_Drink_Effect	4	0.000000	0	0		00284962	SURV_Drink_RestoreThirst_Mag_1_Normal											0
+00914FE9	zzz_Fishing_GoldenSoup	6	2	00026874	SURV_Food_Effect	SURV_Food_Effect	5	1800.000000	0	0		002DBF7E	SURV_Food_RestoreHunger_Mag_3_Medium											0
+00914FE9	zzz_Fishing_GoldenSoup	6	3	0000397E	RestoreHealthFood	Restore Health	1	0.000000	0	25		002DB548	SURV_Food_Heal_Mag_4_Large		002DB4F2	SURV_Food_Heal_Dur_Standard								0
+00914FE9	zzz_Fishing_GoldenSoup	6	4	00914FEC	FortifyArmorPenetrationFood	Fortify Armor Penetration	6	5.000000	0	3600					002DBF93	SURV_Food_Effect_Any_Dur_2_Medium								0
+00914FE9	zzz_Fishing_GoldenSoup	6	5	002DBFC3	FortifyCharismaFood	Fortify Charisma Food	7	2.000000	0	3600					002DBF93	SURV_Food_Effect_Any_Dur_2_Medium								0

@@ -748,6 +748,22 @@ jobs:
       - name: Build Fishing Equipment JSON
         run: python src/build_fishing_equipment_json.py
 
+      # --- FISHING CHALLENGES CHECKLIST ---
+      # Groups the fishing CHAL rows (already selected + leaf-expanded by
+      # build_challenges_json_v3.py above) into Daily / Weekly / Big Fish in a
+      # Little Pond / Lifetime, resolves rewards (Score + GMRW + overlay), and
+      # emits dist/fishing_challenges_checklist.json (live + PTS twins) for the
+      # /df/fishing/challenges-checklist/ page. Depends on challenges.json and
+      # fishing_big_fish.json, so it runs after both.
+      - name: Build Fishing Daily (Big Fish) rewards
+        run: |
+          python src/build_fishing_daily_rewards_json.py
+          python src/build_fishing_daily_rewards_json.py --pts
+      - name: Build Fishing Challenges Checklist JSON
+        run: |
+          python src/build_fishing_challenges_checklist_json.py
+          python src/build_fishing_challenges_checklist_json.py --pts
+
       # --- SEASONS ---
       # Reads tsv/fallout76_seasons.tsv and emits dist/seasons.json — the
       # canonical season-number -> {name, dates, etc.} lookup. Consumed by
