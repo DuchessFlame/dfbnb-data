@@ -1,21 +1,26 @@
 {
   "version": 1,
-  "generated": "2026-07-04T02:17:45.741313+00:00",
+  "generated": "2026-07-04T19:26:50.562387+00:00",
   "isPts": true,
   "source": {
-    "gmrwTsv": "GMRW_Export_June_2026.tsv"
+    "base": "dist/challenges/challenges.json",
+    "gmrwTsv": "GMRW_Export_May_2026.tsv",
+    "overlay": "src/fishing_challenges_checklist_rewards.json"
   },
   "page": {
     "category": "Fishing",
     "title": "Fishing Challenges Checklist",
     "url": "/df/fishing/challenges-checklist/",
-    "blurb": "Track every fishing challenge in Appalachia."
+    "blurb": "Track every fishing challenge in Appalachia — daily and weekly scoreboard challenges, the Big Fish daily-quest milestones, and the one-time lifetime challenges."
   },
   "bigFishQuest": {
     "name": "Big Fish in a Small Pond",
+    "gameName": "Daily: Big Fish in a Small Pond",
     "npc": "Captain Raymond",
     "location": "Fisherman's Rest",
     "fishRequired": 7,
+    "description": "Grab a rod and scour Appalachia's waters for fish!",
+    "formId": "007B95E1",
     "edid": "Fishing_BigFish"
   },
   "groups": [
@@ -2441,8 +2446,8 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "Title: Sunset",
-          "reward_source": "cobj",
+          "reward": "",
+          "reward_source": "none",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Seasonal_Fall [KYWD:008B3D60]) = 1"
           ],
@@ -2460,8 +2465,8 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "Plan: Spicy Eelgrass Soup",
-          "reward_source": "cobj",
+          "reward": "",
+          "reward_source": "none",
           "conditions_display": [
             "Target.GetIsID(Sludge Eye [ALCH:008EFCA6]) = 1"
           ],
@@ -2479,8 +2484,8 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "Title: Bountiful",
-          "reward_source": "cobj",
+          "reward": "",
+          "reward_source": "none",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Seasonal_Fall [KYWD:008B3D60]) = 1"
           ],
