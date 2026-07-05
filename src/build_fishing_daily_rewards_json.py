@@ -286,12 +286,33 @@ def base_rewards(data, reward_rows):
     return out
 
 
+def _prettify_ammo(name):
+    """Drop the leading 'Ammo ' the TSV names carry (e.g. 'Ammo Fusion Cell'
+    -> 'Fusion Cell')."""
+    s = str(name).strip()
+    return s[5:].strip() if s.lower().startswith("ammo ") else s
+
+
+def _plan_drop_conditions(raw_conds):
+    """Translate the raw CNDF strings on a plan entry into plain-English drop
+    conditions. The daily plans only ever carry a self-referential
+    HasLearnedRecipe check (the plan stops dropping once its recipe is learned)."""
+    out = []
+    for c in raw_conds or []:
+        s = str(c)
+        if "HasLearnedRecipe" in s or "HasPerk" in s:
+            msg = "Won't drop if you've already learned this plan"
+            if msg not in out:
+                out.append(msg)
+    return out
+
+
 def _items_from_deep(items, gate):
     """rng76 resolve_deep items -> trimmed item dicts with absolute % = gate*within."""
     out = []
     for it in items:
         within = float(it.get("dropRate", 0.0))      # 0..1 within the sub-list
-        out.append({
+        d = {
             "formId": it.get("formid", ""),
             "name": it.get("name", ""),
             "qty": int(it.get("qty", 1) or 1),
@@ -299,7 +320,11 @@ def _items_from_deep(items, gate):
             "isPlan": str(it.get("sig", "")).upper() == "BOOK"
                       and str(it.get("name", "")).lower().startswith(("plan", "recipe")),
             "sig": it.get("sig", ""),
-        })
+        }
+        conds = _plan_drop_conditions(it.get("conditions"))
+        if conds:
+            d["conditions"] = conds
+        out.append(d)
     return out
 
 
@@ -322,10 +347,20 @@ def build_main_pools(data):
             # (every aid item / ammo type / level tier). Enumerating it is noise and
             # bloats the feed, so summarise by category instead of listing items.
             if meta["key"] == "contextualAid":
-                cats = {"Aid": 0, "Ammo": 0, "Other": 0}
+                # The raw list is ~1700 level-scaled leaf entries. Collapse to the
+                # distinct aid (ALCH) and ammo (AMMO) items so each can be listed.
+                aid_names, ammo_names = set(), set()
                 for it in resolved:
                     s = str(it.get("sig", "")).upper()
-                    cats["Aid" if s == "ALCH" else "Ammo" if s == "AMMO" else "Other"] += 1
+                    nm = str(it.get("name", "")).strip()
+                    if not nm:
+                        continue
+                    if s == "ALCH":
+                        aid_names.add(nm)
+                    elif s == "AMMO":
+                        ammo_names.add(_prettify_ammo(nm))
+                aid_items = [{"name": n, "type": "Aid"} for n in sorted(aid_names)]
+                ammo_items = [{"name": n, "type": "Ammo"} for n in sorted(ammo_names)]
                 pools.append({
                     "key": meta["key"], "title": meta["title"],
                     "lvliFormID": fid, "lvliEdid": edid,
@@ -334,10 +369,10 @@ def build_main_pools(data):
                     "legends": list(meta["legends"]),
                     "tradeable": meta["tradeable"], "droppable": meta["droppable"],
                     "note": meta.get("note", ""),
-                    "summary": {"aidTypes": cats["Aid"], "ammoTypes": cats["Ammo"],
+                    "summary": {"aidTypes": len(aid_items), "ammoTypes": len(ammo_items),
                                 "examples": ["Stimpak", "RadAway", "Rad-X",
                                              "5mm / 10mm / .44 ammo"]},
-                    "items": [],
+                    "items": aid_items + ammo_items,
                 })
                 continue
             items = _items_from_deep(resolved, gate)
@@ -379,19 +414,37 @@ def build_regional_pool(data, reward_rows):
     """The single 'Regional Weapon Mod' pool with one sub-entry per region."""
     meta = POOL_META["_regionalMod"]
     regions = []
+    host = None   # pool whose reward is gated by >1 stage (serves a shared region)
     for r in reward_rows:
         fid, edid, sig = _ref_parts(pick(r, "RewardedItem"))
         if sig != "LVLI" or edid not in REGION_MOD_BY_EDID:
             continue
         mods = data.resolver.resolve_deep(fid)
-        regions.append({
+        uniq = len({str(m.get("name", "")).strip() for m in mods if m.get("name")})
+        entry = {
             "region": REGION_MOD_BY_EDID[edid],
             "lvliFormID": fid, "lvliEdid": edid,
-            "possibleMods": len(mods),   # size of the region's mod pool (informational)
+            "possibleMods": uniq,   # distinct mods in the region's pool (informational)
+        }
+        regions.append(entry)
+        # A reward gated by more than one GetStageDoneCurrentInstance stage is shared
+        # by more than one region — e.g. Cranberry Bog's pool also covers Skyline
+        # Valley (the stage text names the region, but the TSV drops the stage index,
+        # so we detect the shared pool by its extra condition).
+        if str(pick(r, "Conditions") or "").count("GetStageDoneCurrentInstance") > 1:
+            host = entry
+    # Skyline Valley has no pool of its own — it reuses the multi-stage pool.
+    if host:
+        regions.append({
+            "region": "Skyline Valley",
+            "lvliFormID": host["lvliFormID"], "lvliEdid": host["lvliEdid"],
+            "possibleMods": host["possibleMods"], "sharesWith": host["region"],
         })
+    # Burning Springs is a fishing region but has no dedicated weapon-mod pool at all.
+    regions.append({"region": "Burning Springs", "possibleMods": None, "noPool": True})
     # Stable display order roughly west-to-east / by progression.
     order = ["The Forest", "Toxic Valley", "Savage Divide", "Ash Heap",
-             "The Mire", "Cranberry Bog", "Skyline Valley"]
+             "The Mire", "Cranberry Bog", "Skyline Valley", "Burning Springs"]
     regions.sort(key=lambda x: order.index(x["region"]) if x["region"] in order else 99)
     if not regions:
         return None

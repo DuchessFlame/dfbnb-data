@@ -132,37 +132,49 @@
           "region": "The Forest",
           "lvliFormID": "00313562",
           "lvliEdid": "LL_Mods_Weapons_Any_RegionForest",
-          "possibleMods": 195
+          "possibleMods": 194
         },
         {
           "region": "Toxic Valley",
           "lvliFormID": "00313558",
           "lvliEdid": "LL_Mods_Weapons_Any_RegionToxicValley",
-          "possibleMods": 582
+          "possibleMods": 478
         },
         {
           "region": "Savage Divide",
           "lvliFormID": "0031355C",
           "lvliEdid": "LL_Mods_Weapons_Any_RegionSavageDivide",
-          "possibleMods": 1195
+          "possibleMods": 803
         },
         {
           "region": "Ash Heap",
           "lvliFormID": "00313574",
           "lvliEdid": "LL_Mods_Weapons_Any_RegionAshHeap",
-          "possibleMods": 1485
+          "possibleMods": 804
         },
         {
           "region": "The Mire",
           "lvliFormID": "0031355B",
           "lvliEdid": "LL_Mods_Weapons_Any_RegionMire",
-          "possibleMods": 1811
+          "possibleMods": 823
         },
         {
           "region": "Cranberry Bog",
           "lvliFormID": "00313561",
           "lvliEdid": "LL_Mods_Weapons_Any_RegionCranberryBog",
-          "possibleMods": 2059
+          "possibleMods": 850
+        },
+        {
+          "region": "Skyline Valley",
+          "lvliFormID": "00313561",
+          "lvliEdid": "LL_Mods_Weapons_Any_RegionCranberryBog",
+          "possibleMods": 850,
+          "sharesWith": "Cranberry Bog"
+        },
+        {
+          "region": "Burning Springs",
+          "possibleMods": null,
+          "noPool": true
         }
       ]
     },
@@ -190,7 +202,10 @@
           "qty": 1,
           "dropRate": 4.0,
           "isPlan": true,
-          "sig": "BOOK"
+          "sig": "BOOK",
+          "conditions": [
+            "Won't drop if you've already learned this plan"
+          ]
         },
         {
           "formId": "007FB5C6",
@@ -198,7 +213,10 @@
           "qty": 1,
           "dropRate": 4.0,
           "isPlan": true,
-          "sig": "BOOK"
+          "sig": "BOOK",
+          "conditions": [
+            "Won't drop if you've already learned this plan"
+          ]
         },
         {
           "formId": "007FB5C7",
@@ -206,7 +224,10 @@
           "qty": 1,
           "dropRate": 4.0,
           "isPlan": true,
-          "sig": "BOOK"
+          "sig": "BOOK",
+          "conditions": [
+            "Won't drop if you've already learned this plan"
+          ]
         },
         {
           "formId": "007FB5C8",
@@ -214,7 +235,10 @@
           "qty": 1,
           "dropRate": 4.0,
           "isPlan": true,
-          "sig": "BOOK"
+          "sig": "BOOK",
+          "conditions": [
+            "Won't drop if you've already learned this plan"
+          ]
         },
         {
           "formId": "007FB5C9",
@@ -222,7 +246,10 @@
           "qty": 1,
           "dropRate": 4.0,
           "isPlan": true,
-          "sig": "BOOK"
+          "sig": "BOOK",
+          "conditions": [
+            "Won't drop if you've already learned this plan"
+          ]
         }
       ]
     },
@@ -361,8 +388,8 @@
       "droppable": true,
       "note": "A scaling bundle of aid (stimpaks, RadAway, chems) and ammo appropriate to your level and loadout.",
       "summary": {
-        "aidTypes": 221,
-        "ammoTypes": 193,
+        "aidTypes": 24,
+        "ammoTypes": 16,
         "examples": [
           "Stimpak",
           "RadAway",
@@ -370,7 +397,168 @@
           "5mm / 10mm / .44 ammo"
         ]
       },
-      "items": []
+      "items": [
+        {
+          "name": "Berry Mentats",
+          "type": "Aid"
+        },
+        {
+          "name": "Buffout",
+          "type": "Aid"
+        },
+        {
+          "name": "Bufftats",
+          "type": "Aid"
+        },
+        {
+          "name": "Calmex",
+          "type": "Aid"
+        },
+        {
+          "name": "Daddy-O",
+          "type": "Aid"
+        },
+        {
+          "name": "Day Tripper",
+          "type": "Aid"
+        },
+        {
+          "name": "Fury",
+          "type": "Aid"
+        },
+        {
+          "name": "Grape Mentats",
+          "type": "Aid"
+        },
+        {
+          "name": "Med-X",
+          "type": "Aid"
+        },
+        {
+          "name": "Mentats",
+          "type": "Aid"
+        },
+        {
+          "name": "Orange Mentats",
+          "type": "Aid"
+        },
+        {
+          "name": "Overdrive",
+          "type": "Aid"
+        },
+        {
+          "name": "Psycho",
+          "type": "Aid"
+        },
+        {
+          "name": "Psychobuff",
+          "type": "Aid"
+        },
+        {
+          "name": "Psychotats",
+          "type": "Aid"
+        },
+        {
+          "name": "Purified Water",
+          "type": "Aid"
+        },
+        {
+          "name": "Rad-X",
+          "type": "Aid"
+        },
+        {
+          "name": "Rad-X: Diluted",
+          "type": "Aid"
+        },
+        {
+          "name": "RadAway",
+          "type": "Aid"
+        },
+        {
+          "name": "RadAway: Diluted",
+          "type": "Aid"
+        },
+        {
+          "name": "Stimpak",
+          "type": "Aid"
+        },
+        {
+          "name": "Stimpak: Diluted",
+          "type": "Aid"
+        },
+        {
+          "name": "Stimpak: Super",
+          "type": "Aid"
+        },
+        {
+          "name": "X-Cell",
+          "type": "Aid"
+        },
+        {
+          "name": "Ammo10mm",
+          "type": "Ammo"
+        },
+        {
+          "name": "Ammo2mm EC",
+          "type": "Ammo"
+        },
+        {
+          "name": "Ammo308Caliber",
+          "type": "Ammo"
+        },
+        {
+          "name": "Ammo38Caliber",
+          "type": "Ammo"
+        },
+        {
+          "name": "Ammo44",
+          "type": "Ammo"
+        },
+        {
+          "name": "Ammo45Caliber",
+          "type": "Ammo"
+        },
+        {
+          "name": "Ammo556",
+          "type": "Ammo"
+        },
+        {
+          "name": "Ammo5mm",
+          "type": "Ammo"
+        },
+        {
+          "name": "Arrow Broadhead",
+          "type": "Ammo"
+        },
+        {
+          "name": "Fat Man Mini Nuke",
+          "type": "Ammo"
+        },
+        {
+          "name": "Fusion Cell",
+          "type": "Ammo"
+        },
+        {
+          "name": "Fusion Core",
+          "type": "Ammo"
+        },
+        {
+          "name": "Grenade Launcher",
+          "type": "Ammo"
+        },
+        {
+          "name": "Missile",
+          "type": "Ammo"
+        },
+        {
+          "name": "Plasma Cartridge",
+          "type": "Ammo"
+        },
+        {
+          "name": "Shotgun Shell",
+          "type": "Ammo"
+        }
+      ]
     }
   ],
   "blurbLegend": [
