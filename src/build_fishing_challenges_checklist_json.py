@@ -242,14 +242,10 @@ GROUP_LABELS = {
     "lifetime": "Lifetime",
 }
 GROUP_BLURBS = {
-    "daily": "Scoreboard daily fishing challenges. These reset every day and award "
-             "Score, so they are not ticked here.",
-    "weekly": "Scoreboard weekly fishing challenges. These reset every week and award "
-              "Score, so they are not ticked here.",
-    "bigfish": "Complete the \"Big Fish in a Small Pond\" daily quest for Captain "
-               "Raymond a set number of times to unlock these lifetime CAMP rewards.",
-    "lifetime": "One-time lifetime fishing challenges. Complete them once per "
-                "character to unlock their rewards.",
+    "daily": "",
+    "weekly": "",
+    "bigfish": "",
+    "lifetime": "",
 }
 GROUP_TRACKABLE = {"daily": False, "weekly": False, "bigfish": True, "lifetime": True}
 
