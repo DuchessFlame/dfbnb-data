@@ -40727,7 +40727,7 @@
     }
   },
   "meta": {
-    "generated": "2026-07-06T03:42:53Z",
+    "generated": "2026-07-06T06:04:00Z",
     "generator": "build_treasure_maps_json.py",
     "source_files": [
       "LVLI_Export_June_2026_LVLI_List.tsv",
@@ -40747,6 +40747,601 @@
       "Per-region dig_rewards: caps + categorised plan/mod buckets",
       "Caps sourced from LL_Caps_TreasureMap (LLS_Caps_High, qty 3-7, 100%)",
       "No XP field — there is no treasure-map XP record in any current TSV export"
+    ]
+  },
+  "pint_sized_phantoms": {
+    "map": {
+      "name": "Pint-Sized Phantoms' Map",
+      "edid": "SDOW_MQ02_SlasherMap",
+      "form_id": "008F15E4"
+    },
+    "quest": {
+      "name": "Secrets to the Grave",
+      "edid": "SDOW_MQ02_Graves",
+      "repeatable_quest": "SDOW_SQ01_Graves_Repeatable"
+    },
+    "grave_rewards": {
+      "name": "Grave Dig Rewards",
+      "list_edid": "SDOW_LL_SQ01_RepeatableRewards",
+      "list_formid": "0090312D",
+      "list_type": "UseAll — each pool is rolled every time you dig a grave",
+      "blurb": "Repeatable · each pool rolls when you dig a grave site",
+      "pools": [
+        {
+          "key": "ultra_rare",
+          "name": "Ultra-Rare Rewards",
+          "form_id": "00903130",
+          "item_count": 2,
+          "blurb": "Guaranteed drop of one item · 2 items",
+          "items": [
+            {
+              "name": "Double-Barrel Shotgun",
+              "form_id": "00092217",
+              "edid": "DoubleBarrelShotgun",
+              "sig": "WEAP",
+              "drop_rate": "50%",
+              "drop_rate_raw": 0.5,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Tesla",
+              "form_id": "0010F0EC",
+              "edid": "DLC01LightningGun",
+              "sig": "WEAP",
+              "drop_rate": "50%",
+              "drop_rate_raw": 0.5,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            }
+          ],
+          "edid": "SDOW_LL_SQ01_Rewards_UltraRare"
+        },
+        {
+          "key": "rare",
+          "name": "Rare Rewards",
+          "form_id": "0090312E",
+          "item_count": 16,
+          "blurb": "Guaranteed drop of one item · 16 items",
+          "items": [
+            {
+              "name": "Camp Title: Cemetery",
+              "form_id": "00903126",
+              "edid": "SDOW_CampTitle_Recipe_Suffix_Cemetery",
+              "sig": "BOOK",
+              "drop_rate": "16.666667%",
+              "drop_rate_raw": 0.166667,
+              "qty": "1",
+              "conditions": [
+                "Won’t drop if you’ve already learned this plan"
+              ],
+              "tradeable": true
+            },
+            {
+              "name": "Ghost Boy",
+              "form_id": "008E06F0",
+              "edid": "SDOW_SlasherGhostBoy",
+              "sig": "ALCH",
+              "drop_rate": "16.666667%",
+              "drop_rate_raw": 0.166667,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Player Title: Grave",
+              "form_id": "00903124",
+              "edid": "SDOW_PlayerTitle_Recipe_Prefix_Grave",
+              "sig": "BOOK",
+              "drop_rate": "16.666667%",
+              "drop_rate_raw": 0.166667,
+              "qty": "1",
+              "conditions": [
+                "Won’t drop if you’ve already learned this plan"
+              ],
+              "tradeable": true
+            },
+            {
+              "name": "Player Title: Keeper",
+              "form_id": "00903125",
+              "edid": "SDOW_PlayerTitle_Recipe_Suffix_Keeper",
+              "sig": "BOOK",
+              "drop_rate": "16.666667%",
+              "drop_rate_raw": 0.166667,
+              "qty": "1",
+              "conditions": [
+                "Won’t drop if you’ve already learned this plan"
+              ],
+              "tradeable": true
+            },
+            {
+              "name": "Shovel",
+              "form_id": "004E2E20",
+              "edid": "Shovel",
+              "sig": "WEAP",
+              "drop_rate": "16.666667%",
+              "drop_rate_raw": 0.166667,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Armor Rank1",
+              "form_id": "00417C4B",
+              "edid": "LegendaryItems_Armor_Rank1",
+              "sig": "LGDI",
+              "drop_rate": "2.583333%",
+              "drop_rate_raw": 0.025833,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Power Armor Rank1",
+              "form_id": "00605FC3",
+              "edid": "LegendaryItems_PowerArmor_Rank1",
+              "sig": "LGDI",
+              "drop_rate": "2.583333%",
+              "drop_rate_raw": 0.025833,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Weapons Melee Rank1",
+              "form_id": "00417C46",
+              "edid": "LegendaryItems_Weapons_Melee_Rank1",
+              "sig": "LGDI",
+              "drop_rate": "2.583333%",
+              "drop_rate_raw": 0.025833,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Weapons Ranged Rank1",
+              "form_id": "00417C42",
+              "edid": "LegendaryItems_Weapons_Ranged_Rank1",
+              "sig": "LGDI",
+              "drop_rate": "2.583333%",
+              "drop_rate_raw": 0.025833,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Armor Rank3",
+              "form_id": "00417C41",
+              "edid": "LegendaryItems_Armor_Rank3",
+              "sig": "LGDI",
+              "drop_rate": "1.111111%",
+              "drop_rate_raw": 0.011111,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Power Armor Rank3",
+              "form_id": "00605FC5",
+              "edid": "LegendaryItems_PowerArmor_Rank3",
+              "sig": "LGDI",
+              "drop_rate": "1.111111%",
+              "drop_rate_raw": 0.011111,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Weapons Any Rank3",
+              "form_id": "0073DCCE",
+              "edid": "LegendaryItems_Weapons_Any_Rank3",
+              "sig": "LGDI",
+              "drop_rate": "1.111111%",
+              "drop_rate_raw": 0.011111,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Armor Rank2",
+              "form_id": "00417C40",
+              "edid": "LegendaryItems_Armor_Rank2",
+              "sig": "LGDI",
+              "drop_rate": "0.75%",
+              "drop_rate_raw": 0.0075,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Power Armor Rank2",
+              "form_id": "00605FC4",
+              "edid": "LegendaryItems_PowerArmor_Rank2",
+              "sig": "LGDI",
+              "drop_rate": "0.75%",
+              "drop_rate_raw": 0.0075,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Weapons Melee Rank2",
+              "form_id": "00417C47",
+              "edid": "LegendaryItems_Weapons_Melee_Rank2",
+              "sig": "LGDI",
+              "drop_rate": "0.75%",
+              "drop_rate_raw": 0.0075,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Legendary Items Weapons Ranged Rank2",
+              "form_id": "00417C43",
+              "edid": "LegendaryItems_Weapons_Ranged_Rank2",
+              "sig": "LGDI",
+              "drop_rate": "0.75%",
+              "drop_rate_raw": 0.0075,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            }
+          ],
+          "edid": "SDOW_LL_SQ01_Rewards_Rare"
+        },
+        {
+          "key": "throwing_knives",
+          "name": "Throwing Knives",
+          "form_id": "0090312F",
+          "item_count": 1,
+          "blurb": "Guaranteed drop of one item · 1 item",
+          "items": [
+            {
+              "name": "Throwing Knife",
+              "form_id": "003879A3",
+              "edid": "Throwing_Knife",
+              "sig": "WEAP",
+              "drop_rate": "100%",
+              "drop_rate_raw": 1.0,
+              "qty": "1-3",
+              "conditions": [],
+              "tradeable": true
+            }
+          ],
+          "edid": "SDOW_LL_SQ01_ThrowingKnives"
+        },
+        {
+          "key": "blood_packs",
+          "name": "Blood Packs",
+          "form_id": "008F863B",
+          "item_count": 2,
+          "blurb": "Each item rolls independently · 2 items",
+          "items": [
+            {
+              "name": "Blood Pack",
+              "form_id": "00052409",
+              "edid": "Bloodpack",
+              "sig": "ALCH",
+              "drop_rate": "89%",
+              "drop_rate_raw": 0.89,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Empty Blood Pack",
+              "form_id": "0014242A",
+              "edid": "BloodPack_Empty",
+              "sig": "MISC",
+              "drop_rate": "31%",
+              "drop_rate_raw": 0.31,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            }
+          ],
+          "edid": "SDOW_LL_SQ01_Junk_BloodPacks"
+        },
+        {
+          "key": "skulls",
+          "name": "Skulls",
+          "form_id": "008F863A",
+          "item_count": 1,
+          "blurb": "Chance drop of one item · 1 item",
+          "items": [
+            {
+              "name": "Skull",
+              "form_id": "000347E1",
+              "edid": "BonesSkull",
+              "sig": "MISC",
+              "drop_rate": "70%",
+              "drop_rate_raw": 0.7,
+              "qty": "1-5",
+              "conditions": [],
+              "tradeable": true
+            }
+          ],
+          "edid": "SDOW_LL_SQ01_Junk_Skull"
+        },
+        {
+          "key": "meat",
+          "name": "Raw Meat",
+          "form_id": "008FAE2A",
+          "item_count": 17,
+          "blurb": "Guaranteed drop of one item · 17 items",
+          "items": [
+            {
+              "name": "Ant Meat",
+              "form_id": "00112EFA",
+              "edid": "RadAntMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Bloatfly Meat",
+              "form_id": "000330F4",
+              "edid": "BloatflyMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Bloodbug Meat",
+              "form_id": "00074D0D",
+              "edid": "BloodbugMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Cat Meat",
+              "form_id": "000939B8",
+              "edid": "CatMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Chicken Thigh",
+              "form_id": "00111967",
+              "edid": "ChickenMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Glowing Meat",
+              "form_id": "003657E1",
+              "edid": "GlowingMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Hermit Crab Meat",
+              "form_id": "0011159C",
+              "edid": "HermitCrabMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Iguana Bits",
+              "form_id": "000330FD",
+              "edid": "IguanaMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Mirelurk Meat",
+              "form_id": "000330FF",
+              "edid": "MirelurkMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Mole Rat Meat",
+              "form_id": "00033101",
+              "edid": "MoleratMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Mongrel Dog Meat",
+              "form_id": "000330FB",
+              "edid": "Dogmeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Rabbit Leg",
+              "form_id": "00111966",
+              "edid": "RabbitMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Radrat Meat",
+              "form_id": "00112F04",
+              "edid": "RadRatMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Radroach Meat",
+              "form_id": "00033106",
+              "edid": "RadroachMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Raw Wolf Meat",
+              "form_id": "00110A48",
+              "edid": "WolfMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Squirrel Bits",
+              "form_id": "000366BC",
+              "edid": "SquirrelMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            },
+            {
+              "name": "Stingwing Meat",
+              "form_id": "00074D0F",
+              "edid": "StingwingMeat",
+              "sig": "ALCH",
+              "drop_rate": "5.882353%",
+              "drop_rate_raw": 0.058824,
+              "qty": "1",
+              "conditions": [],
+              "tradeable": true
+            }
+          ],
+          "edid": "SDOW_LL_SQ01_Food_Meat_Raw"
+        }
+      ],
+      "journal": {
+        "key": "journal",
+        "name": "Journal Pages",
+        "form_id": "008F2AFD",
+        "item_count": 4,
+        "blurb": "Guaranteed drop of one item · 4 items",
+        "items": [
+          {
+            "name": "Our Mission - Part I",
+            "form_id": "008F15E7",
+            "edid": "SDOW_MQ02_Graves_Journal01",
+            "sig": "BOOK",
+            "drop_rate": "50%",
+            "drop_rate_raw": 0.5,
+            "qty": "1",
+            "conditions": [],
+            "tradeable": true
+          },
+          {
+            "name": "Our Mission - Part II",
+            "form_id": "008F15E8",
+            "edid": "SDOW_MQ02_Graves_Journal02",
+            "sig": "BOOK",
+            "drop_rate": "16.666667%",
+            "drop_rate_raw": 0.166667,
+            "qty": "1",
+            "conditions": [],
+            "tradeable": true
+          },
+          {
+            "name": "Our Mission - Part III",
+            "form_id": "008F15E2",
+            "edid": "SDOW_MQ02_Graves_Journal03",
+            "sig": "BOOK",
+            "drop_rate": "16.666667%",
+            "drop_rate_raw": 0.166667,
+            "qty": "1",
+            "conditions": [],
+            "tradeable": true
+          },
+          {
+            "name": "Our Mission - Part IV",
+            "form_id": "008F15E9",
+            "edid": "SDOW_MQ02_Graves_Journal04",
+            "sig": "BOOK",
+            "drop_rate": "16.666667%",
+            "drop_rate_raw": 0.166667,
+            "qty": "1",
+            "conditions": [],
+            "tradeable": true
+          }
+        ],
+        "edid": "SDOW_MQ02_Graves_LL_QuestRelatedItems"
+      },
+      "notes": [
+        "Rolled every time you dig up a grave site with the map",
+        "The dig also carries a small chance at the game-wide legendary & plan loot pool",
+        "Repeatable via the 'SDOW_SQ01_Graves_Repeatable' quest"
+      ]
+    },
+    "map_sources": [
+      {
+        "source": "Activity Rewards",
+        "list": "SDOW_LL_Rewards_Activities_SlasherMaps",
+        "formid": "008F2B68",
+        "notes": "Drops from Slasher seasonal activities while the event is active"
+      },
+      {
+        "source": "Public Event Rewards",
+        "list": "SDOW_LL_Rewards_PublicEvents_SlasherMaps",
+        "formid": "00904724",
+        "notes": "Drops on public event completion while the event is active"
+      }
+    ],
+    "notes": [
+      "The Pint-Sized Phantoms' Map is a mini-quest treasure line for the Slasher seasonal event",
+      "Use the map to find and dig up the grave sites the Pint-Sized Phantoms disturbed",
+      "Grave-dig rewards are repeatable",
+      "GMRW conditions NOT baked in — handled by website JS"
     ]
   }
 }
