@@ -176,6 +176,8 @@ LVLI_LABEL_PATTERNS = [
     # Exact well-known EDIDs
     (r"^RA_LL_Rewards_Activities$",           "Activity Rewards"),
     (r"^RA_LL_Rewards_EnclaveActivities$",    "Enclave Activity Rewards"),
+    # Slasher (Shadows of the Dead of Winter) map pools — activities + public events
+    (r"(?i)_SlasherMaps$",                    "Pint-Sized Phantoms' Maps"),
     # Enclave Urban Scout Armour (raw EDIDs contain ScoutUniform / ScoutArmor)
     (r"(?i)scout_?uniform|scout_?armor",      "Enclave Urban Scout Armour"),
     # Enclave Plasma Gun mod boxes
@@ -391,6 +393,15 @@ def simplify_condition(cond_str):
     # IsPlayerFO1Member → Fallout 1st membership check
     if "IsPlayerFO1Member" in s:
         return "Requires Fallout 1st membership"
+
+    # SDOW map-hunt (Shadows of the Dead of Winter): GetValue(MapsAcquired) and
+    # GetStageDone(stage 600) are hidden as internal noise below, but for the
+    # Pint-Sized Phantoms' Map hunt they meaningfully gate the drop. Surface them
+    # as one friendly line (both return the same text, deduped by simplify_conditions).
+    if "SDOW_MQ02_MapsAcquired" in s or ("GetStageDone" in s and "SDOW_MQ02_Graves" in s):
+        _cap = re.search(r'SDOW_MQ02_MapsAcquired[^)]*\)\s*[01]{8}\s*(\d+)\.\d+', s)
+        _n = _cap.group(1) if _cap else "4"
+        return f"Only drops until you’ve collected all {_n} Pint-Sized Phantoms’ Maps"
 
     # PlayerHasQuest → quest active check; extract quest display name if present
     if "PlayerHasQuest" in s:
