@@ -177,6 +177,62 @@ UMINE_ACID_FORMID = "007AC791"  # LL_Scrap_Acid
 
 
 # ============================================================
+# Pint-Sized Phantoms — "Secrets to the Grave" (Slasher seasonal)
+# ============================================================
+# A mini-quest treasure-map line, modelled on Lucky Strike (u_mine_it):
+# the player obtains the Pint-Sized Phantoms' Map, then uses it to find and
+# dig up the grave sites the Pint-Sized Phantoms disturbed across Appalachia.
+# Digging a grave rolls the repeatable reward pools; the one-time story quest
+# chain (MQ01/02/04/05) unlocks the cosmetic "Slasher" plans.
+#
+# Every record comes from the SDOW_* ("Slasher" / Secrets to the Grave)
+# seasonal plugin. If the current TSV export predates that content the map
+# BOOK won't resolve and the whole block is omitted (see
+# build_pint_sized_phantoms) — so this stays inert on the live channel until
+# the Slasher season ships, and populates automatically on the PTS channel.
+
+PHANTOM_MAP_FORMID = "008F15E4"          # SDOW_MQ02_SlasherMap → "Pint-Sized Phantoms' Map"
+PHANTOM_MAP_EDID   = "SDOW_MQ02_SlasherMap"
+PHANTOM_QUEST_NAME = "Secrets to the Grave"
+PHANTOM_QUEST_EDID = "SDOW_MQ02_Graves"
+PHANTOM_REPEATABLE_QUEST = "SDOW_SQ01_Graves_Repeatable"
+
+# Grave-dig reward sub-pools (rolled from the repeatable dig loot table
+# SDOW_LL_SQ01_RepeatableRewards [0090312D], a UseAll of these named pools
+# plus a small tail chance at the game-wide legendary / plan loot pool).
+# Ordered rarest → most common for display. Each is resolved independently so
+# the rates shown are the pool-internal (pick-one) odds, matching how the
+# existing treasure-map dig sub-expands display their pools.
+PHANTOM_GRAVE_POOLS = OrderedDict([
+    ("ultra_rare",      {"formid": "00903130", "edid": "SDOW_LL_SQ01_Rewards_UltraRare",
+                         "name": "Ultra-Rare Rewards"}),
+    ("rare",            {"formid": "0090312E", "edid": "SDOW_LL_SQ01_Rewards_Rare",
+                         "name": "Rare Rewards"}),
+    ("throwing_knives", {"formid": "0090312F", "edid": "SDOW_LL_SQ01_ThrowingKnives",
+                         "name": "Throwing Knives"}),
+    ("blood_packs",     {"formid": "008F863B", "edid": "SDOW_LL_SQ01_Junk_BloodPacks",
+                         "name": "Blood Packs"}),
+    ("skulls",          {"formid": "008F863A", "edid": "SDOW_LL_SQ01_Junk_Skull",
+                         "name": "Skulls"}),
+    ("meat",            {"formid": "008FAE2A", "edid": "SDOW_LL_SQ01_Food_Meat_Raw",
+                         "name": "Raw Meat"}),
+])
+PHANTOM_REPEATABLE_FORMID = "0090312D"   # SDOW_LL_SQ01_RepeatableRewards (UseAll parent)
+PHANTOM_JOURNAL_FORMID     = "008F2AFD"  # SDOW_MQ02_Graves_LL_QuestRelatedItems (journal pages)
+
+# How the player obtains the map itself (both are FirstMatch pools that only
+# fire while the Slasher seasonal content toggle is active).
+PHANTOM_MAP_SOURCES = [
+    {"source": "Activity Rewards", "list": "SDOW_LL_Rewards_Activities_SlasherMaps",
+     "formid": "008F2B68",
+     "notes": "Drops from Slasher seasonal activities while the event is active"},
+    {"source": "Public Event Rewards", "list": "SDOW_LL_Rewards_PublicEvents_SlasherMaps",
+     "formid": "00904724",
+     "notes": "Drops on public event completion while the event is active"},
+]
+
+
+# ============================================================
 # Helpers
 # ============================================================
 
@@ -1272,6 +1328,101 @@ def build_teammate_reward(entries_idx):
     }
 
 
+def _phantom_pretty_name(item, books):
+    """Prefer the BOOK FULL name for plan/recipe leaves so they read as
+    'Plan: …' rather than a humanised EDID."""
+    if (item.get("sig") or "").upper() == "BOOK":
+        nm = books.name(item.get("form_id", ""))
+        if nm and nm != item.get("form_id", ""):
+            return nm
+    return item.get("name", "")
+
+
+def _phantom_pool(resolver, books, formid, name):
+    """Resolve one grave-dig sub-pool to flattened, aggregated leaf items and
+    attach a style-guide blurb describing how the pool rolls."""
+    agg = aggregate_items(resolver.resolve_deep(formid))
+    items = [format_item(it) for it in agg]
+    for it in items:
+        it["name"] = _phantom_pretty_name(it, books)
+    n = len(items)
+    noun = "item" if n == 1 else "items"
+    total = sum(it["drop_rate_raw"] for it in items)
+    if total > 1.05:
+        blurb = f"Each item rolls independently · {n} {noun}"
+    elif total >= 0.99:
+        blurb = f"Guaranteed drop of one item · {n} {noun}"
+    else:
+        blurb = f"Chance drop of one item · {n} {noun}"
+    return {
+        "key": None,
+        "name": name,
+        "form_id": formid,
+        "item_count": len(items),
+        "blurb": blurb,
+        "items": items,
+    }
+
+
+def build_pint_sized_phantoms(resolver, books):
+    """Build the Pint-Sized Phantoms mini-quest block (quest + grave rewards).
+
+    Returns None when the Slasher map BOOK isn't in the current TSV export, so
+    the key is simply omitted on channels that predate the seasonal content.
+    """
+    map_name = books.name(PHANTOM_MAP_FORMID)
+    if not map_name or map_name == PHANTOM_MAP_FORMID:
+        print("    (Slasher map BOOK not in this export — skipping phantom block)")
+        return None
+
+    # ── Repeatable grave-dig reward sub-pools ──
+    grave_pools = []
+    for key, info in PHANTOM_GRAVE_POOLS.items():
+        pool = _phantom_pool(resolver, books, info["formid"], info["name"])
+        pool["key"] = key
+        pool["edid"] = info["edid"]
+        grave_pools.append(pool)
+
+    # ── Journal pages (quest-related collectibles found while digging) ──
+    journal = _phantom_pool(resolver, books, PHANTOM_JOURNAL_FORMID, "Journal Pages")
+    journal["key"] = "journal"
+    journal["edid"] = "SDOW_MQ02_Graves_LL_QuestRelatedItems"
+
+    return {
+        "map": {
+            "name": map_name,
+            "edid": PHANTOM_MAP_EDID,
+            "form_id": PHANTOM_MAP_FORMID,
+        },
+        "quest": {
+            "name": PHANTOM_QUEST_NAME,
+            "edid": PHANTOM_QUEST_EDID,
+            "repeatable_quest": PHANTOM_REPEATABLE_QUEST,
+        },
+        "grave_rewards": {
+            "name": "Grave Dig Rewards",
+            "list_edid": "SDOW_LL_SQ01_RepeatableRewards",
+            "list_formid": PHANTOM_REPEATABLE_FORMID,
+            "list_type": "UseAll — each pool is rolled every time you dig a grave",
+            "blurb": "Repeatable · each pool rolls when you dig a grave site",
+            "pools": grave_pools,
+            "journal": journal,
+            "notes": [
+                "Rolled every time you dig up a grave site with the map",
+                "The dig also carries a small chance at the game-wide legendary & plan loot pool",
+                f"Repeatable via the '{PHANTOM_REPEATABLE_QUEST}' quest",
+            ],
+        },
+        "map_sources": PHANTOM_MAP_SOURCES,
+        "notes": [
+            "The Pint-Sized Phantoms' Map is a mini-quest treasure line for the Slasher seasonal event",
+            "Use the map to find and dig up the grave sites the Pint-Sized Phantoms disturbed",
+            "Grave-dig rewards are repeatable",
+            "GMRW conditions NOT baked in — handled by website JS",
+        ],
+    }
+
+
 def main():
     print("[build_treasure_maps_json.py] Starting build...")
     lvli_list_path = newest("LVLI_Export_*_LVLI_List.tsv")
@@ -1323,6 +1474,8 @@ def main():
     lucky = build_lucky_maps(entries_idx, books)
     print("  Building teammate reward...")
     teammate = build_teammate_reward(entries_idx)
+    print("  Building Pint-Sized Phantoms (Slasher grave sites)...")
+    phantoms = build_pint_sized_phantoms(resolver, books)
 
     total_maps = sum(r["map_count"] for r in regions.values())
     total_shared = sum(p["item_count"] for p in shared_pools)
@@ -1351,6 +1504,11 @@ def main():
         },
     }
 
+    # Slasher seasonal mini-quest — only present once the SDOW content is in
+    # the export (populates on the PTS channel, inert on live until it ships).
+    if phantoms:
+        output["pint_sized_phantoms"] = phantoms
+
     os.makedirs(str(DIST_DIR), exist_ok=True)
     out_path = DIST_DIR / "treasure_maps.json"
     with open(out_path, "w", encoding="utf-8") as f:
@@ -1368,6 +1526,9 @@ def main():
     print(f"  U Mine It tiers: {len(tiers)}, Lucky Maps: {len(lucky['items'])}")
     print(f"  U Mine It shared pools: Aid ({aid_tier_count} tiers, {aid_item_count} items)")
     print(f"  Waste Acid injected into each tier's Junk & Scrap sub-expand")
+    if phantoms:
+        _pp = sum(p["item_count"] for p in phantoms["grave_rewards"]["pools"])
+        print(f"  Pint-Sized Phantoms: {len(phantoms['grave_rewards']['pools'])} grave pools ({_pp} items)")
     print("[build_treasure_maps_json.py] Done.")
 
     patchlog_dir = DIST_DIR / "patchlogs"
