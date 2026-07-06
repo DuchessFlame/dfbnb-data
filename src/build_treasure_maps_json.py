@@ -89,6 +89,581 @@ def pick(row, *keys, default=""):
     return default
 
 
+# === PORTED from build_activities_rewards_json.py (OBTS mod-slot resolution) — KEEP IN SYNC. Duplicated per the project's standalone-copy rule. ===
+
+# --- TSV loaders for object-template + omod + mgef data -------------------
+try:    WEAP_OT = read_tsv(newest("WEAP_Export_*_ObjectTemplate.tsv"))
+except FileNotFoundError: WEAP_OT = []
+try:    ARMO_OT = read_tsv(newest("ARMO_Export_*_ObjectTemplate.tsv"))
+except FileNotFoundError: ARMO_OT = []
+try:    MGEF_DATA = read_tsv(newest("MGEF_Export_*March*.tsv"))
+except FileNotFoundError:
+    try:    MGEF_DATA = read_tsv(newest("MGEF_Export_*.tsv"))
+    except FileNotFoundError: MGEF_DATA = []
+# Load ALL OMOD exports and merge — different exports may have different DESC fields
+OMOD_DATA = []
+for _omod_f in sorted(glob.glob(str(TSV_DIR / "OMOD_Export_*.tsv")), key=lambda x: os.path.getmtime(x)):
+    try:    OMOD_DATA.extend(read_tsv(_omod_f))
+    except Exception: pass
+
+# --------------------------------------------------
+# Index: WEAP Object Template (mod slots for named/unique weapons)
+# --------------------------------------------------
+
+# Slot labels inferred from OMOD EDID keywords or attach point index
+_MOD_SLOT_LABELS = {
+    "appearance": "Appearance",
+    "paint":      "Appearance",
+    "weapon_paint": "Appearance",
+    "legendary1":   "1★ Legendary",
+    "legendary_weapon1": "1★ Legendary",
+    "legendary2":   "2★ Legendary",
+    "legendary_weapon2": "2★ Legendary",
+    "legendary3":   "3★ Legendary",
+    "legendary_weapon3": "3★ Legendary",
+    "legendary4":   "4★ Legendary",
+    "legendary_weapon4": "4★ Legendary",
+    "legendary5":   "5★ Legendary",
+    "legendary_weapon5": "5★ Legendary",
+    "custom":    "Unique",
+    "receiver":  "Receiver",
+    "grip":      "Grip",
+    "scope":     "Sights",
+    "ironsights": "Sights",
+    "sights":    "Sights",
+    "barrel":    "Barrel",
+    "magazine":  "Magazine",
+    "muzzle":    "Muzzle",
+    "stock":     "Stock",
+}
+
+def _classify_mod_slot(mod_ref_str):
+    """Classify a mod OMOD reference string into a human-readable slot label + value + OMOD FormID."""
+    if not mod_ref_str:
+        return None, None, ""
+    parts = mod_ref_str.strip()
+    display_name = ""
+    m = re.search(r'"([^"]+)"', parts)
+    if m:
+        display_name = m.group(1)
+    omod_fid = ""
+    m2 = re.search(r'\[OMOD:([0-9A-Fa-f]+)\]', parts)
+    if m2:
+        omod_fid = m2.group(1).upper()
+    edid = re.split(r'["\[]', parts)[0].strip()
+    edid_lower = edid.lower()
+
+    label = None
+    for keyword, slot_label in _MOD_SLOT_LABELS.items():
+        if keyword in edid_lower:
+            label = slot_label
+            break
+    if not label:
+        label = "Mod"
+
+    if display_name:
+        value = display_name
+    else:
+        h = re.sub(r"^mod_", "", edid, flags=re.IGNORECASE)
+        h = re.sub(r"\s*\[OMOD:[0-9A-Fa-f]+\]", "", h)
+        h = h.replace("_", " ").strip()
+        value = h if h else edid
+    return label, value, omod_fid
+
+def _mod_slot_sort_key(slot):
+    """Sort mod slots: Legendary stars first, then Unique/Custom, then everything else."""
+    label = slot.get("label", "")
+    if "Legendary" in label:
+        m = re.search(r"(\d)", label)
+        return (0, int(m.group(1)) if m else 0)
+    if label.lower() in ("unique", "custom"):
+        return (1, 0)
+    return (2, slot.get("includeIndex", 0))
+
+
+# --------------------------------------------------
+# Junk mod filtering + custom name prettification
+# --------------------------------------------------
+
+_JUNK_MOD_VALUES = {
+    "no upgrade",
+    "default appearance",
+    "no muzzle",
+    "no customization",
+    "no sights",
+    "no custom",
+    "standard ironsights",
+}
+
+_JUNK_MOD_PATTERNS = re.compile(
+    r"(?i)"
+    r"(?:range\s*offset\s*for\s*.+)"
+    r"|(?:.*dummynoeffect.*)"
+    r"|(?:modcol\s*.+)"
+    r"|(?:\w+\s+\w+\s+nozzle)"
+)
+
+def _is_junk_mod(value):
+    """Return True if a mod display value is engine junk / placeholder."""
+    if not value:
+        return True
+    v = value.strip().lower()
+    if v in _JUNK_MOD_VALUES:
+        return True
+    if _JUNK_MOD_PATTERNS.fullmatch(v):
+        return True
+    return False
+
+
+_CUSTOM_NAME_CLEANUP = {
+    "black diamond":                "Black Diamond",
+    "perfect storm":                "Perfect Storm",
+    "civil unrest":                 "Civil Unrest",
+    "all rise":                     "All Rise",
+    "voice of set":                 "Voice of Set",
+    "slug buster":                  "Slug Buster",
+    "anti scorchbeast training pistol": "Anti-Scorchbeast Training Pistol",
+    "makeshift ronin blade":        "Makeshift Ronin Blade",
+    "blade of bastet":              "Blade of Bastet",
+    "grant's saber":                "Grant's Saber",
+    "sword of surrender":           "Sword of Surrender",
+    "burrows' bane":                "Burrows' Bane",
+    "frigid blaze":                 "Frigid Blaze",
+    "hellstorm":                    "Hellstorm",
+    "kingfisher":                   "Kingfisher",
+    "mind over matter":             "Mind Over Matter",
+    "motherlode":                   "Motherlode",
+    "mechanic's best friend":       "Mechanic's Best Friend",
+    "mechanic friend":              "Mechanic's Best Friend",
+    "fancy shotgun":                "Fancy Shotgun",
+    "fancy revolver":               "Fancy Revolver",
+    "the guarantee":                "The Guarantee",
+    "whistle in the dark":          "Whistle in the Dark",
+    "commander's charge":           "Commander's Charge",
+    "final word":                   "Final Word",
+    "last bastion":                 "Last Bastion",
+    "sole survivor":                "Sole Survivor",
+    "salt of the earth":            "Salt of the Earth",
+    "night light":                  "Night Light",
+    "cursed":                       None,
+    "melee knife dmgvscryptid":     "Cryptid Slayer",
+    "ranged flamer cursed":         "Cursed",
+    "boiling point name":           "Boiling Point",
+    "ranged lasergun cursed":       "Cursed",
+    "ranged 10mmsmg cursed":        "Cursed",
+    "melee pickaxe cursed":         "Cursed",
+    "melee shovel cursed":          "Cursed",
+    "incendiary":                   "Perfect Storm",
+    "head hunter":                  "Head Hunter",
+    "dangerous":                    "Ogua Gauntlet",
+    "red terror":                   "Red Terror",
+    "crimson sky":                  "Crimson Sky",
+    "luca's switchblade":           "Luca's Switchblade",
+    "elder's mark":                 "Elder's Mark",
+    "cultist piercer":              "Cultist Piercer",
+    "holy fire":                    "Holy Fire",
+    "cursed harpoon gun":           "Cursed Harpoon Gun",
+    "cursed shovel":                "Cursed Shovel",
+    "cursed pickaxe":               "Cursed Pickaxe",
+    "love tap":                     "Love Tap",
+    "love-tap":                     "Love Tap",
+    "whackersmacker":               "Whacker Smacker",
+    "whacker smacker":              "Whacker Smacker",
+    "rat bat":                      "Rat Bat",
+    "molerat bat":                  "Rat Bat",
+    "tillberg's tornado":           "Tillberg's Tornado",
+}
+
+_CUSTOM_MOD_DESC_OVERRIDES = {
+    "black diamond":       "Splits base damage into ~96 Physical + ~96 Cryo per hit (L50). No DoT — all cryo is direct on-hit.",
+    "perfect storm":       "Deals ~21 Fire Damage on impact + Burning DoT (17 dmg × 3 ticks). Burns stack per bullet.",
+    "civil unrest":        "+50 AP",
+    "all rise":            "+50 HP",
+}
+
+
+def _clean_custom_name(raw_value):
+    """
+    Clean up a Custom/Unique mod display value into a human-readable weapon prefix.
+    Returns the cleaned name, or None if the value shouldn't be used as a prefix.
+    """
+    if not raw_value:
+        return None
+    v = raw_value.strip()
+    v = re.sub(r"(?i)\s*(?:custom\s*mod|custom\s*name|special\s*effect|paint)$", "", v).strip()
+    if not v:
+        return None
+    key = v.lower()
+    if key in _CUSTOM_NAME_CLEANUP:
+        return _CUSTOM_NAME_CLEANUP[key]
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9 '\-]+", v):
+        return v
+    h = re.sub(r"(?i)^(?:melee|ranged|custom|weapon|armor|armour)[_ ]*", "", v)
+    h = re.sub(r"(?i)[_ ]?(?:name|cursed|dmgvs\w+)$", "", h)
+    h = h.replace("_", " ").strip()
+    if h and len(h) > 2:
+        return h.title()
+    return None
+
+
+def _apply_custom_prefix(cur_name, custom_prefix):
+    """Build the final display name from base name and custom prefix, avoiding redundancy."""
+    if not custom_prefix or not cur_name:
+        return custom_prefix or cur_name or ""
+    norm_prefix = re.sub(r"[\s\-]", "", custom_prefix.lower())
+    norm_name = re.sub(r"[\s\-]", "", cur_name.lower())
+    if norm_prefix in norm_name:
+        return cur_name
+    if norm_name in norm_prefix:
+        return custom_prefix
+    return f"{custom_prefix} {cur_name}"
+
+
+_JUNK_OMOD_DESCS = {"no customization", ""}
+
+def _filter_and_clean_modslots(slots, item_name=None):
+    """
+    Filter junk mods from a modSlots list and optionally extract the custom name.
+    Returns (cleaned_slots, custom_prefix_or_None, custom_description_or_None).
+    """
+    cleaned = []
+    custom_slots = []
+    custom_omod_fids = []
+    for s in slots:
+        label = s.get("label", "")
+        value = s.get("value", "")
+        if _is_junk_mod(value):
+            continue
+        if label.lower() in ("unique", "custom"):
+            cname = _clean_custom_name(value)
+            if cname:
+                custom_slots.append((cname, value, s))
+            ofid = s.get("omod_fid", "")
+            if ofid:
+                custom_omod_fids.append(ofid)
+            continue
+        cleaned.append(s)
+    custom_prefix = None
+    chosen_idx = None
+    _NAME_SUFFIXES = re.compile(r"(?i)\s*(?:custom\s*mod|custom\s*name)\s*$")
+    if custom_slots:
+        names_only = [c[0] for c in custom_slots]
+        good_idxs = [i for i, (c, r, s) in enumerate(custom_slots) if c.lower() != "cursed"]
+        if not good_idxs:
+            good_idxs = list(range(len(custom_slots)))
+        def _name_score(idx):
+            c, raw, s = custom_slots[idx]
+            has_name_suffix = 1 if _NAME_SUFFIXES.search(raw) else 0
+            return (-has_name_suffix, len(c))
+        best_idx = min(good_idxs, key=_name_score)
+        custom_prefix = custom_slots[best_idx][0]
+        chosen_idx = best_idx
+        _EFFECT_STRIP = re.compile(r"(?i)\s*(?:special\s*effect|custom\s*mod|custom\s*name|paint)\s*$")
+        for i, (cname, raw_val, slot) in enumerate(custom_slots):
+            if i == chosen_idx:
+                continue
+            display = _EFFECT_STRIP.sub("", raw_val).strip() or raw_val.strip()
+            if custom_prefix and display.lower() == custom_prefix.lower():
+                continue
+            cleaned.append({"label": "Custom", "value": display,
+                            "omod_fid": slot.get("omod_fid", "")})
+
+    custom_desc = None
+    for ofid in custom_omod_fids:
+        d = omod_desc_by_formid.get(ofid, "")
+        if d and d.strip().lower() not in _JUNK_OMOD_DESCS:
+            if custom_desc is None or len(d) > len(custom_desc):
+                custom_desc = d
+    if not custom_desc and custom_prefix:
+        custom_desc = mgef_desc_by_name.get(custom_prefix.lower())
+
+    return cleaned, custom_prefix, custom_desc
+
+
+# Group OT rows by (FormID, CombinationIndex), storing slots + combo metadata.
+_weap_combos = defaultdict(lambda: defaultdict(list))
+_weap_combo_names = defaultdict(dict)
+_weap_combo_keywords = defaultdict(lambda: defaultdict(set))
+for r in WEAP_OT:
+    fid = pick(r, "WEAP_FormID", "FormID")
+    mod_ref = pick(r, "Include_Mod", "Mod")
+    if not fid or not mod_ref:
+        continue
+    label, value, omod_fid = _classify_mod_slot(mod_ref)
+    if label and value:
+        combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
+        inc_idx = int(pick(r, "IncludeIndex", default="0") or 0)
+        _weap_combos[fid][combo_idx].append({
+            "label": label,
+            "value": value,
+            "includeIndex": inc_idx,
+            "omod_fid": omod_fid,
+        })
+    combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
+    combo_full = (pick(r, "Combination_FULL", default="") or "").strip()
+    if combo_full:
+        _weap_combo_names[fid][combo_idx] = combo_full
+    mod_edid = re.split(r'["\[]', (mod_ref or ""))[0].strip().lower()
+    m = re.match(r"mod_custom_(\w+)", mod_edid)
+    if m:
+        kw = re.sub(r"_", "", m.group(1)).lower()
+        _weap_combo_keywords[fid][combo_idx].add(kw)
+
+weap_mod_slots_by_formid = {}       # fid → best combo slots (fallback)
+weap_mod_slots_by_variant = {}      # fid → {variant_key_lower: slots}
+
+for fid, combos in _weap_combos.items():
+    variants = {}
+    best_combo_idx = None
+    best_legendary_count = -1
+    for ci, slots in combos.items():
+        has_legendary = any("Legendary" in s["label"] for s in slots)
+        if not has_legendary:
+            continue
+        legendary_count = sum(1 for s in slots if "Legendary" in s["label"])
+        sorted_slots = sorted(slots, key=_mod_slot_sort_key)
+        keys = set()
+        cname = _weap_combo_names.get(fid, {}).get(ci, "")
+        if cname:
+            keys.add(re.sub(r"[^a-z0-9]", "", cname.lower()))
+        for kw in _weap_combo_keywords.get(fid, {}).get(ci, set()):
+            keys.add(kw)
+        for k in keys:
+            variants[k] = sorted_slots
+        if legendary_count > best_legendary_count or (
+            legendary_count == best_legendary_count and (best_combo_idx is None or ci > best_combo_idx)
+        ):
+            best_legendary_count = legendary_count
+            best_combo_idx = ci
+    if best_combo_idx is not None:
+        best_slots = sorted(combos[best_combo_idx], key=_mod_slot_sort_key)
+        weap_mod_slots_by_formid[fid] = best_slots
+    if variants:
+        weap_mod_slots_by_variant[fid] = variants
+
+# --------------------------------------------------
+# Index: ARMO Object Template (mod slots for named/unique armour)
+# --------------------------------------------------
+
+_ARMOR_MOD_SLOT_LABELS = {
+    "legendary_armor1": "1★ Legendary",
+    "legendary_armor2": "2★ Legendary",
+    "legendary_armor3": "3★ Legendary",
+    "legendary_armor4": "4★ Legendary",
+    "legendary_armor5": "5★ Legendary",
+    "legendary1":       "1★ Legendary",
+    "legendary2":       "2★ Legendary",
+    "legendary3":       "3★ Legendary",
+    "legendary4":       "4★ Legendary",
+    "legendary5":       "5★ Legendary",
+    "paint":      "Appearance",
+    "material_paint": "Appearance",
+    "lining":     "Lining",
+    "material_0": "Material",
+    "material_1": "Material",
+    "material_2": "Material",
+    "material_3": "Material",
+    "material_4": "Material",
+    "size_a":     "Weight Class",
+    "size_b":     "Weight Class",
+    "size_c":     "Weight Class",
+    "custom":     "Unique",
+}
+
+def _classify_armor_mod_slot(mod_ref_str):
+    """Classify an armour OMOD reference string into a human-readable slot label + value + OMOD FormID."""
+    if not mod_ref_str:
+        return None, None, ""
+    parts = mod_ref_str.strip()
+    display_name = ""
+    m = re.search(r'"([^"]+)"', parts)
+    if m:
+        display_name = m.group(1)
+    edid = re.split(r'["\[]', parts)[0].strip()
+    edid_lower = edid.lower()
+
+    label = None
+    for keyword, slot_label in _ARMOR_MOD_SLOT_LABELS.items():
+        if keyword in edid_lower:
+            label = slot_label
+            break
+    if not label:
+        if "lining_null" in edid_lower or "no misc" in (display_name or "").lower():
+            return None, None, ""
+        label = "Mod"
+
+    omod_fid = ""
+    m2 = re.search(r'\[OMOD:([0-9A-Fa-f]+)\]', parts)
+    if m2:
+        omod_fid = m2.group(1).upper()
+
+    if display_name:
+        value = display_name
+    else:
+        h = re.sub(r"^mod_", "", edid, flags=re.IGNORECASE)
+        h = re.sub(r"\s*\[OMOD:[0-9A-Fa-f]+\]", "", h)
+        h = h.replace("_", " ").strip()
+        value = h if h else edid
+    return label, value, omod_fid
+
+_armo_combos = defaultdict(lambda: defaultdict(list))
+_armo_combo_names = defaultdict(dict)
+_armo_combo_keywords = defaultdict(lambda: defaultdict(set))
+for r in ARMO_OT:
+    fid = pick(r, "ARMO_FormID", "FormID")
+    mod_ref = pick(r, "Include_Mod", "Mod")
+    if not fid or not mod_ref:
+        continue
+    label, value, omod_fid = _classify_armor_mod_slot(mod_ref)
+    if label and value:
+        combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
+        inc_idx = int(pick(r, "IncludeIndex", default="0") or 0)
+        _armo_combos[fid][combo_idx].append({
+            "label": label,
+            "value": value,
+            "includeIndex": inc_idx,
+            "omod_fid": omod_fid,
+        })
+    combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
+    combo_full = (pick(r, "Combination_FULL", default="") or "").strip()
+    if combo_full:
+        _armo_combo_names[fid][combo_idx] = combo_full
+    mod_edid = re.split(r'["\[]', (mod_ref or ""))[0].strip().lower()
+    m = re.match(r"mod_custom_(\w+)", mod_edid)
+    if m:
+        kw = re.sub(r"_", "", m.group(1)).lower()
+        _armo_combo_keywords[fid][combo_idx].add(kw)
+
+armo_mod_slots_by_formid = {}
+armo_mod_slots_by_variant = {}
+
+for fid, combos in _armo_combos.items():
+    variants = {}
+    best_combo_idx = None
+    best_legendary_count = -1
+    for ci, slots in combos.items():
+        has_legendary = any("Legendary" in s["label"] for s in slots)
+        if not has_legendary:
+            continue
+        legendary_count = sum(1 for s in slots if "Legendary" in s["label"])
+        sorted_slots = sorted(slots, key=_mod_slot_sort_key)
+        keys = set()
+        cname = _armo_combo_names.get(fid, {}).get(ci, "")
+        if cname:
+            keys.add(re.sub(r"[^a-z0-9]", "", cname.lower()))
+        for kw in _armo_combo_keywords.get(fid, {}).get(ci, set()):
+            keys.add(kw)
+        for k in keys:
+            variants[k] = sorted_slots
+        if legendary_count > best_legendary_count or (
+            legendary_count == best_legendary_count and (best_combo_idx is None or ci > best_combo_idx)
+        ):
+            best_legendary_count = legendary_count
+            best_combo_idx = ci
+    if best_combo_idx is not None:
+        best_slots = sorted(combos[best_combo_idx], key=_mod_slot_sort_key)
+        armo_mod_slots_by_formid[fid] = best_slots
+    if variants:
+        armo_mod_slots_by_variant[fid] = variants
+
+# --------------------------------------------------
+# Index: OMOD descriptions for custom mod display
+# Keyed by OMOD FormID → DESC text (from OMOD export TSV)
+# --------------------------------------------------
+
+omod_desc_by_formid = {}
+for r in OMOD_DATA:
+    fid = pick(r, "OMOD_FormID", "FormID")
+    desc = pick(r, "DESC")
+    if fid and desc:
+        fid_s = fid.strip()
+        desc_s = desc.strip()
+        if fid_s not in omod_desc_by_formid or len(desc_s) > len(omod_desc_by_formid[fid_s]):
+            omod_desc_by_formid[fid_s] = desc_s
+
+# Fallback: MGEF descriptions keyed by FULL name (lowercased)
+mgef_desc_by_name = {}
+for r in MGEF_DATA:
+    full = pick(r, "FULL")
+    dnam = pick(r, "DNAM_MagicItemDescription")
+    if full and dnam:
+        mgef_desc_by_name[full.strip().lower()] = dnam.strip()
+
+# Known unique/named OT display names (for _is_unique_lvli matching).
+# Scan BOTH the fallback (by_formid) combos AND every named variant combo so
+# variant-only uniques (e.g. Double-Barrel "Salt Of The Earth", whose fallback
+# combo is a different named variant) are still recognised.
+_unique_ot_names = set()
+def _collect_unique_names(_slots):
+    for _slot in _slots:
+        if (_slot["label"] or "").lower() in ("unique", "custom"):
+            _raw = (_slot["value"] or "").replace(" ", "").lower()
+            if _raw and len(_raw) > 3:
+                _unique_ot_names.add(_raw)
+for _fid, _slots in armo_mod_slots_by_formid.items():
+    _collect_unique_names(_slots)
+for _fid, _slots in weap_mod_slots_by_formid.items():
+    _collect_unique_names(_slots)
+for _fid, _variants in weap_mod_slots_by_variant.items():
+    for _vk, _slots in _variants.items():
+        _collect_unique_names(_slots)
+for _fid, _variants in armo_mod_slots_by_variant.items():
+    for _vk, _slots in _variants.items():
+        _collect_unique_names(_slots)
+
+def _is_unique_lvli(lvli_edid):
+    """Check if an LVLI EDID matches a known unique/named item variant."""
+    edid_lower = (lvli_edid or "").replace("_", "").lower()
+    return any(name in edid_lower for name in _unique_ot_names)
+
+
+def _resolve_variant_modslots(item_fid, item_sig, lvli_edid, fallback=True):
+    sig = (item_sig or "").upper()
+    edid_norm = re.sub(r"[^a-z0-9]", "", (lvli_edid or "").lower())
+    if sig == "WEAP":
+        variants = weap_mod_slots_by_variant.get(item_fid, {})
+        fb = weap_mod_slots_by_formid.get(item_fid)
+    elif sig == "ARMO":
+        variants = armo_mod_slots_by_variant.get(item_fid, {})
+        fb = armo_mod_slots_by_formid.get(item_fid)
+    else:
+        return None
+    if variants and edid_norm:
+        for vkey, slots in variants.items():
+            if vkey in edid_norm:
+                return slots
+    return fb if fallback else None
+
+
+def _attach_modslots(item, variant_edid):
+    """If this WEAP/ARMO reward came from a unique variant sub-LVLI, resolve its
+    OBTS combo and attach modSlots / customModName / customModDescription and the
+    unique display name. variant_edid is the intermediate sub-LVLI EDID
+    (e.g. LL_Weapon_Ranged_LightningGun_NightLight)."""
+    sig = (item.get("sig") or "").upper()
+    if sig not in ("WEAP", "ARMO"):
+        return item
+    fid = (item.get("form_id") or "").upper()
+    if not _is_unique_lvli(variant_edid):
+        return item
+    resolved = _resolve_variant_modslots(fid, sig, variant_edid, fallback=False)
+    if not resolved:
+        return item
+    raw = [{"label": s["label"], "value": s["value"], "omod_fid": s.get("omod_fid", "")} for s in resolved]
+    cleaned, custom_prefix, custom_desc = _filter_and_clean_modslots(raw, item.get("name"))
+    if cleaned:
+        item["modSlots"] = cleaned
+    if custom_prefix:
+        item["name"] = _apply_custom_prefix(item.get("name", ""), custom_prefix)
+        item["customModName"] = custom_prefix
+        desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
+        if desc:
+            item["customModDescription"] = desc
+    return item
+
+# === END PORTED block ===
+
+
 # ============================================================
 # Region definitions
 # ============================================================
@@ -1458,6 +2033,26 @@ def _phantom_repeatable_pools(resolver, books):
             pool["blurb"] = _phantom_internal_blurb(pool["items"])
         else:
             items = _phantom_items(resolver, books, fid)
+            # Attach OBTS mod-slot data for unique weapon/armour sub-LVLIs.
+            # Map leaf form_id -> variant sub-LVLI EDID by scanning this pool's
+            # direct entries: any direct entry that is a unique LVLI gets resolved
+            # one level so its leaf item form_ids inherit that variant edid.
+            variant_edid_map = {}
+            for de in resolver.lvli.entries_by_list.get(fid, []):
+                dref = (de.get("LVLO_Reference") or "").strip()
+                dparts = dref.split(":")
+                sub_fid = dparts[0] if dparts else dref
+                sub_edid = dparts[1] if len(dparts) >= 2 else ""
+                sub_sig = dparts[2].upper() if len(dparts) >= 3 else ""
+                if sub_sig != "LVLI" or not _is_unique_lvli(sub_edid):
+                    continue
+                for leaf in _phantom_items(resolver, books, sub_fid):
+                    variant_edid_map[(leaf.get("form_id") or "").upper()] = sub_edid
+            if variant_edid_map:
+                for it in items:
+                    vedid = variant_edid_map.get((it.get("form_id") or "").upper())
+                    if vedid:
+                        _attach_modslots(it, vedid)
             pool["items"] = items
             pool["item_count"] = len(items)
             pool["blurb"] = _phantom_internal_blurb(items)

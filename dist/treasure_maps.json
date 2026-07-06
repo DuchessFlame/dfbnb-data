@@ -40727,7 +40727,7 @@
     }
   },
   "meta": {
-    "generated": "2026-07-06T06:58:15Z",
+    "generated": "2026-07-06T08:30:08Z",
     "generator": "build_treasure_maps_json.py",
     "source_files": [
       "LVLI_Export_June_2026_LVLI_List.tsv",
@@ -40738,7 +40738,15 @@
       "ALCH_Export_June_2026_Effects.tsv"
     ],
     "notes": [
-      "rebuilt via materialized runner (OneDrive hydration workaround)"
+      "Drop rates resolved via rng76 engine (deep LVLI flattening)",
+      "Shared reward pools apply to ALL treasure map digs",
+      "Region-specific rewards vary by dig location",
+      "Mod boxes (miscmod_mod*) are computed per region, not via shared pools",
+      "GMRW conditions NOT baked in - handled by website JS",
+      "Burning Springs and Skyline Valley are empty placeholders",
+      "Per-region dig_rewards: caps + categorised plan/mod buckets",
+      "Caps sourced from LL_Caps_TreasureMap (LLS_Caps_High, qty 3-7, 100%)",
+      "No XP field — there is no treasure-map XP record in any current TSV export"
     ]
   },
   "pint_sized_phantoms": {
@@ -50845,7 +50853,7 @@
           "fire_rate_pct": "3%",
           "items": [
             {
-              "name": "Double-Barrel Shotgun",
+              "name": "Salt of the Earth Double-Barrel Shotgun",
               "form_id": "00092217",
               "edid": "DoubleBarrelShotgun",
               "sig": "WEAP",
@@ -50853,10 +50861,48 @@
               "drop_rate_raw": 0.5,
               "qty": "1",
               "conditions": [],
-              "tradeable": true
+              "tradeable": true,
+              "modSlots": [
+                {
+                  "label": "3★ Legendary",
+                  "value": "Swift",
+                  "omod_fid": "00524150"
+                },
+                {
+                  "label": "Receiver",
+                  "value": "Steadfast Receiver",
+                  "omod_fid": "0029D4C4"
+                },
+                {
+                  "label": "Barrel",
+                  "value": "Aligned Short Barrel",
+                  "omod_fid": "0023D8DD"
+                },
+                {
+                  "label": "Sights",
+                  "value": "Standard Sights",
+                  "omod_fid": "002D5D0B"
+                },
+                {
+                  "label": "Grip",
+                  "value": "Precise Stock",
+                  "omod_fid": "0023D90E"
+                },
+                {
+                  "label": "Mod",
+                  "value": "Random Legendary Mod",
+                  "omod_fid": "007904EA"
+                },
+                {
+                  "label": "Mod",
+                  "value": "Random Legendary Mod",
+                  "omod_fid": "007904EB"
+                }
+              ],
+              "customModName": "Salt of the Earth"
             },
             {
-              "name": "Tesla",
+              "name": "Night Light Tesla",
               "form_id": "0010F0EC",
               "edid": "DLC01LightningGun",
               "sig": "WEAP",
@@ -50864,7 +50910,40 @@
               "drop_rate_raw": 0.5,
               "qty": "1",
               "conditions": [],
-              "tradeable": true
+              "tradeable": true,
+              "modSlots": [
+                {
+                  "label": "1★ Legendary",
+                  "value": "Nocturnal",
+                  "omod_fid": "004F6AAE"
+                },
+                {
+                  "label": "Mod",
+                  "value": "Lightning",
+                  "omod_fid": "0010EAE8"
+                },
+                {
+                  "label": "Barrel",
+                  "value": "Automatic Barrel",
+                  "omod_fid": "0010F630"
+                },
+                {
+                  "label": "Sights",
+                  "value": "Reflex Sight",
+                  "omod_fid": "0010F279"
+                },
+                {
+                  "label": "Mod",
+                  "value": "Random Legendary Mod",
+                  "omod_fid": "007904EB"
+                },
+                {
+                  "label": "Mod",
+                  "value": "Random Legendary Mod",
+                  "omod_fid": "007904EC"
+                }
+              ],
+              "customModName": "Night Light"
             }
           ],
           "item_count": 2,
