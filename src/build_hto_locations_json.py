@@ -11,16 +11,24 @@ are looked up from data/mappalachia_coords.json (static, committed to repo).
 
 To add/remove a spawn location, edit CURATED_LOCATIONS.
 
-Output: dist/infestations/hto_locations.json
+Two modes:
+  (default / live)  reads tsv/      -> dist/infestations/hto_locations.json
+  --pts             reads tsv/pts/  -> dist/pts/infestations/hto_locations.json
+
+The global PTS toggle (df-bnb-pts.js) redirects fetches from dist/ to dist/pts/,
+so the renderer loads the right twin automatically.
 """
 
-import json, os, glob, csv, sqlite3
+import json, os, sys, glob, csv, sqlite3
 from pathlib import Path
 from collections import Counter
 
+PTS = "--pts" in sys.argv
+
 _REPO_ROOT  = Path(__file__).resolve().parent.parent
-TSV_DIR     = _REPO_ROOT / "tsv"
-DIST_DIR    = _REPO_ROOT / "dist" / "infestations"
+TSV_DIR     = _REPO_ROOT / "tsv" / ("pts" if PTS else "")
+DIST_DIR    = (_REPO_ROOT / "dist" / "pts" / "infestations") if PTS \
+              else (_REPO_ROOT / "dist" / "infestations")
 COORDS_JSON = _REPO_ROOT / "data" / "mappalachia_coords.json"
 
 _MAPPALACHIA_CANDIDATES = [
@@ -164,7 +172,10 @@ def load_coords():
 
 
 def build():
-    print("build_hto_locations_json.py")
+    mode = "PTS" if PTS else "LIVE"
+    print(f"build_hto_locations_json.py  [{mode}]")
+    print(f"  TSV_DIR:  {TSV_DIR}")
+    print(f"  DIST_DIR: {DIST_DIR}")
     print("=" * 60)
 
     locations = [
@@ -207,6 +218,7 @@ def build():
             "total_locations": len(locations),
             "coords_source": "Mappalachia" if coords_found else "none",
             "detection_radius": 18000,
+            "isPts": PTS,
         },
         "locations": [
             {"id": i+1, "formid": l["formid"], "name": l["name"],

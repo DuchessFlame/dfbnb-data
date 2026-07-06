@@ -199,11 +199,15 @@ jobs:
 
       # --- INFESTATIONS (HTO) REWARDS ---
       - name: Build Infestations (HTO) Rewards JSON
-        run: python src/build_hto_rewards_json.py
+        run: |
+          python src/build_hto_rewards_json.py
+          python src/build_hto_rewards_json.py --pts
 
       # --- INFESTATIONS (HTO) LOCATIONS ---
       - name: Build Infestations (HTO) Locations JSON
-        run: python src/build_hto_locations_json.py
+        run: |
+          python src/build_hto_locations_json.py
+          python src/build_hto_locations_json.py --pts
 
       # --- SEASONAL EVENTS REWARDS ---
       - name: Build Seasonal Events Rewards JSON

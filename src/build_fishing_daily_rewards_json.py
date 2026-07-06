@@ -57,6 +57,11 @@ for _p in (SCRIPT_DIR, os.path.join(SCRIPT_DIR, "..", "src")):
 
 from rng76 import Rng76Data, read_tsv, newest, pick  # noqa: E402
 
+# Reuse the fish-journal food-effect renderer verbatim so recipe buffs read exactly
+# like the cooked-meal effects on the Field Journal page (same GLOB tier resolution,
+# same "+X Stat for Y min" formatting). We only borrow its pure helpers.
+import build_fish_journal_json as _fj  # noqa: E402
+
 PTS = "--pts" in sys.argv
 
 # ---------------------------------------------------------------------------
@@ -328,8 +333,101 @@ def _items_from_deep(items, gate):
     return out
 
 
-def build_main_pools(data):
+# ---------------------------------------------------------------------------
+# Recipe -> cooked-dish buff resolution (Task 2)
+#
+# A "Recipe: <Dish>" BOOK in the campRecipePlans pool teaches a cooked ALCH food of
+# the same base name. We resolve that food's buff string using the SAME renderer as
+# build_fish_journal_json (build_alch_effects / render_effect + GLOB tier resolution),
+# then append the diet the meal satisfies. Diet in FO76 food isn't a discrete keyword
+# on the record — a cooked meal counts toward Carnivore when it carries the meat
+# ingredient keyword and Herbivore when it carries the vegetable/produce keyword.
+# ---------------------------------------------------------------------------
+
+# Keyword-EDID substrings that mark a meal's diet (read from the ALCH Keyword_N cols).
+_DIET_KEYWORDS = [
+    ("Carnivore", ("IngredientTypeMeat",)),
+    ("Herbivore", ("IngredientTypeVegetable", "IngredientTypeFruit",
+                   "IngredientTypeHerb", "IngredientTypeProduce")),
+]
+
+
+def _newest_tsv(root, prefix):
+    """Newest '<prefix>*.tsv' in root, or None (mirrors build_fish_journal's picker)."""
+    return _fj.newest(root, prefix, pts=PTS)
+
+
+def _build_recipe_buff_map(root):
+    """base-dish name (lower) -> buff string, e.g. 'fish and tatos' ->
+    '+5% XP for 30 min · Carnivore'. Empty if the exports can't be read."""
+    try:
+        glob_map = _fj.build_glob(read_tsv(_newest_tsv(root, "GLOB_Export_")))
+    except (FileNotFoundError, ValueError, TypeError):
+        glob_map = {}
+
+    # ALCH effects TSV (…_Effects.tsv) -> edid -> [rendered effect strings].
+    eff_path = None
+    for p in glob.glob(os.path.join(root, "ALCH_Export_*Effects*.tsv")):
+        if PTS == ("PTS" in os.path.basename(p)):
+            eff_path = p
+    eff_map = _fj.build_alch_effects(read_tsv(eff_path) if eff_path else [], glob_map)
+
+    # ALCH main -> per-food: FULL name + diet (from ingredient keyword columns).
+    alch_rows = read_tsv(_newest_tsv(root, "ALCH_Export_")) or []
+    alch_rows = [r for r in alch_rows if "ALCH_FormID" in r]
+    by_edid_name, by_edid_diet, by_name_edid = {}, {}, {}
+    for r in alch_rows:
+        edid = (r.get("ALCH_EDID") or "").strip()
+        full = (r.get("FULL") or "").strip()
+        if not edid:
+            continue
+        by_edid_name[edid] = full
+        if full:
+            by_name_edid.setdefault(full.lower(), edid)
+        kw_blob = " ".join(v for k, v in r.items()
+                           if v and (k or "").startswith("Keyword"))
+        diet = None
+        for label, tokens in _DIET_KEYWORDS:
+            if any(t in kw_blob for t in tokens):
+                diet = label
+                break
+        by_edid_diet[edid] = diet
+
+    # COBJ: map each recipe BOOK -> the ALCH it produces (robust BOOK->ALCH link).
+    # A COBJ's GNAM is the required recipe BOOK ("Recipe: <Dish>"), CNAM is the
+    # produced object. We key by the recipe name so a BOOK entry resolves to its meal.
+    cobj_rows = read_tsv(_newest_tsv(root, "COBJ_Export_")) or []
+    recipe_name_to_alch_edid = {}
+    for r in cobj_rows:
+        gnam = (r.get("GNAM_FULL") or "").strip()          # "Recipe: Fish and Tatos"
+        out_edid = (r.get("CNAM_EDID") or "").strip()
+        if gnam and out_edid and gnam.lower().startswith("recipe:"):
+            recipe_name_to_alch_edid.setdefault(gnam.lower(), out_edid)
+
+    def _buff_for_recipe(recipe_full):
+        """recipe_full = 'Recipe: Fish and Tatos' -> buff string or None."""
+        base = re.sub(r"^recipe:\s*", "", (recipe_full or "").strip(), flags=re.I)
+        # Prefer the COBJ link (BOOK -> produced ALCH); fall back to name match.
+        alch_edid = recipe_name_to_alch_edid.get((recipe_full or "").lower())
+        if not alch_edid:
+            alch_edid = by_name_edid.get(base.lower())
+        if not alch_edid:
+            return None
+        effs = eff_map.get(alch_edid, [])
+        if not effs:
+            return None
+        buff = ", ".join(effs)
+        diet = by_edid_diet.get(alch_edid)
+        if diet:
+            buff += " · " + diet
+        return buff
+
+    return _buff_for_recipe
+
+
+def build_main_pools(data, root=None):
     """Decompose Fishing_BigFish_LL_Quest_Rewards into grouped pools."""
+    recipe_buff = _build_recipe_buff_map(root) if root else (lambda _n: None)
     pools = []
     entries = data.lvli.entries_by_list.get(MAIN_POOL_LVLI, [])
     entries = sorted(entries, key=lambda e: _to_float(e.get("EntryIndex"), 0))
@@ -376,6 +474,12 @@ def build_main_pools(data):
                 })
                 continue
             items = _items_from_deep(resolved, gate)
+            # Recipe plans that teach a cooked dish: resolve the food buff so the page
+            # can show what the recipe makes (e.g. "+5% XP for 30 min · Carnivore").
+            if meta["key"] == "campRecipePlans":
+                for it in items:
+                    if str(it.get("name", "")).startswith("Recipe:"):
+                        it["buff"] = recipe_buff(it["name"])
             # Per-item "X% each" only makes sense when items share one rate.
             rates = sorted({round(i["dropRate"], 2) for i in items})
             per_item = f"{rates[0]:g}% each" if len(rates) == 1 and len(items) > 1 else None
@@ -410,6 +514,25 @@ def build_main_pools(data):
     return pools
 
 
+def _region_mods_list(items):
+    """rng76 resolve_deep items -> sorted, de-duplicated mod list.
+
+    Each region pool fires 100% of the time when Captain Raymond sends you there,
+    so the gate is 1.0 and the absolute percent is round(within*100, 4) — the same
+    convention as _items_from_deep(gate=1.0). Names that appear more than once have
+    their rates summed, so a name at 0.1% twice reads 0.2%. Sorted case-insensitively.
+    """
+    agg = {}
+    for it in items:
+        nm = str(it.get("name", "")).strip()
+        if not nm:
+            continue
+        within = float(it.get("dropRate", 0.0))      # 0..1 within the list
+        agg[nm] = agg.get(nm, 0.0) + within * 100.0
+    return [{"name": nm, "dropRate": _round(agg[nm], 4)}
+            for nm in sorted(agg, key=str.lower)]
+
+
 def build_regional_pool(data, reward_rows):
     """The single 'Regional Weapon Mod' pool with one sub-entry per region."""
     meta = POOL_META["_regionalMod"]
@@ -420,11 +543,12 @@ def build_regional_pool(data, reward_rows):
         if sig != "LVLI" or edid not in REGION_MOD_BY_EDID:
             continue
         mods = data.resolver.resolve_deep(fid)
-        uniq = len({str(m.get("name", "")).strip() for m in mods if m.get("name")})
+        mods_list = _region_mods_list(mods)
         entry = {
             "region": REGION_MOD_BY_EDID[edid],
             "lvliFormID": fid, "lvliEdid": edid,
-            "possibleMods": uniq,   # distinct mods in the region's pool (informational)
+            "possibleMods": len(mods_list),   # distinct mods in the region's pool
+            "mods": mods_list,                # full de-duplicated mod list
         }
         regions.append(entry)
         # A reward gated by more than one GetStageDoneCurrentInstance stage is shared
@@ -439,6 +563,7 @@ def build_regional_pool(data, reward_rows):
             "region": "Skyline Valley",
             "lvliFormID": host["lvliFormID"], "lvliEdid": host["lvliEdid"],
             "possibleMods": host["possibleMods"], "sharesWith": host["region"],
+            "mods": list(host["mods"]),   # reuse the host region's mod list (copy)
         })
     # Burning Springs is a fishing region but has no dedicated weapon-mod pool at all.
     regions.append({"region": "Burning Springs", "possibleMods": None, "noPool": True})
@@ -477,7 +602,7 @@ def main():
 
     # Assemble pools: regional mod first (always-on headline), then the main pool
     # groups in reader-friendly order.
-    main_pools = build_main_pools(data)
+    main_pools = build_main_pools(data, root)
     regional = build_regional_pool(data, reward_rows)
 
     order = ["bait", "curvedDisplay", "regionalWeaponMod", "hookMods",

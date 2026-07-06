@@ -6,16 +6,24 @@ Build HTO (Infestations) reward JSON for buffsnbrew.com.
 Reads GLOB values from TSV for numeric accuracy, structures the reward tree
 manually based on confirmed xEdit data. Output consumed by df-bnb-infestations.js.
 
-Output: dist/infestations/hto_rewards.json
+Two modes:
+  (default / live)  reads tsv/      -> dist/infestations/hto_rewards.json
+  --pts             reads tsv/pts/  -> dist/pts/infestations/hto_rewards.json
+
+The global PTS toggle (df-bnb-pts.js) redirects fetches from dist/ to dist/pts/,
+so the renderer loads the right twin automatically.
 """
 
-import json, os, glob, re, csv
+import json, os, sys, glob, re, csv
 from pathlib import Path
+
+PTS = "--pts" in sys.argv
 
 # ── Paths ───────────────────────────────────────────────────────────────────
 _REPO_ROOT = Path(__file__).resolve().parent.parent
-TSV_DIR    = _REPO_ROOT / "tsv"
-DIST_DIR   = _REPO_ROOT / "dist" / "infestations"
+TSV_DIR    = _REPO_ROOT / "tsv" / ("pts" if PTS else "")
+DIST_DIR   = (_REPO_ROOT / "dist" / "pts" / "infestations") if PTS \
+             else (_REPO_ROOT / "dist" / "infestations")
 
 def newest(pattern):
     """Pick the newest TSV matching a glob pattern (by filename date, then mtime)."""
@@ -747,8 +755,12 @@ def build_hto_rewards():
 
 
 def main():
+    mode = "PTS" if PTS else "LIVE"
+    print(f"[HTO] Mode: {mode}  TSV_DIR={TSV_DIR}  DIST_DIR={DIST_DIR}")
     os.makedirs(DIST_DIR, exist_ok=True)
     data = build_hto_rewards()
+    if PTS:
+        data["isPts"] = True
     out_path = DIST_DIR / "hto_rewards.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
