@@ -642,6 +642,13 @@ jobs:
       - name: Build Weapons JSON
         run: python src/build_weapons_json.py
 
+      # --- UNIQUE WEAPONS ---
+      # Outputs dist/unique_weapons/unique_weapons.json (live) and
+      # dist/pts/unique_weapons/unique_weapons.json (PTS) for
+      # df-bnb-unique-weapons.js.
+      - name: Build Unique Weapons JSON
+        run: python src/build_unique_weapons_json.py --channel both
+
       # --- PENNANTS (Pennants checklist page) ---
       # Outputs dist/pennants.json, served via raw.githubusercontent to
       # df-bnb-plan-checklists.js. Previously had no workflow and went stale.

@@ -629,6 +629,13 @@ jobs:
       - name: Build Weapons JSON
         run: python src/build_weapons_json.py
 
+      # --- UNIQUE WEAPONS ---
+      # Outputs dist/unique_weapons/unique_weapons.json (live) and
+      # dist/pts/unique_weapons/unique_weapons.json (PTS) for
+      # df-bnb-unique-weapons.js. Reads LVLI, WEAP, OMOD, ENCH, GMRW, QUEST TSVs.
+      - name: Build Unique Weapons JSON
+        run: python src/build_unique_weapons_json.py --channel both
+
       # --- PENNANTS (Pennants checklist page) ---
       # Outputs dist/pennants.json, served via raw.githubusercontent to
       # df-bnb-plan-checklists.js. Previously had no workflow and went stale.
@@ -867,6 +874,7 @@ jobs:
           test -f dist/drop_chances_data.json        && echo "OK drop_chances_data.json"        || (echo "MISSING drop_chances_data.json" && exit 1)
           test -f dist/legendary_mod_drop_chances.json && echo "OK legendary_mod_drop_chances.json" || (echo "MISSING legendary_mod_drop_chances.json" && exit 1)
           test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
+          test -f dist/unique_weapons/unique_weapons.json && echo "OK unique_weapons.json"     || (echo "MISSING unique_weapons/unique_weapons.json" && exit 1)
 
       # --- COMMIT ONCE ---
       - name: Commit & Push
