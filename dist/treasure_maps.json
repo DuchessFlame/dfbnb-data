@@ -40727,7 +40727,7 @@
     }
   },
   "meta": {
-    "generated": "2026-07-06T06:58:15Z",
+    "generated": "2026-07-06T07:10:44Z",
     "generator": "build_treasure_maps_json.py",
     "source_files": [
       "LVLI_Export_June_2026_LVLI_List.tsv",
@@ -40738,7 +40738,15 @@
       "ALCH_Export_June_2026_Effects.tsv"
     ],
     "notes": [
-      "rebuilt via materialized runner (OneDrive hydration workaround)"
+      "Drop rates resolved via rng76 engine (deep LVLI flattening)",
+      "Shared reward pools apply to ALL treasure map digs",
+      "Region-specific rewards vary by dig location",
+      "Mod boxes (miscmod_mod*) are computed per region, not via shared pools",
+      "GMRW conditions NOT baked in - handled by website JS",
+      "Burning Springs and Skyline Valley are empty placeholders",
+      "Per-region dig_rewards: caps + categorised plan/mod buckets",
+      "Caps sourced from LL_Caps_TreasureMap (LLS_Caps_High, qty 3-7, 100%)",
+      "No XP field — there is no treasure-map XP record in any current TSV export"
     ]
   },
   "pint_sized_phantoms": {
@@ -50427,17 +50435,6 @@
               "tradeable": true
             },
             {
-              "name": "Ghost Boy",
-              "form_id": "008E06F0",
-              "edid": "SDOW_SlasherGhostBoy",
-              "sig": "ALCH",
-              "drop_rate": "16.666667%",
-              "drop_rate_raw": 0.166667,
-              "qty": "1",
-              "conditions": [],
-              "tradeable": true
-            },
-            {
               "name": "Player Title: Grave",
               "form_id": "00903124",
               "edid": "SDOW_PlayerTitle_Recipe_Prefix_Grave",
@@ -50461,6 +50458,17 @@
               "conditions": [
                 "Won’t drop if you’ve already learned this plan"
               ],
+              "tradeable": true
+            },
+            {
+              "name": "SDOW Slasher Ghost Boy",
+              "form_id": "008E06F0",
+              "edid": "SDOW_SlasherGhostBoy",
+              "sig": "ALCH",
+              "drop_rate": "16.666667%",
+              "drop_rate_raw": 0.166667,
+              "qty": "1",
+              "conditions": [],
               "tradeable": true
             },
             {
