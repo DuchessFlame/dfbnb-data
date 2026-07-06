@@ -197,28 +197,51 @@ PHANTOM_QUEST_NAME = "Secrets to the Grave"
 PHANTOM_QUEST_EDID = "SDOW_MQ02_Graves"
 PHANTOM_REPEATABLE_QUEST = "SDOW_SQ01_Graves_Repeatable"
 
-# Grave-dig reward sub-pools (rolled from the repeatable dig loot table
-# SDOW_LL_SQ01_RepeatableRewards [0090312D], a UseAll of these named pools
-# plus a small tail chance at the game-wide legendary / plan loot pool).
-# Ordered rarest → most common for display. Each is resolved independently so
-# the rates shown are the pool-internal (pick-one) odds, matching how the
-# existing treasure-map dig sub-expands display their pools.
-PHANTOM_GRAVE_POOLS = OrderedDict([
-    ("ultra_rare",      {"formid": "00903130", "edid": "SDOW_LL_SQ01_Rewards_UltraRare",
-                         "name": "Ultra-Rare Rewards"}),
-    ("rare",            {"formid": "0090312E", "edid": "SDOW_LL_SQ01_Rewards_Rare",
-                         "name": "Rare Rewards"}),
-    ("throwing_knives", {"formid": "0090312F", "edid": "SDOW_LL_SQ01_ThrowingKnives",
-                         "name": "Throwing Knives"}),
-    ("blood_packs",     {"formid": "008F863B", "edid": "SDOW_LL_SQ01_Junk_BloodPacks",
-                         "name": "Blood Packs"}),
-    ("skulls",          {"formid": "008F863A", "edid": "SDOW_LL_SQ01_Junk_Skull",
-                         "name": "Skulls"}),
-    ("meat",            {"formid": "008FAE2A", "edid": "SDOW_LL_SQ01_Food_Meat_Raw",
-                         "name": "Raw Meat"}),
-])
+# Repeatable grave-dig loot table SDOW_LL_SQ01_RepeatableRewards [0090312D] —
+# a UseAll list with max_count=0, so every entry rolls independently at its own
+# fire chance each time you dig a grave (drop-rate-engine §3a/3c). Entry fire
+# rates are read from the list itself (ChanceNone × any GetRandomPercent gate)
+# rather than hard-coded, so a re-export picks up any tuning automatically.
 PHANTOM_REPEATABLE_FORMID = "0090312D"   # SDOW_LL_SQ01_RepeatableRewards (UseAll parent)
 PHANTOM_JOURNAL_FORMID     = "008F2AFD"  # SDOW_MQ02_Graves_LL_QuestRelatedItems (journal pages)
+
+# XP + Caps for a grave dig come from the repeatable quest-reward GMRW
+# (SDOW_SQ01_QuestRewards → quest SDOW_SQ01_Graves_Repeatable "Laid to Unrest").
+PHANTOM_XP_CURVE_FORMID = "00876404"     # CT_Player_XP_Universal_Tier16 (level-scaled)
+PHANTOM_CAPS_GLOB       = "0090312C"     # Caps_SQ01_GraveDiggingRepeatable (flat, FLTV)
+
+# The Progression-Items entry funnels into the all-regions grab bag; the game
+# rolls the region you're standing in, so it's shown as one sub-pool broken
+# into per-region sub-expands (ABC-ordered by region name).
+PHANTOM_PROGRESSION_FORMID = "0086A8C3"  # RA_LL_Rewards_Activities_ProgressionItems
+PHANTOM_REGION_GRABBAGS = [
+    ("Ash Heap",        "00434509"),
+    ("Burning Springs", "0081EAD6"),
+    ("Cranberry Bog",   "0043450B"),
+    ("Forest",          "00434506"),
+    ("Savage Divide",   "00434508"),
+    ("Skyline Valley",  "0081EAD8"),
+    ("The Mire",        "0043450A"),
+    ("Toxic Valley",    "00434507"),
+]
+# Friendly names for the repeatable sub-pools (by referenced FormID). Anything
+# not listed falls back to the resolved BOOK/LVLI name.
+PHANTOM_POOL_NAMES = {
+    "008FAE2A": "Raw Meat",
+    "008F863B": "Blood Packs",
+    "008F863A": "Skulls",
+    "0090312F": "Throwing Knives",
+    "0086A8C3": "Progression Items",
+    "0090312E": "Rare Rewards",
+    "00903130": "Ultra-Rare Rewards",
+}
+# Journal-page branches (quest-related pool SDOW_MQ02_Graves_LL_QuestRelatedItems).
+PHANTOM_JOURNAL_BRANCHES = [
+    ("008F2AFC", "First Journal Page",
+     "Drops when you have not yet collected any journal pages"),
+    ("008F15EA", "Later Journal Pages",
+     "Drops once you have collected your first page"),
+]
 
 # How the player obtains the map itself (both are FirstMatch pools that only
 # fire while the Slasher seasonal content toggle is active).
@@ -1338,34 +1361,115 @@ def _phantom_pretty_name(item, books):
     return item.get("name", "")
 
 
-def _phantom_pool(resolver, books, formid, name):
-    """Resolve one grave-dig sub-pool to flattened, aggregated leaf items and
-    attach a style-guide blurb describing how the pool rolls."""
-    agg = aggregate_items(resolver.resolve_deep(formid))
-    items = [format_item(it) for it in agg]
+def _phantom_items(resolver, books, formid):
+    """Resolve one LVLI to flattened, aggregated, formatted leaf items with the
+    BOOK-preferred display names."""
+    items = [format_item(it) for it in aggregate_items(resolver.resolve_deep(formid))]
     for it in items:
         it["name"] = _phantom_pretty_name(it, books)
+    return items
+
+
+def _phantom_internal_blurb(items):
+    """Style-guide blurb describing how a resolved pool rolls internally."""
     n = len(items)
     noun = "item" if n == 1 else "items"
     total = sum(it["drop_rate_raw"] for it in items)
+    if n == 1:
+        return ("Guaranteed drop · 1 item" if total >= 0.99
+                else "Chance drop · 1 item")
     if total > 1.05:
-        blurb = f"Each item rolls independently · {n} {noun}"
-    elif total >= 0.99:
-        blurb = f"Guaranteed drop of one item · {n} {noun}"
-    else:
-        blurb = f"Chance drop of one item · {n} {noun}"
-    return {
-        "key": None,
-        "name": name,
-        "form_id": formid,
-        "item_count": len(items),
-        "blurb": blurb,
-        "items": items,
-    }
+        return f"Each item rolls independently · {n} {noun}"
+    if total >= 0.99:
+        return f"Guaranteed drop of one item · {n} {noun}"
+    return f"Chance drop of one item · {n} {noun}"
+
+
+def _phantom_fire_rate(entry):
+    """Independent-entry fire chance for a RepeatableRewards entry:
+    (1 - ChanceNone) × conditionChance (from any GetRandomPercent gate).
+    The list is UseAll/max_count=0 so each entry rolls on its own each dig."""
+    try:
+        cn = float(entry.get("LVOV_ChanceNoneValue") or 0.0)
+    except (TypeError, ValueError):
+        cn = 0.0
+    cond_chance = 1.0
+    for i in range(1, 11):
+        c = entry.get(f"Cond{i}") or ""
+        if "GetRandomPercent" in c:
+            m = re.search(r"([\d.]+)\s*$", c.strip())
+            if m:
+                cond_chance = float(m.group(1)) / 100.0
+    return max(0.0, min(1.0, (1.0 - cn / 100.0) * cond_chance))
+
+
+def _fire_pct(rate):
+    """Pretty percent for a pool-level fire rate (e.g. 0.15 → '15%')."""
+    pct = rate * 100.0
+    if abs(pct - round(pct)) < 1e-6:
+        return f"{int(round(pct))}%"
+    return f"{pct:.2f}".rstrip("0").rstrip(".") + "%"
+
+
+def _phantom_repeatable_pools(resolver, books):
+    """Build the ABC-ordered Repeatable-Rewards sub-pools from the UseAll list.
+
+    Each entry becomes a pool carrying its own per-dig fire rate. The
+    Progression-Items entry is expanded into per-region sub-pools."""
+    lvli = resolver.lvli
+    pools = []
+    for e in lvli.entries_by_list.get(PHANTOM_REPEATABLE_FORMID, []):
+        ref = e.get("LVLO_Reference", "")
+        parts = ref.split(":")
+        fid = parts[0] if parts else ref
+        sig = parts[2].upper() if len(parts) >= 3 else ""
+        fire = _phantom_fire_rate(e)
+        name = PHANTOM_POOL_NAMES.get(fid) or books.name(fid) or fid
+
+        pool = {
+            "name": name,
+            "form_id": fid,
+            "fire_rate": round(fire, 6),
+            "fire_rate_pct": _fire_pct(fire),
+        }
+
+        if fid == PHANTOM_PROGRESSION_FORMID:
+            # Regional loot pool — the game rolls the region you dig in.
+            regions = []
+            for rname, rfid in PHANTOM_REGION_GRABBAGS:
+                ritems = _phantom_items(resolver, books, rfid)
+                regions.append({"region": rname,
+                                "item_count": len(ritems),
+                                "items": ritems})
+            pool["regional"] = True
+            pool["regions"] = regions
+            pool["item_count"] = sum(r["item_count"] for r in regions)
+            pool["blurb"] = ("Regional loot pool — rewards depend on which region "
+                             "you dig in · " + str(len(regions)) + " regions")
+        elif sig == "BOOK":
+            # Single recipe/plan (e.g. shovel paint) — guaranteed once the gate
+            # passes, so its internal rate is 100%.
+            pool["items"] = [{
+                "name": name, "form_id": fid, "edid": e.get("LVLI_EDID", ""),
+                "sig": "BOOK", "drop_rate": "100%", "drop_rate_raw": 1.0,
+                "qty": "1", "conditions": [], "tradeable": False,
+            }]
+            pool["item_count"] = 1
+            pool["blurb"] = _phantom_internal_blurb(pool["items"])
+        else:
+            items = _phantom_items(resolver, books, fid)
+            pool["items"] = items
+            pool["item_count"] = len(items)
+            pool["blurb"] = _phantom_internal_blurb(items)
+
+        pools.append(pool)
+
+    pools.sort(key=lambda p: p["name"].lower())
+    return pools
 
 
 def build_pint_sized_phantoms(resolver, books):
-    """Build the Pint-Sized Phantoms mini-quest block (quest + grave rewards).
+    """Build the Pint-Sized Phantoms mini-quest block.
 
     Returns None when the Slasher map BOOK isn't in the current TSV export, so
     the key is simply omitted on channels that predate the seasonal content.
@@ -1375,18 +1479,28 @@ def build_pint_sized_phantoms(resolver, books):
         print("    (Slasher map BOOK not in this export — skipping phantom block)")
         return None
 
-    # ── Repeatable grave-dig reward sub-pools ──
-    grave_pools = []
-    for key, info in PHANTOM_GRAVE_POOLS.items():
-        pool = _phantom_pool(resolver, books, info["formid"], info["name"])
-        pool["key"] = key
-        pool["edid"] = info["edid"]
-        grave_pools.append(pool)
+    # ── Experience & Caps (from the repeatable quest-reward GMRW) ──
+    xp50 = resolver.curvs.interpolate(PHANTOM_XP_CURVE_FORMID, 50) or 0.0
+    experience = {
+        "curve_formid": PHANTOM_XP_CURVE_FORMID,
+        "tier": "Tier16",
+        "xp_level_50": int(round(xp50)),
+        "scales_with_level": True,
+    }
+    caps_amt = resolver.globs.value(PHANTOM_CAPS_GLOB) or 0.0
+    caps = {"amount": int(round(caps_amt)), "guaranteed": True,
+            "glob_formid": PHANTOM_CAPS_GLOB}
 
-    # ── Journal pages (quest-related collectibles found while digging) ──
-    journal = _phantom_pool(resolver, books, PHANTOM_JOURNAL_FORMID, "Journal Pages")
-    journal["key"] = "journal"
-    journal["edid"] = "SDOW_MQ02_Graves_LL_QuestRelatedItems"
+    # ── Repeatable Rewards (UseAll — each pool rolls per dig) ──
+    repeatable_pools = _phantom_repeatable_pools(resolver, books)
+
+    # ── Quest Related (journal pages) — active-quest keyword trigger, then a
+    # first-page / later-pages branch based on how many you've collected. ──
+    branches = []
+    for bfid, bname, bcond in PHANTOM_JOURNAL_BRANCHES:
+        bitems = _phantom_items(resolver, books, bfid)
+        branches.append({"name": bname, "condition": bcond,
+                         "item_count": len(bitems), "items": bitems})
 
     return {
         "map": {
@@ -1399,25 +1513,27 @@ def build_pint_sized_phantoms(resolver, books):
             "edid": PHANTOM_QUEST_EDID,
             "repeatable_quest": PHANTOM_REPEATABLE_QUEST,
         },
-        "grave_rewards": {
-            "name": "Grave Dig Rewards",
+        "experience": experience,
+        "caps": caps,
+        "repeatable_rewards": {
+            "name": "Repeatable Rewards",
             "list_edid": "SDOW_LL_SQ01_RepeatableRewards",
             "list_formid": PHANTOM_REPEATABLE_FORMID,
-            "list_type": "UseAll — each pool is rolled every time you dig a grave",
-            "blurb": "Repeatable · each pool rolls when you dig a grave site",
-            "pools": grave_pools,
-            "journal": journal,
-            "notes": [
-                "Rolled every time you dig up a grave site with the map",
-                "The dig also carries a small chance at the game-wide legendary & plan loot pool",
-                f"Repeatable via the '{PHANTOM_REPEATABLE_QUEST}' quest",
-            ],
+            "blurb": str(len(repeatable_pools)) + " reward lists · each list rolled when you dig a grave",
+            "pools": repeatable_pools,
+        },
+        "quest_related": {
+            "name": "Quest Related",
+            "list_formid": PHANTOM_JOURNAL_FORMID,
+            "trigger": "Only rolls while the “Secrets to the Grave” quest is active",
+            "warning": "Journal pages advance Secrets to the Grave and stop dropping once you have collected them all",
+            "branches": branches,
         },
         "map_sources": PHANTOM_MAP_SOURCES,
         "notes": [
             "The Pint-Sized Phantoms' Map is a mini-quest treasure line for the Slasher seasonal event",
             "Use the map to find and dig up the grave sites the Pint-Sized Phantoms disturbed",
-            "Grave-dig rewards are repeatable",
+            "Grave-dig rewards are repeatable · XP scales with level, Caps are flat",
             "GMRW conditions NOT baked in — handled by website JS",
         ],
     }
@@ -1527,8 +1643,11 @@ def main():
     print(f"  U Mine It shared pools: Aid ({aid_tier_count} tiers, {aid_item_count} items)")
     print(f"  Waste Acid injected into each tier's Junk & Scrap sub-expand")
     if phantoms:
-        _pp = sum(p["item_count"] for p in phantoms["grave_rewards"]["pools"])
-        print(f"  Pint-Sized Phantoms: {len(phantoms['grave_rewards']['pools'])} grave pools ({_pp} items)")
+        _pools = phantoms["repeatable_rewards"]["pools"]
+        _pp = sum(p.get("item_count", 0) for p in _pools)
+        print(f"  Pint-Sized Phantoms: XP L50 {phantoms['experience']['xp_level_50']}, "
+              f"Caps {phantoms['caps']['amount']}, {len(_pools)} repeatable pools ({_pp} items), "
+              f"{len(phantoms['quest_related']['branches'])} journal branches")
     print("[build_treasure_maps_json.py] Done.")
 
     patchlog_dir = DIST_DIR / "patchlogs"
