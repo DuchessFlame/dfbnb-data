@@ -882,18 +882,49 @@ def _humanize_party_crasher_name(raw):
     return edid if edid else "Party Crasher"
 
 
+# Regex to identify slasher / phantom party-crasher NPCs by their EDID.
+# Matches SDOW-prefix NPCs plus any NPC whose EDID contains "Slasher" or
+# "Phantom" (case-insensitive) so future variants are picked up automatically.
+_SLASHER_PC_RE = re.compile(r"SDOW|Slasher|Phantom", re.IGNORECASE)
+
+
+def _is_slasher_party_crasher(npc_raw):
+    """Return True if the PartyCrasher NPC EDID is a slasher/phantom variant."""
+    edid = (npc_raw or "").split(":", 1)[-1]
+    return bool(_SLASHER_PC_RE.search(edid))
+
+
+def _humanize_slasher_party_crasher_name(raw):
+    """Convert a slasher PartyCrasher NPC EDID into a readable name."""
+    s = (raw or "").strip()
+    if not s:
+        return "Slasher Party Crasher"
+    edid = s.split(":", 1)[1] if ":" in s else s
+    edid = re.sub(r"^SDOW_", "", edid)
+    edid = re.sub(r"^Burn_BountyTarget_BIG_", "", edid, flags=re.IGNORECASE)
+    edid = re.sub(r"^MQ\d+_", "", edid)
+    edid = re.sub(r"^SQ\d+_", "", edid)
+    edid = re.sub(r"^Lvl", "", edid)
+    edid = re.sub(r"_?PartyCrasher$", "", edid)
+    edid = re.sub(r"_", " ", edid).strip()
+    edid = re.sub(r"(?<!^)(?=[A-Z])", " ", edid).strip()
+    return edid if edid else "Slasher Party Crasher"
+
+
 def _detect_event_flags(quest_fids, quest_index, globs):
     """Detect party crashers and invaders flag from QUEST TSV data.
 
     Returns dict with keys:
-      partyCrashers  - str or None
-      invadersEvent  - str or None
+      partyCrashers        - str or None  (Bigfoot / generic party crashers)
+      slasherPartyCrasher  - str or None  (pint-sized slasher / phantom variants)
+      invadersEvent        - str or None
     """
-    result = {"partyCrashers": None, "invadersEvent": None}
+    result = {"partyCrashers": None, "slasherPartyCrasher": None, "invadersEvent": None}
     if not quest_fids:
         return result
 
     pc_lines = []
+    slasher_lines = []
     has_invaders = False
 
     for fid in quest_fids:
@@ -914,16 +945,29 @@ def _detect_event_flags(quest_fids, quest_index, globs):
                 continue
             glob_fid = glob_raw.split(":")[0] if ":" in str(glob_raw) else str(glob_raw)
             spawn_pct = globs.value(glob_fid)
-            name = _humanize_party_crasher_name(npc_raw)
-            if spawn_pct is not None:
-                pct_val = round(max(0.0, spawn_pct) * 100, 6)
-                pc_lines.append("{} \u2014 {}% chance to spawn at the end of the event.".format(
-                    name, pct_val))
+
+            # Separate slasher / phantom party crashers from regular ones
+            if _is_slasher_party_crasher(npc_raw):
+                name = _humanize_slasher_party_crasher_name(npc_raw)
+                if spawn_pct is not None:
+                    pct_val = round(max(0.0, spawn_pct) * 100, 6)
+                    slasher_lines.append("{} \u2014 {}% chance to spawn at the end of the event.".format(
+                        name, pct_val))
+                else:
+                    slasher_lines.append("{} can spawn at the end of the event.".format(name))
             else:
-                pc_lines.append("{} can spawn at the end of the event.".format(name))
+                name = _humanize_party_crasher_name(npc_raw)
+                if spawn_pct is not None:
+                    pct_val = round(max(0.0, spawn_pct) * 100, 6)
+                    pc_lines.append("{} \u2014 {}% chance to spawn at the end of the event.".format(
+                        name, pct_val))
+                else:
+                    pc_lines.append("{} can spawn at the end of the event.".format(name))
 
     if pc_lines:
         result["partyCrashers"] = " ".join(pc_lines)
+    if slasher_lines:
+        result["slasherPartyCrasher"] = " ".join(slasher_lines)
     if has_invaders:
         result["invadersEvent"] = "Yes."
 
@@ -3070,6 +3114,8 @@ def main():
         }
         if event_flags["partyCrashers"]:
             page_data["partyCrashers"] = event_flags["partyCrashers"]
+        if event_flags["slasherPartyCrasher"]:
+            page_data["slasherPartyCrasher"] = event_flags["slasherPartyCrasher"]
         if event_flags["invadersEvent"]:
             page_data["invadersEvent"] = event_flags["invadersEvent"]
         if slug == "primal-cuts-all-rewards":
