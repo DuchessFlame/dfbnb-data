@@ -246,6 +246,14 @@ jobs:
           DFBNB_CHANNEL: pts
         run: python src/build_bounty_hunting_rewards_json.py
 
+      # Head Hunt boss groups (lifetime-challenge checklist). Built here on the
+      # PTS channel so dist/pts/bounty-hunting/head_hunt_bosses.json includes the
+      # seasonal Slasher party-crasher group while the live toggle is still off.
+      - name: Build Head Hunt Bosses JSON
+        env:
+          DFBNB_CHANNEL: pts
+        run: python src/build_head_hunt_bosses_json.py
+
       # --- MINI SEASONS ---
       - name: Build Mini Seasons JSON
         run: python src/build_mini_seasons_json.py

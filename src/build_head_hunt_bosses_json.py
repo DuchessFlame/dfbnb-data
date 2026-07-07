@@ -223,10 +223,25 @@ def load_boss_groups(chal_rows):
                 if gv:
                     gidx = int(float(gv.group(1)))
                     break
-        groups.setdefault(gnum, []).append({"bossName": bname, "gangIndex": gidx, "chalEdid": edid, "gangSuffix": gsuf})
+        groups.setdefault(gnum, []).append({"bossName": bname, "gangIndex": gidx, "chalEdid": edid, "chalFull": full, "chalFormId": row.get("FormID", ""), "gangSuffix": gsuf})
     for g in groups.values():
         g.sort(key=lambda b: b["bossName"])
     return dict(sorted(groups.items()))
+
+
+def load_head_hunt_metas(chal_rows):
+    """Per-group META + overall lifetime challenges (auto-tick targets)."""
+    metas = {}
+    all_meta = None
+    pat = re.compile(r"CompleteHeadGroups_Group(\d+)_META$")
+    for row in chal_rows:
+        edid = row.get("EDID", "")
+        m = pat.search(edid)
+        if m:
+            metas[int(m.group(1))] = {"edid": edid, "formId": row.get("FormID", ""), "name": row.get("FULL", "")}
+        elif edid.endswith("CompleteHeadGroups_All_META"):
+            all_meta = {"edid": edid, "formId": row.get("FormID", ""), "name": row.get("FULL", "")}
+    return metas, all_meta
 
 
 def load_gang_keywords(flst_rows):
@@ -275,18 +290,28 @@ def load_weapon_stats(dnam_rows):
 
 
 def load_enchantments(ench_rows):
+    # Column quirk of the ENCH export:
+    #   Effect_i_MGEF_FID = "FormID:EDID"   (the MGEF reference)
+    #   Effect_i_MGEF_EID = magnitude       (the numeric value lives here)
+    #   Effect_i_Area     = duration (sec)  (NOT the Duration column, which is blank)
     enchants = {}
     for row in ench_rows:
         edid = row.get("ENCH_EDID", "")
-        if not edid.startswith("Burn_BountyHunt_"):
+        if not (edid.startswith("Burn_BountyHunt_") or edid.startswith("Burn_Bounty_")
+                or edid.startswith("SDOW_")):
             continue
         effects = []
         count = safe_int(row.get("Effects_Count"), 0)
         for i in range(1, min(count + 1, 31)):
-            meid = row.get(f"Effect_{i}_MGEF_EID", "")
-            if not meid:
+            fid_field = row.get(f"Effect_{i}_MGEF_FID", "") or ""
+            mgef_edid = fid_field.split(":", 1)[1] if ":" in fid_field else fid_field
+            if not mgef_edid:
                 continue
-            effects.append({"mgefEdid": meid, "magnitude": safe_float(row.get(f"Effect_{i}_Magnitude")), "area": safe_int(row.get(f"Effect_{i}_Area")), "duration": safe_int(row.get(f"Effect_{i}_Duration"))})
+            effects.append({
+                "mgefEdid": mgef_edid,
+                "magnitude": safe_float(row.get(f"Effect_{i}_MGEF_EID")),
+                "duration": safe_int(row.get(f"Effect_{i}_Area")),
+            })
         enchants[edid] = {"name": row.get("ENCH_FULL", "") or edid, "formId": row.get("ENCH_FormID", ""), "effects": effects}
     return enchants
 
@@ -306,28 +331,164 @@ def _clean_mod_name(edid):
     return s.strip() or edid
 
 
-def load_weapon_mods(omod_rows):
+def load_omod_properties(prop_rows):
+    """OMOD_FormID -> [{name, value, fn}] from the OMOD *_Properties export."""
+    props = {}
+    for row in prop_rows:
+        fid = row.get("OMOD_FormID", "")
+        pname = row.get("PropertyName", "")
+        if not fid or not pname:
+            continue
+        props.setdefault(fid, []).append({
+            "name": pname,
+            "value": (row.get("Value1", "") or "").strip(),
+            "fn": row.get("FunctionType", ""),
+        })
+    return props
+
+
+def load_weapon_mods(omod_rows, omod_props=None):
+    omod_props = omod_props or {}
     mods = {}
     for row in omod_rows:
         edid = row.get("OMOD_EDID", "")
-        if not (edid.startswith("Burn_Bounty_mod_") or edid.startswith("Bounty_Mod_") or edid.startswith("mod_Custom_Plasma_Abraxo")):
+        if not (edid.startswith("Burn_Bounty_mod_") or edid.startswith("Bounty_Mod_")
+                or edid.startswith("mod_Custom_Plasma_Abraxo") or edid.startswith("SDOW_")):
             continue
         raw_name = row.get("FULL", "") or row.get("DESC", "") or ""
         if not raw_name:
             raw_name = _clean_mod_name(edid)
-        mods[edid] = {"name": raw_name, "desc": row.get("DESC", ""), "formId": row.get("OMOD_FormID", "")}
+        fid = row.get("OMOD_FormID", "")
+        entry = {"name": raw_name, "desc": row.get("DESC", ""), "formId": fid}
+        pr = omod_props.get(fid, [])
+        if pr:
+            entry["properties"] = pr
+            for p in pr:
+                if p["name"] == "DamageBonusMult" and p["value"]:
+                    entry["damageMult"] = p["value"]
+        mods[edid] = entry
     return mods
+
+
+# ── Object templates: legendary + custom mod attachment ──────────────────────
+
+_INCLUDE_RE  = re.compile(r'^(\S+)\s+"([^"]*)"\s+\[OMOD:([0-9A-Fa-f]+)\]')
+_INCLUDE_RE2 = re.compile(r'^(\S+)\s+\[OMOD:([0-9A-Fa-f]+)\]')
+_STD_MOD_SKIP = re.compile(
+    r'(_Standard|_Null|_None|Barrel_Standard|Grip_Standard|Grip_StockFull|Mag_Null|'
+    r'_Paint|Appearance|CustomName|SpecialEffect|Weapon_Paint|Scope_Sights|_SightsIron)',
+    re.I)
+
+
+def _parse_include_mod(cell):
+    cell = (cell or "").strip()
+    if not cell:
+        return None
+    m = _INCLUDE_RE.match(cell)
+    if m:
+        return {"edid": m.group(1), "name": m.group(2), "omodFormId": m.group(3)}
+    m = _INCLUDE_RE2.match(cell)
+    if m:
+        return {"edid": m.group(1), "name": "", "omodFormId": m.group(2)}
+    return None
+
+
+def load_object_templates(otft_rows):
+    """WEAP_EDID -> {combo_index -> {"name": combo_name, "mods": [include, ...]}}"""
+    templates = {}
+    for row in otft_rows:
+        weid = row.get("WEAP_EDID", "")
+        if not weid:
+            continue
+        ci = row.get("CombinationIndex", "")
+        combos = templates.setdefault(weid, {})
+        combo = combos.setdefault(ci, {"name": row.get("Combination_FULL", ""), "mods": []})
+        if not combo["name"] and row.get("Combination_FULL"):
+            combo["name"] = row.get("Combination_FULL", "")
+        inc = _parse_include_mod(row.get("Include_Mod", ""))
+        if inc:
+            combo["mods"].append(inc)
+    return templates
+
+
+# Combination names that represent the enemy/bounty-spawned build.
+_BOUNTY_COMBO_NAMES = ("bountyenchanted", "super slasher")
+
+
+def resolve_template_mods(weap_edid, object_templates):
+    """Pick the bounty combination for a weapon and split mods into
+    legendary (mod_Legendary_WeaponN) and custom (signature) buckets."""
+    combos = object_templates.get(weap_edid)
+    if not combos:
+        return [], []
+    chosen = None
+    for combo in combos.values():
+        if (combo.get("name") or "").strip().lower() in _BOUNTY_COMBO_NAMES:
+            chosen = combo
+            break
+    if chosen is None:
+        for combo in combos.values():
+            if (combo.get("name") or "").strip().lower() == "default":
+                chosen = combo
+                break
+    if chosen is None:
+        chosen = next(iter(combos.values()))
+
+    legendary, custom = [], []
+    for m in chosen["mods"]:
+        edid = m["edid"]
+        lm = re.search(r'mod_Legendary_Weapon(\d+)', edid, re.I)
+        if lm:
+            legendary.append({
+                "star": int(lm.group(1)),
+                "name": m["name"] or _clean_mod_name(edid),
+                "edid": edid,
+                "formId": m["omodFormId"],
+            })
+        elif _STD_MOD_SKIP.search(edid):
+            continue
+        elif re.search(r'(crmod_Custom|_mod_Custom|_mod_custom|Bounty_mod|SDOW_mod|SDOW_Mod_Custom)', edid, re.I):
+            custom.append({"name": m["name"] or _clean_mod_name(edid),
+                           "edid": edid, "formId": m["omodFormId"]})
+    legendary.sort(key=lambda x: x["star"])
+    return legendary, custom
+
+
+def load_spell_effects(spel_eff_rows, mgef_lookup):
+    """SPEL_EDID -> [{name, magnitude, duration, description}]"""
+    out = {}
+    for row in spel_eff_rows:
+        edid = row.get("SPEL_EDID", "")
+        if not edid:
+            continue
+        meid = row.get("EFID_MGEF_EDID", "")
+        mfull = row.get("EFID_MGEF_FULL", "") or (mgef_lookup.get(meid, {}) or {}).get("name", "") or meid
+        mag = safe_float(row.get("EFIT_Magnitude"))
+        dur = safe_int(row.get("EFIT_Duration"))
+        mdesc = (mgef_lookup.get(meid, {}) or {}).get("description", "")
+        if mdesc:
+            mdesc = mdesc.replace("<dur>", str(dur or ""))
+        entry = {"name": mfull}
+        if mag:
+            entry["magnitude"] = mag
+        if dur:
+            entry["duration"] = dur
+        if mdesc:
+            entry["description"] = mdesc
+        out.setdefault(edid, []).append(entry)
+    return out
 
 
 def load_spells(spel_rows):
     spells = {}
     for row in spel_rows:
         edid = row.get("SPEL_EDID", "") or row.get("EDID", "")
-        if not edid.startswith("Burn_Bounty_"):
+        if not edid.startswith("Burn_Bounty_") and not edid.startswith("SDOW_"):
             continue
         name = row.get("SPEL_FULL", "") or row.get("FULL", "") or edid
         fid = row.get("SPEL_FormID", "") or row.get("FormID", "")
-        spells[edid] = {"name": name, "formId": fid}
+        desc = row.get("SPEL_DESC", "") or row.get("DESC", "")
+        spells[edid] = {"name": name, "formId": fid, "desc": desc}
     return spells
 
 
@@ -344,37 +505,88 @@ def derive_weapon_name(lvli_edid, base_weap_name):
     return re.sub(r'([A-Z])', r' \1', suffix).strip()
 
 
+def _fmt_num(n):
+    f = float(n)
+    return str(int(f)) if f.is_integer() else str(round(f, 3))
+
+
 def describe_enchantment(ench_data, mgef_lookup):
     results = []
     for eff in ench_data.get("effects", []):
         mgef = mgef_lookup.get(eff["mgefEdid"], {})
-        name = mgef.get("name", eff["mgefEdid"]).replace("DVMF_", "").replace("Burn_ME_", "")
+        name = (mgef.get("name") or eff["mgefEdid"]).replace("DVMF_", "").replace("Burn_ME_", "")
+        name = re.sub(r"^Damage Type\s+", "", name)
+        mag = eff.get("magnitude") or 0
+        dur = eff.get("duration") or 0
         desc = {"effect": name}
-        if eff["magnitude"] and eff["magnitude"] != 0:
-            desc["magnitude"] = eff["magnitude"]
-        if eff["duration"] and eff["duration"] != 0:
-            desc["duration"] = eff["duration"]
+        if mag:
+            desc["magnitude"] = mag
+        if dur:
+            desc["duration"] = dur
+        if mgef.get("description"):
+            desc["description"] = mgef["description"].replace("<dur>", str(dur or ""))
+        # Human-readable line for a damage-over-time style effect.
+        if mag and dur:
+            desc["text"] = f"{_fmt_num(mag)} damage per second for {dur} seconds"
+        elif mag:
+            desc["text"] = f"Magnitude {_fmt_num(mag)}"
         results.append(desc)
     return results
 
 
-def resolve_weapon(lvli_edid, weapon_lvlis, weapon_names, weapon_stats):
+def _weapon_stats_block(stats):
+    return {
+        "weaponType": stats.get("weaponType", ""),
+        "speed": stats.get("speed", 0),
+        "maxRange": stats.get("maxRange", 0),
+        "ammo": stats.get("ammo", ""),
+        "capacity": stats.get("capacity", 0),
+    }
+
+
+def resolve_weapon(lvli_edid, weapon_lvlis, weapon_names, weapon_stats, object_templates=None):
     data = weapon_lvlis.get(lvli_edid)
     if not data or not data.get("weapRefs"):
         return None
     ref = data["weapRefs"][0]
     base_name = weapon_names.get(ref["edid"], "")
     friendly = derive_weapon_name(lvli_edid, base_name)
-    stats = weapon_stats.get(ref["edid"], {})
-    return {"name": friendly, "baseName": base_name, "baseEdid": ref["edid"], "lvliEdid": lvli_edid, "lvliFormId": data["lvliFormId"], "weaponType": stats.get("weaponType", ""), "speed": stats.get("speed", 0), "maxRange": stats.get("maxRange", 0)}
+    weapon = {"name": friendly, "baseName": base_name, "baseEdid": ref["edid"],
+              "lvliEdid": lvli_edid, "lvliFormId": data["lvliFormId"]}
+    weapon.update(_weapon_stats_block(weapon_stats.get(ref["edid"], {})))
+    if object_templates:
+        legendary, custom = resolve_template_mods(ref["edid"], object_templates)
+        if legendary:
+            weapon["legendaryMods"] = legendary
+        if custom:
+            weapon["customMods"] = custom
+    return weapon
 
 
-def assemble_boss(boss_info, gang_data, weapon_lvlis, weapon_names, weapon_stats, enchantments, mgef_lookup, weapon_mods, spells):
+def resolve_weapon_by_edid(weap_edid, weapon_names, weapon_stats, object_templates=None):
+    """Resolve a weapon directly by its WEAP EDID (for NPC weapons not wired
+    through a bounty LVLI, e.g. the Slasher party crasher's Bowie Knife)."""
+    weapon = {"name": weapon_names.get(weap_edid, "") or _clean_mod_name(weap_edid),
+              "baseName": weapon_names.get(weap_edid, ""), "baseEdid": weap_edid}
+    weapon.update(_weapon_stats_block(weapon_stats.get(weap_edid, {})))
+    if object_templates:
+        legendary, custom = resolve_template_mods(weap_edid, object_templates)
+        if legendary:
+            weapon["legendaryMods"] = legendary
+        if custom:
+            weapon["customMods"] = custom
+    return weapon
+
+
+def assemble_boss(boss_info, gang_data, weapon_lvlis, weapon_names, weapon_stats,
+                  enchantments, mgef_lookup, weapon_mods, spells,
+                  object_templates=None, spell_effects=None):
+    spell_effects = spell_effects or {}
     gidx = boss_info["gangIndex"]
     wmap = GANG_WEAPON_MAP.get(gidx, {})
     boss = {"name": boss_info["bossName"], "gangIndex": gidx, "gangName": gang_data.get("name", "") if gang_data else "", "gangEdid": gang_data.get("edid", "") if gang_data else "", "imageSlug": slugify(boss_info["bossName"])}
     if wmap.get("weapon"):
-        w = resolve_weapon(wmap["weapon"], weapon_lvlis, weapon_names, weapon_stats)
+        w = resolve_weapon(wmap["weapon"], weapon_lvlis, weapon_names, weapon_stats, object_templates)
         if w:
             boss["weapon"] = w
     if wmap.get("enchant"):
@@ -384,19 +596,30 @@ def assemble_boss(boss_info, gang_data, weapon_lvlis, weapon_names, weapon_stats
     if wmap.get("mod"):
         m = weapon_mods.get(wmap["mod"])
         if m:
-            boss["weaponMod"] = {"name": m["name"], "desc": m["desc"], "edid": wmap["mod"]}
+            wm = {"name": m["name"], "desc": m["desc"], "edid": wmap["mod"]}
+            if m.get("damageMult"):
+                wm["damageMult"] = m["damageMult"]
+            if m.get("properties"):
+                wm["properties"] = m["properties"]
+            boss["weaponMod"] = wm
     if wmap.get("grenade"):
-        g = resolve_weapon(wmap["grenade"], weapon_lvlis, weapon_names, weapon_stats)
+        g = resolve_weapon(wmap["grenade"], weapon_lvlis, weapon_names, weapon_stats, object_templates)
         if g:
             boss["grenade"] = g
     if wmap.get("melee"):
-        ml = resolve_weapon(wmap["melee"], weapon_lvlis, weapon_names, weapon_stats)
+        ml = resolve_weapon(wmap["melee"], weapon_lvlis, weapon_names, weapon_stats, object_templates)
         if ml:
             boss["meleeWeapon"] = ml
     if wmap.get("spell"):
         sp = spells.get(wmap["spell"])
         if sp:
-            boss["specialAbility"] = {"name": sp["name"], "edid": wmap["spell"]}
+            ability = {"name": sp["name"], "edid": wmap["spell"]}
+            if sp.get("desc"):
+                ability["description"] = sp["desc"]
+            effs = spell_effects.get(wmap["spell"])
+            if effs:
+                ability["effects"] = effs
+            boss["specialAbility"] = ability
     return boss
 
 
@@ -407,6 +630,61 @@ def load_sidekick_info(kywd_rows):
     return {"name": "Rust Raiders", "edid": ""}
 
 
+def load_globs():
+    path = newest("GLOB_Export_*.tsv")
+    globs = {}
+    if not path:
+        return globs
+    for row in read_tsv(path):
+        fid = (row.get("FormID") or "").strip()
+        try:
+            globs[fid] = float(row.get("FLTV", "0"))
+        except (ValueError, TypeError):
+            globs[fid] = 0.0
+    return globs
+
+
+def build_slasher_group(weapon_names, weapon_stats, object_templates, sidekick_info, group_number):
+    """The Reborn Pint-Sized Slasher — SDOW seasonal Head Hunt party crasher.
+    NPC records aren't exported to TSV, so the boss identity is structural
+    (from the Slasher content catalog); the Bowie Knife stats/mods still
+    resolve from the WEAP export."""
+    knife = resolve_weapon_by_edid(
+        "SDOW_crBowieKnife_SlasherBoss", weapon_names, weapon_stats, object_templates)
+    if not knife.get("name") or knife["name"].startswith("SDOW"):
+        knife["name"] = "Bowie Knife"
+        knife["baseName"] = "Bowie Knife"
+    if not knife.get("weaponType"):
+        knife["weaponType"] = "1H Melee"
+    knife["note"] = "Silent · damage Tier 30"
+    boss = {
+        "name": "The Reborn Pint-Sized Slasher",
+        "gangName": "Pint-Sized Phantoms",
+        "gangEdid": "SDOW_PintSizedSlasherFaction",
+        "race": "Ghoul",
+        "imageSlug": "the-reborn-pint-sized-slasher",
+        "boss3Star": True,
+        "note": "3-star BIG bounty target that can crash an active Head Hunt.",
+        "weapon": knife,
+        "sidekick": {
+            "name": sidekick_info["name"],
+            "description": "The party crasher joins the existing Head Hunt adds — "
+                           "the standard support wave fights alongside it.",
+        },
+    }
+    return {
+        "groupNumber": group_number,
+        "seasonal": True,
+        "channel": "pts",
+        "label": "Slasher Party Crasher",
+        "blurb": "Seasonal Shadows of the Dead of Winter (SDOW) party crasher. "
+                 "Appears on the live site automatically once the Head Hunt toggle goes live.",
+        "spawnGlob": "008FADB5",
+        "bossCount": 1,
+        "bosses": [boss],
+    }
+
+
 def main():
     print("[Head Hunt Bosses] Loading TSVs...")
     chal_path = newest("CHAL_Export_*.tsv")
@@ -415,10 +693,14 @@ def main():
     lvli_path = newest("LVLI_Export_*_Entries.tsv") or newest("LVLI_Export_Full_*_LVLI_Entries.tsv")
     weap_base = newest("WEAP_Export_*_Base.tsv")
     weap_dnam = newest("WEAP_Export_*_DNAM.tsv")
+    weap_otft = newest("WEAP_Export_*_ObjectTemplate.tsv")
     ench_path = newest("ENCH_Export_*.tsv")
     mgef_path = newest("MGEF_Export_*.tsv")
-    omod_path = newest("OMOD_Export_*.tsv")
+    _omod_all = [p for p in glob.glob(str(TSV_DIR / "OMOD_Export_*.tsv")) if "Properties" not in p]
+    omod_path = Path(max(_omod_all, key=os.path.getmtime)) if _omod_all else None
+    omod_prop_path = newest("OMOD_Export_*_Properties.tsv")
     spel_path = newest("SPEL_Export_*_HEADER.tsv") or newest("SPEL_Export_*.tsv")
+    spel_eff_path = newest("SPEL_Export_*_EFFECTS.tsv")
 
     missing = []
     for name, path in [("CHAL", chal_path), ("FLST_Entries", flst_path), ("KYWD", kywd_path), ("LVLI_Entries", lvli_path), ("WEAP_Base", weap_base), ("WEAP_DNAM", weap_dnam), ("ENCH", ench_path), ("MGEF", mgef_path)]:
@@ -434,53 +716,85 @@ def main():
     lvli_rows = read_tsv(lvli_path)
     weap_base_rows = read_tsv(weap_base)
     weap_dnam_rows = read_tsv(weap_dnam)
+    otft_rows = read_tsv(weap_otft) if weap_otft else []
     ench_rows = read_tsv(ench_path)
     mgef_rows = read_tsv(mgef_path)
     omod_rows = read_tsv(omod_path) if omod_path else []
+    omod_prop_rows = read_tsv(omod_prop_path) if omod_prop_path else []
     spel_rows = read_tsv(spel_path) if spel_path else []
+    spel_eff_rows = read_tsv(spel_eff_path) if spel_eff_path else []
 
-    print(f"  CHAL: {len(chal_rows)}  |  FLST: {len(flst_rows)}  |  MGEF: {len(mgef_rows)}")
+    print(f"  CHAL: {len(chal_rows)}  |  FLST: {len(flst_rows)}  |  MGEF: {len(mgef_rows)}  |  OTFT: {len(otft_rows)}")
 
     boss_groups = load_boss_groups(chal_rows)
     gang_keywords = load_gang_keywords(flst_rows)
     weapon_lvlis = load_weapon_lvlis(lvli_rows)
     weapon_names = load_weapon_names(weap_base_rows)
     weapon_stats = load_weapon_stats(weap_dnam_rows)
+    object_templates = load_object_templates(otft_rows)
     enchantments = load_enchantments(ench_rows)
     mgef_lookup = load_magic_effects(mgef_rows)
-    weapon_mods = load_weapon_mods(omod_rows)
+    omod_props = load_omod_properties(omod_prop_rows)
+    weapon_mods = load_weapon_mods(omod_rows, omod_props)
     spell_data = load_spells(spel_rows)
+    spell_effects = load_spell_effects(spel_eff_rows, mgef_lookup)
     sidekick_info = load_sidekick_info(kywd_rows)
+    head_metas, all_meta = load_head_hunt_metas(chal_rows)
+    globs = load_globs()
 
-    print(f"  Groups: {len(boss_groups)}  |  Gangs: {len(gang_keywords)}  |  Weapon LVLIs: {len(weapon_lvlis)}")
+    print(f"  Groups: {len(boss_groups)}  |  Gangs: {len(gang_keywords)}  |  Weapon LVLIs: {len(weapon_lvlis)}  |  ObjTemplates: {len(object_templates)}")
 
     output_groups = []
     for group_num, bosses in boss_groups.items():
         group_bosses = []
         for bi in bosses:
             gd = gang_keywords.get(bi["gangIndex"])
-            bo = assemble_boss(bi, gd, weapon_lvlis, weapon_names, weapon_stats, enchantments, mgef_lookup, weapon_mods, spell_data)
+            bo = assemble_boss(bi, gd, weapon_lvlis, weapon_names, weapon_stats, enchantments, mgef_lookup, weapon_mods, spell_data, object_templates, spell_effects)
             bo["sidekick"] = {"name": sidekick_info["name"], "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."}
+            if bi.get("chalEdid"):
+                bo["challenge"] = {"edid": bi["chalEdid"], "formId": bi.get("chalFormId", ""), "name": bi.get("chalFull", "")}
             group_bosses.append(bo)
-        output_groups.append({"groupNumber": group_num, "bossCount": len(group_bosses), "bosses": group_bosses})
+        grp = {"groupNumber": group_num, "bossCount": len(group_bosses), "bosses": group_bosses}
+        meta = head_metas.get(group_num)
+        if meta:
+            grp["metaChallenge"] = meta
+        output_groups.append(grp)
+
+    numbered_count = len(output_groups)
+    numbered_bosses = sum(g["bossCount"] for g in output_groups)
+
+    # ── SDOW / Slasher party crasher (seasonal, PTS-gated) ───────────────────
+    # Gate on channel or the live Head Hunt toggle — NEVER on record presence
+    # (the SDOW records ship dormant in the live TSVs).
+    is_pts_channel = os.environ.get("DFBNB_CHANNEL", "").strip().lower() == "pts"
+    slasher_toggle_on = globs.get("008E0671", 0.0) >= 1.0     # LCP_SDOW_LTC_HeadHuntsToggle
+    show_slasher = is_pts_channel or slasher_toggle_on
+    if show_slasher:
+        output_groups.append(
+            build_slasher_group(weapon_names, weapon_stats, object_templates, sidekick_info, numbered_count + 1))
 
     result = {
         "generated": datetime.now(timezone.utc).isoformat(),
-        "groupCount": len(output_groups),
-        "totalBosses": sum(g["bossCount"] for g in output_groups),
+        "channel": "pts" if is_pts_channel else "live",
+        "groupCount": numbered_count,
+        "totalBosses": numbered_bosses,
         "sidekickType": sidekick_info["name"],
+        "slasherPartyCrasher": show_slasher,
+        "allChallenge": all_meta,
         "groups": output_groups,
     }
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    with open(OUT_FILE, "w", encoding="utf-8") as f:
+    out_file = Path(os.environ["DFBNB_BOSSES_OUT"]) if os.environ.get("DFBNB_BOSSES_OUT") else OUT_FILE
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
 
-    print(f"\n[Head Hunt Bosses] Written -> {OUT_FILE}")
-    print(f"  {result['groupCount']} groups, {result['totalBosses']} bosses")
+    print(f"\n[Head Hunt Bosses] Written -> {out_file}")
+    print(f"  {result['groupCount']} groups, {result['totalBosses']} bosses  |  Slasher: {show_slasher}")
     for g in output_groups:
+        label = g.get("label") or f"Group {g['groupNumber']}"
         names = ", ".join(b["name"] for b in g["bosses"])
-        print(f"  Group {g['groupNumber']}: {g['bossCount']} bosses - {names}")
+        print(f"  {label}: {g['bossCount']} bosses - {names}")
 
 
 if __name__ == "__main__":

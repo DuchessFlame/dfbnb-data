@@ -1,10 +1,10 @@
 {
-  "generated": "2026-07-07T06:11:47.787240+00:00",
-  "channel": "live",
+  "generated": "2026-07-07T06:11:52.451689+00:00",
+  "channel": "pts",
   "groupCount": 7,
   "totalBosses": 30,
   "sidekickType": "Rust Raiders",
-  "slasherPartyCrasher": false,
+  "slasherPartyCrasher": true,
   "allChallenge": {
     "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_All_META",
     "formId": "0084312F",
@@ -2054,6 +2054,41 @@
         "formId": "0084311F",
         "name": "Kill Bounties from Group 7"
       }
+    },
+    {
+      "groupNumber": 8,
+      "seasonal": true,
+      "channel": "pts",
+      "label": "Slasher Party Crasher",
+      "blurb": "Seasonal SDOW party crasher. Appears on live once the Head Hunt toggle goes live.",
+      "spawnGlob": "008FADB5",
+      "bossCount": 1,
+      "bosses": [
+        {
+          "name": "The Reborn Pint-Sized Slasher",
+          "gangName": "Pint-Sized Phantoms",
+          "gangEdid": "SDOW_PintSizedSlasherFaction",
+          "race": "Ghoul",
+          "imageSlug": "the-reborn-pint-sized-slasher",
+          "boss3Star": true,
+          "note": "3-star BIG bounty target that can crash an active Head Hunt.",
+          "weapon": {
+            "name": "Bowie Knife",
+            "baseName": "Bowie Knife",
+            "baseEdid": "SDOW_crBowieKnife_SlasherBoss",
+            "weaponType": "1H Melee",
+            "speed": 0,
+            "maxRange": 0,
+            "ammo": "",
+            "capacity": 0,
+            "note": "Silent | damage Tier 30"
+          },
+          "sidekick": {
+            "name": "Rust Raiders",
+            "description": "The party crasher joins the existing Head Hunt adds."
+          }
+        }
+      ]
     }
   ]
 }
