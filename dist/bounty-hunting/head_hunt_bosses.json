@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-07T06:11:47.787240+00:00",
+  "generated": "2026-07-07T06:48:18.179648+00:00",
   "channel": "live",
   "groupCount": 7,
   "totalBosses": 30,
@@ -38,7 +38,7 @@
             "edid": "Burn_BountyHunt_EnchPoisonChanceAlways",
             "effects": [
               {
-                "effect": "Poison",
+                "effect": "dtPoisonEffectChanceAlways",
                 "magnitude": 9.0,
                 "duration": 8,
                 "text": "9 damage per second for 8 seconds"
@@ -90,7 +90,7 @@
             "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
             "effects": [
               {
-                "effect": "Damage Health",
+                "effect": "DamageHealthContact",
                 "magnitude": 11.0,
                 "duration": 6,
                 "text": "11 damage per second for 6 seconds"
@@ -142,7 +142,7 @@
             "edid": "Burn_BountyHunt_EnchFireChanceAlways",
             "effects": [
               {
-                "effect": "Fire",
+                "effect": "dtFireFlameEffectChanceAlways",
                 "magnitude": 10.0,
                 "duration": 3,
                 "text": "10 damage per second for 3 seconds"
@@ -194,7 +194,7 @@
             "edid": "Burn_BountyHunt_EnchRadChanceAlways",
             "effects": [
               {
-                "effect": "Radiation Damage",
+                "effect": "DamageRadiationWeaponDuration",
                 "magnitude": 8.0,
                 "text": "Magnitude 8"
               }
@@ -341,8 +341,7 @@
             "effects": [
               {
                 "name": "Burning Environment",
-                "magnitude": 1.0,
-                "description": "Taking fire damage every second"
+                "magnitude": 1.0
               }
             ]
           },
@@ -379,7 +378,7 @@
             "edid": "Burn_BountyHunt_EnchMoreDamageToHighRADS",
             "effects": [
               {
-                "effect": "Fortify All Damage",
+                "effect": "abFortifyDamageAll",
                 "magnitude": 100.0,
                 "text": "Magnitude 100"
               }
@@ -563,34 +562,33 @@
             "edid": "Burn_BountyHunt_EnchRandomEffect",
             "effects": [
               {
-                "effect": "Poison",
+                "effect": "dtPoisonEffectChanceAlways",
                 "magnitude": 5.0,
                 "duration": 20,
                 "text": "5 damage per second for 20 seconds"
               },
               {
-                "effect": "Cryo Damage",
+                "effect": "dtCryoEffectChanceAlways",
                 "magnitude": 9.0,
                 "duration": 1,
                 "text": "9 damage per second for 1 seconds"
               },
               {
-                "effect": "Fire",
+                "effect": "dtFireFlameEffectChanceAlways",
                 "magnitude": 16.0,
                 "duration": 5,
                 "text": "16 damage per second for 5 seconds"
               },
               {
-                "effect": "Energy",
+                "effect": "dtPlasmaEffectChanceAlways",
                 "magnitude": 19.0,
                 "duration": 20,
                 "text": "19 damage per second for 20 seconds"
               },
               {
-                "effect": "Abraxodyne Anti-Armour Effect",
+                "effect": "BURN_AbraxoAntiArmour_PA",
                 "magnitude": 60.0,
                 "duration": 20,
-                "description": "+60% Damage Taken",
                 "text": "60 damage per second for 20 seconds"
               }
             ]
@@ -906,7 +904,7 @@
             "edid": "Burn_BountyHunt_EnchCryoChanceAlways",
             "effects": [
               {
-                "effect": "Cryo Damage",
+                "effect": "dtCryoEffectChanceAlways",
                 "magnitude": 11.0,
                 "duration": 1,
                 "text": "11 damage per second for 1 seconds"
@@ -1560,7 +1558,7 @@
             "edid": "Burn_BountyHunt_EnchMoreDamageToFed",
             "effects": [
               {
-                "effect": "Ballistic",
+                "effect": "dtBallisticEffectChanceAlways",
                 "magnitude": 44.0,
                 "text": "Magnitude 44"
               }
@@ -1644,7 +1642,7 @@
             "edid": "Burn_BountyHunt_EnchFireChanceAlways",
             "effects": [
               {
-                "effect": "Fire",
+                "effect": "dtFireFlameEffectChanceAlways",
                 "magnitude": 10.0,
                 "duration": 3,
                 "text": "10 damage per second for 3 seconds"
@@ -1696,7 +1694,7 @@
             "edid": "Burn_BountyHunt_EnchGambling",
             "effects": [
               {
-                "effect": "Lucky Shot",
+                "effect": "Burn_Bounty_GamblerWin_EF",
                 "magnitude": 228.0,
                 "text": "Magnitude 228"
               }
@@ -1790,29 +1788,27 @@
             "edid": "Burn_BountyHunt_HookPlayer",
             "effects": [
               {
-                "effect": "Hooked!",
+                "effect": "Burn_Bounty_Fisherman_Juice",
                 "magnitude": 1.0,
                 "duration": 10,
-                "description": "Get away from Amadi to free yourself!",
                 "text": "1 damage per second for 10 seconds"
               },
               {
-                "effect": "Fortify",
+                "effect": "Burn_Mutation_FortifyJumpHeight_Contact",
                 "magnitude": 4.0,
                 "duration": 10,
                 "text": "4 damage per second for 10 seconds"
               },
               {
-                "effect": "Mutation: Reduce Fall Speed",
+                "effect": "Burn_Mutation_ReduceFallSpeed_Contact",
                 "magnitude": 0.65,
                 "duration": 10,
                 "text": "0.65 damage per second for 10 seconds"
               },
               {
-                "effect": "Hook Slow Effect",
+                "effect": "Burn_Bounty_HookSlow",
                 "magnitude": 90.0,
                 "duration": 10,
-                "description": "Target Movement Speed Reduced by <MAG>% for <DUR>",
                 "text": "90 damage per second for 10 seconds"
               }
             ]
@@ -1961,8 +1957,7 @@
             "effects": [
               {
                 "name": "Stealth Field",
-                "duration": 10,
-                "description": "Invisibility for 10 seconds."
+                "duration": 10
               }
             ]
           },
