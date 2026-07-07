@@ -235,6 +235,17 @@ jobs:
       - name: Build Bounty Hunting Challenges JSON
         run: python src/build_bounty_hunting_json.py
 
+      # --- BOUNTY HUNTING REWARDS (Grunt/Head Hunt reward tree) ---
+      # NOTE: not present in dfbnb-patch-build.yml — the live rewards JSON is
+      # built by its own workflow (build-bounty-hunting-rewards.yml). We add it
+      # here so the PTS channel produces dist/pts/bounty-hunting/. DFBNB_CHANNEL=pts
+      # surfaces the seasonal Slasher party-crasher group in the PTS preview even
+      # while the live Head Hunt toggle is still off.
+      - name: Build Bounty Hunting Rewards JSON
+        env:
+          DFBNB_CHANNEL: pts
+        run: python src/build_bounty_hunting_rewards_json.py
+
       # --- MINI SEASONS ---
       - name: Build Mini Seasons JSON
         run: python src/build_mini_seasons_json.py

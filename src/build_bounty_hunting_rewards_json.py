@@ -107,6 +107,23 @@ def build_bounty_hunting_rewards():
     ltt_head_drop_pct  = round(100 - ltt_head_cn, 1) if ltt_head_active else 0
     camp_title_pct     = round(100 - camp_title_cn, 1)  # 25%
 
+    # ── SDOW / Slasher seasonal integration (Head Hunt only) ────────────────
+    # Gated on the presence of the SDOW Head Hunt toggle GLOB. On the live
+    # channel this GLOB is absent from the TSV, so the whole seasonal block is
+    # omitted; on PTS (and on live once the records land) it is present, so the
+    # Slasher party-crasher group is emitted.
+    slasher_present      = "008E0671" in globs            # LCP_SDOW_LTC_HeadHuntsToggle
+    slasher_headhunt_on  = g("008E0671", 0.0) >= 1.0      # master toggle state
+    slasher_axe_override = g("0090FC28", 0.0) >= 1.0      # LCP_SDOW_LTC_SlasherAxeLootOverride
+    slasher_axe_pct      = 5 if slasher_axe_override else 0
+
+    # NOTE: the SDOW records ship dormant in the live game files, so mere
+    # presence isn't enough to decide visibility. Show the Slasher group when
+    # the Head Hunt toggle is actually enabled (live activation) OR when we're
+    # building the PTS preview channel (DFBNB_CHANNEL=pts).
+    is_pts_channel = os.environ.get("DFBNB_CHANNEL", "").strip().lower() == "pts"
+    show_slasher   = slasher_present and (slasher_headhunt_on or is_pts_channel)
+
     # ════════════════════════════════════════════════════════════════════════
     # GRUNT HUNT  (007D6A6D — Burn_BountyHuntDaily_LL_QuestRewards)
     # ════════════════════════════════════════════════════════════════════════
@@ -660,6 +677,96 @@ def build_bounty_hunting_rewards():
         ]
 
     # ════════════════════════════════════════════════════════════════════════
+    # SDOW / SLASHER SEASONAL PARTY CRASHER  (Head Hunt only)
+    # ════════════════════════════════════════════════════════════════════════
+    #
+    # The Reborn Pint-Sized Slasher (008E06C5) can crash a Head Hunt. When you
+    # loot it, its own drop list SDOW_LL_BountyDrop_BIG (008E071A) fires in place
+    # of the normal boss list. That list is the standard boss loot PLUS two
+    # Slasher-only pools:
+    #   A — SDOW_LL_Slasher_RareRecipes (008E06F6) @ 20%, pick-one of 5 plans
+    #   B — SDOW_LLS_Slasher_Rewards_LegendaryRewards (0090FC46):
+    #         guaranteed 4★ legendary + rare Super Slasher Auto Axe (Severing)
+    # The adds (mob/support) and quest-completion rewards are unchanged, so the
+    # event/mob/support lists reuse the standard head-hunt pools.
+
+    def _build_slasher_boss_loot():
+        pools = _build_boss_loot()  # standard baseline (caps/rad-x/ammo/stimpak/junk)
+
+        # Pool A — Slasher Rare Recipes (20% to roll · pick-one of 5 plans)
+        pools.append({
+            "label": "Slasher Rare Recipes",
+            "formid": "008E06F6",
+            "blurb": "20% chance to roll · pick-one of 5 Slasher plans",
+            "dropRate": 20,
+            "conditions": ["Only from The Reborn Pint-Sized Slasher"],
+            "items": [
+                {"name": "Plan: Slasher Power Armor Torso Paint",   "formid": "008DE08B", "sig": "BOOK", "qty": 1, "dropRate": 20},
+                {"name": "Plan: Slasher Power Armor Arms Paint",    "formid": "008DE089", "sig": "BOOK", "qty": 1, "dropRate": 20},
+                {"name": "Plan: Slasher Power Armor Legs Paint",    "formid": "008DE087", "sig": "BOOK", "qty": 1, "dropRate": 20},
+                {"name": "Plan: Slasher Power Armor Jetpack Paint", "formid": "008DE088", "sig": "BOOK", "qty": 1, "dropRate": 20},
+                {"name": "Plan: Slasher Auto Axe Paint",            "formid": "008E069A", "sig": "BOOK", "qty": 1, "dropRate": 20},
+            ],
+            "mode": "pickone",
+        })
+
+        # Pool B — Slasher Legendary Rewards (guaranteed 4★ + rare Auto Axe)
+        pools.append({
+            "label": "Slasher Legendary Rewards",
+            "formid": "0090FC46",
+            "blurb": ("Guaranteed 4★ legendary · rare chance at the Super Slasher Auto Axe"
+                      if slasher_axe_override else
+                      "Guaranteed 4★ legendary · Super Slasher Auto Axe currently disabled by Bethesda"),
+            "dropRate": 100,
+            "warningNote": TOGGLE_WARNING,
+            "items": [
+                {"name": "4★ Legendary Item", "formid": "00863A9D", "sig": "LGDI", "qty": 1,
+                 "dropRate": 100, "note": "Standard 4-star legendary template"},
+                {"name": "Super Slasher Auto Axe", "formid": "006361A2", "sig": "WEAP", "qty": 1,
+                 "dropRate": slasher_axe_pct,
+                 "note": "Auto Axe carrying the new Severing 4★ legendary effect",
+                 "conditions": [
+                     "Requires completing quest: Blood Will Have Blood (SDOW_MQ05)",
+                     "5% roll · only when the SlasherAxeLootOverride toggle is ON",
+                 ]},
+            ],
+            "mode": "useall",
+        })
+        return pools
+
+    head_seasonal_groups = []
+    if show_slasher:
+        head_seasonal_groups.append({
+            "id":   "slasher",
+            "label": "Seasonal — Slasher Party Crasher",
+            "blurb": (
+                "Active only during Shadows of the Dead of Winter. A Head Hunt can be "
+                "crashed by The Reborn Pint-Sized Slasher — a 3★ boss with its own loot. "
+                "Currently " + ("enabled" if slasher_headhunt_on else "disabled") +
+                " on this channel."
+            ),
+            "open": False,
+            "lists": [
+                {"tier": "event",   "title": "Event Rewards",
+                 "rosterBlurb": "Same quest-completion rewards as a standard Head Hunt.",
+                 "pools": head_event_rewards},
+                {"tier": "boss",    "title": "Boss Loot",
+                 "rosterBlurb": (
+                     "Dropped by <strong>The Reborn Pint-Sized Slasher</strong> "
+                     "(3★ BIG bounty target, Level 100) when you loot the corpse. "
+                     "Replaces the normal boss drop with the Slasher-only pools below."
+                 ),
+                 "pools": _build_slasher_boss_loot()},
+                {"tier": "mob",     "title": "Mob Loot",
+                 "rosterBlurb": "Same as the standard Head Hunt — the adds are unchanged.",
+                 "pools": _build_mob_loot()},
+                {"tier": "support", "title": "Support Loot",
+                 "rosterBlurb": "Same as the standard Head Hunt — the support enemies are unchanged.",
+                 "pools": _build_support_loot()},
+            ],
+        })
+
+    # ════════════════════════════════════════════════════════════════════════
     # ASSEMBLE FINAL JSON
     # ════════════════════════════════════════════════════════════════════════
 
@@ -709,6 +816,7 @@ def build_bounty_hunting_rewards():
                 "bossLoot": _build_boss_loot(),
                 "mobLoot": _build_mob_loot(),
                 "supportLoot": _build_support_loot(),
+                "seasonalGroups": head_seasonal_groups,
                 "lttStatus": {
                     "toggleGlob": "008553A3",
                     "toggleValue": ltt_head_toggle,
