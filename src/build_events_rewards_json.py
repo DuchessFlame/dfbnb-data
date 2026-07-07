@@ -719,6 +719,7 @@ def _filter_and_clean_modslots(slots, item_name=None):
 # Group OT rows by (FormID, CombinationIndex), then pick the best combo per weapon.
 # "Best" = the combination with the most legendary slots (i.e. the named/unique variant).
 _weap_combos = defaultdict(lambda: defaultdict(list))  # {fid: {combo_idx: [slots]}}
+_weap_combo_full = {}  # {(fid, combo_idx): Combination_FULL name}
 for r in WEAP_OT:
     fid = pick(r, "WEAP_FormID", "FormID")
     mod_ref = pick(r, "Include_Mod", "Mod")
@@ -728,6 +729,13 @@ for r in WEAP_OT:
     if label and value:
         combo_idx = int(pick(r, "CombinationIndex", default="0") or 0)
         inc_idx = int(pick(r, "IncludeIndex", default="0") or 0)
+        # The Combination_FULL column carries the named/unique weapon name for
+        # this preset (e.g. "Relic Reaper", "Salt of the Earth"). Keep it so we
+        # can both (a) detect the LVLI as unique and (b) label the reward with
+        # the real weapon name rather than an appearance/skin mod value.
+        combo_full = (pick(r, "Combination_FULL", default="") or "").strip()
+        if combo_full:
+            _weap_combo_full[(fid, combo_idx)] = combo_full
         _weap_combos[fid][combo_idx].append({
             "label": label,
             "value": value,
@@ -735,6 +743,7 @@ for r in WEAP_OT:
         })
 
 weap_mod_slots_by_formid = {}
+weap_combo_name_by_formid = {}  # {fid: Combination_FULL of the chosen (most-legendary) combo}
 for fid, combos in _weap_combos.items():
     # Pick the combination with the most legendary slots
     best_combo_idx = max(
@@ -747,6 +756,9 @@ for fid, combos in _weap_combos.items():
     if has_legendary:
         best_slots.sort(key=_mod_slot_sort_key)
         weap_mod_slots_by_formid[fid] = best_slots
+        combo_full = _weap_combo_full.get((fid, best_combo_idx))
+        if combo_full:
+            weap_combo_name_by_formid[fid] = combo_full
 
 # --------------------------------------------------
 # Index: ARMO Object Template (mod slots for named/unique armour)
@@ -1382,6 +1394,13 @@ for fid, slots in weap_mod_slots_by_formid.items():
             raw = (slot["value"] or "").replace(" ", "").lower()
             if raw and len(raw) > 3:
                 _unique_ot_names.add(raw)
+# Also register the ObjectTemplate combination names (e.g. "Relic Reaper") so
+# LVLIs named after the preset — like SDOW_LL_Weapon_Melee_RelicReaper — are
+# recognised as unique even when their custom mod value differs (Cursed Shovel).
+for fid, cname in weap_combo_name_by_formid.items():
+    raw = (cname or "").replace(" ", "").lower()
+    if raw and len(raw) > 3:
+        _unique_ot_names.add(raw)
 
 def _is_unique_lvli(lvli_edid):
     """Check if an LVLI EDID matches a known unique/named item variant."""
@@ -1545,6 +1564,11 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                         cleaned, custom_prefix = _filter_and_clean_modslots(
                             [{"label": s["label"], "value": s["value"]} for s in raw_slots],
                             item_data.get("name"))
+                        # Prefer the ObjectTemplate combination name (the true unique
+                        # weapon name, e.g. "Relic Reaper") over an appearance/skin
+                        # custom-mod value (e.g. "Cursed Shovel").
+                        if ref_sig == "WEAP" and fid in weap_combo_name_by_formid:
+                            custom_prefix = weap_combo_name_by_formid[fid]
                         if cleaned:
                             item_data["modSlots"] = cleaned
                         if custom_prefix:
