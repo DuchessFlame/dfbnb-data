@@ -3677,6 +3677,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         r'| ^Mutated\s+Events?\s+Rewards?$'
         r'| ^Public\s+Event\s+Rewards?$'
         r'| ^U-Mine-It'
+        r'| ^Loot\s+Recipes'
     )
     for node in reward_tree:
         if node.get("type") == "leaf":
