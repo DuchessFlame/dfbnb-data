@@ -116,6 +116,8 @@ def build_bounty_hunting_rewards():
     slasher_headhunt_on  = g("008E0671", 0.0) >= 1.0      # master toggle state
     slasher_axe_override = g("0090FC28", 0.0) >= 1.0      # LCP_SDOW_LTC_SlasherAxeLootOverride
     slasher_axe_pct      = 5 if slasher_axe_override else 0
+    slasher_spawn_rate   = g("008FADB5", 0.0)         # LCP_SDOW_HeadHuntPartyCrasherSpawnRate
+    slasher_spawn_pct    = round(slasher_spawn_rate, 1)
 
     # NOTE: the SDOW records ship dormant in the live game files, so mere
     # presence isn't enough to decide visibility. Show the Slasher group when
@@ -740,10 +742,15 @@ def build_bounty_hunting_rewards():
             "id":   "slasher",
             "label": "Seasonal — Slasher Party Crasher",
             "blurb": (
-                "Active only during Shadows of the Dead of Winter. A Head Hunt can be "
-                "crashed by The Reborn Pint-Sized Slasher — a 3★ boss with its own loot. "
-                "Currently " + ("enabled" if slasher_headhunt_on else "disabled") +
-                " on this channel."
+                (f"{slasher_spawn_pct}% chance per Head Hunt for The Reborn "
+                 f"Pint-Sized Slasher to replace the normal bounty target · "
+                 f"Level 100 seasonal boss with its own loot pool · "
+                 f"requires Shadows of the Dead of Winter")
+                if slasher_spawn_pct > 0 else
+                ("Seasonal Shadows of the Dead of Winter encounter · "
+                 "when active, The Reborn Pint-Sized Slasher can replace the "
+                 "normal bounty target with a Level 100 boss carrying its own "
+                 "loot pool · spawn rate currently set to 0%")
             ),
             "open": False,
             "lists": [
@@ -751,11 +758,6 @@ def build_bounty_hunting_rewards():
                  "rosterBlurb": "Same quest-completion rewards as a standard Head Hunt.",
                  "pools": head_event_rewards},
                 {"tier": "boss",    "title": "Boss Loot",
-                 "rosterBlurb": (
-                     "Dropped by <strong>The Reborn Pint-Sized Slasher</strong> "
-                     "(3★ BIG bounty target, Level 100) when you loot the corpse. "
-                     "Replaces the normal boss drop with the Slasher-only pools below."
-                 ),
                  "pools": _build_slasher_boss_loot()},
                 {"tier": "mob",     "title": "Mob Loot",
                  "rosterBlurb": "Same as the standard Head Hunt — the adds are unchanged.",

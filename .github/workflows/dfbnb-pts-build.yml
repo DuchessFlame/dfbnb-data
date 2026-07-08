@@ -13,6 +13,8 @@ name: DFBNB PTS Build
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 */12 * * *'        # midnight & noon UTC
   push:
     branches: [ main ]
     paths:
@@ -790,6 +792,18 @@ jobs:
       # Consumed by the /df/fishing/fishing-bobbers-floats/ page.
       - name: Build Fishing Equipment JSON
         run: python src/build_fishing_equipment_json.py
+
+      # --- FISHING CHALLENGES CHECKLIST ---
+      # Groups the fishing CHAL rows (already selected + leaf-expanded by
+      # build_challenges_json_v3.py above) into Daily / Weekly / Big Fish in a
+      # Little Pond / Lifetime, resolves rewards (Score + GMRW + overlay), and
+      # emits dist/fishing_challenges_checklist.json for the
+      # /df/fishing/challenges-checklist/ page. Depends on challenges.json and
+      # fishing_big_fish.json, so it runs after both.
+      - name: Build Fishing Daily (Big Fish) rewards
+        run: python src/build_fishing_daily_rewards_json.py
+      - name: Build Fishing Challenges Checklist JSON
+        run: python src/build_fishing_challenges_checklist_json.py
 
       # --- SEASONS ---
       # Reads tsv/fallout76_seasons.tsv and emits dist/seasons.json — the
