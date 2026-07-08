@@ -926,6 +926,57 @@ def aggregate_items(items):
     return sorted(agg.values(), key=lambda x: (-x["drop_rate_raw"], x["name"]))
 
 
+def aggregate_items_split_qty(items):
+    """Like aggregate_items, but keys on (FormID, quantity) instead of FormID
+    alone, and drops qty-0 leaves.
+
+    Used for the Pint-Sized Phantoms pools. Several of those lists are pick-one
+    LVLIs where the SAME item appears at several quantities — e.g. the Skulls
+    list SDOW_LL_SQ01_Junk_Skull [008F863A] is x5/x4/x3/x2/x1 Skull at
+    18/16/14/12/10%, and Throwing Knives is x1/x2/x3 at 33.33% each. Keying on
+    FormID alone (aggregate_items) collapsed those into a single "x1-5 @ 70%"
+    row and hid the per-quantity odds. Keying on (FormID, quantity) keeps each
+    quantity as its own row, while genuine duplicates (same item AND quantity
+    from two branches) still merge and sum.
+
+    A qty-0 leaf is a blank/padding entry (the "give 0 of X" outcome used to pad
+    a pick-one list); it is not a real drop, so it is dropped rather than folded
+    into a sibling's rate/range.
+
+    NOTE: this is a display-aggregation change only — the drop-rate maths in
+    rng76.py are unchanged. The Event-Reward standalone build
+    (build_activities_rewards_json.py) uses a different, FormID-keyed model
+    (compute_lvli) that does not carry quantities and does not build the
+    Pint-Sized Phantoms page, so there is no formula divergence to mirror.
+    """
+    agg = {}
+    for it in items:
+        dr = it["dropRate"]
+        if dr < 0.000001:
+            continue
+        if str(it["qty"]).strip() in ("0", "0.0"):
+            continue
+        key = (it["formid"], it["qty"])
+        if key not in agg:
+            agg[key] = {
+                "formid": it["formid"],
+                "name": it["name"],
+                "edid": it.get("edid", ""),
+                "sig": it.get("sig", ""),
+                "drop_rate_raw": 0.0,
+                "qty_min": it["qty"],
+                "qty_max": it["qty"],
+                "conditions": it.get("conditions", []),
+            }
+        agg[key]["drop_rate_raw"] += dr
+        agg[key]["qty_min"] = min(agg[key]["qty_min"], it["qty"])
+        agg[key]["qty_max"] = max(agg[key]["qty_max"], it["qty"])
+    for v in agg.values():
+        if v["drop_rate_raw"] > 1.0:
+            v["drop_rate_raw"] = 1.0
+    return sorted(agg.values(), key=lambda x: (-x["drop_rate_raw"], x["name"]))
+
+
 def format_item(agg_item):
     """Format an aggregated item for JSON output."""
     qty_min = agg_item["qty_min"]
@@ -1938,8 +1989,12 @@ def _phantom_pretty_name(item, books):
 
 def _phantom_items(resolver, books, formid):
     """Resolve one LVLI to flattened, aggregated, formatted leaf items with the
-    BOOK-preferred display names."""
-    items = [format_item(it) for it in aggregate_items(resolver.resolve_deep(formid))]
+    BOOK-preferred display names.
+
+    Uses aggregate_items_split_qty so same-item / different-quantity pick-one
+    lists (Skulls, Throwing Knives) render one row per quantity rather than a
+    single merged "×1-5" row."""
+    items = [format_item(it) for it in aggregate_items_split_qty(resolver.resolve_deep(formid))]
     for it in items:
         it["name"] = _phantom_pretty_name(it, books)
     return items

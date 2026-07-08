@@ -757,7 +757,9 @@ jobs:
       # Scoreboard season / Mini-Season event / Burning Springs).
       # Consumed by the /df/fishing/fishing-bobbers-floats/ page.
       - name: Build Fishing Equipment JSON
-        run: python src/build_fishing_equipment_json.py
+        run: |
+          python src/build_fishing_equipment_json.py
+          python src/build_fishing_equipment_json.py --pts
 
       # --- FISHING CHALLENGES CHECKLIST ---
       # Groups the fishing CHAL rows (already selected + leaf-expanded by

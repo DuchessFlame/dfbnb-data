@@ -1,11 +1,28 @@
 #!/usr/bin/env python3
-"""build_fishing_equipment_json.py — see header in repo."""
+"""
+build_fishing_equipment_json.py
+-------------------------------
+Builds the data feed for the DF/BNB fishing equipment (rod skins + bobbers &
+floats) page at /df/fishing/fishing-bobbers-floats/.
+
+Two modes:
+  (default / live)  reads tsv/      -> dist/fishing_equipment.json
+  --pts             reads tsv/pts/  -> dist/pts/fishing_equipment.json
+
+The global PTS toggle (df-bnb-pts.js) redirects fetches from dist/ to dist/pts/,
+so the renderer loads the right twin automatically.
+
+Curated metadata (season_rewards.tsv, fallout76_seasons.tsv) is always read from
+the live tsv/ directory. First-seen persistence (NEW pill) is skipped in PTS mode.
+"""
 import glob, json, os, re, sys
 from datetime import datetime, timezone, timedelta
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
-DIST_DIR = os.path.join(SCRIPT_DIR, "..", "dist")
+PTS = "--pts" in sys.argv
+TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv", "pts" if PTS else "")
+LIVE_TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
+DIST_DIR = os.path.join(SCRIPT_DIR, "..", "dist", "pts" if PTS else "")
 DIST_FILE = os.path.join(DIST_DIR, "fishing_equipment.json")
 
 IMAGE_BASE_ROD_SKIN = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/"
@@ -24,7 +41,7 @@ _FIRST_SEEN_FILENAME = "fishing_equipment_first_seen.json"
 _NEW_CUTOFF_DAYS = 30
 
 def load_first_seen():
-    path = os.path.join(TSV_DIR, _FIRST_SEEN_FILENAME)
+    path = os.path.join(LIVE_TSV_DIR, _FIRST_SEEN_FILENAME)
     if not os.path.exists(path):
         return {}
     try:
@@ -46,7 +63,7 @@ def update_first_seen(first_seen, all_formids, bootstrap):
     return first_seen
 
 def save_first_seen(first_seen):
-    path = os.path.join(TSV_DIR, _FIRST_SEEN_FILENAME)
+    path = os.path.join(LIVE_TSV_DIR, _FIRST_SEEN_FILENAME)
     with open(path, "w", encoding="utf-8") as f:
         json.dump({"schema": 1, "byFormId": dict(sorted(first_seen.items()))}, f, indent=2, ensure_ascii=False)
         f.write("\n")
@@ -55,7 +72,8 @@ def compute_new_cutoff():
     return (datetime.now(timezone.utc) - timedelta(days=_NEW_CUTOFF_DAYS)).strftime("%Y-%m-%d")
 
 def find_latest_tsv(pattern):
-    files = sorted(f for f in glob.glob(os.path.join(TSV_DIR, pattern)) if "Locations" not in f)
+    files = sorted(f for f in glob.glob(os.path.join(TSV_DIR, pattern))
+                   if "Locations" not in f and "Properties" not in f)
     return files[-1] if files else None
 
 def read_tsv(filepath):
@@ -87,7 +105,7 @@ def load_season_names():
     """season number -> SeasonName, parsed from tsv/fallout76_seasons.tsv.
     Same source the titles pipeline uses, so the scoreboard prose reads
     identically (e.g. 'Gone Fission Scoreboard (Season 21)')."""
-    path = os.path.join(TSV_DIR, "fallout76_seasons.tsv")
+    path = os.path.join(LIVE_TSV_DIR, "fallout76_seasons.tsv")
     out = {}
     if not os.path.isfile(path):
         return out
@@ -296,7 +314,7 @@ def lookup_unlock(omod_edid, book_map, gmrw_to_chal, chal_map):
     return chal
 
 def load_season_rewards_map():
-    path = os.path.join(TSV_DIR, "season_rewards.tsv")
+    path = os.path.join(LIVE_TSV_DIR, "season_rewards.tsv")
     if not os.path.isfile(path): return {}
     idx, rows = load_tsv(path)
     needed = ("seasonNumber","page","name","cost","description","storefrontEntitlement")
@@ -436,23 +454,29 @@ def build():
     rod_skins.sort(key=sort_key); bobbers.sort(key=sort_key)
 
     # ---- First-seen persistence & isNew (NEW pill) ----
+    # Skipped in PTS mode — PTS items are preview content and should not
+    # pollute the live first-seen tracker or show NEW pills.
     all_items = rod_skins + bobbers
-    first_seen_path = os.path.join(TSV_DIR, _FIRST_SEEN_FILENAME)
-    bootstrap = not os.path.exists(first_seen_path)
-    first_seen = load_first_seen()
-    update_first_seen(first_seen, [it["formId"] for it in all_items], bootstrap)
-    save_first_seen(first_seen)
-    cutoff = compute_new_cutoff()
     new_count = 0
-    for it in all_items:
-        seen = first_seen.get(it["formId"], "2020-01-01")
-        it["isNew"] = (seen >= cutoff)
-        if it["isNew"]:
-            new_count += 1
+    boot_note = ""
+    if not PTS:
+        first_seen_path = os.path.join(LIVE_TSV_DIR, _FIRST_SEEN_FILENAME)
+        bootstrap = not os.path.exists(first_seen_path)
+        first_seen = load_first_seen()
+        update_first_seen(first_seen, [it["formId"] for it in all_items], bootstrap)
+        save_first_seen(first_seen)
+        cutoff = compute_new_cutoff()
+        for it in all_items:
+            seen = first_seen.get(it["formId"], "2020-01-01")
+            it["isNew"] = (seen >= cutoff)
+            if it["isNew"]:
+                new_count += 1
+        boot_note = " [bootstrap: seeded existing as not-new]" if bootstrap else ""
 
     payload = {
         "generated": datetime.now(timezone.utc).isoformat(),
         "schemaVersion": 3,
+        "isPts": PTS,
         "newCutoffDays": _NEW_CUTOFF_DAYS,
         "imageBases": {"rodSkin": IMAGE_BASE_ROD_SKIN, "bobber": IMAGE_BASE_BOBBER},
         "rodSkins": rod_skins,
@@ -461,8 +485,10 @@ def build():
     os.makedirs(DIST_DIR, exist_ok=True)
     with open(DIST_FILE, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False); f.write("\n")
-    boot_note = " [bootstrap: seeded existing as not-new]" if bootstrap else ""
-    print(f"[fishing-equipment] OK: {len(rod_skins)} rod skins, {len(bobbers)} bobbers & floats (CHAL: {enriched_chal}, Scoreboard: {enriched_score}, skipped cut: {skipped_cut}, NEW: {new_count}){boot_note} -> {DIST_FILE}")
+    mode = "PTS" if PTS else "LIVE"
+    stats = "%d rod skins, %d bobbers & floats" % (len(rod_skins), len(bobbers))
+    detail = "(CHAL: %d, Scoreboard: %d, skipped cut: %d, NEW: %d)" % (enriched_chal, enriched_score, skipped_cut, new_count)
+    print("[fishing-equipment] %s: %s %s%s -> %s" % (mode, stats, detail, boot_note, DIST_FILE))
 
 if __name__ == "__main__":
     build()
