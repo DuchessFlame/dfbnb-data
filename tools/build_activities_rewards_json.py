@@ -349,7 +349,7 @@ def simplify_condition(cond_str):
     if "SDOW_MQ02_MapsAcquired" in s or ("GetStageDone" in s and "SDOW_MQ02_Graves" in s):
         _cap = re.search(r'SDOW_MQ02_MapsAcquired[^)]*\)\s*[01]{8}\s*(\d+)\.\d+', s)
         _n = _cap.group(1) if _cap else "4"
-        return f"Only drops until you’ve collected all {_n} Pint-Sized Phantoms’ Maps"
+        return f"Can only drop if you have less than {_n} Pint-Sized Phantoms’ Maps in your Pip-Boy inventory"
 
     # PlayerHasQuest → quest active check; extract quest display name if present
     if "PlayerHasQuest" in s:
