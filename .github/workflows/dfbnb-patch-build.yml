@@ -893,8 +893,19 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "DFBNB Patch Build update"
-            git fetch origin main
-            # --autostash handles any remaining unstaged changes during rebase
-            git pull --rebase --autostash origin main
-            git push origin main
+            # Land on top of a moving main. Regenerated-JSON conflicts resolve in
+            # favour of THIS build's output (-X theirs = the commit being replayed),
+            # and we retry to survive a push race with the PTS build. --autostash
+            # handles any remaining unstaged changes during rebase.
+            pushed=0
+            for attempt in 1 2 3 4 5; do
+              git fetch origin main
+              if git pull --rebase --autostash -X theirs origin main; then
+                if git push origin main; then pushed=1; break; fi
+              else
+                git rebase --abort 2>/dev/null || true
+              fi
+              echo "push race, retry $attempt"; sleep $((RANDOM % 6 + 3))
+            done
+            [ "$pushed" = 1 ] || { echo "ERROR: could not push dist after retries"; exit 1; }
           fi

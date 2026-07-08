@@ -935,7 +935,18 @@ jobs:
             git commit -m "DFBNB PTS Build update" -- dist/pts
             git checkout -- . 2>/dev/null || true
             git clean -fd tsv dist 2>/dev/null || true
-            git fetch origin main
-            git pull --rebase origin main
-            git push origin main
+            # Land on top of a moving main. Regenerated-JSON conflicts resolve in
+            # favour of THIS build's output (-X theirs = the commit being replayed),
+            # and we retry to survive a push race with the live patch build.
+            pushed=0
+            for attempt in 1 2 3 4 5; do
+              git fetch origin main
+              if git pull --rebase -X theirs origin main; then
+                if git push origin main; then pushed=1; break; fi
+              else
+                git rebase --abort 2>/dev/null || true
+              fi
+              echo "push race, retry $attempt"; sleep $((RANDOM % 6 + 3))
+            done
+            [ "$pushed" = 1 ] || { echo "ERROR: could not push dist/pts after retries"; exit 1; }
           fi
