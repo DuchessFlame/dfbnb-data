@@ -911,8 +911,12 @@ jobs:
       - name: Generate PTS vs Live changelog
         shell: bash
         run: |
-          # Restore live dist/ alongside dist/pts so we can diff the two channels.
-          git checkout HEAD -- dist 2>/dev/null || true
+          # Restore live dist/ (from HEAD) so we can diff the two channels — but
+          # EXCLUDE dist/pts. A plain `git checkout HEAD -- dist` also reverts the
+          # freshly-relocated dist/pts back to the committed (stale) version, so the
+          # commit step below then sees no diff ("No PTS changes to commit") and the
+          # PTS channel never updates. The exclude pathspec keeps the fresh build.
+          git checkout HEAD -- dist ':(exclude)dist/pts' 2>/dev/null || true
           python src/diff_live_pts.py --live dist --pts dist/pts --json || true
 
       - name: Commit & Push (dist/pts only)
