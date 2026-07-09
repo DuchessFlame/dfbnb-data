@@ -218,6 +218,16 @@ jobs:
       - name: Build Seasonal Events Rewards JSON
         run: python src/build_seasonal_events_json.py
 
+      # The flat seasonal_events_rewards.json is legacy static data still consumed
+      # by some guide pages. The rewritten builder only emits _by_page.json, so
+      # restore the committed flat file from git into the (cleared) dist to keep
+      # the PTS channel at parity with live. `git show` reads the blob from the
+      # object store even though the Clear dist step wiped the working tree.
+      - name: Seed legacy seasonal_events_rewards.json (PTS)
+        run: |
+          mkdir -p dist/seasonal_events
+          git show HEAD:dist/seasonal_events/seasonal_events_rewards.json > dist/seasonal_events/seasonal_events_rewards.json
+
       # --- REHO REWARDS (Daily Ops, Expos, Raids, Bounty Hunts) ---
       # Depends on dist/drop_rates.json (built above) and
       # dist/events/events_rewards.json (built above). Must run before
