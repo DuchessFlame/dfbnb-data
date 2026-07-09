@@ -70,18 +70,48 @@ THEME_BY_ENTM = {
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P44": "Blue Moon",
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P46": "Americana",
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P48": "Nuka-World on Tour (P48)",
-    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P50": "Public Test Server (Patch 50)",
+    # P50 => live Patch 50 = Atlantic City: America's Playground (the flat art is
+    # literally atx_pennant_playground). In-game DESC has a blank theme, so the
+    # old generic "Public Test Server (Patch 50)" name was just the fallback.
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P50": "America's Playground",
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P52": "Skyline Valley",
-    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P54": "Burning Springs",
-    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P56": "Skyline Valley (P56)",
+    # P54 => live Patch 54 = Milepost Zero (art = caravan robots). The in-game
+    # DESC copy-pastes "Burning Springs" (which is actually Patch 64) — a
+    # Bethesda error, so name by the real update instead.
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P54": "Milepost Zero",
+    # P56 => live Patch 56 = Gleaming Depths (the raid; art = miners in the
+    # depths). The in-game DESC copy-pastes "Skyline Valley" (Patch 52) — error.
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P56": "Gleaming Depths",
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P58": "Public Test Server (Patch 58)",
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P58_Copy01": "Player Ghoul",
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P60": "Fishing",
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P62": "Rebuilding the Heartland",
     "MILE_ENTM_CAMP_WallDeco_Pennant_Caravans": "Caravans",
-    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P64": "Public Test Server (Patch 64)",
+    # P64 => live Patch 64 = Burning Springs (art = burning oil derrick + OHIO).
+    # In-game DESC theme is blank, so the old generic name was just the fallback.
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P64": "Burning Springs",
     "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P66": "Rediscovering Appalachia",
-    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P68": "Rediscovering Appalachia (Pet)",
+    # P68 => live Patch 68 = Infestations. The in-game DESC copy-pastes
+    # "Rediscovering Appalachia" (Patch 66) — error.
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P68": "Infestations",
+    # P70 uses the "WallDecor" (not "WallDeco") EDID spelling in the exports.
+    "ATX_ENTM_CAMP_WallDecor_Pennant_PTS_P70": "Return of the Slasher",
+}
+
+# Full-description overrides, keyed by entitlement EDID. Used where the in-game
+# DESC is blank or a copy-paste error, so the on-page blurb reads cleanly.
+# These bypass the ENTM DESC entirely; keep the standard C.A.M.P. tail so the
+# renderer strips it the same way it does for game-sourced descriptions.
+DESC_BY_ENTM = {
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P50": "A small reward for all your help on Fallout 76's Public Test Server. This includes a framed and unframed pennant to celebrate America's Playground. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -",
+    # P54's in-game DESC wrongly says "Burning Springs" (that is P64); fix to match.
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P54": "A small reward for all your help on Fallout 76's Public Test Server. This includes a framed and unframed pennant to celebrate Milepost Zero. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -",
+    # P56's in-game DESC wrongly says "Skyline Valley" (that is P52); fix to the raid.
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P56": "A small reward for all your help on Fallout 76's Public Test Server. This includes a framed and unframed pennant to celebrate the Gleaming Depths raid. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -",
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P64": "A small reward for all your help on Fallout 76's Public Test Server. This includes a framed and unframed pennant to celebrate Burning Springs. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -",
+    # P68's in-game DESC wrongly says "Rediscovering Appalachia" (that is P66); fix.
+    "ATX_ENTM_CAMP_WallDeco_Pennant_PTS_P68": "A small reward for all your help on Fallout 76's Public Test Server. This includes a framed and unframed pennant to celebrate Infestations. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -",
+    "MILE_ENTM_CAMP_WallDeco_Pennant_Caravans": "A small reward to celebrate Caravans. This includes a framed and unframed pennant. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -",
 }
 
 # ---------------------------------------------------------------------------
@@ -439,7 +469,7 @@ def main() -> int:
         meta = entm.get(ent_fid, {})
         edid = meta.get("edid", "")
         flag = meta.get("flag", "")
-        desc = re.sub(r"\s+", " ", meta.get("desc", "")).strip()
+        desc = DESC_BY_ENTM.get(edid) or re.sub(r"\s+", " ", meta.get("desc", "")).strip()
         # Skip debug/duplicate ENTM rows (zzzzz_*) - keep the clean one.
         if edid.startswith("zzzzz"):
             continue
@@ -457,7 +487,7 @@ def main() -> int:
             f"Requires entitlement: {edid} [ENTM:{ent_fid}]"
             if edid else f"Requires entitlement [ENTM:{ent_fid}]"
         )
-        pid = "PENNANT_" + (edid or ent_fid).replace("ATX_ENTM_CAMP_WallDeco_Pennant_", "").replace("ATX_ENTM_CAMP_Decoration_", "").upper()
+        pid = "PENNANT_" + (edid or ent_fid).replace("ATX_ENTM_CAMP_WallDeco_Pennant_", "").replace("ATX_ENTM_CAMP_WallDecor_Pennant_", "").replace("ATX_ENTM_CAMP_Decoration_", "").upper()
         pennants.append({
             "id": pid,
             "name": name,
