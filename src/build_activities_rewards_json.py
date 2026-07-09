@@ -195,6 +195,13 @@ LVLI_LABEL_PATTERNS = [
     (r"(?i)LegendaryItems_LL_Weapons_Any",     "Legendary Weapons (All Types)"),
     (r"(?i)LegendaryItems_LL_Weapons_Melee",   "Legendary Melee Weapons"),
     (r"(?i)LegendaryItems_LL_Weapons_Ranged",  "Legendary Ranged Weapons"),
+    # Power Armour recipe pools — public-facing names for the shared PA recipe
+    # LVLIs (appear on every event that awards regional PA plans, ~26 pages).
+    # These MUST precede the generic all_regions rule below, and the "Mods"
+    # variant MUST precede the plain plans variant.
+    (r"(?i)^LLS?_Loot_Recipes_PowerArmor_All$",    "Power Armour Plans"),
+    (r"(?i)_Recipes_Mods_PowerArmor_AllRegions",   "Regional Power Armour Mod Plans Pool"),
+    (r"(?i)_Recipes_PowerArmor_AllRegions",        "Regional Power Armour Plans Pool"),
     # Region reward pools (public-facing names, not data-miner jargon)
     (r"(?i)progression_?items",               "Regional Loot"),
     (r"(?i)allregions_?grabbag|all_?regions",  "Regional Loot Pool"),
