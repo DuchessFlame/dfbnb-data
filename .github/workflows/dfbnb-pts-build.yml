@@ -824,6 +824,17 @@ jobs:
         run: python src/build_pts_season_scoreboard.py
 
       # --- ATOM SHOP ---
+      # build_atom_shop_json.py is a read-modify-write over dist/atom_shop.json:
+      # it reads the committed, curated item list and enriches it in place
+      # (image URLs, DESC from the ENTM export, categories, PA applicability).
+      # The "Clear dist for a clean PTS build" step above wiped the working-tree
+      # copy, so restore the committed seed from git first. `git show` reads the
+      # blob from the object store, so this works even though the file was
+      # rm -rf'd from the working tree. Live dist/ is never touched -- this only
+      # writes into the ephemeral checkout, which is relocated to dist/pts/.
+      - name: Seed atom_shop.json from committed copy (PTS)
+        run: git show HEAD:dist/atom_shop.json > dist/atom_shop.json
+
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
 
