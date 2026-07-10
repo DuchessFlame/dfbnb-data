@@ -347,6 +347,23 @@ def load_omod_properties(prop_rows):
     return props
 
 
+def load_omod_all(omod_rows):
+    """Every OMOD by EDID -> {desc, full, formId}. Used to resolve custom-mod
+    effect text (DESC / attached enchantment / damage bonus), which object
+    templates reference but don't describe."""
+    out = {}
+    for row in omod_rows:
+        edid = row.get("OMOD_EDID", "")
+        if not edid:
+            continue
+        out[edid] = {
+            "desc": row.get("DESC", "") or "",
+            "full": row.get("FULL", "") or "",
+            "formId": row.get("OMOD_FormID", ""),
+        }
+    return out
+
+
 def load_weapon_mods(omod_rows, omod_props=None):
     omod_props = omod_props or {}
     mods = {}
@@ -532,6 +549,57 @@ def describe_enchantment(ench_data, mgef_lookup):
             desc["text"] = f"Magnitude {_fmt_num(mag)}"
         results.append(desc)
     return results
+
+
+def custom_mod_effect(edid, omod_all, omod_props, enchantments, mgef_lookup):
+    """Human-readable effect for a weapon custom mod, resolved from TSVs:
+      1) an attached Enchantment property  -> DoT / effect text (e.g. bleed)
+      2) the OMOD DESC field               -> e.g. "Increases Damage by 10%..."
+      3) a DamageBonusMult property        -> "+N% damage"
+    Returns None if nothing is derivable."""
+    info = omod_all.get(edid)
+    if not info:
+        return None
+    props = omod_props.get(info.get("formId", ""), [])
+    # 1) Enchantment property (Value1 = "ENCH_EDID ""Name"" [ENCH:xxxx]")
+    for p in props:
+        if p.get("name") == "Enchantments" and p.get("value"):
+            ench_edid = p["value"].split(" ", 1)[0].strip()
+            ench = enchantments.get(ench_edid)
+            if ench:
+                texts = []
+                for e in describe_enchantment(ench, mgef_lookup):
+                    t = e.get("text") or e.get("effect")
+                    if t:
+                        texts.append(t)
+                if texts:
+                    return " · ".join(texts)
+    # 2) DESC
+    desc = (info.get("desc") or "").strip()
+    if desc:
+        return desc
+    # 3) DamageBonusMult
+    for p in props:
+        if p.get("name") == "DamageBonusMult" and p.get("value"):
+            try:
+                pct = round(float(p["value"]) * 100)
+                if pct:
+                    return f"+{pct}% damage"
+            except (ValueError, TypeError):
+                pass
+    return None
+
+
+def enrich_custom_mod_effects(weapon, omod_all, omod_props, enchantments, mgef_lookup):
+    """Attach an 'effect' string to each custom mod on a weapon, where one is
+    derivable from the OMOD TSVs."""
+    if not weapon:
+        return
+    for cm in weapon.get("customMods", []) or []:
+        eff = custom_mod_effect(cm.get("edid", ""), omod_all, omod_props,
+                                enchantments, mgef_lookup)
+        if eff:
+            cm["effect"] = eff
 
 
 def _weapon_stats_block(stats):
@@ -735,6 +803,7 @@ def main():
     enchantments = load_enchantments(ench_rows)
     mgef_lookup = load_magic_effects(mgef_rows)
     omod_props = load_omod_properties(omod_prop_rows)
+    omod_all = load_omod_all(omod_rows)
     weapon_mods = load_weapon_mods(omod_rows, omod_props)
     spell_data = load_spells(spel_rows)
     spell_effects = load_spell_effects(spel_eff_rows, mgef_lookup)
@@ -750,6 +819,10 @@ def main():
         for bi in bosses:
             gd = gang_keywords.get(bi["gangIndex"])
             bo = assemble_boss(bi, gd, weapon_lvlis, weapon_names, weapon_stats, enchantments, mgef_lookup, weapon_mods, spell_data, object_templates, spell_effects)
+            # Custom-mod effect text (bleed DoT, +% damage, etc.) from OMOD TSVs.
+            enrich_custom_mod_effects(bo.get("weapon"), omod_all, omod_props, enchantments, mgef_lookup)
+            enrich_custom_mod_effects(bo.get("meleeWeapon"), omod_all, omod_props, enchantments, mgef_lookup)
+            enrich_custom_mod_effects(bo.get("grenade"), omod_all, omod_props, enchantments, mgef_lookup)
             bo["sidekick"] = {"name": sidekick_info["name"], "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."}
             if bi.get("chalEdid"):
                 bo["challenge"] = {"edid": bi["chalEdid"], "formId": bi.get("chalFormId", ""), "name": bi.get("chalFull", "")}
