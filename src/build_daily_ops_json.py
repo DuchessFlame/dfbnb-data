@@ -5,8 +5,16 @@ build_daily_ops_json.py — Daily Ops All Rewards
 Reads the shared REHO rewards JSON (built by build_reho_json.py) and enriches
 the Daily Ops page data with tradeable status from BOOK + ARMO TSVs.
 
-Outputs:
-  dist/daily_ops/daily_ops_rewards.json
+Two modes (mirrors build_hto_rewards_json.py):
+  (default / live)  reads dist/reho/... + tsv/      -> dist/daily_ops/daily_ops_rewards.json
+  --pts             reads dist/pts/reho/... + tsv/pts/ (falling back to the live
+                    twins when a PTS twin is absent)  -> dist/pts/daily_ops/daily_ops_rewards.json
+
+The global PTS toggle (df-bnb-pts.js) redirects fetches from dist/ to dist/pts/,
+so the Daily Ops rewards page AND the Daily Ops guide load the right twin
+automatically. In the dedicated PTS workflow (dfbnb-pts-build.yml) the whole
+dist/ tree is relocated to dist/pts/ after a normal (non --pts) run, so this
+flag is only needed for the live patch build's inline PTS twin step.
 
 Tradeable logic (same pattern as build_titles_json.py):
   - BOOK TSV:  Plans/recipes. If row contains NonPlayerTradeable / NonPlayerTradable
@@ -15,19 +23,24 @@ Tradeable logic (same pattern as build_titles_json.py):
   - Items not found in either TSV get no tradeable field.
 
 Usage:
-  python build_daily_ops_json.py
+  python build_daily_ops_json.py            # live
+  python build_daily_ops_json.py --pts      # PTS twin
 
-Requires: build_reho_json.py to have run first (needs dist/reho/reho_rewards_by_page.json).
+Requires: build_reho_json.py to have run first (needs dist/reho/reho_rewards_by_page.json,
+or dist/pts/reho/reho_rewards_by_page.json for --pts).
 """
 
 import json
 import csv
 import os
+import sys
 import glob
 from pathlib import Path
 from typing import Dict, List
 
 from patchlog_utils import write_patchlog_feed
+
+PTS = "--pts" in sys.argv
 
 
 # ---------------------------------------------------------------------------
@@ -139,12 +152,28 @@ def build_tradeable_map(tsv_dir: Path) -> Dict[str, bool]:
 
 def main():
     base = Path(os.path.dirname(os.path.dirname(__file__)))
-    tsv_dir = base / "tsv"
-    reho_path = base / "dist" / "reho" / "reho_rewards_by_page.json"
-    out_dir = base / "dist" / "daily_ops"
+
+    # --- PTS-aware path resolution (mirrors build_hto_rewards_json.py) ---
+    # TSV: prefer tsv/pts when running --pts and it exists, else tsv/.
+    tsv_dir = base / "tsv" / "pts"
+    if not PTS or not tsv_dir.exists():
+        tsv_dir = base / "tsv"
+
+    # REHO input: prefer the PTS twin when running --pts and it exists, else
+    # fall back to the live twin (harmless during the live patch build, where
+    # dist/pts/reho is not produced — the twin simply mirrors live until the
+    # dedicated PTS build regenerates it from tsv/pts).
+    reho_path = base / "dist" / "pts" / "reho" / "reho_rewards_by_page.json"
+    if not PTS or not reho_path.exists():
+        reho_path = base / "dist" / "reho" / "reho_rewards_by_page.json"
+
+    out_dir = (base / "dist" / "pts" / "daily_ops") if PTS else (base / "dist" / "daily_ops")
     out_file = out_dir / "daily_ops_rewards.json"
 
-    print("Building Daily Ops rewards JSON...")
+    print(f"Building Daily Ops rewards JSON... (mode={'PTS' if PTS else 'LIVE'})")
+    print(f"  TSV dir : {tsv_dir}")
+    print(f"  REHO in : {reho_path}")
+    print(f"  Out dir : {out_dir}")
 
     # 1. Load the shared REHO data
     if not reho_path.exists():
@@ -189,6 +218,8 @@ def main():
         "pools": page_data.get("pools", []),
         "baseRewards": page_data.get("baseRewards", {}),
     }
+    if PTS:
+        output["isPts"] = True
 
     with open(out_file, "w") as f:
         json.dump(output, f, indent=2)
@@ -210,7 +241,7 @@ def main():
         key_field="formId",
         name_field="name",
         compare_fields=["name", "category", "rarity"],
-        prev_json_path="dist/daily_ops/daily_ops_rewards.json",
+        prev_json_path=str(out_file),
         items_extractor=extract_items_from_output,
     )
 
