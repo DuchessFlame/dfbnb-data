@@ -372,16 +372,17 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +1 / -0 / ~4
+## `titles_player.json`  ·  +1 / -0 / ~5
 
 **Added (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (4)**
+**Changed (5)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
