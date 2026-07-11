@@ -46,6 +46,9 @@ IMAGE_OVERRIDES = {
     "Wavy Willard": "local-legends/wavy willard",
     # Seasonal
     "Fernskipper": "seasonal-fish-images/Fernskipper",
+    "Orange Overseer": "seasonal-fish-images/Orange Overseer",
+    "Fester Koi": "seasonal-fish-images/Fester Koi",
+    "Bog Sucker": "seasonal-fish-images/Bog Sucker",
     # Generic (the fish-trap fish)
     "Brook Silverside": "generic-fish/Brook Silverside", "Redbelly": "generic-fish/Redbelly",
     "Sunscream": "generic-fish/Sunscream", "Chain Pickerel": "generic-fish/Chain Pickerel",
