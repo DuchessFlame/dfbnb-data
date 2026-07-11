@@ -425,6 +425,88 @@ def _build_recipe_buff_map(root):
     return _buff_for_recipe
 
 
+# ---------------------------------------------------------------------------
+# Contextual ammo — region-based pick-one pools
+#
+# The contextual reward pool (QuestReward_LLS_AllRegions_Any) is a pick-one over 8
+# region branches; each region has its own ammo pick-one sub-pool. WHICH region the
+# daily sends you to decides the possible ammo types, so we surface the ammo per
+# region (each region's per-type rates sum to ~100%). Each item carries a quantity
+# range because a single type can roll several stack sizes.
+# ---------------------------------------------------------------------------
+_AMMO_REGION_TOKEN = {
+    "Forest": "The Forest", "ToxicValley": "Toxic Valley", "SavageDivide": "Savage Divide",
+    "AshHeap": "Ash Heap", "Mire": "The Mire", "CranberryBog": "Cranberry Bog",
+    "SkylineValley": "Skyline Valley", "BurningSprings": "Burning Springs",
+}
+_AMMO_REGION_ORDER = ["The Forest", "Toxic Valley", "Savage Divide", "Ash Heap",
+                      "The Mire", "Cranberry Bog", "Skyline Valley", "Burning Springs"]
+# Clean FO76 display names for the ammo records (their FULL/EDID exports are inconsistent).
+_AMMO_DISPLAY = {
+    "Ammo38Caliber": ".38", "Ammo44": ".44", "Ammo45Caliber": ".45", "Ammo308Caliber": ".308",
+    "Ammo556": "5.56", "Ammo10mm": "10mm", "Ammo5mm": "5mm",
+    "Ammo2mm EC": "2mm Electromagnetic Cartridge",
+    "Ammo Arrow Broadhead": "Broadhead Arrow", "Ammo Shotgun Shell": "Shotgun Shell",
+    "Ammo Fusion Cell": "Fusion Cell", "Ammo Fusion Core": "Fusion Core",
+    "Ammo Plasma Cartridge": "Plasma Cartridge", "Ammo Grenade Launcher": "40mm Grenade",
+    "Ammo Fat Man Mini Nuke": "Mini Nuke", "Ammo Missile": "Missile",
+}
+
+
+def _ammo_display_name(nm):
+    nm = str(nm).strip()
+    if nm in _AMMO_DISPLAY:
+        return _AMMO_DISPLAY[nm]
+    return nm[5:].strip() if nm.lower().startswith("ammo ") else nm
+
+
+def _contextual_ammo_by_region(data):
+    """The contextual reward pool's ammo, grouped by the region the daily sends you to."""
+    from collections import defaultdict
+    pool = None
+    for e in data.lvli.entries_by_list.get(MAIN_POOL_LVLI, []):
+        f, ed, _sg = _ref_parts(e.get("LVLO_Reference", ""))
+        if ed == "QuestReward_LLS_AllRegions_Any":
+            pool = f
+            break
+    if not pool:
+        return []
+
+    def _ammo_sub(list_id):
+        for e in data.lvli.entries_by_list.get(list_id, []):
+            _f, ed, _sg = _ref_parts(e.get("LVLO_Reference", ""))
+            if ed.startswith("QuestReward_LLS_Ammo_"):
+                math = data.lvli.math_by_entry.get((list_id, e.get("EntryIndex"))) or {}
+                return (math.get("SubLVLI_FormID") or "").strip()
+        return None
+
+    out = []
+    for e in data.lvli.entries_by_list.get(pool, []):
+        _f, ed, _sg = _ref_parts(e.get("LVLO_Reference", ""))
+        disp = next((v for t, v in _AMMO_REGION_TOKEN.items()
+                     if ed.endswith("_" + t + "_All") or ed.endswith("_" + t)), None)
+        if not disp:
+            continue
+        math = data.lvli.math_by_entry.get((pool, e.get("EntryIndex"))) or {}
+        ammo_sub = _ammo_sub((math.get("SubLVLI_FormID") or "").strip())
+        items = []
+        if ammo_sub:
+            agg = defaultdict(lambda: {"rate": 0.0, "qtys": set()})
+            for it in data.resolver.resolve_deep(ammo_sub):
+                if str(it.get("sig", "")).upper() != "AMMO":
+                    continue
+                nm = _ammo_display_name(it.get("name", ""))
+                agg[nm]["rate"] += float(it.get("dropRate", 0.0))
+                agg[nm]["qtys"].add(int(it.get("qty", 1) or 1))
+            items = [{"name": nm, "dropRate": _round(agg[nm]["rate"] * 100, 4),
+                      "qtyMin": min(agg[nm]["qtys"]), "qtyMax": max(agg[nm]["qtys"])}
+                     for nm in sorted(agg, key=lambda n: (-agg[n]["rate"], n.lower()))]
+        out.append({"region": disp, "items": items})
+    out.sort(key=lambda x: _AMMO_REGION_ORDER.index(x["region"])
+             if x["region"] in _AMMO_REGION_ORDER else 99)
+    return out
+
+
 def build_main_pools(data, root=None):
     """Decompose Fishing_BigFish_LL_Quest_Rewards into grouped pools."""
     recipe_buff = _build_recipe_buff_map(root) if root else (lambda _n: None)
@@ -445,20 +527,34 @@ def build_main_pools(data, root=None):
             # (every aid item / ammo type / level tier). Enumerating it is noise and
             # bloats the feed, so summarise by category instead of listing items.
             if meta["key"] == "contextualAid":
-                # The raw list is ~1700 level-scaled leaf entries. Collapse to the
-                # distinct aid (ALCH) and ammo (AMMO) items so each can be listed.
-                aid_names, ammo_names = set(), set()
+                # The raw list is ~1700 level-scaled leaf entries (every aid item /
+                # ammo type across every player-level tier). The engine already gates
+                # the tiers correctly — the AMMO branch resolves to a clean 1.0 total
+                # (a guaranteed pick-one) — so aggregating each item's per-leaf dropRate
+                # BY NAME gives its true per-hand-in probability. This is the same
+                # sum-by-name method used for the Regional Weapon Mod pool
+                # (_region_mods_list). We split the pool into its two contextual
+                # sub-pools so the page can show them as sub-expands: Aid (ALCH) and
+                # Contextual Ammo (AMMO).
+                # Aid — chems/stimpaks/etc. The engine gates the level tiers correctly
+                # (the ammo branch resolves to a clean 1.0 pick-one), so aggregating each
+                # aid item's per-leaf dropRate BY NAME gives its true per-hand-in chance
+                # (same sum-by-name method as the Regional Weapon Mod pool). It's a bundle,
+                # so the per-item rates are independent and don't sum to 100%.
+                aid_agg = {}
                 for it in resolved:
-                    s = str(it.get("sig", "")).upper()
+                    if str(it.get("sig", "")).upper() != "ALCH":
+                        continue
                     nm = str(it.get("name", "")).strip()
                     if not nm:
                         continue
-                    if s == "ALCH":
-                        aid_names.add(nm)
-                    elif s == "AMMO":
-                        ammo_names.add(_prettify_ammo(nm))
-                aid_items = [{"name": n, "type": "Aid"} for n in sorted(aid_names)]
-                ammo_items = [{"name": n, "type": "Ammo"} for n in sorted(ammo_names)]
+                    aid_agg[nm] = aid_agg.get(nm, 0.0) + float(it.get("dropRate", 0.0))
+                aid_items = [{"name": nm, "dropRate": _round(gate * aid_agg[nm] * 100, 4)}
+                             for nm in sorted(aid_agg, key=lambda n: (-aid_agg[n], n.lower()))]
+                # Ammo is region-based: one guaranteed pick-one pool per region the daily can
+                # send you to. Surfaced per region (not flattened), each type with a qty range.
+                ammo_by_region = _contextual_ammo_by_region(data)
+                n_ammo_types = len({it["name"] for r in ammo_by_region for it in r["items"]})
                 pools.append({
                     "key": meta["key"], "title": meta["title"],
                     "lvliFormID": fid, "lvliEdid": edid,
@@ -467,10 +563,11 @@ def build_main_pools(data, root=None):
                     "legends": list(meta["legends"]),
                     "tradeable": meta["tradeable"], "droppable": meta["droppable"],
                     "note": meta.get("note", ""),
-                    "summary": {"aidTypes": len(aid_items), "ammoTypes": len(ammo_items),
-                                "examples": ["Stimpak", "RadAway", "Rad-X",
-                                             "5mm / 10mm / .44 ammo"]},
-                    "items": aid_items + ammo_items,
+                    "aidItems": aid_items,
+                    "ammoByRegion": ammo_by_region,
+                    "summary": {"aidTypes": len(aid_items), "ammoTypes": n_ammo_types,
+                                "ammoRegions": len(ammo_by_region),
+                                "examples": ["Stimpak", "RadAway", "Rad-X", "region-based ammo"]},
                 })
                 continue
             items = _items_from_deep(resolved, gate)

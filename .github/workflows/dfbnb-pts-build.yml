@@ -274,6 +274,10 @@ jobs:
       - name: Build Challenges JSON
         run: python src/build_challenges_json_v3.py
 
+      # --- DAILY PIP-BOY QUESTS ---
+      - name: Build Daily Quests JSON
+        run: python src/build_daily_quests_json.py
+
       # --- CHAL LATEST / PREVIOUS ---
       - name: Build CHAL Latest/Previous JSON
         run: python src/build_chal_latest_previous.py
@@ -884,6 +888,7 @@ jobs:
           test -f dist/challenges/bounty_hunting_challenges.json && echo "OK bounty_hunting_challenges.json" || (echo "MISSING bounty_hunting_challenges.json" && exit 1)
           test -f dist/mini_seasons/mini_seasons.json && echo "OK mini_seasons.json" || (echo "MISSING mini_seasons.json" && exit 1)
           test -f dist/challenges/challenges.json  && echo "OK challenges/challenges.json"  || (echo "MISSING challenges/challenges.json" && exit 1)
+          test -f dist/daily_quests/daily_quests.json && echo "OK daily_quests/daily_quests.json" || (echo "MISSING daily_quests/daily_quests.json" && exit 1)
           test -f dist/chal_latest.json            && echo "OK chal_latest.json"            || (echo "MISSING chal_latest.json" && exit 1)
           test -f dist/armour.json                 && echo "OK armour.json"                 || (echo "MISSING armour.json" && exit 1)
           test -f dist/collectrons.json            && echo "OK collectrons.json"            || (echo "MISSING collectrons.json" && exit 1)
