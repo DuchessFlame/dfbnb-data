@@ -6,7 +6,8 @@ on:
   push:
     paths:
       - 'tsv/**'
-      - 'src/build_reho_json.py'
+      - 'src/build_daily_ops_json.py'
+      - 'src/events_page_pools.py'
       - 'src/build_events_rewards_json.py'
       - 'src/build_drop_rates.py'
 
@@ -22,7 +23,7 @@ jobs:
   drop-rates:
     uses: ./.github/workflows/build-drop-rates.yml
 
-  # Step 2: Build events rewards (REHO depends on events_rewards.json)
+  # Step 2: Build events rewards (rewards depends on events_rewards.json)
   events:
     needs: drop-rates
     runs-on: ubuntu-latest
@@ -96,7 +97,7 @@ jobs:
       - name: Build Daily Ops Data
         run: |
           python -V
-          python src/build_reho_json.py
+          python src/build_daily_ops_json.py
 
       - name: Commit dist outputs
         shell: bash
@@ -104,7 +105,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dist/reho/reho_rewards_by_page.json
+          git add dist/daily_ops/daily_ops_rewards.json dist/daily_ops/patchlog_latest_df_daily_ops_rewards.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

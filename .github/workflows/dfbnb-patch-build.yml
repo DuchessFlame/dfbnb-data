@@ -213,18 +213,16 @@ jobs:
       - name: Build Seasonal Events Rewards JSON
         run: python src/build_seasonal_events_json.py
 
-      # --- REHO REWARDS (Daily Ops, Expos, Raids, Bounty Hunts) ---
-      # Depends on dist/drop_rates.json (built above) and
-      # dist/events/events_rewards.json (built above). Must run before
-      # build_daily_ops_json.py which enriches REHO output with tradeable
-      # status from BOOK+ARMO TSVs.
-      - name: Build REHO Rewards JSON
-        run: python src/build_reho_json.py
+      # --- RAIDS / EXPOS / DAILY OPS REWARDS ---
+      # Each reads dist/events/events_rewards.json (built above) via the shared
+      # events_page_pools helper and writes its own per-page dist file. Daily Ops
+      # additionally cross-references BOOK + ARMO TSVs to stamp a tradeable flag.
+      - name: Build Raids Rewards JSON
+        run: python src/build_raids_json.py
 
-      # --- DAILY OPS (enriches REHO output with tradeable flags) ---
-      # Reads dist/reho/reho_rewards_by_page.json produced by the step
-      # above, then cross-references BOOK + ARMO TSVs to stamp each reward
-      # with a tradeable flag. Emits dist/daily_ops/daily_ops_rewards.json.
+      - name: Build Expos Rewards JSON
+        run: python src/build_expos_json.py
+
       - name: Build Daily Ops JSON
         run: python src/build_daily_ops_json.py
 
@@ -872,7 +870,8 @@ jobs:
           test -f dist/infestations/hto_locations.json  && echo "OK infestations/hto_locations.json"  || (echo "MISSING infestations/hto_locations.json" && exit 1)
           test -f dist/seasonal_events/seasonal_events_rewards.json && echo "OK seasonal_events_rewards.json" || (echo "MISSING seasonal_events_rewards.json" && exit 1)
           test -f dist/seasonal_events/seasonal_events_rewards_by_page.json && echo "OK seasonal_events_rewards_by_page.json" || (echo "MISSING seasonal_events_rewards_by_page.json" && exit 1)
-          test -f dist/reho/reho_rewards_by_page.json && echo "OK reho/reho_rewards_by_page.json" || (echo "MISSING reho/reho_rewards_by_page.json" && exit 1)
+          test -f dist/raids/raids_rewards.json && echo "OK raids/raids_rewards.json" || (echo "MISSING raids/raids_rewards.json" && exit 1)
+          test -f dist/expos/expos_rewards.json && echo "OK expos/expos_rewards.json" || (echo "MISSING expos/expos_rewards.json" && exit 1)
           test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
           test -f dist/minerva/minerva_plans.json      && echo "OK minerva/minerva_plans.json"       || (echo "MISSING minerva/minerva_plans.json" && exit 1)
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"

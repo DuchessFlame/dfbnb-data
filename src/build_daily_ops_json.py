@@ -2,12 +2,13 @@
 """
 build_daily_ops_json.py — Daily Ops All Rewards
 
-Reads the shared REHO rewards JSON (built by build_reho_json.py) and enriches
-the Daily Ops page data with tradeable status from BOOK + ARMO TSVs.
+Builds the Daily Ops page directly from dist/events/events_rewards.json (via the
+shared events_page_pools helper) and enriches it with tradeable status from
+BOOK + ARMO TSVs. Previously derived its pools from the retired dist/reho tree.
 
 Two modes (mirrors build_hto_rewards_json.py):
-  (default / live)  reads dist/reho/... + tsv/      -> dist/daily_ops/daily_ops_rewards.json
-  --pts             reads dist/pts/reho/... + tsv/pts/ (falling back to the live
+  (default / live)  reads dist/events/... + tsv/     -> dist/daily_ops/daily_ops_rewards.json
+  --pts             reads dist/pts/events/... + tsv/pts/ (falling back to the live
                     twins when a PTS twin is absent)  -> dist/pts/daily_ops/daily_ops_rewards.json
 
 The global PTS toggle (df-bnb-pts.js) redirects fetches from dist/ to dist/pts/,
@@ -26,8 +27,8 @@ Usage:
   python build_daily_ops_json.py            # live
   python build_daily_ops_json.py --pts      # PTS twin
 
-Requires: build_reho_json.py to have run first (needs dist/reho/reho_rewards_by_page.json,
-or dist/pts/reho/reho_rewards_by_page.json for --pts).
+Requires: build_events_rewards_json.py to have run first (needs
+dist/events/events_rewards.json, or dist/pts/events/events_rewards.json for --pts).
 """
 
 import json
@@ -38,9 +39,25 @@ import glob
 from pathlib import Path
 from typing import Dict, List
 
+from events_page_pools import load_events_index, build_page_from_events
 from patchlog_utils import write_patchlog_feed
 
 PTS = "--pts" in sys.argv
+
+
+# Daily Ops page config (was PAGE_MAPPINGS["daily-ops-all-rewards"] in build_reho_json.py).
+# timerGlobs are retained for parity; the timer-tier meta is emitted by the helper.
+DAILY_OPS_CONFIG = {
+    "name": "Daily Ops",
+    "questFormID": "005A77D4",
+    "pageType": "dailyops",
+    "path": "/df/daily-ops/daily-ops-all-rewards",
+    "timerGlobs": {
+        "elder": ("005CB976", 480),
+        "paladin": ("005CB977", 720),
+        "knight": ("005CB978", 960),
+    },
+}
 
 
 # ---------------------------------------------------------------------------
@@ -159,39 +176,36 @@ def main():
     if not PTS or not tsv_dir.exists():
         tsv_dir = base / "tsv"
 
-    # REHO input: prefer the PTS twin when running --pts and it exists, else
+    # Events input: prefer the PTS twin when running --pts and it exists, else
     # fall back to the live twin (harmless during the live patch build, where
-    # dist/pts/reho is not produced — the twin simply mirrors live until the
+    # dist/pts/events is not produced — the twin simply mirrors live until the
     # dedicated PTS build regenerates it from tsv/pts).
-    reho_path = base / "dist" / "pts" / "reho" / "reho_rewards_by_page.json"
-    if not PTS or not reho_path.exists():
-        reho_path = base / "dist" / "reho" / "reho_rewards_by_page.json"
+    events_path = base / "dist" / "pts" / "events" / "events_rewards.json"
+    if not PTS or not events_path.exists():
+        events_path = base / "dist" / "events" / "events_rewards.json"
 
     out_dir = (base / "dist" / "pts" / "daily_ops") if PTS else (base / "dist" / "daily_ops")
     out_file = out_dir / "daily_ops_rewards.json"
 
     print(f"Building Daily Ops rewards JSON... (mode={'PTS' if PTS else 'LIVE'})")
-    print(f"  TSV dir : {tsv_dir}")
-    print(f"  REHO in : {reho_path}")
-    print(f"  Out dir : {out_dir}")
+    print(f"  TSV dir   : {tsv_dir}")
+    print(f"  Events in : {events_path}")
+    print(f"  Out dir   : {out_dir}")
 
-    # 1. Load the shared REHO data
-    if not reho_path.exists():
-        print(f"  Error: {reho_path} not found — run build_reho_json.py first")
+    # 1. Build the Daily Ops page directly from events_rewards.json
+    if not events_path.exists():
+        print(f"  Error: {events_path} not found — run build_events_rewards_json.py first")
         return 1
-
-    with open(reho_path) as f:
-        reho = json.load(f)
 
     slug = "daily-ops-all-rewards"
-    by_page = reho.get("byPage", {})
-    page_data = by_page.get(slug)
+    events_index = load_events_index(events_path)
+    page_data = build_page_from_events(events_index, DAILY_OPS_CONFIG)
 
     if not page_data:
-        print(f"  Error: No data for '{slug}' in reho JSON")
+        print(f"  Error: No data for '{slug}' built from events_rewards.json")
         return 1
 
-    print(f"  Loaded REHO data: {len(page_data.get('pools', []))} pools")
+    print(f"  Built Daily Ops data: {len(page_data.get('pools', []))} pools")
 
     # 2. Build tradeable map from BOOK + ARMO TSVs
     tradeable_map = build_tradeable_map(tsv_dir)
