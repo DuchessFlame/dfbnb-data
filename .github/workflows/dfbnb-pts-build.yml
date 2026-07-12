@@ -349,6 +349,9 @@ jobs:
           cp dist/calculators/build_inspiration_patchlog.json  dist/patchlog_latest_df_build_inspiration.json
           cp dist/calculators/outfit_inspiration_patchlog.json dist/patchlog_latest_df_outfit_inspiration.json
 
+      - name: Build Weapon Spin Wheel JSON (PTS)
+        run: python src/build_spin_wheel_json.py --pts
+
       # --- DF SCOREBOARDS (placeholder patchlog) ---
       - name: Stage scoreboards patchlog feed (placeholder)
         # No dedicated builder for the scoreboards category yet — the Season
