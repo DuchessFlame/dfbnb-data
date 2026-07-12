@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-07-11T19:16:11Z",
-  "channel": "pts",
+  "generated": "2026-07-11T23:08:04Z",
+  "channel": "live",
   "count": 93,
   "weapons": [
     {
@@ -974,12 +974,6 @@
           "description": null,
           "effects": [
             {
-              "property": "AttackDamage",
-              "value": "-0.200000",
-              "value2": "0.000000",
-              "function": "MUL+ADD"
-            },
-            {
               "property": "Keywords",
               "value": "CustomItem_SpeciallyNamed \"\"\"\" [KYWD:00471871]",
               "value2": "2",
@@ -1006,7 +1000,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectFireDamage \"\"Fire Damage\"\" [KYWD:00900A6B]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -2377,9 +2371,9 @@
               "function": "ADD"
             },
             {
-              "property": "116",
-              "value": "EMT01 \"\"E.M.T.\"\" [PERK:00029285]",
-              "value2": "1",
+              "property": "ActorValues",
+              "value": "CheatDeathResetOnWeakPointChance \"\"Revive Effect Cooldown\"\" [AVIF:00924E29]",
+              "value2": "30.000000",
               "function": "ADD"
             }
           ]
@@ -2777,7 +2771,7 @@
           "name": "Final Word",
           "edid": "mod_Custom_FinalWord",
           "formId": "008F1037",
-          "description": null,
+          "description": "Gain 1 Bullet Storm Stack on Kill",
           "effects": [
             {
               "property": "Keywords",
@@ -2786,10 +2780,10 @@
               "function": "ADD"
             },
             {
-              "property": "116",
-              "value": "BornSurvivor01 \"\"Born Survivor\"\" [PERK:00330BA0]",
-              "value2": "1",
-              "function": "ADD"
+              "property": "ActorValues",
+              "value": "EnableAmmoSpenderOnKill \"\"\"\" [AVIF:00924DB9]",
+              "value2": "1.000000",
+              "function": "SET"
             }
           ]
         }
@@ -2851,7 +2845,7 @@
           "name": "Foundation's Vengeance",
           "edid": "E08B_mod_Custom_FoundationsVengeance",
           "formId": "0064781F",
-          "description": null,
+          "description": "+5 Max Bullet Storm Stacks While Under 25% HP",
           "effects": [
             {
               "property": "Keywords",
@@ -2863,12 +2857,6 @@
               "property": "Keywords",
               "value": "CustomItemName_FoundationsVengeance \"\"\"\" [KYWD:0064781E]",
               "value2": "2",
-              "function": "ADD"
-            },
-            {
-              "property": "116",
-              "value": "Tenderizer01 \"\"Tenderizer\"\" [PERK:003E21F4]",
-              "value2": "1",
               "function": "ADD"
             }
           ]
@@ -3293,19 +3281,7 @@
             },
             {
               "property": "116",
-              "value": "FriendlyFire01 \"\"Friendly Fire\"\" [PERK:003E956A]",
-              "value2": "1",
-              "function": "ADD"
-            },
-            {
-              "property": "116",
-              "value": "FriendlyFire02 \"\"Friendly Fire\"\" [PERK:0051ABC2]",
-              "value2": "1",
-              "function": "ADD"
-            },
-            {
-              "property": "116",
-              "value": "FriendlyFire03 \"\"Friendly Fire\"\" [PERK:0051ABC4]",
+              "value": "HolyFire_Perk \"\"Holy Fire\"\" [PERK:00928016]",
               "value2": "1",
               "function": "ADD"
             }
@@ -3926,19 +3902,7 @@
             },
             {
               "property": "116",
-              "value": "RoboticsExpert01 \"\"Robotics Expert\"\" [PERK:004E84E5]",
-              "value2": "1",
-              "function": "ADD"
-            },
-            {
-              "property": "116",
-              "value": "RoboticsExpert02 \"\"Robotics Expert\"\" [PERK:004E84E6]",
-              "value2": "1",
-              "function": "ADD"
-            },
-            {
-              "property": "116",
-              "value": "RoboticsExpert03 \"\"Robotics Expert\"\" [PERK:004E84E7]",
+              "value": "MechanicsBestFriend_Perk \"\"Mechanic's Best Friend\"\" [PERK:00928015]",
               "value2": "1",
               "function": "ADD"
             }
@@ -4911,12 +4875,6 @@
           "description": null,
           "effects": [
             {
-              "property": "AttackDamage",
-              "value": "-0.200000",
-              "value2": "0.000000",
-              "function": "MUL+ADD"
-            },
-            {
               "property": "Keywords",
               "value": "CustomItem_SpeciallyNamed \"\"\"\" [KYWD:00471871]",
               "value2": "2",
@@ -4943,7 +4901,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectPoisonDamage \"\"Poison Damage\"\" [KYWD:00900A69]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -5670,7 +5628,7 @@
           "effects": [
             {
               "property": "AttackDelaySec",
-              "value": "1.000000",
+              "value": "0.500000",
               "value2": "0.000000",
               "function": "MUL+ADD"
             },
@@ -5724,7 +5682,7 @@
             },
             {
               "property": "ReloadSpeed",
-              "value": "-0.300000",
+              "value": "-0.150000",
               "value2": "0.000000",
               "function": "MUL+ADD"
             },
@@ -6368,10 +6326,10 @@
           ]
         },
         {
-          "name": "Flatliner Custom Name",
+          "name": "Flatliner",
           "edid": "RD01_Mod_Custom_StrikeBreaker_CustomName",
           "formId": "00793512",
-          "description": null,
+          "description": "Fully Charged Shots Deal 100% More Damage",
           "effects": [
             {
               "property": "Keywords",
@@ -6410,9 +6368,15 @@
               "function": "ADD"
             },
             {
-              "property": "116",
-              "value": "mod_weapon_penetrating \"\"\"\" [PERK:008B7A60]",
-              "value2": "1",
+              "property": "FullPowerSeconds",
+              "value": "0.500000",
+              "value2": "0.000000",
+              "function": "ADD"
+            },
+            {
+              "property": "MinPowerPerShot",
+              "value": "1.000000",
+              "value2": "0.000000",
               "function": "ADD"
             }
           ]
@@ -7341,7 +7305,7 @@
             },
             {
               "property": "Enchantments",
-              "value": "ench_QuickFix \"\"\"\" [ENCH:0091995B]",
+              "value": "ench_QuickFix \"\"The Quick Fix\"\" [ENCH:0091995B]",
               "value2": "1",
               "function": "ADD"
             }
