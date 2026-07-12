@@ -32,10 +32,10 @@ _Couldn't key this file to records; contents differ._
 ## `calculators/build_inspiration.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `calculators/outfit_inspiration.json`  ·  +0 / -0 / ~1
+## `calculators/outfit_inspiration.json`  ·  +0 / -1 / ~0
 
-**Changed (1)**
-- ATX_ARMO_Outfit_EnclaveScientist  `ATX_ARMO_Outfit_EnclaveScientist` — fields: full
+**Removed (1)**
+- ATX_ARMO_Outfit_EnclaveScientist  `ATX_ARMO_Outfit_EnclaveScientist`
 
 ## `calculators/weak_spot_multipliers.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
