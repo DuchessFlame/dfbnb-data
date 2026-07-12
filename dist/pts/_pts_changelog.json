@@ -243,6 +243,9 @@
     "activities/activities_rewards_by_page.json": {
       "structural_change": true
     },
+    "armour.json": {
+      "structural_change": true
+    },
     "axolotl-rotations.json": {
       "structural_change": true
     },
@@ -267,6 +270,9 @@
     "calculators/build_inspiration.json": {
       "structural_change": true
     },
+    "calculators/healing_calculator.json": {
+      "structural_change": true
+    },
     "calculators/outfit_inspiration.json": {
       "key": "edid",
       "added": [],
@@ -283,6 +289,12 @@
     },
     "calculators/weak_spot_multipliers.json": {
       "structural_change": true
+    },
+    "camp.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": []
     },
     "chal_latest.json": {
       "key": "FormID",
@@ -21287,6 +21299,12 @@
     "fishing_equipment.json": {
       "structural_change": true
     },
+    "help_menu.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
     "home-events.json": {
       "structural_change": true
     },
@@ -21616,9 +21634,10 @@
         },
         {
           "key": "co_LegendaryShard_CryoResistance",
-          "label": "Warming",
+          "label": "Cryologist's",
           "fields": [
-            "category"
+            "category",
+            "name"
           ]
         },
         {
@@ -21824,9 +21843,10 @@
         },
         {
           "key": "co_LegendaryShard_Fireproof",
-          "label": "Fireproof",
+          "label": "Pyro-Technician's",
           "fields": [
-            "category"
+            "category",
+            "name"
           ]
         },
         {
@@ -22522,6 +22542,12 @@
         }
       ]
     },
+    "legendary_mod_drop_chances.json": {
+      "structural_change": true
+    },
+    "load_screens.json": {
+      "structural_change": true
+    },
     "menu-items.json": {
       "structural_change": true
     },
@@ -22529,6 +22555,9 @@
       "structural_change": true
     },
     "mini_seasons/mini_seasons.json": {
+      "structural_change": true
+    },
+    "npc_spawns.json": {
       "structural_change": true
     },
     "pennants.json": {
@@ -23443,6 +23472,20 @@
     },
     "unique_weapons/unique_weapons.json": {
       "structural_change": true
+    },
+    "weather_stations.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "key": "SCORE_S26_ENTM_CAMP_Utility_WeatherStation_BloodMoon",
+          "label": "SCORE_S26_ENTM_CAMP_Utility_WeatherStation_BloodMoon",
+          "fields": [
+            "description"
+          ]
+        }
+      ]
     },
     "world_pet_challenges.json": {
       "structural_change": true

@@ -1,7 +1,7 @@
 {
-  "version": "2026-07-11",
-  "generated": "2026-07-11T23:08:35+00:00",
-  "count": 5848,
+  "version": "2026-07-12",
+  "generated": "2026-07-12T03:03:10+00:00",
+  "count": 5854,
   "recipes": {
     "Alien Blaster": {
       "c_Aluminum": 6,
@@ -24763,6 +24763,22 @@
     "V63-BERTHA Paint": {
       "c_Oil": 1
     },
+    "Cryologist's": {
+      "LegendaryTokens": 10,
+      "LegendaryShard_Armor2_CryoResistance": 1
+    },
+    "Pyro-Technician's": {
+      "LegendaryTokens": 10,
+      "LegendaryShard_Armor2_Fireproof": 1
+    },
+    "�� Pyro-Technician's": {
+      "FloaterPusSac_Flamer": 10,
+      "c_LegendaryModule": 30
+    },
+    "�� Cryologist's": {
+      "FloaterPusSac_Freezer": 10,
+      "c_LegendaryModule": 30
+    },
     "Cryptid Jawbone Paint": {
       "c_Bone": 1
     },
@@ -24793,10 +24809,6 @@
     "Enclave Scientist Outfit": {
       "c_Glass": 1,
       "c_Cloth": 5
-    },
-    "Broken Brontosaurus": {
-      "c_Steel": 2,
-      "c_Concrete": 4
     },
     "Disc Jockey Glasses": {
       "c_Plastic": 4
@@ -25075,6 +25087,9 @@
     "Bloody Nurse Hat": {
       "c_Cloth": 3
     },
+    "Pint-Sized Slasher Fishing Bobber": {
+      "c_Wood": 1
+    },
     "Pint-Sized Slasher Balloon": {
       "c_Rubber": 3,
       "c_Cloth": 1
@@ -25249,9 +25264,17 @@
       "c_Adhesive": 3,
       "c_Steel": 4
     },
+    "Standard Ironsights": {
+      "c_Adhesive": 1,
+      "c_Steel": 1
+    },
     "Enclave Scientist": {
       "c_Glass": 1,
       "c_Cloth": 5
+    },
+    "Broken Brontosaurus": {
+      "c_Steel": 2,
+      "c_Concrete": 4
     },
     "workshop_LL_Plushies_Cryptids": {
       "Cloth": 2
@@ -81406,6 +81429,46 @@
       "output_qty": 1,
       "source_file": "COBJ_Export_July_2026.tsv"
     },
+    "Cryologist's": {
+      "edid": "co_mod_Legendary_Armor2_CryoResistance",
+      "cnam_edid": "mod_Legendary_Armor2_CryoResistance",
+      "bnam_edid": "Workbench_Crafting_Armor",
+      "bench_keywords": [],
+      "category": "other",
+      "output_qty": 1,
+      "source_file": "COBJ_Export_July_2026.tsv"
+    },
+    "Pyro-Technician's": {
+      "edid": "co_mod_Legendary_Armor2_Fireproof",
+      "cnam_edid": "mod_Legendary_Armor2_Fireproof",
+      "bnam_edid": "Workbench_Crafting_Armor",
+      "bench_keywords": [],
+      "category": "other",
+      "output_qty": 1,
+      "source_file": "COBJ_Export_July_2026.tsv"
+    },
+    "�� Pyro-Technician's": {
+      "edid": "co_LegendaryShard_Fireproof",
+      "cnam_edid": "LegendaryShard_Armor2_Fireproof",
+      "bnam_edid": "Workbench_Crafting_Tinkers",
+      "bench_keywords": [
+        "RecipeFilter_LegendaryShard_2"
+      ],
+      "category": "other",
+      "output_qty": 1,
+      "source_file": "COBJ_Export_July_2026.tsv"
+    },
+    "�� Cryologist's": {
+      "edid": "co_LegendaryShard_CryoResistance",
+      "cnam_edid": "LegendaryShard_Armor2_CryoResistance",
+      "bnam_edid": "Workbench_Crafting_Tinkers",
+      "bench_keywords": [
+        "RecipeFilter_LegendaryShard_2"
+      ],
+      "category": "other",
+      "output_qty": 1,
+      "source_file": "COBJ_Export_July_2026.tsv"
+    },
     "Cryptid Jawbone Paint": {
       "edid": "MOON_co_mod_Knife_CryptidJawbone",
       "cnam_edid": "mod_custom_CryptidJawboneKnife_Skin",
@@ -81503,17 +81566,6 @@
       "bnam_edid": "Workbench_Crafting_Armor",
       "bench_keywords": [
         "RecipeFilter_Armor_Outfits"
-      ],
-      "category": "other",
-      "output_qty": 1,
-      "source_file": "COBJ_Export_July_2026.tsv"
-    },
-    "Broken Brontosaurus": {
-      "edid": "ATX_workshop_co_FloorDecor_BrokenBrontosaurus",
-      "cnam_edid": "ATX_FloorDecor_BrokenBrontosaurus",
-      "bnam_edid": "zzz_WorkshopWorkbenchTypeExterior",
-      "bench_keywords": [
-        "WorkshopCategoryFloorDecors"
       ],
       "category": "other",
       "output_qty": 1,
@@ -82211,6 +82263,17 @@
       "output_qty": 1,
       "source_file": "COBJ_Export_July_2026.tsv"
     },
+    "Pint-Sized Slasher Fishing Bobber": {
+      "edid": "SDOW_co_Fishing_RodBobber_Display_SlasherBobber",
+      "cnam_edid": "SDOW_Fishing_RodBobber_Display_SlasherBobber_Misc",
+      "bnam_edid": "Workbench_Crafting_Tinkers",
+      "bench_keywords": [
+        "RecipeFilter_Tinkers_Souvenir"
+      ],
+      "category": "other",
+      "output_qty": 1,
+      "source_file": "COBJ_Export_July_2026.tsv"
+    },
     "Pint-Sized Slasher Balloon": {
       "edid": "SDOW_workshop_co_FloorDecor_SlasherBalloons",
       "cnam_edid": "SDOW_Workshop_SlasherBalloon",
@@ -82661,12 +82724,32 @@
       "output_qty": 1,
       "source_file": "COBJ_Export_July_2026.tsv"
     },
+    "Standard Ironsights": {
+      "edid": "co_mod_10mmsmg_SCOPE_Ironsights_Base",
+      "cnam_edid": "mod_10mmSMG_rearsight",
+      "bnam_edid": "",
+      "bench_keywords": [],
+      "category": "other",
+      "output_qty": 1,
+      "source_file": "COBJ_Export_July_2026.tsv"
+    },
     "Enclave Scientist": {
       "edid": "ATX_co_Clothes_Outfit_EnclaveScientist",
       "cnam_edid": "ATX_ARMO_Outfit_EnclaveScientist",
       "bnam_edid": "Workbench_Crafting_Armor",
       "bench_keywords": [
         "RecipeFilter_Armor_Outfits"
+      ],
+      "category": "other",
+      "output_qty": 1,
+      "source_file": "COBJ_Export_June_2026.tsv"
+    },
+    "Broken Brontosaurus": {
+      "edid": "ATX_workshop_co_FloorDecor_BrokenBrontosaurus",
+      "cnam_edid": "ATX_FloorDecor_BrokenBrontosaurus",
+      "bnam_edid": "zzz_WorkshopWorkbenchTypeExterior",
+      "bench_keywords": [
+        "WorkshopCategoryFloorDecors"
       ],
       "category": "other",
       "output_qty": 1,
