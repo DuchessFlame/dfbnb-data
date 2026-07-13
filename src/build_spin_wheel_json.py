@@ -127,6 +127,18 @@ _WEAP_SKIP_EDID = [
     re.compile(r"^XPD_AC01_CarryAndThrow", re.I),
     re.compile(r"^XPD_Pitt01_ObjMod_Carry", re.I),
     re.compile(r"^XPD_ObjMod_Carry", re.I),
+    # --- Atom-shop weapon skins (cosmetic re-skins of base weapons) ---
+    re.compile(r"^ATX_", re.I),
+    # --- Fireworks-mine family (cut / Atom batch, not obtainable as weapons) ---
+    # Removes the plain-EDID dupes; the ATX_ variants are already caught above.
+    re.compile(r"^Firework_Mine_", re.I),
+    # --- Cut content ---
+    re.compile(r"^PlasmaBundleGrenade", re.I),   # "Plasma Grenade Bundle"
+    # --- NPC / non-player junk that isn't a usable weapon ---
+    re.compile(r"^PharmaBot", re.I),             # Mr. Handy NPC spray attack
+    re.compile(r"^GasTrapDummy", re.I),          # trap dummy
+    re.compile(r"^WeaponDecalScorched", re.I),   # cosmetic decal
+    re.compile(r"^XPD_AC_MuniTurret", re.I),     # NPC turret ("Turret Machine Gun")
 ]
 
 _WEAP_SKIP_NAMES = {
@@ -139,6 +151,18 @@ _WEAP_SKIP_KEYWORDS = {
     "WeaponTypeCamera", "WeaponTypeBinoculars",
     "WeaponTypeNoAttack", "WeaponTypeNonOffensive",
     "WeaponTypeFishingRod",
+    "HandyWeaponRanged",  # robot (Mr. Handy/Gutsy) NPC weapons, not player-usable
+}
+
+# Some player weapons ship with a truncated WEAP_FULL (just the ammo/family word).
+# Remap by EDID to the correct player-facing display name.
+_WEAP_NAME_REMAP = {
+    "RadiumRifle":       "Radium Rifle",
+    "PlasmaGun":         "Plasma Gun",
+    "LaserGun":          "Laser Gun",
+    "RailwayRifle":      "Railway Rifle",
+    "PipeGun":           "Pipe Gun",
+    "DLC01LightningGun": "Tesla Rifle",
 }
 
 
@@ -185,6 +209,7 @@ def build_weapons():
         wtype = classify_weapon_type(keywords)
         if wtype is None:
             continue
+        full_name = _WEAP_NAME_REMAP.get(edid, full_name)
         name_key = full_name.lower()
         if name_key in seen_names:
             continue
@@ -223,6 +248,12 @@ _HOSTILE_RACES = {
 }
 
 _MIXED_RACES = {"Assaultron", "Protectron", "Robobrain", "SentryBot"}
+
+# Internal race ids whose player-facing name differs. The renderer uses the
+# `race` field as the display name for creatures, so remap on output.
+_RACE_DISPLAY_REMAP = {
+    "RadTurkey": "Thrasher",
+}
 
 _ROBOT_HOSTILE_NAMES = re.compile(
     r"^(Assaultron|Protectron|Robobrain|Sentry Bot|"
@@ -343,7 +374,7 @@ def build_enemies():
         if name_key in seen_names:
             continue
         seen_names.add(name_key)
-        enemies.append({"name": full_name, "race": race})
+        enemies.append({"name": full_name, "race": _RACE_DISPLAY_REMAP.get(race, race)})
     enemies.sort(key=lambda e: e["name"].lower())
     print(f"  Enemies after filtering: {len(enemies)}")
     return enemies
