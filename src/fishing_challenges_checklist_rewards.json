@@ -1,4 +1,27 @@
 {
-  "_note": "OPTIONAL manual override for the Fishing Challenges Checklist page. This is intentionally EMPTY — rewards are derived generatively from the game TSVs by build_fishing_challenges_checklist_json.py: (1) COBJ GNAM links give the plan/title a challenge unlocks (plushies, floats/bobbers, displays, cooking recipes, player/CAMP titles), (2) 'Score' for SCORE_ daily/weekly, (3) a non-zzz GMRW ChallengeReward record (Intro bait, Progress rod recipes, Local Legend caps/modules bundle). Only add an entry here (keyed by challenge EDID -> reward label) to override the generated value for a specific challenge; anything left out is resolved from the TSVs. The deprecated zzz_ChallengeReward_* records (all '5x Bait - Common') are ignored.",
-  "rewards": {}
+  "_note": "OPTIONAL manual override for the Fishing Challenges Checklist page. Rewards are derived generatively from the game TSVs by build_fishing_challenges_checklist_json.py. Only add a 'rewards' entry here (keyed by challenge EDID -> reward label) to override the generated value for a specific challenge; anything left out is resolved from the TSVs.",
+  "_note_images": "Reward images, keyed by challenge EDID -> image URL, emitted as item.image_url by the build script and shown as a clickable thumbnail in the Reward sub-expand. Bobbers/floats REUSE the existing fishing-equipment uploads under .../fishing/rods-bobbers-float-skins/ (no duplicate upload). Plushies, CAMP items and the Jellied Fish recipe are new AVIFs under .../fishing/fishing-guide-images/fishing-challenges-rewards/. Player/CAMP titles have no image (text only); bait has no image.",
+  "rewards": {},
+  "images": {
+    "Challenge_Lifetime_Fishing_CompleteDailies_01": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/MirelurkPlushie.avif",
+    "Challenge_Lifetime_Fishing_CompleteDailies_02": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/AnglerPlushie.avif",
+    "Challenge_Lifetime_Fishing_CompleteDailies_03": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/CrabBoatPlushie.avif",
+    "Challenge_Lifetime_Fishing_Any_01": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/KelpCurtain.avif",
+    "Challenge_Lifetime_Fishing_Any_02": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/FishermansWorkbench.avif",
+    "Challenge_Lifetime_Fishing_Any_03": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/ScubaTankBackpack.avif",
+    "Challenge_Lifetime_Fishing_AnyGlowing_01": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/ReclaimedShipChandelier.avif",
+    "Challenge_Lifetime_Fishing_AnyGlowing_03": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/MakeshiftRod.avif",
+    "Challenge_Lifetime_Fishing_Any_LocalLegend": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/FishingDisplayPlaque.avif",
+    "Challenge_Lifetime_Fishing_SeasonalFish_Summer_LocalLegend": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/JelliedFish.avif",
+    "Challenge_Lifetime_Fishing_AnyGlowing_02": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/NukaColaQuantum.avif",
+    "Challenge_Lifetime_Fishing_Region_Common_META": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/Rocket.avif",
+    "Challenge_Lifetime_Fishing_Region_Forest_META": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/RedTideFloat.avif",
+    "Challenge_Lifetime_Fishing_Region_Mire_META": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/FestiveFloat.avif",
+    "Challenge_Lifetime_Fishing_Region_SavageDivide_META": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/CrimsonStripeFloat.avif",
+    "Challenge_Lifetime_Fishing_Region_AshHeap_META": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/FlamewoodFloat.avif",
+    "Challenge_Lifetime_Fishing_Region_CranBog_META": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/TwinTimberFloat.avif",
+    "Challenge_Lifetime_Fishing_Region_ToxicValley_META": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/PinBobber.avif",
+    "Challenge_Lifetime_Fishing_Region_SkylineValley_META": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/SkyfireFloat.avif",
+    "Burn_Challenge_Lifetime_Fishing_BurningSprings_META": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/DollHead.avif"
+  }
 }

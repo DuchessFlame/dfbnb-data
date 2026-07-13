@@ -1,22 +1,37 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 build_hto_locations_json.py
 Build HTO (Infestations) location JSON for buffsnbrew.com.
 
-Source of truth is the CURATED_LOCATIONS allowlist below — the dev-verified
-list of confirmed infestation spawn locations. The LocTypeHostileTakeover
-keyword (008A1490) extraction pulled in extra/incorrect locations, so the
-curated list is authoritative. Formids are kept where known; map coordinates
-are looked up from data/mappalachia_coords.json (static, committed to repo).
+Two data-sourcing modes:
 
-To add/remove a spawn location, edit CURATED_LOCATIONS.
+  CURATED (default / live):
+    Source of truth is the CURATED_LOCATIONS allowlist below -- the dev-verified
+    list of confirmed infestation spawn locations. Formids are kept where known;
+    map coordinates are looked up from data/mappalachia_coords.json.
+    To add/remove a spawn location, edit CURATED_LOCATIONS.
 
-Two modes:
-  (default / live)  reads tsv/      -> dist/infestations/hto_locations.json
-  --pts             reads tsv/pts/  -> dist/pts/infestations/hto_locations.json
+  GENERATIVE (--pts or --generative):
+    Reads the LCTN TSV from the active TSV_DIR, finds every LCTN record tagged
+    with the LocTypeHostileTakeover keyword (008A1490), excludes workshops
+    (LocTypeWorkshop 000234F1 or "Workshop" in EDID/name), resolves regions
+    from EDID prefixes (with PNAM fallback), and looks up map coordinates from
+    data/mappalachia_coords.json. This way, if Bethesda adds or removes HTO
+    locations on PTS, the page reflects it automatically.
+
+Output paths:
+  (default / live)  -> dist/infestations/hto_locations.json
+  --pts             -> dist/pts/infestations/hto_locations.json
 
 The global PTS toggle (df-bnb-pts.js) redirects fetches from dist/ to dist/pts/,
 so the renderer loads the right twin automatically.
+
+Flags:
+  --pts          PTS mode (tsv/pts/ input, dist/pts/ output, generative)
+  --generative   Generative mode without PTS paths (for the normalize-then-
+                 relocate PTS workflow that reads from tsv/ and relocates to
+                 dist/pts/ after build)
 """
 
 import json, os, sys, glob, csv, sqlite3
@@ -24,6 +39,7 @@ from pathlib import Path
 from collections import Counter
 
 PTS = "--pts" in sys.argv
+GENERATIVE = PTS or "--generative" in sys.argv
 
 _REPO_ROOT  = Path(__file__).resolve().parent.parent
 TSV_DIR     = _REPO_ROOT / "tsv" / ("pts" if PTS else "")
@@ -51,10 +67,15 @@ EDID_REGION_MAP = {
     "LocWhitespring":"Savage Divide",
 }
 
+PNAM_REGION_MAP = {
+    "Mire":          "The Mire",
+    "The Ash Heap":  "Ash Heap",
+}
+
 REGION_ORDER = ["Ash Heap","Cranberry Bog","Savage Divide","The Forest","The Mire","Toxic Valley","Unknown"]
 
-# ── Curated, dev-verified spawn locations (source of truth) ──────────────────
-# (name, region, formid)  — formid "" where unknown (new locations).
+# -- Curated, dev-verified spawn locations (source of truth) --
+# (name, region, formid)  -- formid "" where unknown (new locations).
 CURATED_LOCATIONS = [
     # Cranberry Bog
     ("Fort Defiance",                    "Cranberry Bog", "00004143"),
@@ -92,7 +113,7 @@ CURATED_LOCATIONS = [
     ("Mount Blair Trainyard",            "Ash Heap",      "00093D5F"),
     ("Welch",                            "Ash Heap",      "000B4871"),
     # The Mire
-    ("Berkeley Springs",                 "The Mire",      "00299948"),
+    ("Berkeley Springs",                 "The Mire",      "0000414B"),
     ("Dyer Chemical",                    "The Mire",      "00055E01"),
     ("Harpers Ferry",                    "The Mire",      "00070368"),
     # Toxic Valley
@@ -123,6 +144,76 @@ def region_from_edid(edid):
     return "Unknown"
 
 
+def build_from_lctn():
+    """Read LCTN TSV and extract locations tagged with LocTypeHostileTakeover.
+
+    Returns the same list-of-dicts structure as the curated path so the rest
+    of build() can treat both sources identically.
+    """
+    lctn_path = newest("LCTN_Export_*_LCTN.tsv")
+    if not lctn_path:
+        print(f"ERROR: No LCTN_Export_*_LCTN.tsv found in {TSV_DIR}")
+        sys.exit(1)
+
+    rows = read_tsv(lctn_path)
+    print(f"Read {len(rows)} LCTN records from {os.path.basename(lctn_path)}")
+
+    locations = []
+    skipped_workshops = []
+
+    for row in rows:
+        # Scan keyword columns (KW_1 .. KW_13) for HTO and Workshop keywords
+        has_hto = False
+        has_workshop = False
+        for i in range(1, 14):
+            kw = row.get(f"KW_{i}", "")
+            if KEYWORD_FORMID in kw:
+                has_hto = True
+            if WORKSHOP_KEYWORD in kw:
+                has_workshop = True
+
+        if not has_hto:
+            continue
+
+        edid   = row.get("LCTN_EDID", "")
+        name   = row.get("LCTN_FULL", "")
+        formid = row.get("LCTN_FormID", "")
+
+        # Skip records with no display name (test/debug stubs)
+        if not name:
+            continue
+
+        # Exclude workshops -- keyword, EDID, or display name
+        if has_workshop or "Workshop" in edid or "Workshop" in name:
+            skipped_workshops.append(f"{name} [{formid}] ({edid})")
+            continue
+
+        # Determine region from EDID prefix
+        region = region_from_edid(edid)
+        if region == "Unknown":
+            # Fallback: parse PNAM_ParentLocation
+            # Format: "FormID:EDID:DisplayRegion" e.g. "002F706D:SubRegionSwamp06Location:Mire"
+            pnam = row.get("PNAM_ParentLocation", "")
+            if ":" in pnam:
+                pnam_region = pnam.rsplit(":", 1)[-1].strip()
+                region = PNAM_REGION_MAP.get(pnam_region, pnam_region)
+
+        locations.append({
+            "formid": formid,
+            "name":   name,
+            "region": region,
+            "workshop": False,
+        })
+
+    print(f"HTO locations found: {len(locations)}")
+    if skipped_workshops:
+        print(f"Workshops excluded ({len(skipped_workshops)}):")
+        for w in skipped_workshops:
+            print(f"  {w}")
+
+    return locations
+
+
 def load_coords():
     """Load coordinate lookup. Prefer static JSON; fall back to Mappalachia DB."""
     if COORDS_JSON.exists():
@@ -135,7 +226,7 @@ def load_coords():
     # Fallback: regenerate from Mappalachia DB
     for p in _MAPPALACHIA_CANDIDATES:
         if p.exists():
-            print(f"Coords JSON missing — rebuilding from {p}")
+            print(f"Coords JSON missing -- rebuilding from {p}")
             db = sqlite3.connect(str(p))
             cur = db.cursor()
             cur.execute("SELECT label, x, y FROM MapMarker WHERE label != '' ORDER BY label")
@@ -152,7 +243,7 @@ def load_coords():
 
     env = os.environ.get("MAPPALACHIA_DB")
     if env and os.path.exists(env):
-        print(f"Coords JSON missing — rebuilding from {env}")
+        print(f"Coords JSON missing -- rebuilding from {env}")
         db = sqlite3.connect(env)
         cur = db.cursor()
         cur.execute("SELECT label, x, y FROM MapMarker WHERE label != '' ORDER BY label")
@@ -172,17 +263,20 @@ def load_coords():
 
 
 def build():
-    mode = "PTS" if PTS else "LIVE"
+    mode = "PTS" if PTS else ("GENERATIVE" if GENERATIVE else "LIVE")
     print(f"build_hto_locations_json.py  [{mode}]")
     print(f"  TSV_DIR:  {TSV_DIR}")
     print(f"  DIST_DIR: {DIST_DIR}")
     print("=" * 60)
 
-    locations = [
-        {"formid": fid, "name": name, "region": region, "workshop": False}
-        for (name, region, fid) in CURATED_LOCATIONS
-    ]
-    print(f"Curated spawn locations: {len(locations)}")
+    if GENERATIVE:
+        locations = build_from_lctn()
+    else:
+        locations = [
+            {"formid": fid, "name": name, "region": region, "workshop": False}
+            for (name, region, fid) in CURATED_LOCATIONS
+        ]
+        print(f"Curated spawn locations: {len(locations)}")
 
     coords_lookup = load_coords()
     coords_found = 0
@@ -213,7 +307,8 @@ def build():
     output = {
         "_meta": {
             "generator": "build_hto_locations_json.py",
-            "source": "curated allowlist (dev-verified)",
+            "source": "LCTN TSV (LocTypeHostileTakeover keyword)" if GENERATIVE
+                      else "curated allowlist (dev-verified)",
             "keyword_edid": "LocTypeHostileTakeover",
             "total_locations": len(locations),
             "coords_source": "Mappalachia" if coords_found else "none",

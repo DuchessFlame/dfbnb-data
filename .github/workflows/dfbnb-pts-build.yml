@@ -211,8 +211,12 @@ jobs:
         run: python src/build_hto_rewards_json.py
 
       # --- INFESTATIONS (HTO) LOCATIONS ---
+      # --generative reads LCTN records from tsv/ (PTS-normalized) and extracts
+      # locations tagged with LocTypeHostileTakeover, so new/removed PTS
+      # locations are picked up automatically. Output goes to dist/infestations/
+      # and the relocate step moves it to dist/pts/infestations/.
       - name: Build Infestations (HTO) Locations JSON
-        run: python src/build_hto_locations_json.py
+        run: python src/build_hto_locations_json.py --generative
 
       # --- SEASONAL EVENTS REWARDS ---
       - name: Build Seasonal Events Rewards JSON

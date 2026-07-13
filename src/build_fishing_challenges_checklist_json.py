@@ -299,7 +299,7 @@ def resolve_reward(edid, form_id, gk, overlay, cobj, gmrw):
     return "", "none"
 
 
-def make_item(it, gk, overlay, cobj, gmrw):
+def make_item(it, gk, overlay, cobj, gmrw, images):
     edid = it.get("edid") or ""
     reward, rsrc = resolve_reward(edid, it.get("form_id"), gk, overlay, cobj, gmrw)
     return {
@@ -312,6 +312,7 @@ def make_item(it, gk, overlay, cobj, gmrw):
         "group_key": gk,
         "reward": reward,
         "reward_source": rsrc,
+        "image_url": (images.get(edid) or "").strip(),
         "conditions_display": it.get("conditions_display")
             or it.get("conditions_human") or [],
         "is_meta": bool(it.get("is_meta")),
@@ -421,8 +422,10 @@ def build(is_pts):
     names = build_name_lookup()
     gmrw = build_gmrw_rewards(names)
     cobj = build_cobj_unlocks()
-    overlay = (load_json(os.path.join(SCRIPT_DIR,
-               "fishing_challenges_checklist_rewards.json"), {}) or {}).get("rewards", {})
+    overlay_full = load_json(os.path.join(SCRIPT_DIR,
+               "fishing_challenges_checklist_rewards.json"), {}) or {}
+    overlay = overlay_full.get("rewards", {})
+    images = overlay_full.get("images", {})
     base = load_base_items()
 
     big_fish_path = os.path.join(DIST_DIR, "pts" if is_pts else "",
@@ -442,7 +445,7 @@ def build(is_pts):
         gk = group_key_for(it)
         if not gk:
             continue
-        buckets[gk].append(make_item(it, gk, overlay, cobj, gmrw))
+        buckets[gk].append(make_item(it, gk, overlay, cobj, gmrw, images))
 
     groups = []
     for gk in GROUP_ORDER:
