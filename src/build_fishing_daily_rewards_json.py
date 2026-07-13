@@ -127,8 +127,9 @@ POOL_META = {
         "title": "Contextual Aid & Ammo",
         "legends": ["Always drops"],
         "tradeable": False, "droppable": True,
-        "note": "A scaling bundle of aid (stimpaks, RadAway, chems) and ammo "
-                "appropriate to your level and loadout.",
+        "note": "Aid and ammo set by the region the daily sends you to. In most "
+                "regions you get one aid item and one ammo type; Savage Divide's aid "
+                "list is flagged UseAll in-game, so there you get the whole aid set.",
     },
     "_regionalMod": {
         "key": "regionalWeaponMod",
@@ -284,10 +285,10 @@ def base_rewards(data, reward_rows):
             seen.add("scrip")
     # Contextual ammo + aid are surfaced as their own pool (see contextual aid),
     # but we also flag them in the base summary for the at-a-glance row.
-    out.append({"label": "Contextual Ammo", "value": None,
-                "meta": {"source": "LVLI", "note": "Scaled to your level & loadout."}})
+    out.append({"label": "Ammo", "value": None,
+                "meta": {"source": "LVLI", "note": "One ammo type, set by your region."}})
     out.append({"label": "Aid", "value": None,
-                "meta": {"source": "LVLI", "note": "Stimpaks, RadAway and chems."}})
+                "meta": {"source": "LVLI", "note": "Aid item(s) set by your region."}})
     return out
 
 
@@ -507,6 +508,66 @@ def _contextual_ammo_by_region(data):
     return out
 
 
+def _contextual_aid_by_region(data):
+    """The contextual reward pool's AID, grouped by the region the daily sends you
+    to — the same shape as _contextual_ammo_by_region.
+
+    Aid is region-based, exactly like ammo: whichever region Captain Raymond sends
+    you to decides the aid list you roll. In seven of the eight regions that aid list
+    is a pick-one, so its per-item rates sum to ~100% (you receive ONE aid item). The
+    lone exception is Savage Divide, whose aid list carries the UseAll flag in the game
+    data, so every entry fires and the rates sum to ~400% (you receive the whole set) —
+    almost certainly a Bethesda flag inconsistency, but we surface what the data says.
+    Each region is aggregated by item name (same sum-by-name method the Regional Weapon
+    Mod and ammo pools use); `sumPct` is the region total and `multiDrop` flags the
+    UseAll regions so the renderer can label them.
+    """
+    from collections import defaultdict
+    pool = None
+    for e in data.lvli.entries_by_list.get(MAIN_POOL_LVLI, []):
+        f, ed, _sg = _ref_parts(e.get("LVLO_Reference", ""))
+        if ed == "QuestReward_LLS_AllRegions_Any":
+            pool = f
+            break
+    if not pool:
+        return []
+
+    def _aid_sub(region_all_id):
+        for e in data.lvli.entries_by_list.get(region_all_id, []):
+            _f, ed, _sg = _ref_parts(e.get("LVLO_Reference", ""))
+            if ed.startswith("QuestReward_LLS_Aid_"):
+                math = data.lvli.math_by_entry.get((region_all_id, e.get("EntryIndex"))) or {}
+                return (math.get("SubLVLI_FormID") or "").strip()
+        return None
+
+    out = []
+    for e in data.lvli.entries_by_list.get(pool, []):
+        _f, ed, _sg = _ref_parts(e.get("LVLO_Reference", ""))
+        disp = next((v for t, v in _AMMO_REGION_TOKEN.items()
+                     if ed.endswith("_" + t + "_All") or ed.endswith("_" + t)), None)
+        if not disp:
+            continue
+        math = data.lvli.math_by_entry.get((pool, e.get("EntryIndex"))) or {}
+        aid_sub = _aid_sub((math.get("SubLVLI_FormID") or "").strip())
+        items = []
+        if aid_sub:
+            agg = defaultdict(float)
+            for it in data.resolver.resolve_deep(aid_sub):
+                if str(it.get("sig", "")).upper() != "ALCH":
+                    continue
+                nm = str(it.get("name", "")).strip()
+                if nm:
+                    agg[nm] += float(it.get("dropRate", 0.0))
+            items = [{"name": nm, "dropRate": _round(agg[nm] * 100, 4)}
+                     for nm in sorted(agg, key=lambda n: (-agg[n], n.lower()))]
+        sum_pct = _round(sum(i["dropRate"] for i in items), 2)
+        out.append({"region": disp, "items": items, "sumPct": sum_pct,
+                    "multiDrop": sum_pct > 150.0})
+    out.sort(key=lambda x: _AMMO_REGION_ORDER.index(x["region"])
+             if x["region"] in _AMMO_REGION_ORDER else 99)
+    return out
+
+
 def build_main_pools(data, root=None):
     """Decompose Fishing_BigFish_LL_Quest_Rewards into grouped pools."""
     recipe_buff = _build_recipe_buff_map(root) if root else (lambda _n: None)
@@ -523,37 +584,17 @@ def build_main_pools(data, root=None):
             if not meta:
                 continue
             resolved = data.resolver.resolve_deep(fid)
-            # The contextual aid/ammo pool resolves to ~1700 scaled leaf entries
-            # (every aid item / ammo type / level tier). Enumerating it is noise and
-            # bloats the feed, so summarise by category instead of listing items.
+            # Contextual Aid & Ammo. BOTH halves are region-based — whichever region
+            # the daily sends you to decides the aid list AND the ammo list you roll —
+            # so both are surfaced PER REGION (not flattened). Within a region each list
+            # is a pick-one (rates sum to ~100% = one item), except Savage Divide's aid
+            # list, which is flagged UseAll in the game data and hands you the whole set
+            # (~400%). Aggregation is the same sum-by-name method the Regional Weapon Mod
+            # pool uses. See _contextual_aid_by_region / _contextual_ammo_by_region.
             if meta["key"] == "contextualAid":
-                # The raw list is ~1700 level-scaled leaf entries (every aid item /
-                # ammo type across every player-level tier). The engine already gates
-                # the tiers correctly — the AMMO branch resolves to a clean 1.0 total
-                # (a guaranteed pick-one) — so aggregating each item's per-leaf dropRate
-                # BY NAME gives its true per-hand-in probability. This is the same
-                # sum-by-name method used for the Regional Weapon Mod pool
-                # (_region_mods_list). We split the pool into its two contextual
-                # sub-pools so the page can show them as sub-expands: Aid (ALCH) and
-                # Contextual Ammo (AMMO).
-                # Aid — chems/stimpaks/etc. The engine gates the level tiers correctly
-                # (the ammo branch resolves to a clean 1.0 pick-one), so aggregating each
-                # aid item's per-leaf dropRate BY NAME gives its true per-hand-in chance
-                # (same sum-by-name method as the Regional Weapon Mod pool). It's a bundle,
-                # so the per-item rates are independent and don't sum to 100%.
-                aid_agg = {}
-                for it in resolved:
-                    if str(it.get("sig", "")).upper() != "ALCH":
-                        continue
-                    nm = str(it.get("name", "")).strip()
-                    if not nm:
-                        continue
-                    aid_agg[nm] = aid_agg.get(nm, 0.0) + float(it.get("dropRate", 0.0))
-                aid_items = [{"name": nm, "dropRate": _round(gate * aid_agg[nm] * 100, 4)}
-                             for nm in sorted(aid_agg, key=lambda n: (-aid_agg[n], n.lower()))]
-                # Ammo is region-based: one guaranteed pick-one pool per region the daily can
-                # send you to. Surfaced per region (not flattened), each type with a qty range.
+                aid_by_region = _contextual_aid_by_region(data)
                 ammo_by_region = _contextual_ammo_by_region(data)
+                n_aid_types = len({it["name"] for r in aid_by_region for it in r["items"]})
                 n_ammo_types = len({it["name"] for r in ammo_by_region for it in r["items"]})
                 pools.append({
                     "key": meta["key"], "title": meta["title"],
@@ -563,11 +604,11 @@ def build_main_pools(data, root=None):
                     "legends": list(meta["legends"]),
                     "tradeable": meta["tradeable"], "droppable": meta["droppable"],
                     "note": meta.get("note", ""),
-                    "aidItems": aid_items,
+                    "aidByRegion": aid_by_region,
                     "ammoByRegion": ammo_by_region,
-                    "summary": {"aidTypes": len(aid_items), "ammoTypes": n_ammo_types,
-                                "ammoRegions": len(ammo_by_region),
-                                "examples": ["Stimpak", "RadAway", "Rad-X", "region-based ammo"]},
+                    "summary": {"aidTypes": n_aid_types, "aidRegions": len(aid_by_region),
+                                "ammoTypes": n_ammo_types, "ammoRegions": len(ammo_by_region),
+                                "examples": ["Stimpak", "RadAway", "Purified Water", "region-based ammo"]},
                 })
                 continue
             items = _items_from_deep(resolved, gate)
