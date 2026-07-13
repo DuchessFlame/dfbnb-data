@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-13T09:40:37.856517+00:00",
+  "generated": "2026-07-13T12:23:29.306681+00:00",
   "isPts": true,
   "source": {
     "gmrwTsv": "GMRW_Export_PTS_2026-07-05_0944.tsv",
@@ -42,11 +42,11 @@
       }
     },
     {
-      "label": "Contextual Ammo",
+      "label": "Ammo",
       "value": null,
       "meta": {
         "source": "LVLI",
-        "note": "Scaled to your level & loadout."
+        "note": "One ammo type, set by your region."
       }
     },
     {
@@ -54,7 +54,7 @@
       "value": null,
       "meta": {
         "source": "LVLI",
-        "note": "Stimpaks, RadAway and chems."
+        "note": "Aid item(s) set by your region."
       }
     }
   ],
@@ -19610,103 +19610,623 @@
       ],
       "tradeable": false,
       "droppable": true,
-      "note": "A scaling bundle of aid (stimpaks, RadAway, chems) and ammo appropriate to your level and loadout.",
-      "aidItems": [
+      "note": "Aid and ammo set by the region the daily sends you to. In most regions you get one aid item and one ammo type; Savage Divide's aid list is flagged UseAll in-game, so there you get the whole aid set.",
+      "aidByRegion": [
         {
-          "name": "Purified Water",
-          "dropRate": 32.5
+          "region": "The Forest",
+          "items": [
+            {
+              "name": "Stimpak: Diluted",
+              "dropRate": 40.0
+            },
+            {
+              "name": "Purified Water",
+              "dropRate": 20.0
+            },
+            {
+              "name": "RadAway: Diluted",
+              "dropRate": 13.3333
+            },
+            {
+              "name": "Rad-X: Diluted",
+              "dropRate": 6.6667
+            },
+            {
+              "name": "Stimpak: Super",
+              "dropRate": 3.825
+            },
+            {
+              "name": "Psychobuff",
+              "dropRate": 2.125
+            },
+            {
+              "name": "Psychotats",
+              "dropRate": 2.125
+            },
+            {
+              "name": "Berry Mentats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Bufftats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Grape Mentats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Orange Mentats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Calmex",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Daddy-O",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Day Tripper",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Fury",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Overdrive",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "X-Cell",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Buffout",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Med-X",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Mentats",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Psycho",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Rad-X",
+              "dropRate": 0.5
+            },
+            {
+              "name": "RadAway",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Stimpak",
+              "dropRate": 0.425
+            }
+          ],
+          "sumPct": 100.0,
+          "multiDrop": false
         },
         {
-          "name": "Stimpak: Diluted",
-          "dropRate": 22.5
+          "region": "Toxic Valley",
+          "items": [
+            {
+              "name": "Stimpak: Diluted",
+              "dropRate": 40.0
+            },
+            {
+              "name": "Purified Water",
+              "dropRate": 20.0
+            },
+            {
+              "name": "RadAway: Diluted",
+              "dropRate": 13.3333
+            },
+            {
+              "name": "Rad-X: Diluted",
+              "dropRate": 6.6667
+            },
+            {
+              "name": "Stimpak: Super",
+              "dropRate": 3.825
+            },
+            {
+              "name": "Psychobuff",
+              "dropRate": 2.125
+            },
+            {
+              "name": "Psychotats",
+              "dropRate": 2.125
+            },
+            {
+              "name": "Berry Mentats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Bufftats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Grape Mentats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Orange Mentats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Calmex",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Daddy-O",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Day Tripper",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Fury",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Overdrive",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "X-Cell",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Buffout",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Med-X",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Mentats",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Psycho",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Rad-X",
+              "dropRate": 0.5
+            },
+            {
+              "name": "RadAway",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Stimpak",
+              "dropRate": 0.425
+            }
+          ],
+          "sumPct": 100.0,
+          "multiDrop": false
         },
         {
-          "name": "RadAway",
-          "dropRate": 21.9062
+          "region": "Savage Divide",
+          "items": [
+            {
+              "name": "RadAway",
+              "dropRate": 102.5
+            },
+            {
+              "name": "Stimpak",
+              "dropRate": 102.125
+            },
+            {
+              "name": "Purified Water",
+              "dropRate": 100.0
+            },
+            {
+              "name": "Stimpak: Super",
+              "dropRate": 19.125
+            },
+            {
+              "name": "Psychobuff",
+              "dropRate": 10.625
+            },
+            {
+              "name": "Psychotats",
+              "dropRate": 10.625
+            },
+            {
+              "name": "Berry Mentats",
+              "dropRate": 5.3125
+            },
+            {
+              "name": "Bufftats",
+              "dropRate": 5.3125
+            },
+            {
+              "name": "Grape Mentats",
+              "dropRate": 5.3125
+            },
+            {
+              "name": "Orange Mentats",
+              "dropRate": 5.3125
+            },
+            {
+              "name": "Calmex",
+              "dropRate": 3.5417
+            },
+            {
+              "name": "Daddy-O",
+              "dropRate": 3.5417
+            },
+            {
+              "name": "Day Tripper",
+              "dropRate": 3.5417
+            },
+            {
+              "name": "Fury",
+              "dropRate": 3.5417
+            },
+            {
+              "name": "Overdrive",
+              "dropRate": 3.5417
+            },
+            {
+              "name": "X-Cell",
+              "dropRate": 3.5417
+            },
+            {
+              "name": "Buffout",
+              "dropRate": 2.5
+            },
+            {
+              "name": "Med-X",
+              "dropRate": 2.5
+            },
+            {
+              "name": "Mentats",
+              "dropRate": 2.5
+            },
+            {
+              "name": "Psycho",
+              "dropRate": 2.5
+            },
+            {
+              "name": "Rad-X",
+              "dropRate": 2.5
+            }
+          ],
+          "sumPct": 400.0,
+          "multiDrop": true
         },
         {
-          "name": "Stimpak",
-          "dropRate": 21.8078
+          "region": "Ash Heap",
+          "items": [
+            {
+              "name": "RadAway",
+              "dropRate": 25.625
+            },
+            {
+              "name": "Stimpak",
+              "dropRate": 25.5312
+            },
+            {
+              "name": "Purified Water",
+              "dropRate": 25.0
+            },
+            {
+              "name": "Stimpak: Super",
+              "dropRate": 4.7812
+            },
+            {
+              "name": "Psychobuff",
+              "dropRate": 2.6562
+            },
+            {
+              "name": "Psychotats",
+              "dropRate": 2.6562
+            },
+            {
+              "name": "Berry Mentats",
+              "dropRate": 1.3281
+            },
+            {
+              "name": "Bufftats",
+              "dropRate": 1.3281
+            },
+            {
+              "name": "Grape Mentats",
+              "dropRate": 1.3281
+            },
+            {
+              "name": "Orange Mentats",
+              "dropRate": 1.3281
+            },
+            {
+              "name": "Calmex",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Daddy-O",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Day Tripper",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Fury",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Overdrive",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "X-Cell",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Buffout",
+              "dropRate": 0.625
+            },
+            {
+              "name": "Med-X",
+              "dropRate": 0.625
+            },
+            {
+              "name": "Mentats",
+              "dropRate": 0.625
+            },
+            {
+              "name": "Psycho",
+              "dropRate": 0.625
+            },
+            {
+              "name": "Rad-X",
+              "dropRate": 0.625
+            }
+          ],
+          "sumPct": 100.0,
+          "multiDrop": false
         },
         {
-          "name": "Stimpak: Super",
-          "dropRate": 7.5203
+          "region": "The Mire",
+          "items": [
+            {
+              "name": "RadAway",
+              "dropRate": 25.625
+            },
+            {
+              "name": "Stimpak",
+              "dropRate": 25.5312
+            },
+            {
+              "name": "Purified Water",
+              "dropRate": 25.0
+            },
+            {
+              "name": "Stimpak: Super",
+              "dropRate": 4.7812
+            },
+            {
+              "name": "Psychobuff",
+              "dropRate": 2.6562
+            },
+            {
+              "name": "Psychotats",
+              "dropRate": 2.6562
+            },
+            {
+              "name": "Berry Mentats",
+              "dropRate": 1.3281
+            },
+            {
+              "name": "Bufftats",
+              "dropRate": 1.3281
+            },
+            {
+              "name": "Grape Mentats",
+              "dropRate": 1.3281
+            },
+            {
+              "name": "Orange Mentats",
+              "dropRate": 1.3281
+            },
+            {
+              "name": "Calmex",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Daddy-O",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Day Tripper",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Fury",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Overdrive",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "X-Cell",
+              "dropRate": 0.8854
+            },
+            {
+              "name": "Buffout",
+              "dropRate": 0.625
+            },
+            {
+              "name": "Med-X",
+              "dropRate": 0.625
+            },
+            {
+              "name": "Mentats",
+              "dropRate": 0.625
+            },
+            {
+              "name": "Psycho",
+              "dropRate": 0.625
+            },
+            {
+              "name": "Rad-X",
+              "dropRate": 0.625
+            }
+          ],
+          "sumPct": 100.0,
+          "multiDrop": false
         },
         {
-          "name": "RadAway: Diluted",
-          "dropRate": 7.5
+          "region": "Cranberry Bog",
+          "items": [
+            {
+              "name": "Stimpak: Super",
+              "dropRate": 23.825
+            },
+            {
+              "name": "RadAway",
+              "dropRate": 20.5
+            },
+            {
+              "name": "Stimpak",
+              "dropRate": 20.425
+            },
+            {
+              "name": "Purified Water",
+              "dropRate": 20.0
+            },
+            {
+              "name": "Psychobuff",
+              "dropRate": 2.125
+            },
+            {
+              "name": "Psychotats",
+              "dropRate": 2.125
+            },
+            {
+              "name": "Berry Mentats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Bufftats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Grape Mentats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Orange Mentats",
+              "dropRate": 1.0625
+            },
+            {
+              "name": "Calmex",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Daddy-O",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Day Tripper",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Fury",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Overdrive",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "X-Cell",
+              "dropRate": 0.7083
+            },
+            {
+              "name": "Buffout",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Med-X",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Mentats",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Psycho",
+              "dropRate": 0.5
+            },
+            {
+              "name": "Rad-X",
+              "dropRate": 0.5
+            }
+          ],
+          "sumPct": 100.0,
+          "multiDrop": false
         },
         {
-          "name": "Rad-X: Diluted",
-          "dropRate": 3.75
+          "region": "Skyline Valley",
+          "items": [
+            {
+              "name": "Stimpak: Diluted",
+              "dropRate": 50.0
+            },
+            {
+              "name": "Purified Water",
+              "dropRate": 25.0
+            },
+            {
+              "name": "RadAway: Diluted",
+              "dropRate": 16.6667
+            },
+            {
+              "name": "Rad-X: Diluted",
+              "dropRate": 8.3333
+            }
+          ],
+          "sumPct": 100.0,
+          "multiDrop": false
         },
         {
-          "name": "Psychobuff",
-          "dropRate": 2.7891
-        },
-        {
-          "name": "Psychotats",
-          "dropRate": 2.7891
-        },
-        {
-          "name": "Berry Mentats",
-          "dropRate": 1.3945
-        },
-        {
-          "name": "Bufftats",
-          "dropRate": 1.3945
-        },
-        {
-          "name": "Grape Mentats",
-          "dropRate": 1.3945
-        },
-        {
-          "name": "Orange Mentats",
-          "dropRate": 1.3945
-        },
-        {
-          "name": "Calmex",
-          "dropRate": 0.9297
-        },
-        {
-          "name": "Daddy-O",
-          "dropRate": 0.9297
-        },
-        {
-          "name": "Day Tripper",
-          "dropRate": 0.9297
-        },
-        {
-          "name": "Fury",
-          "dropRate": 0.9297
-        },
-        {
-          "name": "Overdrive",
-          "dropRate": 0.9297
-        },
-        {
-          "name": "X-Cell",
-          "dropRate": 0.9297
-        },
-        {
-          "name": "Buffout",
-          "dropRate": 0.6563
-        },
-        {
-          "name": "Med-X",
-          "dropRate": 0.6563
-        },
-        {
-          "name": "Mentats",
-          "dropRate": 0.6563
-        },
-        {
-          "name": "Psycho",
-          "dropRate": 0.6563
-        },
-        {
-          "name": "Rad-X",
-          "dropRate": 0.6563
+          "region": "Burning Springs",
+          "items": [
+            {
+              "name": "Stimpak: Diluted",
+              "dropRate": 50.0
+            },
+            {
+              "name": "Purified Water",
+              "dropRate": 25.0
+            },
+            {
+              "name": "RadAway: Diluted",
+              "dropRate": 16.6667
+            },
+            {
+              "name": "Rad-X: Diluted",
+              "dropRate": 8.3333
+            }
+          ],
+          "sumPct": 100.0,
+          "multiDrop": false
         }
       ],
       "ammoByRegion": [
@@ -20005,12 +20525,13 @@
       ],
       "summary": {
         "aidTypes": 24,
+        "aidRegions": 8,
         "ammoTypes": 16,
         "ammoRegions": 8,
         "examples": [
           "Stimpak",
           "RadAway",
-          "Rad-X",
+          "Purified Water",
           "region-based ammo"
         ]
       }
