@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated": "2026-07-13T22:58:46.281014+00:00",
+  "generated": "2026-07-14T03:02:22.686816+00:00",
   "isPts": true,
   "source": {
     "base": "dist/challenges/challenges.json",
-    "gmrwTsv": "GMRW_Export_May_2026.tsv",
+    "gmrwTsv": "GMRW_Export_June_2026.tsv",
     "overlay": "src/fishing_challenges_checklist_rewards.json"
   },
   "page": {
@@ -15,12 +15,12 @@
   },
   "bigFishQuest": {
     "name": "Big Fish in a Small Pond",
-    "gameName": "Daily: Big Fish in a Small Pond",
+    "gameName": "",
     "npc": "Captain Raymond",
     "location": "Fisherman's Rest",
     "fishRequired": 7,
-    "description": "Grab a rod and scour Appalachia's waters for fish!",
-    "formId": "007B95E1",
+    "description": "",
+    "formId": "",
     "edid": "Fishing_BigFish"
   },
   "groups": [
@@ -42,6 +42,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".HasMagicEffectKeyword(AlcoholEffect [KYWD:0005240A]) = 1",
@@ -50,7 +51,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -63,6 +69,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Grilled Fish [ALCH:007B2B9A]) = 1",
@@ -71,7 +78,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -84,6 +96,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionMTR [KYWD:0001CA8B]) = 1",
@@ -93,7 +106,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -106,6 +124,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1",
@@ -116,6 +135,10 @@
           "is_sub": false,
           "children": [],
           "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
             {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
@@ -133,6 +156,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionCranberryBog [KYWD:000012A1]) = 1",
@@ -142,7 +166,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -155,6 +184,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionForestFloodlands [KYWD:0001564F]) = 1",
@@ -166,8 +196,8 @@
           "children": [],
           "guides": [
             {
-              "title": "Tadpole Badge Vendors - Forest",
-              "url": "/df/vendors/tadpole/forest/"
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
             }
           ],
           "trackable": false
@@ -182,6 +212,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionSwampForest [KYWD:0001CA8C]) = 1",
@@ -193,8 +224,8 @@
           "children": [],
           "guides": [
             {
-              "title": "Treasury Notes Vendors - The Mire",
-              "url": "/df/vendors/treasury-notes/mire/"
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
             }
           ],
           "trackable": false
@@ -209,6 +240,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionMountain [KYWD:001789F7]) = 1",
@@ -218,7 +250,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -231,6 +268,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionStorm [KYWD:006923E7]) = 1",
@@ -240,7 +278,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -253,6 +296,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionToxicValley [KYWD:00088AAB]) = 1",
@@ -262,7 +306,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -275,6 +324,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -283,7 +333,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -296,6 +351,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".HasMagicEffectKeyword(AlcoholEffect [KYWD:0005240A]) = 1",
@@ -305,7 +361,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -318,6 +379,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Grilled Fish [ALCH:007B2B9A]) = 1"
@@ -325,7 +387,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -338,6 +405,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Fish Bits [ALCH:007CE310]) = 1",
@@ -346,7 +414,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Linda-Lee and Chum Trough Rewards",
+              "url": "/df/fishing/linda-lee-chum-trough-rewards/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -359,6 +432,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -367,7 +441,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -380,6 +459,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Fish Bits [ALCH:007CE310]) = 1",
@@ -388,7 +468,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Linda-Lee and Chum Trough Rewards",
+              "url": "/df/fishing/linda-lee-chum-trough-rewards/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -401,6 +486,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -409,7 +495,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -422,6 +513,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1",
@@ -432,6 +524,10 @@
           "is_sub": false,
           "children": [],
           "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
             {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
@@ -449,6 +545,7 @@
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".HasMagicEffectKeyword(AlcoholEffect [KYWD:0005240A]) = 1",
@@ -458,7 +555,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         }
       ]
@@ -481,6 +583,7 @@
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -497,7 +600,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -510,6 +618,7 @@
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1",
@@ -520,6 +629,10 @@
           "is_sub": false,
           "children": [],
           "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
             {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
@@ -537,6 +650,7 @@
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -545,7 +659,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -558,6 +677,7 @@
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -566,7 +686,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -579,6 +704,7 @@
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Fish Bits [ALCH:007CE310]) = 1",
@@ -587,7 +713,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Linda-Lee and Chum Trough Rewards",
+              "url": "/df/fishing/linda-lee-chum-trough-rewards/"
+            }
+          ],
           "trackable": false
         },
         {
@@ -600,6 +731,7 @@
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Fish Bits [ALCH:007CE310]) = 1",
@@ -608,7 +740,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Linda-Lee and Chum Trough Rewards",
+              "url": "/df/fishing/linda-lee-chum-trough-rewards/"
+            }
+          ],
           "trackable": false
         }
       ]
@@ -635,7 +772,8 @@
           "group_key": "bigfish",
           "reward": "Plan: Mirelurk Plushie",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/MirelurkPlushie.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.IsInList(Fishing Daily [FLST:007CF77F]) = 1"
           ],
@@ -644,8 +782,8 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing",
-              "url": "/df/challenges/fishing/"
+              "title": "Big Fish in a Small Pond - Pip Boy Daily",
+              "url": "/df/fishing/big-fish-small-pond/"
             }
           ],
           "trackable": true
@@ -660,7 +798,8 @@
           "group_key": "bigfish",
           "reward": "Plan: Angler Plushie",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/AnglerPlushie.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.IsInList(Fishing Daily [FLST:00800687]) = 1"
           ],
@@ -669,8 +808,8 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing",
-              "url": "/df/challenges/fishing/"
+              "title": "Big Fish in a Small Pond - Pip Boy Daily",
+              "url": "/df/fishing/big-fish-small-pond/"
             }
           ],
           "trackable": true
@@ -685,7 +824,8 @@
           "group_key": "bigfish",
           "reward": "Plan: Crab Boat Plushie",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/CrabBoatPlushie.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.IsInList(Fishing Daily [FLST:00800688]) = 1"
           ],
@@ -694,8 +834,8 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing",
-              "url": "/df/challenges/fishing/"
+              "title": "Big Fish in a Small Pond - Pip Boy Daily",
+              "url": "/df/fishing/big-fish-small-pond/"
             }
           ],
           "trackable": true
@@ -830,6 +970,7 @@
           "group_key": "lifetime",
           "reward": "10x Bait - Common",
           "reward_source": "gmrw",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.IsInList(Fishing Intro [FLST:007CF77A]) = 1"
@@ -837,7 +978,20 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            },
+            {
+              "title": "Hook, Line and Ledger: An Overview of the New Fishing System",
+              "url": "/df/fishing/hook-line-ledger/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -850,6 +1004,7 @@
           "group_key": "lifetime",
           "reward": "Plan: Fishing Rod Line Upgrade 02",
           "reward_source": "gmrw",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [],
           "is_meta": true,
@@ -865,6 +1020,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.HasKeyword(Fishing_FishSize_Medium [KYWD:007ABE88]) = 1"
@@ -872,7 +1028,16 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                },
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -885,6 +1050,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.HasKeyword(Fishing_FishSize_Small [KYWD:007ABE8B]) = 1"
@@ -892,11 +1058,29 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                },
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+              "url": "/df/fishing/reel-talk/"
+            },
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -909,6 +1093,7 @@
           "group_key": "lifetime",
           "reward": "Plan: Fishing Rod Line Upgrade 03",
           "reward_source": "gmrw",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [],
           "is_meta": true,
@@ -924,6 +1109,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.HasKeyword(Fishing_FishType_Sawgill [KYWD:007FE7BD]) = 1"
@@ -931,7 +1117,16 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                },
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -944,6 +1139,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Kanawha Piranha [ALCH:007CE4D4]) = 1",
@@ -954,8 +1150,8 @@
               "children": [],
               "guides": [
                 {
-                  "title": "Tadpole Badge Vendors - Forest",
-                  "url": "/df/vendors/tadpole/forest/"
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
                 }
               ],
               "trackable": true
@@ -970,6 +1166,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Leatherback [ALCH:007CE4D5]) = 1"
@@ -977,11 +1174,25 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+              "url": "/df/fishing/reel-talk/"
+            },
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -994,6 +1205,7 @@
           "group_key": "lifetime",
           "reward": "Plan: Fishing Rod Line Upgrade 04",
           "reward_source": "gmrw",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [],
           "is_meta": true,
@@ -1009,6 +1221,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.HasKeyword(Fishing_FishType_Axolotl [KYWD:00800713]) = 1"
@@ -1016,7 +1229,16 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                },
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1029,6 +1251,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Ashen Ambusher [ALCH:007CE4E5]) = 1",
@@ -1037,7 +1260,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1050,6 +1278,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Bluefin Zapper [ALCH:007CE4D1]) = 1"
@@ -1057,11 +1286,25 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+              "url": "/df/fishing/reel-talk/"
+            },
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1074,6 +1317,7 @@
           "group_key": "lifetime",
           "reward": "Plan: Fishing Rod Line Upgrade 05",
           "reward_source": "gmrw",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [],
           "is_meta": true,
@@ -1089,6 +1333,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Deathjaw [ALCH:007D2AF0]) = 1"
@@ -1096,7 +1341,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1109,6 +1359,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Glowing Bog Lurker [ALCH:007D2AF5]) = 1"
@@ -1116,7 +1367,16 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                },
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1129,6 +1389,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Purple Radpole [ALCH:007CE4DD]) = 1"
@@ -1136,11 +1397,21 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+                  "url": "/df/fishing/reel-talk/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+              "url": "/df/fishing/reel-talk/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1153,14 +1424,20 @@
           "group_key": "lifetime",
           "reward": "Plan: Kelp Curtain",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/KelpCurtain.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1173,14 +1450,20 @@
           "group_key": "lifetime",
           "reward": "Plan: Fishermans",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/FishermansWorkbench.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1193,14 +1476,20 @@
           "group_key": "lifetime",
           "reward": "Plan: Scuba Tank Backpack",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/ScubaTankBackpack.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1213,6 +1502,7 @@
           "group_key": "lifetime",
           "reward": "Title: Lunker",
           "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1"
@@ -1220,7 +1510,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1233,14 +1528,20 @@
           "group_key": "lifetime",
           "reward": "Plan: Reclaimed Ship Chandelier",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/ReclaimedShipChandelier.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1253,14 +1554,24 @@
           "group_key": "lifetime",
           "reward": "Plan: Quantum Bobber",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/NukaColaQuantum.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1273,14 +1584,20 @@
           "group_key": "lifetime",
           "reward": "Plan: Makeshift Rod; Plan: Makeshift Rod Replica",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/MakeshiftRod.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1293,7 +1610,8 @@
           "group_key": "lifetime",
           "reward": "Plan: Rocket Bobber",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/Rocket.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
@@ -1308,6 +1626,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Brook Silverside [ALCH:007CE4D3]) = 1"
@@ -1315,7 +1634,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1328,6 +1652,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Chain Pickerel [ALCH:007CE4DB]) = 1"
@@ -1335,7 +1660,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1348,6 +1678,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Redbelly [ALCH:007CE4E9]) = 1"
@@ -1355,7 +1686,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1368,6 +1704,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Ridge Trout [ALCH:007CE4E8]) = 1"
@@ -1375,7 +1712,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1388,6 +1730,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Smoky Salmon [ALCH:007CE4E0]) = 1"
@@ -1395,7 +1738,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1408,6 +1756,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Sunscream [ALCH:007CE4D9]) = 1"
@@ -1415,7 +1764,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1428,6 +1782,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Walleye [ALCH:007CE4EA]) = 1"
@@ -1435,7 +1790,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1448,6 +1808,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Yellow Bullhead [ALCH:007CE4EB]) = 1"
@@ -1455,11 +1816,25 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1472,7 +1847,8 @@
           "group_key": "lifetime",
           "reward": "Plan: Red Tide Float",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/RedTideFloat.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
@@ -1487,6 +1863,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Bloodwhisker [ALCH:007D2AF3]) = 1"
@@ -1494,7 +1871,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1507,6 +1889,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Glowing Kanawha Piranha [ALCH:007CE4E1]) = 1"
@@ -1514,7 +1897,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1527,6 +1915,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Kanawha Piranha [ALCH:007CE4D4]) = 1"
@@ -1534,7 +1923,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1547,6 +1941,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Timber Sawgill [ALCH:007CE4ED]) = 1"
@@ -1554,14 +1949,23 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
           "guides": [
             {
-              "title": "Tadpole Badge Vendors - Forest",
-              "url": "/df/vendors/tadpole/forest/"
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
             }
           ],
           "trackable": true
@@ -1576,7 +1980,8 @@
           "group_key": "lifetime",
           "reward": "Plan: Festive Float",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/FestiveFloat.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
@@ -1591,6 +1996,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Glowing Gulpy [ALCH:007CE4D7]) = 1"
@@ -1598,7 +2004,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1611,6 +2022,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Gulpy [ALCH:007CE4EC]) = 1"
@@ -1618,7 +2030,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1631,6 +2048,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Muddy Sawgill [ALCH:007CE4E7]) = 1"
@@ -1638,7 +2056,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1651,6 +2074,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Spikesnapper [ALCH:007D2AF1]) = 1"
@@ -1658,14 +2082,23 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
           "guides": [
             {
-              "title": "Treasury Notes Vendors - The Mire",
-              "url": "/df/vendors/treasury-notes/mire/"
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
             }
           ],
           "trackable": true
@@ -1680,7 +2113,8 @@
           "group_key": "lifetime",
           "reward": "Plan: Crimson Stripe Float",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/CrimsonStripeFloat.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
@@ -1695,6 +2129,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Alpine Sawgill [ALCH:007CE4DC]) = 1"
@@ -1702,7 +2137,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1715,6 +2155,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Armored Spinefish [ALCH:007CE4E6]) = 1"
@@ -1722,7 +2163,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1735,6 +2181,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Glowing Spinefish [ALCH:007CE4E4]) = 1"
@@ -1742,7 +2189,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1755,6 +2207,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Leatherback [ALCH:007CE4D5]) = 1"
@@ -1762,11 +2215,25 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1779,7 +2246,8 @@
           "group_key": "lifetime",
           "reward": "Plan: Flamewood Float",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/FlamewoodFloat.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
@@ -1794,6 +2262,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Ashen Ambusher [ALCH:007CE4E5]) = 1"
@@ -1801,7 +2270,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1814,6 +2288,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Deathjaw [ALCH:007D2AF0]) = 1"
@@ -1821,7 +2296,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1834,6 +2314,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Glowing Ambusher [ALCH:007CE4E2]) = 1"
@@ -1841,7 +2322,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1854,6 +2340,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Sooty Sawgill [ALCH:007CE4D0]) = 1"
@@ -1861,11 +2348,25 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1878,7 +2379,8 @@
           "group_key": "lifetime",
           "reward": "Plan: Twin Timber Float",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/TwinTimberFloat.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
@@ -1893,6 +2395,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Blisterfish [ALCH:007CE4DF]) = 1"
@@ -1900,7 +2403,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1913,6 +2421,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Bog Lurker [ALCH:007D2AF4]) = 1"
@@ -1920,7 +2429,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1933,6 +2447,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Bog Sawgill [ALCH:007CE4DA]) = 1"
@@ -1940,7 +2455,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -1953,6 +2473,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Glowing Bog Lurker [ALCH:007D2AF5]) = 1"
@@ -1960,11 +2481,25 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -1977,7 +2512,8 @@
           "group_key": "lifetime",
           "reward": "Plan: Pin Bobber",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/PinBobber.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
@@ -1992,6 +2528,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Glowing Potbelly Kelt [ALCH:007D2AF2]) = 1"
@@ -1999,7 +2536,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2012,6 +2554,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Noxious Sawgill [ALCH:007CE4E3]) = 1"
@@ -2019,7 +2562,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2032,6 +2580,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Potbelly Kelt [ALCH:007CE4D2]) = 1"
@@ -2039,7 +2588,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2052,6 +2606,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Purple Radpole [ALCH:007CE4DD]) = 1"
@@ -2059,11 +2614,25 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2076,7 +2645,8 @@
           "group_key": "lifetime",
           "reward": "Plan: Skyfire Float",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/SkyfireFloat.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
@@ -2091,6 +2661,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Bluefin Zapper [ALCH:007CE4D1]) = 1"
@@ -2098,7 +2669,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2111,6 +2687,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Glowing Stormswimmer [ALCH:007D2AEF]) = 1"
@@ -2118,7 +2695,16 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "What's Biting? A Guide to Fish, Bait & Weather",
+                  "url": "/df/fishing/whats-biting/"
+                },
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2131,6 +2717,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Static Sawgill [ALCH:007CE4DE]) = 1"
@@ -2138,7 +2725,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2151,6 +2743,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Stormswimmer [ALCH:007CE4D6]) = 1"
@@ -2158,11 +2751,29 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "What's Biting? A Guide to Fish, Bait & Weather",
+                  "url": "/df/fishing/whats-biting/"
+                },
+                {
+                  "title": "Fish Types Guide",
+                  "url": "/df/fishing/fish-types-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2175,12 +2786,21 @@
           "group_key": "lifetime",
           "reward": "Plan: Babydoll Head Bobber",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/DollHead.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
           "children": [],
           "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
             {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
@@ -2198,6 +2818,7 @@
           "group_key": "lifetime",
           "reward": "Title: Captain",
           "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.IsInList(Toxic Valley Fish Challenges [FLST:007CF777]) = 1"
@@ -2207,8 +2828,8 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing",
-              "url": "/df/challenges/fishing/"
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
             }
           ],
           "trackable": true
@@ -2223,6 +2844,7 @@
           "group_key": "lifetime",
           "reward": "Title: Axolotl",
           "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Axolotl [KYWD:00800713]) = 1"
@@ -2230,7 +2852,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Axolotl Guide",
+              "url": "/df/fishing/axolotl-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2243,6 +2870,7 @@
           "group_key": "lifetime",
           "reward": "Title: Of The Month",
           "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [],
           "is_meta": true,
@@ -2258,6 +2886,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Charcoal Axolotl [ALCH:008006D7]) = 1"
@@ -2265,7 +2894,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2278,6 +2912,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Pink Axolotl [ALCH:008006D3]) = 1"
@@ -2285,7 +2920,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2298,6 +2938,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Clay Axolotl [ALCH:008006CF]) = 1"
@@ -2305,7 +2946,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2318,6 +2964,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Dotted Axolotl [ALCH:008006D9]) = 1"
@@ -2325,7 +2972,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2338,6 +2990,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Purple Axolotl [ALCH:008006D4]) = 1"
@@ -2345,7 +2998,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2358,6 +3016,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Banded Axolotl [ALCH:008006D8]) = 1"
@@ -2365,7 +3024,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2378,6 +3042,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Scaled Axolotl [ALCH:008006DC]) = 1"
@@ -2385,7 +3050,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2398,6 +3068,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Striped Axolotl [ALCH:008006DB]) = 1"
@@ -2405,7 +3076,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2418,6 +3094,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Shadow Axolotl [ALCH:008006D5]) = 1"
@@ -2425,7 +3102,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2438,6 +3120,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Spotted Axolotl [ALCH:008006DA]) = 1"
@@ -2445,7 +3128,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2458,6 +3146,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Speckled Axolotl [ALCH:008006D6]) = 1"
@@ -2465,7 +3154,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2478,6 +3172,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.GetIsID(Stone Axolotl [ALCH:008006D1]) = 1"
@@ -2485,11 +3180,21 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Axolotl Guide",
+                  "url": "/df/fishing/axolotl-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Axolotl Guide",
+              "url": "/df/fishing/axolotl-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2502,6 +3207,7 @@
           "group_key": "lifetime",
           "reward": "Title: Solar",
           "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Seasonal_Summer [KYWD:008B3A01]) = 1"
@@ -2509,7 +3215,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2522,14 +3233,24 @@
           "group_key": "lifetime",
           "reward": "Plan: Jellied Fish",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/JelliedFish.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Glass Ghost [ALCH:008A45C9]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            },
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2542,6 +3263,7 @@
           "group_key": "lifetime",
           "reward": "Title: Sunny",
           "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Seasonal_Summer [KYWD:008B3A01]) = 1"
@@ -2549,7 +3271,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2560,8 +3287,9 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "",
-          "reward_source": "none",
+          "reward": "Title: Sunset",
+          "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Seasonal_Fall [KYWD:008B3D60]) = 1"
@@ -2569,7 +3297,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2580,8 +3313,9 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "",
-          "reward_source": "none",
+          "reward": "Plan: Spicy Eelgrass Soup",
+          "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Sludge Eye [ALCH:008EFCA6]) = 1"
@@ -2589,7 +3323,16 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            },
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2600,8 +3343,9 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "",
-          "reward_source": "none",
+          "reward": "Title: Bountiful",
+          "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_Seasonal_Fall [KYWD:008B3D60]) = 1"
@@ -2609,7 +3353,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2622,6 +3371,7 @@
           "group_key": "lifetime",
           "reward": "Title: Seasoned",
           "reward_source": "cobj",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [],
           "is_meta": true,
@@ -2637,6 +3387,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.HasKeyword(Fishing_FishType_Seasonal_Fall [KYWD:008B3D60]) = 1"
@@ -2644,7 +3395,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Seasonal Fish Guide",
+                  "url": "/df/fishing/seasonal-fish-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2657,6 +3413,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.HasKeyword(Fishing_FishType_Seasonal_Spring [KYWD:008B3D5F]) = 1"
@@ -2664,7 +3421,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Seasonal Fish Guide",
+                  "url": "/df/fishing/seasonal-fish-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2677,6 +3439,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.HasKeyword(Fishing_FishType_Seasonal_Summer [KYWD:008B3A01]) = 1"
@@ -2684,7 +3447,12 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Seasonal Fish Guide",
+                  "url": "/df/fishing/seasonal-fish-guide/"
+                }
+              ],
               "trackable": true
             },
             {
@@ -2697,6 +3465,7 @@
               "group_key": "lifetime",
               "reward": "",
               "reward_source": "none",
+              "reward_desc": "",
               "image_url": "",
               "conditions_display": [
                 "Target.HasKeyword(Fishing_FishType_Seasonal_Winter [KYWD:008B3D61]) = 1"
@@ -2704,11 +3473,21 @@
               "is_meta": false,
               "is_sub": true,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Seasonal Fish Guide",
+                  "url": "/df/fishing/seasonal-fish-guide/"
+                }
+              ],
               "trackable": true
             }
           ],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2721,14 +3500,20 @@
           "group_key": "lifetime",
           "reward": "Plan: Fishing Display Plaque; Title: Cove",
           "reward_source": "cobj",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/FishingDisplayPlaque.avif",
+          "reward_desc": "",
+          "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(Fishing_FishType_LocalLegend [KYWD:00804F7E]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2741,6 +3526,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Wavy Willard [ALCH:00804F75]) = 1"
@@ -2748,7 +3534,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2761,6 +3552,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Organ Grinder [ALCH:00804F76]) = 1"
@@ -2768,7 +3560,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2781,6 +3578,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Ryl-Tkannoth, Maw-Begotten [ALCH:00804F74]) = 1"
@@ -2788,7 +3586,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2801,6 +3604,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.GetIsID(Hocking Hill Hellion [ALCH:0085A4F6]) = 1"
@@ -2808,7 +3612,12 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2821,6 +3630,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -2831,6 +3641,10 @@
           "is_sub": false,
           "children": [],
           "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
             {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
@@ -2848,6 +3662,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -2876,6 +3691,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -2904,6 +3720,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -2932,6 +3749,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -2960,6 +3778,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -2970,7 +3789,16 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -2983,6 +3811,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -2994,7 +3823,16 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -3007,6 +3845,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -3018,7 +3857,16 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -3031,6 +3879,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -3042,7 +3891,16 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         },
         {
@@ -3055,6 +3913,7 @@
           "group_key": "lifetime",
           "reward": "",
           "reward_source": "none",
+          "reward_desc": "",
           "image_url": "",
           "conditions_display": [
             "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
@@ -3066,7 +3925,16 @@
           "is_meta": false,
           "is_sub": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
           "trackable": true
         }
       ]

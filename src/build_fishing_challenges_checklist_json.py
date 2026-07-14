@@ -110,6 +110,165 @@ def camel_words(s):
     return s
 
 
+# ------------------------------------------------------------------ reward DESC
+# A reward's in-game description (flavour / effect text) lives in the DESC field
+# of whichever record the reward item is (OMOD rod-mods, ALCH food, BOOK plans,
+# ENTM/KEYM). FURN / MISC / WEAP carry no DESC, so cosmetic CAMP decor simply has
+# none and the checklist shows nothing under the image (per design).
+def _clean_desc(v):
+    v = (v or "").strip()
+    if not v or v.upper() in ("NONE", "NULL", "<P>", "</P>"):
+        return ""
+    return v
+
+
+_DESC_SIDECAR_RE = re.compile(
+    r"_(Properties|Effects|Locations|Refs|ObjectTemplate|SLOTS|HEADER|ACTI)\.tsv$", re.I)
+
+
+def build_desc_lookup():
+    """Normalised FormID -> DESC, merged from every DESC-bearing record export.
+    Newest export wins (files read oldest-first, later overwrites)."""
+    out = {}
+    files = []
+    for pat in ("OMOD_Export_*.tsv", "ALCH_Export_*.tsv", "BOOK_Export_*.tsv",
+                "ENTM_Export_*.tsv", "KEYM_Export_*.tsv"):
+        files += glob.glob(os.path.join(TSV_DIR, pat))
+    files = [f for f in files if not _DESC_SIDECAR_RE.search(f)]
+    files.sort(key=os.path.getmtime)   # newest last -> newest wins
+    for path in files:
+        rows = read_tsv(path)
+        if not rows or "DESC" not in rows[0]:
+            continue  # no player-facing DESC column in this export
+        for row in rows:
+            fid = norm_fid(row.get("FormID") or row.get("OMOD_FormID")
+                           or row.get("ALCH_FormID") or "")
+            desc = _clean_desc(row.get("DESC"))
+            if fid and fid != "00000000" and desc:
+                out[fid] = desc
+    return out
+
+
+def build_cobj_desc(desc_lookup):
+    """Challenge FormID -> DESC of the item its COBJ crafts (first non-empty).
+    A bobber gates both a display MISC (no DESC) and a weapon-mod OMOD (has DESC);
+    we keep the first non-empty so the meaningful text wins."""
+    out = {}
+    for row in read_tsv(newest("COBJ_Export_*.tsv")):
+        g = norm_fid(row.get("GNAM_FormID"))
+        if not g or g == "00000000" or g in out:
+            continue
+        desc = desc_lookup.get(norm_fid(row.get("CNAM_FormID")), "")
+        if desc:
+            out[g] = desc
+    return out
+
+
+def build_gmrw_desc(desc_lookup):
+    """Challenge-key -> DESC of the GMRW RewardedItem (matches build_gmrw_rewards keys)."""
+    out = {}
+    for row in read_tsv(newest("GMRW_Export_*.tsv")):
+        m = re.match(r"^(zzz_|Burn_)?ChallengeReward_(.+)$", row.get("EDID") or "")
+        if not m or (m.group(1) or "") == "zzz_":
+            continue
+        item = (row.get("RewardedItem") or "").strip()
+        if not item:
+            continue
+        desc = desc_lookup.get(norm_fid(item.split(":")[0]), "")
+        if desc:
+            out.setdefault(m.group(2), desc)
+    return out
+
+
+# ------------------------------------------------------------------ guide links
+# "Read the guide index, find the challenge's SUBJECT in one of the guides, link
+# it." We resolve the site's fishing guide pages from tsv/guide_index.tsv (so URLs
+# stay correct) and map each challenge's subject signals to the guide(s) that
+# cover that subject. Topical only — challenges with no subject match stay blank.
+_GUIDE_INDEX_PATH = os.path.join(TSV_DIR, "guide_index.tsv")
+
+
+def build_guide_by_slug():
+    out = {}
+    for row in read_tsv(_GUIDE_INDEX_PATH):
+        if (row.get("status") or "") != "published":
+            continue
+        if (row.get("visibility") or "") != "public":
+            continue
+        slug = (row.get("slug") or "").strip().lower()
+        url = (row.get("url") or "").strip()
+        title = (row.get("title") or "").strip()
+        if slug and url and title:
+            out.setdefault(slug, {"title": title, "url": url})
+    return out
+
+
+def guides_for(edid, name, reward, conds, guide_by_slug):
+    e = (edid or "").lower()
+    n = (name or "").lower()
+    r = (reward or "").lower()
+    hay = " ".join([e, n, r, " ".join(conds or [])]).lower()
+    picks = []  # (priority, slug)
+
+    # -- specific fishing subjects --
+    if "axolotl" in hay:
+        picks.append((1, "axolotl-guide"))
+    if ("seasonalfish" in e or "seasonal" in n or "every season" in n):
+        picks.append((1, "seasonal-fish-guide"))
+    if "locallegend" in e or "local legend" in n:
+        picks.append((1, "local-legends-guide"))
+    if "completedailies" in e or "big fish" in n:
+        picks.append((1, "big-fish-small-pond"))
+
+    # -- reward-driven subjects --
+    if re.search(r"\b(hook|reel|drag|bearing|handle)\b", r) or "gear ratio" in r \
+            or "fish quest" in n or "_progress_" in e:
+        picks.append((2, "reel-talk"))
+    if re.search(r"\b(bobber|float|skin)\b", r):
+        picks.append((2, "fishing-bobbers-floats"))
+    if "fishbit" in e or "fish bit" in n or "fishbits" in n or "chum" in hay:
+        picks.append((2, "linda-lee-chum-trough-rewards"))
+
+    # -- conditions: bait / weather --
+    if "bait" in hay or "rain" in hay or "sandstorm" in hay or "storm" in n:
+        picks.append((3, "whats-biting"))
+
+    # -- fish types / species / regions --
+    if ("_region_" in e or "commonfish" in e or "uniquefish" in e
+            or "glowingfish" in e or "glowing" in n or "sawgill" in n
+            or "regional fish" in n or "catch any fish" in n
+            or "small fish" in n or "medium fish" in n or "any fish" in n
+            or ("region" in n and "in the" in n)):
+        picks.append((3, "fish-types-guide"))
+
+    # -- burning springs --
+    if "burningsprings" in e or "burning springs" in n:
+        picks.append((3, "springs"))
+
+    # -- broad how-to (intro) --
+    if "_intro" in e or "learn how to fish" in n:
+        picks.append((4, "fishing-basics"))
+        picks.append((5, "hook-line-ledger"))
+
+    # generic fishing action with no specific subject -> Fishing Basics
+    if not picks and "fish" in hay:
+        picks.append((4, "fishing-basics"))
+
+    picks.sort(key=lambda x: x[0])
+    out, seen = [], set()
+    for _, slug in picks:
+        if slug in seen:
+            continue
+        g = guide_by_slug.get(slug)
+        if not g:
+            continue
+        seen.add(slug)
+        out.append({"title": g["title"], "url": g["url"]})
+        if len(out) >= 4:
+            break
+    return out
+
+
 # ------------------------------------------------------------------ item names
 def build_name_lookup():
     names = {}
@@ -299,9 +458,23 @@ def resolve_reward(edid, form_id, gk, overlay, cobj, gmrw):
     return "", "none"
 
 
-def make_item(it, gk, overlay, cobj, gmrw, images):
+def make_item(it, gk, overlay, cobj, gmrw, images,
+              cobj_desc=None, gmrw_desc=None, guide_by_slug=None):
     edid = it.get("edid") or ""
     reward, rsrc = resolve_reward(edid, it.get("form_id"), gk, overlay, cobj, gmrw)
+    cobj_desc = cobj_desc or {}
+    gmrw_desc = gmrw_desc or {}
+    if rsrc == "cobj":
+        reward_desc = cobj_desc.get(norm_fid(it.get("form_id")), "")
+    elif rsrc == "gmrw":
+        reward_desc = (gmrw_desc.get(edid)
+                       or gmrw_desc.get(re.sub(r"_META$", "", edid), ""))
+    else:
+        reward_desc = ""
+    guides = guides_for(
+        edid, it.get("full") or it.get("name") or edid, reward,
+        it.get("conditions_display") or it.get("conditions_human") or [],
+        guide_by_slug or {})
     return {
         "form_id": it.get("form_id") or "",
         "edid": edid,
@@ -312,13 +485,14 @@ def make_item(it, gk, overlay, cobj, gmrw, images):
         "group_key": gk,
         "reward": reward,
         "reward_source": rsrc,
+        "reward_desc": reward_desc,
         "image_url": (images.get(edid) or "").strip(),
         "conditions_display": it.get("conditions_display")
             or it.get("conditions_human") or [],
         "is_meta": bool(it.get("is_meta")),
         "is_sub": False,
         "children": [],
-        "guides": it.get("guides") or [],
+        "guides": guides,
         "trackable": GROUP_TRACKABLE[gk],
     }
 
@@ -422,6 +596,10 @@ def build(is_pts):
     names = build_name_lookup()
     gmrw = build_gmrw_rewards(names)
     cobj = build_cobj_unlocks()
+    desc_lookup = build_desc_lookup()
+    cobj_desc = build_cobj_desc(desc_lookup)
+    gmrw_desc = build_gmrw_desc(desc_lookup)
+    guide_by_slug = build_guide_by_slug()
     overlay_full = load_json(os.path.join(SCRIPT_DIR,
                "fishing_challenges_checklist_rewards.json"), {}) or {}
     overlay = overlay_full.get("rewards", {})
@@ -445,7 +623,8 @@ def build(is_pts):
         gk = group_key_for(it)
         if not gk:
             continue
-        buckets[gk].append(make_item(it, gk, overlay, cobj, gmrw, images))
+        buckets[gk].append(make_item(it, gk, overlay, cobj, gmrw, images,
+                                     cobj_desc, gmrw_desc, guide_by_slug))
 
     groups = []
     for gk in GROUP_ORDER:
@@ -519,7 +698,7 @@ def main():
         nchild = sum(len(i["children"]) for i in g["items"])
         print("  %-26s %2d root rows (+%d nested)%s"
               % (g["label"], g["count"], nchild,
-                 "  [trackable]" if g["trackable"] else ""))
+                              "  [trackable]" if g["trackable"] else ""))
     print("[fishing-cc] trackable leaves: %d" % n_track)
 
 
