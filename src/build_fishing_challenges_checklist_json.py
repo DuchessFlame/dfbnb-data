@@ -377,6 +377,84 @@ def build_cobj_unlocks():
     return out
 
 
+# ------------------------------------------------------------------ GMRW rewards (by Ref)
+def _gmrw_label(row, names):
+    """Reward label for a GMRW ChallengeReward row (item / count / caps)."""
+    item = (row.get("RewardedItem") or "").strip()
+    cnt = (row.get("RewardedItemCount") or "").strip()
+    cur = (row.get("QRCO_CurrencyObject") or "").strip()
+    if item:
+        nm = item_name(item, names)
+        typ = item.split(":")[-1]
+        if typ == "BOOK" and not re.match(r"^(Plan|Recipe)\b", nm, re.I):
+            label = "Plan: " + nm
+        else:
+            label = nm
+        try:
+            n = int(cnt)
+            if n > 1:
+                label = "%dx %s" % (n, label)
+        except (ValueError, TypeError):
+            pass
+        return label
+    if cur and "Caps001" in cur:
+        return "Caps"
+    return ""
+
+
+def build_gmrw_ref_rewards(names):
+    """
+    Challenge FormID -> reward label, resolved from the *Ref* columns of every
+    non-zzz ``*ChallengeReward*`` GMRW record.
+
+    The EDID-name matcher (build_gmrw_rewards) only catches records named
+    ``ChallengeReward_<challenge EDID>``. Many rewards are named by the ITEM they
+    grant (``Burn_ChallengeReward_Fishing_BaitImproved_3``,
+    ``ChallengeReward_Challenge_Lifetime_Fishing_LocalLegend_Modules``) and link to
+    the challenge through their Ref columns instead. This reads those, so Burning
+    Springs / Sandstorm bait tiers and the Local Legend caps/modules/notes rewards
+    resolve. Fishing-named records are processed first so a shared mega-reward can
+    never steal a fishing tier's specific reward.
+    """
+    rows = read_tsv(newest("GMRW_Export_*.tsv"))
+    rows.sort(key=lambda r: 0 if "Fishing" in (r.get("EDID") or "") else 1)
+    out = {}
+    for row in rows:
+        edid = row.get("EDID") or ""
+        if "ChallengeReward" not in edid or edid.startswith("zzz"):
+            continue
+        label = _gmrw_label(row, names)
+        if not label:
+            continue
+        for key, val in row.items():
+            if key and str(key).startswith("Ref") and ":CHAL" in (val or ""):
+                out.setdefault(norm_fid(val.split(":")[0]), label)
+    return out
+
+
+# ------------------------------------------------------------------ PLYT titles
+def build_plyt_titles():
+    """
+    Challenge FormID -> ``Title: <name>``, from Player-Title (PLYT) records whose
+    unlock condition is ``HasCompletedChallenge(... [CHAL:xxxx])``. These are the
+    reward for the top tier of several fishing ladders (e.g. Sandstorm 76 -> the
+    "Dusty" prefix) and are invisible to GMRW/COBJ.
+    """
+    out = {}
+    for row in read_tsv(newest("PLYT_Export_*.tsv")):
+        title = (row.get("ANAM - Male Title") or row.get("ANAM")
+                 or row.get("BNAM - Female Title") or "").strip()
+        if not title:
+            continue
+        for key, val in row.items():
+            if not val:
+                continue
+            for mm in re.finditer(
+                    r"HasCompletedChallenge\([^)]*\[CHAL:([0-9A-Fa-f]{8})\]", str(val)):
+                out.setdefault(norm_fid(mm.group(1)), "Title: " + title)
+    return out
+
+
 # ------------------------------------------------------------------ base items
 def load_base_items():
     path = os.path.join(DIST_DIR, "challenges", "challenges.json")
@@ -435,7 +513,8 @@ def type_label_for(gk, it):
 
 
 # ------------------------------------------------------------------ build
-def resolve_reward(edid, form_id, gk, overlay, cobj, gmrw):
+def resolve_reward(edid, form_id, gk, overlay, cobj, gmrw,
+                   gmrw_ref=None, plyt=None):
     """
     Generative reward resolution, in priority order:
       1. optional manual override (src overlay — empty by default)
@@ -455,13 +534,21 @@ def resolve_reward(edid, form_id, gk, overlay, cobj, gmrw):
     for key in (edid, re.sub(r"_META$", "", edid)):
         if key in gmrw:
             return gmrw[key], "gmrw"
+    gmrw_ref = gmrw_ref or {}
+    plyt = plyt or {}
+    if fid in gmrw_ref:
+        return gmrw_ref[fid], "gmrw"
+    if fid in plyt:
+        return plyt[fid], "title"
     return "", "none"
 
 
 def make_item(it, gk, overlay, cobj, gmrw, images,
-              cobj_desc=None, gmrw_desc=None, guide_by_slug=None):
+              cobj_desc=None, gmrw_desc=None, guide_by_slug=None,
+              gmrw_ref=None, plyt=None):
     edid = it.get("edid") or ""
-    reward, rsrc = resolve_reward(edid, it.get("form_id"), gk, overlay, cobj, gmrw)
+    reward, rsrc = resolve_reward(edid, it.get("form_id"), gk, overlay, cobj, gmrw,
+                                 gmrw_ref, plyt)
     cobj_desc = cobj_desc or {}
     gmrw_desc = gmrw_desc or {}
     if rsrc == "cobj":
@@ -595,6 +682,8 @@ def sort_key(it, gk):
 def build(is_pts):
     names = build_name_lookup()
     gmrw = build_gmrw_rewards(names)
+    gmrw_ref = build_gmrw_ref_rewards(names)
+    plyt = build_plyt_titles()
     cobj = build_cobj_unlocks()
     desc_lookup = build_desc_lookup()
     cobj_desc = build_cobj_desc(desc_lookup)
@@ -624,7 +713,8 @@ def build(is_pts):
         if not gk:
             continue
         buckets[gk].append(make_item(it, gk, overlay, cobj, gmrw, images,
-                                     cobj_desc, gmrw_desc, guide_by_slug))
+                                     cobj_desc, gmrw_desc, guide_by_slug,
+                                     gmrw_ref, plyt))
 
     groups = []
     for gk in GROUP_ORDER:
