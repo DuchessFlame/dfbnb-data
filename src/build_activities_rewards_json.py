@@ -1257,6 +1257,15 @@ KNOWN_FID_NAMES = {
     "007FDC33": "Improved Bait",
     "003F7410": "Legendary Scrip",
     "0072D4FC": "Bobblehead Crate",
+    # Base weapons whose WEAP FULL is truncated (game appends the weapon-type
+    # word at runtime via the receiver mod, so the raw FULL is just the prefix).
+    # Fixing the base name here also corrects variant names built as
+    # "{custom_prefix} {base_name}" (e.g. "V63-OLGA Laser Gun").
+    "0009983B": "Laser Gun",          # LaserGun (FULL = "Laser")
+    "00100AE9": "Plasma Gun",         # PlasmaGun (FULL = "Plasma")
+    "002FD97A": "Plasma Gun",         # Enclave_PlasmaGun (FULL = "Plasma") -> "Enclave Plasma Gun"
+    "0010F0EC": "Tesla Rifle",        # DLC01LightningGun (FULL = "Tesla")
+    "00110D41": "Radium Rifle",       # RadiumRifle (FULL = "Radium")
 }
 
 # humanize_edid → imported from rng76
