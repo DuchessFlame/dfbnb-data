@@ -509,8 +509,8 @@ def resolve_note_location(formid, edid, locations):
         if loc_name and not is_test_cell_name(loc_name) and loc_name.lower() != 'appalachia':
             return loc_name
 
-    # Last resort: EDID-based derivation
-    return derive_location_from_edid(edid)
+    # No usable location data available
+    return "Unknown"
 
 
 def location_from_refs(row):
@@ -1193,6 +1193,97 @@ def apply_note_overrides(items_live, items_cut):
     print(f"  Applied {applied} note overrides ({total_defined} defined)", file=sys.stderr)
 
 
+def disambiguate_duplicate_names(items):
+    """
+    Disambiguate notes with the same display name by appending location
+    or a cleaned EDID fragment.
+    """
+    from collections import Counter
+
+    name_counts = Counter(it['name'] for it in items)
+    dupes = {n for n, c in name_counts.items() if c > 1}
+
+    if not dupes:
+        print("  Disambiguation: no duplicate names found", file=sys.stderr)
+        return
+
+    def _edid_suffix(edid):
+        """Extract a human-readable suffix from the EDID for disambiguation."""
+        if not edid:
+            return ''
+        # Training Day (Simulation Results): parse the ending type
+        if 'TrainingDay_' in edid:
+            suffix = edid.split('TrainingDay_')[-1]
+            if suffix:
+                readable = re.sub(r'([a-z])([A-Z])', r'\1 \2', suffix)
+                readable = re.sub(r'([A-Z]+)([A-Z][a-z])', r'\1 \2', readable)
+                return readable
+        # Generic: strip common quest prefixes, keep the unique part
+        short = edid
+        for prefix in ['W05_', 'EN07_', 'MQ_', 'RE_', 'BS01_', 'BS02_', 'BS007_',
+                       'XPD_Pitt01_', 'XPD_AC01_', 'XPD_AC02_', 'XPD_AC03_',
+                       'XPD_Hub_', 'LC', 'POI', 'E0', 'CBZ', 'FS01_', 'FF',
+                       'Moon_', 'Storm_', 'Burn_', 'SFZ', 'DWD', 'BB', 'OB',
+                       'WL', 'UD', 'TWZ', 'AC_', 'P01B_', 'RSVP', 'HFD_']:
+            if short.startswith(prefix):
+                short = short[len(prefix):]
+                break
+        short = re.sub(r'([a-z])([A-Z])', r'\1 \2', short)
+        short = re.sub(r'_', ' ', short).strip()
+        return short
+
+    # Pass 1: use EDID suffix when it gives unique results within a group;
+    #         otherwise fall back to location, then raw EDID suffix.
+    for item in items:
+        if item['name'] not in dupes:
+            continue
+
+        edid = item.get('edid', '')
+        loc = item.get('location', '')
+
+        # EDID-specific checks first (always more descriptive than location
+        # for quest items that share the same quest location)
+        suffix = _edid_suffix(edid)
+        if suffix:
+            item['_edid_suffix'] = suffix
+
+    # Check which disambiguation strategy works best per group
+    for dup_name in list(dupes):
+        group = [it for it in items if it.get('_orig_name', it['name']) == dup_name or it['name'] == dup_name]
+        # Check if EDID suffixes are all unique within the group
+        suffixes = [it.get('_edid_suffix', '') for it in group]
+        if len(set(s for s in suffixes if s)) == len(group) and all(suffixes):
+            # EDID suffixes are unique — use them
+            for it in group:
+                it['name'] = f"{dup_name} — {it['_edid_suffix']}"
+        else:
+            # Try location first, fall back to EDID
+            for it in group:
+                loc = it.get('location', '')
+                if loc and loc != 'Unknown' and loc != 'Unknown Location':
+                    loc_short = loc.split('\n')[0].strip()
+                    if loc_short:
+                        it['name'] = f"{dup_name} — {loc_short}"
+                        continue
+                # Location didn't help — use EDID suffix
+                suffix = it.get('_edid_suffix', '')
+                if suffix:
+                    it['name'] = f"{dup_name} ({suffix})"
+
+    # Clean up temp keys
+    for item in items:
+        item.pop('_edid_suffix', None)
+
+    # Second pass: any names still duplicated get FormID appended
+    still_duped = Counter(it['name'] for it in items)
+    for item in items:
+        if still_duped[item['name']] > 1:
+            item['name'] = f"{item['name']} [{item.get('formId', '')}]"
+
+    remaining = {n: c for n, c in Counter(it['name'] for it in items).items() if c > 1}
+    print(f"  Disambiguation: {len(dupes)} duplicate groups processed, {len(remaining)} still duplicated", file=sys.stderr)
+
+
 def _is_note_model(model):
     """
     Check if the Model field indicates a note/paper item.
@@ -1817,6 +1908,7 @@ def main():
     parser.add_argument('--tsv-root', required=True, help='Root directory for TSV exports')
     parser.add_argument('--seasons', required=True, help='Path to fallout76_seasons.tsv')
     parser.add_argument('--outdir', required=True, help='Output directory for JSON files')
+    parser.add_argument('--live-dist', default=None, help='Path to live dist/ for PTS-vs-live NEW pill comparison')
 
     args = parser.parse_args()
 
@@ -1943,7 +2035,9 @@ def main():
     notes, notes_cut = build_notes(book_path, locations=book_locations)
     print("Applying note overrides...")
     apply_note_overrides(notes, notes_cut)
-    # Re-sort after overrides (overrides can change canCollect, shifting group membership)
+    print("Disambiguating duplicate note names...")
+    disambiguate_duplicate_names(notes)
+    # Re-sort after overrides + disambiguation
     notes.sort(key=lambda x: (0 if x.get('canCollect', True) else 1, x['name']))
 
     # Build holotape games (from BOOK)
@@ -2047,6 +2141,24 @@ def main():
     with open(notes_file, 'w', encoding='utf-8') as f:
         json.dump(notes_data, f, indent=2, ensure_ascii=False)
     print(f"Wrote {notes_file}")
+
+    # PTS-vs-live comparison: flag notes that exist in PTS but not in live
+    if args.live_dist:
+        live_notes_path = os.path.join(args.live_dist, 'collectables_notes.json')
+        if os.path.exists(live_notes_path):
+            with open(live_notes_path, 'r', encoding='utf-8') as f:
+                live_data = json.load(f)
+            live_formids = {it['formId'] for it in live_data.get('items', [])}
+            for note in notes:
+                note['isPtsNew'] = note['formId'] not in live_formids
+            # Rewrite the notes JSON with isPtsNew
+            notes_data['items'] = notes
+            with open(notes_file, 'w', encoding='utf-8') as f:
+                json.dump(notes_data, f, indent=2, ensure_ascii=False)
+            pts_new_count = sum(1 for n in notes if n.get('isPtsNew'))
+            print(f"  PTS NEW items (not in live): {pts_new_count}")
+        else:
+            print(f"  WARNING: --live-dist provided but {live_notes_path} not found", file=sys.stderr)
 
     # Write holotape games JSON
     holotape_games_data = {

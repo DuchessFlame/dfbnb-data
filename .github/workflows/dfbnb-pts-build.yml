@@ -387,12 +387,21 @@ jobs:
         run: python src/build_armour_json.py --data-dir tsv --out dist/armour.json
 
       # --- COLLECTABLES ---
+      # Seed the live collectables_notes.json so the PTS build can compute
+      # isPtsNew (items in PTS but not in live). `git show` reads from the
+      # object store — safe even though dist/ was cleared.
+      - name: Seed live collectables_notes.json for PTS comparison
+        run: |
+          mkdir -p /tmp/live-dist
+          git show HEAD:dist/collectables_notes.json > /tmp/live-dist/collectables_notes.json 2>/dev/null || true
+
       - name: Build Collectables JSON
         run: |
           python src/build_collectables_json.py \
             --tsv-root tsv \
             --seasons tsv/fallout76_seasons.tsv \
-            --outdir dist
+            --outdir dist \
+            --live-dist /tmp/live-dist
 
       # --- CAMP ITEMS ---
       - name: Build Camp Items JSON

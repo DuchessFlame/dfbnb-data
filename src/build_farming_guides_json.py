@@ -68,6 +68,7 @@ from cut_content import is_cut
 # Order matters — first match wins when the same export exists for several
 # months. Newer first.
 ALCH_GLOBS = [
+    "ALCH_Export_July_2026.tsv",
     "ALCH_Export_June_2026.tsv",
     "ALCH_Export_Apr_2026.tsv",
     "ALCH_Export_March_2026.tsv",
@@ -75,11 +76,13 @@ ALCH_GLOBS = [
     "ALCH_Export_Dec_2025.tsv",
 ]
 ALCH_EFFECTS_GLOBS = [
+    "ALCH_Export_July_2026_Effects.tsv",
     "ALCH_Export_June_2026_Effects.tsv",
     "ALCH_Export_Apr_2026_Effects.tsv",
 ]
 COBJ_GLOBS = [
-    "COBJ_Export_Jun_2026.tsv",
+    "COBJ_Export_July_2026.tsv",
+    "COBJ_Export_June_2026.tsv",
     "COBJ_Export_Apr_2026.tsv",
     "COBJ_Export_March_2026.tsv",
     "COBJ_Export_Feb_2026.tsv",
@@ -88,14 +91,16 @@ COBJ_GLOBS = [
 # KYWD refs includes CMPO (Component) records — used to resolve ingredient
 # EDIDs like "c_Wood" to their pretty names ("Wood").
 KYWD_REFS_GLOBS = [
-    "KYWD_Export_Jun_2026_Refs.tsv",
+    "KYWD_Export_July_2026_Refs.tsv",
+    "KYWD_Export_June_2026_Refs.tsv",
     "KYWD_Export_Apr_2026_Refs.tsv",
     "KYWD_Export_March_2026_Refs.tsv",
 ]
 # MISC records cover raw materials / containers used as recipe components
 # (e.g. Cannery_Clean_Can -> "Clean Can") that don't appear in ALCH.
 MISC_GLOBS = [
-    "MISC_Export_Jun_2026.tsv",
+    "MISC_Export_July_2026.tsv",
+    "MISC_Export_June_2026.tsv",
     "MISC_Export_Apr_2026.tsv",
     "MISC_Export_Mar_2026.tsv",
 ]
@@ -107,7 +112,8 @@ MISC_GLOBS = [
 # *_CurvePoints.tsv (with the double-`.tsv` bug) and the March file are
 # kept as fallbacks so previously-committed exports still work.
 CURV_POINTS_GLOBS = [
-    "CURV_Export_Jun_2026_POINTS.tsv",
+    "CURV_Export_July_2026_POINTS.tsv",
+    "CURV_Export_June_2026_POINTS.tsv",
     "CURV_Export_Apr_2026_POINTS.tsv",
     "CURV_Export_Apr_2026.tsv_CurvePoints.tsv",
     "CURV_Export_March_2026_POINTS.tsv",
@@ -117,7 +123,8 @@ CURV_POINTS_GLOBS = [
 # to its raw JSON file on disk when the POINTS TSV doesn't include it
 # (common for non-Large food curves whose CURV record has no JASF_Path).
 CURV_RECORD_GLOBS = [
-    "CURV_Export_Jun_2026_CURV.tsv",
+    "CURV_Export_July_2026_CURV.tsv",
+    "CURV_Export_June_2026_CURV.tsv",
     # Preferred new naming (matches tools\build-curv-points.ps1 output)
     "CURV_Export_Apr_2026_CURV.tsv",
     # Legacy double-extension name from the old xEdit script — kept as
@@ -131,7 +138,8 @@ CURV_RECORD_GLOBS = [
 # (refrigerator / freezer / fermenter). GLOB.FLTV is the actual numeric
 # value of the global.
 GLOB_GLOBS = [
-    "GLOB_Export_Jun_2026.tsv",
+    "GLOB_Export_July_2026.tsv",
+    "GLOB_Export_June_2026.tsv",
     "GLOB_Export_Apr_2026.tsv",
     "GLOB_Export_March_2026.tsv",
     "GLOB_Export_Feb_2026.tsv",
@@ -142,6 +150,7 @@ GLOB_GLOBS = [
 # per rank (index 0 = Rank 1, index 1 = Rank 2). Magnitudes are stored
 # as fractions (0.45 = 45%).
 SPEL_EFFECTS_GLOBS = [
+    "SPEL_Export_July_2026_EFFECTS.tsv",
     "SPEL_Export_June_2026_EFFECTS.tsv",
     "SPEL_Export_Apr_2026_EFFECTS.tsv",
     "SPEL_Export_March_2026_EFFECTS.tsv",
@@ -151,7 +160,8 @@ SPEL_EFFECTS_GLOBS = [
 # on its ENCH. The Apr export doesn't include ENCH so we fall back to
 # the March one (the last one that existed when this was last exported).
 ENCH_GLOBS = [
-    "ENCH_Export_Jun_2026.tsv",
+    "ENCH_Export_July_2026.tsv",
+    "ENCH_Export_June_2026.tsv",
     "ENCH_Export_Apr_2026.tsv",
     "ENCH_Export_March_2026.tsv",
     "ENCH_Export_Feb_2026.tsv",
@@ -160,7 +170,8 @@ ENCH_GLOBS = [
 # MGEF descriptions — used to parse inline "does not stack" hints and
 # other caveats that the game surfaces to players.
 MGEF_GLOBS = [
-    "MGEF_Export_Jun_2026.tsv",
+    "MGEF_Export_July_2026.tsv",
+    "MGEF_Export_June_2026.tsv",
     "MGEF_Export_Apr_2026.tsv",
     "MGEF_Export_March_2026.tsv",
     "MGEF_Export_Feb_2026.tsv",
@@ -173,7 +184,8 @@ MGEF_GLOBS = [
 # canned variants whose COBJ EDID starts with SCORE_S{N}_ are additionally
 # gated behind a Scoreboard season.
 BOOK_GLOBS = [
-    "BOOK_Export_Jun_2026.tsv",
+    "BOOK_Export_July_2026.tsv",
+    "BOOK_Export_June_2026.tsv",
     "BOOK_Export_May_2026.tsv",
     "BOOK_Export_Apr_2026.tsv",
     "BOOK_Export_March_2026.tsv",
@@ -834,7 +846,7 @@ def load_ingredient_qty_curves(
             if edid in out:
                 continue
             try:
-                with open(os.path.join(cooking_dir, fname), encoding="utf-8") as f:
+                with open(os.path.join(cooking_dir, fname), encoding="utf-8", errors="replace") as f:
                     jd = json.load(f)
             except (OSError, ValueError):
                 continue
@@ -987,7 +999,7 @@ def _edid_lookup_keys(edid: str) -> List[str]:
 def _read_first_curve_point(path: str) -> Optional[float]:
     """Return Y at X=1 from a crafting curve JSON, or None on any failure."""
     try:
-        with open(path, encoding="utf-8") as f:
+        with open(path, encoding="utf-8", errors="replace") as f:
             data = json.load(f)
     except (OSError, ValueError):
         return None
@@ -1274,7 +1286,7 @@ def load_book_plans_by_full(book_path: Optional[str]) -> Dict[str, Dict[str, str
     if not book_path or not os.path.exists(book_path):
         return {}
     out: Dict[str, Dict[str, str]] = {}
-    with open(book_path, encoding="utf-8", newline="") as f:
+    with open(book_path, encoding="utf-8", errors="replace", newline="") as f:
         rdr = csv.DictReader(f, delimiter="\t")
         for row in rdr:
             full = (row.get("FULL") or "").strip()
@@ -1290,7 +1302,7 @@ def load_seasons_by_key(seasons_path: Optional[str]) -> Dict[str, Dict[str, str]
     if not seasons_path or not os.path.exists(seasons_path):
         return {}
     out: Dict[str, Dict[str, str]] = {}
-    with open(seasons_path, encoding="utf-8", newline="") as f:
+    with open(seasons_path, encoding="utf-8", errors="replace", newline="") as f:
         rdr = csv.DictReader(f, delimiter="\t")
         for row in rdr:
             key = (row.get("SeasonKey") or "").strip()
