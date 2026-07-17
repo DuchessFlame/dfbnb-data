@@ -197,9 +197,9 @@ _Couldn't key this file to records; contents differ._
 
 ## `collectables_plushies.json`  ·  +0 / -0 / ~0
 
-## `collectrons.json`  ·  +0 / -0 / ~22
+## `collectrons.json`  ·  +0 / -0 / ~29
 
-**Changed (22)**
+**Changed (29)**
 - ATX_ENTM_CAMP_Utility_Collectron_BivBev  `ATX_ENTM_CAMP_Utility_Collectron_BivBev` — fields: releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_FloraTron  `ATX_ENTM_CAMP_Utility_Collectron_FloraTron` — fields: releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_FreeStates  `ATX_ENTM_CAMP_Utility_Collectron_FreeStates` — fields: releaseDate
@@ -220,7 +220,14 @@ _Couldn't key this file to records; contents differ._
 - ATX_Resource_Raider_Collectron  `ATX_Resource_Raider_Collectron` — fields: releaseDate
 - ATX_Resource_Scrap_CollectronAll  `ATX_Resource_Scrap_CollectronAll` — fields: releaseDate
 - ATX_SirLoinResource_Collector  `ATX_SirLoinResource_Collector` — fields: releaseDate
-- SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand  `SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand` — fields: releaseDate
+- SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum  `SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum` — fields: howToObtain, obtainRoutes
+- SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner  `SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner` — fields: howToObtain, obtainRoutes
+- SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster  `SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster` — fields: howToObtain, obtainRoutes
+- SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler  `SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler` — fields: howToObtain, obtainRoutes
+- SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot  `SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot` — fields: howToObtain, obtainRoutes
+- SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand  `SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand` — fields: howToObtain, obtainRoutes, releaseDate
+- SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola  `SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola` — fields: howToObtain, obtainRoutes
+- SCORE_S8_ENTM_CAMP_Utility_Collectron_Silver  `SCORE_S8_ENTM_CAMP_Utility_Collectron_Silver` — fields: howToObtain, obtainRoutes
 - ScrapResourceGold  `ScrapResourceGold` — fields: releaseDate
 
 ## `currency.json`  ·  changed (structural)
@@ -353,9 +360,9 @@ _Couldn't key this file to records; contents differ._
 ## `recipe_guide.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `resource_producers.json`  ·  +0 / -0 / ~115
+## `resource_producers.json`  ·  +0 / -0 / ~118
 
-**Changed (115)**
+**Changed (118)**
 - ATX_DirtyWaterResource  `ATX_DirtyWaterResource` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_AppleTree  `ATX_ENTM_CAMP_Collector_AppleTree` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_BarrelofToxicGoo  `ATX_ENTM_CAMP_Collector_BarrelofToxicGoo` — fields: releaseDate
@@ -371,7 +378,7 @@ _Couldn't key this file to records; contents differ._
 - ATX_ENTM_CAMP_Collector_PackBrahmin  `ATX_ENTM_CAMP_Collector_PackBrahmin` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_PaintCanGenerator_WhrilWhizard  `ATX_ENTM_CAMP_Collector_PaintCanGenerator_WhrilWhizard` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_PoisonedEarthWell  `ATX_ENTM_CAMP_Collector_PoisonedEarthWell` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_PumpkinPie  `ATX_ENTM_CAMP_Collector_PumpkinPie` — fields: releaseDate
+- ATX_ENTM_CAMP_Collector_PumpkinPie  `ATX_ENTM_CAMP_Collector_PumpkinPie` — fields: howToObtain, obtainRoutes, releaseDate
 - ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation  `ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_RockerBox  `ATX_ENTM_CAMP_Collector_RockerBox` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_Shredder  `ATX_ENTM_CAMP_Collector_Shredder` — fields: releaseDate
@@ -396,7 +403,7 @@ _Couldn't key this file to records; contents differ._
 - ATX_Resource_CompanyTeaKettle_Tea  `ATX_Resource_CompanyTeaKettle_Tea` — fields: releaseDate
 - ATX_Resource_CookieJar_MudCookie  `ATX_Resource_CookieJar_MudCookie` — fields: releaseDate
 - ATX_Resource_Cooler_PurifiedWater  `ATX_Resource_Cooler_PurifiedWater` — fields: releaseDate
-- …and 75 more
+- …and 78 more
 
 ## `seasonal-fish.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -418,16 +425,17 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +1 / -0 / ~4
+## `titles_player.json`  ·  +1 / -0 / ~5
 
 **Added (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (4)**
+**Changed (5)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
