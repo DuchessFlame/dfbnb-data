@@ -47,6 +47,47 @@ OLD_IMAGE_BASES = [
     "/wp-content/uploads/fo76/storefront/",
 ]
 
+# ── Newest-TSV selection (chronological, not alphabetical) ───────────
+# Export filenames look like ENTM_Export_June_2026.tsv. A plain sorted()
+# orders them alphabetically, so "May" sorts after "June"/"July" and the
+# wrong (older) export wins. This also breaks the PTS build: the PTS
+# workflow normalises its newest pull to a live-style month name
+# (e.g. ENTM_Export_July_2026.tsv) and relies on the newest file winning,
+# but alphabetical sorting silently reads the live May file instead — so
+# dist/pts/atom_shop.json ends up byte-identical to live. Sort by the
+# parsed (year, month) with mtime as a tiebreaker, mirroring the newest()
+# helper used by the other builders.
+_MONTH_ORDER = {
+    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9, "oct": 10,
+    "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
+}
+
+
+def _filename_date_key(path):
+    """Extract (year, month_number) from names like ENTM_Export_June_2026.tsv."""
+    base = os.path.basename(path).lower()
+    m = re.search(r"_([a-z]+)_(\d{4})", base)
+    if m:
+        month_num = _MONTH_ORDER.get(m.group(1), 0)
+        if month_num:
+            return (int(m.group(2)), month_num)
+    return (0, 0)  # unknown → sort low so parseable dates always win
+
+
+def _sorted_tsv(paths, exclude_substrings=None):
+    """Sort TSV paths oldest→newest by parsed (year, month) then mtime, so
+    callers can take [-1] to get the genuinely newest export.
+
+    *exclude_substrings* drops any file whose basename contains one of the
+    given substrings before sorting — used to keep a main export glob from
+    matching a sibling sub-table (e.g. OMOD_Export_*_Properties.tsv)."""
+    if exclude_substrings:
+        paths = [p for p in paths
+                 if not any(s in os.path.basename(p) for s in exclude_substrings)]
+    return sorted(paths, key=lambda p: (_filename_date_key(p), os.path.getmtime(p)))
+
 # ── Limited Time Bundles (real-money platform DLC) ───────────────────
 # Ordered newest-first. status: "active" | "replaced" | "discontinued" | "removed"
 # imageUrl fields use filenames only; LTB_IMAGE_BASE_URL is prepended by the JS.
@@ -363,7 +404,7 @@ def load_desc_lookup():
     """Load DESC and ETDI (image filename) from the newest ENTM export.
     Returns (desc_lookup, etdi_lookup) — both keyed by EDID (upper-cased)."""
     pattern = os.path.join(TSV_ROOT, "ENTM_Export_*.tsv")
-    files = sorted(glob.glob(pattern))
+    files = _sorted_tsv(glob.glob(pattern))
     if not files:
         print(f"[atom_shop] WARNING: No ENTM_Export_*.tsv found in {TSV_ROOT}", file=sys.stderr)
         return {}, {}
@@ -889,7 +930,7 @@ def _build_pa_lookup():
                     _cobj_edids_by_skin[skin].append(edid)
 
     # ── COBJ: crafting recipes ──
-    cobj_files = sorted(glob.glob(os.path.join(TSV_ROOT, "COBJ_Export_*.tsv")))
+    cobj_files = _sorted_tsv(glob.glob(os.path.join(TSV_ROOT, "COBJ_Export_*.tsv")))
     if cobj_files:
         cobj_path = cobj_files[-1]
         print(f"[PA lookup] Reading {os.path.basename(cobj_path)}")
@@ -905,7 +946,8 @@ def _build_pa_lookup():
               f"{sum(len(v) for v in _cobj_edids_by_skin.values())} total COBJ EDIDs")
 
     # ── OMOD: object modifications (covers skins without COBJ recipes) ──
-    omod_files = sorted(glob.glob(os.path.join(TSV_ROOT, "OMOD_Export_*.tsv")))
+    omod_files = _sorted_tsv(glob.glob(os.path.join(TSV_ROOT, "OMOD_Export_*.tsv")),
+                             exclude_substrings=["_Properties"])
     if omod_files:
         omod_path = omod_files[-1]
         print(f"[PA lookup] Reading {os.path.basename(omod_path)}")
@@ -913,7 +955,7 @@ def _build_pa_lookup():
         print(f"[PA lookup] OMOD: {len(_omod_skin_types)} skin mappings")
 
     # ── ENTM: per-type entries (e.g. Paint_T65_Water) ──
-    entm_files = sorted(glob.glob(os.path.join(TSV_ROOT, "ENTM_Export_*.tsv")))
+    entm_files = _sorted_tsv(glob.glob(os.path.join(TSV_ROOT, "ENTM_Export_*.tsv")))
     if entm_files:
         entm_path = entm_files[-1]
         print(f"[PA lookup] Reading {os.path.basename(entm_path)}")
