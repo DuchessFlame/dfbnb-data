@@ -65,6 +65,19 @@ ALL_REGIONS = {
     "Savage Divide", "Skyline Valley", "The Mire", "The Pitt", "Toxic Valley",
 }
 
+# Map markers that sit in a Mappalachia region-polygon GAP (roads, water, borders) so
+# point-in-polygon returns no region — even for items placed right on them. Assign the
+# correct region here once and any placement nearest that marker resolves globally, on
+# every page. Source of truth: the marker's in-game PNAM parent location in xEdit.
+#   e.g. The Crater's PNAM is SubRegionToxicValley04Location "Toxic Valley".
+MARKER_REGION_OVERRIDES = {
+    "The Crater": "Toxic Valley",
+    # NE map-edge cluster (Old Danielson Cabin, Hillside Cavern, Point Repose, The Bullengrube…)
+    # falls outside every SubRegion polygon; nearest covered marker is Mysterious Cave (Savage
+    # Divide). Add siblings here if items ever spawn nearest them.
+    "Old Danielson Cabin": "Savage Divide",
+}
+
 
 # ── Mappalachia geometry ─────────────────────────────────────────────────────────
 def load_mappalachia():
@@ -196,6 +209,9 @@ def resolve(row, rings, markers, manual, cache):
         # of its nearest marker so a placement never comes back region-less.
         if not region and mx is not None:
             region = region_for_xy(rings, mx, my)
+        # Marker itself in a gap (e.g. The Crater) — use the explicit override.
+        if not region and marker in MARKER_REGION_OVERRIDES:
+            region = MARKER_REGION_OVERRIDES[marker]
         if region or marker:
             return region, marker, "coords"
 

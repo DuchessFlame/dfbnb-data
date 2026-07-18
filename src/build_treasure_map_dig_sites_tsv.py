@@ -35,7 +35,9 @@ PRESERVE = ["directions", "photo_approach", "photo_spawn"]
 
 
 def load_existing_preserved(path):
-    """{ref_formid: {directions, photo_approach, photo_spawn}} from the committed TSV."""
+    """{ref_formid: {directions, photo_approach, photo_spawn, region}} from the committed TSV.
+    'region' is preserved too, but only used as a fallback when a site can't be auto-placed
+    (Mappalachia polygon gap) — a hand-assigned region then survives regeneration."""
     keep = {}
     if not os.path.exists(path):
         return keep
@@ -43,6 +45,9 @@ def load_existing_preserved(path):
         for row in csv.DictReader(f, delimiter="\t"):
             ref = (row.get("ref_formid") or "").strip().upper()
             saved = {k: (row.get(k) or "").strip() for k in PRESERVE if (row.get(k) or "").strip()}
+            region = (row.get("region") or "").strip()
+            if region:
+                saved["region"] = region
             if ref and saved:
                 keep[ref] = saved
     return keep
@@ -61,8 +66,9 @@ def main():
     unplaced = []
     for r in rows:
         ref = (r.get("ref_formid") or "").strip().upper()
-        region = r.get("region") or ""
         keep = preserved.get(ref, {})
+        # auto-resolved region wins; fall back to a hand-assigned one for polygon-gap sites
+        region = (r.get("region") or "") or keep.get("region", "")
         out_rows.append({
             "region": region,
             "site_number": "",  # author may number sites; blank sorts stable
