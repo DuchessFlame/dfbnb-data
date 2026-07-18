@@ -2118,6 +2118,59 @@ def _phantom_repeatable_pools(resolver, books):
     return pools
 
 
+def _loc_to_float(v):
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def _load_location_sites(filename):
+    """Load an author-maintained site-locations TSV and return a region-grouped
+    list for the front-end location renderer (grave sites / dig sites pages).
+
+    Columns: region, site_number, ref_edid, ref_formid, closest_fast_travel,
+    directions, photo_approach, photo_spawn, x, y, z. Region + closest_fast_travel
+    are PRECOMPUTED (the CI build server has no Mappalachia DB, so they can't be
+    derived here); directions + photo URLs are author-supplied and survive
+    rebuilds because they live in this committed TSV, not in datamined output.
+    Regions are ABC-ordered; sites within a region sort by number (blank last).
+    Returns [] when the file is absent so the block simply omits.
+    """
+    path = TSV_DIR / filename
+    if not path.exists():
+        return []
+    groups = OrderedDict()
+    with open(path, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f, delimiter="\t"):
+            region = (row.get("region") or "").strip()
+            if not region:
+                continue
+            num_raw = (row.get("site_number") or "").strip()
+            try:
+                num = int(num_raw)
+            except ValueError:
+                num = None
+            groups.setdefault(region, []).append({
+                "number": num,
+                "closest_fast_travel": (row.get("closest_fast_travel") or "").strip(),
+                "directions": (row.get("directions") or "").strip(),
+                "photo_approach": (row.get("photo_approach") or "").strip(),
+                "photo_spawn": (row.get("photo_spawn") or "").strip(),
+                "ref_edid": (row.get("ref_edid") or "").strip(),
+                "coords": {
+                    "x": _loc_to_float(row.get("x")),
+                    "y": _loc_to_float(row.get("y")),
+                    "z": _loc_to_float(row.get("z")),
+                },
+            })
+    out = []
+    for region in sorted(groups.keys()):
+        sites = sorted(groups[region], key=lambda s: (s["number"] is None, s["number"] or 0))
+        out.append({"region": region, "sites": sites})
+    return out
+
+
 def build_pint_sized_phantoms(resolver, books):
     """Build the Pint-Sized Phantoms mini-quest block.
 
@@ -2180,6 +2233,7 @@ def build_pint_sized_phantoms(resolver, books):
             "branches": branches,
         },
         "map_sources": PHANTOM_MAP_SOURCES,
+        "grave_sites": _load_location_sites("phantom_grave_sites.tsv"),
         "notes": [
             "The Pint-Sized Phantoms' Map is a mini-quest treasure line for the Slasher seasonal event",
             "Use the map to find and dig up the grave sites the Pint-Sized Phantoms disturbed",
