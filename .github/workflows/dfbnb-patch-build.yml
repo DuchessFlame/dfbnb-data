@@ -895,7 +895,6 @@ jobs:
           test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
           test -f dist/collectable_spawns_manifest.json && echo "OK collectable_spawns_manifest.json" || (echo "MISSING collectable_spawns_manifest.json" && exit 1)
           test -f dist/collectable_spawns_pint-sized-slasher-masks.json && echo "OK collectable_spawns_pint-sized-slasher-masks.json" || (echo "MISSING collectable_spawns_pint-sized-slasher-masks.json" && exit 1)
-          test -f dist/collectable_spawns_treasure-maps.json && echo "OK collectable_spawns_treasure-maps.json" || (echo "MISSING collectable_spawns_treasure-maps.json" && exit 1)
           test -f dist/unique_weapons/unique_weapons.json && echo "OK unique_weapons.json"     || (echo "MISSING unique_weapons/unique_weapons.json" && exit 1)
 
       # --- COMMIT ONCE ---

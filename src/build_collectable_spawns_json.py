@@ -71,12 +71,12 @@ SET_META = {
         "page_title": "Robot Models Spawn Locations",
         "blurb": "Every known spawn location for the robot models, grouped by region.",
     },
-    "treasure-maps": {
-        "name": "Treasure Map Dig Sites",
-        "page_title": "Treasure Map Locations",
-        "blurb": "Every treasure map dig site, grouped by region.",
-    },
 }
+
+# Sets that share the export/cross-ref pipeline but belong to a DIFFERENT category and are
+# built elsewhere. "treasure-maps" is its own category — its dig sites come from the ACTI2
+# export and are emitted by build_treasure_maps_json.py (treasure_map_locations), NOT here.
+SKIP_SETS = {"treasure-maps"}
 
 
 def meta_for(slug):
@@ -190,7 +190,7 @@ def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     manifest_sets = []
     for slug in sorted(by_set):
-        if not slug:
+        if not slug or slug in SKIP_SETS:
             continue
         data, out_path = build_set(slug, by_set[slug])
         json.dump(data, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)

@@ -2305,6 +2305,11 @@ def main():
         "shared_reward_pools": shared_pools,
         "regions": regions,
         "teammate_reward": teammate,
+        # Dig-site locations for the /treasure-maps/locations/ page (df-bnb-treasure-maps.js
+        # buildLocationGroups). Author-maintained tsv/treasure_map_dig_sites.tsv, generated
+        # from the ACTI2 mound export by build_treasure_map_dig_sites_tsv.py; directions/photos
+        # are hand-filled there and survive rebuilds. Empty [] until that TSV is committed.
+        "treasure_map_locations": _load_location_sites("treasure_map_dig_sites.tsv"),
         "u_mine_it": {"tiers": tiers, "shared_pools": umine_shared, "lucky_maps": lucky},
         "meta": {
             "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
