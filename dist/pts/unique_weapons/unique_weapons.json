@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "generated": "2026-07-18T03:02:58Z",
-  "channel": "live",
-  "count": 93,
+  "generated": "2026-07-18T08:02:49Z",
+  "channel": "pts",
+  "count": 95,
   "weapons": [
     {
       "name": "Abraxo Gun",
@@ -1734,6 +1734,37 @@
       "craftable": true,
       "planName": null,
       "howToObtain": "Treasure Hunter event reward",
+      "questName": null,
+      "tradeable": true,
+      "isCut": false
+    },
+    {
+      "name": "Crimson Sky",
+      "formId": "0010F0EC",
+      "edid": "DLC01LightningGun",
+      "weaponType": "Rifle",
+      "baseWeapon": "Tesla",
+      "stats": {
+        "damage": 0,
+        "fireRate": 1.0,
+        "range": 3966,
+        "accuracy": 0,
+        "weight": 8.0,
+        "value": 180,
+        "ammoType": "Fusion Cell",
+        "capacity": 15,
+        "apCost": 17,
+        "stagger": null,
+        "critMult": 2.25,
+        "damageCurve": null,
+        "minLevel": 40
+      },
+      "legendaryEffects": [],
+      "customMods": [],
+      "enchantments": [],
+      "craftable": true,
+      "planName": "Plan: Tesla Rifle",
+      "howToObtain": "Unknown",
       "questName": null,
       "tradeable": true,
       "isCut": false
@@ -4147,6 +4178,80 @@
       "craftable": true,
       "planName": "Plan: Plasma Gun",
       "howToObtain": "Treasure Hunter event reward",
+      "questName": null,
+      "tradeable": true,
+      "isCut": false
+    },
+    {
+      "name": "Minty Breather",
+      "formId": "00171B2B",
+      "edid": "Cryolator",
+      "weaponType": "Heavy Gun",
+      "baseWeapon": "Cryolator",
+      "stats": {
+        "damage": 0,
+        "fireRate": 1.0,
+        "range": 1319,
+        "accuracy": 0,
+        "weight": 10.0,
+        "value": 145,
+        "ammoType": "Cryo Cell",
+        "capacity": 60,
+        "apCost": 10,
+        "stagger": null,
+        "critMult": 2.0,
+        "damageCurve": null,
+        "minLevel": 25
+      },
+      "legendaryEffects": [
+        {
+          "star": 1,
+          "name": "Medic's",
+          "edid": "mod_Legendary_Weapon1_Medic",
+          "formId": "0075EAC6",
+          "fixed": true
+        },
+        {
+          "star": 2,
+          "name": "Hitman's",
+          "edid": "mod_Legendary_Weapon2_Guns_DmgSights",
+          "formId": "0052414E",
+          "fixed": true
+        },
+        {
+          "star": 3,
+          "name": "Swift",
+          "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+          "formId": "00524150",
+          "fixed": true
+        }
+      ],
+      "customMods": [
+        {
+          "name": "Minty Breather",
+          "edid": "mod_Custom_MintyBreather",
+          "formId": "00680831",
+          "description": null,
+          "effects": [
+            {
+              "property": "Keywords",
+              "value": "CustomItem_SpeciallyNamed \"\"\"\" [KYWD:00471871]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "CustomItemName_MintyBreather \"\"\"\" [KYWD:0068082D]",
+              "value2": "2",
+              "function": "ADD"
+            }
+          ]
+        }
+      ],
+      "enchantments": [],
+      "craftable": true,
+      "planName": "Plan: Cryolator",
+      "howToObtain": "Mutated public events reward",
       "questName": null,
       "tradeable": true,
       "isCut": false
@@ -7703,7 +7808,7 @@
       "legendaryEffects": [],
       "customMods": [],
       "enchantments": [],
-      "craftable": false,
+      "craftable": true,
       "planName": null,
       "howToObtain": "Quest: Skyline Valley",
       "questName": "Skyline Valley",
