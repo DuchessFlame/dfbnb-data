@@ -693,6 +693,16 @@ jobs:
       - name: Build NPC Spawns JSON
         run: python tools/build_npc_spawns.py
 
+      # --- COLLECTABLE SPAWNS ({Item} Spawn Locations pages) ---
+      # src/build_collectable_spawns_json.py outputs dist/collectable_spawns_<set>.json
+      # (+ manifest) for df-bnb-collectables-spawns.js, from the MISC2/ACTI2 placement
+      # exports. Like NPC spawns this runs in CI CACHE mode: it re-resolves every placement
+      # by FormID from data/collectable_spawns/geo_cache.json (committed) — regions/markers
+      # only change when DuchessFlame re-runs it locally with the Mappalachia DB and commits a
+      # fresh geo_cache.json. Hand-filled directions/images are merge-preserved on rebuild.
+      - name: Build Collectable Spawns JSON
+        run: python src/build_collectable_spawns_json.py
+
       # --- CULT OF THE LAMB ---
       - name: Build Cult of the Lamb JSON
         run: python src/build_cult_of_the_lamb_json.py
@@ -883,6 +893,9 @@ jobs:
           test -f dist/drop_chances_data.json        && echo "OK drop_chances_data.json"        || (echo "MISSING drop_chances_data.json" && exit 1)
           test -f dist/legendary_mod_drop_chances.json && echo "OK legendary_mod_drop_chances.json" || (echo "MISSING legendary_mod_drop_chances.json" && exit 1)
           test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
+          test -f dist/collectable_spawns_manifest.json && echo "OK collectable_spawns_manifest.json" || (echo "MISSING collectable_spawns_manifest.json" && exit 1)
+          test -f dist/collectable_spawns_pint-sized-slasher-masks.json && echo "OK collectable_spawns_pint-sized-slasher-masks.json" || (echo "MISSING collectable_spawns_pint-sized-slasher-masks.json" && exit 1)
+          test -f dist/collectable_spawns_treasure-maps.json && echo "OK collectable_spawns_treasure-maps.json" || (echo "MISSING collectable_spawns_treasure-maps.json" && exit 1)
           test -f dist/unique_weapons/unique_weapons.json && echo "OK unique_weapons.json"     || (echo "MISSING unique_weapons/unique_weapons.json" && exit 1)
 
       # --- COMMIT ONCE ---
