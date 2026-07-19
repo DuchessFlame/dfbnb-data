@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-07-19T03:32:28Z",
+  "generated": "2026-07-19T06:00:15Z",
   "channel": "live",
   "count": 95,
   "weapons": [
@@ -611,6 +611,12 @@
           "effects": [
             {
               "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value2": "2",
+              "function": "REM"
+            },
+            {
+              "property": "Keywords",
               "value": "CustomItem_SpeciallyNamed \"\"\"\" [KYWD:00471871]",
               "value2": "2",
               "function": "ADD"
@@ -642,7 +648,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectFireDamage \"\"Fire Damage\"\" [KYWD:00900A6B]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -785,7 +791,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectPoisonDamage \"\"Poison Damage\"\" [KYWD:00900A69]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -1172,16 +1178,16 @@
           "description": null,
           "effects": [
             {
-              "property": "SecondaryDamage",
-              "value": "0.000000",
-              "value2": "0.000000",
-              "function": "SET"
-            },
-            {
               "property": "AttackDamage",
               "value": "0.000000",
               "value2": "0.000000",
               "function": "MUL+ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "ma_Gun_Appearance \"\"\"\" [KYWD:0037D0B2]",
+              "value2": "2",
+              "function": "REM"
             },
             {
               "property": "Keywords",
@@ -1227,37 +1233,25 @@
             },
             {
               "property": "Keywords",
-              "value": "WeaponTypeFireDamage \"\"Fire\"\" [KYWD:0051850D]",
+              "value": "WeaponTypeEnergy \"\"Energy\"\" [KYWD:0033A7C9]",
               "value2": "2",
               "function": "ADD"
             },
             {
               "property": "Keywords",
-              "value": "dn_UniqueEffectFireDamage \"\"Fire Damage\"\" [KYWD:00900A6B]",
-              "value2": "3",
-              "function": "ADD"
-            },
-            {
-              "property": "Enchantments",
-              "value": "RD01_Weapon_Cauterizer_FireDamageEnch \"\"Cauterizer Fire Damage\"\" [ENCH:007875B6]",
-              "value2": "1",
+              "value": "dn_UniqueEffectEnergyDamage \"\"Energy Damage\"\" [KYWD:00900A6E]",
+              "value2": "2",
               "function": "ADD"
             },
             {
               "property": "DamageTypeValues",
-              "value": "dtFire \"\"Fire Damage\"\" [DMGT:00060A82]",
-              "value2": "0.000000",
-              "function": "ADD"
+              "value": "dtEnergy \"\"Energy Damage\"\" [DMGT:00060A81]",
+              "value2": "0.600000",
+              "function": "MUL+ADD"
             },
             {
               "property": "AttackActionPointCost",
               "value": "0.250000",
-              "value2": "0.000000",
-              "function": "MUL+ADD"
-            },
-            {
-              "property": "Durability",
-              "value": "-0.100000",
               "value2": "0.000000",
               "function": "MUL+ADD"
             }
@@ -1528,7 +1522,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectCryoDamage \"\"Cryo Damage\"\" [KYWD:00900A6A]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -2120,6 +2114,12 @@
           "effects": [
             {
               "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value2": "2",
+              "function": "REM"
+            },
+            {
+              "property": "Keywords",
               "value": "Moon_dn_Weapon_Melee_CultistPiercer \"\"\"\" [KYWD:006A06E2]",
               "value2": "2",
               "function": "ADD"
@@ -2308,37 +2308,6 @@
       "isCut": false
     },
     {
-      "name": "Disorderly Conduct",
-      "formId": "0008C14D",
-      "edid": "Baton",
-      "weaponType": "Melee",
-      "baseWeapon": "Baton",
-      "stats": {
-        "damage": 11,
-        "fireRate": 1.0,
-        "range": 10,
-        "accuracy": 0,
-        "weight": 2.0,
-        "value": 15,
-        "ammoType": null,
-        "capacity": 0,
-        "apCost": 26,
-        "stagger": null,
-        "critMult": 3.0,
-        "damageCurve": "CT_Player_Damage_Universal_Tier27 [CURV:0080F20B]",
-        "minLevel": 5
-      },
-      "legendaryEffects": [],
-      "customMods": [],
-      "enchantments": [],
-      "craftable": true,
-      "planName": "Plan: Baton",
-      "howToObtain": "Quest: Skyline Valley",
-      "questName": "Skyline Valley",
-      "tradeable": true,
-      "isCut": false
-    },
-    {
       "name": "Doctors Orders",
       "formId": "0004F46A",
       "edid": "HuntingRifle",
@@ -2516,6 +2485,12 @@
             },
             {
               "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value2": "2",
+              "function": "REM"
+            },
+            {
+              "property": "Keywords",
               "value": "CustomItem_SpeciallyNamed \"\"\"\" [KYWD:00471871]",
               "value2": "2",
               "function": "ADD"
@@ -2559,7 +2534,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectFireDamage \"\"Fire Damage\"\" [KYWD:00900A6B]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -2650,6 +2625,12 @@
           "formId": "006E2246",
           "description": null,
           "effects": [
+            {
+              "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value2": "2",
+              "function": "REM"
+            },
             {
               "property": "Keywords",
               "value": "CustomItemName_EldersMark \"\"\"\" [KYWD:006A0088]",
@@ -3175,7 +3156,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectBleedDamage \"\"Bleed Damage\"\" [KYWD:00900A6C]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -3190,8 +3171,14 @@
           "name": "Head Hunter Paint",
           "edid": "mod_custom_HeadHunter_Paint",
           "formId": "008F8636",
-          "description": "Hungry for the Hunt",
+          "description": null,
           "effects": [
+            {
+              "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value2": "2",
+              "function": "REM"
+            },
             {
               "property": "ModelSwap",
               "value": "MDSP_PickAxe_HeadHunter \"\"\"\" [MDSP:0075DF6D]",
@@ -3255,7 +3242,7 @@
       ],
       "customMods": [
         {
-          "name": "Holy Fire",
+          "name": "Holy Fire Paint",
           "edid": "mod_custom_HolyFire_Paint",
           "formId": "006A983C",
           "description": null,
@@ -3283,6 +3270,12 @@
             {
               "property": "Keywords",
               "value": "ma_Flamer_CanHaveNozzles \"\"\"\" [KYWD:006E2248]",
+              "value2": "2",
+              "function": "REM"
+            },
+            {
+              "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
               "value2": "2",
               "function": "REM"
             },
@@ -3835,6 +3828,12 @@
           "effects": [
             {
               "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value2": "2",
+              "function": "REM"
+            },
+            {
+              "property": "Keywords",
               "value": "FeaturedItem \"\"\"\" [KYWD:001B3FAC]",
               "value2": "2",
               "function": "ADD"
@@ -4081,6 +4080,12 @@
           "effects": [
             {
               "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value2": "2",
+              "function": "REM"
+            },
+            {
+              "property": "Keywords",
               "value": "CustomItem_SpeciallyNamed \"\"\"\" [KYWD:00471871]",
               "value2": "2",
               "function": "ADD"
@@ -4244,6 +4249,12 @@
               "value": "CustomItemName_MintyBreather \"\"\"\" [KYWD:0068082D]",
               "value2": "2",
               "function": "ADD"
+            },
+            {
+              "property": "116",
+              "value": "MintyBreather_Perk \"\"\"\" [PERK:0049782F]",
+              "value2": "1",
+              "function": "ADD"
             }
           ]
         }
@@ -4310,7 +4321,7 @@
             {
               "property": "Keywords",
               "value": "CustomItemName_Nailer \"\"\"\" [KYWD:008EC628]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -4549,6 +4560,12 @@
           "formId": "006E2245",
           "description": null,
           "effects": [
+            {
+              "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value2": "2",
+              "function": "REM"
+            },
             {
               "property": "Keywords",
               "value": "FeaturedItem \"\"\"\" [KYWD:001B3FAC]",
@@ -5972,6 +5989,12 @@
           "description": null,
           "effects": [
             {
+              "property": "IdleSound",
+              "value": "WPNAutoAxeIdleLPM \"\"\"\" [SNDR:00595CC9]",
+              "value2": "3",
+              "function": "SET"
+            },
+            {
               "property": "MaterialSwaps",
               "value": "SDOW_MSWP_Weapon_SlasherAxe \"\"\"\" [MSWP:008E0772]",
               "value2": "3",
@@ -5982,6 +6005,12 @@
               "value": "SDOW_MDSP_Weapon_SlasherAxe \"\"\"\" [MDSP:008E0773]",
               "value2": "3",
               "function": "ADD"
+            },
+            {
+              "property": "SoundTagSet",
+              "value": "SDOW_WPNAutoAxeSlasherAxeATS \"\"\"\" [STAG:008E0774]",
+              "value2": "3",
+              "function": "SET"
             }
           ]
         },
@@ -5991,24 +6020,6 @@
           "formId": "008E076F",
           "description": null,
           "effects": [
-            {
-              "property": "SecondaryDamage",
-              "value": "0.000000",
-              "value2": "0.000000",
-              "function": "SET"
-            },
-            {
-              "property": "AttackDamage",
-              "value": "0.000000",
-              "value2": "0.000000",
-              "function": "MUL+ADD"
-            },
-            {
-              "property": "Keywords",
-              "value": "ma_CanHavePaint \"\"\"\" [KYWD:007AE382]",
-              "value2": "2",
-              "function": "REM"
-            },
             {
               "property": "Keywords",
               "value": "CustomItem_SpeciallyNamed \"\"\"\" [KYWD:00471871]",
@@ -6029,24 +6040,6 @@
             },
             {
               "property": "Keywords",
-              "value": "NonDroppable \"\"\"\" [KYWD:003ECB8C]",
-              "value2": "2",
-              "function": "ADD"
-            },
-            {
-              "property": "Keywords",
-              "value": "NonPlayerTradable \"\"\"\" [KYWD:00499F7A]",
-              "value2": "2",
-              "function": "ADD"
-            },
-            {
-              "property": "Keywords",
-              "value": "UnsellableObject \"\"\"\" [KYWD:003D4327]",
-              "value2": "2",
-              "function": "ADD"
-            },
-            {
-              "property": "Keywords",
               "value": "dn_UniqueEffectBleedDamage \"\"Bleed Damage\"\" [KYWD:00900A6C]",
               "value2": "2",
               "function": "ADD"
@@ -6058,34 +6051,10 @@
               "function": "ADD"
             },
             {
-              "property": "IdleSound",
-              "value": "WPNAutoAxeIdleLPM \"\"\"\" [SNDR:00595CC9]",
-              "value2": "3",
-              "function": "SET"
-            },
-            {
               "property": "Enchantments",
               "value": "SDOW_EnchLegendaryWeap_SlasherAxeBleeding \"\"Auto Axe Bleeding\"\" [ENCH:008E067E]",
               "value2": "1",
               "function": "ADD"
-            },
-            {
-              "property": "AttackActionPointCost",
-              "value": "0.050000",
-              "value2": "0.000000",
-              "function": "MUL+ADD"
-            },
-            {
-              "property": "Durability",
-              "value": "-0.200000",
-              "value2": "0.000000",
-              "function": "MUL+ADD"
-            },
-            {
-              "property": "SoundTagSet",
-              "value": "SDOW_WPNAutoAxeSlasherAxeATS \"\"\"\" [STAG:008E0774]",
-              "value2": "3",
-              "function": "SET"
             }
           ]
         }
@@ -6122,13 +6091,20 @@
       "legendaryEffects": [
         {
           "star": 1,
+          "name": "Random",
+          "edid": null,
+          "formId": null,
+          "fixed": false
+        },
+        {
+          "star": 1,
           "name": "Anti-armor",
           "edid": "mod_Legendary_Weapon1_AntiArmor",
           "formId": "005281B4",
           "fixed": true
         },
         {
-          "star": 1,
+          "star": 2,
           "name": "Random",
           "edid": null,
           "formId": null,
@@ -6140,13 +6116,6 @@
           "edid": "mod_Legendary_Weapon2_DmgCrits",
           "formId": "0052414B",
           "fixed": true
-        },
-        {
-          "star": 2,
-          "name": "Random",
-          "edid": null,
-          "formId": null,
-          "fixed": false
         },
         {
           "star": 3,
@@ -6635,7 +6604,7 @@
             {
               "property": "Keywords",
               "value": "dn_TheActionHero \"\"\"\" [KYWD:00918E50]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             }
           ]
@@ -7133,7 +7102,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectPoisonDamage \"\"Poison Damage\"\" [KYWD:00900A69]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -7232,6 +7201,12 @@
           "effects": [
             {
               "property": "Keywords",
+              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value2": "2",
+              "function": "REM"
+            },
+            {
+              "property": "Keywords",
               "value": "FeaturedItem \"\"\"\" [KYWD:001B3FAC]",
               "value2": "2",
               "function": "ADD"
@@ -7251,7 +7226,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectPoisonDamage \"\"Poison Damage\"\" [KYWD:00900A69]",
-              "value2": "3",
+              "value2": "2",
               "function": "ADD"
             },
             {
@@ -7781,6 +7756,37 @@
       "planName": "Plan: Unstoppable Monster",
       "howToObtain": "Survival mode reward (legacy) / Purveyor Murmrgh",
       "questName": null,
+      "tradeable": true,
+      "isCut": false
+    },
+    {
+      "name": "V63 Shock Baton Paint",
+      "formId": "0008C14D",
+      "edid": "Baton",
+      "weaponType": "Melee",
+      "baseWeapon": "Baton",
+      "stats": {
+        "damage": 11,
+        "fireRate": 1.0,
+        "range": 10,
+        "accuracy": 0,
+        "weight": 2.0,
+        "value": 15,
+        "ammoType": null,
+        "capacity": 0,
+        "apCost": 26,
+        "stagger": null,
+        "critMult": 3.0,
+        "damageCurve": "CT_Player_Damage_Universal_Tier27 [CURV:0080F20B]",
+        "minLevel": 5
+      },
+      "legendaryEffects": [],
+      "customMods": [],
+      "enchantments": [],
+      "craftable": true,
+      "planName": "Plan: Baton",
+      "howToObtain": "Quest: Skyline Valley",
+      "questName": "Skyline Valley",
       "tradeable": true,
       "isCut": false
     },
