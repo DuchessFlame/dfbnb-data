@@ -22,7 +22,27 @@ shared/baseline cells that several skins reuse):
     "_source":     "SurvivalTentInteriors_Export_<Mon>_<Year>.tsv",
     "_signatures": ["ACTI","FURN","CONT"],
     "by_entm":  { "<ENTM FormID>": <cell-obj>, ... },
-    "by_cell":  { "<CELL EDID>":   <cell-obj>, ... }
+    "by_cell":  { "<CELL EDID>":   <cell-obj>, ... },
+    "tents":    [ <tent>, ... ]
+  }
+
+"tents" is the FULL, generative skin list that drives
+/df/atom-shop/survival-tent-skins/. It used to be a hand-maintained
+TENT_DATA array inside df-bnb-atom-shop.js, which meant a new skin in the
+game files never appeared on the page (live or PTS) until someone edited
+the JS by hand. It is now derived from the newest ENTM_Export_*.tsv:
+every record whose EDID contains "_ENTM_SurvivalTent_Skin_", minus the
+ZZZ_ dev/cut ones, joined to its interior items by ENTM FormID.
+
+Each <tent> (shape matches what the renderer consumes):
+  {
+    "formId":  "008B7A23",
+    "edid":    "ATX_F1_ENTM_SurvivalTent_Skin_GNNVan",
+    "name":    "GNN News Van (Survival Tent)",
+    "desc":    "The GNN News Van is perfect for ...",   // boilerplate tail cut
+    "rent":    "ATX_F1_ENTM_SurvivalTent_Skin_GNNVan",  // entitlement EDID
+    "rarity":  "Superior",                              // from ItemRarity KYWD
+    "items":   [ {"type","name","formId","edid"}, ... ] // base records
   }
 
 Each <cell-obj>:
@@ -68,6 +88,36 @@ TSV_ROOT   = os.path.join(SCRIPT_DIR, "..", "tsv")
 DIST_PATH  = os.path.join(SCRIPT_DIR, "..", "dist", "survival_tent_interiors.json")
 
 TSV_GLOB   = "SurvivalTentInteriors_Export_*.tsv"
+ENTM_GLOB  = "ENTM_Export_*.tsv"
+
+# Every survival tent skin entitlement carries this in its EDID.
+TENT_SKIN_MARKER = "_ENTM_SurvivalTent_Skin_"
+
+# ── Newest-TSV picker ───────────────────────────────────────────────
+# Plain alphabetical sorting is WRONG for month-name exports: "May" sorts
+# after "June"/"July", so sorted(glob(...))[-1] silently reads a stale file.
+# On the PTS channel this is worse — normalize_pts_tsv.py renames the newest
+# PTS pull to a live-style month name, but the alphabetical pick grabbed the
+# live May file instead, making dist/pts/ byte-identical to live. Sort by the
+# parsed (year, month) with mtime as a tiebreaker, mirroring the newest()
+# helper used by the other builders.
+_MONTH_ORDER = {
+    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9, "oct": 10,
+    "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
+}
+
+
+def _filename_date_key(path):
+    """Extract (year, month_number) from names like *_Export_June_2026.tsv."""
+    base = os.path.basename(path).lower()
+    m = re.search(r"_([a-z]+)_(\d{4})", base)
+    if m:
+        month_num = _MONTH_ORDER.get(m.group(1), 0)
+        if month_num:
+            return (int(m.group(2)), month_num)
+    return (0, 0)  # unknown → sort low so parseable dates always win
 
 # Item sub-field positions inside a packed Item_N cell.
 ITEM_FIELDS = ("refrFormId", "baseSig", "baseFormId", "baseEdid", "baseFull")
@@ -157,13 +207,106 @@ def parse_item_cell(cell: str) -> dict | None:
     }
 
 
-def find_latest_tsv() -> str:
-    pattern = os.path.join(TSV_ROOT, TSV_GLOB)
-    matches = sorted(glob.glob(pattern))
+def find_latest_tsv(pattern_glob: str = TSV_GLOB, required: bool = True) -> str | None:
+    pattern = os.path.join(TSV_ROOT, pattern_glob)
+    matches = sorted(
+        glob.glob(pattern),
+        key=lambda p: (_filename_date_key(p), os.path.getmtime(p)),
+    )
     if not matches:
-        print(f"[tent-interiors] No TSV matching {pattern}", file=sys.stderr)
-        sys.exit(1)
+        if required:
+            print(f"[tent-interiors] No TSV matching {pattern}", file=sys.stderr)
+            sys.exit(1)
+        return None
     return matches[-1]
+
+
+# ── Tent skin list (generative) ─────────────────────────────────────
+# The page's skin list is derived from ENTM, not hand-maintained. Two
+# small bits of cleanup are needed to match how the skins read in game:
+
+# Every tent DESC ends with the same store boilerplate. Cut from the
+# first boilerplate sentence onward so only the flavour text survives.
+_DESC_TAIL_RE = re.compile(
+    r"\s*(The Survival Tent can be placed"
+    r"|This offer is exclusive to Fallout 1st"
+    r"|You must be an active Fallout 1st"
+    r"|Available\s"
+    r"|-\s*UNLOCKS A VARIANT)"
+    r".*$",
+    re.IGNORECASE | re.DOTALL,
+)
+
+_RARITY_RE = re.compile(r"ATX_ItemRarity_([A-Za-z]+)")
+
+
+def clean_tent_desc(raw: str) -> str:
+    s = (raw or "").strip()
+    s = _DESC_TAIL_RE.sub("", s).strip()
+    s = re.sub(r"\s+", " ", s)
+    return s
+
+
+def rarity_from_keywords(keywords: str) -> str:
+    m = _RARITY_RE.search(keywords or "")
+    return m.group(1) if m else ""
+
+
+def build_tents(by_entm: dict[str, dict]) -> list[dict]:
+    """Enumerate every survival tent skin from the newest ENTM export and
+    attach its interior items. ENTM is the source of truth for the list:
+    a skin with no interior export still shows up (with no items) rather
+    than silently vanishing from the page."""
+    entm_path = find_latest_tsv(ENTM_GLOB, required=False)
+    if not entm_path:
+        print("[tent-interiors] WARNING: no ENTM_Export_*.tsv found — "
+              "'tents' will be empty", file=sys.stderr)
+        return []
+
+    print(f"[tent-interiors] Reading tent skins from {os.path.basename(entm_path)}")
+    tents: list[dict] = []
+    skipped_dev = 0
+
+    with open(entm_path, "r", encoding="utf-8-sig", errors="replace", newline="") as f:
+        for row in csv.DictReader(f, delimiter="\t"):
+            edid = (row.get("EDID") or "").strip()
+            if TENT_SKIN_MARKER not in edid:
+                continue
+            if edid.startswith("ZZZ_"):
+                skipped_dev += 1
+                continue
+
+            form_id = (row.get("FormID") or "").strip().upper()
+            name    = (row.get("FULL") or "").strip()
+            if not form_id or not name:
+                continue
+
+            cell = by_entm.get(form_id) or {}
+            items = [
+                {
+                    "type":   it.get("type", ""),
+                    "name":   it.get("name", ""),
+                    "formId": it.get("baseFormId", ""),
+                    "edid":   it.get("baseEdid", ""),
+                }
+                for it in cell.get("items", [])
+            ]
+
+            tents.append({
+                "formId": form_id,
+                "edid":   edid,
+                "name":   name,
+                "desc":   clean_tent_desc(row.get("DESC") or ""),
+                "rent":   edid,
+                "rarity": rarity_from_keywords(row.get("KEYWORDS") or ""),
+                "items":  items,
+            })
+
+    tents.sort(key=lambda t: t["name"].lower())
+    no_items = sum(1 for t in tents if not t["items"])
+    print(f"[tent-interiors] tents: {len(tents)} skins "
+          f"({skipped_dev} ZZZ dev skipped, {no_items} with no interior export)")
+    return tents
 
 
 def main() -> None:
@@ -223,12 +366,15 @@ def main() -> None:
 
             kept_rows += 1
 
+    tents = build_tents(by_entm)
+
     out = {
         "_generated":  datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "_source":     os.path.basename(tsv_path),
         "_signatures": ["ACTI", "FURN", "CONT"],
         "by_entm":     dict(sorted(by_entm.items())),
         "by_cell":     dict(sorted(by_cell.items())),
+        "tents":       tents,
     }
 
     os.makedirs(os.path.dirname(DIST_PATH), exist_ok=True)
