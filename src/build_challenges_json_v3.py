@@ -756,18 +756,74 @@ def fishing_group(edid):
     if re.search(r"_Weekly_", e, re.IGNORECASE):     return "Weekly"
     return "Lifetime"
 
+# ---- Pint-Sized Phantoms page (Slasher / SDOW content) ----
+# The Slasher update ships its challenges under three EDID shapes:
+#   SDOW_Challenge_Lifetime_Collect_SlasherClue_0*   — Slasher Mask collection
+#   SCORE_Challenge_(Daily|Weekly)_..._SDOW_SQ01     — "Disturbed Graves" quest
+#   SCORE_Challenge_(Daily|Weekly)_Kill_SlasherFan*  — Pint-Sized Phantom kills
+# The kill set and the two PartyCrasher bounty rows name only "SlasherFan" /
+# "PartyCrasher" in the EDID and link to the content through an SDOW_ form in
+# their conditions, so match on EITHER the EDID or a condition reference —
+# matching on EDID alone silently drops 17 of the 26 rows.
+#
+# Deliberately NOT matched: SCORE_Challenge_*_Seasonal_Kill_Lost_MN2_Quest_Mischief.
+# Those target LostRace during Mischief Night and carry no SDOW reference; they
+# belong to the Mischief Night mini-season, not this page.
+#
+# These challenges carry no CNAM scope, so without this they all fall through
+# scope_bucket() into "lifetime" and land on /df/challenges/world/.
+
+SDOW_EDID_RE = re.compile(r"SDOW", re.IGNORECASE)
+SDOW_COND_RE = re.compile(r"\bSDOW_\w+", re.IGNORECASE)
+
+def is_pint_sized_phantom(item):
+    if SDOW_EDID_RE.search(str(item.get("edid") or "")):
+        return True
+    for cond in (item.get("conditions") or []):
+        if SDOW_COND_RE.search(str(cond)):
+            return True
+    return False
+
+def phantom_group(edid):
+    e = str(edid or "")
+    if re.search(r"Collect_SlasherClue", e, re.IGNORECASE): return "Slasher Masks"
+    if re.search(r"_Daily_", e, re.IGNORECASE):             return "Daily"
+    if re.search(r"_Weekly_", e, re.IGNORECASE):            return "Weekly"
+    return "Other"
+
 # ==================================================================
 # Build pages dict
 # ==================================================================
 
 pages = {}
+
+# Pint-Sized Phantoms claim their rows first so they appear on their own page
+# only, the same way mini-season fishing challenges are held back from the
+# fishing page. Cut rows still go to the cut page.
+phantom_ids = set()
+phantom_items = []
+for item in all_items:
+    if item["is_cut"] or not is_pint_sized_phantom(item):
+        continue
+    if item["is_sub"] and not item["is_meta"] and edid_base(item["edid"]) in meta_map:
+        continue
+    item["group"] = phantom_group(item.get("edid"))
+    phantom_items.append(item)
+    phantom_ids.add(id(item))
+if phantom_items:
+    pages["pint-sized-phantoms"] = phantom_items
+
 for item in buckets.get("daily", []):
+    if id(item) in phantom_ids: continue
     pages.setdefault("daily", []).append(item)
 for item in buckets.get("weekly", []):
+    if id(item) in phantom_ids: continue
     pages.setdefault("weekly", []).append(item)
 for item in buckets.get("event", []):
+    if id(item) in phantom_ids: continue
     pages.setdefault("events", []).append(item)
 for item in buckets.get("lifetime", []):
+    if id(item) in phantom_ids: continue
     slug = classify_lifetime_page(item)
     if slug == "fishing":
         # Mini-season fishing challenges live on their own page, not here.
