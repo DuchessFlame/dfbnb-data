@@ -209,6 +209,10 @@ PART_NAME_OVERRIDES = {
         "LFoot": "Left Foot",
         "RFoot": "Right Foot",
     },
+    "ZetanInvaderBodyPartData": {
+        "LFoot": "Left Foot",
+        "RFoot": "Right Foot",
+    },
     "ScorchedBodyPartData": {
         "RaiderLeftFoot": "Left Foot",
         "RaiderRightFoot": "Right Foot",
@@ -242,8 +246,13 @@ PART_NAME_OVERRIDES = {
 # Internal / non-targetable part types to filter out
 # ---------------------------------------------------------------------------
 
+# NOTE: "Eye" is deliberately NOT skipped. Several real weak spots use the
+# Eye part type (Ultracite Terror RightEye 3.00, Mr. Handy Left Eye 1.25,
+# Floater Eyes 1.35, Vertibird Cabin 1.25). The internal "Headtracking"
+# records that also use PartType=Eye are already removed by
+# SKIP_PART_NAMES_EXACT and should_skip_zero_stats().
 SKIP_PART_TYPES = {
-    "Root", "COM", "Camera", "Eye", "Weapon", "Pelvis",
+    "Root", "COM", "Camera", "Weapon", "Pelvis",
     "LookAt", "Face Target Source",
 }
 
@@ -266,6 +275,32 @@ def should_skip_part(part_name, part_type):
         if part_name.endswith(suffix) and len(part_name) > len(suffix):
             return True
     return False
+
+
+# ---------------------------------------------------------------------------
+# Global part-name prettifier
+# ---------------------------------------------------------------------------
+# The TSV mixes spaced names ("Left Arm") with CamelCase ones ("LeftEye"),
+# which made the Limb column look inconsistent on the site. This splits any
+# single-token CamelCase name into words. Names that already contain a space
+# are left completely alone, so PART_NAME_OVERRIDES still wins.
+#   LeftEye   -> Left Eye
+#   RightFoot -> Right Foot
+#   Left Arm  -> Left Arm   (untouched)
+#   Torso     -> Torso      (untouched)
+# ---------------------------------------------------------------------------
+
+_CAMEL_LOWER_UPPER = re.compile(r'(?<=[a-z0-9])(?=[A-Z])')
+_CAMEL_ACRONYM = re.compile(r'(?<=[A-Z])(?=[A-Z][a-z])')
+
+
+def prettify_part_name(name):
+    """Split single-token CamelCase part names into spaced words."""
+    if not name or " " in name:
+        return name
+    out = _CAMEL_LOWER_UPPER.sub(" ", name)
+    out = _CAMEL_ACRONYM.sub(" ", out)
+    return out
 
 
 def should_skip_zero_stats(health_pct, to_hit_chance):
@@ -357,6 +392,10 @@ def build_from_tsv(tsv_path):
                 continue
             if should_skip_zero_stats(health_pct, to_hit):
                 continue
+
+            # Normalise CamelCase names AFTER the skip checks (the skip lists
+            # match the raw un-spaced names, e.g. "FaceTargetSource").
+            part_name = prettify_part_name(part_name)
 
             try:
                 mult = round(float(row.get("DamageMult", "1.000000").strip()), 2)
