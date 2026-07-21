@@ -45,7 +45,7 @@ _Couldn't key this file to records; contents differ._
 ## `calculators/weak_spot_multipliers.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `chal_latest.json`  ·  +26 / -0 / ~2458
+## `chal_latest.json`  ·  +26 / -0 / ~5664
 
 **Added (26)**
 - SCORE_Challenge_Weekly_Kill_SlasherFan_Teammate  `0092B300`
@@ -75,48 +75,48 @@ _Couldn't key this file to records; contents differ._
 - SCORE_Challenge_Weekly_Kill_Human_Sharp_HeadHunt  `0092B318`
 - SCORE_Challenge_Weekly_Seasonal_Kill_PartyCrasher_HeadHunt  `0092B319`
 
-**Changed (2458)**
-- Challenge_Lifetime_Mod_Armor_Tiers_Chest  `003B7F9F` — fields: Cond1, Cond2, TNAM
-- Challenge_Lifetime_Photomode_Forest_SUB_AnchorFarm  `003B7FA1` — fields: Cond1
-- Challenge_Lifetime_QuestComplete_Mire  `003B7FA3` — fields: Cond1, TNAM
-- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_HemlockHoles  `003B7FA4` — fields: Cond1
-- Challenge_Lifetime_QuestComplete_CranberryBog  `003B7FA5` — fields: Cond1, TNAM
-- Challenge_Lifetime_QuestComplete_SavageDivide  `003B7FA6` — fields: Cond1, TNAM
-- CUT_Challenge_Daily_Mod_Weapon_Melee_Lowest  `003B7FA7` — fields: Cond1, Cond2, Cond3
-- Challenge_Lifetime_QuestComplete_Forest  `003B7FA8` — fields: Cond1, TNAM
-- Challenge_Lifetime_QuestComplete_ToxicValley  `003B7FA9` — fields: Cond1, TNAM
-- Challenge_Lifetime_QuestComplete_AshHeap  `003B7FAB` — fields: Cond1, TNAM
-- CUT_Challenge_Daily_Craft_Weapons_Molotovs_Lowest  `003B7FAC` — fields: Cond1
-- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_WavyWillards  `003B7FAD` — fields: Cond1
-- Challenge_Lifetime_Collect_Wood_Tier3  `003B7FAE` — fields: Cond1, Cond2, Cond3, TNAM
-- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_Clarksburg  `003B7FAF` — fields: Cond1
-- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_GraftonDam  `003B7FB0` — fields: Cond1
-- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_Grafton  `003B7FB1` — fields: Cond1
-- Challenge_Lifetime_Discover_MireRegion_Intro  `003B7FB2` — fields: Cond1
-- Challenge_Lifetime_Discover_MireRegion_SUB_Berkeley  `003B7FB3` — fields: Cond1
-- CUT_Challenge_Daily_Craft_Ammo_Energy_Lowest  `003B7FB5` — fields: Cond1
-- CUT_Challenge_Daily_Craft_Ammo_Explosive_Lowest  `003B7FB6` — fields: Cond1
-- CUT_Challenge_Daily_Craft_Ammo_Low  `003B7FB7` — fields: Cond1, Cond2, Cond3, Cond4
-- Challenge_Lifetime_Mod_Armor_Tiers_Limbs  `003B7FB8` — fields: Cond1, Cond2, TNAM
-- CUT_Challenge_Daily_Craft_Chems_Low  `003B7FB9` — fields: Cond1
-- CUT_Challenge_Daily_Craft_Drinks_Low  `003B7FBA` — fields: Cond1
-- CUT_Challenge_Daily_Craft_Soups_Low  `003B7FBB` — fields: Cond1
-- CUT_Challenge_Daily_Craft_StimpackDiluted_Lowest  `003B7FBC` — fields: Cond1, Cond2
-- CUT_Challenge_Weekly_Collect_Nukes_SiloCodes_Lowest  `003B7FBD` — fields: Cond1
-- CUT_Challenge_Daily_Craft_BoilWater_Low  `003B7FBE` — fields: Cond1
-- CUT_Challenge_Daily_Craft_DrinksJuice_Low  `003B7FBF` — fields: Cond1
-- CUT_Challenge_Daily_Craft_Teas_Low  `003B7FC0` — fields: Cond1
-- Challenge_Lifetime_Discover_MireRegion_SUB_DollySods  `003B7FC3` — fields: Cond1, Cond2
-- CUT_Challenge_Daily_Craft_RadAway_Lowest  `003B7FC4` — fields: Cond1
-- Challenge_Lifetime_Mod_Armor_Tiers_Base  `003B7FC5` — fields: Cond1, Cond2, TNAM
-- Challenge_Lifetime_Discover_MireRegion_SUB_HarpersFerry  `003B7FC6` — fields: Cond1
-- CUT_Challenge_Daily_Craft_Buffout_Lowest  `003B7FC9` — fields: Cond1, Cond2
-- CUT_REUSE_027  `003B7FCA` — fields: Cond1, Cond2
-- CUT_REUSE_024  `003B7FCB` — fields: Cond1, Cond2
-- CUT_REUSE_025  `003B7FCD` — fields: Cond1, Cond2
-- CUT_REUSE_023  `003B7FCE` — fields: Cond1, Cond2
-- CUT_REUSE_026  `003B7FCF` — fields: Cond1, Cond2
-- …and 2418 more
+**Changed (5664)**
+- Challenge_Lifetime_Discover_MireRegion_SUB_TreehouseVillage  `003B7F9E` — fields: ANAM, CNAM, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Mod_Armor_Tiers_Chest  `003B7F9F` — fields: ANAM, CNAM, Cond1, Cond2, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- CUT_Challenge_Weekly_Mothman_META  `003B7FA0` — fields: ANAM, CNAM, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Photomode_Forest_SUB_AnchorFarm  `003B7FA1` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Lifetime_Mod_Armor_Tiers_Helmet  `003B7FA2` — fields: ANAM, CNAM, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_QuestComplete_Mire  `003B7FA3` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_HemlockHoles  `003B7FA4` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_QuestComplete_CranberryBog  `003B7FA5` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- Challenge_Lifetime_QuestComplete_SavageDivide  `003B7FA6` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- CUT_Challenge_Daily_Mod_Weapon_Melee_Lowest  `003B7FA7` — fields: ANAM, CNAM, Cond1, Cond2, Cond3, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_QuestComplete_Forest  `003B7FA8` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- Challenge_Lifetime_QuestComplete_ToxicValley  `003B7FA9` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- SCORE_Challenge_Daily_Craft_Weapons_Grenades  `003B7FAA` — fields: ANAM, CNAM, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_QuestComplete_AshHeap  `003B7FAB` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- CUT_Challenge_Daily_Craft_Weapons_Molotovs_Lowest  `003B7FAC` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_WavyWillards  `003B7FAD` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Collect_Wood_Tier3  `003B7FAE` — fields: ANAM, CNAM, Cond1, Cond2, Cond3, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_Clarksburg  `003B7FAF` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_GraftonDam  `003B7FB0` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Discover_ToxicValleyRegion_SUB_Grafton  `003B7FB1` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Discover_MireRegion_Intro  `003B7FB2` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Discover_MireRegion_SUB_Berkeley  `003B7FB3` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- SCORE_Challenge_Daily_Craft_Ammo  `003B7FB4` — fields: ANAM, CNAM, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_Ammo_Energy_Lowest  `003B7FB5` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_Ammo_Explosive_Lowest  `003B7FB6` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_Ammo_Low  `003B7FB7` — fields: ANAM, CNAM, Cond1, Cond2, Cond3, Cond4, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Mod_Armor_Tiers_Limbs  `003B7FB8` — fields: ANAM, CNAM, Cond1, Cond2, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- CUT_Challenge_Daily_Craft_Chems_Low  `003B7FB9` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_Drinks_Low  `003B7FBA` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_Soups_Low  `003B7FBB` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_StimpackDiluted_Lowest  `003B7FBC` — fields: ANAM, CNAM, Cond1, Cond2, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Weekly_Collect_Nukes_SiloCodes_Lowest  `003B7FBD` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_BoilWater_Low  `003B7FBE` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_DrinksJuice_Low  `003B7FBF` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_Teas_Low  `003B7FC0` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- SCORE_Challenge_Daily_Craft_PlantMeals  `003B7FC1` — fields: ANAM, CNAM, ENAM, HNAM, JASF, MNAM, RNAM
+- SCORE_Challenge_Daily_Craft_MeatMeals  `003B7FC2` — fields: ANAM, CNAM, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Discover_MireRegion_SUB_DollySods  `003B7FC3` — fields: ANAM, CNAM, Cond1, Cond2, ENAM, HNAM, JASF, MNAM, RNAM
+- CUT_Challenge_Daily_Craft_RadAway_Lowest  `003B7FC4` — fields: ANAM, CNAM, Cond1, ENAM, HNAM, JASF, MNAM, RNAM
+- Challenge_Lifetime_Mod_Armor_Tiers_Base  `003B7FC5` — fields: ANAM, CNAM, Cond1, Cond2, ENAM, HNAM, JASF, MNAM, RNAM, TNAM
+- …and 5624 more
 
 ## `chal_previous.json`  ·  +228 / -0 / ~2638
 
