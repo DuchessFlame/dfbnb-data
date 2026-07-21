@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-21T04:28:12.067218Z",
+  "generated": "2026-07-21T08:10:56.700024Z",
   "source": "CHAL/CNDF TSV exports (build_world_pet_challenges_json.py)",
   "total": 20,
   "groups": [
@@ -18,7 +18,7 @@
           "required": 1,
           "counter": "World Pet Activated",
           "desc": "Activate a World Pet from your Pip-Boy. Only one pet can be active at a time.",
-          "reward": "10 Caps",
+          "reward": "Caps (10)",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -35,7 +35,7 @@
           "required": 3,
           "counter": "World Pet Commanded",
           "desc": "Issue a command to your active pet.",
-          "reward": "10 Caps",
+          "reward": "Caps (10)",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -86,7 +86,7 @@
           "required": 2000,
           "counter": "World Pet Healed",
           "desc": "Heal your active pet when it takes damage.",
-          "reward": "",
+          "reward": "Player Title: Veterinarian",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -139,7 +139,7 @@
           "required": 2000,
           "counter": "Total Enemies Killed",
           "desc": "Kill hostiles while your World Pet is active and out with you.",
-          "reward": "",
+          "reward": "Player Title: Predator",
           "conditions_display": [
             ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
@@ -162,9 +162,9 @@
           "required": 25,
           "counter": "Fish Caught",
           "desc": "Catch fish while a Pet Cat is your active World Pet.",
-          "reward": "100 Caps",
+          "reward": "Caps (100)",
           "conditions_display": [
-            ".HasKeyword(0079AF1D [FORM:0079AF1D]) = 1"
+            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
           ]
         },
         {
@@ -181,7 +181,7 @@
           "desc": "Catch fish while a Pet Cat is your active World Pet.",
           "reward": "",
           "conditions_display": [
-            ".HasKeyword(0079AF1D [FORM:0079AF1D]) = 1"
+            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
           ]
         },
         {
@@ -196,9 +196,9 @@
           "required": 2000,
           "counter": "Fish Caught",
           "desc": "Catch fish while a Pet Cat is your active World Pet.",
-          "reward": "",
+          "reward": "C.A.M.P. Title: Cattery",
           "conditions_display": [
-            ".HasKeyword(0079AF1D [FORM:0079AF1D]) = 1"
+            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
           ]
         }
       ]
@@ -218,9 +218,9 @@
           "required": 3,
           "counter": "Quests Completed",
           "desc": "Complete Bounty Hunts while a Pet Dog is active.",
-          "reward": "100 Caps",
+          "reward": "Caps (100)",
           "conditions_display": [
-            ".HasKeyword(0079AF1C [FORM:0079AF1C]) = 1",
+            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
             "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
@@ -239,7 +239,7 @@
           "desc": "Complete Bounty Hunts while a Pet Dog is active.",
           "reward": "",
           "conditions_display": [
-            ".HasKeyword(0079AF1C [FORM:0079AF1C]) = 1",
+            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
             "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
@@ -256,9 +256,9 @@
           "required": 100,
           "counter": "Quests Completed",
           "desc": "Complete Bounty Hunts while a Pet Dog is active.",
-          "reward": "",
+          "reward": "C.A.M.P. Title: Kennel",
           "conditions_display": [
-            ".HasKeyword(0079AF1C [FORM:0079AF1C]) = 1",
+            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
             "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
@@ -280,9 +280,9 @@
           "required": 25,
           "counter": "Plants Harvested",
           "desc": "Collect Flux while a Pet Radhog is active.",
-          "reward": "100 Caps",
+          "reward": "Caps (100)",
           "conditions_display": [
-            ".HasKeyword(0084FB8C [FORM:0084FB8C]) = 1",
+            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
             "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
             "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
@@ -304,7 +304,7 @@
           "desc": "Collect Flux while a Pet Radhog is active.",
           "reward": "",
           "conditions_display": [
-            ".HasKeyword(0084FB8C [FORM:0084FB8C]) = 1",
+            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
             "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
             "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
@@ -324,9 +324,9 @@
           "required": 2000,
           "counter": "Plants Harvested",
           "desc": "Collect Flux while a Pet Radhog is active.",
-          "reward": "",
+          "reward": "C.A.M.P. Title: PigPen",
           "conditions_display": [
-            ".HasKeyword(0084FB8C [FORM:0084FB8C]) = 1",
+            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
             "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
             "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
@@ -351,9 +351,9 @@
           "required": 20,
           "counter": "Total Enemies Killed",
           "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
-          "reward": "100 Caps",
+          "reward": "Caps (100)",
           "conditions_display": [
-            ".HasKeyword(008A52BB [FORM:008A52BB]) = 1",
+            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
           ]
         },
@@ -371,7 +371,7 @@
           "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
           "reward": "",
           "conditions_display": [
-            ".HasKeyword(008A52BB [FORM:008A52BB]) = 1",
+            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
           ]
         },
@@ -387,9 +387,9 @@
           "required": 2000,
           "counter": "Total Enemies Killed",
           "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
-          "reward": "",
+          "reward": "C.A.M.P. Title: Lair",
           "conditions_display": [
-            ".HasKeyword(008A52BB [FORM:008A52BB]) = 1",
+            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
           ]
         }

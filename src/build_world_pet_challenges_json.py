@@ -52,12 +52,32 @@ def _filename_date_key(path):
             return (int(m.group(2)), month_num)
     return (0, 0)
 
+_SIDECAR_RE = re.compile(r'_\d{4}_.+\.tsv$', re.IGNORECASE)
+
+def _drop_sidecars(pattern, files):
+    """Exclude sidecar tables unless the pattern actually asked for one.
+
+    KYWD_Export_June_2026.tsv (FormID / EDID / FULL_Name) and
+    KYWD_Export_June_2026_Refs.tsv (KeywordFormID / RefIndex / …) sort equal on
+    year+month, so the mtime tiebreaker picked the Refs file — which has no
+    FormID column, so kywd_by_fid came out EMPTY and every species check
+    shipped as HasKeyword(0079AF1C [FORM:0079AF1C]) instead of HasKeyword(Dog).
+    This build has no inline-name fallback: its species checks are raw
+    little-endian byte refs resolved through FUNC_INDEX, so the table is the
+    only source of the name.
+
+    A pattern naming its own suffix (…_*_Entries.tsv) is left alone."""
+    if re.search(r'_\*_[A-Za-z]', pattern) or not pattern.endswith("*.tsv"):
+        return files
+    main = [f for f in files if not _SIDECAR_RE.search(os.path.basename(f))]
+    return main or files
+
 def newest(pattern):
     """Pick the most recent file matching *pattern*.
     Primary sort: parsed year+month from filename (reliable on GitHub Actions
     where git checkout mtimes vary by checkout order, not commit date).
     Tiebreaker: file mtime (useful on local machines)."""
-    fs = glob.glob(str(TSV_DIR / pattern))
+    fs = _drop_sidecars(pattern, glob.glob(str(TSV_DIR / pattern)))
     if not fs:
         return None
     fs.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
@@ -264,6 +284,17 @@ for r in wp_rows:
     tier = tnum if (multi and tnum in (1, 2, 3)) else 0
     type_label = f"Tier {ROMAN[tier]}" if tier else "Lifetime"
     desc, reward = OVERLAY.get(tail, ("", ""))
+    # MNAM (Reward Display) was added to the CHAL export in July 2026, after this
+    # build was written, so the page was showing "No rewards listed" on 14 of 20
+    # rows while the record itself named a real reward — every tier-3 challenge
+    # pays a title (Player Title: Veterinarian, C.A.M.P. Title: Cattery, …).
+    # Per the challenge-style-guide, MNAM is the record's own reward text and
+    # wins; the editorial OVERLAY is the fallback. Guard the corrupt-MNAM case
+    # the same way the main build does — reject a string with no letter or digit
+    # rather than printing mojibake.
+    mnam = pick(r, "MNAM")
+    if mnam and re.search(r"[A-Za-z0-9]", mnam):
+        reward = mnam
     required = pick(r, "TNAM")
     item = {
         "form_id":   pick(r, "FormID"),

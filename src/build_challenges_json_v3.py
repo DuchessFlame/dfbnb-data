@@ -64,13 +64,38 @@ def _filename_date_key(path):
             return (int(m.group(2)), month_num)
     return (0, 0)  # unknown → sort low so parseable dates always win
 
+_SIDECAR_RE = re.compile(r'_\d{4}_.+\.tsv$', re.IGNORECASE)
+
+def _drop_sidecars(pattern, files):
+    """Exclude sidecar tables unless the pattern actually asked for one.
+
+    Most record types export a main table plus sidecars that share the base
+    name: KYWD_Export_June_2026.tsv (FormID / EDID / FULL_Name) alongside
+    KYWD_Export_June_2026_Refs.tsv (KeywordFormID / RefIndex / …). They sort
+    equal on year+month, so the mtime tiebreaker picks whichever was written
+    last — and the Refs file usually is. Loading it builds an EMPTY
+    kywd_by_fid, because it has no FormID column at all.
+
+    This build survived that by luck: its condition strings carry the keyword
+    name inline ("ObjectTypeFish [KYWD:007ABE8A]"), so it rarely consults the
+    table. build_world_pet_challenges_json.py had no such fallback — its
+    species checks are raw little-endian byte refs — and shipped
+    HasKeyword(0079AF1C [FORM:0079AF1C]) instead of HasKeyword(Dog).
+
+    A pattern like "tsv/FLST_Export_*_Entries.tsv" names its suffix explicitly,
+    so only filter when the pattern does not."""
+    if re.search(r'_\*_[A-Za-z]', pattern) or not pattern.endswith("*.tsv"):
+        return files
+    main = [f for f in files if not _SIDECAR_RE.search(os.path.basename(f))]
+    return main or files
+
 def newest(pattern):
     """Pick the most recent file matching *pattern*.
     Primary sort: parsed year+month from filename (reliable on GitHub Actions
     where git checkout mtimes vary by checkout order, not commit date).
     Tiebreaker: file mtime (useful on local machines)."""
     full_pattern = str(_REPO_ROOT / pattern)
-    files = glob.glob(full_pattern)
+    files = _drop_sidecars(pattern, glob.glob(full_pattern))
     if not files:
         return None
     files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
@@ -206,6 +231,11 @@ ENTM = read_tsv(newest("tsv/ENTM_Export_*.tsv"))
 BOOK = read_tsv(newest("tsv/BOOK_Export_*.tsv"))
 KYWD = read_tsv(newest("tsv/KYWD_Export_*.tsv"))
 FLST_ENTRIES = read_tsv(newest("tsv/FLST_Export_*_Entries.tsv"))
+# The _List export carries FLST_FormID / FLST_EDID / FLST_FULL — the names we
+# need to render an IsInList condition. Without it a form-list param resolved to
+# nothing and shipped as a raw FormID.
+_flst_list_path = newest("tsv/FLST_Export_*_List.tsv")
+FLST_LIST = read_tsv(_flst_list_path) if _flst_list_path else []
 
 _cndf_path = newest("tsv/CNDF_Export_*.tsv")
 CNDF = read_tsv(_cndf_path) if _cndf_path else []
@@ -263,6 +293,11 @@ cobj_by_fid = {}
 for row in COBJ:
     fid = pick(row, "COBJ_FormID", "FormID")
     if fid: cobj_by_fid[fid] = row
+
+flst_by_fid = {}
+for row in FLST_LIST:
+    fid = pick(row, "FLST_FormID", "FormID")
+    if fid: flst_by_fid[fid] = row
 
 flst_by_parent = defaultdict(list)
 for row in FLST_ENTRIES:
@@ -328,6 +363,7 @@ def resolve_name_from_fid(fid):
     if fid in book_by_fid: return pick(book_by_fid[fid], "FULL") or fid
     if fid in misc_by_fid: return pick(misc_by_fid[fid], "FULL", "EDID") or fid
     if fid in kywd_by_fid: return pick(kywd_by_fid[fid], "FULL_Name", "EDID") or fid
+    if fid in flst_by_fid: return pick(flst_by_fid[fid], "FLST_FULL", "FLST_EDID") or fid
     if fid in cobj_by_fid: return pick(cobj_by_fid[fid], "CNAM_FULL", "COBJ_EDID") or fid
     return fid
 
@@ -465,6 +501,7 @@ def parse_condition_items(conditions):
 # The World Pet species CNDFs use these with a CampPets_* keyword param, so
 # they read as a keyword check. Extend as more indices are encountered.
 FUNC_INDEX = {
+    "939": "IsInList",   # param is an FLST, e.g. Challenge_Quests_SpecificEvent_DailyOp
     "940": "HasKeyword",
     "941": "HasKeyword",
 }
@@ -483,12 +520,35 @@ def _fmt_cond_value(v):
     except Exception:
         return str(v or "").strip()
 
+def _is_null_fid(fid):
+    """An all-zeros form ref means the function takes no form parameter."""
+    return bool(fid) and set(str(fid)) == {"0"}
+
 def _cond_param_label(param):
-    """Resolve a condition param into (display, '[REC:FormID]')."""
+    """Resolve a condition param into (display, '[REC:FormID]').
+
+    A null (all-zeros) form ref is not a form — it is how the export writes the
+    absent parameter of an engine check that takes none. Return an empty label
+    so the line renders "GetIsPlayer() = 1" rather than the meaningless
+    "GetIsPlayer(00000000 [FORM:00000000]) = 1" that shipped on
+    Challenge_Lifetime_Picture_Creatures_SUB_Player_Camera."""
     p = str(param or "").strip()
+    # Same defect, different spelling: a zeroed ref with an xEdit alias hint and
+    # no record signature — "NULL - Null Reference [00000000]" (the absent param
+    # of GetPublicEventHasMutation) or "TARGET - Target Reference [00000000]"
+    # (GetWithinDistance). The FormID is padding. Drop it, and drop the whole
+    # parameter when the alias is the null one.
+    alias_m = re.match(r'^(.*?)\s*\[0{6,}\]$', p)
+    if alias_m:
+        hint = alias_m.group(1).strip()
+        if not hint or re.match(r'^NULL\b', hint, re.IGNORECASE):
+            return "", ""
+        return re.sub(r'^[A-Z]+\s*-\s*', '', hint).strip(), ""
     ref_m = re.search(r'\[(\w+):([0-9A-Fa-f]+)\]', p)
     if ref_m:
         rec, fid = ref_m.group(1), ref_m.group(2).upper()
+        if _is_null_fid(fid):
+            return "", ""
         qm = re.search(r'"([^"]+)"', p)
         edid_m = re.match(r'([A-Za-z0-9_]+)\s*[\["]', p)
         hint = qm.group(1) if qm else (edid_m.group(1) if edid_m else "")
@@ -496,9 +556,11 @@ def _cond_param_label(param):
         disp = resolved if (resolved and resolved != fid) else hint
         return (disp or hint or fid), f"[{rec}:{fid}]"
     fid = _fid_from_bytes(p)
+    if fid and _is_null_fid(fid):
+        return "", ""
     if fid:
         resolved = resolve_name_from_fid(fid)
-        sig = "KYWD" if fid in kywd_by_fid else "FORM"
+        sig = "KYWD" if fid in kywd_by_fid else ("FLST" if fid in flst_by_fid else "FORM")
         return (resolved if resolved and resolved != fid else fid), f"[{sig}:{fid}]"
     return p, ""
 
@@ -513,8 +575,18 @@ def _cndf_conditions(row):
 
 def _is_null_leaf(line):
     """True for an uninformative leaf whose form ref resolved to all-zeros
-    (e.g. an engine check that takes no form param, like the IsPet active check)."""
-    return bool(re.search(r'\[(?:FORM|KYWD):0+\]', line) or re.search(r'\(0+\s', line))
+    (e.g. an engine check that takes no form param, like the IsPet active check).
+
+    Includes the empty-paren form: _cond_param_label() now drops a null form ref
+    entirely, so those lines arrive here as "Func() = 1" rather than carrying a
+    zeroed [FORM:00000000]. Without this the stop-at-named-form rule would stop
+    firing and leaf expansion would start emitting bare engine checks in place of
+    the self-descriptive IsTrueForConditionForm line."""
+    return bool(
+        re.search(r'\[(?:FORM|KYWD):0+\]', line)
+        or re.search(r'\(0+\s', line)
+        or re.search(r'\w\(\)\s*=', line)
+    )
 
 def decode_condition(cond_str, _seen=None):
     """One raw pipe condition -> list of xEdit display lines, CNDF-leaf-expanded."""
@@ -683,11 +755,20 @@ def is_sub_candidate(edid, enam):
     as subs and put a SUB pill on all of them. Use it to widen the search for a
     parent, then let the final is_sub be decided by whether a parent was
     actually found (see the is_sub resolution pass after pairing)."""
-    # An "_Intro" row is the tutorial-tier version of a challenge and a root
-    # row in its own right, never a sub — exclude it explicitly, or the region
+    # An "_Intro" row is normally the tutorial-tier version of a challenge and a
+    # root row in its own right, never a sub — exclude it, or the region
     # normalisation above makes Challenge_Lifetime_Discover_MireRegion_Intro
     # look like a one-segment child of Challenge_Lifetime_Discover_Mire_META.
-    if str(edid or "").upper().endswith("_INTRO"):
+    #
+    # BUT only when the row does not also carry the strong _SUB_ marker. The
+    # seven Challenge_Lifetime_Perks_RankUp_SUB_<SPECIAL>_Intro rows are real
+    # subs of Challenge_Lifetime_Perks_RankUp_META (required 7, seven of them):
+    # the record says _SUB_ explicitly and _Intro is just the tier. Excluding
+    # them here left all seven stranded as loose root rows on /challenges/world/
+    # — wearing a SUB pill, because is_sub_edid() still matched — while their
+    # META sat childless on /challenges/character/. An explicit _SUB_ marker
+    # outranks an _Intro suffix.
+    if str(edid or "").upper().endswith("_INTRO") and not is_sub_edid(edid):
         return False
     return is_sub_edid(edid) or str(enam or "") == "Sub Challenge (Unsorted)"
 
@@ -706,6 +787,21 @@ def edid_base(edid):
     #   SUBs  Challenge_Lifetime_Discover_ForestRegion_PointPleasant  (unmarked)
     # Normalising "Region" out of BOTH sides makes them compare equal.
     base = re.sub(r"Region(?=_|$)", "", base)
+    # Same shape, but singular/plural drift on a collection noun:
+    #   META  Challenge_Lifetime_Collect_Holotapes_Games_META            (req 8)
+    #   SUBs  Challenge_Lifetime_Collect_Holotape_Games_AtomicCommand    (x8)
+    #   META  Challenge_Lifetime_Collect_Holotapes_Overseer_Journals_META
+    #   SUBs  Challenge_Lifetime_Collect_Holotapes_Overseer_Journal_05
+    # Both METAs sat childless while their subs sat loose on the World page.
+    # Fold the plural to the singular on BOTH sides so the prefix pass sees the
+    # sub as its META's base plus one segment. Named nouns only — a blanket
+    # de-pluralisation would collide unrelated series.
+    # Axolotl is the same story on the Fishing page: Challenge_Lifetime_Fishing_
+    # Axolotls_META (required 12) sat childless while Axolotl_05..12_SUB were
+    # loose root rows and Axolotl_01..04_SUB had been mis-adopted by the four
+    # Fish Quest METAs (Progress_01..04), pushing each one over its required
+    # count. Folding the plural lets the prefix pass claim all 12 first.
+    base = re.sub(r"(Holotape|Journal|Axolotl)s(?=_|$)", r"\1", base, flags=re.IGNORECASE)
     return base
 
 def scope_bucket(cnam):
@@ -1035,6 +1131,49 @@ for item in all_items:
         candidates[0]["children"].append(item)
         item["parent_edid"] = candidates[0]["edid"]
         _orphans_paired += 1
+
+# ---- Fourth pass: named adoptions -------------------------------------
+# A few series name their subs with a category word that has no lexical
+# relationship to the META's own token, so none of the three passes above can
+# reach them. Naming them explicitly is safer than loosening the topic-token
+# rules — that is exactly how the magazine and Burning Springs over-grabbing
+# bugs happened.
+#
+# Challenge_Lifetime_Collect_PlantsFungi_Different_* is the whole case, and the
+# required counts confirm the grouping:
+#     FruitsVegetables_META (required 11) = Fruit subs (7) + Vegetables subs (4)
+#     Plants_META           (required 10) = Other subs (5) + Flux subs (5)
+# The Fruit subs pair on their own through the topic-token prefix fallback
+# ("fruitsvegetable" starts with "fruit"); "vegetable", "other" and "flux" have
+# no such handle, so those 14 rows were stranded as loose root rows on
+# /challenges/world/ while both METAs sat childless on /challenges/survival/.
+EXPLICIT_SUB_PREFIXES = {
+    "Challenge_Lifetime_Collect_PlantsFungi_Different_FruitsVegetables_META": (
+        "Challenge_Lifetime_Collect_PlantsFungi_Different_Vegetables_SUB_",
+    ),
+    "Challenge_Lifetime_Collect_PlantsFungi_Different_Plants_META": (
+        "Challenge_Lifetime_Collect_PlantsFungi_Different_Other_SUB_",
+        "Challenge_Lifetime_Collect_PlantsFungi_Different_Flux_SUB_",
+    ),
+}
+
+_named_paired = 0
+for _meta_edid, _prefixes in EXPLICIT_SUB_PREFIXES.items():
+    parent = items_by_edid.get(_meta_edid)
+    if not parent:
+        print(f"  !! EXPLICIT_SUB_PREFIXES: no such META {_meta_edid}")
+        continue
+    for item in all_items:
+        if item is parent or item["is_cut"] or item.get("parent_edid"):
+            continue
+        if not str(item["edid"] or "").startswith(_prefixes):
+            continue
+        if not same_frequency(item, parent):
+            continue
+        parent["children"].append(item)
+        item["parent_edid"] = parent["edid"]
+        _named_paired += 1
+print(f"  named adoptions: {_named_paired}")
 
 # ---- Resolve is_sub now that pairing is done -------------------------
 # A row is a sub if its EDID says so, or if a parent was actually found.
