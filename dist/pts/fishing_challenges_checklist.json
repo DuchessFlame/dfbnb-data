@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-07-21T03:10:18.476991+00:00",
+  "generated": "2026-07-21T04:28:58.736064+00:00",
   "isPts": false,
   "source": {
     "base": "dist/challenges/challenges.json",
@@ -29,7 +29,7 @@
       "label": "Daily",
       "blurb": "",
       "trackable": false,
-      "count": 19,
+      "count": 17,
       "track_ids": [],
       "items": [
         {
@@ -38,7 +38,7 @@
           "name": "Cook Grilled Fish while Intoxicated",
           "required": 1,
           "counter": "Item Crafted",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -65,7 +65,7 @@
           "name": "Sell Grilled Fish to an NPC vendor",
           "required": 1,
           "counter": "Vendor Items Sold",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -92,7 +92,7 @@
           "name": "Catch a Fish in the Ash Heap Region",
           "required": 2,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -115,44 +115,12 @@
           "trackable": false
         },
         {
-          "form_id": "0085A403",
-          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_BurningSprings",
-          "name": "Catch a Fish in the Burning Springs Region",
-          "required": 2,
-          "counter": "Fish Caught",
-          "type_label": "Daily",
-          "group_key": "daily",
-          "reward": "Score",
-          "reward_source": "score",
-          "reward_desc": "",
-          "image_url": "",
-          "conditions_display": [
-            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1",
-            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
-            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
-          ],
-          "is_meta": false,
-          "is_sub": false,
-          "children": [],
-          "guides": [
-            {
-              "title": "Fish Types Guide",
-              "url": "/df/fishing/fish-types-guide/"
-            },
-            {
-              "title": "Burning Springs",
-              "url": "/df/challenges/springs/"
-            }
-          ],
-          "trackable": false
-        },
-        {
           "form_id": "007FE60F",
           "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_CranberryBog",
           "name": "Catch a Fish in the Cranberry Bog Region",
           "required": 2,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -180,7 +148,7 @@
           "name": "Catch a Fish in the Forest Region",
           "required": 2,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -208,7 +176,7 @@
           "name": "Catch a Fish in the Mire Region",
           "required": 2,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -236,7 +204,7 @@
           "name": "Catch a Fish in the Savage Divide Region",
           "required": 2,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -259,40 +227,12 @@
           "trackable": false
         },
         {
-          "form_id": "007FE600",
-          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_SkylineValley",
-          "name": "Catch a Fish in the Skyline Valley Region",
-          "required": 2,
-          "counter": "Fish Caught",
-          "type_label": "Daily",
-          "group_key": "daily",
-          "reward": "Score",
-          "reward_source": "score",
-          "reward_desc": "",
-          "image_url": "",
-          "conditions_display": [
-            ".LocationHierarchyHasKeyword(LocRegionStorm [KYWD:006923E7]) = 1",
-            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
-            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
-          ],
-          "is_meta": false,
-          "is_sub": false,
-          "children": [],
-          "guides": [
-            {
-              "title": "Fish Types Guide",
-              "url": "/df/fishing/fish-types-guide/"
-            }
-          ],
-          "trackable": false
-        },
-        {
           "form_id": "007FE60D",
           "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_ToxicValley",
           "name": "Catch a Fish in the Toxic Valley Region",
           "required": 2,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -320,7 +260,7 @@
           "name": "Catch a Fish",
           "required": 3,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -347,7 +287,7 @@
           "name": "Catch a Fish while Intoxicated",
           "required": 3,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -375,7 +315,7 @@
           "name": "Cook Grilled Fish",
           "required": 3,
           "counter": "Item Crafted",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -401,7 +341,7 @@
           "name": "Craft Fish Bits",
           "required": 5,
           "counter": "Item Crafted",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -428,7 +368,7 @@
           "name": "Eat a Fish",
           "required": 5,
           "counter": "Items Consumed",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -455,7 +395,7 @@
           "name": "Eat a Fish Bit",
           "required": 6,
           "counter": "Items Consumed",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -482,7 +422,7 @@
           "name": "Epic - Catch a Fish",
           "required": 10,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -509,7 +449,7 @@
           "name": "Epic - Catch a Fish in the Burning Springs Region",
           "required": 10,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -541,7 +481,7 @@
           "name": "Epic - Catch a Fish while not intoxicated",
           "required": 10,
           "counter": "Fish Caught",
-          "type_label": "Daily",
+          "type_label": "Sub challenge",
           "group_key": "daily",
           "reward": "Score",
           "reward_source": "score",
@@ -570,7 +510,7 @@
       "label": "Weekly",
       "blurb": "",
       "trackable": false,
-      "count": 6,
+      "count": 5,
       "track_ids": [],
       "items": [
         {
@@ -579,7 +519,7 @@
           "name": "Catch a Fish while it is Raining",
           "required": 2,
           "counter": "Fish Caught",
-          "type_label": "Weekly",
+          "type_label": "Sub challenge",
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
@@ -609,44 +549,12 @@
           "trackable": false
         },
         {
-          "form_id": "0085A425",
-          "edid": "SCORE_Challenge_Weekly_Fishing_Catch_Regular_Fish_Region_BurningSprings",
-          "name": "Catch a Fish in the Burning Springs Region",
-          "required": 15,
-          "counter": "Fish Caught",
-          "type_label": "Weekly",
-          "group_key": "weekly",
-          "reward": "Score",
-          "reward_source": "score",
-          "reward_desc": "",
-          "image_url": "",
-          "conditions_display": [
-            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1",
-            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
-            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
-          ],
-          "is_meta": false,
-          "is_sub": false,
-          "children": [],
-          "guides": [
-            {
-              "title": "Fish Types Guide",
-              "url": "/df/fishing/fish-types-guide/"
-            },
-            {
-              "title": "Burning Springs",
-              "url": "/df/challenges/springs/"
-            }
-          ],
-          "trackable": false
-        },
-        {
           "form_id": "007FE5FD",
           "edid": "SCORE_Challenge_Weekly_Fishing_Catch_Regular_Fish",
           "name": "Catch a Fish",
           "required": 21,
           "counter": "Fish Caught",
-          "type_label": "Weekly",
+          "type_label": "Sub challenge",
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
@@ -673,7 +581,7 @@
           "name": "Epic - Catch a Fish",
           "required": 32,
           "counter": "Fish Caught",
-          "type_label": "Weekly",
+          "type_label": "Sub challenge",
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
@@ -700,7 +608,7 @@
           "name": "Craft Fish Bits",
           "required": 35,
           "counter": "Item Crafted",
-          "type_label": "Weekly",
+          "type_label": "Sub challenge",
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
@@ -727,7 +635,7 @@
           "name": "Epic - Craft Fish Bits",
           "required": 70,
           "counter": "Item Crafted",
-          "type_label": "Weekly",
+          "type_label": "Sub challenge",
           "group_key": "weekly",
           "reward": "Score",
           "reward_source": "score",
@@ -847,9 +755,8 @@
       "label": "Lifetime",
       "blurb": "",
       "trackable": true,
-      "count": 46,
+      "count": 45,
       "track_ids": [
-        "Challenge_Lifetime_Fishing_Intro",
         "Challenge_Lifetime_Fishing_Progress_01_META",
         "Challenge_Lifetime_Fishing_Progress_01_AnyMedium_SUB",
         "Challenge_Lifetime_Fishing_Progress_01_AnySmall_SUB",
@@ -960,40 +867,6 @@
         "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_05"
       ],
       "items": [
-        {
-          "form_id": "007CF774",
-          "edid": "Challenge_Lifetime_Fishing_Intro",
-          "name": "Learn How to Fish at Fisherman's Rest",
-          "required": 1,
-          "counter": "Quests Completed",
-          "type_label": "Lifetime",
-          "group_key": "lifetime",
-          "reward": "10x Bait - Common",
-          "reward_source": "gmrw",
-          "reward_desc": "",
-          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/FO76_Misc_Bait_-_Common.webp",
-          "conditions_display": [
-            "Target.IsInList(Fishing Intro [FLST:007CF77A]) = 1"
-          ],
-          "is_meta": false,
-          "is_sub": false,
-          "children": [],
-          "guides": [
-            {
-              "title": "What's Biting? A Guide to Fish, Bait & Weather",
-              "url": "/df/fishing/whats-biting/"
-            },
-            {
-              "title": "Fishing Basics",
-              "url": "/df/fishing/fishing-basics/"
-            },
-            {
-              "title": "Hook, Line and Ledger: An Overview of the New Fishing System",
-              "url": "/df/fishing/hook-line-ledger/"
-            }
-          ],
-          "trackable": true
-        },
         {
           "form_id": "007FE7A5",
           "edid": "Challenge_Lifetime_Fishing_Progress_01_META",
