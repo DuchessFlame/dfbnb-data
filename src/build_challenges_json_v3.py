@@ -646,15 +646,66 @@ def is_cut(edid):
     u = str(edid or "").upper()
     return any(u.startswith(p) for p in CUT_PREFIXES)
 
-def is_meta(edid): return str(edid or "").upper().endswith("_META")
+# Pioneer Scouts badges: "..._Tadpole_Badge_Possum_Chemist" is the umbrella
+# challenge, "..._Tadpole_Badge_Possum_Chemist_Sub_AcquireBeaker" its steps.
+# The umbrella carries no _META suffix, so nothing nested them and all 357
+# steps rendered as loose root rows.
+SCOUT_BADGE_RE = re.compile(r"Tadpole_Badge_(Possum|Tadpole)_([A-Za-z]+)$", re.IGNORECASE)
+SCOUT_ANY_RE = re.compile(r"Tadpole_Badge_(Possum|Tadpole)_", re.IGNORECASE)
 
-def is_sub(edid, enam):
-    return "_SUB_" in str(edid or "").upper() or str(enam or "") == "Sub Challenge (Unsorted)"
+def is_meta(edid):
+    """_META as a SEGMENT, not just a suffix. Challenge_Lifetime_Picture_
+    Creatures_META_Camera carries a trailing _Camera, so an endswith() test
+    never registered it as a META and its 53 sub-challenges stayed loose.
+    Scout badge umbrellas count too — see SCOUT_BADGE_RE."""
+    u = str(edid or "").upper()
+    if u.endswith("_META") or "_META_" in u:
+        return True
+    return bool(SCOUT_BADGE_RE.search(str(edid or "")))
+
+def scout_track(edid):
+    """'possum' / 'tadpole' for a Pioneer Scouts badge row, else None."""
+    m = SCOUT_ANY_RE.search(str(edid or ""))
+    return m.group(1).lower() if m else None
+
+def is_sub_edid(edid):
+    """STRONG signal: the EDID says so. "_SUB_<name>" (most content) or a bare
+    trailing "_SUB" (Burning Springs head hunts, ..._Group05_KillSniper_SUB)."""
+    u = str(edid or "").upper()
+    return "_SUB_" in u or u.endswith("_SUB")
+
+def is_sub_candidate(edid, enam):
+    """WEAK signal, for parent-hunting only.
+
+    ENAM "Sub Challenge (Unsorted)" is NOT a sub marker — it is the default
+    category, present on 4,519 of 5,436 records (83%), including every plain
+    SCORE daily. Treating it as authoritative flagged 3,860 ordinary root rows
+    as subs and put a SUB pill on all of them. Use it to widen the search for a
+    parent, then let the final is_sub be decided by whether a parent was
+    actually found (see the is_sub resolution pass after pairing)."""
+    # An "_Intro" row is the tutorial-tier version of a challenge and a root
+    # row in its own right, never a sub — exclude it explicitly, or the region
+    # normalisation above makes Challenge_Lifetime_Discover_MireRegion_Intro
+    # look like a one-segment child of Challenge_Lifetime_Discover_Mire_META.
+    if str(edid or "").upper().endswith("_INTRO"):
+        return False
+    return is_sub_edid(edid) or str(enam or "") == "Sub Challenge (Unsorted)"
 
 def edid_base(edid):
-    base = re.sub(r"_META$", "", str(edid or ""), flags=re.IGNORECASE)
-    base = re.sub(r"_SUB_.+$", "", base, flags=re.IGNORECASE)
+    # Strip _META whether it ends the EDID or sits mid-string with a trailing
+    # qualifier (..._Picture_Creatures_META_Camera -> ..._Picture_Creatures).
+    base = re.sub(r"_META(_.+)?$", "", str(edid or ""), flags=re.IGNORECASE)
+    # Subs mark themselves either as "_SUB_<name>" or with a bare trailing
+    # "_SUB" after the action segment (Burning Springs head-hunt groups use
+    # the latter: ..._Group05_KillSniper_SUB).
+    base = re.sub(r"_SUB(_.+)?$", "", base, flags=re.IGNORECASE)
     base = re.sub(r"_(Low|Mid|High|Lowest|Middle|Highest)$", "", base, flags=re.IGNORECASE)
+    # Region METAs drop the word their subs keep:
+    #   META  Challenge_Lifetime_Discover_Mire_META
+    #   SUBs  Challenge_Lifetime_Discover_MireRegion_SUB_Berkeley
+    #   SUBs  Challenge_Lifetime_Discover_ForestRegion_PointPleasant  (unmarked)
+    # Normalising "Region" out of BOTH sides makes them compare equal.
+    base = re.sub(r"Region(?=_|$)", "", base)
     return base
 
 def scope_bucket(cnam):
@@ -714,16 +765,47 @@ def root_group(item):
 # gold Reward box on every one of them, label it.
 
 SCORE_REWARD = "S.C.O.R.E."
+ATOMS_REWARD = "Atoms"
 
 def default_rewards(item):
     if item.get("rewards"):
         return item["rewards"]
-    if scope_bucket(item.get("scope")) in ("daily", "weekly"):
-        return [SCORE_REWARD]
-    return []
+    if scope_bucket(item.get("scope")) not in ("daily", "weekly"):
+        return []
+    # The 11 ATOMS_-prefixed dailies/weeklies pay Atoms, not scoreboard
+    # progress. They sit next to a same-titled SCORE version, so labelling
+    # both "S.C.O.R.E." made the pair look like a duplicate AND was wrong.
+    if str(item.get("edid") or "").upper().startswith("ATOMS_"):
+        return [ATOMS_REWARD]
+    return [SCORE_REWARD]
 
-def is_epic(full_name):
-    return str(full_name or "").strip().lower().startswith("epic")
+# Limited-time event content. Any EDID carrying this marker ran during one
+# event and is not part of the repeatable daily/weekly pool.
+ATX_EVENT_RE = re.compile(r"ATX_DE\d{4}", re.IGNORECASE)
+
+# Dev/debug leftovers that shipped in the record set. Treated as cut content so
+# they stay inspectable on the cut page but never pollute a live pool — e.g.
+# SCORE_TEST_Challenge_Monthly_Collect_Soap, which collided with the real
+# "Collect Soap" weekly at a nonsense required count of 500.
+TEST_EDID_RE = re.compile(r"(^|_)TEST(_|$)", re.IGNORECASE)
+
+def same_frequency(child, parent):
+    """A sub must share its META's CNAM frequency.
+
+    Without this a Lifetime META adopts unrelated SCORE dailies that happen to
+    share a topic token: Challenge_Lifetime_ClaimWorkshops_META ("Claim
+    Different Workshops", 21 required) swallowed
+    SCORE_Challenge_Daily_ClaimWorkshop and the Weekly one, removing them from
+    the Daily and Weekly pages entirely."""
+    return scope_bucket(child.get("scope")) == scope_bucket(parent.get("scope"))
+
+def is_epic(full_name, edid=""):
+    """Epic rows are normally titled "Epic - …", but at least one
+    (SCORE_Challenge_Weekly_Shelters_Build_Decor_Epic) is only marked in the
+    EDID. Check both, or it lands in the Standard panel."""
+    if str(full_name or "").strip().lower().startswith("epic"):
+        return True
+    return str(edid or "").strip().lower().endswith("_epic")
 
 
 # ==================================================================
@@ -785,6 +867,12 @@ def row_to_item(row, rewards_override=None):
     conditions = extract_conditions(row)
     rewards = rewards_override if rewards_override is not None else parse_dnam_rewards(dnam)
     # MNAM is the record's own reward text and beats a DNAM-derived guess.
+    # Guard against corrupt strings: at least one MNAM in the July 2026 export
+    # comes through as "¬¬¬¬" (Challenge_Weekly_RD01_EncAll). Anything with no
+    # letter or digit in it is garbage, not a reward name — drop it and let the
+    # normal fallbacks apply rather than printing mojibake in the gold box.
+    if mnam and not re.search(r"[A-Za-z0-9]", mnam):
+        mnam = ""
     if mnam and not rewards:
         rewards = [mnam]
     reward_unknown = len(rewards) == 0
@@ -807,8 +895,12 @@ def row_to_item(row, rewards_override=None):
         "condition_items": parsed_conds.get("items", []),
         "condition_keywords": parsed_conds.get("keywords", []),
         "rewards": rewards, "reward_unknown": reward_unknown,
-        "is_cut": is_cut(edid), "is_meta": is_meta(edid),
-        "is_sub": is_sub(edid, enam), "is_epic": is_epic(full),
+        "is_cut": is_cut(edid) or bool(TEST_EDID_RE.search(edid)),
+        "is_meta": is_meta(edid),
+        # is_sub starts as the strong EDID signal and is finalised after
+        # pairing; sub_candidate is the wide net used to hunt for a parent.
+        "is_sub": is_sub_edid(edid), "sub_candidate": is_sub_candidate(edid, enam),
+        "is_epic": is_epic(full, edid),
         "is_new": bool(PREV_CHAL_FIDS) and form_id.strip().upper() not in PREV_CHAL_FIDS,
         "children": [], "guides": guides, "image_url": image_url, "jasf": jasf,
     }
@@ -837,14 +929,45 @@ for item in all_items:
         meta_map[edid_base(item["edid"])] = item
 
 for item in all_items:
-    if item["is_sub"] and not item["is_cut"]:
+    if item["sub_candidate"] and not item["is_cut"]:
         base = edid_base(item["edid"])
         parent = meta_map.get(base)
-        if parent and parent is not item:  # avoid META that is also flagged SUB
+        if parent and parent is not item and same_frequency(item, parent):
             parent["children"].append(item)
             item["parent_edid"] = parent["edid"]
 
-# ---- Second pass: orphan SUB rows -------------------------------------
+# ---- Second pass: sub bases that EXTEND their META's base --------------
+# Burning Springs head hunts name the action inside the sub:
+#     META  Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_META
+#     SUB   Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillSniper_SUB
+# so the sub's base is the META's base plus a segment. Attach to the LONGEST
+# META base that is a proper prefix, which keeps Group05 from stealing rows
+# that belong to the broader _All_META.
+_meta_bases_by_len = sorted(meta_map.keys(), key=len, reverse=True)
+_prefix_paired = 0
+for item in all_items:
+    if not item["sub_candidate"] or item["is_meta"] or item["is_cut"]:
+        continue
+    if item.get("parent_edid"):
+        continue
+    base = edid_base(item["edid"])
+    for mbase in _meta_bases_by_len:
+        # The sub's base must be the META's base plus EXACTLY ONE segment.
+        # Without that limit a generic META swallows every deeper row:
+        # Challenge_Lifetime_Collect_Magazines is a prefix of every series'
+        # issues, so "Collect an Issue from Different Magazines" claimed all
+        # 10 Grognak issues (21 subs against a required count of 11) and left
+        # the Grognak META empty.
+        if (len(mbase) < len(base) and base.startswith(mbase + "_")
+                and "_" not in base[len(mbase) + 1:]):
+            parent = meta_map[mbase]
+            if parent is not item and same_frequency(item, parent):
+                parent["children"].append(item)
+                item["parent_edid"] = parent["edid"]
+                _prefix_paired += 1
+            break
+
+# ---- Third pass: orphan SUB rows --------------------------------------
 # Exact edid_base matching misses pairs where the META and its subs use
 # different verbs. Bobbleheads is the canonical case:
 #     META  Challenge_Lifetime_ItemsConsumed_Bobbleheads_META
@@ -854,8 +977,20 @@ for item in all_items:
 # alone rather than risking a wrong parent.
 
 def _topic_token(edid):
-    parts = [p for p in re.split(r"[_\W]+", edid_base(edid)) if p]
+    base = edid_base(edid)
+    # A numbered issue/part suffix is not the topic — the segment before it is.
+    # ..._Collect_Magazines_Grognak_Issue07 -> "grognak", not "issue07".
+    base = re.sub(r"_(Issue|Part|Vol|No)\s*\d+$", "", base, flags=re.IGNORECASE)
+    parts = [p for p in re.split(r"[_\W]+", base) if p]
     return parts[-1].lower().rstrip("s") if parts else ""
+
+def _topic_path(edid):
+    """Everything before the topic token — the shared 'folder' two related
+    records live in. Used to stop a loose token prefix pairing rows from
+    completely different content."""
+    base = re.sub(r"_(Issue|Part|Vol|No)\s*\d+$", "", edid_base(edid), flags=re.IGNORECASE)
+    parts = [p for p in re.split(r"[_\W]+", base) if p]
+    return "_".join(parts[:-1]).lower()
 
 _meta_by_topic = defaultdict(list)
 for _base, _meta in meta_map.items():
@@ -864,26 +999,87 @@ for _base, _meta in meta_map.items():
 _orphans_paired = 0
 for item in all_items:
     # Cut rows belong on the cut page only — never nested into a live META.
-    if not item["is_sub"] or item["is_meta"] or item["is_cut"]:
+    if not item["sub_candidate"] or item["is_meta"] or item["is_cut"]:
         continue
-    if edid_base(item["edid"]) in meta_map:
-        continue  # already parented above
-    candidates = _meta_by_topic.get(_topic_token(item["edid"]), [])
-    if len(candidates) == 1 and candidates[0] is not item:
+    # Skip anything ALREADY parented by pass 1 or pass 2. Testing
+    # edid_base in meta_map only catches pass 1, so a row paired by the
+    # prefix pass got appended to a second META as well — that is what
+    # doubled the magazine issue counts (13 subs rendering as 26).
+    if item.get("parent_edid"):
+        continue
+    tok = _topic_token(item["edid"])
+    candidates = _meta_by_topic.get(tok, [])
+    if not candidates and len(tok) >= 5:
+        # A META may spell the series out in full where its subs abbreviate:
+        #   META  ..._Collect_Magazines_GrognakTheBarbarian_META
+        #   SUBs  ..._Collect_Magazines_Grognak_Issue01..10
+        # Accept a META whose topic token STARTS WITH the sub's — but ONLY if
+        # the two also sit under the same leading EDID path. Without that, a
+        # generic verb matches anything: 36 ATX_DE*_Challenge_*_Complete rows
+        # (token "complete") were pairing into the Burning Springs
+        # Challenge_Lifetime_BurnBounty_CompletedHuntLocation_META, giving it
+        # 44 subs against a required count of 8.
+        # Bidirectional: the META may be the longer name (GrognakTheBarbarian
+        # vs Grognak_IssueNN) OR the shorter one — Challenge_Lifetime_Discover_
+        # AshHeap_META parents Challenge_Lifetime_Discover_AshHeapRegion_SUB_*,
+        # where the sub carries the extra "Region". Both directions still
+        # require the same leading EDID path, which is what stops a generic
+        # verb from matching unrelated content.
+        pref = [m for t, ms in _meta_by_topic.items()
+                if (t.startswith(tok) or tok.startswith(t)) and len(t) >= 5
+                for m in ms if _topic_path(m["edid"]) == _topic_path(item["edid"])]
+        if len(pref) == 1:
+            candidates = pref
+    if (len(candidates) == 1 and candidates[0] is not item
+            and same_frequency(item, candidates[0])):
         candidates[0]["children"].append(item)
         item["parent_edid"] = candidates[0]["edid"]
         _orphans_paired += 1
 
+# ---- Resolve is_sub now that pairing is done -------------------------
+# A row is a sub if its EDID says so, or if a parent was actually found.
+# The wide ENAM net is dropped here: a row that merely carried the default
+# "Sub Challenge (Unsorted)" category and never found a parent is an ordinary
+# root challenge and must NOT wear a SUB pill.
+_demoted = 0
+for item in all_items:
+    resolved = is_sub_edid(item["edid"]) or bool(item.get("parent_edid"))
+    if item["sub_candidate"] and not resolved:
+        _demoted += 1
+    item["is_sub"] = resolved
+    item.pop("sub_candidate", None)
+
+# ---- Childless METAs are not METAs to the reader --------------------
+# Some records are EDID-marked _META but ship no sub-challenges at all —
+# the five regional Photomode ones ("Use Photomode around the Ash Heap
+# Region", 20 required) are plain counting challenges gated by a location
+# condition. Keep is_meta as the record-level truth (meta_map and the
+# Technical block rely on it) but flag whether it actually parents anything,
+# so the renderer can withhold the META pill and the "META" type label from a
+# row with nothing beneath it.
+_childless_metas = 0
+for item in all_items:
+    item["has_subs"] = bool(item.get("children"))
+    if item["is_meta"] and not item["has_subs"]:
+        _childless_metas += 1
+print(f"  METAs with no sub-challenges (no META pill): {_childless_metas}")
+
 def is_nested_sub(item):
     """True when this row is rendered INSIDE a META's Sub-challenges expand,
     so it must not also appear as a root row on the page."""
-    if not item["is_sub"] or item["is_meta"]:
+    if item["is_meta"]:
         return False
-    return bool(item.get("parent_edid")) or edid_base(item["edid"]) in meta_map
+    return bool(item.get("parent_edid"))
 
 print(f"  Total items: {len(all_items)}")
 print(f"  META parents: {len(meta_map)}")
+print(f"  SUBs paired by base prefix: {_prefix_paired}")
 print(f"  Orphan SUBs paired by topic token: {_orphans_paired}")
+print(f"  ENAM-only 'subs' demoted to root rows (no SUB pill): {_demoted}")
+_still_loose = sum(1 for i in all_items
+                   if i["is_sub"] and not i["is_meta"] and not i["is_cut"]
+                   and not i.get("parent_edid"))
+print(f"  EDID-marked SUB rows with no META (render as root rows): {_still_loose}")
 
 # ==================================================================
 # Bucket items
@@ -932,9 +1128,22 @@ print(f"  Season slugs: {list(season_buckets.keys())}")
 CLASSIFICATION_TO_SLUG = {
     "Combat": "combat", "Survival": "survival",
     "Social": "social", "World": "world", "Character": "character",
+    # Burning Springs is a content pack with its own page. Without this entry
+    # its 133 lifetime challenges fell through to the generic "world" page.
+    "Burning Springs": "springs",
+    "Fishing": "fishing",
 }
 
 def topic_page(item):
+    # Pioneer Scouts badges have their own checklists:
+    #   /df/scouts/possum/checklist/   /df/scouts/tadpole/checklist/
+    # They were 357 of the 592 rows on /df/challenges/world/ (61%).
+    track = scout_track(item.get("edid"))
+    if track:
+        return f"scouts-{track}"
+    return _topic_page_inner(item)
+
+def _topic_page_inner(item):
     """A topic page owns EVERY challenge about its subject regardless of
     frequency, so /df/challenges/bobbleheads/ carries the Daily and Weekly
     bobblehead challenges alongside the Lifetime ones and can render the full
@@ -945,12 +1154,21 @@ def topic_page(item):
     if "bobblehead" in edid or "bobblehead" in full: return "bobbleheads"
     if "magazine" in edid or "magazine" in full: return "magazines"
     if "fish" in edid or "fish" in full: return "fishing"
+    # Burning Springs content uses the "Burn_" DLC prefix as well as the
+    # spelled-out region name; match both or the Daily/Weekly/Event rows and
+    # everything named after a Burning Springs enemy or location go missing.
     if "burningsprings" in edid: return "springs"
+    if edid.startswith("burn_") or "_burn_" in edid: return "springs"
+    if str(item.get("classification") or "") == "Burning Springs": return "springs"
     return None
 
 # Page slug → the ENAM category slug it represents, where the two differ.
 PAGE_CATEGORY_ALIASES = {
     "springs": "burning-springs",
+    # The scout badge pages are all ENAM "World"; a lone "Lifetime - World"
+    # panel on a badges checklist is noise, so collapse it to "Lifetime".
+    "scouts-possum": "world",
+    "scouts-tadpole": "world",
 }
 
 def classify_lifetime_page(item):
@@ -1041,6 +1259,22 @@ if phantom_items:
 for bucket_key, freq_page in (("daily", "daily"), ("weekly", "weekly"), ("event", "events")):
     for item in buckets.get(bucket_key, []):
         if id(item) in phantom_ids: continue
+
+        # Limited-time event challenges (ATX_DE2021-2025 Anniversary, Halloween,
+        # Valentines, The Pitt, Rip Daring, BoS …) are NOT part of the
+        # repeatable daily/weekly pool — they ran once, during one event, and
+        # they already have a home on their seasonal-event page and on
+        # /df/challenges/events/. Leaving them here duplicated 107 rows across
+        # pages and dumped 14 identically-titled "ANNIVERSARY: Claim the
+        # mystery item of the day" rows into the Daily list with nothing to
+        # tell them apart. Same rule as mini-season fishing on the Fishing page.
+        # The events page keeps them: that page IS the limited-time aggregate.
+        # Match on the ATX_DE marker itself, not on detect_season_slug(), which
+        # needs an event name between the year and "_Challenge" and so misses
+        # the 7 generically-named ATX_DE2022_Challenge_Daily_* rows.
+        if bucket_key in ("daily", "weekly") and ATX_EVENT_RE.search(str(item.get("edid") or "")):
+            continue
+
         slug = topic_page(item)
         if slug == "fishing" and is_mini_season_edid(item.get("edid")):
             continue  # mini-season fishing lives on its own page
@@ -1065,11 +1299,30 @@ pages["cut"] = buckets.get("cut", [])
 for slug, items in season_buckets.items():
     pages[f"season:{slug}"] = items
 
+def _natural_key(text):
+    """Split digits out so "Reach Level 4!" sorts before "Reach Level 10!".
+    Plain alphabetical puts 10, 100 and 15 ahead of 4, which is how the
+    Character page's 22-step level ladder ended up shuffled."""
+    return [(1, int(t)) if t.isdigit() else (0, t)
+            for t in re.split(r'(\d+)', str(text or "").lower()) if t != ""]
+
 def sort_key(item):
-    return (0 if item.get("is_epic") else 1, str(item.get("full") or "").lower())
+    # Epic rows first, then natural name order, then by required count so
+    # same-named tiers ("Collect Caps" 10/25/76/760) read smallest first.
+    req = item.get("required")
+    return (
+        0 if item.get("is_epic") else 1,
+        _natural_key(item.get("full")),
+        req if isinstance(req, int) else 0,
+    )
 
 for key in pages:
     pages[key].sort(key=sort_key)
+    # Sub-challenges inside a META are rendered in array order, so they need
+    # the same sort — otherwise they arrive in raw TSV order.
+    for _it in pages[key]:
+        if _it.get("children"):
+            _it["children"].sort(key=sort_key)
 
 # ==================================================================
 # QUEST / RANDOM ENCOUNTER PROCESSING
