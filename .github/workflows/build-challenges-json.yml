@@ -3,6 +3,16 @@ name: Build Challenges JSON
 on:
   workflow_dispatch:
 
+  # A fresh CHAL export changes every challenge page: the ★ NEW pill is derived
+  # from the newest export vs the previous one, so the build must re-run when a
+  # TSV lands, not only when someone remembers to dispatch it.
+  push:
+    branches: [ main ]
+    paths:
+      - "tsv/CHAL_Export_*.tsv"
+      - "src/build_challenges_json_v3.py"
+      - ".github/workflows/build-challenges-json.yml"
+
 permissions:
   contents: write
 
@@ -38,7 +48,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # The build also emits the patchlog feed; commit it alongside so the
+          # two never drift out of sync.
           git add dist/challenges/challenges.json
+          git add dist/patchlog_latest_df_challenges.json || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

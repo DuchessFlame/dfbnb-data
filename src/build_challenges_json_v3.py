@@ -77,6 +77,22 @@ def newest(pattern):
     return files[-1]
 
 
+def previous(pattern):
+    """Pick the SECOND most recent file matching *pattern*, or None.
+
+    Drives the ★ NEW pill: a challenge is "new" when its FormID exists in the
+    newest CHAL export but not in the one before it. Returns None when there
+    is only one export (e.g. a fresh clone, or the PTS channel where
+    normalize_pts_tsv.py leaves a single normalized file) — in that case
+    nothing is flagged new, which is the correct conservative answer."""
+    full_pattern = str(_REPO_ROOT / pattern)
+    files = glob.glob(full_pattern)
+    if len(files) < 2:
+        return None
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    return files[-2]
+
+
 def read_tsv(path):
     if not path or not os.path.exists(path):
         return []
@@ -118,6 +134,73 @@ def slugify(s):
 print("[challenges] Loading TSVs...")
 
 CHAL = read_tsv(newest("tsv/CHAL_Export_*.tsv"))
+
+# ---- ★ NEW pill source: FormIDs present in the newest CHAL export but not
+# ---- the one before it. See previous() for the single-export case.
+_chal_prev_path = previous("tsv/CHAL_Export_*.tsv")
+PREV_CHAL_FIDS = set()
+if _chal_prev_path:
+    PREV_CHAL_FIDS = {
+        str(r.get("FormID") or "").strip().upper()
+        for r in read_tsv(_chal_prev_path)
+        if str(r.get("FormID") or "").strip()
+    }
+    print(f"  NEW-pill baseline: {os.path.basename(_chal_prev_path)} ({len(PREV_CHAL_FIDS)} FormIDs)")
+else:
+    print("  NEW-pill baseline: none (only one CHAL export) — nothing will be flagged new")
+
+# The Apr–Jun 2026 exports shipped with CNAM/ENAM blank because the xEdit
+# script asked for the wrong element labels. Fail loudly rather than silently
+# rebuilding a site with no challenge frequencies or categories.
+_cnam_populated = sum(1 for r in CHAL if str(r.get("CNAM") or "").strip())
+if CHAL and _cnam_populated == 0:
+    raise SystemExit(
+        "[challenges] ABORT: CNAM (Challenge Frequency) is empty for all "
+        f"{len(CHAL)} rows of {os.path.basename(newest('tsv/CHAL_Export_*.tsv') or '')}. "
+        "Re-run '!!!Wordpress - ExportCHALToTSV.pas' — it reads "
+        "'CNAM - Challenge Frequency' / 'ENAM - Challenge Category'."
+    )
+
+# ---- GLOB values: tiered lifetime challenges leave TNAM empty and point at a
+# ---- global instead (HNAM = "Challenge_Global_0076 [GLOB:00432F7B]" → 76).
+# ---- Without this the Required Count box renders "—" on most Lifetime rows.
+# The GLOB export is ~36 MB because every row carries a Ref1..Ref29 tail. We
+# only need FormID + FLTV, so stream it and split the first three columns
+# rather than building a 30-key dict per row (minutes → under a second).
+def load_glob_values():
+    path = newest("tsv/GLOB_Export_*.tsv")
+    out = {}
+    if not path:
+        return out
+    for enc in ("utf-8-sig", "cp1252"):
+        try:
+            with open(path, encoding=enc, errors="replace", newline="") as f:
+                header = f.readline().rstrip("\r\n").split("\t")
+                try:
+                    i_fid, i_val = header.index("FormID"), header.index("FLTV")
+                except ValueError:
+                    return out
+                hi = max(i_fid, i_val) + 1
+                for line in f:
+                    cols = line.split("\t", hi)
+                    if len(cols) <= max(i_fid, i_val):
+                        continue
+                    fid = cols[i_fid].strip().upper()
+                    raw = cols[i_val].strip()
+                    if not fid or not raw:
+                        continue
+                    try:
+                        out[fid] = int(round(float(raw)))
+                    except ValueError:
+                        continue
+            return out
+        except UnicodeDecodeError:
+            continue
+    return out
+
+GLOB_VALUES = load_glob_values()
+print(f"  GLOB: {len(GLOB_VALUES)} numeric globals")
+
 GMRW = read_tsv(newest("tsv/GMRW_Export_*.tsv"))
 ENTM = read_tsv(newest("tsv/ENTM_Export_*.tsv"))
 BOOK = read_tsv(newest("tsv/BOOK_Export_*.tsv"))
@@ -583,6 +666,62 @@ def scope_bucket(cnam):
     if c == "monthly": return "weekly"
     return "lifetime"
 
+
+# ------------------------------------------------------------------
+# Root group label — LOCKED ORDER: Daily → Weekly → Event → Lifetime - X
+# ------------------------------------------------------------------
+# Every challenge page groups its root panels the same way. Daily, Weekly and
+# Event are single panels; Lifetime splits by ENAM category into
+# "Lifetime - World", "Lifetime - Social", etc. so a long lifetime list reads
+# the way the in-game Challenges menu does.
+#
+# ENAM values seen in the July 2026 export:
+#   Sub Challenge (Unsorted), Tracker, Burning Springs, Combat, Fishing,
+#   World, Character, Social, Survival
+# The PTS build also emits a raw ordinal 11 for the new World Pets levelling
+# challenges, which xEdit has no label for yet.
+
+ENAM_ALIASES = {
+    "11": "World Pets",
+}
+
+# Categories that are bookkeeping, not a player-facing grouping. A lifetime
+# row carrying one of these falls back to the generic "Lifetime" panel.
+ENAM_NOT_A_CATEGORY = {"sub challenge (unsorted)", "tracker", ""}
+
+def category_label(enam):
+    raw = str(enam or "").strip()
+    return ENAM_ALIASES.get(raw, raw)
+
+def root_group(item):
+    """Panel label for a challenge row. Renderers order panels
+    Daily → Weekly → Event → Lifetime*, then anything else alphabetically."""
+    bucket = scope_bucket(item.get("scope"))
+    if bucket == "daily":  return "Daily"
+    if bucket == "weekly": return "Weekly"
+    if bucket == "event":  return "Event"
+    cat = category_label(item.get("classification"))
+    if cat.lower() in ENAM_NOT_A_CATEGORY:
+        return "Lifetime"
+    return f"Lifetime - {cat}"
+
+
+# ------------------------------------------------------------------
+# Reward fallback — Daily and Weekly challenges always pay SCORE
+# ------------------------------------------------------------------
+# Daily/Weekly (S.C.O.R.E.) challenges have no MNAM reward text because the
+# payout is scoreboard progress, not an item. Rather than render an empty
+# gold Reward box on every one of them, label it.
+
+SCORE_REWARD = "S.C.O.R.E."
+
+def default_rewards(item):
+    if item.get("rewards"):
+        return item["rewards"]
+    if scope_bucket(item.get("scope")) in ("daily", "weekly"):
+        return [SCORE_REWARD]
+    return []
+
 def is_epic(full_name):
     return str(full_name or "").strip().lower().startswith("epic")
 
@@ -626,10 +765,28 @@ def row_to_item(row, rewards_override=None):
     enam = pick(row, "ENAM")
     dnam = pick(row, "DNAM")
     jasf = pick(row, "JASF")
+    # Added to the CHAL export July 2026.
+    mnam = pick(row, "MNAM")   # Reward Display, e.g. "Stimpaks (3)"
+    rnam = pick(row, "RNAM")   # Reward Icon, e.g. "IconCR_Stimpaks"
+    hnam = pick(row, "HNAM")   # Required Count Global (GLOB-driven counts)
+    anam = pick(row, "ANAM")   # Pre-requisite challenge
 
     required = safe_int(tnam) if tnam and tnam != "0" else None
+    # TNAM empty → the count lives in the HNAM global. Resolve it so the
+    # Required Count box shows a real number instead of "—".
+    required_from_glob = False
+    if required is None and hnam:
+        _gm = re.search(r'\[GLOB:([0-9A-Fa-f]{8})\]', hnam)
+        if _gm:
+            _gv = GLOB_VALUES.get(_gm.group(1).upper())
+            if _gv:
+                required = _gv
+                required_from_glob = True
     conditions = extract_conditions(row)
     rewards = rewards_override if rewards_override is not None else parse_dnam_rewards(dnam)
+    # MNAM is the record's own reward text and beats a DNAM-derived guess.
+    if mnam and not rewards:
+        rewards = [mnam]
     reward_unknown = len(rewards) == 0
     parsed_conds = parse_condition_items(conditions)
     human_conditions = [hc for c in conditions if (hc := humanize_condition(c))]
@@ -638,10 +795,13 @@ def row_to_item(row, rewards_override=None):
     guides = find_related_guides(item_draft)
     image_url = find_challenge_image(conditions, edid)
 
-    return {
+    item = {
         "form_id": form_id, "edid": edid, "full": full,
         "snam": snam if snam and snam != "NONE" else "",
         "required": required, "scope": cnam, "classification": enam,
+        "category": category_label(enam),
+        "reward_icon": rnam, "required_count_global": hnam,
+        "required_from_glob": required_from_glob, "prerequisite": anam,
         "conditions": conditions, "conditions_human": human_conditions,
         "conditions_display": display_conditions,
         "condition_items": parsed_conds.get("items", []),
@@ -649,8 +809,14 @@ def row_to_item(row, rewards_override=None):
         "rewards": rewards, "reward_unknown": reward_unknown,
         "is_cut": is_cut(edid), "is_meta": is_meta(edid),
         "is_sub": is_sub(edid, enam), "is_epic": is_epic(full),
+        "is_new": bool(PREV_CHAL_FIDS) and form_id.strip().upper() not in PREV_CHAL_FIDS,
         "children": [], "guides": guides, "image_url": image_url, "jasf": jasf,
     }
+    # Daily/Weekly pay SCORE; do this after the dict exists so it can read scope.
+    item["rewards"] = default_rewards(item)
+    item["reward_unknown"] = not item["rewards"]
+    item["group"] = root_group(item)
+    return item
 
 
 # ==================================================================
@@ -671,14 +837,53 @@ for item in all_items:
         meta_map[edid_base(item["edid"])] = item
 
 for item in all_items:
-    if item["is_sub"]:
+    if item["is_sub"] and not item["is_cut"]:
         base = edid_base(item["edid"])
         parent = meta_map.get(base)
         if parent and parent is not item:  # avoid META that is also flagged SUB
             parent["children"].append(item)
+            item["parent_edid"] = parent["edid"]
+
+# ---- Second pass: orphan SUB rows -------------------------------------
+# Exact edid_base matching misses pairs where the META and its subs use
+# different verbs. Bobbleheads is the canonical case:
+#     META  Challenge_Lifetime_ItemsConsumed_Bobbleheads_META
+#     SUBs  Challenge_Lifetime_Collect_Bobbleheads_SUB_Charisma  (x21)
+# Both end in the same topic token ("Bobbleheads"), so pair on that. Only
+# attach when EXACTLY ONE META claims the token — an ambiguous token is left
+# alone rather than risking a wrong parent.
+
+def _topic_token(edid):
+    parts = [p for p in re.split(r"[_\W]+", edid_base(edid)) if p]
+    return parts[-1].lower().rstrip("s") if parts else ""
+
+_meta_by_topic = defaultdict(list)
+for _base, _meta in meta_map.items():
+    _meta_by_topic[_topic_token(_meta["edid"])].append(_meta)
+
+_orphans_paired = 0
+for item in all_items:
+    # Cut rows belong on the cut page only — never nested into a live META.
+    if not item["is_sub"] or item["is_meta"] or item["is_cut"]:
+        continue
+    if edid_base(item["edid"]) in meta_map:
+        continue  # already parented above
+    candidates = _meta_by_topic.get(_topic_token(item["edid"]), [])
+    if len(candidates) == 1 and candidates[0] is not item:
+        candidates[0]["children"].append(item)
+        item["parent_edid"] = candidates[0]["edid"]
+        _orphans_paired += 1
+
+def is_nested_sub(item):
+    """True when this row is rendered INSIDE a META's Sub-challenges expand,
+    so it must not also appear as a root row on the page."""
+    if not item["is_sub"] or item["is_meta"]:
+        return False
+    return bool(item.get("parent_edid")) or edid_base(item["edid"]) in meta_map
 
 print(f"  Total items: {len(all_items)}")
 print(f"  META parents: {len(meta_map)}")
+print(f"  Orphan SUBs paired by topic token: {_orphans_paired}")
 
 # ==================================================================
 # Bucket items
@@ -686,7 +891,7 @@ print(f"  META parents: {len(meta_map)}")
 
 buckets = defaultdict(list)
 for item in all_items:
-    if item["is_sub"] and not item["is_meta"] and edid_base(item["edid"]) in meta_map:
+    if is_nested_sub(item):
         continue
     if item["is_cut"]:
         buckets["cut"].append(item)
@@ -729,14 +934,30 @@ CLASSIFICATION_TO_SLUG = {
     "Social": "social", "World": "world", "Character": "character",
 }
 
-def classify_lifetime_page(item):
+def topic_page(item):
+    """A topic page owns EVERY challenge about its subject regardless of
+    frequency, so /df/challenges/bobbleheads/ carries the Daily and Weekly
+    bobblehead challenges alongside the Lifetime ones and can render the full
+    Daily → Weekly → Event → Lifetime panel set. Returns None when the row has
+    no explicit topic, in which case it routes by frequency instead."""
     edid = str(item.get("edid") or "").lower()
-    enam = str(item.get("classification") or "")
     full = str(item.get("full") or "").lower()
     if "bobblehead" in edid or "bobblehead" in full: return "bobbleheads"
     if "magazine" in edid or "magazine" in full: return "magazines"
     if "fish" in edid or "fish" in full: return "fishing"
     if "burningsprings" in edid: return "springs"
+    return None
+
+# Page slug → the ENAM category slug it represents, where the two differ.
+PAGE_CATEGORY_ALIASES = {
+    "springs": "burning-springs",
+}
+
+def classify_lifetime_page(item):
+    slug = topic_page(item)
+    if slug:
+        return slug
+    enam = str(item.get("classification") or "")
     return CLASSIFICATION_TO_SLUG.get(enam, "world")
 
 # ---- Fishing-page sub-grouping (Daily / Weekly / Lifetime / Event) ----
@@ -805,7 +1026,7 @@ phantom_items = []
 for item in all_items:
     if item["is_cut"] or not is_pint_sized_phantom(item):
         continue
-    if item["is_sub"] and not item["is_meta"] and edid_base(item["edid"]) in meta_map:
+    if is_nested_sub(item):
         continue
     item["group"] = phantom_group(item.get("edid"))
     phantom_items.append(item)
@@ -813,15 +1034,18 @@ for item in all_items:
 if phantom_items:
     pages["pint-sized-phantoms"] = phantom_items
 
-for item in buckets.get("daily", []):
-    if id(item) in phantom_ids: continue
-    pages.setdefault("daily", []).append(item)
-for item in buckets.get("weekly", []):
-    if id(item) in phantom_ids: continue
-    pages.setdefault("weekly", []).append(item)
-for item in buckets.get("event", []):
-    if id(item) in phantom_ids: continue
-    pages.setdefault("events", []).append(item)
+# Daily / Weekly / Event rows about an explicit topic (bobbleheads, magazines,
+# fishing, Burning Springs) are routed to that topic page so it can show the
+# full Daily → Weekly → Event → Lifetime panel set. Everything else routes by
+# frequency to /df/challenges/daily|weekly|events/.
+for bucket_key, freq_page in (("daily", "daily"), ("weekly", "weekly"), ("event", "events")):
+    for item in buckets.get(bucket_key, []):
+        if id(item) in phantom_ids: continue
+        slug = topic_page(item)
+        if slug == "fishing" and is_mini_season_edid(item.get("edid")):
+            continue  # mini-season fishing lives on its own page
+        pages.setdefault(slug or freq_page, []).append(item)
+
 for item in buckets.get("lifetime", []):
     if id(item) in phantom_ids: continue
     slug = classify_lifetime_page(item)
@@ -829,7 +1053,13 @@ for item in buckets.get("lifetime", []):
         # Mini-season fishing challenges live on their own page, not here.
         if is_mini_season_edid(item.get("edid")):
             continue
-        item["group"] = fishing_group(item.get("edid"))
+    # A page dedicated to one category shouldn't repeat it in the panel name —
+    # /df/challenges/fishing/ gets "Lifetime", not "Lifetime - Fishing", and
+    # /df/challenges/springs/ collapses "Lifetime - Burning Springs" the same way.
+    if item["group"].startswith("Lifetime - "):
+        cat_slug = slugify(item["group"][len("Lifetime - "):])
+        if cat_slug == slug or PAGE_CATEGORY_ALIASES.get(slug) == cat_slug:
+            item["group"] = "Lifetime"
     pages.setdefault(slug, []).append(item)
 pages["cut"] = buckets.get("cut", [])
 for slug, items in season_buckets.items():
