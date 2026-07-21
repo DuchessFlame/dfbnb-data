@@ -39,6 +39,22 @@ REGIONS_AZ = [
     "Savage Divide", "Skyline Valley", "The Mire", "The Pitt", "Toxic Valley",
 ]
 
+# Markers render A-Z within a region, EXCEPT where one marker's directions start
+# from another marker's spawn — then the referenced marker must render first.
+# Maps (region, marker) -> the string to sort that marker by instead of its name.
+# Give the dependent marker a key that sorts just after the marker it depends on.
+MARKER_SORT_OVERRIDES = {
+    # "Nuka-World On Tour" directions begin at the Rollins Labor Camp spawn,
+    # so Rollins must render immediately above it (else they read out of order).
+    ("Ash Heap", "Nuka-World On Tour"): "rollins labor camp~1",
+    # "Dolly Sods Campground" Spawn 1 continues from the Dolly Sods Lookout cabin
+    # bathroom, so the Lookout must render immediately above the Campground.
+    ("The Mire", "Dolly Sods Campground"): "dolly sods lookout~1",
+}
+
+def marker_sort_key(region, marker):
+    return MARKER_SORT_OVERRIDES.get((region, marker), marker.lower())
+
 # Per-set display metadata. Unknown slugs fall back to a humanised slug.
 SET_META = {
     "pint-sized-slasher-masks": {
@@ -137,7 +153,7 @@ def build_set(slug, rows):
     total = 0
     for region in REGIONS_AZ:
         locs = []
-        for marker in sorted(by_region.get(region, {}), key=lambda m: m.lower()):
+        for marker in sorted(by_region.get(region, {}), key=lambda m: marker_sort_key(region, m)):
             agg = by_region[region][marker]
             total += agg["count"]
             hf = handfills.get((region, marker), {})
