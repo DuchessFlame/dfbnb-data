@@ -34,10 +34,42 @@ from collections import Counter, defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 
+_MONTHS = {
+  "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+  "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+  "aug": 8, "august": 8, "sep": 9, "september": 9, "oct": 10, "october": 10,
+  "nov": 11, "november": 11, "dec": 12, "december": 12,
+}
+
+def _pick_latest_export(prefix, suffix=".tsv", fallback=None):
+  """Return the newest tsv/<prefix><Month>_<Year><suffix> by (year, month).
+
+  Datamined exports are named per month (e.g. CHAL_Export_July_2026.tsv) and the
+  previous month's file is deleted on rollover, so a hardcoded month breaks the
+  build every month. Resolve the latest available file at runtime instead. Falls
+  back to `fallback` if none match (keeps behaviour explicit if tsv/ is empty)."""
+  tsv_dir = os.path.join(REPO, "tsv")
+  pat = re.compile(r"^" + re.escape(prefix) + r"([A-Za-z]+)_(\d{4})" + re.escape(suffix) + r"$")
+  best = None  # ((year, month), path)
+  try:
+    for fn in os.listdir(tsv_dir):
+      m = pat.match(fn)
+      if not m:
+        continue
+      mon = _MONTHS.get(m.group(1).lower())
+      if mon is None:
+        continue
+      key = (int(m.group(2)), mon)
+      if best is None or key > best[0]:
+        best = (key, os.path.join(tsv_dir, fn))
+  except FileNotFoundError:
+    pass
+  return best[1] if best else fallback
+
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
-CHAL_TSV       = os.environ.get("CHAL_TSV",       os.path.join(REPO, "tsv", "CHAL_Export_June_2026.tsv"))
-NPC_TSV        = os.environ.get("NPC_TSV",        os.path.join(REPO, "tsv", "NPC_Export_June_2026.tsv"))
-LCSR_TSV       = os.environ.get("LCSR_TSV",       os.path.join(REPO, "tsv", "LCTN_Export_June_2026_LCSR.tsv"))
+CHAL_TSV       = os.environ.get("CHAL_TSV",       _pick_latest_export("CHAL_Export_", ".tsv",      os.path.join(REPO, "tsv", "CHAL_Export_June_2026.tsv")))
+NPC_TSV        = os.environ.get("NPC_TSV",        _pick_latest_export("NPC_Export_",  ".tsv",      os.path.join(REPO, "tsv", "NPC_Export_June_2026.tsv")))
+LCSR_TSV       = os.environ.get("LCSR_TSV",       _pick_latest_export("LCTN_Export_", "_LCSR.tsv", os.path.join(REPO, "tsv", "LCTN_Export_June_2026_LCSR.tsv")))
 DIG_DIR        = os.environ.get("DIG_DIR",        os.path.join(REPO, "data", "npc_spawns", "digs"))
 OUT_JSON       = os.environ.get("OUT_JSON",       os.path.join(REPO, "dist", "npc_spawns.json"))
 # DB-derived per-location geo (region + companions) is cached here so the patch
