@@ -66,8 +66,18 @@ TICKET_REWARDS = {
     # (values pending — fill in from screenshots)
 
     # ── Summer Sock Hop (2026-07-21 → 2026-08-04) ──
-    # EDID prefix: (ATX_)DE2026_SockHop_*  (challenges not yet in CHAL export)
-    # (ticket values pending — fill in from in-game scoreboard screenshots once live)
+    # Source: in-game scoreboard screenshots (Week 1), 2026-07-22 (event day 1).
+    # All seven Week 1 challenges award 15 tickets; the Week 1 rollup awards 145.
+    # Week 2 challenges + the Week 2 rollup are not live yet — fill in when Week 2 opens.
+    'DE2026_SockHop_Challenge_Emote_BerkeleySprings_Location': 15,
+    'DE2026_SockHop_Challenge_Emote_BlackBearLodge_Location': 15,
+    'DE2026_SockHop_Challenge_Emote_CamdenPark_Location': 15,
+    'DE2026_SockHop_Challenge_Emote_SandySockHop_Location': 15,
+    'DE2026_SockHop_Challenge_Emote_CAMP_Other': 15,
+    'DE2026_SockHop_Challenge_Emote_Event_Activity': 15,
+    'DE2026_SockHop_Challenge_Kill_Blood_Eagle': 15,
+    'DE2026_SockHop_ChallengeComplete_Emote_All_Locations': 145,  # "Complete a Week 1 Summer Sock Hop Challenge" (0/7 rollup)
+    # (DE2026_SockHop_Challenge_*_Week2 + DE2026_SockHop_ChallengeComplete_Other pending — Week 2 not live)
 }
 
 
@@ -95,9 +105,24 @@ TICKET_COSTS = {
     'SCORE_MiniSeason_2026_WeaponsExpert_ENTM_CAMP_Furniture_RipBoyStatue': 0,  # Rip Daring Vault Boy Statue — free starter
 
     # ── Summer Sock Hop (2026-07-21 → 2026-08-04) ──
+    # Source: in-game scoreboard reward screenshots (pages 1/2 and 2/2), 2026-07-22.
     # Reward EDID prefix: SCORE_MiniSeason_2026_SockHop_*
     'SCORE_MiniSeason_2026_SockHop_ENTM_Emotes_ShimmyDance': 0,  # Shimmy Dance emote — free first reward (0 tickets)
-    # (remaining ticket costs pending — fill in from in-game scoreboard screenshots once live)
+    'SCORE_MiniSeason_2026_SockHop_Photomode_Logo_MarqueeLogo_MS69': 15,  # Sock Hop Marquee Photomode Logo
+    'SCORE_MiniSeason_2026_SockHop_ENTM_PlayerTitles_Prefix_SockHop': 20,  # "Sock Hop" prefix player title
+    'SCORE_MiniSeason_2026_SockHop_ENTM_PlayerTitles_Prefix_Suffix_Enjoyer': 20,  # "Enjoyer" prefix player title
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMPTitles_Suffix_Gym': 20,  # "Gym" suffix camp title
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMPTitles_Prefix_Varnished': 20,  # "Varnished" prefix camp title
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMP_WallDecor_SockHopPoster': 30,  # Sandy's Sock Hop Poster
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMP_WallDecor_SandySockHop': 30,  # Sandy's Sock Hop Sign
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMP_WallDecor_VTUPoster': 30,  # Vault-Tec University Sock Hop Poster
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMP_FloorDecor_SockHopBoy': 40,  # Sock Hop Boy Cutouts
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMP_FloorDecor_SockHopGirl': 40,  # Sock Hop Girl Cutouts
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMP_Furniture_Instrument_BlackPiano': 60,  # Black Piano
+    'SCORE_MiniSeason_2026_SockHop_ENTM_CAMP_FloorDecor_Lonecycle': 70,  # Hot Shot Motorcycle
+    # NOTE: the 7 consumable store items (Basic Repair Kit x5, Lunchbox x5, Carry Weight
+    # Booster x3, Caps x5000, Superb Bait x5, Gold Bullion x250, S.C.O.R.E. Booster x3 —
+    # all 15 tickets) have no datamined ENTM reward in the JSON, so they aren't listed here.
 }
 
 
