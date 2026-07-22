@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-21T08:41:11+00:00",
+  "generatedAt": "2026-07-22T08:07:01+00:00",
   "type": "collectrons",
-  "count": 29,
+  "count": 28,
   "items": [
     {
       "formId": "006C6DC0",
@@ -150,14 +150,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 14,
-        "goldBullionPrice": 1250,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Auto-Miner Collectron",
-        "display": "Purchase from Samuel for 1250 Gold Bullion. Requires unlocking the Fight for Freedom Scoreboard (Season 14).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Claim from the Fight for Freedom Scoreboard (Season 14)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -176,21 +176,19 @@
         },
         {
           "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Claim from the Fight for Freedom Scoreboard (Season 14)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": true,
-          "lines": [
-            "Plan: Plan: Auto-Miner Collectron",
-            "Samuel — Gold Bullion vendor",
-            "1250 Gold Bullion"
-          ],
-          "tradeable": false,
-          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
@@ -2070,14 +2068,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 23,
-        "goldBullionPrice": 4000,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Cobby Collectron",
-        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Blood x Rust Scoreboard (Season 23).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Blood x Rust Scoreboard (Season 23)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -2096,21 +2094,19 @@
         },
         {
           "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Blood x Rust Scoreboard (Season 23)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": true,
-          "lines": [
-            "Plan: Plan: Cobby Collectron",
-            "Samuel — Gold Bullion vendor",
-            "4000 Gold Bullion"
-          ],
-          "tradeable": false,
-          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
@@ -2267,7 +2263,7 @@
             "chance": 0.0
           },
           {
-            "item": "pickaxe",
+            "item": "Pickaxe",
             "name": "Pickaxe",
             "formId": "00002840",
             "chance": 0.0
@@ -2676,7 +2672,7 @@
                 "chance": 0.0
               },
               {
-                "item": "pickaxe",
+                "item": "Pickaxe",
                 "name": "Pickaxe",
                 "formId": "00002840",
                 "chance": 0.0
@@ -3590,7 +3586,7 @@
             "chance": 6.36364
           },
           {
-            "item": "Camera",
+            "item": "CAMERA",
             "name": "Broken Camera",
             "formId": "00059A83",
             "chance": 6.36364
@@ -3807,7 +3803,7 @@
                 "chance": 6.36364
               },
               {
-                "item": "Camera",
+                "item": "CAMERA",
                 "name": "Broken Camera",
                 "formId": "00059A83",
                 "chance": 6.36364
@@ -4212,7 +4208,7 @@
             "chance": 1.28125
           },
           {
-            "item": "Camera",
+            "item": "CAMERA",
             "name": "Broken Camera",
             "formId": "00059A83",
             "chance": 1.28125
@@ -4501,7 +4497,7 @@
                 "chance": 1.28125
               },
               {
-                "item": "Camera",
+                "item": "CAMERA",
                 "name": "Broken Camera",
                 "formId": "00059A83",
                 "chance": 1.28125
@@ -4887,160 +4883,6 @@
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
       "releaseDate": "2026-03-07",
-      "cutContent": false
-    },
-    {
-      "formId": "008F2B0B",
-      "edid": "ATX_ENTM_CAMP_Utility_Collectron_FloraTron",
-      "resoFormId": "008F2B16",
-      "contFormId": "008F2B09",
-      "entmFormId": "008F2B0B",
-      "displayName": "FloraTron",
-      "description": "",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/atx_entm_camp_utility_collectron_floratron.webp",
-      "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/atx_camp_utility_collectron_floratron_c1.ddsatx_camp_utility_collectron_floratron_c2.webp"
-      ],
-      "imageDds": "ATX_CAMP_Utility_Collectron_FloraTron.dds",
-      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
-      "isCollectron": true,
-      "production": {
-        "intervalHours": 0.15,
-        "intervalDisplay": "9 min",
-        "drops": [],
-        "modes": [
-          {
-            "name": "Default",
-            "resoFormId": "008F2B16",
-            "lvliFormId": "008F2B0E",
-            "drops": []
-          }
-        ]
-      },
-      "station": {
-        "capacity": 10,
-        "powerRequired": false,
-        "flamingoUnits": 5,
-        "lockable": true
-      },
-      "crafting": {
-        "components": [
-          {
-            "item": "Circuitry",
-            "count": 1
-          },
-          {
-            "item": "Copper",
-            "count": 1
-          },
-          {
-            "item": "Gears",
-            "count": 1
-          },
-          {
-            "item": "Steel",
-            "count": 3
-          }
-        ]
-      },
-      "craftingRequirements": [
-        {
-          "name": "Circuitry",
-          "qty": 1
-        },
-        {
-          "name": "Copper",
-          "qty": 1
-        },
-        {
-          "name": "Gears",
-          "qty": 1
-        },
-        {
-          "name": "Steel",
-          "qty": 3
-        }
-      ],
-      "howToObtain": {
-        "method": "atom",
-        "seasonNumber": null,
-        "goldBullionPrice": null,
-        "vendor": null,
-        "tradeable": null,
-        "planName": null,
-        "display": "Purchase from the Atom Shop.",
-        "badge": "atom"
-      },
-      "obtainRoutes": [
-        {
-          "route": "Caps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Stamps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Atom Shop",
-          "populated": true,
-          "lines": [
-            "Purchase from the Atom Shop."
-          ],
-          "tradeable": null,
-          "dropRate": "N/A"
-        },
-        {
-          "route": "Limited Time Bundle",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Events & Activities",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Challenges",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        }
-      ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
-      "seasonNumber": null,
-      "releaseDate": "2026-06-14",
       "cutContent": false
     },
     {
@@ -6153,7 +5995,7 @@
             "chance": 3.33333
           },
           {
-            "item": "Camera",
+            "item": "CAMERA",
             "name": "Broken Camera",
             "formId": "00059A83",
             "chance": 3.33333
@@ -6544,7 +6386,7 @@
                 "chance": 3.33333
               },
               {
-                "item": "Camera",
+                "item": "CAMERA",
                 "name": "Broken Camera",
                 "formId": "00059A83",
                 "chance": 3.33333
@@ -8990,14 +8832,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 25,
-        "goldBullionPrice": 4000,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Mr. Farmhand Collectron",
-        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Appalachia Under Siege Scoreboard (Season 25).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Appalachia Under Siege Scoreboard (Season 25)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -9016,21 +8858,19 @@
         },
         {
           "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Appalachia Under Siege Scoreboard (Season 25)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": true,
-          "lines": [
-            "Plan: Plan: Mr. Farmhand Collectron",
-            "Samuel — Gold Bullion vendor",
-            "4000 Gold Bullion"
-          ],
-          "tradeable": false,
-          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
@@ -9244,14 +9084,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 4,
-        "goldBullionPrice": 1250,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Nuka-Cola Collectron",
-        "display": "Purchase from Samuel for 1250 Gold Bullion. Requires unlocking the Armor Ace and the Power Patrol in Cold Steel Scoreboard (Season 4).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Claim from the Armor Ace and the Power Patrol in Cold Steel Scoreboard (Season 4)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -9270,21 +9110,19 @@
         },
         {
           "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Claim from the Armor Ace and the Power Patrol in Cold Steel Scoreboard (Season 4)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": true,
-          "lines": [
-            "Plan: Plan: Nuka-Cola Collectron",
-            "Samuel — Gold Bullion vendor",
-            "1250 Gold Bullion"
-          ],
-          "tradeable": false,
-          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
@@ -9498,14 +9336,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 11,
-        "goldBullionPrice": 1250,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Nuka-Cola Quantum Collectron",
-        "display": "Purchase from Samuel for 1250 Gold Bullion. Requires unlocking the Nuka-World Scoreboard (Season 11).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Claim from the Nuka-World Scoreboard (Season 11)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -9524,21 +9362,19 @@
         },
         {
           "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Claim from the Nuka-World Scoreboard (Season 11)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": true,
-          "lines": [
-            "Plan: Plan: Nuka-Cola Quantum Collectron",
-            "Samuel — Gold Bullion vendor",
-            "1250 Gold Bullion"
-          ],
-          "tradeable": false,
-          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
@@ -11843,7 +11679,7 @@
             "chance": 0.5625
           },
           {
-            "item": "Camera",
+            "item": "CAMERA",
             "name": "Broken Camera",
             "formId": "00059A83",
             "chance": 0.5625
@@ -12006,7 +11842,7 @@
                 "chance": 0.5625
               },
               {
-                "item": "Camera",
+                "item": "CAMERA",
                 "name": "Broken Camera",
                 "formId": "00059A83",
                 "chance": 0.5625
@@ -13537,14 +13373,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 17,
-        "goldBullionPrice": 4000,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Scoutmaster Collectron",
-        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -13563,21 +13399,19 @@
         },
         {
           "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": true,
-          "lines": [
-            "Plan: Plan: Scoutmaster Collectron",
-            "Samuel — Gold Bullion vendor",
-            "4000 Gold Bullion"
-          ],
-          "tradeable": false,
-          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
@@ -13971,14 +13805,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 8,
-        "goldBullionPrice": 4000,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Silver Collectron",
-        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the A Better Life Underground Scoreboard (Season 8).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Claim from the A Better Life Underground Scoreboard (Season 8)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -13997,21 +13831,19 @@
         },
         {
           "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Claim from the A Better Life Underground Scoreboard (Season 8)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": true,
-          "lines": [
-            "Plan: Plan: Silver Collectron",
-            "Samuel — Gold Bullion vendor",
-            "4000 Gold Bullion"
-          ],
-          "tradeable": false,
-          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
@@ -15109,14 +14941,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 22,
-        "goldBullionPrice": 1250,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Whitespring Robo Butler Collectron",
-        "display": "Purchase from Samuel for 1250 Gold Bullion. Requires unlocking the Appalachian Modern Living Scoreboard (Season 22).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Appalachian Modern Living Scoreboard (Season 22)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -15135,21 +14967,19 @@
         },
         {
           "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Appalachian Modern Living Scoreboard (Season 22)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": true,
-          "lines": [
-            "Plan: Plan: Whitespring Robo Butler Collectron",
-            "Samuel — Gold Bullion vendor",
-            "1250 Gold Bullion"
-          ],
-          "tradeable": false,
-          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
