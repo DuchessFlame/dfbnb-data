@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-07-21T08:42:55.471376+00:00",
+  "generated": "2026-07-22T08:44:52.242401+00:00",
   "isPts": false,
   "source": {
     "base": "dist/challenges/challenges.json",
@@ -72,7 +72,8 @@
           "reward_desc": "",
           "image_url": "",
           "conditions_display": [
-            "Target.GetIsID(Grilled Fish [ALCH:007B2B9A]) = 1"
+            "Target.GetIsID(Grilled Fish [ALCH:007B2B9A]) = 1",
+            "Target.GetIsID(Canned Grilled Fish [ALCH:00804719]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
@@ -871,14 +872,6 @@
         "Challenge_Lifetime_Fishing_AllRegions_META",
         "Challenge_Lifetime_Fishing_CatchAxolotls",
         "Challenge_Lifetime_Fishing_Axolotls_META",
-        "Challenge_Lifetime_Fishing_Axolotl_05_SUB",
-        "Challenge_Lifetime_Fishing_Axolotl_06_SUB",
-        "Challenge_Lifetime_Fishing_Axolotl_07_SUB",
-        "Challenge_Lifetime_Fishing_Axolotl_08_SUB",
-        "Challenge_Lifetime_Fishing_Axolotl_09_SUB",
-        "Challenge_Lifetime_Fishing_Axolotl_10_SUB",
-        "Challenge_Lifetime_Fishing_Axolotl_11_SUB",
-        "Challenge_Lifetime_Fishing_Axolotl_12_SUB",
         "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any",
         "Challenge_Lifetime_Fishing_SeasonalFish_Summer_LocalLegend",
         "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any_02",
@@ -1517,216 +1510,7 @@
           "conditions_display": [],
           "is_meta": true,
           "is_sub": false,
-          "children": [
-            {
-              "form_id": "008006E2",
-              "edid": "Challenge_Lifetime_Fishing_Axolotl_05_SUB",
-              "name": "(May) Purple Axolotl",
-              "required": 1,
-              "counter": "Fish Caught",
-              "type_label": "Sub challenge",
-              "group_key": "lifetime",
-              "reward": "",
-              "reward_source": "none",
-              "reward_desc": "",
-              "image_url": "",
-              "conditions_display": [
-                "Target.GetIsID(Purple Axolotl [ALCH:008006D4]) = 1"
-              ],
-              "is_meta": false,
-              "is_sub": true,
-              "children": [],
-              "guides": [
-                {
-                  "title": "Axolotl Guide",
-                  "url": "/df/fishing/axolotl-guide/"
-                }
-              ],
-              "trackable": true
-            },
-            {
-              "form_id": "008006E3",
-              "edid": "Challenge_Lifetime_Fishing_Axolotl_06_SUB",
-              "name": "(June) Banded Axolotl",
-              "required": 1,
-              "counter": "Fish Caught",
-              "type_label": "Sub challenge",
-              "group_key": "lifetime",
-              "reward": "",
-              "reward_source": "none",
-              "reward_desc": "",
-              "image_url": "",
-              "conditions_display": [
-                "Target.GetIsID(Banded Axolotl [ALCH:008006D8]) = 1"
-              ],
-              "is_meta": false,
-              "is_sub": true,
-              "children": [],
-              "guides": [
-                {
-                  "title": "Axolotl Guide",
-                  "url": "/df/fishing/axolotl-guide/"
-                }
-              ],
-              "trackable": true
-            },
-            {
-              "form_id": "008006E4",
-              "edid": "Challenge_Lifetime_Fishing_Axolotl_07_SUB",
-              "name": "(July) Scaled Axolotl",
-              "required": 1,
-              "counter": "Fish Caught",
-              "type_label": "Sub challenge",
-              "group_key": "lifetime",
-              "reward": "",
-              "reward_source": "none",
-              "reward_desc": "",
-              "image_url": "",
-              "conditions_display": [
-                "Target.GetIsID(Scaled Axolotl [ALCH:008006DC]) = 1"
-              ],
-              "is_meta": false,
-              "is_sub": true,
-              "children": [],
-              "guides": [
-                {
-                  "title": "Axolotl Guide",
-                  "url": "/df/fishing/axolotl-guide/"
-                }
-              ],
-              "trackable": true
-            },
-            {
-              "form_id": "008006E5",
-              "edid": "Challenge_Lifetime_Fishing_Axolotl_08_SUB",
-              "name": "(August) Striped Axolotl",
-              "required": 1,
-              "counter": "Fish Caught",
-              "type_label": "Sub challenge",
-              "group_key": "lifetime",
-              "reward": "",
-              "reward_source": "none",
-              "reward_desc": "",
-              "image_url": "",
-              "conditions_display": [
-                "Target.GetIsID(Striped Axolotl [ALCH:008006DB]) = 1"
-              ],
-              "is_meta": false,
-              "is_sub": true,
-              "children": [],
-              "guides": [
-                {
-                  "title": "Axolotl Guide",
-                  "url": "/df/fishing/axolotl-guide/"
-                }
-              ],
-              "trackable": true
-            },
-            {
-              "form_id": "008006E6",
-              "edid": "Challenge_Lifetime_Fishing_Axolotl_09_SUB",
-              "name": "(September) Shadow Axolotl",
-              "required": 1,
-              "counter": "Fish Caught",
-              "type_label": "Sub challenge",
-              "group_key": "lifetime",
-              "reward": "",
-              "reward_source": "none",
-              "reward_desc": "",
-              "image_url": "",
-              "conditions_display": [
-                "Target.GetIsID(Shadow Axolotl [ALCH:008006D5]) = 1"
-              ],
-              "is_meta": false,
-              "is_sub": true,
-              "children": [],
-              "guides": [
-                {
-                  "title": "Axolotl Guide",
-                  "url": "/df/fishing/axolotl-guide/"
-                }
-              ],
-              "trackable": true
-            },
-            {
-              "form_id": "008006E7",
-              "edid": "Challenge_Lifetime_Fishing_Axolotl_10_SUB",
-              "name": "(October) Spotted Axolotl",
-              "required": 1,
-              "counter": "Fish Caught",
-              "type_label": "Sub challenge",
-              "group_key": "lifetime",
-              "reward": "",
-              "reward_source": "none",
-              "reward_desc": "",
-              "image_url": "",
-              "conditions_display": [
-                "Target.GetIsID(Spotted Axolotl [ALCH:008006DA]) = 1"
-              ],
-              "is_meta": false,
-              "is_sub": true,
-              "children": [],
-              "guides": [
-                {
-                  "title": "Axolotl Guide",
-                  "url": "/df/fishing/axolotl-guide/"
-                }
-              ],
-              "trackable": true
-            },
-            {
-              "form_id": "008006E8",
-              "edid": "Challenge_Lifetime_Fishing_Axolotl_11_SUB",
-              "name": "(November) Speckled Axolotl",
-              "required": 1,
-              "counter": "Fish Caught",
-              "type_label": "Sub challenge",
-              "group_key": "lifetime",
-              "reward": "",
-              "reward_source": "none",
-              "reward_desc": "",
-              "image_url": "",
-              "conditions_display": [
-                "Target.GetIsID(Speckled Axolotl [ALCH:008006D6]) = 1"
-              ],
-              "is_meta": false,
-              "is_sub": true,
-              "children": [],
-              "guides": [
-                {
-                  "title": "Axolotl Guide",
-                  "url": "/df/fishing/axolotl-guide/"
-                }
-              ],
-              "trackable": true
-            },
-            {
-              "form_id": "008006E9",
-              "edid": "Challenge_Lifetime_Fishing_Axolotl_12_SUB",
-              "name": "(December) Stone Axolotl",
-              "required": 1,
-              "counter": "Fish Caught",
-              "type_label": "Sub challenge",
-              "group_key": "lifetime",
-              "reward": "",
-              "reward_source": "none",
-              "reward_desc": "",
-              "image_url": "",
-              "conditions_display": [
-                "Target.GetIsID(Stone Axolotl [ALCH:008006D1]) = 1"
-              ],
-              "is_meta": false,
-              "is_sub": true,
-              "children": [],
-              "guides": [
-                {
-                  "title": "Axolotl Guide",
-                  "url": "/df/fishing/axolotl-guide/"
-                }
-              ],
-              "trackable": true
-            }
-          ],
+          "children": [],
           "guides": [
             {
               "title": "Axolotl Guide",

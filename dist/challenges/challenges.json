@@ -2062,7 +2062,7 @@
         {
           "form_id": "0085A40A",
           "edid": "SCORE_Challenge_Daily_Gather_PepperPlant_Epic",
-          "full": "Epic - Harvest a Slipper Cactus",
+          "full": "Epic - Harvest a Prickeye",
           "snam": "Plants Harvested",
           "required": 15,
           "scope": "Daily",
@@ -2369,12 +2369,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Plan Checklist",
               "url": "/df/plan-checklists/weapon/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -2507,12 +2507,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Deathclaw Eggs",
-              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
-            },
-            {
               "title": "Pistol",
               "url": "/bnb/builds/pistol/"
+            },
+            {
+              "title": "Deathclaw Eggs",
+              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
             }
           ],
           "image_url": "",
@@ -10766,12 +10766,15 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10000000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCanned_Cannery [KYWD:008FAE29]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10000000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCanned_Cannery [KYWD:008FAE29]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
+            "Target.HasKeyword(MealTypeCanned_Cannery [KYWD:008FAE29]) = 1",
             "Target.HasKeyword(MealTypeCooked [KYWD:0013486C]) = 1"
           ],
           "condition_items": [],
@@ -11691,7 +11694,7 @@
         {
           "form_id": "0085A409",
           "edid": "SCORE_Challenge_Daily_Gather_PepperPlant",
-          "full": "Harvest a Slipper Cactus",
+          "full": "Harvest a Prickeye",
           "snam": "Plants Harvested",
           "required": 5,
           "scope": "Daily",
@@ -16257,25 +16260,13 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeBandana \"Bandana\" [KYWD:00416814]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeMask \"Mask\" [KYWD:0044D49A]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeHat \"Hat\" [KYWD:0012EEE8]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeGasmask \"Gasmask\" [KYWD:0047195E]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeGlasses [KYWD:0048682F]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeHeadwear [KYWD:008FBC45]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeBandana \"Bandana\" [KYWD:00416814]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeMask \"Mask\" [KYWD:0044D49A]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeHat \"Hat\" [KYWD:0012EEE8]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeGasmask \"Gasmask\" [KYWD:0047195E]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeGlasses [KYWD:0048682F]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeHeadwear [KYWD:008FBC45]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
-            "Target.HasKeyword(Bandana [KYWD:00416814]) = 1",
-            "Target.HasKeyword(Mask [KYWD:0044D49A]) = 1",
-            "Target.HasKeyword(Hat [KYWD:0012EEE8]) = 1",
-            "Target.HasKeyword(Gasmask [KYWD:0047195E]) = 1",
-            "Target.HasKeyword(ClothingTypeGlasses [KYWD:0048682F]) = 1"
+            "Target.HasKeyword(ClothingTypeHeadwear [KYWD:008FBC45]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -17988,12 +17979,15 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10001000|1.000000|GetIsID|00 00 00|00 00|GlowingFungusVegetableCookedSoup \"Glowing Fungus Soup\" [ALCH:00294517]|00 00 00 00|0|-1|Target|"
+            "10011000|1.000000|GetIsID|00 00 00|00 00|GlowingFungusVegetableCookedSoup_Cannery \"Canned Glowing Fungus Soup\" [ALCH:007FDA63]|00 00 00 00|0|-1|Target|",
+            "10011000|1.000000|GetIsID|00 00 00|00 00|GlowingFungusVegetableCookedSoup \"Glowing Fungus Soup\" [ALCH:00294517]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10001000|1.000000|GetIsID|00 00 00|00 00|GlowingFungusVegetableCookedSoup \"Glowing Fungus Soup\" [ALCH:00294517]|00 00 00 00|0|-1|Target|"
+            "10011000|1.000000|GetIsID|00 00 00|00 00|GlowingFungusVegetableCookedSoup_Cannery \"Canned Glowing Fungus Soup\" [ALCH:007FDA63]|00 00 00 00|0|-1|Target|",
+            "10011000|1.000000|GetIsID|00 00 00|00 00|GlowingFungusVegetableCookedSoup \"Glowing Fungus Soup\" [ALCH:00294517]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
+            "Target.GetIsID(Canned Glowing Fungus Soup [ALCH:007FDA63]) = 1",
             "Target.GetIsID(Glowing Fungus Soup [ALCH:00294517]) = 1"
           ],
           "condition_items": [],
@@ -18436,7 +18430,7 @@
         {
           "form_id": "0085A420",
           "edid": "SCORE_Challenge_Daily_Picture_SDM_Camera",
-          "full": "Take a Camera Picture at the Super Duper Mart",
+          "full": "Take a Camera Picture at the Super Duper Mart in the Burning Springs",
           "snam": "Camera Picture Taken",
           "required": 1,
           "scope": "Daily",
@@ -18467,7 +18461,12 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Burning Springs",
+              "url": "/df/challenges/springs/"
+            }
+          ],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Picture_SDM_Camera.json",
           "group": "Daily",
@@ -31709,12 +31708,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Mirelurk Eggs",
               "url": "/bnb/farming/eggs/eggs-mirelurk/mirelurk/"
+            },
+            {
+              "title": "Fishing",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -31776,12 +31775,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Mirelurk Eggs",
               "url": "/bnb/farming/eggs/eggs-mirelurk/mirelurk/"
+            },
+            {
+              "title": "Fishing",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -31843,13 +31842,16 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10001000|1.000000|GetIsID|00 00 00|00 00|Fishing_GrilledFish \"Grilled Fish\" [ALCH:007B2B9A]|00 00 00 00|0|-1|Target|"
+            "10011000|1.000000|GetIsID|00 00 00|00 00|Fishing_GrilledFish \"Grilled Fish\" [ALCH:007B2B9A]|00 00 00 00|0|-1|Target|",
+            "10011000|1.000000|GetIsID|00 00 00|00 00|Fishing_GrilledFish_Cannery \"Canned Grilled Fish\" [ALCH:00804719]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10001000|1.000000|GetIsID|00 00 00|00 00|Fishing_GrilledFish \"Grilled Fish\" [ALCH:007B2B9A]|00 00 00 00|0|-1|Target|"
+            "10011000|1.000000|GetIsID|00 00 00|00 00|Fishing_GrilledFish \"Grilled Fish\" [ALCH:007B2B9A]|00 00 00 00|0|-1|Target|",
+            "10011000|1.000000|GetIsID|00 00 00|00 00|Fishing_GrilledFish_Cannery \"Canned Grilled Fish\" [ALCH:00804719]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
-            "Target.GetIsID(Grilled Fish [ALCH:007B2B9A]) = 1"
+            "Target.GetIsID(Grilled Fish [ALCH:007B2B9A]) = 1",
+            "Target.GetIsID(Canned Grilled Fish [ALCH:00804719]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -35317,12 +35319,12 @@
           ],
           "guides": [
             {
-              "title": "Treasure Map Locations",
-              "url": "/df/treasure-maps/locations/"
-            },
-            {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Treasure Map Locations",
+              "url": "/df/treasure-maps/locations/"
             }
           ],
           "image_url": "",
@@ -36365,12 +36367,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Deathclaw Eggs",
-              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
-            },
-            {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Deathclaw Eggs",
+              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
             }
           ],
           "image_url": "",
@@ -36419,12 +36421,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Deathclaw Eggs",
-              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
-            },
-            {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Deathclaw Eggs",
+              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
             }
           ],
           "image_url": "",
@@ -36473,12 +36475,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Deathclaw Eggs",
-              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
-            },
-            {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Deathclaw Eggs",
+              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
             }
           ],
           "image_url": "",
@@ -36527,12 +36529,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Deathclaw Eggs",
-              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
-            },
-            {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Deathclaw Eggs",
+              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
             }
           ],
           "image_url": "",
@@ -36581,12 +36583,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Deathclaw Eggs",
-              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
-            },
-            {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Deathclaw Eggs",
+              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
             }
           ],
           "image_url": "",
@@ -36963,12 +36965,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Pistol",
-              "url": "/bnb/builds/pistol/"
-            },
-            {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Pistol",
+              "url": "/bnb/builds/pistol/"
             }
           ],
           "image_url": "",
@@ -40382,49 +40384,6 @@
           "has_subs": false
         },
         {
-          "form_id": "006C4EEE",
-          "edid": "SCORE_Challenge_Weekly_QuestComplete_Event_Region_ToxicValley_Epic",
-          "full": "Epic - Complete an Event in or Activity the Toxic Valley Region",
-          "snam": "Quests Completed",
-          "required": 3,
-          "scope": "Weekly",
-          "classification": "Sub Challenge (Unsorted)",
-          "category": "Sub Challenge (Unsorted)",
-          "reward_icon": "",
-          "required_count_global": "",
-          "required_from_glob": false,
-          "prerequisite": "",
-          "conditions": [
-            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|RegionToxicValleyLocation \"Toxic Valley\" [LCTN:00088ABA]|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_Quests_AnyEvents \"All Events\" [FLST:0043A1C8]|00 00 00 00|0|-1|Target|"
-          ],
-          "conditions_human": [
-            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|RegionToxicValleyLocation \"Toxic Valley\" [LCTN:00088ABA]|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_Quests_AnyEvents \"All Events\" [FLST:0043A1C8]|00 00 00 00|0|-1|Target|"
-          ],
-          "conditions_display": [
-            ".GetInCurrentLocation(Toxic Valley [LCTN:00088ABA]) = 1",
-            "Target.IsInList(All Events [FLST:0043A1C8]) = 1"
-          ],
-          "condition_items": [],
-          "condition_keywords": [],
-          "rewards": [
-            "S.C.O.R.E."
-          ],
-          "reward_unknown": false,
-          "is_cut": false,
-          "is_meta": false,
-          "is_sub": false,
-          "is_epic": true,
-          "is_new": false,
-          "children": [],
-          "guides": [],
-          "image_url": "",
-          "jasf": "SCORE_Challenge_Daily_QuestComplete_Event.json",
-          "group": "Weekly",
-          "has_subs": false
-        },
-        {
           "form_id": "0069EF92",
           "edid": "SCORE_Challenge_Weekly_QuestComplete_Events_Epic",
           "full": "Epic - Complete an Event or Activity",
@@ -40669,6 +40628,49 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Savage Divide [LCTN:001789F8]) = 1",
+            "Target.IsInList(All Events [FLST:0043A1C8]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [
+            "S.C.O.R.E."
+          ],
+          "reward_unknown": false,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": true,
+          "is_new": false,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "SCORE_Challenge_Daily_QuestComplete_Event.json",
+          "group": "Weekly",
+          "has_subs": false
+        },
+        {
+          "form_id": "006C4EEE",
+          "edid": "SCORE_Challenge_Weekly_QuestComplete_Event_Region_ToxicValley_Epic",
+          "full": "Epic - Complete an Event or Activity the Toxic Valley Region",
+          "snam": "Quests Completed",
+          "required": 3,
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|RegionToxicValleyLocation \"Toxic Valley\" [LCTN:00088ABA]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_Quests_AnyEvents \"All Events\" [FLST:0043A1C8]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|RegionToxicValleyLocation \"Toxic Valley\" [LCTN:00088ABA]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_Quests_AnyEvents \"All Events\" [FLST:0043A1C8]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".GetInCurrentLocation(Toxic Valley [LCTN:00088ABA]) = 1",
             "Target.IsInList(All Events [FLST:0043A1C8]) = 1"
           ],
           "condition_items": [],
@@ -41491,12 +41493,15 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10000000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCanned_Cannery [KYWD:008FAE29]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10000000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCanned_Cannery [KYWD:008FAE29]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
+            "Target.HasKeyword(MealTypeCanned_Cannery [KYWD:008FAE29]) = 1",
             "Target.HasKeyword(MealTypeCooked [KYWD:0013486C]) = 1"
           ],
           "condition_items": [],
@@ -41987,12 +41992,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Plan Checklist",
               "url": "/df/plan-checklists/weapon/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -42284,12 +42289,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Deathclaw Eggs",
-              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
-            },
-            {
               "title": "Radscorpion Eggs",
               "url": "/bnb/farming/eggs/eggs-radscorpion/radscorpion/"
+            },
+            {
+              "title": "Deathclaw Eggs",
+              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
             }
           ],
           "image_url": "",
@@ -42333,12 +42338,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Deathclaw Eggs",
-              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
-            },
-            {
               "title": "Pistol",
               "url": "/bnb/builds/pistol/"
+            },
+            {
+              "title": "Deathclaw Eggs",
+              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
             }
           ],
           "image_url": "",
@@ -43295,12 +43300,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Plan Checklist",
               "url": "/df/plan-checklists/weapon/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -50715,12 +50720,15 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10000000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCanned_Cannery [KYWD:008FAE29]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10000000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCanned_Cannery [KYWD:008FAE29]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|MealTypeCooked [KYWD:0013486C]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
+            "Target.HasKeyword(MealTypeCanned_Cannery [KYWD:008FAE29]) = 1",
             "Target.HasKeyword(MealTypeCooked [KYWD:0013486C]) = 1"
           ],
           "condition_items": [],
@@ -51880,7 +51888,7 @@
         {
           "form_id": "0085A42A",
           "edid": "SCORE_Challenge_Weekly_Gather_PepperPlant",
-          "full": "Harvest a Slipper Cactus",
+          "full": "Harvest a Prickeye",
           "snam": "Plants Harvested",
           "required": 25,
           "scope": "Weekly",
@@ -55242,25 +55250,13 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeBandana \"Bandana\" [KYWD:00416814]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeMask \"Mask\" [KYWD:0044D49A]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeHat \"Hat\" [KYWD:0012EEE8]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeGasmask \"Gasmask\" [KYWD:0047195E]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeGlasses [KYWD:0048682F]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeHeadwear [KYWD:008FBC45]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeBandana \"Bandana\" [KYWD:00416814]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeMask \"Mask\" [KYWD:0044D49A]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeHat \"Hat\" [KYWD:0012EEE8]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeGasmask \"Gasmask\" [KYWD:0047195E]|00 00 00 00|0|-1|Target|",
-            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeGlasses [KYWD:0048682F]|00 00 00 00|0|-1|Target|"
+            "10010000|1.000000|HasKeyword|00 00 00|00 00|ClothingTypeHeadwear [KYWD:008FBC45]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
-            "Target.HasKeyword(Bandana [KYWD:00416814]) = 1",
-            "Target.HasKeyword(Mask [KYWD:0044D49A]) = 1",
-            "Target.HasKeyword(Hat [KYWD:0012EEE8]) = 1",
-            "Target.HasKeyword(Gasmask [KYWD:0047195E]) = 1",
-            "Target.HasKeyword(ClothingTypeGlasses [KYWD:0048682F]) = 1"
+            "Target.HasKeyword(ClothingTypeHeadwear [KYWD:008FBC45]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -56757,13 +56753,16 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10001000|1.000000|GetIsID|00 00 00|00 00|MirelurkQueenMeatCooked \"Mirelurk Queen Steak\" [ALCH:0021C00C]|00 00 00 00|0|-1|Target|"
+            "10011000|1.000000|GetIsID|00 00 00|00 00|MirelurkQueenMeatCooked \"Mirelurk Queen Steak\" [ALCH:0021C00C]|00 00 00 00|0|-1|Target|",
+            "10011000|1.000000|GetIsID|00 00 00|00 00|MirelurkQueenMeatCooked_Cannery \"Canned Mirelurk Queen Steak\" [ALCH:007FDA59]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10001000|1.000000|GetIsID|00 00 00|00 00|MirelurkQueenMeatCooked \"Mirelurk Queen Steak\" [ALCH:0021C00C]|00 00 00 00|0|-1|Target|"
+            "10011000|1.000000|GetIsID|00 00 00|00 00|MirelurkQueenMeatCooked \"Mirelurk Queen Steak\" [ALCH:0021C00C]|00 00 00 00|0|-1|Target|",
+            "10011000|1.000000|GetIsID|00 00 00|00 00|MirelurkQueenMeatCooked_Cannery \"Canned Mirelurk Queen Steak\" [ALCH:007FDA59]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
-            "Target.GetIsID(Mirelurk Queen Steak [ALCH:0021C00C]) = 1"
+            "Target.GetIsID(Mirelurk Queen Steak [ALCH:0021C00C]) = 1",
+            "Target.GetIsID(Canned Mirelurk Queen Steak [ALCH:007FDA59]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -60443,6 +60442,54 @@
           "has_subs": false
         },
         {
+          "form_id": "008D494F",
+          "edid": "DE2026_SockHop_ChallengeComplete_Emote_All_Locations",
+          "full": "Complete a Week 1 Summer Sock Hop Challenge",
+          "snam": "Challenges Completed",
+          "required": 7,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_CAMP_Other \"Use the \"\"Shimmy Dance\"\" Emote at another Player's C.A.M.P.\" [CHAL:008D3562]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_SandySockHop_Location \"Use the \"\"Shimmy Dance\"\" Emote at Sandy's Sock Hop\" [CHAL:008D3566]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_BerkeleySprings_Location \"Use the \"\"Shimmy Dance\"\" Emote at Berkeley Springs\" [CHAL:008D494B]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_BlackBearLodge_Location \"Use the \"\"Shimmy Dance\"\" Emote at Black Bear Lodge\" [CHAL:008D494C]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_CamdenPark_Location \"Use the \"\"Shimmy Dance\"\" Emote at Camden Park\" [CHAL:008D494D]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_Event_Activity \"Use the \"\"Shimmy Dance\"\" Emote during an Event or Activity\" [CHAL:008D3564]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Kill_Blood_Eagle \"Kill a Blood Eagle while on a Team\" [CHAL:008D3565]|00 00 00 00|0|-1|Subject|"
+          ],
+          "conditions_human": [
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_CAMP_Other \"Use the \"\"Shimmy Dance\"\" Emote at another Player's C.A.M.P.\" [CHAL:008D3562]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_SandySockHop_Location \"Use the \"\"Shimmy Dance\"\" Emote at Sandy's Sock Hop\" [CHAL:008D3566]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_BerkeleySprings_Location \"Use the \"\"Shimmy Dance\"\" Emote at Berkeley Springs\" [CHAL:008D494B]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_BlackBearLodge_Location \"Use the \"\"Shimmy Dance\"\" Emote at Black Bear Lodge\" [CHAL:008D494C]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_CamdenPark_Location \"Use the \"\"Shimmy Dance\"\" Emote at Camden Park\" [CHAL:008D494D]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_Event_Activity \"Use the \"\"Shimmy Dance\"\" Emote during an Event or Activity\" [CHAL:008D3564]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Kill_Blood_Eagle \"Kill a Blood Eagle while on a Team\" [CHAL:008D3565]|00 00 00 00|0|-1|Subject|"
+          ],
+          "conditions_display": [],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
           "form_id": "00868263",
           "edid": "ATX_DE2025_LoveHurts_Challenge_Week2_Complete",
           "full": "Complete a Week 2 Challenge",
@@ -60487,6 +60534,54 @@
           "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D4951",
+          "edid": "DE2026_SockHop_ChallengeComplete_Other",
+          "full": "Complete a Week 2 Summer Sock Hop Challenge",
+          "snam": "Challenges Completed",
+          "required": 7,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_Shelter_Other \"Use the \"\"Shimmy Dance\"\" Emote at another Player's Shelter\" [CHAL:008D3563]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_CAMP_Own \"Use the \"\"Shimmy Dance\"\" Emote at your C.A.M.P.\" [CHAL:008D4950]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_MakeoutPoint_Location \"Use the \"\"Shimmy Dance\"\" Emote at Makeout Point\" [CHAL:008D4947]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_SunnytopSkiLanes_Location \"Use the \"\"Shimmy Dance\"\" Emote at Sunnytop Ski Lanes\" [CHAL:008D494A]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_MorgantownHighSchoolDungeon_Location \"Use the \"\"Shimmy Dance\"\" Emote inside Morgantown High School\" [CHAL:008D4946]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_WatogaHighSchoolDungeon_Location \"Use the \"\"Shimmy Dance\"\" Emote inside Watoga High School\" [CHAL:008D4949]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Kill_RustRaider \"Kill a Rust Raider while on a Team\" [CHAL:008D4948]|00 00 00 00|0|-1|Subject|"
+          ],
+          "conditions_human": [
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_Shelter_Other \"Use the \"\"Shimmy Dance\"\" Emote at another Player's Shelter\" [CHAL:008D3563]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_CAMP_Own \"Use the \"\"Shimmy Dance\"\" Emote at your C.A.M.P.\" [CHAL:008D4950]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_MakeoutPoint_Location \"Use the \"\"Shimmy Dance\"\" Emote at Makeout Point\" [CHAL:008D4947]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_SunnytopSkiLanes_Location \"Use the \"\"Shimmy Dance\"\" Emote at Sunnytop Ski Lanes\" [CHAL:008D494A]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_MorgantownHighSchoolDungeon_Location \"Use the \"\"Shimmy Dance\"\" Emote inside Morgantown High School\" [CHAL:008D4946]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Emote_WatogaHighSchoolDungeon_Location \"Use the \"\"Shimmy Dance\"\" Emote inside Watoga High School\" [CHAL:008D4949]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsForm|00 00 00|00 00|DE2026_SockHop_Challenge_Kill_RustRaider \"Kill a Rust Raider while on a Team\" [CHAL:008D4948]|00 00 00 00|0|-1|Subject|"
+          ],
+          "conditions_display": [],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
           "group": "Event",
           "has_subs": false
         },
@@ -62945,6 +63040,53 @@
           "has_subs": false
         },
         {
+          "form_id": "008D3565",
+          "edid": "DE2026_SockHop_Challenge_Kill_Blood_Eagle",
+          "full": "Kill a Blood Eagle while on a Team",
+          "snam": "Total Enemies Killed",
+          "required": 50,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|IsMemberOfAPlayerTeam|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|HasKeyword|00 00 00|00 00|ActorTypeBloodEagle [KYWD:00571D9F]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|GetIsRace|00 00 00|00 00|HumanRace \"Human\" [RACE:00013746]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|GetIsRace|00 00 00|00 00|GhoulRace \"Ghoul\" [RACE:000EAFB6]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|IsMemberOfAPlayerTeam|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|HasKeyword|00 00 00|00 00|ActorTypeBloodEagle [KYWD:00571D9F]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|GetIsRace|00 00 00|00 00|HumanRace \"Human\" [RACE:00013746]|00 00 00 00|0|-1|Target|",
+            "10010000|1.000000|GetIsRace|00 00 00|00 00|GhoulRace \"Ghoul\" [RACE:000EAFB6]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".IsMemberOfAPlayerTeam() = 1",
+            "Target.HasKeyword(ActorTypeBloodEagle [KYWD:00571D9F]) = 1",
+            "Target.GetIsRace(Human [RACE:00013746]) = 1",
+            "Target.GetIsRace(Ghoul [RACE:000EAFB6]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
           "form_id": "00863012",
           "edid": "ATX_DE2025_SunsetStranger_Week2_Challenge_Kill_BurningOgua",
           "full": "Kill a Burning Ogua with the Sunset Sarsaparilla Deputy Hat Equipped",
@@ -63305,6 +63447,49 @@
           "guides": [],
           "image_url": "",
           "jasf": "ATX_DE2025_SunsetStranger_Week1_Challenge_Kill_Radhog.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D4948",
+          "edid": "DE2026_SockHop_Challenge_Kill_RustRaider",
+          "full": "Kill a Rust Raider while on a Team",
+          "snam": "Total Enemies Killed",
+          "required": 76,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|IsMemberOfAPlayerTeam|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Burn_Challenge_Kill_RustRaider_Condition [CNDF:0084B93B]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|IsMemberOfAPlayerTeam|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Burn_Challenge_Kill_RustRaider_Condition [CNDF:0084B93B]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".IsMemberOfAPlayerTeam() = 1",
+            "Target List.HasKeyword(Burn_ActorTypeRustKingArmy [KYWD:00833264]) = 1",
+            "Target List.HasKeyword(Burn_ActorTypeAshAggressor [KYWD:00844AE8]) = 0",
+            "Target List.HasKeyword(Burn_ActorTypeAshAggressorPowerArmor [KYWD:00844AE6]) = 0"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "SCORE_Challenge_Daily_Kill_Rust_Raider.json",
           "group": "Event",
           "has_subs": false
         },
@@ -67124,6 +67309,509 @@
           "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D3562",
+          "edid": "DE2026_SockHop_Challenge_Emote_CAMP_Other",
+          "full": "Use the \"Shimmy Dance\" Emote at another Player's C.A.M.P.",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|IsPlayerInCamp|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "00000000|1.000000|IsPlayerInCampOwned|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|IsPlayerInCamp|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "00000000|1.000000|IsPlayerInCampOwned|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".IsPlayerInCamp() = 1",
+            ".IsPlayerInCampOwned() = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "SCORE_Challenge_Daily_Kill_Cryptids.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D3563",
+          "edid": "DE2026_SockHop_Challenge_Emote_Shelter_Other",
+          "full": "Use the \"Shimmy Dance\" Emote at another Player's Shelter",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|IsPlayerInShelter|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "00000000|1.000000|IsPlayerInShelterOwned|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|IsPlayerInShelter|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "00000000|1.000000|IsPlayerInShelterOwned|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".IsPlayerInShelter() = 1",
+            ".IsPlayerInShelterOwned() = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_Shelter_Other.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D494B",
+          "edid": "DE2026_SockHop_Challenge_Emote_BerkeleySprings_Location",
+          "full": "Use the \"Shimmy Dance\" Emote at Berkeley Springs",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocSwampBerkeleySpringsLocation \"Berkeley Springs\" [LCTN:0000414B]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocSwampBerkeleySpringsLocation \"Berkeley Springs\" [LCTN:0000414B]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".GetInCurrentLocation(Berkeley Springs [LCTN:0000414B]) = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [
+            {
+              "title": "Burning Springs",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D494C",
+          "edid": "DE2026_SockHop_Challenge_Emote_BlackBearLodge_Location",
+          "full": "Use the \"Shimmy Dance\" Emote at Black Bear Lodge",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocToxicBlackBearLodgeLocation \"Black Bear Lodge\" [LCTN:000725FA]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocToxicBlackBearLodgeLocation \"Black Bear Lodge\" [LCTN:000725FA]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".GetInCurrentLocation(Black Bear Lodge [LCTN:000725FA]) = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D494D",
+          "edid": "DE2026_SockHop_Challenge_Emote_CamdenPark_Location",
+          "full": "Use the \"Shimmy Dance\" Emote at Camden Park",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocMTRCamdenParkLocation \"Camden Park\" [LCTN:00019041]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocMTRCamdenParkLocation \"Camden Park\" [LCTN:00019041]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".GetInCurrentLocation(Camden Park [LCTN:00019041]) = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D4947",
+          "edid": "DE2026_SockHop_Challenge_Emote_MakeoutPoint_Location",
+          "full": "Use the \"Shimmy Dance\" Emote at Makeout Point",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocStormMakeoutPointLocation \"Makeout Point\" [LCTN:006B9686]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocStormMakeoutPointLocation \"Makeout Point\" [LCTN:006B9686]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".GetInCurrentLocation(Makeout Point [LCTN:006B9686]) = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D3566",
+          "edid": "DE2026_SockHop_Challenge_Emote_SandySockHop_Location",
+          "full": "Use the \"Shimmy Dance\" Emote at Sandy's Sock Hop",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocBurnPOI19SockHopLocation \"Sandy's Sock Hop\" [LCTN:0084DB5C]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocBurnPOI19SockHopLocation \"Sandy's Sock Hop\" [LCTN:0084DB5C]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".GetInCurrentLocation(Sandy's Sock Hop [LCTN:0084DB5C]) = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D494A",
+          "edid": "DE2026_SockHop_Challenge_Emote_SunnytopSkiLanes_Location",
+          "full": "Use the \"Shimmy Dance\" Emote at Sunnytop Ski Lanes",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocMountainsSunnytopSkiLanesLocation \"Sunnytop Ski Lanes\" [LCTN:00007332]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocMountainsSunnytopSkiLanesLocation \"Sunnytop Ski Lanes\" [LCTN:00007332]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".GetInCurrentLocation(Sunnytop Ski Lanes [LCTN:00007332]) = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D4950",
+          "edid": "DE2026_SockHop_Challenge_Emote_CAMP_Own",
+          "full": "Use the \"Shimmy Dance\" Emote at your C.A.M.P.",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|IsPlayerInCampOwned|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|IsPlayerInCampOwned|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".IsPlayerInCampOwned() = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "SCORE_Challenge_Daily_Kill_Cryptids.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D3564",
+          "edid": "DE2026_SockHop_Challenge_Emote_Event_Activity",
+          "full": "Use the \"Shimmy Dance\" Emote during an Event or Activity",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|939|00 00 00|00 00|C8 A1 43 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|939|00 00 00|00 00|C8 A1 43 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".IsInList(All Events [FLST:0043A1C8]) = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D4946",
+          "edid": "DE2026_SockHop_Challenge_Emote_MorgantownHighSchoolDungeon_Location",
+          "full": "Use the \"Shimmy Dance\" Emote inside Morgantown High School",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|GetInCell|00 00 00|00 00|MorgantownHighSchool01 \"Morgantown High School\" [CELL:0010BA9C]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|GetInCell|00 00 00|00 00|MorgantownHighSchool01 \"Morgantown High School\" [CELL:0010BA9C]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".GetInCell(Morgantown High School [CELL:0010BA9C]) = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
+          "group": "Event",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D4949",
+          "edid": "DE2026_SockHop_Challenge_Emote_WatogaHighSchoolDungeon_Location",
+          "full": "Use the \"Shimmy Dance\" Emote inside Watoga High School",
+          "snam": "Bodies in Emotion",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|GetInCell|00 00 00|00 00|WatogaHighSchool01 \"Watoga High School\" [CELL:00004183]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|GetInCell|00 00 00|00 00|WatogaHighSchool01 \"Watoga High School\" [CELL:00004183]|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|GetIsID|00 00 00|00 00|SCORE_MiniSeason_2026_SockHop_Emote_ShimmyDance \"Shimmy Dance\" [EMOT:008C924E]|00 00 00 00|0|-1|Target|"
+          ],
+          "conditions_display": [
+            ".GetInCell(Watoga High School [CELL:00004183]) = 1",
+            "Target.GetIsID(Shimmy Dance [EMOT:008C924E]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "DE2026_SockHop_Challenge_Emote_CAMP_Other_Copy01.json",
           "group": "Event",
           "has_subs": false
         }
@@ -74736,12 +75424,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Plan Checklist",
               "url": "/df/plan-checklists/weapon/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -74919,12 +75607,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Plan Checklist",
               "url": "/df/plan-checklists/weapon/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -76529,12 +77217,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Weapon Curve Tables",
-              "url": "/bnb/curve-tables/weapons/"
-            },
-            {
               "title": "Melee",
               "url": "/bnb/builds/melee/"
+            },
+            {
+              "title": "Weapon Curve Tables",
+              "url": "/bnb/curve-tables/weapons/"
             }
           ],
           "image_url": "",
@@ -76576,12 +77264,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Weapon Curve Tables",
-              "url": "/bnb/curve-tables/weapons/"
-            },
-            {
               "title": "Melee",
               "url": "/bnb/builds/melee/"
+            },
+            {
+              "title": "Weapon Curve Tables",
+              "url": "/bnb/curve-tables/weapons/"
             }
           ],
           "image_url": "",
@@ -76911,12 +77599,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Weapon Curve Tables",
-              "url": "/bnb/curve-tables/weapons/"
-            },
-            {
               "title": "Melee",
               "url": "/bnb/builds/melee/"
+            },
+            {
+              "title": "Weapon Curve Tables",
+              "url": "/bnb/curve-tables/weapons/"
             }
           ],
           "image_url": "",
@@ -84884,15 +85572,9 @@
           "required_count_global": "Challenge_Global_0001 [GLOB:00485276]",
           "required_from_glob": false,
           "prerequisite": "Challenge_Lifetime_QuestComplete_Emerge_Intro \"Emerge from Vault 76\" [CHAL:0043A1BA]",
-          "conditions": [
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|HTO_HostileTakeover_LocationFoundCondition [CNDF:008B3B7E]|00 00 00 00|0|-1|Subject|"
-          ],
-          "conditions_human": [
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|HTO_HostileTakeover_LocationFoundCondition [CNDF:008B3B7E]|00 00 00 00|0|-1|Subject|"
-          ],
-          "conditions_display": [
-            ".GetValue(HTO_HostileTakeover_LocationFoundAV [AVIF:008B3B76]) = 1"
-          ],
+          "conditions": [],
+          "conditions_human": [],
+          "conditions_display": [],
           "condition_items": [],
           "condition_keywords": [],
           "rewards": [
@@ -94132,12 +94814,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Plan Checklist",
               "url": "/df/plan-checklists/weapon/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -110126,6 +110808,38 @@
           "image_url": "",
           "jasf": "Challenge_Lifetime_Picture_Creatures_SUB_Tick_Camera.json",
           "group": "Weekly",
+          "has_subs": false
+        },
+        {
+          "form_id": "008D494E",
+          "edid": "ZZZ_DE2026_SockHop_Challenge_Emote_Photomode_Teammate",
+          "full": "(CUT) Use Photomode to take a picture of Teammate using the \"Shimmy Dance\" emote",
+          "snam": "Photos Taken",
+          "required": 1,
+          "scope": "Event",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [],
+          "conditions_human": [],
+          "conditions_display": [],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [],
+          "reward_unknown": true,
+          "is_cut": true,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "SCORE_Challenge_Daily_Photomode_while_in_Group.json",
+          "group": "Event",
           "has_subs": false
         },
         {
@@ -149973,11 +150687,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 94 [LCTN:000AFBA5]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150028,11 +150742,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 94 [LCTN:000AFBA5]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150083,11 +150797,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 94 [LCTN:000AFBA5]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150138,11 +150852,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 94 [LCTN:000AFBA5]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150193,11 +150907,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 94 [LCTN:000AFBA5]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150248,11 +150962,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 94 [LCTN:000AFBA5]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150303,11 +151017,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 94 [LCTN:000AFBA5]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150358,11 +151072,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 94 [LCTN:000AFBA5]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150413,11 +151127,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 94 [LCTN:000AFBA5]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150468,11 +151182,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 96 [LCTN:0041F806]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150523,11 +151237,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 96 [LCTN:0041F806]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -150578,11 +151292,11 @@
           ],
           "conditions_display": [
             ".GetInCurrentLocation(Vault 96 [LCTN:0041F806]) = 1",
-            "Target.HasKeyword(Legendary Mod � [KYWD:001E32C8]) = 1",
-            "Target.HasKeyword(Legendary Mod �� [KYWD:004E89A8]) = 1",
-            "Target.HasKeyword(Legendary Mod ��� [KYWD:004E89A9]) = 1",
-            "Target.HasKeyword(Legendary Mod ���� [KYWD:004E89AA]) = 1",
-            "Target.HasKeyword(Legendary Mod ����� [KYWD:004E89AB]) = 1"
+            "Target.HasKeyword(Legendary Mod ¬ [KYWD:001E32C8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬ [KYWD:004E89A8]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬ [KYWD:004E89A9]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬ [KYWD:004E89AA]) = 1",
+            "Target.HasKeyword(Legendary Mod ¬¬¬¬¬ [KYWD:004E89AB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -154142,16 +154856,16 @@
           "children": [],
           "guides": [
             {
-              "title": "Ogua",
-              "url": "/df/cryptids/ogua/"
-            },
-            {
               "title": "Melee",
               "url": "/bnb/builds/melee/"
             },
             {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Ogua",
+              "url": "/df/cryptids/ogua/"
             }
           ],
           "image_url": "",
@@ -154193,12 +154907,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Burning Springs",
-              "url": "/df/challenges/springs/"
-            },
-            {
               "title": "Radscorpion Eggs",
               "url": "/bnb/farming/eggs/eggs-radscorpion/radscorpion/"
+            },
+            {
+              "title": "Burning Springs",
+              "url": "/df/challenges/springs/"
             }
           ],
           "image_url": "",
@@ -166863,12 +167577,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Deathclaw Eggs",
-              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
-            },
-            {
               "title": "Recipe Plan Checklist",
               "url": "/df/plan-checklists/recipe/"
+            },
+            {
+              "title": "Deathclaw Eggs",
+              "url": "/bnb/farming/eggs/eggs-deathclaw/deathclaw/"
             }
           ],
           "image_url": "",
@@ -169887,12 +170601,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Plan Checklist",
               "url": "/df/plan-checklists/weapon/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -191310,12 +192024,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Other Curve Tables",
-              "url": "/bnb/curve-tables/other/"
-            },
-            {
               "title": "Survival",
               "url": "/df/challenges/survival/"
+            },
+            {
+              "title": "Other Curve Tables",
+              "url": "/bnb/curve-tables/other/"
             }
           ],
           "image_url": "",
@@ -197291,12 +198005,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Mirelurk Eggs",
               "url": "/bnb/farming/eggs/eggs-mirelurk/mirelurk/"
+            },
+            {
+              "title": "Fishing",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -231175,12 +231889,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Mirelurk Eggs",
               "url": "/bnb/farming/eggs/eggs-mirelurk/mirelurk/"
+            },
+            {
+              "title": "Fishing",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -231508,12 +232222,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Mirelurk Eggs",
               "url": "/bnb/farming/eggs/eggs-mirelurk/mirelurk/"
+            },
+            {
+              "title": "Fishing",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -232705,12 +233419,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Pistol",
-              "url": "/bnb/builds/pistol/"
-            },
-            {
               "title": "Burning Springs",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Pistol",
+              "url": "/bnb/builds/pistol/"
             }
           ],
           "image_url": "",
@@ -234196,7 +234910,7 @@
       "has_meta": true
     },
     "events": {
-      "count": 193,
+      "count": 209,
       "has_meta": true
     },
     "combat": {
@@ -234228,7 +234942,7 @@
       "has_meta": true
     },
     "cut": {
-      "count": 2635,
+      "count": 2636,
       "has_meta": true
     },
     "season:love": {
@@ -234392,7 +235106,7 @@
       "has_meta": false
     },
     "quest:fallout-76-quests-checklist": {
-      "count": 318,
+      "count": 312,
       "has_quest_groups": true
     },
     "quest:daily-pipboy-quests": {
@@ -234466,65 +235180,6 @@
   "quest_pages": {
     "fallout-76-quests-checklist": {
       "main_questlines": [
-        {
-          "group_name": "SDOW MQ",
-          "group_prefix": "SDOW_MQ",
-          "dlc_label": "",
-          "items": [
-            {
-              "form_id": "008F15C1",
-              "edid": "SDOW_MQ01_Bodies",
-              "full": "(Seasonal) Masked Truth",
-              "desc": "Investigate the masked corpses left in the wake of a mysterious group's arrival.",
-              "quest_type": "Primary",
-              "location": "",
-              "rewards": [],
-              "reward_unknown": true,
-              "dlc_label": "",
-              "is_cut": false,
-              "record_type": "quest"
-            },
-            {
-              "form_id": "008F15A1",
-              "edid": "SDOW_MQ02_Graves",
-              "full": "(Seasonal) Secrets to the Grave",
-              "desc": "Investigate the graves disturbed by the Pint-Sized Phantoms.",
-              "quest_type": "Primary",
-              "location": "",
-              "rewards": [],
-              "reward_unknown": true,
-              "dlc_label": "",
-              "is_cut": false,
-              "record_type": "quest"
-            },
-            {
-              "form_id": "008F15C2",
-              "edid": "SDOW_MQ04_Infestations",
-              "full": "(Seasonal) Out of the Shadows",
-              "desc": "Investigate why the Pint-Sized Phantoms are taking over locations in Appalachia.",
-              "quest_type": "Primary",
-              "location": "",
-              "rewards": [],
-              "reward_unknown": true,
-              "dlc_label": "",
-              "is_cut": false,
-              "record_type": "quest"
-            },
-            {
-              "form_id": "008F15C3",
-              "edid": "SDOW_MQ05_Headhunt",
-              "full": "(Seasonal) Blood Will Have Blood",
-              "desc": "Defeat the impostor posing as the Reborn Pint-Sized Slasher.",
-              "quest_type": "Primary",
-              "location": "",
-              "rewards": [],
-              "reward_unknown": true,
-              "dlc_label": "",
-              "is_cut": false,
-              "record_type": "quest"
-            }
-          ]
-        },
         {
           "group_name": "Duchess Lessons",
           "group_prefix": "QDLBarbara",
@@ -236658,36 +237313,6 @@
         }
       ],
       "secondary_quests": [
-        {
-          "group_name": "SDOW SQ",
-          "group_prefix": "SDOW_SQ",
-          "dlc_label": "",
-          "items": [
-            {
-              "form_id": "008F1665",
-              "edid": "SDOW_SQ01_Graves_Repeatable",
-              "full": "(Seasonal) Laid to Unrest",
-              "desc": "Find the odd treasures left by the Pint-Sized Phantoms.",
-              "quest_type": "Secondary",
-              "location": "",
-              "rewards": [
-                "XP",
-                "SDOW MQ02 Graves LL QuestRelatedItems",
-                "Caps",
-                "SDOW LL SQ01 RepeatableRewards",
-                "SDOW MQ01 LL QuestRewards",
-                "LLS AllRegions GrabBag",
-                "SDOW MQ05 LL QuestRewards",
-                "SDOW MQ04 LL QuestRewards",
-                "SDOW MQ02 LL QuestRewards"
-              ],
-              "reward_unknown": false,
-              "dlc_label": "",
-              "is_cut": false,
-              "record_type": "quest"
-            }
-          ]
-        },
         {
           "group_name": "Burning Springs: Side",
           "group_prefix": "Burn_SQ",
@@ -239444,26 +240069,6 @@
         }
       ],
       "miscellaneous_quests": [
-        {
-          "group_name": "SDOW",
-          "group_prefix": "SDOW",
-          "dlc_label": "",
-          "items": [
-            {
-              "form_id": "008EDF2F",
-              "edid": "SDOW_Radio01",
-              "full": "Breaking News",
-              "desc": "",
-              "quest_type": "Miscellaneous",
-              "location": "",
-              "rewards": [],
-              "reward_unknown": true,
-              "dlc_label": "",
-              "is_cut": false,
-              "record_type": "quest"
-            }
-          ]
-        },
         {
           "group_name": "Burning Springs: Side",
           "group_prefix": "Burn_SQ",

@@ -218,41 +218,41 @@
   "buffs": {
     "signatureUnlockLevels": {
       "sig1": [
-        5,
-        40,
-        85
+        null,
+        null,
+        null
       ],
       "sig2": [
-        20,
-        60,
-        120
+        null,
+        null,
+        null
       ]
     },
     "allPet": {
       "fortifyCarryWeight": {
         "ranks": [
-          5,
-          10,
-          15
+          null,
+          null,
+          null
         ],
         "levels": [
-          30,
-          70,
-          170
+          null,
+          null,
+          null
         ]
       },
       "petCombatProwess": {
         "levels": [
-          50,
-          100,
-          150,
-          200
+          null,
+          null,
+          null,
+          null
         ],
         "damage": [
-          200,
-          350,
-          550,
-          800
+          null,
+          null,
+          null,
+          null
         ],
         "damageMult": [
           2,
@@ -383,36 +383,7 @@
     "levelling": {
       "totalXp": 303770
     },
-    "commands": [
-      {
-        "formId": "00916200",
-        "edid": "WorldPets_Emote_Command_Stay",
-        "name": "(Command) Wait",
-        "animation": "PetStay1",
-        "command": "Stay"
-      },
-      {
-        "formId": "00916201",
-        "edid": "WorldPets_Emote_Command_Follow",
-        "name": "(Command) Follow Neutral",
-        "animation": "PetFollow1",
-        "command": "Follow"
-      },
-      {
-        "formId": "00916202",
-        "edid": "WorldPets_Emote_Command_Defend",
-        "name": "(Command) Follow Protect",
-        "animation": "PetDefend1",
-        "command": "Defend"
-      },
-      {
-        "formId": "00916203",
-        "edid": "WorldPets_Emote_Command_Attack",
-        "name": "(Command) Follow Attack",
-        "animation": "PetAttack1",
-        "command": "Attack"
-      }
-    ],
+    "commands": [],
     "immunities": [
       "Radiation",
       "Disease",
@@ -420,7 +391,7 @@
     ]
   },
   "playerGift": {
-    "interval": 7000,
+    "interval": null,
     "note": "Each species haul delivery also includes one random player gift."
   },
   "species": [
@@ -432,14 +403,14 @@
       "sig1": "Bait Finder",
       "sig2": "Mega Bits",
       "sig1Mag": [
-        2,
-        4,
-        6
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        25,
-        50,
-        75
+        null,
+        null,
+        null
       ],
       "activity": "Catch Fish with an active Pet Cat",
       "treasure": {
@@ -759,7 +730,7 @@
           "seasonNumber": 24
         },
         {
-          "name": "Grey Tabby Cat",
+          "name": "Grey Tabby",
           "formId": "0077D821",
           "edid": "CAMPPets_Actor_Cat_Tabby",
           "obtainSource": "Base",
@@ -1285,18 +1256,7 @@
           ]
         }
       ],
-      "combat": {
-        "weapFormId": "008E529C",
-        "weapEdid": "crUnarmedWorldPet_Cat",
-        "attackType": "Scratch",
-        "speed": 1,
-        "reach": 0.5,
-        "minRange": 100,
-        "maxRange": 2000,
-        "attackDelay": 0.2,
-        "critDmgMult": 1,
-        "npcBaseHealth": 15
-      }
+      "combat": {}
     },
     {
       "key": "deathclaw",
@@ -1306,14 +1266,14 @@
       "sig1": "Meat Lover",
       "sig2": "Fun-Festation",
       "sig1Mag": [
-        2,
-        4,
-        6
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        1,
-        2,
-        3
+        null,
+        null,
+        null
       ],
       "activity": "Kill Infestation enemies with an active Pet Deathclaw",
       "treasure": {
@@ -1498,18 +1458,7 @@
           ]
         }
       ],
-      "combat": {
-        "weapFormId": "008E529A",
-        "weapEdid": "crUnarmedWorldPet_Deathclaw",
-        "attackType": "Scratch",
-        "speed": 1,
-        "reach": 1,
-        "minRange": 50,
-        "maxRange": 2000,
-        "attackDelay": 0,
-        "critDmgMult": 1,
-        "npcBaseHealth": 450
-      }
+      "combat": {}
     },
     {
       "key": "dog",
@@ -1519,14 +1468,14 @@
       "sig1": "Stimpak Fetcher",
       "sig2": "Bounty Sniffer",
       "sig1Mag": [
-        2,
-        4,
-        6
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        3,
-        25,
-        100
+        null,
+        null,
+        null
       ],
       "activity": "Complete Bounty Hunts with an active Pet Dog",
       "treasure": {
@@ -1543,156 +1492,6 @@
         "Plant"
       ],
       "skins": [
-        {
-          "name": "Black Shepherd",
-          "formId": "008B1212",
-          "edid": "ATX_CAMPPets_Actor_Dog_BlackGermanShepherd",
-          "obtainSource": "Atom Shop",
-          "tradeable": false,
-          "description": "Have yourself a brilliant time with this Black Shepherd!",
-          "obtainRoutes": [
-            {
-              "route": "Caps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Stamps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Scoreboard",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Gold Bullion",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Atom Shop",
-              "populated": true,
-              "lines": [
-                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
-              ],
-              "tradeable": false,
-              "dropRate": "N/A"
-            },
-            {
-              "route": "Limited Time Bundle",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Events & Activities",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Quests",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Challenges",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            }
-          ]
-        },
-        {
-          "name": "Cyberdog",
-          "formId": "008D2750",
-          "edid": "ATX_CAMPPets_Actor_Dog_Cyber",
-          "obtainSource": "Atom Shop",
-          "tradeable": false,
-          "description": "Loyal, steel-plated friend with enhanced senses and zero need for treats.",
-          "obtainRoutes": [
-            {
-              "route": "Caps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Stamps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Scoreboard",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Gold Bullion",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Atom Shop",
-              "populated": true,
-              "lines": [
-                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
-              ],
-              "tradeable": false,
-              "dropRate": "N/A"
-            },
-            {
-              "route": "Limited Time Bundle",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Events & Activities",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Quests",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Challenges",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            }
-          ]
-        },
         {
           "name": "German Shepherd",
           "formId": "0077D822",
@@ -2371,18 +2170,7 @@
           "seasonNumber": 19
         }
       ],
-      "combat": {
-        "weapFormId": "008E529B",
-        "weapEdid": "crUnarmedWorldPet_Dog",
-        "attackType": "Bite",
-        "speed": 1,
-        "reach": 1,
-        "minRange": 50,
-        "maxRange": 2000,
-        "attackDelay": 0,
-        "critDmgMult": 1,
-        "npcBaseHealth": 190
-      }
+      "combat": {}
     },
     {
       "key": "radhog",
@@ -2392,14 +2180,14 @@
       "sig1": "Rad Magnet",
       "sig2": "Nuke Harvest",
       "sig1Mag": [
-        2,
-        4,
-        6
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        25,
-        50,
-        75
+        null,
+        null,
+        null
       ],
       "activity": "Collect Flux with an active Pet Radhog",
       "treasure": {
@@ -2493,7 +2281,7 @@
           "seasonNumber": 25
         },
         {
-          "name": "Gruyere Radhog",
+          "name": "Gruyere",
           "formId": "008B1552",
           "edid": "ATX_CAMPPets_Actor_Radhog_Gruyere",
           "obtainSource": "Atom Shop",
@@ -2718,18 +2506,7 @@
           ]
         }
       ],
-      "combat": {
-        "weapFormId": "008E5299",
-        "weapEdid": "crUnarmedWorldPet_Radhog",
-        "attackType": "Ram",
-        "speed": 1,
-        "reach": 1,
-        "minRange": 50,
-        "maxRange": 2000,
-        "attackDelay": 0,
-        "critDmgMult": 1,
-        "npcBaseHealth": 450
-      }
+      "combat": {}
     }
   ]
 }
