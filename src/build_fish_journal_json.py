@@ -674,6 +674,11 @@ def cascade_of(r):
     if any("Junk" in c for c in cl): return "junk"
     if has_kw(r, "Glowing") or nm.startswith("Glowing"): return "glow"
     if has_kw(r, "Axolotl") or any("Axolotls" in c for c in cl): return "axolotl"
+    # A Generic-type fish is an all-region catch even when it also sits in the
+    # SeasonalFish_Uncommon pool (e.g. Ridge Trout, the only generic that does).
+    # Classify by its FishType keyword / Generic collection so it lands in the
+    # generic cascade, not uncommon — otherwise it wrongly shows in region tabs.
+    if has_kw(r, "Generic") or any("Generic" in c for c in cl): return "generic"
     if any(c.endswith("_Uncommon") or "SeasonalFish" in c for c in cl): return "uncommon"
     if any(c.endswith("_Common") for c in cl): return "common"
     if any("Generic" in c for c in cl): return "generic"
