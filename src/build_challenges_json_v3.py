@@ -37,6 +37,15 @@ from pathlib import Path
 
 from patchlog_utils import diff_item_lists, _write_json, _git_show_json, write_empty_patchlog_feed
 
+# Mini-season / LTE event reward overlay. Event challenges (ATX_DE…) pay
+# scoreboard tickets (mini-season era) or a named item (older LTE era); neither
+# is in the CHAL export, so both live in this hand-maintained overlay keyed by
+# EDID. Same source of truth the mini-season build uses.
+try:
+    from mini_seasons_tickets import TICKET_REWARDS, CHALLENGE_REWARDS
+except ImportError:
+    TICKET_REWARDS, CHALLENGE_REWARDS = {}, {}
+
 # Resolve paths relative to the repo root (one level up from src/) so the
 # script produces correct output regardless of which directory it's run from.
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -866,6 +875,19 @@ ATOMS_REWARD = "Atoms"
 def default_rewards(item):
     if item.get("rewards"):
         return item["rewards"]
+    # Event challenges (ATX_DE…) carry no MNAM — their reward is a ticket count
+    # (mini-season era) or a named item (older LTE era), maintained in the
+    # overlay and keyed by exact EDID. Without this every event row on a topic
+    # page (e.g. the Fishing checklist) renders "—" in the gold Reward box.
+    edid = str(item.get("edid") or "")
+    _tk = TICKET_REWARDS.get(edid)
+    if _tk is not None:
+        return [f"Tickets ({_tk})"]
+    _ci = CHALLENGE_REWARDS.get(edid)
+    if _ci is not None:
+        _nm = _ci.get("name") if isinstance(_ci, dict) else str(_ci)
+        if _nm:
+            return [_nm]
     if scope_bucket(item.get("scope")) not in ("daily", "weekly"):
         return []
     # The 11 ATOMS_-prefixed dailies/weeklies pay Atoms, not scoreboard

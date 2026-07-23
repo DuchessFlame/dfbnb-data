@@ -48,7 +48,43 @@ TICKET_REWARDS = {
     'ATX_DE2025_SunsetStranger_Week2_Challenge_Kill_BurningScorpion': 20,
     'ATX_DE2025_SunsetStranger_Week2_Challenge_Kill_BurningStingwing': 20,
     'ATX_DE2025_SunsetStranger_Week2_Challenge_Kill_Humans_BurningSprings': 20,
-    # (Kill_BurningOgua not yet captured — no screenshot covering it)
+    'ATX_DE2025_SunsetStranger_Week2_Challenge_Kill_BurningOgua': 20,  # inferred: every per-challenge in this event awards 20; not directly screenshotted
+
+    # ── Marshal Mallow's Marvelous Fishing Excursion / MMMFE (2025-08-12 → 2025-08-26) ──
+    # Source: in-game Events-tab screenshots 20250813001643/001652 (Week 1) and
+    # 20250820002250/002255 (Week 2). Every per-challenge awards 20 tickets; each
+    # weekly rollup awards 60; the event-completion bonus awards 100.
+    'ATX_DE2025_MMMFE_Week1': 60,  # "Complete All Regional Fishing Challenges" (week1 rollup, 0/3)
+    'ATX_DE2025_MMMFE_Week2': 60,  # "Complete All Regional Fishing Challenges" (week2 rollup — same name/reward)
+    'ATX_DE2025_MMMFE_Event_Complete': 100,  # "Catch a Fish with the Marshal Mallow Fishing Hat equipped" (0/76 bonus)
+    'ATX_DE2025_MMMFE_Week1_Challenge_Catch_Fish_CranberryBog': 20,
+    'ATX_DE2025_MMMFE_Week1_Challenge_Catch_Fish_Forest': 20,
+    'ATX_DE2025_MMMFE_Week1_Catch_Fish_Mire': 20,
+    'ATX_DE2025_MMMFE_Week1_Challenge_Catch_Fish_Intoxicated': 20,
+    'ATX_DE2025_MMMFE_Week1_Challenge_Collect_Bait': 20,
+    'ATX_DE2025_MMMFE_Week1_Challenge_Craft_FishingRods': 20,
+    'ATX_DE2025_MMMFE_Week1_Challenge_Kill_Mirelurks': 20,
+    'ATX_DE2025_MMMFE_Week2_Challenge_Catch_Fish_AshHeap': 20,
+    'ATX_DE2025_MMMFE_Week2_Challenge_Catch_Fish_Savage_Divide': 20,
+    'ATX_DE2025_MMMFE_Week2_Challenge_Catch_Fish_SkylineValley': 20,
+    'ATX_DE2025_MMMFE_Week2_Challenge_Catch_Fish_Toxic_Valley': 20,
+    'ATX_DE2025_MMMFE_Week2_Challenge_Catch_Fish_Intoxicated': 20,
+    'ATX_DE2025_MMMFE_Week2_Challenge_Kill_Gulpers': 20,
+    'ATX_DE2025_MMMFE_Week2_Challenge_Kill_Mirelurk_Queen': 20,
+    # (ZZZ_ATX_DE2025_MMMFE_Week2_Challenge_Catch_Junk is a cut ZZZ_ record — no ticket value)
+
+    # ── Halloween / Spooky Scorched (2025-10, Week 2) ──
+    # Source: in-game Events-tab screenshots 20251029001148/001157. Halloween
+    # uses a lower scale than the fishing events: per-challenge 10, the two
+    # "Complete a …" rollups 40. (Candy-bowl / trick-or-treat rows shown at 5 in
+    # the screenshot are ZZZ_ cut records in the current export — omitted.)
+    'ATX_DE2025_Halloween_Week2_Challenge_Catch_Regular_Fish_InCostume': 10,  # Catch a Fish while wearing a Costume
+    'ATX_DE2025_Halloween_Week2_Challenge_Consume_Candy_InCostume': 10,       # Eat Candy while in a Costume
+    'ATX_DE2025_Halloween_Week2_Challenge_Kill_Humans_InCostume': 10,         # Kill a Human while wearing a Costume
+    'ATX_DE2025_Halloween_Week2_Challenge_Kill_SpookyScorched_InCostume': 10, # Kill a Spooky Scorched while wearing a Costume
+    'ATX_DE2025_Halloween_Week2_GainScrap_Fertilizer_InCostume': 10,          # Scrap junk to produce Fertilizer while wearing a Costume
+    'ATX_DE2025_Halloween_Week2_GiveOutCandy_Challenge_Complete': 40,         # Complete a "Give out Candy" Challenge
+    'ATX_DE2025_Halloween_Week2_TrickorTreat_Challenge_Complete': 40,         # Complete a "Trick or Treat" Challenge
 
     # ── Love Hurts (2026-02-03 → 2026-02-17) ──
     # Source: screenshots 1151340_20260204011732 and 011735
