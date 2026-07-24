@@ -824,6 +824,14 @@ jobs:
       - name: Build Survival Tent Interiors JSON
         run: python src/build_survival_tent_interiors_json.py
 
+      # --- EMOTES ---
+      # Reads the latest tsv/EMOT_Export_*.tsv (+ ENTM for name polish) and
+      # emits dist/emotes.json — consumed by the emotes page (df-bnb-atom-shop.js).
+      # Generative replacement for the old inline EMOTE_DATA array; same page
+      # family as Atom Shop / Tents so it runs alongside them.
+      - name: Build Emotes JSON
+        run: python src/build_emotes_json.py
+
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |
@@ -865,6 +873,7 @@ jobs:
           test -f dist/atom_shop.json                && echo "OK atom_shop.json"                || (echo "MISSING atom_shop.json" && exit 1)
           test -f dist/seasons.json                  && echo "OK seasons.json"                  || (echo "MISSING seasons.json" && exit 1)
           test -f dist/survival_tent_interiors.json  && echo "OK survival_tent_interiors.json"  || (echo "MISSING survival_tent_interiors.json" && exit 1)
+          test -f dist/emotes.json                   && echo "OK emotes.json"                   || (echo "MISSING emotes.json" && exit 1)
           test -f dist/camp.json                     && echo "OK camp.json"                     || (echo "MISSING camp.json" && exit 1)
           test -f dist/cobj-recipes.json             && echo "OK cobj-recipes.json"             || (echo "MISSING cobj-recipes.json" && exit 1)
           test -f dist/menu-items.json               && echo "OK menu-items.json"               || (echo "MISSING menu-items.json" && exit 1)

@@ -1,0 +1,46 @@
+name: Build Emotes Data
+
+# Manual-only trigger.
+# The patch build (dfbnb-patch-build.yml) already runs this script on
+# every push to src/ or tsv/, so an automatic trigger here would cause
+# a double-build race condition. Use this workflow for quick one-off
+# rebuilds when you only need to update the Emotes data.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Run build script
+        run: |
+          mkdir -p dist
+          python src/build_emotes_json.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/emotes.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Emotes data"
+            git fetch origin main
+            git pull --rebase origin main
+            git push
+          fi
