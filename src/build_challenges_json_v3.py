@@ -1386,7 +1386,7 @@ def is_pint_sized_phantom(item):
 
 def phantom_group(edid):
     e = str(edid or "")
-    if re.search(r"Collect_SlasherClue", e, re.IGNORECASE): return "Slasher Masks"
+    if re.search(r"Collect_SlasherClue", e, re.IGNORECASE): return "Lifetime"
     if re.search(r"_Daily_", e, re.IGNORECASE):             return "Daily"
     if re.search(r"_Weekly_", e, re.IGNORECASE):            return "Weekly"
     return "Other"
