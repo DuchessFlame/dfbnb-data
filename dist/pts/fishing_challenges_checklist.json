@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated": "2026-07-25T19:19:10.236683+00:00",
-  "isPts": true,
+  "generated": "2026-07-26T02:02:58.357026+00:00",
+  "isPts": false,
   "source": {
     "base": "dist/challenges/challenges.json",
-    "gmrwTsv": "GMRW_Export_May_2026.tsv",
+    "gmrwTsv": "GMRW_Export_July_2026.tsv",
     "overlay": "src/fishing_challenges_checklist_rewards.json"
   },
   "page": {
@@ -847,7 +847,7 @@
       "label": "Lifetime",
       "blurb": "",
       "trackable": true,
-      "count": 42,
+      "count": 45,
       "track_ids": [
         "Challenge_Lifetime_Fishing_Progress_01_META",
         "Challenge_Lifetime_Fishing_Progress_02_META",
@@ -875,6 +875,9 @@
         "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any",
         "Challenge_Lifetime_Fishing_SeasonalFish_Summer_LocalLegend",
         "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any_02",
+        "Challenge_Lifetime_Fishing_SeasonalFish_Fall_Any",
+        "Challenge_Lifetime_Fishing_SeasonalFish_Fall_LocalLegend",
+        "Challenge_Lifetime_Fishing_SeasonalFish_Fall_Any_02",
         "Challenge_Lifetime_Fishing_SeasonalFish_AllSeasons_META",
         "Challenge_Lifetime_Fishing_Any_LocalLegend",
         "Challenge_Lifetime_Fishing_LocalLegend_01",
@@ -1602,6 +1605,88 @@
           "trackable": true
         },
         {
+          "form_id": "008EFCAA",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Fall_Any",
+          "name": "Catch A Fall Seasonal Fish",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Title: Sunset",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Fall [KYWD:008B3D60]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008EFCA9",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Fall_LocalLegend",
+          "name": "Catch Fall Seasonal Local Legend: \"Sludge Eye\"",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Spicy Eelgrass Soup",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Sludge Eye [ALCH:008EFCA6]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            },
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008EFCAB",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Fall_Any_02",
+          "name": "Catch Fall Seasonal Fish",
+          "required": 15,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Title: Bountiful",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Fall [KYWD:008B3D60]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
           "form_id": "008B3D4A",
           "edid": "Challenge_Lifetime_Fishing_SeasonalFish_AllSeasons_META",
           "name": "Catch Fish From Every Season",
@@ -2070,8 +2155,8 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "",
-          "reward_source": "none",
+          "reward": "Title: Dusty",
+          "reward_source": "title",
           "reward_desc": "",
           "image_url": "",
           "conditions_display": [
