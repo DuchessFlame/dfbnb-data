@@ -634,6 +634,16 @@ def _attach_weapon_mod_effects(tree):
 _EXCLUDE_RE = re.compile(r"^(zzz_|CUT_|POST_|DEL_|P62_)", re.IGNORECASE)
 _DRIFTER_EDID = "P62_LLS_Rewards_TheDrifter_ActivationKeyCard"
 
+# Generic shared reward lists that are attached to some seasonal quest rewards
+# but are NOT part of an event's curated reward set (no other seasonal event
+# surfaces them). Excluded by EDID so pages stay consistent. The Slasher weekly
+# quests each attach QuestReward_LLS_AllRegions_GrabBag as a secondary reward —
+# a generic ~290-item all-regions plan grab bag — which would otherwise flood
+# the Unique Event Rewards list.
+_EXCLUDE_EDIDS = {
+    "questreward_lls_allregions_grabbag",
+}
+
 IMAGE_BASE = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/seasonal-events/"
 
 XP_REFERENCE_LEVEL = 50
@@ -804,6 +814,25 @@ EVENTS = {
         "description": "Survive the Night of the Radtoads and earn unique rewards.",
         "isContainerLoot": False,
         "questFormIDs": [],
+    },
+    # The Slasher (Fall 2026 / "Psychophants of Appalachia"). A ~1-month
+    # seasonal event with four weekly activities driven by the umbrella quest
+    # "(Seasonal) The Slasher" (SDOW_SQ00_UmbrellaQuest). Every weekly reward
+    # (Masked Truth / Secrets to the Grave / Out of the Shadows / Blood Will
+    # Have Blood) plus the repeatable "Disturbed Grave" hangs its GMRW rows off
+    # the repeatable quest 008F1665:SDOW_SQ01_Graves_Repeatable, so keying the
+    # combined All Rewards page on that quest captures the full seasonal-quest
+    # reward set generatively. (Daily Ops, Infestation and Head Hunt boss loot
+    # live on their own pages.)
+    "the-slasher-all-rewards": {
+        "name": "The Slasher",
+        "eventSlug": "the-slasher",
+        "description": "Keep Appalachia safe from the followers of the Pint-Sized Slasher. Complete the weekly Slasher activities — Masked Truth, Secrets to the Grave, Out of the Shadows and Blood Will Have Blood — plus the repeatable Disturbed Grave to earn the event's unique rewards.",
+        "isContainerLoot": False,
+        # Custom-processed (see _process_slasher_event): the page groups its
+        # rewards into one root expand per weekly activity + repeatable + Daily
+        # Ops, so questFormIDs is informational only here.
+        "questFormIDs": ["008F1665"],
     },
 }
 
@@ -984,6 +1013,8 @@ def is_excluded(edid):
     if _EXCLUDE_RE.match(edid):
         return True
     if _DRIFTER_EDID.lower() in edid.lower():
+        return True
+    if edid.lower() in _EXCLUDE_EDIDS:
         return True
     return False
 
@@ -2538,6 +2569,103 @@ def _collapse_redundant_tiers(node):
 # Per-event processing
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# The Slasher — bespoke per-activity assembly
+# ---------------------------------------------------------------------------
+# The Slasher page groups its rewards into one root expand per weekly activity
+# (+ the repeatable Disturbed Grave and the Daily Ops faction), rather than the
+# standard flat "Unique Event Rewards" list. Each activity node is built from
+# the specific LVLIs that activity awards, resolved generatively via rng76.
+
+# Base weapon FormID -> event-exclusive / re-used unique display name. Applied
+# ONLY to Slasher nodes (resolve_deep flattens these named uniques to their base
+# weapon name, which the small global _NAMED_WEAPON_OVERRIDES doesn't cover).
+_SLASHER_ITEM_RENAMES = {
+    "006361a2": "Super Slasher Auto Axe",   # Wk4 legendary (base AutoAxe)
+    "004e2e20": "Relic Reaper",             # Repeatable rare (base Shovel)
+    "000ff964": "The Farmhand",             # Wk3 ultra (base Super Sledge)
+    "0010db0f": "Old Guard",                # Wk3 ultra (base 10mm SMG)
+    "000ce97d": "The Fact Finder",          # Wk3 ultra (base .44)
+    "00092217": "Salt of the Earth",        # Repeatable ultra (base Double-Barrel)
+    "0010f0ec": "Night Light",              # Repeatable ultra (base Tesla/Lightning Gun)
+    "0009221c": ".44 Rounds",               # ammo bundled with The Fact Finder (.44)
+}
+
+# Generic legendary-roll template rows (not display items) to drop.
+_SLASHER_TEMPLATE_RE = re.compile(r"^(ra\s+)?legendary items\b", re.IGNORECASE)
+
+# (label, source EDID for the node, [reward LVLI FormIDs to merge])
+_SLASHER_ACTIVITIES = [
+    ("Masked Truth (Week 1)",             "SDOW_MQ01_Bodies",            ["00900A6F"]),
+    ("Secrets to the Grave (Week 2)",     "SDOW_MQ02_Graves",            ["00900A70"]),
+    ("Out of the Shadows (Week 3)",       "SDOW_MQ04_Infestations",      ["00900A71", "008F2B67"]),
+    ("Blood Will Have Blood (Week 4)",    "SDOW_MQ05_Headhunt",          ["00900A72", "0090FC46"]),
+    ("Disturbed Grave (Repeatable)",      "SDOW_SQ01_Graves_Repeatable", ["0090312E", "00903130"]),
+    ("The Way of the Wicked (Daily Ops)", "SDOW_MQ03_DailyOps",          ["008FCEA4"]),
+]
+
+
+def _process_slasher_event(event_def, slug, resolver, data, gmrw_rows):
+    ev_slug = event_def["eventSlug"]
+
+    # XP / caps summary from the umbrella repeatable quest's GMRW rows.
+    rows = _gmrw_rows_for_quests(["008F1665"], gmrw_rows)
+    xp_breakdown, caps_breakdown, _ri = _gmrw_extract_xp_caps_per_ri(rows, data)
+    xp_block   = _build_xp_block(xp_breakdown)
+    caps_block = _build_caps_block_summary(caps_breakdown)
+
+    tree = []
+    caps_node = _build_caps_node(caps_breakdown)
+    if caps_node:
+        tree.append(caps_node)
+
+    for label, edid, fids in _SLASHER_ACTIVITIES:
+        items = []
+        seen = set()
+        for fid in fids:
+            node = _build_lvli_node(
+                fid, fid, edid, resolver, ev_slug,
+                tier_label_fn=lambda _it, _l=label: _l,
+            )
+            if not node:
+                continue
+            for it in node["items"]:
+                if _SLASHER_TEMPLATE_RE.match(it.get("name", "")):
+                    continue  # drop generic legendary-roll templates
+                fid_lc = (it.get("formid") or "").lower()
+                if fid_lc in seen:
+                    continue
+                seen.add(fid_lc)
+                if fid_lc in _SLASHER_ITEM_RENAMES:
+                    it["name"] = _SLASHER_ITEM_RENAMES[fid_lc]
+                items.append(it)
+        if not items:
+            print("    [WARN] Slasher activity '{}' resolved 0 items".format(label))
+            continue
+        items.sort(key=lambda x: x["name"].lower())
+        tree.append({
+            "type":           "lvli",
+            "formid":         fids[0],
+            "edid":           edid,
+            "label":          label,
+            "isUniqueReward": True,
+            "useAll":         False,
+            "entryRate":      100.0,
+            "gmrwDropRate":   100.0,
+            "tierLabel":      None,
+            "items":          items,
+        })
+
+    flat_rewards = _build_flat_rewards_from_tree(tree, event_def, None)
+    return {
+        "xp":              xp_block,
+        "caps":            caps_block,
+        "eventRewardTree": tree,
+        "rewards":         flat_rewards,
+        "groups":          None,
+    }
+
+
 def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
     quest_fids = event_def.get("questFormIDs") or []
     rows = _gmrw_rows_for_quests(quest_fids, gmrw_rows)
@@ -3124,7 +3252,9 @@ def main():
                 page_data["primeMeatBuff"] = _pmb
 
         try:
-            if event_def["isContainerLoot"]:
+            if slug == "the-slasher-all-rewards":
+                ev = _process_slasher_event(event_def, slug, resolver, data, gmrw_rows)
+            elif event_def["isContainerLoot"]:
                 ev = _process_container_event(event_def, slug, resolver, data)
             else:
                 ev = _process_quest_event(event_def, slug, resolver, data, gmrw_rows)
