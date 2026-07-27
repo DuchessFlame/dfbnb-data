@@ -2577,31 +2577,87 @@ def _collapse_redundant_tiers(node):
 # standard flat "Unique Event Rewards" list. Each activity node is built from
 # the specific LVLIs that activity awards, resolved generatively via rng76.
 
-# Base weapon FormID -> event-exclusive / re-used unique display name. Applied
-# ONLY to Slasher nodes (resolve_deep flattens these named uniques to their base
-# weapon name, which the small global _NAMED_WEAPON_OVERRIDES doesn't cover).
-_SLASHER_ITEM_RENAMES = {
-    "006361a2": "Super Slasher Auto Axe",   # Wk4 legendary (base AutoAxe)
-    "004e2e20": "Relic Reaper",             # Repeatable rare (base Shovel)
-    "000ff964": "The Farmhand",             # Wk3 ultra (base Super Sledge)
-    "0010db0f": "Old Guard",                # Wk3 ultra (base 10mm SMG)
-    "000ce97d": "The Fact Finder",          # Wk3 ultra (base .44)
-    "00092217": "Salt of the Earth",        # Repeatable ultra (base Double-Barrel)
-    "0010f0ec": "Night Light",              # Repeatable ultra (base Tesla/Lightning Gun)
-    "0009221c": ".44 Rounds",               # ammo bundled with The Fact Finder (.44)
-}
-
 # Generic legendary-roll template rows (not display items) to drop.
 _SLASHER_TEMPLATE_RE = re.compile(r"^(ra\s+)?legendary items\b", re.IGNORECASE)
 
-# (label, source EDID for the node, [reward LVLI FormIDs to merge])
+# One root expand per activity / system. Each spec:
+#   label   – expand heading
+#   edid    – node source EDID (display/debug)
+#   lvlis   – reward LVLI FormIDs to resolve + merge (rng76 resolve_deep)
+#   keep    – optional set of FormIDs (lowercase); if present, ONLY these are
+#             kept (used to curate the huge generic loot pools down to the
+#             Slasher-relevant rewards). Omit to keep everything.
+#   drop    – optional set of FormIDs (lowercase) to exclude.
+#   renames – FormID (lowercase) -> display name. resolve_deep flattens
+#             OMOD-named uniques to their base weapon, so we relabel per-
+#             activity (the same base FormID is a different named unique in
+#             different pools — e.g. base .44 = The Fact Finder in Week 3 vs
+#             Medical Malpractice in the enemy pack).
 _SLASHER_ACTIVITIES = [
-    ("Masked Truth (Week 1)",             "SDOW_MQ01_Bodies",            ["00900A6F"]),
-    ("Secrets to the Grave (Week 2)",     "SDOW_MQ02_Graves",            ["00900A70"]),
-    ("Out of the Shadows (Week 3)",       "SDOW_MQ04_Infestations",      ["00900A71", "008F2B67"]),
-    ("Blood Will Have Blood (Week 4)",    "SDOW_MQ05_Headhunt",          ["00900A72", "0090FC46"]),
-    ("Disturbed Grave (Repeatable)",      "SDOW_SQ01_Graves_Repeatable", ["0090312E", "00903130"]),
-    ("The Way of the Wicked (Daily Ops)", "SDOW_MQ03_DailyOps",          ["008FCEA4"]),
+    {
+        "label": "Masked Truth (Week 1)", "edid": "SDOW_MQ01_Bodies",
+        "lvlis": ["00900A6F"],
+    },
+    {
+        "label": "Secrets to the Grave (Week 2)", "edid": "SDOW_MQ02_Graves",
+        "lvlis": ["00900A70"],
+    },
+    {
+        "label": "Out of the Shadows (Week 3)", "edid": "SDOW_MQ04_Infestations",
+        "lvlis": ["00900A71", "008F2B67"],
+        "drop": {"000ce97d", "0009221c"},   # generic .44 + .44 ammo
+        "renames": {"000ff964": "The Farmhand", "0010db0f": "Old Guard"},
+    },
+    {
+        "label": "Blood Will Have Blood (Week 4)", "edid": "SDOW_MQ05_Headhunt",
+        "lvlis": ["00900A72"],
+    },
+    {
+        "label": "Head Hunt — The Reborn Slasher", "edid": "SDOW_LL_BountyDrop_BIG",
+        "lvlis": ["0090FC46"],
+        "renames": {"006361a2": "Super Slasher Auto Axe"},
+    },
+    {
+        "label": "Disturbed Grave (Repeatable)", "edid": "SDOW_SQ01_Graves_Repeatable",
+        "lvlis": ["0090312E", "00903130"],
+        "renames": {
+            "004e2e20": "Relic Reaper",
+            "00092217": "Salt of the Earth",
+            "0010f0ec": "Night Light",
+        },
+    },
+    {
+        "label": "The Way of the Wicked (Daily Ops)", "edid": "SDOW_MQ03_DailyOps",
+        "lvlis": ["008FCEA4"],
+    },
+    {
+        "label": "Spooky Scorched", "edid": "SDOW_LLD_SpookyScorched",
+        "lvlis": ["008F6AC2"],
+    },
+    {
+        "label": "Mischief Night — Uninvited Guest", "edid": "SDOW_LLD_SlasherFan_PartyCrasher",
+        "lvlis": ["008E06FB"],
+        "keep": {"008e06f0", "008e0699", "00904cd5", "008aa951",
+                 "0008f0ef", "00143ab5", "0009983b"},
+        "renames": {
+            "0008f0ef": "Crushing Blow",
+            "00143ab5": "Commander's Charge",
+            "0009983b": "Acceptable Overkill",
+        },
+    },
+    {
+        "label": "Pint-Sized Phantom Pack (Enemy Drops)", "edid": "SDOW_SlasherFanReward_Loot",
+        "lvlis": ["0092B344"],
+        "keep": {"008e06f0", "008e069f",
+                 "00432cd3", "00432d39", "00432d3c", "00432d3f", "00432d42",
+                 "00432d45", "00432d48", "00432d4b", "00432d4e", "00432d51", "00432d54",
+                 "000d8576", "000ce97d"},
+        "renames": {
+            "008e069f": "Severing (Legendary Shard)",
+            "000d8576": "Unstoppable Monster",
+            "000ce97d": "Medical Malpractice",
+        },
+    },
 ]
 
 
@@ -2619,10 +2675,15 @@ def _process_slasher_event(event_def, slug, resolver, data, gmrw_rows):
     if caps_node:
         tree.append(caps_node)
 
-    for label, edid, fids in _SLASHER_ACTIVITIES:
+    for spec in _SLASHER_ACTIVITIES:
+        label   = spec["label"]
+        edid    = spec["edid"]
+        keep    = spec.get("keep")
+        drop    = spec.get("drop") or set()
+        renames = spec.get("renames") or {}
         items = []
         seen = set()
-        for fid in fids:
+        for fid in spec["lvlis"]:
             node = _build_lvli_node(
                 fid, fid, edid, resolver, ev_slug,
                 tier_label_fn=lambda _it, _l=label: _l,
@@ -2633,11 +2694,13 @@ def _process_slasher_event(event_def, slug, resolver, data, gmrw_rows):
                 if _SLASHER_TEMPLATE_RE.match(it.get("name", "")):
                     continue  # drop generic legendary-roll templates
                 fid_lc = (it.get("formid") or "").lower()
-                if fid_lc in seen:
+                if keep is not None and fid_lc not in keep:
+                    continue
+                if fid_lc in drop or fid_lc in seen:
                     continue
                 seen.add(fid_lc)
-                if fid_lc in _SLASHER_ITEM_RENAMES:
-                    it["name"] = _SLASHER_ITEM_RENAMES[fid_lc]
+                if fid_lc in renames:
+                    it["name"] = renames[fid_lc]
                 items.append(it)
         if not items:
             print("    [WARN] Slasher activity '{}' resolved 0 items".format(label))
@@ -2645,7 +2708,7 @@ def _process_slasher_event(event_def, slug, resolver, data, gmrw_rows):
         items.sort(key=lambda x: x["name"].lower())
         tree.append({
             "type":           "lvli",
-            "formid":         fids[0],
+            "formid":         spec["lvlis"][0],
             "edid":           edid,
             "label":          label,
             "isUniqueReward": True,
