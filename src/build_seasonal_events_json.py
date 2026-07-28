@@ -673,6 +673,10 @@ EVENTS = {
     "fasnacht-day-parade-all-rewards": {
         "name": "Fasnacht Day Parade",
         "eventSlug": "fasnacht-day-parade",
+        # Reward thumbnails live in .../guide-images/seasonal-events/Fasnacht/rewards/
+        # on the site (guide-page figures live in .../Fasnacht/guide/). The page
+        # slug (fasnacht-day-parade) is still used for the URL path + cover image.
+        "imageDir": "Fasnacht/rewards",
         "description": "Join the fun during the Fasnacht Day parade and earn a chance at a festive mask!",
         "isContainerLoot": False,
         "questFormIDs": ["0049886E"],
@@ -1031,10 +1035,30 @@ def slugify_item(name):
     return s.strip("-")
 
 
-def build_image_url(event_slug, item_name):
+# Image-filename overrides keyed by item FormID. Some rewards' uploaded image
+# files are named after an *older* display name than the one the resolver now
+# produces. When we prettify a name (e.g. the resolver used to fall back to the
+# raw "ARMO Headwear Fasnacht Mask Brat Boy" EDID, now it resolves the proper
+# "Fasnacht Brat Boy Mask") the slugified filename would change and 404 against
+# the already-uploaded file. Pin the on-disk slug here so the display name can
+# be cleaned without re-uploading the image.
+#
+# Fasnacht masks whose FULL was blank originally -> images uploaded under the
+# old "armo-headwear-fasnacht-mask-*" slug (see .../Fasnacht/rewards/ on the site).
+REWARD_IMAGE_SLUG_OVERRIDES = {
+    "008B3E67": "armo-headwear-fasnacht-mask-brat-boy",       # Fasnacht Brat Boy Mask
+    "008B3E68": "armo-headwear-fasnacht-mask-brat-boy-glow",  # Fasnacht Glowing Red Hot Mask
+    "008B3E62": "armo-headwear-fasnacht-mask-pitman",         # Fasnacht Pitman
+    "008B3E63": "armo-headwear-fasnacht-mask-pitman-glow",    # Fasnacht Glowing Pitman
+    "008B3F3E": "armo-headwear-fasnacht-mask-pitman-clean",   # Clean Fasnacht Pitman
+}
+
+
+def build_image_url(event_slug, item_name, slug_override=None):
     # event_slug may be a multi-segment path (e.g. "meat-week/meat-cook/rewards")
     # when a page stores its reward images in a dedicated subfolder.
-    return IMAGE_BASE + event_slug.strip("/") + "/" + slugify_item(item_name) + ".avif"
+    slug = slug_override or slugify_item(item_name)
+    return IMAGE_BASE + event_slug.strip("/") + "/" + slug + ".avif"
 
 
 # Reward slugs that have more than one uploaded view (front/back, the three
@@ -1049,10 +1073,11 @@ IMAGE_GALLERIES = {
 }
 
 
-def build_image_list(event_slug, item_name):
+def build_image_list(event_slug, item_name, slug_override=None):
     """Return the ordered list of image URLs for an item (primary first)."""
-    base = event_slug.strip("/") + "/" + slugify_item(item_name)
-    n = IMAGE_GALLERIES.get(slugify_item(item_name), 1)
+    slug = slug_override or slugify_item(item_name)
+    base = event_slug.strip("/") + "/" + slug
+    n = IMAGE_GALLERIES.get(slug, 1)
     urls = [IMAGE_BASE + base + ".avif"]
     for i in range(2, n + 1):
         urls.append(IMAGE_BASE + base + "-{}.avif".format(i))
@@ -3032,7 +3057,8 @@ def _build_flat_rewards_from_tree(tree, event_def, groups):
             name = it["name"]
             edid = it["edid"]
             if fid not in by_fid:
-                _imgs = build_image_list(ev_slug, name)
+                _slug_ovr = REWARD_IMAGE_SLUG_OVERRIDES.get(str(fid).upper())
+                _imgs = build_image_list(ev_slug, name, slug_override=_slug_ovr)
                 by_fid[fid] = {
                     "name":         name,
                     "formId":       fid,
