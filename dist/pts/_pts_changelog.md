@@ -512,18 +512,19 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +1 / -0 / ~8
+## `titles_player.json`  ·  +1 / -0 / ~9
 
 **Added (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (8)**
+**Changed (9)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel
 - Fishing_PlayerTitles_Prefix_Bountiful  `Fishing_PlayerTitles_Prefix_Bountiful` — fields: debug, howToObtain
 - SDOW_PlayerTitles_Prefix_Laughing  `SDOW_PlayerTitles_Prefix_Laughing` — fields: debug, howToObtain
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_AnyPet01  `WorldPets_PlayerTitles_Prefix_AnyPet01` — fields: debug, howToObtain
 - WorldPets_PlayerTitles_Prefix_AnyPet02  `WorldPets_PlayerTitles_Prefix_AnyPet02` — fields: debug, howToObtain
 
