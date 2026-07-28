@@ -1054,6 +1054,44 @@ REWARD_IMAGE_SLUG_OVERRIDES = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Legendary LGDI item-name prettification (drop-rate-engine §16)
+# ---------------------------------------------------------------------------
+# resolve_deep returns humanized-EDID names for LGDI items (no FULL in TSVs).
+# e.g. "Legendary Items Armor Rank1" → "1★ Legendary Armour"
+# Per the legendary naming convention the star count comes BEFORE "Legendary".
+
+_LEGENDARY_ITEM_NAME_RE = re.compile(
+    r"^Legendary\s+Items?\s+"
+    r"(?P<type>Armor|Power\s*Armor|Weapons?\s*(?:Any|Melee|Ranged)?)\s*"
+    r"Rank(?P<rank>\d+)$",
+    re.IGNORECASE,
+)
+
+_LEGENDARY_TYPE_MAP = {
+    "armor":          "Legendary Armour",
+    "power armor":    "Legendary Power Armour",
+    "powerarmor":     "Legendary Power Armour",
+    "weapons any":    "Legendary Weapons",
+    "weapon any":     "Legendary Weapons",
+    "weapons melee":  "Legendary Melee Weapons",
+    "weapon melee":   "Legendary Melee Weapons",
+    "weapons ranged": "Legendary Ranged Weapons",
+    "weapon ranged":  "Legendary Ranged Weapons",
+}
+
+
+def _prettify_legendary_item_name(name):
+    """Convert 'Legendary Items Armor Rank1' → '1★ Legendary Armour'."""
+    m = _LEGENDARY_ITEM_NAME_RE.match(name)
+    if not m:
+        return name
+    rank = m.group("rank")
+    raw_type = re.sub(r"\s+", " ", m.group("type")).strip().lower()
+    label = _LEGENDARY_TYPE_MAP.get(raw_type, "Legendary Items")
+    return "{}★ {}".format(rank, label)
+
+
 def build_image_url(event_slug, item_name, slug_override=None):
     # event_slug may be a multi-segment path (e.g. "meat-week/meat-cook/rewards")
     # when a page stores its reward images in a dedicated subfolder.
@@ -2357,11 +2395,12 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
     non_tradable_fids, unsellable_fids = _load_kywd_flags()
 
     out_items = []
-    seen_fids = set()
+    seen_fids = {}          # fid → index in out_items (for rate accumulation)
     for it in items:
         fid  = it.get("formid", "")
         edid = it.get("edid", "")
         name = _NAMED_WEAPON_OVERRIDES.get(fid.lower(), it.get("name", ""))
+        name = _prettify_legendary_item_name(name)
         rate = it.get("dropRate", 0.0)
         qty  = it.get("qty", 1) or 1
         sig  = (it.get("sig") or "").upper()
@@ -2373,9 +2412,21 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
             continue
         if rate < MIN_RATE_DECIMAL:
             continue
+        # When the same item appears multiple times (e.g. waterfall entries 0
+        # and 1 both resolve the same Rare pool), accumulate the drop rates
+        # instead of discarding the duplicate.  resolve_deep returns separate
+        # rows; resolve_simple sums by FormID automatically — this keeps the
+        # two in sync.
         if fid in seen_fids:
+            idx = seen_fids[fid]
+            out_items[idx]["dropRate"] = round(
+                out_items[idx]["dropRate"] + rate * 100, 6
+            )
+            # Update tiers[0] rate to match the accumulated total.
+            if out_items[idx].get("tiers"):
+                out_items[idx]["tiers"][0]["rate"] = out_items[idx]["dropRate"]
             continue
-        seen_fids.add(fid)
+        seen_fids[fid] = len(out_items)
 
         fid_lc = fid.lower()
         item_dict = {
