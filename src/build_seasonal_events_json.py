@@ -3180,15 +3180,23 @@ def _apply_release_years(output, tracking):
         seen_slugs.add(slug)
         for reward in page_data.get("rewards", []):
             fid = reward.get("formId", "")
-            if not reward.get("isTrackable"):
-                continue
+            # Items already in the year tracker get stamped regardless of
+            # isTrackable — this covers masks/headwear/titles whose years are
+            # seeded from the checklist (they are not "trackable" plans but
+            # still show a Year pill and can earn the NEW pill).
             if fid in tracking:
                 reward["releaseYear"] = tracking[fid]
-            else:
-                reward["releaseYear"] = current_year
-                tracking[fid] = current_year
-                new_count += 1
-            reward["isNew"] = (reward["releaseYear"] == current_year)
+                reward["isNew"] = (tracking[fid] == current_year)
+                continue
+            # Brand-new Plans/Recipes not seen before -> stamp current year
+            # and remember them. Generic loot (Caps, Flux, legendaries, maps)
+            # is neither trackable nor tracked, so it stays year-less.
+            if not reward.get("isTrackable"):
+                continue
+            reward["releaseYear"] = current_year
+            tracking[fid] = current_year
+            new_count += 1
+            reward["isNew"] = True
     return new_count
 
 
