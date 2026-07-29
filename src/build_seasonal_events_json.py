@@ -1122,6 +1122,47 @@ def build_image_list(event_slug, item_name, slug_override=None):
     return urls
 
 
+# ---------------------------------------------------------------------------
+# Atom Shop Only Fasnacht Masks
+# ---------------------------------------------------------------------------
+# Masks sold exclusively in the Atom Shop — real, playable, and NOT on any
+# event level list (see fasnacht_atom_shop_only_masks.json, generated from the
+# ARMO export). Rendered as a read-only reference section on the Fasnacht page;
+# they are deliberately kept OUT of the eventRewardTree so they never count
+# toward the "Completed X of Y" progress total. Images live in their own
+# subfolder on the server so they don't collide with earnable-reward images.
+ATOM_SHOP_MASKS_JSON = _REPO_ROOT / "src" / "fasnacht_atom_shop_only_masks.json"
+ATOM_SHOP_IMAGE_DIR  = "Fasnacht/atom-shop"
+
+
+def _build_atom_shop_only_masks():
+    """Return the read-only atom-shop-only mask cards for the Fasnacht page."""
+    try:
+        with open(ATOM_SHOP_MASKS_JSON, encoding="utf-8") as f:
+            payload = json.load(f)
+    except Exception as e:
+        print("  [WARN] atom-shop mask list unavailable: {}".format(e))
+        return []
+    out = []
+    for m in payload.get("masks", []):
+        if m.get("category") != "atom-shop-only":
+            continue
+        name = (m.get("name") or "").strip()
+        if not name:
+            continue
+        img = build_image_url(ATOM_SHOP_IMAGE_DIR, name)
+        out.append({
+            "name":     name,
+            "formId":   (m.get("formId") or "").upper(),
+            "edid":     m.get("edid") or "",
+            "sig":      "ARMO",
+            "imageUrl": img,
+            "images":   [img],
+        })
+    out.sort(key=lambda x: x["name"].lower())
+    return out
+
+
 def parse_ref(ref):
     parts = (ref or "").split(":")
     fid  = parts[0].strip() if len(parts) > 0 else ""
@@ -3416,6 +3457,13 @@ def main():
         page_data["eventRewardTree"] = ev.get("eventRewardTree") or []
         page_data["rewards"]         = ev.get("rewards") or []
         page_data["groups"]          = ev.get("groups")
+
+        # Fasnacht only: attach the read-only Atom-Shop-only mask reference
+        # section (kept out of the reward tree, so not counted in progress).
+        if slug == "fasnacht-day-parade-all-rewards":
+            atom_masks = _build_atom_shop_only_masks()
+            page_data["atomShopOnlyMasks"] = atom_masks
+            print("  -> {} atom-shop-only masks attached".format(len(atom_masks)))
 
         # Inject any hand-authored extra reward nodes (e.g. direct ALCH rewards
         # the LVLI walk doesn't capture) after the synthetic Caps node.
