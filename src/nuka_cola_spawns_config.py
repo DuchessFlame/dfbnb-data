@@ -52,8 +52,14 @@ HOW THE SOURCE FORMIDS WERE FOUND (decimal FormIDs, Mappalachia Entity table):
 APPALACHIA_SPACE = 2480661
 
 # slug MUST match the guide_index.tsv / nav.json page slug (…-locations).
-# source_formids: decimal LVLI (or dispenser) FormIDs whose placements ARE this
-#                 variant's spawns. Empty list = no auto-source (hand-author).
+#
+# source_formids: decimal FormIDs used as EXTRA seeds for the source walk. As of the
+#   Aug 2026 rewrite the build no longer relies on these alone — nuka_cola_spawns_sources
+#   seeds from each flavour's drink ALCH (DRINK_ALCH there) and walks the FULL leveled-list
+#   closure (vending machines / collectrons / containers / loot lists / direct placements)
+#   from the committed game-file exports. So even variants with an empty list below now
+#   populate if the drink is placed anywhere. Leave a variant's list empty unless you have
+#   a specific extra leveled item to force in.
 VARIANTS = [
     {
         "slug": "nuka-cola-locations",
@@ -101,13 +107,13 @@ VARIANTS = [
         "slug": "nuka-cola-twist-locations",
         "name": "Nuka Cola Twist",
         "blurb": "Every known world spawn for Nuka-Cola Twist, grouped by region.",
-        "source_formids": [],  # no leveled item in the DB — hand-author
+        "source_formids": [],  # populates from the drink-ALCH closure (mystery machines etc.)
     },
     {
         "slug": "nuka-cola-vaccinated-locations",
         "name": "Nuka Cola Vaccinated",
         "blurb": "Every known world spawn for Nuka-Cola Vaccinated, grouped by region.",
-        "source_formids": [],  # quest-only — hand-author
+        "source_formids": [],  # quest activator, not placed in the world — expect empty
     },
     {
         "slug": "nuka-cola-wild-locations",
@@ -119,13 +125,13 @@ VARIANTS = [
         "slug": "nukashine-locations",
         "name": "Nukashine",
         "blurb": "Every known world spawn for Nukashine, grouped by region.",
-        "source_formids": [],  # dispensers only; add the P01A_Nukashine_LL_* IDs if wanted
+        "source_formids": [],  # populates from the drink-ALCH closure (fresh + vintage seeds)
     },
     {
         "slug": "sunset-sarsaparilla-locations",
         "name": "Sunset Sarsaparilla",
         "blurb": "Every known world spawn for Sunset Sarsaparilla, grouped by region.",
-        "source_formids": [],  # not in the datamined game data — hand-author
+        "source_formids": [],  # SCORE reward drink; closure seeds it, expect few/no world spawns
     },
 ]
 

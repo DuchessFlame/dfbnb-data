@@ -774,12 +774,14 @@ jobs:
         run: python src/build_collectable_spawns_json.py
 
       # --- NUKA COLA SPAWNS ({Type} Locations pages) ---
-      # Same builder as the live channel. dist was wiped for the clean PTS build, so restore
-      # the committed copies first: the builder MERGE-preserves hand-filled directions/images
-      # per (region, marker), and without the seed those slots would come back empty in PTS.
-      # Seeds from live dist/ via `git show` (reads the blob even though the working-tree file
-      # was rm -rf'd). || true so a brand-new variant with no committed copy yet doesn't fail
-      # the run. Add a line to the list when a new variant ships.
+      # Same builder as the live channel, in CI CACHE mode: the full source closure comes from the
+      # committed game-file exports and coordinates+regions from data/nuka_cola_spawns/geo_cache.json
+      # (no Mappalachia DB in CI). data/ is NOT wiped by the PTS clean, so the cache survives; only
+      # dist/ is wiped, so restore the committed dist copies first — the builder MERGE-preserves
+      # hand-filled directions/images per (region, marker), and without the seed those slots would
+      # come back empty in PTS. Seeds from live dist/ via `git show` (reads the blob even though the
+      # working-tree file was rm -rf'd). || true so a brand-new variant with no committed copy yet
+      # doesn't fail the run. Add a line to the list when a new variant ships.
       - name: Seed Nuka Cola Spawns JSON from committed copies (PTS)
         run: |
           for f in \
@@ -1014,6 +1016,7 @@ jobs:
           test -f dist/collectable_spawns_pint-sized-slasher-masks.json && echo "OK collectable_spawns_pint-sized-slasher-masks.json" || (echo "MISSING collectable_spawns_pint-sized-slasher-masks.json" && exit 1)
           test -f dist/nuka_cola_spawns_manifest.json && echo "OK nuka_cola_spawns_manifest.json" || (echo "MISSING nuka_cola_spawns_manifest.json" && exit 1)
           test -f dist/nuka_cola_spawns_nuka-cola.json && echo "OK nuka_cola_spawns_nuka-cola.json" || (echo "MISSING nuka_cola_spawns_nuka-cola.json" && exit 1)
+          test -f data/nuka_cola_spawns/geo_cache.json && echo "OK nuka_cola_spawns/geo_cache.json" || echo "WARN nuka geo_cache not seeded — Nuka pages rebuild from committed dist until a local Mappalachia DB pass seeds it"
 
       # --- RELOCATE TO dist/pts AND COMMIT (PTS channel) ---
       - name: Relocate build output into dist/pts
