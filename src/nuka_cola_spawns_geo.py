@@ -43,13 +43,34 @@ SPACE_PREFIX_REGIONS = {
 INTERIOR_REGION_OVERRIDES = {
     "Eta Psi House": "Forest",
     "The Burrows": "The Mire",
+    # --- Added Aug 2026 from the Nuka Cola build's unresolved list ---
+    # High confidence:
+    "Enclave Research Facility": "Savage Divide",   # Whitespring Enclave bunker
+    "Black Bear Lodge": "Toxic Valley",
+    "Hornwright Industrial HQ": "Forest",            # Charleston
+    "Valley Galleria": "Cranberry Bog",              # Watoga shopping plaza
+    # Best-guess — PLEASE VERIFY (a wrong region is a one-line fix here):
+    "Belching Betty": "Savage Divide",               # mine, Mount Blair area
+    "FEV Production Facility": "Savage Divide",       # West Tek
+    "Missile Silo Alpha": "Savage Divide",
+    "Missile Silo Bravo": "Savage Divide",
+    "Missile Silo Charlie": "Cranberry Bog",
+    "Point Repose": "The Mire",
+    "Spruce Knob Boat Rental": "Savage Divide",
+    "Van Lowe Taxidermy": "Forest",
+    "Vault-Tec Ag Research Center": "Savage Divide",
+    # Still UNRESOLVED on purpose — need your call (some may be instanced player
+    # Shelters with no real region, which is correct to leave off the page):
+    #   Blue Ridge Office · Orwell Bomb Shelter · Radiant Hills · Trailer Interior
 }
 
 # Substring version of the above — any interior whose display name CONTAINS the key resolves
 # to the region. Handy for families of sub-areas (all the Whitespring entrances/golf club, etc.).
+# Checked longest-key-first so a more specific key wins.
 INTERIOR_REGION_CONTAINS = {
     "Whitespring": "Savage Divide",
     "Poseidon Energy Plant": "Forest",
+    "Watoga": "Cranberry Bog",
 }
 
 
@@ -80,23 +101,30 @@ class Geo:
     def _resolve_interior(self, eid, display):
         if not display:
             return "", ""
-        # 1) exact marker name (most reliable)
+        # 1) exact marker name (most reliable) — only accept if it yields a real region
         if display in self.marker_xy:
-            return self._region_of_marker_label(display), display
+            r = self._region_of_marker_label(display)
+            if r:
+                return r, display
         # 2) expansion-space prefix rule (Storm -> Skyline Valley, Burn -> Burning Springs)
         for pref, region in SPACE_PREFIX_REGIONS.items():
             if eid.startswith(pref):
                 return region, display
-        # 3) longest marker label that is a substring of the interior name
-        for lbl in self.labels_by_len:
-            if lbl and lbl in display:
-                return self._region_of_marker_label(lbl), display
-        # 4) manual overrides — exact then substring
+        # 3) manual overrides — exact, then substring (authoritative: these beat the fuzzy
+        #    marker-substring match below, and — critically — a fuzzy match that resolves to
+        #    an EMPTY region must NOT short-circuit past them).
         if display in INTERIOR_REGION_OVERRIDES:
             return INTERIOR_REGION_OVERRIDES[display], display
-        for key, region in INTERIOR_REGION_CONTAINS.items():
+        for key in sorted(INTERIOR_REGION_CONTAINS, key=len, reverse=True):
             if key in display:
-                return region, display
+                return INTERIOR_REGION_CONTAINS[key], display
+        # 4) longest marker label that is a substring of the interior name (fuzzy fallback) —
+        #    only accept a non-empty region, else keep looking / fall through to unresolved.
+        for lbl in self.labels_by_len:
+            if lbl and lbl in display:
+                r = self._region_of_marker_label(lbl)
+                if r:
+                    return r, display
         return "", display  # unresolved region, keep the name as the sub-location
 
     def resolve(self, space_formid, x, y):
