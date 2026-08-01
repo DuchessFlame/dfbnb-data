@@ -773,6 +773,35 @@ jobs:
       - name: Build Collectable Spawns JSON
         run: python src/build_collectable_spawns_json.py
 
+      # --- NUKA COLA SPAWNS ({Type} Locations pages) ---
+      # Same builder as the live channel. dist was wiped for the clean PTS build, so restore
+      # the committed copies first: the builder MERGE-preserves hand-filled directions/images
+      # per (region, marker), and without the seed those slots would come back empty in PTS.
+      # Seeds from live dist/ via `git show` (reads the blob even though the working-tree file
+      # was rm -rf'd). || true so a brand-new variant with no committed copy yet doesn't fail
+      # the run. Add a line to the list when a new variant ships.
+      - name: Seed Nuka Cola Spawns JSON from committed copies (PTS)
+        run: |
+          for f in \
+            nuka_cola_spawns_manifest.json \
+            nuka_cola_spawns_nuka-cola.json \
+            nuka_cola_spawns_nuka-cola-cherry.json \
+            nuka_cola_spawns_nuka-cola-cranberry.json \
+            nuka_cola_spawns_nuka-cola-dark.json \
+            nuka_cola_spawns_nuka-cola-grape.json \
+            nuka_cola_spawns_nuka-cola-orange.json \
+            nuka_cola_spawns_nuka-cola-quantum.json \
+            nuka_cola_spawns_nuka-cola-twist.json \
+            nuka_cola_spawns_nuka-cola-vaccinated.json \
+            nuka_cola_spawns_nuka-cola-wild.json \
+            nuka_cola_spawns_nukashine.json \
+            nuka_cola_spawns_sunset-sarsaparilla.json; do
+            git show "HEAD:dist/$f" > "dist/$f" 2>/dev/null || true
+          done
+
+      - name: Build Nuka Cola Spawns JSON
+        run: python src/build_nuka_cola_spawns_json.py
+
       # --- CULT OF THE LAMB ---
       - name: Build Cult of the Lamb JSON
         run: python src/build_cult_of_the_lamb_json.py
@@ -983,6 +1012,8 @@ jobs:
           test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
           test -f dist/collectable_spawns_manifest.json && echo "OK collectable_spawns_manifest.json" || (echo "MISSING collectable_spawns_manifest.json" && exit 1)
           test -f dist/collectable_spawns_pint-sized-slasher-masks.json && echo "OK collectable_spawns_pint-sized-slasher-masks.json" || (echo "MISSING collectable_spawns_pint-sized-slasher-masks.json" && exit 1)
+          test -f dist/nuka_cola_spawns_manifest.json && echo "OK nuka_cola_spawns_manifest.json" || (echo "MISSING nuka_cola_spawns_manifest.json" && exit 1)
+          test -f dist/nuka_cola_spawns_nuka-cola.json && echo "OK nuka_cola_spawns_nuka-cola.json" || (echo "MISSING nuka_cola_spawns_nuka-cola.json" && exit 1)
 
       # --- RELOCATE TO dist/pts AND COMMIT (PTS channel) ---
       - name: Relocate build output into dist/pts

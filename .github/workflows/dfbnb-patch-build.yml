@@ -703,6 +703,15 @@ jobs:
       - name: Build Collectable Spawns JSON
         run: python src/build_collectable_spawns_json.py
 
+      # --- NUKA COLA SPAWNS ({Type} Locations pages) ---
+      # src/build_nuka_cola_spawns_json.py outputs dist/nuka_cola_spawns_<slug>.json
+      # (+ manifest) for df-bnb-nuka-cola-spawns.js. Reads the Mappalachia DB when present;
+      # in CI it re-reads the committed dist/ copies and MERGE-preserves hand-filled
+      # directions/images per (region, marker). Regions/markers only change when
+      # DuchessFlame re-runs it locally with the DB and commits fresh output.
+      - name: Build Nuka Cola Spawns JSON
+        run: python src/build_nuka_cola_spawns_json.py
+
       # --- CULT OF THE LAMB ---
       - name: Build Cult of the Lamb JSON
         run: python src/build_cult_of_the_lamb_json.py
@@ -904,6 +913,8 @@ jobs:
           test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
           test -f dist/collectable_spawns_manifest.json && echo "OK collectable_spawns_manifest.json" || (echo "MISSING collectable_spawns_manifest.json" && exit 1)
           test -f dist/collectable_spawns_pint-sized-slasher-masks.json && echo "OK collectable_spawns_pint-sized-slasher-masks.json" || (echo "MISSING collectable_spawns_pint-sized-slasher-masks.json" && exit 1)
+          test -f dist/nuka_cola_spawns_manifest.json && echo "OK nuka_cola_spawns_manifest.json" || (echo "MISSING nuka_cola_spawns_manifest.json" && exit 1)
+          test -f dist/nuka_cola_spawns_nuka-cola.json && echo "OK nuka_cola_spawns_nuka-cola.json" || (echo "MISSING nuka_cola_spawns_nuka-cola.json" && exit 1)
           test -f dist/unique_weapons/unique_weapons.json && echo "OK unique_weapons.json"     || (echo "MISSING unique_weapons/unique_weapons.json" && exit 1)
 
       # --- COMMIT ONCE ---
