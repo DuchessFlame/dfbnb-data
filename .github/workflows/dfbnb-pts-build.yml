@@ -804,6 +804,25 @@ jobs:
       - name: Build Nuka Cola Spawns JSON
         run: python src/build_nuka_cola_spawns_json.py
 
+      # --- FARMING SPAWNS (Cream, Deathclaw Egg Spawn Locations pages) ---
+      # Same builder as the live channel, in CI CACHE mode. dist/ was wiped for the
+      # clean PTS build, so restore the committed copies first — the builder
+      # MERGE-preserves hand-filled directions/images per (region, marker), and
+      # without the seed those slots would come back empty in PTS. Seeds from live
+      # dist/ via `git show`. || true so a first run with no committed copy doesn't fail.
+      - name: Seed Farming Spawns JSON from committed copies (PTS)
+        run: |
+          mkdir -p dist/farming_spawns
+          for f in cream_spawns.json deathclaw-egg_spawns.json; do
+            git show "HEAD:dist/farming_spawns/$f" > "dist/farming_spawns/$f" 2>/dev/null || true
+          done
+
+      - name: Build Cream Spawns JSON
+        run: python src/build_cream_spawns_json.py
+
+      - name: Build Deathclaw Egg Spawns JSON
+        run: python src/build_deathclaw_egg_spawns_json.py
+
       # --- CULT OF THE LAMB ---
       - name: Build Cult of the Lamb JSON
         run: python src/build_cult_of_the_lamb_json.py
@@ -1017,6 +1036,10 @@ jobs:
           test -f dist/nuka_cola_spawns_manifest.json && echo "OK nuka_cola_spawns_manifest.json" || (echo "MISSING nuka_cola_spawns_manifest.json" && exit 1)
           test -f dist/nuka_cola_spawns_nuka-cola.json && echo "OK nuka_cola_spawns_nuka-cola.json" || (echo "MISSING nuka_cola_spawns_nuka-cola.json" && exit 1)
           test -f data/nuka_cola_spawns/geo_cache.json && echo "OK nuka_cola_spawns/geo_cache.json" || echo "WARN nuka geo_cache not seeded — Nuka pages rebuild from committed dist until a local Mappalachia DB pass seeds it"
+          test -f dist/farming_spawns/cream_spawns.json && echo "OK farming_spawns/cream_spawns.json" || echo "WARN cream_spawns.json not built — run locally with MAPPALACHIA_DB to seed geo cache"
+          test -f dist/farming_spawns/deathclaw-egg_spawns.json && echo "OK farming_spawns/deathclaw-egg_spawns.json" || echo "WARN deathclaw-egg_spawns.json not built — run locally with MAPPALACHIA_DB to seed geo cache"
+          test -f data/farming_spawns/geo_cache_cream.json && echo "OK farming_spawns/geo_cache_cream.json" || echo "WARN farming cream geo_cache not seeded"
+          test -f data/farming_spawns/geo_cache_deathclaw_egg.json && echo "OK farming_spawns/geo_cache_deathclaw_egg.json" || echo "WARN farming deathclaw egg geo_cache not seeded"
 
       # --- RELOCATE TO dist/pts AND COMMIT (PTS channel) ---
       - name: Relocate build output into dist/pts
