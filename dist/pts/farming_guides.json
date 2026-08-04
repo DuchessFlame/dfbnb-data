@@ -1,6 +1,6 @@
 {
   "version": "2026-08-04",
-  "generated": "2026-08-04T05:23:35+00:00",
+  "generated": "2026-08-04T08:34:48+00:00",
   "sources": {
     "alch": "ALCH_Export_July_2026.tsv",
     "cobj": "COBJ_Export_July_2026.tsv",
@@ -49038,18 +49038,18 @@
               "workbench": "Cooking Station",
               "category": "cooking",
               "output": {
-                "edid": "SeasonalFish_Meal_FallEelgrass",
+                "edid": "SeasonalFish_Meal_FallFillet",
                 "formId": "008B76CF",
-                "name": "Fall Sour Eelgrass",
+                "name": "Fall Filet",
                 "type": "Raw",
                 "weight": null,
                 "value": 8,
-                "spoils_to": "Spoiled Vegetables",
+                "spoils_to": "Spoiled Meat",
                 "spoil_time": {
                   "base_minutes": 75,
-                  "curve_type": "Raw Vegetable",
-                  "curve_edid": "CT_FoodHealth_RawVegetable",
-                  "curve_formId": "0052B5BE",
+                  "curve_type": "Raw Meat",
+                  "curve_edid": "CT_FoodHealth_RawMeat",
+                  "curve_formId": "0052B5BD",
                   "source": "curv_points",
                   "scope": "food",
                   "tiers": [
@@ -49097,7 +49097,7 @@
                 },
                 "is_canned": false,
                 "canned_base": null,
-                "mutation": "Herbivore",
+                "mutation": "Carnivore",
                 "effects": [
                   {
                     "name": "Satisfy Hunger",
@@ -49133,11 +49133,11 @@
                 "is_nuka_cola": false,
                 "is_chem": false,
                 "spoiled_to_output": {
-                  "edid": "SpoiledFood_Vegetable",
-                  "formId": "0037E134",
-                  "name": "Spoiled Vegetables",
+                  "edid": "SpoiledFood_Meat",
+                  "formId": "0037E133",
+                  "name": "Spoiled Meat",
                   "type": "Raw",
-                  "weight": 0.1,
+                  "weight": 0.25,
                   "value": 0,
                   "spoils_to": null,
                   "spoil_time": null,
@@ -49148,19 +49148,19 @@
                     {
                       "name": "Rads",
                       "edid": "DamageRadiationEating",
-                      "magnitude": 5.0,
+                      "magnitude": 15.0,
                       "duration": 0.0,
                       "dur_display": null,
-                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
                       "dur_glob": null
                     },
                     {
                       "name": "Disease Chance",
                       "edid": "SURV_DiseaseVector_Food_Effect",
-                      "magnitude": 6.0,
+                      "magnitude": 9.0,
                       "duration": 0.0,
                       "dur_display": null,
-                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
                       "dur_glob": null
                     },
                     {
@@ -91808,12 +91808,12 @@
                     "dur_glob": "SURV_Food_Heal_Dur_Standard"
                   },
                   {
-                    "name": "Fortify Fire Resist",
-                    "edid": "FortifyResistFireFood",
-                    "magnitude": 75.0,
+                    "name": "Fortify Energy Resist",
+                    "edid": "FortifyResistEnergyFood",
+                    "magnitude": 25.0,
                     "duration": 1800.0,
                     "dur_display": "30 min",
-                    "mag_glob": null,
+                    "mag_glob": "SURV_Food_Effect_FortifyResistEnergy_Mag_2_Medium",
                     "dur_glob": "SURV_Food_Effect_Any_Dur_1_Short"
                   }
                 ],
@@ -144406,7 +144406,7 @@
           "plan_name": null,
           "season_number": null,
           "season_name": null,
-          "super_duper": true,
+          "super_duper": false,
           "canning_method": "cook_first"
         },
         {

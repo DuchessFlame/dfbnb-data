@@ -1,6 +1,6 @@
 {
   "version": "2026-08-04",
-  "generated": "2026-08-04T05:26:08+00:00",
+  "generated": "2026-08-04T08:36:50+00:00",
   "count": 320,
   "category_labels": {
     "food": "Food",
@@ -3556,12 +3556,12 @@
                 "dur_glob": "SURV_Food_Heal_Dur_Standard"
               },
               {
-                "name": "Fortify Fire Resist",
-                "edid": "FortifyResistFireFood",
-                "magnitude": 75.0,
+                "name": "Fortify Energy Resist",
+                "edid": "FortifyResistEnergyFood",
+                "magnitude": 25.0,
                 "duration": 1800.0,
                 "dur_display": "30 min",
-                "mag_glob": null,
+                "mag_glob": "SURV_Food_Effect_FortifyResistEnergy_Mag_2_Medium",
                 "dur_glob": "SURV_Food_Effect_Any_Dur_1_Short"
               }
             ],
@@ -8192,12 +8192,12 @@
           ],
           "howToObtain": [],
           "output": {
-            "name": "Fall Sour Eelgrass",
-            "edid": "SeasonalFish_Meal_FallEelgrass",
+            "name": "Fall Filet",
+            "edid": "SeasonalFish_Meal_FallFillet",
             "formId": "008B76CF",
             "weight": null,
             "value": 8,
-            "mutation": "Herbivore",
+            "mutation": "Carnivore",
             "effects": [
               {
                 "name": "Satisfy Hunger",
@@ -8227,12 +8227,12 @@
                 "dur_glob": "SURV_Food_Heal_Mag_1_Tiny"
               }
             ],
-            "spoils_to": "Spoiled Vegetables",
+            "spoils_to": "Spoiled Meat",
             "spoil_time": {
               "base_minutes": 75,
-              "curve_type": "Raw Vegetable",
-              "curve_edid": "CT_FoodHealth_RawVegetable",
-              "curve_formId": "0052B5BE",
+              "curve_type": "Raw Meat",
+              "curve_edid": "CT_FoodHealth_RawMeat",
+              "curve_formId": "0052B5BD",
               "source": "curv_points",
               "scope": "food",
               "tiers": [
@@ -8307,12 +8307,12 @@
           ],
           "howToObtain": [],
           "output": {
-            "name": "Fall Sour Eelgrass",
-            "edid": "SeasonalFish_Meal_FallEelgrass",
+            "name": "Fall Filet",
+            "edid": "SeasonalFish_Meal_FallFillet",
             "formId": "008B76CF",
             "weight": null,
             "value": 8,
-            "mutation": "Herbivore",
+            "mutation": "Carnivore",
             "effects": [
               {
                 "name": "Satisfy Hunger",
@@ -8342,12 +8342,12 @@
                 "dur_glob": "SURV_Food_Heal_Mag_1_Tiny"
               }
             ],
-            "spoils_to": "Spoiled Vegetables",
+            "spoils_to": "Spoiled Meat",
             "spoil_time": {
               "base_minutes": 75,
-              "curve_type": "Raw Vegetable",
-              "curve_edid": "CT_FoodHealth_RawVegetable",
-              "curve_formId": "0052B5BE",
+              "curve_type": "Raw Meat",
+              "curve_edid": "CT_FoodHealth_RawMeat",
+              "curve_formId": "0052B5BD",
               "source": "curv_points",
               "scope": "food",
               "tiers": [

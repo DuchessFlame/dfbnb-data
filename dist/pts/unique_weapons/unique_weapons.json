@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "generated": "2026-08-04T05:23:59Z",
+  "generated": "2026-08-04T08:35:08Z",
   "channel": "live",
-  "count": 95,
+  "count": 96,
   "weapons": [
     {
       "name": "Abraxo Gun",
@@ -6091,13 +6091,20 @@
       "legendaryEffects": [
         {
           "star": 1,
+          "name": "Random",
+          "edid": null,
+          "formId": null,
+          "fixed": false
+        },
+        {
+          "star": 1,
           "name": "Anti-armor",
           "edid": "mod_Legendary_Weapon1_AntiArmor",
           "formId": "005281B4",
           "fixed": true
         },
         {
-          "star": 1,
+          "star": 2,
           "name": "Random",
           "edid": null,
           "formId": null,
@@ -6109,13 +6116,6 @@
           "edid": "mod_Legendary_Weapon2_DmgCrits",
           "formId": "0052414B",
           "fixed": true
-        },
-        {
-          "star": 2,
-          "name": "Random",
-          "edid": null,
-          "formId": null,
-          "fixed": false
         },
         {
           "star": 3,
@@ -8302,6 +8302,92 @@
       "craftable": true,
       "planName": "Plan: Whistle in the Dark",
       "howToObtain": "Survival mode reward (legacy)",
+      "questName": null,
+      "tradeable": true,
+      "isCut": false
+    },
+    {
+      "name": "Xerxos",
+      "formId": "000DDB7C",
+      "edid": "GammaGun",
+      "weaponType": "Pistol",
+      "baseWeapon": "Gamma Gun",
+      "stats": {
+        "damage": 0,
+        "fireRate": 1.0,
+        "range": 2933,
+        "accuracy": 0,
+        "weight": 3.0,
+        "value": 90,
+        "ammoType": "Gamma Round",
+        "capacity": 8,
+        "apCost": 18,
+        "stagger": null,
+        "critMult": 2.5,
+        "damageCurve": null,
+        "minLevel": 15
+      },
+      "legendaryEffects": [
+        {
+          "star": 1,
+          "name": "Random",
+          "edid": null,
+          "formId": null,
+          "fixed": false
+        },
+        {
+          "star": 2,
+          "name": "Random",
+          "edid": null,
+          "formId": null,
+          "fixed": false
+        },
+        {
+          "star": 3,
+          "name": "V.A.T.S. Optimized",
+          "edid": "mod_Legendary_Weapon3_VATSCostAP",
+          "formId": "00524154",
+          "fixed": true
+        }
+      ],
+      "customMods": [
+        {
+          "name": "Xerxos",
+          "edid": "mod_Custom_Xerxos",
+          "formId": "008F173D",
+          "description": "Emits Radiation",
+          "effects": [
+            {
+              "property": "Keywords",
+              "value": "CustomItem_SpeciallyNamed \"\"\"\" [KYWD:00471871]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "isSCORE_S7_GammaGun_XerxosGammaGun \"\"\"\" [KYWD:0063539A]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "NonPlayerTradable \"\"\"\" [KYWD:00499F7A]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Enchantments",
+              "value": "EnchXerxos \"\"Xerxos\"\" [ENCH:0092A0E7]",
+              "value2": "1",
+              "function": "ADD"
+            }
+          ]
+        }
+      ],
+      "enchantments": [],
+      "craftable": true,
+      "planName": "Plan: Gamma Gun",
+      "howToObtain": "Unknown",
       "questName": null,
       "tradeable": true,
       "isCut": false
