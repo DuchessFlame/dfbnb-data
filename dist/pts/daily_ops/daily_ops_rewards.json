@@ -20,6 +20,22 @@
   },
   "pools": [
     {
+      "title": "00935cea Sdow Daily Ops Rewards Tier03 Lvli",
+      "poolId": "00935cea-sdow-daily-ops-rewards-tier03-lvli",
+      "lvliFormID": "00935CEA",
+      "lvliEdid": "",
+      "tier": "",
+      "poolChance": 100.0,
+      "conditions": [
+        "GetGlobalValue 10000000 1.000000,\"GetValue 10000000 0.000000\",\"GetRemainingQuestTimeSeconds 10100100\"",
+        "GetGlobalValue",
+        "005CB976:DailyOps_Timer_Tier_High:GLOB"
+      ],
+      "conditionSummary": "",
+      "items": [],
+      "itemCount": 0
+    },
+    {
       "title": "Daily Ops Repeatable Double Mutation Rewards",
       "poolId": "daily-ops-repeatable-double-mutation-rewards",
       "lvliFormID": "0061F72A",
@@ -7967,7 +7983,7 @@
       "tier": "",
       "poolChance": 100.0,
       "conditions": [
-        "GetGlobalValue 10000000 1.000000,\"GetGlobalValue 10000000 10.000000\"",
+        "GetGlobalValue 10000000 1.000000,\"GetValue 10000000 1.000000\"",
         "GetGlobalValue"
       ],
       "conditionSummary": "",
