@@ -17,6 +17,42 @@
  "name": "Cream",
  "page_title": "Cream Spawn Locations",
  "blurb": "Every known world spawn for Cream, grouped by region. Directions and photos are added by hand.",
+ "drop_rates": {
+  "world_spawns": {
+   "list_edid": "LPI_Drink_Cream",
+   "list_id": "00215C9C",
+   "chance_none_glob": "LPI_Chance_Drink_Common_ECON",
+   "chance_none_value": 50,
+   "rate": 0.5,
+   "rate_display": "50%",
+   "note": "Each world spawn rolls a 50% chance per server hop."
+  },
+  "vendors": {
+   "general": {
+    "list_edid": "LLV_Vendor_Drink",
+    "list_id": "003C24EA",
+    "mechanism": "Cream is 1 of 3 items in LL_Drink_NonAlcohol_Basic_NoWater (pick-one, 33% per roll). The drink pool rolls this list up to 6 times across two UseAll entries (qty 2 at 50% + qty 4 guaranteed).",
+    "rate_display": "~86%",
+    "note": "Most vendors have roughly an 86% chance to stock at least one cream per reset."
+   },
+   "raider": {
+    "list_edid": "LLV_Vendor_Healing_Faction_Raiders",
+    "list_id": "003D7F7C",
+    "mechanism": "Entry 0 of the Raider healing pool references LL_Drink_Cream with ChanceNone 85 (15%). The healing pool itself fires 50% of the time via LLV_Faction_Raiders, so effective extra = ~7.5%.",
+    "rate_display": "~8%",
+    "note": "Raider vendors have an extra ~8% chance to stock cream through the Raider healing pool (ChanceNone 85 at 50% pool fire rate), on top of the general drink pool."
+   },
+   "vera": {
+    "list_edid": "Vendor_Moon_Vera_BlueRidge",
+    "list_id": "00695804",
+    "rate": 1.0,
+    "rate_display": "100%",
+    "qty": 3,
+    "note": "Vera always stocks 3 cream."
+   }
+  },
+  "resource_generators": null
+ },
  "regions": [
   {
    "region": "Ash Heap",
