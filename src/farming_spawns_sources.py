@@ -28,7 +28,7 @@ REPO = os.path.dirname(HERE)
 TSV = os.path.join(REPO, "tsv")
 
 # Signatures we treat as a real world holder/placement of a list.
-PLACED_SIGS = {"CONT", "ACTI", "FURN", "NPC_", "MSTT", "REFR"}
+PLACED_SIGS = {"CONT", "ACTI", "FURN", "NPC_", "MSTT", "REFR", "FLOR"}
 
 
 # ── file helpers ─────────────────────────────────────────────────────────────────
@@ -176,11 +176,16 @@ def load_tables(tsv_root=None):
     }
 
 
-def get_sources(items_cfg, tables):
+def get_sources(items_cfg, tables, extra_world_bases=None):
     """Return {'lvli_closure', 'placed_bases', 'direct_refrs'} for a list of item configs.
 
     Each item_cfg dict has: formid, edid, full, sig (ALCH or MISC).
     Multiple items (e.g. both deathclaw egg types) are combined into one result.
+
+    extra_world_bases: optional list of {formid, edid, sig, source_type} dicts for
+    world-placed records that won't be found through the LVLI closure or ALCH/MISC
+    refs (e.g. harvestable ACTIs, FLOR via LPI).  These are injected directly into
+    placed_bases for Mappalachia Position lookup.
     """
     c2p = tables["c2p"]
     parent_edid = tables["parent_edid"]
@@ -220,5 +225,15 @@ def get_sources(items_cfg, tables):
                 placed_bases.setdefault(rf, {
                     "sig": rsig, "edid": redid,
                     "source_type": classify(rsig, redid, ""), "via": "item"})
+
+    # Inject extra world bases (harvestable ACTIs, LPI flora, etc.) that aren't
+    # discoverable through the LVLI closure or item refs.
+    if extra_world_bases:
+        for eb in extra_world_bases:
+            fid = eb["formid"].upper()
+            placed_bases.setdefault(fid, {
+                "sig": eb.get("sig", "ACTI"), "edid": eb.get("edid", ""),
+                "source_type": eb.get("source_type", "loot-list"),
+                "via": "extra_world_bases"})
 
     return {"lvli_closure": closure, "placed_bases": placed_bases, "direct_refrs": direct_refrs}

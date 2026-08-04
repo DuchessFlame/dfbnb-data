@@ -1,0 +1,164 @@
+{
+ "_meta": {
+  "generated": "2026-08-04",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "lists_in_closure": 6,
+  "source_totals": {
+   "container": 16,
+   "loot-list": 1,
+   "npc": 8
+  },
+  "unresolved": {}
+ },
+ "set": "radtoad-egg",
+ "name": "Radtoad Egg",
+ "page_title": "Radtoad Egg Spawn Locations",
+ "blurb": "Every known world spawn for Radtoad Eggs, grouped by region. Directions and photos are added by hand.",
+ "drop_rates": {
+  "world_spawns": null,
+  "creature_drops": {
+   "list_edid": "LLD_Creature_Radtoad",
+   "list_id": "00047185",
+   "mechanism": "UseAll list with 5 entries. Entry 0: RadToadEgg at CN=0 (guaranteed 1 egg). Additional bonus egg via LLE_Creature_RadToad entry 2 (CN=50) gated by LLS_Creature_RadToad level-scaled ChanceNone (60% fire rate at level 40+).",
+   "rate_display": "100% (1) + ~30% (bonus)",
+   "note": "Every radtoad kill guarantees 1 egg. At max level there is roughly a 30% chance of a bonus egg (60% list fire × 50% entry chance). No world-placed spawns or vendor sources exist."
+  },
+  "vendors": null,
+  "resource_generators": null
+ },
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Helvetia",
+     "count": 17,
+     "sources": {
+      "container": 16,
+      "loot-list": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3EE38B",
+      "3EE38C",
+      "3EE38D",
+      "3EE38E",
+      "3EE38F",
+      "3EE390",
+      "3EE391",
+      "3EE392",
+      "3EE393",
+      "3EE394",
+      "3EE395",
+      "3EE396",
+      "3EE397",
+      "3EE398",
+      "3EE399",
+      "3EE39A",
+      "4988AF"
+     ],
+     "coords": [
+      -32633.478515625,
+      35556.6015625
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Hemlock Springs Dump",
+     "count": 4,
+     "sources": {
+      "npc": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "75268C",
+      "75268D",
+      "75861F",
+      "758620"
+     ],
+     "coords": [
+      85190.8671875,
+      -193708.484375
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Big Maw",
+     "count": 3,
+     "sources": {
+      "npc": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "43CC7D",
+      "43CC7E",
+      "43CC89"
+     ],
+     "coords": [
+      135037.140625,
+      47639.828125
+     ]
+    },
+    {
+     "marker": "Bloody Frank's",
+     "count": 1,
+     "sources": {
+      "npc": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "43CC7C"
+     ],
+     "coords": [
+      134440.421875,
+      47264.2734375
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ]
+}

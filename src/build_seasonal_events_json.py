@@ -3381,6 +3381,166 @@ def _build_meat_week_guide(tsv_root):
     }
 
 
+# ---------------------------------------------------------------------------
+# Bratsnacht (Fasnacht limited-time twist)
+# ---------------------------------------------------------------------------
+# During Bratsnacht the in-game global LTT_Bratsnacht_Toggle [008B460A] swaps the
+# Fasnacht headwear pools:
+#   - Common list  003E6557: the 12 base masks (entries 0-11) are removed and the
+#     Brat Boy / "Red Hot" mask (008B3E67, entry 12) takes the whole common tier.
+#   - Uncommon list 005A6492: the Brat Boy Glow / "Glowing Red Hot" mask
+#     (008B3E68, entry 24) is added alongside the 24 base uncommon masks.
+# The headwear reward list 005A648F is a waterfall (Rare 52.5% / Uncommon 35.625%
+# / Common 11.875%), so we resolve it twice — once with each pool filtered to the
+# OFF (normal Fasnacht) shape and once to the ON (Bratsnacht) shape — and tag the
+# affected mask leaves with rateOn / rateOff so the page JS can switch live.
+BRATSNACHT_TOGGLE_GLOB   = "008B460A"
+BRATSNACHT_COMMON_LIST   = "003E6557"   # E01F_Fasnacht_LLS_Headwear_Rewards_Common
+BRATSNACHT_UNCOMMON_LIST = "005A6492"   # E01F_Fasnacht_LLS_Headwear_Rewards_UnCommon
+BRATSNACHT_HEADWEAR_TOP  = "005A648F"   # E01F_Fasnacht_LL_Quest_Rewards_Headwear (waterfall)
+BRATBOY_COMMON_INDEX     = "12"         # Brat Boy entry index in the common list
+BRATBOY_GLOW_INDEX       = "24"         # Brat Boy Glow entry index in the uncommon list
+CALENDAR_TSV_PATH        = _REPO_ROOT / "src" / "home" / "events.tsv"
+
+
+def _bratsnacht_rate_maps(resolver, data):
+    """Resolve the Fasnacht headwear waterfall (005A648F) under both toggle
+    states. Returns (on_map, off_map): formid(upper) -> dropRate percent."""
+    lvli = data.lvli
+    orig_c = list(lvli.entries_by_list.get(BRATSNACHT_COMMON_LIST, []))
+    orig_u = list(lvli.entries_by_list.get(BRATSNACHT_UNCOMMON_LIST, []))
+
+    def resolve_map():
+        m = {}
+        for it in resolver.resolve_deep(BRATSNACHT_HEADWEAR_TOP):
+            fid = (it.get("formid") or "").upper()
+            if not fid:
+                continue
+            # resolve_deep returns dropRate as a 0-1 fraction; tree stores percent
+            m[fid] = m.get(fid, 0.0) + float(it.get("dropRate") or 0.0) * 100.0
+        return m
+
+    try:
+        # OFF (normal Fasnacht): drop Brat Boy from common, drop Glow from uncommon
+        lvli.entries_by_list[BRATSNACHT_COMMON_LIST] = [
+            e for e in orig_c if str(e.get("EntryIndex")) != BRATBOY_COMMON_INDEX]
+        lvli.entries_by_list[BRATSNACHT_UNCOMMON_LIST] = [
+            e for e in orig_u if str(e.get("EntryIndex")) != BRATBOY_GLOW_INDEX]
+        off_map = resolve_map()
+        # ON (Bratsnacht): common = only Brat Boy; uncommon = base + Glow (all)
+        lvli.entries_by_list[BRATSNACHT_COMMON_LIST] = [
+            e for e in orig_c if str(e.get("EntryIndex")) == BRATBOY_COMMON_INDEX]
+        lvli.entries_by_list[BRATSNACHT_UNCOMMON_LIST] = list(orig_u)
+        on_map = resolve_map()
+    finally:
+        lvli.entries_by_list[BRATSNACHT_COMMON_LIST] = orig_c
+        lvli.entries_by_list[BRATSNACHT_UNCOMMON_LIST] = orig_u
+
+    return on_map, off_map
+
+
+def _bratsnacht_windows_from_calendar():
+    """Read src/home/events.tsv and return the Bratsnacht window(s) (any row whose
+    Id starts with 'bratsnacht') as UTC ISO instants the page JS can compare to
+    `Date.now()`. Returns {"windows": [...], "activeAtBuild": bool, "note": str}."""
+    windows = []
+    try:
+        from zoneinfo import ZoneInfo
+        _tz = ZoneInfo("America/New_York")
+    except Exception:
+        _tz = None
+    try:
+        rows = read_tsv(str(CALENDAR_TSV_PATH))
+    except Exception as e:
+        print("  [WARN] Bratsnacht: could not read calendar {}: {}".format(
+            CALENDAR_TSV_PATH, e))
+        rows = []
+
+    def _to_utc_iso(date_str, time_str):
+        date_str = (date_str or "").strip()
+        time_str = (time_str or "12:00 PM").strip()
+        if not date_str:
+            return None
+        for fmt in ("%d/%m/%Y %I:%M %p", "%d/%m/%Y %H:%M", "%d/%m/%Y"):
+            try:
+                dt = datetime.strptime((date_str + " " + time_str).strip(), fmt)
+                break
+            except ValueError:
+                dt = None
+        if dt is None:
+            return None
+        if _tz is not None:
+            from datetime import timezone as _timezone
+            dt = dt.replace(tzinfo=_tz).astimezone(_timezone.utc)
+            return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+        # Fallback: assume the naive time is already close enough (no tz lib)
+        return dt.strftime("%Y-%m-%dT%H:%M:%S")
+
+    note = ""
+    for r in rows:
+        rid = (pick(r, "Id", "id") or "").strip().lower()
+        if not rid.startswith("bratsnacht"):
+            continue
+        start = _to_utc_iso(pick(r, "StartDate"), pick(r, "StartTime"))
+        end   = _to_utc_iso(pick(r, "EndDate"),   pick(r, "EndTime"))
+        if start and end:
+            windows.append({
+                "id":    (pick(r, "Id") or "").strip(),
+                "label": (pick(r, "Title") or "Bratsnacht").strip(),
+                "start": start,
+                "end":   end,
+            })
+        if not note:
+            note = (pick(r, "Notes") or "").strip()
+
+    now_utc = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    active = any(w["start"] <= now_utc < w["end"] for w in windows)
+    return {"windows": windows, "activeAtBuild": active, "note": note}
+
+
+def _apply_bratsnacht(page_data, resolver, data):
+    """Tag Fasnacht headwear mask leaves with rateOn / rateOff and attach the
+    Bratsnacht calendar window. Default dropRate is left as the OFF (normal
+    Fasnacht) value; the page JS flips affected masks to rateOn while the window
+    is live. Only masks whose rate actually changes between states are tagged."""
+    on_map, off_map = _bratsnacht_rate_maps(resolver, data)
+    on_map  = {k: round(v, 6) for k, v in on_map.items()}
+    off_map = {k: round(v, 6) for k, v in off_map.items()}
+    tagged = 0
+
+    def visit(node):
+        nonlocal tagged
+        if isinstance(node, dict):
+            fid = (node.get("formid") or node.get("formId") or "").upper()
+            if fid and (fid in on_map or fid in off_map):
+                r_on  = on_map.get(fid, 0.0)
+                r_off = off_map.get(fid, 0.0)
+                if abs(r_on - r_off) > 1e-6:
+                    node["rateOn"]   = r_on
+                    node["rateOff"]  = r_off
+                    node["dropRate"] = r_off   # default = normal Fasnacht (OFF)
+                    if r_on > 0 and r_off == 0:
+                        node["bratsnacht"] = "only-on"
+                    elif r_off > 0 and r_on == 0:
+                        node["bratsnacht"] = "only-off"
+                    else:
+                        node["bratsnacht"] = "both"
+                    tagged += 1
+            for v in node.values():
+                if isinstance(v, (dict, list)):
+                    visit(v)
+        elif isinstance(node, list):
+            for v in node:
+                visit(v)
+
+    visit(page_data.get("eventRewardTree") or [])
+    page_data["bratsnacht"] = _bratsnacht_windows_from_calendar()
+    win_n = len(page_data["bratsnacht"]["windows"])
+    print("  -> Bratsnacht: tagged {} mask leaves, {} calendar window(s), "
+          "activeAtBuild={}".format(
+              tagged, win_n, page_data["bratsnacht"]["activeAtBuild"]))
+
+
 def main():
     print("[build_seasonal_events] Loading rng76 engine...")
     data = Rng76Data.from_tsv_root(TSV_ROOT)
@@ -3464,6 +3624,12 @@ def main():
             atom_masks = _build_atom_shop_only_masks()
             page_data["atomShopOnlyMasks"] = atom_masks
             print("  -> {} atom-shop-only masks attached".format(len(atom_masks)))
+            # Bratsnacht: tag Red Hot / Glowing Red Hot masks with ON/OFF rates
+            # and attach the calendar window that drives the page toggle.
+            try:
+                _apply_bratsnacht(page_data, resolver, data)
+            except Exception as e:
+                print("  [WARN] Bratsnacht tagging failed: {}".format(e))
 
         # Inject any hand-authored extra reward nodes (e.g. direct ALCH rewards
         # the LVLI walk doesn't capture) after the synthetic Caps node.

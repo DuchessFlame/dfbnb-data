@@ -122,7 +122,8 @@ def load_existing(path):
 
 def resolve_placements(cfg, tbls, geo, cur, cache, db_ok):
     """Return {instanceFormID: (x, y, region, marker, source_type)} for all items."""
-    src = sources.get_sources(cfg["items"], tbls)
+    src = sources.get_sources(cfg["items"], tbls,
+                              extra_world_bases=cfg.get("extra_world_bases"))
     base_type = {int(fid, 16): meta["source_type"] for fid, meta in src["placed_bases"].items()}
     direct_ints = {int(fid, 16) for fid in src["direct_refrs"]}
     lists_n = len(src["lvli_closure"])

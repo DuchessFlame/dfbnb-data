@@ -220,9 +220,345 @@ DEATHCLAW_EGG = {
     },
 }
 
+# ── FROG EGG ────────────────────────────────────────────────────────────────────
+FROG_EGG = {
+    "slug": "frog-egg",
+    "name": "Frog Egg",
+    "page_title": "Frog Egg Spawn Locations",
+    "blurb": "Every known world spawn for Frog Eggs, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "004FE51C",
+            "edid": "RadFrogEgg",
+            "full": "Frog Egg",
+            "sig": "ALCH",
+        },
+    ],
+    # ── Drop rates (resolved from LVLI TSVs, August 2026) ──────────────────
+    # Traced via the drop-rate-engine skill rules.
+    #
+    # Frog Egg (ALCH 004FE51C) drops exclusively from Rad Frogs via creature
+    # loot list LLD_Creature_Radfrog (003B9761, UseAll, 5 entries):
+    #   Entry 1: RadFrogEgg (CN=0, qty=1) → guaranteed 1 egg per kill
+    #   Entry 3: RadFrogEgg (CN=50, qty=1) → 50% chance of a second egg
+    #
+    # No world-placed food spawns (no LPI list).
+    # No vendor pools.
+    # Fasnacht activator E01F_FasnachtFrogEggCluster (00478DED) is event-only.
+    "drop_rates": {
+        "world_spawns": None,
+        "creature_drops": {
+            "list_edid": "LLD_Creature_Radfrog",
+            "list_id": "003B9761",
+            "mechanism": (
+                "UseAll list with 5 entries. Entry 1: RadFrogEgg at CN=0 (guaranteed). "
+                "Entry 3: RadFrogEgg at CN=50 (50% chance of a second egg)."
+            ),
+            "rate_display": "100% (1) + 50% (2nd)",
+            "note": (
+                "Every rad frog kill guarantees 1 frog egg. There is a 50% chance "
+                "of receiving a second egg from the same kill. No world-placed "
+                "spawns or vendor sources exist."
+            ),
+        },
+        "vendors": None,
+        "resource_generators": None,
+    },
+}
+
+# ── MIRELURK EGG ────────────────────────────────────────────────────────────────
+MIRELURK_EGG = {
+    "slug": "mirelurk-egg",
+    "name": "Mirelurk Egg",
+    "page_title": "Mirelurk Egg Spawn Locations",
+    "blurb": "Every known world spawn for Mirelurk Eggs (harvestable and hatching), grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "0023E9D4",
+            "edid": "MirelurkEgg",
+            "full": "Mirelurk Egg",
+            "sig": "ALCH",
+        },
+    ],
+    # Extra world bases: the harvestable ACTI is found through ALCH refs, but the
+    # hatching variant (0016579B) is not referenced by the ALCH record, so we inject
+    # it manually for Mappalachia Position lookup.
+    "extra_world_bases": [
+        {
+            "formid": "0016579B",
+            "edid": "MirelurkEgg_Hatching",
+            "sig": "ACTI",
+            "source_type": "harvestable",
+        },
+    ],
+    # ── Drop rates (resolved from LVLI TSVs, August 2026) ──────────────────
+    # Traced via the drop-rate-engine skill rules.
+    #
+    # World spawns: MirelurkEgg_Harvestable (001715CD, ~95 ACTI REFRs) gives
+    # the egg directly via MirelurkHarvestableScript.  MirelurkEgg_Hatching
+    # (0016579B, ~79 REFRs) primarily spawns mirelurks but is also harvestable.
+    # Both are 100% guaranteed on activation.
+    #
+    # Vendor: LLV_Vendor_Food_Whitespring_Rare (0037D966, UseAll 32 entries)
+    #   entry 7: MirelurkEgg (CN=0, qty=1) → guaranteed 1 at Whitespring vendor.
+    # Also in LL_Food_Any_Rare (004E0FEE, UseAll 24 entries) as rare food loot.
+    #
+    # Random qty list: LLS_MirelurkEgg_RndAmount (00434585, pick-one 3 entries)
+    #   picks 1, 2, or 3 eggs equally (used by TWZ05 quest reward × qty 3).
+    "drop_rates": {
+        "world_spawns": {
+            "list_edid": "MirelurkEgg_Harvestable",
+            "list_id": "001715CD",
+            "rate": 1.0,
+            "rate_display": "100%",
+            "note": (
+                "~95 harvestable egg ACTIs and ~79 hatching egg ACTIs in the world. "
+                "Each activation guarantees 1 mirelurk egg. Hatching eggs also "
+                "spawn a mirelurk hatchling."
+            ),
+        },
+        "vendors": {
+            "whitespring": {
+                "list_edid": "LLV_Vendor_Food_Whitespring_Rare",
+                "list_id": "0037D966",
+                "rate": 1.0,
+                "rate_display": "100%",
+                "qty": 1,
+                "note": (
+                    "Whitespring food vendor always stocks 1 mirelurk egg "
+                    "(guaranteed entry in the rare food pool)."
+                ),
+            },
+        },
+        "resource_generators": None,
+    },
+}
+
+# ── MOTHMAN EGG ─────────────────────────────────────────────────────────────────
+MOTHMAN_EGG = {
+    "slug": "mothman-egg",
+    "name": "Mothman Egg",
+    "page_title": "Mothman Egg Spawn Locations",
+    "blurb": "Every known world spawn for Mothman Eggs (regular and enlightened flora), grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "0008E922",
+            "edid": "MothmanEgg",
+            "full": "Mothman Egg",
+            "sig": "ALCH",
+        },
+    ],
+    # Extra world bases: the FLOR records (UseLPI_FloraMothmanEggs01-03) are in the
+    # ALCH refs but FLOR is now in PLACED_SIGS.  The LPI LVLI wrappers whose REFRs
+    # hold the actual world coordinates need injecting — the closure walk from ALCH
+    # doesn't reach them (chain is LPI→FLOR→ALCH, not ALCH→LPI).
+    # Also add the enlightened mothman egg flora LPIs (E07A event).
+    "extra_world_bases": [
+        {"formid": "0035D23F", "edid": "LPI_FloraMothmanEggs01", "sig": "LVLI", "source_type": "flora"},
+        {"formid": "0035D237", "edid": "LPI_FloraMothmanEggs02", "sig": "LVLI", "source_type": "flora"},
+        {"formid": "0035D22B", "edid": "LPI_FloraMothmanEggs03", "sig": "LVLI", "source_type": "flora"},
+        {"formid": "006189AC", "edid": "E07A_Mothman_LPI_FloraEnlightenedMothmanEggs01", "sig": "LVLI", "source_type": "enlightened-flora"},
+        {"formid": "006189AD", "edid": "E07A_Mothman_LPI_FloraEnlightenedMothmanEggs02", "sig": "LVLI", "source_type": "enlightened-flora"},
+        {"formid": "006189AE", "edid": "E07A_Mothman_LPI_FloraEnlightenedMothmanEggs03", "sig": "LVLI", "source_type": "enlightened-flora"},
+    ],
+    # ── Drop rates (resolved from LVLI TSVs, August 2026) ──────────────────
+    # Traced via the drop-rate-engine skill rules.
+    #
+    # World spawns: mothman egg flora via three LPI lists:
+    #   LPI_FloraMothmanEggs01 (0035D23F, 24 REFRs)
+    #   LPI_FloraMothmanEggs02 (0035D237, 21 REFRs)
+    #   LPI_FloraMothmanEggs03 (0035D22B, 21 REFRs)
+    #   Total: 66 regular flora placements.
+    # Each uses FirstMatch (bit 6) with 4 entries for nuked/storm/radstorm/normal
+    # variants.  The normal flora (UseLPI_FloraMothmanEggs01) is the default
+    # when no weather condition is active.  MaxValue = Container_MaxCount_Single_Tier
+    # (max_count=1).  Each harvest yields 1 egg, respawns on flora timer.
+    #
+    # Enlightened mothman egg flora (E07A Mothman Equinox event):
+    #   E07A_LPI_FloraEnlightenedMothmanEggs01-03 (23 REFRs total)
+    #   These yield Perfect Mothman Egg (006238EE) during the event.
+    #
+    # Creature drop: LLD_Creature_Mothman_Wise (003EC2F4, UseAll 3 entries)
+    #   Entry 2: MothmanEgg (CN=0, qty=1) → guaranteed 1 egg from Wise Mothman.
+    #
+    # Event loot: E07A_Mothman_CultistHighPriestReward_Loot (00635071, UseAll 9)
+    #   Entry 6: MothmanEgg (CN=0, qty=1) → guaranteed 1 egg
+    #   Entry 7: MothmanEgg (CN=80, qty=2) → 20% chance of 2 more eggs
+    #   Entry 5: Perfect Mothman Egg (CN=95, qty=1) → 5% chance
+    #
+    # CAMP collectron: ATX_Resources_MothmanNest_egg (006F7E94, pick-one 1 entry)
+    #   → 100% per cycle (dedicated Mothman Nest collectron).
+    # Liberated collectron: ATX_Resources_Collectron_Liberated (0084CCA6, pick-one 4)
+    #   → 25% per cycle (1 of 4 items).
+    "drop_rates": {
+        "world_spawns": {
+            "list_edid": "LPI_FloraMothmanEggs01/02/03",
+            "list_ids": ["0035D23F", "0035D237", "0035D22B"],
+            "rate": 1.0,
+            "rate_display": "100%",
+            "note": (
+                "66 mothman egg flora placements across 3 LPI lists. Each harvest "
+                "yields 1 egg; respawns on the standard flora timer. 23 additional "
+                "enlightened flora placements (E07A event) yield Perfect Mothman Eggs."
+            ),
+        },
+        "creature_drops": {
+            "list_edid": "LLD_Creature_Mothman_Wise",
+            "list_id": "003EC2F4",
+            "rate": 1.0,
+            "rate_display": "100%",
+            "note": (
+                "Wise Mothman kills guarantee 1 mothman egg (entry 2, CN=0). "
+                "Mothman Equinox High Priest loot adds 1 guaranteed + 20% chance "
+                "of 2 more + 5% chance of a Perfect Mothman Egg."
+            ),
+        },
+        "vendors": None,
+        "resource_generators": {
+            "note": (
+                "Mothman Nest collectron produces 1 egg per cycle (100%). "
+                "Liberated collectron has a 25% chance per cycle (1 of 4 items)."
+            ),
+        },
+    },
+}
+
+# ── RADSCORPION EGG ─────────────────────────────────────────────────────────────
+RADSCORPION_EGG = {
+    "slug": "radscorpion-egg",
+    "name": "Radscorpion Egg",
+    "page_title": "Radscorpion Egg Spawn Locations",
+    "blurb": "Every known world spawn for Radscorpion Eggs, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "0004693B",
+            "edid": "RadscorpionEgg",
+            "full": "Radscorpion Egg",
+            "sig": "ALCH",
+        },
+    ],
+    # ── Drop rates (resolved from LVLI TSVs, August 2026) ──────────────────
+    # Traced via the drop-rate-engine skill rules.
+    #
+    # World-placed food: LPI_Food_RadscorpionEgg (0062A883, 24 REFRs — ALL
+    # interior in Carleton Mine).  ChanceNone 50 via GLOB
+    # LPI_Chance_Food_FruitVegetables (003CA90F).
+    #   → LL_Food_Single_RadscorpionEgg (0062A884, 1 entry CN=0) → egg.
+    #
+    # Creature drop: LLD_Creature_Radscorpion (00074D11, UseAll 5 entries)
+    #   Entry 3: RadscorpionEgg (CN=75, qty=1) → 25% chance per kill.
+    #   Also zzz_LLD_Creature_Radscorpion_Prime (005C4F17) identical structure.
+    #
+    # Vendor: LLV_Vendor_Food_Whitespring_Unique (0037D967, UseAll 5 entries)
+    #   entry 4: RadscorpionEgg (CN=0, qty=1) → guaranteed 1 at Whitespring.
+    #
+    # Also in LL_Food_Any_Rare (004E0FEE, entry 4) as rare food loot.
+    #
+    # Mystery Crate: LL_InsectParts (007AC77E, pick-one 52 entries)
+    #   entries 18+44: RadscorpionEgg → ~3.8% per crate (2/52).
+    "drop_rates": {
+        "world_spawns": {
+            "list_edid": "LPI_Food_RadscorpionEgg",
+            "list_id": "0062A883",
+            "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
+            "chance_none_value": 50,
+            "rate": 0.5,
+            "rate_display": "50%",
+            "note": (
+                "24 LPI spawn points (all interior — Carleton Mine) roll a 50% "
+                "chance each per server hop."
+            ),
+        },
+        "creature_drops": {
+            "list_edid": "LLD_Creature_Radscorpion",
+            "list_id": "00074D11",
+            "chance_none_value": 75,
+            "rate": 0.25,
+            "rate_display": "25%",
+            "note": (
+                "Radscorpion kills have a 25% chance to drop 1 egg (entry 3, "
+                "ChanceNone 75). Same rate for Prime radscorpions."
+            ),
+        },
+        "vendors": {
+            "whitespring": {
+                "list_edid": "LLV_Vendor_Food_Whitespring_Unique",
+                "list_id": "0037D967",
+                "rate": 1.0,
+                "rate_display": "100%",
+                "qty": 1,
+                "note": (
+                    "Whitespring food vendor always stocks 1 radscorpion egg "
+                    "(guaranteed entry in the unique food pool)."
+                ),
+            },
+        },
+        "resource_generators": None,
+    },
+}
+
+# ── RADTOAD EGG ─────────────────────────────────────────────────────────────────
+RADTOAD_EGG = {
+    "slug": "radtoad-egg",
+    "name": "Radtoad Egg",
+    "page_title": "Radtoad Egg Spawn Locations",
+    "blurb": "Every known world spawn for Radtoad Eggs, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "00295BE5",
+            "edid": "RadToadEgg",
+            "full": "Radtoad Egg",
+            "sig": "ALCH",
+        },
+    ],
+    # ── Drop rates (resolved from LVLI TSVs, August 2026) ──────────────────
+    # Traced via the drop-rate-engine skill rules.
+    #
+    # Radtoad Egg (ALCH 00295BE5) drops from Radtoads via creature loot:
+    #   LLD_Creature_Radtoad (00047185, UseAll 5 entries):
+    #     Entry 0: RadToadEgg (CN=0, qty=1) → guaranteed 1 egg per kill.
+    #   Also zzz_LLD_Creature_Radtoad_Prime (005C4F1C) identical structure.
+    #
+    # Secondary egg chance via sub-list chain:
+    #   LLS_Creature_RadToad → LLE_Creature_RadToad (0056093C, UseAll 3 entries)
+    #     Entry 2: RadToadEgg (CN=50, qty=1) → 50% chance of a bonus egg.
+    #   But LLS_Creature_RadToad has level-scaled ChanceNone (80/70/60/40% at
+    #   levels 1/18/28/40+), so the effective bonus egg rate at max level is
+    #   60% × 50% = 30%.
+    #
+    # Fasnacht event: LLQ_E01F_Fasnacht_EggClusters (003EE383, UseAll 8 entries)
+    #   5 guaranteed eggs + 3 at 50% each → 5–8 eggs per cluster.
+    #   Event-only, not a regular world spawn.
+    #
+    # No world-placed food spawns (no LPI list).
+    # No vendor pools.
+    "drop_rates": {
+        "world_spawns": None,
+        "creature_drops": {
+            "list_edid": "LLD_Creature_Radtoad",
+            "list_id": "00047185",
+            "mechanism": (
+                "UseAll list with 5 entries. Entry 0: RadToadEgg at CN=0 "
+                "(guaranteed 1 egg). Additional bonus egg via LLE_Creature_RadToad "
+                "entry 2 (CN=50) gated by LLS_Creature_RadToad level-scaled "
+                "ChanceNone (60% fire rate at level 40+)."
+            ),
+            "rate_display": "100% (1) + ~30% (bonus)",
+            "note": (
+                "Every radtoad kill guarantees 1 egg. At max level there is "
+                "roughly a 30% chance of a bonus egg (60% list fire × 50% entry "
+                "chance). No world-placed spawns or vendor sources exist."
+            ),
+        },
+        "vendors": None,
+        "resource_generators": None,
+    },
+}
+
 # All sets in this family — add new items here.
 # The generic build script (build_farming_spawns_json.py) picks them up automatically.
-ALL_SETS = [CREAM, DEATHCLAW_EGG]
+ALL_SETS = [CREAM, DEATHCLAW_EGG, FROG_EGG, MIRELURK_EGG, MOTHMAN_EGG,
+            RADSCORPION_EGG, RADTOAD_EGG]
 
 # Slug → config dict, for --item <slug> lookup in the build script.
 SETS_BY_SLUG = {s["slug"]: s for s in ALL_SETS}
