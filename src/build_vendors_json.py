@@ -52,7 +52,7 @@ Usage:
     python src/build_vendors_json.py --pts
 """
 
-import os, sys, json, csv, glob, sqlite3, datetime, argparse
+import os, sys, json, csv, glob, sqlite3, datetime, argparse, re
 from collections import defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -252,14 +252,34 @@ def resolve_locations(vendors, geo, cur, cache, db_ok):
 
 # ── name fallback ─────────────────────────────────────────────────────────────
 
+# Load-order / DLC / role prefixes and noise tokens stripped when deriving a
+# readable name from an EDID (generic — no per-vendor mapping).
+_EDID_PREFIX_RE = re.compile(
+    r"^(?:W05|E05|ATX(?:_COMP)?|BS01|LC\d+|POI\d+|SCORE(?:_S\d+)?|XPD(?:_AC)?|"
+    r"Burn\w*|LGV\d*|MILE|NWOT|Storm|COMP|76QA\w*|QA|RE|Debug\w*)_+", re.I)
+_EDID_NOISE_RE = re.compile(
+    r"\b(?:COMP|Actor|Vendor|Visitor|Faction|Merchant|Robot|Generic|Chest)\b", re.I)
+
+
+def _pretty_edid(edid):
+    """Best-effort readable label from an EDID: drop DLC/role prefixes and noise
+    tokens, split camelCase, tidy separators. Generic, not a lookup table."""
+    s = _EDID_PREFIX_RE.sub("", edid or "")
+    s = s.replace("_", " ")                       # underscores → spaces first, so
+    s = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", s)    # camelCase → words, then \b noise
+    s = _EDID_NOISE_RE.sub(" ", s)                # tokens match on real boundaries
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
 def vendor_name(v):
-    """FULL name, else '{marker} Vendor', else a cleaned NPC EDID — never blank."""
+    """FULL name, else '{marker} Vendor', else a cleaned EDID label — never blank."""
     if v["full"]:
         return v["full"]
     if v.get("marker"):
         return f"{v['marker']} Vendor"
-    edid = v["edid"] or v["container_base_edid"] or "Unknown"
-    return f"{edid} Vendor"
+    pretty = _pretty_edid(v["edid"]) or _pretty_edid(v["container_base_edid"])
+    return f"{pretty} Vendor" if pretty else "Unknown Vendor"
 
 
 # ── build ─────────────────────────────────────────────────────────────────────
