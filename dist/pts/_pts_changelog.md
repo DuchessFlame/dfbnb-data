@@ -660,14 +660,14 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +3 / -0 / ~12
+## `titles_player.json`  ·  +3 / -0 / ~11
 
 **Added (3)**
 - ATX_PlayerTitles_Suffix_FinalDweller  `ATX_PlayerTitles_Suffix_FinalDweller`
 - ATX_PlayerTitles_Suffix_Sprinkles  `ATX_PlayerTitles_Suffix_Sprinkles`
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (12)**
+**Changed (11)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
@@ -677,7 +677,6 @@ _Couldn't key this file to records; contents differ._
 - PlayerTitles_Suffix_Zookeeper  `PlayerTitles_Suffix_Zookeeper` — fields: debug
 - SDOW_PlayerTitles_Prefix_Laughing  `SDOW_PlayerTitles_Prefix_Laughing` — fields: debug, howToObtain
 - SDOW_PlayerTitles_Prefix_PintSized  `SDOW_PlayerTitles_Prefix_PintSized` — fields: dropRate
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_AnyPet01  `WorldPets_PlayerTitles_Prefix_AnyPet01` — fields: debug, howToObtain
 - WorldPets_PlayerTitles_Prefix_AnyPet02  `WorldPets_PlayerTitles_Prefix_AnyPet02` — fields: debug, howToObtain
 
