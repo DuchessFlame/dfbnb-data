@@ -121,6 +121,12 @@ CREAM = {
         },
         "resource_generators": None,
     },
+    # ── Used For ────────────────────────────────────────────────────────
+    # GENERATED at build time by build_farming_used_for.py (post-step, runs
+    # after build_recipe_guide_json.py).  Do NOT hand-write it here: the
+    # generator derives consumption effects (ALCH exports), recipes
+    # (recipe_guide.json) and challenges (challenges.json) from the item's
+    # name + form ID above and injects `used_for` into the spawn JSON.
 }
 
 # ── DEATHCLAW EGGS ───────────────────────────────────────────────────────────────

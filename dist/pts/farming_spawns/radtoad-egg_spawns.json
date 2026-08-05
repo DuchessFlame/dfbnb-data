@@ -25,6 +25,78 @@
   "vendors": null,
   "resource_generators": null
  },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0,
+   "value": 9,
+   "addiction": null,
+   "note": "Radtoad Egg is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "15% chance to catch a disease",
+     "duration": null
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (small)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [
+   {
+    "name": "Radtoad Omelette",
+    "form_id": "0003E053",
+    "recipe_edid": "co_meal_RadToadEggCooked",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Radtoad Egg",
+      "qty": 1
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+1 Fortify Endurance",
+      "duration": "30 min"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (medium)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": ""
+   }
+  ]
+ },
  "regions": [
   {
    "region": "Ash Heap",

@@ -776,6 +776,14 @@ jobs:
       - name: Build Recipe Guide JSON
         run: python src/build_recipe_guide_json.py --data-dir tsv --outdir dist
 
+      # --- FARMING SPAWNS "Used For" (generative) ---
+      # Injects the used_for block (consumption effects from ALCH exports,
+      # recipes from recipe_guide.json, challenges from challenges.json) into
+      # every dist/farming_spawns/<slug>_spawns.json.  Must run AFTER
+      # build_farming_spawns_json.py AND build_recipe_guide_json.py.
+      - name: Build Farming Spawns "Used For" JSON
+        run: python src/build_farming_used_for.py --all
+
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
       # fish metadata, spawn rate tables per bait type, axolotl monthly

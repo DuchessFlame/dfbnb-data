@@ -40,6 +40,149 @@
    "note": "Mothman Nest collectron produces 1 egg per cycle (100%). Liberated collectron has a 25% chance per cycle (1 of 4 items)."
   }
  },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0,
+   "value": 15,
+   "addiction": null,
+   "note": "Mothman Egg is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (small)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Epic - Collect Mothman Eggs",
+    "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman_Epic",
+    "page": "daily"
+   },
+   {
+    "name": "Collect Mothman Eggs",
+    "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman",
+    "page": "daily"
+   },
+   {
+    "name": "Birthday: Collect a Mothman Egg while wearing the Birthday Suit",
+    "edid": "ATX_DE2023_Birthday_Challenge_Collect_MothmanEgg",
+    "page": null
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Brain Bombs",
+    "form_id": "0011C5B0",
+    "recipe_edid": "co_meal_BrainBombsGourmet",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Herbivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Sugar Bombs",
+      "qty": 3
+     },
+     {
+      "name": "Purified Water",
+      "qty": 2
+     },
+     {
+      "name": "Mothman Egg",
+      "qty": 2
+     },
+     {
+      "name": "Brain Fungus",
+      "qty": 3
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Restore Action Points",
+      "display": "+12 Action Points",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Intelligence",
+      "display": "+3 Fortify Intelligence",
+      "duration": "1 hour 30 min"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (verylarge)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": ""
+   },
+   {
+    "name": "Mothman Egg Omelette",
+    "form_id": "0029451A",
+    "recipe_edid": "co_meal_MothmanEggCooked",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Mothman Egg",
+      "qty": 1
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Charisma",
+      "display": "+2 Fortify Charisma",
+      "duration": "30 min"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (large)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": ""
+   }
+  ]
+ },
  "regions": [
   {
    "region": "Ash Heap",

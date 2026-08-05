@@ -218,6 +218,7 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
         "page_title": cfg["page_title"],
         "blurb": cfg["blurb"],
         "drop_rates": cfg.get("drop_rates"),
+        "used_for": cfg.get("used_for"),
         "regions": regions_out,
     }
     os.makedirs(dist_dir, exist_ok=True)

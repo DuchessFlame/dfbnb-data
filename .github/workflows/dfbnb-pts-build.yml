@@ -868,6 +868,13 @@ jobs:
       - name: Build Recipe Guide JSON
         run: python src/build_recipe_guide_json.py --data-dir tsv --outdir dist
 
+      # --- FARMING SPAWNS "Used For" (generative) ---
+      # PTS reads the PTS-normalised tsv/ + PTS dist/ produced above; the later
+      # relocate step moves dist/ -> dist/pts/, so no --pts flag is needed here.
+      # Must run AFTER build_farming_spawns_json.py AND build_recipe_guide_json.py.
+      - name: Build Farming Spawns "Used For" JSON
+        run: python src/build_farming_used_for.py --all
+
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
       # fish metadata, spawn rate tables per bait type, axolotl monthly
