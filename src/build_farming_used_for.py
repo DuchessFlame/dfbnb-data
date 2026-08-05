@@ -369,6 +369,70 @@ def build_challenges(formid: str, dist_dir: str) -> List[Dict[str, Any]]:
     return hits
 
 
+# ── Vendor list (flat, sorted by % desc) ─────────────────────────────────────
+# Cream/food vendors are generic vending machines / station protectrons that all
+# pull from the shared drink pool, so the game gives them no unique player-facing
+# name — the identifier is the location marker + vendor TYPE. Rate is set by TYPE,
+# not location: Vera 100% > Raider (general + raider pool) > everyone else (general
+# drink pool). The only individually-named vendor is Vera (added from drop_rates).
+# NOTE: attaching a specific NPC name per placement is NOT possible from the
+# committed exports — the vendor REFR base objects are high-load-order placed refs
+# absent from the standing NPC/CONT/ACTI exports. That needs a dedicated ref->base
+# cross-reference (xEdit/Mappalachia) and is intentionally out of scope here.
+RAIDER_MARKERS = {"the crater", "crater core"}
+
+
+def build_vendor_list(regions: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dict[str, Any]]:
+    vend = ((cfg.get("drop_rates") or {}).get("vendors") or {})
+    general_rd = (vend.get("general") or {}).get("rate_display", "~86%")
+    raider_extra = (vend.get("raider") or {}).get("rate_display", "")
+    rows: List[Dict[str, Any]] = []
+
+    # Vera (or any named 100% vendor) first, from the drop-rate data.
+    vera = vend.get("vera")
+    if vera and vera.get("location"):
+        rd = vera.get("rate_display", "100%")
+        if vera.get("qty"):
+            rd += f" ({vera['qty']} guaranteed)"
+        rows.append({
+            "name": "Vera (Blue Ridge)",
+            "marker": vera["location"],
+            "region": vera.get("region", ""),
+            "vendor_type": "Named vendor",
+            "rate_display": rd,
+            "rate_value": float(vera.get("rate", 1.0)),
+            "count": 1,
+        })
+
+    for reg in regions:
+        for loc in reg.get("locations", []):
+            c = (loc.get("sources") or {}).get("vendor", 0)
+            if not c:
+                continue
+            marker = loc.get("marker", "")
+            ml = marker.lower()
+            if ml in RAIDER_MARKERS:
+                vtype = "Raider vendor"
+                rd = f"{general_rd} (+{raider_extra} Raider)" if raider_extra else general_rd
+                rv = 0.94
+            elif marker.endswith("Station"):
+                vtype, rd, rv = "Train station vendor", general_rd, 0.86
+            else:
+                vtype, rd, rv = "Settlement vendor", general_rd, 0.86
+            rows.append({
+                "name": marker,
+                "marker": marker,
+                "region": reg.get("region", ""),
+                "vendor_type": vtype,
+                "rate_display": rd,
+                "rate_value": rv,
+                "count": c,
+            })
+
+    rows.sort(key=lambda r: (-r["rate_value"], r["marker"].lower()))
+    return rows
+
+
 # ── Assemble + inject ────────────────────────────────────────────────────────
 def build_used_for(cfg: Dict[str, Any], dist_dir: str, data_dir: str,
                    recipe_guide: Dict[str, Any], bench_cat: Dict[str, str]) -> Dict[str, Any]:
@@ -382,33 +446,37 @@ def build_used_for(cfg: Dict[str, Any], dist_dir: str, data_dir: str,
     }
 
 
-def inject(slug: str, used_for: Dict[str, Any], dist_dir: str) -> bool:
+def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: str) -> bool:
     path = os.path.join(dist_dir, "farming_spawns", f"{slug}_spawns.json")
     if not os.path.exists(path):
         print(f"  [skip] {os.path.relpath(path, REPO)} not built")
         return False
     doc = json.load(open(path, encoding="utf-8"),
                     object_pairs_hook=collections.OrderedDict)
+    vendor_list = build_vendor_list(doc.get("regions", []), cfg)
     out = collections.OrderedDict()
     placed = False
     for k, v in doc.items():
-        if k == "used_for":
-            continue  # drop any old value; re-inserted in canonical spot
+        if k in ("used_for", "vendor_list"):
+            continue  # drop any old values; re-inserted in canonical spot
         out[k] = v
         if k == "drop_rates":
             out["used_for"] = used_for
+            out["vendor_list"] = vendor_list
             placed = True
     if not placed:
         # no drop_rates key — insert before regions
         regions = out.pop("regions", None)
         out["used_for"] = used_for
+        out["vendor_list"] = vendor_list
         if regions is not None:
             out["regions"] = regions
     json.dump(out, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     r = used_for.get("recipes") or []
     c = used_for.get("challenges") or []
     print(f"  {os.path.basename(path):<34} recipes:{len(r):>2}  challenges:{len(c):>2}"
-          f"  consumption:{'yes' if used_for.get('consumption') else 'no'}")
+          f"  consumption:{'yes' if used_for.get('consumption') else 'no'}"
+          f"  vendors:{len(vendor_list):>2}")
     return True
 
 
@@ -426,7 +494,7 @@ def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
             print(f"  [skip] unknown slug '{slug}'")
             continue
         uf = build_used_for(cfg, dist_dir, data_dir, recipe_guide, bench_cat)
-        inject(slug, uf, dist_dir)
+        inject(slug, uf, cfg, dist_dir)
 
 
 def main(argv=None):
