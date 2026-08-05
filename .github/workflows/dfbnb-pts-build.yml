@@ -1035,11 +1035,13 @@ jobs:
           test -f dist/drop_chances_data.json        && echo "OK drop_chances_data.json"        || (echo "MISSING drop_chances_data.json" && exit 1)
           test -f dist/legendary_mod_drop_chances.json && echo "OK legendary_mod_drop_chances.json" || (echo "MISSING legendary_mod_drop_chances.json" && exit 1)
           test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
+          test -f dist/vendors.json                  && echo "OK vendors.json"                  || (echo "MISSING vendors.json" && exit 1)
           test -f dist/collectable_spawns_manifest.json && echo "OK collectable_spawns_manifest.json" || (echo "MISSING collectable_spawns_manifest.json" && exit 1)
           test -f dist/collectable_spawns_pint-sized-slasher-masks.json && echo "OK collectable_spawns_pint-sized-slasher-masks.json" || (echo "MISSING collectable_spawns_pint-sized-slasher-masks.json" && exit 1)
           test -f dist/nuka_cola_spawns_manifest.json && echo "OK nuka_cola_spawns_manifest.json" || (echo "MISSING nuka_cola_spawns_manifest.json" && exit 1)
           test -f dist/nuka_cola_spawns_nuka-cola.json && echo "OK nuka_cola_spawns_nuka-cola.json" || (echo "MISSING nuka_cola_spawns_nuka-cola.json" && exit 1)
           test -f data/nuka_cola_spawns/geo_cache.json && echo "OK nuka_cola_spawns/geo_cache.json" || echo "WARN nuka geo_cache not seeded — Nuka pages rebuild from committed dist until a local Mappalachia DB pass seeds it"
+          test -f data/vendors/geo_cache.json         && echo "OK vendors/geo_cache.json" || echo "WARN vendors geo_cache not seeded — vendor marker/region blank until a local Mappalachia DB pass seeds it"
           # Farming spawns — check every item in config (soft-warn, geo cache may not be seeded yet)
           for f in dist/farming_spawns/*_spawns.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not built"; done
           for f in data/farming_spawns/geo_cache_*.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not seeded"; done

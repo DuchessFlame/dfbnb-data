@@ -49,6 +49,10 @@ INTERIOR_REGION_OVERRIDES = {
     "Black Bear Lodge": "Toxic Valley",
     "Hornwright Industrial HQ": "Forest",            # Charleston
     "Valley Galleria": "Cranberry Bog",              # Watoga shopping plaza
+    # --- Added Aug 2026 from the vendor build's unresolved list (DB-verified) ---
+    "The Rusty Pick": "Ash Heap",                    # marker exists but sits in a polygon gap
+    "Duncan & Duncan Robotics": "Cranberry Bog",     # Watoga (all Watoga markers resolve here)
+    "Gold Vault Operations": "Savage Divide",        # Regs — inside Vault 79 (marker = Savage Divide)
     # Best-guess — PLEASE VERIFY (a wrong region is a one-line fix here):
     "Belching Betty": "Savage Divide",               # mine, Mount Blair area
     "FEV Production Facility": "Savage Divide",       # West Tek

@@ -62,6 +62,7 @@ if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
 from farming_spawns_config import ALL_SETS, SETS_BY_SLUG  # noqa: E402
+import farming_spawns_sources as sources  # noqa: E402  (item LVLI closure for vendor join)
 # Reuse the exact effect-name / duration formatting used by the guide pages.
 from build_farming_guides_json import (  # noqa: E402
     _clean_effect_name,
@@ -370,55 +371,84 @@ def build_challenges(formid: str, dist_dir: str) -> List[Dict[str, Any]]:
 
 
 # ── Vendor list (flat, sorted by % desc) ─────────────────────────────────────
-# Cream/food vendors are generic vending machines / station protectrons that all
-# pull from the shared drink pool, so the game gives them no unique player-facing
-# name — the identifier is the location marker + vendor TYPE. Rate is set by TYPE,
-# not location: Vera 100% > Raider (general + raider pool) > everyone else (general
-# drink pool). The only individually-named vendor is Vera (added from drop_rates).
-# NOTE: attaching a specific NPC name per placement is NOT possible from the
-# committed exports — the vendor REFR base objects are high-load-order placed refs
-# absent from the standing NPC/CONT/ACTI exports. That needs a dedicated ref->base
-# cross-reference (xEdit/Mappalachia) and is intentionally out of scope here.
+# Rate is set by vendor TYPE, not location: Vera 100% > Raider (general + raider
+# pool) > everyone else (general pool).
+#
+# NAMES: once dist/vendors.json (the NPC2 vendor master) exists, we join the
+# item's own LVLI closure against each vendor's `sells` closure to list the REAL
+# named vendors that stock the item (with their marker/region). When the master
+# is absent — or an item has no named seller (e.g. eggs, which no vendor sells) —
+# we fall back to the marker + TYPE heuristic below. Vera is always added from
+# drop_rates (the only guaranteed 100% named vendor).
 RAIDER_MARKERS = {"the crater", "crater core"}
 
 
-def build_vendor_list(regions: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dict[str, Any]]:
+def _vera_row(cfg: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    vend = ((cfg.get("drop_rates") or {}).get("vendors") or {})
+    vera = vend.get("vera")
+    if not (vera and vera.get("location")):
+        return None
+    rd = vera.get("rate_display", "100%")
+    if vera.get("qty"):
+        rd += f" ({vera['qty']} guaranteed)"
+    return {
+        "name": "Vera (Blue Ridge)",
+        "marker": vera["location"],
+        "region": vera.get("region", ""),
+        "vendor_type": "Named vendor",
+        "rate_display": rd,
+        "rate_value": float(vera.get("rate", 1.0)),
+        "count": 1,
+    }
+
+
+def _tier(marker: str, is_raider: bool, general_rd: str, raider_extra: str):
+    """(vendor_type, rate_display, rate_value) for a non-Vera vendor."""
+    if is_raider:
+        rd = f"{general_rd} (+{raider_extra} Raider)" if raider_extra else general_rd
+        return "Raider vendor", rd, 0.94
+    if (marker or "").endswith("Station"):
+        return "Train station vendor", general_rd, 0.86
+    return "Settlement vendor", general_rd, 0.86
+
+
+def build_vendor_list_named(cfg: Dict[str, Any], item_closure: set,
+                            vendor_master: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Real named vendors whose stock closure intersects the item's LVLI closure."""
     vend = ((cfg.get("drop_rates") or {}).get("vendors") or {})
     general_rd = (vend.get("general") or {}).get("rate_display", "~86%")
     raider_extra = (vend.get("raider") or {}).get("rate_display", "")
     rows: List[Dict[str, Any]] = []
-
-    # Vera (or any named 100% vendor) first, from the drop-rate data.
-    vera = vend.get("vera")
-    if vera and vera.get("location"):
-        rd = vera.get("rate_display", "100%")
-        if vera.get("qty"):
-            rd += f" ({vera['qty']} guaranteed)"
+    for v in vendor_master:
+        if not item_closure & set(v.get("sells_formids") or []):
+            continue
+        marker = v.get("marker", "")
+        ident = f"{v.get('faction','')} {v.get('edid','')} {v.get('container_base','')}".lower()
+        is_raider = ("raider" in ident) or (marker.lower() in RAIDER_MARKERS)
+        vtype, rd, rv = _tier(marker, is_raider, general_rd, raider_extra)
         rows.append({
-            "name": "Vera (Blue Ridge)",
-            "marker": vera["location"],
-            "region": vera.get("region", ""),
-            "vendor_type": "Named vendor",
+            "name": v.get("name", ""),
+            "marker": marker,
+            "region": v.get("region", ""),
+            "vendor_type": vtype,
             "rate_display": rd,
-            "rate_value": float(vera.get("rate", 1.0)),
+            "rate_value": rv,
             "count": 1,
         })
+    return rows
 
+
+def build_vendor_list_heuristic(regions: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dict[str, Any]]:
+    general_rd = ((cfg.get("drop_rates") or {}).get("vendors") or {}).get("general", {}).get("rate_display", "~86%")
+    raider_extra = ((cfg.get("drop_rates") or {}).get("vendors") or {}).get("raider", {}).get("rate_display", "")
+    rows: List[Dict[str, Any]] = []
     for reg in regions:
         for loc in reg.get("locations", []):
             c = (loc.get("sources") or {}).get("vendor", 0)
             if not c:
                 continue
             marker = loc.get("marker", "")
-            ml = marker.lower()
-            if ml in RAIDER_MARKERS:
-                vtype = "Raider vendor"
-                rd = f"{general_rd} (+{raider_extra} Raider)" if raider_extra else general_rd
-                rv = 0.94
-            elif marker.endswith("Station"):
-                vtype, rd, rv = "Train station vendor", general_rd, 0.86
-            else:
-                vtype, rd, rv = "Settlement vendor", general_rd, 0.86
+            vtype, rd, rv = _tier(marker, marker.lower() in RAIDER_MARKERS, general_rd, raider_extra)
             rows.append({
                 "name": marker,
                 "marker": marker,
@@ -428,8 +458,35 @@ def build_vendor_list(regions: List[Dict[str, Any]], cfg: Dict[str, Any]) -> Lis
                 "rate_value": rv,
                 "count": c,
             })
+    return rows
 
-    rows.sort(key=lambda r: (-r["rate_value"], r["marker"].lower()))
+
+def build_vendor_list(regions: List[Dict[str, Any]], cfg: Dict[str, Any],
+                      item_closure: Optional[set] = None,
+                      vendor_master: Optional[List[Dict[str, Any]]] = None) -> List[Dict[str, Any]]:
+    """Prefer real named vendors (via the sells join); fall back to the marker +
+    TYPE heuristic. Vera is always prepended from drop_rates."""
+    named = (build_vendor_list_named(cfg, item_closure, vendor_master)
+             if (vendor_master and item_closure) else [])
+    body = named if named else build_vendor_list_heuristic(regions, cfg)
+
+    # Collapse exact-duplicate rows (same name+marker+region+type) into one, summing
+    # count — matches the §9e "×N" pill. Distinct locations stay as separate rows.
+    merged: Dict[tuple, Dict[str, Any]] = {}
+    for r in body:
+        key = (r["name"], r.get("marker", ""), r.get("region", ""), r["vendor_type"])
+        if key in merged:
+            merged[key]["count"] += r.get("count", 1)
+        else:
+            merged[key] = dict(r)
+
+    rows: List[Dict[str, Any]] = []
+    vera = _vera_row(cfg)
+    if vera:
+        rows.append(vera)
+    rows.extend(merged.values())
+    rows.sort(key=lambda r: (-r["rate_value"], (r.get("region") or "~"),
+                             (r.get("marker") or "").lower(), r["name"].lower()))
     return rows
 
 
@@ -446,14 +503,17 @@ def build_used_for(cfg: Dict[str, Any], dist_dir: str, data_dir: str,
     }
 
 
-def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: str) -> bool:
+def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: str,
+           item_closure: Optional[set] = None,
+           vendor_master: Optional[List[Dict[str, Any]]] = None) -> bool:
     path = os.path.join(dist_dir, "farming_spawns", f"{slug}_spawns.json")
     if not os.path.exists(path):
         print(f"  [skip] {os.path.relpath(path, REPO)} not built")
         return False
     doc = json.load(open(path, encoding="utf-8"),
                     object_pairs_hook=collections.OrderedDict)
-    vendor_list = build_vendor_list(doc.get("regions", []), cfg)
+    vendor_list = build_vendor_list(doc.get("regions", []), cfg,
+                                    item_closure=item_closure, vendor_master=vendor_master)
     out = collections.OrderedDict()
     placed = False
     for k, v in doc.items():
@@ -480,6 +540,14 @@ def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: s
     return True
 
 
+def _load_vendor_master(dist_dir: str) -> List[Dict[str, Any]]:
+    path = os.path.join(dist_dir, "vendors.json")
+    try:
+        return json.load(open(path, encoding="utf-8")).get("vendors", [])
+    except Exception:
+        return []
+
+
 def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
     rg_path = os.path.join(dist_dir, "recipe_guide.json")
     if not os.path.exists(rg_path):
@@ -487,14 +555,28 @@ def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
     recipe_guide = json.load(open(rg_path, encoding="utf-8"))
     bench_cat = _bench_category_map(os.path.join(dist_dir, "cobj-recipes.json"))
 
+    # Vendor master (real names) + LVLI tables for the item→vendor sells join.
+    vendor_master = _load_vendor_master(dist_dir)
+    try:
+        tables = sources.load_tables(data_dir)
+    except Exception as e:
+        print(f"  [warn] LVLI tables unavailable ({e}); vendor names fall back to markers.")
+        tables = None
+    if vendor_master:
+        print(f"  vendor master: {len(vendor_master)} vendors from {os.path.join(dist_dir, 'vendors.json')}")
+
     print(f"Building used_for  (dist={dist_dir}  data={data_dir})")
     for slug in slugs:
         cfg = SETS_BY_SLUG.get(slug)
         if not cfg:
             print(f"  [skip] unknown slug '{slug}'")
             continue
+        item_closure = None
+        if tables and vendor_master:
+            src = sources.get_sources(cfg["items"], tables)
+            item_closure = {f.upper() for f in src["lvli_closure"]}
         uf = build_used_for(cfg, dist_dir, data_dir, recipe_guide, bench_cat)
-        inject(slug, uf, cfg, dist_dir)
+        inject(slug, uf, cfg, dist_dir, item_closure=item_closure, vendor_master=vendor_master)
 
 
 def main(argv=None):
