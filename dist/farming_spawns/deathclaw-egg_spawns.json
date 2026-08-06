@@ -1,14 +1,15 @@
 {
  "_meta": {
-  "generated": "2026-08-05",
+  "generated": "2026-08-06",
   "source": "Game-file exports (LVLI/ALCH/MISC) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 10,
+  "lists_in_closure": 17,
   "source_totals": {
-   "direct": 22
+   "direct": 22,
+   "nest": 11
   },
   "unresolved": {
-   "Cavern": 5,
-   "Tunnel of Love": 1
+   "Cavern": 8,
+   "Tunnel of Love": 6
   }
  },
  "set": "deathclaw-egg",
@@ -20,10 +21,10 @@
    "list_edid": "LPI_Food_DeathclawEgg",
    "list_id": "002118C0",
    "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
-   "chance_none_value": 50,
+   "note": "37 LPI spawn points for the raw egg roll a per-server-hop chance each (computed). 5 raw eggs and 12 cracked eggs are fixed static world spawns.",
    "rate": 0.5,
    "rate_display": "50%",
-   "note": "37 LPI spawn points for the raw egg roll a 50% chance each per server hop. 5 raw eggs and 12 cracked eggs are fixed 100% static world spawns."
+   "rate_source": "computed"
   },
   "containers": {
    "container_edid": "Container_Loot_DeathclawNest01",
@@ -31,19 +32,23 @@
    "nest_list_edid": "LL_Deathclaw_Nest",
    "nest_list_id": "001B0084",
    "chance_none_glob": "ItemTwo_High_ChanceNone_Tier",
-   "chance_none_value": 10,
+   "count": 19,
+   "note": "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). Each nest's chance to contain 1 raw egg + 1 cracked egg is computed from the ItemTwo_High_ChanceNone_Tier GLOB.",
    "rate": 0.9,
    "rate_display": "90%",
-   "count": 19,
-   "note": "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). Each nest has a 90% chance to contain 1 raw egg + 1 cracked egg (entry ChanceNone 10 via GLOB ItemTwo_High_ChanceNone_Tier)."
+   "rate_source": "computed"
   },
   "vendors": {
    "general": {
     "list_edid": "LLV_Vendor_Junk_Small_Rare",
     "list_id": "000757BD",
-    "mechanism": "Cracked Deathclaw Egg is 1 of 40 items in the junk vendor rare pool (pick-one, 2.5% per roll). Raw eggs are not sold by any vendor.",
-    "rate_display": "2.5%",
-    "note": "Junk vendors have a 2.5% chance per roll to stock a cracked deathclaw egg. Raw eggs are not vendored."
+    "mechanism": "Cracked Deathclaw Egg is 1 of 40 items in the junk vendor rare pool (pick-one). Raw eggs are not sold by any vendor.",
+    "note": "Junk vendors have a 2.5% chance per roll to stock a cracked deathclaw egg. Raw eggs are not vendored.",
+    "rate": 0.025,
+    "rate_lines": [
+     "2.5%"
+    ],
+    "rate_display": "2.5%"
    }
   },
   "resource_generators": {
@@ -275,20 +280,27 @@
     },
     {
      "marker": "Dino Peaks Mini Golf",
-     "count": 2,
+     "count": 8,
      "sources": {
-      "direct": 2
+      "direct": 2,
+      "nest": 6
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "7F0A81",
+      "7F0A84",
+      "80391B",
+      "82A3B2",
+      "82A3B3",
+      "82A3B4",
       "82A3B5",
       "82A3B6"
      ],
      "coords": [
-      -211856.2,
-      146331.7
+      -208312.0,
+      145838.8
      ]
     },
     {
@@ -410,9 +422,10 @@
     },
     {
      "marker": "Hopewell Cave",
-     "count": 5,
+     "count": 6,
      "sources": {
-      "direct": 5
+      "direct": 5,
+      "nest": 1
      },
      "image_top": "",
      "directions": "",
@@ -420,13 +433,14 @@
      "refs": [
       "1DD0AA",
       "26800C",
+      "36C927",
       "62A86C",
       "62A86F",
       "62A873"
      ],
      "coords": [
-      116221.4,
-      113333.9
+      115886.5,
+      113075.0
      ]
     },
     {
@@ -494,20 +508,57 @@
    "locations": [
     {
      "marker": "Abandoned Waste Dump",
-     "count": 2,
+     "count": 4,
      "sources": {
-      "direct": 2
+      "direct": 2,
+      "nest": 2
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "3DC3DD",
       "3DC447",
-      "3DC448"
+      "3DC448",
+      "3DC449"
      ],
      "coords": [
-      184875.0,
-      26884.5
+      184725.0,
+      26157.2
+     ]
+    },
+    {
+     "marker": "Excelsior Model Home",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2C089D"
+     ],
+     "coords": [
+      173343.6,
+      99286.8
+     ]
+    },
+    {
+     "marker": "Thunder Mt. Power Plant Yard",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "37BE5C"
+     ],
+     "coords": [
+      190414.7,
+      86812.4
      ]
     }
    ]

@@ -1131,6 +1131,268 @@ class Rng76Resolver:
 
         return items
 
+    # ---- appearance probability (inventory "is it there?" question) ----
+
+    def appearance_prob(
+        self,
+        list_id: str,
+        target_formid: str,
+        depth: int = 0,
+        seen: Optional[Set[str]] = None,
+    ) -> float:
+        """P(``target_formid`` appears at least once when ``list_id`` is rolled ONCE).
+
+        This answers the "will a bottle of X be in the vendor's inventory when
+        I open the trade window?" question — the true per-reset appearance
+        probability, NOT the per-roll pick rate that ``resolve_deep`` returns.
+
+        It mirrors ``resolve_deep``'s per-entry selection maths exactly (waterfall
+        / independent / pick-one / first-match, ChanceNone, GetRandomPercent
+        conditions) but folds child results into an at-least-once probability and
+        applies the For Each (bit 1) repeated-roll rule from the drop-rate-engine
+        skill §3g: a For Each sub-list referenced with quantity N is rolled N
+        times, so its appearance chance becomes ``1 - (1 - single)^N``.
+
+        Nested lists compose the same way. UseAll ``max_count > 1`` is treated as
+        independent (the documented display approximation, §3d) — identical to
+        ``resolve_deep`` — so results stay consistent with the rest of the engine.
+
+        ``target_formid`` may be a single FormID string or an iterable of them; in
+        the iterable case this returns P(ANY of them appears), evaluated exactly
+        within each list roll (they share the same pick), which is the right
+        maths for multi-FormID items (e.g. raw + cracked egg).
+        """
+        if isinstance(target_formid, (list, set, tuple, frozenset)):
+            targets = {str(t).upper() for t in target_formid if t}
+        else:
+            targets = {(target_formid or "").upper()}
+        if seen is None:
+            seen = set()
+        if list_id in seen or depth > 50:
+            return 0.0
+        seen = seen | {list_id}
+
+        flags = self.lvli.flags_for(list_id)
+        is_use_all = flags["use_all"]
+        is_first_match = flags["first_match"]
+
+        raw: List[Dict[str, Any]] = []
+        for entry in self.lvli.entries_by_list.get(list_id, []):
+            idx = entry.get("EntryIndex")
+            if idx is None:
+                continue
+            math = self.lvli.math_by_entry.get((list_id, idx))
+            if not math:
+                continue
+            pw, cn = self._entry_pick_and_cn(math, entry, list_id)
+            qty = self._entry_qty(entry)
+            conditions = self._entry_conditions(entry)
+            sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
+            ref = (entry.get("LVLO_Reference") or "").strip()
+            if is_use_all and conditions:
+                grp = self.extract_grp_threshold(conditions)
+                if grp is not None:
+                    pw = grp / 100.0
+                    cn = 1.0
+            raw.append({"pw": pw, "cn": cn, "qty": qty,
+                        "sub": sub_lvli, "ref": ref, "conditions": conditions})
+
+        if not raw:
+            return 0.0
+
+        # ── per-entry SELECTION probability (same maths as resolve_deep) ──
+        if is_first_match:
+            thresholds = [self.extract_grp_threshold(r["conditions"]) for r in raw]
+            if any(t is not None for t in thresholds):
+                prev = 0.0
+                for i, r in enumerate(raw):
+                    if thresholds[i] is not None:
+                        r["sel"] = (thresholds[i] - prev) / 100.0
+                        prev = thresholds[i]
+                    else:
+                        r["sel"] = (100.0 - prev) / 100.0
+            else:
+                cum_fail = 1.0
+                for r in raw:
+                    s = r["pw"] * r["cn"]
+                    r["sel"] = s * cum_fail
+                    cum_fail *= (1.0 - s)
+            independent = False
+        elif is_use_all:
+            max_count = self.lvli.max_count_for(list_id, self.globs, self.curvs)
+            if max_count == 1:
+                cum_fail = 1.0
+                for r in raw:
+                    drop = r["pw"] * r["cn"]
+                    r["sel"] = drop * cum_fail
+                    cum_fail *= (1.0 - drop)
+                independent = False
+            else:
+                for r in raw:
+                    r["sel"] = r["pw"] * r["cn"]
+                independent = True
+        else:
+            total_pw = sum(r["pw"] for r in raw)
+            for r in raw:
+                r["sel"] = (r["pw"] / total_pw) * r["cn"] if total_pw > 0 else 0.0
+            independent = False
+
+        # ── each entry's contribution to "target appears" ──
+        contribs: List[float] = []
+        for r in raw:
+            if r["sub"]:
+                a = self.appearance_prob(r["sub"], targets, depth + 1, seen)
+                if self.lvli.flags_for(r["sub"])["for_each"] and r["qty"] > 1:
+                    single = r["sel"] * a
+                    contribs.append(1.0 - (1.0 - single) ** r["qty"])
+                else:
+                    contribs.append(r["sel"] * a)
+            else:
+                fid = r["ref"].split(":")[0].upper() if ":" in r["ref"] else ""
+                hit = bool(fid) and any(fid.endswith(t) for t in targets)
+                contribs.append(r["sel"] if hit else 0.0)
+
+        if independent:
+            prod = 1.0
+            for c in contribs:
+                prod *= (1.0 - c)
+            return 1.0 - prod
+        return sum(contribs)
+
+    def pick_rate(self, list_id: str, target_formid) -> float:
+        """Single per-roll pick rate for ``target_formid`` in ``list_id``.
+
+        This is the per-entry drop rate ``resolve_deep`` reports (the number the
+        rng76 harness table shows) — i.e. "when this list is rolled once, what is
+        the chance THIS item is the pick?", INCLUDING the entry's own ChanceNone
+        gate but NOT compounded across repeated rolls. When the item is reachable
+        by more than one leaf path, the highest (least-gated) path is returned, so
+        e.g. a guaranteed drink-pool entry reports the raw 1-of-N pick rather than
+        a 50%-gated copy of it.
+
+        ``target_formid`` may be a single FormID or an iterable of them.
+        """
+        if isinstance(target_formid, (list, set, tuple, frozenset)):
+            targets = {str(t).upper() for t in target_formid if t}
+        else:
+            targets = {(target_formid or "").upper()}
+        best = 0.0
+        for it in self.resolve_deep(list_id):
+            fid = (it.get("formid") or "").upper()
+            if fid and any(fid.endswith(t) for t in targets):
+                best = max(best, float(it.get("dropRate", 0.0)))
+        return best
+
+    def entry_appearances(self, list_id: str, target_formid, depth: int = 0,
+                          seen: Optional[Set[str]] = None) -> List[float]:
+        """Per-SOURCE appearance probabilities for ``target_formid`` — one number
+        per contributing entry, the way the rng76 harness lists them.
+
+        For each entry that can yield the item this returns its own chance of
+        producing at least one, so an item stocked by two drink-pool entries comes
+        back as e.g. ``[0.2778, 0.7824]`` (which SUM to the harness's 106% figure).
+        The maths per source:
+          * entry ChanceNone is applied ONCE (entry fires or not),
+          * a For Each sub-list rolled qty N contributes ``1 - (1 - A)^N`` where A
+            is the item's one-roll appearance in that sub-list,
+          * a UseAll ``max_count`` entry-cap scales later entries by their
+            "reached" probability (chance the cap isn't already full).
+        Nested non-ForEach lists bubble their sources up, scaled by the parent
+        entry's selection probability.
+        """
+        if isinstance(target_formid, (list, set, tuple, frozenset)):
+            targets = {str(t).upper() for t in target_formid if t}
+        else:
+            targets = {(target_formid or "").upper()}
+        if seen is None:
+            seen = set()
+        if list_id in seen or depth > 50:
+            return []
+        seen2 = seen | {list_id}
+
+        flags = self.lvli.flags_for(list_id)
+        is_use_all = flags["use_all"]
+        is_first_match = flags["first_match"]
+
+        raw: List[Dict[str, Any]] = []
+        for entry in self.lvli.entries_by_list.get(list_id, []):
+            idx = entry.get("EntryIndex")
+            if idx is None:
+                continue
+            math = self.lvli.math_by_entry.get((list_id, idx))
+            if not math:
+                continue
+            pw, cn = self._entry_pick_and_cn(math, entry, list_id)
+            qty = self._entry_qty(entry)
+            conditions = self._entry_conditions(entry)
+            sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
+            ref = (entry.get("LVLO_Reference") or "").strip()
+            if is_use_all and conditions:
+                grp = self.extract_grp_threshold(conditions)
+                if grp is not None:
+                    pw = grp / 100.0
+                    cn = 1.0
+            raw.append({"pw": pw, "cn": cn, "qty": qty,
+                        "sub": sub_lvli, "ref": ref, "conditions": conditions})
+
+        if not raw:
+            return []
+
+        # ── per-entry selection probability ──
+        if is_first_match:
+            thresholds = [self.extract_grp_threshold(r["conditions"]) for r in raw]
+            if any(t is not None for t in thresholds):
+                prev = 0.0
+                for i, r in enumerate(raw):
+                    if thresholds[i] is not None:
+                        r["sel"] = (thresholds[i] - prev) / 100.0
+                        prev = thresholds[i]
+                    else:
+                        r["sel"] = (100.0 - prev) / 100.0
+            else:
+                cum = 1.0
+                for r in raw:
+                    s = r["pw"] * r["cn"]
+                    r["sel"] = s * cum
+                    cum *= (1.0 - s)
+        elif is_use_all:
+            max_count = self.lvli.max_count_for(list_id, self.globs, self.curvs)
+            fire = [r["pw"] * r["cn"] for r in raw]
+            if max_count and 0 < max_count < len(raw):
+                # "reached" = P(fewer than max_count of the PRECEDING entries fired)
+                dist = [1.0]  # dist[k] = P(k preceding entries fired)
+                for i, r in enumerate(raw):
+                    r["sel"] = fire[i] * sum(dist[:max_count])
+                    nd = [0.0] * (len(dist) + 1)
+                    for k, pk in enumerate(dist):
+                        nd[k] += pk * (1.0 - fire[i])
+                        nd[k + 1] += pk * fire[i]
+                    dist = nd
+            else:
+                for i, r in enumerate(raw):
+                    r["sel"] = fire[i]
+        else:
+            total_pw = sum(r["pw"] for r in raw)
+            for r in raw:
+                r["sel"] = (r["pw"] / total_pw) * r["cn"] if total_pw > 0 else 0.0
+
+        out: List[float] = []
+        for r in raw:
+            if r["sub"]:
+                a = self.appearance_prob(r["sub"], targets, depth + 1, seen2)
+                if a <= 0:
+                    continue
+                if self.lvli.flags_for(r["sub"])["for_each"] and r["qty"] > 1:
+                    out.append(r["sel"] * (1.0 - (1.0 - a) ** r["qty"]))
+                else:
+                    for s in self.entry_appearances(r["sub"], targets, depth + 1, seen2):
+                        out.append(r["sel"] * s)
+            else:
+                fid = r["ref"].split(":")[0].upper() if ":" in r["ref"] else ""
+                if fid and any(fid.endswith(t) for t in targets):
+                    out.append(r["sel"])
+        return out
+
     # ---- region-aware resolve (events only) ------------------------
 
     def resolve_with_region(

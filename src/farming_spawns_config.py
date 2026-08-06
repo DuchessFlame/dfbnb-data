@@ -58,27 +58,27 @@ CREAM = {
             "sig": "ALCH",
         },
     ],
-    # ── Drop rates (resolved from LVLI TSVs, July 2026) ─────────────────
-    # Traced via the drop-rate-engine skill rules.  Cream (ALCH 0012DB3D)
-    # appears in three LVLI chains:
-    #   Container:  LPI_Drink_Cream (00215C9C, 83 REFRs)
-    #               List-level ChanceNone = 50 (GLOB LPI_Chance_Drink_Common_ECON)
+    # ── Drop rates ──────────────────────────────────────────────────────
+    # RATES ARE NOT HARDCODED. Only the source list IDs live here; the actual
+    # percentages are COMPUTED at build time by build_farming_used_for.py, which
+    # calls rng76.pick_rate() on these lists (and, for named vendors, on each
+    # vendor's real inventory tree). "Rate" = the SINGLE per-roll pick rate — the
+    # chance the item is the pick on one roll of the list, as the rng76 harness
+    # reports it (NOT a cumulative "will it show up across many rolls" number).
+    #   Container:  LPI_Drink_Cream (00215C9C, 83 REFRs) — list-level ChanceNone
+    #               50 via GLOB LPI_Chance_Drink_Common_ECON (world-spawn only).
     #   Vendor:     LLV_Vendor_Drink (003C24EA) → LL_Drink_NonAlcohol_Basic_NoWater
-    #               (002B85D1, pick-one 3 entries, ForEach qty 2+4) ≈ 86% per reset
-    #   Raider:     LLV_Vendor_Healing_Faction_Raiders (003D7F7C) entry 0
-    #               ChanceNone 85 → 15% extra for Raider vendors
-    #   Vera:       Vendor_Moon_Vera_BlueRidge (00695804) entry 1, CN=0 qty=3
-    #               → 100% guaranteed, 3 cream
+    #               (002B85D1, pick-one of 3 → cream is 1 of 3 = ~33% per roll).
+    #   Raider:     LLV_Vendor_Healing_Faction_Raiders (003D7F7C) entry 0, cream at
+    #               ChanceNone 85 = 15% per roll of that pool.
+    #   Vera:       Vendor_Moon_Vera_BlueRidge (00695804) — guaranteed named stock.
     #   Resource generators: none produce cream.
     "drop_rates": {
         "world_spawns": {
             "list_edid": "LPI_Drink_Cream",
             "list_id": "00215C9C",
             "chance_none_glob": "LPI_Chance_Drink_Common_ECON",
-            "chance_none_value": 50,
-            "rate": 0.5,
-            "rate_display": "50%",
-            "note": "Each world spawn rolls a 50% chance per server hop.",
+            "note": "Each world spawn rolls a per-server-hop chance (computed).",
         },
         "vendors": {
             "general": {
@@ -86,35 +86,29 @@ CREAM = {
                 "list_id": "003C24EA",
                 "mechanism": (
                     "Cream is 1 of 3 items in LL_Drink_NonAlcohol_Basic_NoWater "
-                    "(pick-one, 33% per roll). The drink pool rolls this list up to "
-                    "6 times across two UseAll entries (qty 2 at 50% + qty 4 guaranteed)."
+                    "(pick-one), so its per-roll pick rate from the drink pool is "
+                    "~33%."
                 ),
-                "rate_display": "~86%",
                 "note": (
-                    "Most vendors have roughly an 86% chance to stock at least one "
-                    "cream per reset."
+                    "Cream's per-roll pick rate from a general vendor's drink pool "
+                    "(computed)."
                 ),
             },
             "raider": {
                 "list_edid": "LLV_Vendor_Healing_Faction_Raiders",
                 "list_id": "003D7F7C",
                 "mechanism": (
-                    "Entry 0 of the Raider healing pool references LL_Drink_Cream "
-                    "with ChanceNone 85 (15%). The healing pool itself fires 50% of "
-                    "the time via LLV_Faction_Raiders, so effective extra = ~7.5%."
+                    "In the raider healing pool cream sits at ChanceNone 85, i.e. a "
+                    "15% per-roll pick rate."
                 ),
-                "rate_display": "~8%",
                 "note": (
-                    "Raider vendors have an extra ~8% chance to stock cream through "
-                    "the Raider healing pool (ChanceNone 85 at 50% pool fire rate), "
-                    "on top of the general drink pool."
+                    "Cream's per-roll pick rate in the raider healing pool "
+                    "(computed)."
                 ),
             },
             "vera": {
                 "list_edid": "Vendor_Moon_Vera_BlueRidge",
                 "list_id": "00695804",
-                "rate": 1.0,
-                "rate_display": "100%",
                 "qty": 3,
                 "location": "Middle Mountain Pitstop",
                 "region": "Savage Divide",
@@ -175,13 +169,10 @@ DEATHCLAW_EGG = {
             "list_edid": "LPI_Food_DeathclawEgg",
             "list_id": "002118C0",
             "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
-            "chance_none_value": 50,
-            "rate": 0.5,
-            "rate_display": "50%",
             "note": (
-                "37 LPI spawn points for the raw egg roll a 50% chance each "
-                "per server hop. 5 raw eggs and 12 cracked eggs are fixed "
-                "100% static world spawns."
+                "37 LPI spawn points for the raw egg roll a per-server-hop "
+                "chance each (computed). 5 raw eggs and 12 cracked eggs are "
+                "fixed static world spawns."
             ),
         },
         "containers": {
@@ -190,14 +181,11 @@ DEATHCLAW_EGG = {
             "nest_list_edid": "LL_Deathclaw_Nest",
             "nest_list_id": "001B0084",
             "chance_none_glob": "ItemTwo_High_ChanceNone_Tier",
-            "chance_none_value": 10,
-            "rate": 0.9,
-            "rate_display": "90%",
             "count": 19,
             "note": (
                 "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). "
-                "Each nest has a 90% chance to contain 1 raw egg + 1 cracked egg "
-                "(entry ChanceNone 10 via GLOB ItemTwo_High_ChanceNone_Tier)."
+                "Each nest's chance to contain 1 raw egg + 1 cracked egg is "
+                "computed from the ItemTwo_High_ChanceNone_Tier GLOB."
             ),
         },
         "vendors": {
@@ -206,10 +194,8 @@ DEATHCLAW_EGG = {
                 "list_id": "000757BD",
                 "mechanism": (
                     "Cracked Deathclaw Egg is 1 of 40 items in the junk vendor "
-                    "rare pool (pick-one, 2.5% per roll). Raw eggs are not sold "
-                    "by any vendor."
+                    "rare pool (pick-one). Raw eggs are not sold by any vendor."
                 ),
-                "rate_display": "2.5%",
                 "note": (
                     "Junk vendors have a 2.5% chance per roll to stock a cracked "
                     "deathclaw egg. Raw eggs are not vendored."
@@ -262,7 +248,6 @@ FROG_EGG = {
                 "UseAll list with 5 entries. Entry 1: RadFrogEgg at CN=0 (guaranteed). "
                 "Entry 3: RadFrogEgg at CN=50 (50% chance of a second egg)."
             ),
-            "rate_display": "100% (1) + 50% (2nd)",
             "note": (
                 "Every rad frog kill guarantees 1 frog egg. There is a 50% chance "
                 "of receiving a second egg from the same kill. No world-placed "
@@ -317,8 +302,6 @@ MIRELURK_EGG = {
         "world_spawns": {
             "list_edid": "MirelurkEgg_Harvestable",
             "list_id": "001715CD",
-            "rate": 1.0,
-            "rate_display": "100%",
             "note": (
                 "~95 harvestable egg ACTIs and ~79 hatching egg ACTIs in the world. "
                 "Each activation guarantees 1 mirelurk egg. Hatching eggs also "
@@ -329,12 +312,10 @@ MIRELURK_EGG = {
             "whitespring": {
                 "list_edid": "LLV_Vendor_Food_Whitespring_Rare",
                 "list_id": "0037D966",
-                "rate": 1.0,
-                "rate_display": "100%",
                 "qty": 1,
                 "note": (
-                    "Whitespring food vendor always stocks 1 mirelurk egg "
-                    "(guaranteed entry in the rare food pool)."
+                    "Whitespring food vendor can stock 1 mirelurk egg from its "
+                    "rare food pool (per-reset chance computed)."
                 ),
             },
         },
@@ -402,8 +383,6 @@ MOTHMAN_EGG = {
         "world_spawns": {
             "list_edid": "LPI_FloraMothmanEggs01/02/03",
             "list_ids": ["0035D23F", "0035D237", "0035D22B"],
-            "rate": 1.0,
-            "rate_display": "100%",
             "note": (
                 "66 mothman egg flora placements across 3 LPI lists. Each harvest "
                 "yields 1 egg; respawns on the standard flora timer. 23 additional "
@@ -413,8 +392,6 @@ MOTHMAN_EGG = {
         "creature_drops": {
             "list_edid": "LLD_Creature_Mothman_Wise",
             "list_id": "003EC2F4",
-            "rate": 1.0,
-            "rate_display": "100%",
             "note": (
                 "Wise Mothman kills guarantee 1 mothman egg (entry 2, CN=0). "
                 "Mothman Equinox High Priest loot adds 1 guaranteed + 20% chance "
@@ -469,22 +446,16 @@ RADSCORPION_EGG = {
             "list_edid": "LPI_Food_RadscorpionEgg",
             "list_id": "0062A883",
             "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
-            "chance_none_value": 50,
-            "rate": 0.5,
-            "rate_display": "50%",
             "note": (
-                "24 LPI spawn points (all interior — Carleton Mine) roll a 50% "
-                "chance each per server hop."
+                "24 LPI spawn points (all interior — Carleton Mine) roll a "
+                "per-server-hop chance each (computed)."
             ),
         },
         "creature_drops": {
             "list_edid": "LLD_Creature_Radscorpion",
             "list_id": "00074D11",
-            "chance_none_value": 75,
-            "rate": 0.25,
-            "rate_display": "25%",
             "note": (
-                "Radscorpion kills have a 25% chance to drop 1 egg (entry 3, "
+                "Radscorpion kills have a chance to drop 1 egg (entry 3, "
                 "ChanceNone 75). Same rate for Prime radscorpions."
             ),
         },
@@ -492,12 +463,10 @@ RADSCORPION_EGG = {
             "whitespring": {
                 "list_edid": "LLV_Vendor_Food_Whitespring_Unique",
                 "list_id": "0037D967",
-                "rate": 1.0,
-                "rate_display": "100%",
                 "qty": 1,
                 "note": (
-                    "Whitespring food vendor always stocks 1 radscorpion egg "
-                    "(guaranteed entry in the unique food pool)."
+                    "Whitespring food vendor can stock 1 radscorpion egg from its "
+                    "unique food pool (per-reset chance computed)."
                 ),
             },
         },
@@ -551,7 +520,6 @@ RADTOAD_EGG = {
                 "entry 2 (CN=50) gated by LLS_Creature_RadToad level-scaled "
                 "ChanceNone (60% fire rate at level 40+)."
             ),
-            "rate_display": "100% (1) + ~30% (bonus)",
             "note": (
                 "Every radtoad kill guarantees 1 egg. At max level there is "
                 "roughly a 30% chance of a bonus egg (60% list fire × 50% entry "

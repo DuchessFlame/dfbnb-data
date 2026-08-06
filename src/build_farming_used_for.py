@@ -63,6 +63,7 @@ if HERE not in sys.path:
 
 from farming_spawns_config import ALL_SETS, SETS_BY_SLUG  # noqa: E402
 import farming_spawns_sources as sources  # noqa: E402  (item LVLI closure for vendor join)
+import rng76  # noqa: E402  (shared LVLI engine — computes vendor appearance rates, never hardcoded)
 # Reuse the exact effect-name / duration formatting used by the guide pages.
 from build_farming_guides_json import (  # noqa: E402
     _clean_effect_name,
@@ -370,6 +371,271 @@ def build_challenges(formid: str, dist_dir: str) -> List[Dict[str, Any]]:
     return hits
 
 
+# ── Computed vendor rates (rng76 — NOTHING hardcoded) ────────────────────────
+# Every vendor % is the true per-reset appearance probability: "if I open this
+# vendor's trade window, what's the chance a unit of the item is in stock?"
+# It is resolved from the game data by rng76.appearance_prob() over the exact
+# leveled lists the vendor actually rolls — never a typed-in number.
+
+def _fmt_rate(p: float) -> str:
+    """Human % for a per-roll pick rate — up to 2 decimals, trailing zeros
+    trimmed (e.g. 0.3333 -> '33.33%', 0.15 -> '15%', 0.075 -> '7.5%')."""
+    if p <= 0:
+        return "0%"
+    if p >= 0.9995:
+        return "100%"
+    s = f"{p * 100.0:.2f}".rstrip("0").rstrip(".")
+    return f"{s}%"
+
+
+class VendorRates:
+    """Resolves SINGLE per-roll pick rates from a loaded rng76 dataset.
+
+    ``vendor_rate`` walks a vendor's real inventory: it maps the vendor master's
+    ``sells`` EDIDs to LVLI FormIDs, keeps only the ROOT lists (those not
+    referenced as a sub-list by another sells entry), resolves each with
+    rng76.pick_rate(), and takes the HIGHEST per-roll pick rate across them — the
+    item's best single-roll chance in that vendor's stock, NOT a cumulative
+    "will it show up" probability. ``list_rate`` does the same for explicit lists
+    (generic marker heuristic + drop_rates summary block).
+    """
+
+    def __init__(self, data: "rng76.Rng76Data") -> None:
+        self.res = data.resolver
+        self.lvli = data.lvli
+        self.edid2fid: Dict[str, str] = {}
+        for fid, ed in data.lvli.edid_by_formid.items():
+            self.edid2fid.setdefault(ed, fid)
+        # GLOB value by EDID — lets us read a ChanceNone GLOB (e.g. a container's
+        # ItemTwo slot) straight from game data instead of typing the number.
+        self.glob_by_edid: Dict[str, float] = {}
+        for fid, ed in data.globs.edids.items():
+            v = data.globs.vals.get(fid)
+            if v is not None:
+                self.glob_by_edid.setdefault(ed, v)
+
+    def glob_value(self, edid: str) -> Optional[float]:
+        return self.glob_by_edid.get(edid) if edid else None
+
+    def appearance(self, list_ids, targets: set) -> float:
+        """Highest single-list appearance probability across one or more lists."""
+        if isinstance(list_ids, str):
+            list_ids = [list_ids]
+        return max((self.res.appearance_prob(x, targets) for x in (list_ids or []) if x),
+                   default=0.0)
+
+    def roots_of(self, sells_edids: List[str]) -> List[str]:
+        fids = [self.edid2fid[e] for e in (sells_edids or []) if e in self.edid2fid]
+        children = set()
+        for f in fids:
+            for entry in self.lvli.entries_by_list.get(f, []):
+                ref = (entry.get("LVLO_Reference") or "")
+                if ":LVLI" in ref.upper():
+                    children.add(ref.split(":")[0].upper())
+        return [f for f in fids if f.upper() not in children]
+
+    def _lines(self, list_fids: List[str], targets: set) -> List[float]:
+        """One appearance probability per contributing source entry, across all
+        given lists, highest first (each is its own display line)."""
+        out: List[float] = []
+        for lf in list_fids:
+            out.extend(self.res.entry_appearances(lf, targets))
+        return sorted(out, reverse=True)
+
+    def vendor_lines(self, sells_edids: List[str], targets: set) -> List[float]:
+        return self._lines(self.roots_of(sells_edids), targets)
+
+    def list_lines(self, list_ids, targets: set) -> List[float]:
+        if isinstance(list_ids, str):
+            list_ids = [list_ids]
+        list_ids = [x for x in (list_ids or []) if x]
+        return self._lines(list_ids, targets) if list_ids else []
+
+
+def _rate_fields(lines: List[float]) -> Dict[str, Any]:
+    """Build the JSON rate fields from a list of per-source probabilities:
+    rate_lines (each on its own display line), rate_display (joined), and
+    rate_value (the highest, used only for sorting)."""
+    displays = [_fmt_rate(x) for x in lines]
+    return {
+        "rate_lines": displays,
+        "rate_display": " / ".join(displays) if displays else "0%",
+        "rate_value": round(max(lines), 6) if lines else 0.0,
+    }
+
+
+def _target_fids(cfg: Dict[str, Any]) -> set:
+    return {(i.get("formid") or "").upper() for i in (cfg.get("items") or []) if i.get("formid")}
+
+
+def _general_list_id(cfg: Dict[str, Any]) -> str:
+    return (((cfg.get("drop_rates") or {}).get("vendors") or {}).get("general") or {}).get("list_id", "")
+
+
+def _raider_list_id(cfg: Dict[str, Any]) -> str:
+    return (((cfg.get("drop_rates") or {}).get("vendors") or {}).get("raider") or {}).get("list_id", "")
+
+
+# ── Harvest produce (scripted ACTI / flora FLOR — deterministic, read from data) ─
+# Some "world spawns" are not leveled lists at all: a harvestable ACTI runs a
+# Papyrus script that hands you the item, or a FLOR flora node yields its produce
+# on harvest. There is no ChanceNone to resolve — the yield is deterministic — so
+# the 100% must be READ from the produce data, never typed. This reader maps each
+# harvestable base FormID to the item FormIDs it produces:
+#   * ACTI: parsed from the VMAD_Scripts column already in ACTI_Export_*_ACTI.tsv
+#           (e.g. MirelurkHarvestableScript::MirelurkEgg=0023E9D4:MirelurkEgg:ALCH).
+#   * FLOR: parsed from FLOR_Export_*.tsv's produce column — needs the new FLOR
+#           export (tools ExportFLORToTSV) to be run in xEdit. Until that TSV
+#           exists the flora stay flagged not_leveled_list (never fabricated).
+# A world_spawns id that is an LVLI (e.g. the mothman LPI flora lists) is walked
+# down to its FLOR/ACTI children so the produce lookup still applies.
+
+def _newest(data_dir: str, pattern: str) -> Optional[str]:
+    cands = glob.glob(os.path.join(data_dir, pattern))
+    return max(cands, key=os.path.getmtime) if cands else None
+
+
+class HarvestProduce:
+    """base FormID (ACTI/FLOR, or an LVLI resolving to them) -> does it
+    deterministically produce one of `targets` on harvest?"""
+
+    _FORMREF = re.compile(r"([0-9A-Fa-f]{8}):[^:\t]*:[A-Za-z]{4}")
+
+    def __init__(self, data_dir: str, lvli: Any = None) -> None:
+        self.lvli = lvli
+        self.acti = self._load_vmad(data_dir)   # ACTI FormID -> {produced FormIDs}
+        self.flor = self._load_flor(data_dir)   # FLOR FormID -> {produced FormIDs}
+
+    def _load_vmad(self, data_dir: str) -> Dict[str, set]:
+        path = _newest(data_dir, "ACTI_Export_*_ACTI.tsv")
+        out: Dict[str, set] = {}
+        if not path:
+            return out
+        for r in _read_tsv(path):
+            fid = (r.get("ACTI_FormID") or "").strip().upper()
+            vmad = r.get("VMAD_Scripts") or ""
+            if not fid or not vmad:
+                continue
+            refs = {m.upper() for m in self._FORMREF.findall(vmad)}
+            if refs:
+                out[fid] = refs
+        return out
+
+    def _load_flor(self, data_dir: str) -> Dict[str, set]:
+        cands = [p for p in glob.glob(os.path.join(data_dir, "FLOR_Export_*.tsv"))
+                 if not p.endswith("_Refs.tsv")]
+        path = max(cands, key=os.path.getmtime) if cands else None
+        out: Dict[str, set] = {}
+        if not path:
+            return out
+        for r in _read_tsv(path):
+            fid = (r.get("FLOR_FormID") or "").strip().upper()
+            if not fid:
+                continue
+            produce = ""
+            for col in ("Produce", "PFIG_Produce", "Ingredient", "PFIG_Ingredient"):
+                if r.get(col):
+                    produce = r[col]
+                    break
+            refs = {m.upper() for m in self._FORMREF.findall(produce)}
+            if refs:
+                out[fid] = refs
+        return out
+
+    @property
+    def available(self) -> bool:
+        return bool(self.acti or self.flor)
+
+    def produces(self, base_id: str, targets: set, depth: int = 0) -> bool:
+        bid = (base_id or "").upper()
+        if not bid:
+            return False
+        if self.acti.get(bid, set()) & targets:
+            return True
+        if self.flor.get(bid, set()) & targets:
+            return True
+        if self.lvli is not None and depth < 6:
+            for e in self.lvli.entries_by_list.get(bid, []):
+                ref = (e.get("LVLO_Reference") or "").strip()
+                child = ref.split(":")[0].upper() if ref else ""
+                if len(child) == 8 and self.produces(child, targets, depth + 1):
+                    return True
+        return False
+
+    def any_produces(self, ids, targets: set) -> bool:
+        return any(self.produces(i, targets) for i in (ids or []) if i)
+
+
+def _patch_drop_rates(doc: Dict[str, Any], rates: Optional["VendorRates"], targets: set,
+                      harvest: Optional["HarvestProduce"] = None,
+                      extra_base_ids: Optional[List[str]] = None) -> None:
+    """Overwrite computed drop_rate summaries with rng76-derived per-entry values,
+    so headline numbers and the per-vendor table agree and nothing is typed in.
+
+    Applies to EVERY vendor pool (any key under `vendors` with a `list_id`) and to
+    a `creature_drops` pool if present — both are entry-driven, so each source
+    entry becomes its own rate line. `world_spawns` / `containers` are left alone:
+    their % is a list-level ChanceNone (a GLOB), not a per-entry pick, so they
+    aren't resolved by entry_appearances."""
+    if not rates:
+        return
+    dr = doc.get("drop_rates") or {}
+
+    def _apply(node: Dict[str, Any]) -> None:
+        if not (isinstance(node, dict) and node.get("list_id")):
+            return
+        fields = _rate_fields(rates.list_lines(node["list_id"], targets))
+        if not fields["rate_lines"]:
+            return  # target not reachable via this list — leave any existing text
+        node["rate"] = fields["rate_value"]
+        node["rate_lines"] = fields["rate_lines"]
+        node["rate_display"] = fields["rate_display"]
+
+    for node in (dr.get("vendors") or {}).values():
+        _apply(node)
+    if isinstance(dr.get("creature_drops"), dict):
+        _apply(dr["creature_drops"])
+
+    # world_spawns / containers are single "chance per spawn/container" values, not
+    # per-entry lines — computed from game data, never typed.
+    def _set(node: Dict[str, Any], p: float) -> None:
+        if p > 0:
+            node["rate"] = round(p, 6)
+            node["rate_display"] = _fmt_rate(p).lstrip("~")
+            node["rate_source"] = "computed"
+        else:
+            # No leveled-list path (scripted ACTI/FLOR harvest) — the export has no
+            # probability field to read. Flag it; do NOT fabricate a number.
+            node["rate_source"] = "not_leveled_list"
+
+    ws = dr.get("world_spawns")
+    if isinstance(ws, dict) and (ws.get("list_id") or ws.get("list_ids")):
+        ids = ([ws["list_id"]] if ws.get("list_id") else []) + list(ws.get("list_ids") or [])
+        p = rates.appearance(ids, targets)
+        if p > 0:
+            _set(ws, p)                       # leveled-list world spawn
+        elif harvest and harvest.any_produces(list(ids) + list(extra_base_ids or []), targets):
+            # Deterministic scripted-ACTI / flora-FLOR harvest: 100% read from the
+            # produce data (VMAD script property / FLOR produce field), not typed.
+            ws["rate"] = 1.0
+            ws["rate_display"] = "100%"
+            ws["rate_source"] = "computed"
+        else:
+            _set(ws, 0.0)                     # no data — flagged not_leveled_list
+
+    cn = dr.get("containers")
+    if isinstance(cn, dict):
+        # Container "chance per container" = (1 - ItemTwo ChanceNone GLOB) x the
+        # item's appearance inside the nest/loot sub-list. Reads the GLOB value from
+        # data, so it tracks any Bethesda change to that GLOB.
+        gv = rates.glob_value(cn.get("chance_none_glob", ""))
+        nest = cn.get("nest_list_id") or cn.get("container_id")
+        if gv is not None and nest:
+            _set(cn, (1.0 - gv / 100.0) * rates.appearance(nest, targets))
+        elif cn.get("list_id") or cn.get("container_id"):
+            _set(cn, rates.appearance(cn.get("list_id") or cn.get("container_id"), targets))
+
+
 # ── Vendor list (flat, sorted by % desc) ─────────────────────────────────────
 # Rate is set by vendor TYPE, not location: Vera 100% > Raider (general + raider
 # pool) > everyone else (general pool).
@@ -383,41 +649,51 @@ def build_challenges(formid: str, dist_dir: str) -> List[Dict[str, Any]]:
 RAIDER_MARKERS = {"the crater", "crater core"}
 
 
-def _vera_row(cfg: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+def _vera_row(cfg: Dict[str, Any], rates: Optional["VendorRates"], targets: set) -> Optional[Dict[str, Any]]:
     vend = ((cfg.get("drop_rates") or {}).get("vendors") or {})
     vera = vend.get("vera")
     if not (vera and vera.get("location")):
         return None
-    rd = vera.get("rate_display", "100%")
+    # Compute Vera's rate from her own list when we can; else trust config.
+    lines = (rates.list_lines(vera.get("list_id", ""), targets)
+             if rates and vera.get("list_id") else [float(vera.get("rate", 1.0))])
+    fields = _rate_fields(lines)
     if vera.get("qty"):
-        rd += f" ({vera['qty']} guaranteed)"
+        fields["rate_display"] += f" ({vera['qty']} guaranteed)"
+        fields["rate_lines"] = [fields["rate_lines"][0] + f" ({vera['qty']} guaranteed)"] \
+            if fields["rate_lines"] else fields["rate_lines"]
     return {
         "name": "Vera (Blue Ridge)",
         "marker": vera["location"],
         "region": vera.get("region", ""),
         "vendor_type": "Named vendor",
-        "rate_display": rd,
-        "rate_value": float(vera.get("rate", 1.0)),
+        **fields,
         "count": 1,
     }
 
 
-def _tier(marker: str, is_raider: bool, general_rd: str, raider_extra: str):
-    """(vendor_type, rate_display, rate_value) for a non-Vera vendor."""
+def _tier(marker: str, is_raider: bool, cfg: Dict[str, Any],
+          rates: Optional["VendorRates"], targets: set):
+    """(vendor_type, rate_display, rate_value) for a non-Vera vendor whose exact
+    inventory tree is unknown (marker heuristic). The generic bot rolls the shared
+    drink/food pool; a raider-location bot additionally rolls the raider faction
+    pool, so the two combine. All numbers come from rng76 — no hardcoded tiers."""
+    general = rates.list_lines(_general_list_id(cfg), targets) if rates else []
     if is_raider:
-        rd = f"{general_rd} (+{raider_extra} Raider)" if raider_extra else general_rd
-        return "Raider vendor", rd, 0.94
+        extra = rates.list_lines(_raider_list_id(cfg), targets) if rates else []
+        lines = sorted(general + extra, reverse=True)
+        return "Raider vendor", _rate_fields(lines)
     if (marker or "").endswith("Station"):
-        return "Train station vendor", general_rd, 0.86
-    return "Settlement vendor", general_rd, 0.86
+        return "Train station vendor", _rate_fields(general)
+    return "Settlement vendor", _rate_fields(general)
 
 
 def build_vendor_list_named(cfg: Dict[str, Any], item_closure: set,
-                            vendor_master: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Real named vendors whose stock closure intersects the item's LVLI closure."""
-    vend = ((cfg.get("drop_rates") or {}).get("vendors") or {})
-    general_rd = (vend.get("general") or {}).get("rate_display", "~86%")
-    raider_extra = (vend.get("raider") or {}).get("rate_display", "")
+                            vendor_master: List[Dict[str, Any]],
+                            rates: Optional["VendorRates"], targets: set) -> List[Dict[str, Any]]:
+    """Real named vendors whose stock closure intersects the item's LVLI closure.
+    Each vendor's rate is resolved from ITS OWN inventory tree via rng76 (raider
+    faction pools fold in automatically when the vendor actually rolls them)."""
     rows: List[Dict[str, Any]] = []
     for v in vendor_master:
         if not item_closure & set(v.get("sells_formids") or []):
@@ -425,22 +701,28 @@ def build_vendor_list_named(cfg: Dict[str, Any], item_closure: set,
         marker = v.get("marker", "")
         ident = f"{v.get('faction','')} {v.get('edid','')} {v.get('container_base','')}".lower()
         is_raider = ("raider" in ident) or (marker.lower() in RAIDER_MARKERS)
-        vtype, rd, rv = _tier(marker, is_raider, general_rd, raider_extra)
+        lines = rates.vendor_lines(v.get("sells") or [], targets) if rates else []
+        # Fall back to the type heuristic only if the tree yielded nothing.
+        if not lines:
+            vtype, fields = _tier(marker, is_raider, cfg, rates, targets)
+        else:
+            vtype = ("Raider vendor" if is_raider
+                     else "Train station vendor" if (marker or "").endswith("Station")
+                     else "Settlement vendor")
+            fields = _rate_fields(lines)
         rows.append({
             "name": v.get("name", ""),
             "marker": marker,
             "region": v.get("region", ""),
             "vendor_type": vtype,
-            "rate_display": rd,
-            "rate_value": rv,
+            **fields,
             "count": 1,
         })
     return rows
 
 
-def build_vendor_list_heuristic(regions: List[Dict[str, Any]], cfg: Dict[str, Any]) -> List[Dict[str, Any]]:
-    general_rd = ((cfg.get("drop_rates") or {}).get("vendors") or {}).get("general", {}).get("rate_display", "~86%")
-    raider_extra = ((cfg.get("drop_rates") or {}).get("vendors") or {}).get("raider", {}).get("rate_display", "")
+def build_vendor_list_heuristic(regions: List[Dict[str, Any]], cfg: Dict[str, Any],
+                                rates: Optional["VendorRates"], targets: set) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
     for reg in regions:
         for loc in reg.get("locations", []):
@@ -448,14 +730,13 @@ def build_vendor_list_heuristic(regions: List[Dict[str, Any]], cfg: Dict[str, An
             if not c:
                 continue
             marker = loc.get("marker", "")
-            vtype, rd, rv = _tier(marker, marker.lower() in RAIDER_MARKERS, general_rd, raider_extra)
+            vtype, fields = _tier(marker, marker.lower() in RAIDER_MARKERS, cfg, rates, targets)
             rows.append({
                 "name": marker,
                 "marker": marker,
                 "region": reg.get("region", ""),
                 "vendor_type": vtype,
-                "rate_display": rd,
-                "rate_value": rv,
+                **fields,
                 "count": c,
             })
     return rows
@@ -463,12 +744,14 @@ def build_vendor_list_heuristic(regions: List[Dict[str, Any]], cfg: Dict[str, An
 
 def build_vendor_list(regions: List[Dict[str, Any]], cfg: Dict[str, Any],
                       item_closure: Optional[set] = None,
-                      vendor_master: Optional[List[Dict[str, Any]]] = None) -> List[Dict[str, Any]]:
+                      vendor_master: Optional[List[Dict[str, Any]]] = None,
+                      rates: Optional["VendorRates"] = None) -> List[Dict[str, Any]]:
     """Prefer real named vendors (via the sells join); fall back to the marker +
     TYPE heuristic. Vera is always prepended from drop_rates."""
-    named = (build_vendor_list_named(cfg, item_closure, vendor_master)
+    targets = _target_fids(cfg)
+    named = (build_vendor_list_named(cfg, item_closure, vendor_master, rates, targets)
              if (vendor_master and item_closure) else [])
-    body = named if named else build_vendor_list_heuristic(regions, cfg)
+    body = named if named else build_vendor_list_heuristic(regions, cfg, rates, targets)
 
     # Collapse exact-duplicate rows (same name+marker+region+type) into one, summing
     # count — matches the §9e "×N" pill. Distinct locations stay as separate rows.
@@ -481,7 +764,7 @@ def build_vendor_list(regions: List[Dict[str, Any]], cfg: Dict[str, Any],
             merged[key] = dict(r)
 
     rows: List[Dict[str, Any]] = []
-    vera = _vera_row(cfg)
+    vera = _vera_row(cfg, rates, targets)
     if vera:
         rows.append(vera)
     rows.extend(merged.values())
@@ -505,15 +788,20 @@ def build_used_for(cfg: Dict[str, Any], dist_dir: str, data_dir: str,
 
 def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: str,
            item_closure: Optional[set] = None,
-           vendor_master: Optional[List[Dict[str, Any]]] = None) -> bool:
+           vendor_master: Optional[List[Dict[str, Any]]] = None,
+           rates: Optional["VendorRates"] = None,
+           harvest: Optional["HarvestProduce"] = None) -> bool:
     path = os.path.join(dist_dir, "farming_spawns", f"{slug}_spawns.json")
     if not os.path.exists(path):
         print(f"  [skip] {os.path.relpath(path, REPO)} not built")
         return False
     doc = json.load(open(path, encoding="utf-8"),
                     object_pairs_hook=collections.OrderedDict)
+    extra_ids = [b.get("formid") for b in (cfg.get("extra_world_bases") or []) if b.get("formid")]
+    _patch_drop_rates(doc, rates, _target_fids(cfg), harvest=harvest, extra_base_ids=extra_ids)
     vendor_list = build_vendor_list(doc.get("regions", []), cfg,
-                                    item_closure=item_closure, vendor_master=vendor_master)
+                                    item_closure=item_closure, vendor_master=vendor_master,
+                                    rates=rates)
     out = collections.OrderedDict()
     placed = False
     for k, v in doc.items():
@@ -565,6 +853,25 @@ def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
     if vendor_master:
         print(f"  vendor master: {len(vendor_master)} vendors from {os.path.join(dist_dir, 'vendors.json')}")
 
+    # Shared rng76 engine — every vendor % is COMPUTED from game data, never hardcoded.
+    rates: Optional[VendorRates] = None
+    try:
+        rates = VendorRates(rng76.Rng76Data.from_tsv_root(data_dir))
+        print(f"  rng76 engine loaded from {data_dir} — vendor rates will be computed.")
+    except Exception as e:
+        print(f"  [warn] rng76 engine unavailable ({e}); vendor rates left blank.")
+
+    # Harvest-produce reader — scripted-ACTI / flora-FLOR world spawns are
+    # deterministic, so their 100% is READ from the produce data (ACTI VMAD now;
+    # FLOR export when present), never typed.
+    harvest: Optional[HarvestProduce] = None
+    try:
+        harvest = HarvestProduce(data_dir, lvli=(rates.lvli if rates else None))
+        print(f"  harvest-produce: ACTI={len(harvest.acti)} scripted, FLOR={len(harvest.flor)} flora "
+              f"({'FLOR export present' if harvest.flor else 'no FLOR export yet — flora stay flagged'}).")
+    except Exception as e:
+        print(f"  [warn] harvest-produce reader unavailable ({e}); harvestables stay not_leveled_list.")
+
     print(f"Building used_for  (dist={dist_dir}  data={data_dir})")
     for slug in slugs:
         cfg = SETS_BY_SLUG.get(slug)
@@ -576,7 +883,8 @@ def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
             src = sources.get_sources(cfg["items"], tables)
             item_closure = {f.upper() for f in src["lvli_closure"]}
         uf = build_used_for(cfg, dist_dir, data_dir, recipe_guide, bench_cat)
-        inject(slug, uf, cfg, dist_dir, item_closure=item_closure, vendor_master=vendor_master)
+        inject(slug, uf, cfg, dist_dir, item_closure=item_closure,
+               vendor_master=vendor_master, rates=rates, harvest=harvest)
 
 
 def main(argv=None):
