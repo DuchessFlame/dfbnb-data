@@ -48,27 +48,32 @@
    "list_edid": "LPI_Food_RadscorpionEgg",
    "list_id": "0062A883",
    "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
-   "chance_none_value": 50,
+   "note": "24 LPI spawn points (all interior — Carleton Mine) roll a per-server-hop chance each (computed).",
    "rate": 0.5,
    "rate_display": "50%",
-   "note": "24 LPI spawn points (all interior — Carleton Mine) roll a 50% chance each per server hop."
+   "rate_source": "computed"
   },
   "creature_drops": {
    "list_edid": "LLD_Creature_Radscorpion",
    "list_id": "00074D11",
-   "chance_none_value": 75,
+   "note": "Radscorpion kills have a chance to drop 1 egg (entry 3, ChanceNone 75). Same rate for Prime radscorpions.",
    "rate": 0.25,
-   "rate_display": "25%",
-   "note": "Radscorpion kills have a 25% chance to drop 1 egg (entry 3, ChanceNone 75). Same rate for Prime radscorpions."
+   "rate_lines": [
+    "25%"
+   ],
+   "rate_display": "25%"
   },
   "vendors": {
    "whitespring": {
     "list_edid": "LLV_Vendor_Food_Whitespring_Unique",
     "list_id": "0037D967",
-    "rate": 1.0,
-    "rate_display": "100%",
     "qty": 1,
-    "note": "Whitespring food vendor always stocks 1 radscorpion egg (guaranteed entry in the unique food pool)."
+    "note": "Whitespring food vendor can stock 1 radscorpion egg from its unique food pool (per-reset chance computed).",
+    "rate": 0.2,
+    "rate_lines": [
+     "20%"
+    ],
+    "rate_display": "20%"
    }
   },
   "resource_generators": null
@@ -253,228 +258,15 @@
  },
  "vendor_list": [
   {
-   "name": "Vendor Bot Raider",
-   "marker": "Sutton Station",
-   "region": "Forest",
-   "vendor_type": "Raider vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.94,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Resin",
-   "marker": "Pleasant Valley Ski Resort",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.94,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "Pleasant Valley Station",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.94,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "R&G Station",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.94,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "Sunnytop Station",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.94,
-   "count": 1
-  },
-  {
-   "name": "Raiders Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.94,
-   "count": 1
-  },
-  {
-   "name": "Molly",
-   "marker": "The Crater",
-   "region": "Toxic Valley",
-   "vendor_type": "Raider vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.94,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Chad",
-   "marker": "Camden Park",
-   "region": "Ash Heap",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Lewisburg Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Welch Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "May",
-   "marker": "Highway Town Interior",
-   "region": "Burning Springs",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Hocking Hills Vendor Bot",
-   "marker": "Hocking Hills Train Station",
-   "region": "Burning Springs",
-   "vendor_type": "Train station vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Phoenix",
-   "marker": "Watoga Shopping Plaza",
-   "region": "Cranberry Bog",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Watoga Vendor Bot",
-   "marker": "Watoga Station",
-   "region": "Cranberry Bog",
-   "vendor_type": "Train station vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Mack",
-   "marker": "Charleston Fire Department",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Charleston Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Responder Vendor",
-   "marker": "Morgantown High School",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Morgantown Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Duchess",
-   "marker": "The Wayward",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Sunny",
-   "marker": "Foundation",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Brotherhood Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Free States Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
    "name": "Marie",
    "marker": "Whitespring Mall",
    "region": "Savage Divide",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Responders Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
-   "count": 1
-  },
-  {
-   "name": "Shopping Mall Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "15.65%"
+   ],
+   "rate_display": "15.65%",
+   "rate_value": 0.156536,
    "count": 1
   },
   {
@@ -482,8 +274,288 @@
    "marker": "Whitespring Station",
    "region": "Savage Divide",
    "vendor_type": "Train station vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "15.65%",
+    "4.08%"
+   ],
+   "rate_display": "15.65% / 4.08%",
+   "rate_value": 0.156536,
+   "count": 1
+  },
+  {
+   "name": "Duchess",
+   "marker": "The Wayward",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "5.99%"
+   ],
+   "rate_display": "5.99%",
+   "rate_value": 0.059932,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "May",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Hocking Hills Vendor Bot",
+   "marker": "Hocking Hills Train Station",
+   "region": "Burning Springs",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Phoenix",
+   "marker": "Watoga Shopping Plaza",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Watoga Vendor Bot",
+   "marker": "Watoga Station",
+   "region": "Cranberry Bog",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sutton Station",
+   "region": "Forest",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Sunny",
+   "marker": "Foundation",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Pleasant Valley Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "R&G Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sunnytop Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Brotherhood Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Free States Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Shopping Mall Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -491,8 +563,11 @@
    "marker": "Berkeley Springs Station",
    "region": "The Mire",
    "vendor_type": "Train station vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -500,8 +575,11 @@
    "marker": "Grafton",
    "region": "Toxic Valley",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -509,8 +587,23 @@
    "marker": "Grafton Station",
    "region": "Toxic Valley",
    "vendor_type": "Train station vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Molly",
+   "marker": "The Crater",
+   "region": "Toxic Valley",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -518,8 +611,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -527,8 +623,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -536,8 +635,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -545,8 +647,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -554,8 +659,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -563,8 +671,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -572,8 +683,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -581,8 +695,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -590,8 +707,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -599,8 +719,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -608,8 +731,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -617,8 +743,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   },
   {
@@ -626,8 +755,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_display": "~86%",
-   "rate_value": 0.86,
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
    "count": 1
   }
  ],

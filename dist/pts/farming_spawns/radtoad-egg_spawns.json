@@ -19,8 +19,16 @@
    "list_edid": "LLD_Creature_Radtoad",
    "list_id": "00047185",
    "mechanism": "UseAll list with 5 entries. Entry 0: RadToadEgg at CN=0 (guaranteed 1 egg). Additional bonus egg via LLE_Creature_RadToad entry 2 (CN=50) gated by LLS_Creature_RadToad level-scaled ChanceNone (60% fire rate at level 40+).",
-   "rate_display": "100% (1) + ~30% (bonus)",
-   "note": "Every radtoad kill guarantees 1 egg. At max level there is roughly a 30% chance of a bonus egg (60% list fire × 50% entry chance). No world-placed spawns or vendor sources exist."
+   "note": "Every radtoad kill guarantees 1 egg. At max level there is roughly a 30% chance of a bonus egg (60% list fire × 50% entry chance). No world-placed spawns or vendor sources exist.",
+   "rate": 1.0,
+   "rate_lines": [
+    "100%",
+    "30%",
+    "20%",
+    "15%",
+    "10%"
+   ],
+   "rate_display": "100% / 30% / 20% / 15% / 10%"
   },
   "vendors": null,
   "resource_generators": null
