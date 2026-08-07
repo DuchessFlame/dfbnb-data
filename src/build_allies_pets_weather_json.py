@@ -124,6 +124,35 @@ try:
 except FileNotFoundError:
     GLOB_PATH = None
 
+# PERK / MGEF / SPEL TSVs — optional. Drive the ally "Buffs & Effects"
+# sub-expand (the passive buff each ally grants) and romanceable detection.
+# If absent, allies simply render without buff text (never fabricated).
+try:
+    PERK_PATH = _resolve_tsv("PERK_TSV", "PERK_Export_*.tsv", "PERK_Export.tsv")
+except FileNotFoundError:
+    PERK_PATH = None
+try:
+    MGEF_PATH = _resolve_tsv("MGEF_TSV", "MGEF_Export_*.tsv", "MGEF_Export.tsv")
+except FileNotFoundError:
+    MGEF_PATH = None
+try:
+    SPEL_PATH = _resolve_tsv("SPEL_TSV", "SPEL_Export_*_HEADER.tsv", "SPEL_Export_HEADER.tsv")
+except FileNotFoundError:
+    SPEL_PATH = None
+# SPEL effects (spell → its magic effects + magnitudes) — lets us describe what
+# a buff actually DOES (not just its name) even when the effect record carries
+# no written tooltip.
+try:
+    SPEL_EFF_PATH = _resolve_tsv("SPEL_EFFECTS_TSV", "SPEL_Export_*_EFFECTS.tsv", "SPEL_Export_EFFECTS.tsv")
+except FileNotFoundError:
+    SPEL_EFF_PATH = None
+# AVIF (actor values) — holds per-ally romance variables (e.g.
+# COMP_AV_Beckett_FirstRomanceDone), the cleanest romanceable signal.
+try:
+    AVIF_PATH = _resolve_tsv("AVIF_TSV", "AVIF_Export_*.tsv", "AVIF_Export.tsv")
+except FileNotFoundError:
+    AVIF_PATH = None
+
 # Seasons TSV — optional, falls back gracefully if missing
 _SEASONS_PATH = TSV_DIR / "fallout76_seasons.tsv"
 
@@ -340,6 +369,52 @@ acti_rows      = load_tsv(ACTI_PATH)
 wthr_rows      = load_tsv(WTHR_PATH) if WTHR_PATH else []
 npc_prps_rows  = load_tsv(NPC_PRPS_PATH) if NPC_PRPS_PATH else []
 glob_rows      = load_tsv(GLOB_PATH) if GLOB_PATH else []
+# PERK/MGEF have thousands of ReferencedBy columns; loading whole rows as dicts
+# is huge. We only need EDID / FULL / description, so read those three columns.
+def load_tsv_slim(path, edid_col, full_col, desc_col):
+    if not path:
+        return []
+    out = []
+    with open(path, encoding="utf-8", errors="replace", newline="") as f:
+        reader = csv.reader(f, delimiter="\t")
+        try:
+            header = next(reader)
+        except StopIteration:
+            return []
+        idx = {h: i for i, h in enumerate(header)}
+        ie, ifl, idc = idx.get(edid_col), idx.get(full_col), idx.get(desc_col)
+        for row in reader:
+            def _c(i):
+                return row[i].strip() if (i is not None and i < len(row)) else ""
+            out.append({"edid": _c(ie), "full": _c(ifl), "desc": _c(idc)})
+    return out
+
+perk_rows = load_tsv_slim(PERK_PATH, "PERK_EDID", "FULL", "DESC")
+mgef_rows = load_tsv_slim(MGEF_PATH, "EDID", "FULL", "DNAM_MagicItemDescription")
+spel_rows = load_tsv_slim(SPEL_PATH, "SPEL_EDID", "SPEL_FULL", "SPEL_DESC")
+avif_rows = load_tsv_slim(AVIF_PATH, "EDID", "FULL", "DESC")
+
+# SPEL effects: keep spell EDID, effect MGEF EDID, and magnitude only.
+def load_spel_effects(path):
+    if not path:
+        return []
+    out = []
+    with open(path, encoding="utf-8", errors="replace", newline="") as f:
+        reader = csv.reader(f, delimiter="\t")
+        try:
+            header = next(reader)
+        except StopIteration:
+            return []
+        idx = {h: i for i, h in enumerate(header)}
+        ise = idx.get("SPEL_EDID"); ime = idx.get("EFID_MGEF_EDID")
+        img = idx.get("EFIT_Magnitude")
+        for row in reader:
+            def _c(i):
+                return row[i].strip() if (i is not None and i < len(row)) else ""
+            out.append({"spel": _c(ise), "mgef": _c(ime), "mag": _c(img)})
+    return out
+
+spel_eff_rows = load_spel_effects(SPEL_EFF_PATH)
 
 # GLOB: FormID → float value AND EDID → float value (gold vendor tiers etc.)
 glob_fltv_by_id:   dict = {}
@@ -1493,33 +1568,63 @@ def build_repair_bots():
 #   2. Premium/scoreboard allies — XALG = Premium
 
 # Known ally COBJ → FURN mapping (from session research)
+# Per ally, in addition to the furniture record we resolve the ALLY itself:
+#   ally        — full NPC name (NPC FULL) shown as the list/row label
+#   vendor_base — MerchantContainerBase EDID (from NPC2_Vendors) → the shop stock
+#                 the ally sells; resolved to a drop-rate inventory via rng76.
+#                 "" when the ally has no shop.
+#   buff_token  — distinctive PERK/MGEF/SPEL EDID substring for the passive buff
+#                 the ally grants; "" when the ally grants no buff.
+#   rom_token   — token used to detect a datamined romance path (a *_Romance /
+#                 *FadeToBlack record naming this ally). "" = not romanceable.
+# These are IDs/tokens only — all display text (name, buff, rates) is pulled
+# generatively from the TSVs at build time, never hardcoded.
 ALLY_COBJ_FURN = {
     # Quest/companion placed (no plan)
-    "0054EB64": {"furn": "0055F6D2", "name": "U.S.S.A. Console",       "obtain": "Companion Quest"},
-    "00568E4E": {"furn": "0056FBA4", "name": "Raider Punk's Radio",     "obtain": "Companion Quest"},
-    "00569CC1": {"furn": "0057469B", "name": "Beckett's Bar",           "obtain": "Companion Quest"},
-    "00585CDB": {"furn": "00585CE0", "name": "Forager's Chair",         "obtain": "Companion Quest"},
-    "00585CC2": {"furn": "005856C7", "name": "Wanderer's Guitar",       "obtain": "Companion Quest"},
-    "0061E077": {"furn": "0061E042", "name": "Sam's Workbench",         "obtain": "Companion Quest"},
+    "0054EB64": {"furn": "0055F6D2", "name": "U.S.S.A. Console",       "obtain": "Companion Quest",
+                 "ally": "Commander Daguerre", "vendor_base": "", "buff_token": "", "rom_token": "Astronaut"},
+    "00568E4E": {"furn": "0056FBA4", "name": "Raider Punk's Radio",     "obtain": "Companion Quest",
+                 "ally": "Raider Punk", "vendor_base": "", "buff_token": "", "rom_token": ""},
+    "00569CC1": {"furn": "0057469B", "name": "Beckett's Bar",           "obtain": "Companion Quest",
+                 "ally": "Beckett", "vendor_base": "COMP_VisitorVendor_VendorChest_Beckett", "buff_token": "", "rom_token": "Beckett"},
+    "00585CDB": {"furn": "00585CE0", "name": "Forager's Chair",         "obtain": "Companion Quest",
+                 "ally": "Settler Forager", "vendor_base": "", "buff_token": "", "rom_token": ""},
+    "00585CC2": {"furn": "005856C7", "name": "Wanderer's Guitar",       "obtain": "Companion Quest",
+                 "ally": "Settler Wanderer", "vendor_base": "", "buff_token": "", "rom_token": ""},
+    "0061E077": {"furn": "0061E042", "name": "Sam's Workbench",         "obtain": "Companion Quest",
+                 "ally": "Sam Nguyen", "vendor_base": "ATX_COMP_Mechanic_VendorChest", "buff_token": "COMP_Mechanic_", "rom_token": ""},
     # Premium / Scoreboard
-    "005C60D0": {"furn": "005C4208", "name": "Solomon's Medic Station", "obtain": "Atom Shop"},
-    "005DBE64": {"furn": "005EED4D", "name": "Yasmin's Cooking Stove",  "obtain": "Atom Shop"},
-    "0061E078": {"furn": "0063164E", "name": "Daphne's Toy Box",        "obtain": "Scoreboard"},
-    "0061E079": {"furn": "0061F6F3", "name": "Maul's Cauldron",         "obtain": "Scoreboard"},
-    "0062F75B": {"furn": "0062F75A", "name": "Xerxo's Spaceship",              "obtain": "Atom Shop"},
+    "005C60D0": {"furn": "005C4208", "name": "Solomon's Medic Station", "obtain": "Atom Shop",
+                 "ally": "Solomon Hardy", "vendor_base": "BS01_COMP_Medic_VendorChest", "buff_token": "COMP_Medic_", "rom_token": ""},
+    "005DBE64": {"furn": "005EED4D", "name": "Yasmin's Cooking Stove",  "obtain": "Atom Shop",
+                 "ally": "Yasmin Chowdhury", "vendor_base": "BS01_COMP_Chef_VendorChest", "buff_token": "COMP_Chef_", "rom_token": ""},
+    "0061E078": {"furn": "0063164E", "name": "Daphne's Toy Box",        "obtain": "Scoreboard",
+                 "ally": "Daphne", "vendor_base": "SCORE_S5_COMP_Inspector_VendorChest", "buff_token": "COMP_Inspector_", "rom_token": ""},
+    "0061E079": {"furn": "0061F6F3", "name": "Maul's Cauldron",         "obtain": "Scoreboard",
+                 "ally": "Maul", "vendor_base": "SCORE_S5_COMP_SuperMutant_VendorChest", "buff_token": "COMP_SuperMutant_", "rom_token": ""},
+    "0062F75B": {"furn": "0062F75A", "name": "Xerxo's Spaceship",              "obtain": "Atom Shop",
+                 "ally": "Xerxo", "vendor_base": "ATX_COMP_Ghoul_VendorChest", "buff_token": "COMP_Ghoul_", "rom_token": ""},
     # Katherine Swan: COBJ 0063164B, FURN 0063164E (ATX_CAMP_Astronomer_KatherineFurniture_CampObject)
     # ENTM 0062F44F — ETDI base "SCORE_S7_CAMP_Ally_KatherineSwan" matches FURN prefix OK
-    "0063164B": {"furn": "0063164E", "name": "Katherine's Research Desk",      "obtain": "Atom Shop"},
+    "0063164B": {"furn": "0063164E", "name": "Katherine's Research Desk",      "obtain": "Atom Shop",
+                 "ally": "Katherine Swan", "vendor_base": "ATX_COMP_Astronomer_VendorChest", "buff_token": "COMP_Astronomer_", "rom_token": ""},
     # Leo Petrov: FURN EDID "SCORE_S11_CAMP_Ally_NukaAgent_Leo_Desk_FURN"
     # ENTM ETDI "SCORE_S11_CAMP_Ally_LeoPetrov.dds" — prefix mismatch, use entm_override
     "00674961": {"furn": "0067E70B", "name": "Leo's Desk",                     "obtain": "Scoreboard",
-                 "entm_override": "00674962"},
-    "0068D3D2": {"furn": "0068D3D5", "name": "Scarberry's Shrine",      "obtain": "Scoreboard"},
-    "006A4360": {"furn": "006A4363", "name": "Joey's Stage",            "obtain": "Scoreboard"},
-    "006DC965": {"furn": "006DC969", "name": "Grandma's Chair",         "obtain": "Scoreboard"},
-    "0073506D": {"furn": "0073507C", "name": "Del Lawson's Squire Bag", "obtain": "Atom Shop"},
-    "0073E940": {"furn": "0073E943", "name": "Adelaide's Table",        "obtain": "Scoreboard"},
-    "007FDC17": {"furn": "007FDC1B", "name": "Dottie's Strange Boxes",  "obtain": "Atom Shop"},
+                 "entm_override": "00674962",
+                 "ally": "Leo Petrov", "vendor_base": "ATX_COMP_NukaAgent_VendorChest", "buff_token": "ATX_COMP_NukaBuff_NukaAgent", "rom_token": ""},
+    "0068D3D2": {"furn": "0068D3D5", "name": "Scarberry's Shrine",      "obtain": "Scoreboard",
+                 "ally": "Steven Scarberry", "vendor_base": "ATX_COMP_Scarberry_VendorChest", "buff_token": "Scarberry_Blessing", "rom_token": ""},
+    "006A4360": {"furn": "006A4363", "name": "Joey's Stage",            "obtain": "Scoreboard",
+                 "ally": "Joey Bello", "vendor_base": "ATX_COMP_JoeyBello_VendorChest", "buff_token": "Roast_Proof_Joey", "rom_token": ""},
+    "006DC965": {"furn": "006DC969", "name": "Grandma's Chair",         "obtain": "Scoreboard",
+                 "ally": "Grandma Junko", "vendor_base": "ATX_COMP_GrandmaJunko_VendorChest", "buff_token": "Junko_Cooking_FoodDrink", "rom_token": ""},
+    "0073506D": {"furn": "0073507C", "name": "Del Lawson's Squire Bag", "obtain": "Atom Shop",
+                 "ally": "Del Lawson", "vendor_base": "ATX_COMP_Lawson_VendorChest", "buff_token": "", "rom_token": ""},
+    "0073E940": {"furn": "0073E943", "name": "Adelaide's Table",        "obtain": "Scoreboard",
+                 "ally": "Adelaide", "vendor_base": "ATX_COMP_Adelaide_VendorChest", "buff_token": "Adelaide_Perk_HumanRobotInterface", "rom_token": "Adelaide"},
+    "007FDC17": {"furn": "007FDC1B", "name": "Dottie's Strange Boxes",  "obtain": "Atom Shop",
+                 "ally": "Dottie", "vendor_base": "ATX_COMP_Dottie_VendorChest", "buff_token": "Unshakeable_Beliefs_Dottie", "rom_token": ""},
 }
 
 # Drift check: warn when a NEW ally camp object exists that isn't mapped.
@@ -1606,6 +1711,358 @@ def find_ally_entm_by_token(display_name, season_num):
     return fallback
 
 
+# ---------------------------------------------------------------------------
+# Ally Buffs & Effects, romanceability, and shop Inventory (all generative)
+# ---------------------------------------------------------------------------
+# Every value below is read straight from the datamined TSVs — nothing typed.
+# The ALLY_COBJ_FURN config only holds IDs/tokens; the display text (buff name,
+# effect lines, romance flag, sold-item names and drop %) is resolved here.
+
+def _rec(r, *keys):
+    for k in keys:
+        v = (r.get(k) or "").strip()
+        if v:
+            return v
+    return ""
+
+# Effect description lines that still contain xEdit template placeholders
+# (<+MAG>, <ITEM1.ABBR>, <Alignment>, …) are internal — skip them for display.
+_BUFF_TEMPLATE_RE = re.compile(r"<[^>]+>")
+
+# MGEF EDID → written tooltip (DNAM), for describing effects reached via a
+# spell's effect list even when the effect's EDID doesn't carry the ally token.
+_MGEF_DESC_BY_EDID = {}
+for _m in mgef_rows:
+    if _m["edid"] and _m["desc"] and not _BUFF_TEMPLATE_RE.search(_m["desc"]):
+        _MGEF_DESC_BY_EDID.setdefault(_m["edid"].lower(), _m["desc"])
+
+
+def _mag_str(mag):
+    try:
+        v = float(mag)
+    except (TypeError, ValueError):
+        return None
+    if v == 0:
+        return None
+    return f"{v:g}"
+
+
+def _compose_effect_line(mgef_edid, mag):
+    """Compose a quantified effect line ("+5% XP", "+50 Max Health", …) from an
+    effect MGEF EDID + magnitude. Returns None for service restores (health,
+    rads, disease, hunger, thirst — already named by the ability) and for
+    effects better described by their own written tooltip, so we never duplicate
+    or fabricate. Kept to well-known stems; unknown effects fall through."""
+    ed = (mgef_edid or "").lower()
+    m = _mag_str(mag)
+    # Service restores — the ability name already says it; skip the raw units.
+    if any(k in ed for k in ("restorehealth", "restorerads", "restoredisease",
+                             "diseasecure", "restorehunger", "restorethirst")):
+        return None
+    if not m:
+        return None
+    SPECIAL = (("fortifystrength", "Strength"), ("fortifyendurance", "Endurance"),
+               ("fortifyintelligence", "Intelligence"), ("fortifyperception", "Perception"),
+               ("fortifyagility", "Agility"), ("fortifyluck", "Luck"),
+               ("fortifycharisma", "Charisma"))
+    for stem, label in SPECIAL:
+        if stem in ed:
+            return f"+{m} {label}"
+    if "fortifyxp" in ed or "xpbonus" in ed:
+        return f"+{m}% XP"
+    if "apregen" in ed:
+        return f"+{m}% AP Regen"
+    if "actionpoints" in ed or "fortifyap" in ed:
+        return f"+{m} Action Points"
+    if "fortifyhealth" in ed:
+        return f"+{m} Max Health"
+    if "sneak" in ed:
+        return f"+{m}% Sneak"
+    if "diseaseresist" in ed:
+        return f"+{m} Disease Resistance"
+    if "resistrad" in ed or "radexposure" in ed or "radingestion" in ed or "radiationexpose" in ed:
+        return f"+{m} Rad Resistance"
+    if "damageresist" in ed:
+        return f"+{m} Damage Resistance"
+    return None
+
+
+def _spell_effect_lines(token):
+    """Effect lines for every spell whose EDID contains ``token``: the effect's
+    written MGEF tooltip when present, otherwise a composed quantified line."""
+    tl = token.lower()
+    out = []
+    for r in spel_eff_rows:
+        if tl not in r["spel"].lower():
+            continue
+        desc = _MGEF_DESC_BY_EDID.get(r["mgef"].lower())
+        line = desc or _compose_effect_line(r["mgef"], r["mag"])
+        if line and line not in out:
+            out.append(line)
+    return out
+
+
+def resolve_ally_buff(token):
+    """Passive buff an ally grants, from PERK/MGEF/SPEL records whose EDID
+    contains ``token``. Returns {"buffName", "lines"} or None.
+
+    - Player-facing names come from PERK/SPEL FULL; effect text from PERK DESC,
+      SPEL DESC and MGEF DNAM_MagicItemDescription.
+    - When several distinct ability names exist (e.g. the Medic's three "Ally:"
+      spells, the Nuka Agent's random Nuka-Inspiration buffs) they are listed as
+      lines and no single headline name is forced.
+    """
+    if not token:
+        return None
+    tl = token.lower()
+    perk_fulls, spel_fulls, mgef_fulls, descs = [], [], [], []
+
+    def _add(seq, val):
+        if val and val not in seq:
+            seq.append(val)
+
+    for r in perk_rows:
+        if tl in r["edid"].lower():
+            _add(perk_fulls, r["full"])
+            _add(descs, r["desc"])
+    for r in spel_rows:
+        if tl in r["edid"].lower():
+            _add(spel_fulls, r["full"])
+            _add(descs, r["desc"])
+    for r in mgef_rows:
+        if tl in r["edid"].lower():
+            _add(mgef_fulls, r["full"])
+            _add(descs, r["desc"])
+
+    # Drop template-placeholder lines
+    descs = [d for d in descs if not _BUFF_TEMPLATE_RE.search(d)]
+
+    # Enrich with what the spell's effects actually DO (magnitudes / tooltips),
+    # so buffs describe their effect and not just their name.
+    for _ln in _spell_effect_lines(token):
+        if _ln not in descs:
+            descs.append(_ln)
+
+    player = []
+    for f in perk_fulls + spel_fulls:
+        if f not in player:
+            player.append(f)
+
+    # Random-buff family (e.g. the Nuka Agent's many "Nuka-Inspiration: X"
+    # spells — you receive ONE at random). Collapse to a single headline so the
+    # variant list doesn't read as "you get all of these at once".
+    prefixes = {}
+    for p in player:
+        mm = re.match(r"^(.+?):\s", p)
+        if mm:
+            prefixes.setdefault(mm.group(1), []).append(p)
+    random_family = next(((k, v) for k, v in prefixes.items() if len(v) >= 4), None)
+
+    if random_family:
+        name = f"{random_family[0]} (random buff)"
+        lines = random_family[1]                       # the possible variants
+    elif player:
+        if len(player) == 1:
+            name, lines = player[0], list(descs)
+        else:
+            name, lines = "", player + [d for d in descs if d not in player]
+    else:
+        name = mgef_fulls[0] if mgef_fulls else ""
+        lines = list(descs)
+
+    if not name and not lines:
+        return None
+    return {"buffName": name, "lines": lines}
+
+
+# --- Romance detection -----------------------------------------------------
+# A camp ally is romanceable when the game data carries a romance path naming
+# them — a record whose EDID contains the ally token together with "Romance" or
+# "FadeToBlack" (e.g. ATX_COMP_..._Adelaide_Spell_Romance, Beckett_FirstRomance,
+# Astronaut_...Romance). Collected generatively so a newly romanceable ally is
+# picked up automatically on the next TSV drop.
+_ROMANCE_EDIDS = []
+for _ed in ([_r["edid"] for _r in avif_rows]
+            + [_r["edid"] for _r in spel_rows]
+            + [_r["edid"] for _r in mgef_rows]
+            + [_r["edid"] for _r in perk_rows]):
+    _edl = _ed.lower()
+    if _edl and ("romance" in _edl or "fadetoblack" in _edl):
+        _ROMANCE_EDIDS.append(_edl)
+
+
+def ally_romanceable(rom_token):
+    if not rom_token:
+        return False
+    t = rom_token.lower()
+    return any(t in ed for ed in _ROMANCE_EDIDS)
+
+
+# --- Shop inventory (items the ally sells + drop %) -------------------------
+# The ally's merchant container base (config vendor_base) → the vendor record in
+# dist/vendors.json → its ROOT stock LVLIs → rng76.resolve_deep() → every sold
+# item with its per-roll drop rate. Items are then grouped into readable
+# categories (Weapons, Apparel & Armour, Food & Drinks, Plans, …).
+_INV_STATE = {"loaded": False, "vendors_by_base": {}, "rng": None}
+
+# Chem/med ALCH names (so consumables split into Food & Drinks vs Chems & Meds)
+_CHEM_WORDS = ("stimpak", "radaway", "rad-x", "rad away", "psycho", "med-x",
+               "medx", "buffout", "mentats", "jet", "blood pack", "antibiotic",
+               "addictol", "disease cure", "stealth boy", "berry mentats",
+               "calmex", "daddy-o", "day tripper", "fury", "overdrive",
+               "x-cell", "formula p", "healing salve", "tetanus", "bufftats",
+               "psychobuff", "psychotats", "ultra jet", "company tea",
+               "endangerol", "rejuvenation", "vaccine", "serum", "syringe")
+
+# Category → display label + sort order
+_CAT_ORDER = ["weapons", "armour", "ammo", "chems", "food", "plans", "recipes",
+              "mods", "materials", "notes", "keys", "currency", "other"]
+_CAT_LABEL = {
+    "weapons": "Weapons", "armour": "Apparel & Armour", "ammo": "Ammunition",
+    "chems": "Chems & Meds", "food": "Food & Drinks", "plans": "Plans",
+    "recipes": "Recipes", "mods": "Mods", "materials": "Materials & Junk",
+    "notes": "Notes & Holotapes", "keys": "Keys", "currency": "Currency",
+    "other": "Other",
+}
+
+
+def _categorise(sig, name, edid):
+    sig = (sig or "").upper()
+    nm = (name or "").lower()
+    ed = (edid or "").lower()
+    if nm.startswith("plan:") or "recipe:" in nm or nm.startswith("recipe:"):
+        return "recipes" if "recipe" in nm else "plans"
+    if sig == "WEAP":
+        return "weapons"
+    if sig == "ARMO":
+        return "armour"
+    if sig == "AMMO":
+        return "ammo"
+    if sig in ("NOTE", "BOOK"):
+        if nm.startswith("plan:"):
+            return "plans"
+        if nm.startswith("recipe:"):
+            return "recipes"
+        return "notes"
+    if sig == "KEYM":
+        return "keys"
+    if sig == "ALCH":
+        return "chems" if any(w in nm for w in _CHEM_WORDS) else "food"
+    if sig == "MISC":
+        if any(k in nm for k in ("scrap", "bulk", "steel", "wood", "screw",
+                                 "oil", "gear", "spring", "adhesive", "acid",
+                                 "aluminum", "aluminium", "lead", "copper",
+                                 "circuit", "fiber", "cloth", "leather",
+                                 "concrete", "glass", "ceramic", "rubber",
+                                 "plastic", "cork", "asbestos", "crystal",
+                                 "fertilizer", "silver", "gold", "antiseptic")):
+            return "materials"
+        if "mod" in ed or "mod" in nm:
+            return "mods"
+        return "materials"
+    return "other"
+
+
+def _load_inventory_state():
+    if _INV_STATE["loaded"]:
+        return
+    _INV_STATE["loaded"] = True
+    # Vendor master (dist/vendors.json): base EDID → vendor record
+    vpath = OUT_DIR / "vendors.json"
+    if vpath.exists():
+        try:
+            _vdoc = json.load(open(vpath, encoding="utf-8"))
+            _vlist = _vdoc.get("vendors", _vdoc) if isinstance(_vdoc, dict) else _vdoc
+            for _v in _vlist:
+                _b = (_v.get("container_base") or "").strip()
+                if _b and _b not in _INV_STATE["vendors_by_base"]:
+                    _INV_STATE["vendors_by_base"][_b] = _v
+        except Exception as e:
+            print(f"  [WARN] could not read vendors.json for ally inventory: {e}")
+    # rng76 dataset for drop-rate resolution
+    try:
+        import rng76
+        _INV_STATE["rng"] = rng76.Rng76Data.from_tsv_root(str(TSV_DIR))
+    except Exception as e:
+        print(f"  [WARN] rng76 unavailable — ally inventory drop rates skipped: {e}")
+
+
+def resolve_ally_inventory(vendor_base):
+    """Return {"totalItems", "groups":[{"label","drops":[{name,formId,chance}]}]}
+    for the ally whose merchant container base EDID is ``vendor_base``. Empty
+    dict when the ally has no shop or the data can't be resolved."""
+    if not vendor_base:
+        return {}
+    _load_inventory_state()
+    vend = _INV_STATE["vendors_by_base"].get(vendor_base)
+    rng = _INV_STATE["rng"]
+    if not vend or not rng:
+        return {}
+    lvli = rng.lvli
+    res = rng.resolver
+    edid2fid = {}
+    for _fid, _ed in lvli.edid_by_formid.items():
+        edid2fid.setdefault(_ed, _fid)
+
+    # ROOT stock lists (drop any that are referenced as a sub-list by another)
+    sells = vend.get("sells") or []
+    fids = [edid2fid[e] for e in sells if e in edid2fid]
+    children = set()
+    for f in fids:
+        for entry in lvli.entries_by_list.get(f, []):
+            ref = (entry.get("LVLO_Reference") or "")
+            if ":LVLI" in ref.upper():
+                children.add(ref.split(":")[0].upper())
+    roots = [f for f in fids if f.upper() not in children]
+
+    # Resolve every root → leaf items; keep the highest per-item drop rate.
+    best = {}   # formid → {chance, name, sig}
+    for root in roots:
+        try:
+            leaves = res.resolve_deep(root)
+        except Exception:
+            continue
+        for it in leaves:
+            fid = (it.get("formid") or "").strip()
+            if not fid:
+                continue
+            chance = float(it.get("dropRate") or 0.0)
+            if chance <= 0:
+                continue
+            name = (it.get("name") or "").strip()
+            # Skip unresolved (name == formid) and sub-list rows
+            if not name or name.upper() == fid.upper():
+                continue
+            if fid.upper() in lvli.entries_by_list:
+                continue
+            cur = best.get(fid)
+            if not cur or chance > cur["chance"]:
+                best[fid] = {"chance": chance, "name": name, "sig": it.get("sig", "")}
+
+    if not best:
+        return {}
+
+    # Group by category
+    groups = {}
+    for fid, d in best.items():
+        cat = _categorise(d["sig"], d["name"], lvli.edid_by_formid.get(fid, ""))
+        groups.setdefault(cat, []).append({
+            "name": d["name"],
+            "formId": fid,
+            "chance": round(d["chance"] * 100.0, 3),   # percent, e.g. 16.667
+        })
+
+    out_groups = []
+    for cat in _CAT_ORDER:
+        rows_ = groups.get(cat)
+        if not rows_:
+            continue
+        rows_.sort(key=lambda x: (-x["chance"], x["name"].lower()))
+        out_groups.append({"label": _CAT_LABEL[cat], "drops": rows_})
+
+    return {"totalItems": len(best), "groups": out_groups}
+
+
 def build_allies():
     items = []
     for cobj_id, meta in ALLY_COBJ_FURN.items():
@@ -1626,7 +2083,8 @@ def build_allies():
                 _sm = re.search(r"SCORE_S(\d+)_", (furn_edid_val or ""), re.IGNORECASE)
                 entm = find_ally_entm_by_token(meta["name"], int(_sm.group(1)) if _sm else None)
 
-        display  = meta["name"]
+        furniture_name = meta["name"]
+        display  = meta.get("ally") or furniture_name   # row label = the ALLY
         obtain   = meta["obtain"]
         source   = obtain
 
@@ -1672,6 +2130,19 @@ def build_allies():
             if _ally_craft:
                 break
 
+        # Buffs & Effects: passive buff + romanceable flag (both from TSVs)
+        _ally_buff = resolve_ally_buff(meta.get("buff_token", ""))
+        _ally_romance = ally_romanceable(meta.get("rom_token", ""))
+        _buffs_effects = {
+            "buffName":    (_ally_buff or {}).get("buffName", ""),
+            "lines":       (_ally_buff or {}).get("lines", []),
+            "hasBuff":     bool(_ally_buff),
+            "romanceable": _ally_romance,
+        }
+
+        # Inventory: items the ally sells, grouped, with rng76 drop rates
+        _ally_inventory = resolve_ally_inventory(meta.get("vendor_base", ""))
+
         items.append({
             "formId":           furn_id or cobj_id,
             "cobjFormId":       cobj_id,
@@ -1679,6 +2150,7 @@ def build_allies():
             "furnFormId":       furn_id,
             "edid":             _ally_furn_edid,
             "displayName":      display,
+            "furnitureName":    furniture_name,
             "description":      desc,
             "obtainSource":     source,
             "howToObtain":      obtain,
@@ -1696,8 +2168,8 @@ def build_allies():
             "imageUrl":         img,
             "imageCarousel":    carousel,
             "xalgFlags":        xalg,
-            "buffsAndFunctions": "",
-            "inventory":        "",
+            "buffsAndEffects":  _buffs_effects,
+            "inventory":        _ally_inventory,
             "craftingRequirements": _ally_craft,
             "cutContent":       is_cut(_ally_furn_edid),
         })
