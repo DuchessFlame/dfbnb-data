@@ -66,8 +66,27 @@ POOL_RX = re.compile(
 # cosmetic custom-mod suffixes to drop from the Unique list
 COSMETIC_RX = re.compile(r"_(Appearance|Paint|Skin|CustomName)$", re.I)
 
-# gameplay properties that mark a custom mod as a real "effect" (not naming/paint)
-GAMEPLAY_PROPS = {"Enchantments", "Perk", "Ability", "OverrideProjectile"}
+# properties that mark a custom mod as a REAL unique effect (a distinct legendary
+# effect), not just the weapon's naming/stat/paint mod. Deliberately excludes bare
+# ActorValues / Value / Keywords / Weight, which are the weapon-named naming mods
+# (All Rise, Civil Unrest, The Fixer, etc.) the checklist should NOT list.
+GAMEPLAY_PROPS = {"Enchantments", "Perk", "Ability", "OverrideProjectile",
+                  "AmmoCapacity", "ReloadSpeed", "DamageBonusMult",
+                  "DamageTypeValues", "Damage Type Value", "AttackDamage",
+                  "DamageResist", "SpeedMult"}
+
+# obtain-route copy (data-grounded: infestation guide says 4* are Infestation-exclusive;
+# Head Hunt awards bounty-pool items; 1-3* standard come from world drops + Murmrgh)
+ROUTES = {
+    "In-Game Legendary Drops": "Learned by scrapping legendary items that drop from "
+        "enemies, events and daily activities, then crafting the mod with Legendary "
+        "Modules and a Legendary Core.",
+    "Purveyor Murmrgh": "Buy legendary items with Legendary Scrip from Purveyor Murmrgh "
+        "at the Rusty Pick, then scrap them for a chance to learn the mod.",
+    "Head Hunt Bosses": "Earn bounty (3-star) legendary items from Head Hunt public "
+        "events, then scrap them to learn the mod.",
+    "Infestations": "4-star legendary mods are exclusive to Infestation events.",
+}
 
 # supplemental effect text for craftable mods missing a curated description
 SUPPLEMENTAL_DESC = {
@@ -165,27 +184,41 @@ def read_omod_live(path):
     return out
 
 
-def how_to_obtain(star):
-    tier = TIER_NAME.get(star, "")
-    label = f"{star}★ ({tier})" if tier else f"{star}★"
-    return (
-        f"{label} legendary mods are learned by scrapping legendary items that "
-        f"carry the effect (a chance each scrap) at a Legendary Crafting station. "
-        f"Once learned, craft the mod using Legendary Modules and a Legendary Core. "
-        f"They can also appear on rolled gear bought from Purveyor Murmrgh."
-    )
+def route_list(names):
+    """Turn ordered route names into [{route, note}] dicts."""
+    return [{"route": n, "note": ROUTES.get(n, "")} for n in names]
+
+
+def routes_for(star, in_standard, in_bounty):
+    """Data-grounded obtain routes for a craftable mod."""
+    if star == 4:
+        return ["Infestations"]
+    names = []
+    if in_standard:
+        names += ["In-Game Legendary Drops", "Purveyor Murmrgh"]
+    if in_bounty:
+        names += ["Head Hunt Bosses"]
+    if not names:                       # safety net for any 1-3* not in a pool
+        names = ["In-Game Legendary Drops"]
+    return names
 
 
 def build_master(pools, descs, live):
     """Merge curated pools + live OMOD into per-(star,name) mods."""
     master = {}  # (star,name) -> mod dict
+    standard_keys, bounty_keys = set(), set()
 
     for pool in pools.values():
         star = pool["star"]
         typ = pool["itemType"]
+        ptype = pool.get("poolType")
         for m in pool["mods"]:
             name = clean_name(m["name"].strip())
             key = (star, name)
+            if ptype == "bounty":
+                bounty_keys.add(key)
+            else:
+                standard_keys.add(key)
             d = master.setdefault(key, {
                 "name": name, "star": star, "types": set(),
                 "effect": "", "edid": "", "formid": "", "weaponCompat": None,
@@ -223,6 +256,8 @@ def build_master(pools, descs, live):
     type_order = ["Weapon", "Armour", "Power Armour"]
     for (star, name), d in master.items():
         types = [t for t in type_order if t in d["types"]]
+        rnames = routes_for(star, (star, name) in standard_keys,
+                            (star, name) in bounty_keys)
         out.append({
             "id": f"star{star}-{slugify(name)}",
             "name": name,
@@ -232,19 +267,34 @@ def build_master(pools, descs, live):
             "edid": d["edid"],
             "formid": d["formid"],
             "weaponCompat": d["weaponCompat"],
-            "howToObtain": how_to_obtain(star),
+            "obtainRoutes": route_list(rnames),
         })
     return out
 
 
+# fallback effect text derived from the gameplay property when nothing else is known
+PROP_EFFECT = [
+    ("AmmoCapacity", "Increased ammo capacity."),
+    ("ReloadSpeed", "Faster reload speed."),
+    ("DamageBonusMult", "Deals bonus weapon damage."),
+    ("AttackDamage", "Increased attack damage."),
+    ("DamageTypeValues", "Adds bonus elemental damage."),
+    ("OverrideProjectile", "Alters the weapon's projectile."),
+]
+
+
 def _ench_effect(cm):
-    """Derive a short effect string from the mod's enchantment EDID, if any."""
+    """Derive a short effect string from the mod's enchantment EDID, then property."""
     for e in (cm.get("effects") or []):
         if e.get("property") in ("Enchantments", "Perk", "Ability"):
             val = (e.get("value") or "").lower()
             for kw, txt in ENCH_KEYWORDS:
                 if kw in val:
                     return txt
+    props = {e.get("property", "") for e in (cm.get("effects") or [])}
+    for p, txt in PROP_EFFECT:
+        if p in props:
+            return txt
     return ""
 
 
@@ -254,6 +304,7 @@ def build_unique(uw_path, descs):
     by_name = {}
     for w in weapons:
         wname = (w.get("name") or "").strip()
+        wobtain = (w.get("howToObtain") or "").strip()
         for cm in (w.get("customMods") or []):
             edid = (cm.get("edid") or "").strip()
             name = (cm.get("name") or "").strip()
@@ -278,23 +329,31 @@ def build_unique(uw_path, descs):
                     "name": name, "star": None, "types": ["Weapon"],
                     "effect": effect, "edid": edid,
                     "formid": (cm.get("formId") or "").strip(),
-                    "weaponCompat": None, "sourceWeapons": set(),
-                    "howToObtain": "",
+                    "weaponCompat": None, "sourceWeapons": {},
+                    "obtainRoutes": [],
                 }
             if not rec["effect"] and effect:
                 rec["effect"] = effect
             if wname:
-                rec["sourceWeapons"].add(wname)
+                rec["sourceWeapons"][wname] = wobtain
     out = []
     for name, rec in by_name.items():
-        srcs = sorted(rec.pop("sourceWeapons"))
-        rec["sourceWeapon"] = ", ".join(srcs)
-        rec["howToObtain"] = (
-            f"Comes pre-installed on {rec['sourceWeapon']}. This effect is unique "
-            f"to that weapon - it cannot be crafted, rerolled onto other gear, or removed."
-            if srcs else
-            "Unique effect baked onto a named weapon; not craftable."
-        )
+        srcmap = rec.pop("sourceWeapons", {})  # {weaponName: howToObtain}
+        # keep the mod name as the title; the weapon + quest/event acquisition
+        # text belongs in How to Obtain (per request).
+        routes = []
+        for wn in sorted(srcmap):
+            obt = (srcmap.get(wn) or "").strip()
+            lead = f"{obt}. " if obt and not obt.endswith(".") else (obt + " " if obt else "")
+            routes.append({
+                "route": wn,                       # source weapon (shown in How to Obtain)
+                "note": (lead + f"Pre-installed on {wn} - this effect cannot be "
+                         "crafted, rerolled onto other gear, or removed.").strip()
+            })
+        rec["obtainRoutes"] = routes or [{
+            "route": "Unique Weapon Effect",
+            "note": "Pre-installed on a named weapon; cannot be crafted or rerolled."
+        }]
         out.append(rec)
     return out
 
@@ -369,7 +428,7 @@ def build_channel(channel, base, tsv_dir, dist_dir):
             std_names[pool["star"]].add(clean_name(m["name"].strip()))
     master_by_key = {(m["star"], m["name"]): m for m in master}
     murm_groups = []
-    for star in (1, 2, 3, 4):
+    for star in (1, 2, 3):  # Murmrgh's leveled list only carries 1-3 star mods
         names = sorted(std_names.get(star, set()), key=str.lower)
         mods = [master_by_key[(star, n)] for n in names if (star, n) in master_by_key]
         murm_groups.append({
