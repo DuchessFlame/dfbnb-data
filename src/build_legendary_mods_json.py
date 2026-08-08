@@ -184,6 +184,63 @@ def read_omod_live(path):
     return out
 
 
+def read_omod_edid_names(path):
+    """EDID -> clean FULL name for every mod_Legendary_* OMOD (channel-accurate,
+    so live vs PTS renames like Warming/Cryologist's resolve correctly)."""
+    out = {}
+    with open(path, encoding="utf-8-sig", errors="replace") as f:
+        r = csv.reader(f, delimiter="\t")
+        h = next(r)
+        ix = {k: i for i, k in enumerate(h)}
+        E, FU = ix["OMOD_EDID"], ix["FULL"]
+        for row in r:
+            if len(row) <= max(E, FU):
+                continue
+            edid = row[E]
+            if edid.startswith("mod_Legendary_"):
+                out[edid] = clean_name(row[FU].strip())
+    return out
+
+
+# Purveyor Murmrgh's own rank generators (base LegendaryItems_*; excludes the
+# RA_/HTO_/LTT_/RD01_/BOUNTY_ copies used by other sources). She carries Rank 1-3.
+LGDI_MURM_RX = re.compile(
+    r"^LegendaryItems_(Armor|Weapons_Melee|Weapons_Ranged|PowerArmor)_Rank[123]$")
+# a legendary-effect mod EDID inside a ModPool_Refs cell; tier digit is captured
+MODEDID_RX = re.compile(r"mod_Legendary_(?:Armor|Weapon|PowerArmor)([123])_\w+")
+
+
+def read_murmrgh_pools_from_lgdi(tsv_dir, edid2name):
+    """Authoritative per-star name sets for what Murmrgh can roll, taken from the
+    LGDI export's ModPool_Refs (LGDI -> modcol -> mod_Legendary_* pool).
+    Returns (lgdi_mods_path, {star:set(names)}) or None if no LGDI export in this
+    channel (caller then falls back to the generic standard pool)."""
+    cands = glob.glob(os.path.join(tsv_dir, "LGDI_Export_*_Mods.tsv"))
+    if not cands:
+        return None
+    path = max(cands, key=os.path.getmtime)
+    stars = {1: set(), 2: set(), 3: set()}
+    with open(path, encoding="utf-8-sig", errors="replace") as f:
+        r = csv.reader(f, delimiter="\t")
+        h = next(r)
+        ix = {k: i for i, k in enumerate(h)}
+        if "LGDI_EDID" not in ix or "ModPool_Refs" not in ix:
+            return None  # older LGDI export without the pool column
+        LE, PR = ix["LGDI_EDID"], ix["ModPool_Refs"]
+        for row in r:
+            if len(row) <= max(LE, PR):
+                continue
+            if not LGDI_MURM_RX.match(row[LE]):
+                continue
+            for m in MODEDID_RX.finditer(row[PR]):
+                name = edid2name.get(m.group(0))
+                if name:
+                    stars[int(m.group(1))].add(name)
+    if not any(stars.values()):
+        return None
+    return path, stars
+
+
 def route_list(names):
     """Turn ordered route names into [{route, note}] dicts."""
     return [{"route": n, "note": ROUTES.get(n, "")} for n in names]
@@ -418,14 +475,26 @@ def build_channel(channel, base, tsv_dir, dist_dir):
     for g in groups:
         print(f"    {g['title']:36s} {len(g['mods'])}")
 
-    # ── Murmrgh's list: standard (non-bounty) craftable pool, per star ──
-    std_names = {}
-    for pool in pools.values():
-        if pool.get("poolType") != "standard":
-            continue
-        std_names.setdefault(pool["star"], set())
-        for m in pool["mods"]:
-            std_names[pool["star"]].add(clean_name(m["name"].strip()))
+    # ── Murmrgh's list: her ACTUAL vendor pool from the LGDI export ──
+    # (LGDI LegendaryItems_*_Rank1-3 -> modcol -> mod_Legendary_* pools). Falls
+    # back to the generic standard craftable pool only if no LGDI export exists
+    # in this channel yet.
+    edid2name = read_omod_edid_names(omod_path)
+    lgdi = read_murmrgh_pools_from_lgdi(tsv_dir, edid2name)
+    if lgdi:
+        murm_src_path, std_names = lgdi
+        murm_source = os.path.basename(murm_src_path)
+        print(f"  [murmrgh] vendor pools from LGDI export: {murm_source}")
+    else:
+        std_names = {}
+        for pool in pools.values():
+            if pool.get("poolType") != "standard":
+                continue
+            std_names.setdefault(pool["star"], set())
+            for m in pool["mods"]:
+                std_names[pool["star"]].add(clean_name(m["name"].strip()))
+        murm_source = "legendary_mod_drop_chances (fallback - no LGDI export in channel)"
+        print("  [murmrgh] no LGDI export found; FALLBACK to generic standard pool")
     master_by_key = {(m["star"], m["name"]): m for m in master}
     murm_groups = []
     for star in (1, 2, 3):  # Murmrgh's leveled list only carries 1-3 star mods
@@ -440,6 +509,7 @@ def build_channel(channel, base, tsv_dir, dist_dir):
         "version": 1, "generated": str(date.today()), "vendor": "Purveyor Murmrgh",
         "note": ("Legendary effects that can appear on the legendary gear Purveyor "
                  "Murmrgh sells for Legendary Scrip. Grouped by star, A-Z."),
+        "source_file": murm_source,
         "count": sum(len(g["mods"]) for g in murm_groups), "groups": murm_groups,
     }
     murm_path = os.path.join(dist_dir, "murmrgh_legendary_mods.json")
