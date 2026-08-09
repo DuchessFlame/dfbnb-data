@@ -92,10 +92,18 @@ _NONVENDOR_RE = re.compile(
     r"corpse|brahmin|turret|\bguard\b|soundtrack",
     re.IGNORECASE)
 
+# Developer / QA / debug test vendors (QAVendorActor, QA_ArmorVendor_Test,
+# 76QAVendor_VendorChest_*, DebugDobert…). Never real in-game merchants.
+_DEVVENDOR_RE = re.compile(
+    r"qavendor|(?:^|_)qa_|(?:^|_)test_|_test\b|debug",
+    re.IGNORECASE)
+
 
 def _is_nonvendor(edid: str, full: str, tplt: str, fac_edid: str,
                   cont_edid: str) -> bool:
     if _NONVENDOR_RE.search(" ".join([edid or "", full or "", tplt or ""])):
+        return True
+    if _DEVVENDOR_RE.search((edid or "") + " " + (cont_edid or "")):
         return True
     combo = (fac_edid or "").lower() + " " + (cont_edid or "").lower()
     return "workshopvendor" in combo  # WorkshopVendorFactionMisc / *ChestMisc01
@@ -244,6 +252,53 @@ def _to_int(fid):
         return None
 
 
+def load_vendor_overrides(path):
+    """Hand-authored vendor overrides for merchants the automated pipeline can't
+    place or shouldn't list. TSV keyed by NPC EDID:
+        edid <tab> exclude <tab> marker <tab> region [<tab> note]
+    - exclude ('x'/'yes'/'1'/'true'): drop the vendor entirely — cut content
+      (e.g. Milepost Zero HQ) or wrong-goods entries.
+    - marker/region: hand location (authoritative) for instanced / Skyline /
+      fishing / Atlantic City / event worldspaces Mappalachia can't resolve.
+    Header row (`edid`), blank lines and `#` comments ignored. Committed so CI
+    applies them with no Mappalachia DB present."""
+    out = {}
+    if not path or not os.path.exists(path):
+        return out
+    with open(path, encoding="utf-8", errors="replace", newline="") as f:
+        for row in csv.reader(f, delimiter="\t"):
+            if not row or not row[0].strip() or row[0].lstrip().startswith("#"):
+                continue
+            if row[0].strip().lower() == "edid":
+                continue
+            out[row[0].strip()] = {
+                "exclude": (row[1].strip().lower() in ("x", "yes", "1", "true")) if len(row) > 1 else False,
+                "marker": row[2].strip() if len(row) > 2 else "",
+                "region": row[3].strip() if len(row) > 3 else "",
+            }
+    return out
+
+
+def apply_vendor_overrides(vendors, overrides):
+    """Drop excluded vendors and overlay hand locations. Returns
+    (kept_vendors, n_excluded, n_located)."""
+    kept, excluded, located = [], 0, 0
+    for v in vendors:
+        o = overrides.get(v["edid"])
+        if o and o["exclude"]:
+            excluded += 1
+            continue
+        if o and (o["marker"] or o["region"]):
+            if o["marker"]:
+                v["marker"] = o["marker"]
+            if o["region"]:
+                v["region"] = o["region"]
+            v["resolved_by"] = "manual"
+            located += 1
+        kept.append(v)
+    return kept, excluded, located
+
+
 def resolve_locations(vendors, geo, cur, cache, db_ok):
     """Populate marker/region/coords/resolved_by on each vendor.
 
@@ -336,6 +391,12 @@ def build(tsv_root, dist_dir, cache_path):
         print(f"[vendors] No Mappalachia DB and no geo cache — locations will be blank. "
               f"Run once locally with MAPPALACHIA_DB set to seed data/vendors/geo_cache.json.")
     loc_n = resolve_locations(vendors, geo, cur, cache, db_ok)
+
+    ovr_path = os.path.join(REPO, "data", "vendors", "vendor_overrides.tsv")
+    vendors, ex_n, man_n = apply_vendor_overrides(vendors, load_vendor_overrides(ovr_path))
+    if ex_n or man_n:
+        print(f"[vendors] overrides: {ex_n} excluded (cut content), {man_n} hand-located "
+              f"({os.path.relpath(ovr_path, REPO)})")
 
     out = []
     for v in sorted(vendors, key=lambda d: (d.get("region", ""), d.get("marker", ""), vendor_name(d).lower())):

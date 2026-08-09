@@ -1,0 +1,22 @@
+# Hand-authored vendor overrides — applied after Mappalachia resolution, read by CI (no DB needed).
+# Columns:  edid <TAB> exclude <TAB> marker <TAB> region <TAB> note
+#   exclude = x   -> drop the vendor entirely (cut content / wrong goods)
+#   marker/region -> hand location (authoritative) for worldspaces Mappalachia can't map.
+# Region should be one of: Ash Heap, Atlantic City, Burning Springs, Cranberry Bog, Forest,
+#   Savage Divide, Skyline Valley, The Mire, The Pitt, Toxic Valley.
+# Leave marker+region blank (and exclude blank) to keep a vendor placeless.
+edid	exclude	marker	region	note
+# --- Cut content: Milepost Zero HQ (not live in-game) ---
+MILE_Headquarters_ImportedGoodsMerchant	x			Ineke — cut content
+MILE_Headquarters_AmmoMerchant	x			Theodore — cut content
+# --- Atlantic City expedition vendors: place them (not traveling merchants) ---
+XPD_AC_ExpeditionVendor_Showmen		Atlantic City	Atlantic City	Carmen
+XPD_AC_ExpeditionVendor_Mobster		Atlantic City	Atlantic City	Fast Nicky
+XPD_AC_ExpeditionVendor_Muni		Atlantic City	Atlantic City	Pete Rutledge
+# --- Nuka-World on Tour (map marker) in Ash Heap ---
+NWOT_NPC_Betty		Nuka-World on Tour	Ash Heap	Betty Hill
+NWOT_Clown_Bot		Nuka-World on Tour	Ash Heap	Chloe the Clown
+NWOT_NPC_Del		Nuka-World on Tour	Ash Heap	Del Walsh
+# --- Skyline Valley (Storm) fixed vendors ---
+Storm_TradingPostVendor			Skyline Valley	Murry  (add the specific marker if known)
+Storm_MysticalJunkieMerchant			Skyline Valley	Mystical Junkie Merchant
