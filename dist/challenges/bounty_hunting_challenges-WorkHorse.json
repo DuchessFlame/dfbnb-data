@@ -1,0 +1,1189 @@
+{
+  "generated": "2026-08-07T07:28:13.933958+00:00",
+  "byPage": {
+    "grunt-hunt-rewards": {
+      "name": "Grunt Hunt Challenges",
+      "groups": [
+        {
+          "id": "discover",
+          "label": "Getting Started",
+          "isChain": false,
+          "cutContent": false,
+          "challenges": [
+            {
+              "formId": "00848D01",
+              "edid": "Challenge_Lifetime_BurnBounty_DiscoveredBountyHunting",
+              "name": "Become a Bounty Hunter in Highway Town",
+              "snam": "Quests Completed",
+              "targetCount": 1,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_DiscoveredBounty_01_Condition [CNDF:0084B2D7]|00 00 00 00|0|0|Target List|"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "grunt-chain",
+          "label": "Complete Grunt Hunts",
+          "isChain": true,
+          "cutContent": false,
+          "challenges": [
+            {
+              "formId": "00843137",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedGrunt_01",
+              "name": "Complete Grunt Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 10,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedGrunt_01_Condition [CNDF:0084314D]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "0084313D",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedGrunt_02",
+              "name": "Complete Grunt Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 50,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedGrunt_01 \"Complete Grunt Hunts\" [CHAL:00843137]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedGrunt_02_Condition [CNDF:0084314E]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "00843104",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedGrunt_03",
+              "name": "Complete Grunt Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 76,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedGrunt_02 \"Complete Grunt Hunts\" [CHAL:0084313D]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedGrunt_03_Condition [CNDF:0084314F]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "0084312B",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedGrunt_04",
+              "name": "Complete Grunt Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 100,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedGrunt_03 \"Complete Grunt Hunts\" [CHAL:00843104]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedGrunt_04_Condition [CNDF:00843150]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "0084312C",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedGrunt_05",
+              "name": "Complete Grunt Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 250,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedGrunt_04 \"Complete Grunt Hunts\" [CHAL:0084312B]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedGrunt_05_Condition [CNDF:00843152]|00 00 00 00|0|0|Target List|"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "camp",
+          "label": "C.A.M.P. Challenges",
+          "isChain": false,
+          "cutContent": false,
+          "challenges": [
+            {
+              "formId": "008433CA",
+              "edid": "zzzBurn_Challenge_Lifetime_CAMPS_SUB_BountyPosters",
+              "name": "Build the Bounty Posters in a Workshop or C.A.M.P.",
+              "snam": "Workshop Objects Crafted",
+              "targetCount": 1,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|CHAL_IsTargetWorkshopRecipe|00 00 00|00 00|Burn_workshop_co_CondProxy_FloorDecor_DeathclawPlushie [COBJ:0082B948]|00 00 00 00|0|-1|Target|",
+                "00000000|1.000000|IsPlayerInShelter|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|"
+              ]
+            },
+            {
+              "formId": "008433CC",
+              "edid": "zzzBurn_Challenge_Lifetime_CAMPS_SUB_BountyHuntingFlareMortar",
+              "name": "Build the Bounty Hunting Flare Mortar in a Workshop or C.A.M.P.",
+              "snam": "Workshop Objects Crafted",
+              "targetCount": 1,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|CHAL_IsTargetWorkshopRecipe|00 00 00|00 00|Burn_workshop_co_CondProxy_FloorDecor_DeathclawPlushie [COBJ:0082B948]|00 00 00 00|0|-1|Target|",
+                "00000000|1.000000|IsPlayerInShelter|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cut-content",
+          "label": "Cut Content",
+          "isChain": false,
+          "cutContent": true,
+          "challenges": [
+            {
+              "formId": "0084314A",
+              "edid": "zzzChallenge_Lifetime_BurnBounty_CompletedGrunt_15",
+              "name": "Complete Grunt Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 15,
+              "type": "",
+              "category": "",
+              "cutContent": true,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|zzzChallenge_Lifetime_BurnBounty_CompletedGrunt_15_Condition [CNDF:00843151]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "00843138",
+              "edid": "zzzChallenge_Lifetime_BurnBounty_CompletedGrunt_OneStars",
+              "name": "Complete 1 Star Grunt Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 50,
+              "type": "",
+              "category": "",
+              "cutContent": true,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|GetValue|00 00 00|00 00|Burn_BountyHunt_GruntStarLevelChosen [AVIF:0081F17C]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedGruntHunt \"Burn Bounty Completed Grunt Hunts\" [FLST:0084315F]|00 00 00 00|0|-1|Target|"
+              ]
+            },
+            {
+              "formId": "0084313C",
+              "edid": "zzzChallenge_Lifetime_BurnBounty_CompletedGrunt_TwoStars",
+              "name": "Complete 2 Star Grunt Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 50,
+              "type": "",
+              "category": "",
+              "cutContent": true,
+              "reward": null,
+              "conditions": [
+                "10000000|2.000000|GetValue|00 00 00|00 00|Burn_BountyHunt_GruntStarLevelChosen [AVIF:0081F17C]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedGruntHunt \"Burn Bounty Completed Grunt Hunts\" [FLST:0084315F]|00 00 00 00|0|-1|Target|"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "head-hunt-rewards": {
+      "name": "Head Hunt Challenges",
+      "groups": [
+        {
+          "id": "start-chain",
+          "label": "Start Head Hunts",
+          "isChain": true,
+          "cutContent": false,
+          "challenges": [
+            {
+              "formId": "00843119",
+              "edid": "Challenge_Lifetime_BurnBounty_StartedHead_01",
+              "name": "Start Head Hunts",
+              "snam": "Script",
+              "targetCount": 1,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": []
+            },
+            {
+              "formId": "00843110",
+              "edid": "Challenge_Lifetime_BurnBounty_StartedHead_05",
+              "name": "Start Head Hunts",
+              "snam": "Script",
+              "targetCount": 5,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_StartedHead_01 \"Start Head Hunts\" [CHAL:00843119]|00 00 00 00|0|-1|Subject|"
+              ]
+            },
+            {
+              "formId": "0084312D",
+              "edid": "Challenge_Lifetime_BurnBounty_StartedHead_07",
+              "name": "Start Head Hunts",
+              "snam": "Script",
+              "targetCount": 7,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_StartedHead_05 \"Start Head Hunts\" [CHAL:00843110]|00 00 00 00|0|-1|Subject|"
+              ]
+            },
+            {
+              "formId": "0084313A",
+              "edid": "Challenge_Lifetime_BurnBounty_StartedHead_15",
+              "name": "Start Head Hunts",
+              "snam": "Script",
+              "targetCount": 15,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_StartedHead_07 \"Start Head Hunts\" [CHAL:0084312D]|00 00 00 00|0|-1|Subject|"
+              ]
+            },
+            {
+              "formId": "00843146",
+              "edid": "Challenge_Lifetime_BurnBounty_StartedHead_76",
+              "name": "Start Head Hunts",
+              "snam": "Script",
+              "targetCount": 76,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_StartedHead_15 \"Start Head Hunts\" [CHAL:0084313A]|00 00 00 00|0|-1|Subject|"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "complete-chain",
+          "label": "Complete Head Hunts",
+          "isChain": true,
+          "cutContent": false,
+          "challenges": [
+            {
+              "formId": "00843147",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedHead_01",
+              "name": "Complete Head Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 10,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedHead_01_Condition [CNDF:00843158]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "0084313F",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedHead_02",
+              "name": "Complete Head Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 50,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedHead_01 \"Complete Head Hunts\" [CHAL:00843147]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedHead_02_Condition [CNDF:00843159]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "0084310D",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedHead_03",
+              "name": "Complete Head Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 76,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedHead_02 \"Complete Head Hunts\" [CHAL:0084313F]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedHead_03_Condition_Copy01 [CNDF:0084315A]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "0084312E",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedHead_04",
+              "name": "Complete Head Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 100,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedHead_03 \"Complete Head Hunts\" [CHAL:0084310D]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedHead_04_Condition [CNDF:0084315B]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "00843115",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedHead_05",
+              "name": "Complete Head Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 250,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|HasCompletedChallenge|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedHead_04 \"Complete Head Hunts\" [CHAL:0084312E]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_Lifetime_BurnBounty_CompletedHead_05_Condition_Copy01 [CNDF:0084315C]|00 00 00 00|0|0|Target List|"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "head-groups",
+          "label": "Head Hunt Groups",
+          "isChain": false,
+          "cutContent": false,
+          "challenges": [
+            {
+              "formId": "0084312F",
+              "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_All_META",
+              "name": "Complete All Head Hunt Groups",
+              "snam": "Challenges Completed",
+              "targetCount": 7,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHuntGroups_All \"Burn Bounty Completed All Head Hunt Groups\" [FLST:00843169]|00 00 00 00|0|-1|Target|"
+              ],
+              "isMeta": true,
+              "subs": [
+                {
+                  "formId": "0084310A",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_META",
+                  "name": "Kill Bounties from Group 1",
+                  "snam": "",
+                  "targetCount": 4,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [],
+                  "isMeta": true,
+                  "groupNum": 1,
+                  "subs": [
+                    {
+                      "formId": "00843141",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillDeath_SUB",
+                      "name": "Kill the Target - The Pale Horseman",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|0.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843111",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillFamine_SUB",
+                      "name": "Kill the Target - The Black Horseman",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|6.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843107",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillPest_SUB",
+                      "name": "Kill the Target - The White Horseman",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|10.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843120",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillWar_SUB",
+                      "name": "Kill the Target - The Red Rider",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|12.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "formId": "00843134",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_META",
+                  "name": "Kill Bounties from Group 2",
+                  "snam": "",
+                  "targetCount": 5,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [],
+                  "isMeta": true,
+                  "groupNum": 2,
+                  "subs": [
+                    {
+                      "formId": "0084310F",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillAbraxo_SUB",
+                      "name": "Kill the Target - The Cleaner",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|26.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843117",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillNuka_SUB",
+                      "name": "Kill the Target - Anna The Nuka-Queen",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|9.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843133",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillQuackDocs_SUB",
+                      "name": "Kill the Target - The Malpractitioner",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|4.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "0084311D",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCult_SUB",
+                      "name": "Kill the Target - Irene The Irradiated",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|1.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843118",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCleaners_SUB",
+                      "name": "Kill the Target - Cletus Brimstone",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|3.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "formId": "00843145",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_META",
+                  "name": "Kill Bounties from Group 3",
+                  "snam": "",
+                  "targetCount": 5,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [],
+                  "isMeta": true,
+                  "groupNum": 3,
+                  "subs": [
+                    {
+                      "formId": "00843113",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillAstronauts_SUB",
+                      "name": "Kill the Target - The Space Ranger",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|2.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843131",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillCommies_SUB",
+                      "name": "Kill the Target - The Proletariat Punisher",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|28.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "0084313E",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillJazz_SUB",
+                      "name": "Kill the Target - Ragtime Randy",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|15.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843114",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillPilot_SUB",
+                      "name": "Kill the Target - The Ace",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|11.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843108",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillVaultTec_SUB",
+                      "name": "Kill the Target - The Chief Researcher",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|19.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "formId": "0084311A",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_META",
+                  "name": "Kill Bounties from Group 4",
+                  "snam": "",
+                  "targetCount": 4,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [],
+                  "isMeta": true,
+                  "groupNum": 4,
+                  "subs": [
+                    {
+                      "formId": "00843132",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillOldMoney_SUB",
+                      "name": "Kill the Target - Baron Boris Wazie",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|8.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "0084310B",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillPatriots_SUB",
+                      "name": "Kill the Target - Corporal Jane",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|13.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843124",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobobrains_SUB",
+                      "name": "Kill the Target - Chief Engineer Lewis",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|20.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843105",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobots_SUB",
+                      "name": "Kill the Target - Tincan Toni",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|16.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "formId": "00843121",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_META",
+                  "name": "Kill Bounties from Group 5",
+                  "snam": "",
+                  "targetCount": 4,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [],
+                  "isMeta": true,
+                  "groupNum": 5,
+                  "subs": [
+                    {
+                      "formId": "00843136",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBigGun_SUB",
+                      "name": "Kill the Target - Richie Finesse",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|25.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "0084313B",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBoxer_SUB",
+                      "name": "Kill the Target - Becca The Heavyweight",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|23.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "0084310C",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillGunslinger_SUB",
+                      "name": "Kill the Target - Cowgirl Janine",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|22.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843125",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillSniper_SUB",
+                      "name": "Kill the Target - Charlie Half-Cocked",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|24.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "formId": "0084311C",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_META",
+                  "name": "Kill Bounties from Group 6",
+                  "snam": "",
+                  "targetCount": 4,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [],
+                  "isMeta": true,
+                  "groupNum": 6,
+                  "subs": [
+                    {
+                      "formId": "00843129",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillBlueDevils_SUB",
+                      "name": "Kill the Target - The Devil of Defiance",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|5.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "0084311E",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGambler_SUB",
+                      "name": "Kill the Target - Vito \"The Vic\" Bronco",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|17.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843149",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGolden_SUB",
+                      "name": "Kill the Target - Granny Dolores",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|7.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843148",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillHunter_SUB",
+                      "name": "Kill the Target - Colt the Bolt",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|29.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "formId": "0084311F",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_META",
+                  "name": "Kill Bounties from Group 7",
+                  "snam": "",
+                  "targetCount": 4,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [],
+                  "isMeta": true,
+                  "groupNum": 7,
+                  "subs": [
+                    {
+                      "formId": "00843142",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillCrusher_SUB",
+                      "name": "Kill the Target - Gentle Gary",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|27.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843116",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillFisherman_SUB",
+                      "name": "Kill the Target - Amadi the Piranha",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|21.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843123",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillMiner_SUB",
+                      "name": "Kill the Target - The Foreman",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|18.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    },
+                    {
+                      "formId": "00843126",
+                      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillScout_SUB",
+                      "name": "Kill the Target - Scout Leader Karen",
+                      "snam": "Quests Completed",
+                      "targetCount": 1,
+                      "type": "",
+                      "category": "",
+                      "cutContent": false,
+                      "reward": null,
+                      "conditions": [
+                        "10000000|14.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hunt-locations",
+          "label": "Hunt Locations",
+          "isChain": false,
+          "cutContent": false,
+          "challenges": [
+            {
+              "formId": "00843106",
+              "edid": "Challenge_Lifetime_BurnBounty_CompletedHuntLocation_META",
+              "name": "Complete Bounty Hunts at these Locations",
+              "snam": "",
+              "targetCount": 8,
+              "type": "",
+              "category": "",
+              "cutContent": false,
+              "reward": null,
+              "conditions": [],
+              "isMeta": true,
+              "subs": [
+                {
+                  "formId": "00843143",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompletedHuntLocation_SUB_Athens",
+                  "name": "Complete a Bounty Hunt at Athens",
+                  "snam": "Quests Completed",
+                  "targetCount": 1,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [
+                    "10010000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_BurnBounty_HuntCompletedLocation_Athens01 [CNDF:0084314C]|00 00 00 00|0|0|Target List|",
+                    "10010000|1.000000|IsTrueForConditionForm|00 00 00|00 00|Challenge_BurnBounty_HuntCompletedLocation_Athens02 [CNDF:0084314B]|00 00 00 00|0|0|Target List|"
+                  ]
+                },
+                {
+                  "formId": "00843139",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompletedHuntLocation_SUB_AshCave",
+                  "name": "Complete a Bounty Hunt at Ash Cave",
+                  "snam": "Quests Completed",
+                  "targetCount": 1,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [
+                    "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocBurnAshCaveLocation \"Ash Cave\" [LCTN:007F6808]|00 00 00 00|0|-1|Subject|",
+                    "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedBountyHunts \"Burn Bounty Completed Bounty Hunts\" [FLST:00843167]|00 00 00 00|0|-1|Target|"
+                  ]
+                },
+                {
+                  "formId": "00843127",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompletedHuntLocation_SUB_ChopShop",
+                  "name": "Complete a Bounty Hunt at Chop Shop",
+                  "snam": "Quests Completed",
+                  "targetCount": 1,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [
+                    "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocBurnChopShop \"The Chop Shop\" [LCTN:007D2A0E]|00 00 00 00|0|-1|Subject|",
+                    "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedBountyHunts \"Burn Bounty Completed Bounty Hunts\" [FLST:00843167]|00 00 00 00|0|-1|Target|"
+                  ]
+                },
+                {
+                  "formId": "00843144",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompletedHuntLocation_SUB_DinoGolf",
+                  "name": "Complete a Bounty Hunt at Dino Peaks Mini Golf",
+                  "snam": "Quests Completed",
+                  "targetCount": 1,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [
+                    "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocBurnDinoGolf \"Dino Peaks Mini Golf\" [LCTN:007F1937]|00 00 00 00|0|-1|Subject|",
+                    "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedBountyHunts \"Burn Bounty Completed Bounty Hunts\" [FLST:00843167]|00 00 00 00|0|-1|Target|"
+                  ]
+                },
+                {
+                  "formId": "0084311B",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompletedHuntLocation_SUB_FrontierFort",
+                  "name": "Complete a Bounty Hunt at Fort Steuben",
+                  "snam": "Quests Completed",
+                  "targetCount": 1,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [
+                    "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocBurnFrontierFortLocation \"Fort Steuben\" [LCTN:007CA18C]|00 00 00 00|0|-1|Subject|",
+                    "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedBountyHunts \"Burn Bounty Completed Bounty Hunts\" [FLST:00843167]|00 00 00 00|0|-1|Target|"
+                  ]
+                },
+                {
+                  "formId": "00843109",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompletedHuntLocation_SUB_RailroadServiceYard",
+                  "name": "Complete a Bounty Hunt at Railroad Service Yard",
+                  "snam": "Quests Completed",
+                  "targetCount": 1,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [
+                    "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocBurnRailroadServiceYardExtLocation \"Railroad Service Yard\" [LCTN:007D9F4E]|00 00 00 00|0|-1|Subject|",
+                    "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedBountyHunts \"Burn Bounty Completed Bounty Hunts\" [FLST:00843167]|00 00 00 00|0|-1|Target|"
+                  ]
+                },
+                {
+                  "formId": "00843122",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompletedHuntLocation_SUB_RustKingdom",
+                  "name": "Complete a Bounty Hunt at Rust Kingdom",
+                  "snam": "Quests Completed",
+                  "targetCount": 1,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [
+                    "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocBurnRustKingdomExtLocation \"The Rust Kingdom\" [LCTN:007D23FF]|00 00 00 00|0|-1|Subject|",
+                    "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedBountyHunts \"Burn Bounty Completed Bounty Hunts\" [FLST:00843167]|00 00 00 00|0|-1|Target|"
+                  ]
+                },
+                {
+                  "formId": "0084310E",
+                  "edid": "Challenge_Lifetime_BurnBounty_CompletedHuntLocation_SUB_SuperDuperMart",
+                  "name": "Complete a Bounty Hunt at Super Duper Mart",
+                  "snam": "Quests Completed",
+                  "targetCount": 1,
+                  "type": "",
+                  "category": "",
+                  "cutContent": false,
+                  "reward": null,
+                  "conditions": [
+                    "10000000|1.000000|GetInCurrentLocation|00 00 00|00 00|LocBurnSDMLocation \"Super Duper Mart\" [LCTN:007CEA29]|00 00 00 00|0|-1|Subject|",
+                    "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedBountyHunts \"Burn Bounty Completed Bounty Hunts\" [FLST:00843167]|00 00 00 00|0|-1|Target|"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cut-content",
+          "label": "Cut Content",
+          "isChain": false,
+          "cutContent": true,
+          "challenges": [
+            {
+              "formId": "00843130",
+              "edid": "zzzChallenge_Lifetime_BurnBounty_CompletedHead_76",
+              "name": "Complete Head Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 76,
+              "type": "",
+              "category": "",
+              "cutContent": true,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|zzzChallenge_Lifetime_BurnBounty_CompletedHead_76_Condition [CNDF:0084315D]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "0084312A",
+              "edid": "zzzChallenge_Lifetime_BurnBounty_CompletedBounties_03",
+              "name": "Complete Bounty Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 3,
+              "type": "",
+              "category": "",
+              "cutContent": true,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|zzzChallenge_Lifetime_BurnBounty_CompletedBounties_03_Condition [CNDF:00843153]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "00843140",
+              "edid": "zzzChallenge_Lifetime_BurnBounty_CompletedBounties_05",
+              "name": "Complete Bounty Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 5,
+              "type": "",
+              "category": "",
+              "cutContent": true,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|zzzChallenge_Lifetime_BurnBounty_CompletedBounties_05_Condition [CNDF:00843154]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "00843128",
+              "edid": "zzzChallenge_Lifetime_BurnBounty_CompletedBounties_07",
+              "name": "Complete Bounty Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 7,
+              "type": "",
+              "category": "",
+              "cutContent": true,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|zzzChallenge_Lifetime_BurnBounty_CompletedBounties_07_Condition [CNDF:00843155]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "00843135",
+              "edid": "zzzChallenge_Lifetime_BurnBounty_CompletedBounties_15",
+              "name": "Complete Bounty Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 15,
+              "type": "",
+              "category": "",
+              "cutContent": true,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|zzzChallenge_Lifetime_BurnBounty_CompletedBounties_15_Condition [CNDF:00843156]|00 00 00 00|0|0|Target List|"
+              ]
+            },
+            {
+              "formId": "00843112",
+              "edid": "zzzChallenge_Lifetime_BurnBounty_CompletedBounties_76",
+              "name": "Complete Bounty Hunts",
+              "snam": "Quests Completed",
+              "targetCount": 76,
+              "type": "",
+              "category": "",
+              "cutContent": true,
+              "reward": null,
+              "conditions": [
+                "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|zzzChallenge_Lifetime_BurnBounty_CompletedBounties_76_Condition [CNDF:00843157]|00 00 00 00|0|0|Target List|"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

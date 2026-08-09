@@ -1,0 +1,399 @@
+{
+  "generated": "2026-08-07T03:06:37.573558Z",
+  "source": "CHAL/CNDF TSV exports (build_world_pet_challenges_json.py)",
+  "total": 20,
+  "groups": [
+    {
+      "name": "Any Pet",
+      "challenges": [
+        {
+          "form_id": "008B535B",
+          "edid": "WorldPets_Challenge_Lifetime_AnyPet_ActivatePet01",
+          "record": "CHAL",
+          "name": "Activate a Pet from Your Pip-Boy",
+          "group": "Any Pet",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Lifetime",
+          "required": 1,
+          "counter": "World Pet Activated",
+          "desc": "Activate a World Pet from your Pip-Boy. Only one pet can be active at a time.",
+          "reward": "Caps (10)",
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B535C",
+          "edid": "WorldPets_Challenge_Lifetime_AnyPet_GivePetCommand01",
+          "record": "CHAL",
+          "name": "Give a Command to your active Pet",
+          "group": "Any Pet",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Lifetime",
+          "required": 3,
+          "counter": "World Pet Commanded",
+          "desc": "Issue a command to your active pet.",
+          "reward": "Caps (10)",
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B535D",
+          "edid": "WorldPets_Challenge_Lifetime_AnyPet_HealPet01",
+          "record": "CHAL",
+          "name": "Heal your Pet",
+          "group": "Any Pet",
+          "active_pet": "Any World Pet",
+          "tier": 1,
+          "type_label": "Tier I",
+          "required": 25,
+          "counter": "World Pet Healed",
+          "desc": "Heal your active pet when it takes damage.",
+          "reward": "",
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B535E",
+          "edid": "WorldPets_Challenge_Lifetime_AnyPet_HealPet02",
+          "record": "CHAL",
+          "name": "Heal your Pet",
+          "group": "Any Pet",
+          "active_pet": "Any World Pet",
+          "tier": 2,
+          "type_label": "Tier II",
+          "required": 500,
+          "counter": "World Pet Healed",
+          "desc": "Heal your active pet when it takes damage.",
+          "reward": "",
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B535F",
+          "edid": "WorldPets_Challenge_Lifetime_AnyPet_HealPet03",
+          "record": "CHAL",
+          "name": "Heal your Pet",
+          "group": "Any Pet",
+          "active_pet": "Any World Pet",
+          "tier": 3,
+          "type_label": "Tier III",
+          "required": 2000,
+          "counter": "World Pet Healed",
+          "desc": "Heal your active pet when it takes damage.",
+          "reward": "Player Title: Veterinarian",
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B5360",
+          "edid": "WorldPets_Challenge_Lifetime_AnyPet_PetKill01",
+          "record": "CHAL",
+          "name": "Have your Pet kill hostiles",
+          "group": "Any Pet",
+          "active_pet": "Any World Pet",
+          "tier": 1,
+          "type_label": "Tier I",
+          "required": 25,
+          "counter": "Total Enemies Killed",
+          "desc": "Kill hostiles while your World Pet is active and out with you.",
+          "reward": "",
+          "conditions_display": [
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B5361",
+          "edid": "WorldPets_Challenge_Lifetime_AnyPet_PetKill02",
+          "record": "CHAL",
+          "name": "Have your Pet kill hostiles",
+          "group": "Any Pet",
+          "active_pet": "Any World Pet",
+          "tier": 2,
+          "type_label": "Tier II",
+          "required": 500,
+          "counter": "Total Enemies Killed",
+          "desc": "Kill hostiles while your World Pet is active and out with you.",
+          "reward": "",
+          "conditions_display": [
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B5362",
+          "edid": "WorldPets_Challenge_Lifetime_AnyPet_PetKill03",
+          "record": "CHAL",
+          "name": "Have your Pet kill hostiles",
+          "group": "Any Pet",
+          "active_pet": "Any World Pet",
+          "tier": 3,
+          "type_label": "Tier III",
+          "required": 2000,
+          "counter": "Total Enemies Killed",
+          "desc": "Kill hostiles while your World Pet is active and out with you.",
+          "reward": "Player Title: Predator",
+          "conditions_display": [
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cat",
+      "challenges": [
+        {
+          "form_id": "008B5363",
+          "edid": "WorldPets_Challenge_Lifetime_Cat_CatchFish01",
+          "record": "CHAL",
+          "name": "Catch a Fish with an Active Pet Cat",
+          "group": "Cat",
+          "active_pet": "Pet Cat",
+          "tier": 1,
+          "type_label": "Tier I",
+          "required": 25,
+          "counter": "Fish Caught",
+          "desc": "Catch fish while a Pet Cat is your active World Pet.",
+          "reward": "Caps (100)",
+          "conditions_display": [
+            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B5364",
+          "edid": "WorldPets_Challenge_Lifetime_Cat_CatchFish02",
+          "record": "CHAL",
+          "name": "Catch a Fish with an Active Pet Cat",
+          "group": "Cat",
+          "active_pet": "Pet Cat",
+          "tier": 2,
+          "type_label": "Tier II",
+          "required": 500,
+          "counter": "Fish Caught",
+          "desc": "Catch fish while a Pet Cat is your active World Pet.",
+          "reward": "",
+          "conditions_display": [
+            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B5365",
+          "edid": "WorldPets_Challenge_Lifetime_Cat_CatchFish03",
+          "record": "CHAL",
+          "name": "Catch a Fish with an Active Pet Cat",
+          "group": "Cat",
+          "active_pet": "Pet Cat",
+          "tier": 3,
+          "type_label": "Tier III",
+          "required": 2000,
+          "counter": "Fish Caught",
+          "desc": "Catch fish while a Pet Cat is your active World Pet.",
+          "reward": "C.A.M.P. Title: Cattery",
+          "conditions_display": [
+            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dog",
+      "challenges": [
+        {
+          "form_id": "008B5369",
+          "edid": "WorldPets_Challenge_Lifetime_Dog_BountyHunt01",
+          "record": "CHAL",
+          "name": "Complete a Bounty Hunt with an Active Pet Dog",
+          "group": "Dog",
+          "active_pet": "Pet Dog",
+          "tier": 1,
+          "type_label": "Tier I",
+          "required": 3,
+          "counter": "Quests Completed",
+          "desc": "Complete Bounty Hunts while a Pet Dog is active.",
+          "reward": "Caps (100)",
+          "conditions_display": [
+            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
+            "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
+            "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B536A",
+          "edid": "WorldPets_Challenge_Lifetime_Dog_BountyHunt02",
+          "record": "CHAL",
+          "name": "Complete a Bounty Hunt with an Active Pet Dog",
+          "group": "Dog",
+          "active_pet": "Pet Dog",
+          "tier": 2,
+          "type_label": "Tier II",
+          "required": 25,
+          "counter": "Quests Completed",
+          "desc": "Complete Bounty Hunts while a Pet Dog is active.",
+          "reward": "",
+          "conditions_display": [
+            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
+            "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
+            "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B536B",
+          "edid": "WorldPets_Challenge_Lifetime_Dog_BountyHunt03",
+          "record": "CHAL",
+          "name": "Complete a Bounty Hunt with an Active Pet Dog",
+          "group": "Dog",
+          "active_pet": "Pet Dog",
+          "tier": 3,
+          "type_label": "Tier III",
+          "required": 100,
+          "counter": "Quests Completed",
+          "desc": "Complete Bounty Hunts while a Pet Dog is active.",
+          "reward": "C.A.M.P. Title: Kennel",
+          "conditions_display": [
+            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
+            "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
+            "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Radhog",
+      "challenges": [
+        {
+          "form_id": "008B536C",
+          "edid": "WorldPets_Challenge_Lifetime_Radhog_CollectFlux01",
+          "record": "CHAL",
+          "name": "Collect Flux with an Active Pet Radhog",
+          "group": "Radhog",
+          "active_pet": "Pet Radhog",
+          "tier": 1,
+          "type_label": "Tier I",
+          "required": 25,
+          "counter": "Plants Harvested",
+          "desc": "Collect Flux while a Pet Radhog is active.",
+          "reward": "Caps (100)",
+          "conditions_display": [
+            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
+            "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
+            "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
+            "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
+            "Target.HasKeyword(PlantTypeFluxOrange [KYWD:004713D2]) = 1",
+            "Target.HasKeyword(PlantTypeFluxBlue [KYWD:004713D1]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B536D",
+          "edid": "WorldPets_Challenge_Lifetime_Radhog_CollectFlux02",
+          "record": "CHAL",
+          "name": "Collect Flux with an Active Pet Radhog",
+          "group": "Radhog",
+          "active_pet": "Pet Radhog",
+          "tier": 2,
+          "type_label": "Tier II",
+          "required": 500,
+          "counter": "Plants Harvested",
+          "desc": "Collect Flux while a Pet Radhog is active.",
+          "reward": "",
+          "conditions_display": [
+            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
+            "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
+            "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
+            "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
+            "Target.HasKeyword(PlantTypeFluxOrange [KYWD:004713D2]) = 1",
+            "Target.HasKeyword(PlantTypeFluxBlue [KYWD:004713D1]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B536E",
+          "edid": "WorldPets_Challenge_Lifetime_Radhog_CollectFlux03",
+          "record": "CHAL",
+          "name": "Collect Flux with an Active Pet Radhog",
+          "group": "Radhog",
+          "active_pet": "Pet Radhog",
+          "tier": 3,
+          "type_label": "Tier III",
+          "required": 2000,
+          "counter": "Plants Harvested",
+          "desc": "Collect Flux while a Pet Radhog is active.",
+          "reward": "C.A.M.P. Title: PigPen",
+          "conditions_display": [
+            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
+            "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
+            "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
+            "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
+            "Target.HasKeyword(PlantTypeFluxOrange [KYWD:004713D2]) = 1",
+            "Target.HasKeyword(PlantTypeFluxBlue [KYWD:004713D1]) = 1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Deathclaw",
+      "challenges": [
+        {
+          "form_id": "008B5366",
+          "edid": "WorldPets_Challenge_Lifetime_Deathclaw_InfestationKills01",
+          "record": "CHAL",
+          "name": "Kill Infestation Enemies with an Active Pet Deathclaw",
+          "group": "Deathclaw",
+          "active_pet": "Pet Deathclaw",
+          "tier": 1,
+          "type_label": "Tier I",
+          "required": 20,
+          "counter": "Total Enemies Killed",
+          "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
+          "reward": "Caps (100)",
+          "conditions_display": [
+            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
+            ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B5367",
+          "edid": "WorldPets_Challenge_Lifetime_Deathclaw_InfestationKills02",
+          "record": "CHAL",
+          "name": "Kill Infestation Enemies with an Active Pet Deathclaw",
+          "group": "Deathclaw",
+          "active_pet": "Pet Deathclaw",
+          "tier": 2,
+          "type_label": "Tier II",
+          "required": 500,
+          "counter": "Total Enemies Killed",
+          "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
+          "reward": "",
+          "conditions_display": [
+            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
+            ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
+          ]
+        },
+        {
+          "form_id": "008B5368",
+          "edid": "WorldPets_Challenge_Lifetime_Deathclaw_InfestationKills03",
+          "record": "CHAL",
+          "name": "Kill Infestation Enemies with an Active Pet Deathclaw",
+          "group": "Deathclaw",
+          "active_pet": "Pet Deathclaw",
+          "tier": 3,
+          "type_label": "Tier III",
+          "required": 2000,
+          "counter": "Total Enemies Killed",
+          "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
+          "reward": "C.A.M.P. Title: Lair",
+          "conditions_display": [
+            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
+            ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
+          ]
+        }
+      ]
+    }
+  ]
+}

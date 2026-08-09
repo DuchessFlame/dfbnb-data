@@ -1,0 +1,955 @@
+{
+  "generated": "2026-08-07",
+  "sources": {
+    "base": {
+      "label": "Base HP Regeneration",
+      "items": [
+        {
+          "id": "base-hp-regen",
+          "name": "Base HP Regeneration",
+          "description": "Passive health regeneration outside of combat",
+          "hpPerSec": 0,
+          "isPercentBased": true,
+          "percentPerSec": 0.5,
+          "duration": null,
+          "combat": false,
+          "source": "base",
+          "notes": "Scales with max HP. Only active outside combat."
+        }
+      ]
+    },
+    "food": {
+      "label": "Food & Drink",
+      "items": [
+        {
+          "id": "food-tiny",
+          "name": "Tiny Heal Food",
+          "description": "e.g. Corn Soup, Razorgrain Soup",
+          "hpPerSec": 0.16,
+          "duration": 25.0,
+          "totalHp": 4.0,
+          "combat": true,
+          "source": "food",
+          "tier": "Tiny",
+          "hpPerSecImproved": 0.32,
+          "totalHpImproved": 8.0,
+          "notes": "Improved values apply with Herbivore/Carnivore mutation"
+        },
+        {
+          "id": "food-small",
+          "name": "Small Heal Food",
+          "description": "e.g. Cranberry Relish, Iguana Soup",
+          "hpPerSec": 0.4,
+          "duration": 25.0,
+          "totalHp": 10.0,
+          "combat": true,
+          "source": "food",
+          "tier": "Small",
+          "hpPerSecImproved": 0.6,
+          "totalHpImproved": 15.0,
+          "notes": "Improved values apply with Herbivore/Carnivore mutation"
+        },
+        {
+          "id": "food-medium",
+          "name": "Medium Heal Food",
+          "description": "e.g. Deathclaw Steak, Mirelurk Cake",
+          "hpPerSec": 0.8,
+          "duration": 25.0,
+          "totalHp": 20.0,
+          "combat": true,
+          "source": "food",
+          "tier": "Medium",
+          "hpPerSecImproved": 1.0,
+          "totalHpImproved": 25.0,
+          "notes": "Improved values apply with Herbivore/Carnivore mutation"
+        },
+        {
+          "id": "food-large",
+          "name": "Large Heal Food",
+          "description": "e.g. Cranberry Cobbler, Yao Guai Roast",
+          "hpPerSec": 1.2,
+          "duration": 25.0,
+          "totalHp": 30.0,
+          "combat": true,
+          "source": "food",
+          "tier": "Large",
+          "hpPerSecImproved": 1.8,
+          "totalHpImproved": 45.0,
+          "notes": "Improved values apply with Herbivore/Carnivore mutation"
+        },
+        {
+          "id": "food-verylarge",
+          "name": "VeryLarge Heal Food",
+          "description": "e.g. Company Tea, Brain Bombs",
+          "hpPerSec": 2.4,
+          "duration": 25.0,
+          "totalHp": 60.0,
+          "combat": true,
+          "source": "food",
+          "tier": "VeryLarge",
+          "hpPerSecImproved": 3.6,
+          "totalHpImproved": 90.0,
+          "notes": "Improved values apply with Herbivore/Carnivore mutation"
+        },
+        {
+          "id": "food-huge",
+          "name": "Huge Heal Food",
+          "description": "e.g. Pepperoni Roll, S'mores",
+          "hpPerSec": 8.0,
+          "duration": 25.0,
+          "totalHp": 200.0,
+          "combat": true,
+          "source": "food",
+          "tier": "Huge",
+          "hpPerSecImproved": 10.0,
+          "totalHpImproved": 250.0,
+          "notes": "Improved values apply with Herbivore/Carnivore mutation"
+        },
+        {
+          "id": "food-gourmet",
+          "name": "Gourmet Heal Food",
+          "description": "e.g. Gourmet-tier recipes",
+          "hpPerSec": 10.0,
+          "duration": 25.0,
+          "totalHp": 250.0,
+          "combat": true,
+          "source": "food",
+          "tier": "Gourmet",
+          "notes": "No improved variant found in data"
+        }
+      ]
+    },
+    "water": {
+      "label": "Water & Nuka-Cola",
+      "items": [
+        {
+          "id": "water-water",
+          "name": "Water Water/Nuka",
+          "description": "Boiled Water, Dirty Water",
+          "hpPerSec": 1.0,
+          "duration": 10.0,
+          "totalHp": 10.0,
+          "combat": true,
+          "source": "water",
+          "tier": "Water"
+        },
+        {
+          "id": "water-purified",
+          "name": "Purified Water/Nuka",
+          "description": "Purified Water",
+          "hpPerSec": 2.5,
+          "duration": 10.0,
+          "totalHp": 25.0,
+          "combat": true,
+          "source": "water",
+          "tier": "Purified"
+        },
+        {
+          "id": "water-nukasmall",
+          "name": "NukaSmall Water/Nuka",
+          "description": "Nuka-Cola",
+          "hpPerSec": 4.0,
+          "duration": 10.0,
+          "totalHp": 40.0,
+          "combat": true,
+          "source": "water",
+          "tier": "NukaSmall"
+        },
+        {
+          "id": "water-nukamedium",
+          "name": "NukaMedium Water/Nuka",
+          "description": "Nuka-Cola Cherry, Cranberry",
+          "hpPerSec": 10.0,
+          "duration": 10.0,
+          "totalHp": 100.0,
+          "combat": true,
+          "source": "water",
+          "tier": "NukaMedium"
+        },
+        {
+          "id": "water-nukalarge",
+          "name": "NukaLarge Water/Nuka",
+          "description": "Nuka-Cola Dark, Grape, Orange",
+          "hpPerSec": 15.0,
+          "duration": 10.0,
+          "totalHp": 150.0,
+          "combat": true,
+          "source": "water",
+          "tier": "NukaLarge"
+        },
+        {
+          "id": "water-nukaverylarge",
+          "name": "NukaVeryLarge Water/Nuka",
+          "description": "Nuka-Cola Quantum",
+          "hpPerSec": 20.0,
+          "duration": 10.0,
+          "totalHp": 200.0,
+          "combat": true,
+          "source": "water",
+          "tier": "NukaVeryLarge"
+        }
+      ]
+    },
+    "stimpaks": {
+      "label": "Stimpaks & Medical",
+      "items": [
+        {
+          "id": "stimpak-diluted",
+          "name": "Stimpak: Diluted",
+          "burstMagnitude": 5.0,
+          "burstDuration": 2,
+          "hotMagnitude": 1.0,
+          "hotDuration": 20,
+          "totalHp": 30.0,
+          "combat": true,
+          "source": "stimpak"
+        },
+        {
+          "id": "stimpak-regular",
+          "name": "Stimpak",
+          "burstMagnitude": 10.0,
+          "burstDuration": 2,
+          "hotMagnitude": 2.0,
+          "hotDuration": 20,
+          "totalHp": 60.0,
+          "combat": true,
+          "source": "stimpak"
+        },
+        {
+          "id": "stimpak-super",
+          "name": "Stimpak: Super",
+          "burstMagnitude": 20.0,
+          "burstDuration": 2,
+          "hotMagnitude": 4.0,
+          "hotDuration": 20,
+          "totalHp": 120.0,
+          "combat": true,
+          "source": "stimpak"
+        },
+        {
+          "id": "stimpak-healing-salve",
+          "name": "Healing Salve",
+          "burstMagnitude": 4.0,
+          "burstDuration": 5,
+          "hotMagnitude": 0.0,
+          "hotDuration": 0,
+          "totalHp": 20.0,
+          "combat": true,
+          "source": "stimpak"
+        },
+        {
+          "id": "stimpak-blood-pack",
+          "name": "Blood Pack",
+          "burstMagnitude": 0.0,
+          "burstDuration": 0,
+          "hotMagnitude": 5.0,
+          "hotDuration": 10,
+          "totalHp": 50.0,
+          "combat": true,
+          "source": "stimpak"
+        },
+        {
+          "id": "stimpak-glowing-blood-pack",
+          "name": "Glowing Blood Pack",
+          "burstMagnitude": 8.0,
+          "burstDuration": 5,
+          "hotMagnitude": 0.0,
+          "hotDuration": 0,
+          "totalHp": 40.0,
+          "combat": true,
+          "source": "stimpak"
+        },
+        {
+          "id": "stimpak-irradiated-blood-pack",
+          "name": "Irradiated Blood Pack",
+          "burstMagnitude": 8.0,
+          "burstDuration": 5,
+          "hotMagnitude": 0.0,
+          "hotDuration": 0,
+          "totalHp": 40.0,
+          "combat": true,
+          "source": "stimpak"
+        },
+        {
+          "id": "stimpak-resuscitation-kit",
+          "name": "Resuscitation Kit",
+          "burstMagnitude": 5.0,
+          "burstDuration": 5,
+          "hotMagnitude": 0.0,
+          "hotDuration": 0,
+          "totalHp": 25.0,
+          "combat": true,
+          "source": "stimpak"
+        }
+      ]
+    },
+    "perks": {
+      "label": "Perk Cards",
+      "items": [
+        {
+          "id": "perk-life-giver",
+          "name": "Life Giver",
+          "ranks": [
+            {
+              "rank": 1,
+              "healRateBonus": 0,
+              "maxHpBonus": 0,
+              "notes": "Gain more max HP per point in END. Curve-driven from Endurance."
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": null,
+          "notes": "Max HP bonus is driven by a curve based on Endurance stat."
+        },
+        {
+          "id": "perk-photosynthetic",
+          "name": "Photosynthetic",
+          "ranks": [
+            {
+              "rank": 1,
+              "healRateBonus": 0.3
+            },
+            {
+              "rank": 2,
+              "healRateBonus": 0.6
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": "Daytime only (6am-6pm)"
+        },
+        {
+          "id": "perk-storm-chaser",
+          "name": "Storm Chaser",
+          "ranks": [
+            {
+              "rank": 1,
+              "healRateBonus": 0.5
+            },
+            {
+              "rank": 2,
+              "healRateBonus": 1.0
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": "Outside during rain or Rad Storms only"
+        },
+        {
+          "id": "perk-homebody",
+          "name": "Homebody",
+          "ranks": [
+            {
+              "rank": 1,
+              "healRateBonus": 2.0
+            }
+          ],
+          "combat": false,
+          "source": "perk",
+          "condition": "While in C.A.M.P. or Workshop",
+          "notes": "Also improves well rested benefits and grants limb regen."
+        },
+        {
+          "id": "perk-born-survivor",
+          "name": "Born Survivor",
+          "ranks": [
+            {
+              "rank": 1,
+              "autoStimpakHp": 6.0,
+              "duration": 5,
+              "notes": "Auto-Stimpak at low HP, 6.0 HP over 5s"
+            },
+            {
+              "rank": 2,
+              "autoStimpakHp": 8.4,
+              "duration": 5,
+              "notes": "Auto-Stimpak at low HP, 8.4 HP over 5s"
+            },
+            {
+              "rank": 3,
+              "autoStimpakHp": 10.8,
+              "duration": 5,
+              "notes": "Auto-Stimpak at low HP, 10.8 HP over 5s"
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": "Falling below HP threshold"
+        },
+        {
+          "id": "perk-first-aid",
+          "name": "First Aid",
+          "ranks": [
+            {
+              "rank": 1,
+              "stimpakBonus": 0,
+              "notes": "Stimpaks restore more HP based on INT. Curve-driven."
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": null,
+          "notes": "Stimpak healing bonus scales with Intelligence."
+        },
+        {
+          "id": "perk-ghoulish",
+          "name": "Ghoulish",
+          "ranks": [
+            {
+              "rank": 1,
+              "notes": "Radiation now regenerates your lost Health."
+            },
+            {
+              "rank": 2,
+              "notes": "Radiation now regenerates more of your lost Health."
+            },
+            {
+              "rank": 3,
+              "notes": "Radiation now regenerates even more of your lost Health."
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": "While taking radiation damage",
+          "notes": "Converts a portion of incoming radiation into health regeneration."
+        },
+        {
+          "id": "perk-bloodsucker",
+          "name": "Bloodsucker",
+          "ranks": [
+            {
+              "rank": 1,
+              "notes": "Blood Packs satisfy thirst, no rads, heal 2x."
+            },
+            {
+              "rank": 2,
+              "notes": "Blood Packs satisfy more thirst, no rads, heal 100% more."
+            },
+            {
+              "rank": 3,
+              "notes": "Blood Packs greatly satisfy thirst, no rads, heal 150% more."
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": null,
+          "notes": "Modifies Blood Pack healing. Also applies to Cannibal."
+        },
+        {
+          "id": "perk-cannibal",
+          "name": "Cannibal",
+          "ranks": [
+            {
+              "rank": 1,
+              "restoreHp": 15.0,
+              "duration": 5
+            },
+            {
+              "rank": 2,
+              "restoreHp": 30.0,
+              "duration": 5
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": "Eating corpses (human, Ghoul, Super Mutant, Scorched, Mole Miner)"
+        },
+        {
+          "id": "perk-friendly-fire",
+          "name": "Friendly Fire",
+          "ranks": [
+            {
+              "rank": 1,
+              "notes": "Teammates hit by flame weapons regen health briefly."
+            },
+            {
+              "rank": 2,
+              "notes": "Teammates hit by flame weapons regen more health briefly."
+            },
+            {
+              "rank": 3,
+              "notes": "Teammates hit by flame weapons regen even more health."
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": "Hit teammate with flame weapon (no grenades)"
+        },
+        {
+          "id": "perk-spiritual-healer",
+          "name": "Spiritual Healer",
+          "ranks": [
+            {
+              "rank": 1,
+              "restoreHp": 6.0,
+              "duration": 5
+            },
+            {
+              "rank": 2,
+              "restoreHp": 8.0,
+              "duration": 7
+            },
+            {
+              "rank": 3,
+              "restoreHp": 10.0,
+              "duration": 10
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": "On a team; scales with CHA",
+          "notes": "Regenerate HP while on a team, based on Charisma."
+        },
+        {
+          "id": "perk-emt",
+          "name": "E.M.T.",
+          "ranks": [
+            {
+              "rank": 1,
+              "notes": "Auto-revive downed teammates every 3 min, grant increased healing 1 min."
+            },
+            {
+              "rank": 2,
+              "notes": "Revived players get improved health regen for 30s."
+            },
+            {
+              "rank": 3,
+              "notes": "Revived players get high health regen for 60s."
+            }
+          ],
+          "combat": true,
+          "source": "perk",
+          "condition": "After reviving a teammate"
+        }
+      ]
+    },
+    "mutations": {
+      "label": "Mutations",
+      "items": [
+        {
+          "id": "mutation-healing-factor",
+          "name": "Healing Factor",
+          "healRateBonus": 3.0,
+          "healRateBonusImproved": 3.75,
+          "combat": false,
+          "source": "mutation",
+          "notes": "Also reduces chem effectiveness by 55.0%. Improved value (3.75) applies with Strange in Numbers.",
+          "condition": "Out of combat only"
+        }
+      ]
+    },
+    "legendary": {
+      "label": "Legendary Effects",
+      "items": [
+        {
+          "id": "legendary-vampires",
+          "name": "Vampire's",
+          "hpPerHit": 1.0,
+          "healDuration": 2,
+          "combat": true,
+          "source": "legendary-weapon",
+          "notes": "Restores 1.0 HP over 2s per hit."
+        },
+        {
+          "id": "legendary-medics",
+          "name": "Medic's",
+          "hpOnCrit": 0.0,
+          "healDuration": 1,
+          "combat": true,
+          "source": "legendary-weapon",
+          "notes": "V.A.T.S. crits heal you and your team for 0.0 HP."
+        },
+        {
+          "id": "legendary-crits-heal-team",
+          "name": "Medic (Critical)",
+          "hpPerCrit": 5.0,
+          "combat": true,
+          "source": "legendary-weapon",
+          "notes": "V.A.T.S. critical hits heal you and your group for 5.0 HP."
+        },
+        {
+          "id": "legendary-health-regen",
+          "name": "Health Regeneration",
+          "healRateBonus": 0,
+          "combat": true,
+          "source": "legendary-armor",
+          "notes": "Slowly regenerate health. Heal rate is curve-driven by player level."
+        },
+        {
+          "id": "legendary-auto-stimpak",
+          "name": "Auto Stimpak",
+          "combat": true,
+          "source": "legendary-armor",
+          "notes": "Automatically uses a Stimpak when health is low. Duration 1s."
+        },
+        {
+          "id": "legendary-increase-healing",
+          "name": "Healer's",
+          "combat": true,
+          "source": "legendary-armor",
+          "notes": "Increases healing from all sources via LegendaryIncreaseHealingPerk."
+        },
+        {
+          "id": "legendary-blood-sacrifice",
+          "name": "Blood Sacrifice",
+          "tiers": [
+            {
+              "tier": 1,
+              "healRate": 0.0,
+              "restoreHp": 5.0,
+              "duration": 8
+            },
+            {
+              "tier": 2,
+              "healRate": 0.0,
+              "restoreHp": 5.0,
+              "duration": 10
+            },
+            {
+              "tier": 3,
+              "healRate": 0.0,
+              "restoreHp": 5.0,
+              "duration": 12
+            },
+            {
+              "tier": 4,
+              "healRate": 0.0,
+              "restoreHp": 5.0,
+              "duration": 14
+            }
+          ],
+          "combat": true,
+          "source": "legendary-armor",
+          "notes": "Teammate goes down: you heal over time. Cooldown 300s."
+        },
+        {
+          "id": "legendary-retribution",
+          "name": "Retribution",
+          "tiers": [
+            {
+              "tier": 1,
+              "restoreHpPerSec": 1.0,
+              "duration": 15
+            },
+            {
+              "tier": 2,
+              "restoreHpPerSec": 2.0,
+              "duration": 15
+            },
+            {
+              "tier": 3,
+              "restoreHpPerSec": 3.0,
+              "duration": 15
+            },
+            {
+              "tier": 4,
+              "restoreHpPerSec": 4.0,
+              "duration": 15
+            }
+          ],
+          "combat": true,
+          "source": "legendary-armor",
+          "notes": "On kill: regenerate health and AP for 15s."
+        }
+      ]
+    },
+    "equipment": {
+      "label": "Equipment & Power Armor",
+      "items": [
+        {
+          "id": "equip-solar-armor",
+          "name": "Solar Armor (Set Bonus)",
+          "hpPerSec": 4.0,
+          "teamHealCloak": 35.0,
+          "combat": true,
+          "source": "armor-set",
+          "condition": "Above 60% HP",
+          "notes": "Self heal 4.0 HP/s. Cloak heals nearby teammates at 35.0 HP."
+        }
+      ]
+    },
+    "camp": {
+      "label": "CAMP Items",
+      "items": [
+        {
+          "id": "camp-healing-arch",
+          "name": "Healing Arch",
+          "edid": "SCORE_S24_HealingArch",
+          "formId": "0089AD98",
+          "recordType": "ACTI",
+          "spellEdid": "SCORE_S24_SPELL_HealingArch",
+          "spellFormId": "008AEDDB",
+          "hpPerSec": 2.0,
+          "duration": 1,
+          "combat": false,
+          "source": "camp",
+          "notes": "CAMP placement required. Season 24 Scoreboard reward. Requires power (30). Continuously heals while standing in the arch.",
+          "effects": [
+            {
+              "mgef_edid": "RestoreHealthGeneric",
+              "mgef_full": "Restore Health",
+              "magnitude": 2.0,
+              "duration": 1
+            }
+          ],
+          "healType": "healOverTime"
+        },
+        {
+          "id": "camp-blood-transfusion-pump",
+          "name": "Blood Transfusion Pump",
+          "edid": "ATX_FloorDecor_BloodTransfusionPump",
+          "formId": "007B2841",
+          "recordType": "ACTI",
+          "spellEdid": "ATX_BloodTransfusionPumpSpell",
+          "spellFormId": "007F68C9",
+          "hpPerSec": 0.0,
+          "duration": 0,
+          "combat": false,
+          "source": "camp",
+          "notes": "CAMP placement required. Atomic Shop item. Ghoul players: restores 160 HP + 140 rads. Human players: removes 300 rads. 900s cooldown.",
+          "effects": [
+            {
+              "mgef_edid": "ATX_BloodTransfusionEffectHumanRemoveRads",
+              "mgef_full": "Blood Transfusion:  Remove Radiation",
+              "magnitude": 0.0,
+              "duration": 0
+            },
+            {
+              "mgef_edid": "ATX_BloodTransfusionEffectPlayerGhoulGiveRads",
+              "mgef_full": "Blood Tranfusion: Radiation Damage",
+              "magnitude": 0.0,
+              "duration": 0
+            },
+            {
+              "mgef_edid": "RestoreHealthGeneric",
+              "mgef_full": "Restore Health",
+              "magnitude": 0.0,
+              "duration": 0
+            }
+          ],
+          "healType": "instant",
+          "ghoulHpRestore": 160.0,
+          "humanRadRemoval": 300.0,
+          "ghoulRadDamage": 140.0,
+          "cooldown": 900
+        },
+        {
+          "id": "camp-body-scanner",
+          "name": "Body Scanner",
+          "edid": "ATX_PlayerBuff_BodyScanner",
+          "formId": "008F2B05",
+          "recordType": "ACTI",
+          "spellEdid": "",
+          "hpPerSec": 0.0,
+          "duration": 0,
+          "combat": false,
+          "source": "camp",
+          "notes": "CAMP placement required. Atomic Shop item. Functions as Decontamination Shower. Requires power (30). [VMAD not resolved]",
+          "effects": []
+        },
+        {
+          "id": "camp-decontamination-shower",
+          "name": "Decontamination Shower",
+          "edid": "WorkshopDeconArch01",
+          "formId": "00521F4B",
+          "recordType": "ACTI",
+          "spellEdid": "DeconArchSpell",
+          "spellFormId": "0010F3D6",
+          "hpPerSec": 0.0,
+          "duration": 0,
+          "combat": false,
+          "source": "camp",
+          "notes": "CAMP placement required. Craftable (Science rank 2). Requires power (30). Removes ~200 rads. Chance to cure mutations.",
+          "effects": [
+            {
+              "mgef_edid": "DeconArchDeconMistEffect",
+              "mgef_full": "Decontamination Mist",
+              "magnitude": 200.0,
+              "duration": 1
+            },
+            {
+              "mgef_edid": "DeconArchDeconShockEffect",
+              "mgef_full": "Decontamination Shock Effect",
+              "magnitude": 20.0,
+              "duration": 1
+            },
+            {
+              "mgef_edid": "DeconArchCureMutationEffectDUPLICATE000",
+              "mgef_full": "Decontamination Cure Mutations",
+              "magnitude": 0.0,
+              "duration": 1
+            }
+          ],
+          "healType": "radRemoval",
+          "radRemoval": 200.0
+        },
+        {
+          "id": "camp-sympto-matic",
+          "name": "Sympto-Matic",
+          "edid": "Workshop_Symptomatic",
+          "formId": "005D98A5",
+          "recordType": "FURN",
+          "spellEdid": "SymptoMaticDiseaseCure",
+          "hpPerSec": 0.0,
+          "duration": 0,
+          "combat": false,
+          "source": "camp",
+          "notes": "CAMP placement required. Wastelanders quest reward (An Ounce of Prevention). Cures all diseases (no HP heal).",
+          "effects": [
+            {
+              "mgef_edid": "SURV_DiseaseCureAll_Potion_Effect",
+              "mgef_full": "SURV_DiseaseCureAll_Potion_Effect",
+              "magnitude": 100.0,
+              "duration": 0
+            }
+          ],
+          "healType": "diseaseCure"
+        }
+      ]
+    },
+    "team": {
+      "label": "Team & Social",
+      "items": [
+        {
+          "id": "team-medic-perk",
+          "name": "Team Medic (Perk)",
+          "description": "Stimpaks also heal nearby teammates",
+          "combat": true,
+          "source": "perk",
+          "notes": "Heal amount depends on perk rank and stimpak type."
+        }
+      ]
+    },
+    "consumables": {
+      "label": "Bobbleheads & Magazines",
+      "items": [
+        {
+          "id": "bobblehead-medicine",
+          "name": "Bobblehead: Medicine",
+          "stimpakBonus": 30.0,
+          "duration": 36000,
+          "combat": true,
+          "source": "bobblehead",
+          "notes": "+30.0% Stimpak healing for 36000s (600 min)."
+        },
+        {
+          "id": "magazine-awesome-tales-6",
+          "name": "Awesome Tales 6",
+          "healRateBonus": 0.2,
+          "duration": 7200,
+          "combat": true,
+          "source": "magazine",
+          "notes": "+0.2 heal rate for 7200s (2h)."
+        }
+      ]
+    },
+    "foodHealRate": {
+      "label": "Food Heal Rate Buffs",
+      "items": [
+        {
+          "id": "food-healrate-low",
+          "name": "Low Heal Rate Food",
+          "healRateBonus": 0.075,
+          "combat": true,
+          "source": "food",
+          "tier": "Low",
+          "description": "e.g. Corn Soup, Simple foods"
+        },
+        {
+          "id": "food-healrate-medium",
+          "name": "Medium Heal Rate Food",
+          "healRateBonus": 0.125,
+          "combat": true,
+          "source": "food",
+          "tier": "Medium",
+          "description": "e.g. Cranberry Relish, Steeped Thistle Tea"
+        },
+        {
+          "id": "food-healrate-high",
+          "name": "High Heal Rate Food",
+          "healRateBonus": 0.25,
+          "combat": true,
+          "source": "food",
+          "tier": "High",
+          "description": "e.g. Brain Bombs, Company Tea"
+        }
+      ]
+    },
+    "foodMaxHp": {
+      "label": "Food Max HP Buffs",
+      "items": [
+        {
+          "id": "food-maxhp-low",
+          "name": "Low Max HP Food",
+          "maxHpBonus": 15.0,
+          "combat": true,
+          "source": "food",
+          "tier": "Low"
+        },
+        {
+          "id": "food-maxhp-medium",
+          "name": "Medium Max HP Food",
+          "maxHpBonus": 30.0,
+          "combat": true,
+          "source": "food",
+          "tier": "Medium"
+        },
+        {
+          "id": "food-maxhp-high",
+          "name": "High Max HP Food",
+          "maxHpBonus": 40.0,
+          "combat": true,
+          "source": "food",
+          "tier": "High"
+        }
+      ]
+    }
+  },
+  "globals": {
+    "foodHealMagnitudes": {
+      "Tiny": 0.16,
+      "Small": 0.4,
+      "Medium": 0.8,
+      "Large": 1.2,
+      "VeryLarge": 2.4,
+      "Huge": 8.0,
+      "Gourmet": 10.0
+    },
+    "foodHealMagnitudesImproved": {
+      "Tiny": 0.32,
+      "Small": 0.6,
+      "Medium": 1.0,
+      "Large": 1.8,
+      "VeryLarge": 3.6,
+      "Huge": 10.0
+    },
+    "foodHealDurations": {
+      "standard": 25.0,
+      "water": 10.0
+    },
+    "foodHealRateBonuses": {
+      "Low": 0.075,
+      "Medium": 0.125,
+      "High": 0.25
+    },
+    "foodMaxHpBonuses": {
+      "Low": 15.0,
+      "Medium": 30.0,
+      "High": 40.0
+    },
+    "waterHealMagnitudes": {
+      "Water": 1.0,
+      "Purified": 2.5,
+      "NukaSmall": 4.0,
+      "NukaMedium": 10.0,
+      "NukaLarge": 15.0,
+      "NukaVeryLarge": 20.0
+    }
+  },
+  "mechanics": {
+    "healRateDescription": "HealRate is a multiplier applied to base HP regeneration. A HealRate of 1.0 means 100% of base regen speed.",
+    "combatNote": "Most passive regeneration effects are disabled during combat. Food heal-over-time, Stimpaks, and Vampire's continue to work in combat.",
+    "stackingNote": "Multiple food heal-over-time effects do NOT stack -- only the most recent food/drink applies. Heal Rate bonuses from perks, mutations, and legendary effects DO stack additively."
+  }
+}

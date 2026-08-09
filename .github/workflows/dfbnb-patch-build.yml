@@ -363,6 +363,10 @@ jobs:
             --tsv-root tsv \
             --outdir dist
 
+      # --- VENDORS (must run before Allies — ally inventory reads vendor data) ---
+      - name: Build Vendors JSON
+        run: python src/build_vendors_json.py
+
       # --- ALLIES · PETS · WEATHER · CRYOS · REPAIR BOTS ---
       - name: Pick BOOK TSV (Allies/Pets/Weather)
         shell: bash
@@ -625,10 +629,6 @@ jobs:
       # --- TREASURE MAPS ---
       - name: Build Treasure Maps JSON
         run: python src/build_treasure_maps_json.py
-
-      # --- VENDORS ---
-      - name: Build Vendors JSON
-        run: python src/build_vendors_json.py
 
       # --- WEAPONS ---
       - name: Build Weapons JSON

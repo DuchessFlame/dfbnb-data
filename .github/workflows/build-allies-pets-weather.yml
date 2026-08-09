@@ -92,6 +92,12 @@ jobs:
           echo "  WTHR: $WTHR"
           echo "  NPC PRPS: $NPCP"
 
+      - name: Install Python dependencies
+        run: pip install pandas
+
+      - name: Build Vendors JSON
+        run: python src/build_vendors_json.py
+
       - name: Build JSON files
         run: |
           mkdir -p dist
@@ -104,6 +110,7 @@ jobs:
         with:
           commit_message: "chore: rebuild allies/pets/weather/cryos/fridges/repair-bots JSON [skip ci]"
           file_pattern: |
+            dist/vendors.json
             dist/weather_stations.json
             dist/allies.json
             dist/pets.json

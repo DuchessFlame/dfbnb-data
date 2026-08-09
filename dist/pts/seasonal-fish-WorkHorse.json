@@ -1,0 +1,286 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-07T03:05:41.772Z",
+  "source": {
+    "fishTsv": "FISH_Export_August_2026.tsv",
+    "lvliEntriesTsv": "LVLI_Export_August_2026_LVLI_Entries.tsv",
+    "seasonalListLvliEditorId": "Fishing_LLS_FishCollection_SeasonalFish_Uncommon",
+    "seasonIndexGlobal": "LCP_Fishing_SeasonalFish_SeasonIndex",
+    "weekendToggleGlobal": "LTT_WeekendSeasonalFish_Toggle"
+  },
+  "timezone": "America/New_York",
+  "seasonRule": {
+    "method": "first_tuesday_after_equinox_na",
+    "description": "Season rotates on the first Tuesday strictly after the NA equinox/solstice.",
+    "rolloverDates": [
+      {
+        "date": "2024-03-26",
+        "season": "spring"
+      },
+      {
+        "date": "2024-06-25",
+        "season": "summer"
+      },
+      {
+        "date": "2024-09-24",
+        "season": "fall"
+      },
+      {
+        "date": "2024-12-24",
+        "season": "winter"
+      },
+      {
+        "date": "2025-03-25",
+        "season": "spring"
+      },
+      {
+        "date": "2025-06-24",
+        "season": "summer"
+      },
+      {
+        "date": "2025-09-23",
+        "season": "fall"
+      },
+      {
+        "date": "2025-12-23",
+        "season": "winter"
+      },
+      {
+        "date": "2026-03-24",
+        "season": "spring"
+      },
+      {
+        "date": "2026-06-23",
+        "season": "summer"
+      },
+      {
+        "date": "2026-09-29",
+        "season": "fall"
+      },
+      {
+        "date": "2026-12-22",
+        "season": "winter"
+      },
+      {
+        "date": "2027-03-23",
+        "season": "spring"
+      },
+      {
+        "date": "2027-06-22",
+        "season": "summer"
+      },
+      {
+        "date": "2027-09-28",
+        "season": "fall"
+      },
+      {
+        "date": "2027-12-28",
+        "season": "winter"
+      },
+      {
+        "date": "2028-03-21",
+        "season": "spring"
+      },
+      {
+        "date": "2028-06-27",
+        "season": "summer"
+      },
+      {
+        "date": "2028-09-26",
+        "season": "fall"
+      },
+      {
+        "date": "2028-12-26",
+        "season": "winter"
+      },
+      {
+        "date": "2029-03-27",
+        "season": "spring"
+      },
+      {
+        "date": "2029-06-26",
+        "season": "summer"
+      },
+      {
+        "date": "2029-09-25",
+        "season": "fall"
+      },
+      {
+        "date": "2029-12-25",
+        "season": "winter"
+      },
+      {
+        "date": "2030-03-26",
+        "season": "spring"
+      },
+      {
+        "date": "2030-06-25",
+        "season": "summer"
+      },
+      {
+        "date": "2030-09-24",
+        "season": "fall"
+      },
+      {
+        "date": "2030-12-24",
+        "season": "winter"
+      }
+    ],
+    "monthToSeason": {
+      "1": "winter",
+      "2": "winter",
+      "3": "spring",
+      "4": "spring",
+      "5": "spring",
+      "6": "summer",
+      "7": "summer",
+      "8": "summer",
+      "9": "fall",
+      "10": "fall",
+      "11": "fall",
+      "12": "winter"
+    }
+  },
+  "weekendEvent": {
+    "note": "Seasonal fish are catchable throughout the entire season. Weekend events boost your catch rate.",
+    "toggleGlobal": "LTT_WeekendSeasonalFish_Toggle"
+  },
+  "regionKeywordToDisplay": {
+    "Forest": "The Forest",
+    "Ash": "Ash Heap",
+    "SavageDivide": "Savage Divide",
+    "Skyline": "Skyline Valley",
+    "Cranberry": "Cranberry Bog",
+    "Mire": "The Mire",
+    "Toxic": "Toxic Valley",
+    "BurningSprings": "Burning Springs"
+  },
+  "seasons": {
+    "spring": {
+      "seasonIndex": 1,
+      "label": "Spring",
+      "months": [
+        3,
+        4,
+        5
+      ],
+      "fish": {
+        "name": "Orange Overseer",
+        "fishFormId": "008A5821",
+        "fishEditorId": "SeasonalFish_Fish_Medium_OrangeOverseer",
+        "regionKeywords": [
+          "savagedivide",
+          "skyline",
+          "toxic"
+        ],
+        "regions": [
+          "Savage Divide",
+          "Skyline Valley",
+          "Toxic Valley"
+        ],
+        "image": ""
+      },
+      "localLegend": null
+    },
+    "summer": {
+      "seasonIndex": 2,
+      "label": "Summer",
+      "months": [
+        6,
+        7,
+        8
+      ],
+      "fish": {
+        "name": "Fernskipper",
+        "fishFormId": "008A581F",
+        "fishEditorId": "SeasonalFish_Fish_Small_Fernskipper",
+        "regionKeywords": [
+          "cranberry",
+          "mire",
+          "skyline"
+        ],
+        "regions": [
+          "Cranberry Bog",
+          "The Mire",
+          "Skyline Valley"
+        ],
+        "image": ""
+      },
+      "localLegend": {
+        "name": "Glass Ghost",
+        "fishFormId": "008A45C4",
+        "fishEditorId": "SeasonalFish_Fish_LocalLegend_SummerGlassGhost",
+        "regionKeywords": [
+          "cranberry"
+        ],
+        "regions": [
+          "Glassed Cavern (Cranberry Bog)"
+        ],
+        "image": ""
+      }
+    },
+    "fall": {
+      "seasonIndex": 3,
+      "label": "Fall",
+      "months": [
+        9,
+        10,
+        11
+      ],
+      "fish": {
+        "name": "Fester Koi",
+        "fishFormId": "008A5820",
+        "fishEditorId": "SeasonalFish_Fish_Medium_Festerkoi",
+        "regionKeywords": [
+          "ash",
+          "toxic",
+          "burningsprings"
+        ],
+        "regions": [
+          "Ash Heap",
+          "Toxic Valley",
+          "Burning Springs"
+        ],
+        "image": ""
+      },
+      "localLegend": {
+        "name": "Sludge Eye",
+        "fishFormId": "008EFCB5",
+        "fishEditorId": "SeasonalFish_Fish_LocalLegend_SludgeEye",
+        "regionKeywords": [
+          "ash"
+        ],
+        "regions": [
+          "The Sludge Works (Ash Heap)"
+        ],
+        "image": ""
+      }
+    },
+    "winter": {
+      "seasonIndex": 4,
+      "label": "Winter",
+      "months": [
+        12,
+        1,
+        2
+      ],
+      "fish": {
+        "name": "Bog Sucker",
+        "fishFormId": "008A45C8",
+        "fishEditorId": "SeasonalFish_Fish_Medium_Bogsucker",
+        "regionKeywords": [
+          "forest",
+          "ash",
+          "savagedivide"
+        ],
+        "regions": [
+          "The Forest",
+          "Ash Heap",
+          "Savage Divide"
+        ],
+        "image": ""
+      },
+      "localLegend": null
+    }
+  }
+}

@@ -69,11 +69,36 @@ SQL_CHUNK = 900
 
 # NPC2 main-file column indices (0-based), locked to the .pas Header_Main order.
 C_NPC_FID, C_NPC_EDID, C_NPC_FULL, C_NPC_SHRT = 0, 1, 2, 3
+C_TPLT_EDID = 5
 C_FAC_EDID = 7
 C_BUYSELL_EDID = 10
 C_CONTREF_FID = 12          # MerchantContainerRef_FormID (the placed stall REFR)
 C_CONTBASE_FID = 13         # MerchantContainerBase_FormID (the CONT)
 C_CONTBASE_EDID = 14        # MerchantContainerBase_EDID
+
+# ── Non-vendor filter ─────────────────────────────────────────────────────────
+# A merchant container lives on the vendor FACTION, so EVERY faction member
+# resolves it — including non-tradeable props that merely share the faction:
+# dead bodies, pack animals (brahmin), turrets, and escort bots (guards, the
+# soundtrack eyebot) travelling with a caravan. Plus the player C.A.M.P. vending
+# faction (WorkshopVendor*), which is not a world NPC merchant. These can't
+# actually sell anything, so drop them.
+#
+# NOTE: match on ROLE words, not model words. A real vendor can be built on any
+# model — e.g. Cambot (Atlantic City) is an EyeBot but IS a merchant with its own
+# ATX_COMP_Cambot_VendorChest — so "eyebot" must NOT be a filter term. The escort
+# eyebots are caught by their role instead ("guard", "soundtrack").
+_NONVENDOR_RE = re.compile(
+    r"corpse|brahmin|turret|\bguard\b|soundtrack",
+    re.IGNORECASE)
+
+
+def _is_nonvendor(edid: str, full: str, tplt: str, fac_edid: str,
+                  cont_edid: str) -> bool:
+    if _NONVENDOR_RE.search(" ".join([edid or "", full or "", tplt or ""])):
+        return True
+    combo = (fac_edid or "").lower() + " " + (cont_edid or "").lower()
+    return "workshopvendor" in combo  # WorkshopVendorFactionMisc / *ChestMisc01
 
 
 # ── file helpers ──────────────────────────────────────────────────────────────
@@ -100,6 +125,7 @@ def load_vendors(tsv_root):
     if not path:
         raise FileNotFoundError(f"no NPC2_Vendors_*.tsv in {tsv_root}")
     out = []
+    skipped_nonvendor = 0
     with open(path, encoding="utf-8", errors="replace", newline="") as f:
         rd = csv.reader(f, delimiter="\t")
         next(rd, None)  # header
@@ -109,6 +135,11 @@ def load_vendors(tsv_root):
             cont_base_edid = row[C_CONTBASE_EDID].strip()
             if not cont_base_edid:
                 continue  # not a real vendor (no merchant container)
+            if _is_nonvendor(row[C_NPC_EDID].strip(), row[C_NPC_FULL].strip(),
+                             row[C_TPLT_EDID].strip() if len(row) > C_TPLT_EDID else "",
+                             row[C_FAC_EDID].strip(), cont_base_edid):
+                skipped_nonvendor += 1
+                continue  # faction prop / player-workshop vendor, not a real merchant
             out.append({
                 "form_id": row[C_NPC_FID].strip().upper(),
                 "edid": row[C_NPC_EDID].strip(),
@@ -119,6 +150,9 @@ def load_vendors(tsv_root):
                 "container_base": row[C_CONTBASE_FID].strip().upper(),
                 "container_base_edid": cont_base_edid,
             })
+    if skipped_nonvendor:
+        print(f"[vendors] filtered {skipped_nonvendor} non-vendor faction props "
+              f"(corpses / brahmin / turrets / escort bots / workshop vending)")
     return os.path.basename(path), out
 
 
