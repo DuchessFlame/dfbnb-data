@@ -70,9 +70,11 @@
  "used_for": {
   "consumption": {
    "object_type": "Drink",
-   "weight": 0,
+   "weight": 0.5,
    "value": 5,
    "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
    "note": "Cream is a drink consumable. It grants no timed stat buff on its own.",
    "effects": [
     {
@@ -82,8 +84,8 @@
     },
     {
      "name": "Quench Thirst",
-     "display": "Quenches thirst",
-     "duration": "540 magnitude"
+     "display": "Quenches thirst (normal)",
+     "duration": null
     },
     {
      "name": "Disease Chance",
@@ -130,12 +132,12 @@
      {
       "name": "Disease Resistance",
       "display": "+20 Disease Resistance",
-      "duration": "30 min"
+      "duration": "1 hour"
      },
      {
       "name": "Quench Thirst",
-      "display": "Quenches thirst",
-      "duration": "1500 magnitude"
+      "display": "Quenches thirst (large)",
+      "duration": null
      },
      {
       "name": "Rads",
@@ -143,7 +145,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Company Tea"
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
    },
    {
     "name": "Fish Chowder",
@@ -193,8 +195,8 @@
      },
      {
       "name": "Satisfy Hunger",
-      "display": "Satisfies hunger",
-      "duration": "5400 magnitude"
+      "display": "Satisfies hunger (colossal)",
+      "duration": null
      },
      {
       "name": "Rads",
@@ -202,7 +204,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Recipe: Fish Chowder"
+    "how_to_obtain": "Fishing recipe."
    },
    {
     "name": "Moo-Moo Curd",
@@ -240,13 +242,13 @@
      },
      {
       "name": "Quench Thirst",
-      "display": "Quenches thirst",
-      "duration": "240 magnitude"
+      "display": "Quenches thirst (tiny)",
+      "duration": null
      },
      {
       "name": "Satisfy Hunger",
-      "display": "Satisfies hunger",
-      "duration": "720 magnitude"
+      "display": "Satisfies hunger (medium)",
+      "duration": null
      },
      {
       "name": "Rads",
@@ -254,7 +256,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Recipe: Moo-Moo Curd"
+    "how_to_obtain": "Meat Week seasonal event recipe."
    }
   ]
  },

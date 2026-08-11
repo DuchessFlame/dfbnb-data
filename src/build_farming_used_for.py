@@ -69,9 +69,23 @@ from build_farming_guides_json import (  # noqa: E402
     _clean_effect_name,
     _format_effect_duration,
     find_first,
+    load_weight_backfill,
     ALCH_GLOBS,
     ALCH_EFFECTS_GLOBS,
 )
+
+# Cache the weight-backfill map per data_dir (the current ALCH export lost its
+# Weight column; older month-named exports still carry it — see
+# build_farming_guides_json.load_weight_backfill).
+_WEIGHT_BACKFILL: Dict[str, Dict[str, float]] = {}
+
+
+def _weight_backfill(data_dir: str, current_main: Optional[str]) -> Dict[str, float]:
+    if data_dir not in _WEIGHT_BACKFILL:
+        paths = [os.path.join(data_dir, n) for n in ALCH_GLOBS
+                 if os.path.join(data_dir, n) != current_main]
+        _WEIGHT_BACKFILL[data_dir] = load_weight_backfill(paths)
+    return _WEIGHT_BACKFILL[data_dir]
 
 csv.field_size_limit(min(sys.maxsize, 2**31 - 1))
 
@@ -173,6 +187,7 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
         return None
 
     obj_type, weight, value, addiction = None, None, None, None
+    carnivore = herbivore = False
     for r in _read_tsv(main_path):
         if (r.get("ALCH_FormID") or "").strip().upper() == formid:
             kw = (r.get("Keywords_Flat") or "")
@@ -182,8 +197,16 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
                 obj_type = "Food"
             elif "ObjectTypeChem" in kw:
                 obj_type = "Chem"
+            # Mutation diet flags — Carnivore doubles meat, Herbivore doubles
+            # plants. Derived from the item's IngredientType* keywords.
+            carnivore = "IngredientTypeMeat" in kw
+            herbivore = any(t in kw for t in ("IngredientTypeVegetable",
+                            "IngredientTypeFruit", "IngredientTypeHerb",
+                            "IngredientTypeProduce"))
             w = _safe_num(r.get("Weight"))
-            weight = 0 if (w is None or w == 0) else round(w, 2)
+            if w is None:  # current ALCH export lost the Weight column — backfill
+                w = _weight_backfill(data_dir, main_path).get(formid)
+            weight = 0 if w is None else round(w, 2)
             v = _safe_num(r.get("Value"))
             value = int(v) if v is not None else None
             addiction = (r.get("ENIT_Addiction_FULL") or "").strip() or None
@@ -222,6 +245,8 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
         "weight": weight,
         "value": value,
         "addiction": addiction,
+        "herbivore": herbivore,
+        "carnivore": carnivore,
         "note": note,
         "effects": effects,
     }
