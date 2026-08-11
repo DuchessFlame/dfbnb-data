@@ -582,12 +582,12 @@ _NAME_KEYWORDS = [
     ('radrat',            'Radrat Meat Guide',            '/bnb/farming/meat/radrat/radrat/'),
     ('bloatfly',          'Bloatfly Meat Guide',          '/bnb/farming/meat/bloatfly/bloatfly-guide/'),
     ('bloodbug',          'Bloodbug Meat Guide',          '/bnb/farming/meat/bloodbug/bloodbug-guide/'),
-    ('gulper',            'Gulper Meat Guide',            '/bnb/farming/meat/gulper/gulper-guide/'),
+    ('gulper',            'Gulper Innards Guide',          '/bnb/farming/meat/gulper/gulper-guide/'),
     ('angler',            'Angler Meat Guide',            '/bnb/farming/meat/angler/angler-guide/'),
     ('megasloth',         'Megasloth Meat Guide',         '/bnb/farming/meat/megasloth/megasloth-guide/'),
     ('wendigo',           'Glowing Meat Guide',           '/bnb/farming/meat/glowing-meat/glowing-meat-guide/'),
     ('wolf',              'Wolf Meat Guide',              '/bnb/farming/meat/wolf/wolf-guide/'),
-    ('ogua',              'Gulper Meat Guide',            '/bnb/farming/meat/gulper/gulper-guide/'),
+    ('ogua',              'Gulper Innards Guide',          '/bnb/farming/meat/gulper/gulper-guide/'),
     ('stingwing',         'Bloatfly Meat Guide',          '/bnb/farming/meat/bloatfly/bloatfly-guide/'),
 ]
 

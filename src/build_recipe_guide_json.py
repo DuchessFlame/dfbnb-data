@@ -86,7 +86,12 @@ COBJ_GLOBS = [
 
 # Runtime lookup: ingredient EDID → pretty name.
 # Populated from farming_guides ingredients at load time.
-_COMPONENT_PRETTY: Dict[str, str] = {}
+# Seed with EDIDs whose CamelCase split doesn't match the in-game FULL name.
+_COMPONENT_PRETTY: Dict[str, str] = {
+    'GulperMeat':        'Gulper Innards',
+    'Dogmeat':           'Mongrel Dog Meat',
+    'GlowingOneBlood':   'Glowing Blood',
+}
 
 # COBJ EDIDs matching these patterns are NOT consumable recipes even if they
 # sit on a food/chem workbench. Smelting ores, workshop decorations, etc.
