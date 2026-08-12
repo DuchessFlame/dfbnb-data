@@ -829,17 +829,22 @@ def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: s
                                     rates=rates)
     out = collections.OrderedDict()
     placed = False
+    farming_tips = doc.get("farming_tips")
     for k, v in doc.items():
-        if k in ("used_for", "vendor_list"):
+        if k in ("used_for", "vendor_list", "farming_tips"):
             continue  # drop any old values; re-inserted in canonical spot
         out[k] = v
         if k == "drop_rates":
+            if farming_tips is not None:
+                out["farming_tips"] = farming_tips
             out["used_for"] = used_for
             out["vendor_list"] = vendor_list
             placed = True
     if not placed:
         # no drop_rates key — insert before regions
         regions = out.pop("regions", None)
+        if farming_tips is not None:
+            out["farming_tips"] = farming_tips
         out["used_for"] = used_for
         out["vendor_list"] = vendor_list
         if regions is not None:

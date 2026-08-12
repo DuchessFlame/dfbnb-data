@@ -117,6 +117,32 @@ CREAM = {
         },
         "resource_generators": None,
     },
+    # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
+    "farming_tips": {
+        "spoils": False,
+        "spoil_duration_hours": None,
+        "base_weight": 0.50,
+        "object_type": "Drink",
+        "yield_perk": None,
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.28},
+            {"rank": 2, "reduction": "90%", "weight": 0.05},
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.05,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.40},
+            {"pieces": 2, "reduction": "40%", "weight": 0.30},
+            {"pieces": 3, "reduction": "60%", "weight": 0.20},
+            {"pieces": 4, "reduction": "80%", "weight": 0.10},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.05},
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": False,
+    },
     # ── Used For ────────────────────────────────────────────────────────
     # GENERATED at build time by build_farming_used_for.py (post-step, runs
     # after build_recipe_guide_json.py).  Do NOT hand-write it here: the
@@ -212,6 +238,36 @@ DEATHCLAW_EGG = {
             ),
         },
     },
+    # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
+    # ALCH 00046939: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
+    # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
+    # No ObjectTypeNonPerishable → perishable.
+    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    "farming_tips": {
+        "spoils": True,
+        "spoil_duration_hours": None,
+        "base_weight": 0.25,
+        "object_type": "Food",
+        "yield_perk": "butchers_bounty",
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.14},
+            {"rank": 2, "reduction": "90%", "weight": 0.03},
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.03,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.20},
+            {"pieces": 2, "reduction": "40%", "weight": 0.15},
+            {"pieces": 3, "reduction": "60%", "weight": 0.10},
+            {"pieces": 4, "reduction": "80%", "weight": 0.05},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.03},
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": True,
+    },
 }
 
 # ── FROG EGG ────────────────────────────────────────────────────────────────────
@@ -256,6 +312,35 @@ FROG_EGG = {
         },
         "vendors": None,
         "resource_generators": None,
+    },
+    # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
+    # ALCH 004FE51C: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
+    # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
+    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    "farming_tips": {
+        "spoils": True,
+        "spoil_duration_hours": None,
+        "base_weight": 0.25,
+        "object_type": "Food",
+        "yield_perk": "butchers_bounty",
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.14},
+            {"rank": 2, "reduction": "90%", "weight": 0.03},
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.03,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.20},
+            {"pieces": 2, "reduction": "40%", "weight": 0.15},
+            {"pieces": 3, "reduction": "60%", "weight": 0.10},
+            {"pieces": 4, "reduction": "80%", "weight": 0.05},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.03},
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": True,
     },
 }
 
@@ -321,6 +406,35 @@ MIRELURK_EGG = {
         },
         "resource_generators": None,
     },
+    # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
+    # ALCH 0023E9D4: Weight 1.00, ObjectTypeFood, IngredientTypeMeat,
+    # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
+    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    "farming_tips": {
+        "spoils": True,
+        "spoil_duration_hours": None,
+        "base_weight": 1.00,
+        "object_type": "Food",
+        "yield_perk": "butchers_bounty",
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.55},
+            {"rank": 2, "reduction": "90%", "weight": 0.10},
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.10,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.80},
+            {"pieces": 2, "reduction": "40%", "weight": 0.60},
+            {"pieces": 3, "reduction": "60%", "weight": 0.40},
+            {"pieces": 4, "reduction": "80%", "weight": 0.20},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.10},
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": True,
+    },
 }
 
 # ── MOTHMAN EGG ─────────────────────────────────────────────────────────────────
@@ -367,13 +481,17 @@ MOTHMAN_EGG = {
     #   E07A_LPI_FloraEnlightenedMothmanEggs01-03 (23 REFRs total)
     #   These yield Perfect Mothman Egg (006238EE) during the event.
     #
-    # Creature drop: LLD_Creature_Mothman_Wise (003EC2F4, UseAll 3 entries)
-    #   Entry 2: MothmanEgg (CN=0, qty=1) → guaranteed 1 egg from Wise Mothman.
+    # Creature drops: NONE.  LLD_Creature_Mothman_Wise (003EC2F4) has MothmanEgg
+    #   at entry 2, but the Wise Mothman is a non-hostile NPC — players cannot
+    #   kill it, so the death item never fires.  Regular mothman death loot
+    #   (LLD_Creature_Mothman 0033AB91) contains only NeurotoxicDust, MothmanWing,
+    #   and components — no eggs.
     #
     # Event loot: E07A_Mothman_CultistHighPriestReward_Loot (00635071, UseAll 9)
     #   Entry 6: MothmanEgg (CN=0, qty=1) → guaranteed 1 egg
     #   Entry 7: MothmanEgg (CN=80, qty=2) → 20% chance of 2 more eggs
     #   Entry 5: Perfect Mothman Egg (CN=95, qty=1) → 5% chance
+    #   (Quest-assigned loot, not a creature death item.)
     #
     # CAMP collectron: ATX_Resources_MothmanNest_egg (006F7E94, pick-one 1 entry)
     #   → 100% per cycle (dedicated Mothman Nest collectron).
@@ -389,13 +507,14 @@ MOTHMAN_EGG = {
                 "enlightened flora placements (E07A event) yield Perfect Mothman Eggs."
             ),
         },
-        "creature_drops": {
-            "list_edid": "LLD_Creature_Mothman_Wise",
-            "list_id": "003EC2F4",
+        "creature_drops": None,  # Wise Mothman is non-hostile (can't be killed); regular mothman drops no eggs.
+        "event_loot": {
+            "list_edid": "E07A_Mothman_CultistHighPriestReward_Loot",
+            "list_id": "00635071",
             "note": (
-                "Wise Mothman kills guarantee 1 mothman egg (entry 2, CN=0). "
-                "Mothman Equinox High Priest loot adds 1 guaranteed + 20% chance "
-                "of 2 more + 5% chance of a Perfect Mothman Egg."
+                "Mothman Equinox High Priest reward (quest-assigned, UseAll 9 entries): "
+                "1 guaranteed mothman egg + 20% chance of 2 more + 5% chance of a "
+                "Perfect Mothman Egg."
             ),
         },
         "vendors": None,
@@ -405,6 +524,90 @@ MOTHMAN_EGG = {
                 "Liberated collectron has a 25% chance per cycle (1 of 4 items)."
             ),
         },
+    },
+    # ── Additional Expands (root-level sections on the same page) ─────
+    # Perfect Mothman Egg is a separate ALCH item (006238EE) obtainable only
+    # during the Mothman Equinox event.  It gets its own root-level expand
+    # on the Mothman Egg guide page.
+    "additional_expands": [
+        {
+            "title": "Perfect Mothman Eggs",
+            "formid": "006238EE",
+            "edid": "E07A_Mothman_EnlightenedMothmanEgg",
+            "full": "Perfect Mothman Egg",
+            "sig": "ALCH",
+            "weight": 0.25,
+            "value": 15,
+            "keywords": [
+                "ObjectTypeFood", "MealTypeRaw", "IngredientTypeEgg",
+                "IngredientTypeMeat", "FoodTypeMothmanEgg", "PlantTypeMothmanEggs",
+                "UnsellableObject", "NonPlayerTradable", "ObjectTypeCanSpoil",
+            ],
+            "spoils_to": "Spoiled Meat",
+            "note": (
+                "Perfect Mothman Eggs are an event-exclusive variant obtainable "
+                "only during the Mothman Equinox seasonal event. They cannot be "
+                "traded between players (NonPlayerTradable) and cannot be sold to "
+                "vendors (UnsellableObject)."
+            ),
+            "how_to_obtain": [
+                {
+                    "source": "Enlightened Mothman Egg Flora",
+                    "source_type": "flora",
+                    "details": (
+                        "23 enlightened mothman egg flora placements across 3 LPI "
+                        "lists (E07A_Mothman_LPI_FloraEnlightenedMothmanEggs01–03, "
+                        "8 + 8 + 7 REFRs). Each harvest yields 1 Perfect Mothman Egg. "
+                        "Only active during the Mothman Equinox event."
+                    ),
+                    "list_ids": ["006189AC", "006189AD", "006189AE"],
+                    "flora_ids": ["006189AA", "006189A9", "006189A8"],
+                },
+                {
+                    "source": "Cultist High Priest Reward (Mothman Equinox)",
+                    "source_type": "event_loot",
+                    "details": (
+                        "E07A_Mothman_CultistHighPriestReward_Loot (00635071, "
+                        "UseAll 9 entries): entry 5 has Perfect Mothman Egg with "
+                        "CN=95 → 5% chance of 1 per kill. The same loot list also "
+                        "drops regular Mothman Eggs (1 guaranteed + 20% chance of "
+                        "2 more)."
+                    ),
+                    "list_id": "00635071",
+                    "chance": "5%",
+                },
+            ],
+        },
+    ],
+    # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
+    # ALCH 0008E922: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
+    # IngredientTypeEgg, FoodTypeMothmanEgg, PlantTypeMothmanEggs,
+    # ObjectTypeCanSpoil → spoils to Spoiled Meat.
+    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    "farming_tips": {
+        "spoils": True,
+        "spoil_duration_hours": None,
+        "base_weight": 0.25,
+        "object_type": "Food",
+        "yield_perk": "butchers_bounty",
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.14},
+            {"rank": 2, "reduction": "90%", "weight": 0.03},
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.03,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.20},
+            {"pieces": 2, "reduction": "40%", "weight": 0.15},
+            {"pieces": 3, "reduction": "60%", "weight": 0.10},
+            {"pieces": 4, "reduction": "80%", "weight": 0.05},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.03},
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": True,
     },
 }
 
@@ -472,6 +675,35 @@ RADSCORPION_EGG = {
         },
         "resource_generators": None,
     },
+    # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
+    # ALCH 0004693B: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
+    # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
+    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    "farming_tips": {
+        "spoils": True,
+        "spoil_duration_hours": None,
+        "base_weight": 0.25,
+        "object_type": "Food",
+        "yield_perk": "butchers_bounty",
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.14},
+            {"rank": 2, "reduction": "90%", "weight": 0.03},
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.03,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.20},
+            {"pieces": 2, "reduction": "40%", "weight": 0.15},
+            {"pieces": 3, "reduction": "60%", "weight": 0.10},
+            {"pieces": 4, "reduction": "80%", "weight": 0.05},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.03},
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": True,
+    },
 }
 
 # ── RADTOAD EGG ─────────────────────────────────────────────────────────────────
@@ -528,6 +760,35 @@ RADTOAD_EGG = {
         },
         "vendors": None,
         "resource_generators": None,
+    },
+    # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
+    # ALCH 00295BE5: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
+    # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
+    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    "farming_tips": {
+        "spoils": True,
+        "spoil_duration_hours": None,
+        "base_weight": 0.25,
+        "object_type": "Food",
+        "yield_perk": "butchers_bounty",
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.14},
+            {"rank": 2, "reduction": "90%", "weight": 0.03},
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.03,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.20},
+            {"pieces": 2, "reduction": "40%", "weight": 0.15},
+            {"pieces": 3, "reduction": "60%", "weight": 0.10},
+            {"pieces": 4, "reduction": "80%", "weight": 0.05},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.03},
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": True,
     },
 }
 
