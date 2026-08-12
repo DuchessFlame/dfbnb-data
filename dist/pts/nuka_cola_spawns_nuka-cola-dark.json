@@ -7,9 +7,9 @@
   ],
   "lists_in_closure": 27,
   "source_totals": {
-   "container": 564,
+   "container": 566,
    "direct": 20,
-   "vending-machine": 1
+   "vendor": 1
   },
   "unresolved": {
    "AMS Headquarters": 3,
@@ -19,7 +19,6 @@
    "Blue Ridge Office": 1,
    "Cavern": 1,
    "Dagger's Throne Room": 1,
-   "Duncan & Duncan Robotics": 2,
    "Garrahan Mining HQ": 5,
    "Graninger Farm": 2,
    "Mezzanine Level": 6,
@@ -1173,6 +1172,24 @@
      "coords": [
       190936.0,
       -156864.0
+     ]
+    },
+    {
+     "marker": "Duncan & Duncan Robotics",
+     "count": 2,
+     "sources": {
+      "container": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "412247",
+      "42864A"
+     ],
+     "coords": [
+      -3155.1,
+      864.1
      ]
     },
     {
@@ -3997,7 +4014,7 @@
      "count": 8,
      "sources": {
       "direct": 7,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -5174,5 +5191,122 @@
     }
    ]
   }
- ]
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Drink",
+   "weight": 1.0,
+   "value": 30,
+   "addiction": "Alcohol Addiction",
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Nuka Cola Dark is a drink consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Happy-Go-Lucky02 - Fortify Luck",
+     "display": "+3 Happy-Go-Lucky02 - Fortify Luck",
+     "duration": "3 min"
+    },
+    {
+     "name": "Fortify Strength",
+     "display": "+1 Fortify Strength",
+     "duration": "3 min"
+    },
+    {
+     "name": "Fortify Endurance",
+     "display": "+1 Fortify Endurance",
+     "duration": "3 min"
+    },
+    {
+     "name": "Reduce Perception",
+     "display": "+1 Reduce Perception",
+     "duration": "3 min"
+    },
+    {
+     "name": "Happy-Go-Lucky - Fortify Luck",
+     "display": "+2 Happy-Go-Lucky - Fortify Luck",
+     "duration": "3 min"
+    },
+    {
+     "name": "Duration",
+     "display": "Duration",
+     "duration": "3 min"
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (normal)",
+     "duration": null
+    },
+    {
+     "name": "Bottlecap Collector",
+     "display": "Bottlecap Collector",
+     "duration": null
+    },
+    {
+     "name": "Chance Addiction Alcohol",
+     "display": "15% chance to catch a disease",
+     "duration": null
+    },
+    {
+     "name": "Live & Love - Fortify Luck",
+     "display": "+1 Live & Love - Fortify Luck",
+     "duration": null
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 1.0,
+  "object_type": "Drink",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.55
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.1
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.1,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.1
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "special_sources": {}
 }

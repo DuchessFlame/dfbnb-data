@@ -8,10 +8,11 @@
   ],
   "lists_in_closure": 232,
   "source_totals": {
-   "container": 10825,
+   "container": 10732,
    "direct": 2943,
+   "machine": 117,
    "npc": 1493,
-   "vending-machine": 35
+   "vendor": 35
   },
   "unresolved": {
    "AMS Headquarters": 64,
@@ -28,9 +29,7 @@
    "Clarksburg": 7,
    "Crater Watchstation": 3,
    "Dagger's Throne Room": 1,
-   "Duncan & Duncan Robotics": 17,
    "Garrahan Mining HQ": 123,
-   "Gold Vault Operations": 3,
    "Graninger Farm": 26,
    "Hillside Cavern": 6,
    "Hornwright Air Purifier Site #01": 3,
@@ -51,7 +50,7 @@
    "Shelters Claim Center": 7,
    "The Bullengrube": 1,
    "The Nukashine": 2,
-   "The Rusty Pick": 6,
+   "The Rusty Pick": 2,
    "The Whitespring Golf Club": 112,
    "The Whitespring North Entrance": 132,
    "The Whitespring Resort": 25,
@@ -220,8 +219,9 @@
      "marker": "Abandoned Mine Shaft 6",
      "count": 43,
      "sources": {
-      "container": 28,
+      "container": 27,
       "direct": 6,
+      "machine": 1,
       "npc": 9
      },
      "image_top": "",
@@ -409,8 +409,9 @@
      "marker": "Beckley",
      "count": 42,
      "sources": {
-      "container": 21,
+      "container": 20,
       "direct": 12,
+      "machine": 1,
       "npc": 9
      },
      "image_top": "",
@@ -559,10 +560,11 @@
      "marker": "Camden Park",
      "count": 115,
      "sources": {
-      "container": 35,
+      "container": 33,
       "direct": 70,
+      "machine": 2,
       "npc": 9,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -959,7 +961,8 @@
      "marker": "Hornwright Testing Site #04",
      "count": 3,
      "sources": {
-      "container": 3
+      "container": 2,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -1002,8 +1005,9 @@
      "marker": "Lewisburg",
      "count": 28,
      "sources": {
-      "container": 15,
-      "direct": 13
+      "container": 14,
+      "direct": 13,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -1049,7 +1053,7 @@
      "sources": {
       "container": 11,
       "direct": 19,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -1118,8 +1122,9 @@
      "marker": "Mount Blair",
      "count": 49,
      "sources": {
-      "container": 20,
+      "container": 19,
       "direct": 12,
+      "machine": 1,
       "npc": 17
      },
      "image_top": "",
@@ -1660,6 +1665,27 @@
      ]
     },
     {
+     "marker": "The Rusty Pick",
+     "count": 4,
+     "sources": {
+      "container": 3,
+      "machine": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B0E2F",
+      "59D427",
+      "59D636",
+      "59D8D8"
+     ],
+     "coords": [
+      979.5,
+      -383.4
+     ]
+    },
+    {
      "marker": "The Sludge Works",
      "count": 17,
      "sources": {
@@ -1804,8 +1830,9 @@
      "marker": "Welch",
      "count": 60,
      "sources": {
-      "container": 26,
+      "container": 25,
       "direct": 30,
+      "machine": 1,
       "npc": 4
      },
      "image_top": "",
@@ -1885,7 +1912,7 @@
       "container": 6,
       "direct": 2,
       "npc": 2,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -1942,8 +1969,9 @@
      "marker": "Aquarium of the Atlantic",
      "count": 115,
      "sources": {
-      "container": 49,
-      "direct": 66
+      "container": 48,
+      "direct": 66,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -2191,8 +2219,9 @@
      "marker": "Community Center",
      "count": 124,
      "sources": {
-      "container": 106,
-      "direct": 18
+      "container": 104,
+      "direct": 18,
+      "machine": 2
      },
      "image_top": "",
      "directions": "",
@@ -2506,8 +2535,9 @@
      "marker": "The Boardwalk",
      "count": 40,
      "sources": {
-      "container": 28,
-      "direct": 12
+      "container": 24,
+      "direct": 12,
+      "machine": 4
      },
      "image_top": "",
      "directions": "",
@@ -2563,8 +2593,9 @@
      "marker": "The Neapolitan Casino",
      "count": 109,
      "sources": {
-      "container": 101,
-      "direct": 8
+      "container": 99,
+      "direct": 8,
+      "machine": 2
      },
      "image_top": "",
      "directions": "",
@@ -2854,8 +2885,9 @@
      "marker": "Athens",
      "count": 233,
      "sources": {
-      "container": 141,
+      "container": 132,
       "direct": 36,
+      "machine": 9,
       "npc": 56
      },
      "image_top": "",
@@ -3402,9 +3434,10 @@
      "marker": "Highway Town Interior",
      "count": 49,
      "sources": {
-      "container": 41,
+      "container": 40,
       "direct": 7,
-      "vending-machine": 1
+      "machine": 1,
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -3469,10 +3502,11 @@
      "marker": "Hocking Hills Train Station",
      "count": 55,
      "sources": {
-      "container": 11,
+      "container": 10,
       "direct": 33,
+      "machine": 1,
       "npc": 10,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -4048,8 +4082,9 @@
      "marker": "Super Duper Mart",
      "count": 44,
      "sources": {
-      "container": 18,
+      "container": 17,
       "direct": 10,
+      "machine": 1,
       "npc": 16
      },
      "image_top": "",
@@ -4598,8 +4633,9 @@
      "marker": "Bootlegger's Shack",
      "count": 12,
      "sources": {
-      "container": 9,
-      "direct": 3
+      "container": 8,
+      "direct": 3,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -4740,6 +4776,39 @@
      "coords": [
       191229.6,
       -157326.3
+     ]
+    },
+    {
+     "marker": "Duncan & Duncan Robotics",
+     "count": 17,
+     "sources": {
+      "container": 17
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "412247",
+      "412248",
+      "4285A8",
+      "4285CA",
+      "428623",
+      "428624",
+      "42862F",
+      "428646",
+      "42864A",
+      "42864F",
+      "5569C7",
+      "55D1F6",
+      "55D437",
+      "55D4D9",
+      "55D4DA",
+      "55D4EB",
+      "55D5C0"
+     ],
+     "coords": [
+      -3109.0,
+      1333.4
      ]
     },
     {
@@ -4904,8 +4973,9 @@
      "marker": "Fort Defiance",
      "count": 231,
      "sources": {
-      "container": 187,
+      "container": 186,
       "direct": 30,
+      "machine": 1,
       "npc": 14
      },
      "image_top": "",
@@ -6072,8 +6142,9 @@
      "marker": "The General's Steakhouse",
      "count": 44,
      "sources": {
-      "container": 37,
+      "container": 35,
       "direct": 3,
+      "machine": 2,
       "npc": 4
      },
      "image_top": "",
@@ -6914,7 +6985,7 @@
       "container": 31,
       "direct": 19,
       "npc": 3,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -6985,7 +7056,7 @@
      "count": 8,
      "sources": {
       "container": 7,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -7103,8 +7174,9 @@
      "marker": "Watoga Underground",
      "count": 99,
      "sources": {
-      "container": 78,
+      "container": 76,
       "direct": 17,
+      "machine": 2,
       "npc": 4
      },
      "image_top": "",
@@ -7620,8 +7692,9 @@
      "marker": "AVR Medical Center",
      "count": 63,
      "sources": {
-      "container": 49,
+      "container": 48,
       "direct": 13,
+      "machine": 1,
       "npc": 1
      },
      "image_top": "",
@@ -7880,8 +7953,9 @@
      "marker": "Blue Ridge Bunkhouse",
      "count": 13,
      "sources": {
-      "container": 10,
+      "container": 9,
       "direct": 2,
+      "machine": 1,
       "npc": 1
      },
      "image_top": "",
@@ -8031,7 +8105,7 @@
       "container": 31,
       "direct": 8,
       "npc": 2,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -8135,8 +8209,9 @@
      "marker": "Charleston Capitol Building",
      "count": 156,
      "sources": {
-      "container": 124,
-      "direct": 32
+      "container": 123,
+      "direct": 32,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -8353,7 +8428,7 @@
       "container": 54,
       "direct": 3,
       "npc": 5,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -8517,9 +8592,10 @@
      "marker": "Charleston Station",
      "count": 24,
      "sources": {
-      "container": 15,
+      "container": 14,
       "direct": 8,
-      "vending-machine": 1
+      "machine": 1,
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -8809,10 +8885,11 @@
      "marker": "Flatwoods",
      "count": 53,
      "sources": {
-      "container": 30,
+      "container": 29,
       "direct": 12,
+      "machine": 1,
       "npc": 10,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -9111,8 +9188,9 @@
      "marker": "Green Country Lodge",
      "count": 39,
      "sources": {
-      "container": 25,
+      "container": 22,
       "direct": 11,
+      "machine": 3,
       "npc": 3
      },
      "image_top": "",
@@ -9239,8 +9317,9 @@
      "marker": "Helvetia",
      "count": 72,
      "sources": {
-      "container": 33,
+      "container": 32,
       "direct": 35,
+      "machine": 1,
       "npc": 4
      },
      "image_top": "",
@@ -9474,8 +9553,9 @@
      "marker": "Hornwright Summer Villa",
      "count": 18,
      "sources": {
-      "container": 17,
-      "direct": 1
+      "container": 16,
+      "direct": 1,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -9741,8 +9821,9 @@
      "marker": "Lady Janet's Soft Serve",
      "count": 8,
      "sources": {
-      "container": 5,
+      "container": 4,
       "direct": 1,
+      "machine": 1,
       "npc": 2
      },
      "image_top": "",
@@ -10088,8 +10169,9 @@
      "marker": "Morgantown",
      "count": 62,
      "sources": {
-      "container": 51,
-      "direct": 11
+      "container": 50,
+      "direct": 11,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -10222,8 +10304,9 @@
      "marker": "Morgantown Airport Terminal",
      "count": 54,
      "sources": {
-      "container": 38,
-      "direct": 16
+      "container": 37,
+      "direct": 16,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -10295,7 +10378,7 @@
      "sources": {
       "container": 194,
       "direct": 25,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -10531,9 +10614,10 @@
      "marker": "Morgantown Station",
      "count": 10,
      "sources": {
-      "container": 7,
+      "container": 6,
       "direct": 2,
-      "vending-machine": 1
+      "machine": 1,
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -10736,8 +10820,9 @@
      "marker": "New River Gorge Resort",
      "count": 75,
      "sources": {
-      "container": 51,
+      "container": 50,
       "direct": 15,
+      "machine": 1,
       "npc": 9
      },
      "image_top": "",
@@ -10863,8 +10948,9 @@
      "marker": "Ohio River Adventures",
      "count": 16,
      "sources": {
-      "container": 10,
-      "direct": 6
+      "container": 9,
+      "direct": 6,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -10944,7 +11030,7 @@
      "marker": "Organ Cave West",
      "count": 1,
      "sources": {
-      "container": 1
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -10961,8 +11047,9 @@
      "marker": "Orwell Orchards",
      "count": 18,
      "sources": {
-      "container": 14,
+      "container": 12,
       "direct": 1,
+      "machine": 2,
       "npc": 3
      },
      "image_top": "",
@@ -11091,8 +11178,9 @@
      "marker": "Point Pleasant",
      "count": 85,
      "sources": {
-      "container": 48,
-      "direct": 37
+      "container": 46,
+      "direct": 37,
+      "machine": 2
      },
      "image_top": "",
      "directions": "",
@@ -11193,8 +11281,9 @@
      "marker": "Portside Pub",
      "count": 15,
      "sources": {
-      "container": 14,
-      "direct": 1
+      "container": 13,
+      "direct": 1,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -11734,8 +11823,9 @@
      "marker": "Slocum's Joe",
      "count": 16,
      "sources": {
-      "container": 12,
+      "container": 10,
       "direct": 1,
+      "machine": 2,
       "npc": 3
      },
      "image_top": "",
@@ -11902,8 +11992,9 @@
      "marker": "Summersville Docks",
      "count": 29,
      "sources": {
-      "container": 20,
+      "container": 19,
       "direct": 3,
+      "machine": 1,
       "npc": 6
      },
      "image_top": "",
@@ -12042,7 +12133,7 @@
      "sources": {
       "container": 15,
       "npc": 3,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -12192,8 +12283,9 @@
      "marker": "The Giant Teapot",
      "count": 17,
      "sources": {
-      "container": 8,
+      "container": 7,
       "direct": 7,
+      "machine": 1,
       "npc": 2
      },
      "image_top": "",
@@ -12462,8 +12554,9 @@
      "marker": "Tyler County Fairgrounds",
      "count": 63,
      "sources": {
-      "container": 31,
-      "direct": 32
+      "container": 28,
+      "direct": 32,
+      "machine": 3
      },
      "image_top": "",
      "directions": "",
@@ -12542,8 +12635,9 @@
      "marker": "Van Lowe Taxidermy",
      "count": 14,
      "sources": {
-      "container": 13,
-      "direct": 1
+      "container": 12,
+      "direct": 1,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -13177,8 +13271,9 @@
      "marker": "Wilson Brother's Auto Repair",
      "count": 25,
      "sources": {
-      "container": 12,
+      "container": 11,
       "direct": 8,
+      "machine": 1,
       "npc": 5
      },
      "image_top": "",
@@ -13250,8 +13345,9 @@
      "marker": "WV Lumber Co.",
      "count": 32,
      "sources": {
-      "container": 26,
+      "container": 25,
       "direct": 3,
+      "machine": 1,
       "npc": 3
      },
      "image_top": "",
@@ -13978,8 +14074,9 @@
      "marker": "Enclave Research Facility",
      "count": 183,
      "sources": {
-      "container": 148,
+      "container": 145,
       "direct": 33,
+      "machine": 3,
       "npc": 2
      },
      "image_top": "",
@@ -14318,8 +14415,9 @@
      "marker": "Fissure Site",
      "count": 13,
      "sources": {
-      "container": 7,
-      "direct": 6
+      "container": 6,
+      "direct": 6,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -14350,7 +14448,7 @@
      "sources": {
       "container": 10,
       "direct": 2,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -14419,7 +14517,7 @@
       "container": 19,
       "direct": 2,
       "npc": 1,
-      "vending-machine": 2
+      "vendor": 2
      },
      "image_top": "",
      "directions": "",
@@ -14563,6 +14661,25 @@
      "coords": [
       -135882.1,
       -174174.0
+     ]
+    },
+    {
+     "marker": "Gold Vault Operations",
+     "count": 3,
+     "sources": {
+      "container": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "53BA79",
+      "53BA7A",
+      "5648CF"
+     ],
+     "coords": [
+      -832.2,
+      -6523.5
      ]
     },
     {
@@ -15424,8 +15541,9 @@
      "marker": "Monongah",
      "count": 45,
      "sources": {
-      "container": 34,
+      "container": 31,
       "direct": 7,
+      "machine": 3,
       "npc": 4
      },
      "image_top": "",
@@ -15559,8 +15677,9 @@
      "marker": "Monongah Power Plant",
      "count": 130,
      "sources": {
-      "container": 102,
+      "container": 101,
       "direct": 10,
+      "machine": 1,
       "npc": 18
      },
      "image_top": "",
@@ -15867,8 +15986,9 @@
      "marker": "Mountainside Bed & Breakfast",
      "count": 31,
      "sources": {
-      "container": 26,
-      "direct": 5
+      "container": 24,
+      "direct": 5,
+      "machine": 2
      },
      "image_top": "",
      "directions": "",
@@ -15946,8 +16066,9 @@
      "marker": "National Isolated Radio Array",
      "count": 89,
      "sources": {
-      "container": 72,
+      "container": 71,
       "direct": 10,
+      "machine": 1,
       "npc": 7
      },
      "image_top": "",
@@ -16087,8 +16208,9 @@
      "marker": "New Appalachian Central Trainyard",
      "count": 47,
      "sources": {
-      "container": 40,
-      "direct": 7
+      "container": 39,
+      "direct": 7,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -16300,8 +16422,9 @@
      "marker": "Pleasant Valley Cabins",
      "count": 98,
      "sources": {
-      "container": 56,
-      "direct": 42
+      "container": 54,
+      "direct": 42,
+      "machine": 2
      },
      "image_top": "",
      "directions": "",
@@ -16417,7 +16540,7 @@
      "sources": {
       "container": 16,
       "direct": 12,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -16464,7 +16587,7 @@
      "sources": {
       "direct": 14,
       "npc": 3,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -16578,7 +16701,7 @@
      "sources": {
       "container": 7,
       "direct": 2,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -16604,8 +16727,9 @@
      "marker": "Red Rocket Mega Stop",
      "count": 103,
      "sources": {
-      "container": 59,
+      "container": 54,
       "direct": 41,
+      "machine": 5,
       "npc": 3
      },
      "image_top": "",
@@ -16851,8 +16975,9 @@
      "marker": "Safe 'n Clean Disposal",
      "count": 50,
      "sources": {
-      "container": 30,
+      "container": 29,
       "direct": 4,
+      "machine": 1,
       "npc": 16
      },
      "image_top": "",
@@ -17007,8 +17132,9 @@
      "marker": "Seneca Rocks Visitor Center",
      "count": 43,
      "sources": {
-      "container": 19,
+      "container": 18,
       "direct": 20,
+      "machine": 1,
       "npc": 4
      },
      "image_top": "",
@@ -17227,8 +17353,9 @@
      "marker": "Sons of Dane Compound",
      "count": 17,
      "sources": {
-      "container": 11,
-      "direct": 6
+      "container": 10,
+      "direct": 6,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -17423,8 +17550,9 @@
      "marker": "Sugar Grove",
      "count": 163,
      "sources": {
-      "container": 142,
+      "container": 140,
       "direct": 8,
+      "machine": 2,
       "npc": 13
      },
      "image_top": "",
@@ -17755,7 +17883,7 @@
      "sources": {
       "container": 4,
       "npc": 2,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -18929,7 +19057,7 @@
      "sources": {
       "container": 53,
       "direct": 8,
-      "vending-machine": 5
+      "vendor": 5
      },
      "image_top": "",
      "directions": "",
@@ -19013,7 +19141,7 @@
      "sources": {
       "container": 6,
       "direct": 39,
-      "vending-machine": 2
+      "vendor": 2
      },
      "image_top": "",
      "directions": "",
@@ -19076,9 +19204,10 @@
      "marker": "Whitespring Station",
      "count": 10,
      "sources": {
-      "container": 8,
+      "container": 7,
       "direct": 1,
-      "vending-machine": 1
+      "machine": 1,
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -20040,8 +20169,9 @@
      "marker": "Slumber Mill Motel",
      "count": 49,
      "sources": {
-      "container": 43,
+      "container": 39,
       "direct": 2,
+      "machine": 4,
       "npc": 4
      },
      "image_top": "",
@@ -20238,7 +20368,8 @@
      "marker": "The Trading Post",
      "count": 15,
      "sources": {
-      "container": 12,
+      "container": 11,
+      "machine": 1,
       "npc": 3
      },
      "image_top": "",
@@ -20354,8 +20485,9 @@
      "marker": "Vault 63 Meteorology Sector",
      "count": 5,
      "sources": {
-      "container": 4,
-      "direct": 1
+      "container": 3,
+      "direct": 1,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -20539,9 +20671,10 @@
      "marker": "Berkeley Springs Station",
      "count": 11,
      "sources": {
-      "container": 9,
+      "container": 6,
       "direct": 1,
-      "vending-machine": 1
+      "machine": 3,
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -20598,7 +20731,8 @@
      "marker": "Big B's Rest Stop",
      "count": 12,
      "sources": {
-      "container": 12
+      "container": 11,
+      "machine": 1
      },
      "image_top": "",
      "directions": "",
@@ -21911,7 +22045,7 @@
      "sources": {
       "container": 30,
       "direct": 1,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -21993,8 +22127,9 @@
      "marker": "Southern Belle Motel",
      "count": 13,
      "sources": {
-      "container": 7,
+      "container": 6,
       "direct": 4,
+      "machine": 1,
       "npc": 2
      },
      "image_top": "",
@@ -22575,8 +22710,9 @@
      "marker": "Valley Galleria",
      "count": 17,
      "sources": {
-      "container": 15,
-      "direct": 2
+      "container": 13,
+      "direct": 2,
+      "machine": 2
      },
      "image_top": "",
      "directions": "",
@@ -22833,8 +22969,9 @@
      "marker": "The Foundry",
      "count": 136,
      "sources": {
-      "container": 106,
-      "direct": 30
+      "container": 102,
+      "direct": 30,
+      "machine": 4
      },
      "image_top": "",
      "directions": "",
@@ -23245,8 +23382,9 @@
      "marker": "Clarksburg",
      "count": 59,
      "sources": {
-      "container": 39,
+      "container": 38,
       "direct": 10,
+      "machine": 1,
       "npc": 10
      },
      "image_top": "",
@@ -23377,8 +23515,9 @@
      "marker": "Eastern Regional Penitentiary",
      "count": 134,
      "sources": {
-      "container": 95,
+      "container": 94,
       "direct": 21,
+      "machine": 1,
       "npc": 18
      },
      "image_top": "",
@@ -23529,10 +23668,11 @@
      "marker": "Grafton",
      "count": 83,
      "sources": {
-      "container": 57,
+      "container": 55,
       "direct": 9,
+      "machine": 2,
       "npc": 16,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -23691,7 +23831,7 @@
       "container": 15,
       "direct": 2,
       "npc": 3,
-      "vending-machine": 1
+      "vendor": 1
      },
      "image_top": "",
      "directions": "",
@@ -24143,8 +24283,9 @@
      "marker": "Prickett's Fort",
      "count": 30,
      "sources": {
-      "container": 14,
+      "container": 13,
       "direct": 15,
+      "machine": 1,
       "npc": 1
      },
      "image_top": "",
@@ -24238,7 +24379,7 @@
       "container": 8,
       "direct": 5,
       "npc": 2,
-      "vending-machine": 2
+      "vendor": 2
      },
      "image_top": "",
      "directions": "",
@@ -24330,8 +24471,9 @@
      "marker": "Wavy Willard's Water Park",
      "count": 71,
      "sources": {
-      "container": 67,
-      "direct": 4
+      "container": 65,
+      "direct": 4,
+      "machine": 2
      },
      "image_top": "",
      "directions": "",
@@ -24467,5 +24609,124 @@
     }
    ]
   }
- ]
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Drink",
+   "weight": 1.0,
+   "value": 10,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Nuka Cola is a drink consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores Health",
+     "duration": "10s"
+    },
+    {
+     "name": "Restore Action Points",
+     "display": "Restore Action Points",
+     "duration": "5s"
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (normal)",
+     "duration": null
+    },
+    {
+     "name": "Bottlecap Collector",
+     "display": "Bottlecap Collector",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 1.0,
+  "object_type": "Drink",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.55
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.1
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.1,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.1
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "special_sources": {
+  "collectrons": [
+   {
+    "name": "Nuka-Cola Collectron Station",
+    "edid": "ATX_CollectronPod_NukaCola",
+    "obtain": "Atom Shop",
+    "note": "CAMP collectron pod that periodically deposits Nuka-Cola into its stash."
+   }
+  ],
+  "resource_generators": [
+   {
+    "name": "Nuka-Cola Mystery Machine",
+    "edid": "NukaCola_MysteryMachine",
+    "obtain": "Atom Shop",
+    "note": "CAMP vending machine that dispenses a random classic Nuka-Cola flavour on a timer. Skins: Pristine, Americana."
+   }
+  ],
+  "vendors": [
+   {
+    "name": "Nuka-World on Tour — Nuka-Cola Vendor",
+    "edid": "NWOT_VendingMachine_VendorChest_NukaCola",
+    "region": "Ash Heap",
+    "marker": "Nuka-World on Tour",
+    "guaranteed": true,
+    "note": "Dedicated vendor that always stocks Nuka-Cola during the Nuka-World on Tour event (instanced — no fixed map coordinates)."
+   }
+  ]
+ }
 }

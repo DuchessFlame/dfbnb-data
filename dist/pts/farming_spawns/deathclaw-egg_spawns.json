@@ -55,6 +55,59 @@
    "note": "Collectrons can produce raw deathclaw eggs at very low rates: Electronics and Junkyard collectrons have a ~0.45% chance per cycle (ChanceNone 95, 1 of 11 in super-rare pool). Sir Loin collectron has a ~0.13% chance per cycle (ChanceNone 99, 1 of 8 in rare pool)."
   }
  },
+ "farming_tips": {
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.25,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.14
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.03
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.03,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.05
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.03
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true
+ },
  "used_for": {
   "consumption": {
    "object_type": "Food",
@@ -251,6 +304,7 @@
   ]
  },
  "vendor_list": [],
+ "additional_expands": null,
  "regions": [
   {
    "region": "Ash Heap",
