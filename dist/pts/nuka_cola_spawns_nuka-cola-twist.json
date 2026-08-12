@@ -52,5 +52,102 @@
    "region": "Toxic Valley",
    "locations": []
   }
- ]
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Drink",
+   "weight": 1.0,
+   "value": 10,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Nuka Cola Twist is a drink consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores Health",
+     "duration": "10s"
+    },
+    {
+     "name": "Restore Action Points",
+     "display": "Restore Action Points",
+     "duration": "5s"
+    },
+    {
+     "name": "Nuka Cola Twist",
+     "display": "+1 Nuka Cola Twist",
+     "duration": "5 min"
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (normal)",
+     "duration": null
+    },
+    {
+     "name": "Bottlecap Collector",
+     "display": "Bottlecap Collector",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 1.0,
+  "object_type": "Drink",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.55
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.1
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.1,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.1
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "special_sources": {}
 }

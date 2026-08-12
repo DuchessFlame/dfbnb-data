@@ -54,5 +54,107 @@
    "region": "Toxic Valley",
    "locations": []
   }
- ]
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Drink",
+   "weight": 1.0,
+   "value": 5,
+   "addiction": "Alcohol Addiction",
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Nukashine is a drink consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Duration",
+     "display": "Duration",
+     "duration": "2 min"
+    },
+    {
+     "name": "Fortify",
+     "display": "Fortify",
+     "duration": "2 min"
+    },
+    {
+     "name": "Reduce Sprint AP Cost",
+     "display": "+80 Reduce Sprint AP Cost",
+     "duration": "2 min"
+    },
+    {
+     "name": "Regen",
+     "display": "+5 Regen",
+     "duration": "2 min"
+    },
+    {
+     "name": "Chance Addiction Alcohol",
+     "display": "20% chance to catch a disease",
+     "duration": null
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (normal)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 1.0,
+  "object_type": "Drink",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.55
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.1
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.1,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.1
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "special_sources": {}
 }
