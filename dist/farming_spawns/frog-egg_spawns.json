@@ -20,13 +20,7 @@
    "list_edid": "LLD_Creature_Radfrog",
    "list_id": "003B9761",
    "mechanism": "UseAll list with 5 entries. Entry 1: RadFrogEgg at CN=0 (guaranteed). Entry 3: RadFrogEgg at CN=50 (50% chance of a second egg).",
-   "note": "Every rad frog kill guarantees 1 frog egg. There is a 50% chance of receiving a second egg from the same kill. No world-placed spawns or vendor sources exist.",
-   "rate": 1.0,
-   "rate_lines": [
-    "100%",
-    "50%"
-   ],
-   "rate_display": "100% / 50%"
+   "note": "Every rad frog kill guarantees 1 frog egg. There is a 50% chance of receiving a second egg from the same kill. No world-placed spawns or vendor sources exist."
   },
   "vendors": null,
   "resource_generators": null
@@ -84,96 +78,8 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Food",
-   "weight": 0.25,
-   "value": 6,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": true,
-   "note": "Frog Egg is a food consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Disease Chance",
-     "display": "15% chance to catch a disease",
-     "duration": null
-    },
-    {
-     "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (tiny)",
-     "duration": null
-    },
-    {
-     "name": "Rads",
-     "display": "Rads",
-     "duration": null
-    }
-   ]
-  },
-  "challenges": [],
-  "recipes": [
-   {
-    "name": "Fasnacht Donut",
-    "form_id": "00478DE9",
-    "recipe_edid": "co_meal_Donut_Fasnacht",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": null,
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1
-     },
-     {
-      "name": "Cooking Oil",
-      "qty": 1
-     },
-     {
-      "name": "Salt",
-      "qty": 1
-     },
-     {
-      "name": "Spices",
-      "qty": 1
-     },
-     {
-      "name": "Brahmin Milk",
-      "qty": 3
-     },
-     {
-      "name": "Razorgrain Flour",
-      "qty": 1
-     },
-     {
-      "name": "Frog Egg",
-      "qty": 2
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (medium)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": ""
-   }
-  ]
- },
- "vendor_list": [],
+ "used_for": null,
+ "additional_expands": null,
  "regions": [
   {
    "region": "Ash Heap",
@@ -214,8 +120,8 @@
       "5228CE"
      ],
      "coords": [
-      118453.0,
-      50019.2
+      118452.9609375,
+      50019.2265625
      ]
     }
    ]
@@ -257,8 +163,8 @@
       "556F9F"
      ],
      "coords": [
-      -6404.0,
-      21701.2
+      -6404.01123046875,
+      21701.2109375
      ]
     }
    ]

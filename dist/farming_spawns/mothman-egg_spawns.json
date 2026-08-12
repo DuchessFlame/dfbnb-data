@@ -24,20 +24,13 @@
     "0035D237",
     "0035D22B"
    ],
-   "note": "66 mothman egg flora placements across 3 LPI lists. Each harvest yields 1 egg; respawns on the standard flora timer. 23 additional enlightened flora placements (E07A event) yield Perfect Mothman Eggs.",
-   "rate": 1.0,
-   "rate_display": "100%",
-   "rate_source": "computed"
+   "note": "66 mothman egg flora placements across 3 LPI lists. Each harvest yields 1 egg; respawns on the standard flora timer. 23 additional enlightened flora placements (E07A event) yield Perfect Mothman Eggs."
   },
-  "creature_drops": {
-   "list_edid": "LLD_Creature_Mothman_Wise",
-   "list_id": "003EC2F4",
-   "note": "Wise Mothman kills guarantee 1 mothman egg (entry 2, CN=0). Mothman Equinox High Priest loot adds 1 guaranteed + 20% chance of 2 more + 5% chance of a Perfect Mothman Egg.",
-   "rate": 1.0,
-   "rate_lines": [
-    "100%"
-   ],
-   "rate_display": "100%"
+  "creature_drops": null,
+  "event_loot": {
+   "list_edid": "E07A_Mothman_CultistHighPriestReward_Loot",
+   "list_id": "00635071",
+   "note": "Mothman Equinox High Priest reward (quest-assigned, UseAll 9 entries): 1 guaranteed mothman egg + 20% chance of 2 more + 5% chance of a Perfect Mothman Egg."
   },
   "vendors": null,
   "resource_generators": {
@@ -97,152 +90,55 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Food",
+ "used_for": null,
+ "additional_expands": [
+  {
+   "title": "Perfect Mothman Eggs",
+   "formid": "006238EE",
+   "edid": "E07A_Mothman_EnlightenedMothmanEgg",
+   "full": "Perfect Mothman Egg",
+   "sig": "ALCH",
    "weight": 0.25,
    "value": 15,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": true,
-   "note": "Mothman Egg is a food consumable. It grants no timed stat buff on its own.",
-   "effects": [
+   "keywords": [
+    "ObjectTypeFood",
+    "MealTypeRaw",
+    "IngredientTypeEgg",
+    "IngredientTypeMeat",
+    "FoodTypeMothmanEgg",
+    "PlantTypeMothmanEggs",
+    "UnsellableObject",
+    "NonPlayerTradable",
+    "ObjectTypeCanSpoil"
+   ],
+   "spoils_to": "Spoiled Meat",
+   "note": "Perfect Mothman Eggs are an event-exclusive variant obtainable only during the Mothman Equinox seasonal event. They cannot be traded between players (NonPlayerTradable) and cannot be sold to vendors (UnsellableObject).",
+   "how_to_obtain": [
     {
-     "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (small)",
-     "duration": null
+     "source": "Enlightened Mothman Egg Flora",
+     "source_type": "flora",
+     "details": "23 enlightened mothman egg flora placements across 3 LPI lists (E07A_Mothman_LPI_FloraEnlightenedMothmanEggs01–03, 8 + 8 + 7 REFRs). Each harvest yields 1 Perfect Mothman Egg. Only active during the Mothman Equinox event.",
+     "list_ids": [
+      "006189AC",
+      "006189AD",
+      "006189AE"
+     ],
+     "flora_ids": [
+      "006189AA",
+      "006189A9",
+      "006189A8"
+     ]
     },
     {
-     "name": "Rads",
-     "display": "Rads",
-     "duration": null
+     "source": "Cultist High Priest Reward (Mothman Equinox)",
+     "source_type": "event_loot",
+     "details": "E07A_Mothman_CultistHighPriestReward_Loot (00635071, UseAll 9 entries): entry 5 has Perfect Mothman Egg with CN=95 → 5% chance of 1 per kill. The same loot list also drops regular Mothman Eggs (1 guaranteed + 20% chance of 2 more).",
+     "list_id": "00635071",
+     "chance": "5%"
     }
    ]
-  },
-  "challenges": [
-   {
-    "name": "Epic - Collect Mothman Eggs",
-    "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman_Epic",
-    "page": "daily"
-   },
-   {
-    "name": "Collect Mothman Eggs",
-    "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman",
-    "page": "daily"
-   },
-   {
-    "name": "Birthday: Collect a Mothman Egg while wearing the Birthday Suit",
-    "edid": "ATX_DE2023_Birthday_Challenge_Collect_MothmanEgg",
-    "page": null
-   }
-  ],
-  "recipes": [
-   {
-    "name": "Brain Bombs",
-    "form_id": "0011C5B0",
-    "recipe_edid": "co_meal_BrainBombsGourmet",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": "Herbivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1
-     },
-     {
-      "name": "Sugar Bombs",
-      "qty": 3
-     },
-     {
-      "name": "Purified Water",
-      "qty": 2
-     },
-     {
-      "name": "Mothman Egg",
-      "qty": 2
-     },
-     {
-      "name": "Brain Fungus",
-      "qty": 3
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Restore Action Points",
-      "display": "+12 Action Points",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Intelligence",
-      "display": "+3 Fortify Intelligence",
-      "duration": "1 hour 30 min"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (verylarge)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": ""
-   },
-   {
-    "name": "Mothman Egg Omelette",
-    "form_id": "0029451A",
-    "recipe_edid": "co_meal_MothmanEggCooked",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1
-     },
-     {
-      "name": "Mothman Egg",
-      "qty": 1
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Charisma",
-      "display": "+2 Fortify Charisma",
-      "duration": "30 min"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (large)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": ""
-   }
-  ]
- },
- "vendor_list": [],
+  }
+ ],
  "regions": [
   {
    "region": "Ash Heap",
@@ -274,8 +170,8 @@
       "6BA8A5"
      ],
      "coords": [
-      191710.8,
-      -119570.1
+      191710.765625,
+      -119570.125
      ]
     }
    ]
@@ -306,8 +202,8 @@
       "5A037E"
      ],
      "coords": [
-      -93531.2,
-      183603.9
+      -93531.203125,
+      183603.875
      ]
     },
     {
@@ -325,8 +221,8 @@
       "5A0374"
      ],
      "coords": [
-      -176254.1,
-      -21059.5
+      -176254.140625,
+      -21059.5390625
      ]
     },
     {
@@ -342,8 +238,8 @@
       "3879A0"
      ],
      "coords": [
-      -76118.6,
-      73049.2
+      -76118.6484375,
+      73049.1875
      ]
     },
     {
@@ -409,8 +305,8 @@
       "627819"
      ],
      "coords": [
-      -177469.8,
-      73192.6
+      -177469.828125,
+      73192.625
      ]
     }
    ]
@@ -435,8 +331,8 @@
       "5DC9EB"
      ],
      "coords": [
-      -2382.3,
-      1474.0
+      -2382.318359375,
+      1474.00659179687
      ]
     },
     {
@@ -452,8 +348,8 @@
       "45C4AC"
      ],
      "coords": [
-      143637.3,
-      200472.4
+      143637.265625,
+      200472.4375
      ]
     },
     {
@@ -473,8 +369,8 @@
       "55E3BC"
      ],
      "coords": [
-      80195.5,
-      176381.8
+      80195.515625,
+      176381.78125
      ]
     }
    ]
@@ -504,8 +400,8 @@
       "5A0371"
      ],
      "coords": [
-      150848.9,
-      -32220.9
+      150848.921875,
+      -32220.947265625
      ]
     }
    ]
