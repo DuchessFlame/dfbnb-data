@@ -126,13 +126,41 @@ def _load_alch_refs(alch_path):
 
 
 def classify(sig, edid, via_edid):
+    """Bucket a placed source into a renderer expand. EDID-driven, no hardcoded FormIDs.
+
+    Buckets -> expand (routed in df-bnb-nuka-cola-spawns.js):
+      direct / machine      -> Fixed Spawn Locations (guaranteed world source)
+      container / loot-list  -> Containers            (chance loot)
+      npc                    -> Creatures             (chance death drop)
+      vendor                 -> Vendors               (merchant stock; incl. dedicated)
+      collectron             -> Collectrons           (ATX/Season, no map coords)
+      resource-generator     -> Resource Generators   (ATX dispenser, no map coords)
+      quest-reward           -> excluded from the map (guaranteed but not a location)
+
+    Order matters: check the most specific EDID keyword first. Note a vendor's stock
+    chest can also read as a "vending machine" (e.g. NWOT_VendingMachine_VendorChest_
+    NukaCola) — VendorChest wins so dedicated vendors are never mislabelled as machines.
+    """
     e = (edid or "").lower() + " " + (via_edid or "").lower()
+    # Collectron stations — a CAMP bot that gathers the drink.
     if "collectron" in e:
         return "collectron"
-    if "vend" in e or "mysterymachine" in e or "sodamachine" in e or "nukacolamachine" in e:
-        return "vending-machine"
-    if "dispenser" in e:
-        return "dispenser"
+    # Merchant vendor stock chests — dedicated + faction merchants (VendorChest wins
+    # over the VendingMachine token so NWOT's dedicated Nuka vendor lands in Vendors).
+    if "vendorchest" in e:
+        return "vendor"
+    # ATX in-place dispensers that PRODUCE the drink — Mystery Machines / ATX vending.
+    if "mysterymachine" in e:
+        return "resource-generator"
+    # Lootable world dispensing machines (ice / soda machines) — a fixed world object.
+    if "icemachine" in e or "sodamachine" in e:
+        return "machine"
+    # Other ATX vending machines / dispensers -> Resource Generators.
+    if "vendingmachine" in e or "dispenser" in e:
+        return "resource-generator"
+    # Generic vendor stock not named *VendorChest* (e.g. BS02_SpecialVendor_Brahmin).
+    if "vendor" in e:
+        return "vendor"
     if "questreward" in e or "quest_reward" in e or "_reward" in e:
         return "quest-reward"
     if sig == "NPC_":

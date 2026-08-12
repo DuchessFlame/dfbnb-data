@@ -1,0 +1,19 @@
+{
+  "_note": "Curated no-coordinate Nuka-Cola sources (Collectrons, Resource Generators, dedicated/instanced Vendors). ATX/CAMP/event items have no Mappalachia world coordinates, so they are listed here by hand — same pattern as data/vendors/vendor_overrides.tsv. Add a variant key + entries when a new skin ships. Detection of the placed sources stays fully automatic in classify(); only these coordless items need curation.",
+  "nuka-cola": {
+    "collectrons": [
+      { "name": "Nuka-Cola Collectron Station", "edid": "ATX_CollectronPod_NukaCola", "obtain": "Atom Shop", "note": "CAMP collectron pod that periodically deposits Nuka-Cola into its stash." }
+    ],
+    "resource_generators": [
+      { "name": "Nuka-Cola Mystery Machine", "edid": "NukaCola_MysteryMachine", "obtain": "Atom Shop", "note": "CAMP vending machine that dispenses a random classic Nuka-Cola flavour on a timer. Skins: Pristine, Americana." }
+    ],
+    "vendors": [
+      { "name": "Nuka-World on Tour — Nuka-Cola Vendor", "edid": "NWOT_VendingMachine_VendorChest_NukaCola", "region": "Ash Heap", "marker": "Nuka-World on Tour", "guaranteed": true, "note": "Dedicated vendor that always stocks Nuka-Cola during the Nuka-World on Tour event (instanced — no fixed map coordinates)." }
+    ]
+  },
+  "nuka-cola-quantum": {
+    "collectrons": [
+      { "name": "Nuka-Cola Quantum Collectron Station", "edid": "SCORE_S11_CollectronPod_NukaQuantum", "obtain": "Season 11 Scoreboard reward", "note": "CAMP collectron pod that periodically deposits Nuka-Cola Quantum into its stash." }
+    ]
+  }
+}
