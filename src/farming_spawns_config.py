@@ -792,10 +792,110 @@ RADTOAD_EGG = {
     },
 }
 
+# ── TICK BLOOD ─────────────────────────────────────────────────────────────────
+TICK_BLOOD = {
+    "slug": "tick-blood",
+    "name": "Tick Blood",
+    "page_title": "Tick Blood Spawn Locations",
+    "blurb": "Every known world spawn for Tick Blood, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "003D7494",
+            "edid": "TickBlood",
+            "full": "Tick Blood",
+            "sig": "ALCH",
+        },
+    ],
+    # ── Drop rates (resolved from LVLI TSVs, August 2026) ──────────────────
+    # Traced via the drop-rate-engine skill rules.
+    #
+    # Tick Blood (ALCH 003D7494) drops from all tick variants via creature
+    # death item LLD_Creature_Tick (0008EDE7, UseAll, 3 entries):
+    #   Entry 0: TickBlood (CN=65, qty=1) → 35% chance of 1 tick blood per kill
+    #   Entry 1: TickBloodSac (CN=0, qty=1) → guaranteed 1 tick blood sac (MISC)
+    #   Entry 2: LLE_Creature_Small (CN=0) → generic small creature loot
+    #
+    # Tick variants: Tick (EncTick01Template), Foul Tick (EncTick02),
+    # Wretched Tick (EncTick03), Vile Tick (EncTick04),
+    # Glowing Tick (EncTick05_Glowing).  All share LLD_Creature_Tick.
+    # LvlTick (002078FF) has 78 world placements.
+    # LvlTickScorched (003AFE19) has 4 world placements.
+    #
+    # Direct world REFRs: 2 placed ALCH REFRs (0043A3AA, 0043A3AB).
+    #
+    # Resource generators:
+    #   ATX_Resources_MorbidWell_Blood (00662E6F, pick-one 7 entries)
+    #     → tick blood is 1 of 7 = ~14.3% per cycle (Morbid Well).
+    #   LL_InsectParts (007AC77E, pick-one 52 entries)
+    #     → tick blood at entries 23 + 49 = 2/52 = ~3.85% per Mystery Crate.
+    #
+    # No vendor pools stock tick blood.
+    "drop_rates": {
+        "world_spawns": None,
+        "creature_drops": {
+            "list_edid": "LLD_Creature_Tick",
+            "list_id": "0008EDE7",
+            "mechanism": (
+                "UseAll list with 3 entries. Entry 0: TickBlood at CN=65 "
+                "(35% chance of 1 tick blood). Entry 1: TickBloodSac at CN=0 "
+                "(guaranteed 1 tick blood sac). Entry 2: LLE_Creature_Small "
+                "(generic small creature loot)."
+            ),
+            "note": (
+                "Every tick kill guarantees 1 tick blood sac. There is a 35% "
+                "chance of also receiving 1 tick blood from the same kill. "
+                "All tick variants (Tick, Foul Tick, Wretched Tick, Vile Tick, "
+                "Glowing Tick) share the same death item list."
+            ),
+        },
+        "vendors": None,
+        "resource_generators": {
+            "note": (
+                "Morbid Well resource generator produces tick blood at ~14.3% "
+                "per cycle (1 of 7 items in ATX_Resources_MorbidWell_Blood, "
+                "pick-one). Mystery Crate (Mire) has a ~3.85% chance per "
+                "crate (2 of 52 entries in LL_InsectParts, pick-one)."
+            ),
+        },
+    },
+    # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
+    # ALCH 003D7494: Weight 0.75, ObjectTypeDrink, MealTypeRaw,
+    # DrinkTypeTeaIcon, IngredientTypeBlood.
+    # No ObjectTypeNonPerishable but also no ObjectTypeCanSpoil and no
+    # spoil item → does not spoil in practice.
+    # Not meat/flora/canned → no yield perk applies.
+    # ObjectTypeDrink → Thru-Hiker weight perk, Grocer's backpack.
+    "farming_tips": {
+        "spoils": False,
+        "spoil_duration_hours": None,
+        "base_weight": 0.75,
+        "object_type": "Drink",
+        "yield_perk": None,
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.41},
+            {"rank": 2, "reduction": "90%", "weight": 0.08},
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.08,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.60},
+            {"pieces": 2, "reduction": "40%", "weight": 0.45},
+            {"pieces": 3, "reduction": "60%", "weight": 0.30},
+            {"pieces": 4, "reduction": "80%", "weight": 0.15},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.08},
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": False,
+    },
+}
+
 # All sets in this family — add new items here.
 # The generic build script (build_farming_spawns_json.py) picks them up automatically.
 ALL_SETS = [CREAM, DEATHCLAW_EGG, FROG_EGG, MIRELURK_EGG, MOTHMAN_EGG,
-            RADSCORPION_EGG, RADTOAD_EGG]
+            RADSCORPION_EGG, RADTOAD_EGG, TICK_BLOOD]
 
 # Slug → config dict, for --item <slug> lookup in the build script.
 SETS_BY_SLUG = {s["slug"]: s for s in ALL_SETS}

@@ -1,0 +1,123 @@
+{
+ "_meta": {
+  "generated": "2026-08-13",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "lists_in_closure": 7,
+  "source_totals": {},
+  "unresolved": {}
+ },
+ "set": "tick-blood",
+ "name": "Tick Blood",
+ "page_title": "Tick Blood Spawn Locations",
+ "blurb": "Every known world spawn for Tick Blood, grouped by region. Directions and photos are added by hand.",
+ "drop_rates": {
+  "world_spawns": null,
+  "creature_drops": {
+   "list_edid": "LLD_Creature_Tick",
+   "list_id": "0008EDE7",
+   "mechanism": "UseAll list with 3 entries. Entry 0: TickBlood at CN=65 (35% chance of 1 tick blood). Entry 1: TickBloodSac at CN=0 (guaranteed 1 tick blood sac). Entry 2: LLE_Creature_Small (generic small creature loot).",
+   "note": "Every tick kill guarantees 1 tick blood sac. There is a 35% chance of also receiving 1 tick blood from the same kill. All tick variants (Tick, Foul Tick, Wretched Tick, Vile Tick, Glowing Tick) share the same death item list."
+  },
+  "vendors": null,
+  "resource_generators": {
+   "note": "Morbid Well resource generator produces tick blood at ~14.3% per cycle (1 of 7 items in ATX_Resources_MorbidWell_Blood, pick-one). Mystery Crate (Mire) has a ~3.85% chance per crate (2 of 52 entries in LL_InsectParts, pick-one)."
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.75,
+  "object_type": "Drink",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.41
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.08
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.08,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.45
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.08
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "used_for": null,
+ "additional_expands": null,
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ]
+}
