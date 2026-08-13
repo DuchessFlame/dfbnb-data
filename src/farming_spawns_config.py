@@ -892,10 +892,129 @@ TICK_BLOOD = {
     },
 }
 
+# ── BLOOD SAC ──────────────────────────────────────────────────────────────────
+# Non-perishable junk / crafting component (MISC, not ALCH).  "Blood Sac" is the
+# in-game name of BloodbugSacFilledRed (00028A63): weight 0.50, value 12, used to
+# craft co_chem_SkeetoSpit.  Being a MISC junk item it has NO consumable ALCH data,
+# so it renders NO "Used For → When Consumed" block and NO "Farming Tips" expand
+# (per spawn-guide §9g/§9k: those are consumable-only).  build_farming_used_for.py
+# still injects a `used_for.recipes` list (what Blood Sac is used to craft) and a
+# `vendor_list` from the NPC2 vendor master.
+BLOOD_SAC = {
+    "slug": "blood-sac",
+    "name": "Blood Sac",
+    "page_title": "Blood Sac Spawn Locations",
+    "blurb": "Every known world source for Blood Sac, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "00028A63",
+            "edid": "BloodbugSacFilledRed",
+            "full": "Blood Sac",
+            "sig": "MISC",
+        },
+    ],
+    # ── Drop rates (resolved from LVLI TSVs, August 2026) ──────────────────
+    # Traced via the drop-rate-engine skill rules.  Blood Sac is NOT a dedicated
+    # creature death drop and has NO world-placed food/LPI list — it is a member
+    # of the shared "small junk (rare)" loot pool, so it can roll from any
+    # container / creature that draws that pool, plus a few resource generators.
+    #
+    # Container / loot pool (chance loot):
+    #   LLS_Loot_Junk_Small_Rare (000BF429) → LLS_Loot_Junk_Small_All (004F680D)
+    #   / LLS_Loot_Junk_Rare_All (0059C7E4) → ... → LL_Junk_Small (0003678C).
+    #   Blood Sac is a rare pick in the small-junk pool, so a very wide set of
+    #   junk containers (footlockers, suitcases, crates, backpacks, dressers,
+    #   lockers, safes …) can rarely contain it.
+    #
+    # Vendors (chance):
+    #   LLV_Vendor_Junk_Small_Rare (000757BD) — junk vendors' rare pool can roll
+    #   Blood Sac.  No named vendor stocks it on a guaranteed list.
+    #
+    # Creatures (chance):
+    #   No dedicated creature list.  Blood Sac reaches generic small-creature junk
+    #   loot through the same LL_Junk_Small ancestry (feral ghouls, anglers,
+    #   gulpers, brahmin, radtoads, dogs, etc.), so many small creatures can very
+    #   rarely drop it as junk.
+    #
+    # Resource generators (coordless — described here, not on the map):
+    #   ATX_Resources_MorbidWell_Blood (00662E6F) — the Morbid Well CAMP generator
+    #     produces Blood Sac as 1 of 7 blood items (~14.3% per cycle, pick-one).
+    #   SCORE_S26_Resources_CultistWell_Blood (008F10E4) — the Season 26 Cultist
+    #     Well generator's blood pool.
+    #   LL_InsectParts (007AC77E) — Mystery Crate (Mire) insect-parts pool
+    #     (~3.85% per crate, 2 of 52, pick-one).
+    #   MILE_LL_Scavenger_Junk_Rare (0079B9C5) — Milepost Zero scavenger rare junk.
+    #   Burn_BountyHunt_LL_Junk_Rare (00843A12) — Burning Springs bounty-hunt junk.
+    "drop_rates": {
+        "world_spawns": None,
+        # Note-only Creatures expand (NOT creature_drops — that renders an
+        # eggs-only "Creature Drops" card). Blood Sac has no dedicated creature
+        # death list; it reaches generic small-creature junk loot through the
+        # shared LL_Junk_Small ancestry. The actual kill spots are counted as
+        # markers under Fixed Spawn Locations (source_type npc).
+        "creatures": {
+            "note": (
+                "Blood Sac is not a guaranteed drop from any creature. It is a rare "
+                "pick in the shared small-junk loot pool (LLS_Loot_Junk_Small_Rare, "
+                "part of LL_Junk_Small), so many small creatures - feral ghouls, "
+                "anglers, gulpers, brahmin, radtoads and others - can very rarely "
+                "drop one as junk loot. Their locations are listed under Fixed Spawn "
+                "Locations."
+            ),
+        },
+        "containers": {
+            "container_edid": "LLS_Loot_Junk_Small_Rare",
+            "container_id": "000BF429",
+            "nest_list_edid": "LL_Junk_Small",
+            "nest_list_id": "0003678C",
+            "note": (
+                "A rare pick in the small-junk loot pool, so a wide range of junk "
+                "containers (footlockers, suitcases, crates, backpacks, dressers, "
+                "lockers and safes) can rarely contain a Blood Sac."
+            ),
+        },
+        "vendors": {
+            "general": {
+                "list_edid": "LLV_Vendor_Junk_Small_Rare",
+                "list_id": "000757BD",
+                "mechanism": (
+                    "Blood Sac sits in the junk vendors' rare pool "
+                    "(LLV_Vendor_Junk_Small_Rare, pick-one). No named vendor "
+                    "stocks it on a guaranteed list."
+                ),
+                "note": (
+                    "Junk vendors have a small per-reset chance to stock a Blood "
+                    "Sac from their rare junk pool (computed)."
+                ),
+            },
+        },
+        "resource_generators": {
+            "note": (
+                "The Morbid Well CAMP resource generator produces Blood Sac at "
+                "~14.3% per cycle (1 of 7 items in ATX_Resources_MorbidWell_Blood, "
+                "pick-one). The Season 26 Cultist Well generator has a matching "
+                "blood pool. Blood Sac also appears in the Mire Mystery Crate at "
+                "~3.85% per crate (2 of 52 in LL_InsectParts, pick-one), in the "
+                "Milepost Zero scavenger rare-junk pool, and in Burning Springs "
+                "bounty-hunt junk rewards."
+            ),
+        },
+    },
+    # ── Farming Tips ────────────────────────────────────────────────────
+    # OMITTED on purpose. Blood Sac is a MISC junk / crafting component with no
+    # consumable ALCH data (no ObjectTypeFood/Drink/Chem), so per spawn-guide §9g
+    # the Farming Tips expand does not apply. `farming_tips` is left unset (None).
+    #
+    # ── Used For ────────────────────────────────────────────────────────
+    # GENERATED at build time by build_farming_used_for.py. For Blood Sac the
+    # `consumption` block is None (no ALCH), but `recipes` lists what Blood Sac is
+    # used to craft, and `vendor_list` is joined from the NPC2 vendor master.
+}
+
 # All sets in this family — add new items here.
 # The generic build script (build_farming_spawns_json.py) picks them up automatically.
 ALL_SETS = [CREAM, DEATHCLAW_EGG, FROG_EGG, MIRELURK_EGG, MOTHMAN_EGG,
-            RADSCORPION_EGG, RADTOAD_EGG, TICK_BLOOD]
+            RADSCORPION_EGG, RADTOAD_EGG, TICK_BLOOD, BLOOD_SAC]
 
 # Slug → config dict, for --item <slug> lookup in the build script.
 SETS_BY_SLUG = {s["slug"]: s for s in ALL_SETS}
