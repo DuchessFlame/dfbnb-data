@@ -62,6 +62,7 @@ if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
 from farming_spawns_config import ALL_SETS, SETS_BY_SLUG  # noqa: E402
+from spawns_engine import events as _events_engine  # noqa: E402  (Events & Activities rate chaining)
 import farming_spawns_sources as sources  # noqa: E402  (item LVLI closure for vendor join)
 import rng76  # noqa: E402  (shared LVLI engine — computes vendor appearance rates, never hardcoded)
 # Reuse the exact effect-name / duration formatting used by the guide pages.
@@ -591,6 +592,24 @@ class HarvestProduce:
         return any(self.produces(i, targets) for i in (ids or []) if i)
 
 
+def _patch_events_activities(doc: Dict[str, Any], rates: Optional["VendorRates"],
+                             targets: set) -> None:
+    """Fill in per-source drop rates for the Events & Activities expand.
+
+    The engine (spawns_engine.events) already put the raw event/activity reward
+    lists into doc['events_activities'] as {list_id, edid, name, type}. Here we
+    resolve each list's per-roll appearance chance for the item with rng76 (never
+    typed), add the rate fields + a blurb, and sort by chance (desc). Left as-is
+    when rng76 is unavailable, so a build without the engine still renders (rate
+    just shows blank)."""
+    evs = doc.get("events_activities")
+    if not (rates and isinstance(evs, list) and evs):
+        return
+    # Chained rate from each event/activity ROOT: rng76 walks the nested tree
+    # (incl. loot-bag sub-lists) DOWN to the item via VendorRates.appearance().
+    _events_engine.resolve_event_rates(evs, targets, rates.appearance)
+
+
 def _patch_drop_rates(doc: Dict[str, Any], rates: Optional["VendorRates"], targets: set,
                       harvest: Optional["HarvestProduce"] = None,
                       extra_base_ids: Optional[List[str]] = None) -> None:
@@ -824,6 +843,7 @@ def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: s
                     object_pairs_hook=collections.OrderedDict)
     extra_ids = [b.get("formid") for b in (cfg.get("extra_world_bases") or []) if b.get("formid")]
     _patch_drop_rates(doc, rates, _target_fids(cfg), harvest=harvest, extra_base_ids=extra_ids)
+    _patch_events_activities(doc, rates, _target_fids(cfg))
     vendor_list = build_vendor_list(doc.get("regions", []), cfg,
                                     item_closure=item_closure, vendor_master=vendor_master,
                                     rates=rates)
@@ -915,6 +935,49 @@ def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
         uf = build_used_for(cfg, dist_dir, data_dir, recipe_guide, bench_cat)
         inject(slug, uf, cfg, dist_dir, item_closure=item_closure,
                vendor_master=vendor_master, rates=rates, harvest=harvest)
+        if cfg.get("multi_item"):
+            _inject_multi_item(slug, cfg, dist_dir, data_dir)
+
+
+def _inject_multi_item(slug, cfg, dist_dir, data_dir):
+    """For a combined multi-item page (e.g. Salt/Pepper/Sugar & Spices): add an
+    `item_breakdown` (per-item consumption, one Used-For sub-expand each) and a
+    `fixed_spawn_index` (turns Fixed Spawn Locations into a region index linking
+    the per-region pages, instead of dumping every marker)."""
+    path = os.path.join(dist_dir, "farming_spawns", f"{slug}_spawns.json")
+    if not os.path.exists(path):
+        return
+    doc = json.load(open(path, encoding="utf-8"),
+                    object_pairs_hook=collections.OrderedDict)
+    breakdown = []
+    for it in (cfg.get("items") or []):
+        breakdown.append({
+            "name": it.get("full") or it.get("edid"),
+            "formid": it.get("formid"),
+            "consumption": build_consumption(it.get("formid"), data_dir, it.get("full") or "This item"),
+        })
+    base = cfg.get("region_index_base") or ""
+    regions = [{"region": r.get("region"),
+                "count": len(r.get("locations") or []),
+                "url": (base + _region_slug(r.get("region")) + "/") if base else ""}
+               for r in doc.get("regions", [])]
+    doc["item_breakdown"] = breakdown
+    doc["fixed_spawn_index"] = {"base": base, "regions": regions}
+    json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"  {os.path.basename(path):<34} multi_item: {len(breakdown)} items, "
+          f"{len(regions)} region-index links")
+
+
+def _region_slug(region):
+    """'The Mire' -> 'mire', 'Ash Heap' -> 'ash-heap', 'The Pitt' -> 'the-pitt'.
+    Matches the page slugs used in the guide index / nav for the per-region pages."""
+    r = (region or "").strip().lower()
+    # per-region page slugs: The Mire -> mire (drop leading 'the ' except The Pitt),
+    # everything else is hyphenated. Mirrors the existing salt-pepper region pages.
+    special = {"the mire": "mire", "the pitt": "the-pitt"}
+    if r in special:
+        return special[r]
+    return r.replace(" ", "-")
 
 
 def main(argv=None):

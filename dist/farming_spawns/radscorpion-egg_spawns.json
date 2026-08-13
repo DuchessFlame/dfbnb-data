@@ -47,19 +47,32 @@
    "list_edid": "LPI_Food_RadscorpionEgg",
    "list_id": "0062A883",
    "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
-   "note": "24 LPI spawn points (all interior — Carleton Mine) roll a per-server-hop chance each (computed)."
+   "note": "24 LPI spawn points (all interior — Carleton Mine) roll a per-server-hop chance each (computed).",
+   "rate": 0.5,
+   "rate_display": "50%",
+   "rate_source": "computed"
   },
   "creature_drops": {
    "list_edid": "LLD_Creature_Radscorpion",
    "list_id": "00074D11",
-   "note": "Radscorpion kills have a chance to drop 1 egg (entry 3, ChanceNone 75). Same rate for Prime radscorpions."
+   "note": "Radscorpion kills have a chance to drop 1 egg (entry 3, ChanceNone 75). Same rate for Prime radscorpions.",
+   "rate": 0.25,
+   "rate_lines": [
+    "25%"
+   ],
+   "rate_display": "25%"
   },
   "vendors": {
    "whitespring": {
     "list_edid": "LLV_Vendor_Food_Whitespring_Unique",
     "list_id": "0037D967",
     "qty": 1,
-    "note": "Whitespring food vendor can stock 1 radscorpion egg from its unique food pool (per-reset chance computed)."
+    "note": "Whitespring food vendor can stock 1 radscorpion egg from its unique food pool (per-reset chance computed).",
+    "rate": 0.2,
+    "rate_lines": [
+     "20%"
+    ],
+    "rate_display": "20%"
    }
   },
   "resource_generators": null
@@ -117,8 +130,768 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.25,
+   "value": 13,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Radscorpion Egg is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "15% chance to catch a disease",
+     "duration": null
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (small)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [
+   {
+    "name": "Radscorpion Egg Omelette",
+    "form_id": "0004693D",
+    "recipe_edid": "co_meal_RadscorpionEggCooked",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Radscorpion Egg",
+      "qty": 1
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (medium)",
+      "duration": null
+     },
+     {
+      "name": "Cure Random Addiction",
+      "display": "+1 Cure Random Addiction",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": ""
+   },
+   {
+    "name": "Radscorpion Fillet",
+    "form_id": "003D7498",
+    "recipe_edid": "co_meal_RadscorpionMeatTasty",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Radscorpion Egg",
+      "qty": 2
+     },
+     {
+      "name": "Radscorpion Meat",
+      "qty": 2
+     },
+     {
+      "name": "Pepper",
+      "qty": 2
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Energy Resist",
+      "display": "+35 Fortify Energy Resist",
+      "duration": "1 hour"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (verylarge)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": ""
+   },
+   {
+    "name": "Tasty Radscorpion Egg Omelette",
+    "form_id": "001F1208",
+    "recipe_edid": "co_meal_RadscorpionEggTasty",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Radscorpion Egg",
+      "qty": 2
+     },
+     {
+      "name": "Tato",
+      "qty": 2
+     },
+     {
+      "name": "Pepper",
+      "qty": 2
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (medium)",
+      "duration": null
+     },
+     {
+      "name": "Cure All Addictions",
+      "display": "+1 Cure All Addictions",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+1 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": ""
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.65%"
+   ],
+   "rate_display": "15.65%",
+   "rate_value": 0.156536,
+   "count": 1
+  },
+  {
+   "name": "The Whitespring Station Vendor",
+   "marker": "Whitespring Station",
+   "region": "Savage Divide",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.65%",
+    "4.08%"
+   ],
+   "rate_display": "15.65% / 4.08%",
+   "rate_value": 0.156536,
+   "count": 1
+  },
+  {
+   "name": "Duchess",
+   "marker": "The Wayward",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "5.99%"
+   ],
+   "rate_display": "5.99%",
+   "rate_value": 0.059932,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Carmen",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Fast Nicky",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Pete Rutledge",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "May",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Hocking Hills Vendor Bot",
+   "marker": "Hocking Hills Train Station",
+   "region": "Burning Springs",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Phoenix",
+   "marker": "Watoga Shopping Plaza",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Watoga Vendor Bot",
+   "marker": "Watoga Station",
+   "region": "Cranberry Bog",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sutton Station",
+   "region": "Forest",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Sunny",
+   "marker": "Foundation",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Pleasant Valley Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "R&G Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sunnytop Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Brotherhood Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Free States Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Shopping Mall Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Murry",
+   "marker": "",
+   "region": "Skyline Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Wallace",
+   "marker": "Berkeley Springs Station",
+   "region": "The Mire",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Beckham",
+   "marker": "Raleigh Clay's Bunker",
+   "region": "The Mire",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Molly",
+   "marker": "The Crater",
+   "region": "Toxic Valley",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "A.T.H.E.N.A.",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Astronaut Emerson Vendor",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Beckett",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Daphne",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Grahm",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Hunter",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Sam Nguyen",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Scavenger Trader",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 6
+  },
+  {
+   "name": "Trader",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Traveling Merchant",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Xerxo",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  }
+ ],
  "additional_expands": null,
+ "events_activities": [
+  {
+   "list_id": "005FF9CA",
+   "edid": "BS02_MQ01_Penance_LL_Quest_Rewards",
+   "name": "Penance Quest Rewards",
+   "type": "Quest Reward",
+   "rate_lines": [
+    "1.5%"
+   ],
+   "rate_display": "1.5%",
+   "rate_value": 0.015,
+   "note": "Radscorpion Egg can appear in the Penance Quest Rewards reward pool."
+  }
+ ],
  "regions": [
   {
    "region": "Ash Heap",
@@ -141,8 +914,8 @@
       "4E3F4B"
      ],
      "coords": [
-      -169700.546875,
-      -113899.1875
+      -169700.5,
+      -113899.2
      ]
     },
     {
@@ -158,8 +931,8 @@
       "39F2F5"
      ],
      "coords": [
-      -112815.984375,
-      -111248.7578125
+      -112816.0,
+      -111248.8
      ]
     },
     {
@@ -178,8 +951,8 @@
       "4396DC"
      ],
      "coords": [
-      -135629.296875,
-      -112003.7421875
+      -135629.3,
+      -112003.7
      ]
     },
     {
@@ -195,8 +968,8 @@
       "4E01F8"
      ],
      "coords": [
-      -107700.46875,
-      -90733.859375
+      -107700.5,
+      -90733.9
      ]
     },
     {
@@ -216,8 +989,8 @@
       "3CAC53"
      ],
      "coords": [
-      -186470.765625,
-      -121727.2890625
+      -186470.8,
+      -121727.3
      ]
     },
     {
@@ -233,8 +1006,8 @@
       "343265"
      ],
      "coords": [
-      -191059.34375,
-      -124886.890625
+      -191059.3,
+      -124886.9
      ]
     },
     {
@@ -250,8 +1023,8 @@
       "5750D3"
      ],
      "coords": [
-      -45627.05078125,
-      -121225.265625
+      -45627.1,
+      -121225.3
      ]
     },
     {
@@ -267,8 +1040,8 @@
       "15234D"
      ],
      "coords": [
-      -161290.890625,
-      -82127.3671875
+      -161290.9,
+      -82127.4
      ]
     },
     {
@@ -288,8 +1061,8 @@
       "4E2337"
      ],
      "coords": [
-      -189562.8125,
-      -69410.4296875
+      -189562.8,
+      -69410.4
      ]
     },
     {
@@ -305,8 +1078,8 @@
       "1CA739"
      ],
      "coords": [
-      -74439.3359375,
-      -151085.71875
+      -74439.3,
+      -151085.7
      ]
     },
     {
@@ -322,8 +1095,8 @@
       "39CFB2"
      ],
      "coords": [
-      -102639.7734375,
-      -80424.609375
+      -102639.8,
+      -80424.6
      ]
     },
     {
@@ -342,8 +1115,8 @@
       "4032A5"
      ],
      "coords": [
-      -186940.140625,
-      -102506.5390625
+      -186940.1,
+      -102506.5
      ]
     },
     {
@@ -361,7 +1134,7 @@
       "4E4A32"
      ],
      "coords": [
-      -164814.375,
+      -164814.4,
       -144197.5
      ]
     },
@@ -378,8 +1151,8 @@
       "4E4AD3"
      ],
      "coords": [
-      -156728.15625,
-      -100264.0859375
+      -156728.2,
+      -100264.1
      ]
     },
     {
@@ -395,8 +1168,8 @@
       "204D2C"
      ],
      "coords": [
-      -65835.3828125,
-      -120875.1484375
+      -65835.4,
+      -120875.1
      ]
     },
     {
@@ -413,8 +1186,8 @@
       "68C025"
      ],
      "coords": [
-      -58888.37109375,
-      -108913.484375
+      -58888.4,
+      -108913.5
      ]
     },
     {
@@ -432,8 +1205,8 @@
       "43037D"
      ],
      "coords": [
-      -61176.87109375,
-      -117706.0703125
+      -61176.9,
+      -117706.1
      ]
     },
     {
@@ -450,8 +1223,8 @@
       "4FBD77"
      ],
      "coords": [
-      -130222.8671875,
-      -103385.125
+      -130222.9,
+      -103385.1
      ]
     },
     {
@@ -470,8 +1243,8 @@
       "52B978"
      ],
      "coords": [
-      -133957.671875,
-      -122933.703125
+      -133957.7,
+      -122933.7
      ]
     },
     {
@@ -487,8 +1260,8 @@
       "3AA56D"
      ],
      "coords": [
-      -52036.13671875,
-      -102363.8984375
+      -52036.1,
+      -102363.9
      ]
     },
     {
@@ -504,8 +1277,8 @@
       "33BC37"
      ],
      "coords": [
-      -113762.1953125,
-      -131474.40625
+      -113762.2,
+      -131474.4
      ]
     },
     {
@@ -521,8 +1294,8 @@
       "3AB047"
      ],
      "coords": [
-      -146229.390625,
-      -67523.09375
+      -146229.4,
+      -67523.1
      ]
     },
     {
@@ -542,8 +1315,8 @@
       "54FD19"
      ],
      "coords": [
-      -99001.5078125,
-      -115398.28125
+      -99001.5,
+      -115398.3
      ]
     },
     {
@@ -565,8 +1338,8 @@
       "3C675B"
      ],
      "coords": [
-      -189450.609375,
-      -120670.4921875
+      -189450.6,
+      -120670.5
      ]
     },
     {
@@ -584,8 +1357,8 @@
       "50D60B"
      ],
      "coords": [
-      -116367.1484375,
-      -168547.859375
+      -116367.1,
+      -168547.9
      ]
     },
     {
@@ -608,8 +1381,8 @@
       "2DDC2D"
      ],
      "coords": [
-      813.850341796875,
-      -8426.095703125
+      813.9,
+      -8426.1
      ]
     },
     {
@@ -625,8 +1398,8 @@
       "5910FB"
      ],
      "coords": [
-      -104957.1328125,
-      -138002.703125
+      -104957.1,
+      -138002.7
      ]
     },
     {
@@ -642,8 +1415,8 @@
       "3D10C0"
      ],
      "coords": [
-      -77229.171875,
-      -138069.84375
+      -77229.2,
+      -138069.8
      ]
     },
     {
@@ -660,8 +1433,8 @@
       "72ADE8"
      ],
      "coords": [
-      4440.390625,
-      -11029.412109375
+      4440.4,
+      -11029.4
      ]
     },
     {
@@ -679,8 +1452,8 @@
       "2E9E7B"
      ],
      "coords": [
-      -154503.109375,
-      -131654.8125
+      -154503.1,
+      -131654.8
      ]
     },
     {
@@ -696,8 +1469,8 @@
       "430378"
      ],
      "coords": [
-      -148839.3125,
-      -132090.828125
+      -148839.3,
+      -132090.8
      ]
     },
     {
@@ -713,8 +1486,8 @@
       "311ACE"
      ],
      "coords": [
-      -79040.1171875,
-      -83331.6328125
+      -79040.1,
+      -83331.6
      ]
     }
    ]
@@ -742,8 +1515,8 @@
       "743AA6"
      ],
      "coords": [
-      -748.377380371094,
-      -2088.31396484375
+      -748.4,
+      -2088.3
      ]
     },
     {
@@ -762,8 +1535,8 @@
       "6F87F9"
      ],
      "coords": [
-      -3119.05322265625,
-      -252.857269287109
+      -3119.1,
+      -252.9
      ]
     },
     {
@@ -779,8 +1552,8 @@
       "732974"
      ],
      "coords": [
-      1550.13928222656,
-      2874.61987304687
+      1550.1,
+      2874.6
      ]
     },
     {
@@ -803,8 +1576,8 @@
       "77C6DD"
      ],
      "coords": [
-      685.63623046875,
-      2918.44384765625
+      685.6,
+      2918.4
      ]
     },
     {
@@ -822,8 +1595,8 @@
       "76C816"
      ],
      "coords": [
-      9191.3681640625,
-      -6638.87255859375
+      9191.4,
+      -6638.9
      ]
     },
     {
@@ -842,8 +1615,8 @@
       "6B6764"
      ],
      "coords": [
-      -1944.01965332031,
-      2256.0068359375
+      -1944.0,
+      2256.0
      ]
     },
     {
@@ -861,8 +1634,8 @@
       "6E3571"
      ],
      "coords": [
-      1603.10827636719,
-      976.789733886719
+      1603.1,
+      976.8
      ]
     },
     {
@@ -884,8 +1657,8 @@
       "6EDD50"
      ],
      "coords": [
-      -1366.06213378906,
-      3221.67333984375
+      -1366.1,
+      3221.7
      ]
     }
    ]
@@ -907,8 +1680,8 @@
       "81E0FE"
      ],
      "coords": [
-      -215979.71875,
-      13832.3916015625
+      -215979.7,
+      13832.4
      ]
     },
     {
@@ -926,8 +1699,8 @@
       "8562FD"
      ],
      "coords": [
-      -224209.109375,
-      58544.4296875
+      -224209.1,
+      58544.4
      ]
     },
     {
@@ -948,8 +1721,8 @@
       "8469A5"
      ],
      "coords": [
-      -264791.90625,
-      99709.046875
+      -264791.9,
+      99709.0
      ]
     },
     {
@@ -983,8 +1756,8 @@
       "883668"
      ],
      "coords": [
-      -239786.03125,
-      160316.453125
+      -239786.0,
+      160316.5
      ]
     },
     {
@@ -1000,8 +1773,8 @@
       "82DCB6"
      ],
      "coords": [
-      -1370.29296875,
-      675.243896484375
+      -1370.3,
+      675.2
      ]
     },
     {
@@ -1018,8 +1791,8 @@
       "818A68"
      ],
      "coords": [
-      -198381.03125,
-      132969.203125
+      -198381.0,
+      132969.2
      ]
     },
     {
@@ -1035,8 +1808,8 @@
       "7DD369"
      ],
      "coords": [
-      -218219.640625,
-      34119.91015625
+      -218219.6,
+      34119.9
      ]
     },
     {
@@ -1054,8 +1827,8 @@
       "82ED86"
      ],
      "coords": [
-      -264014.40625,
-      170996.84375
+      -264014.4,
+      170996.8
      ]
     },
     {
@@ -1072,8 +1845,8 @@
       "844CF8"
      ],
      "coords": [
-      -234312.890625,
-      98901.0078125
+      -234312.9,
+      98901.0
      ]
     },
     {
@@ -1096,8 +1869,8 @@
       "845A70"
      ],
      "coords": [
-      -2919.99926757812,
-      13675.5458984375
+      -2920.0,
+      13675.5
      ]
     },
     {
@@ -1123,8 +1896,8 @@
       "86C9C1"
      ],
      "coords": [
-      -252666.921875,
-      79594.875
+      -252666.9,
+      79594.9
      ]
     },
     {
@@ -1142,8 +1915,8 @@
       "85A47C"
      ],
      "coords": [
-      -235121.734375,
-      84919.7734375
+      -235121.7,
+      84919.8
      ]
     },
     {
@@ -1163,8 +1936,8 @@
       "83A182"
      ],
      "coords": [
-      -254091.09375,
-      32536.716796875
+      -254091.1,
+      32536.7
      ]
     },
     {
@@ -1182,8 +1955,8 @@
       "85A1F5"
      ],
      "coords": [
-      -253293.375,
-      20246.05078125
+      -253293.4,
+      20246.1
      ]
     },
     {
@@ -1200,7 +1973,7 @@
      ],
      "coords": [
       -212882.5,
-      108468.7421875
+      108468.7
      ]
     },
     {
@@ -1217,8 +1990,8 @@
       "8584E5"
      ],
      "coords": [
-      -238302.921875,
-      15899.4443359375
+      -238302.9,
+      15899.4
      ]
     },
     {
@@ -1234,8 +2007,8 @@
       "813167"
      ],
      "coords": [
-      -212399.59375,
-      -18647.6015625
+      -212399.6,
+      -18647.6
      ]
     },
     {
@@ -1252,8 +2025,8 @@
       "84620B"
      ],
      "coords": [
-      -244629.828125,
-      126424.6796875
+      -244629.8,
+      126424.7
      ]
     },
     {
@@ -1269,8 +2042,8 @@
       "818B79"
      ],
      "coords": [
-      -197592.515625,
-      125239.96875
+      -197592.5,
+      125240.0
      ]
     },
     {
@@ -1296,8 +2069,8 @@
       "839C3A"
      ],
      "coords": [
-      -229720.6875,
-      128024.015625
+      -229720.7,
+      128024.0
      ]
     },
     {
@@ -1319,8 +2092,8 @@
       "8622D3"
      ],
      "coords": [
-      -215549.9375,
-      71345.1875
+      -215549.9,
+      71345.2
      ]
     },
     {
@@ -1352,8 +2125,8 @@
       "86995D"
      ],
      "coords": [
-      -238045.015625,
-      -10889.5341796875
+      -238045.0,
+      -10889.5
      ]
     },
     {
@@ -1371,8 +2144,8 @@
       "84FC9A"
      ],
      "coords": [
-      -201106.75,
-      17549.310546875
+      -201106.8,
+      17549.3
      ]
     },
     {
@@ -1402,8 +2175,8 @@
       "858EF2"
      ],
      "coords": [
-      -236904.859375,
-      51573.43359375
+      -236904.9,
+      51573.4
      ]
     }
    ]
@@ -1426,8 +2199,8 @@
       "3DB2D3"
      ],
      "coords": [
-      179688.65625,
-      -88943.8359375
+      179688.7,
+      -88943.8
      ]
     },
     {
@@ -1443,8 +2216,8 @@
       "4FD18E"
      ],
      "coords": [
-      119583.6328125,
-      -128464.40625
+      119583.6,
+      -128464.4
      ]
     },
     {
@@ -1461,8 +2234,8 @@
       "39D1F5"
      ],
      "coords": [
-      113575.6328125,
-      -150589.921875
+      113575.6,
+      -150589.9
      ]
     },
     {
@@ -1479,8 +2252,8 @@
       "225D04"
      ],
      "coords": [
-      166217.515625,
-      -84297.140625
+      166217.5,
+      -84297.1
      ]
     },
     {
@@ -1496,8 +2269,8 @@
       "378EF4"
      ],
      "coords": [
-      160351.78125,
-      -78595.6015625
+      160351.8,
+      -78595.6
      ]
     },
     {
@@ -1515,8 +2288,8 @@
       "42C17B"
      ],
      "coords": [
-      136014.125,
-      -96178.6875
+      136014.1,
+      -96178.7
      ]
     },
     {
@@ -1534,8 +2307,8 @@
       "3EA73B"
      ],
      "coords": [
-      191229.59375,
-      -157326.28125
+      191229.6,
+      -157326.3
      ]
     },
     {
@@ -1551,8 +2324,8 @@
       "428646"
      ],
      "coords": [
-      -2786.87182617187,
-      871.800415039063
+      -2786.9,
+      871.8
      ]
     },
     {
@@ -1573,8 +2346,8 @@
       "4EAD1B"
      ],
      "coords": [
-      172806.90625,
-      -144279.359375
+      172806.9,
+      -144279.4
      ]
     },
     {
@@ -1594,8 +2367,8 @@
       "4DF0B3"
      ],
      "coords": [
-      174.608764648438,
-      155.521255493164
+      174.6,
+      155.5
      ]
     },
     {
@@ -1611,8 +2384,8 @@
       "369B27"
      ],
      "coords": [
-      116119.453125,
-      -86921.1796875
+      116119.5,
+      -86921.2
      ]
     },
     {
@@ -1641,8 +2414,8 @@
       "7663DD"
      ],
      "coords": [
-      3729.50903320313,
-      7403.59423828125
+      3729.5,
+      7403.6
      ]
     },
     {
@@ -1664,8 +2437,8 @@
       "30F794"
      ],
      "coords": [
-      -3682.08349609375,
-      -76.1692123413086
+      -3682.1,
+      -76.2
      ]
     },
     {
@@ -1681,8 +2454,8 @@
       "377AB8"
      ],
      "coords": [
-      122720.1796875,
-      -165375.515625
+      122720.2,
+      -165375.5
      ]
     },
     {
@@ -1698,8 +2471,8 @@
       "312450"
      ],
      "coords": [
-      170946.3125,
-      -68741.09375
+      170946.3,
+      -68741.1
      ]
     },
     {
@@ -1722,8 +2495,8 @@
       "445E1B"
      ],
      "coords": [
-      -3458.06713867188,
-      -23443.7421875
+      -3458.1,
+      -23443.7
      ]
     },
     {
@@ -1739,8 +2512,8 @@
       "39D1BD"
      ],
      "coords": [
-      125755.125,
-      -156783.703125
+      125755.1,
+      -156783.7
      ]
     },
     {
@@ -1757,8 +2530,8 @@
       "5219FF"
      ],
      "coords": [
-      202022.203125,
-      -81995.4921875
+      202022.2,
+      -81995.5
      ]
     },
     {
@@ -1775,8 +2548,8 @@
       "396C89"
      ],
      "coords": [
-      175680.546875,
-      -176501.1875
+      175680.5,
+      -176501.2
      ]
     },
     {
@@ -1792,8 +2565,8 @@
       "39703B"
      ],
      "coords": [
-      194466.34375,
-      -86554.6796875
+      194466.3,
+      -86554.7
      ]
     },
     {
@@ -1809,8 +2582,8 @@
       "3382EC"
      ],
      "coords": [
-      152200.640625,
-      -94338.2734375
+      152200.6,
+      -94338.3
      ]
     },
     {
@@ -1826,8 +2599,8 @@
       "338AC8"
      ],
      "coords": [
-      152708.578125,
-      -88115.9609375
+      152708.6,
+      -88116.0
      ]
     },
     {
@@ -1852,8 +2625,8 @@
       "6693E0"
      ],
      "coords": [
-      -911.882446289063,
-      -668.478637695313
+      -911.9,
+      -668.5
      ]
     },
     {
@@ -1869,7 +2642,7 @@
       "313FB4"
      ],
      "coords": [
-      140962.515625,
+      140962.5,
       -162963.0
      ]
     },
@@ -1891,8 +2664,8 @@
       "396F08"
      ],
      "coords": [
-      180656.765625,
-      -60867.59375
+      180656.8,
+      -60867.6
      ]
     },
     {
@@ -1909,8 +2682,8 @@
       "37D5E2"
      ],
      "coords": [
-      177723.75,
-      -108494.34375
+      177723.8,
+      -108494.3
      ]
     },
     {
@@ -1927,8 +2700,8 @@
       "2A9917"
      ],
      "coords": [
-      146990.3125,
-      -135485.296875
+      146990.3,
+      -135485.3
      ]
     },
     {
@@ -1945,8 +2718,8 @@
       "505BEF"
      ],
      "coords": [
-      131044.4453125,
-      -129460.1640625
+      131044.4,
+      -129460.2
      ]
     },
     {
@@ -1964,8 +2737,8 @@
       "3403B6"
      ],
      "coords": [
-      139496.578125,
-      -142965.171875
+      139496.6,
+      -142965.2
      ]
     },
     {
@@ -1982,8 +2755,8 @@
       "505BE3"
      ],
      "coords": [
-      137815.828125,
-      -144117.03125
+      137815.8,
+      -144117.0
      ]
     },
     {
@@ -2002,8 +2775,8 @@
       "610563"
      ],
      "coords": [
-      155645.515625,
-      -146703.328125
+      155645.5,
+      -146703.3
      ]
     },
     {
@@ -2020,8 +2793,8 @@
       "3E8D40"
      ],
      "coords": [
-      299.481597900391,
-      -709.041320800781
+      299.5,
+      -709.0
      ]
     },
     {
@@ -2062,8 +2835,8 @@
       "53047D"
      ],
      "coords": [
-      149955.1875,
-      -150030.09375
+      149955.2,
+      -150030.1
      ]
     },
     {
@@ -2083,8 +2856,8 @@
       "51BE95"
      ],
      "coords": [
-      137058.046875,
-      -143036.734375
+      137058.0,
+      -143036.7
      ]
     },
     {
@@ -2104,8 +2877,8 @@
       "59EF9F"
      ],
      "coords": [
-      154921.421875,
-      -143472.015625
+      154921.4,
+      -143472.0
      ]
     }
    ]
@@ -2127,8 +2900,8 @@
       "2C08AB"
      ],
      "coords": [
-      -127977.484375,
-      158285.046875
+      -127977.5,
+      158285.0
      ]
     },
     {
@@ -2147,8 +2920,8 @@
       "3D757A"
      ],
      "coords": [
-      -137440.65625,
-      45710.85546875
+      -137440.7,
+      45710.9
      ]
     },
     {
@@ -2166,8 +2939,8 @@
       "542030"
      ],
      "coords": [
-      -120705.296875,
-      120568.296875
+      -120705.3,
+      120568.3
      ]
     },
     {
@@ -2185,8 +2958,8 @@
       "355081"
      ],
      "coords": [
-      -40371.484375,
-      51844.48828125
+      -40371.5,
+      51844.5
      ]
     },
     {
@@ -2209,8 +2982,8 @@
       "61C9F8"
      ],
      "coords": [
-      -1705.07592773438,
-      -1994.91687011719
+      -1705.1,
+      -1994.9
      ]
     },
     {
@@ -2226,8 +2999,8 @@
       "39115C"
      ],
      "coords": [
-      -89163.765625,
-      143493.84375
+      -89163.8,
+      143493.8
      ]
     },
     {
@@ -2250,8 +3023,8 @@
       "453208"
      ],
      "coords": [
-      -8406.6015625,
-      73333.8125
+      -8406.6,
+      73333.8
      ]
     },
     {
@@ -2268,8 +3041,8 @@
       "4DE327"
      ],
      "coords": [
-      -171966.609375,
-      -6614.26171875
+      -171966.6,
+      -6614.3
      ]
     },
     {
@@ -2286,8 +3059,8 @@
       "4DEB3B"
      ],
      "coords": [
-      -157734.078125,
-      108028.859375
+      -157734.1,
+      108028.9
      ]
     },
     {
@@ -2304,8 +3077,8 @@
       "4E4BB2"
      ],
      "coords": [
-      -61204.62890625,
-      -73931.0390625
+      -61204.6,
+      -73931.0
      ]
     },
     {
@@ -2322,8 +3095,8 @@
       "73290D"
      ],
      "coords": [
-      -137177.6875,
-      87893.4453125
+      -137177.7,
+      87893.4
      ]
     },
     {
@@ -2340,8 +3113,8 @@
       "320269"
      ],
      "coords": [
-      -151729.859375,
-      -31323.69921875
+      -151729.9,
+      -31323.7
      ]
     },
     {
@@ -2357,8 +3130,8 @@
       "356F29"
      ],
      "coords": [
-      -152684.078125,
-      -33781.60546875
+      -152684.1,
+      -33781.6
      ]
     },
     {
@@ -2376,8 +3149,8 @@
       "19622D"
      ],
      "coords": [
-      -68207.5859375,
-      -11868.880859375
+      -68207.6,
+      -11868.9
      ]
     },
     {
@@ -2394,8 +3167,8 @@
       "52C808"
      ],
      "coords": [
-      -100971.2734375,
-      -50544.23828125
+      -100971.3,
+      -50544.2
      ]
     },
     {
@@ -2422,8 +3195,8 @@
       "6737FB"
      ],
      "coords": [
-      684.98486328125,
-      -651.439208984375
+      685.0,
+      -651.4
      ]
     },
     {
@@ -2443,8 +3216,8 @@
       "4FCFF2"
      ],
      "coords": [
-      -101305.546875,
-      -62300.890625
+      -101305.5,
+      -62300.9
      ]
     },
     {
@@ -2461,8 +3234,8 @@
       "485A32"
      ],
      "coords": [
-      -127556.1640625,
-      -61709.3984375
+      -127556.2,
+      -61709.4
      ]
     },
     {
@@ -2481,8 +3254,8 @@
       "430370"
      ],
      "coords": [
-      -109218.5078125,
-      -25863.556640625
+      -109218.5,
+      -25863.6
      ]
     },
     {
@@ -2503,8 +3276,8 @@
       "5B7027"
      ],
      "coords": [
-      -117553.3515625,
-      -47536.5078125
+      -117553.4,
+      -47536.5
      ]
     },
     {
@@ -2521,8 +3294,8 @@
       "2FD865"
      ],
      "coords": [
-      -93173.1015625,
-      183989.9375
+      -93173.1,
+      183989.9
      ]
     },
     {
@@ -2539,8 +3312,8 @@
       "2E3F35"
      ],
      "coords": [
-      -121839.4375,
-      -15711.2724609375
+      -121839.4,
+      -15711.3
      ]
     },
     {
@@ -2557,8 +3330,8 @@
       "4DFAE5"
      ],
      "coords": [
-      -150036.171875,
-      165597.21875
+      -150036.2,
+      165597.2
      ]
     },
     {
@@ -2576,8 +3349,8 @@
       "0638FF"
      ],
      "coords": [
-      -172208.4375,
-      134030.921875
+      -172208.4,
+      134030.9
      ]
     },
     {
@@ -2593,8 +3366,8 @@
       "47F3EA"
      ],
      "coords": [
-      737.2060546875,
-      882.208557128906
+      737.2,
+      882.2
      ]
     },
     {
@@ -2618,8 +3391,8 @@
       "3EA9C2"
      ],
      "coords": [
-      -107023.9921875,
-      9401.15234375
+      -107024.0,
+      9401.2
      ]
     },
     {
@@ -2637,8 +3410,8 @@
       "38431D"
      ],
      "coords": [
-      -104433.4296875,
-      47253.50390625
+      -104433.4,
+      47253.5
      ]
     },
     {
@@ -2654,8 +3427,8 @@
       "30AE17"
      ],
      "coords": [
-      8021.92333984375,
-      92616.6796875
+      8021.9,
+      92616.7
      ]
     },
     {
@@ -2671,8 +3444,8 @@
       "2B7AFF"
      ],
      "coords": [
-      -58455.21484375,
-      61873.41796875
+      -58455.2,
+      61873.4
      ]
     },
     {
@@ -2688,8 +3461,8 @@
       "3E9B83"
      ],
      "coords": [
-      -50353.51171875,
-      63717.23046875
+      -50353.5,
+      63717.2
      ]
     },
     {
@@ -2705,8 +3478,8 @@
       "0202E1"
      ],
      "coords": [
-      -104311.71875,
-      73846.7578125
+      -104311.7,
+      73846.8
      ]
     },
     {
@@ -2726,8 +3499,8 @@
       "529AA6"
      ],
      "coords": [
-      -55274.2734375,
-      93623.3515625
+      -55274.3,
+      93623.4
      ]
     },
     {
@@ -2745,8 +3518,8 @@
       "3781E1"
      ],
      "coords": [
-      -100515.53125,
-      30631.076171875
+      -100515.5,
+      30631.1
      ]
     },
     {
@@ -2762,8 +3535,8 @@
       "3E9A86"
      ],
      "coords": [
-      -23017.783203125,
-      59579.1484375
+      -23017.8,
+      59579.1
      ]
     },
     {
@@ -2779,8 +3552,8 @@
       "2FD571"
      ],
      "coords": [
-      -140065.84375,
-      173258.921875
+      -140065.8,
+      173258.9
      ]
     },
     {
@@ -2801,8 +3574,8 @@
       "33268F"
      ],
      "coords": [
-      -34840.234375,
-      33160.12890625
+      -34840.2,
+      33160.1
      ]
     },
     {
@@ -2818,8 +3591,8 @@
       "2A05CC"
      ],
      "coords": [
-      -153214.765625,
-      13223.4755859375
+      -153214.8,
+      13223.5
      ]
     },
     {
@@ -2836,8 +3609,8 @@
       "194066"
      ],
      "coords": [
-      -46685.953125,
-      -52069.33203125
+      -46686.0,
+      -52069.3
      ]
     },
     {
@@ -2853,8 +3626,8 @@
       "34E0FF"
      ],
      "coords": [
-      -149653.640625,
-      51489.4296875
+      -149653.6,
+      51489.4
      ]
     },
     {
@@ -2871,8 +3644,8 @@
       "2C8B85"
      ],
      "coords": [
-      -92617.3828125,
-      68690.2890625
+      -92617.4,
+      68690.3
      ]
     },
     {
@@ -2891,8 +3664,8 @@
       "2B54C3"
      ],
      "coords": [
-      1299.63354492188,
-      -756.734802246094
+      1299.6,
+      -756.7
      ]
     },
     {
@@ -2908,7 +3681,7 @@
       "22E292"
      ],
      "coords": [
-      -104343.6328125,
+      -104343.6,
       153408.5
      ]
     },
@@ -2925,8 +3698,8 @@
       "3DF848"
      ],
      "coords": [
-      -57387.5390625,
-      -25237.287109375
+      -57387.5,
+      -25237.3
      ]
     },
     {
@@ -2942,8 +3715,8 @@
       "2EEEC2"
      ],
      "coords": [
-      -76727.2109375,
-      75662.546875
+      -76727.2,
+      75662.5
      ]
     },
     {
@@ -2960,8 +3733,8 @@
       "5C45C6"
      ],
      "coords": [
-      -173766.09375,
-      -38129.8671875
+      -173766.1,
+      -38129.9
      ]
     },
     {
@@ -2984,8 +3757,8 @@
       "5308C0"
      ],
      "coords": [
-      -18148.140625,
-      75728.0625
+      -18148.1,
+      75728.1
      ]
     },
     {
@@ -3001,8 +3774,8 @@
       "00212D"
      ],
      "coords": [
-      -154746.125,
-      79445.4296875
+      -154746.1,
+      79445.4
      ]
     },
     {
@@ -3020,8 +3793,8 @@
       "553E73"
      ],
      "coords": [
-      -109581.71875,
-      83654.53125
+      -109581.7,
+      83654.5
      ]
     },
     {
@@ -3042,8 +3815,8 @@
       "4E5E3A"
      ],
      "coords": [
-      -8496.48046875,
-      94800.0703125
+      -8496.5,
+      94800.1
      ]
     },
     {
@@ -3063,8 +3836,8 @@
       "5577E3"
      ],
      "coords": [
-      -19965.173828125,
-      103367.6484375
+      -19965.2,
+      103367.6
      ]
     },
     {
@@ -3083,8 +3856,8 @@
       "536D63"
      ],
      "coords": [
-      -631.984497070312,
-      1066.16088867188
+      -632.0,
+      1066.2
      ]
     },
     {
@@ -3115,8 +3888,8 @@
       "675E42"
      ],
      "coords": [
-      1750.64831542969,
-      -1348.9560546875
+      1750.6,
+      -1349.0
      ]
     },
     {
@@ -3132,8 +3905,8 @@
       "43036B"
      ],
      "coords": [
-      -28611.853515625,
-      100555.015625
+      -28611.9,
+      100555.0
      ]
     },
     {
@@ -3149,8 +3922,8 @@
       "3B18DB"
      ],
      "coords": [
-      -32992.76953125,
-      87156.953125
+      -32992.8,
+      87157.0
      ]
     },
     {
@@ -3169,8 +3942,8 @@
       "3A3A8E"
      ],
      "coords": [
-      -58420.13671875,
-      -38219.27734375
+      -58420.1,
+      -38219.3
      ]
     },
     {
@@ -3189,8 +3962,8 @@
       "452FD7"
      ],
      "coords": [
-      -103345.5703125,
-      5155.388671875
+      -103345.6,
+      5155.4
      ]
     },
     {
@@ -3208,8 +3981,8 @@
       "4FBCF9"
      ],
      "coords": [
-      -113033.6328125,
-      -2150.32153320313
+      -113033.6,
+      -2150.3
      ]
     },
     {
@@ -3233,8 +4006,8 @@
       "520DCE"
      ],
      "coords": [
-      -85701.7421875,
-      13877.978515625
+      -85701.7,
+      13878.0
      ]
     },
     {
@@ -3251,8 +4024,8 @@
       "51E40D"
      ],
      "coords": [
-      -81251.734375,
-      94845.0390625
+      -81251.7,
+      94845.0
      ]
     },
     {
@@ -3269,8 +4042,8 @@
       "3E593F"
      ],
      "coords": [
-      -188852.328125,
-      -30398.21484375
+      -188852.3,
+      -30398.2
      ]
     },
     {
@@ -3286,8 +4059,8 @@
       "31D0ED"
      ],
      "coords": [
-      -95067.71875,
-      130184.40625
+      -95067.7,
+      130184.4
      ]
     },
     {
@@ -3305,8 +4078,8 @@
       "33CEE0"
      ],
      "coords": [
-      -124427.9453125,
-      98269.2421875
+      -124427.9,
+      98269.2
      ]
     },
     {
@@ -3323,8 +4096,8 @@
       "31D142"
      ],
      "coords": [
-      -135627.859375,
-      -6835.431640625
+      -135627.9,
+      -6835.4
      ]
     },
     {
@@ -3341,8 +4114,8 @@
       "3170E0"
      ],
      "coords": [
-      -50808.67578125,
-      -47612.51953125
+      -50808.7,
+      -47612.5
      ]
     },
     {
@@ -3361,8 +4134,8 @@
       "54F28F"
      ],
      "coords": [
-      -55595.65234375,
-      26571.0234375
+      -55595.7,
+      26571.0
      ]
     },
     {
@@ -3378,8 +4151,8 @@
       "2F04D1"
      ],
      "coords": [
-      -174836.9375,
-      72755.265625
+      -174836.9,
+      72755.3
      ]
     },
     {
@@ -3397,8 +4170,8 @@
       "3C0FEA"
      ],
      "coords": [
-      -21093.162109375,
-      88490.1953125
+      -21093.2,
+      88490.2
      ]
     },
     {
@@ -3415,8 +4188,8 @@
       "56400E"
      ],
      "coords": [
-      -596.133422851562,
-      -2164.93432617187
+      -596.1,
+      -2164.9
      ]
     },
     {
@@ -3445,8 +4218,8 @@
       "3BAB43"
      ],
      "coords": [
-      -4256.11767578125,
-      1377.88684082031
+      -4256.1,
+      1377.9
      ]
     },
     {
@@ -3462,8 +4235,8 @@
       "2DF665"
      ],
      "coords": [
-      -127484.4921875,
-      -47867.85546875
+      -127484.5,
+      -47867.9
      ]
     },
     {
@@ -3479,8 +4252,8 @@
       "2E3FE6"
      ],
      "coords": [
-      -144567.53125,
-      21023.396484375
+      -144567.5,
+      21023.4
      ]
     },
     {
@@ -3497,8 +4270,8 @@
       "52FD20"
      ],
      "coords": [
-      -45522.13671875,
-      -97.8040771484375
+      -45522.1,
+      -97.8
      ]
     },
     {
@@ -3514,8 +4287,8 @@
       "598A17"
      ],
      "coords": [
-      -130575.203125,
-      39630.98046875
+      -130575.2,
+      39631.0
      ]
     },
     {
@@ -3531,8 +4304,8 @@
       "338234"
      ],
      "coords": [
-      -6070.1376953125,
-      34967.54296875
+      -6070.1,
+      34967.5
      ]
     },
     {
@@ -3553,8 +4326,8 @@
       "3A8B24"
      ],
      "coords": [
-      3749.04248046875,
-      1432.06530761719
+      3749.0,
+      1432.1
      ]
     },
     {
@@ -3571,8 +4344,8 @@
       "73E068"
      ],
      "coords": [
-      -111933.5390625,
-      109636.53125
+      -111933.5,
+      109636.5
      ]
     },
     {
@@ -3589,8 +4362,8 @@
       "485A08"
      ],
      "coords": [
-      -158012.4375,
-      1346.57019042969
+      -158012.4,
+      1346.6
      ]
     },
     {
@@ -3606,8 +4379,8 @@
       "2ECC6F"
      ],
      "coords": [
-      23283.375,
-      41376.76171875
+      23283.4,
+      41376.8
      ]
     },
     {
@@ -3624,8 +4397,8 @@
       "43730B"
      ],
      "coords": [
-      -65096.50390625,
-      58138.03515625
+      -65096.5,
+      58138.0
      ]
     },
     {
@@ -3642,8 +4415,8 @@
       "318C0F"
      ],
      "coords": [
-      -56532.6640625,
-      -50628.31640625
+      -56532.7,
+      -50628.3
      ]
     },
     {
@@ -3666,8 +4439,8 @@
       "534C14"
      ],
      "coords": [
-      -48261.40625,
-      -27059.857421875
+      -48261.4,
+      -27059.9
      ]
     },
     {
@@ -3684,8 +4457,8 @@
       "4E4EA9"
      ],
      "coords": [
-      -71952.34375,
-      -59683.78515625
+      -71952.3,
+      -59683.8
      ]
     },
     {
@@ -3705,8 +4478,8 @@
       "50C8E8"
      ],
      "coords": [
-      -69139.3984375,
-      -41742.44140625
+      -69139.4,
+      -41742.4
      ]
     },
     {
@@ -3726,8 +4499,8 @@
       "2E4006"
      ],
      "coords": [
-      -143234.4375,
-      28126.310546875
+      -143234.4,
+      28126.3
      ]
     },
     {
@@ -3744,8 +4517,8 @@
       "3BA697"
      ],
      "coords": [
-      -60618.5546875,
-      25730.455078125
+      -60618.6,
+      25730.5
      ]
     },
     {
@@ -3765,8 +4538,8 @@
       "430337"
      ],
      "coords": [
-      -69922.3671875,
-      7966.13330078125
+      -69922.4,
+      7966.1
      ]
     },
     {
@@ -3783,8 +4556,8 @@
       "729C8F"
      ],
      "coords": [
-      -140885.75,
-      112929.046875
+      -140885.8,
+      112929.0
      ]
     },
     {
@@ -3800,8 +4573,8 @@
       "39EDE1"
      ],
      "coords": [
-      -93201.6328125,
-      206004.921875
+      -93201.6,
+      206004.9
      ]
     },
     {
@@ -3819,8 +4592,8 @@
       "5554B0"
      ],
      "coords": [
-      9765.2998046875,
-      -8727.6416015625
+      9765.3,
+      -8727.6
      ]
     },
     {
@@ -3839,8 +4612,8 @@
       "5928C7"
      ],
      "coords": [
-      -67082.421875,
-      -52404.43359375
+      -67082.4,
+      -52404.4
      ]
     },
     {
@@ -3856,8 +4629,8 @@
       "307ABE"
      ],
      "coords": [
-      -37720.53515625,
-      -41374.80078125
+      -37720.5,
+      -41374.8
      ]
     },
     {
@@ -3877,8 +4650,8 @@
       "553814"
      ],
      "coords": [
-      -91639.28125,
-      44778.94921875
+      -91639.3,
+      44778.9
      ]
     },
     {
@@ -3896,8 +4669,8 @@
       "316C38"
      ],
      "coords": [
-      -57493.3671875,
-      -60377.0390625
+      -57493.4,
+      -60377.0
      ]
     },
     {
@@ -3914,8 +4687,8 @@
       "31E35B"
      ],
      "coords": [
-      -88891.3828125,
-      132205.03125
+      -88891.4,
+      132205.0
      ]
     },
     {
@@ -3934,8 +4707,8 @@
       "4FCBD7"
      ],
      "coords": [
-      -31066.380859375,
-      9048.8095703125
+      -31066.4,
+      9048.8
      ]
     },
     {
@@ -3952,8 +4725,8 @@
       "2B858C"
      ],
      "coords": [
-      -162465.109375,
-      152509.796875
+      -162465.1,
+      152509.8
      ]
     },
     {
@@ -3973,8 +4746,8 @@
       "2E6906"
      ],
      "coords": [
-      -149370.71875,
-      142651.84375
+      -149370.7,
+      142651.8
      ]
     },
     {
@@ -3990,8 +4763,8 @@
       "6B1FF3"
      ],
      "coords": [
-      2137.51123046875,
-      831.41943359375
+      2137.5,
+      831.4
      ]
     },
     {
@@ -4009,8 +4782,8 @@
       "60CAE8"
      ],
      "coords": [
-      1301.89794921875,
-      -524.586181640625
+      1301.9,
+      -524.6
      ]
     },
     {
@@ -4030,8 +4803,8 @@
       "3EA900"
      ],
      "coords": [
-      -118848.703125,
-      20095.796875
+      -118848.7,
+      20095.8
      ]
     },
     {
@@ -4054,8 +4827,8 @@
       "59250E"
      ],
      "coords": [
-      -582.122131347656,
-      -696.725219726563
+      -582.1,
+      -696.7
      ]
     },
     {
@@ -4071,8 +4844,8 @@
       "4FCDA7"
      ],
      "coords": [
-      -79972.9453125,
-      -35708.00390625
+      -79972.9,
+      -35708.0
      ]
     },
     {
@@ -4089,8 +4862,8 @@
       "3C3E2E"
      ],
      "coords": [
-      14966.150390625,
-      29734.392578125
+      14966.2,
+      29734.4
      ]
     },
     {
@@ -4127,8 +4900,8 @@
       "42E41E"
      ],
      "coords": [
-      2221.0009765625,
-      540.489990234375
+      2221.0,
+      540.5
      ]
     }
    ]
@@ -4149,8 +4922,8 @@
       "34EF73"
      ],
      "coords": [
-      16098.1689453125,
-      1009.90716552734
+      16098.2,
+      1009.9
      ]
     },
     {
@@ -4166,8 +4939,8 @@
       "0615EA"
      ],
      "coords": [
-      112302.515625,
-      51489.78515625
+      112302.5,
+      51489.8
      ]
     },
     {
@@ -4183,8 +4956,8 @@
       "3E8AD0"
      ],
      "coords": [
-      133120.078125,
-      179896.234375
+      133120.1,
+      179896.2
      ]
     },
     {
@@ -4200,8 +4973,8 @@
       "3E9C48"
      ],
      "coords": [
-      -14580.59375,
-      -107925.015625
+      -14580.6,
+      -107925.0
      ]
     },
     {
@@ -4217,8 +4990,8 @@
       "5302B4"
      ],
      "coords": [
-      54464.69140625,
-      -2715.80322265625
+      54464.7,
+      -2715.8
      ]
     },
     {
@@ -4234,8 +5007,8 @@
       "4FBD6E"
      ],
      "coords": [
-      60428.94140625,
-      -18108.35546875
+      60428.9,
+      -18108.4
      ]
     },
     {
@@ -4255,8 +5028,8 @@
       "4E17E0"
      ],
      "coords": [
-      1332.05847167969,
-      -682.613464355469
+      1332.1,
+      -682.6
      ]
     },
     {
@@ -4272,8 +5045,8 @@
       "209267"
      ],
      "coords": [
-      20547.158203125,
-      71881.890625
+      20547.2,
+      71881.9
      ]
     },
     {
@@ -4289,8 +5062,8 @@
       "21F9DE"
      ],
      "coords": [
-      86101.9921875,
-      3165.75244140625
+      86102.0,
+      3165.8
      ]
     },
     {
@@ -4308,8 +5081,8 @@
       "3D0506"
      ],
      "coords": [
-      -2502.72216796875,
-      -25120.02734375
+      -2502.7,
+      -25120.0
      ]
     },
     {
@@ -4327,8 +5100,8 @@
       "51CB99"
      ],
      "coords": [
-      36779.875,
-      156343.640625
+      36779.9,
+      156343.6
      ]
     },
     {
@@ -4351,8 +5124,8 @@
       "4E40F6"
      ],
      "coords": [
-      111033.140625,
-      182742.109375
+      111033.1,
+      182742.1
      ]
     },
     {
@@ -4374,7 +5147,7 @@
      ],
      "coords": [
       -48251.5,
-      -176648.96875
+      -176649.0
      ]
     },
     {
@@ -4391,8 +5164,8 @@
       "3A895B"
      ],
      "coords": [
-      78994.6875,
-      -87947.1640625
+      78994.7,
+      -87947.2
      ]
     },
     {
@@ -4409,8 +5182,8 @@
       "3C798F"
      ],
      "coords": [
-      117512.921875,
-      -59749.7734375
+      117512.9,
+      -59749.8
      ]
     },
     {
@@ -4433,8 +5206,8 @@
       "794345"
      ],
      "coords": [
-      2706.65869140625,
-      -1711.943359375
+      2706.7,
+      -1711.9
      ]
     },
     {
@@ -4459,8 +5232,8 @@
       "5EBEF3"
      ],
      "coords": [
-      3268.94677734375,
-      45.5609092712402
+      3268.9,
+      45.6
      ]
     },
     {
@@ -4476,8 +5249,8 @@
       "32FE37"
      ],
      "coords": [
-      10475.21484375,
-      -171955.359375
+      10475.2,
+      -171955.4
      ]
     },
     {
@@ -4493,8 +5266,8 @@
       "2716E8"
      ],
      "coords": [
-      117062.3125,
-      77683.78125
+      117062.3,
+      77683.8
      ]
     },
     {
@@ -4512,8 +5285,8 @@
       "51EC07"
      ],
      "coords": [
-      95918.7890625,
-      68467.8828125
+      95918.8,
+      68467.9
      ]
     },
     {
@@ -4534,8 +5307,8 @@
       "596745"
      ],
      "coords": [
-      26870.009765625,
-      -87560.8984375
+      26870.0,
+      -87560.9
      ]
     },
     {
@@ -4551,8 +5324,8 @@
       "64CCDB"
      ],
      "coords": [
-      68346.5546875,
-      -112660.140625
+      68346.6,
+      -112660.1
      ]
     },
     {
@@ -4568,8 +5341,8 @@
       "438262"
      ],
      "coords": [
-      -59162.44921875,
-      -171966.59375
+      -59162.4,
+      -171966.6
      ]
     },
     {
@@ -4585,8 +5358,8 @@
       "3C65AB"
      ],
      "coords": [
-      139696.734375,
-      111627.9296875
+      139696.7,
+      111627.9
      ]
     },
     {
@@ -4602,8 +5375,8 @@
       "3E9BA6"
      ],
      "coords": [
-      -2850.037109375,
-      -179542.765625
+      -2850.0,
+      -179542.8
      ]
     },
     {
@@ -4620,8 +5393,8 @@
       "3BF64B"
      ],
      "coords": [
-      113796.7578125,
-      116411.2578125
+      113796.8,
+      116411.3
      ]
     },
     {
@@ -4640,8 +5413,8 @@
       "4FA576"
      ],
      "coords": [
-      -58040.5234375,
-      -148647.6875
+      -58040.5,
+      -148647.7
      ]
     },
     {
@@ -4657,8 +5430,8 @@
       "438F13"
      ],
      "coords": [
-      -96084.5234375,
-      -165448.75
+      -96084.5,
+      -165448.8
      ]
     },
     {
@@ -4675,8 +5448,8 @@
       "2A288D"
      ],
      "coords": [
-      69350.796875,
-      -83187.2578125
+      69350.8,
+      -83187.3
      ]
     },
     {
@@ -4692,8 +5465,8 @@
       "30089E"
      ],
      "coords": [
-      55659.08203125,
-      -68749.1484375
+      55659.1,
+      -68749.1
      ]
     },
     {
@@ -4710,8 +5483,8 @@
       "379195"
      ],
      "coords": [
-      74769.8359375,
-      -179475.640625
+      74769.8,
+      -179475.6
      ]
     },
     {
@@ -4731,8 +5504,8 @@
       "3DF01A"
      ],
      "coords": [
-      53782.69140625,
-      -159585.140625
+      53782.7,
+      -159585.1
      ]
     },
     {
@@ -4751,8 +5524,8 @@
       "5595D8"
      ],
      "coords": [
-      1324.5927734375,
-      -7605.6708984375
+      1324.6,
+      -7605.7
      ]
     },
     {
@@ -4768,8 +5541,8 @@
       "3A875A"
      ],
      "coords": [
-      68817.7265625,
-      101758.125
+      68817.7,
+      101758.1
      ]
     },
     {
@@ -4788,8 +5561,8 @@
       "3E1319"
      ],
      "coords": [
-      48203.83984375,
-      -38819.68359375
+      48203.8,
+      -38819.7
      ]
     },
     {
@@ -4808,8 +5581,8 @@
       "3CD474"
      ],
      "coords": [
-      -30132.517578125,
-      -82448.1953125
+      -30132.5,
+      -82448.2
      ]
     },
     {
@@ -4832,8 +5605,8 @@
       "52F8B0"
      ],
      "coords": [
-      -5809.79736328125,
-      -28303.14453125
+      -5809.8,
+      -28303.1
      ]
     },
     {
@@ -4856,8 +5629,8 @@
       "449CAC"
      ],
      "coords": [
-      -3458.06713867188,
-      -23443.7421875
+      -3458.1,
+      -23443.7
      ]
     },
     {
@@ -4880,8 +5653,8 @@
       "3C2C02"
      ],
      "coords": [
-      46128.984375,
-      85790.7265625
+      46129.0,
+      85790.7
      ]
     },
     {
@@ -4904,8 +5677,8 @@
       "5A5012"
      ],
      "coords": [
-      -7603.1474609375,
-      10290.4453125
+      -7603.1,
+      10290.4
      ]
     },
     {
@@ -4922,8 +5695,8 @@
       "2C7697"
      ],
      "coords": [
-      50502.8515625,
-      106121.390625
+      50502.9,
+      106121.4
      ]
     },
     {
@@ -4947,8 +5720,8 @@
       "51BE24"
      ],
      "coords": [
-      37756.51171875,
-      69002.2578125
+      37756.5,
+      69002.3
      ]
     },
     {
@@ -4969,8 +5742,8 @@
       "4F4B8E"
      ],
      "coords": [
-      83661.25,
-      -127071.9453125
+      83661.2,
+      -127071.9
      ]
     },
     {
@@ -4986,8 +5759,8 @@
       "52C6BC"
      ],
      "coords": [
-      137977.15625,
-      -42730.6875
+      137977.2,
+      -42730.7
      ]
     },
     {
@@ -5006,8 +5779,8 @@
       "387620"
      ],
      "coords": [
-      21687.060546875,
-      -104211.2890625
+      21687.1,
+      -104211.3
      ]
     },
     {
@@ -5024,8 +5797,8 @@
       "4F9985"
      ],
      "coords": [
-      143998.140625,
-      200345.265625
+      143998.1,
+      200345.3
      ]
     },
     {
@@ -5043,8 +5816,8 @@
       "52156E"
      ],
      "coords": [
-      90879.59375,
-      -43748.15625
+      90879.6,
+      -43748.2
      ]
     },
     {
@@ -5060,8 +5833,8 @@
       "343158"
      ],
      "coords": [
-      110586.4765625,
-      -48839.1953125
+      110586.5,
+      -48839.2
      ]
     },
     {
@@ -5081,8 +5854,8 @@
       "59B966"
      ],
      "coords": [
-      14181.2685546875,
-      -15589.2236328125
+      14181.3,
+      -15589.2
      ]
     },
     {
@@ -5101,7 +5874,7 @@
      ],
      "coords": [
       66150.0,
-      30942.078125
+      30942.1
      ]
     },
     {
@@ -5118,8 +5891,8 @@
       "7B1174"
      ],
      "coords": [
-      170796.765625,
-      219077.671875
+      170796.8,
+      219077.7
      ]
     },
     {
@@ -5137,8 +5910,8 @@
       "36B8EB"
      ],
      "coords": [
-      58708.5859375,
-      171030.5625
+      58708.6,
+      171030.6
      ]
     },
     {
@@ -5156,8 +5929,8 @@
       "2DE547"
      ],
      "coords": [
-      54721.91015625,
-      24820.37890625
+      54721.9,
+      24820.4
      ]
     },
     {
@@ -5176,8 +5949,8 @@
       "4E9F38"
      ],
      "coords": [
-      46023.765625,
-      16472.28515625
+      46023.8,
+      16472.3
      ]
     },
     {
@@ -5193,8 +5966,8 @@
       "43033F"
      ],
      "coords": [
-      49527.4765625,
-      10269.0048828125
+      49527.5,
+      10269.0
      ]
     },
     {
@@ -5214,8 +5987,8 @@
       "4FB135"
      ],
      "coords": [
-      123417.3515625,
-      136611.21875
+      123417.4,
+      136611.2
      ]
     },
     {
@@ -5233,8 +6006,8 @@
       "59ACD8"
      ],
      "coords": [
-      14793.681640625,
-      -126255.375
+      14793.7,
+      -126255.4
      ]
     },
     {
@@ -5256,8 +6029,8 @@
       "32C0DA"
      ],
      "coords": [
-      138984.03125,
-      149177.6875
+      138984.0,
+      149177.7
      ]
     },
     {
@@ -5273,8 +6046,8 @@
       "55F213"
      ],
      "coords": [
-      78731.28125,
-      176273.953125
+      78731.3,
+      176274.0
      ]
     },
     {
@@ -5294,8 +6067,8 @@
       "3E1A65"
      ],
      "coords": [
-      4377.08935546875,
-      -38877.3203125
+      4377.1,
+      -38877.3
      ]
     },
     {
@@ -5316,8 +6089,8 @@
       "59AD23"
      ],
      "coords": [
-      -13337.7734375,
-      -144069.625
+      -13337.8,
+      -144069.6
      ]
     },
     {
@@ -5333,8 +6106,8 @@
       "2F7902"
      ],
      "coords": [
-      72746.171875,
-      50353.48828125
+      72746.2,
+      50353.5
      ]
     },
     {
@@ -5350,8 +6123,8 @@
       "339A72"
      ],
      "coords": [
-      55589.4765625,
-      58719.1171875
+      55589.5,
+      58719.1
      ]
     },
     {
@@ -5367,8 +6140,8 @@
       "782B90"
      ],
      "coords": [
-      30201.212890625,
-      -174738.09375
+      30201.2,
+      -174738.1
      ]
     },
     {
@@ -5385,8 +6158,8 @@
       "38A393"
      ],
      "coords": [
-      54835.91015625,
-      132961.015625
+      54835.9,
+      132961.0
      ]
     },
     {
@@ -5402,8 +6175,8 @@
       "3E99A8"
      ],
      "coords": [
-      -12963.234375,
-      -120828.3984375
+      -12963.2,
+      -120828.4
      ]
     },
     {
@@ -5419,8 +6192,8 @@
       "055903"
      ],
      "coords": [
-      27535.701171875,
-      31406.390625
+      27535.7,
+      31406.4
      ]
     },
     {
@@ -5436,8 +6209,8 @@
       "55A99A"
      ],
      "coords": [
-      40728.76953125,
-      -64362.4375
+      40728.8,
+      -64362.4
      ]
     },
     {
@@ -5453,8 +6226,8 @@
       "1A9C1E"
      ],
      "coords": [
-      98789.9296875,
-      94935.0703125
+      98789.9,
+      94935.1
      ]
     },
     {
@@ -5471,8 +6244,8 @@
       "528019"
      ],
      "coords": [
-      44272.203125,
-      -131752.46875
+      44272.2,
+      -131752.5
      ]
     },
     {
@@ -5488,8 +6261,8 @@
       "569B87"
      ],
      "coords": [
-      -509.369201660156,
-      270.404205322266
+      -509.4,
+      270.4
      ]
     },
     {
@@ -5505,8 +6278,8 @@
       "2C754C"
      ],
      "coords": [
-      45209.625,
-      -114242.8046875
+      45209.6,
+      -114242.8
      ]
     },
     {
@@ -5522,8 +6295,8 @@
       "3242B8"
      ],
      "coords": [
-      32930.51953125,
-      -142818.484375
+      32930.5,
+      -142818.5
      ]
     },
     {
@@ -5539,8 +6312,8 @@
       "50C8B7"
      ],
      "coords": [
-      39080.90234375,
-      -118060.65625
+      39080.9,
+      -118060.7
      ]
     },
     {
@@ -5573,8 +6346,8 @@
       "3D35BF"
      ],
      "coords": [
-      2633.27099609375,
-      4832.994140625
+      2633.3,
+      4833.0
      ]
     },
     {
@@ -5590,8 +6363,8 @@
       "591BBC"
      ],
      "coords": [
-      786.658264160156,
-      -322.502380371094
+      786.7,
+      -322.5
      ]
     },
     {
@@ -5612,8 +6385,8 @@
       "336353"
      ],
      "coords": [
-      85001.4453125,
-      128646.046875
+      85001.4,
+      128646.0
      ]
     },
     {
@@ -5631,8 +6404,8 @@
       "522556"
      ],
      "coords": [
-      98518.515625,
-      144118.8125
+      98518.5,
+      144118.8
      ]
     },
     {
@@ -5650,8 +6423,8 @@
       "51BFEC"
      ],
      "coords": [
-      79943.609375,
-      132286.09375
+      79943.6,
+      132286.1
      ]
     },
     {
@@ -5667,8 +6440,8 @@
       "50D60D"
      ],
      "coords": [
-      115269.78125,
-      92001.6953125
+      115269.8,
+      92001.7
      ]
     },
     {
@@ -5687,8 +6460,8 @@
       "7453F0"
      ],
      "coords": [
-      28708.705078125,
-      87428.671875
+      28708.7,
+      87428.7
      ]
     },
     {
@@ -5704,8 +6477,8 @@
       "2EA30B"
      ],
      "coords": [
-      18332.181640625,
-      -78875.9296875
+      18332.2,
+      -78875.9
      ]
     },
     {
@@ -5721,8 +6494,8 @@
       "39D25F"
      ],
      "coords": [
-      -18049.412109375,
-      -36269.66015625
+      -18049.4,
+      -36269.7
      ]
     },
     {
@@ -5738,8 +6511,8 @@
       "14FC8D"
      ],
      "coords": [
-      12257.21875,
-      -59017.0078125
+      12257.2,
+      -59017.0
      ]
     },
     {
@@ -5758,8 +6531,8 @@
       "4FB109"
      ],
      "coords": [
-      31994.93359375,
-      13778.53515625
+      31994.9,
+      13778.5
      ]
     },
     {
@@ -5775,8 +6548,8 @@
       "02FB83"
      ],
      "coords": [
-      116944.6875,
-      36557.6640625
+      116944.7,
+      36557.7
      ]
     },
     {
@@ -5792,8 +6565,8 @@
       "3DCC38"
      ],
      "coords": [
-      46059.2109375,
-      -79782.6015625
+      46059.2,
+      -79782.6
      ]
     },
     {
@@ -5816,8 +6589,8 @@
       "614CC0"
      ],
      "coords": [
-      -41518.01953125,
-      -90119.5390625
+      -41518.0,
+      -90119.5
      ]
     },
     {
@@ -5840,8 +6613,8 @@
       "58CDF5"
      ],
      "coords": [
-      -11341.205078125,
-      -2243.40014648438
+      -11341.2,
+      -2243.4
      ]
     },
     {
@@ -5867,8 +6640,8 @@
       "5E3841"
      ],
      "coords": [
-      21280.431640625,
-      -153710.765625
+      21280.4,
+      -153710.8
      ]
     },
     {
@@ -5884,8 +6657,8 @@
       "001E38"
      ],
      "coords": [
-      -372.622009277344,
-      1748.94702148438
+      -372.6,
+      1748.9
      ]
     },
     {
@@ -5904,8 +6677,8 @@
       "2F044F"
      ],
      "coords": [
-      16349.361328125,
-      -6532.95849609375
+      16349.4,
+      -6533.0
      ]
     },
     {
@@ -5932,8 +6705,8 @@
       "3E0D4A"
      ],
      "coords": [
-      11862.4072265625,
-      -1316.55529785156
+      11862.4,
+      -1316.6
      ]
     },
     {
@@ -5961,8 +6734,8 @@
       "4FCE88"
      ],
      "coords": [
-      -22175.955078125,
-      -7499.6474609375
+      -22176.0,
+      -7499.6
      ]
     },
     {
@@ -5978,8 +6751,8 @@
       "040D03"
      ],
      "coords": [
-      -23968.896484375,
-      -57514.3359375
+      -23968.9,
+      -57514.3
      ]
     },
     {
@@ -6002,8 +6775,8 @@
       "629E10"
      ],
      "coords": [
-      -9320.861328125,
-      9575.7783203125
+      -9320.9,
+      9575.8
      ]
     },
     {
@@ -6022,8 +6795,8 @@
       "59B951"
      ],
      "coords": [
-      20799.62890625,
-      -40345.0625
+      20799.6,
+      -40345.1
      ]
     },
     {
@@ -6039,8 +6812,8 @@
       "241FC0"
      ],
      "coords": [
-      93392.0546875,
-      28559.9765625
+      93392.1,
+      28560.0
      ]
     }
    ]
@@ -6063,8 +6836,8 @@
       "75AFBE"
      ],
      "coords": [
-      66246.0625,
-      -209111.234375
+      66246.1,
+      -209111.2
      ]
     },
     {
@@ -6081,8 +6854,8 @@
       "76F39F"
      ],
      "coords": [
-      6254.7373046875,
-      784.152160644531
+      6254.7,
+      784.2
      ]
     },
     {
@@ -6098,8 +6871,8 @@
       "762A56"
      ],
      "coords": [
-      6648.6572265625,
-      -12065.3642578125
+      6648.7,
+      -12065.4
      ]
     },
     {
@@ -6119,8 +6892,8 @@
       "7810DF"
      ],
      "coords": [
-      -6063.01220703125,
-      -252021.046875
+      -6063.0,
+      -252021.0
      ]
     },
     {
@@ -6142,8 +6915,8 @@
       "74F4EB"
      ],
      "coords": [
-      62743.9609375,
-      -248169.59375
+      62744.0,
+      -248169.6
      ]
     },
     {
@@ -6164,8 +6937,8 @@
       "75E68D"
      ],
      "coords": [
-      21322.16015625,
-      -205980.9375
+      21322.2,
+      -205980.9
      ]
     },
     {
@@ -6182,8 +6955,8 @@
       "7579EE"
      ],
      "coords": [
-      -40065.3828125,
-      -201994.75
+      -40065.4,
+      -201994.8
      ]
     },
     {
@@ -6202,8 +6975,8 @@
       "78C068"
      ],
      "coords": [
-      -39174.05859375,
-      -185234.15625
+      -39174.1,
+      -185234.2
      ]
     },
     {
@@ -6221,8 +6994,8 @@
       "78B5DC"
      ],
      "coords": [
-      71625.6640625,
-      -196244.828125
+      71625.7,
+      -196244.8
      ]
     },
     {
@@ -6243,8 +7016,8 @@
       "7810D5"
      ],
      "coords": [
-      -23324.484375,
-      -216137.4375
+      -23324.5,
+      -216137.4
      ]
     },
     {
@@ -6260,8 +7033,8 @@
       "75D5B0"
      ],
      "coords": [
-      73763.15625,
-      -188894.609375
+      73763.2,
+      -188894.6
      ]
     },
     {
@@ -6280,8 +7053,8 @@
       "78981F"
      ],
      "coords": [
-      59118.40625,
-      -192117.359375
+      59118.4,
+      -192117.4
      ]
     },
     {
@@ -6299,8 +7072,8 @@
       "7579F0"
      ],
      "coords": [
-      -25035.8125,
-      -231147.6875
+      -25035.8,
+      -231147.7
      ]
     },
     {
@@ -6316,8 +7089,8 @@
       "7473A2"
      ],
      "coords": [
-      -581.263000488281,
-      12065.1826171875
+      -581.3,
+      12065.2
      ]
     },
     {
@@ -6336,8 +7109,8 @@
       "7810E3"
      ],
      "coords": [
-      21500.94140625,
-      -233084.984375
+      21500.9,
+      -233085.0
      ]
     },
     {
@@ -6353,8 +7126,8 @@
       "78AFE0"
      ],
      "coords": [
-      46790.9453125,
-      -187671.140625
+      46790.9,
+      -187671.1
      ]
     },
     {
@@ -6372,8 +7145,8 @@
       "790A98"
      ],
      "coords": [
-      2590.63940429687,
-      -232682.640625
+      2590.6,
+      -232682.6
      ]
     },
     {
@@ -6392,8 +7165,8 @@
       "7855F6"
      ],
      "coords": [
-      77279.0859375,
-      -232173.96875
+      77279.1,
+      -232174.0
      ]
     },
     {
@@ -6412,8 +7185,8 @@
       "783952"
      ],
      "coords": [
-      1404.56506347656,
-      -217707.59375
+      1404.6,
+      -217707.6
      ]
     },
     {
@@ -6430,8 +7203,8 @@
       "7842D5"
      ],
      "coords": [
-      -46186.890625,
-      -234262.9375
+      -46186.9,
+      -234262.9
      ]
     },
     {
@@ -6450,8 +7223,8 @@
       "790CA5"
      ],
      "coords": [
-      31241.84375,
-      -197632.09375
+      31241.8,
+      -197632.1
      ]
     },
     {
@@ -6474,8 +7247,8 @@
       "791B65"
      ],
      "coords": [
-      -3406.50048828125,
-      -313.98974609375
+      -3406.5,
+      -314.0
      ]
     },
     {
@@ -6495,8 +7268,8 @@
       "767A03"
      ],
      "coords": [
-      21824.201171875,
-      -242959.46875
+      21824.2,
+      -242959.5
      ]
     },
     {
@@ -6513,8 +7286,8 @@
       "7475CC"
      ],
      "coords": [
-      44565.6171875,
-      -244418.71875
+      44565.6,
+      -244418.7
      ]
     },
     {
@@ -6532,8 +7305,8 @@
       "73E61F"
      ],
      "coords": [
-      59904.29296875,
-      -227891.453125
+      59904.3,
+      -227891.5
      ]
     },
     {
@@ -6549,8 +7322,8 @@
       "75DCA7"
      ],
      "coords": [
-      85563.9140625,
-      -212006.328125
+      85563.9,
+      -212006.3
      ]
     },
     {
@@ -6568,8 +7341,8 @@
       "75E04B"
      ],
      "coords": [
-      34568.078125,
-      -217367.15625
+      34568.1,
+      -217367.2
      ]
     },
     {
@@ -6587,8 +7360,8 @@
       "79D01E"
      ],
      "coords": [
-      -57107.40234375,
-      -199586.09375
+      -57107.4,
+      -199586.1
      ]
     },
     {
@@ -6605,7 +7378,7 @@
       "75A6C9"
      ],
      "coords": [
-      43480.73046875,
+      43480.7,
       -192426.0
      ]
     },
@@ -6622,8 +7395,8 @@
       "753D3E"
      ],
      "coords": [
-      3925.09204101562,
-      4890.72119140625
+      3925.1,
+      4890.7
      ]
     }
    ]
@@ -6645,8 +7418,8 @@
       "36A649"
      ],
      "coords": [
-      143845.28125,
-      121532.5390625
+      143845.3,
+      121532.5
      ]
     },
     {
@@ -6663,8 +7436,8 @@
       "3AFAA2"
      ],
      "coords": [
-      179366.65625,
-      22274.6953125
+      179366.7,
+      22274.7
      ]
     },
     {
@@ -6682,8 +7455,8 @@
       "3A1061"
      ],
      "coords": [
-      178174.515625,
-      151129.875
+      178174.5,
+      151129.9
      ]
     },
     {
@@ -6699,8 +7472,8 @@
       "2E6179"
      ],
      "coords": [
-      127177.2109375,
-      28209.544921875
+      127177.2,
+      28209.5
      ]
     },
     {
@@ -6718,8 +7491,8 @@
       "5C54DC"
      ],
      "coords": [
-      133667.484375,
-      9511.970703125
+      133667.5,
+      9512.0
      ]
     },
     {
@@ -6735,8 +7508,8 @@
       "521953"
      ],
      "coords": [
-      121294.0859375,
-      31088.90625
+      121294.1,
+      31088.9
      ]
     },
     {
@@ -6753,8 +7526,8 @@
       "52F9F1"
      ],
      "coords": [
-      158579.6875,
-      -13086.1005859375
+      158579.7,
+      -13086.1
      ]
     },
     {
@@ -6770,8 +7543,8 @@
       "1AFC07"
      ],
      "coords": [
-      145807.78125,
-      35110.8828125
+      145807.8,
+      35110.9
      ]
     },
     {
@@ -6791,8 +7564,8 @@
       "58D63C"
      ],
      "coords": [
-      196695.84375,
-      -30927.65625
+      196695.8,
+      -30927.7
      ]
     },
     {
@@ -6809,8 +7582,8 @@
       "3D16D4"
      ],
      "coords": [
-      202330.015625,
-      70321.8046875
+      202330.0,
+      70321.8
      ]
     },
     {
@@ -6828,8 +7601,8 @@
       "29926C"
      ],
      "coords": [
-      160082.96875,
-      -39407.76171875
+      160083.0,
+      -39407.8
      ]
     },
     {
@@ -6845,8 +7618,8 @@
       "30B4B4"
      ],
      "coords": [
-      132042.59375,
-      52603.546875
+      132042.6,
+      52603.5
      ]
     },
     {
@@ -6863,8 +7636,8 @@
       "3D167B"
      ],
      "coords": [
-      182147.28125,
-      83194.328125
+      182147.3,
+      83194.3
      ]
     },
     {
@@ -6882,8 +7655,8 @@
       "5C6226"
      ],
      "coords": [
-      116653.9609375,
-      6724.46240234375
+      116654.0,
+      6724.5
      ]
     },
     {
@@ -6899,8 +7672,8 @@
       "55A530"
      ],
      "coords": [
-      173468.578125,
-      8053.15576171875
+      173468.6,
+      8053.2
      ]
     },
     {
@@ -6917,8 +7690,8 @@
       "3E9AC7"
      ],
      "coords": [
-      149535.8125,
-      79813.4765625
+      149535.8,
+      79813.5
      ]
     },
     {
@@ -6935,8 +7708,8 @@
       "02478F"
      ],
      "coords": [
-      158566.875,
-      87108.1875
+      158566.9,
+      87108.2
      ]
     },
     {
@@ -6958,8 +7731,8 @@
       "4E629B"
      ],
      "coords": [
-      177386.765625,
-      63582.6953125
+      177386.8,
+      63582.7
      ]
     },
     {
@@ -6977,8 +7750,8 @@
       "7A8C12"
      ],
      "coords": [
-      213817.21875,
-      -15235.9365234375
+      213817.2,
+      -15235.9
      ]
     },
     {
@@ -6994,8 +7767,8 @@
       "4E8129"
      ],
      "coords": [
-      206496.53125,
-      162714.46875
+      206496.5,
+      162714.5
      ]
     },
     {
@@ -7013,8 +7786,8 @@
       "3E993C"
      ],
      "coords": [
-      170708.78125,
-      10362.4677734375
+      170708.8,
+      10362.5
      ]
     },
     {
@@ -7032,8 +7805,8 @@
       "5FF697"
      ],
      "coords": [
-      -1015.08715820312,
-      -3794.34545898438
+      -1015.1,
+      -3794.3
      ]
     },
     {
@@ -7049,8 +7822,8 @@
       "344023"
      ],
      "coords": [
-      177085.5625,
-      42482.66796875
+      177085.6,
+      42482.7
      ]
     },
     {
@@ -7067,7 +7840,7 @@
      ],
      "coords": [
       190779.5,
-      -39568.51953125
+      -39568.5
      ]
     },
     {
@@ -7085,8 +7858,8 @@
       "5B6F28"
      ],
      "coords": [
-      195045.359375,
-      200955.390625
+      195045.4,
+      200955.4
      ]
     },
     {
@@ -7102,8 +7875,8 @@
       "30B4CF"
      ],
      "coords": [
-      137199.015625,
-      70032.109375
+      137199.0,
+      70032.1
      ]
     },
     {
@@ -7123,8 +7896,8 @@
       "55C707"
      ],
      "coords": [
-      144345.203125,
-      -27367.408203125
+      144345.2,
+      -27367.4
      ]
     },
     {
@@ -7142,8 +7915,8 @@
       "528539"
      ],
      "coords": [
-      190359.0625,
-      48481.21484375
+      190359.1,
+      48481.2
      ]
     },
     {
@@ -7159,8 +7932,8 @@
       "34E555"
      ],
      "coords": [
-      191343.453125,
-      -4821.0458984375
+      191343.5,
+      -4821.0
      ]
     },
     {
@@ -7177,8 +7950,8 @@
       "51017C"
      ],
      "coords": [
-      172371.8125,
-      26518.005859375
+      172371.8,
+      26518.0
      ]
     },
     {
@@ -7194,8 +7967,8 @@
       "3A472E"
      ],
      "coords": [
-      168797.484375,
-      124704.6953125
+      168797.5,
+      124704.7
      ]
     },
     {
@@ -7211,8 +7984,8 @@
       "37A7CB"
      ],
      "coords": [
-      137152.265625,
-      -19321.041015625
+      137152.3,
+      -19321.0
      ]
     },
     {
@@ -7229,8 +8002,8 @@
       "4F8EDB"
      ],
      "coords": [
-      194678.171875,
-      14962.685546875
+      194678.2,
+      14962.7
      ]
     },
     {
@@ -7260,8 +8033,8 @@
       "46B980"
      ],
      "coords": [
-      -2387.34716796875,
-      10542.8740234375
+      -2387.3,
+      10542.9
      ]
     },
     {
@@ -7277,8 +8050,8 @@
       "3A56A7"
      ],
      "coords": [
-      182953.84375,
-      -56400.37890625
+      182953.8,
+      -56400.4
      ]
     },
     {
@@ -7295,8 +8068,8 @@
       "50C84F"
      ],
      "coords": [
-      161074.1875,
-      46331.1875
+      161074.2,
+      46331.2
      ]
     },
     {
@@ -7314,8 +8087,8 @@
       "4E96EA"
      ],
      "coords": [
-      192057.765625,
-      101217.59375
+      192057.8,
+      101217.6
      ]
     },
     {
@@ -7358,8 +8131,8 @@
       "5C02A3"
      ],
      "coords": [
-      -10133.2021484375,
-      -2907.9482421875
+      -10133.2,
+      -2907.9
      ]
     },
     {
@@ -7375,8 +8148,8 @@
       "15F84E"
      ],
      "coords": [
-      5428.39990234375,
-      16904.77734375
+      5428.4,
+      16904.8
      ]
     },
     {
@@ -7394,8 +8167,8 @@
       "5D6F90"
      ],
      "coords": [
-      -2672.49658203125,
-      -9425.8515625
+      -2672.5,
+      -9425.9
      ]
     }
    ]
@@ -7421,8 +8194,8 @@
       "65688F"
      ],
      "coords": [
-      3623.13818359375,
-      -3376.7861328125
+      3623.1,
+      -3376.8
      ]
     },
     {
@@ -7455,8 +8228,8 @@
       "7394A2"
      ],
      "coords": [
-      4043.6328125,
-      9883.7109375
+      4043.6,
+      9883.7
      ]
     },
     {
@@ -7475,8 +8248,8 @@
       "668DAD"
      ],
      "coords": [
-      -10310.0009765625,
-      2347.64965820313
+      -10310.0,
+      2347.6
      ]
     },
     {
@@ -7507,8 +8280,8 @@
       "66C848"
      ],
      "coords": [
-      -9281.291015625,
-      -11211.7314453125
+      -9281.3,
+      -11211.7
      ]
     }
    ]
@@ -7530,8 +8303,8 @@
       "01AD71"
      ],
      "coords": [
-      -79081.953125,
-      138405.984375
+      -79082.0,
+      138406.0
      ]
     },
     {
@@ -7578,8 +8351,8 @@
       "556EA5"
      ],
      "coords": [
-      317.325866699219,
-      21199.396484375
+      317.3,
+      21199.4
      ]
     },
     {
@@ -7598,8 +8371,8 @@
       "437318"
      ],
      "coords": [
-      -22189.96484375,
-      168753.109375
+      -22190.0,
+      168753.1
      ]
     },
     {
@@ -7616,8 +8389,8 @@
       "346B22"
      ],
      "coords": [
-      -7717.4638671875,
-      165203.359375
+      -7717.5,
+      165203.4
      ]
     },
     {
@@ -7647,8 +8420,8 @@
       "3C2D9F"
      ],
      "coords": [
-      898.016296386719,
-      -614.242919921875
+      898.0,
+      -614.2
      ]
     },
     {
@@ -7671,8 +8444,8 @@
       "3C1800"
      ],
      "coords": [
-      -52096.4296875,
-      148748.09375
+      -52096.4,
+      148748.1
      ]
     },
     {
@@ -7690,8 +8463,8 @@
       "3B855F"
      ],
      "coords": [
-      2501.59375,
-      122669.7421875
+      2501.6,
+      122669.7
      ]
     },
     {
@@ -7709,8 +8482,8 @@
       "430366"
      ],
      "coords": [
-      -59481.703125,
-      142680.9375
+      -59481.7,
+      142680.9
      ]
     },
     {
@@ -7732,8 +8505,8 @@
       "43349A"
      ],
      "coords": [
-      19277.025390625,
-      132546.609375
+      19277.0,
+      132546.6
      ]
     },
     {
@@ -7752,8 +8525,8 @@
       "5A1107"
      ],
      "coords": [
-      3744.93310546875,
-      -4831.8544921875
+      3744.9,
+      -4831.9
      ]
     },
     {
@@ -7769,8 +8542,8 @@
       "34405C"
      ],
      "coords": [
-      -65974.90625,
-      174703.65625
+      -65974.9,
+      174703.7
      ]
     },
     {
@@ -7786,8 +8559,8 @@
       "3A6F9D"
      ],
      "coords": [
-      41201.44921875,
-      175426.671875
+      41201.4,
+      175426.7
      ]
     },
     {
@@ -7803,8 +8576,8 @@
       "033AC5"
      ],
      "coords": [
-      4489.5791015625,
-      141768.09375
+      4489.6,
+      141768.1
      ]
     },
     {
@@ -7820,8 +8593,8 @@
       "254455"
      ],
      "coords": [
-      -37367.1640625,
-      158548.40625
+      -37367.2,
+      158548.4
      ]
     },
     {
@@ -7838,8 +8611,8 @@
       "75D355"
      ],
      "coords": [
-      114.169700622559,
-      -97.0481872558594
+      114.2,
+      -97.0
      ]
     },
     {
@@ -7857,8 +8630,8 @@
       "4270EA"
      ],
      "coords": [
-      31073.580078125,
-      190639.015625
+      31073.6,
+      190639.0
      ]
     },
     {
@@ -7876,8 +8649,8 @@
       "3C86E0"
      ],
      "coords": [
-      -14498.255859375,
-      176290.453125
+      -14498.3,
+      176290.5
      ]
     },
     {
@@ -7904,8 +8677,8 @@
       "3C8E57"
      ],
      "coords": [
-      -29007.1484375,
-      191005.328125
+      -29007.1,
+      191005.3
      ]
     },
     {
@@ -7923,8 +8696,8 @@
       "3CC130"
      ],
      "coords": [
-      -17799.7890625,
-      189752.03125
+      -17799.8,
+      189752.0
      ]
     }
    ]

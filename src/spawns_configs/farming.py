@@ -22,6 +22,7 @@ from farming_spawns_config import ALL_SETS, SETS_BY_SLUG, ALL_REGIONS
 from spawns_engine.geo import Geo
 from spawns_engine import sources as esources
 from spawns_engine import build as ebuild
+from spawns_engine import events as eevents
 from spawns_engine.classify import farming_classify
 
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
@@ -59,6 +60,14 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
 
+    # Events & Activities — event/activity reward ROOTS in the closure (§9k):
+    # keyword pass + QUEST reward registry, with nested loot-bag sub-lists
+    # collapsed into their outer event/activity root (c2p). Raw {list_id, edid,
+    # name, type} here; the chained per-root rate is computed later by
+    # build_farming_used_for.py (rng76). Empty = renderer shows the empty-state.
+    events_activities = eevents.detect(src["lvli_closure"], tbls["parent_edid"],
+                                       c2p=tbls["c2p"])
+
     doc = {
         "_meta": {"generated": generated, "source": _source_tag(cfg),
                   "lists_in_closure": lists_n,
@@ -72,6 +81,7 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
         "farming_tips": cfg.get("farming_tips"),
         "used_for": cfg.get("used_for"),
         "additional_expands": cfg.get("additional_expands"),
+        "events_activities": events_activities,
         "regions": regions_out,
     }
     os.makedirs(dist_dir, exist_ok=True)

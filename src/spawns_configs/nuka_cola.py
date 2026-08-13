@@ -24,6 +24,7 @@ from nuka_cola_spawns_config import VARIANTS, ALL_REGIONS
 from spawns_engine.geo import Geo
 from spawns_engine import sources as esources
 from spawns_engine import build as ebuild
+from spawns_engine import events as eevents
 from spawns_engine.classify import nuka_classify
 try:
     from build_farming_used_for import build_consumption
@@ -120,7 +121,7 @@ def build_used_for(slug, name):
     return {"consumption": cons}, compute_farming_tips(cons)
 
 
-def build_variant(v, tbls, geo, cur, cache, db_ok, generated):
+def build_variant(v, tbls, geo, cur, cache, db_ok, generated, appearance_fn=None):
     slug = v["slug"].replace("-locations", "")
     path = os.path.join(DIST, f"nuka_cola_spawns_{slug}.json")
     keep = ebuild.load_existing(path)
@@ -133,6 +134,14 @@ def build_variant(v, tbls, geo, cur, cache, db_ok, generated):
     seen, lists_n = ebuild.resolve_placements(src, geo, cur, cache, db_ok)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
+
+    # Events & Activities — event/activity reward ROOTS in the closure (§9k):
+    # keyword pass + QUEST reward registry, nested loot bags collapsed to their
+    # outer root (c2p). Chained per-root rate resolved from rng76 (appearance_fn).
+    targets = {f.upper() for f in DRINK_ALCH.get(slug, [])}
+    events_activities = eevents.detect(src["lvli_closure"], tbls["parent_edid"],
+                                       c2p=tbls["c2p"])
+    eevents.resolve_event_rates(events_activities, targets, appearance_fn)
 
     _uf, _tips = build_used_for(slug, v["name"])
     doc = {
@@ -148,6 +157,7 @@ def build_variant(v, tbls, geo, cur, cache, db_ok, generated):
         "regions": regions_out,
         "used_for": _uf,
         "farming_tips": _tips,
+        "events_activities": events_activities,
         "special_sources": load_special().get(slug, {}),
     }
     os.makedirs(DIST, exist_ok=True)
@@ -166,6 +176,17 @@ def run(argv):
     geo = con = cur = None
     cache = ebuild.load_cache(GEO_CACHE)
 
+    # rng76 for the Events & Activities chained rates (loaded once). Optional — if
+    # it can't load, events still list (rate shows a dash) rather than failing.
+    appearance_fn = None
+    try:
+        import rng76
+        _res = rng76.Rng76Data.from_tsv_root(TSV).resolver
+        appearance_fn = lambda list_id, targets: _res.appearance_prob(list_id, targets)
+        print("[nuka-cola] rng76 loaded — Events & Activities rates will be computed.")
+    except Exception as e:
+        print(f"[nuka-cola] [warn] rng76 unavailable ({e}); Events & Activities rates blank.")
+
     if db_ok:
         geo = Geo(MAPPALACHIA_DB)
         con = sqlite3.connect(MAPPALACHIA_DB); cur = con.cursor()
@@ -180,7 +201,7 @@ def run(argv):
     generated = datetime.date.today().isoformat()
     manifest = []
     for v in variants:
-        info = build_variant(v, tbls, geo, cur, cache, db_ok, generated)
+        info = build_variant(v, tbls, geo, cur, cache, db_ok, generated, appearance_fn)
         manifest.append(info)
         extra = f"  [{info['unresolved']} unresolved]" if info["unresolved"] else ""
         flag = "" if info["has_source"] else "  (no world source)"

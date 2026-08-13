@@ -1011,10 +1011,642 @@ BLOOD_SAC = {
     # used to craft, and `vendor_list` is joined from the NPC2 vendor master.
 }
 
+# ── HOTDOG ─────────────────────────────────────────────────────────────────────
+# Pre-war cooked-meat food (ALCH 00042828). Weight 1.0, value 12, keywords
+# ObjectTypeFood + IngredientTypeMeat + MealTypeCooked + ObjectTypeCanSpoil →
+# perishable. Mostly a fixed world spawn (174 direct REFRs placed at diners /
+# grills / picnic spots) plus a small container presence. As a consumable it
+# renders Used For (When Consumed + recipes) and Farming Tips; build_farming_used_for
+# populates used_for.consumption from the ALCH record.
+HOTDOG = {
+    "slug": "hotdog",
+    "name": "Hotdog",
+    "page_title": "Hotdog Spawn Locations",
+    "blurb": "Every known world spawn for Hotdog, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "00042828",
+            "edid": "Hotdog",
+            "full": "Hotdog",
+            "sig": "ALCH",
+        },
+    ],
+    # ── Drop rates ──────────────────────────────────────────────────────
+    # Hotdog is placed directly in the world (direct REFRs = guaranteed fixed
+    # spawns, routed to Fixed Spawn Locations), plus a small container presence.
+    # No dedicated creature death list, no vendor pool, no event/activity pool.
+    "drop_rates": {
+        "world_spawns": None,     # direct REFRs are fixed 100% spawns, not a chance roll
+        "containers": {
+            "container_edid": "LL_Food_Any",
+            "note": (
+                "Hotdog is placed directly in the world at diners, grills and "
+                "picnic spots (fixed spawns); a small number of food containers "
+                "can also hold one."
+            ),
+        },
+        "vendors": None,
+        "resource_generators": None,
+    },
+    # ── Farming Tips (TSV-derived) ─────────────────────────────────────
+    # ALCH 00042828: Weight 1.00, ObjectTypeFood + IngredientTypeMeat +
+    # MealTypeCooked + ObjectTypeCanSpoil → perishable cooked food. It is placed
+    # in the world (not butchered from a corpse or harvested), so no yield perk
+    # applies. Food → Thru-Hiker weight perk / Grocer's backpack.
+    "farming_tips": {
+        "spoils": True,
+        "spoil_duration_hours": None,
+        "base_weight": 1.00,
+        "object_type": "Food",
+        "yield_perk": None,
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.55},
+            {"rank": 2, "reduction": "90%", "weight": 0.10},
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.10,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.80},
+            {"pieces": 2, "reduction": "40%", "weight": 0.60},
+            {"pieces": 3, "reduction": "60%", "weight": 0.40},
+            {"pieces": 4, "reduction": "80%", "weight": 0.20},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.10},
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": True,
+    },
+    # ── Used For ────────────────────────────────────────────────────────
+    # GENERATED at build time by build_farming_used_for.py — consumption (food
+    # hunger effects), recipes and vendor_list are injected from the ALCH record.
+}
+
+# ── CANNED MEAT STEW (auto-added Aug 2026) ─────────────────────────────────
+CANNED_MEAT_STEW = {
+    "slug": "canned-meat-stew",
+    "name": "Canned Meat Stew",
+    "page_title": "Canned Meat Stew Spawn Locations",
+    "blurb": "Every known world spawn for Canned Meat Stew, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "00343776",
+            "edid": "FF06_Feed_CannedMeatTastyStew",
+            "full": "Canned Meat Stew",
+            "sig": "ALCH",
+        },
+    ],
+    "farming_tips": {
+        "spoils": False,
+        "spoil_duration_hours": None,
+        "base_weight": 1.0,
+        "object_type": "Food",
+        "yield_perk": "can_do",
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {
+                "rank": 1,
+                "reduction": "45%",
+                "weight": 0.55,
+            },
+            {
+                "rank": 2,
+                "reduction": "90%",
+                "weight": 0.1,
+            },
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.1,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.2,
+        "armour_mod_weights": [
+            {
+                "pieces": 1,
+                "reduction": "20%",
+                "weight": 0.8,
+            },
+            {
+                "pieces": 2,
+                "reduction": "40%",
+                "weight": 0.6,
+            },
+            {
+                "pieces": 3,
+                "reduction": "60%",
+                "weight": 0.4,
+            },
+            {
+                "pieces": 4,
+                "reduction": "80%",
+                "weight": 0.2,
+            },
+            {
+                "pieces": 5,
+                "reduction": "90% cap",
+                "weight": 0.1,
+            },
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": False,
+    },
+}
+
+# ── GLOWING BLOOD (auto-added Aug 2026) ─────────────────────────────────
+GLOWING_BLOOD = {
+    "slug": "glowing-blood",
+    "name": "Glowing Blood",
+    "page_title": "Glowing Blood Spawn Locations",
+    "blurb": "Every known world spawn for Glowing Blood, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "000E2F68",
+            "edid": "GlowingOneBlood",
+            "full": "Glowing Blood",
+            "sig": "ALCH",
+        },
+    ],
+    "farming_tips": {
+        "spoils": False,
+        "spoil_duration_hours": None,
+        "base_weight": 0.3,
+        "object_type": "Chem",
+        "yield_perk": None,
+        "weight_perk": "traveling_pharmacy",
+        "weight_perk_ranks": [
+            {
+                "rank": 1,
+                "reduction": "45%",
+                "weight": 0.17,
+            },
+            {
+                "rank": 2,
+                "reduction": "90%",
+                "weight": 0.03,
+            },
+        ],
+        "backpack_mod": "chemists",
+        "backpack_weight": 0.03,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.2,
+        "armour_mod_weights": [
+            {
+                "pieces": 1,
+                "reduction": "20%",
+                "weight": 0.24,
+            },
+            {
+                "pieces": 2,
+                "reduction": "40%",
+                "weight": 0.18,
+            },
+            {
+                "pieces": 3,
+                "reduction": "60%",
+                "weight": 0.12,
+            },
+            {
+                "pieces": 4,
+                "reduction": "80%",
+                "weight": 0.06,
+            },
+            {
+                "pieces": 5,
+                "reduction": "90% cap",
+                "weight": 0.03,
+            },
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": False,
+    },
+}
+
+# ── HONEYCOMB (auto-added Aug 2026) ─────────────────────────────────
+HONEYCOMB = {
+    "slug": "honeycomb",
+    "name": "Honeycomb",
+    "page_title": "Honeycomb Spawn Locations",
+    "blurb": "Every known world spawn for Honeycomb, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "004E722A",
+            "edid": "HoneyComb",
+            "full": "Honeycomb",
+            "sig": "ALCH",
+        },
+    ],
+    "farming_tips": {
+        "spoils": False,
+        "spoil_duration_hours": None,
+        "base_weight": 0.25,
+        "object_type": "Food",
+        "yield_perk": None,
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {
+                "rank": 1,
+                "reduction": "45%",
+                "weight": 0.14,
+            },
+            {
+                "rank": 2,
+                "reduction": "90%",
+                "weight": 0.03,
+            },
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.03,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.2,
+        "armour_mod_weights": [
+            {
+                "pieces": 1,
+                "reduction": "20%",
+                "weight": 0.2,
+            },
+            {
+                "pieces": 2,
+                "reduction": "40%",
+                "weight": 0.15,
+            },
+            {
+                "pieces": 3,
+                "reduction": "60%",
+                "weight": 0.1,
+            },
+            {
+                "pieces": 4,
+                "reduction": "80%",
+                "weight": 0.05,
+            },
+            {
+                "pieces": 5,
+                "reduction": "90% cap",
+                "weight": 0.03,
+            },
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": False,
+    },
+}
+
+# ── PERFECT BUBBLEGUM (auto-added Aug 2026) ─────────────────────────────────
+PERFECT_BUBBLEGUM = {
+    "slug": "perfect-bubblegum",
+    "name": "Perfect Bubblegum",
+    "page_title": "Perfect Bubblegum Spawn Locations",
+    "blurb": "Every known world spawn for Perfect Bubblegum, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "005EE7EC",
+            "edid": "SCORE_Bubblegum_Perfect",
+            "full": "Perfect Bubblegum",
+            "sig": "ALCH",
+        },
+    ],
+    "farming_tips": {
+        "spoils": False,
+        "spoil_duration_hours": None,
+        "base_weight": 0.1,
+        "object_type": "Food",
+        "yield_perk": None,
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {
+                "rank": 1,
+                "reduction": "45%",
+                "weight": 0.06,
+            },
+            {
+                "rank": 2,
+                "reduction": "90%",
+                "weight": 0.01,
+            },
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.01,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.2,
+        "armour_mod_weights": [
+            {
+                "pieces": 1,
+                "reduction": "20%",
+                "weight": 0.08,
+            },
+            {
+                "pieces": 2,
+                "reduction": "40%",
+                "weight": 0.06,
+            },
+            {
+                "pieces": 3,
+                "reduction": "60%",
+                "weight": 0.04,
+            },
+            {
+                "pieces": 4,
+                "reduction": "80%",
+                "weight": 0.02,
+            },
+            {
+                "pieces": 5,
+                "reduction": "90% cap",
+                "weight": 0.01,
+            },
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": False,
+    },
+}
+
+# ── PURIFIED WATER (auto-added Aug 2026) ─────────────────────────────────
+PURIFIED_WATER = {
+    "slug": "purified-water",
+    "name": "Purified Water",
+    "page_title": "Purified Water Spawn Locations",
+    "blurb": "Every known world spawn for Purified Water, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "000366C0",
+            "edid": "WaterPurified",
+            "full": "Purified Water",
+            "sig": "ALCH",
+        },
+    ],
+    "farming_tips": {
+        "spoils": False,
+        "spoil_duration_hours": None,
+        "base_weight": 0.5,
+        "object_type": "Drink",
+        "yield_perk": None,
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {
+                "rank": 1,
+                "reduction": "45%",
+                "weight": 0.28,
+            },
+            {
+                "rank": 2,
+                "reduction": "90%",
+                "weight": 0.05,
+            },
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.05,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.2,
+        "armour_mod_weights": [
+            {
+                "pieces": 1,
+                "reduction": "20%",
+                "weight": 0.4,
+            },
+            {
+                "pieces": 2,
+                "reduction": "40%",
+                "weight": 0.3,
+            },
+            {
+                "pieces": 3,
+                "reduction": "60%",
+                "weight": 0.2,
+            },
+            {
+                "pieces": 4,
+                "reduction": "80%",
+                "weight": 0.1,
+            },
+            {
+                "pieces": 5,
+                "reduction": "90% cap",
+                "weight": 0.05,
+            },
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": False,
+    },
+}
+
+# ── ROYAL JELLY (auto-added Aug 2026) ─────────────────────────────────
+ROYAL_JELLY = {
+    "slug": "royal-jelly",
+    "name": "Royal Jelly",
+    "page_title": "Royal Jelly Spawn Locations",
+    "blurb": "Every known world spawn for Royal Jelly, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "00329C9E",
+            "edid": "HoneyBeastRoyalJelly",
+            "full": "Royal Jelly",
+            "sig": "ALCH",
+        },
+    ],
+    "farming_tips": {
+        "spoils": False,
+        "spoil_duration_hours": None,
+        "base_weight": 0.5,
+        "object_type": "Food",
+        "yield_perk": None,
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {
+                "rank": 1,
+                "reduction": "45%",
+                "weight": 0.28,
+            },
+            {
+                "rank": 2,
+                "reduction": "90%",
+                "weight": 0.05,
+            },
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.05,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.2,
+        "armour_mod_weights": [
+            {
+                "pieces": 1,
+                "reduction": "20%",
+                "weight": 0.4,
+            },
+            {
+                "pieces": 2,
+                "reduction": "40%",
+                "weight": 0.3,
+            },
+            {
+                "pieces": 3,
+                "reduction": "60%",
+                "weight": 0.2,
+            },
+            {
+                "pieces": 4,
+                "reduction": "80%",
+                "weight": 0.1,
+            },
+            {
+                "pieces": 5,
+                "reduction": "90% cap",
+                "weight": 0.05,
+            },
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": False,
+    },
+}
+
+# ── SUGAR BOMBS (auto-added Aug 2026) ─────────────────────────────────
+SUGAR_BOMBS = {
+    "slug": "sugar-bombs",
+    "name": "Sugar Bombs",
+    "page_title": "Sugar Bombs Spawn Locations",
+    "blurb": "Every known world spawn for Sugar Bombs, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {
+            "formid": "000330F2",
+            "edid": "SugarBombs",
+            "full": "Sugar Bombs",
+            "sig": "ALCH",
+        },
+    ],
+    "farming_tips": {
+        "spoils": False,
+        "spoil_duration_hours": None,
+        "base_weight": 0.5,
+        "object_type": "Food",
+        "yield_perk": None,
+        "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {
+                "rank": 1,
+                "reduction": "45%",
+                "weight": 0.28,
+            },
+            {
+                "rank": 2,
+                "reduction": "90%",
+                "weight": 0.05,
+            },
+        ],
+        "backpack_mod": "grocers",
+        "backpack_weight": 0.05,
+        "armour_mod": "thru_hikers",
+        "armour_mod_per_piece": 0.2,
+        "armour_mod_weights": [
+            {
+                "pieces": 1,
+                "reduction": "20%",
+                "weight": 0.4,
+            },
+            {
+                "pieces": 2,
+                "reduction": "40%",
+                "weight": 0.3,
+            },
+            {
+                "pieces": 3,
+                "reduction": "60%",
+                "weight": 0.2,
+            },
+            {
+                "pieces": 4,
+                "reduction": "80%",
+                "weight": 0.1,
+            },
+            {
+                "pieces": 5,
+                "reduction": "90% cap",
+                "weight": 0.05,
+            },
+        ],
+        "magazines_affect_yield": False,
+        "good_with_salt": False,
+    },
+}
+
+# ── SALT, PEPPER, SUGAR & SPICES (combined 4-item page) ─────────────────────────
+# Four cooking-flavour seasonings on ONE page (each its own Used-For expand). All
+# ObjectTypeFood + IngredientTypeFlavor, weight 0.25, non-perishable. The engine
+# resolves the COMBINED fixed-spawn set across all four; the renderer shows a
+# region INDEX (links to the per-region pages) on this page instead of the full
+# marker dump. `multi_item` drives the per-item Used For expands; `fixed_spawn_index`
+# turns Fixed Spawn Locations into a region index (see df-bnb-farming-non-perishable-guide.js).
+SALT_PEPPER_SUGAR_SPICES = {
+    "slug": "salt-pepper-spices-sugar",
+    "name": "Salt, Pepper, Sugar & Spices",
+    "page_title": "Salt, Pepper, Sugar & Spices Spawn Locations",
+    "blurb": "Every known world spawn for Salt, Pepper, Sugar and Spices, indexed by region. Per-region location guides are linked below.",
+    "items": [
+        {"formid": "00118613", "edid": "CookingFlavor_Salt",   "full": "Salt",   "sig": "ALCH"},
+        {"formid": "00118617", "edid": "CookingFlavor_Pepper", "full": "Pepper", "sig": "ALCH"},
+        {"formid": "00118614", "edid": "CookingFlavor_Sugar",  "full": "Sugar",  "sig": "ALCH"},
+        {"formid": "0011863E", "edid": "CookingFlavor_Spices", "full": "Spices", "sig": "ALCH"},
+    ],
+    # Per-item consumption expands + region-index Fixed Spawn (post-processed by
+    # build_salt_pepper_spices_sugar_spawns_json.py after the used_for step).
+    "multi_item": True,
+    "region_index_base": "/bnb/non-perishable/salt-pepper-spices-sugar/salt-pepper-spices-sugar-",
+    "farming_tips": {
+        "spoils": False, "spoil_duration_hours": None, "base_weight": 0.25,
+        "object_type": "Food", "yield_perk": None, "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.14},
+            {"rank": 2, "reduction": "90%", "weight": 0.03},
+        ],
+        "backpack_mod": "grocers", "backpack_weight": 0.03,
+        "armour_mod": "thru_hikers", "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.20},
+            {"pieces": 2, "reduction": "40%", "weight": 0.15},
+            {"pieces": 3, "reduction": "60%", "weight": 0.10},
+            {"pieces": 4, "reduction": "80%", "weight": 0.05},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.03},
+        ],
+        "magazines_affect_yield": False, "good_with_salt": False,
+    },
+}
+
+# ── HONEY (004E7229) ────────────────────────────────────────────────────────────
+# The single real consumable "Honey" (ObjectTypeFood + MealTypeRaw, weight 0.25,
+# non-perishable). Distinct from Mountain Honey (a moonshine drink), Royal Jelly /
+# Royal Jelly Taffy, Honeycomb and Blackberry Honey Crisp.
+HONEY = {
+    "slug": "honey",
+    "name": "Honey",
+    "page_title": "Honey Spawn Locations",
+    "blurb": "Every known world spawn for Honey, grouped by region. Directions and photos are added by hand.",
+    "items": [
+        {"formid": "004E7229", "edid": "Honey", "full": "Honey", "sig": "ALCH"},
+    ],
+    "farming_tips": {
+        "spoils": False, "spoil_duration_hours": None, "base_weight": 0.25,
+        "object_type": "Food", "yield_perk": None, "weight_perk": "thru_hiker",
+        "weight_perk_ranks": [
+            {"rank": 1, "reduction": "45%", "weight": 0.14},
+            {"rank": 2, "reduction": "90%", "weight": 0.03},
+        ],
+        "backpack_mod": "grocers", "backpack_weight": 0.03,
+        "armour_mod": "thru_hikers", "armour_mod_per_piece": 0.20,
+        "armour_mod_weights": [
+            {"pieces": 1, "reduction": "20%", "weight": 0.20},
+            {"pieces": 2, "reduction": "40%", "weight": 0.15},
+            {"pieces": 3, "reduction": "60%", "weight": 0.10},
+            {"pieces": 4, "reduction": "80%", "weight": 0.05},
+            {"pieces": 5, "reduction": "90% cap", "weight": 0.03},
+        ],
+        "magazines_affect_yield": False, "good_with_salt": False,
+    },
+}
+
 # All sets in this family — add new items here.
 # The generic build script (build_farming_spawns_json.py) picks them up automatically.
 ALL_SETS = [CREAM, DEATHCLAW_EGG, FROG_EGG, MIRELURK_EGG, MOTHMAN_EGG,
-            RADSCORPION_EGG, RADTOAD_EGG, TICK_BLOOD, BLOOD_SAC]
+            RADSCORPION_EGG, RADTOAD_EGG, TICK_BLOOD, BLOOD_SAC, HOTDOG,
+            CANNED_MEAT_STEW, GLOWING_BLOOD, HONEYCOMB, PERFECT_BUBBLEGUM,
+            PURIFIED_WATER, ROYAL_JELLY, SUGAR_BOMBS,
+            SALT_PEPPER_SUGAR_SPICES, HONEY]
 
 # Slug → config dict, for --item <slug> lookup in the build script.
 SETS_BY_SLUG = {s["slug"]: s for s in ALL_SETS}
