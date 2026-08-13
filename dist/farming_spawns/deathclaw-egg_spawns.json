@@ -2,14 +2,13 @@
  "_meta": {
   "generated": "2026-08-13",
   "source": "Game-file exports (LVLI/ALCH/MISC) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 17,
+  "lists_in_closure": 10,
   "source_totals": {
-   "direct": 22,
-   "nest": 11
+   "direct": 22
   },
   "unresolved": {
-   "Cavern": 8,
-   "Tunnel of Love": 6
+   "Cavern": 5,
+   "Tunnel of Love": 1
   }
  },
  "set": "deathclaw-egg",
@@ -21,7 +20,10 @@
    "list_edid": "LPI_Food_DeathclawEgg",
    "list_id": "002118C0",
    "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
-   "note": "37 LPI spawn points for the raw egg roll a per-server-hop chance each (computed). 5 raw eggs and 12 cracked eggs are fixed static world spawns."
+   "note": "37 LPI spawn points for the raw egg roll a per-server-hop chance each (computed). 5 raw eggs and 12 cracked eggs are fixed static world spawns.",
+   "rate": 0.5,
+   "rate_display": "50%",
+   "rate_source": "computed"
   },
   "containers": {
    "container_edid": "Container_Loot_DeathclawNest01",
@@ -30,14 +32,22 @@
    "nest_list_id": "001B0084",
    "chance_none_glob": "ItemTwo_High_ChanceNone_Tier",
    "count": 19,
-   "note": "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). Each nest's chance to contain 1 raw egg + 1 cracked egg is computed from the ItemTwo_High_ChanceNone_Tier GLOB."
+   "note": "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). Each nest's chance to contain 1 raw egg + 1 cracked egg is computed from the ItemTwo_High_ChanceNone_Tier GLOB.",
+   "rate": 0.9,
+   "rate_display": "90%",
+   "rate_source": "computed"
   },
   "vendors": {
    "general": {
     "list_edid": "LLV_Vendor_Junk_Small_Rare",
     "list_id": "000757BD",
     "mechanism": "Cracked Deathclaw Egg is 1 of 40 items in the junk vendor rare pool (pick-one). Raw eggs are not sold by any vendor.",
-    "note": "Junk vendors have a 2.5% chance per roll to stock a cracked deathclaw egg. Raw eggs are not vendored."
+    "note": "Junk vendors have a 2.5% chance per roll to stock a cracked deathclaw egg. Raw eggs are not vendored.",
+    "rate": 0.025,
+    "rate_lines": [
+     "2.5%"
+    ],
+    "rate_display": "2.5%"
    }
   },
   "resource_generators": {
@@ -97,7 +107,202 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.25,
+   "value": 15,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Deathclaw Egg is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "15% chance to catch a disease",
+     "duration": null
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (medium)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Collect Deathclaw eggs",
+    "edid": "SCORE_Challenge_Daily_Collect_Eggs_Deathclaw",
+    "page": "daily"
+   },
+   {
+    "name": "Collect a Deathclaw Egg with the Sunset Sarsaparilla Deputy Hat Equipped",
+    "edid": "ATX_DE2025_SunsetStranger_Week2_Challenge_Collect_Eggs_Deathclaw",
+    "page": null
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Deathclaw Egg Omelette",
+    "form_id": "0004693C",
+    "recipe_edid": "co_meal_DeathclawEggCooked",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Deathclaw Egg",
+      "qty": 1
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Heal Rate",
+      "display": "Fortify Heal Rate",
+      "duration": "30 min"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (large)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": ""
+   },
+   {
+    "name": "Deathclaw Wellington",
+    "form_id": "001A71E7",
+    "recipe_edid": "co_meal_DeathclawMeatTasty",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Deathclaw Egg",
+      "qty": 2
+     },
+     {
+      "name": "Deathclaw Meat",
+      "qty": 2
+     },
+     {
+      "name": "Pepper",
+      "qty": 2
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Strength",
+      "display": "+3 Fortify Strength",
+      "duration": "1 hour"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (verylarge)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": ""
+   },
+   {
+    "name": "Jellied Fish",
+    "form_id": "008B33D4",
+    "recipe_edid": "co_meal_Fishing_SummerJelliedFish",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 1
+     },
+     {
+      "name": "Deathclaw Egg",
+      "qty": 2
+     },
+     {
+      "name": "Carrot",
+      "qty": 2
+     },
+     {
+      "name": "Summer Filet",
+      "qty": 5
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Intelligence",
+      "display": "+4 Fortify Intelligence",
+      "duration": "1 hour"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (medium)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Fishing recipe."
+   }
+  ]
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "regions": [
   {
@@ -124,33 +329,26 @@
       "80F840"
      ],
      "coords": [
-      -257522.171875,
-      124157.5078125
+      -257522.2,
+      124157.5
      ]
     },
     {
      "marker": "Dino Peaks Mini Golf",
-     "count": 8,
+     "count": 2,
      "sources": {
-      "direct": 2,
-      "nest": 6
+      "direct": 2
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "7F0A81",
-      "7F0A84",
-      "80391B",
-      "82A3B2",
-      "82A3B3",
-      "82A3B4",
       "82A3B5",
       "82A3B6"
      ],
      "coords": [
-      -208312.0,
-      145838.765625
+      -211856.2,
+      146331.7
      ]
     },
     {
@@ -166,8 +364,8 @@
       "831130"
      ],
      "coords": [
-      -2449.03247070313,
-      14270.1943359375
+      -2449.0,
+      14270.2
      ]
     },
     {
@@ -183,8 +381,8 @@
       "84B014"
      ],
      "coords": [
-      -249322.6875,
-      -10382.044921875
+      -249322.7,
+      -10382.0
      ]
     }
    ]
@@ -209,8 +407,8 @@
       "312301"
      ],
      "coords": [
-      -42291.828125,
-      50632.6640625
+      -42291.8,
+      50632.7
      ]
     },
     {
@@ -227,8 +425,8 @@
       "0638D2"
      ],
      "coords": [
-      -172897.84375,
-      133486.765625
+      -172897.8,
+      133486.8
      ]
     },
     {
@@ -244,8 +442,8 @@
       "358313"
      ],
      "coords": [
-      -47152.0625,
-      -19360.3125
+      -47152.1,
+      -19360.3
      ]
     }
    ]
@@ -266,16 +464,15 @@
       "5DD49E"
      ],
      "coords": [
-      -3672.44067382812,
-      5661.45751953125
+      -3672.4,
+      5661.5
      ]
     },
     {
      "marker": "Hopewell Cave",
-     "count": 6,
+     "count": 5,
      "sources": {
-      "direct": 5,
-      "nest": 1
+      "direct": 5
      },
      "image_top": "",
      "directions": "",
@@ -283,14 +480,13 @@
      "refs": [
       "1DD0AA",
       "26800C",
-      "36C927",
       "62A86C",
       "62A86F",
       "62A873"
      ],
      "coords": [
-      115886.515625,
-      113074.953125
+      116221.4,
+      113333.9
      ]
     },
     {
@@ -306,8 +502,8 @@
       "4F4CC1"
      ],
      "coords": [
-      80245.8203125,
-      -128574.296875
+      80245.8,
+      -128574.3
      ]
     },
     {
@@ -325,8 +521,8 @@
       "09D9B2"
      ],
      "coords": [
-      136322.09375,
-      161948.984375
+      136322.1,
+      161949.0
      ]
     }
    ]
@@ -347,8 +543,8 @@
       "786717"
      ],
      "coords": [
-      8112.982421875,
-      -8673.9248046875
+      8113.0,
+      -8673.9
      ]
     }
    ]
@@ -358,57 +554,20 @@
    "locations": [
     {
      "marker": "Abandoned Waste Dump",
-     "count": 4,
+     "count": 2,
      "sources": {
-      "direct": 2,
-      "nest": 2
+      "direct": 2
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "3DC3DD",
       "3DC447",
-      "3DC448",
-      "3DC449"
+      "3DC448"
      ],
      "coords": [
-      184725.0,
-      26157.234375
-     ]
-    },
-    {
-     "marker": "Excelsior Model Home",
-     "count": 1,
-     "sources": {
-      "nest": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "2C089D"
-     ],
-     "coords": [
-      173343.578125,
-      99286.765625
-     ]
-    },
-    {
-     "marker": "Thunder Mt. Power Plant Yard",
-     "count": 1,
-     "sources": {
-      "nest": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "37BE5C"
-     ],
-     "coords": [
-      190414.734375,
-      86812.40625
+      184875.0,
+      26884.5
      ]
     }
    ]

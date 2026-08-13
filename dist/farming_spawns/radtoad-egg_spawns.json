@@ -20,7 +20,16 @@
    "list_edid": "LLD_Creature_Radtoad",
    "list_id": "00047185",
    "mechanism": "UseAll list with 5 entries. Entry 0: RadToadEgg at CN=0 (guaranteed 1 egg). Additional bonus egg via LLE_Creature_RadToad entry 2 (CN=50) gated by LLS_Creature_RadToad level-scaled ChanceNone (60% fire rate at level 40+).",
-   "note": "Every radtoad kill guarantees 1 egg. At max level there is roughly a 30% chance of a bonus egg (60% list fire × 50% entry chance). No world-placed spawns or vendor sources exist."
+   "note": "Every radtoad kill guarantees 1 egg. At max level there is roughly a 30% chance of a bonus egg (60% list fire × 50% entry chance). No world-placed spawns or vendor sources exist.",
+   "rate": 1.0,
+   "rate_lines": [
+    "100%",
+    "30%",
+    "20%",
+    "15%",
+    "10%"
+   ],
+   "rate_display": "100% / 30% / 20% / 15% / 10%"
   },
   "vendors": null,
   "resource_generators": null
@@ -78,7 +87,81 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.25,
+   "value": 9,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Radtoad Egg is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "15% chance to catch a disease",
+     "duration": null
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (small)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [
+   {
+    "name": "Radtoad Omelette",
+    "form_id": "0003E053",
+    "recipe_edid": "co_meal_RadToadEggCooked",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1
+     },
+     {
+      "name": "Radtoad Egg",
+      "qty": 1
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+1 Fortify Endurance",
+      "duration": "30 min"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (medium)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": ""
+   }
+  ]
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "regions": [
   {
@@ -130,8 +213,8 @@
       "4988AF"
      ],
      "coords": [
-      -32633.478515625,
-      35556.6015625
+      -32633.5,
+      35556.6
      ]
     }
    ]
@@ -159,8 +242,8 @@
       "758620"
      ],
      "coords": [
-      85190.8671875,
-      -193708.484375
+      85190.9,
+      -193708.5
      ]
     }
    ]
@@ -183,8 +266,8 @@
       "43CC89"
      ],
      "coords": [
-      135037.140625,
-      47639.828125
+      135037.1,
+      47639.8
      ]
     },
     {
@@ -200,8 +283,8 @@
       "43CC7C"
      ],
      "coords": [
-      134440.421875,
-      47264.2734375
+      134440.4,
+      47264.3
      ]
     }
    ]
