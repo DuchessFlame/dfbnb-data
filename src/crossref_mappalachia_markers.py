@@ -65,6 +65,137 @@ ALL_REGIONS = {
     "Savage Divide", "Skyline Valley", "The Mire", "The Pitt", "Toxic Valley",
 }
 
+# ── LCTN location-keyword → region ───────────────────────────────────────────────
+# Every FO76 Location (LCTN) record carries a `LocRegion*` keyword tagging which
+# map region it belongs to (tsv/LCTN_Export_*_LCTN.tsv, KW_* columns). This is the
+# authoritative, coordinate-free region tag — it resolves interiors AND outdoor
+# landmarks that fall in a region-polygon gap, WITHOUT any point-in-polygon math.
+LOCREGION_KEYWORD_TO_REGION = {
+    "Mountain": "Savage Divide",
+    "Whitespring": "Savage Divide",          # sub-region inside Savage Divide
+    "ForestFloodlands": "Forest",
+    "SwampForest": "The Mire",
+    "CranberryBog": "Cranberry Bog",
+    "Storm": "Skyline Valley",
+    "BurningSprings": "Burning Springs",
+    "MTR": "Ash Heap",                       # Mountain-Removal (Mount Blair mining)
+    "ToxicValley": "Toxic Valley",
+    "AC": "Atlantic City",
+    "Pitt": "The Pitt",
+}
+# When a location carries several LocRegion keywords, prefer the most specific map
+# region over the broad "Mountain" (e.g. Whitespring locations also tag Mountain).
+LOCREGION_PRIORITY = [
+    "CranberryBog", "ToxicValley", "BurningSprings", "Storm", "MTR",
+    "SwampForest", "ForestFloodlands", "AC", "Pitt", "Whitespring", "Mountain",
+]
+
+
+def _norm_name(s):
+    return re.sub(r"\s+", " ", (s or "").strip().lower())
+
+
+def _edid_core(eid, is_location=True):
+    """Reduce an EDID to a comparable core token: strip Loc.../.../Location wrapper,
+    trailing digits, lowercase. e.g. 'LocMountainsGarrahanHQLocation' -> 'mountainsgarrahanhq',
+    space 'GarrahanMiningHQ01' -> 'garrahanmininghq'."""
+    e = eid or ""
+    if is_location:
+        e = re.sub(r"^Loc", "", e)
+        e = re.sub(r"Location$", "", e)
+    e = re.sub(r"\d+$", "", e)
+    return e.lower()
+
+
+def load_lctn_regions(tsv_root=None):
+    """Build the LCTN-derived region maps from the newest LCTN export.
+
+    Returns (by_name, by_core):
+      by_name : { normalised LCTN FULL name -> region }
+      by_core : { LCTN EDID core token       -> region }
+    A location with no direct LocRegion keyword inherits its PNAM parent's region
+    (walked up to 6 hops). Only the 10 canonical map regions are emitted.
+    Returns ({}, {}) if the export is absent (callers fall back to the old logic)."""
+    root = tsv_root or os.path.join(REPO, "tsv")
+    hits = sorted(glob.glob(os.path.join(root, "LCTN_Export_*_LCTN.tsv")),
+                  key=os.path.getmtime, reverse=True)
+    if not hits:
+        return {}, {}
+    path = hits[0]
+
+    recs = {}
+    with open(path, encoding="utf-8", errors="replace") as f:
+        rd = csv.DictReader(f, delimiter="\t")
+        kw_cols = [c for c in (rd.fieldnames or []) if re.fullmatch(r"KW_\d+", c or "")]
+        for row in rd:
+            fid_raw = (row.get("LCTN_FormID") or "").strip()
+            if not fid_raw:
+                continue
+            try:
+                fid = int(fid_raw, 16)
+            except ValueError:
+                continue
+            regs = []
+            for c in kw_cols:
+                m = re.search(r"LocRegion([A-Za-z]+)", row.get(c) or "")
+                if m and m.group(1) in LOCREGION_KEYWORD_TO_REGION:
+                    regs.append(m.group(1))
+            pnam = (row.get("PNAM_ParentLocation") or "").split(":")[0].strip()
+            recs[fid] = {"full": row.get("LCTN_FULL") or "", "edid": row.get("LCTN_EDID") or "",
+                         "regs": regs, "pnam": pnam}
+
+    def region_of(fid, depth=0):
+        r = recs.get(fid)
+        if not r or depth > 6:
+            return ""
+        for kw in LOCREGION_PRIORITY:
+            if kw in r["regs"]:
+                return LOCREGION_KEYWORD_TO_REGION[kw]
+        if r["pnam"]:
+            try:
+                return region_of(int(r["pnam"], 16), depth + 1)
+            except ValueError:
+                return ""
+        return ""
+
+    by_name, by_core = {}, {}
+    for fid, r in recs.items():
+        reg = region_of(fid)
+        if reg not in ALL_REGIONS:
+            continue
+        nm = _norm_name(r["full"])
+        if nm:
+            by_name.setdefault(nm, reg)
+            if nm.startswith("the "):
+                by_name.setdefault(nm[4:], reg)
+        core = _edid_core(r["edid"], is_location=True)
+        if core:
+            by_core.setdefault(core, reg)
+    return by_name, by_core
+
+
+def lctn_region_for(by_name, by_core, display_name="", space_edid=""):
+    """Resolve a region from the LCTN maps by display name (exact, then 'the'-less),
+    then by editorID core (space core == LCTN core, then longest substring match).
+    Returns '' when nothing matches."""
+    nm = _norm_name(display_name)
+    if nm in by_name:
+        return by_name[nm]
+    if nm.startswith("the ") and nm[4:] in by_name:
+        return by_name[nm[4:]]
+    core = _edid_core(space_edid, is_location=False)
+    if core and core in by_core:
+        return by_core[core]
+    if core:
+        best = None
+        for c, reg in by_core.items():
+            if len(c) >= 5 and (core in c or c in core):
+                if best is None or len(c) > best[0]:
+                    best = (len(c), reg)
+        if best:
+            return best[1]
+    return ""
+
 # Map markers that sit in a Mappalachia region-polygon GAP (roads, water, borders) so
 # point-in-polygon returns no region — even for items placed right on them. Assign the
 # correct region here once and any placement nearest that marker resolves globally, on
@@ -76,6 +207,11 @@ MARKER_REGION_OVERRIDES = {
     # falls outside every SubRegion polygon; nearest covered marker is Mysterious Cave (Savage
     # Divide). Add siblings here if items ever spawn nearest them.
     "Old Danielson Cabin": "Savage Divide",
+    # Ghoul Within update — new far-north Savage Divide landmarks. Their exterior
+    # placements sit past the SubRegion polygons, so the nearest-polygon fallback
+    # would otherwise mis-assign them to The Mire. (fallout.wiki; user-confirmed.)
+    "Radiant Hills": "Savage Divide",
+    "Hillside Cavern": "Savage Divide",
 }
 
 
@@ -117,10 +253,30 @@ def pip(rings_list, px, py):
     return inside
 
 
-def region_for_xy(rings, px, py):
+def _nearest_region(rings, px, py):
+    """Region whose polygon boundary is CLOSEST to (px, py) — used only when the
+    point is outside every region polygon (roads/water/borders/map-edge gaps).
+    Distance is min squared distance to any ring vertex (cheap; runs on the rare
+    fallback path only)."""
+    best_reg, best_d = "", 1e30
+    for reg, rl in rings.items():
+        for ring in rl:
+            for x, y in ring:
+                d = (x - px) ** 2 + (y - py) ** 2
+                if d < best_d:
+                    best_d, best_reg = d, reg
+    return best_reg
+
+
+def region_for_xy(rings, px, py, nearest=False):
+    """Point-in-polygon region for (px, py). With nearest=True, a point that falls
+    outside every region polygon is assigned the CLOSEST polygon's region instead
+    of '' — the coordinate-based gap fallback."""
     for reg, rl in rings.items():
         if pip(rl, px, py):
             return reg
+    if nearest:
+        return _nearest_region(rings, px, py)
     return ""
 
 

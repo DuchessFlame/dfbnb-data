@@ -24,6 +24,7 @@ Interior coords in the DB are cell-local, so we resolve interiors by NAME, not c
 import os, sqlite3
 from crossref_mappalachia_markers import (
     load_mappalachia, region_for_xy, nearest_marker, MARKER_REGION_OVERRIDES,
+    load_lctn_regions, lctn_region_for,
 )
 
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
@@ -53,6 +54,19 @@ INTERIOR_REGION_OVERRIDES = {
     "The Rusty Pick": "Ash Heap",                    # marker exists but sits in a polygon gap
     "Duncan & Duncan Robotics": "Cranberry Bog",     # Watoga (all Watoga markers resolve here)
     "Gold Vault Operations": "Savage Divide",        # Regs — inside Vault 79 (marker = Savage Divide)
+    # --- Added Aug 2026: name-variant interiors the LCTN map mis-tags or misses.
+    #     These EXACT overrides beat the LCTN map (checked first) — see _resolve_interior. ---
+    "Garrahan Mining HQ": "Ash Heap",                # LCTN tags LocRegionMountain (Savage Divide) — WRONG; map zone is Ash Heap (Mount Blair)
+    "Thunder Mountain Power": "The Mire",            # LCTN "Thunder Mountain Power Plant"
+    "AMS Headquarters": "Cranberry Bog",             # LCTN "AMS Corporate Headquarters"
+    "AMS Headquarters Basement Lab": "Cranberry Bog",
+    "RobCo Auto-Cache #001": "Forest",               # LCTN "RobCo Experimental Auto-Supply Cache #0001"
+    "Shadowbreeze Apartments": "Forest",             # Morgantown apartments
+    # --- Ghoul Within / Atlantic City update locations too new for the LCTN/geo export ---
+    "Radiant Hills": "Savage Divide",                # Ghoul Within update — north Savage Divide (user-confirmed; fallout.wiki)
+    "Hillside Cavern": "Savage Divide",              # Ghoul Within update — Savage Divide (fallout.wiki/wiki/Hillside_Cavern)
+    "Little Rob's Hideout": "Forest",                # door is at The Crosshair (LocForestTheCrosshairLocation) — Atlantic City update
+    "Cavern": "The Mire",                            # sole interior named "Cavern" = Sam Blackwell's Deathclaw Cave (LocSwampSamBlackwellBunker)
     # Best-guess — PLEASE VERIFY (a wrong region is a one-line fix here):
     "Belching Betty": "Savage Divide",               # mine, Mount Blair area
     "FEV Production Facility": "Savage Divide",       # West Tek
@@ -92,6 +106,10 @@ class Geo:
                        for sid, eid, nm in cur.execute(
                            "SELECT spaceFormID, spaceEditorID, spaceDisplayName FROM Space")}
         con.close()
+        # LCTN-derived region maps (POI/interior name + editorID core -> region),
+        # the authoritative coordinate-free region tag from the game's Location
+        # records. Consulted before the hand-maintained INTERIOR_REGION_OVERRIDES.
+        self.lctn_by_name, self.lctn_by_core = load_lctn_regions()
 
     def _region_of_marker_label(self, label):
         xy = self.marker_xy.get(label)
@@ -114,11 +132,17 @@ class Geo:
         for pref, region in SPACE_PREFIX_REGIONS.items():
             if eid.startswith(pref):
                 return region, display
-        # 3) manual overrides — exact, then substring (authoritative: these beat the fuzzy
-        #    marker-substring match below, and — critically — a fuzzy match that resolves to
-        #    an EMPTY region must NOT short-circuit past them).
+        # 3) EXACT manual overrides — deliberate human corrections, authoritative:
+        #    they beat the LCTN map (which mis-tags a few, e.g. Garrahan Mining HQ).
         if display in INTERIOR_REGION_OVERRIDES:
             return INTERIOR_REGION_OVERRIDES[display], display
+        # 4) LCTN location-keyword map (game data) — by display name, then editorID
+        #    core. Resolves most interiors AND polygon-gap landmarks with no hand
+        #    maintenance.
+        r = lctn_region_for(self.lctn_by_name, self.lctn_by_core, display, eid)
+        if r:
+            return r, display
+        # 5) substring override table (families of sub-areas).
         for key in sorted(INTERIOR_REGION_CONTAINS, key=len, reverse=True):
             if key in display:
                 return INTERIOR_REGION_CONTAINS[key], display
@@ -142,6 +166,14 @@ class Geo:
                 region = region_for_xy(self.rings, mx, my)
             if not region and marker in MARKER_REGION_OVERRIDES:
                 region = MARKER_REGION_OVERRIDES[marker]
+            # LCTN map by nearest-marker name (fixes polygon-gap outdoor landmarks
+            # like Graninger Farm / Black Bear Lodge without coordinates).
+            if not region and marker:
+                region = lctn_region_for(self.lctn_by_name, self.lctn_by_core, marker, "")
+            # Final coordinate fallback: assign the CLOSEST region polygon (the point
+            # sits in a road/water/border gap outside every polygon).
+            if not region:
+                region = region_for_xy(self.rings, x, y, nearest=True)
             return region, marker, "exterior"
 
         if eid.startswith("XPDAC"):
