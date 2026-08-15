@@ -2,9 +2,10 @@
  "_meta": {
   "generated": "2026-08-15",
   "source": "Game-file exports (LVLI/ALCH/MISC) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 10,
+  "lists_in_closure": 17,
   "source_totals": {
-   "direct": 27
+   "direct": 27,
+   "nest": 19
   },
   "unresolved": {}
  },
@@ -305,6 +306,12 @@
  },
  "vendor_list": [],
  "additional_expands": null,
+ "info_notes": [
+  {
+   "title": "Healthy Deathclaw Egg",
+   "body": "The <b>Healthy Deathclaw Egg</b> is a separate item (<code>Burn_E01_HealthyDeathclawEgg</code>) tied to the Burning Springs <b>Rust Kingdom</b> “Don’t Feed the Deathclaws” event. It is a scripted event item, not a farmable world spawn — it has no map locations, leveled-list roll, or vendor source, so it does not appear on the map above."
+  }
+ ],
  "events_activities": [],
  "regions": [
   {
@@ -312,19 +319,25 @@
    "locations": [
     {
      "marker": "Tunnel of Love",
-     "count": 1,
+     "count": 6,
      "sources": {
-      "direct": 1
+      "direct": 1,
+      "nest": 5
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "6747F4"
+      "6747E9",
+      "6747F4",
+      "674813",
+      "67AE18",
+      "67E92A",
+      "67E952"
      ],
      "coords": [
-      6985.7,
-      -882.1
+      7124.5,
+      -762.6
      ],
      "breakdown": [
       {
@@ -332,6 +345,12 @@
        "count": 1,
        "rate_key": "static",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 5,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     }
@@ -371,20 +390,27 @@
     },
     {
      "marker": "Dino Peaks Mini Golf",
-     "count": 2,
+     "count": 8,
      "sources": {
-      "direct": 2
+      "direct": 2,
+      "nest": 6
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "7F0A81",
+      "7F0A84",
+      "80391B",
+      "82A3B2",
+      "82A3B3",
+      "82A3B4",
       "82A3B5",
       "82A3B6"
      ],
      "coords": [
-      -211856.2,
-      146331.7
+      -208312.0,
+      145838.8
      ],
      "breakdown": [
       {
@@ -392,6 +418,12 @@
        "count": 2,
        "rate_key": "world_spawns",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 6,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     },
@@ -562,9 +594,10 @@
     },
     {
      "marker": "Hopewell Cave",
-     "count": 5,
+     "count": 6,
      "sources": {
-      "direct": 5
+      "direct": 5,
+      "nest": 1
      },
      "image_top": "",
      "directions": "",
@@ -572,13 +605,14 @@
      "refs": [
       "1DD0AA",
       "26800C",
+      "36C927",
       "62A86C",
       "62A86F",
       "62A873"
      ],
      "coords": [
-      116221.4,
-      113333.9
+      115886.5,
+      113075.0
      ],
      "breakdown": [
       {
@@ -592,6 +626,12 @@
        "count": 2,
        "rate_key": "static",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 1,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     },
@@ -658,20 +698,23 @@
    "locations": [
     {
      "marker": "Abandoned Waste Dump",
-     "count": 2,
+     "count": 4,
      "sources": {
-      "direct": 2
+      "direct": 2,
+      "nest": 2
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "3DC3DD",
       "3DC447",
-      "3DC448"
+      "3DC448",
+      "3DC449"
      ],
      "coords": [
-      184875.0,
-      26884.5
+      184725.0,
+      26157.2
      ],
      "breakdown": [
       {
@@ -685,14 +728,21 @@
        "count": 1,
        "rate_key": "static",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 2,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     },
     {
      "marker": "Cavern",
-     "count": 5,
+     "count": 8,
      "sources": {
-      "direct": 5
+      "direct": 5,
+      "nest": 3
      },
      "image_top": "",
      "directions": "",
@@ -702,11 +752,14 @@
       "022E31",
       "022E32",
       "022E33",
-      "022E34"
+      "022E34",
+      "1837FD",
+      "1A6435",
+      "1A6460"
      ],
      "coords": [
-      3536.2,
-      2325.5
+      -1139.4,
+      4467.7
      ],
      "breakdown": [
       {
@@ -720,6 +773,62 @@
        "count": 4,
        "rate_key": "static",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 3,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ]
+    },
+    {
+     "marker": "Excelsior Model Home",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2C089D"
+     ],
+     "coords": [
+      173343.6,
+      99286.8
+     ],
+     "breakdown": [
+      {
+       "label": "Deathclaw Nest",
+       "count": 1,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ]
+    },
+    {
+     "marker": "Thunder Mt. Power Plant Yard",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "37BE5C"
+     ],
+     "coords": [
+      190414.7,
+      86812.4
+     ],
+     "breakdown": [
+      {
+       "label": "Deathclaw Nest",
+       "count": 1,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     }

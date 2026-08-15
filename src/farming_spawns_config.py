@@ -160,18 +160,39 @@ DEATHCLAW_EGG = {
     # Fixed Spawn markers mix loose eggs and nests, so each marker gets a per-type
     # breakdown (count + rate) built by spawns_configs.farming._attach_breakdowns.
     "per_marker_breakdown": True,
+    # Also resolve Position by each item's OWN base FormID (like Mappalachia), so a
+    # directly world-placed egg the ref columns miss — e.g. the raw egg in Vault 63 —
+    # is caught. world_source_type tags those base placements as guaranteed (100%)
+    # static spawns. REQUIRES a local geo-cache reseed with the Mappalachia DB.
+    "place_item_bases": True,
     "items": [
         {
             "formid": "00046939",
             "edid": "DeathclawEgg",
             "full": "Deathclaw Egg",
             "sig": "ALCH",
+            "world_source_type": "static-raw",
         },
         {
             "formid": "0014F6AC",
             "edid": "DeathclawEggCracked",
             "full": "Cracked Deathclaw Egg",
             "sig": "MISC",
+            "world_source_type": "static-cracked",
+        },
+    ],
+    # ── Info notes (rendered as their own expand, no spawn data) ────────
+    "info_notes": [
+        {
+            "title": "Healthy Deathclaw Egg",
+            "body": (
+                "The <b>Healthy Deathclaw Egg</b> is a separate item "
+                "(<code>Burn_E01_HealthyDeathclawEgg</code>) tied to the "
+                "Burning Springs <b>Rust Kingdom</b> “Don’t Feed the "
+                "Deathclaws” event. It is a scripted event item, not a "
+                "farmable world spawn — it has no map locations, leveled-list "
+                "roll, or vendor source, so it does not appear on the map above."
+            ),
         },
     ],
     # ── Drop rates (resolved from LVLI TSVs, July 2026) ─────────────────

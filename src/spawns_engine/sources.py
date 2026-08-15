@@ -164,7 +164,8 @@ def load_tables(tsv_root=None):
 
 
 def get_sources(item_records, tables, classify, extra_closure_seeds=None,
-                extra_world_bases=None, placed_sigs=PLACED_SIGS_DEFAULT):
+                extra_world_bases=None, placed_sigs=PLACED_SIGS_DEFAULT,
+                place_item_bases=False):
     """Return {'lvli_closure', 'placed_bases', 'direct_refrs'} for a set of items.
 
     item_records : list of {"formid": hex, "sig": "ALCH"|"MISC", ...}. Each formid
@@ -176,6 +177,14 @@ def get_sources(item_records, tables, classify, extra_closure_seeds=None,
     extra_world_bases   : optional [{formid, edid, sig, source_type}] injected
                    directly into placed_bases (harvestable ACTIs, LPI flora, etc.).
     placed_sigs  : record signatures treated as a world holder/placement.
+    place_item_bases : when True, add each item's OWN FormID to placed_bases so the
+                   build resolves Position rows by the item base (like Mappalachia,
+                   which plots by base FormID). This catches items placed straight
+                   into the world as their own base — e.g. the single raw Deathclaw
+                   Egg in Vault 63 — that the xEdit "ReferencedBy" ref columns miss.
+                   Each item's source_type comes from its record's `world_source_type`
+                   (default "static", i.e. a guaranteed 100% direct spawn). Requires a
+                   local geo-cache reseed with the Mappalachia DB to take effect.
     """
     c2p = tables["c2p"]
     parent_edid = tables["parent_edid"]
@@ -214,6 +223,17 @@ def get_sources(item_records, tables, classify, extra_closure_seeds=None,
                 placed_bases.setdefault(rf, {
                     "sig": rsig, "edid": redid,
                     "source_type": classify(rsig, redid, ""), "via": "item"})
+
+    # pull-by-base: resolve Position rows keyed on each item's OWN FormID, so a
+    # directly world-placed item base (not listed in any ref column) is still found.
+    # setdefault means a closure/item-ref hit keeps its richer source_type.
+    if place_item_bases:
+        for rec in item_records:
+            fid = rec["formid"].upper()
+            placed_bases.setdefault(fid, {
+                "sig": rec.get("sig", "ALCH"), "edid": rec.get("edid", ""),
+                "source_type": rec.get("world_source_type", "static"),
+                "via": "item-base"})
 
     # inject extra world bases (harvestable ACTIs, LPI flora, …) not discoverable
     # through the LVLI closure or item refs.

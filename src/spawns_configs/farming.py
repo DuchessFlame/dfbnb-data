@@ -98,17 +98,23 @@ def _attach_breakdowns(cfg, tbls, seen, regions_out):
     nest_label = cn.get("marker_label") or "Nest"
     nest_note = cn.get("marker_yield") or ""
 
+    # source_type -> label for base-placed items (pull-by-base, 100% static spawns).
+    static_type_label = {rec.get("world_source_type"): rec["full"]
+                         for rec in cfg["items"] if rec.get("world_source_type")}
+
     tally = defaultdict(lambda: defaultdict(int))   # (region, marker) -> key -> n
     for inst, (_x, _y, region, marker, stype) in seen.items():
         if stype == "nest":
             key = ("nest",)
+        elif stype in static_type_label:            # base-placed item (100% static)
+            key = ("static", static_type_label[stype])
         elif stype == "direct":
-            if inst in static_item:
+            if inst in static_item:                 # legacy: cracked via ref column
                 key = ("static", static_item[inst])
             else:
-                key = ("world",)            # world LPI point (fallback for stray direct)
+                key = ("world",)                    # world LPI point (50%)
         else:
-            continue                        # vendors/other aren't fixed-spawn markers
+            continue                                # vendors/other aren't fixed-spawn markers
         tally[(region, marker)][key] += 1
 
     order = {"world": 0, "static": 1, "nest": 2}
@@ -118,7 +124,7 @@ def _attach_breakdowns(cfg, tbls, seen, regions_out):
             if not t:
                 continue
             rows = []
-            for key in sorted(t, key=lambda k: order.get(k[0], 9)):
+            for key in sorted(t, key=lambda k: (order.get(k[0], 9), k[1] if len(k) > 1 else "")):
                 cnt = t[key]
                 if key[0] == "world":
                     rows.append({"label": world_label, "count": cnt,
@@ -139,7 +145,8 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
 
     src = esources.get_sources(cfg["items"], tbls, farming_classify,
                                extra_world_bases=cfg.get("extra_world_bases"),
-                               placed_sigs=esources.PLACED_SIGS_FLORA)
+                               placed_sigs=esources.PLACED_SIGS_FLORA,
+                               place_item_bases=cfg.get("place_item_bases", False))
     seen, lists_n = ebuild.resolve_placements(src, geo, cur, cache, db_ok)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
@@ -166,6 +173,7 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
         "farming_tips": cfg.get("farming_tips"),
         "used_for": cfg.get("used_for"),
         "additional_expands": cfg.get("additional_expands"),
+        "info_notes": cfg.get("info_notes"),
         "events_activities": events_activities,
         "regions": regions_out,
     }
