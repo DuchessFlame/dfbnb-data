@@ -61,6 +61,9 @@ SET_META = {
         "name": "Pint-Sized Slasher Masks",
         "page_title": "Pint-Sized Slasher Masks Spawn Locations",
         "blurb": "Every known spawn location for the Pint-Sized Slasher Masks, grouped by region.",
+        # Full-region overview map offered as a download in the intro card. Same
+        # uploads folder as the per-marker mask images.
+        "full_map": "/wp-content/uploads/guide-images/collectables/Slasher-Mask-Locations/slasher_masks.jpg",
     },
     "coloured-baseball-bats": {
         "name": "Coloured Baseball Bats",
@@ -128,11 +131,25 @@ def load_existing_handfills(path):
     return keep
 
 
+def load_existing_top(path):
+    """Return hand-added top-level fields (blurb_quote, full_map) from an existing
+    dist JSON so a rebuild never drops values that aren't derived from SET_META."""
+    try:
+        data = json.load(open(path, encoding="utf-8"))
+    except Exception:
+        return {}
+    return {k: data[k] for k in ("blurb_quote", "full_map") if data.get(k)}
+
+
 def build_set(slug, rows):
     """Build one set's JSON dict from its resolved rows."""
     meta = meta_for(slug)
     out_path = os.path.join(OUT_DIR, f"collectable_spawns_{slug}.json")
     handfills = load_existing_handfills(out_path)
+    existing_top = load_existing_top(out_path)
+    # SET_META is canonical; fall back to any hand-added value already in dist.
+    full_map = meta.get("full_map") or existing_top.get("full_map", "")
+    blurb_quote = meta.get("blurb_quote") or existing_top.get("blurb_quote", "")
 
     # region -> marker -> aggregate
     by_region = defaultdict(lambda: defaultdict(lambda: {"count": 0, "refs": [], "coord": None}))
@@ -181,6 +198,8 @@ def build_set(slug, rows):
         "name": meta["name"],
         "page_title": meta["page_title"],
         "blurb": meta["blurb"],
+        "blurb_quote": blurb_quote,
+        "full_map": full_map,
         "total": total,
         "regions": regions_out,
         "unplaced": [{"marker": m, "count": by_region[""][m]["count"]} for m in orphan_markers],
