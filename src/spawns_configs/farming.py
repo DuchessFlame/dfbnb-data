@@ -48,6 +48,90 @@ def _log_prefix(cfg):
     return f"[{cfg['slug']}-spawns]"
 
 
+def _origin_maps(cfg, tbls):
+    """Partition an item's DIRECT world REFRs by origin so each fixed-spawn marker
+    can be broken down by type. Returns (world_refs, static_item):
+      world_refs  : set(int) of REFRs placed via the world_spawns LPI list(s)
+                    (loose spawns that roll the world-spawn chance, e.g. raw eggs).
+      static_item : {int(refr): item FULL name} for REFRs placed straight from an
+                    item's own ALCH/MISC record (guaranteed 100% static spawns,
+                    e.g. cracked eggs).
+    Keyed by int FormID so they match `seen`'s instance keys."""
+    dr = cfg.get("drop_rates") or {}
+    ws = dr.get("world_spawns") or {}
+    world_ids = set()
+    if ws.get("list_id"):
+        world_ids.add(ws["list_id"].upper())
+    for x in (ws.get("list_ids") or []):
+        world_ids.add(str(x).upper())
+    world_refs = set()
+    for lv in world_ids:
+        for rf, _redid, rsig in tbls["lvli_refs"].get(lv, ()):
+            if rsig == "REFR":
+                world_refs.add(int(rf, 16))
+    static_item = {}
+    for rec in cfg["items"]:
+        fid = rec["formid"].upper()
+        refs = (tbls["misc_refs"].get(fid, []) if rec.get("sig") == "MISC"
+                else tbls["alch_refs"].get(fid, []))
+        for rf, _redid, rsig in refs:
+            if rsig == "REFR":
+                static_item.setdefault(int(rf, 16), rec["full"])
+    return world_refs, static_item
+
+
+def _attach_breakdowns(cfg, tbls, seen, regions_out):
+    """When cfg opts in (per_marker_breakdown), attach a per-marker `breakdown`
+    list — [{label, count, rate_key, note}] — so the renderer can show how many of
+    each source type sit at a marker and each one's %. rate_key is resolved to a %
+    at render time from drop_rates ("static" -> 100%), so the numbers can never
+    drift from the computed headline rates. Loose-world before loose-static before
+    nests, matching the fixed-spawn reading order."""
+    if not cfg.get("per_marker_breakdown"):
+        return
+    from collections import defaultdict
+    world_refs, static_item = _origin_maps(cfg, tbls)
+    dr = cfg.get("drop_rates") or {}
+    ws = dr.get("world_spawns") or {}
+    cn = dr.get("containers") or {}
+    world_label = ws.get("marker_label") or (cfg["items"][0]["full"])
+    nest_label = cn.get("marker_label") or "Nest"
+    nest_note = cn.get("marker_yield") or ""
+
+    tally = defaultdict(lambda: defaultdict(int))   # (region, marker) -> key -> n
+    for inst, (_x, _y, region, marker, stype) in seen.items():
+        if stype == "nest":
+            key = ("nest",)
+        elif stype == "direct":
+            if inst in static_item:
+                key = ("static", static_item[inst])
+            else:
+                key = ("world",)            # world LPI point (fallback for stray direct)
+        else:
+            continue                        # vendors/other aren't fixed-spawn markers
+        tally[(region, marker)][key] += 1
+
+    order = {"world": 0, "static": 1, "nest": 2}
+    for reg in regions_out:
+        for loc in reg["locations"]:
+            t = tally.get((reg["region"], loc["marker"]))
+            if not t:
+                continue
+            rows = []
+            for key in sorted(t, key=lambda k: order.get(k[0], 9)):
+                cnt = t[key]
+                if key[0] == "world":
+                    rows.append({"label": world_label, "count": cnt,
+                                 "rate_key": "world_spawns", "note": ""})
+                elif key[0] == "static":
+                    rows.append({"label": key[1], "count": cnt,
+                                 "rate_key": "static", "note": ""})
+                elif key[0] == "nest":
+                    rows.append({"label": nest_label, "count": cnt,
+                                 "rate_key": "containers", "note": nest_note})
+            loc["breakdown"] = rows
+
+
 def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
     slug = cfg["slug"]
     path = os.path.join(dist_dir, f"{slug}_spawns.json")
@@ -59,6 +143,7 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
     seen, lists_n = ebuild.resolve_placements(src, geo, cur, cache, db_ok)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
+    _attach_breakdowns(cfg, tbls, seen, regions_out)
 
     # Events & Activities — event/activity reward ROOTS in the closure (§9k):
     # keyword pass + QUEST reward registry, with nested loot-bag sub-lists

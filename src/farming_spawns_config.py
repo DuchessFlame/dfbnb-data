@@ -157,6 +157,9 @@ DEATHCLAW_EGG = {
     "name": "Deathclaw Egg",
     "page_title": "Deathclaw Egg Spawn Locations",
     "blurb": "Every known world spawn for Deathclaw Eggs (raw and cracked), grouped by region. Directions and photos are added by hand.",
+    # Fixed Spawn markers mix loose eggs and nests, so each marker gets a per-type
+    # breakdown (count + rate) built by spawns_configs.farming._attach_breakdowns.
+    "per_marker_breakdown": True,
     "items": [
         {
             "formid": "00046939",
@@ -195,10 +198,14 @@ DEATHCLAW_EGG = {
             "list_edid": "LPI_Food_DeathclawEgg",
             "list_id": "002118C0",
             "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
+            # marker_label = the loose item these LPI points place (raw egg). Used
+            # by the per-marker breakdown (rate_key "world_spawns" -> its %).
+            "marker_label": "Deathclaw Egg",
             "note": (
-                "37 LPI spawn points for the raw egg roll a per-server-hop "
-                "chance each (computed). 5 raw eggs and 12 cracked eggs are "
-                "fixed static world spawns."
+                "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a "
+                "per-server-hop chance (computed). Cracked Deathclaw Eggs are 12 "
+                "fixed static (100%) spawns; deathclaw nests are listed below with "
+                "their own rate."
             ),
         },
         "containers": {
@@ -208,6 +215,16 @@ DEATHCLAW_EGG = {
             "nest_list_id": "001B0084",
             "chance_none_glob": "ItemTwo_High_ChanceNone_Tier",
             "count": 19,
+            # Deathclaw nests are fixed, returnable world points (a nest sits at a
+            # POI you can come back to), so the nest rate renders inside the Fixed
+            # Spawn Locations expand (as a second "per nest" row under the world-
+            # spawn banner) and the Containers expand shows its empty state. The
+            # 90% rate is still COMPUTED from the GLOB by build_farming_used_for.py;
+            # this flag only controls WHERE the block is displayed.
+            "as_fixed_spawn": True,
+            # Per-marker breakdown label + yield note (rate_key "containers" -> 90%).
+            "marker_label": "Deathclaw Nest",
+            "marker_yield": "each gives 1 Raw + 1 Cracked Egg",
             "note": (
                 "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). "
                 "Each nest's chance to contain 1 raw egg + 1 cracked egg is "
