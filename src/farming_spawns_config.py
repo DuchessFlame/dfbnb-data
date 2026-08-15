@@ -50,6 +50,9 @@ CREAM = {
     "name": "Cream",
     "page_title": "Cream Spawn Locations",
     "blurb": "Every known world spawn for Cream, grouped by region. Directions and photos are added by hand.",
+    # Resolve Position by the item's own base FormID too (like Mappalachia), catching
+    # any directly world-placed base the ref columns miss. Needs a local DB reseed.
+    "place_item_bases": True,
     "items": [
         {
             "formid": "0012DB3D",
@@ -314,6 +317,7 @@ FROG_EGG = {
     "name": "Frog Egg",
     "page_title": "Frog Egg Spawn Locations",
     "blurb": "Every known world spawn for Frog Eggs, grouped by region. Directions and photos are added by hand.",
+    "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
             "formid": "004FE51C",
@@ -388,6 +392,7 @@ MIRELURK_EGG = {
     "name": "Mirelurk Egg",
     "page_title": "Mirelurk Egg Spawn Locations",
     "blurb": "Every known world spawn for Mirelurk Eggs (harvestable and hatching), grouped by region. Directions and photos are added by hand.",
+    "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
             "formid": "0023E9D4",
@@ -481,6 +486,7 @@ MOTHMAN_EGG = {
     "name": "Mothman Egg",
     "page_title": "Mothman Egg Spawn Locations",
     "blurb": "Every known world spawn for Mothman Eggs (regular and enlightened flora), grouped by region. Directions and photos are added by hand.",
+    "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
             "formid": "0008E922",
@@ -655,6 +661,7 @@ RADSCORPION_EGG = {
     "name": "Radscorpion Egg",
     "page_title": "Radscorpion Egg Spawn Locations",
     "blurb": "Every known world spawn for Radscorpion Eggs, grouped by region. Directions and photos are added by hand.",
+    "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
             "formid": "0004693B",
@@ -750,6 +757,7 @@ RADTOAD_EGG = {
     "name": "Radtoad Egg",
     "page_title": "Radtoad Egg Spawn Locations",
     "blurb": "Every known world spawn for Radtoad Eggs, grouped by region. Directions and photos are added by hand.",
+    "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
             "formid": "00295BE5",

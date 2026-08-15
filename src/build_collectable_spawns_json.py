@@ -90,7 +90,27 @@ SET_META = {
         "page_title": "Robot Models Spawn Locations",
         "blurb": "Every known spawn location for the robot models, grouped by region.",
     },
+    # Pint-Sized Phantoms grave sites — a TSV-sourced set (see GRAVE_* below). It
+    # renders through the SAME df-bnb-collectables-spawns.js engine + collect
+    # tracking as the mask pages, but lives under Treasure Maps, so its source is
+    # tsv/phantom_grave_sites.tsv (regions pre-resolved) rather than resolve_dataset.
+    "pint-sized-phantom-graves": {
+        "name": "Pint-Sized Phantoms' Grave Sites",
+        "page_title": "Pint-Sized Phantoms' Grave Site Locations",
+        "blurb": "Every grave site for the Pint-Sized Phantoms' treasure map, grouped by region.",
+    },
 }
+
+# ── Pint-Sized Phantoms grave sites (TSV-sourced collectables-spawns set) ──────
+# One row per grave in tsv/phantom_grave_sites.tsv (region already resolved). We
+# reshape it into the region -> location(marker) -> spawns[] model so each grave is
+# its own tickable "spawn" (approach photo, directions, close-up photo, collect bar),
+# grouped under its closest fast-travel marker. Photos/directions are hand-filled
+# later (TSV columns or the built JSON) and MERGED — never clobbered — on rebuild.
+GRAVE_SLUG = "pint-sized-phantom-graves"
+GRAVE_TSV = os.path.join(REPO, "tsv", "phantom_grave_sites.tsv")
+# The grave TSV uses "The Forest"; the ten canonical regions call it "Forest".
+GRAVE_REGION_ALIASES = {"the forest": "Forest"}
 
 # Sets that share the export/cross-ref pipeline but belong to a DIFFERENT category and are
 # built elsewhere. "treasure-maps" is its own category — its dig sites come from the ACTI2
@@ -206,6 +226,150 @@ def build_set(slug, rows):
     }, out_path
 
 
+def load_grave_spawn_handfills(path):
+    """{(region, marker, label): {image_top, directions, image_bottom}} for non-empty
+    hand-authored spawn values in an existing grave JSON, so a rebuild never loses them."""
+    keep = {}
+    try:
+        data = json.load(open(path, encoding="utf-8"))
+    except Exception:
+        return keep
+    for reg in data.get("regions", []):
+        rname = reg.get("region", "")
+        for loc in reg.get("locations", []):
+            marker = loc.get("marker", "")
+            for sp in loc.get("spawns", []) or []:
+                label = sp.get("label", "")
+                saved = {k: sp.get(k, "") for k in ("image_top", "directions", "image_bottom")
+                         if sp.get(k)}
+                if saved:
+                    keep[(rname, marker, label)] = saved
+    return keep
+
+
+def _read_grave_rows():
+    """Parse tsv/phantom_grave_sites.tsv into a list of row dicts."""
+    rows = []
+    with open(GRAVE_TSV, encoding="utf-8") as f:
+        header = f.readline().rstrip("\n").split("\t")
+        idx = {h.strip(): i for i, h in enumerate(header)}
+
+        def cell(cols, name):
+            i = idx.get(name)
+            return cols[i].strip() if i is not None and i < len(cols) else ""
+
+        for line in f:
+            if not line.strip():
+                continue
+            cols = line.rstrip("\n").split("\t")
+            rows.append({
+                "region": cell(cols, "region"),
+                "site_number": cell(cols, "site_number"),
+                "ref_formid": cell(cols, "ref_formid"),
+                "marker": cell(cols, "closest_fast_travel"),
+                "directions": cell(cols, "directions"),
+                "photo_approach": cell(cols, "photo_approach"),
+                "photo_spawn": cell(cols, "photo_spawn"),
+                "x": cell(cols, "x"), "y": cell(cols, "y"),
+            })
+    return rows
+
+
+def build_grave_set():
+    """Reshape the grave-sites TSV into a collectable_spawns_<slug>.json dict + path."""
+    meta = meta_for(GRAVE_SLUG)
+    out_path = os.path.join(OUT_DIR, f"collectable_spawns_{GRAVE_SLUG}.json")
+    handfills = load_grave_spawn_handfills(out_path)
+    existing_top = load_existing_top(out_path)
+    full_map = meta.get("full_map") or existing_top.get("full_map", "")
+    blurb_quote = meta.get("blurb_quote") or existing_top.get("blurb_quote", "")
+
+    def region_norm(r):
+        return GRAVE_REGION_ALIASES.get((r or "").strip().lower(), (r or "").strip())
+
+    def site_sort(sn):
+        try:
+            return (0, int(sn))
+        except (TypeError, ValueError):
+            return (1, 0)          # unnumbered graves sort last within a marker
+
+    # region -> marker -> list of grave rows
+    by_region = defaultdict(lambda: defaultdict(list))
+    for r in _read_grave_rows():
+        region = region_norm(r["region"])
+        marker = r["marker"] or "(unknown location)"
+        by_region[region][marker].append(r)
+
+    regions_out, total = [], 0
+    for region in REGIONS_AZ:
+        locs = []
+        for marker in sorted(by_region.get(region, {}), key=lambda m: marker_sort_key(region, m)):
+            graves = sorted(by_region[region][marker], key=lambda r: site_sort(r["site_number"]))
+            spawns = []
+            for g in graves:
+                label = f"Grave Site #{g['site_number']}" if g["site_number"] else "Grave Site"
+                hf = handfills.get((region, marker, label), {})
+                spawns.append({
+                    "label": label,
+                    # Prefer a value authored in the TSV; else keep any hand-fill in the JSON.
+                    "image_top": g["photo_approach"] or hf.get("image_top", ""),
+                    "directions": g["directions"] or hf.get("directions", ""),
+                    "image_bottom": g["photo_spawn"] or hf.get("image_bottom", ""),
+                    "refs": [g["ref_formid"]] if g["ref_formid"] else [],
+                })
+            total += len(spawns)
+            locs.append({"marker": marker, "count": len(spawns), "spawns": spawns})
+        regions_out.append({"region": region, "locations": locs})
+
+    data = {
+        "_meta": {
+            "generated": datetime.date.today().isoformat(),
+            "source": "tsv/phantom_grave_sites.tsv (regions pre-resolved) — reshaped for the collectables-spawns engine",
+        },
+        "set": GRAVE_SLUG,
+        "name": meta["name"],
+        "page_title": meta["page_title"],
+        "blurb": meta["blurb"],
+        "blurb_quote": blurb_quote,
+        "full_map": full_map,
+        "total": total,
+        "regions": regions_out,
+        "unplaced": [],
+    }
+    return data, out_path
+
+
+def _manifest_entry(data):
+    region_counts = {reg["region"]: len(reg["locations"]) for reg in data["regions"] if reg["locations"]}
+    return {"set": data["set"], "name": data["name"], "page_title": data["page_title"],
+            "total": data["total"], "regions": region_counts, "unplaced": len(data["unplaced"])}
+
+
+def build_graves_only():
+    """Build ONLY the grave-sites set (no Mappalachia resolve) and merge its manifest
+    entry in place, leaving every other set's JSON and manifest row untouched."""
+    if not os.path.exists(GRAVE_TSV):
+        print(f"[collectable_spawns] {GRAVE_TSV} not found — nothing to build.")
+        return
+    os.makedirs(OUT_DIR, exist_ok=True)
+    data, out_path = build_grave_set()
+    json.dump(data, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    rc = {reg["region"]: len(reg["locations"]) for reg in data["regions"] if reg["locations"]}
+    print(f"[collectable_spawns] {GRAVE_SLUG}: {data['total']} grave sites across "
+          f"{len(rc)} region(s) -> {os.path.basename(out_path)}")
+
+    mpath = os.path.join(OUT_DIR, "collectable_spawns_manifest.json")
+    try:
+        manifest = json.load(open(mpath, encoding="utf-8"))
+    except Exception:
+        manifest = {"_meta": {"generated": datetime.date.today().isoformat()}, "sets": []}
+    sets = [s for s in manifest.get("sets", []) if s.get("set") != GRAVE_SLUG]
+    sets.append(_manifest_entry(data))
+    manifest["sets"] = sets
+    json.dump(manifest, open(mpath, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    print(f"[collectable_spawns] merged {GRAVE_SLUG} into manifest ({len(sets)} set(s)).")
+
+
 def main():
     resolved_rows, cache, db_ok = xref.resolve_dataset(verbose=True)
     if not resolved_rows:
@@ -239,6 +403,16 @@ def main():
         print(f"[collectable_spawns] {slug}: {data['total']} placements across "
               f"{len(region_counts)} region(s){unpl} -> {os.path.basename(out_path)}")
 
+    # Pint-Sized Phantoms grave sites — TSV-sourced, so it isn't in resolved_rows.
+    # Built here too (not just via --graves-only) so a full rebuild keeps it current.
+    if os.path.exists(GRAVE_TSV):
+        gdata, gpath = build_grave_set()
+        json.dump(gdata, open(gpath, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+        manifest_sets.append(_manifest_entry(gdata))
+        grc = {reg["region"]: len(reg["locations"]) for reg in gdata["regions"] if reg["locations"]}
+        print(f"[collectable_spawns] {GRAVE_SLUG}: {gdata['total']} grave sites across "
+              f"{len(grc)} region(s) -> {os.path.basename(gpath)}")
+
     manifest = {
         "_meta": {"generated": datetime.date.today().isoformat()},
         "sets": manifest_sets,
@@ -250,4 +424,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--graves-only" in sys.argv[1:]:
+        build_graves_only()
+    else:
+        main()
