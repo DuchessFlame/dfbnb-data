@@ -83,7 +83,7 @@
    "effects": [
     {
      "name": "Restore Health",
-     "display": "Restores Health",
+     "display": "Restores 10 Health",
      "duration": "25s"
     },
     {
@@ -93,7 +93,7 @@
     },
     {
      "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (tiny)",
+     "display": "Satisfies hunger (480/8 min)",
      "duration": null
     },
     {
@@ -107,12 +107,16 @@
    {
     "name": "Collect a box of Sugar Bombs",
     "edid": "SCORE_Challenge_Daily_Collect_SugarBombs",
-    "page": "daily"
+    "page": "daily",
+    "type": "Daily",
+    "required": 2
    },
    {
     "name": "Eat a box of Sugar Bombs",
     "edid": "SCORE_Challenge_Daily_Consume_MealTypePackaged_SugarBombs",
-    "page": "daily"
+    "page": "daily",
+    "type": "Daily",
+    "required": 1
    }
   ],
   "recipes": [
@@ -150,7 +154,7 @@
     "effects": [
      {
       "name": "Restore Health",
-      "display": "Restores Health",
+      "display": "Restores 90 Health",
       "duration": "25s"
      },
      {
@@ -165,7 +169,7 @@
      },
      {
       "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (verylarge)",
+      "display": "Satisfies hunger (1800/30 min)",
       "duration": null
      },
      {
@@ -174,7 +178,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": ""
+    "how_to_obtain": "Recipe: Brain Bombs"
    },
    {
     "name": "Granny's Tea",
@@ -210,7 +214,7 @@
     "effects": [
      {
       "name": "Restore Health",
-      "display": "Restores Health",
+      "display": "Restores 40 Health",
       "duration": "10s"
      },
      {
@@ -220,7 +224,7 @@
      },
      {
       "name": "Quench Thirst",
-      "display": "Quenches thirst (purewater)",
+      "display": "Quenches thirst (900/15 min)",
       "duration": null
      },
      {
@@ -229,7 +233,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
+    "how_to_obtain": "Recipe: Delbert's Granny's Sweet Tea"
    },
    {
     "name": "Sunshine Oil",
@@ -275,7 +279,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
+    "how_to_obtain": "Recipe: Delbert's Sunshine Oil"
    },
    {
     "name": "Sweet Roll",
@@ -311,7 +315,7 @@
     "effects": [
      {
       "name": "Restore Health",
-      "display": "Restores Health",
+      "display": "Restores 90 Health",
       "duration": "25s"
      },
      {
@@ -326,7 +330,7 @@
      },
      {
       "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (verylarge)",
+      "display": "Satisfies hunger (1440/24 min)",
       "duration": null
      },
      {
@@ -335,7 +339,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": ""
+    "how_to_obtain": "Recipe: Sweet Roll"
    }
   ]
  },
