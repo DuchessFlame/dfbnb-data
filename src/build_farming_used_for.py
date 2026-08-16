@@ -9,7 +9,9 @@ injects it into the matching dist/farming_spawns/<slug>_spawns.json:
 
     used_for = {
         "consumption": { object_type, weight, value, addiction, note, effects[] },
-        "challenges":  [ { name, edid, page } , ... ],   # usually [] for drinks
+        "challenges":  [ { name, edid, page, type, required } , ... ],
+                       # type = Daily / Weekly / Event / Mini Season / ...
+                       # required = the challenge's target count (SNAM count)
         "recipes":     [ { name, form_id, category, workbench, mutation,
                            output_qty, item_qty, ingredients[], effects[],
                            how_to_obtain } , ... ],
@@ -73,6 +75,9 @@ from build_farming_guides_json import (  # noqa: E402
     load_weight_backfill,
     ALCH_GLOBS,
     ALCH_EFFECTS_GLOBS,
+    BOOK_GLOBS,
+    COBJ_GLOBS,
+    GLOB_GLOBS,
 )
 
 # Cache the weight-backfill map per data_dir (the current ALCH export lost its
@@ -120,19 +125,92 @@ def _safe_num(s: Any) -> Optional[float]:
         return None
 
 
+# ── SURV magnitude GLOBs ─────────────────────────────────────────────────────
+# Hunger / thirst magnitudes are SECONDS of the survival meter restored, and
+# the food-heal magnitudes are health-per-second. Both live on GLOBs
+# (SURV_Food_RestoreHunger_Mag_*, SURV_Drink_RestoreThirst_Mag_*,
+# SURV_Food_Heal_Mag_*) so the page shows the REAL number, never a tier word
+# like "(large)". The effect row usually already carries the resolved value in
+# its magnitude column; the GLOB table is the fallback/authority.
+_GLOB_CACHE: Dict[str, Dict[str, float]] = {}
+
+
+def _load_globs(data_dir: str) -> Dict[str, float]:
+    """EDID -> float for every GLOB in the newest GLOB export."""
+    if data_dir in _GLOB_CACHE:
+        return _GLOB_CACHE[data_dir]
+    out: Dict[str, float] = {}
+    path = find_first(data_dir, GLOB_GLOBS)
+    if not path:
+        cands = sorted(glob.glob(os.path.join(data_dir, "GLOB_Export_*.tsv")))
+        path = cands[-1] if cands else None
+    if path:
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            rdr = csv.reader(f, delimiter="\t")
+            try:
+                hdr = next(rdr)
+            except StopIteration:
+                hdr = []
+            try:
+                i_e, i_v = hdr.index("EDID"), hdr.index("FLTV")
+            except ValueError:
+                i_e = i_v = -1
+            if i_e >= 0:
+                for row in rdr:
+                    if len(row) > max(i_e, i_v):
+                        v = _safe_num(row[i_v])
+                        if v is not None and row[i_e]:
+                            out[row[i_e]] = v
+    _GLOB_CACHE[data_dir] = out
+    return out
+
+
+def _fmt_minutes(seconds: Optional[float]) -> Optional[str]:
+    """Seconds -> "24 min" (or "1.5 min" for sub-2-minute values)."""
+    if not seconds or seconds <= 0:
+        return None
+    m = seconds / 60.0
+    if m < 2:
+        return f"{round(m, 1):g} min"
+    return f"{int(round(m))} min"
+
+
+def _fmt_surv(seconds: Optional[float]) -> Optional[str]:
+    """A hunger/thirst value is BOTH a magnitude and a duration — the raw
+    number the game stores AND how long it keeps the meter filled. Show both:
+    "1080/18 min"."""
+    mins = _fmt_minutes(seconds)
+    if not mins:
+        return None
+    return f"{round(seconds, 2):g}/{mins}"
+
+
+def _fmt_amount(v: Optional[float]) -> Optional[str]:
+    """1.8 -> '1.8', 45.0 -> '45'."""
+    if v is None:
+        return None
+    return f"{round(v, 2):g}"
+
+
 # ── Effect display ───────────────────────────────────────────────────────────
-_TIER_RE = re.compile(r"_Mag_\d+_([A-Za-z]+)")
-
-
-def _tier_from_glob(glob_edid: Optional[str]) -> Optional[str]:
-    m = _TIER_RE.search(glob_edid or "")
-    return m.group(1) if m else None
+def _surv_seconds(magnitude: Optional[float], mag_glob: Optional[str],
+                  globs: Optional[Dict[str, float]]) -> Optional[float]:
+    """Resolve a hunger/thirst magnitude (seconds of meter restored)."""
+    if magnitude:
+        return float(magnitude)
+    if mag_glob and globs:
+        return globs.get(mag_glob)
+    return None
 
 
 def _effect_display(name: str, magnitude: Optional[float],
-                    mag_glob: Optional[str]) -> str:
-    """Player-friendly one-line label for an effect (duration is rendered
-    separately by the front-end, so it is NOT included here)."""
+                    mag_glob: Optional[str],
+                    duration: Optional[float] = None,
+                    globs: Optional[Dict[str, float]] = None) -> str:
+    """Player-friendly one-line label for an effect (the buff duration is
+    rendered separately by the front-end, so it is NOT included here — but a
+    hunger/thirst "how much meter this fills" value IS, because that is the
+    effect's magnitude, not its duration)."""
     n = (name or "").strip()
     low = n.lower()
     mi = None
@@ -141,10 +219,6 @@ def _effect_display(name: str, magnitude: Optional[float],
             mi = int(round(float(magnitude)))
         except (TypeError, ValueError):
             mi = None
-    tier = _tier_from_glob(mag_glob)
-    tw = tier.lower() if tier else None
-    if tw:
-        tw = {"collosal": "colossal"}.get(tw, tw)  # fix known game-data typo
 
     if low in ("rads", "rad") or low.startswith("rad "):
         return f"+{mi} Rads" if mi else "Rads"
@@ -153,13 +227,18 @@ def _effect_display(name: str, magnitude: Optional[float],
     if "disease resist" in low or "disease resistance" in low:
         return f"+{mi} Disease Resistance" if mi else n
     if low.startswith("quench") or "thirst" in low and "increase" not in low:
-        return f"Quenches thirst ({tw})" if tw else "Quenches thirst"
+        v = _fmt_surv(_surv_seconds(magnitude, mag_glob, globs))
+        return f"Quenches thirst ({v})" if v else "Quenches thirst"
     if "satisfy hunger" in low or (("hunger" in low) and "reduc" not in low and "increase" not in low):
-        return f"Satisfies hunger ({tw})" if tw else "Satisfies hunger"
+        v = _fmt_surv(_surv_seconds(magnitude, mag_glob, globs))
+        return f"Satisfies hunger ({v})" if v else "Satisfies hunger"
     if "reduced hunger" in low or "no hunger" in low:
         return f"-{mi}% hunger rate" if mi else "Reduced hunger rate"
     if "restore health" in low or low == "restore health":
-        return "Restores Health"
+        # Food heals per SECOND over its duration — show the TOTAL restored.
+        mag = magnitude if magnitude else (globs or {}).get(mag_glob or "")
+        total = _fmt_amount((mag or 0) * duration) if (mag and duration) else _fmt_amount(mag)
+        return f"Restores {total} Health" if total else "Restores Health"
     if "ap regen" in low or "action point regen" in low:
         return f"+{mi} Action Point regen" if mi else "+AP Regen"
     if "action point" in low or low.startswith("fortify action"):
@@ -213,6 +292,7 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
             addiction = (r.get("ENIT_Addiction_FULL") or "").strip() or None
             break
 
+    globs = _load_globs(data_dir)
     effects: List[Dict[str, Any]] = []
     for r in _read_tsv(eff_path):
         if (r.get("ALCH_FormID") or "").strip().upper() != formid:
@@ -224,11 +304,13 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
         # Drop a disease-chance effect that rounds to 0% (safe to consume).
         if "disease chance" in name.lower() and (mag is None or round(mag) == 0):
             continue
-        dur = _format_effect_duration(_safe_num(r.get("EFIT_Duration")))
+        raw_dur = _safe_num(r.get("EFIT_Duration"))
+        dur = _format_effect_duration(raw_dur)
         mag_glob = (r.get("MAGG_GLOB_EDID") or "").strip()
         effects.append({
             "name": name,
-            "display": _effect_display(name, mag, mag_glob),
+            "display": _effect_display(name, mag, mag_glob,
+                                       duration=raw_dur, globs=globs),
             "duration": dur,
         })
 
@@ -295,8 +377,51 @@ _OBTAIN_HINTS: List[Tuple[re.Pattern, str]] = [
     (re.compile(r"RSVP", re.I), "Learned from a cookbook terminal (RSVP questline)."),
 ]
 
+# ── Plan / recipe names (COBJ -> BOOK) ───────────────────────────────────────
+# A COBJ's GNAM is its learn condition. When that record is a BOOK, its FULL is
+# the in-game plan name the player actually looks for ("Recipe: Fish Chowder",
+# "Plan: ..."). When GNAM points at anything else (or is empty) the recipe is
+# known by default. NEVER hand-write these strings.
+_PLAN_CACHE: Dict[str, Dict[str, str]] = {}
 
-def _obtain_text(recipe: Dict[str, Any]) -> str:
+
+def _load_recipe_plans(data_dir: str) -> Dict[str, str]:
+    """recipe COBJ EDID -> plan/recipe BOOK FULL name."""
+    if data_dir in _PLAN_CACHE:
+        return _PLAN_CACHE[data_dir]
+    out: Dict[str, str] = {}
+    book_path = find_first(data_dir, BOOK_GLOBS)
+    cobj_path = find_first(data_dir, COBJ_GLOBS)
+    books: Dict[str, str] = {}
+    if book_path:
+        for r in _read_tsv(book_path):
+            fid = (r.get("FormID") or "").strip().upper()
+            full = (r.get("FULL") or "").strip()
+            if fid and full:
+                books[fid] = full
+    if cobj_path:
+        for r in _read_tsv(cobj_path):
+            edid = (r.get("COBJ_EDID") or "").strip()
+            if not edid:
+                continue
+            gnam = (r.get("GNAM_FormID") or "").strip().upper()
+            if gnam in books:
+                out[edid] = books[gnam]
+                continue
+            # Not a plan — some recipes unlock off a CHAL record instead.
+            g_edid = (r.get("GNAM_EDID") or "")
+            g_full = (r.get("GNAM_FULL") or "").strip()
+            if g_full and "challenge" in g_edid.lower():
+                out[edid] = f"Unlocked by the challenge: {g_full}"
+    _PLAN_CACHE[data_dir] = out
+    return out
+
+
+def _obtain_text(recipe: Dict[str, Any], plans: Optional[Dict[str, str]] = None) -> str:
+    """The plan/recipe the player must learn, e.g. "Recipe: Fish Chowder"."""
+    plan = (plans or {}).get((recipe.get("recipe_edid") or "").strip())
+    if plan:
+        return plan
     hto = recipe.get("howToObtain") or []
     if isinstance(hto, list) and hto:
         # Prettify a raw "Terminal: <edid>" entry, else pass real text through.
@@ -309,12 +434,15 @@ def _obtain_text(recipe: Dict[str, Any]) -> str:
     for rx, txt in _OBTAIN_HINTS:
         if rx.search(edid):
             return txt
-    return ""
+    return "Known by default."
 
 
 def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
-                  bench_cat: Dict[str, str]) -> List[Dict[str, Any]]:
+                  bench_cat: Dict[str, str],
+                  data_dir: Optional[str] = None) -> List[Dict[str, Any]]:
     want = item_name.strip().lower()
+    plans = _load_recipe_plans(data_dir) if data_dir else {}
+    globs = _load_globs(data_dir) if data_dir else {}
     seen = set()
     recipes: List[Dict[str, Any]] = []
     for rec in _iter_recipe_entries(recipe_guide):
@@ -337,7 +465,9 @@ def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
         for e in out.get("effects") or []:
             effects.append({
                 "name": e.get("name"),
-                "display": _effect_display(e.get("name"), e.get("magnitude"), e.get("mag_glob")),
+                "display": _effect_display(e.get("name"), e.get("magnitude"),
+                                           e.get("mag_glob"),
+                                           duration=e.get("duration"), globs=globs),
                 "duration": e.get("dur_display"),
             })
         effects = _sort_effects(effects)
@@ -353,21 +483,37 @@ def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
             "mutation": out.get("mutation"),
             "ingredients": [{"name": i.get("name"), "qty": i.get("qty")} for i in ings],
             "effects": effects,
-            "how_to_obtain": _obtain_text(rec),
+            "how_to_obtain": _obtain_text(rec, plans),
         })
     recipes.sort(key=lambda r: (r.get("name") or "").lower())
     return recipes
 
 
 # ── Challenges (item referenced in challenge conditions) ──────────────────────
+# Each hit carries the challenge TYPE and the REQUIRED count so the page can
+# render "Daily - Collect Deathclaw eggs (1)". The type is the challenge's own
+# `scope` (Daily / Weekly / Event / Lifetime ...), EXCEPT when the challenge
+# lives on a mini-season page (`season:<slug>`), which wins — those read as
+# "Mini Season".
+_MINI_SEASON = "Mini Season"
+
+
+def _challenge_type(page: Optional[str], node: Dict[str, Any]) -> str:
+    if (page or "").startswith("season:"):
+        return _MINI_SEASON
+    scope = (node.get("scope") or node.get("group") or "").strip()
+    if scope:
+        return scope
+    return (page or "").replace("-", " ").title()
+
+
 def build_challenges(formid: str, dist_dir: str) -> List[Dict[str, Any]]:
     path = os.path.join(dist_dir, "challenges", "challenges.json")
     if not os.path.exists(path):
         return []
     data = json.load(open(path, encoding="utf-8"))
     fid = (formid or "").upper()
-    hits: List[Dict[str, Any]] = []
-    seen = set()
+    hits: Dict[str, Dict[str, Any]] = {}
 
     def cond_strings(d: Dict[str, Any]) -> List[str]:
         out = []
@@ -377,24 +523,44 @@ def build_challenges(formid: str, dist_dir: str) -> List[Dict[str, Any]]:
                 out.extend(str(x) for x in v)
         return out
 
-    def walk(o, page=None):
+    def walk(o, page: Optional[str]):
         if isinstance(o, dict):
             for cs in cond_strings(o):
                 if fid in cs.upper():
                     name = o.get("full") or o.get("edid")
-                    key = (o.get("edid") or name)
-                    if name and key not in seen:
-                        seen.add(key)
-                        hits.append({"name": name, "edid": o.get("edid"), "page": page})
+                    key = (o.get("edid") or o.get("form_id") or name or "")
+                    if name:
+                        req = o.get("required")
+                        try:
+                            req = int(req)
+                        except (TypeError, ValueError):
+                            req = None
+                        row = {
+                            "name": name,
+                            "edid": o.get("edid"),
+                            "page": page,
+                            "type": _challenge_type(page, o),
+                            "required": req,
+                        }
+                        prev = hits.get(key)
+                        # A mini-season listing beats the generic events page.
+                        if not prev or (row["type"] == _MINI_SEASON
+                                        and prev.get("type") != _MINI_SEASON):
+                            hits[key] = row
                     break
-            for k, v in o.items():
-                walk(v, page if page else (k if k in ("daily", "weekly", "event", "lifetime", "cut", "social") else page))
+            for v in o.values():
+                walk(v, page)
         elif isinstance(o, list):
             for v in o:
                 walk(v, page)
 
-    walk(data.get("pages", data))
-    return hits
+    pages = data.get("pages", data)
+    if isinstance(pages, dict):
+        for page_key, page_val in pages.items():
+            walk(page_val, page_key)
+    else:
+        walk(pages, None)
+    return list(hits.values())
 
 
 # ── Computed vendor rates (rng76 — NOTHING hardcoded) ────────────────────────
@@ -826,7 +992,7 @@ def build_used_for(cfg: Dict[str, Any], dist_dir: str, data_dir: str,
     return {
         "consumption": build_consumption(formid, data_dir, name),
         "challenges": build_challenges(formid, dist_dir),
-        "recipes": build_recipes(name, recipe_guide, bench_cat),
+        "recipes": build_recipes(name, recipe_guide, bench_cat, data_dir),
     }
 
 

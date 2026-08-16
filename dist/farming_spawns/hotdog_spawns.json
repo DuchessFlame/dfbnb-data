@@ -86,7 +86,7 @@
    "effects": [
     {
      "name": "Restore Health",
-     "display": "Restores Health",
+     "display": "Restores 15 Health",
      "duration": "25s"
     },
     {
@@ -96,7 +96,7 @@
     },
     {
      "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (large)",
+     "display": "Satisfies hunger (3600/60 min)",
      "duration": null
     },
     {
@@ -110,12 +110,16 @@
    {
     "name": "Consume Hotdogs",
     "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Possum_Backpacker_Sub_ConsumeHotdog",
-    "page": null
+    "page": "scouts-possum",
+    "type": "Lifetime",
+    "required": 3
    },
    {
     "name": "Eat Hotdogs and Steaks",
     "edid": "CUT_Challenge_Daily_Consume_Food_HotdogsSteaks_Low",
-    "page": "cut"
+    "page": "cut",
+    "type": "Daily",
+    "required": 20
    }
   ],
   "recipes": []
