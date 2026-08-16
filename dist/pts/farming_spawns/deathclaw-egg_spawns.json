@@ -1,11 +1,13 @@
 {
  "_meta": {
-  "generated": "2026-08-15",
+  "generated": "2026-08-16",
   "source": "Game-file exports (LVLI/ALCH/MISC) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 17,
   "source_totals": {
-   "direct": 27,
-   "nest": 19
+   "direct": 15,
+   "nest": 19,
+   "static-cracked": 12,
+   "static-raw": 1
   },
   "unresolved": {}
  },
@@ -306,6 +308,12 @@
  },
  "vendor_list": [],
  "additional_expands": null,
+ "info_notes": [
+  {
+   "title": "Healthy Deathclaw Egg",
+   "body": "The <b>Healthy Deathclaw Egg</b> is a separate item (<code>Burn_E01_HealthyDeathclawEgg</code>) tied to the Burning Springs <b>Rust Kingdom</b> “Don’t Feed the Deathclaws” event. It is a scripted event item, not a farmable world spawn — it has no map locations, leveled-list roll, or vendor source, so it does not appear on the map above."
+  }
+ ],
  "events_activities": [],
  "regions": [
   {
@@ -315,8 +323,8 @@
      "marker": "Tunnel of Love",
      "count": 6,
      "sources": {
-      "direct": 1,
-      "nest": 5
+      "nest": 5,
+      "static-cracked": 1
      },
      "image_top": "",
      "directions": "",
@@ -535,7 +543,7 @@
      "marker": "Summersville",
      "count": 1,
      "sources": {
-      "direct": 1
+      "static-cracked": 1
      },
      "image_top": "",
      "directions": "",
@@ -590,8 +598,9 @@
      "marker": "Hopewell Cave",
      "count": 6,
      "sources": {
-      "direct": 5,
-      "nest": 1
+      "direct": 3,
+      "nest": 1,
+      "static-cracked": 2
      },
      "image_top": "",
      "directions": "",
@@ -658,7 +667,7 @@
      "marker": "Red Rocket Mega Stop",
      "count": 3,
      "sources": {
-      "direct": 3
+      "static-cracked": 3
      },
      "image_top": "",
      "directions": "",
@@ -685,7 +694,33 @@
   },
   {
    "region": "Skyline Valley",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Atrium Upper Level",
+     "count": 1,
+     "sources": {
+      "static-raw": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "786717"
+     ],
+     "coords": [
+      8113.0,
+      -8673.9
+     ],
+     "breakdown": [
+      {
+       "label": "Deathclaw Egg",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "The Mire",
@@ -694,8 +729,9 @@
      "marker": "Abandoned Waste Dump",
      "count": 4,
      "sources": {
-      "direct": 2,
-      "nest": 2
+      "direct": 1,
+      "nest": 2,
+      "static-cracked": 1
      },
      "image_top": "",
      "directions": "",
@@ -735,8 +771,9 @@
      "marker": "Cavern",
      "count": 8,
      "sources": {
-      "direct": 5,
-      "nest": 3
+      "direct": 1,
+      "nest": 3,
+      "static-cracked": 4
      },
      "image_top": "",
      "directions": "",
