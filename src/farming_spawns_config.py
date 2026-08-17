@@ -292,15 +292,8 @@ DEATHCLAW_EGG = {
         # LAST, so SuperRare is reachable — 0.05 x 0.30 x 0.75 = 1.125%, / 11
         # entries = 0.10227% per cycle. (The old "0.45%" note ignored the
         # waterfall cascade and used the bare 5% x 1/11.)
-        "collectrons": {
-            "note": (
-                "The Sir Loin Collectron lists Deathclaw Egg in its rare pool, "
-                "but its production list is ordered so the super-common pool "
-                "always wins — the rare pool never gets rolled, so the real "
-                "chance is 0%. This looks like a Bethesda data bug and has been "
-                "reported; the rate here will update automatically if it's fixed."
-            ),
-        },
+        # No note: the 0% on the Sir Loin card speaks for itself. Keep the
+        # explanation here for maintainers, not on the page.
         "resource_generators": None,
     },
     # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
