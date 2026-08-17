@@ -37,7 +37,42 @@
   },
   "vendors": null,
   "resource_generators": {
-   "note": "Mothman Nest collectron produces 1 egg per cycle (100%). Liberated collectron has a 25% chance per cycle (1 of 4 items)."
+   "entries": [
+    {
+     "name": "Mothman Nest",
+     "edid": "ATX_Resource_MothmanNest_Egg",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Mothman Egg",
+       "form_id": "0008E922",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Liberated Collectron Station",
+     "edid": "ATX_LiberatedResource_Collector",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Mothman Egg",
+       "form_id": "0008E922",
+       "rate": 0.25,
+       "rate_display": "25%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {

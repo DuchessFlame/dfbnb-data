@@ -269,15 +269,11 @@ DEATHCLAW_EGG = {
                 ),
             },
         },
-        "resource_generators": {
-            "note": (
-                "Collectrons can produce raw deathclaw eggs at very low rates: "
-                "Electronics and Junkyard collectrons have a ~0.45% chance per "
-                "cycle (ChanceNone 95, 1 of 11 in super-rare pool). "
-                "Sir Loin collectron has a ~0.13% chance per cycle "
-                "(ChanceNone 99, 1 of 8 in rare pool)."
-            ),
-        },
+        # Collectrons (F.E.T.C.H. / Junkyard Dog / Sir Loin) are JOINED from
+        # dist/collectrons.json at build time and render as cards in the
+        # Collectrons expand — see _patch_camp_producers in
+        # build_farming_used_for.py. No resource generator produces the egg.
+        "resource_generators": None,
     },
     # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
     # ALCH 00046939: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
@@ -562,12 +558,11 @@ MOTHMAN_EGG = {
             ),
         },
         "vendors": None,
-        "resource_generators": {
-            "note": (
-                "Mothman Nest collectron produces 1 egg per cycle (100%). "
-                "Liberated collectron has a 25% chance per cycle (1 of 4 items)."
-            ),
-        },
+        # Mothman Nest is a RESOURCE GENERATOR (produces in place) and the
+        # Liberated Collectron Station is a COLLECTRON (gathers into its stash) —
+        # different sources, different expands. Both are joined from the camp-item
+        # exports at build time (_patch_camp_producers), so neither is typed here.
+        "resource_generators": {},
     },
     # ── Additional Expands (root-level sections on the same page) ─────
     # Perfect Mothman Egg is a separate ALCH item (006238EE) obtainable only
@@ -895,12 +890,13 @@ TICK_BLOOD = {
             ),
         },
         "vendors": None,
+        # Morbid Well Collector cards in automatically from
+        # dist/resource_producers.json (_patch_camp_producers). The note keeps
+        # only what no station card covers.
         "resource_generators": {
             "note": (
-                "Morbid Well resource generator produces tick blood at ~14.3% "
-                "per cycle (1 of 7 items in ATX_Resources_MorbidWell_Blood, "
-                "pick-one). Mystery Crate (Mire) has a ~3.85% chance per "
-                "crate (2 of 52 entries in LL_InsectParts, pick-one)."
+                "Mystery Crate (Mire) has a ~3.85% chance per crate "
+                "(2 of 52 entries in LL_InsectParts, pick-one)."
             ),
         },
     },
@@ -1034,15 +1030,17 @@ BLOOD_SAC = {
                 ),
             },
         },
+        # Morbid Well Collector cards in automatically from
+        # dist/resource_producers.json (_patch_camp_producers). The note keeps
+        # only what no station card covers (the S26 Cultist Well is not in the
+        # camp-item export yet).
         "resource_generators": {
             "note": (
-                "The Morbid Well CAMP resource generator produces Blood Sac at "
-                "~14.3% per cycle (1 of 7 items in ATX_Resources_MorbidWell_Blood, "
-                "pick-one). The Season 26 Cultist Well generator has a matching "
-                "blood pool. Blood Sac also appears in the Mire Mystery Crate at "
-                "~3.85% per crate (2 of 52 in LL_InsectParts, pick-one), in the "
-                "Milepost Zero scavenger rare-junk pool, and in Burning Springs "
-                "bounty-hunt junk rewards."
+                "The Season 26 Cultist Well generator has a matching blood pool. "
+                "Blood Sac also appears in the Mire Mystery Crate at ~3.85% per "
+                "crate (2 of 52 in LL_InsectParts, pick-one), in the Milepost Zero "
+                "scavenger rare-junk pool, and in Burning Springs bounty-hunt "
+                "junk rewards."
             ),
         },
     },

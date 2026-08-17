@@ -2,9 +2,10 @@
  "_meta": {
   "generated": "2026-08-17",
   "source": "Game-file exports (LVLI/MISC) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 87,
+  "lists_in_closure": 94,
   "source_totals": {
    "container": 6088,
+   "nest": 19,
    "npc": 1566,
    "vendor": 4
   },
@@ -43,7 +44,24 @@
    }
   },
   "resource_generators": {
-   "note": "The Morbid Well CAMP resource generator produces Blood Sac at ~14.3% per cycle (1 of 7 items in ATX_Resources_MorbidWell_Blood, pick-one). The Season 26 Cultist Well generator has a matching blood pool. Blood Sac also appears in the Mire Mystery Crate at ~3.85% per crate (2 of 52 in LL_InsectParts, pick-one), in the Milepost Zero scavenger rare-junk pool, and in Burning Springs bounty-hunt junk rewards."
+   "note": "The Season 26 Cultist Well generator has a matching blood pool. Blood Sac also appears in the Mire Mystery Crate at ~3.85% per crate (2 of 52 in LL_InsectParts, pick-one), in the Milepost Zero scavenger rare-junk pool, and in Burning Springs bounty-hunt junk rewards.",
+   "entries": [
+    {
+     "name": "Morbid Well Collector",
+     "edid": "ATX_MorbidWell",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Blood Sac",
+       "form_id": "00028A63",
+       "rate": 0.142857,
+       "rate_display": "14.29%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "used_for": {
@@ -1333,16 +1351,22 @@
     },
     {
      "marker": "Tunnel of Love",
-     "count": 2,
+     "count": 7,
      "sources": {
-      "container": 2
+      "container": 2,
+      "nest": 5
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
       "66E6BD",
-      "66FB40"
+      "66FB40",
+      "6747E9",
+      "674813",
+      "67AE18",
+      "67E92A",
+      "67E952"
      ],
      "coords": [
       1013.6,
@@ -2107,20 +2131,24 @@
     },
     {
      "marker": "Dino Peaks Mini Golf",
-     "count": 32,
+     "count": 38,
      "sources": {
       "container": 12,
+      "nest": 6,
       "npc": 20
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "7F0A81",
+      "7F0A84",
       "7F6500",
       "7F6501",
       "7F6502",
       "7F6503",
       "7F6505",
+      "80391B",
       "80F2AF",
       "80F2B4",
       "81CD06",
@@ -2131,6 +2159,9 @@
       "8277D4",
       "827D97",
       "82859D",
+      "82A3B2",
+      "82A3B3",
+      "82A3B4",
       "82B955",
       "82B956",
       "82B959",
@@ -9622,9 +9653,10 @@
     },
     {
      "marker": "Hopewell Cave",
-     "count": 7,
+     "count": 8,
      "sources": {
       "container": 3,
+      "nest": 1,
       "npc": 4
      },
      "image_top": "",
@@ -9635,6 +9667,7 @@
       "30BE1E",
       "30BE20",
       "36C3F1",
+      "36C927",
       "38B43F",
       "4F582B",
       "4F8A48"
@@ -13751,9 +13784,10 @@
     },
     {
      "marker": "Abandoned Waste Dump",
-     "count": 10,
+     "count": 12,
      "sources": {
       "container": 5,
+      "nest": 2,
       "npc": 5
      },
      "image_top": "",
@@ -13767,6 +13801,8 @@
       "395483",
       "3CDEF0",
       "3D3B99",
+      "3DC3DD",
+      "3DC449",
       "55BEDF",
       "55BEE0",
       "58B9EA"
@@ -14054,16 +14090,20 @@
     },
     {
      "marker": "Cavern",
-     "count": 5,
+     "count": 8,
      "sources": {
       "container": 4,
+      "nest": 3,
       "npc": 1
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "1837FD",
       "1910F0",
+      "1A6435",
+      "1A6460",
       "2EB13E",
       "2EB14B",
       "3621D6",
@@ -14397,14 +14437,16 @@
     },
     {
      "marker": "Excelsior Model Home",
-     "count": 2,
+     "count": 3,
      "sources": {
-      "container": 2
+      "container": 2,
+      "nest": 1
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "2C089D",
       "38A84C",
       "38A856"
      ],
@@ -15307,9 +15349,10 @@
     },
     {
      "marker": "Thunder Mt. Power Plant Yard",
-     "count": 6,
+     "count": 7,
      "sources": {
-      "container": 6
+      "container": 6,
+      "nest": 1
      },
      "image_top": "",
      "directions": "",
@@ -15319,6 +15362,7 @@
       "2DAF78",
       "314F73",
       "351857",
+      "37BE5C",
       "4FCDB9",
       "51BF18"
      ],

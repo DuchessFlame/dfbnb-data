@@ -846,6 +846,100 @@ def _patch_drop_rates(doc: Dict[str, Any], rates: Optional["VendorRates"], targe
             _set(cn, rates.appearance(cn.get("list_id") or cn.get("container_id"), targets))
 
 
+# ── CAMP producers: Collectrons + Resource Generators ───────────────────────
+# The Collectrons and Resource Generators expands are CARD lists, not prose. Each
+# card is one CAMP station that can produce the item:
+#
+#     {Station name}                       -> links to its camp-items page
+#     Obtain via: {ATX / Season / event}
+#     {Item} — {rate}                      -> one row per item the page covers
+#
+# Entries are JOINED at build time from the canonical camp-item exports, so a new
+# station appears on every item page it produces with no config edit:
+#   dist/collectrons.json        -> drop_rates.collectrons.entries
+#   dist/resource_producers.json -> drop_rates.resource_generators.entries
+#
+# ROUTING: a collectron is a pod/bot that gathers into its own stash; a resource
+# generator is a machine that produces the item in place. They are DIFFERENT
+# sources and never share an expand — the split follows which export the station
+# lives in, which is set upstream by build_camp_items_json.py.
+#
+# Rates come from the same rng76 resolution the camp-item pages use (percent in
+# the export), so both pages always agree. A station that lists the item but
+# resolves to 0 keeps its card with rate = None (flagged, never fabricated).
+CAMP_PRODUCER_SOURCES = (
+    ("collectrons", "collectrons.json"),
+    ("resource_generators", "resource_producers.json"),
+)
+
+
+def _load_camp_producers(dist_dir: str) -> Dict[str, List[Dict[str, Any]]]:
+    """{'collectrons': [...], 'resource_generators': [...]} from the built camp
+    exports. Missing file -> empty list (the expand falls back to its note)."""
+    out: Dict[str, List[Dict[str, Any]]] = {}
+    for key, fname in CAMP_PRODUCER_SOURCES:
+        path = os.path.join(dist_dir, fname)
+        try:
+            out[key] = json.load(open(path, encoding="utf-8")).get("items", []) or []
+        except (OSError, ValueError):
+            out[key] = []
+            print(f"  [warn] {fname} not built — {key} cards skipped")
+    return out
+
+
+def _producer_entries(items: List[Dict[str, Any]], targets: set) -> List[Dict[str, Any]]:
+    """Cards for every station whose production drops include any target FormID."""
+    entries: List[Dict[str, Any]] = []
+    for st in items:
+        drops = ((st.get("production") or {}).get("drops")) or []
+        rows = []
+        for d in drops:
+            if (d.get("formId") or "").upper() not in targets:
+                continue
+            pct = d.get("chance")
+            pct = float(pct) if isinstance(pct, (int, float)) else 0.0
+            rows.append({
+                "name": d.get("name") or d.get("item") or "",
+                "form_id": (d.get("formId") or "").upper(),
+                "rate": round(pct / 100.0, 6) if pct > 0 else None,
+                "rate_display": _fmt_rate(pct / 100.0) if pct > 0 else None,
+                "rate_source": "computed" if pct > 0 else "unresolved",
+            })
+        if not rows:
+            continue
+        rows.sort(key=lambda r: (-(r["rate"] or 0.0), r["name"].lower()))
+        entries.append({
+            "name": st.get("displayName") or st.get("edid") or "",
+            "edid": st.get("edid") or "",
+            "obtain": ((st.get("howToObtain") or {}).get("display") or "").strip(),
+            "interval": ((st.get("production") or {}).get("intervalDisplay") or "").strip(),
+            "items": rows,
+        })
+    entries.sort(key=lambda e: (-(e["items"][0]["rate"] or 0.0), e["name"].lower()))
+    return entries
+
+
+def _patch_camp_producers(doc: Dict[str, Any], targets: set, dist_dir: str) -> None:
+    """Fill drop_rates.collectrons / .resource_generators with joined station cards.
+
+    Any hand-written `note` on those nodes is PRESERVED (it renders under the
+    cards). A node with no matching station is left as-is, so an item with no
+    producers still shows its honest empty state."""
+    dr = doc.get("drop_rates")
+    if not isinstance(dr, dict):
+        return
+    producers = _load_camp_producers(dist_dir)
+    for key in ("collectrons", "resource_generators"):
+        entries = _producer_entries(producers.get(key) or [], targets)
+        if not entries:
+            continue
+        node = dr.get(key)
+        if not isinstance(node, dict):
+            node = collections.OrderedDict()
+            dr[key] = node
+        node["entries"] = entries
+
+
 # ── Vendor list (flat, sorted by % desc) ─────────────────────────────────────
 # Rate is set by vendor TYPE, not location: Vera 100% > Raider (general + raider
 # pool) > everyone else (general pool).
@@ -1010,6 +1104,7 @@ def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: s
     extra_ids = [b.get("formid") for b in (cfg.get("extra_world_bases") or []) if b.get("formid")]
     _patch_drop_rates(doc, rates, _target_fids(cfg), harvest=harvest, extra_base_ids=extra_ids)
     _patch_events_activities(doc, rates, _target_fids(cfg))
+    _patch_camp_producers(doc, _target_fids(cfg), dist_dir)
     vendor_list = build_vendor_list(doc.get("regions", []), cfg,
                                     item_closure=item_closure, vendor_master=vendor_master,
                                     rates=rates)
