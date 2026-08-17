@@ -898,12 +898,17 @@ def _producer_entries(items: List[Dict[str, Any]], targets: set) -> List[Dict[st
                 continue
             pct = d.get("chance")
             pct = float(pct) if isinstance(pct, (int, float)) else 0.0
+            # A resolved 0 is a REAL answer, not a gap: a degenerate waterfall
+            # (UseAll + max_count=1 with a ChanceNone-0 entry ordered ABOVE the
+            # rarer pools) means the item can never roll. Show 0%, flag the
+            # source, and explain it in the node's `note` — never hide the card
+            # and never substitute a hand-figure.
             rows.append({
                 "name": d.get("name") or d.get("item") or "",
                 "form_id": (d.get("formId") or "").upper(),
-                "rate": round(pct / 100.0, 6) if pct > 0 else None,
-                "rate_display": _fmt_rate(pct / 100.0) if pct > 0 else None,
-                "rate_source": "computed" if pct > 0 else "unresolved",
+                "rate": round(pct / 100.0, 6),
+                "rate_display": _fmt_rate(pct / 100.0) if pct > 0 else "0%",
+                "rate_source": "computed" if pct > 0 else "computed_zero",
             })
         if not rows:
             continue

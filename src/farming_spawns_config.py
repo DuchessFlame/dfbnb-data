@@ -272,7 +272,35 @@ DEATHCLAW_EGG = {
         # Collectrons (F.E.T.C.H. / Junkyard Dog / Sir Loin) are JOINED from
         # dist/collectrons.json at build time and render as cards in the
         # Collectrons expand — see _patch_camp_producers in
-        # build_farming_used_for.py. No resource generator produces the egg.
+        # build_farming_used_for.py. Only the note below is hand-written.
+        #
+        # Sir Loin traced by hand, Aug 2026 (LVLI_Export_July_2026):
+        #   ATX_Resources_Collectron_SirLoin (008CD162) — LVLF "001" (UseAll)
+        #   + LVMV_MaxValue 1 => WATERFALL. Entry order is
+        #     e0 SuperCommon (ATX_CNone_..._SuperCommon_ECON = 0)   -> drop 1.00
+        #     e1 Uncommon    (ATX_CNone_Collectron_Scrap_Rare = 89) -> drop 0.11
+        #     e2 Rare        (ATX_CNone_..._SirLoin_Rare_ECON = 99) -> drop 0.01
+        #   The ChanceNone-0 entry sits FIRST, so it always wins the cascade and
+        #   cum_fail hits 0 — the Rare pool (which holds DeathclawEgg, 1 of 8)
+        #   can never roll. Same degenerate-waterfall data bug as the power
+        #   armour mod recipe tiers (drop-rate-engine §13.14). We render what
+        #   the data SAYS (0%) — never the number it "should" be. If Bethesda
+        #   reorders the entries the join picks up the new rate on the next
+        #   build with no code change; nothing here compensates for the bug.
+        #
+        # F.E.T.C.H. / Junkyard Dog for contrast: ChanceNone-0 SuperCommon is
+        # LAST, so SuperRare is reachable — 0.05 x 0.30 x 0.75 = 1.125%, / 11
+        # entries = 0.10227% per cycle. (The old "0.45%" note ignored the
+        # waterfall cascade and used the bare 5% x 1/11.)
+        "collectrons": {
+            "note": (
+                "The Sir Loin Collectron lists Deathclaw Egg in its rare pool, "
+                "but its production list is ordered so the super-common pool "
+                "always wins — the rare pool never gets rolled, so the real "
+                "chance is 0%. This looks like a Bethesda data bug and has been "
+                "reported; the rate here will update automatically if it's fixed."
+            ),
+        },
         "resource_generators": None,
     },
     # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
