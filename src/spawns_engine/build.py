@@ -60,7 +60,11 @@ def save_cache(cache, path):
 
 # ── hand-authored field preservation ─────────────────────────────────────────
 def load_existing(path):
-    """Load hand-authored fields from the previous build to preserve on rebuild."""
+    """Load hand-authored fields from the previous build to preserve on rebuild.
+
+    Marker-level slots are keyed (region, marker); PER-SPAWN slots are keyed by the
+    placement's ref inside `spawns`, so a marker holding several spawns keeps each
+    one's own photos/directions even as the placement list grows or reorders."""
     keep = {}
     try:
         old = json.load(open(path, encoding="utf-8"))
@@ -68,10 +72,18 @@ def load_existing(path):
         return keep
     for reg in old.get("regions", []):
         for loc in reg.get("locations", []):
+            spawns = {}
+            for sp in loc.get("spawns") or []:
+                ref = sp.get("ref") or ""
+                saved = {k: sp.get(k, "") for k in ("image_top", "directions", "image_bottom")
+                         if sp.get(k)}
+                if ref and saved:
+                    spawns[ref] = saved
             keep[(reg.get("region", ""), loc.get("marker", ""))] = {
                 "image_top": loc.get("image_top", ""),
                 "directions": loc.get("directions", ""),
                 "image_bottom": loc.get("image_bottom", ""),
+                "spawns": spawns,
             }
     return keep
 
@@ -126,7 +138,7 @@ def group_regions(seen, all_regions, keep):
         (regions_out, src_totals, unresolved, total, placements)
     with the exact shapes the pre-refactor builds emitted."""
     grouped = defaultdict(lambda: {"count": 0, "refs": [], "coords": None,
-                                   "sources": defaultdict(int)})
+                                   "sources": defaultdict(int), "places": []})
     unresolved = defaultdict(int)
     for inst, (x, y, region, marker, stype) in seen.items():
         if region not in all_regions:
@@ -135,13 +147,36 @@ def group_regions(seen, all_regions, keep):
         g = grouped[(region, marker)]
         g["count"] += 1
         g["sources"][stype] += 1
-        g["refs"].append(f"{int(inst):06X}")
+        ref = f"{int(inst):06X}"
+        g["refs"].append(ref)
+        # Every placement is kept individually so a marker with N spawns can render
+        # N photo/map slots instead of one shared pair (see `spawns` below).
+        g["places"].append({"ref": ref, "source_type": stype,
+                            "coords": [x, y] if x is not None and y is not None else []})
         if g["coords"] is None and x is not None and y is not None:
             g["coords"] = [x, y]
 
     by_region = defaultdict(list)
     for (region, marker), g in grouped.items():
         prev = keep.get((region, marker), {})
+        prev_spawns = prev.get("spawns") or {}
+        # One `spawns` entry per placement: its own map shot, directions and
+        # in-place photo. `label` is left blank here — a family driver may set a
+        # nicer one (e.g. "Deathclaw Nest #2"); the renderer falls back to
+        # "Spawn N". Slots are preserved across rebuilds by ref.
+        places = sorted(g["places"], key=lambda p: (p["source_type"], p["ref"]))
+        spawns = []
+        for p in places:
+            hf = prev_spawns.get(p["ref"], {})
+            spawns.append({
+                "label": "",
+                "ref": p["ref"],
+                "source_type": p["source_type"],
+                "coords": p["coords"],
+                "image_top": hf.get("image_top", ""),
+                "directions": hf.get("directions", ""),
+                "image_bottom": hf.get("image_bottom", ""),
+            })
         by_region[region].append({
             "marker": marker,
             "count": g["count"],
@@ -151,6 +186,7 @@ def group_regions(seen, all_regions, keep):
             "image_bottom": prev.get("image_bottom", ""),
             "refs": sorted(set(g["refs"])),
             "coords": g["coords"] or [],
+            "spawns": spawns,
         })
 
     regions_out = []

@@ -102,20 +102,27 @@ def _attach_breakdowns(cfg, tbls, seen, regions_out):
     static_type_label = {rec.get("world_source_type"): rec["full"]
                          for rec in cfg["items"] if rec.get("world_source_type")}
 
-    tally = defaultdict(lambda: defaultdict(int))   # (region, marker) -> key -> n
-    for inst, (_x, _y, region, marker, stype) in seen.items():
+    def _key_for(inst, stype):
+        """The breakdown bucket a placement belongs to, or None when it isn't a
+        fixed-spawn source (vendors etc.)."""
         if stype == "nest":
-            key = ("nest",)
-        elif stype in static_type_label:            # base-placed item (100% static)
-            key = ("static", static_type_label[stype])
-        elif stype == "direct":
+            return ("nest",)
+        if stype in static_type_label:              # base-placed item (100% static)
+            return ("static", static_type_label[stype])
+        if stype == "direct":
             if inst in static_item:                 # legacy: cracked via ref column
-                key = ("static", static_item[inst])
-            else:
-                key = ("world",)                    # world LPI point (50%)
-        else:
-            continue                                # vendors/other aren't fixed-spawn markers
+                return ("static", static_item[inst])
+            return ("world",)                       # world LPI point (50%)
+        return None
+
+    tally = defaultdict(lambda: defaultdict(int))   # (region, marker) -> key -> n
+    ref_key = {}                                    # ref hex -> bucket key
+    for inst, (_x, _y, region, marker, stype) in seen.items():
+        key = _key_for(inst, stype)
+        if key is None:
+            continue
         tally[(region, marker)][key] += 1
+        ref_key[f"{int(inst):06X}"] = key
 
     order = {"world": 0, "static": 1, "nest": 2}
     for reg in regions_out:
@@ -136,6 +143,25 @@ def _attach_breakdowns(cfg, tbls, seen, regions_out):
                     rows.append({"label": nest_label, "count": cnt,
                                  "rate_key": "containers", "note": nest_note})
             loc["breakdown"] = rows
+
+            # Name each per-spawn slot after the thing actually standing there —
+            # "Deathclaw Nest #2", "Cracked Deathclaw Egg #1" — numbered within its
+            # own type so the numbering survives new placements of other types.
+            # The renderer falls back to "Spawn N" when a label is blank.
+            label_for = {("world",): world_label, ("nest",): nest_label}
+            seq = defaultdict(int)
+            for sp in loc.get("spawns") or []:
+                key = ref_key.get(sp.get("ref", ""))
+                if not key:
+                    continue
+                label = label_for.get(key) or (key[1] if len(key) > 1 else "")
+                if not label:
+                    continue
+                seq[label] += 1
+                total_of_type = sum(r["count"] for r in rows if r["label"] == label)
+                sp["label"] = f"{label} #{seq[label]}" if total_of_type > 1 else label
+                if key[0] == "nest" and nest_note:
+                    sp["note"] = nest_note
 
 
 def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
