@@ -27,7 +27,24 @@
   },
   "vendors": null,
   "resource_generators": {
-   "note": "Morbid Well resource generator produces tick blood at ~14.3% per cycle (1 of 7 items in ATX_Resources_MorbidWell_Blood, pick-one). Mystery Crate (Mire) has a ~3.85% chance per crate (2 of 52 entries in LL_InsectParts, pick-one)."
+   "note": "Mystery Crate (Mire) has a ~3.85% chance per crate (2 of 52 entries in LL_InsectParts, pick-one).",
+   "entries": [
+    {
+     "name": "Morbid Well Collector",
+     "edid": "ATX_MorbidWell",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Tick Blood",
+       "form_id": "003D7494",
+       "rate": 0.142857,
+       "rate_display": "14.29%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {

@@ -54,8 +54,55 @@
     "rate_display": "2.5%"
    }
   },
-  "resource_generators": {
-   "note": "Collectrons can produce raw deathclaw eggs at very low rates: Electronics and Junkyard collectrons have a ~0.45% chance per cycle (ChanceNone 95, 1 of 11 in super-rare pool). Sir Loin collectron has a ~0.13% chance per cycle (ChanceNone 99, 1 of 8 in rare pool)."
+  "resource_generators": null,
+  "collectrons": {
+   "entries": [
+    {
+     "name": "F.E.T.C.H. Collectron Station",
+     "edid": "ATX_Resource_Collectron_FETCH_Electronics",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Deathclaw Egg",
+       "form_id": "00046939",
+       "rate": 0.001023,
+       "rate_display": "0.1%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Junkyard Dog Collectron Station",
+     "edid": "ATX_Resource_Collectron_FETCH_Electronics_Junk",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Deathclaw Egg",
+       "form_id": "00046939",
+       "rate": 0.001023,
+       "rate_display": "0.1%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Sir Loin Collectron Station",
+     "edid": "ATX_SirLoinResource_Collector",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Deathclaw Egg",
+       "form_id": "00046939",
+       "rate": null,
+       "rate_display": null,
+       "rate_source": "unresolved"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {

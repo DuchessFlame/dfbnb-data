@@ -44,7 +44,24 @@
    }
   },
   "resource_generators": {
-   "note": "The Morbid Well CAMP resource generator produces Blood Sac at ~14.3% per cycle (1 of 7 items in ATX_Resources_MorbidWell_Blood, pick-one). The Season 26 Cultist Well generator has a matching blood pool. Blood Sac also appears in the Mire Mystery Crate at ~3.85% per crate (2 of 52 in LL_InsectParts, pick-one), in the Milepost Zero scavenger rare-junk pool, and in Burning Springs bounty-hunt junk rewards."
+   "note": "The Season 26 Cultist Well generator has a matching blood pool. Blood Sac also appears in the Mire Mystery Crate at ~3.85% per crate (2 of 52 in LL_InsectParts, pick-one), in the Milepost Zero scavenger rare-junk pool, and in Burning Springs bounty-hunt junk rewards.",
+   "entries": [
+    {
+     "name": "Morbid Well Collector",
+     "edid": "ATX_MorbidWell",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Blood Sac",
+       "form_id": "00028A63",
+       "rate": 0.142857,
+       "rate_display": "14.29%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "used_for": {
