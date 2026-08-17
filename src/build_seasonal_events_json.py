@@ -690,6 +690,31 @@ EVENTS = {
             {"title": "Spooky Treat Bag", "lvliFormID": "0062038D"},
         ],
     },
+    # ---- FLAG FOR DUCHESS: title/slug is provisional — rename if you prefer
+    # (e.g. "Slasher Loot Bag", "Spooky Scorched: Slasher Loot"). Everything
+    # keys off the LVLI FormID, not the name, so a rename is safe. ----
+    #
+    # Spooky Scorched — Slasher Loot (SDOW season content, PTS-only right now).
+    # During the Spooky Scorched event, while the Slasher season is live
+    # (gated on GLOB 008E066F:LCP_SDOW_Slasher == 1), the Spooky Scorched
+    # enemy death-loot list LLD_Creature_Scorched_Spooky [0062038E] gains an
+    # extra entry: 008F6AC2:SDOW_LLD_SpookyScorched — the slasher loot bag.
+    # Killing the (Slasher-season) Spooky Scorched enemies therefore drops
+    # this bag in addition to the normal Spooky Treat Bag / Mystery Treats.
+    # The bag itself is a UseAll (max_count 0) list: a guaranteed Ghost Boy
+    # chem plus a 40% Rare recipe roll and a 15% Ultra-Rare recipe roll.
+    # This content only exists in the June/PTS SDOW exports (not live July),
+    # so this page populates on the PTS channel and stays empty on main until
+    # SDOW is ungated — see handoff/report; publishing channel is PENDING.
+    "spooky-scorched-slasher-loot-all-rewards": {
+        "name": "Spooky Scorched — Slasher Loot",
+        "eventSlug": "spooky-scorched-slasher-loot",
+        "description": "While the Slasher season is running, the Spooky Scorched that stalk Appalachia during the Halloween event are joined by the Pint-Sized Slasher's followers. Cut one of these Slasher-season Spooky Scorched down and it drops a Slasher loot bag on top of its usual Spooky Treat Bag — a guaranteed Ghost Boy stealth chem plus a chance at the Slasher's rare and ultra-rare plans.",
+        "isContainerLoot": True,
+        "containers": [
+            {"title": "Slasher Loot Bag", "lvliFormID": "008F6AC2"},
+        ],
+    },
     "holiday-scorched-all-rewards": {
         "name": "Holiday Scorched",
         "eventSlug": "holiday-scorched",
