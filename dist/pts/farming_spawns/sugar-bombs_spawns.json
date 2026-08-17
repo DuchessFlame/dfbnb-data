@@ -1,15 +1,14 @@
 {
  "_meta": {
-  "generated": "2026-08-16",
+  "generated": "2026-08-17",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 380,
   "source_totals": {
    "container": 11866,
    "direct": 1788,
-   "loot-list": 1654,
+   "loot-list": 1689,
    "nest": 20,
    "npc": 2909,
-   "quest-reward": 35,
    "vendor": 37
   },
   "unresolved": {}
@@ -84,7 +83,7 @@
    "effects": [
     {
      "name": "Restore Health",
-     "display": "Restores Health",
+     "display": "Restores 10 Health",
      "duration": "25s"
     },
     {
@@ -94,7 +93,7 @@
     },
     {
      "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (tiny)",
+     "display": "Satisfies hunger (480/8 min)",
      "duration": null
     },
     {
@@ -108,12 +107,16 @@
    {
     "name": "Collect a box of Sugar Bombs",
     "edid": "SCORE_Challenge_Daily_Collect_SugarBombs",
-    "page": "daily"
+    "page": "daily",
+    "type": "Daily",
+    "required": 2
    },
    {
     "name": "Eat a box of Sugar Bombs",
     "edid": "SCORE_Challenge_Daily_Consume_MealTypePackaged_SugarBombs",
-    "page": "daily"
+    "page": "daily",
+    "type": "Daily",
+    "required": 1
    }
   ],
   "recipes": [
@@ -151,7 +154,7 @@
     "effects": [
      {
       "name": "Restore Health",
-      "display": "Restores Health",
+      "display": "Restores 90 Health",
       "duration": "25s"
      },
      {
@@ -166,7 +169,7 @@
      },
      {
       "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (verylarge)",
+      "display": "Satisfies hunger (1800/30 min)",
       "duration": null
      },
      {
@@ -175,7 +178,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": ""
+    "how_to_obtain": "Recipe: Brain Bombs"
    },
    {
     "name": "Granny's Tea",
@@ -211,7 +214,7 @@
     "effects": [
      {
       "name": "Restore Health",
-      "display": "Restores Health",
+      "display": "Restores 40 Health",
       "duration": "10s"
      },
      {
@@ -221,7 +224,7 @@
      },
      {
       "name": "Quench Thirst",
-      "display": "Quenches thirst (purewater)",
+      "display": "Quenches thirst (900/15 min)",
       "duration": null
      },
      {
@@ -230,7 +233,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
+    "how_to_obtain": "Recipe: Delbert's Granny's Sweet Tea"
    },
    {
     "name": "Sunshine Oil",
@@ -276,7 +279,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
+    "how_to_obtain": "Recipe: Delbert's Sunshine Oil"
    },
    {
     "name": "Sweet Roll",
@@ -312,7 +315,7 @@
     "effects": [
      {
       "name": "Restore Health",
-      "display": "Restores Health",
+      "display": "Restores 90 Health",
       "duration": "25s"
      },
      {
@@ -327,7 +330,7 @@
      },
      {
       "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (verylarge)",
+      "display": "Satisfies hunger (1440/24 min)",
       "duration": null
      },
      {
@@ -336,7 +339,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": ""
+    "how_to_obtain": "Recipe: Sweet Roll"
    }
   ]
  },
@@ -1957,8 +1960,7 @@
      "count": 20,
      "sources": {
       "container": 15,
-      "loot-list": 4,
-      "quest-reward": 1
+      "loot-list": 5
      },
      "image_top": "",
      "directions": "",
@@ -2515,7 +2517,7 @@
      "sources": {
       "container": 4,
       "direct": 3,
-      "quest-reward": 1
+      "loot-list": 1
      },
      "image_top": "",
      "directions": "",
@@ -3669,7 +3671,7 @@
      "sources": {
       "container": 6,
       "direct": 2,
-      "quest-reward": 1
+      "loot-list": 1
      },
      "image_top": "",
      "directions": "",
@@ -6712,9 +6714,8 @@
      "sources": {
       "container": 7,
       "direct": 3,
-      "loot-list": 20,
-      "npc": 5,
-      "quest-reward": 1
+      "loot-list": 21,
+      "npc": 5
      },
      "image_top": "",
      "directions": "",
@@ -8253,9 +8254,8 @@
      "count": 27,
      "sources": {
       "container": 9,
-      "loot-list": 15,
-      "npc": 2,
-      "quest-reward": 1
+      "loot-list": 16,
+      "npc": 2
      },
      "image_top": "",
      "directions": "",
@@ -8300,9 +8300,8 @@
      "sources": {
       "container": 1,
       "direct": 4,
-      "loot-list": 5,
-      "npc": 1,
-      "quest-reward": 1
+      "loot-list": 6,
+      "npc": 1
      },
      "image_top": "",
      "directions": "",
@@ -8397,9 +8396,8 @@
      "count": 15,
      "sources": {
       "container": 5,
-      "loot-list": 3,
-      "npc": 6,
-      "quest-reward": 1
+      "loot-list": 4,
+      "npc": 6
      },
      "image_top": "",
      "directions": "",
@@ -10067,9 +10065,8 @@
      "count": 22,
      "sources": {
       "container": 16,
-      "loot-list": 1,
-      "npc": 4,
-      "quest-reward": 1
+      "loot-list": 2,
+      "npc": 4
      },
      "image_top": "",
      "directions": "",
@@ -10807,7 +10804,7 @@
      "sources": {
       "container": 10,
       "direct": 1,
-      "quest-reward": 1
+      "loot-list": 1
      },
      "image_top": "",
      "directions": "",
@@ -11445,9 +11442,8 @@
      "sources": {
       "container": 24,
       "direct": 2,
-      "loot-list": 1,
-      "npc": 1,
-      "quest-reward": 1
+      "loot-list": 2,
+      "npc": 1
      },
      "image_top": "",
      "directions": "",
@@ -11953,9 +11949,8 @@
      "count": 14,
      "sources": {
       "container": 3,
-      "loot-list": 6,
-      "npc": 4,
-      "quest-reward": 1
+      "loot-list": 7,
+      "npc": 4
      },
      "image_top": "",
      "directions": "",
@@ -12147,9 +12142,8 @@
      "sources": {
       "container": 23,
       "direct": 7,
-      "loot-list": 3,
-      "npc": 4,
-      "quest-reward": 1
+      "loot-list": 4,
+      "npc": 4
      },
      "image_top": "",
      "directions": "",
@@ -14472,9 +14466,8 @@
      "sources": {
       "container": 48,
       "direct": 23,
-      "loot-list": 1,
-      "npc": 3,
-      "quest-reward": 1
+      "loot-list": 2,
+      "npc": 3
      },
      "image_top": "",
      "directions": "",
@@ -14936,7 +14929,7 @@
      "sources": {
       "container": 2,
       "direct": 4,
-      "quest-reward": 1
+      "loot-list": 1
      },
      "image_top": "",
      "directions": "",
@@ -15329,9 +15322,8 @@
      "sources": {
       "container": 42,
       "direct": 13,
-      "loot-list": 2,
-      "npc": 13,
-      "quest-reward": 1
+      "loot-list": 3,
+      "npc": 13
      },
      "image_top": "",
      "directions": "",
@@ -15940,8 +15932,8 @@
      "count": 23,
      "sources": {
       "container": 15,
+      "loot-list": 1,
       "npc": 6,
-      "quest-reward": 1,
       "vendor": 1
      },
      "image_top": "",
@@ -17181,8 +17173,8 @@
      "sources": {
       "container": 4,
       "direct": 2,
-      "npc": 4,
-      "quest-reward": 1
+      "loot-list": 1,
+      "npc": 4
      },
      "image_top": "",
      "directions": "",
@@ -17361,8 +17353,8 @@
      "sources": {
       "container": 58,
       "direct": 7,
-      "npc": 4,
-      "quest-reward": 1
+      "loot-list": 1,
+      "npc": 4
      },
      "image_top": "",
      "directions": "",
@@ -18051,9 +18043,8 @@
      "count": 57,
      "sources": {
       "container": 15,
-      "loot-list": 23,
-      "npc": 18,
-      "quest-reward": 1
+      "loot-list": 24,
+      "npc": 18
      },
      "image_top": "",
      "directions": "",
@@ -18216,9 +18207,8 @@
      "count": 45,
      "sources": {
       "container": 8,
-      "loot-list": 24,
-      "npc": 12,
-      "quest-reward": 1
+      "loot-list": 25,
+      "npc": 12
      },
      "image_top": "",
      "directions": "",
@@ -18566,7 +18556,7 @@
      "count": 5,
      "sources": {
       "container": 4,
-      "quest-reward": 1
+      "loot-list": 1
      },
      "image_top": "",
      "directions": "",
@@ -20300,8 +20290,8 @@
      "sources": {
       "container": 40,
       "direct": 3,
-      "npc": 1,
-      "quest-reward": 1
+      "loot-list": 1,
+      "npc": 1
      },
      "image_top": "",
      "directions": "",
@@ -20363,9 +20353,8 @@
      "count": 31,
      "sources": {
       "container": 13,
-      "loot-list": 14,
-      "npc": 3,
-      "quest-reward": 1
+      "loot-list": 15,
+      "npc": 3
      },
      "image_top": "",
      "directions": "",
@@ -20459,9 +20448,8 @@
      "sources": {
       "container": 43,
       "direct": 2,
-      "loot-list": 4,
-      "npc": 2,
-      "quest-reward": 1
+      "loot-list": 5,
+      "npc": 2
      },
      "image_top": "",
      "directions": "",
@@ -21646,9 +21634,8 @@
      "sources": {
       "container": 8,
       "direct": 2,
-      "loot-list": 6,
-      "npc": 1,
-      "quest-reward": 1
+      "loot-list": 7,
+      "npc": 1
      },
      "image_top": "",
      "directions": "",
@@ -21684,7 +21671,7 @@
      "sources": {
       "container": 6,
       "direct": 3,
-      "quest-reward": 1
+      "loot-list": 1
      },
      "image_top": "",
      "directions": "",
@@ -21790,9 +21777,8 @@
      "count": 16,
      "sources": {
       "container": 5,
-      "loot-list": 3,
-      "npc": 7,
-      "quest-reward": 1
+      "loot-list": 4,
+      "npc": 7
      },
      "image_top": "",
      "directions": "",
@@ -25930,8 +25916,8 @@
      "count": 24,
      "sources": {
       "container": 17,
-      "npc": 6,
-      "quest-reward": 1
+      "loot-list": 1,
+      "npc": 6
      },
      "image_top": "",
      "directions": "",
@@ -26335,8 +26321,8 @@
      "sources": {
       "container": 3,
       "direct": 2,
-      "nest": 1,
-      "quest-reward": 1
+      "loot-list": 1,
+      "nest": 1
      },
      "image_top": "",
      "directions": "",
@@ -27024,8 +27010,7 @@
      "sources": {
       "container": 17,
       "direct": 2,
-      "loot-list": 5,
-      "quest-reward": 1
+      "loot-list": 6
      },
      "image_top": "",
      "directions": "",
@@ -27185,9 +27170,8 @@
      "sources": {
       "container": 7,
       "direct": 2,
-      "loot-list": 1,
-      "npc": 2,
-      "quest-reward": 1
+      "loot-list": 2,
+      "npc": 2
      },
      "image_top": "",
      "directions": "",
@@ -28438,8 +28422,7 @@
      "sources": {
       "container": 15,
       "direct": 6,
-      "loot-list": 18,
-      "quest-reward": 1
+      "loot-list": 19
      },
      "image_top": "",
      "directions": "",
@@ -28619,9 +28602,8 @@
      "sources": {
       "container": 45,
       "direct": 13,
-      "loot-list": 5,
-      "npc": 12,
-      "quest-reward": 1
+      "loot-list": 6,
+      "npc": 12
      },
      "image_top": "",
      "directions": "",
@@ -29655,9 +29637,8 @@
      "sources": {
       "container": 29,
       "direct": 11,
-      "loot-list": 10,
-      "npc": 7,
-      "quest-reward": 1
+      "loot-list": 11,
+      "npc": 7
      },
      "image_top": "",
      "directions": "",
@@ -29858,9 +29839,8 @@
      "count": 20,
      "sources": {
       "container": 8,
-      "loot-list": 7,
+      "loot-list": 8,
       "npc": 2,
-      "quest-reward": 1,
       "vendor": 2
      },
      "image_top": "",
