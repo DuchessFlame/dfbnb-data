@@ -54,8 +54,8 @@
     "rate_display": "2.5%"
    }
   },
-  "resource_generators": null,
   "collectrons": {
+   "note": "The Sir Loin Collectron lists Deathclaw Egg in its rare pool, but its production list is ordered so the super-common pool always wins — the rare pool never gets rolled, so the real chance is 0%. This looks like a Bethesda data bug and has been reported; the rate here will update automatically if it's fixed.",
    "entries": [
     {
      "name": "F.E.T.C.H. Collectron Station",
@@ -96,14 +96,15 @@
       {
        "name": "Deathclaw Egg",
        "form_id": "00046939",
-       "rate": null,
-       "rate_display": null,
-       "rate_source": "unresolved"
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
       }
      ]
     }
    ]
-  }
+  },
+  "resource_generators": null
  },
  "farming_tips": {
   "spoils": true,
