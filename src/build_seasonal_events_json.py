@@ -646,6 +646,57 @@ _EXCLUDE_EDIDS = {
 
 IMAGE_BASE = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/seasonal-events/"
 
+# ---------------------------------------------------------------------------
+# Per-event image manifests
+# ---------------------------------------------------------------------------
+# By default every reward gets a generated <slug>.avif URL, whether or not the
+# file has actually been uploaded. For events where only a subset of rewards
+# have artwork, list the slugs that really exist here and hang the set off the
+# event's "imageManifest" key. Any reward whose slug is NOT in the manifest
+# gets imageUrl = None / images = [] so the page renders no broken thumbnail.
+#
+# Invaders from Beyond: only the transparent-background item renders that exist
+# in the source art folder. Generic loot (caps, stimpaks, flux, legendary
+# tiers, treasure maps, treasury notes, bobblehead crate, improved bait,
+# legendary module, player title) and three plans with no render yet
+# (alien-blaster-cryo-mag, alien-blaster-poison-mag,
+# alien-disintegrator-automatic-receiver) are intentionally absent.
+INVADERS_IMAGE_SLUGS = {
+    "alien-blaster",
+    "alien-corpse-operating-bed",
+    "alien-couch",
+    "alien-disintegrator",
+    "alien-disintegrator-cryo-receiver",
+    "alien-disintegrator-high-powered-receiver",
+    "alien-disintegrator-poison-receiver",
+    "alien-head-lamp",
+    "alien-souvenir-beer-stein",
+    "alien-stash-box",
+    "alien-table",
+    "alien-target-practice-poster",
+    "alien-tube",
+    "asteroid",
+    "cosmic-capture",
+    "electro-enforcer",
+    "freezing-electro-enforcer",
+    "futuristic-globe",
+    "glowing-flatwoods-monster-lamp",
+    "hazmat-suit-pink",
+    "hazmat-suit-teal",
+    "human-tube-1",
+    "human-tube-2",
+    "nuka-cherry-rocket",
+    "nuka-cola-dark-rocket",
+    "nuka-cola-quantum-rocket",
+    "nuka-cola-rocket",
+    "nuka-cola-twist-rocket",
+    "nuka-grape-rocket",
+    "overcharged-electro-enforcer",
+    "poisoned-electro-enforcer",
+    "spiked-electro-enforcer",
+    "zenith-alien-blaster-paint",
+}
+
 XP_REFERENCE_LEVEL = 50
 MIN_RATE_DECIMAL = 0.0001  # 0.01% as decimal
 
@@ -735,6 +786,12 @@ EVENTS = {
         "description": "Defend against the Zetan invasion and earn unique alien-themed rewards.",
         "isContainerLoot": False,
         "questFormIDs": ["00620F7B"],
+        # Reward thumbnails live at the root of
+        # .../guide-images/seasonal-events/invaders-from-beyond/ (guide-page
+        # figures live in the guide-images/ subfolder). Only the slugs listed in
+        # INVADERS_IMAGE_SLUGS have artwork uploaded — everything else renders
+        # with no thumbnail rather than a broken image.
+        "imageManifest": INVADERS_IMAGE_SLUGS,
     },
     "grahms-meat-cook-all-rewards": {
         "name": "Grahm's Meat-Cook",
@@ -1133,12 +1190,22 @@ IMAGE_GALLERIES = {
     "meat-week-souvenir-beer-stein": 2,
     "bloody-chef-outfit": 2,
     "chally-the-moo-moo-outfit": 2,
+    # Invaders from Beyond — front/back renders and the scoped Zenith blaster.
+    "hazmat-suit-pink": 2,
+    "hazmat-suit-teal": 2,
+    "zenith-alien-blaster-paint": 2,
 }
 
 
-def build_image_list(event_slug, item_name, slug_override=None):
-    """Return the ordered list of image URLs for an item (primary first)."""
+def build_image_list(event_slug, item_name, slug_override=None, manifest=None):
+    """Return the ordered list of image URLs for an item (primary first).
+
+    When *manifest* is supplied and the item's slug is not in it, return an
+    empty list — the reward has no uploaded artwork.
+    """
     slug = slug_override or slugify_item(item_name)
+    if manifest is not None and slug not in manifest:
+        return []
     base = event_slug.strip("/") + "/" + slug
     n = IMAGE_GALLERIES.get(slug, 1)
     urls = [IMAGE_BASE + base + ".avif"]
@@ -3166,6 +3233,7 @@ def _build_caps_block_summary(caps_breakdown):
 def _build_flat_rewards_from_tree(tree, event_def, groups):
     """Produce the legacy flat rewards[] list from the event reward tree."""
     ev_slug = event_def.get("imageDir") or event_def["eventSlug"]
+    _manifest = event_def.get("imageManifest")
     by_fid = {}
     for node in tree:
         node_label = node.get("label", "")
@@ -3175,12 +3243,14 @@ def _build_flat_rewards_from_tree(tree, event_def, groups):
             edid = it["edid"]
             if fid not in by_fid:
                 _slug_ovr = REWARD_IMAGE_SLUG_OVERRIDES.get(str(fid).upper())
-                _imgs = build_image_list(ev_slug, name, slug_override=_slug_ovr)
+                _imgs = build_image_list(
+                    ev_slug, name, slug_override=_slug_ovr, manifest=_manifest
+                )
                 by_fid[fid] = {
                     "name":         name,
                     "formId":       fid,
                     "edid":         edid,
-                    "imageUrl":     _imgs[0],
+                    "imageUrl":     _imgs[0] if _imgs else None,
                     "images":       _imgs,
                     "releaseYear":  None,
                     "tradeable":    it.get("tradeable"),
