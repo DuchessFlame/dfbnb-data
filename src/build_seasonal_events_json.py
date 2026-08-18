@@ -658,9 +658,12 @@ IMAGE_BASE = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/seasona
 # Invaders from Beyond: only the transparent-background item renders that exist
 # in the source art folder. Generic loot (caps, stimpaks, flux, legendary
 # tiers, treasure maps, treasury notes, bobblehead crate, improved bait,
-# legendary module, player title) and three plans with no render yet
-# (alien-blaster-cryo-mag, alien-blaster-poison-mag,
-# alien-disintegrator-automatic-receiver) are intentionally absent.
+# legendary module) is intentionally absent.
+#
+# Three mod plans have no render of their own (Alien Blaster Cryo Mag, Alien
+# Blaster Poison Mag, Alien Disintegrator Automatic Receiver) — they borrow the
+# base weapon / sibling-receiver render via REWARD_IMAGE_SLUG_OVERRIDES, so the
+# slug that reaches this manifest is the borrowed one and is already listed.
 INVADERS_IMAGE_SLUGS = {
     "alien-blaster",
     "alien-corpse-operating-bed",
@@ -692,6 +695,7 @@ INVADERS_IMAGE_SLUGS = {
     "nuka-cola-twist-rocket",
     "nuka-grape-rocket",
     "overcharged-electro-enforcer",
+    "player-title-invader",
     "poisoned-electro-enforcer",
     "spiked-electro-enforcer",
     "zenith-alien-blaster-paint",
@@ -714,6 +718,23 @@ _NAMED_WEAPON_OVERRIDES = {
     "000fd11b": "Cursed Broadsider",
     "00142fab": "Cursed Rolling Pin",
     "000b3293": "Cursed Sickle",
+}
+
+# Display-name prettification, keyed by FormID (lowercase). Purely cosmetic:
+# the in-game FULL is kept intact everywhere else (EDID, FormID, drop rates),
+# this only changes what the reward row/expand shows.
+#
+# Rewards sort alphabetically, so weapon-mod plans whose in-game name leads
+# with the mod ("Freezing Electro Enforcer") scatter across the list away from
+# their base weapon. Re-order them as "<Weapon> <Mod>" so the whole family
+# groups under the base plan. Their uploaded artwork is still named after the
+# old slug — pinned in REWARD_IMAGE_SLUG_OVERRIDES below so nothing 404s.
+_DISPLAY_NAME_OVERRIDES = {
+    # Invaders from Beyond — Electro Enforcer mod plans.
+    "00630c6a": "Plan: Electro Enforcer Freezing",     # was "Freezing Electro Enforcer"
+    "00630c68": "Plan: Electro Enforcer Overcharged",  # was "Overcharged Electro Enforcer"
+    "00630c69": "Plan: Electro Enforcer Poisoned",     # was "Poisoned Electro Enforcer"
+    "00630c6c": "Plan: Electro Enforcer Spiked",       # was "Spiked Electro Enforcer"
 }
 
 # ---------------------------------------------------------------------------
@@ -1135,6 +1156,22 @@ REWARD_IMAGE_SLUG_OVERRIDES = {
     "008B3E62": "armo-headwear-fasnacht-mask-pitman",         # Fasnacht Pitman
     "008B3E63": "armo-headwear-fasnacht-mask-pitman-glow",    # Fasnacht Glowing Pitman
     "008B3F3E": "armo-headwear-fasnacht-mask-pitman-clean",   # Clean Fasnacht Pitman
+
+    # Invaders from Beyond — Electro Enforcer mod plans renamed for grouping
+    # (see _DISPLAY_NAME_OVERRIDES). The artwork on the server still carries
+    # the original "<mod>-electro-enforcer" filename, so pin it here.
+    "00630C6A": "freezing-electro-enforcer",     # Plan: Electro Enforcer Freezing
+    "00630C68": "overcharged-electro-enforcer",  # Plan: Electro Enforcer Overcharged
+    "00630C69": "poisoned-electro-enforcer",     # Plan: Electro Enforcer Poisoned
+    "00630C6C": "spiked-electro-enforcer",       # Plan: Electro Enforcer Spiked
+
+    # Invaders from Beyond — mod plans with no render of their own. They are
+    # weapon mods, so they borrow the render of the weapon they attach to:
+    # the two Alien Blaster mags use the base Alien Blaster, and the
+    # Automatic Receiver uses its sibling High Powered Receiver render.
+    "0062EAFB": "alien-blaster",                                # Plan: Alien Blaster Cryo Mag
+    "0062EAFC": "alien-blaster",                                # Plan: Alien Blaster Poison Mag
+    "0062FE7C": "alien-disintegrator-high-powered-receiver",    # Plan: Alien Disintegrator Automatic Receiver
 }
 
 
@@ -2535,6 +2572,7 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
         fid  = it.get("formid", "")
         edid = it.get("edid", "")
         name = _NAMED_WEAPON_OVERRIDES.get(fid.lower(), it.get("name", ""))
+        name = _DISPLAY_NAME_OVERRIDES.get(fid.lower(), name)
         name = _prettify_legendary_item_name(name)
         rate = it.get("dropRate", 0.0)
         qty  = it.get("qty", 1) or 1
