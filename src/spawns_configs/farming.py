@@ -80,6 +80,31 @@ def _origin_maps(cfg, tbls):
     return world_refs, static_item
 
 
+def _drop_excluded(cfg, tbls, seen):
+    """Drop the world placements of any item flagged `exclude_from_fixed_spawns`.
+
+    Some sets carry a companion item that is really a BY-PRODUCT of the main one
+    rather than a thing you farm in its own right — e.g. the Cracked Deathclaw
+    Egg, which you get out of a nest. It stays in cfg["items"] so the LVLI
+    closure, nest yield, drop rates, used_for and vendor data still see it, but
+    its own loose world points are removed here so Fixed Spawn Locations lists
+    only the real item (and the nests). Mutates `seen` in place."""
+    excl = [r for r in cfg["items"] if r.get("exclude_from_fixed_spawns")]
+    if not excl:
+        return
+    drop_types = {r["world_source_type"] for r in excl if r.get("world_source_type")}
+    drop_insts = set()                      # legacy: placed via the item's ref column
+    for rec in excl:
+        fid = rec["formid"].upper()
+        refs = (tbls["misc_refs"].get(fid, []) if rec.get("sig") == "MISC"
+                else tbls["alch_refs"].get(fid, []))
+        for rf, _redid, rsig in refs:
+            if rsig == "REFR":
+                drop_insts.add(int(rf, 16))
+    for inst in [i for i, v in seen.items() if v[4] in drop_types or i in drop_insts]:
+        del seen[inst]
+
+
 def _attach_breakdowns(cfg, tbls, seen, regions_out):
     """When cfg opts in (per_marker_breakdown), attach a per-marker `breakdown`
     list — [{label, count, rate_key, note}] — so the renderer can show how many of
@@ -174,6 +199,7 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
                                placed_sigs=esources.PLACED_SIGS_FLORA,
                                place_item_bases=cfg.get("place_item_bases", False))
     seen, lists_n = ebuild.resolve_placements(src, geo, cur, cache, db_ok)
+    _drop_excluded(cfg, tbls, seen)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
     _attach_breakdowns(cfg, tbls, seen, regions_out)

@@ -38,7 +38,8 @@ HOW THE SOURCE FORMIDS WERE FOUND (from the July 2026 xEdit exports):
 
   Cracked Deathclaw Egg (MISC 0014F6AC) has 12 direct world REFRs and is in
   deathclaw nest containers (LLS_Deathclaw_eggcracked 001B0085 -> LL_Deathclaw_Nest).
-  Vendor pool: LLV_Vendor_Junk_Small_Rare (000757BD).
+  Vendor pool: LLV_Vendor_Junk_Small_Rare (000757BD) — DEAD, debug-only list
+  (referenced solely by DebugChallengeMisc_Junk CONT); no vendor stocks it.
 """
 
 # Appalachia worldspace formID (the only worldspace with markers/regions in the DB).
@@ -159,9 +160,10 @@ DEATHCLAW_EGG = {
     "slug": "deathclaw-egg",
     "name": "Deathclaw Egg",
     "page_title": "Deathclaw Egg Spawn Locations",
-    "blurb": "Every known world spawn for Deathclaw Eggs (raw and cracked), grouped by region. Directions and photos are added by hand.",
-    # Fixed Spawn markers mix loose eggs and nests, so each marker gets a per-type
-    # breakdown (count + rate) built by spawns_configs.farming._attach_breakdowns.
+    "blurb": "Every known world spawn for Deathclaw Eggs, grouped by region. Directions and photos are added by hand.",
+    # Fixed Spawn markers mix loose raw eggs and nests, so each marker gets a
+    # per-type breakdown (count + rate) built by
+    # spawns_configs.farming._attach_breakdowns.
     "per_marker_breakdown": True,
     # Also resolve Position by each item's OWN base FormID (like Mappalachia), so a
     # directly world-placed egg the ref columns miss — e.g. the raw egg in Vault 63 —
@@ -182,6 +184,11 @@ DEATHCLAW_EGG = {
             "full": "Cracked Deathclaw Egg",
             "sig": "MISC",
             "world_source_type": "static-cracked",
+            # Cracked eggs are a nest BY-PRODUCT, not a farmable world point, so
+            # their own 12 loose placements are dropped from Fixed Spawn Locations
+            # (spawns_configs.farming._drop_excluded). The item stays here so the
+            # LVLI closure, nest yield, used_for and vendor data still see it.
+            "exclude_from_fixed_spawns": True,
         },
     ],
     # ── Info notes (rendered as their own expand, no spawn data) ────────
@@ -205,8 +212,9 @@ DEATHCLAW_EGG = {
     # 37 world REFRs).  ChanceNone = 50 (GLOB LPI_Chance_Food_FruitVegetables).
     # Also 5 direct ALCH world REFRs (100% fixed spawns).
     #
-    # Cracked egg (MISC 0014F6AC) has 12 direct MISC world REFRs (100% fixed).
-    # Vendor pool: LLV_Vendor_Junk_Small_Rare (000757BD), pick-one 40 entries → 2.5%.
+    # Cracked egg (MISC 0014F6AC) has 12 direct MISC world REFRs. They are excluded
+    # from Fixed Spawn Locations (see exclude_from_fixed_spawns above).
+    # No vendor pool — see the "vendors" note below.
     #
     # Deathclaw nests: Container_Loot_DeathclawNest01 (003099CD, UseAll max_count=2)
     # → LL_Deathclaw_Nest (001B0084, UseAll) → 1x raw egg + 1x cracked egg.
@@ -227,9 +235,8 @@ DEATHCLAW_EGG = {
             "marker_label": "Deathclaw Egg",
             "note": (
                 "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a "
-                "per-server-hop chance (computed). Cracked Deathclaw Eggs are 12 "
-                "fixed static (100%) spawns; deathclaw nests are listed below with "
-                "their own rate."
+                "per-server-hop chance (computed). Deathclaw nests are listed "
+                "below with their own rate."
             ),
         },
         "containers": {
@@ -255,20 +262,22 @@ DEATHCLAW_EGG = {
                 "computed from the ItemTwo_High_ChanceNone_Tier GLOB."
             ),
         },
-        "vendors": {
-            "general": {
-                "list_edid": "LLV_Vendor_Junk_Small_Rare",
-                "list_id": "000757BD",
-                "mechanism": (
-                    "Cracked Deathclaw Egg is 1 of 40 items in the junk vendor "
-                    "rare pool (pick-one). Raw eggs are not sold by any vendor."
-                ),
-                "note": (
-                    "Junk vendors have a 2.5% chance per roll to stock a cracked "
-                    "deathclaw egg. Raw eggs are not vendored."
-                ),
-            },
-        },
+        # NO VENDOR SELLS DEATHCLAW EGGS — verified Aug 2026 against
+        # LVLI_Export_July_2026 + dist/vendors.json (112 vendors):
+        #   Raw egg (00046939) is in NO vendor list at all. Its only parents are
+        #     LLS_Deathclaw_egg (nest), LL_Food_Single_DeathclawEgg ->
+        #     LPI_Food_DeathclawEgg (world spawns), and the 3 collectron pools.
+        #   Cracked egg (0014F6AC) sits in LLV_Vendor_Junk_Small_Rare (000757BD),
+        #     but that list is DEAD DATA: its only ReferencedBy is
+        #     DebugChallengeMisc_Junk (00450D6D, CONT) — a debug container — it has
+        #     no parent list, and not one vendor in the master stocks it. The old
+        #     "junk vendors have a 2.5% chance" note here was derived from that
+        #     unreachable list and was wrong; do not reinstate it.
+        #   Cooked Deathclaw Egg (0004693C) IS vendored (May at Highway Town
+        #     Interior; Mr Waiter / Ms Waitress at Whitespring Refuge) — different
+        #     item, different page.
+        # build_farming_used_for.py agrees independently: "vendors: 0".
+        "vendors": None,
         # Collectrons (F.E.T.C.H. / Junkyard Dog / Sir Loin) are JOINED from
         # dist/collectrons.json at build time and render as cards in the
         # Collectrons expand — see _patch_camp_producers in
