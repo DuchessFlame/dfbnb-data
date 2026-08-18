@@ -1808,6 +1808,100 @@ def _tag_meat_source_pools(tree, data, resolver, tier_variants):
 
 
 # ---------------------------------------------------------------------------
+# Generic source-pool tagging (rarity pools named in the sub-LVLI EDIDs)
+# ---------------------------------------------------------------------------
+# classifyPoolTier() in the JS only falls back to a flat rate threshold
+# (>=6% → Common, else Rare) when an item carries no sourcePool. Any event
+# whose reward LVLI splits into named rarity sub-lists therefore rendered every
+# item with a "Rare" pill, however the pools actually split.
+#
+# Invaders from Beyond is the case in point:
+#   E07B_Invaders_LL_Event_Reward [00620E7F]      UseAll
+#     └─ E07B_Invaders_LLS_Event_Reward_Chase [00820AAB]   FirstMatch
+#          ├─ …_Rare     [00620E80]  entry gated GetRandomPercent <= 40
+#          │                          → 40% pool ÷ 12 items = 3.33% each
+#          └─ …_Uncommon [00820AAC]  → remaining 60% ÷ 23 items = 2.61% each
+#
+# The rates were always right; only the pill was guessed. Tagging each item
+# with the rarity sub-list it came from makes the pill (and the header
+# Reward Breakdown rows) data-driven instead.
+#
+# Ordered most-specific first — "Uncommon" must beat the "Common" pattern.
+_POOL_EDID_PATTERNS = [
+    (re.compile(r"Uncommon", re.IGNORECASE), "UncommonRewards"),
+    (re.compile(r"Common",   re.IGNORECASE), "CommonRewards"),
+    (re.compile(r"Rare",     re.IGNORECASE), "RareRewards"),
+    (re.compile(r"Default",  re.IGNORECASE), "DefaultRewards"),
+]
+
+
+def _pool_name_for_edid(edid):
+    for pat, name in _POOL_EDID_PATTERNS:
+        if pat.search(edid or ""):
+            return name
+    return None
+
+
+def _collect_pool_map(fid, data, resolver, out, depth=0, seen=None):
+    """Recursively map leaf FormID → rarity pool name.
+
+    Descends through unnamed intermediate lists (e.g. the Invaders "Chase"
+    list) until it hits a sub-list whose EDID names a rarity pool, then
+    attributes every leaf under that sub-list to the pool. First (shallowest)
+    match wins, so an item shared between pools keeps its higher-level home.
+    """
+    if seen is None:
+        seen = set()
+    if fid in seen or depth > 8:
+        return
+    seen.add(fid)
+    for sub_fid, sub_edid in _walk_direct_sub_lvlis(fid, data):
+        pool = _pool_name_for_edid(sub_edid)
+        if pool:
+            try:
+                for it in resolver.resolve_deep(sub_fid):
+                    leaf = it.get("formid")
+                    if leaf:
+                        out.setdefault(leaf, pool)
+            except Exception as e:
+                print("    [WARN] resolve_deep {} for sourcePool: {}".format(sub_fid, e))
+        else:
+            _collect_pool_map(sub_fid, data, resolver, out, depth + 1, seen)
+
+
+def _tag_source_pools_by_edid(tree, data, resolver):
+    """Tag unique-pool items with the rarity sub-list they came from."""
+    fid_to_pool = {}
+    for node in tree:
+        if not node.get("isUniqueReward"):
+            continue
+        root = (node.get("formid") or "").strip()
+        if root:
+            _collect_pool_map(root, data, resolver, fid_to_pool)
+
+    if not fid_to_pool:
+        print("    [WARN] No FormID -> sourcePool mapping found")
+        return
+
+    tagged = 0
+    for node in tree:
+        if not node.get("isUniqueReward"):
+            continue
+        for it in node.get("items", []):
+            pool = fid_to_pool.get(it.get("formid"))
+            if pool:
+                it["sourcePool"] = pool
+                tagged += 1
+
+    counts = {}
+    for pool in fid_to_pool.values():
+        counts[pool] = counts.get(pool, 0) + 1
+    print("    Tagged {} items with sourcePool ({})".format(
+        tagged, ", ".join("{}={}".format(k, v) for k, v in sorted(counts.items()))
+    ))
+
+
+# ---------------------------------------------------------------------------
 # Object-template mod slots (legendary roles / custom mods for named ARMO/WEAP)
 # Mirrors the activity-page resolver (build_activities_rewards_json.py): group
 # OBTE rows by CombinationIndex, pick the combination carrying the most
@@ -3101,6 +3195,12 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
         _attach_weapon_mod_effects(tree)
         _attach_producer_output(tree)
         _attach_producer_output(tree)
+
+    # Invaders from Beyond: the unique pool splits into a 40% Rare list and a
+    # 60% Uncommon list behind the FirstMatch "Chase" list. Tag each item with
+    # its source pool so the renderer stops guessing the tier from the rate.
+    if slug == "invaders-from-beyond-all-rewards":
+        _tag_source_pools_by_edid(tree, data, resolver)
 
     flat_rewards = _build_flat_rewards_from_tree(tree, event_def, groups)
 
