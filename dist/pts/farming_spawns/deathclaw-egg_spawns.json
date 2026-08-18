@@ -6,7 +6,6 @@
   "source_totals": {
    "direct": 15,
    "nest": 19,
-   "static-cracked": 12,
    "static-raw": 1
   },
   "unresolved": {}
@@ -14,14 +13,14 @@
  "set": "deathclaw-egg",
  "name": "Deathclaw Egg",
  "page_title": "Deathclaw Egg Spawn Locations",
- "blurb": "Every known world spawn for Deathclaw Eggs (raw and cracked), grouped by region. Directions and photos are added by hand.",
+ "blurb": "Every known world spawn for Deathclaw Eggs, grouped by region. Directions and photos are added by hand.",
  "drop_rates": {
   "world_spawns": {
    "list_edid": "LPI_Food_DeathclawEgg",
    "list_id": "002118C0",
    "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
    "marker_label": "Deathclaw Egg",
-   "note": "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a per-server-hop chance (computed). Cracked Deathclaw Eggs are 12 fixed static (100%) spawns; deathclaw nests are listed below with their own rate.",
+   "note": "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a per-server-hop chance (computed). Deathclaw nests are listed below with their own rate.",
    "rate": 0.5,
    "rate_display": "50%",
    "rate_source": "computed"
@@ -41,19 +40,7 @@
    "rate_display": "90%",
    "rate_source": "computed"
   },
-  "vendors": {
-   "general": {
-    "list_edid": "LLV_Vendor_Junk_Small_Rare",
-    "list_id": "000757BD",
-    "mechanism": "Cracked Deathclaw Egg is 1 of 40 items in the junk vendor rare pool (pick-one). Raw eggs are not sold by any vendor.",
-    "note": "Junk vendors have a 2.5% chance per roll to stock a cracked deathclaw egg. Raw eggs are not vendored.",
-    "rate": 0.025,
-    "rate_lines": [
-     "2.5%"
-    ],
-    "rate_display": "2.5%"
-   }
-  },
+  "vendors": null,
   "resource_generators": null,
   "collectrons": {
    "entries": [
@@ -372,17 +359,15 @@
    "locations": [
     {
      "marker": "Tunnel of Love",
-     "count": 6,
+     "count": 5,
      "sources": {
-      "nest": 5,
-      "static-cracked": 1
+      "nest": 5
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
       "6747E9",
-      "6747F4",
       "674813",
       "67AE18",
       "67E92A",
@@ -457,27 +442,9 @@
        "directions": "",
        "image_bottom": "",
        "note": "each gives 1 Raw + 1 Cracked Egg"
-      },
-      {
-       "label": "Cracked Deathclaw Egg",
-       "ref": "6747F4",
-       "source_type": "static-cracked",
-       "coords": [
-        6985.7,
-        -882.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
       }
      ],
      "breakdown": [
-      {
-       "label": "Cracked Deathclaw Egg",
-       "count": 1,
-       "rate_key": "static",
-       "note": ""
-      },
       {
        "label": "Deathclaw Nest",
        "count": 5,
@@ -854,45 +821,6 @@
        "note": ""
       }
      ]
-    },
-    {
-     "marker": "Summersville",
-     "count": 1,
-     "sources": {
-      "static-cracked": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "358313"
-     ],
-     "coords": [
-      -47152.1,
-      -19360.3
-     ],
-     "spawns": [
-      {
-       "label": "Cracked Deathclaw Egg",
-       "ref": "358313",
-       "source_type": "static-cracked",
-       "coords": [
-        -47152.1,
-        -19360.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ],
-     "breakdown": [
-      {
-       "label": "Cracked Deathclaw Egg",
-       "count": 1,
-       "rate_key": "static",
-       "note": ""
-      }
-     ]
     }
    ]
   },
@@ -940,18 +868,15 @@
     },
     {
      "marker": "Hopewell Cave",
-     "count": 6,
+     "count": 4,
      "sources": {
       "direct": 3,
-      "nest": 1,
-      "static-cracked": 2
+      "nest": 1
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "1DD0AA",
-      "26800C",
       "36C927",
       "62A86C",
       "62A86F",
@@ -1010,30 +935,6 @@
        "directions": "",
        "image_bottom": "",
        "note": "each gives 1 Raw + 1 Cracked Egg"
-      },
-      {
-       "label": "Cracked Deathclaw Egg #1",
-       "ref": "1DD0AA",
-       "source_type": "static-cracked",
-       "coords": [
-        115773.7,
-        113254.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Cracked Deathclaw Egg #2",
-       "ref": "26800C",
-       "source_type": "static-cracked",
-       "coords": [
-        116221.4,
-        113333.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
       }
      ],
      "breakdown": [
@@ -1041,12 +942,6 @@
        "label": "Deathclaw Egg",
        "count": 3,
        "rate_key": "world_spawns",
-       "note": ""
-      },
-      {
-       "label": "Cracked Deathclaw Egg",
-       "count": 2,
-       "rate_key": "static",
        "note": ""
       },
       {
@@ -1092,71 +987,6 @@
        "label": "Deathclaw Egg",
        "count": 1,
        "rate_key": "world_spawns",
-       "note": ""
-      }
-     ]
-    },
-    {
-     "marker": "Red Rocket Mega Stop",
-     "count": 3,
-     "sources": {
-      "static-cracked": 3
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "09D98B",
-      "09D997",
-      "09D9B2"
-     ],
-     "coords": [
-      136322.1,
-      161949.0
-     ],
-     "spawns": [
-      {
-       "label": "Cracked Deathclaw Egg #1",
-       "ref": "09D98B",
-       "source_type": "static-cracked",
-       "coords": [
-        136322.1,
-        161949.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Cracked Deathclaw Egg #2",
-       "ref": "09D997",
-       "source_type": "static-cracked",
-       "coords": [
-        136458.9,
-        162076.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Cracked Deathclaw Egg #3",
-       "ref": "09D9B2",
-       "source_type": "static-cracked",
-       "coords": [
-        136402.7,
-        161984.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ],
-     "breakdown": [
-      {
-       "label": "Cracked Deathclaw Egg",
-       "count": 3,
-       "rate_key": "static",
        "note": ""
       }
      ]
@@ -1212,11 +1042,10 @@
    "locations": [
     {
      "marker": "Abandoned Waste Dump",
-     "count": 4,
+     "count": 3,
      "sources": {
       "direct": 1,
-      "nest": 2,
-      "static-cracked": 1
+      "nest": 2
      },
      "image_top": "",
      "directions": "",
@@ -1224,7 +1053,6 @@
      "refs": [
       "3DC3DD",
       "3DC447",
-      "3DC448",
       "3DC449"
      ],
      "coords": [
@@ -1269,18 +1097,6 @@
        "directions": "",
        "image_bottom": "",
        "note": "each gives 1 Raw + 1 Cracked Egg"
-      },
-      {
-       "label": "Cracked Deathclaw Egg",
-       "ref": "3DC448",
-       "source_type": "static-cracked",
-       "coords": [
-        184673.3,
-        26824.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
       }
      ],
      "breakdown": [
@@ -1288,12 +1104,6 @@
        "label": "Deathclaw Egg",
        "count": 1,
        "rate_key": "world_spawns",
-       "note": ""
-      },
-      {
-       "label": "Cracked Deathclaw Egg",
-       "count": 1,
-       "rate_key": "static",
        "note": ""
       },
       {
@@ -1306,21 +1116,16 @@
     },
     {
      "marker": "Cavern",
-     "count": 8,
+     "count": 4,
      "sources": {
       "direct": 1,
-      "nest": 3,
-      "static-cracked": 4
+      "nest": 3
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "022E30",
-      "022E31",
       "022E32",
-      "022E33",
-      "022E34",
       "1837FD",
       "1A6435",
       "1A6460"
@@ -1380,54 +1185,6 @@
        "directions": "",
        "image_bottom": "",
        "note": "each gives 1 Raw + 1 Cracked Egg"
-      },
-      {
-       "label": "Cracked Deathclaw Egg #1",
-       "ref": "022E30",
-       "source_type": "static-cracked",
-       "coords": [
-        3536.2,
-        2325.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Cracked Deathclaw Egg #2",
-       "ref": "022E31",
-       "source_type": "static-cracked",
-       "coords": [
-        3335.1,
-        2226.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Cracked Deathclaw Egg #3",
-       "ref": "022E33",
-       "source_type": "static-cracked",
-       "coords": [
-        1380.8,
-        2221.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Cracked Deathclaw Egg #4",
-       "ref": "022E34",
-       "source_type": "static-cracked",
-       "coords": [
-        1382.9,
-        2157.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
       }
      ],
      "breakdown": [
@@ -1435,12 +1192,6 @@
        "label": "Deathclaw Egg",
        "count": 1,
        "rate_key": "world_spawns",
-       "note": ""
-      },
-      {
-       "label": "Cracked Deathclaw Egg",
-       "count": 4,
-       "rate_key": "static",
        "note": ""
       },
       {
