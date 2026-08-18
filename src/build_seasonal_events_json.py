@@ -786,11 +786,13 @@ EVENTS = {
         "description": "Defend against the Zetan invasion and earn unique alien-themed rewards.",
         "isContainerLoot": False,
         "questFormIDs": ["00620F7B"],
-        # Reward thumbnails live at the root of
-        # .../guide-images/seasonal-events/invaders-from-beyond/ (guide-page
-        # figures live in the guide-images/ subfolder). Only the slugs listed in
+        # Reward thumbnails live in their own subfolder on the server
+        # (…/guide-images/seasonal-events/invaders-from-beyond/reward-images/
+        # <slug>.avif); guide-page figures sit alongside them in
+        # invaders-from-beyond/guide-images/. Only the slugs listed in
         # INVADERS_IMAGE_SLUGS have artwork uploaded — everything else renders
         # with no thumbnail rather than a broken image.
+        "imageDir": "invaders-from-beyond/reward-images",
         "imageManifest": INVADERS_IMAGE_SLUGS,
     },
     "grahms-meat-cook-all-rewards": {
