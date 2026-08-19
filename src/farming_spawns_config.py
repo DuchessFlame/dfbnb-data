@@ -211,6 +211,11 @@ DEATHCLAW_EGG = {
     # Appalachia random-encounter spot. They render in their own "Random
     # Encounters" root expand (slotted alphabetically). Rate is the same nest
     # loot as a fixed nest — the encounter just decides WHERE the nest appears.
+    "random_encounters_intro": (
+        "Object random encounters place a <b>static Deathclaw nest</b> at a fixed "
+        "Appalachia random-encounter spot. Each nest rolls the same loot as any "
+        "other Deathclaw nest — the encounter just decides where the nest appears."
+    ),
     "random_encounters": [
         {
             "name": "Deathclaw Nest vs Super Mutants",
