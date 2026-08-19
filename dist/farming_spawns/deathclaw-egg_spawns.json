@@ -2,9 +2,10 @@
  "_meta": {
   "generated": "2026-08-19",
   "source": "Game-file exports (LVLI/ALCH/MISC) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 10,
+  "lists_in_closure": 17,
   "source_totals": {
    "direct": 15,
+   "nest": 19,
    "static-raw": 1
   },
   "unresolved": {}
@@ -351,11 +352,144 @@
    "body": "The <b>Healthy Deathclaw Egg</b> is a separate item (<code>Burn_E01_HealthyDeathclawEgg</code>) tied to the Burning Springs <b>Rust Kingdom</b> “Don’t Feed the Deathclaws” event. It is a scripted event item, not a farmable world spawn — it has no map locations, leveled-list roll, or vendor source, so it does not appear on the map above."
   }
  ],
- "events_activities": [],
+ "random_encounters": [
+  {
+   "name": "Deathclaw Nest vs Super Mutants",
+   "type": "Object",
+   "edid": "RE_ObjectMP10",
+   "formid": "0035EBED",
+   "note": "An Object random encounter that stages a static Deathclaw nest under attack by Super Mutants."
+  },
+  {
+   "name": "Deathclaw Nest vs Scorched",
+   "type": "Object",
+   "edid": "RE_ObjectMP09",
+   "formid": "0035EC0F",
+   "note": "An Object random encounter that stages a static Deathclaw nest against the Scorched."
+  },
+  {
+   "name": "Deathclaw vs Merchant Caravan",
+   "type": "Object",
+   "edid": "RE_ObjectMP06",
+   "formid": "0035EBF0",
+   "note": "An Object random encounter — a Deathclaw and its nest set against a merchant caravan."
+  }
+ ],
+ "events_activities": [
+  {
+   "manual": true,
+   "name": "Hunter for Hire — Liebowitz's Deathclaw Egg",
+   "type": "Quest",
+   "edid": "W05_MQ_002P_Radical_TylerCounty",
+   "rate_display": "One-time hand-in",
+   "rate_lines": [
+    "One-time hand-in"
+   ],
+   "rate_value": null,
+   "note": "Optional sub-quest under the main questline Hunter for Hire (given by Duchess at the Wayward). Liebowitz, found on the rooftops of Tyler County Fairgrounds, asks you to retrieve a Deathclaw Egg from Deathclaw Island. You can keep the egg instead of handing it over by passing the required SPECIAL checks. Not repeatable."
+  }
+ ],
  "regions": [
   {
    "region": "Ash Heap",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Tunnel of Love",
+     "count": 5,
+     "sources": {
+      "nest": 5
+     },
+     "image_top": "",
+     "directions": "These locations are accessible whether the Nuka-World on Tour event is running or not. After entering the Tunnel of Love, face north and follow the train tracks until you reach the area with the pink heart lights. Turn left, pass the orange forklift, and stop at the second set of tracks. Turn left again and walk forward into a small cave — there are three nests in the pile on your right. From there, turn around and follow the tracks to the end. Turn right and walk along the road wall until you reach some scaffolding with a wooden ramp leading up. Follow the ramp to the top, turn left, and follow the path until you see a break in the fence and a small cave on your left — inside is one more nest. Five nests spawn in this instance in total; check each of the numbered nest blocks below.",
+     "image_bottom": "",
+     "refs": [
+      "6747E9",
+      "674813",
+      "67AE18",
+      "67E92A",
+      "67E952"
+     ],
+     "coords": [
+      7124.5,
+      -762.6
+     ],
+     "spawns": [
+      {
+       "label": "Deathclaw Nest #1",
+       "ref": "6747E9",
+       "source_type": "nest",
+       "coords": [
+        7124.5,
+        -762.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #2",
+       "ref": "674813",
+       "source_type": "nest",
+       "coords": [
+        4050.9,
+        5718.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #3",
+       "ref": "67AE18",
+       "source_type": "nest",
+       "coords": [
+        4288.9,
+        5618.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #4",
+       "ref": "67E92A",
+       "source_type": "nest",
+       "coords": [
+        3954.6,
+        5656.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #5",
+       "ref": "67E952",
+       "source_type": "nest",
+       "coords": [
+        4007.4,
+        5604.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Deathclaw Nest",
+       "count": 5,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Atlantic City",
@@ -390,7 +524,7 @@
         124157.5
        ],
        "image_top": "",
-       "directions": "",
+       "directions": "From the spawn-in location, line yourself up with the Ash Cave map marker and run straight up the hill. Continue forward and stop at the top of the stairs. Veer right and follow the path straight (north-ish) until you reach the pond. Turn right and enter the small cave — the Deathclaw Egg is against the north wall, behind the Brain Fungus and near the bobblehead spawn.",
        "image_bottom": ""
       }
      ],
@@ -405,20 +539,27 @@
     },
     {
      "marker": "Dino Peaks Mini Golf",
-     "count": 2,
+     "count": 8,
      "sources": {
-      "direct": 2
+      "direct": 2,
+      "nest": 6
      },
      "image_top": "",
-     "directions": "",
+     "directions": "From the spawn-in location, face north and run forward, stopping just past the Welcome to Dino Peak entrance sign. Turn left and walk to the Hole 1 sign, then line yourself up with the Hole 1 putting green and follow it to the end. The nests run in sequence along the course (Holes 1–6): several sit on top of the putting greens and stairs and can be partly covered by dirt depending on how the Deathclaw exits, so wave your cursor around to find the loot window. A Deathclaw Egg can also spawn on top of several of these nests.",
      "image_bottom": "",
      "refs": [
+      "7F0A81",
+      "7F0A84",
+      "80391B",
+      "82A3B2",
+      "82A3B3",
+      "82A3B4",
       "82A3B5",
       "82A3B6"
      ],
      "coords": [
-      -211856.2,
-      146331.7
+      -208312.0,
+      145838.8
      ],
      "spawns": [
       {
@@ -444,6 +585,84 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "Deathclaw Nest #1",
+       "ref": "7F0A81",
+       "source_type": "nest",
+       "coords": [
+        -208312.0,
+        145838.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #2",
+       "ref": "7F0A84",
+       "source_type": "nest",
+       "coords": [
+        -211674.4,
+        147038.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #3",
+       "ref": "80391B",
+       "source_type": "nest",
+       "coords": [
+        -209705.1,
+        146995.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #4",
+       "ref": "82A3B2",
+       "source_type": "nest",
+       "coords": [
+        -211870.8,
+        146337.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #5",
+       "ref": "82A3B3",
+       "source_type": "nest",
+       "coords": [
+        -208732.4,
+        146803.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #6",
+       "ref": "82A3B4",
+       "source_type": "nest",
+       "coords": [
+        -209155.2,
+        145142.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ],
      "breakdown": [
@@ -452,6 +671,12 @@
        "count": 2,
        "rate_key": "world_spawns",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 6,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     },
@@ -481,7 +706,7 @@
         14270.2
        ],
        "image_top": "",
-       "directions": "",
+       "directions": "Highway Town Interior is a Burning Springs interior (it requires a load screen to enter). One loose Deathclaw Egg spawns inside. Step-by-step directions and photos are coming soon.",
        "image_bottom": ""
       }
      ],
@@ -520,7 +745,7 @@
         -10382.0
        ],
        "image_top": "",
-       "directions": "",
+       "directions": "From the spawn-in location, face southwest and run straight until you reach the cliff wall in the distance. At the cliff face, turn left and use the machinery in front of you to climb to the rock ledge above. On the ledge, face north — the Deathclaw Egg is directly in front of you.",
        "image_bottom": ""
       }
      ],
@@ -568,7 +793,7 @@
         50632.7
        ],
        "image_top": "",
-       "directions": "",
+       "directions": "From the fast travel point, run straight through the doorway to the bottom of the stairs. Turn left, pass the Nuka-Cola and Medical Supplies machines, and run up the stairs in front of you. Follow the corridor around, pass the Arktos Pharma sign, and enter the doorway on your left. Continue straight and enter the second doorway on your left. Head slightly right and walk through the gap in the wall directly opposite. Jump down to ground level, turn around, and enter the doorway marked Protein Sequencing. Turn right and walk down the stairs — the Deathclaw Egg is on the metal shelves in front of you.",
        "image_bottom": ""
       }
      ],
@@ -588,7 +813,7 @@
       "direct": 2
      },
      "image_top": "",
-     "directions": "",
+     "directions": "Check the white suitcase on the side of the Deathclaw nest — it can sometimes spawn additional Deathclaw eggs. The eggs can be hidden under the dirt when the Deathclaw pops out, so lead the Deathclaw away from the nest before killing it, so you can loot the nest without the body getting in the way or covering the loot.",
      "image_bottom": "",
      "refs": [
       "0638D1",
@@ -664,7 +889,7 @@
         5661.5
        ],
        "image_top": "",
-       "directions": "",
+       "directions": "Heads-up: the Enclave Research Facility interior cannot be entered in normal gameplay — there is no accessible door or load-door into this cell. A loose Deathclaw Egg is placed here in the game files (ref 5DD49E), but because the location can't be reached, the egg cannot actually be collected. It is listed here for completeness only.",
        "image_bottom": ""
       }
      ],
@@ -679,21 +904,23 @@
     },
     {
      "marker": "Hopewell Cave",
-     "count": 3,
+     "count": 4,
      "sources": {
-      "direct": 3
+      "direct": 3,
+      "nest": 1
      },
      "image_top": "",
-     "directions": "",
+     "directions": "From the fast travel point, run straight across the road and enter the cave. The first Deathclaw nest is on the left-hand side of the cave, just past the small pond of water near the entrance — a Deathclaw Egg can spawn on top of this nest. From the nest, face east and walk to the back of the cave until you reach a rock face, then turn left; a Deathclaw Egg can spawn behind the Firecracker Berry bush. Next, face west and follow the edge of the pond as it curves around the cave until you see a small campfire and a sleeping bag. Behind the sleeping bag, against the rock face and to the left of a Firecracker Berry bush, is the final Deathclaw Egg spawn for this area.",
      "image_bottom": "",
      "refs": [
+      "36C927",
       "62A86C",
       "62A86F",
       "62A873"
      ],
      "coords": [
-      115886.7,
-      113069.8
+      115886.5,
+      113075.0
      ],
      "spawns": [
       {
@@ -731,6 +958,19 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "ref": "36C927",
+       "source_type": "nest",
+       "coords": [
+        115886.5,
+        113075.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ],
      "breakdown": [
@@ -739,6 +979,12 @@
        "count": 3,
        "rate_key": "world_spawns",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 1,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     },
@@ -768,7 +1014,7 @@
         -128574.3
        ],
        "image_top": "",
-       "directions": "",
+       "directions": "Note: you need the Marsupial mutation to reach this spot. From the fast travel point, follow the road until you reach the main pillar with the elevator at the bottom. Enter the elevator and select floor 2 (pressing the wrong floor takes you elsewhere). Exit and follow the path to your left, continuing until you reach a building. Jump onto the roof and follow it around, keeping to the left and away from the edge — the Deathclaw Egg is in the far corner as part of a picnic scene.",
        "image_bottom": ""
       }
      ],
@@ -812,7 +1058,7 @@
         -8673.9
        ],
        "image_top": "",
-       "directions": "",
+       "directions": "Vault 63 — Atrium Upper Level. One Deathclaw Egg spawns on the atrium's upper level.",
        "image_bottom": ""
       }
      ],
@@ -832,19 +1078,22 @@
    "locations": [
     {
      "marker": "Abandoned Waste Dump",
-     "count": 1,
+     "count": 3,
      "sources": {
-      "direct": 1
+      "direct": 1,
+      "nest": 2
      },
      "image_top": "",
-     "directions": "",
+     "directions": "External approach. From the fast travel point, walk forward and jump over the gate. Head toward the back of the truck, keeping the trailer on your left. On your right you'll see a dead brahmin and a radiation barrel — the first Deathclaw nest is behind the brahmin. Continue following the trailer until you reach the cab of the truck; in front of you is a dead Yao Guai, and behind it is a Deathclaw nest and a Deathclaw egg.",
      "image_bottom": "",
      "refs": [
-      "3DC447"
+      "3DC3DD",
+      "3DC447",
+      "3DC449"
      ],
      "coords": [
-      184875.0,
-      26884.5
+      184725.0,
+      26157.2
      ],
      "spawns": [
       {
@@ -858,6 +1107,32 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "Deathclaw Nest #1",
+       "ref": "3DC3DD",
+       "source_type": "nest",
+       "coords": [
+        184725.0,
+        26157.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #2",
+       "ref": "3DC449",
+       "source_type": "nest",
+       "coords": [
+        184763.4,
+        26928.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ],
      "breakdown": [
@@ -866,24 +1141,34 @@
        "count": 1,
        "rate_key": "world_spawns",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 2,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     },
     {
      "marker": "Cavern",
-     "count": 1,
+     "count": 4,
      "sources": {
-      "direct": 1
+      "direct": 1,
+      "nest": 3
      },
      "image_top": "",
-     "directions": "",
+     "directions": "This is the internal cavern beneath the Abandoned Waste Dump (it requires a load screen to enter). Once inside, walk past the rad barrels and stop at the bottom of the ramp. Turn left and keep the wall on your left-hand side the whole time you are in the cavern — it will lead you to the three Deathclaw nests in turn. The last Deathclaw nest has a fixed-spawn Deathclaw egg next to it.",
      "image_bottom": "",
      "refs": [
-      "022E32"
+      "022E32",
+      "1837FD",
+      "1A6435",
+      "1A6460"
      ],
      "coords": [
-      3353.8,
-      2321.1
+      -1139.4,
+      4467.7
      ],
      "spawns": [
       {
@@ -897,6 +1182,45 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "Deathclaw Nest #1",
+       "ref": "1837FD",
+       "source_type": "nest",
+       "coords": [
+        -1139.4,
+        4467.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #2",
+       "ref": "1A6435",
+       "source_type": "nest",
+       "coords": [
+        3441.6,
+        2221.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #3",
+       "ref": "1A6460",
+       "source_type": "nest",
+       "coords": [
+        -2488.4,
+        2359.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ],
      "breakdown": [
@@ -905,6 +1229,92 @@
        "count": 1,
        "rate_key": "world_spawns",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 3,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ]
+    },
+    {
+     "marker": "Ella Ames' Bunker",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2C089D"
+     ],
+     "coords": [
+      173343.6,
+      99286.8
+     ],
+     "spawns": [
+      {
+       "label": "Deathclaw Nest",
+       "ref": "2C089D",
+       "source_type": "nest",
+       "coords": [
+        173343.6,
+        99286.8
+       ],
+       "image_top": "",
+       "directions": "Stand at the door of Ella Ames' Bunker and look toward the blue ute in the water ahead of you. Behind the ute are four trees arranged in a loose semicircle. Starting from the left, head toward the third tree; stand behind it and look for a tree stump and a light-coloured tree with red leaves in front of you. Run to the red-leafed tree, then turn south and walk to the river's edge. Turn left and follow the riverbank — just past the curve in the bank, the Deathclaw nest is on your right.",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Deathclaw Nest",
+       "count": 1,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ]
+    },
+    {
+     "marker": "Thunder Mt. Power Plant Yard",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "37BE5C"
+     ],
+     "coords": [
+      190414.7,
+      86812.4
+     ],
+     "spawns": [
+      {
+       "label": "Deathclaw Nest",
+       "ref": "37BE5C",
+       "source_type": "nest",
+       "coords": [
+        190414.7,
+        86812.4
+       ],
+       "image_top": "",
+       "directions": "From the fast travel point, follow the road south until you reach the end of the limo. Turn left, pass the tank, and enter the workshop yard. Continue straight along the road until you reach the green shipping containers near the water's edge. Jump over the railing and keep the concrete wall on your right as you follow it along. At the end of the wall, line yourself up between south and the Braxson's Quality Medical Supplies map icon, then walk forward along the riverbank. As the bank begins to curve, look to your right for the Deathclaw nest.",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Deathclaw Nest",
+       "count": 1,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     }

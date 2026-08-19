@@ -194,6 +194,18 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
     path = os.path.join(dist_dir, f"{slug}_spawns.json")
     keep = ebuild.load_existing(path)
 
+    # Marker renames are display-only, but the existing dist saves hand-authored
+    # photos/directions under the NEW marker name while group_regions rebuilds
+    # markers under Mappalachia's ORIGINAL name. Alias the saved slots back to the
+    # original name so preservation (marker-level AND per-spawn, both nested under
+    # the marker key) still matches. The visible rename is applied after breakdowns.
+    renames = cfg.get("marker_renames") or {}
+    if renames:
+        new_to_old = {new: old for old, new in renames.items()}
+        for (reg, mk), val in list(keep.items()):
+            if mk in new_to_old:
+                keep.setdefault((reg, new_to_old[mk]), val)
+
     src = esources.get_sources(cfg["items"], tbls, farming_classify,
                                extra_world_bases=cfg.get("extra_world_bases"),
                                placed_sigs=esources.PLACED_SIGS_FLORA,
@@ -204,6 +216,16 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
         seen, ALL_REGIONS, keep)
     _attach_breakdowns(cfg, tbls, seen, regions_out)
 
+    # Marker renames (display-only) — applied after breakdowns, which key on the
+    # original Mappalachia marker name via `seen`. Re-sort each region so the
+    # renamed marker lands in alphabetical order.
+    if renames:
+        for reg in regions_out:
+            for loc in reg["locations"]:
+                if loc["marker"] in renames:
+                    loc["marker"] = renames[loc["marker"]]
+            reg["locations"].sort(key=lambda l: l["marker"].lower())
+
     # Events & Activities — event/activity reward ROOTS in the closure (§9k):
     # keyword pass + QUEST reward registry, with nested loot-bag sub-lists
     # collapsed into their outer event/activity root (c2p). Raw {list_id, edid,
@@ -211,6 +233,11 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
     # build_farming_used_for.py (rng76). Empty = renderer shows the empty-state.
     events_activities = eevents.detect(src["lvli_closure"], tbls["parent_edid"],
                                        c2p=tbls["c2p"])
+    # Hand-authored extras (e.g. the Liebowitz quest hand-in) have no reward-list
+    # edge, so they're typed in the config and appended here. `manual: True`
+    # keeps them through resolve_event_rates (build_farming_used_for.py).
+    for ex in (cfg.get("events_activities_extra") or []):
+        events_activities.append(dict(ex))
 
     doc = {
         "_meta": {"generated": generated, "source": _source_tag(cfg),
@@ -226,6 +253,7 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
         "used_for": cfg.get("used_for"),
         "additional_expands": cfg.get("additional_expands"),
         "info_notes": cfg.get("info_notes"),
+        "random_encounters": cfg.get("random_encounters"),
         "events_activities": events_activities,
         "regions": regions_out,
     }

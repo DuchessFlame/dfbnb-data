@@ -261,7 +261,18 @@ def resolve_event_rates(events, targets, appearance_fn):
         return
     kept = []
     for row in events:
-        if not isinstance(row, dict) or not row.get("list_id"):
+        if not isinstance(row, dict):
+            continue
+        # Hand-authored rows (e.g. a quest dialogue hand-in) have no LVLI reward
+        # edge, so rng76 can't resolve them. Keep them verbatim — never rng76-drop
+        # or overwrite their rate — and let them sort last (rate_value None -> 0).
+        if row.get("manual"):
+            row.setdefault("rate_lines",
+                           [row["rate_display"]] if row.get("rate_display") else [])
+            row.setdefault("rate_value", None)
+            kept.append(row)
+            continue
+        if not row.get("list_id"):
             continue
         row.setdefault("note",
                        f"Chance the item is in the {row.get('name') or row.get('edid')} "

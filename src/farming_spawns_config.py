@@ -205,6 +205,78 @@ DEATHCLAW_EGG = {
             ),
         },
     ],
+    # ── Random Encounters (hand-authored: RE cells aren't in the exports /
+    #    Mappalachia, so these Object REs are typed here) ─────────────────
+    # "Object" random encounters place a STATIC Deathclaw nest object at a fixed
+    # Appalachia random-encounter spot. They render in their own "Random
+    # Encounters" root expand (slotted alphabetically). Rate is the same nest
+    # loot as a fixed nest — the encounter just decides WHERE the nest appears.
+    "random_encounters": [
+        {
+            "name": "Deathclaw Nest vs Super Mutants",
+            "type": "Object",
+            "edid": "RE_ObjectMP10",
+            "formid": "0035EBED",
+            "note": (
+                "An Object random encounter that stages a static Deathclaw nest "
+                "under attack by Super Mutants."
+            ),
+        },
+        {
+            "name": "Deathclaw Nest vs Scorched",
+            "type": "Object",
+            "edid": "RE_ObjectMP09",
+            "formid": "0035EC0F",
+            "note": (
+                "An Object random encounter that stages a static Deathclaw nest "
+                "against the Scorched."
+            ),
+        },
+        {
+            "name": "Deathclaw vs Merchant Caravan",
+            "type": "Object",
+            "edid": "RE_ObjectMP06",
+            "formid": "0035EBF0",
+            "note": (
+                "An Object random encounter — a Deathclaw and its nest set against "
+                "a merchant caravan."
+            ),
+        },
+    ],
+    # ── Activities, Events & Quests — hand-authored extras ──────────────
+    # The engine's Events & Activities detection walks LVLI reward pools; the
+    # Liebowitz hand-in has NO reward-list edge (it's a dialogue hand-in during
+    # the Hunter for Hire questline), so it can't be auto-detected and is typed
+    # here. `manual: True` tells spawns_engine.events.resolve_event_rates to keep
+    # the row verbatim instead of rng76-resolving/dropping it.
+    "events_activities_extra": [
+        {
+            "manual": True,
+            "name": "Hunter for Hire — Liebowitz's Deathclaw Egg",
+            "type": "Quest",
+            "edid": "W05_MQ_002P_Radical_TylerCounty",
+            "rate_display": "One-time hand-in",
+            "rate_lines": ["One-time hand-in"],
+            "rate_value": None,
+            "note": (
+                "Optional sub-quest under the main questline Hunter for Hire "
+                "(given by Duchess at the Wayward). Liebowitz, found on the "
+                "rooftops of Tyler County Fairgrounds, asks you to retrieve a "
+                "Deathclaw Egg from Deathclaw Island. You can keep the egg instead "
+                "of handing it over by passing the required SPECIAL checks. Not "
+                "repeatable."
+            ),
+        },
+    ],
+    # ── Marker renames (display only) ──────────────────────────────────
+    # Mappalachia names the nest marker at ref 2C089D "Excelsior Model Home",
+    # but the DF directions were written from Ella Ames' Bunker (the same spot),
+    # so the page keeps the DF naming. Applied after breakdowns in
+    # spawns_configs.farming; per-spawn directions survive the rename (they are
+    # keyed by ref, and the preservation lookup is aliased to the old name).
+    "marker_renames": {
+        "Excelsior Model Home": "Ella Ames' Bunker",
+    },
     # ── Drop rates (resolved from LVLI TSVs, July 2026) ─────────────────
     # Traced via the drop-rate-engine skill rules.
     #
