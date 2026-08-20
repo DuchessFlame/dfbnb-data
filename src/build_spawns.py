@@ -10,10 +10,12 @@ Usage:
     python src/build_spawns.py farming --all [--pts]    # cream + every egg set
     python src/build_spawns.py farming --item cream [--pts]
     python src/build_spawns.py <farming-slug> [--pts]   # shorthand, e.g. deathclaw-egg
+    python src/build_spawns.py bobbleheads              # hub + 10 region pages
 
 Families:
-    nuka-cola  -> spawns_configs.nuka_cola  (drinks; computed Used For / Farming Tips)
-    farming    -> spawns_configs.farming    (Cream + egg sets; config-supplied blocks)
+    nuka-cola   -> spawns_configs.nuka_cola   (drinks; computed Used For / Farming Tips)
+    farming     -> spawns_configs.farming     (Cream + egg sets; config-supplied blocks)
+    bobbleheads -> spawns_configs.bobbleheads (hub page + one page per region)
 """
 
 import os, sys
@@ -22,7 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
-from spawns_configs import nuka_cola, farming
+from spawns_configs import nuka_cola, farming, bobbleheads
 from farming_spawns_config import SETS_BY_SLUG
 
 
@@ -42,13 +44,16 @@ def main(argv):
         nuka_cola.run(["nuka-cola"] + rest)          # run() reads argv[1:] as slug filter
     elif cmd == "farming":
         farming.main(rest)                            # farming's argparse (--item/--all/--pts)
+    elif cmd in ("bobbleheads", "bobblehead"):
+        bobbleheads.run(rest)                         # hub + one page per region
     elif cmd == "--all":
         farming.main(["--all"] + rest)
     elif cmd in SETS_BY_SLUG:
         farming.main(["--item", cmd] + rest)
     else:
         _usage(f"unknown family/slug '{cmd}'. "
-               f"Use 'nuka-cola', 'farming', or a farming slug: {', '.join(sorted(SETS_BY_SLUG))}.")
+               f"Use 'nuka-cola', 'farming', 'bobbleheads', or a farming slug: "
+               f"{', '.join(sorted(SETS_BY_SLUG))}.")
 
 
 if __name__ == "__main__":
