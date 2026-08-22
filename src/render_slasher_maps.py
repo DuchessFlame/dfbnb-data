@@ -76,6 +76,11 @@ SETS = {
         "title": "Disturbed Graves",
         "layers": ["graves"],
     },
+    # Photography progress: which graves have all three photo slots filled.
+    "graves-progress": {
+        "title": "Disturbed Graves — Photo Progress",
+        "layers": ["graves_done", "graves_todo"],
+    },
     "masks": {
         "title": "Pint-Sized Slasher Masks",
         "layers": ["masks"],
@@ -86,9 +91,14 @@ SETS = {
     },
 }
 
+DONE_FILL = (60, 200, 90)           # green — all three photo slots filled
+TODO_FILL = (224, 64, 224)          # magenta — still to photograph
+
 LAYERS = {
     "masks": {"label": "Pint-Sized Slasher Masks", "fill": MASK_FILL, "shape": "circle"},
     "graves": {"label": "Disturbed Graves", "fill": GRAVE_FILL, "shape": "diamond"},
+    "graves_done": {"label": "Photographed", "fill": DONE_FILL, "shape": "diamond"},
+    "graves_todo": {"label": "Still to do", "fill": TODO_FILL, "shape": "diamond"},
 }
 
 
@@ -202,12 +212,16 @@ def load_graves():
         for r in csv.DictReader(fh, delimiter="\t"):
             if not r.get("x") or not r.get("y"):
                 continue
+            done = all((r.get(c) or "").strip() for c in
+                       ("photo_region", "photo_approach", "photo_spawn"))
             pts.append({
                 "ref": (r.get("ref_formid") or "").strip(),
                 "region": (r.get("region") or "").strip() or "Unknown",
                 "marker": (r.get("closest_fast_travel") or "").strip() or "Unmarked",
                 "x": float(r["x"]), "y": float(r["y"]),
                 "label": (r.get("ref_edid") or "").strip(),
+                "site": (r.get("site_number") or "").strip(),
+                "done": done,
             })
     return pts
 
@@ -293,8 +307,10 @@ def render_set(key, layer_pts, out_root, to_px, boxes):
     dn = ImageDraw.Draw(numbered)
     f = _font(56)
     for i, r in enumerate(numbered_rows, 1):
-        r["n"] = i
-        draw_outlined_text(dn, (r["px"] + DOT_D, r["py"] - 34), str(i), f, w=3)
+        # Unnumbered graves (no SDOW_GraveNN EDID) get "?" — falling back to the
+        # sequence index collides with a real site number and reads as a duplicate.
+        r["n"] = r.get("site") or ("?" if "site" in r else str(i))
+        draw_outlined_text(dn, (r["px"] + DOT_D, r["py"] - 34), str(r["n"]), f, w=3)
     p_num = os.path.join(out_root, "02 Numbered Maps (4096)", f"slasher_{key}_numbered.jpg")
     os.makedirs(os.path.dirname(p_num), exist_ok=True)
     numbered.save(p_num, "JPEG", quality=88, optimize=True)
@@ -367,8 +383,11 @@ def main():
             print(f"  (region cross-ref unavailable: {e})", file=sys.stderr)
 
     layer_pts = {}
-    if "graves" in need:
-        layer_pts["graves"] = load_graves()
+    if need & {"graves", "graves_done", "graves_todo"}:
+        g = load_graves()
+        layer_pts["graves"] = g
+        layer_pts["graves_done"] = [p for p in g if p["done"]]
+        layer_pts["graves_todo"] = [p for p in g if not p["done"]]
     if "masks" in need:
         layer_pts["masks"] = load_masks(rings, markers)
 

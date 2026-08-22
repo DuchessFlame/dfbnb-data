@@ -102,15 +102,69 @@ SET_META = {
 }
 
 # ── Pint-Sized Phantoms grave sites (TSV-sourced collectables-spawns set) ──────
-# One row per grave in tsv/phantom_grave_sites.tsv (region already resolved). We
-# reshape it into the region -> location(marker) -> spawns[] model so each grave is
-# its own tickable "spawn" (approach photo, directions, close-up photo, collect bar),
-# grouped under its closest fast-travel marker. Photos/directions are hand-filled
-# later (TSV columns or the built JSON) and MERGED — never clobbered — on rebuild.
+# Two inputs, deliberately separated, because they change for different reasons and
+# on different clocks:
+#
+#   tsv/phantom_grave_sites.tsv   PLACEMENTS — machine-generated from the newest REFR
+#                                 export by build_phantom_grave_sites_tsv.py. Bethesda
+#                                 churns ref FormIDs and markers; this file follows them.
+#   tsv/phantom_grave_notes.tsv   EDITORIAL — hand-authored directions + the three photo
+#                                 slots, keyed on the grave's identity, NOT on its ref.
+#
+# The two are joined here by grave key. That key is the thing the player is told to
+# find and is the only stable identity a grave has:
+#
+#     "7"                             -> numbered grave 7, wherever Bethesda moves it
+#     "@Philippi Battlefield Cemetery" -> an unnumbered grave, keyed on its marker
+#
+# This matters. Before the split, the editorial columns lived inside the generated
+# file and were carried across rebuilds keyed on ref_formid. When graves 05/07/09 were
+# re-placed under new refs (00930AA0/AA7/AAE, EDIDs SDOW__GraveNN) the join key changed,
+# the merge missed, and the directions + three photo paths were silently deleted by a
+# routine rebuild. A placement rebuild can no longer touch editorial content at all,
+# because it no longer writes it.
 GRAVE_SLUG = "pint-sized-phantom-graves"
 GRAVE_TSV = os.path.join(REPO, "tsv", "phantom_grave_sites.tsv")
+GRAVE_NOTES_TSV = os.path.join(REPO, "tsv", "phantom_grave_notes.tsv")
 # The grave TSV uses "The Forest"; the ten canonical regions call it "Forest".
 GRAVE_REGION_ALIASES = {"the forest": "Forest"}
+
+
+def grave_key(site_number, marker):
+    """Stable editorial key for a grave: its number, else '@<marker>'."""
+    sn = (site_number or "").strip()
+    if sn:
+        return sn
+    return "@" + (marker or "").strip()
+
+
+def load_grave_notes():
+    """tsv/phantom_grave_notes.tsv -> {grave_key: {directions, photo_*}}.
+
+    Hand-authored and never written by any build script. Missing file is not an
+    error — the page simply renders without directions or photos.
+    """
+    notes = {}
+    if not os.path.exists(GRAVE_NOTES_TSV):
+        return notes
+    with open(GRAVE_NOTES_TSV, encoding="utf-8") as f:
+        header = f.readline().rstrip("\n").split("\t")
+        idx = {h.strip(): i for i, h in enumerate(header)}
+        for line in f:
+            if not line.strip():
+                continue
+            cols = line.rstrip("\n").split("\t")
+
+            def cell(name):
+                i = idx.get(name)
+                return cols[i].strip() if i is not None and i < len(cols) else ""
+
+            key = cell("grave")
+            if not key:
+                continue
+            notes[key] = {c: cell(c) for c in
+                          ("directions", "photo_region", "photo_approach", "photo_spawn")}
+    return notes
 
 # Sets that share the export/cross-ref pipeline but belong to a DIFFERENT category and are
 # built elsewhere. "treasure-maps" is its own category — its dig sites come from the ACTI2
@@ -227,8 +281,9 @@ def build_set(slug, rows):
 
 
 def load_grave_spawn_handfills(path):
-    """{(region, marker, label): {image_top, directions, image_bottom}} for non-empty
-    hand-authored spawn values in an existing grave JSON, so a rebuild never loses them."""
+    """{(region, marker, label): {image_region, image_top, directions, image_bottom}} for
+    non-empty hand-authored spawn values in an existing grave JSON, so a rebuild never
+    loses them. image_region is grave-only — the third photo slot (see GRAVE_SLOTS)."""
     keep = {}
     try:
         data = json.load(open(path, encoding="utf-8"))
@@ -240,7 +295,8 @@ def load_grave_spawn_handfills(path):
             marker = loc.get("marker", "")
             for sp in loc.get("spawns", []) or []:
                 label = sp.get("label", "")
-                saved = {k: sp.get(k, "") for k in ("image_top", "directions", "image_bottom")
+                saved = {k: sp.get(k, "") for k in
+                         ("image_region", "image_top", "directions", "image_bottom")
                          if sp.get(k)}
                 if saved:
                     keep[(rname, marker, label)] = saved
@@ -267,9 +323,8 @@ def _read_grave_rows():
                 "site_number": cell(cols, "site_number"),
                 "ref_formid": cell(cols, "ref_formid"),
                 "marker": cell(cols, "closest_fast_travel"),
-                "directions": cell(cols, "directions"),
-                "photo_approach": cell(cols, "photo_approach"),
-                "photo_spawn": cell(cols, "photo_spawn"),
+                # Provenance: which export (or manual verification) this row came from.
+                "source_export": cell(cols, "source_export"),
                 "x": cell(cols, "x"), "y": cell(cols, "y"),
             })
     return rows
@@ -279,6 +334,7 @@ def build_grave_set():
     """Reshape the grave-sites TSV into a collectable_spawns_<slug>.json dict + path."""
     meta = meta_for(GRAVE_SLUG)
     out_path = os.path.join(OUT_DIR, f"collectable_spawns_{GRAVE_SLUG}.json")
+    notes = load_grave_notes()
     handfills = load_grave_spawn_handfills(out_path)
     existing_top = load_existing_top(out_path)
     full_map = meta.get("full_map") or existing_top.get("full_map", "")
@@ -308,23 +364,38 @@ def build_grave_set():
             spawns = []
             for g in graves:
                 label = f"Grave Site #{g['site_number']}" if g["site_number"] else "Grave Site"
+                # Editorial content comes from phantom_grave_notes.tsv, keyed on the
+                # grave's identity. handfills (keyed region+marker+label, read back out
+                # of the previously published JSON) is only a legacy safety net for
+                # anything not yet migrated into the notes file — it is never written.
+                nt = notes.get(grave_key(g["site_number"], marker), {})
                 hf = handfills.get((region, marker, label), {})
                 spawns.append({
                     "label": label,
-                    # Prefer a value authored in the TSV; else keep any hand-fill in the JSON.
-                    "image_top": g["photo_approach"] or hf.get("image_top", ""),
-                    "directions": g["directions"] or hf.get("directions", ""),
-                    "image_bottom": g["photo_spawn"] or hf.get("image_bottom", ""),
+                    # image_region is the grave page's extra first slot (Region map).
+                    "image_region": nt.get("photo_region") or hf.get("image_region", ""),
+                    "image_top": nt.get("photo_approach") or hf.get("image_top", ""),
+                    "directions": nt.get("directions") or hf.get("directions", ""),
+                    "image_bottom": nt.get("photo_spawn") or hf.get("image_bottom", ""),
                     "refs": [g["ref_formid"]] if g["ref_formid"] else [],
                 })
             total += len(spawns)
             locs.append({"marker": marker, "count": len(spawns), "spawns": spawns})
         regions_out.append({"region": region, "locations": locs})
 
+    # Provenance, not build time. "generated" is when this file was written and says
+    # nothing about whether the data is current; "observed" is the placement export the
+    # rows actually came from. Where rows disagree, the OLDEST wins — a set is only as
+    # fresh as its stalest row.
+    sources = sorted({r["source_export"] for r in _read_grave_rows() if r["source_export"]})
     data = {
         "_meta": {
             "generated": datetime.date.today().isoformat(),
-            "source": "tsv/phantom_grave_sites.tsv (regions pre-resolved) — reshaped for the collectables-spawns engine",
+            "observed": sources[0] if sources else "unknown",
+            "observed_all": sources,
+            "source": "tsv/phantom_grave_sites.tsv (placements) + tsv/phantom_grave_notes.tsv "
+                      "(directions/photos, keyed on grave identity) — reshaped for the "
+                      "collectables-spawns engine",
         },
         "set": GRAVE_SLUG,
         "name": meta["name"],
