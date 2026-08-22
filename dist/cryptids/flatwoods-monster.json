@@ -1,0 +1,248 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "FlatwoodsMonsterRace"
+   }
+  ],
+  "source_totals": {},
+  "unresolved": {},
+  "hold": false
+ },
+ "set": "cryptids",
+ "slug": "flatwoods-monster",
+ "name": "Flatwoods Monster",
+ "page_title": "Cryptids - Flatwoods Monster",
+ "url": "/df/cryptids/flatwoods-monster/",
+ "blurb": "The Flatwoods Monster in Fallout 76 — 12 NPC variants, 1175 possible drops.",
+ "npc_summary": {
+  "npc_count": 12,
+  "level_min": 30,
+  "level_max": 80,
+  "health_max": 6750
+ },
+ "used_for": [
+  {
+   "type": "Lifetime",
+   "name": "Discover Flatwoods",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Discover_ForestRegion_Flatwoods_Intro",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Kill Human-like Creatures",
+   "required": 76,
+   "edid": "Challenge_Lifetime_Kill_Humanlike_Low",
+   "page": "combat"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic - Take a Camera Picture of a Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_LegendaryCryptid_Camera_Epic",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic: Take a Camera Picture of a Glowing Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_GlowingCryptid_Camera_Epic",
+   "page": "weekly"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [
+  {
+   "name": "Flatwoods Cache",
+   "edid": "MQ_Overseer_CacheQuest_02_Flatwoods",
+   "type": "Miscellaneous",
+   "location": "",
+   "form_id": "003D7F55"
+  }
+ ],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_FlatwoodsMonster",
+    "form_id": "00356BE0",
+    "row_count": 4,
+    "direct_items": 0,
+    "pool_count": 4,
+    "item_count": 1175,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Base Item",
+      "sub_id": "002AD666",
+      "edid": "LLD_Creature_BaseItem",
+      "item_count": 47,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "RadAway: Diluted",
+        "rate_display": "7%"
+       },
+       {
+        "name": "Rad-X: Diluted",
+        "rate_display": "7%"
+       },
+       {
+        "name": "RadAway",
+        "rate_display": "3%"
+       },
+       {
+        "name": "Rad-X",
+        "rate_display": "3%"
+       },
+       {
+        "name": "Baby Rattle",
+        "rate_display": "1.86%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Flatwoods Monster",
+      "sub_id": "00356BE1",
+      "edid": "LLS_Creature_FlatwoodsMonster",
+      "item_count": 16,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Fusion Cell",
+        "rate_display": "5%"
+       },
+       {
+        "name": "Nuclear Waste",
+        "rate_display": "5%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "4.55%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Flatwoods Monster",
+      "sub_id": "00434384",
+      "edid": "LLE_Creature_Boss_Component_FlatwoodsMonster",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Crystal Shards",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Waste Acid",
+        "rate_display": "100%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "00571ACC",
+   "edid": "W05_RE_Camp_JP08_CryptidStories_FlatwoodsMonster",
+   "name": "Cryptid Stories Flatwoods Monster",
+   "type": "CAMP Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0061DA97",
+   "edid": "RE_Travel_Zetan_01",
+   "name": "Flatwoods Monster Patrol",
+   "type": "Invaders from Beyond",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": []
+   },
+   {
+    "region": "Savage Divide",
+    "locations": []
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 0,
+  "total_placements": 0
+ }
+}

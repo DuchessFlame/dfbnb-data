@@ -1,0 +1,3998 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "BloodbugRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 14,
+   "placement": 13,
+   "spawn": 181
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "bloodbug",
+ "name": "Bloodbug",
+ "page_title": "Farming - Meat - Bloodbug",
+ "url": "/bnb/farming/meat/bloodbug/",
+ "npc_summary": {
+  "npc_count": 16,
+  "level_min": 2,
+  "level_max": 85,
+  "health_max": 550
+ },
+ "meat_items": [
+  {
+   "name": "Bloodbug Meat",
+   "form_id": "00074D0D",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Bloodbug",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Bloodbug_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Bloodbug",
+    "form_id": "00028667",
+    "row_count": 4,
+    "direct_items": 2,
+    "pool_count": 2,
+    "item_count": 1168,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Bloodbug",
+      "sub_id": "00356BDB",
+      "edid": "LLS_Creature_Bloodbug",
+      "item_count": 60,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Bloodbug Meat",
+        "rate_display": "0%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "0%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Bloodbug Meat",
+      "form_id": "00074D0D",
+      "edid": "BloodbugMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "item",
+      "name": "Bloodbug Proboscis",
+      "form_id": "00028668",
+      "edid": "BloodbugProboscis",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0052E47E",
+   "edid": "RE_TravelMJP01",
+   "name": "Bloodbugs w Dead Settler",
+   "type": "Travel Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Camden Park",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31DBBF",
+       "31DBC0",
+       "31DBC1",
+       "31DBC2",
+       "31DBC3",
+       "31DBC4",
+       "31DBD5",
+       "31DBD6",
+       "31DBD7"
+      ],
+      "coords": [
+       -182011.296875,
+       -74618.2109375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "31DBBF",
+        "source_type": "spawn",
+        "coords": [
+         -182011.296875,
+         -74618.2109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "31DBC0",
+        "source_type": "spawn",
+        "coords": [
+         -181839.546875,
+         -74369.1484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "31DBC1",
+        "source_type": "spawn",
+        "coords": [
+         -182060.53125,
+         -74423.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "31DBC2",
+        "source_type": "spawn",
+        "coords": [
+         -181811.375,
+         -73933.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "31DBC3",
+        "source_type": "spawn",
+        "coords": [
+         -182032.359375,
+         -73988.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "31DBC4",
+        "source_type": "spawn",
+        "coords": [
+         -181983.125,
+         -74182.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "31DBD5",
+        "source_type": "spawn",
+        "coords": [
+         -176813.03125,
+         -81796.1328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #8",
+        "ref": "31DBD6",
+        "source_type": "spawn",
+        "coords": [
+         -176726.515625,
+         -81656.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #9",
+        "ref": "31DBD7",
+        "source_type": "spawn",
+        "coords": [
+         -176629.875,
+         -81511.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Honey Well Apiary",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8236A0",
+       "8236A3",
+       "8236AB",
+       "8236AC",
+       "8236D7",
+       "8236DF"
+      ],
+      "coords": [
+       -228980.59375,
+       91352.46875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "8236A0",
+        "source_type": "spawn",
+        "coords": [
+         -228980.59375,
+         91352.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "8236A3",
+        "source_type": "spawn",
+        "coords": [
+         -232039.21875,
+         83225.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "8236AB",
+        "source_type": "spawn",
+        "coords": [
+         -232192.125,
+         83094.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "8236AC",
+        "source_type": "spawn",
+        "coords": [
+         -231936.4375,
+         83042.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "8236D7",
+        "source_type": "spawn",
+        "coords": [
+         -228877.8125,
+         91168.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "8236DF",
+        "source_type": "spawn",
+        "coords": [
+         -232075.59375,
+         82932.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sand Fork Lumber",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "84630E",
+       "846320",
+       "846321"
+      ],
+      "coords": [
+       -210310.625,
+       -9300.849609375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "84630E",
+        "source_type": "spawn",
+        "coords": [
+         -210310.625,
+         -9300.849609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "846320",
+        "source_type": "spawn",
+        "coords": [
+         -210463.53125,
+         -9432.5009765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "846321",
+        "source_type": "spawn",
+        "coords": [
+         -210207.84375,
+         -9484.330078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Chop Shop",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82369A",
+       "8236C8",
+       "8236C9"
+      ],
+      "coords": [
+       -223225.9375,
+       79753.3203125
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "82369A",
+        "source_type": "spawn",
+        "coords": [
+         -223225.9375,
+         79753.3203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "8236C8",
+        "source_type": "spawn",
+        "coords": [
+         -223378.84375,
+         79621.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "8236C9",
+        "source_type": "spawn",
+        "coords": [
+         -223123.15625,
+         79569.8359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Tycoon Lake",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "84630B",
+       "846318",
+       "846319"
+      ],
+      "coords": [
+       -195007.015625,
+       13382.77734375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "84630B",
+        "source_type": "spawn",
+        "coords": [
+         -195007.015625,
+         13382.77734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "846318",
+        "source_type": "spawn",
+        "coords": [
+         -194992.0,
+         13584.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "846319",
+        "source_type": "spawn",
+        "coords": [
+         -195209.46875,
+         13439.81640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Fort Defiance",
+      "count": 12,
+      "sources": {
+       "spawn": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31BF15",
+       "31BF9B",
+       "31BF9E",
+       "31BF9F",
+       "31BFA3",
+       "31BFA6",
+       "31BFA9",
+       "31BFAC",
+       "31BFAF",
+       "31BFB2",
+       "31BFC7",
+       "4E543A"
+      ],
+      "coords": [
+       -6416.0,
+       1784.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "31BF15",
+        "source_type": "spawn",
+        "coords": [
+         -6416.0,
+         1784.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "31BF9B",
+        "source_type": "spawn",
+        "coords": [
+         -2928.0,
+         1304.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "31BF9E",
+        "source_type": "spawn",
+        "coords": [
+         -4510.91748046875,
+         1366.77087402344
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "31BF9F",
+        "source_type": "spawn",
+        "coords": [
+         -5961.23583984375,
+         1914.19201660156
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "31BFA3",
+        "source_type": "spawn",
+        "coords": [
+         -4026.74047851562,
+         1836.56384277344
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "31BFA6",
+        "source_type": "spawn",
+        "coords": [
+         -4484.09619140625,
+         806.03076171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "31BFA9",
+        "source_type": "spawn",
+        "coords": [
+         -6253.3232421875,
+         1323.00817871094
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #8",
+        "ref": "31BFAC",
+        "source_type": "spawn",
+        "coords": [
+         -6937.2587890625,
+         2000.43872070313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #9",
+        "ref": "31BFAF",
+        "source_type": "spawn",
+        "coords": [
+         -5301.9814453125,
+         2481.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #10",
+        "ref": "31BFB2",
+        "source_type": "spawn",
+        "coords": [
+         -2838.24951171875,
+         1053.4794921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #11",
+        "ref": "31BFC7",
+        "source_type": "spawn",
+        "coords": [
+         -2914.615234375,
+         2176.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #12",
+        "ref": "4E543A",
+        "source_type": "spawn",
+        "coords": [
+         -3632.61865234375,
+         1325.08227539062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 12,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-02",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50AFC3",
+       "50AFC4",
+       "529DC8",
+       "529DC9"
+      ],
+      "coords": [
+       142957.359375,
+       -121049.4375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "50AFC3",
+        "source_type": "spawn",
+        "coords": [
+         142957.359375,
+         -121049.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "50AFC4",
+        "source_type": "spawn",
+        "coords": [
+         143280.5,
+         -121010.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "529DC8",
+        "source_type": "spawn",
+        "coords": [
+         142966.421875,
+         -120932.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "529DC9",
+        "source_type": "spawn",
+        "coords": [
+         143291.84375,
+         -120924.1484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga High School",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "12BC72",
+       "12BC73",
+       "12BC78",
+       "12BC80",
+       "12BC81",
+       "5191C0"
+      ],
+      "coords": [
+       -1408.0,
+       1992.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "12BC72",
+        "source_type": "spawn",
+        "coords": [
+         -1408.0,
+         1992.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "12BC73",
+        "source_type": "spawn",
+        "coords": [
+         -1440.0,
+         1312.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "12BC78",
+        "source_type": "spawn",
+        "coords": [
+         -1575.998046875,
+         4696.00146484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "12BC80",
+        "source_type": "spawn",
+        "coords": [
+         2488.0,
+         1264.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "12BC81",
+        "source_type": "spawn",
+        "coords": [
+         2035.47448730469,
+         1253.0556640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "5191C0",
+        "source_type": "spawn",
+        "coords": [
+         866.916625976563,
+         1707.80541992187
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Camp McClintock",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "112377",
+       "112379",
+       "11237B"
+      ],
+      "coords": [
+       -65912.984375,
+       -14895.90234375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "112377",
+        "source_type": "spawn",
+        "coords": [
+         -65912.984375,
+         -14895.90234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "112379",
+        "source_type": "spawn",
+        "coords": [
+         -72312.3671875,
+         -19853.720703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "11237B",
+        "source_type": "spawn",
+        "coords": [
+         -71777.9765625,
+         -19368.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "New River Gorge Bridge - East",
+      "count": 5,
+      "sources": {
+       "ambush": 3,
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "48660F",
+       "486610",
+       "486613",
+       "4E5B85",
+       "4E5B90"
+      ],
+      "coords": [
+       -102636.0859375,
+       5721.1826171875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug ambush #1",
+        "ref": "48660F",
+        "source_type": "ambush",
+        "coords": [
+         -100127.8984375,
+         7522.47705078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #2",
+        "ref": "486610",
+        "source_type": "ambush",
+        "coords": [
+         -100379.5,
+         6522.6064453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #3",
+        "ref": "486613",
+        "source_type": "ambush",
+        "coords": [
+         -102636.0859375,
+         5721.1826171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "4E5B85",
+        "source_type": "spawn",
+        "coords": [
+         -101793.6484375,
+         6233.498046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "4E5B90",
+        "source_type": "spawn",
+        "coords": [
+         -101599.3203125,
+         6473.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "New River Gorge Bridge - West",
+      "count": 14,
+      "sources": {
+       "ambush": 9,
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "486607",
+       "486608",
+       "486609",
+       "48660A",
+       "48660B",
+       "48660C",
+       "48660D",
+       "486614",
+       "486616",
+       "4E5B88",
+       "4E5B89",
+       "4E5B8B",
+       "4E5B8C",
+       "4E5B91"
+      ],
+      "coords": [
+       -114638.3828125,
+       -3625.466796875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug ambush #1",
+        "ref": "486607",
+        "source_type": "ambush",
+        "coords": [
+         -116801.0546875,
+         -5127.8759765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #2",
+        "ref": "486608",
+        "source_type": "ambush",
+        "coords": [
+         -117884.3515625,
+         -6418.84130859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #3",
+        "ref": "486609",
+        "source_type": "ambush",
+        "coords": [
+         -115524.875,
+         -5231.73974609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #4",
+        "ref": "48660A",
+        "source_type": "ambush",
+        "coords": [
+         -111519.7421875,
+         -874.736328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #5",
+        "ref": "48660B",
+        "source_type": "ambush",
+        "coords": [
+         -109628.84375,
+         -805.846618652344
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #6",
+        "ref": "48660C",
+        "source_type": "ambush",
+        "coords": [
+         -109241.6328125,
+         109.948577880859
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #7",
+        "ref": "48660D",
+        "source_type": "ambush",
+        "coords": [
+         -110073.7578125,
+         439.510925292969
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #8",
+        "ref": "486614",
+        "source_type": "ambush",
+        "coords": [
+         -114638.3828125,
+         -3625.466796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug ambush #9",
+        "ref": "486616",
+        "source_type": "ambush",
+        "coords": [
+         -119078.140625,
+         -6866.53955078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "4E5B88",
+        "source_type": "spawn",
+        "coords": [
+         -110692.6953125,
+         -481.263671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "4E5B89",
+        "source_type": "spawn",
+        "coords": [
+         -116817.046875,
+         -5013.18603515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "4E5B8B",
+        "source_type": "spawn",
+        "coords": [
+         -117071.109375,
+         -5120.236328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "4E5B8C",
+        "source_type": "spawn",
+        "coords": [
+         -117126.4140625,
+         -5306.14453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "4E5B91",
+        "source_type": "spawn",
+        "coords": [
+         -110577.2734375,
+         -274.548828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 9,
+        "source_type": "ambush"
+       },
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Atlas Substructure",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5B6DD7"
+      ],
+      "coords": [
+       1488.7958984375,
+       -395.840240478516
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn",
+        "ref": "5B6DD7",
+        "source_type": "placement",
+        "coords": [
+         1488.7958984375,
+         -395.840240478516
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dent & Sons Construction",
+      "count": 5,
+      "sources": {
+       "ambush": 1,
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3532AE",
+       "3532CB",
+       "3532D0",
+       "3532D1",
+       "50B341"
+      ],
+      "coords": [
+       -22159.296875,
+       -167007.75
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug ambush",
+        "ref": "50B341",
+        "source_type": "ambush",
+        "coords": [
+         -22159.296875,
+         -167007.75
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "3532AE",
+        "source_type": "placement",
+        "coords": [
+         -22705.06640625,
+         -167215.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "3532CB",
+        "source_type": "placement",
+        "coords": [
+         -23941.77734375,
+         -167561.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "3532D0",
+        "source_type": "placement",
+        "coords": [
+         -23826.7734375,
+         -167748.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3532D1",
+        "source_type": "placement",
+        "coords": [
+         -23723.416015625,
+         -168048.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DC9A6"
+      ],
+      "coords": [
+       -1661.64929199219,
+       6817.19091796875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn",
+        "ref": "5DC9A6",
+        "source_type": "placement",
+        "coords": [
+         -1661.64929199219,
+         6817.19091796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sunnytop Ski Lanes",
+      "count": 8,
+      "sources": {
+       "spawn": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "282934",
+       "282935",
+       "282936",
+       "282937",
+       "282938",
+       "282940",
+       "282944",
+       "3EAF36"
+      ],
+      "coords": [
+       85941.078125,
+       133921.375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "282934",
+        "source_type": "spawn",
+        "coords": [
+         85941.078125,
+         133921.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "282935",
+        "source_type": "spawn",
+        "coords": [
+         85403.2890625,
+         133905.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "282936",
+        "source_type": "spawn",
+        "coords": [
+         85397.96875,
+         129003.6015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "282937",
+        "source_type": "spawn",
+        "coords": [
+         86682.671875,
+         129787.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "282938",
+        "source_type": "spawn",
+        "coords": [
+         86708.046875,
+         130436.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "282940",
+        "source_type": "spawn",
+        "coords": [
+         85392.5703125,
+         128407.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "282944",
+        "source_type": "spawn",
+        "coords": [
+         87062.5546875,
+         131523.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #8",
+        "ref": "3EAF36",
+        "source_type": "spawn",
+        "coords": [
+         87093.6953125,
+         130488.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 8,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "High Knob Lookout",
+      "count": 8,
+      "sources": {
+       "spawn": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "758CEA",
+       "758CEB",
+       "758CEC",
+       "758CED",
+       "758CF1",
+       "758CF2",
+       "758CF3",
+       "758CFB"
+      ],
+      "coords": [
+       -13956.416015625,
+       -224655.203125
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "758CEA",
+        "source_type": "spawn",
+        "coords": [
+         -13956.416015625,
+         -224655.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "758CEB",
+        "source_type": "spawn",
+        "coords": [
+         -20352.0,
+         -223608.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "758CEC",
+        "source_type": "spawn",
+        "coords": [
+         -20840.171875,
+         -223685.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "758CED",
+        "source_type": "spawn",
+        "coords": [
+         -20495.99609375,
+         -224096.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "758CF1",
+        "source_type": "spawn",
+        "coords": [
+         -28455.99609375,
+         -219896.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "758CF2",
+        "source_type": "spawn",
+        "coords": [
+         -28384.00390625,
+         -220352.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "758CF3",
+        "source_type": "spawn",
+        "coords": [
+         -28208.00390625,
+         -220048.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #8",
+        "ref": "758CFB",
+        "source_type": "spawn",
+        "coords": [
+         -28792.0,
+         -220152.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 8,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Old Rag Lookout",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75AC96",
+       "75AC97",
+       "75AC98"
+      ],
+      "coords": [
+       22063.99609375,
+       -234888.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "75AC96",
+        "source_type": "placement",
+        "coords": [
+         22063.99609375,
+         -234888.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "75AC97",
+        "source_type": "placement",
+        "coords": [
+         22512.0,
+         -234840.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "75AC98",
+        "source_type": "placement",
+        "coords": [
+         22336.0,
+         -235280.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Ranger Station Bunker",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74F4E4",
+       "74F4E5",
+       "74F4E6"
+      ],
+      "coords": [
+       51986.51171875,
+       -191670.796875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "74F4E4",
+        "source_type": "spawn",
+        "coords": [
+         51986.51171875,
+         -191670.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "74F4E5",
+        "source_type": "spawn",
+        "coords": [
+         51469.18359375,
+         -191595.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "74F4E6",
+        "source_type": "spawn",
+        "coords": [
+         52227.5390625,
+         -190609.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-03",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74F4D8",
+       "74F4DA"
+      ],
+      "coords": [
+       46538.02734375,
+       -204597.265625
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "74F4D8",
+        "source_type": "spawn",
+        "coords": [
+         46538.02734375,
+         -204597.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "74F4DA",
+        "source_type": "spawn",
+        "coords": [
+         45536.7734375,
+         -204708.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Abandoned Bunker",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "09DA23",
+       "09DA24",
+       "09DA25"
+      ],
+      "coords": [
+       154787.875,
+       127683.9609375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "09DA23",
+        "source_type": "spawn",
+        "coords": [
+         154787.875,
+         127683.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "09DA24",
+        "source_type": "spawn",
+        "coords": [
+         154907.84375,
+         127387.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "09DA25",
+        "source_type": "spawn",
+        "coords": [
+         155048.953125,
+         127633.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Abandoned Waste Dump",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395353",
+       "395354",
+       "3953F9",
+       "3953FA",
+       "3953FD",
+       "395483",
+       "3D3B99"
+      ],
+      "coords": [
+       182599.203125,
+       34375.65625
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "395353",
+        "source_type": "spawn",
+        "coords": [
+         179012.40625,
+         21609.134765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "395354",
+        "source_type": "spawn",
+        "coords": [
+         179457.328125,
+         21466.357421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "3953F9",
+        "source_type": "spawn",
+        "coords": [
+         182599.203125,
+         34375.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3953FA",
+        "source_type": "spawn",
+        "coords": [
+         182878.765625,
+         34385.35546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "3953FD",
+        "source_type": "spawn",
+        "coords": [
+         182775.984375,
+         34568.8359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "395483",
+        "source_type": "spawn",
+        "coords": [
+         198627.484375,
+         30502.373046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "3D3B99",
+        "source_type": "spawn",
+        "coords": [
+         198742.765625,
+         30382.392578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Abbie's Bunker",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395443",
+       "395445",
+       "395447"
+      ],
+      "coords": [
+       173739.625,
+       145096.484375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "395443",
+        "source_type": "spawn",
+        "coords": [
+         173739.625,
+         145096.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "395445",
+        "source_type": "spawn",
+        "coords": [
+         174073.09375,
+         145274.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "395447",
+        "source_type": "spawn",
+        "coords": [
+         174017.46875,
+         144666.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Berkeley Springs West",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "299928"
+      ],
+      "coords": [
+       125807.875,
+       20343.564453125
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn",
+        "ref": "299928",
+        "source_type": "spawn",
+        "coords": [
+         125807.875,
+         20343.564453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Blakes Offering",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395477",
+       "395478",
+       "39547A",
+       "39547B"
+      ],
+      "coords": [
+       198513.578125,
+       -43135.9140625
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "395477",
+        "source_type": "spawn",
+        "coords": [
+         198513.578125,
+         -43135.9140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "395478",
+        "source_type": "spawn",
+        "coords": [
+         198257.890625,
+         -43084.08984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "39547A",
+        "source_type": "spawn",
+        "coords": [
+         198410.796875,
+         -42952.43359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "39547B",
+        "source_type": "spawn",
+        "coords": [
+         198239.078125,
+         -43340.06640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Camp Venture",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "161308",
+       "16213D"
+      ],
+      "coords": [
+       159763.265625,
+       -33830.9921875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "161308",
+        "source_type": "spawn",
+        "coords": [
+         159763.265625,
+         -33830.9921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "16213D",
+        "source_type": "spawn",
+        "coords": [
+         160298.234375,
+         -33816.29296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Crevasse Dam",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EEFF7",
+       "2EEFFB",
+       "2EEFFC",
+       "3520B6",
+       "3520B7",
+       "3520B8",
+       "39549B",
+       "39549C",
+       "39549F"
+      ],
+      "coords": [
+       170086.25,
+       80180.140625
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "2EEFF7",
+        "source_type": "spawn",
+        "coords": [
+         189455.5,
+         83849.84375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "2EEFFB",
+        "source_type": "spawn",
+        "coords": [
+         188992.140625,
+         83057.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "2EEFFC",
+        "source_type": "spawn",
+        "coords": [
+         188987.84375,
+         82909.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3520B6",
+        "source_type": "spawn",
+        "coords": [
+         183796.75,
+         81668.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "3520B7",
+        "source_type": "spawn",
+        "coords": [
+         184354.5625,
+         82161.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "3520B8",
+        "source_type": "spawn",
+        "coords": [
+         183166.015625,
+         82195.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "39549B",
+        "source_type": "spawn",
+        "coords": [
+         170086.25,
+         80180.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #8",
+        "ref": "39549C",
+        "source_type": "spawn",
+        "coords": [
+         170385.40625,
+         79914.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #9",
+        "ref": "39549F",
+        "source_type": "spawn",
+        "coords": [
+         170239.15625,
+         80311.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dabney Homestead",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "049638",
+       "3953C1",
+       "3953C2",
+       "3953C5",
+       "3953C6",
+       "4E3D6A",
+       "4E3D6B",
+       "4E3D6C",
+       "4E3D6D"
+      ],
+      "coords": [
+       194232.21875,
+       -27459.82421875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "049638",
+        "source_type": "spawn",
+        "coords": [
+         186534.546875,
+         -25747.728515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "3953C1",
+        "source_type": "spawn",
+        "coords": [
+         194232.21875,
+         -27459.82421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "3953C2",
+        "source_type": "spawn",
+        "coords": [
+         194487.90625,
+         -27511.654296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3953C5",
+        "source_type": "spawn",
+        "coords": [
+         194385.125,
+         -27328.173828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "3953C6",
+        "source_type": "spawn",
+        "coords": [
+         194252.46875,
+         -27785.90234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "4E3D6A",
+        "source_type": "spawn",
+        "coords": [
+         186199.015625,
+         -25845.955078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "4E3D6B",
+        "source_type": "spawn",
+        "coords": [
+         186416.984375,
+         -26086.97265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #8",
+        "ref": "4E3D6C",
+        "source_type": "spawn",
+        "coords": [
+         186368.9375,
+         -25820.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #9",
+        "ref": "4E3D6D",
+        "source_type": "spawn",
+        "coords": [
+         186258.5625,
+         -25998.638671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Lookout",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "061B7C",
+       "061BB4",
+       "395505",
+       "395506",
+       "395509",
+       "39550A",
+       "3D3B9B"
+      ],
+      "coords": [
+       150521.828125,
+       99952.59375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "061B7C",
+        "source_type": "spawn",
+        "coords": [
+         151420.828125,
+         85497.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "061BB4",
+        "source_type": "spawn",
+        "coords": [
+         151962.625,
+         85979.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "395505",
+        "source_type": "spawn",
+        "coords": [
+         150521.828125,
+         99952.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "395506",
+        "source_type": "spawn",
+        "coords": [
+         150777.515625,
+         99900.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "395509",
+        "source_type": "spawn",
+        "coords": [
+         150674.734375,
+         100084.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "39550A",
+        "source_type": "spawn",
+        "coords": [
+         150854.21875,
+         100348.3671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "3D3B9B",
+        "source_type": "spawn",
+        "coords": [
+         150638.90625,
+         99826.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Wilderness",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "061B7E",
+       "061B82",
+       "061BB9",
+       "36BEBF",
+       "51AA66",
+       "51AA76",
+       "51AA77"
+      ],
+      "coords": [
+       151633.109375,
+       84880.4453125
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "061B7E",
+        "source_type": "spawn",
+        "coords": [
+         151633.109375,
+         84880.4453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "061B82",
+        "source_type": "spawn",
+        "coords": [
+         151243.078125,
+         84571.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "061BB9",
+        "source_type": "spawn",
+        "coords": [
+         152074.5625,
+         85951.5546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "36BEBF",
+        "source_type": "spawn",
+        "coords": [
+         152588.046875,
+         85208.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "51AA66",
+        "source_type": "spawn",
+        "coords": [
+         158937.03125,
+         87128.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "51AA76",
+        "source_type": "spawn",
+        "coords": [
+         157166.953125,
+         87987.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "51AA77",
+        "source_type": "spawn",
+        "coords": [
+         159165.421875,
+         87109.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Ella Ames' Bunker",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C042A",
+       "4521BA",
+       "4521BB",
+       "4521BE"
+      ],
+      "coords": [
+       162342.984375,
+       107329.3125
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "3C042A",
+        "source_type": "spawn",
+        "coords": [
+         162342.984375,
+         107329.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "4521BA",
+        "source_type": "spawn",
+        "coords": [
+         168570.78125,
+         103653.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "4521BB",
+        "source_type": "spawn",
+        "coords": [
+         168722.53125,
+         103865.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "4521BE",
+        "source_type": "spawn",
+        "coords": [
+         168513.0625,
+         103846.8828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Excelsior Model Home",
+      "count": 5,
+      "sources": {
+       "ambush": 1,
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EF005",
+       "2EF006",
+       "2EF007",
+       "2EF008",
+       "43BA65"
+      ],
+      "coords": [
+       183056.046875,
+       110372.0859375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug ambush",
+        "ref": "43BA65",
+        "source_type": "ambush",
+        "coords": [
+         183056.046875,
+         110372.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "2EF005",
+        "source_type": "spawn",
+        "coords": [
+         182143.515625,
+         109398.9921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "2EF006",
+        "source_type": "spawn",
+        "coords": [
+         182361.984375,
+         109185.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "2EF007",
+        "source_type": "spawn",
+        "coords": [
+         182167.6875,
+         109229.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "2EF008",
+        "source_type": "spawn",
+        "coords": [
+         182043.140625,
+         109225.5078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Gnarled Shallows",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954C3",
+       "3954C5",
+       "3954C6",
+       "3954CA",
+       "3954CD"
+      ],
+      "coords": [
+       193549.390625,
+       146277.390625
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "3954C3",
+        "source_type": "spawn",
+        "coords": [
+         194753.015625,
+         157367.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "3954C5",
+        "source_type": "spawn",
+        "coords": [
+         194650.234375,
+         157550.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "3954C6",
+        "source_type": "spawn",
+        "coords": [
+         195026.875,
+         157335.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3954CA",
+        "source_type": "spawn",
+        "coords": [
+         193549.390625,
+         146277.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "3954CD",
+        "source_type": "spawn",
+        "coords": [
+         193577.375,
+         146433.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Gulper Lagoon",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C0300",
+       "3C042B",
+       "3C1D4A",
+       "3C1DC8"
+      ],
+      "coords": [
+       162285.265625,
+       107522.6640625
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "3C0300",
+        "source_type": "spawn",
+        "coords": [
+         162285.265625,
+         107522.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "3C042B",
+        "source_type": "spawn",
+        "coords": [
+         162494.734375,
+         107541.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "3C1D4A",
+        "source_type": "spawn",
+        "coords": [
+         157129.953125,
+         105809.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3C1DC8",
+        "source_type": "spawn",
+        "coords": [
+         157227.046875,
+         105609.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Haven Church",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EEFEF",
+       "2EEFF1",
+       "2EEFF2",
+       "2EEFF3",
+       "343FFC",
+       "3DAA45",
+       "3DAA48"
+      ],
+      "coords": [
+       175697.71875,
+       43003.41796875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "2EEFEF",
+        "source_type": "spawn",
+        "coords": [
+         168353.171875,
+         37362.87109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "2EEFF1",
+        "source_type": "spawn",
+        "coords": [
+         168302.15625,
+         37542.01953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "2EEFF2",
+        "source_type": "spawn",
+        "coords": [
+         168415.140625,
+         37587.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "2EEFF3",
+        "source_type": "spawn",
+        "coords": [
+         168479.734375,
+         37442.10546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "343FFC",
+        "source_type": "spawn",
+        "coords": [
+         175697.71875,
+         43003.41796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "3DAA45",
+        "source_type": "spawn",
+        "coords": [
+         176070.859375,
+         43534.09765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "3DAA48",
+        "source_type": "spawn",
+        "coords": [
+         176019.734375,
+         43309.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Highland Marsh",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954E0",
+       "3954E1",
+       "3954E4",
+       "3D3B9D"
+      ],
+      "coords": [
+       182923.25,
+       125201.9375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "3954E0",
+        "source_type": "spawn",
+        "coords": [
+         182923.25,
+         125201.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "3954E1",
+        "source_type": "spawn",
+        "coords": [
+         182644.359375,
+         124553.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "3954E4",
+        "source_type": "spawn",
+        "coords": [
+         182823.515625,
+         125827.1015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3D3B9D",
+        "source_type": "spawn",
+        "coords": [
+         183350.75,
+         124906.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mire's Eye",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395470",
+       "395472"
+      ],
+      "coords": [
+       198478.90625,
+       169655.0625
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "395470",
+        "source_type": "spawn",
+        "coords": [
+         198478.90625,
+         169655.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "395472",
+        "source_type": "spawn",
+        "coords": [
+         199013.625,
+         170277.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mosstown",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39551B",
+       "39551C",
+       "39551F"
+      ],
+      "coords": [
+       137753.4375,
+       79335.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "39551B",
+        "source_type": "spawn",
+        "coords": [
+         137753.4375,
+         79335.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "39551C",
+        "source_type": "spawn",
+        "coords": [
+         138008.6875,
+         79284.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "39551F",
+        "source_type": "spawn",
+        "coords": [
+         137906.34375,
+         79466.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Raleigh Clay's Bunker",
+      "count": 8,
+      "sources": {
+       "spawn": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B79EC",
+       "395403",
+       "395404",
+       "395406",
+       "4521C9",
+       "4521CA",
+       "4521CD",
+       "52D6D1"
+      ],
+      "coords": [
+       189619.09375,
+       53860.296875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "2B79EC",
+        "source_type": "spawn",
+        "coords": [
+         189619.09375,
+         53860.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "395403",
+        "source_type": "spawn",
+        "coords": [
+         194208.21875,
+         59089.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "395404",
+        "source_type": "spawn",
+        "coords": [
+         193950.796875,
+         59140.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "395406",
+        "source_type": "spawn",
+        "coords": [
+         194103.703125,
+         59272.2421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #5",
+        "ref": "4521C9",
+        "source_type": "spawn",
+        "coords": [
+         183625.40625,
+         59560.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #6",
+        "ref": "4521CA",
+        "source_type": "spawn",
+        "coords": [
+         183777.15625,
+         59772.5703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #7",
+        "ref": "4521CD",
+        "source_type": "spawn",
+        "coords": [
+         183567.6875,
+         59753.7109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #8",
+        "ref": "52D6D1",
+        "source_type": "spawn",
+        "coords": [
+         189405.40625,
+         54066.18359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 8,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Ransacked Bunker",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EEFDC",
+       "2EEFDD",
+       "2EEFE4",
+       "2EEFE5"
+      ],
+      "coords": [
+       191844.859375,
+       -3147.07592773438
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "2EEFDC",
+        "source_type": "spawn",
+        "coords": [
+         191844.859375,
+         -3147.07592773438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "2EEFDD",
+        "source_type": "spawn",
+        "coords": [
+         191878.515625,
+         -2859.9423828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "2EEFE4",
+        "source_type": "spawn",
+        "coords": [
+         191703.828125,
+         -3569.10327148438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "2EEFE5",
+        "source_type": "spawn",
+        "coords": [
+         191785.359375,
+         -3404.2421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Southhampton Estate",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A4DEC",
+       "3A4DED",
+       "3A4DEE",
+       "3A4DEF"
+      ],
+      "coords": [
+       168929.453125,
+       125009.171875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "3A4DEC",
+        "source_type": "placement",
+        "coords": [
+         168929.453125,
+         125009.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "3A4DED",
+        "source_type": "placement",
+        "coords": [
+         168958.203125,
+         124901.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "3A4DEE",
+        "source_type": "placement",
+        "coords": [
+         170729.671875,
+         125306.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3A4DEF",
+        "source_type": "placement",
+        "coords": [
+         170898.6875,
+         124946.3828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sunday Brothers' Cabin",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "505071",
+       "505501"
+      ],
+      "coords": [
+       145749.96875,
+       -5982.6318359375
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "505071",
+        "source_type": "spawn",
+        "coords": [
+         145749.96875,
+         -5982.6318359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "505501",
+        "source_type": "spawn",
+        "coords": [
+         146109.296875,
+         -5848.28466796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Power Plant",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39542A",
+       "39542B",
+       "39542E"
+      ],
+      "coords": [
+       190329.421875,
+       112376.421875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "39542A",
+        "source_type": "spawn",
+        "coords": [
+         190329.421875,
+         112376.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "39542B",
+        "source_type": "spawn",
+        "coords": [
+         190582.34375,
+         112305.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "39542E",
+        "source_type": "spawn",
+        "coords": [
+         190636.234375,
+         112508.3828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-01",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395374",
+       "395377"
+      ],
+      "coords": [
+       145774.734375,
+       6283.62451171875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "395374",
+        "source_type": "spawn",
+        "coords": [
+         145774.734375,
+         6283.62451171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "395377",
+        "source_type": "spawn",
+        "coords": [
+         145673.765625,
+         6467.79736328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 43,
+  "total_placements": 208
+ },
+ "blurb": "The Bloodbug in Fallout 76 — drops Bloodbug Meat, 16 NPC variants, 208 known spawn points."
+}

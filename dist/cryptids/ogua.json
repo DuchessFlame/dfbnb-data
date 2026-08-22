@@ -1,0 +1,452 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "OguaRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 6,
+   "placement": 1
+  },
+  "unresolved": {},
+  "hold": false
+ },
+ "set": "cryptids",
+ "slug": "ogua",
+ "name": "Ogua",
+ "page_title": "Cryptids - Ogua",
+ "url": "/df/cryptids/ogua/",
+ "blurb": "The Ogua in Fallout 76 — 10 NPC variants, 7 known spawn points, 51 possible drops.",
+ "npc_summary": {
+  "npc_count": 10,
+  "level_min": 1,
+  "level_max": 100,
+  "health_max": 7500
+ },
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Epic - Kill a Bleached Ogua",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Kill_BurningOgua_Epic",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Kill a Burning Ogua with the Sunset Sarsaparilla Deputy Hat Equipped",
+   "required": 1,
+   "edid": "ATX_DE2025_SunsetStranger_Week2_Challenge_Kill_BurningOgua",
+   "page": "events"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Kill a Bleached Ogua",
+   "required": 1,
+   "edid": "Burn_Challenge_Lifetime_Kill_BurningOgua_01",
+   "page": "springs"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Test of Might - Kill an Ogua",
+   "required": 1,
+   "edid": "Burn_Challenge_Lifetime_Quest_MQ03_TestOfMight_KillBurningOgua",
+   "page": "springs"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Ogua",
+    "form_id": "0068F387",
+    "row_count": 6,
+    "direct_items": 1,
+    "pool_count": 5,
+    "item_count": 51,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Boss Component Adhesive",
+      "sub_id": "00434374",
+      "edid": "LLS_Creature_Boss_Component_Adhesive",
+      "item_count": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Excess Adhesive",
+        "rate_display": "50%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Boss Component Asbestos",
+      "sub_id": "0043437F",
+      "edid": "LLS_Creature_Boss_Component_Asbestos",
+      "item_count": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Raw Asbestos",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Boss Component Oil",
+      "sub_id": "00434378",
+      "edid": "LLS_Creature_Boss_Component_Oil",
+      "item_count": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Waste Oil",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLC Junk Super Common",
+      "sub_id": "004F680B",
+      "edid": "LLC_Junk_SuperCommon",
+      "item_count": 39,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Baby Rattle",
+        "rate_display": "2.56%"
+       },
+       {
+        "name": "Beer Bottle",
+        "rate_display": "2.56%"
+       },
+       {
+        "name": "Ceramic Bowl",
+        "rate_display": "2.56%"
+       },
+       {
+        "name": "Cracked Bowl",
+        "rate_display": "2.56%"
+       },
+       {
+        "name": "Cigarette",
+        "rate_display": "2.56%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Scrap Bone",
+      "sub_id": "00432C9F",
+      "edid": "LLS_Scrap_Bone",
+      "item_count": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Bone Shards",
+        "rate_display": "33.33%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Unrefined Gunpowder",
+      "form_id": "000130A1",
+      "edid": "c_Gunpowder_scrap",
+      "sig": "MISC",
+      "qty": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0081EFC2",
+   "edid": "Burn_RE_Assault_KK01",
+   "name": "Armored Deathclaw vs Ogua",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0081EFC0",
+   "edid": "Burn_RE_Assault_KK03",
+   "name": "Deathclaw vs Ogua",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "006D870F",
+   "edid": "RE_Assault_MOON_01",
+   "name": "Ogua vs Blood Eagles",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "006D9000",
+   "edid": "RE_Scene_MOON_03",
+   "name": "Ogua vs Blue Devil",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "006D8711",
+   "edid": "RE_Assault_MOON_03",
+   "name": "Ogua vs Cultists",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0081E20C",
+   "edid": "Burn_RE_Assault_KK05",
+   "name": "Ogua vs Rust King Raiders",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "006D8713",
+   "edid": "RE_Assault_MOON_05",
+   "name": "Ogua vs Scorched",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "006D8710",
+   "edid": "RE_Assault_MOON_02",
+   "name": "Ogua vs Settlers",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "006D8712",
+   "edid": "RE_Assault_MOON_04",
+   "name": "Ogua vs Super Mutants",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "006D8FFE",
+   "edid": "RE_Scene_MOON_01",
+   "name": "Random Ogua",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0058CEBC",
+   "edid": "W05_RE_Camp_JP30_MobCamp_YaoGuai",
+   "name": "Yao Guai Hostile Camp",
+   "type": "CAMP Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Sacramental Glade",
+      "count": 4,
+      "sources": {
+       "ambush": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6CCB08",
+       "6CCB0A",
+       "6CCB0B",
+       "6CCB0E"
+      ],
+      "coords": [
+       190489.296875,
+       -119700.3125
+      ],
+      "spawns": [
+       {
+        "label": "Ogua ambush #1",
+        "ref": "6CCB08",
+        "source_type": "ambush",
+        "coords": [
+         190489.296875,
+         -119700.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Ogua ambush #2",
+        "ref": "6CCB0A",
+        "source_type": "ambush",
+        "coords": [
+         190491.703125,
+         -119728.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Ogua ambush #3",
+        "ref": "6CCB0B",
+        "source_type": "ambush",
+        "coords": [
+         190477.828125,
+         -119717.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Ogua ambush #4",
+        "ref": "6CCB0E",
+        "source_type": "ambush",
+        "coords": [
+         190468.984375,
+         -119685.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": []
+   },
+   {
+    "region": "Savage Divide",
+    "locations": []
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Old Crimora Mines",
+      "count": 3,
+      "sources": {
+       "ambush": 2,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "750F86",
+       "75D6B3",
+       "75D6B4"
+      ],
+      "coords": [
+       -47080.6875,
+       -251762.890625
+      ],
+      "spawns": [
+       {
+        "label": "Ogua ambush #1",
+        "ref": "75D6B3",
+        "source_type": "ambush",
+        "coords": [
+         -47080.6875,
+         -251762.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Ogua ambush #2",
+        "ref": "75D6B4",
+        "source_type": "ambush",
+        "coords": [
+         -47060.6484375,
+         -251744.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Ogua spawn",
+        "ref": "750F86",
+        "source_type": "placement",
+        "coords": [
+         -43941.34765625,
+         -253405.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 2,
+  "total_placements": 7
+ }
+}

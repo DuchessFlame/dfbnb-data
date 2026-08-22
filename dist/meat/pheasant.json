@@ -1,0 +1,347 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "RadPheasantRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 12
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "pheasant",
+ "name": "Pheasant",
+ "page_title": "Farming - Meat - Pheasant",
+ "url": "/bnb/farming/meat/pheasant/",
+ "npc_summary": {
+  "npc_count": 6,
+  "level_min": 1,
+  "level_max": 1,
+  "health_max": 350
+ },
+ "meat_items": [
+  {
+   "name": "Intestine",
+   "form_id": "003EEA40",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Pheasant",
+    "form_id": "0074E6BF",
+    "row_count": 3,
+    "direct_items": 0,
+    "pool_count": 3,
+    "item_count": 2,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creature Critter",
+      "sub_id": "003DF3D9",
+      "edid": "LLS_Ammo_Creature_Critter",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Critters Intestines",
+      "sub_id": "00477AF3",
+      "edid": "LLS_Loot_Critters_Intestines",
+      "item_count": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Intestine",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Critters Intestines",
+      "sub_id": "00477AF3",
+      "edid": "LLS_Loot_Critters_Intestines",
+      "item_count": 1,
+      "rate_value": 0.6,
+      "rate_display": "60%",
+      "top_items": [
+       {
+        "name": "Intestine",
+        "rate_display": "100%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": []
+   },
+   {
+    "region": "Savage Divide",
+    "locations": []
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Naked Creek",
+      "count": 8,
+      "sources": {
+       "placement": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7338D3",
+       "75DDE3",
+       "75DDE4",
+       "75DDE5",
+       "788C5F",
+       "788C61",
+       "788C62",
+       "788C63"
+      ],
+      "coords": [
+       -32301.30078125,
+       -236411.28125
+      ],
+      "spawns": [
+       {
+        "label": "Pheasant spawn #1",
+        "ref": "7338D3",
+        "source_type": "placement",
+        "coords": [
+         -33532.33203125,
+         -236230.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #2",
+        "ref": "75DDE3",
+        "source_type": "placement",
+        "coords": [
+         -20368.8203125,
+         -248320.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #3",
+        "ref": "75DDE4",
+        "source_type": "placement",
+        "coords": [
+         -20215.2734375,
+         -247414.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #4",
+        "ref": "75DDE5",
+        "source_type": "placement",
+        "coords": [
+         -20104.533203125,
+         -248170.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #5",
+        "ref": "788C5F",
+        "source_type": "placement",
+        "coords": [
+         -32301.30078125,
+         -236411.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #6",
+        "ref": "788C61",
+        "source_type": "placement",
+        "coords": [
+         -31949.85546875,
+         -236758.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #7",
+        "ref": "788C62",
+        "source_type": "placement",
+        "coords": [
+         -32990.890625,
+         -236702.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #8",
+        "ref": "788C63",
+        "source_type": "placement",
+        "coords": [
+         -31218.0625,
+         -236421.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 8,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Bavaria",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "76AA24",
+       "76AA25",
+       "76AA26",
+       "76AA27"
+      ],
+      "coords": [
+       82389.7734375,
+       -232450.3125
+      ],
+      "spawns": [
+       {
+        "label": "Pheasant spawn #1",
+        "ref": "76AA24",
+        "source_type": "placement",
+        "coords": [
+         82389.7734375,
+         -232450.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #2",
+        "ref": "76AA25",
+        "source_type": "placement",
+        "coords": [
+         82083.5,
+         -232630.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #3",
+        "ref": "76AA26",
+        "source_type": "placement",
+        "coords": [
+         82154.875,
+         -232016.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #4",
+        "ref": "76AA27",
+        "source_type": "placement",
+        "coords": [
+         82409.234375,
+         -232243.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 2,
+  "total_placements": 12
+ },
+ "blurb": "The Pheasant in Fallout 76 — drops Intestine, 6 NPC variants, 12 known spawn points."
+}

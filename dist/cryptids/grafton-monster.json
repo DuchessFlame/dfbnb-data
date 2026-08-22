@@ -1,0 +1,708 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "GraftonMonsterRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 5,
+   "placement": 4,
+   "spawn": 5
+  },
+  "unresolved": {},
+  "hold": false
+ },
+ "set": "cryptids",
+ "slug": "grafton-monster",
+ "name": "Grafton Monster",
+ "page_title": "Cryptids - Grafton Monster",
+ "url": "/df/cryptids/grafton-monster/",
+ "blurb": "The Grafton Monster in Fallout 76 — 14 NPC variants, 14 known spawn points, 12683 possible drops.",
+ "npc_summary": {
+  "npc_count": 14,
+  "level_min": 10,
+  "level_max": 100,
+  "health_max": 12500
+ },
+ "used_for": [
+  {
+   "type": "Lifetime",
+   "name": "Claim the Grafton Steel Workshop",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Workshop_Claim_SUB_GraftonSteel",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Kill Human-like Creatures",
+   "required": 76,
+   "edid": "Challenge_Lifetime_Kill_Humanlike_Low",
+   "page": "combat"
+  },
+  {
+   "type": "Mini Season",
+   "name": "Cryptid Hunt: Kill a Grafton Monster with the Cold Shoulder",
+   "required": 1,
+   "edid": "ATX_DE2023_RipDaring_Challenge_Week1_Daily_Kill_Grafton",
+   "page": "season:rip-daring"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic - Take a Camera Picture of a Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_LegendaryCryptid_Camera_Epic",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic: Take a Camera Picture of a Glowing Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_GlowingCryptid_Camera_Epic",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic: Take a Picture of the Grafton Monster While Mutated",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_GraftonMonsterWhileMutated_Camera_Epic",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Kill the Grafton Monster",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Kill_HugeMonsters_SUB_GraftonMonster_Med",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Take a Picture of a Grafton Monster",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_Grafton_Monster_Camera",
+   "page": "weekly"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [
+  {
+   "name": "Activity: Grafton Day",
+   "edid": "TWZ07",
+   "type": "Event",
+   "location": "",
+   "form_id": "0025C0F4"
+  },
+  {
+   "name": "Grafton Cache",
+   "edid": "MQ_Overseer_CacheQuest_X2_Grafton",
+   "type": "Miscellaneous",
+   "location": "",
+   "form_id": "003D7F5F"
+  },
+  {
+   "name": "Grafton Steel",
+   "edid": "CUT_Factory_GraftonSteel",
+   "type": "Secondary",
+   "location": "LocToxicGraftonSteelLocation \"Grafton Steel\" [LCTN:0006D2F2]",
+   "form_id": "00241430"
+  }
+ ],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Grafton",
+    "form_id": "0032F76B",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 12683,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (very large)",
+      "sub_id": "003DF3DA",
+      "edid": "LLS_Creature_VeryLarge",
+      "item_count": 12636,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "40.18%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "22.32%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Grafton",
+      "sub_id": "00434386",
+      "edid": "LLE_Creature_Boss_Component_Grafton",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Waste Oil",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Waste Acid",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Caps Very Large",
+      "sub_id": "003DF3D7",
+      "edid": "LLE_Creature_Caps_VeryLarge",
+      "item_count": 40,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Caps",
+        "rate_display": "10%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Sticky Tar",
+      "form_id": "0032C6D1",
+      "edid": "GraftonMonster_Tar",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "00529E1C",
+   "edid": "RE_TravelCMB06",
+   "name": "Ghouls vs. Grafton",
+   "type": "Travel Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00529E19",
+   "edid": "RE_TravelCMB03",
+   "name": "Wandering Grafton Boss",
+   "type": "Travel Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Watoga Civic Center",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "55B028"
+      ],
+      "coords": [
+       2264.0,
+       -632.0
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster spawn",
+        "ref": "55B028",
+        "source_type": "placement",
+        "coords": [
+         2264.0,
+         -632.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Charleston Trainyard",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4FD421"
+      ],
+      "coords": [
+       -113705.9140625,
+       -44878.36328125
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster spawn",
+        "ref": "4FD421",
+        "source_type": "placement",
+        "coords": [
+         -113705.9140625,
+         -44878.36328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Summersville Dam",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "432E58",
+       "432E7F"
+      ],
+      "coords": [
+       -83037.7265625,
+       -58862.4296875
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster ambush",
+        "ref": "432E7F",
+        "source_type": "ambush",
+        "coords": [
+         -83037.7265625,
+         -58862.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Grafton Monster spawn",
+        "ref": "432E58",
+        "source_type": "placement",
+        "coords": [
+         -83037.7265625,
+         -58862.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "The Whitespring Golf Club",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1FAF3B",
+       "1FAFC5"
+      ],
+      "coords": [
+       -7214.09619140625,
+       -48398.34765625
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster spawn #1",
+        "ref": "1FAF3B",
+        "source_type": "spawn",
+        "coords": [
+         -7214.09619140625,
+         -48398.34765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Grafton Monster spawn #2",
+        "ref": "1FAFC5",
+        "source_type": "spawn",
+        "coords": [
+         -6888.84912109375,
+         -47032.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Whitespring North Entrance",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1FAF4F",
+       "1FAFC6",
+       "1FAFC9"
+      ],
+      "coords": [
+       -3080.83935546875,
+       -44791.99609375
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster spawn #1",
+        "ref": "1FAF4F",
+        "source_type": "spawn",
+        "coords": [
+         -3080.83935546875,
+         -44791.99609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Grafton Monster spawn #2",
+        "ref": "1FAFC6",
+        "source_type": "spawn",
+        "coords": [
+         -848.509826660156,
+         -42740.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Grafton Monster spawn #3",
+        "ref": "1FAFC9",
+        "source_type": "spawn",
+        "coords": [
+         -2280.658203125,
+         -45848.3671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Abandoned Waste Dump",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1A1780"
+      ],
+      "coords": [
+       189516.921875,
+       23667.732421875
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster ambush",
+        "ref": "1A1780",
+        "source_type": "ambush",
+        "coords": [
+         189516.921875,
+         23667.732421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Crashed Plane",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "530B32"
+      ],
+      "coords": [
+       145705.375,
+       57723.83984375
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster ambush",
+        "ref": "530B32",
+        "source_type": "ambush",
+        "coords": [
+         145705.375,
+         57723.83984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Ella Ames' Bunker",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1A1787"
+      ],
+      "coords": [
+       163695.546875,
+       100165.2421875
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster ambush",
+        "ref": "1A1787",
+        "source_type": "ambush",
+        "coords": [
+         163695.546875,
+         100165.2421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Hemlock Holes",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C3F6F"
+      ],
+      "coords": [
+       -65246.60546875,
+       178882.703125
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster spawn",
+        "ref": "3C3F6F",
+        "source_type": "placement",
+        "coords": [
+         -65246.60546875,
+         178882.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Toxic Dried Lakebed",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "451F46"
+      ],
+      "coords": [
+       -18902.412109375,
+       178728.609375
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster ambush",
+        "ref": "451F46",
+        "source_type": "ambush",
+        "coords": [
+         -18902.412109375,
+         178728.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 10,
+  "total_placements": 14
+ }
+}

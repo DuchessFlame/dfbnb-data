@@ -1,0 +1,5531 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "StingwingRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 3,
+   "placement": 16,
+   "spawn": 289
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "stingwing",
+ "name": "Stingwing",
+ "page_title": "Farming - Meat - Stingwing",
+ "url": "/bnb/farming/meat/stingwing/",
+ "npc_summary": {
+  "npc_count": 23,
+  "level_min": 1,
+  "level_max": 100,
+  "health_max": 370
+ },
+ "meat_items": [
+  {
+   "name": "Stingwing Meat",
+   "form_id": "00074D0F",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Epic - Kill a Corrosive Stingwing",
+   "required": 12,
+   "edid": "SCORE_Challenge_Daily_Kill_Burning_Stingwing_Epic",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill a Corrosive Stingwing",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Kill_Burning_Stingwing",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Take a Camera Picture of a Stingwing",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_Stingwing_Camera",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Kill a Corrosive Stingwing with the Sunset Sarsaparilla Deputy Hat Equipped",
+   "required": 30,
+   "edid": "ATX_DE2025_SunsetStranger_Week2_Challenge_Kill_BurningStingwing",
+   "page": "events"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Stingwing",
+    "form_id": "00074D12",
+    "row_count": 4,
+    "direct_items": 2,
+    "pool_count": 2,
+    "item_count": 3,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "LLE Creature Small",
+      "sub_id": "003DF3FB",
+      "edid": "LLE_Creature_Small",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Stingwing Meat",
+      "form_id": "00074D0F",
+      "edid": "StingwingMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "item",
+      "name": "Stingwing Barb",
+      "form_id": "000628EF",
+      "edid": "StingwingBarb",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.6,
+      "rate_display": "60%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Stingwing",
+      "sub_id": "0008E3B7",
+      "edid": "LLE_Creature_Stingwing",
+      "item_count": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Stingwing Meat",
+        "rate_display": "0%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0081EFC3",
+   "edid": "Burn_RE_Assault_KK08",
+   "name": "Stingwing vs Rad Scorpions",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0081EFBF",
+   "edid": "Burn_RE_Assault_KK07",
+   "name": "Stingwings vs Deathclaw",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0081EFC4",
+   "edid": "Burn_RE_Assault_KK06",
+   "name": "Stingwings VS Rust King Raiders",
+   "type": "Assault Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Abraxodyne Chemical Power Substation",
+      "count": 9,
+      "sources": {
+       "placement": 4,
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8040F5",
+       "8040F6",
+       "81BD07",
+       "81BD08",
+       "81BD09",
+       "81BD0A",
+       "82A38A",
+       "82A3A3",
+       "82A3A4"
+      ],
+      "coords": [
+       -214228.078125,
+       15050.3642578125
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "81BD07",
+        "source_type": "placement",
+        "coords": [
+         -214228.078125,
+         15050.3642578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "81BD08",
+        "source_type": "placement",
+        "coords": [
+         -215171.171875,
+         13149.43359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "81BD09",
+        "source_type": "placement",
+        "coords": [
+         -216800.0,
+         13664.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "81BD0A",
+        "source_type": "placement",
+        "coords": [
+         -215526.203125,
+         14966.91796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "8040F5",
+        "source_type": "spawn",
+        "coords": [
+         -225172.140625,
+         3574.07739257812
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "8040F6",
+        "source_type": "spawn",
+        "coords": [
+         -222768.0,
+         632.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "82A38A",
+        "source_type": "spawn",
+        "coords": [
+         -225979.96875,
+         786.47216796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "82A3A3",
+        "source_type": "spawn",
+        "coords": [
+         -226132.875,
+         654.820556640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "82A3A4",
+        "source_type": "spawn",
+        "coords": [
+         -225877.1875,
+         602.9912109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Albany",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "844779",
+       "84477A",
+       "84477C",
+       "844785",
+       "844786",
+       "844788",
+       "844789",
+       "84478A",
+       "84478D"
+      ],
+      "coords": [
+       -219969.640625,
+       49224.90625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "844779",
+        "source_type": "spawn",
+        "coords": [
+         -219969.640625,
+         49224.90625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "84477A",
+        "source_type": "spawn",
+        "coords": [
+         -221272.96875,
+         49510.7734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "84477C",
+        "source_type": "spawn",
+        "coords": [
+         -220822.109375,
+         50200.48828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "844785",
+        "source_type": "spawn",
+        "coords": [
+         -227380.765625,
+         63429.62109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "844786",
+        "source_type": "spawn",
+        "coords": [
+         -227566.9375,
+         64290.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "844788",
+        "source_type": "spawn",
+        "coords": [
+         -228322.6875,
+         63749.43359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "844789",
+        "source_type": "spawn",
+        "coords": [
+         -220602.703125,
+         62407.23046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "84478A",
+        "source_type": "spawn",
+        "coords": [
+         -221056.625,
+         63270.97265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "84478D",
+        "source_type": "spawn",
+        "coords": [
+         -220359.59375,
+         62554.0703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Ash Cave",
+      "count": 21,
+      "sources": {
+       "spawn": 21
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83F2E5",
+       "83F2ED",
+       "83F2F0",
+       "83F2F7",
+       "83FD87",
+       "83FD8D",
+       "83FDBB",
+       "83FDBC",
+       "83FDDA",
+       "83FDDB",
+       "8429A6",
+       "8429A7",
+       "8429A9",
+       "8429B0",
+       "8429B1",
+       "8429B4",
+       "8429B8",
+       "8464B8",
+       "8464B9",
+       "8464BB",
+       "8464BC"
+      ],
+      "coords": [
+       -260076.09375,
+       108568.2578125
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "83F2E5",
+        "source_type": "spawn",
+        "coords": [
+         -260076.09375,
+         108568.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "83F2ED",
+        "source_type": "spawn",
+        "coords": [
+         -259200.0,
+         108896.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "83F2F0",
+        "source_type": "spawn",
+        "coords": [
+         -260008.0,
+         109040.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "83F2F7",
+        "source_type": "spawn",
+        "coords": [
+         -259520.0,
+         108688.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "83FD87",
+        "source_type": "spawn",
+        "coords": [
+         -250136.765625,
+         115443.3046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "83FD8D",
+        "source_type": "spawn",
+        "coords": [
+         -264884.34375,
+         106804.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "83FDBB",
+        "source_type": "spawn",
+        "coords": [
+         -264360.0625,
+         106620.6328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "83FDBC",
+        "source_type": "spawn",
+        "coords": [
+         -265486.375,
+         106672.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "83FDDA",
+        "source_type": "spawn",
+        "coords": [
+         -250143.375,
+         114959.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #10",
+        "ref": "83FDDB",
+        "source_type": "spawn",
+        "coords": [
+         -250176.5,
+         114787.84375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #11",
+        "ref": "8429A6",
+        "source_type": "spawn",
+        "coords": [
+         -262274.09375,
+         124831.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #12",
+        "ref": "8429A7",
+        "source_type": "spawn",
+        "coords": [
+         -262529.78125,
+         124883.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #13",
+        "ref": "8429A9",
+        "source_type": "spawn",
+        "coords": [
+         -262376.875,
+         125015.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #14",
+        "ref": "8429B0",
+        "source_type": "spawn",
+        "coords": [
+         -262529.78125,
+         123882.3515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #15",
+        "ref": "8429B1",
+        "source_type": "spawn",
+        "coords": [
+         -261251.53125,
+         124831.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #16",
+        "ref": "8429B4",
+        "source_type": "spawn",
+        "coords": [
+         -257981.75,
+         131393.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #17",
+        "ref": "8429B8",
+        "source_type": "spawn",
+        "coords": [
+         -258680.28125,
+         132541.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #18",
+        "ref": "8464B8",
+        "source_type": "spawn",
+        "coords": [
+         -265922.9375,
+         135551.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #19",
+        "ref": "8464B9",
+        "source_type": "spawn",
+        "coords": [
+         -266347.71875,
+         135445.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #20",
+        "ref": "8464BB",
+        "source_type": "spawn",
+        "coords": [
+         -266620.84375,
+         136089.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #21",
+        "ref": "8464BC",
+        "source_type": "spawn",
+        "coords": [
+         -266046.34375,
+         134264.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 21,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Athens",
+      "count": 12,
+      "sources": {
+       "spawn": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8447AF",
+       "8447B0",
+       "8447B3",
+       "8447BA",
+       "8447BB",
+       "8447BE",
+       "845161",
+       "84517D",
+       "84517E",
+       "8464AB",
+       "8464AC",
+       "8464AF"
+      ],
+      "coords": [
+       -233063.703125,
+       165935.609375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "8447AF",
+        "source_type": "spawn",
+        "coords": [
+         -233063.703125,
+         165935.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "8447B0",
+        "source_type": "spawn",
+        "coords": [
+         -232653.984375,
+         167035.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "8447B3",
+        "source_type": "spawn",
+        "coords": [
+         -233677.40625,
+         166798.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "8447BA",
+        "source_type": "spawn",
+        "coords": [
+         -232169.203125,
+         172717.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "8447BB",
+        "source_type": "spawn",
+        "coords": [
+         -232555.46875,
+         172221.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "8447BE",
+        "source_type": "spawn",
+        "coords": [
+         -231699.765625,
+         172538.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "845161",
+        "source_type": "spawn",
+        "coords": [
+         -225794.875,
+         177827.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "84517D",
+        "source_type": "spawn",
+        "coords": [
+         -226839.5625,
+         177195.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "84517E",
+        "source_type": "spawn",
+        "coords": [
+         -226192.53125,
+         176742.90625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #10",
+        "ref": "8464AB",
+        "source_type": "spawn",
+        "coords": [
+         -264253.65625,
+         143034.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #11",
+        "ref": "8464AC",
+        "source_type": "spawn",
+        "coords": [
+         -264043.78125,
+         143504.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #12",
+        "ref": "8464AF",
+        "source_type": "spawn",
+        "coords": [
+         -262931.875,
+         142666.046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 12,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dino Peaks Mini Golf",
+      "count": 21,
+      "sources": {
+       "spawn": 21
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8295E3",
+       "8295E4",
+       "8295E7",
+       "82B955",
+       "82B956",
+       "82B959",
+       "82E083",
+       "82E084",
+       "82E087",
+       "82E08F",
+       "82E090",
+       "82E093",
+       "8316EA",
+       "831706",
+       "831707",
+       "83A66C",
+       "83A66D",
+       "83A66F",
+       "84479D",
+       "84479E",
+       "8447A0"
+      ],
+      "coords": [
+       -198619.828125,
+       137010.875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "8295E3",
+        "source_type": "spawn",
+        "coords": [
+         -226848.390625,
+         150992.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "8295E4",
+        "source_type": "spawn",
+        "coords": [
+         -226862.53125,
+         153998.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "8295E7",
+        "source_type": "spawn",
+        "coords": [
+         -228158.453125,
+         153806.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "82B955",
+        "source_type": "spawn",
+        "coords": [
+         -198619.828125,
+         137010.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "82B956",
+        "source_type": "spawn",
+        "coords": [
+         -198468.078125,
+         137223.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "82B959",
+        "source_type": "spawn",
+        "coords": [
+         -198830.1875,
+         137342.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "82E083",
+        "source_type": "spawn",
+        "coords": [
+         -211254.0625,
+         132752.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "82E084",
+        "source_type": "spawn",
+        "coords": [
+         -211102.3125,
+         132965.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "82E087",
+        "source_type": "spawn",
+        "coords": [
+         -211312.0,
+         132944.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #10",
+        "ref": "82E08F",
+        "source_type": "spawn",
+        "coords": [
+         -206960.0,
+         153208.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #11",
+        "ref": "82E090",
+        "source_type": "spawn",
+        "coords": [
+         -206810.6875,
+         153421.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #12",
+        "ref": "82E093",
+        "source_type": "spawn",
+        "coords": [
+         -207020.15625,
+         153402.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #13",
+        "ref": "8316EA",
+        "source_type": "spawn",
+        "coords": [
+         -219096.0,
+         153368.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #14",
+        "ref": "831706",
+        "source_type": "spawn",
+        "coords": [
+         -219038.296875,
+         153174.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #15",
+        "ref": "831707",
+        "source_type": "spawn",
+        "coords": [
+         -218886.53125,
+         153386.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #16",
+        "ref": "83A66C",
+        "source_type": "spawn",
+        "coords": [
+         -203113.6875,
+         156669.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #17",
+        "ref": "83A66D",
+        "source_type": "spawn",
+        "coords": [
+         -203369.375,
+         156721.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #18",
+        "ref": "83A66F",
+        "source_type": "spawn",
+        "coords": [
+         -203216.46875,
+         156852.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #19",
+        "ref": "84479D",
+        "source_type": "spawn",
+        "coords": [
+         -219479.046875,
+         165286.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #20",
+        "ref": "84479E",
+        "source_type": "spawn",
+        "coords": [
+         -220804.96875,
+         164730.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #21",
+        "ref": "8447A0",
+        "source_type": "spawn",
+        "coords": [
+         -220522.046875,
+         166752.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 21,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Fort Steuben",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83B63F",
+       "83B640",
+       "83B641",
+       "83B643",
+       "83B65E",
+       "83B65F",
+       "83B6A0",
+       "83B6A1",
+       "83B6A4"
+      ],
+      "coords": [
+       -215315.09375,
+       42717.4609375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "83B63F",
+        "source_type": "spawn",
+        "coords": [
+         -207904.90625,
+         39376.6953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "83B640",
+        "source_type": "spawn",
+        "coords": [
+         -207659.265625,
+         39476.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "83B641",
+        "source_type": "spawn",
+        "coords": [
+         -207847.1875,
+         39183.33984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "83B643",
+        "source_type": "spawn",
+        "coords": [
+         -215315.09375,
+         42717.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "83B65E",
+        "source_type": "spawn",
+        "coords": [
+         -215257.375,
+         42524.10546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "83B65F",
+        "source_type": "spawn",
+        "coords": [
+         -215105.625,
+         42736.31640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "83B6A0",
+        "source_type": "spawn",
+        "coords": [
+         -203785.5,
+         24172.69921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "83B6A1",
+        "source_type": "spawn",
+        "coords": [
+         -203633.734375,
+         24384.91015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "83B6A4",
+        "source_type": "spawn",
+        "coords": [
+         -203843.203125,
+         24366.048828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hamley Run Camp",
+      "count": 13,
+      "sources": {
+       "spawn": 13
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "845163",
+       "845164",
+       "845166",
+       "845167",
+       "847898",
+       "84789A",
+       "84789C",
+       "84789E",
+       "84789F",
+       "8478A8",
+       "8478A9",
+       "8478B1",
+       "8478B3"
+      ],
+      "coords": [
+       -243409.3125,
+       178195.765625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "845163",
+        "source_type": "spawn",
+        "coords": [
+         -243409.3125,
+         178195.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "845164",
+        "source_type": "spawn",
+        "coords": [
+         -242991.640625,
+         179015.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "845166",
+        "source_type": "spawn",
+        "coords": [
+         -244127.671875,
+         178593.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "845167",
+        "source_type": "spawn",
+        "coords": [
+         -244277.984375,
+         177612.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "847898",
+        "source_type": "spawn",
+        "coords": [
+         -268716.03125,
+         168379.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "84789A",
+        "source_type": "spawn",
+        "coords": [
+         -258015.65625,
+         173988.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "84789C",
+        "source_type": "spawn",
+        "coords": [
+         -251634.171875,
+         170115.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "84789E",
+        "source_type": "spawn",
+        "coords": [
+         -267939.09375,
+         168404.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "84789F",
+        "source_type": "spawn",
+        "coords": [
+         -268274.625,
+         168832.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #10",
+        "ref": "8478A8",
+        "source_type": "spawn",
+        "coords": [
+         -250842.4375,
+         169666.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #11",
+        "ref": "8478A9",
+        "source_type": "spawn",
+        "coords": [
+         -251861.484375,
+         169008.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #12",
+        "ref": "8478B1",
+        "source_type": "spawn",
+        "coords": [
+         -258501.375,
+         173073.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #13",
+        "ref": "8478B3",
+        "source_type": "spawn",
+        "coords": [
+         -259151.734375,
+         174002.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 13,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Highway Town",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B676",
+       "82B699",
+       "82B69A",
+       "83FD89",
+       "83FDC5",
+       "83FDC6"
+      ],
+      "coords": [
+       -231566.859375,
+       108449.0078125
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82B676",
+        "source_type": "spawn",
+        "coords": [
+         -231566.859375,
+         108449.0078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "82B699",
+        "source_type": "spawn",
+        "coords": [
+         -231359.125,
+         108469.0234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "82B69A",
+        "source_type": "spawn",
+        "coords": [
+         -231509.15625,
+         108255.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "83FD89",
+        "source_type": "spawn",
+        "coords": [
+         -246080.078125,
+         92351.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "83FDC5",
+        "source_type": "spawn",
+        "coords": [
+         -245940.125,
+         91707.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "83FDC6",
+        "source_type": "spawn",
+        "coords": [
+         -246725.03125,
+         92190.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hocking Hills Train Station",
+      "count": 17,
+      "sources": {
+       "placement": 2,
+       "spawn": 15
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83A183",
+       "83A184",
+       "83A185",
+       "83A186",
+       "83A187",
+       "84579B",
+       "84579C",
+       "84579E",
+       "8457A8",
+       "8457A9",
+       "8457AB",
+       "845D7D",
+       "845D7E",
+       "845D80",
+       "845D9D",
+       "845D9E",
+       "845DA1"
+      ],
+      "coords": [
+       -255599.828125,
+       65943.703125
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "83A183",
+        "source_type": "placement",
+        "coords": [
+         -255599.828125,
+         65943.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "83A184",
+        "source_type": "placement",
+        "coords": [
+         -255497.046875,
+         65760.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "83A185",
+        "source_type": "spawn",
+        "coords": [
+         -260236.125,
+         59216.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "83A186",
+        "source_type": "spawn",
+        "coords": [
+         -260083.21875,
+         59348.08203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "83A187",
+        "source_type": "spawn",
+        "coords": [
+         -259980.4375,
+         59164.6015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "84579B",
+        "source_type": "spawn",
+        "coords": [
+         -265319.0,
+         84185.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "84579C",
+        "source_type": "spawn",
+        "coords": [
+         -265823.28125,
+         82668.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "84579E",
+        "source_type": "spawn",
+        "coords": [
+         -265067.59375,
+         83322.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "8457A8",
+        "source_type": "spawn",
+        "coords": [
+         -269196.25,
+         72096.5078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "8457A9",
+        "source_type": "spawn",
+        "coords": [
+         -268549.21875,
+         72575.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "8457AB",
+        "source_type": "spawn",
+        "coords": [
+         -268222.15625,
+         71747.0546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #10",
+        "ref": "845D7D",
+        "source_type": "spawn",
+        "coords": [
+         -261045.265625,
+         94113.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #11",
+        "ref": "845D7E",
+        "source_type": "spawn",
+        "coords": [
+         -261687.5,
+         94794.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #12",
+        "ref": "845D80",
+        "source_type": "spawn",
+        "coords": [
+         -261037.25,
+         94991.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #13",
+        "ref": "845D9D",
+        "source_type": "spawn",
+        "coords": [
+         -250027.171875,
+         72784.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #14",
+        "ref": "845D9E",
+        "source_type": "spawn",
+        "coords": [
+         -249207.921875,
+         71961.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #15",
+        "ref": "845DA1",
+        "source_type": "spawn",
+        "coords": [
+         -249546.53125,
+         72401.15625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 15,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Honey Well Apiary",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8236A0",
+       "8236A3",
+       "8236A6",
+       "8236AB",
+       "8236AC",
+       "8236D7",
+       "8236DE",
+       "8236DF",
+       "8236E0"
+      ],
+      "coords": [
+       -228980.59375,
+       91352.46875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "8236A0",
+        "source_type": "spawn",
+        "coords": [
+         -228980.59375,
+         91352.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "8236A3",
+        "source_type": "spawn",
+        "coords": [
+         -232039.21875,
+         83225.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "8236A6",
+        "source_type": "spawn",
+        "coords": [
+         -235895.640625,
+         89481.0234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "8236AB",
+        "source_type": "spawn",
+        "coords": [
+         -232192.125,
+         83094.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "8236AC",
+        "source_type": "spawn",
+        "coords": [
+         -231936.4375,
+         83042.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "8236D7",
+        "source_type": "spawn",
+        "coords": [
+         -228877.8125,
+         91168.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "8236DE",
+        "source_type": "spawn",
+        "coords": [
+         -235784.765625,
+         89316.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "8236DF",
+        "source_type": "spawn",
+        "coords": [
+         -232075.59375,
+         82932.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "8236E0",
+        "source_type": "spawn",
+        "coords": [
+         -235860.703125,
+         89151.3046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Jackson Junkyard",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B680",
+       "82B694",
+       "82B695",
+       "83A189",
+       "83A18A",
+       "83A18C"
+      ],
+      "coords": [
+       -244018.90625,
+       38468.109375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82B680",
+        "source_type": "spawn",
+        "coords": [
+         -244018.90625,
+         38468.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "82B694",
+        "source_type": "spawn",
+        "coords": [
+         -243961.1875,
+         38274.75390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "82B695",
+        "source_type": "spawn",
+        "coords": [
+         -243809.4375,
+         38486.96484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "83A189",
+        "source_type": "spawn",
+        "coords": [
+         -264801.125,
+         47020.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "83A18A",
+        "source_type": "spawn",
+        "coords": [
+         -264903.9375,
+         47204.33984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "83A18C",
+        "source_type": "spawn",
+        "coords": [
+         -265056.8125,
+         47072.68359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Meadow Breeze Storage Depot",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82EBED",
+       "82EBEE",
+       "82EBEF",
+       "835713",
+       "835714",
+       "835717"
+      ],
+      "coords": [
+       -252158.0625,
+       10315.353515625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82EBED",
+        "source_type": "spawn",
+        "coords": [
+         -252158.0625,
+         10315.353515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "82EBEE",
+        "source_type": "spawn",
+        "coords": [
+         -251646.265625,
+         10658.3466796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "82EBEF",
+        "source_type": "spawn",
+        "coords": [
+         -252335.828125,
+         10709.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "835713",
+        "source_type": "spawn",
+        "coords": [
+         -259264.5625,
+         13084.2470703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "835714",
+        "source_type": "spawn",
+        "coords": [
+         -259233.125,
+         12825.240234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "835717",
+        "source_type": "spawn",
+        "coords": [
+         -259091.390625,
+         12980.6484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Prospect Hill",
+      "count": 10,
+      "sources": {
+       "spawn": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82813E",
+       "82813F",
+       "828142",
+       "828143",
+       "8286B9",
+       "8286BA",
+       "8286BD",
+       "82B182",
+       "82B183",
+       "82B186"
+      ],
+      "coords": [
+       -206696.84375,
+       96629.875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82813E",
+        "source_type": "spawn",
+        "coords": [
+         -206283.3125,
+         104040.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "82813F",
+        "source_type": "spawn",
+        "coords": [
+         -206131.5625,
+         104252.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "828142",
+        "source_type": "spawn",
+        "coords": [
+         -206341.03125,
+         104234.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "828143",
+        "source_type": "spawn",
+        "coords": [
+         -205951.109375,
+         103942.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "8286B9",
+        "source_type": "spawn",
+        "coords": [
+         -219263.90625,
+         112263.046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "8286BA",
+        "source_type": "spawn",
+        "coords": [
+         -219112.15625,
+         112475.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "8286BD",
+        "source_type": "spawn",
+        "coords": [
+         -219321.625,
+         112456.3984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "82B182",
+        "source_type": "spawn",
+        "coords": [
+         -206696.84375,
+         96629.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "82B183",
+        "source_type": "spawn",
+        "coords": [
+         -206545.75,
+         96840.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #10",
+        "ref": "82B186",
+        "source_type": "spawn",
+        "coords": [
+         -206740.515625,
+         96842.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 10,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Railroad Service Yard",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B6B1",
+       "82B6B2",
+       "82B6B5",
+       "82B6C0",
+       "82B6C1",
+       "82B6C4"
+      ],
+      "coords": [
+       -228658.296875,
+       20969.275390625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82B6B1",
+        "source_type": "spawn",
+        "coords": [
+         -228658.296875,
+         20969.275390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "82B6B2",
+        "source_type": "spawn",
+        "coords": [
+         -226697.578125,
+         23689.529296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "82B6B5",
+        "source_type": "spawn",
+        "coords": [
+         -229166.625,
+         24393.958984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "82B6C0",
+        "source_type": "spawn",
+        "coords": [
+         -235466.109375,
+         30518.8671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "82B6C1",
+        "source_type": "spawn",
+        "coords": [
+         -235314.34375,
+         30731.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "82B6C4",
+        "source_type": "spawn",
+        "coords": [
+         -235731.046875,
+         30712.216796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sand Fork Lumber",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82A390",
+       "82A39F",
+       "82A3A1",
+       "83A211",
+       "83A212",
+       "83A214",
+       "84630E",
+       "846320",
+       "846321"
+      ],
+      "coords": [
+       -210310.625,
+       -9300.849609375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82A390",
+        "source_type": "spawn",
+        "coords": [
+         -214842.0625,
+         406.143310546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "82A39F",
+        "source_type": "spawn",
+        "coords": [
+         -214994.96875,
+         274.491943359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "82A3A1",
+        "source_type": "spawn",
+        "coords": [
+         -214739.28125,
+         222.662841796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "83A211",
+        "source_type": "spawn",
+        "coords": [
+         -217680.15625,
+         -19010.83203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "83A212",
+        "source_type": "spawn",
+        "coords": [
+         -217882.84375,
+         -18846.607421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "83A214",
+        "source_type": "spawn",
+        "coords": [
+         -217686.390625,
+         -18800.6171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "84630E",
+        "source_type": "spawn",
+        "coords": [
+         -210310.625,
+         -9300.849609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "846320",
+        "source_type": "spawn",
+        "coords": [
+         -210463.53125,
+         -9432.5009765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "846321",
+        "source_type": "spawn",
+        "coords": [
+         -210207.84375,
+         -9484.330078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sandy's Sock Hop",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83FD8B",
+       "83FDE3",
+       "83FDE4",
+       "84072C",
+       "84072D",
+       "840730"
+      ],
+      "coords": [
+       -251605.75,
+       105526.5859375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "83FD8B",
+        "source_type": "spawn",
+        "coords": [
+         -251605.75,
+         105526.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "83FDE3",
+        "source_type": "spawn",
+        "coords": [
+         -251111.25,
+         105035.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "83FDE4",
+        "source_type": "spawn",
+        "coords": [
+         -251758.65625,
+         105073.6953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "84072C",
+        "source_type": "spawn",
+        "coords": [
+         -245321.671875,
+         99380.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "84072D",
+        "source_type": "spawn",
+        "coords": [
+         -244939.59375,
+         99349.1640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "840730",
+        "source_type": "spawn",
+        "coords": [
+         -245236.125,
+         99721.6171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Shade Hill Church",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B67A",
+       "82B6A6",
+       "82B6A7",
+       "83FD93",
+       "83FDCB",
+       "83FDD5",
+       "8429B5"
+      ],
+      "coords": [
+       -238585.34375,
+       117479.5390625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82B67A",
+        "source_type": "spawn",
+        "coords": [
+         -238585.34375,
+         117479.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "82B6A6",
+        "source_type": "spawn",
+        "coords": [
+         -238243.9375,
+         117396.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "82B6A7",
+        "source_type": "spawn",
+        "coords": [
+         -238395.6875,
+         117184.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "83FD93",
+        "source_type": "spawn",
+        "coords": [
+         -249449.4375,
+         119541.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "83FDCB",
+        "source_type": "spawn",
+        "coords": [
+         -249403.171875,
+         118946.7265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "83FDD5",
+        "source_type": "spawn",
+        "coords": [
+         -250252.71875,
+         119991.7109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "8429B5",
+        "source_type": "spawn",
+        "coords": [
+         -257987.828125,
+         132611.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Starlight Drive-in",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "828130",
+       "828131",
+       "828134",
+       "82869A",
+       "82869B",
+       "82869E",
+       "8286AA",
+       "8286AB",
+       "8286AE"
+      ],
+      "coords": [
+       -211066.3125,
+       124763.71875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "828130",
+        "source_type": "spawn",
+        "coords": [
+         -211066.3125,
+         124763.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "828131",
+        "source_type": "spawn",
+        "coords": [
+         -210914.5625,
+         124975.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "828134",
+        "source_type": "spawn",
+        "coords": [
+         -211124.03125,
+         124957.0703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "82869A",
+        "source_type": "spawn",
+        "coords": [
+         -194612.90625,
+         103830.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "82869B",
+        "source_type": "spawn",
+        "coords": [
+         -194638.90625,
+         104069.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "82869E",
+        "source_type": "spawn",
+        "coords": [
+         -195005.640625,
+         104242.75
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "8286AA",
+        "source_type": "spawn",
+        "coords": [
+         -193020.203125,
+         122190.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "8286AB",
+        "source_type": "spawn",
+        "coords": [
+         -192868.4375,
+         122402.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "8286AE",
+        "source_type": "spawn",
+        "coords": [
+         -193077.90625,
+         122383.6796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Super Duper Mart",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82A674",
+       "82A67B",
+       "82A67C",
+       "82B6D9",
+       "82B6DB",
+       "82B6DC"
+      ],
+      "coords": [
+       -236600.0,
+       137952.0
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82A674",
+        "source_type": "spawn",
+        "coords": [
+         -236600.0,
+         137952.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "82A67B",
+        "source_type": "spawn",
+        "coords": [
+         -236328.0,
+         138416.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "82A67C",
+        "source_type": "spawn",
+        "coords": [
+         -236200.0,
+         136776.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "82B6D9",
+        "source_type": "spawn",
+        "coords": [
+         -227752.0,
+         134208.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "82B6DB",
+        "source_type": "spawn",
+        "coords": [
+         -228064.90625,
+         133793.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "82B6DC",
+        "source_type": "spawn",
+        "coords": [
+         -227096.0,
+         135832.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Chop Shop",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82369A",
+       "8236C8",
+       "8236C9"
+      ],
+      "coords": [
+       -223225.9375,
+       79753.3203125
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82369A",
+        "source_type": "spawn",
+        "coords": [
+         -223225.9375,
+         79753.3203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "8236C8",
+        "source_type": "spawn",
+        "coords": [
+         -223378.84375,
+         79621.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "8236C9",
+        "source_type": "spawn",
+        "coords": [
+         -223123.15625,
+         79569.8359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Rust Kingdom",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82A38D",
+       "82A393",
+       "82A394",
+       "82EBF1",
+       "82EC2D",
+       "82EC2E"
+      ],
+      "coords": [
+       -248476.25,
+       -1638.67309570313
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "82A38D",
+        "source_type": "spawn",
+        "coords": [
+         -239261.15625,
+         2037.26208496094
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "82A393",
+        "source_type": "spawn",
+        "coords": [
+         -239327.734375,
+         1846.79077148438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "82A394",
+        "source_type": "spawn",
+        "coords": [
+         -239080.40625,
+         1929.75183105469
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "82EBF1",
+        "source_type": "spawn",
+        "coords": [
+         -248476.25,
+         -1638.67309570313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "82EC2D",
+        "source_type": "spawn",
+        "coords": [
+         -248628.671875,
+         -2573.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "82EC2E",
+        "source_type": "spawn",
+        "coords": [
+         -247547.15625,
+         -1535.40063476562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Tycoon Lake",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "84630B",
+       "846318",
+       "846319"
+      ],
+      "coords": [
+       -195007.015625,
+       13382.77734375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "84630B",
+        "source_type": "spawn",
+        "coords": [
+         -195007.015625,
+         13382.77734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "846318",
+        "source_type": "spawn",
+        "coords": [
+         -194992.0,
+         13584.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "846319",
+        "source_type": "spawn",
+        "coords": [
+         -195209.46875,
+         13439.81640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "World of Corn",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83A188",
+       "83A18B",
+       "83A18D",
+       "844783",
+       "844792",
+       "844793",
+       "844796"
+      ],
+      "coords": [
+       -252127.25,
+       59345.3515625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "83A188",
+        "source_type": "spawn",
+        "coords": [
+         -252127.25,
+         59345.3515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "83A18B",
+        "source_type": "spawn",
+        "coords": [
+         -251974.34375,
+         59477.00390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "83A18D",
+        "source_type": "spawn",
+        "coords": [
+         -251871.5625,
+         59293.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "844783",
+        "source_type": "spawn",
+        "coords": [
+         -229337.015625,
+         52225.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "844792",
+        "source_type": "spawn",
+        "coords": [
+         -237627.609375,
+         69433.1796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "844793",
+        "source_type": "spawn",
+        "coords": [
+         -237035.5,
+         68930.1953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "844796",
+        "source_type": "spawn",
+        "coords": [
+         -238415.234375,
+         68813.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Bleeding Kate's Grindhouse",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "361BBB",
+       "3A17BA",
+       "3A17BB"
+      ],
+      "coords": [
+       -60340.859375,
+       -73138.984375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "361BBB",
+        "source_type": "spawn",
+        "coords": [
+         -60340.859375,
+         -73138.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3A17BA",
+        "source_type": "spawn",
+        "coords": [
+         -60390.828125,
+         -73637.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "3A17BB",
+        "source_type": "spawn",
+        "coords": [
+         -60364.87890625,
+         -73435.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave South",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "54A57F"
+      ],
+      "coords": [
+       -116394.9765625,
+       89245.734375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn",
+        "ref": "54A57F",
+        "source_type": "placement",
+        "coords": [
+         -116394.9765625,
+         89245.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Atlas Substructure",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5B6DE6"
+      ],
+      "coords": [
+       3062.68969726562,
+       -865.455017089844
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn",
+        "ref": "5B6DE6",
+        "source_type": "placement",
+        "coords": [
+         3062.68969726562,
+         -865.455017089844
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Beckwith Farm",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "303CC0",
+       "303CC2",
+       "303CC3"
+      ],
+      "coords": [
+       42753.3359375,
+       -6811.54150390625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "303CC0",
+        "source_type": "spawn",
+        "coords": [
+         42753.3359375,
+         -6811.54150390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "303CC2",
+        "source_type": "spawn",
+        "coords": [
+         42925.57421875,
+         -6792.33837890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "303CC3",
+        "source_type": "spawn",
+        "coords": [
+         42808.78125,
+         -7009.8076171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hidden Crevice",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5FBE75"
+      ],
+      "coords": [
+       221.716918945313,
+       2107.85180664062
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn",
+        "ref": "5FBE75",
+        "source_type": "placement",
+        "coords": [
+         221.716918945313,
+         2107.85180664062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Miners Monument",
+      "count": 6,
+      "sources": {
+       "ambush": 3,
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D60CA",
+       "3D60CD",
+       "3D60D0",
+       "3D60D1",
+       "3D60D2",
+       "3D60D3"
+      ],
+      "coords": [
+       -15424.765625,
+       -72222.65625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing ambush #1",
+        "ref": "3D60CA",
+        "source_type": "ambush",
+        "coords": [
+         -15424.765625,
+         -72222.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing ambush #2",
+        "ref": "3D60CD",
+        "source_type": "ambush",
+        "coords": [
+         -15470.89453125,
+         -71534.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing ambush #3",
+        "ref": "3D60D0",
+        "source_type": "ambush",
+        "coords": [
+         -14903.6669921875,
+         -71938.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "3D60D1",
+        "source_type": "placement",
+        "coords": [
+         -15584.1142578125,
+         -71702.1015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3D60D2",
+        "source_type": "placement",
+        "coords": [
+         -14942.794921875,
+         -71760.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "3D60D3",
+        "source_type": "placement",
+        "coords": [
+         -15652.9931640625,
+         -72065.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Grindstone Arch",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74878B",
+       "74878C",
+       "74878D"
+      ],
+      "coords": [
+       -39964.63671875,
+       -202465.359375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "74878B",
+        "source_type": "spawn",
+        "coords": [
+         -39964.63671875,
+         -202465.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "74878C",
+        "source_type": "spawn",
+        "coords": [
+         -39154.92578125,
+         -202113.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "74878D",
+        "source_type": "spawn",
+        "coords": [
+         -40195.44921875,
+         -201596.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hawksbill Weather Station",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74E51D",
+       "74E51E",
+       "74E520",
+       "74E521",
+       "74E522"
+      ],
+      "coords": [
+       -11311.197265625,
+       -190624.828125
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "74E51D",
+        "source_type": "spawn",
+        "coords": [
+         -11311.197265625,
+         -190624.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "74E51E",
+        "source_type": "spawn",
+        "coords": [
+         -11703.6552734375,
+         -191698.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "74E520",
+        "source_type": "spawn",
+        "coords": [
+         -31048.732421875,
+         -193854.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "74E521",
+        "source_type": "spawn",
+        "coords": [
+         -30963.2421875,
+         -193364.75
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "74E522",
+        "source_type": "spawn",
+        "coords": [
+         -30154.734375,
+         -193383.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hemlock Springs Dump",
+      "count": 3,
+      "sources": {
+       "placement": 1,
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "752686",
+       "752688",
+       "75861A"
+      ],
+      "coords": [
+       72206.015625,
+       -199678.921875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn",
+        "ref": "75861A",
+        "source_type": "placement",
+        "coords": [
+         72206.015625,
+         -199678.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "752686",
+        "source_type": "spawn",
+        "coords": [
+         78650.4296875,
+         -197350.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "752688",
+        "source_type": "spawn",
+        "coords": [
+         78252.625,
+         -197472.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Old Crimora Mines",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "758657",
+       "758658",
+       "75865B",
+       "75865C"
+      ],
+      "coords": [
+       -46968.0,
+       -247872.0
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "758657",
+        "source_type": "spawn",
+        "coords": [
+         -46968.0,
+         -247872.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "758658",
+        "source_type": "spawn",
+        "coords": [
+         -47368.0,
+         -247560.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "75865B",
+        "source_type": "spawn",
+        "coords": [
+         -54336.0,
+         -251024.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "75865C",
+        "source_type": "spawn",
+        "coords": [
+         -54816.0,
+         -250992.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Bavaria",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7511CA",
+       "7511CB",
+       "7511CC"
+      ],
+      "coords": [
+       71886.1875,
+       -231244.21875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "7511CA",
+        "source_type": "spawn",
+        "coords": [
+         71886.1875,
+         -231244.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "7511CB",
+        "source_type": "spawn",
+        "coords": [
+         71875.875,
+         -231615.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "7511CC",
+        "source_type": "spawn",
+        "coords": [
+         71560.171875,
+         -231372.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Shining Creek Cavern",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7511AD",
+       "7511AE"
+      ],
+      "coords": [
+       77355.65625,
+       -215674.9375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "7511AD",
+        "source_type": "spawn",
+        "coords": [
+         77355.65625,
+         -215674.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "7511AE",
+        "source_type": "spawn",
+        "coords": [
+         77350.2421875,
+         -216017.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Stony Man Lookout",
+      "count": 11,
+      "sources": {
+       "spawn": 11
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75C700",
+       "75C701",
+       "75C702",
+       "75C703",
+       "75C704",
+       "75C705",
+       "75C706",
+       "75C707",
+       "75C713",
+       "75C714",
+       "75C715"
+      ],
+      "coords": [
+       53616.0,
+       -220368.0
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "75C700",
+        "source_type": "spawn",
+        "coords": [
+         55963.8046875,
+         -230833.03125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "75C701",
+        "source_type": "spawn",
+        "coords": [
+         56024.0,
+         -231128.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "75C702",
+        "source_type": "spawn",
+        "coords": [
+         55688.73828125,
+         -230848.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "75C703",
+        "source_type": "spawn",
+        "coords": [
+         55720.0,
+         -231272.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "75C704",
+        "source_type": "spawn",
+        "coords": [
+         53616.0,
+         -220368.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "75C705",
+        "source_type": "spawn",
+        "coords": [
+         53967.99609375,
+         -220392.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "75C706",
+        "source_type": "spawn",
+        "coords": [
+         53543.9921875,
+         -220712.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #8",
+        "ref": "75C707",
+        "source_type": "spawn",
+        "coords": [
+         53943.9765625,
+         -220792.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #9",
+        "ref": "75C713",
+        "source_type": "spawn",
+        "coords": [
+         62297.3671875,
+         -222288.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #10",
+        "ref": "75C714",
+        "source_type": "spawn",
+        "coords": [
+         62176.0,
+         -222120.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #11",
+        "ref": "75C715",
+        "source_type": "spawn",
+        "coords": [
+         62072.0,
+         -222432.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 11,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Susan's Cabin",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "752681",
+       "752682",
+       "752683"
+      ],
+      "coords": [
+       88661.8671875,
+       -205818.28125
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "752681",
+        "source_type": "spawn",
+        "coords": [
+         88661.8671875,
+         -205818.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "752682",
+        "source_type": "spawn",
+        "coords": [
+         88689.9296875,
+         -206062.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "752683",
+        "source_type": "spawn",
+        "coords": [
+         88311.4296875,
+         -205958.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Trading Post",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75C6E5",
+       "75C6E6",
+       "75C6E7",
+       "75C70F",
+       "75C710",
+       "75C711",
+       "75C712"
+      ],
+      "coords": [
+       45312.0,
+       -226688.0
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "75C6E5",
+        "source_type": "spawn",
+        "coords": [
+         45312.0,
+         -226688.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "75C6E6",
+        "source_type": "spawn",
+        "coords": [
+         45272.0,
+         -226272.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "75C6E7",
+        "source_type": "spawn",
+        "coords": [
+         45768.0,
+         -226584.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "75C70F",
+        "source_type": "spawn",
+        "coords": [
+         43632.0,
+         -212872.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "75C710",
+        "source_type": "spawn",
+        "coords": [
+         43864.0078125,
+         -212424.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #6",
+        "ref": "75C711",
+        "source_type": "spawn",
+        "coords": [
+         44168.01171875,
+         -212720.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #7",
+        "ref": "75C712",
+        "source_type": "spawn",
+        "coords": [
+         43888.0,
+         -212952.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Three Ponds",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7487A3",
+       "7487A4",
+       "7487A5"
+      ],
+      "coords": [
+       -43490.73046875,
+       -191638.6875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "7487A3",
+        "source_type": "spawn",
+        "coords": [
+         -43490.73046875,
+         -191638.6875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "7487A4",
+        "source_type": "spawn",
+        "coords": [
+         -43960.6640625,
+         -191991.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "7487A5",
+        "source_type": "spawn",
+        "coords": [
+         -44219.30078125,
+         -191502.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Abandoned Waste Dump",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3953F9",
+       "3953FA",
+       "3953FD",
+       "395483",
+       "3D3B99"
+      ],
+      "coords": [
+       182599.203125,
+       34375.65625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "3953F9",
+        "source_type": "spawn",
+        "coords": [
+         182599.203125,
+         34375.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3953FA",
+        "source_type": "spawn",
+        "coords": [
+         182878.765625,
+         34385.35546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "3953FD",
+        "source_type": "spawn",
+        "coords": [
+         182775.984375,
+         34568.8359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "395483",
+        "source_type": "spawn",
+        "coords": [
+         198627.484375,
+         30502.373046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "3D3B99",
+        "source_type": "spawn",
+        "coords": [
+         198742.765625,
+         30382.392578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Big B's Rest Stop",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3953DB",
+       "3953DE",
+       "556DB5"
+      ],
+      "coords": [
+       169917.515625,
+       -22888.0
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "3953DB",
+        "source_type": "placement",
+        "coords": [
+         169917.515625,
+         -22888.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3953DE",
+        "source_type": "placement",
+        "coords": [
+         169654.484375,
+         -22886.81640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "556DB5",
+        "source_type": "placement",
+        "coords": [
+         169779.59375,
+         -22882.79296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Camp Venture",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "161308",
+       "16213D"
+      ],
+      "coords": [
+       159763.265625,
+       -33830.9921875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "161308",
+        "source_type": "spawn",
+        "coords": [
+         159763.265625,
+         -33830.9921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "16213D",
+        "source_type": "spawn",
+        "coords": [
+         160298.234375,
+         -33816.29296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Crevasse Dam",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39549B",
+       "39549C",
+       "39549F"
+      ],
+      "coords": [
+       170086.25,
+       80180.140625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "39549B",
+        "source_type": "spawn",
+        "coords": [
+         170086.25,
+         80180.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "39549C",
+        "source_type": "spawn",
+        "coords": [
+         170385.40625,
+         79914.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "39549F",
+        "source_type": "spawn",
+        "coords": [
+         170239.15625,
+         80311.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dabney Homestead",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3953C1",
+       "3953C2",
+       "3953C5",
+       "3953C6"
+      ],
+      "coords": [
+       194232.21875,
+       -27459.82421875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "3953C1",
+        "source_type": "spawn",
+        "coords": [
+         194232.21875,
+         -27459.82421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3953C2",
+        "source_type": "spawn",
+        "coords": [
+         194487.90625,
+         -27511.654296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "3953C5",
+        "source_type": "spawn",
+        "coords": [
+         194385.125,
+         -27328.173828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "3953C6",
+        "source_type": "spawn",
+        "coords": [
+         194252.46875,
+         -27785.90234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Lookout",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395505",
+       "395506",
+       "395509",
+       "39550A",
+       "3D3B9B"
+      ],
+      "coords": [
+       150521.828125,
+       99952.59375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "395505",
+        "source_type": "spawn",
+        "coords": [
+         150521.828125,
+         99952.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "395506",
+        "source_type": "spawn",
+        "coords": [
+         150777.515625,
+         99900.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "395509",
+        "source_type": "spawn",
+        "coords": [
+         150674.734375,
+         100084.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "39550A",
+        "source_type": "spawn",
+        "coords": [
+         150854.21875,
+         100348.3671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #5",
+        "ref": "3D3B9B",
+        "source_type": "spawn",
+        "coords": [
+         150638.90625,
+         99826.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Ella Ames' Bunker",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C042A"
+      ],
+      "coords": [
+       162342.984375,
+       107329.3125
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn",
+        "ref": "3C042A",
+        "source_type": "spawn",
+        "coords": [
+         162342.984375,
+         107329.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Gnarled Shallows",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954CA",
+       "3954CD"
+      ],
+      "coords": [
+       193549.390625,
+       146277.390625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "3954CA",
+        "source_type": "spawn",
+        "coords": [
+         193549.390625,
+         146277.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3954CD",
+        "source_type": "spawn",
+        "coords": [
+         193577.375,
+         146433.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Gulper Lagoon",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C0300",
+       "3C042B"
+      ],
+      "coords": [
+       162285.265625,
+       107522.6640625
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "3C0300",
+        "source_type": "spawn",
+        "coords": [
+         162285.265625,
+         107522.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3C042B",
+        "source_type": "spawn",
+        "coords": [
+         162494.734375,
+         107541.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Highland Marsh",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954E0",
+       "3954E1",
+       "3954E4",
+       "3D3B9D"
+      ],
+      "coords": [
+       182923.25,
+       125201.9375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "3954E0",
+        "source_type": "spawn",
+        "coords": [
+         182923.25,
+         125201.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3954E1",
+        "source_type": "spawn",
+        "coords": [
+         182644.359375,
+         124553.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "3954E4",
+        "source_type": "spawn",
+        "coords": [
+         182823.515625,
+         125827.1015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #4",
+        "ref": "3D3B9D",
+        "source_type": "spawn",
+        "coords": [
+         183350.75,
+         124906.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mosstown",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39551B",
+       "39551C",
+       "39551F"
+      ],
+      "coords": [
+       137753.4375,
+       79335.0
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "39551B",
+        "source_type": "spawn",
+        "coords": [
+         137753.4375,
+         79335.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "39551C",
+        "source_type": "spawn",
+        "coords": [
+         138008.6875,
+         79284.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "39551F",
+        "source_type": "spawn",
+        "coords": [
+         137906.34375,
+         79466.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Power Plant",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39542A",
+       "39542B",
+       "39542E"
+      ],
+      "coords": [
+       190329.421875,
+       112376.421875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "39542A",
+        "source_type": "spawn",
+        "coords": [
+         190329.421875,
+         112376.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "39542B",
+        "source_type": "spawn",
+        "coords": [
+         190582.34375,
+         112305.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "39542E",
+        "source_type": "spawn",
+        "coords": [
+         190636.234375,
+         112508.3828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-01",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395374",
+       "395377"
+      ],
+      "coords": [
+       145774.734375,
+       6283.62451171875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "395374",
+        "source_type": "spawn",
+        "coords": [
+         145774.734375,
+         6283.62451171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "395377",
+        "source_type": "spawn",
+        "coords": [
+         145673.765625,
+         6467.79736328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 52,
+  "total_placements": 308
+ },
+ "blurb": "The Stingwing in Fallout 76 — drops Stingwing Meat, 23 NPC variants, 308 known spawn points."
+}

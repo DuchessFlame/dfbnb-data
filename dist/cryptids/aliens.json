@@ -1,0 +1,517 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "AlienRace"
+   },
+   {
+    "edid": "ZetanInvaderRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 4
+  },
+  "unresolved": {},
+  "hold": false
+ },
+ "set": "cryptids",
+ "slug": "aliens",
+ "name": "Aliens",
+ "page_title": "Cryptids - Aliens",
+ "url": "/df/cryptids/aliens/",
+ "blurb": "The Aliens in Fallout 76 — 37 NPC variants, 4 known spawn points, 3365 possible drops.",
+ "npc_summary": {
+  "npc_count": 37,
+  "level_min": 1,
+  "level_max": 100,
+  "health_max": 8075
+ },
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Take a Camera Picture of an Alien Drone",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_AlienDrone_Camera",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Take a Camera Picture of an Alien Enemy",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_Alien_Camera",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Take a Camera Picture of an Alien Invader",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_AlienInvader_Camera",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Spring Cleaning: Kill an Alien with the Cremator",
+   "required": 20,
+   "edid": "ATX_DE2024_SpringCleaning_Week1_Challenge_Kill_Alien",
+   "page": "events"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Kill Human-like Creatures",
+   "required": 76,
+   "edid": "Challenge_Lifetime_Kill_Humanlike_Low",
+   "page": "combat"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic - Take a Camera Picture of a Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_LegendaryCryptid_Camera_Epic",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic: Take a Camera Picture of a Glowing Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_GlowingCryptid_Camera_Epic",
+   "page": "weekly"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Alien",
+    "form_id": "002054E3",
+    "row_count": 3,
+    "direct_items": 0,
+    "pool_count": 3,
+    "item_count": 1113,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creatures Alien",
+      "sub_id": "005AE923",
+      "edid": "LLS_Ammo_Creatures_Alien",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "36.34%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "20.19%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "20.19%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "20.19%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "20.19%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Alien",
+      "sub_id": "00434380",
+      "edid": "LLE_Creature_Boss_Component_Alien",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Circuits",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Waste Antiseptic",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Alien",
+      "sub_id": "003DF3FE",
+      "edid": "LLE_Creature_Alien",
+      "item_count": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Toy Alien",
+        "rate_display": "100%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_ZetanInvader",
+    "form_id": "0063D318",
+    "row_count": 5,
+    "direct_items": 1,
+    "pool_count": 4,
+    "item_count": 1138,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creatures Alien",
+      "sub_id": "005AE923",
+      "edid": "LLS_Ammo_Creatures_Alien",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "36.34%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "20.19%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "20.19%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "20.19%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "20.19%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Alien",
+      "sub_id": "00434380",
+      "edid": "LLE_Creature_Boss_Component_Alien",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Circuits",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Waste Antiseptic",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Alien",
+      "sub_id": "003DF3FE",
+      "edid": "LLE_Creature_Alien",
+      "item_count": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Toy Alien",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Plasma Grenade",
+      "form_id": "0010A33D",
+      "edid": "PlasmaGrenade",
+      "sig": "WEAP",
+      "qty": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%"
+     },
+     {
+      "kind": "pool",
+      "name": "E01F Fasnacht LLS Headwear Rewards Rare",
+      "sub_id": "005A6491",
+      "edid": "E01F_Fasnacht_LLS_Headwear_Rewards_Rare",
+      "item_count": 24,
+      "rate_value": 0.05,
+      "rate_display": "5%",
+      "top_items": [
+       {
+        "name": "Father Winter Helmet",
+        "rate_display": "4.17%"
+       },
+       {
+        "name": "Fasnacht Glowing Honey Bee Mask",
+        "rate_display": "4.17%"
+       },
+       {
+        "name": "Fasnacht Glowing Blue Devil Mask",
+        "rate_display": "4.17%"
+       },
+       {
+        "name": "Fasnacht Glowing Scorchbeast Mask",
+        "rate_display": "4.17%"
+       },
+       {
+        "name": "Fasnacht Glowing Scorchbeast Queen Mask",
+        "rate_display": "4.17%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_ZetanInvader_Melee",
+    "form_id": "00646233",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 1114,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creatures Alien",
+      "sub_id": "005AE923",
+      "edid": "LLS_Ammo_Creatures_Alien",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "36.34%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "20.19%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "20.19%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "20.19%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "20.19%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Alien",
+      "sub_id": "00434380",
+      "edid": "LLE_Creature_Boss_Component_Alien",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Circuits",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Waste Antiseptic",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Alien",
+      "sub_id": "003DF3FE",
+      "edid": "LLE_Creature_Alien",
+      "item_count": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Toy Alien",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Plasma Grenade",
+      "form_id": "0010A33D",
+      "edid": "PlasmaGrenade",
+      "sig": "WEAP",
+      "qty": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Black Mountain Ordnance Works",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "621B2B"
+      ],
+      "coords": [
+       -153652.890625,
+       108072.0546875
+      ],
+      "spawns": [
+       {
+        "label": "Aliens spawn",
+        "ref": "621B2B",
+        "source_type": "placement",
+        "coords": [
+         -153652.890625,
+         108072.0546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Enclave Research Facility",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DD4AB",
+       "5DD4AC",
+       "5DD4AE"
+      ],
+      "coords": [
+       -1525.44873046875,
+       1854.78271484375
+      ],
+      "spawns": [
+       {
+        "label": "Aliens spawn #1",
+        "ref": "5DD4AB",
+        "source_type": "placement",
+        "coords": [
+         -1525.44873046875,
+         1854.78271484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Aliens spawn #2",
+        "ref": "5DD4AC",
+        "source_type": "placement",
+        "coords": [
+         -1614.82299804687,
+         1868.86462402344
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Aliens spawn #3",
+        "ref": "5DD4AE",
+        "source_type": "placement",
+        "coords": [
+         -1431.12707519531,
+         1859.21508789062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 2,
+  "total_placements": 4
+ }
+}

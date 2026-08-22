@@ -16,6 +16,7 @@ Families:
     nuka-cola   -> spawns_configs.nuka_cola   (drinks; computed Used For / Farming Tips)
     farming     -> spawns_configs.farming     (Cream + egg sets; config-supplied blocks)
     bobbleheads -> spawns_configs.bobbleheads (hub page + one page per region)
+    cryptids    -> spawns_configs.cryptids    (hub index + one page per cryptid)
 """
 
 import os, sys
@@ -24,7 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
-from spawns_configs import nuka_cola, farming, bobbleheads
+from spawns_configs import nuka_cola, farming, bobbleheads, cryptids, meat
 from farming_spawns_config import SETS_BY_SLUG
 
 
@@ -46,6 +47,10 @@ def main(argv):
         farming.main(rest)                            # farming's argparse (--item/--all/--pts)
     elif cmd in ("bobbleheads", "bobblehead"):
         bobbleheads.run(rest)                         # hub + one page per region
+    elif cmd in ("cryptids", "cryptid"):
+        cryptids.run(["cryptids"] + rest)             # hub + one page per cryptid
+    elif cmd == "meat":
+        meat.run(["meat"] + rest)                     # hub + one page per meat
     elif cmd == "--all":
         farming.main(["--all"] + rest)
     elif cmd in SETS_BY_SLUG:

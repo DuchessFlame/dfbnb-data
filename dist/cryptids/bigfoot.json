@@ -1,0 +1,587 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "BigfootRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 9
+  },
+  "unresolved": {},
+  "hold": false
+ },
+ "set": "cryptids",
+ "slug": "bigfoot",
+ "name": "Bigfoot",
+ "page_title": "Cryptids - Bigfoot",
+ "url": "/df/cryptids/bigfoot/",
+ "blurb": "The Bigfoot in Fallout 76 — 2 NPC variants, 9 known spawn points, 1787 possible drops.",
+ "npc_summary": {
+  "npc_count": 2,
+  "level_min": 100,
+  "level_max": 100,
+  "health_max": 3700
+ },
+ "used_for": [],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Bigfoot_PartyCrasher",
+    "form_id": "008833D8",
+    "row_count": 6,
+    "direct_items": 1,
+    "pool_count": 5,
+    "item_count": 1787,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Loot Random Fallback",
+      "sub_id": "005AE926",
+      "edid": "LLS_Ammo_Loot_Random_Fallback",
+      "item_count": 100,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "1.45%"
+       },
+       {
+        "name": "Ammo50Caliber Ball",
+        "rate_display": "1.45%"
+       },
+       {
+        "name": "Ammo Flamer Fuel",
+        "rate_display": "1.45%"
+       },
+       {
+        "name": "Ammo Harpoon",
+        "rate_display": "1.45%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "1.09%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Chems Any",
+      "sub_id": "00391A44",
+      "edid": "LL_Chems_Any",
+      "item_count": 20,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Buffout",
+        "rate_display": "11.67%"
+       },
+       {
+        "name": "Med-X",
+        "rate_display": "11.67%"
+       },
+       {
+        "name": "Mentats",
+        "rate_display": "11.67%"
+       },
+       {
+        "name": "Psycho",
+        "rate_display": "11.67%"
+       },
+       {
+        "name": "RadAway",
+        "rate_display": "11.67%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Junk Large",
+      "sub_id": "000366C6",
+      "edid": "LL_Junk_Large",
+      "item_count": 1622,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Loose Screws",
+        "rate_display": "6.3%"
+       },
+       {
+        "name": "Giddyup Buttercup Back Leg",
+        "rate_display": "5.62%"
+       },
+       {
+        "name": "Giddyup Buttercup Front Leg",
+        "rate_display": "5.62%"
+       },
+       {
+        "name": "Handcuffs",
+        "rate_display": "5.62%"
+       },
+       {
+        "name": "Deathclaw Hand",
+        "rate_display": "5.62%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Caps Very Large",
+      "sub_id": "003DF3D7",
+      "edid": "LLE_Creature_Caps_VeryLarge",
+      "item_count": 40,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Caps",
+        "rate_display": "10%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "RA LLS Bigfoot Rewards Legendary Shards",
+      "sub_id": "008833D5",
+      "edid": "RA_LLS_Bigfoot_Rewards_LegendaryShards",
+      "item_count": 4,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "RA Legendary Items Weapons Bigfoot Only Rank4",
+        "rate_display": "25%"
+       },
+       {
+        "name": "RA Legendary Items Armor Rank4",
+        "rate_display": "25%"
+       },
+       {
+        "name": "RA Legendary Items Weapons Rank4",
+        "rate_display": "25%"
+       },
+       {
+        "name": "RA Legendary Items Power Armor Rank4",
+        "rate_display": "25%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Player Title: Party Crasher",
+      "form_id": "008AA950",
+      "edid": "PlayerTitle_Recipe_Suffix_PartyCrasher",
+      "sig": "BOOK",
+      "qty": 1,
+      "rate_value": 0.05,
+      "rate_display": "5%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Garrahan Mining Headquarters",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8AEBAA"
+      ],
+      "coords": [
+       -73353.3125,
+       -157478.890625
+      ],
+      "spawns": [
+       {
+        "label": "Bigfoot ambush",
+        "ref": "8AEBAA",
+        "source_type": "ambush",
+        "coords": [
+         -73353.3125,
+         -157478.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Sparse Sundew Grove",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8AEBA9"
+      ],
+      "coords": [
+       121632.3515625,
+       -172681.46875
+      ],
+      "spawns": [
+       {
+        "label": "Bigfoot ambush",
+        "ref": "8AEBA9",
+        "source_type": "ambush",
+        "coords": [
+         121632.3515625,
+         -172681.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Camp Adams",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8AEBA6"
+      ],
+      "coords": [
+       -152960.0,
+       -31680.0
+      ],
+      "spawns": [
+       {
+        "label": "Bigfoot ambush",
+        "ref": "8AEBA6",
+        "source_type": "ambush",
+        "coords": [
+         -152960.0,
+         -31680.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Middle Mountain Pitstop",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8EF3B7"
+      ],
+      "coords": [
+       48192.0,
+       -36608.0
+      ],
+      "spawns": [
+       {
+        "label": "Bigfoot ambush",
+        "ref": "8EF3B7",
+        "source_type": "ambush",
+        "coords": [
+         48192.0,
+         -36608.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8AEBAB"
+      ],
+      "coords": [
+       58771.2578125,
+       87315.5
+      ],
+      "spawns": [
+       {
+        "label": "Bigfoot ambush",
+        "ref": "8AEBAB",
+        "source_type": "ambush",
+        "coords": [
+         58771.2578125,
+         87315.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Sons of Dane Compound",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8AEBA7"
+      ],
+      "coords": [
+       100864.0,
+       94656.0
+      ],
+      "spawns": [
+       {
+        "label": "Bigfoot ambush",
+        "ref": "8AEBA7",
+        "source_type": "ambush",
+        "coords": [
+         100864.0,
+         94656.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Dyer Chemical",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8AEBAC"
+      ],
+      "coords": [
+       177944.140625,
+       64591.51171875
+      ],
+      "spawns": [
+       {
+        "label": "Bigfoot ambush",
+        "ref": "8AEBAC",
+        "source_type": "ambush",
+        "coords": [
+         177944.140625,
+         64591.51171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Sunday Brothers' Cabin",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8AEBA5"
+      ],
+      "coords": [
+       139427.609375,
+       1860.52807617187
+      ],
+      "spawns": [
+       {
+        "label": "Bigfoot ambush",
+        "ref": "8AEBA5",
+        "source_type": "ambush",
+        "coords": [
+         139427.609375,
+         1860.52807617187
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Wavy Willard's Water Park",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8AEBA8"
+      ],
+      "coords": [
+       -26226.654296875,
+       190970.609375
+      ],
+      "spawns": [
+       {
+        "label": "Bigfoot ambush",
+        "ref": "8AEBA8",
+        "source_type": "ambush",
+        "coords": [
+         -26226.654296875,
+         190970.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 9,
+  "total_placements": 9
+ }
+}

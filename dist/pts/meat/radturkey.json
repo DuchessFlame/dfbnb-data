@@ -1,0 +1,664 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "RadTurkeyRace"
+   },
+   {
+    "edid": "zzz_Test01Race"
+   }
+  ],
+  "source_totals": {
+   "placement": 23
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "radturkey",
+ "name": "Rad Turkey",
+ "page_title": "Farming - Meat - Rad Turkey",
+ "url": "/bnb/farming/meat/radturkey/",
+ "npc_summary": {
+  "npc_count": 7,
+  "level_min": 10,
+  "level_max": 50,
+  "health_max": 10000
+ },
+ "meat_items": [
+  {
+   "name": "Intestine",
+   "form_id": "003EEA40",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Event",
+   "name": "Uncharted Scouts: Kill a Thrasher while wearing the Marshal Mallow T-Shirt & Shorts",
+   "required": 2,
+   "edid": "ATX_DE2024_UnchartedScouts_Week2_Challenge_Kill_Thrasher",
+   "page": "events"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_RadTurkey",
+    "form_id": "0075469D",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 9324,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Intestine",
+      "form_id": "003EEA40",
+      "edid": "Cooking_Intestine",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Junk Small",
+      "sub_id": "0003678C",
+      "edid": "LL_Junk_Small",
+      "item_count": 1689,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "10.5%"
+       },
+       {
+        "name": "Blackwater Brew",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "New River Red Ale",
+        "rate_display": "2.5%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Rad Turkey",
+      "sub_id": "0075469F",
+      "edid": "LLS_Creature_RadTurkey",
+      "item_count": 6528,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Intestine",
+        "rate_display": "60%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "3.33%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "1.89%"
+       },
+       {
+        "name": "Giddyup Buttercup Back Leg",
+        "rate_display": "1.69%"
+       },
+       {
+        "name": "Giddyup Buttercup Front Leg",
+        "rate_display": "1.69%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": []
+   },
+   {
+    "region": "Savage Divide",
+    "locations": []
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Big Meadows Gas Well",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769075",
+       "769076",
+       "769077"
+      ],
+      "coords": [
+       5952.0,
+       -244224.0
+      ],
+      "spawns": [
+       {
+        "label": "Rad Turkey spawn #1",
+        "ref": "769075",
+        "source_type": "placement",
+        "coords": [
+         5952.0,
+         -244224.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #2",
+        "ref": "769076",
+        "source_type": "placement",
+        "coords": [
+         6208.0,
+         -244096.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #3",
+        "ref": "769077",
+        "source_type": "placement",
+        "coords": [
+         5952.0,
+         -244480.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Camp Liberty",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769E8B",
+       "769E8D",
+       "769E91",
+       "769E92",
+       "769E93"
+      ],
+      "coords": [
+       75467.9296875,
+       -247789.125
+      ],
+      "spawns": [
+       {
+        "label": "Rad Turkey spawn #1",
+        "ref": "769E8B",
+        "source_type": "placement",
+        "coords": [
+         75467.9296875,
+         -247789.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #2",
+        "ref": "769E8D",
+        "source_type": "placement",
+        "coords": [
+         75735.453125,
+         -247369.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #3",
+        "ref": "769E91",
+        "source_type": "placement",
+        "coords": [
+         71140.796875,
+         -255937.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #4",
+        "ref": "769E92",
+        "source_type": "placement",
+        "coords": [
+         71538.421875,
+         -256166.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #5",
+        "ref": "769E93",
+        "source_type": "placement",
+        "coords": [
+         71538.421875,
+         -255796.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Milepost Zero",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769072",
+       "769073",
+       "769074"
+      ],
+      "coords": [
+       10052.185546875,
+       -251657.421875
+      ],
+      "spawns": [
+       {
+        "label": "Rad Turkey spawn #1",
+        "ref": "769072",
+        "source_type": "placement",
+        "coords": [
+         10052.185546875,
+         -251657.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #2",
+        "ref": "769073",
+        "source_type": "placement",
+        "coords": [
+         10364.150390625,
+         -251657.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #3",
+        "ref": "769074",
+        "source_type": "placement",
+        "coords": [
+         10224.1982421875,
+         -251877.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Naked Creek",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "760D23",
+       "788C57",
+       "788C5E"
+      ],
+      "coords": [
+       -31728.728515625,
+       -235946.46875
+      ],
+      "spawns": [
+       {
+        "label": "Rad Turkey spawn #1",
+        "ref": "760D23",
+        "source_type": "placement",
+        "coords": [
+         -32466.388671875,
+         -236947.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #2",
+        "ref": "788C57",
+        "source_type": "placement",
+        "coords": [
+         -31728.728515625,
+         -235946.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #3",
+        "ref": "788C5E",
+        "source_type": "placement",
+        "coords": [
+         -31962.71875,
+         -236962.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Bavaria",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "782CC0",
+       "782CC2",
+       "782CC3",
+       "782CC4",
+       "782CC5",
+       "782CC6"
+      ],
+      "coords": [
+       76869.484375,
+       -230451.046875
+      ],
+      "spawns": [
+       {
+        "label": "Rad Turkey spawn #1",
+        "ref": "782CC0",
+        "source_type": "placement",
+        "coords": [
+         76869.484375,
+         -230451.046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #2",
+        "ref": "782CC2",
+        "source_type": "placement",
+        "coords": [
+         77392.0,
+         -230272.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #3",
+        "ref": "782CC3",
+        "source_type": "placement",
+        "coords": [
+         74538.140625,
+         -232627.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #4",
+        "ref": "782CC4",
+        "source_type": "placement",
+        "coords": [
+         75011.8125,
+         -232058.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #5",
+        "ref": "782CC5",
+        "source_type": "placement",
+        "coords": [
+         74384.0,
+         -231696.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #6",
+        "ref": "782CC6",
+        "source_type": "placement",
+        "coords": [
+         75928.0,
+         -230872.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Saxony",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "792AED",
+       "792AF0",
+       "792AF1"
+      ],
+      "coords": [
+       -41553.29296875,
+       -230169.3125
+      ],
+      "spawns": [
+       {
+        "label": "Rad Turkey spawn #1",
+        "ref": "792AED",
+        "source_type": "placement",
+        "coords": [
+         -41553.29296875,
+         -230169.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #2",
+        "ref": "792AF0",
+        "source_type": "placement",
+        "coords": [
+         -41436.64453125,
+         -230852.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Turkey spawn #3",
+        "ref": "792AF1",
+        "source_type": "placement",
+        "coords": [
+         -41233.88671875,
+         -230309.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 6,
+  "total_placements": 23
+ },
+ "blurb": "The Rad Turkey in Fallout 76 — drops Intestine, 7 NPC variants, 23 known spawn points."
+}

@@ -1,0 +1,5099 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "DLC03_GulperRace"
+   },
+   {
+    "edid": "DLC03_GulperSmallRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 4,
+   "placement": 4,
+   "spawn": 223
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "gulper",
+ "name": "Gulper",
+ "page_title": "Farming - Meat - Gulper",
+ "url": "/bnb/farming/meat/gulper/",
+ "npc_summary": {
+  "npc_count": 20,
+  "level_min": 1,
+  "level_max": 200,
+  "health_max": 1800
+ },
+ "meat_items": [
+  {
+   "name": "Gulper Innards",
+   "form_id": "001115E9",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Kill a Gulper",
+   "required": 3,
+   "edid": "SCORE_Challenge_Daily_Kill_Gulper",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill a Gulper while intoxicated by Mire Magic Moonshine",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Kill_Gulper_When_Intoxicated_Moonshine",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Take a Camera Picture of a Gulper",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_Gulper_Camera",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Take a Camera Picture of a Gulper while intoxicated by Mire Magic Moonshine",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_Gulper_While_Intoxicated_Moonshine_Camera",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Burning Love: Kill a Gulper while on a Team using the Hot Rod Pink Flamer",
+   "required": 10,
+   "edid": "ATX_DE2024_Valentines_Week1_Challenge_Kill_Gulpers",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Kill a Gulper with the Marshal Mallow Fishing Hat equipped",
+   "required": 20,
+   "edid": "ATX_DE2025_MMMFE_Week2_Challenge_Kill_Gulpers",
+   "page": "fishing"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Gulper",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Gulper_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Gulper",
+    "form_id": "001113BC",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 9328,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Gulper",
+      "sub_id": "003533DD",
+      "edid": "LLS_Creature_Gulper",
+      "item_count": 6532,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Gulper Innards",
+        "rate_display": "60%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "3.33%"
+       },
+       {
+        "name": "Plan: Puncturing Pole Hook",
+        "rate_display": "3%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "1.89%"
+       },
+       {
+        "name": "Giddyup Buttercup Back Leg",
+        "rate_display": "1.69%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Gulper Innards",
+      "form_id": "001115E9",
+      "edid": "GulperMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Junk Small",
+      "sub_id": "0003678C",
+      "edid": "LL_Junk_Small",
+      "item_count": 1689,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "10.5%"
+       },
+       {
+        "name": "Blackwater Brew",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "New River Red Ale",
+        "rate_display": "2.5%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "E08A_LLD_Creature_ToxAcidGulper",
+    "form_id": "0064722D",
+    "row_count": 7,
+    "direct_items": 2,
+    "pool_count": 5,
+    "item_count": 9332,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "E08A LL Gulper Hand",
+      "sub_id": "00658D13",
+      "edid": "E08A_LL_GulperHand",
+      "item_count": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Acidic Gulper Hand",
+        "rate_display": "5%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "E08A LL Gulper Venom",
+      "sub_id": "00647A3C",
+      "edid": "E08A_LL_GulperVenom",
+      "item_count": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Acidic Gulper Venom",
+        "rate_display": "80%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Gulper",
+      "sub_id": "003533DD",
+      "edid": "LLS_Creature_Gulper",
+      "item_count": 6532,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Gulper Innards",
+        "rate_display": "60%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "3.33%"
+       },
+       {
+        "name": "Plan: Puncturing Pole Hook",
+        "rate_display": "3%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "1.89%"
+       },
+       {
+        "name": "Giddyup Buttercup Back Leg",
+        "rate_display": "1.69%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Gulper Innards",
+      "form_id": "001115E9",
+      "edid": "GulperMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Junk Small",
+      "sub_id": "0003678C",
+      "edid": "LL_Junk_Small",
+      "item_count": 1689,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "10.5%"
+       },
+       {
+        "name": "Blackwater Brew",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "New River Red Ale",
+        "rate_display": "2.5%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Acidic Gulper Gland",
+      "form_id": "00658D14",
+      "edid": "E08A_AcidGulperGland",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.8,
+      "rate_display": "80%"
+     }
+    ]
+   },
+   {
+    "edid": "E08A_LLD_Creature_AcidGulper",
+    "form_id": "00647A3D",
+    "row_count": 6,
+    "direct_items": 2,
+    "pool_count": 4,
+    "item_count": 9331,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "E08A LL Gulper Venom",
+      "sub_id": "00647A3C",
+      "edid": "E08A_LL_GulperVenom",
+      "item_count": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Acidic Gulper Venom",
+        "rate_display": "80%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Gulper",
+      "sub_id": "003533DD",
+      "edid": "LLS_Creature_Gulper",
+      "item_count": 6532,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Gulper Innards",
+        "rate_display": "60%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "3.33%"
+       },
+       {
+        "name": "Plan: Puncturing Pole Hook",
+        "rate_display": "3%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "1.89%"
+       },
+       {
+        "name": "Giddyup Buttercup Back Leg",
+        "rate_display": "1.69%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Gulper Innards",
+      "form_id": "001115E9",
+      "edid": "GulperMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Junk Small",
+      "sub_id": "0003678C",
+      "edid": "LL_Junk_Small",
+      "item_count": 1689,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "10.5%"
+       },
+       {
+        "name": "Blackwater Brew",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "New River Red Ale",
+        "rate_display": "2.5%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Acidic Gulper Gland",
+      "form_id": "00658D14",
+      "edid": "E08A_AcidGulperGland",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.8,
+      "rate_display": "80%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0035EC04",
+   "edid": "RE_AssaultMP08",
+   "name": "Gulpers vs. Mirelurks",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "004FC061",
+   "edid": "RE_AssaultKMK05",
+   "name": "Gulpers vs. Scorched",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "004FC067",
+   "edid": "RE_AssaultKMK11",
+   "name": "Gulpers vs. Super Mutants",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "003D7873",
+   "edid": "RE_TravelMP04",
+   "name": "Mirelurks vs. Gulpers",
+   "type": "Travel Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Abandoned Bog Town",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B9F2F",
+       "35E73A",
+       "3A2839"
+      ],
+      "coords": [
+       183489.484375,
+       -81138.3125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "2B9F2F",
+        "source_type": "spawn",
+        "coords": [
+         183489.484375,
+         -81138.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "35E73A",
+        "source_type": "spawn",
+        "coords": [
+         181596.71875,
+         -104745.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "3A2839",
+        "source_type": "spawn",
+        "coords": [
+         183483.0625,
+         -80914.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Appalachian Antiques",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3505A5",
+       "3505AD",
+       "3505B5"
+      ],
+      "coords": [
+       125228.515625,
+       -134848.28125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3505A5",
+        "source_type": "spawn",
+        "coords": [
+         125228.515625,
+         -134848.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "3505AD",
+        "source_type": "spawn",
+        "coords": [
+         125032.0625,
+         -134767.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "3505B5",
+        "source_type": "spawn",
+        "coords": [
+         124623.8046875,
+         -135148.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Big Bend Tunnel East",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39D1FC",
+       "39D1FD",
+       "39D200",
+       "3D3BA9"
+      ],
+      "coords": [
+       113496.7421875,
+       -157764.25
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "39D1FC",
+        "source_type": "spawn",
+        "coords": [
+         113496.7421875,
+         -157764.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "39D1FD",
+        "source_type": "spawn",
+        "coords": [
+         113633.0546875,
+         -156428.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "39D200",
+        "source_type": "spawn",
+        "coords": [
+         112405.4765625,
+         -156076.84375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3D3BA9",
+        "source_type": "spawn",
+        "coords": [
+         112580.5078125,
+         -157202.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Crimson Prospect",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "36D05B"
+      ],
+      "coords": [
+       147761.171875,
+       -98680.59375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "36D05B",
+        "source_type": "spawn",
+        "coords": [
+         147761.171875,
+         -98680.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Drop Site G3",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35E985",
+       "35E986",
+       "35E987",
+       "35E9A2"
+      ],
+      "coords": [
+       133421.8125,
+       -110215.28125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "35E985",
+        "source_type": "spawn",
+        "coords": [
+         133421.8125,
+         -110215.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "35E986",
+        "source_type": "spawn",
+        "coords": [
+         133448.875,
+         -109364.6171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "35E987",
+        "source_type": "spawn",
+        "coords": [
+         133487.140625,
+         -109132.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "35E9A2",
+        "source_type": "spawn",
+        "coords": [
+         131256.09375,
+         -117006.2734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Drop Site V9",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A2753",
+       "3A2754",
+       "3A2757",
+       "3A2759",
+       "3A275C",
+       "3D3B95"
+      ],
+      "coords": [
+       185124.046875,
+       -163318.0625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3A2753",
+        "source_type": "spawn",
+        "coords": [
+         192145.71875,
+         -150521.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "3A2754",
+        "source_type": "spawn",
+        "coords": [
+         192297.46875,
+         -150309.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "3A2757",
+        "source_type": "spawn",
+        "coords": [
+         192088.0,
+         -150328.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3A2759",
+        "source_type": "spawn",
+        "coords": [
+         185124.046875,
+         -163318.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "3A275C",
+        "source_type": "spawn",
+        "coords": [
+         184881.21875,
+         -162395.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "3D3B95",
+        "source_type": "spawn",
+        "coords": [
+         185550.125,
+         -163276.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Firebase Major",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35E9CD"
+      ],
+      "coords": [
+       141712.6875,
+       -72356.4453125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "35E9CD",
+        "source_type": "spawn",
+        "coords": [
+         141712.6875,
+         -72356.4453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Fissure Site",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35E9CE",
+       "36C351",
+       "36C352",
+       "36D059"
+      ],
+      "coords": [
+       141880.0,
+       -72520.0
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "35E9CE",
+        "source_type": "spawn",
+        "coords": [
+         141880.0,
+         -72520.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "36C351",
+        "source_type": "spawn",
+        "coords": [
+         174733.375,
+         -153287.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "36C352",
+        "source_type": "spawn",
+        "coords": [
+         174690.671875,
+         -153472.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "36D059",
+        "source_type": "spawn",
+        "coords": [
+         176987.609375,
+         -167117.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Flooded Trainyard",
+      "count": 11,
+      "sources": {
+       "spawn": 11
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFD2C",
+       "36C33C",
+       "36C33D",
+       "3A2742",
+       "3A2743",
+       "3A2746",
+       "3A27BA",
+       "3A27BB",
+       "3A27BE",
+       "3D3B96",
+       "3D3BAD"
+      ],
+      "coords": [
+       183038.03125,
+       -134854.25
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "2EFD2C",
+        "source_type": "spawn",
+        "coords": [
+         164599.984375,
+         -140205.6875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "36C33C",
+        "source_type": "spawn",
+        "coords": [
+         190185.515625,
+         -141653.03125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "36C33D",
+        "source_type": "spawn",
+        "coords": [
+         190365.859375,
+         -141655.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3A2742",
+        "source_type": "spawn",
+        "coords": [
+         166921.71875,
+         -135873.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "3A2743",
+        "source_type": "spawn",
+        "coords": [
+         167073.46875,
+         -135661.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "3A2746",
+        "source_type": "spawn",
+        "coords": [
+         166864.0,
+         -135680.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #7",
+        "ref": "3A27BA",
+        "source_type": "spawn",
+        "coords": [
+         183038.03125,
+         -134854.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #8",
+        "ref": "3A27BB",
+        "source_type": "spawn",
+        "coords": [
+         183189.796875,
+         -134642.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #9",
+        "ref": "3A27BE",
+        "source_type": "spawn",
+        "coords": [
+         182980.328125,
+         -134660.90625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #10",
+        "ref": "3D3B96",
+        "source_type": "spawn",
+        "coords": [
+         183189.453125,
+         -135239.75
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #11",
+        "ref": "3D3BAD",
+        "source_type": "spawn",
+        "coords": [
+         183291.6875,
+         -134841.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 11,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Forward Station Alpha",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "37AEE6",
+       "37AEE7"
+      ],
+      "coords": [
+       120346.109375,
+       -80338.5703125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "37AEE6",
+        "source_type": "spawn",
+        "coords": [
+         120346.109375,
+         -80338.5703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "37AEE7",
+        "source_type": "spawn",
+        "coords": [
+         120248.140625,
+         -80240.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Glassed Cavern",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFDEE",
+       "2EFDEF",
+       "2EFDF0",
+       "2EFDF2",
+       "363062",
+       "44D516"
+      ],
+      "coords": [
+       201811.875,
+       -154909.375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "2EFDEE",
+        "source_type": "spawn",
+        "coords": [
+         201811.875,
+         -154909.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "2EFDEF",
+        "source_type": "spawn",
+        "coords": [
+         202613.375,
+         -155080.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "2EFDF0",
+        "source_type": "spawn",
+        "coords": [
+         201986.15625,
+         -155023.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "2EFDF2",
+        "source_type": "spawn",
+        "coords": [
+         202369.15625,
+         -155039.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "363062",
+        "source_type": "spawn",
+        "coords": [
+         200883.171875,
+         -164290.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "44D516",
+        "source_type": "spawn",
+        "coords": [
+         202208.921875,
+         -154991.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Overgrown Sundew Grove",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "36C320",
+       "36C321",
+       "36C322",
+       "36D058",
+       "3A2758",
+       "3D3BAF"
+      ],
+      "coords": [
+       185137.71875,
+       -163769.34375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "36C320",
+        "source_type": "spawn",
+        "coords": [
+         193497.09375,
+         -178054.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "36C321",
+        "source_type": "spawn",
+        "coords": [
+         193770.109375,
+         -178198.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "36C322",
+        "source_type": "spawn",
+        "coords": [
+         194253.59375,
+         -178025.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "36D058",
+        "source_type": "spawn",
+        "coords": [
+         176983.296875,
+         -167320.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "3A2758",
+        "source_type": "spawn",
+        "coords": [
+         185137.71875,
+         -163769.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "3D3BAF",
+        "source_type": "spawn",
+        "coords": [
+         185677.21875,
+         -164259.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Pylon V-13",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "51044C",
+       "51044D"
+      ],
+      "coords": [
+       190919.796875,
+       -95267.0859375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "51044C",
+        "source_type": "spawn",
+        "coords": [
+         190919.796875,
+         -95267.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "51044D",
+        "source_type": "spawn",
+        "coords": [
+         190999.921875,
+         -94857.0390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Quarry X3",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35ADF4",
+       "35ADF6",
+       "35ADFA",
+       "35AE05",
+       "36D05A",
+       "36D05D"
+      ],
+      "coords": [
+       157644.78125,
+       -122782.203125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "35ADF4",
+        "source_type": "spawn",
+        "coords": [
+         157644.78125,
+         -122782.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "35ADF6",
+        "source_type": "spawn",
+        "coords": [
+         158575.8125,
+         -122482.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "35ADFA",
+        "source_type": "spawn",
+        "coords": [
+         158788.078125,
+         -121782.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "35AE05",
+        "source_type": "spawn",
+        "coords": [
+         162740.609375,
+         -119503.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "36D05A",
+        "source_type": "spawn",
+        "coords": [
+         157050.390625,
+         -102167.8515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "36D05D",
+        "source_type": "spawn",
+        "coords": [
+         156857.6875,
+         -100837.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Ranger Lookout",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "399DFF",
+       "399E00",
+       "399E03",
+       "3D3BAB"
+      ],
+      "coords": [
+       148368.5,
+       -79273.359375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "399DFF",
+        "source_type": "spawn",
+        "coords": [
+         148368.5,
+         -79273.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "399E00",
+        "source_type": "spawn",
+        "coords": [
+         150471.375,
+         -79054.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "399E03",
+        "source_type": "spawn",
+        "coords": [
+         149414.453125,
+         -80829.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3D3BAB",
+        "source_type": "spawn",
+        "coords": [
+         147937.625,
+         -81300.4453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "RobCo Research Center",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "13B79F",
+       "13B7B5"
+      ],
+      "coords": [
+       198111.375,
+       -71028.703125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "13B79F",
+        "source_type": "spawn",
+        "coords": [
+         198111.375,
+         -71028.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "13B7B5",
+        "source_type": "spawn",
+        "coords": [
+         198354.4375,
+         -71383.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sacramental Glade",
+      "count": 8,
+      "sources": {
+       "spawn": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFDD5",
+       "2EFDE8",
+       "2EFDE9",
+       "2EFDEA",
+       "2EFDEB",
+       "36B219",
+       "36B21A",
+       "36B21B"
+      ],
+      "coords": [
+       193713.40625,
+       -137289.5625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "2EFDD5",
+        "source_type": "spawn",
+        "coords": [
+         193713.40625,
+         -137289.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "2EFDE8",
+        "source_type": "spawn",
+        "coords": [
+         193650.21875,
+         -136787.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "2EFDE9",
+        "source_type": "spawn",
+        "coords": [
+         194115.09375,
+         -136862.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "2EFDEA",
+        "source_type": "spawn",
+        "coords": [
+         193945.75,
+         -137328.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "2EFDEB",
+        "source_type": "spawn",
+        "coords": [
+         193781.25,
+         -137052.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "36B219",
+        "source_type": "spawn",
+        "coords": [
+         202817.4375,
+         -138150.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #7",
+        "ref": "36B21A",
+        "source_type": "spawn",
+        "coords": [
+         203993.515625,
+         -138431.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #8",
+        "ref": "36B21B",
+        "source_type": "spawn",
+        "coords": [
+         203667.3125,
+         -137667.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 8,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sunrise Field",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "360FDD",
+       "360FDF",
+       "360FE1",
+       "360FE3"
+      ],
+      "coords": [
+       148024.328125,
+       -169851.875
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "360FDD",
+        "source_type": "spawn",
+        "coords": [
+         148024.328125,
+         -169851.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "360FDF",
+        "source_type": "spawn",
+        "coords": [
+         148181.515625,
+         -170537.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "360FE1",
+        "source_type": "spawn",
+        "coords": [
+         148286.84375,
+         -170449.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "360FE3",
+        "source_type": "spawn",
+        "coords": [
+         149352.578125,
+         -171279.75
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Survey Camp Alpha",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFD15",
+       "2EFD16",
+       "2EFD17",
+       "2EFD18",
+       "2EFD19"
+      ],
+      "coords": [
+       162285.125,
+       -147274.0
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "2EFD15",
+        "source_type": "spawn",
+        "coords": [
+         162285.125,
+         -147274.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "2EFD16",
+        "source_type": "spawn",
+        "coords": [
+         163391.515625,
+         -147861.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "2EFD17",
+        "source_type": "spawn",
+        "coords": [
+         162416.15625,
+         -147539.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "2EFD18",
+        "source_type": "spawn",
+        "coords": [
+         162348.3125,
+         -147776.15625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "2EFD19",
+        "source_type": "spawn",
+        "coords": [
+         162580.65625,
+         -147815.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Thorn",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B9EFC",
+       "39D21C",
+       "39D21D",
+       "39D21F"
+      ],
+      "coords": [
+       112873.453125,
+       -114203.296875
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "2B9EFC",
+        "source_type": "spawn",
+        "coords": [
+         112873.453125,
+         -114203.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "39D21C",
+        "source_type": "spawn",
+        "coords": [
+         112724.8203125,
+         -114407.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "39D21D",
+        "source_type": "spawn",
+        "coords": [
+         112469.125,
+         -114355.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "39D21F",
+        "source_type": "spawn",
+        "coords": [
+         112622.0390625,
+         -114223.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-02",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35ADCB",
+       "35ADCC",
+       "35ADE0",
+       "35E9A1"
+      ],
+      "coords": [
+       131473.1875,
+       -117618.9609375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "35ADCB",
+        "source_type": "spawn",
+        "coords": [
+         151180.484375,
+         -125512.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "35ADCC",
+        "source_type": "spawn",
+        "coords": [
+         151208.3125,
+         -125943.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "35ADE0",
+        "source_type": "spawn",
+        "coords": [
+         154631.75,
+         -124210.0234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "35E9A1",
+        "source_type": "spawn",
+        "coords": [
+         131473.1875,
+         -117618.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Veiled Sundew Grove",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35AE0C",
+       "35AE0D",
+       "35AE0E"
+      ],
+      "coords": [
+       169612.515625,
+       -113057.234375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "35AE0C",
+        "source_type": "spawn",
+        "coords": [
+         169612.515625,
+         -113057.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "35AE0D",
+        "source_type": "spawn",
+        "coords": [
+         170151.796875,
+         -112620.2109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "35AE0E",
+        "source_type": "spawn",
+        "coords": [
+         170450.125,
+         -113088.75
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "34ECEF"
+      ],
+      "coords": [
+       145141.015625,
+       -131002.140625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "34ECEF",
+        "source_type": "spawn",
+        "coords": [
+         145141.015625,
+         -131002.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga Station",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFD46",
+       "2EFD47",
+       "2EFD48",
+       "2EFD49"
+      ],
+      "coords": [
+       145406.234375,
+       -156221.65625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "2EFD46",
+        "source_type": "spawn",
+        "coords": [
+         145406.234375,
+         -156221.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "2EFD47",
+        "source_type": "spawn",
+        "coords": [
+         145072.390625,
+         -156412.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "2EFD48",
+        "source_type": "spawn",
+        "coords": [
+         145004.546875,
+         -156649.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "2EFD49",
+        "source_type": "spawn",
+        "coords": [
+         145236.890625,
+         -156688.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga Underground",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFD3F",
+       "2EFD40",
+       "2EFD41",
+       "2EFD42"
+      ],
+      "coords": [
+       163156.03125,
+       -140637.765625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "2EFD3F",
+        "source_type": "spawn",
+        "coords": [
+         163156.03125,
+         -140637.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "2EFD40",
+        "source_type": "spawn",
+        "coords": [
+         164182.078125,
+         -140193.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "2EFD41",
+        "source_type": "spawn",
+        "coords": [
+         164012.734375,
+         -140660.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "2EFD42",
+        "source_type": "spawn",
+        "coords": [
+         163287.0625,
+         -140903.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Organ Cave South",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "553E75"
+      ],
+      "coords": [
+       -118213.7734375,
+       85660.25
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "553E75",
+        "source_type": "placement",
+        "coords": [
+         -118213.7734375,
+         85660.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Beckwith Farm",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "303CC0",
+       "303CC2",
+       "303CC3"
+      ],
+      "coords": [
+       42753.3359375,
+       -6811.54150390625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "303CC0",
+        "source_type": "spawn",
+        "coords": [
+         42753.3359375,
+         -6811.54150390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "303CC2",
+        "source_type": "spawn",
+        "coords": [
+         42925.57421875,
+         -6792.33837890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "303CC3",
+        "source_type": "spawn",
+        "coords": [
+         42808.78125,
+         -7009.8076171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DD486"
+      ],
+      "coords": [
+       -3067.4521484375,
+       2999.81030273438
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "5DD486",
+        "source_type": "placement",
+        "coords": [
+         -3067.4521484375,
+         2999.81030273438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Research Site Bavaria",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7511CA",
+       "7511CB",
+       "7511CC"
+      ],
+      "coords": [
+       71886.1875,
+       -231244.21875
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "7511CA",
+        "source_type": "spawn",
+        "coords": [
+         71886.1875,
+         -231244.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "7511CB",
+        "source_type": "spawn",
+        "coords": [
+         71875.875,
+         -231615.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "7511CC",
+        "source_type": "spawn",
+        "coords": [
+         71560.171875,
+         -231372.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Shining Creek Cavern",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7511AD",
+       "7511AE"
+      ],
+      "coords": [
+       77355.65625,
+       -215674.9375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "7511AD",
+        "source_type": "spawn",
+        "coords": [
+         77355.65625,
+         -215674.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "7511AE",
+        "source_type": "spawn",
+        "coords": [
+         77350.2421875,
+         -216017.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Stony Man Lookout",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75C704",
+       "75C705",
+       "75C706",
+       "75C707"
+      ],
+      "coords": [
+       53616.0,
+       -220368.0
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "75C704",
+        "source_type": "spawn",
+        "coords": [
+         53616.0,
+         -220368.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "75C705",
+        "source_type": "spawn",
+        "coords": [
+         53967.99609375,
+         -220392.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "75C706",
+        "source_type": "spawn",
+        "coords": [
+         53543.9921875,
+         -220712.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "75C707",
+        "source_type": "spawn",
+        "coords": [
+         53943.9765625,
+         -220792.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Trading Post",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75C6E5",
+       "75C6E6",
+       "75C6E7",
+       "75C70F",
+       "75C710",
+       "75C711",
+       "75C712"
+      ],
+      "coords": [
+       45312.0,
+       -226688.0
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "75C6E5",
+        "source_type": "spawn",
+        "coords": [
+         45312.0,
+         -226688.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "75C6E6",
+        "source_type": "spawn",
+        "coords": [
+         45272.0,
+         -226272.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "75C6E7",
+        "source_type": "spawn",
+        "coords": [
+         45768.0,
+         -226584.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "75C70F",
+        "source_type": "spawn",
+        "coords": [
+         43632.0,
+         -212872.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "75C710",
+        "source_type": "spawn",
+        "coords": [
+         43864.0078125,
+         -212424.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "75C711",
+        "source_type": "spawn",
+        "coords": [
+         44168.01171875,
+         -212720.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #7",
+        "ref": "75C712",
+        "source_type": "spawn",
+        "coords": [
+         43888.0,
+         -212952.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Abandoned Waste Dump",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3953F9",
+       "3953FA",
+       "3953FD",
+       "395483",
+       "3D3B99"
+      ],
+      "coords": [
+       182599.203125,
+       34375.65625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3953F9",
+        "source_type": "spawn",
+        "coords": [
+         182599.203125,
+         34375.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "3953FA",
+        "source_type": "spawn",
+        "coords": [
+         182878.765625,
+         34385.35546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "3953FD",
+        "source_type": "spawn",
+        "coords": [
+         182775.984375,
+         34568.8359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "395483",
+        "source_type": "spawn",
+        "coords": [
+         198627.484375,
+         30502.373046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "3D3B99",
+        "source_type": "spawn",
+        "coords": [
+         198742.765625,
+         30382.392578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Abbie's Bunker",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395443",
+       "395445",
+       "395447"
+      ],
+      "coords": [
+       173739.625,
+       145096.484375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "395443",
+        "source_type": "spawn",
+        "coords": [
+         173739.625,
+         145096.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "395445",
+        "source_type": "spawn",
+        "coords": [
+         174073.09375,
+         145274.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "395447",
+        "source_type": "spawn",
+        "coords": [
+         174017.46875,
+         144666.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Berkeley Springs West",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "299928"
+      ],
+      "coords": [
+       125807.875,
+       20343.564453125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "299928",
+        "source_type": "spawn",
+        "coords": [
+         125807.875,
+         20343.564453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Camp Venture",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "161308",
+       "16213D"
+      ],
+      "coords": [
+       159763.265625,
+       -33830.9921875
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "161308",
+        "source_type": "spawn",
+        "coords": [
+         159763.265625,
+         -33830.9921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "16213D",
+        "source_type": "spawn",
+        "coords": [
+         160298.234375,
+         -33816.29296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Crevasse Dam",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39549B",
+       "39549C",
+       "39549F"
+      ],
+      "coords": [
+       170086.25,
+       80180.140625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "39549B",
+        "source_type": "spawn",
+        "coords": [
+         170086.25,
+         80180.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "39549C",
+        "source_type": "spawn",
+        "coords": [
+         170385.40625,
+         79914.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "39549F",
+        "source_type": "spawn",
+        "coords": [
+         170239.15625,
+         80311.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dabney Homestead",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B85AD",
+       "2B85AE",
+       "2B85AF",
+       "2B85B0",
+       "2B85B1",
+       "3953C1",
+       "3953C2",
+       "3953C5",
+       "3953C6"
+      ],
+      "coords": [
+       194232.21875,
+       -27459.82421875
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "2B85AD",
+        "source_type": "spawn",
+        "coords": [
+         188086.5,
+         -24431.53515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "2B85AE",
+        "source_type": "spawn",
+        "coords": [
+         187909.234375,
+         -24290.849609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "2B85AF",
+        "source_type": "spawn",
+        "coords": [
+         187827.09375,
+         -24575.388671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "2B85B0",
+        "source_type": "spawn",
+        "coords": [
+         187481.6875,
+         -24562.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "2B85B1",
+        "source_type": "spawn",
+        "coords": [
+         187605.359375,
+         -24669.517578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "3953C1",
+        "source_type": "spawn",
+        "coords": [
+         194232.21875,
+         -27459.82421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #7",
+        "ref": "3953C2",
+        "source_type": "spawn",
+        "coords": [
+         194487.90625,
+         -27511.654296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #8",
+        "ref": "3953C5",
+        "source_type": "spawn",
+        "coords": [
+         194385.125,
+         -27328.173828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #9",
+        "ref": "3953C6",
+        "source_type": "spawn",
+        "coords": [
+         194252.46875,
+         -27785.90234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Campground",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "0233E0",
+       "0233F8",
+       "023481",
+       "44AA14"
+      ],
+      "coords": [
+       156909.3125,
+       74426.3359375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "0233E0",
+        "source_type": "spawn",
+        "coords": [
+         156909.3125,
+         74426.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "0233F8",
+        "source_type": "spawn",
+        "coords": [
+         151700.46875,
+         77373.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "023481",
+        "source_type": "spawn",
+        "coords": [
+         160198.984375,
+         77301.2734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "44AA14",
+        "source_type": "spawn",
+        "coords": [
+         151423.875,
+         75465.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Lookout",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395505",
+       "395506",
+       "395509",
+       "39550A",
+       "3D3B9B"
+      ],
+      "coords": [
+       150521.828125,
+       99952.59375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "395505",
+        "source_type": "spawn",
+        "coords": [
+         150521.828125,
+         99952.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "395506",
+        "source_type": "spawn",
+        "coords": [
+         150777.515625,
+         99900.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "395509",
+        "source_type": "spawn",
+        "coords": [
+         150674.734375,
+         100084.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "39550A",
+        "source_type": "spawn",
+        "coords": [
+         150854.21875,
+         100348.3671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "3D3B9B",
+        "source_type": "spawn",
+        "coords": [
+         150638.90625,
+         99826.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dyer Chemical",
+      "count": 3,
+      "sources": {
+       "ambush": 1,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "45025A",
+       "45025B",
+       "45025C"
+      ],
+      "coords": [
+       175293.46875,
+       71468.625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper ambush",
+        "ref": "45025A",
+        "source_type": "ambush",
+        "coords": [
+         175293.46875,
+         71468.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #1",
+        "ref": "45025B",
+        "source_type": "placement",
+        "coords": [
+         175647.0,
+         71376.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "45025C",
+        "source_type": "placement",
+        "coords": [
+         175811.90625,
+         71424.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Ella Ames' Bunker",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C042A",
+       "4521BA",
+       "4521BB",
+       "4521BE"
+      ],
+      "coords": [
+       162342.984375,
+       107329.3125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3C042A",
+        "source_type": "spawn",
+        "coords": [
+         162342.984375,
+         107329.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "4521BA",
+        "source_type": "spawn",
+        "coords": [
+         168570.78125,
+         103653.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "4521BB",
+        "source_type": "spawn",
+        "coords": [
+         168722.53125,
+         103865.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "4521BE",
+        "source_type": "spawn",
+        "coords": [
+         168513.0625,
+         103846.8828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Gnarled Shallows",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954C3",
+       "3954C5",
+       "3954C6",
+       "3954CA",
+       "3954CD"
+      ],
+      "coords": [
+       193549.390625,
+       146277.390625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3954C3",
+        "source_type": "spawn",
+        "coords": [
+         194753.015625,
+         157367.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "3954C5",
+        "source_type": "spawn",
+        "coords": [
+         194650.234375,
+         157550.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "3954C6",
+        "source_type": "spawn",
+        "coords": [
+         195026.875,
+         157335.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3954CA",
+        "source_type": "spawn",
+        "coords": [
+         193549.390625,
+         146277.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "3954CD",
+        "source_type": "spawn",
+        "coords": [
+         193577.375,
+         146433.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Gulper Lagoon",
+      "count": 11,
+      "sources": {
+       "ambush": 3,
+       "spawn": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C0300",
+       "3C042B",
+       "3C1D4A",
+       "3C1DC8",
+       "3D10B2",
+       "3D10B3",
+       "3D10B4",
+       "5253A6",
+       "5253A7",
+       "5253A8",
+       "5253A9"
+      ],
+      "coords": [
+       157618.921875,
+       111698.6484375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper ambush #1",
+        "ref": "3D10B2",
+        "source_type": "ambush",
+        "coords": [
+         157618.921875,
+         111698.6484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper ambush #2",
+        "ref": "3D10B3",
+        "source_type": "ambush",
+        "coords": [
+         156516.0,
+         111149.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper ambush #3",
+        "ref": "3D10B4",
+        "source_type": "ambush",
+        "coords": [
+         158925.765625,
+         111835.5703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3C0300",
+        "source_type": "spawn",
+        "coords": [
+         162285.265625,
+         107522.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "3C042B",
+        "source_type": "spawn",
+        "coords": [
+         162494.734375,
+         107541.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "3C1D4A",
+        "source_type": "spawn",
+        "coords": [
+         157129.953125,
+         105809.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3C1DC8",
+        "source_type": "spawn",
+        "coords": [
+         157227.046875,
+         105609.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "5253A6",
+        "source_type": "spawn",
+        "coords": [
+         157637.171875,
+         111593.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "5253A7",
+        "source_type": "spawn",
+        "coords": [
+         158910.78125,
+         111794.7109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #7",
+        "ref": "5253A8",
+        "source_type": "spawn",
+        "coords": [
+         158050.0,
+         111124.2421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #8",
+        "ref": "5253A9",
+        "source_type": "spawn",
+        "coords": [
+         156471.640625,
+         111138.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "spawn points",
+        "count": 8,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Highland Marsh",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954E0",
+       "3954E1",
+       "3954E4",
+       "3D3B9D"
+      ],
+      "coords": [
+       182923.25,
+       125201.9375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3954E0",
+        "source_type": "spawn",
+        "coords": [
+         182923.25,
+         125201.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "3954E1",
+        "source_type": "spawn",
+        "coords": [
+         182644.359375,
+         124553.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "3954E4",
+        "source_type": "spawn",
+        "coords": [
+         182823.515625,
+         125827.1015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3D3B9D",
+        "source_type": "spawn",
+        "coords": [
+         183350.75,
+         124906.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mire's Eye",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395470",
+       "395472"
+      ],
+      "coords": [
+       198478.90625,
+       169655.0625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "395470",
+        "source_type": "spawn",
+        "coords": [
+         198478.90625,
+         169655.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "395472",
+        "source_type": "spawn",
+        "coords": [
+         199013.625,
+         170277.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mosstown",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39551B",
+       "39551C",
+       "39551F"
+      ],
+      "coords": [
+       137753.4375,
+       79335.0
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "39551B",
+        "source_type": "spawn",
+        "coords": [
+         137753.4375,
+         79335.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "39551C",
+        "source_type": "spawn",
+        "coords": [
+         138008.6875,
+         79284.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "39551F",
+        "source_type": "spawn",
+        "coords": [
+         137906.34375,
+         79466.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sunday Brothers' Cabin",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "505071",
+       "505501"
+      ],
+      "coords": [
+       145749.96875,
+       -5982.6318359375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "505071",
+        "source_type": "spawn",
+        "coords": [
+         145749.96875,
+         -5982.6318359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "505501",
+        "source_type": "spawn",
+        "coords": [
+         146109.296875,
+         -5848.28466796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Power Plant",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39542A",
+       "39542B",
+       "39542E"
+      ],
+      "coords": [
+       190329.421875,
+       112376.421875
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "39542A",
+        "source_type": "spawn",
+        "coords": [
+         190329.421875,
+         112376.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "39542B",
+        "source_type": "spawn",
+        "coords": [
+         190582.34375,
+         112305.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "39542E",
+        "source_type": "spawn",
+        "coords": [
+         190636.234375,
+         112508.3828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-01",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395374",
+       "395377",
+       "52AB63",
+       "52AB65",
+       "52AB66"
+      ],
+      "coords": [
+       145774.734375,
+       6283.62451171875
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "395374",
+        "source_type": "spawn",
+        "coords": [
+         145774.734375,
+         6283.62451171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "395377",
+        "source_type": "spawn",
+        "coords": [
+         145673.765625,
+         6467.79736328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "52AB63",
+        "source_type": "spawn",
+        "coords": [
+         145555.34375,
+         10844.8046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "52AB65",
+        "source_type": "spawn",
+        "coords": [
+         145609.90625,
+         10686.51953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "52AB66",
+        "source_type": "spawn",
+        "coords": [
+         145757.40625,
+         10758.029296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Clarksburg Shooting Club",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B365A",
+       "3B365B",
+       "3B3662",
+       "3B3663",
+       "3B3668",
+       "3B3669"
+      ],
+      "coords": [
+       -10532.236328125,
+       164835.765625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3B365A",
+        "source_type": "spawn",
+        "coords": [
+         -10532.236328125,
+         164835.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "3B365B",
+        "source_type": "spawn",
+        "coords": [
+         -10791.1962890625,
+         164768.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "3B3662",
+        "source_type": "spawn",
+        "coords": [
+         -8756.9326171875,
+         164826.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3B3663",
+        "source_type": "spawn",
+        "coords": [
+         -9015.892578125,
+         164759.15625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "3B3668",
+        "source_type": "spawn",
+        "coords": [
+         -7450.13916015625,
+         165219.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "3B3669",
+        "source_type": "spawn",
+        "coords": [
+         -7632.52392578125,
+         165009.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Eastern Regional Penitentiary",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3DF2A6",
+       "3DF2A7"
+      ],
+      "coords": [
+       -24096.005859375,
+       128657.9453125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3DF2A6",
+        "source_type": "spawn",
+        "coords": [
+         -24096.005859375,
+         128657.9453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "3DF2A7",
+        "source_type": "spawn",
+        "coords": [
+         -24190.76171875,
+         128656.8828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Grafton Station",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "00116D",
+       "00116E"
+      ],
+      "coords": [
+       -55226.796875,
+       132676.359375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "00116D",
+        "source_type": "spawn",
+        "coords": [
+         -55226.796875,
+         132676.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "00116E",
+        "source_type": "spawn",
+        "coords": [
+         -55329.39453125,
+         132111.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Graninger Farm",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "393186",
+       "393187",
+       "39318A",
+       "3B368A",
+       "3B368C",
+       "3B368D",
+       "3B368E",
+       "3B3690",
+       "3B3691"
+      ],
+      "coords": [
+       23464.494140625,
+       177455.828125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "393186",
+        "source_type": "spawn",
+        "coords": [
+         23464.494140625,
+         177455.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "393187",
+        "source_type": "spawn",
+        "coords": [
+         23735.228515625,
+         177392.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "39318A",
+        "source_type": "spawn",
+        "coords": [
+         23632.447265625,
+         177576.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3B368A",
+        "source_type": "spawn",
+        "coords": [
+         -1353.56079101562,
+         167227.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #5",
+        "ref": "3B368C",
+        "source_type": "spawn",
+        "coords": [
+         -1203.96350097656,
+         166971.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #6",
+        "ref": "3B368D",
+        "source_type": "spawn",
+        "coords": [
+         -1079.28479003906,
+         167093.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #7",
+        "ref": "3B368E",
+        "source_type": "spawn",
+        "coords": [
+         -1122.61987304688,
+         167228.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #8",
+        "ref": "3B3690",
+        "source_type": "spawn",
+        "coords": [
+         -1408.90661621094,
+         167319.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #9",
+        "ref": "3B3691",
+        "source_type": "spawn",
+        "coords": [
+         -1284.22790527344,
+         167441.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hemlock Holes",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35D109",
+       "35D10B"
+      ],
+      "coords": [
+       -75385.171875,
+       173528.625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "35D109",
+        "source_type": "spawn",
+        "coords": [
+         -75385.171875,
+         173528.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "35D10B",
+        "source_type": "spawn",
+        "coords": [
+         -75278.71875,
+         173681.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hemlock Holes Maintenance",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3931E7",
+       "3931E8",
+       "3931EB",
+       "3931EC"
+      ],
+      "coords": [
+       -50546.19921875,
+       194352.953125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "3931E7",
+        "source_type": "spawn",
+        "coords": [
+         -50546.19921875,
+         194352.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "3931E8",
+        "source_type": "spawn",
+        "coords": [
+         -50074.2734375,
+         194279.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "3931EB",
+        "source_type": "spawn",
+        "coords": [
+         -50255.1640625,
+         194702.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "3931EC",
+        "source_type": "spawn",
+        "coords": [
+         -50380.0546875,
+         194867.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Knife Edge",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "393239",
+       "39323A",
+       "39323D"
+      ],
+      "coords": [
+       54983.65234375,
+       202000.78125
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "393239",
+        "source_type": "spawn",
+        "coords": [
+         54983.65234375,
+         202000.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "39323A",
+        "source_type": "spawn",
+        "coords": [
+         55352.0,
+         202448.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "39323D",
+        "source_type": "spawn",
+        "coords": [
+         55512.0,
+         201480.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Philippi Battlefield Cemetery",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "518B96",
+       "518B98",
+       "518B99"
+      ],
+      "coords": [
+       30324.736328125,
+       170683.15625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "518B96",
+        "source_type": "spawn",
+        "coords": [
+         30324.736328125,
+         170683.15625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "518B98",
+        "source_type": "spawn",
+        "coords": [
+         30477.642578125,
+         170814.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "518B99",
+        "source_type": "spawn",
+        "coords": [
+         31057.232421875,
+         170727.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Pioneer Scout Lookout",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "390F42",
+       "390F44"
+      ],
+      "coords": [
+       -13351.3369140625,
+       148600.1875
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "390F42",
+        "source_type": "spawn",
+        "coords": [
+         -13351.3369140625,
+         148600.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "390F44",
+        "source_type": "spawn",
+        "coords": [
+         -13310.6484375,
+         148453.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Prickett's Fort",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D3BAC"
+      ],
+      "coords": [
+       55880.0,
+       202232.0
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "3D3BAC",
+        "source_type": "spawn",
+        "coords": [
+         55880.0,
+         202232.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 60,
+  "total_placements": 231
+ },
+ "blurb": "The Gulper in Fallout 76 — drops Gulper Innards, 20 NPC variants, 231 known spawn points."
+}

@@ -1,0 +1,331 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "FEVHoundRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 6
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "mutant-hound",
+ "name": "Mutant Hound",
+ "page_title": "Farming - Meat - Mutant Hound",
+ "url": "/bnb/farming/meat/mutant-hound/",
+ "npc_summary": {
+  "npc_count": 16,
+  "level_min": 8,
+  "level_max": 95,
+  "health_max": 650
+ },
+ "meat_items": [
+  {
+   "name": "Mutant Hound Meat",
+   "form_id": "00146156",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Epic - Eat Mutant Hound Chops",
+   "required": 3,
+   "edid": "SCORE_Challenge_Daily_Consume_Food_MutantHoundChop_Epic",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill a Mutant Hound",
+   "required": 3,
+   "edid": "SCORE_Challenge_Daily_Kill_Mutant_Hound",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Sell Mutant Hound Chops to an NPC vendor",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Barter_Sell_Mutant_hound_chops",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Kill a Mutant Hound while wearing the Doctor Head Mirror",
+   "required": 5,
+   "edid": "ATX_DE2024_ScienceOfLove_Week2_Challenge_Kill_MutantHound",
+   "page": "events"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_MutantHound",
+    "form_id": "001A85CE",
+    "row_count": 2,
+    "direct_items": 1,
+    "pool_count": 1,
+    "item_count": 1,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "LLE Creature Small",
+      "sub_id": "003DF3FB",
+      "edid": "LLE_Creature_Small",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Mutant Hound Meat",
+      "form_id": "00146156",
+      "edid": "MutanthoundMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Watoga Civic Center",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5A2444",
+       "5A2447"
+      ],
+      "coords": [
+       136419.21875,
+       -138206.5625
+      ],
+      "spawns": [
+       {
+        "label": "Mutant Hound spawn #1",
+        "ref": "5A2444",
+        "source_type": "placement",
+        "coords": [
+         136419.21875,
+         -138206.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mutant Hound spawn #2",
+        "ref": "5A2447",
+        "source_type": "placement",
+        "coords": [
+         137850.3125,
+         -139019.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": []
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Atlas Substructure",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5D7985",
+       "5D98FD"
+      ],
+      "coords": [
+       3301.46728515625,
+       -12211.02734375
+      ],
+      "spawns": [
+       {
+        "label": "Mutant Hound spawn #1",
+        "ref": "5D7985",
+        "source_type": "placement",
+        "coords": [
+         3301.46728515625,
+         -12211.02734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mutant Hound spawn #2",
+        "ref": "5D98FD",
+        "source_type": "placement",
+        "coords": [
+         -5264.97900390625,
+         -12387.4306640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Stony Man Lookout",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6F03E5"
+      ],
+      "coords": [
+       59718.5,
+       -228632.53125
+      ],
+      "spawns": [
+       {
+        "label": "Mutant Hound spawn",
+        "ref": "6F03E5",
+        "source_type": "placement",
+        "coords": [
+         59718.5,
+         -228632.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Grafton Dam",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3BE064"
+      ],
+      "coords": [
+       4391.6064453125,
+       121739.296875
+      ],
+      "spawns": [
+       {
+        "label": "Mutant Hound spawn",
+        "ref": "3BE064",
+        "source_type": "placement",
+        "coords": [
+         4391.6064453125,
+         121739.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 4,
+  "total_placements": 6
+ },
+ "blurb": "The Mutant Hound in Fallout 76 — drops Mutant Hound Meat, 16 NPC variants, 6 known spawn points."
+}

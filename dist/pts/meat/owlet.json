@@ -1,0 +1,198 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "OwlRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 2
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "owlet",
+ "name": "Owlet",
+ "page_title": "Farming - Meat - Owlet",
+ "url": "/bnb/farming/meat/owlet/",
+ "npc_summary": {
+  "npc_count": 3,
+  "level_min": 1,
+  "level_max": 1,
+  "health_max": 5
+ },
+ "meat_items": [
+  {
+   "name": "Owlet Meat",
+   "form_id": "004FE51B",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Owlet",
+    "form_id": "00382263",
+    "row_count": 2,
+    "direct_items": 1,
+    "pool_count": 1,
+    "item_count": 1,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creature Critter",
+      "sub_id": "003DF3D9",
+      "edid": "LLS_Ammo_Creature_Critter",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Owlet Meat",
+      "form_id": "004FE51B",
+      "edid": "OwletMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "The Deep",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "553ABD"
+      ],
+      "coords": [
+       1599.23791503906,
+       -230.969818115234
+      ],
+      "spawns": [
+       {
+        "label": "Owlet spawn",
+        "ref": "553ABD",
+        "source_type": "placement",
+        "coords": [
+         1599.23791503906,
+         -230.969818115234
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": []
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Haven Church",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "619400"
+      ],
+      "coords": [
+       177066.59375,
+       42894.2109375
+      ],
+      "spawns": [
+       {
+        "label": "Owlet spawn",
+        "ref": "619400",
+        "source_type": "placement",
+        "coords": [
+         177066.59375,
+         42894.2109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 2,
+  "total_placements": 2
+ },
+ "blurb": "The Owlet in Fallout 76 — drops Owlet Meat, 3 NPC variants, 2 known spawn points."
+}

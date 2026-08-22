@@ -1,54 +1,53 @@
 #!/usr/bin/env python3
 """
 build_farming_meat_json.py
-====================
-STATUS: SCAFFOLDED — gap filler for the Farming - Meat category.
+==========================
+Builds the BNB Farming - Meat category: one creature-seeded page per raw meat.
 
-NOTES FOR NEXT AI
-─────────────────
-1. This script should generate dist/farming_meat.json from xEdit TSV exports.
+Real logic lives in spawns_configs/meat.py (reuses the shared creature-seeded
+engine, spawns_configs.cryptids.compute_bundle). Output:
+  dist/meat.json           — hub index (one card per meat)
+  dist/meat/<slug>.json    — one doc per meat page
 
-2. REFERENCE SCRIPTS:
-   - build_armour_json.py — good template for a straightforward TSV→JSON build
-   - build_titles_json.py — good template for complex multi-source builds
-   - build_collectables_json.py — good template for categorized item builds
-
-3. EXPECTED INPUT:
-   TSV files in the tsv/ directory, exported from xEdit. Common columns:
-   - Editor ID (EDID), Form ID, Full Name, Description
-   - Category-specific columns TBD based on game data structure
-
-4. EXPECTED OUTPUT:
-   dist/farming_meat.json — consumed by the JS module df-bnb-farming_meat.js on the website
-
-5. WORKFLOW:
-   There is a matching GitHub Actions workflow:
-   .github/workflows/build-farming_meat.yml
-   that calls this script on push to tsv/ or src/ paths.
-
-6. The master workflow (dfbnb-patch-build.yml) also calls this script.
+Fixed Spawn Locations need a LOCAL Mappalachia DB pass; the result is cached to
+data/meat_spawns/<slug>.json (committed) so CI (no DB) rebuilds from the cache.
 
 Usage:
-  python build_farming_meat_json.py
-  python build_farming_meat_json.py --tsv-root tsv --outdir dist
+  python src/build_farming_meat_json.py
+  python src/build_farming_meat_json.py deathclaw wolf   # named meats only
 """
+import os, sys, shutil
 
-import json
-import os
-import sys
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.dirname(HERE)
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
 
-def main():
-    print(f"[build_farming_meat_json.py] Gap filler — real build logic TBD")
+from spawns_configs import meat
 
-    # Ensure output directory exists
-    os.makedirs("dist", exist_ok=True)
 
-    # Write empty/placeholder JSON
-    out_path = os.path.join("dist", "farming_meat.json")
-    with open(out_path, "w") as f:
-        json.dump({"_status": "scaffolded", "_category": "Farming - Meat", "items": []}, f, indent=2)
+def _mirror_to_pts():
+    """Meat pages are derived from live game data + Mappalachia (not PTS-specific
+    TSVs), so the PTS site serves the same docs — mirror dist/meat* to dist/pts/."""
+    dist = os.path.join(REPO, "dist")
+    pts = os.path.join(dist, "pts")
+    os.makedirs(pts, exist_ok=True)
+    src_dir, dst_dir = os.path.join(dist, "meat"), os.path.join(pts, "meat")
+    if os.path.isdir(src_dir):
+        shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+    src_hub = os.path.join(dist, "meat.json")
+    if os.path.exists(src_hub):
+        shutil.copyfile(src_hub, os.path.join(pts, "meat.json"))
+    print(f"[meat] mirrored dist/meat -> dist/pts/meat for PTS.")
 
-    print(f"[build_farming_meat_json.py] Wrote {out_path}")
+
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    slugs = [a for a in argv if not a.startswith("-")]
+    meat.run(["meat"] + slugs)
+    if "--pts" in argv:
+        _mirror_to_pts()
+
 
 if __name__ == "__main__":
     main()

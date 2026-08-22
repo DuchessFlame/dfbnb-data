@@ -1,0 +1,2712 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "RadToadRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 1,
+   "placement": 8,
+   "spawn": 121
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "radtoad",
+ "name": "Radtoad",
+ "page_title": "Farming - Meat - Radtoad",
+ "url": "/bnb/farming/meat/radtoad/",
+ "npc_summary": {
+  "npc_count": 19,
+  "level_min": 5,
+  "level_max": 100,
+  "health_max": 516
+ },
+ "meat_items": [
+  {
+   "name": "Radtoad Leg",
+   "form_id": "00294538",
+   "rate_display": "20%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Deal a Critical Hit to a Radtoad in VATS",
+   "required": 8,
+   "edid": "SCORE_Challenge_Daily_Critical_Shots_Radtoads",
+   "page": "daily"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Radtoad",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_RadToad_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of an Albino Radtoad",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Albino_SUB_Radtoad_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Radtoad",
+    "form_id": "00047185",
+    "row_count": 5,
+    "direct_items": 2,
+    "pool_count": 3,
+    "item_count": 9325,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Junk Small",
+      "sub_id": "0003678C",
+      "edid": "LL_Junk_Small",
+      "item_count": 1689,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "10.5%"
+       },
+       {
+        "name": "Blackwater Brew",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "New River Red Ale",
+        "rate_display": "2.5%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Rad Toad",
+      "sub_id": "0056093B",
+      "edid": "LLS_Creature_RadToad",
+      "item_count": 6528,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Radtoad Egg",
+        "rate_display": "30%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "3.33%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "1.89%"
+       },
+       {
+        "name": "Giddyup Buttercup Back Leg",
+        "rate_display": "1.69%"
+       },
+       {
+        "name": "Giddyup Buttercup Front Leg",
+        "rate_display": "1.69%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Radtoad Egg",
+      "form_id": "00295BE5",
+      "edid": "RadToadEgg",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "item",
+      "name": "Radtoad Leg",
+      "form_id": "00294538",
+      "edid": "RadToadLeg",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 0.2,
+      "rate_display": "20%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": []
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Beckwith Farm",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "303CC0",
+       "303CC2",
+       "303CC3"
+      ],
+      "coords": [
+       42753.3359375,
+       -6811.54150390625
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "303CC0",
+        "source_type": "spawn",
+        "coords": [
+         42753.3359375,
+         -6811.54150390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "303CC2",
+        "source_type": "spawn",
+        "coords": [
+         42925.57421875,
+         -6792.33837890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "303CC3",
+        "source_type": "spawn",
+        "coords": [
+         42808.78125,
+         -7009.8076171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Freak Show",
+      "count": 9,
+      "sources": {
+       "ambush": 1,
+       "spawn": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3942B4",
+       "3942B6",
+       "3942B7",
+       "3942B8",
+       "3D02C8",
+       "3D02E0",
+       "3D02E1",
+       "3D02E2",
+       "3D02E3"
+      ],
+      "coords": [
+       85083.5078125,
+       -102120.3359375
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad ambush",
+        "ref": "3D02C8",
+        "source_type": "ambush",
+        "coords": [
+         85083.5078125,
+         -102120.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "3942B4",
+        "source_type": "spawn",
+        "coords": [
+         85470.2890625,
+         -104083.0703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "3942B6",
+        "source_type": "spawn",
+        "coords": [
+         85499.75,
+         -103888.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "3942B7",
+        "source_type": "spawn",
+        "coords": [
+         85584.8203125,
+         -103691.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "3942B8",
+        "source_type": "spawn",
+        "coords": [
+         85388.578125,
+         -103650.1796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #5",
+        "ref": "3D02E0",
+        "source_type": "spawn",
+        "coords": [
+         85864.7890625,
+         -100942.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #6",
+        "ref": "3D02E1",
+        "source_type": "spawn",
+        "coords": [
+         85702.59375,
+         -100734.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #7",
+        "ref": "3D02E2",
+        "source_type": "spawn",
+        "coords": [
+         85919.0546875,
+         -100569.1796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #8",
+        "ref": "3D02E3",
+        "source_type": "spawn",
+        "coords": [
+         85782.9140625,
+         -100428.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "spawn points",
+        "count": 8,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Sludge Hole",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A90A2",
+       "3A90A8"
+      ],
+      "coords": [
+       76854.84375,
+       42039.3125
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "3A90A2",
+        "source_type": "spawn",
+        "coords": [
+         76854.84375,
+         42039.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "3A90A8",
+        "source_type": "spawn",
+        "coords": [
+         76919.6875,
+         41858.35546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Hemlock Springs Dump",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75268C",
+       "75268D",
+       "75861F",
+       "758620"
+      ],
+      "coords": [
+       85190.8671875,
+       -193708.484375
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "75268C",
+        "source_type": "placement",
+        "coords": [
+         85190.8671875,
+         -193708.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "75268D",
+        "source_type": "placement",
+        "coords": [
+         85190.8671875,
+         -194089.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "75861F",
+        "source_type": "placement",
+        "coords": [
+         71900.984375,
+         -199270.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "758620",
+        "source_type": "placement",
+        "coords": [
+         72343.5625,
+         -199471.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Bavaria",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7511CA",
+       "7511CB",
+       "7511CC"
+      ],
+      "coords": [
+       71886.1875,
+       -231244.21875
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "7511CA",
+        "source_type": "spawn",
+        "coords": [
+         71886.1875,
+         -231244.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "7511CB",
+        "source_type": "spawn",
+        "coords": [
+         71875.875,
+         -231615.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "7511CC",
+        "source_type": "spawn",
+        "coords": [
+         71560.171875,
+         -231372.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Shining Creek Cavern",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7511AD",
+       "7511AE"
+      ],
+      "coords": [
+       77355.65625,
+       -215674.9375
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "7511AD",
+        "source_type": "spawn",
+        "coords": [
+         77355.65625,
+         -215674.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "7511AE",
+        "source_type": "spawn",
+        "coords": [
+         77350.2421875,
+         -216017.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Stony Man Lookout",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75C704",
+       "75C705",
+       "75C706",
+       "75C707"
+      ],
+      "coords": [
+       53616.0,
+       -220368.0
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "75C704",
+        "source_type": "spawn",
+        "coords": [
+         53616.0,
+         -220368.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "75C705",
+        "source_type": "spawn",
+        "coords": [
+         53967.99609375,
+         -220392.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "75C706",
+        "source_type": "spawn",
+        "coords": [
+         53543.9921875,
+         -220712.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "75C707",
+        "source_type": "spawn",
+        "coords": [
+         53943.9765625,
+         -220792.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Trading Post",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75C6E5",
+       "75C6E6",
+       "75C6E7",
+       "75C70F",
+       "75C710",
+       "75C711",
+       "75C712"
+      ],
+      "coords": [
+       45312.0,
+       -226688.0
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "75C6E5",
+        "source_type": "spawn",
+        "coords": [
+         45312.0,
+         -226688.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "75C6E6",
+        "source_type": "spawn",
+        "coords": [
+         45272.0,
+         -226272.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "75C6E7",
+        "source_type": "spawn",
+        "coords": [
+         45768.0,
+         -226584.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "75C70F",
+        "source_type": "spawn",
+        "coords": [
+         43632.0,
+         -212872.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #5",
+        "ref": "75C710",
+        "source_type": "spawn",
+        "coords": [
+         43864.0078125,
+         -212424.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #6",
+        "ref": "75C711",
+        "source_type": "spawn",
+        "coords": [
+         44168.01171875,
+         -212720.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #7",
+        "ref": "75C712",
+        "source_type": "spawn",
+        "coords": [
+         43888.0,
+         -212952.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Abandoned Waste Dump",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395353",
+       "395354",
+       "3953F9",
+       "3953FA",
+       "3953FD",
+       "395483",
+       "3D3B99"
+      ],
+      "coords": [
+       182599.203125,
+       34375.65625
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "395353",
+        "source_type": "spawn",
+        "coords": [
+         179012.40625,
+         21609.134765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "395354",
+        "source_type": "spawn",
+        "coords": [
+         179457.328125,
+         21466.357421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "3953F9",
+        "source_type": "spawn",
+        "coords": [
+         182599.203125,
+         34375.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "3953FA",
+        "source_type": "spawn",
+        "coords": [
+         182878.765625,
+         34385.35546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #5",
+        "ref": "3953FD",
+        "source_type": "spawn",
+        "coords": [
+         182775.984375,
+         34568.8359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #6",
+        "ref": "395483",
+        "source_type": "spawn",
+        "coords": [
+         198627.484375,
+         30502.373046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #7",
+        "ref": "3D3B99",
+        "source_type": "spawn",
+        "coords": [
+         198742.765625,
+         30382.392578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Abbie's Bunker",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395443",
+       "395445",
+       "395447"
+      ],
+      "coords": [
+       173739.625,
+       145096.484375
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "395443",
+        "source_type": "spawn",
+        "coords": [
+         173739.625,
+         145096.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "395445",
+        "source_type": "spawn",
+        "coords": [
+         174073.09375,
+         145274.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "395447",
+        "source_type": "spawn",
+        "coords": [
+         174017.46875,
+         144666.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Berkeley Springs West",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "299928"
+      ],
+      "coords": [
+       125807.875,
+       20343.564453125
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn",
+        "ref": "299928",
+        "source_type": "spawn",
+        "coords": [
+         125807.875,
+         20343.564453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Big Maw",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CC7D",
+       "43CC7E",
+       "43CC89"
+      ],
+      "coords": [
+       135037.140625,
+       47639.828125
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "43CC7D",
+        "source_type": "placement",
+        "coords": [
+         135037.140625,
+         47639.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "43CC7E",
+        "source_type": "placement",
+        "coords": [
+         134852.703125,
+         46775.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "43CC89",
+        "source_type": "placement",
+        "coords": [
+         135088.515625,
+         46869.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Blakes Offering",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395477",
+       "395478",
+       "39547A",
+       "39547B"
+      ],
+      "coords": [
+       198513.578125,
+       -43135.9140625
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "395477",
+        "source_type": "spawn",
+        "coords": [
+         198513.578125,
+         -43135.9140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "395478",
+        "source_type": "spawn",
+        "coords": [
+         198257.890625,
+         -43084.08984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "39547A",
+        "source_type": "spawn",
+        "coords": [
+         198410.796875,
+         -42952.43359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "39547B",
+        "source_type": "spawn",
+        "coords": [
+         198239.078125,
+         -43340.06640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Bloody Frank's",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CC7C"
+      ],
+      "coords": [
+       134440.421875,
+       47264.2734375
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn",
+        "ref": "43CC7C",
+        "source_type": "placement",
+        "coords": [
+         134440.421875,
+         47264.2734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Camp Venture",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "161308",
+       "16213D"
+      ],
+      "coords": [
+       159763.265625,
+       -33830.9921875
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "161308",
+        "source_type": "spawn",
+        "coords": [
+         159763.265625,
+         -33830.9921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "16213D",
+        "source_type": "spawn",
+        "coords": [
+         160298.234375,
+         -33816.29296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Crevasse Dam",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39549B",
+       "39549C",
+       "39549F"
+      ],
+      "coords": [
+       170086.25,
+       80180.140625
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "39549B",
+        "source_type": "spawn",
+        "coords": [
+         170086.25,
+         80180.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "39549C",
+        "source_type": "spawn",
+        "coords": [
+         170385.40625,
+         79914.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "39549F",
+        "source_type": "spawn",
+        "coords": [
+         170239.15625,
+         80311.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dabney Homestead",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B85AD",
+       "2B85AE",
+       "2B85AF",
+       "2B85B0",
+       "2B85B1",
+       "3953C1",
+       "3953C2",
+       "3953C5",
+       "3953C6"
+      ],
+      "coords": [
+       194232.21875,
+       -27459.82421875
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "2B85AD",
+        "source_type": "spawn",
+        "coords": [
+         188086.5,
+         -24431.53515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "2B85AE",
+        "source_type": "spawn",
+        "coords": [
+         187909.234375,
+         -24290.849609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "2B85AF",
+        "source_type": "spawn",
+        "coords": [
+         187827.09375,
+         -24575.388671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "2B85B0",
+        "source_type": "spawn",
+        "coords": [
+         187481.6875,
+         -24562.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #5",
+        "ref": "2B85B1",
+        "source_type": "spawn",
+        "coords": [
+         187605.359375,
+         -24669.517578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #6",
+        "ref": "3953C1",
+        "source_type": "spawn",
+        "coords": [
+         194232.21875,
+         -27459.82421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #7",
+        "ref": "3953C2",
+        "source_type": "spawn",
+        "coords": [
+         194487.90625,
+         -27511.654296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #8",
+        "ref": "3953C5",
+        "source_type": "spawn",
+        "coords": [
+         194385.125,
+         -27328.173828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #9",
+        "ref": "3953C6",
+        "source_type": "spawn",
+        "coords": [
+         194252.46875,
+         -27785.90234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Campground",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "0233E0",
+       "0233F8",
+       "023481",
+       "44AA14"
+      ],
+      "coords": [
+       156909.3125,
+       74426.3359375
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "0233E0",
+        "source_type": "spawn",
+        "coords": [
+         156909.3125,
+         74426.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "0233F8",
+        "source_type": "spawn",
+        "coords": [
+         151700.46875,
+         77373.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "023481",
+        "source_type": "spawn",
+        "coords": [
+         160198.984375,
+         77301.2734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "44AA14",
+        "source_type": "spawn",
+        "coords": [
+         151423.875,
+         75465.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Lookout",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395505",
+       "395506",
+       "395509",
+       "39550A",
+       "3D3B9B"
+      ],
+      "coords": [
+       150521.828125,
+       99952.59375
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "395505",
+        "source_type": "spawn",
+        "coords": [
+         150521.828125,
+         99952.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "395506",
+        "source_type": "spawn",
+        "coords": [
+         150777.515625,
+         99900.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "395509",
+        "source_type": "spawn",
+        "coords": [
+         150674.734375,
+         100084.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "39550A",
+        "source_type": "spawn",
+        "coords": [
+         150854.21875,
+         100348.3671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #5",
+        "ref": "3D3B9B",
+        "source_type": "spawn",
+        "coords": [
+         150638.90625,
+         99826.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Ella Ames' Bunker",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C042A",
+       "4521BA",
+       "4521BB",
+       "4521BE"
+      ],
+      "coords": [
+       162342.984375,
+       107329.3125
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "3C042A",
+        "source_type": "spawn",
+        "coords": [
+         162342.984375,
+         107329.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "4521BA",
+        "source_type": "spawn",
+        "coords": [
+         168570.78125,
+         103653.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "4521BB",
+        "source_type": "spawn",
+        "coords": [
+         168722.53125,
+         103865.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "4521BE",
+        "source_type": "spawn",
+        "coords": [
+         168513.0625,
+         103846.8828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Gnarled Shallows",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954C3",
+       "3954C5",
+       "3954C6",
+       "3954CA",
+       "3954CD"
+      ],
+      "coords": [
+       193549.390625,
+       146277.390625
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "3954C3",
+        "source_type": "spawn",
+        "coords": [
+         194753.015625,
+         157367.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "3954C5",
+        "source_type": "spawn",
+        "coords": [
+         194650.234375,
+         157550.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "3954C6",
+        "source_type": "spawn",
+        "coords": [
+         195026.875,
+         157335.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "3954CA",
+        "source_type": "spawn",
+        "coords": [
+         193549.390625,
+         146277.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #5",
+        "ref": "3954CD",
+        "source_type": "spawn",
+        "coords": [
+         193577.375,
+         146433.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Gulper Lagoon",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C0300",
+       "3C042B",
+       "3C1D4A",
+       "3C1DC8"
+      ],
+      "coords": [
+       162285.265625,
+       107522.6640625
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "3C0300",
+        "source_type": "spawn",
+        "coords": [
+         162285.265625,
+         107522.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "3C042B",
+        "source_type": "spawn",
+        "coords": [
+         162494.734375,
+         107541.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "3C1D4A",
+        "source_type": "spawn",
+        "coords": [
+         157129.953125,
+         105809.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "3C1DC8",
+        "source_type": "spawn",
+        "coords": [
+         157227.046875,
+         105609.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Highland Marsh",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954E0",
+       "3954E1",
+       "3954E4",
+       "3D3B9D"
+      ],
+      "coords": [
+       182923.25,
+       125201.9375
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "3954E0",
+        "source_type": "spawn",
+        "coords": [
+         182923.25,
+         125201.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "3954E1",
+        "source_type": "spawn",
+        "coords": [
+         182644.359375,
+         124553.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "3954E4",
+        "source_type": "spawn",
+        "coords": [
+         182823.515625,
+         125827.1015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "3D3B9D",
+        "source_type": "spawn",
+        "coords": [
+         183350.75,
+         124906.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mire's Eye",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395470",
+       "395472"
+      ],
+      "coords": [
+       198478.90625,
+       169655.0625
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "395470",
+        "source_type": "spawn",
+        "coords": [
+         198478.90625,
+         169655.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "395472",
+        "source_type": "spawn",
+        "coords": [
+         199013.625,
+         170277.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mosstown",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39551B",
+       "39551C",
+       "39551F"
+      ],
+      "coords": [
+       137753.4375,
+       79335.0
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "39551B",
+        "source_type": "spawn",
+        "coords": [
+         137753.4375,
+         79335.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "39551C",
+        "source_type": "spawn",
+        "coords": [
+         138008.6875,
+         79284.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "39551F",
+        "source_type": "spawn",
+        "coords": [
+         137906.34375,
+         79466.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Raleigh Clay's Bunker",
+      "count": 8,
+      "sources": {
+       "spawn": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B79EC",
+       "395403",
+       "395404",
+       "395406",
+       "4521C9",
+       "4521CA",
+       "4521CD",
+       "52D6D1"
+      ],
+      "coords": [
+       189619.09375,
+       53860.296875
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "2B79EC",
+        "source_type": "spawn",
+        "coords": [
+         189619.09375,
+         53860.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "395403",
+        "source_type": "spawn",
+        "coords": [
+         194208.21875,
+         59089.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "395404",
+        "source_type": "spawn",
+        "coords": [
+         193950.796875,
+         59140.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "395406",
+        "source_type": "spawn",
+        "coords": [
+         194103.703125,
+         59272.2421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #5",
+        "ref": "4521C9",
+        "source_type": "spawn",
+        "coords": [
+         183625.40625,
+         59560.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #6",
+        "ref": "4521CA",
+        "source_type": "spawn",
+        "coords": [
+         183777.15625,
+         59772.5703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #7",
+        "ref": "4521CD",
+        "source_type": "spawn",
+        "coords": [
+         183567.6875,
+         59753.7109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #8",
+        "ref": "52D6D1",
+        "source_type": "spawn",
+        "coords": [
+         189405.40625,
+         54066.18359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 8,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sunday Brothers' Cabin",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "505071",
+       "505501"
+      ],
+      "coords": [
+       145749.96875,
+       -5982.6318359375
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "505071",
+        "source_type": "spawn",
+        "coords": [
+         145749.96875,
+         -5982.6318359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "505501",
+        "source_type": "spawn",
+        "coords": [
+         146109.296875,
+         -5848.28466796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Power Plant",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39542A",
+       "39542B",
+       "39542E"
+      ],
+      "coords": [
+       190329.421875,
+       112376.421875
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "39542A",
+        "source_type": "spawn",
+        "coords": [
+         190329.421875,
+         112376.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "39542B",
+        "source_type": "spawn",
+        "coords": [
+         190582.34375,
+         112305.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "39542E",
+        "source_type": "spawn",
+        "coords": [
+         190636.234375,
+         112508.3828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-01",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395374",
+       "395377"
+      ],
+      "coords": [
+       145774.734375,
+       6283.62451171875
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "395374",
+        "source_type": "spawn",
+        "coords": [
+         145774.734375,
+         6283.62451171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "395377",
+        "source_type": "spawn",
+        "coords": [
+         145673.765625,
+         6467.79736328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Grafton",
+      "count": 16,
+      "sources": {
+       "spawn": 16
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3195BD",
+       "3195C0",
+       "3CFC23",
+       "3CFC24",
+       "3CFC25",
+       "3CFC26",
+       "3CFC27",
+       "3CFC28",
+       "3CFC2A",
+       "3CFC2B",
+       "3CFC2C",
+       "3CFC2D",
+       "3CFC2E",
+       "3CFC2F",
+       "3CFC30",
+       "3CFC31"
+      ],
+      "coords": [
+       -50968.82421875,
+       155322.25
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "3195BD",
+        "source_type": "spawn",
+        "coords": [
+         -50968.82421875,
+         155322.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "3195C0",
+        "source_type": "spawn",
+        "coords": [
+         -50956.79296875,
+         155095.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "3CFC23",
+        "source_type": "spawn",
+        "coords": [
+         -53125.2109375,
+         154630.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "3CFC24",
+        "source_type": "spawn",
+        "coords": [
+         -45697.6953125,
+         155039.6875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #5",
+        "ref": "3CFC25",
+        "source_type": "spawn",
+        "coords": [
+         -53464.55859375,
+         154633.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #6",
+        "ref": "3CFC26",
+        "source_type": "spawn",
+        "coords": [
+         -45517.9453125,
+         154668.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #7",
+        "ref": "3CFC27",
+        "source_type": "spawn",
+        "coords": [
+         -49799.0078125,
+         143368.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #8",
+        "ref": "3CFC28",
+        "source_type": "spawn",
+        "coords": [
+         -50098.9140625,
+         143180.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #9",
+        "ref": "3CFC2A",
+        "source_type": "spawn",
+        "coords": [
+         -58429.8828125,
+         149708.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #10",
+        "ref": "3CFC2B",
+        "source_type": "spawn",
+        "coords": [
+         -58336.296875,
+         149593.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #11",
+        "ref": "3CFC2C",
+        "source_type": "spawn",
+        "coords": [
+         -58268.17578125,
+         149754.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #12",
+        "ref": "3CFC2D",
+        "source_type": "spawn",
+        "coords": [
+         -41891.5859375,
+         149525.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #13",
+        "ref": "3CFC2E",
+        "source_type": "spawn",
+        "coords": [
+         -42115.578125,
+         149503.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #14",
+        "ref": "3CFC2F",
+        "source_type": "spawn",
+        "coords": [
+         -45670.5,
+         150703.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #15",
+        "ref": "3CFC30",
+        "source_type": "spawn",
+        "coords": [
+         -45694.66015625,
+         150632.6875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #16",
+        "ref": "3CFC31",
+        "source_type": "spawn",
+        "coords": [
+         -45711.41015625,
+         150563.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 16,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Grafton Station",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3CFC29"
+      ],
+      "coords": [
+       -51268.00390625,
+       139921.28125
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn",
+        "ref": "3CFC29",
+        "source_type": "spawn",
+        "coords": [
+         -51268.00390625,
+         139921.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 31,
+  "total_placements": 130
+ },
+ "blurb": "The Radtoad in Fallout 76 — drops Radtoad Leg, 19 NPC variants, 130 known spawn points."
+}

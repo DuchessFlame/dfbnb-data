@@ -1,59 +1,40 @@
 #!/usr/bin/env python3
 """
 build_cryptids_json.py
-====================
-STATUS: SCAFFOLDED — gap filler for the Cryptids category.
+======================
+Builds the DF Cryptids category:
+  * dist/cryptids.json            — hub index (one card per cryptid)
+  * dist/cryptids/<slug>.json     — one doc per cryptid page
 
-NOTES FOR NEXT AI
-─────────────────
-1. This script should generate dist/cryptids.json from xEdit TSV exports.
+The real build logic lives in the shared spawns engine driver
+`spawns_configs/cryptids.py` (creature-seeded: RACE -> NPC -> death lists +
+Mappalachia placements), so this stays a thin entry point that the existing
+GitHub Actions workflow (.github/workflows/build-cryptids.yml) and the master
+workflow (dfbnb-patch-build.yml) can keep calling unchanged.
 
-2. REFERENCE SCRIPTS:
-   - build_armour_json.py — good template for a straightforward TSV→JSON build
-   - build_titles_json.py — good template for complex multi-source builds
-   - build_collectables_json.py — good template for categorized item builds
-
-3. EXPECTED INPUT:
-   TSV files in the tsv/ directory, exported from xEdit. Common columns:
-   - Editor ID (EDID), Form ID, Full Name, Description
-   - Category-specific columns TBD based on game data structure
-
-4. EXPECTED OUTPUT:
-   dist/cryptids.json — consumed by the JS module df-bnb-cryptids.js on the website
-
-5. WORKFLOW:
-   There is a matching GitHub Actions workflow:
-   .github/workflows/build-cryptids.yml
-   that calls this script on push to tsv/ or src/ paths.
-
-6. The master workflow (dfbnb-patch-build.yml) also calls this script.
+Fixed Spawn Locations need a LOCAL Mappalachia DB pass to resolve placements to
+regions/markers; the result is cached to data/cryptid_spawns/geo_cache.json,
+which is committed so CI (no DB) rebuilds straight from the cache.
 
 Usage:
-  python build_cryptids_json.py
-  python build_cryptids_json.py --tsv-root tsv --outdir dist
+  python src/build_cryptids_json.py
+  python src/build_cryptids_json.py mothman wendigo   # named cryptids only
 """
 
-import json
-import os
-import sys
+import os, sys
 
-from patchlog_utils import write_empty_patchlog_feed
+HERE = os.path.dirname(os.path.abspath(__file__))
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
 
-def main():
-    print(f"[build_cryptids_json.py] Gap filler — real build logic TBD")
+from spawns_configs import cryptids
 
-    # Ensure output directory exists
-    os.makedirs("dist", exist_ok=True)
 
-    # Write empty/placeholder JSON
-    out_path = os.path.join("dist", "cryptids.json")
-    with open(out_path, "w") as f:
-        json.dump({"_status": "scaffolded", "_category": "Cryptids", "items": []}, f, indent=2)
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    slugs = [a for a in argv if not a.startswith("-")]
+    cryptids.run(["cryptids"] + slugs)
 
-    print(f"[build_cryptids_json.py] Wrote {out_path}")
-
-    # Write empty patchlog feed
-    write_empty_patchlog_feed("dist", "patchlog_latest_df_cryptids.json", current_count=0)
 
 if __name__ == "__main__":
     main()

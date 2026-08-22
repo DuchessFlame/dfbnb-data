@@ -1,0 +1,7402 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "BloatflyRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 7,
+   "placement": 47,
+   "spawn": 357
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "bloatfly",
+ "name": "Bloatfly",
+ "page_title": "Farming - Meat - Bloatfly",
+ "url": "/bnb/farming/meat/bloatfly/",
+ "npc_summary": {
+  "npc_count": 20,
+  "level_min": 1,
+  "level_max": 90,
+  "health_max": 470
+ },
+ "meat_items": [
+  {
+   "name": "Bloatfly Meat",
+   "form_id": "000330F4",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Sell Bloatfly Meat to an NPC vendor",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Barter_Sell_Bloatfly_meat",
+   "page": "daily"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Bloatfly",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Bloatfly_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Bloatfly",
+    "form_id": "000375B8",
+    "row_count": 4,
+    "direct_items": 2,
+    "pool_count": 2,
+    "item_count": 30,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Bloatfly",
+      "sub_id": "0008E3A8",
+      "edid": "LLS_Creature_Bloatfly",
+      "item_count": 28,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Caps",
+        "rate_display": "3.12%"
+       },
+       {
+        "name": "Bloatfly Meat",
+        "rate_display": "0%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Bloatfly Meat",
+      "form_id": "000330F4",
+      "edid": "BloatflyMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Small",
+      "sub_id": "003DF3FB",
+      "edid": "LLE_Creature_Small",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Bloatfly Gland",
+      "form_id": "0002C59E",
+      "edid": "BloatflyGland",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Abandoned Mine Shaft 1",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4A3E",
+       "4E4A3F",
+       "4E4A42",
+       "4E4A43"
+      ],
+      "coords": [
+       -140564.1875,
+       -156988.953125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "4E4A3E",
+        "source_type": "spawn",
+        "coords": [
+         -140564.1875,
+         -156988.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "4E4A3F",
+        "source_type": "spawn",
+        "coords": [
+         -140308.5,
+         -157040.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "4E4A42",
+        "source_type": "spawn",
+        "coords": [
+         -140411.28125,
+         -156857.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "4E4A43",
+        "source_type": "spawn",
+        "coords": [
+         -140460.78125,
+         -157210.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Abandoned Mine Shaft 2",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E3E1C",
+       "4E3E1E"
+      ],
+      "coords": [
+       -88708.296875,
+       -133993.234375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "4E3E1C",
+        "source_type": "spawn",
+        "coords": [
+         -88708.296875,
+         -133993.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "4E3E1E",
+        "source_type": "spawn",
+        "coords": [
+         -88555.3828125,
+         -133861.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Abandoned Mine Shaft 4",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "33D353",
+       "33D355",
+       "33D357",
+       "33D359",
+       "33D35A"
+      ],
+      "coords": [
+       -177680.484375,
+       -110079.1640625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "33D353",
+        "source_type": "spawn",
+        "coords": [
+         -177680.484375,
+         -110079.1640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "33D355",
+        "source_type": "spawn",
+        "coords": [
+         -177509.84375,
+         -110005.3046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "33D357",
+        "source_type": "spawn",
+        "coords": [
+         -177123.828125,
+         -109810.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "33D359",
+        "source_type": "spawn",
+        "coords": [
+         -177570.609375,
+         -111044.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "33D35A",
+        "source_type": "spawn",
+        "coords": [
+         -177605.5625,
+         -111376.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Abandoned Mine Shaft 5",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "21E3CC",
+       "21E40C",
+       "2B9EC3"
+      ],
+      "coords": [
+       -125804.4765625,
+       -89762.6015625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "21E3CC",
+        "source_type": "spawn",
+        "coords": [
+         -125804.4765625,
+         -89762.6015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "21E40C",
+        "source_type": "spawn",
+        "coords": [
+         -125956.21875,
+         -89974.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "2B9EC3",
+        "source_type": "spawn",
+        "coords": [
+         -126150.640625,
+         -90055.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Abandoned Mine Shaft Elaine",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E3F5E",
+       "4E3F61"
+      ],
+      "coords": [
+       -141357.625,
+       -118256.609375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "4E3F5E",
+        "source_type": "spawn",
+        "coords": [
+         -141357.625,
+         -118256.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "4E3F61",
+        "source_type": "spawn",
+        "coords": [
+         -141403.859375,
+         -118066.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Abandoned Mine Site Kittery",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B9E5D",
+       "39871A",
+       "39871B",
+       "4E3E7E",
+       "4E3E7F",
+       "4E3E81"
+      ],
+      "coords": [
+       -106135.1796875,
+       -88643.265625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "2B9E5D",
+        "source_type": "spawn",
+        "coords": [
+         -106135.1796875,
+         -88643.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "39871A",
+        "source_type": "spawn",
+        "coords": [
+         -107105.484375,
+         -101223.7734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "39871B",
+        "source_type": "spawn",
+        "coords": [
+         -106884.578125,
+         -101075.8828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "4E3E7E",
+        "source_type": "spawn",
+        "coords": [
+         -106132.109375,
+         -88957.9140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "4E3E7F",
+        "source_type": "spawn",
+        "coords": [
+         -106387.8046875,
+         -88906.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "4E3E81",
+        "source_type": "spawn",
+        "coords": [
+         -106234.890625,
+         -88774.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "AMS Testing Site",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "0008BA",
+       "2B9EA5",
+       "4E3DE8",
+       "4E3DE9",
+       "4E3DEB"
+      ],
+      "coords": [
+       -122620.515625,
+       -146511.046875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "0008BA",
+        "source_type": "spawn",
+        "coords": [
+         -122620.515625,
+         -146511.046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "2B9EA5",
+        "source_type": "spawn",
+        "coords": [
+         -119891.796875,
+         -145166.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "4E3DE8",
+        "source_type": "spawn",
+        "coords": [
+         -120023.6484375,
+         -145341.84375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "4E3DE9",
+        "source_type": "spawn",
+        "coords": [
+         -120279.34375,
+         -145290.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "4E3DEB",
+        "source_type": "spawn",
+        "coords": [
+         -120126.4296875,
+         -145158.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Big Bend Tunnel West",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "331F40"
+      ],
+      "coords": [
+       -53439.8671875,
+       -120288.921875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn",
+        "ref": "331F40",
+        "source_type": "spawn",
+        "coords": [
+         -53439.8671875,
+         -120288.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Brim Quarry",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "219038",
+       "4E4B04",
+       "4E4B05",
+       "4E4B07"
+      ],
+      "coords": [
+       -160963.59375,
+       -81798.6015625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "219038",
+        "source_type": "spawn",
+        "coords": [
+         -160963.59375,
+         -81798.6015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "4E4B04",
+        "source_type": "spawn",
+        "coords": [
+         -158956.15625,
+         -77794.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "4E4B05",
+        "source_type": "spawn",
+        "coords": [
+         -159174.375,
+         -77651.90625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "4E4B07",
+        "source_type": "spawn",
+        "coords": [
+         -158983.546875,
+         -77586.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Camden Park",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31DBBF",
+       "31DBC0",
+       "31DBC1",
+       "31DBC2",
+       "31DBC3",
+       "31DBC4",
+       "31DBD5",
+       "31DBD6",
+       "31DBD7"
+      ],
+      "coords": [
+       -182011.296875,
+       -74618.2109375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "31DBBF",
+        "source_type": "spawn",
+        "coords": [
+         -182011.296875,
+         -74618.2109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "31DBC0",
+        "source_type": "spawn",
+        "coords": [
+         -181839.546875,
+         -74369.1484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "31DBC1",
+        "source_type": "spawn",
+        "coords": [
+         -182060.53125,
+         -74423.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "31DBC2",
+        "source_type": "spawn",
+        "coords": [
+         -181811.375,
+         -73933.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "31DBC3",
+        "source_type": "spawn",
+        "coords": [
+         -182032.359375,
+         -73988.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "31DBC4",
+        "source_type": "spawn",
+        "coords": [
+         -181983.125,
+         -74182.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "31DBD5",
+        "source_type": "spawn",
+        "coords": [
+         -176813.03125,
+         -81796.1328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "31DBD6",
+        "source_type": "spawn",
+        "coords": [
+         -176726.515625,
+         -81656.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "31DBD7",
+        "source_type": "spawn",
+        "coords": [
+         -176629.875,
+         -81511.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Air Purifier Site #03",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D2635",
+       "3D2636"
+      ],
+      "coords": [
+       -118832.0,
+       -123552.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "3D2635",
+        "source_type": "spawn",
+        "coords": [
+         -118832.0,
+         -123552.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "3D2636",
+        "source_type": "spawn",
+        "coords": [
+         -118152.125,
+         -123765.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Air Purifier Site #04",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "33D358",
+       "33D35D"
+      ],
+      "coords": [
+       -179012.40625,
+       -108480.90625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "33D358",
+        "source_type": "spawn",
+        "coords": [
+         -179012.40625,
+         -108480.90625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "33D35D",
+        "source_type": "spawn",
+        "coords": [
+         -179037.375,
+         -108625.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Testing Site #02",
+      "count": 11,
+      "sources": {
+       "spawn": 11
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A3436",
+       "3A3437",
+       "3A3438",
+       "4E3F25",
+       "4E3F26",
+       "4E3F28",
+       "4E3F29",
+       "4E4A15",
+       "4E4A16",
+       "4E4A18",
+       "4E4A19"
+      ],
+      "coords": [
+       -153713.046875,
+       -166488.09375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "3A3436",
+        "source_type": "spawn",
+        "coords": [
+         -153713.046875,
+         -166488.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "3A3437",
+        "source_type": "spawn",
+        "coords": [
+         -154315.21875,
+         -166661.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "3A3438",
+        "source_type": "spawn",
+        "coords": [
+         -153926.046875,
+         -165829.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "4E3F25",
+        "source_type": "spawn",
+        "coords": [
+         -165603.796875,
+         -144767.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "4E3F26",
+        "source_type": "spawn",
+        "coords": [
+         -165609.453125,
+         -145131.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "4E3F28",
+        "source_type": "spawn",
+        "coords": [
+         -165413.203125,
+         -144776.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "4E3F29",
+        "source_type": "spawn",
+        "coords": [
+         -165418.34375,
+         -145116.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "4E4A15",
+        "source_type": "spawn",
+        "coords": [
+         -156981.53125,
+         -161920.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "4E4A16",
+        "source_type": "spawn",
+        "coords": [
+         -157237.21875,
+         -161869.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #10",
+        "ref": "4E4A18",
+        "source_type": "spawn",
+        "coords": [
+         -157084.3125,
+         -161737.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #11",
+        "ref": "4E4A19",
+        "source_type": "spawn",
+        "coords": [
+         -157286.015625,
+         -161583.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 11,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Testing Site #04",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4AC0",
+       "4E4AC1",
+       "4E4AC3",
+       "4E4AC4"
+      ],
+      "coords": [
+       -156562.9375,
+       -100862.859375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "4E4AC0",
+        "source_type": "spawn",
+        "coords": [
+         -156562.9375,
+         -100862.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "4E4AC1",
+        "source_type": "spawn",
+        "coords": [
+         -156818.625,
+         -100811.03125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "4E4AC3",
+        "source_type": "spawn",
+        "coords": [
+         -156665.71875,
+         -100679.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "4E4AC4",
+        "source_type": "spawn",
+        "coords": [
+         -156440.609375,
+         -100626.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Lake Reynolds",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35E124",
+       "35E125",
+       "35E126"
+      ],
+      "coords": [
+       -65112.2734375,
+       -129085.1796875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "35E124",
+        "source_type": "spawn",
+        "coords": [
+         -65112.2734375,
+         -129085.1796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "35E125",
+        "source_type": "spawn",
+        "coords": [
+         -64913.91015625,
+         -129055.3984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "35E126",
+        "source_type": "spawn",
+        "coords": [
+         -65020.109375,
+         -129192.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Lewisburg Station",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "331F41"
+      ],
+      "coords": [
+       -54061.8125,
+       -120399.4140625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn",
+        "ref": "331F41",
+        "source_type": "spawn",
+        "coords": [
+         -54061.8125,
+         -120399.4140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mount Blair",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E3EA7",
+       "4E3EA8",
+       "4E3EAA"
+      ],
+      "coords": [
+       -120473.1171875,
+       -96564.1796875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "4E3EA7",
+        "source_type": "spawn",
+        "coords": [
+         -120473.1171875,
+         -96564.1796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "4E3EA8",
+        "source_type": "spawn",
+        "coords": [
+         -119971.140625,
+         -97115.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "4E3EAA",
+        "source_type": "spawn",
+        "coords": [
+         -120777.1484375,
+         -96432.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Pylon Ambush Site",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "34CEF8",
+       "34CEF9",
+       "34CEFA",
+       "34CEFB",
+       "34CEFC"
+      ],
+      "coords": [
+       -83408.4453125,
+       -93221.7578125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "34CEF8",
+        "source_type": "spawn",
+        "coords": [
+         -83408.4453125,
+         -93221.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "34CEF9",
+        "source_type": "spawn",
+        "coords": [
+         -83369.8671875,
+         -93338.8984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "34CEFA",
+        "source_type": "spawn",
+        "coords": [
+         -82785.2265625,
+         -93197.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "34CEFB",
+        "source_type": "spawn",
+        "coords": [
+         -82635.1875,
+         -93198.1328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "34CEFC",
+        "source_type": "spawn",
+        "coords": [
+         -82698.6796875,
+         -93039.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Red Rocket Filling Station",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D2632",
+       "3D2633",
+       "3D2634",
+       "4E3EE7",
+       "4E3EE8",
+       "4E3EEA"
+      ],
+      "coords": [
+       -117866.25,
+       -123494.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "3D2632",
+        "source_type": "spawn",
+        "coords": [
+         -117866.25,
+         -123494.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "3D2633",
+        "source_type": "spawn",
+        "coords": [
+         -117947.328125,
+         -124012.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "3D2634",
+        "source_type": "spawn",
+        "coords": [
+         -117664.15625,
+         -123460.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "4E3EE7",
+        "source_type": "spawn",
+        "coords": [
+         -111660.2109375,
+         -122124.3203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "4E3EE8",
+        "source_type": "spawn",
+        "coords": [
+         -112784.796875,
+         -122052.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "4E3EEA",
+        "source_type": "spawn",
+        "coords": [
+         -111810.1328125,
+         -121397.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Relay Tower HG-B7-09",
+      "count": 8,
+      "sources": {
+       "spawn": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E555A",
+       "3E555B",
+       "3E555C",
+       "3E555D",
+       "4E4AE6",
+       "4E4AE9",
+       "4E4AEA",
+       "4E4AEB"
+      ],
+      "coords": [
+       -141705.671875,
+       -79984.6796875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "3E555A",
+        "source_type": "spawn",
+        "coords": [
+         -133976.9375,
+         -72895.5703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "3E555B",
+        "source_type": "spawn",
+        "coords": [
+         -134222.1875,
+         -72767.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "3E555C",
+        "source_type": "spawn",
+        "coords": [
+         -133567.4375,
+         -72845.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "3E555D",
+        "source_type": "spawn",
+        "coords": [
+         -133813.875,
+         -72710.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "4E4AE6",
+        "source_type": "spawn",
+        "coords": [
+         -141705.671875,
+         -79984.6796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "4E4AE9",
+        "source_type": "spawn",
+        "coords": [
+         -141808.453125,
+         -79801.1953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "4E4AEA",
+        "source_type": "spawn",
+        "coords": [
+         -141520.984375,
+         -79886.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "4E4AEB",
+        "source_type": "spawn",
+        "coords": [
+         -141562.453125,
+         -79656.1484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 8,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Burning Mine",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2AC68F"
+      ],
+      "coords": [
+       -84938.4453125,
+       -102124.875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn",
+        "ref": "2AC68F",
+        "source_type": "spawn",
+        "coords": [
+         -84938.4453125,
+         -102124.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 63",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E3E21",
+       "4E3E22",
+       "4E3E25",
+       "4E3E2C"
+      ],
+      "coords": [
+       -91394.84375,
+       -148542.03125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "4E3E21",
+        "source_type": "spawn",
+        "coords": [
+         -91394.84375,
+         -148542.03125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "4E3E22",
+        "source_type": "spawn",
+        "coords": [
+         -91139.15625,
+         -148593.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "4E3E25",
+        "source_type": "spawn",
+        "coords": [
+         -91241.9375,
+         -148190.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "4E3E2C",
+        "source_type": "spawn",
+        "coords": [
+         -91280.5390625,
+         -148755.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Welch",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2E9D96"
+      ],
+      "coords": [
+       -156033.875,
+       -135571.625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn",
+        "ref": "2E9D96",
+        "source_type": "spawn",
+        "coords": [
+         -156033.875,
+         -135571.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Widow's Perch",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4A99",
+       "4E4A9C"
+      ],
+      "coords": [
+       -92788.3515625,
+       -84062.8203125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "4E4A99",
+        "source_type": "spawn",
+        "coords": [
+         -92788.3515625,
+         -84062.8203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "4E4A9C",
+        "source_type": "spawn",
+        "coords": [
+         -92678.8515625,
+         -83865.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Abraxodyne Chemical Power Substation",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8040F5",
+       "8040F6",
+       "82A38A",
+       "82A3A3",
+       "82A3A4"
+      ],
+      "coords": [
+       -225172.140625,
+       3574.07739257812
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "8040F5",
+        "source_type": "spawn",
+        "coords": [
+         -225172.140625,
+         3574.07739257812
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "8040F6",
+        "source_type": "spawn",
+        "coords": [
+         -222768.0,
+         632.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82A38A",
+        "source_type": "spawn",
+        "coords": [
+         -225979.96875,
+         786.47216796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "82A3A3",
+        "source_type": "spawn",
+        "coords": [
+         -226132.875,
+         654.820556640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "82A3A4",
+        "source_type": "spawn",
+        "coords": [
+         -225877.1875,
+         602.9912109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Albany",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "844779",
+       "84477A",
+       "84477C",
+       "844785",
+       "844786",
+       "844788"
+      ],
+      "coords": [
+       -219969.640625,
+       49224.90625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "844779",
+        "source_type": "spawn",
+        "coords": [
+         -219969.640625,
+         49224.90625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "84477A",
+        "source_type": "spawn",
+        "coords": [
+         -221272.96875,
+         49510.7734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "84477C",
+        "source_type": "spawn",
+        "coords": [
+         -220822.109375,
+         50200.48828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "844785",
+        "source_type": "spawn",
+        "coords": [
+         -227380.765625,
+         63429.62109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "844786",
+        "source_type": "spawn",
+        "coords": [
+         -227566.9375,
+         64290.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "844788",
+        "source_type": "spawn",
+        "coords": [
+         -228322.6875,
+         63749.43359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Ash Cave",
+      "count": 16,
+      "sources": {
+       "spawn": 16
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83F2E5",
+       "83F2ED",
+       "83F2F0",
+       "83F2F7",
+       "83FD8D",
+       "83FDBB",
+       "83FDBC",
+       "8429A6",
+       "8429A7",
+       "8429A9",
+       "8429B0",
+       "8429B1",
+       "8464B8",
+       "8464B9",
+       "8464BB",
+       "8464BC"
+      ],
+      "coords": [
+       -260076.09375,
+       108568.2578125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "83F2E5",
+        "source_type": "spawn",
+        "coords": [
+         -260076.09375,
+         108568.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "83F2ED",
+        "source_type": "spawn",
+        "coords": [
+         -259200.0,
+         108896.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "83F2F0",
+        "source_type": "spawn",
+        "coords": [
+         -260008.0,
+         109040.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "83F2F7",
+        "source_type": "spawn",
+        "coords": [
+         -259520.0,
+         108688.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "83FD8D",
+        "source_type": "spawn",
+        "coords": [
+         -264884.34375,
+         106804.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "83FDBB",
+        "source_type": "spawn",
+        "coords": [
+         -264360.0625,
+         106620.6328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "83FDBC",
+        "source_type": "spawn",
+        "coords": [
+         -265486.375,
+         106672.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "8429A6",
+        "source_type": "spawn",
+        "coords": [
+         -262274.09375,
+         124831.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "8429A7",
+        "source_type": "spawn",
+        "coords": [
+         -262529.78125,
+         124883.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #10",
+        "ref": "8429A9",
+        "source_type": "spawn",
+        "coords": [
+         -262376.875,
+         125015.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #11",
+        "ref": "8429B0",
+        "source_type": "spawn",
+        "coords": [
+         -262529.78125,
+         123882.3515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #12",
+        "ref": "8429B1",
+        "source_type": "spawn",
+        "coords": [
+         -261251.53125,
+         124831.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #13",
+        "ref": "8464B8",
+        "source_type": "spawn",
+        "coords": [
+         -265922.9375,
+         135551.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #14",
+        "ref": "8464B9",
+        "source_type": "spawn",
+        "coords": [
+         -266347.71875,
+         135445.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #15",
+        "ref": "8464BB",
+        "source_type": "spawn",
+        "coords": [
+         -266620.84375,
+         136089.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #16",
+        "ref": "8464BC",
+        "source_type": "spawn",
+        "coords": [
+         -266046.34375,
+         134264.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 16,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Athens",
+      "count": 14,
+      "sources": {
+       "ambush": 7,
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83F38E",
+       "83F38F",
+       "83F390",
+       "83F393",
+       "83F394",
+       "83F3C3",
+       "83F3C4",
+       "83F3C5",
+       "83F435",
+       "83F436",
+       "84D4E4",
+       "84D4E5",
+       "84D4EC",
+       "84D4EE"
+      ],
+      "coords": [
+       -237990.171875,
+       156275.71875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly ambush #1",
+        "ref": "83F38E",
+        "source_type": "ambush",
+        "coords": [
+         -237990.171875,
+         156275.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #2",
+        "ref": "83F38F",
+        "source_type": "ambush",
+        "coords": [
+         -237899.84375,
+         156039.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #3",
+        "ref": "83F390",
+        "source_type": "ambush",
+        "coords": [
+         -238183.109375,
+         156148.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #4",
+        "ref": "83F393",
+        "source_type": "ambush",
+        "coords": [
+         -257548.078125,
+         155476.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #5",
+        "ref": "83F394",
+        "source_type": "ambush",
+        "coords": [
+         -257435.921875,
+         155462.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #6",
+        "ref": "84D4E4",
+        "source_type": "ambush",
+        "coords": [
+         -249710.609375,
+         158070.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #7",
+        "ref": "84D4E5",
+        "source_type": "ambush",
+        "coords": [
+         -249809.546875,
+         158133.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "83F3C3",
+        "source_type": "placement",
+        "coords": [
+         -238164.875,
+         156223.6875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "83F3C4",
+        "source_type": "placement",
+        "coords": [
+         -237881.34375,
+         156262.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "83F3C5",
+        "source_type": "placement",
+        "coords": [
+         -237960.0,
+         155990.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "83F435",
+        "source_type": "placement",
+        "coords": [
+         -257593.28125,
+         155562.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "83F436",
+        "source_type": "placement",
+        "coords": [
+         -257410.921875,
+         155542.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "84D4EC",
+        "source_type": "placement",
+        "coords": [
+         -249614.828125,
+         158114.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "84D4EE",
+        "source_type": "placement",
+        "coords": [
+         -249915.359375,
+         158180.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 7,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dino Peaks Mini Golf",
+      "count": 21,
+      "sources": {
+       "spawn": 21
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8295E3",
+       "8295E4",
+       "8295E7",
+       "82B955",
+       "82B956",
+       "82B959",
+       "82E083",
+       "82E084",
+       "82E087",
+       "82E08F",
+       "82E090",
+       "82E093",
+       "8316EA",
+       "831706",
+       "831707",
+       "83A66C",
+       "83A66D",
+       "83A66F",
+       "84479D",
+       "84479E",
+       "8447A0"
+      ],
+      "coords": [
+       -226848.390625,
+       150992.953125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "8295E3",
+        "source_type": "spawn",
+        "coords": [
+         -226848.390625,
+         150992.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "8295E4",
+        "source_type": "spawn",
+        "coords": [
+         -226862.53125,
+         153998.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "8295E7",
+        "source_type": "spawn",
+        "coords": [
+         -228158.453125,
+         153806.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "82B955",
+        "source_type": "spawn",
+        "coords": [
+         -198619.828125,
+         137010.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "82B956",
+        "source_type": "spawn",
+        "coords": [
+         -198468.078125,
+         137223.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "82B959",
+        "source_type": "spawn",
+        "coords": [
+         -198830.1875,
+         137342.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "82E083",
+        "source_type": "spawn",
+        "coords": [
+         -211254.0625,
+         132752.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "82E084",
+        "source_type": "spawn",
+        "coords": [
+         -211102.3125,
+         132965.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "82E087",
+        "source_type": "spawn",
+        "coords": [
+         -211312.0,
+         132944.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #10",
+        "ref": "82E08F",
+        "source_type": "spawn",
+        "coords": [
+         -206960.0,
+         153208.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #11",
+        "ref": "82E090",
+        "source_type": "spawn",
+        "coords": [
+         -206810.6875,
+         153421.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #12",
+        "ref": "82E093",
+        "source_type": "spawn",
+        "coords": [
+         -207020.15625,
+         153402.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #13",
+        "ref": "8316EA",
+        "source_type": "spawn",
+        "coords": [
+         -219096.0,
+         153368.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #14",
+        "ref": "831706",
+        "source_type": "spawn",
+        "coords": [
+         -219038.296875,
+         153174.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #15",
+        "ref": "831707",
+        "source_type": "spawn",
+        "coords": [
+         -218886.53125,
+         153386.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #16",
+        "ref": "83A66C",
+        "source_type": "spawn",
+        "coords": [
+         -203113.6875,
+         156669.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #17",
+        "ref": "83A66D",
+        "source_type": "spawn",
+        "coords": [
+         -203369.375,
+         156721.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #18",
+        "ref": "83A66F",
+        "source_type": "spawn",
+        "coords": [
+         -203216.46875,
+         156852.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #19",
+        "ref": "84479D",
+        "source_type": "spawn",
+        "coords": [
+         -219479.046875,
+         165286.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #20",
+        "ref": "84479E",
+        "source_type": "spawn",
+        "coords": [
+         -220804.96875,
+         164730.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #21",
+        "ref": "8447A0",
+        "source_type": "spawn",
+        "coords": [
+         -220522.046875,
+         166752.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 21,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Fort Steuben",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83B643",
+       "83B65E",
+       "83B65F"
+      ],
+      "coords": [
+       -215315.09375,
+       42717.4609375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "83B643",
+        "source_type": "spawn",
+        "coords": [
+         -215315.09375,
+         42717.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "83B65E",
+        "source_type": "spawn",
+        "coords": [
+         -215257.375,
+         42524.10546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "83B65F",
+        "source_type": "spawn",
+        "coords": [
+         -215105.625,
+         42736.31640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hamley Run Camp",
+      "count": 10,
+      "sources": {
+       "spawn": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "845163",
+       "845164",
+       "845166",
+       "845167",
+       "847898",
+       "84789C",
+       "84789E",
+       "84789F",
+       "8478A8",
+       "8478A9"
+      ],
+      "coords": [
+       -243409.3125,
+       178195.765625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "845163",
+        "source_type": "spawn",
+        "coords": [
+         -243409.3125,
+         178195.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "845164",
+        "source_type": "spawn",
+        "coords": [
+         -242991.640625,
+         179015.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "845166",
+        "source_type": "spawn",
+        "coords": [
+         -244127.671875,
+         178593.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "845167",
+        "source_type": "spawn",
+        "coords": [
+         -244277.984375,
+         177612.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "847898",
+        "source_type": "spawn",
+        "coords": [
+         -268716.03125,
+         168379.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "84789C",
+        "source_type": "spawn",
+        "coords": [
+         -251634.171875,
+         170115.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "84789E",
+        "source_type": "spawn",
+        "coords": [
+         -267939.09375,
+         168404.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "84789F",
+        "source_type": "spawn",
+        "coords": [
+         -268274.625,
+         168832.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "8478A8",
+        "source_type": "spawn",
+        "coords": [
+         -250842.4375,
+         169666.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #10",
+        "ref": "8478A9",
+        "source_type": "spawn",
+        "coords": [
+         -251861.484375,
+         169008.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 10,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Highway Town",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B676",
+       "82B699",
+       "82B69A",
+       "83FD89",
+       "83FDC5",
+       "83FDC6"
+      ],
+      "coords": [
+       -231566.859375,
+       108449.0078125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82B676",
+        "source_type": "spawn",
+        "coords": [
+         -231566.859375,
+         108449.0078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82B699",
+        "source_type": "spawn",
+        "coords": [
+         -231359.125,
+         108469.0234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82B69A",
+        "source_type": "spawn",
+        "coords": [
+         -231509.15625,
+         108255.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "83FD89",
+        "source_type": "spawn",
+        "coords": [
+         -246080.078125,
+         92351.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "83FDC5",
+        "source_type": "spawn",
+        "coords": [
+         -245940.125,
+         91707.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "83FDC6",
+        "source_type": "spawn",
+        "coords": [
+         -246725.03125,
+         92190.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hocking Hills Train Station",
+      "count": 15,
+      "sources": {
+       "placement": 3,
+       "spawn": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "81CC79",
+       "81CC80",
+       "820D22",
+       "83A185",
+       "83A186",
+       "83A187",
+       "84579B",
+       "84579C",
+       "84579E",
+       "8457A8",
+       "8457A9",
+       "8457AB",
+       "845D7D",
+       "845D7E",
+       "845D80"
+      ],
+      "coords": [
+       -262086.078125,
+       71522.71875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "81CC79",
+        "source_type": "placement",
+        "coords": [
+         -262086.078125,
+         71522.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "81CC80",
+        "source_type": "placement",
+        "coords": [
+         -262086.578125,
+         70826.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "820D22",
+        "source_type": "placement",
+        "coords": [
+         -251683.703125,
+         71397.3828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "83A185",
+        "source_type": "spawn",
+        "coords": [
+         -260236.125,
+         59216.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "83A186",
+        "source_type": "spawn",
+        "coords": [
+         -260083.21875,
+         59348.08203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "83A187",
+        "source_type": "spawn",
+        "coords": [
+         -259980.4375,
+         59164.6015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "84579B",
+        "source_type": "spawn",
+        "coords": [
+         -265319.0,
+         84185.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "84579C",
+        "source_type": "spawn",
+        "coords": [
+         -265823.28125,
+         82668.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "84579E",
+        "source_type": "spawn",
+        "coords": [
+         -265067.59375,
+         83322.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "8457A8",
+        "source_type": "spawn",
+        "coords": [
+         -269196.25,
+         72096.5078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "8457A9",
+        "source_type": "spawn",
+        "coords": [
+         -268549.21875,
+         72575.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "8457AB",
+        "source_type": "spawn",
+        "coords": [
+         -268222.15625,
+         71747.0546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #10",
+        "ref": "845D7D",
+        "source_type": "spawn",
+        "coords": [
+         -261045.265625,
+         94113.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #11",
+        "ref": "845D7E",
+        "source_type": "spawn",
+        "coords": [
+         -261687.5,
+         94794.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #12",
+        "ref": "845D80",
+        "source_type": "spawn",
+        "coords": [
+         -261037.25,
+         94991.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 12,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Honey Well Apiary",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8236A0",
+       "8236A3",
+       "8236A6",
+       "8236AB",
+       "8236AC",
+       "8236D7",
+       "8236DE",
+       "8236DF",
+       "8236E0"
+      ],
+      "coords": [
+       -228980.59375,
+       91352.46875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "8236A0",
+        "source_type": "spawn",
+        "coords": [
+         -228980.59375,
+         91352.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "8236A3",
+        "source_type": "spawn",
+        "coords": [
+         -232039.21875,
+         83225.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "8236A6",
+        "source_type": "spawn",
+        "coords": [
+         -235895.640625,
+         89481.0234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "8236AB",
+        "source_type": "spawn",
+        "coords": [
+         -232192.125,
+         83094.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "8236AC",
+        "source_type": "spawn",
+        "coords": [
+         -231936.4375,
+         83042.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "8236D7",
+        "source_type": "spawn",
+        "coords": [
+         -228877.8125,
+         91168.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "8236DE",
+        "source_type": "spawn",
+        "coords": [
+         -235784.765625,
+         89316.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "8236DF",
+        "source_type": "spawn",
+        "coords": [
+         -232075.59375,
+         82932.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "8236E0",
+        "source_type": "spawn",
+        "coords": [
+         -235860.703125,
+         89151.3046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Jackson Junkyard",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B680",
+       "82B694",
+       "82B695",
+       "83A189",
+       "83A18A",
+       "83A18C"
+      ],
+      "coords": [
+       -264801.125,
+       47020.859375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82B680",
+        "source_type": "spawn",
+        "coords": [
+         -244018.90625,
+         38468.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82B694",
+        "source_type": "spawn",
+        "coords": [
+         -243961.1875,
+         38274.75390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82B695",
+        "source_type": "spawn",
+        "coords": [
+         -243809.4375,
+         38486.96484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "83A189",
+        "source_type": "spawn",
+        "coords": [
+         -264801.125,
+         47020.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "83A18A",
+        "source_type": "spawn",
+        "coords": [
+         -264903.9375,
+         47204.33984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "83A18C",
+        "source_type": "spawn",
+        "coords": [
+         -265056.8125,
+         47072.68359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Meadow Breeze Storage Depot",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82EBED",
+       "82EBEE",
+       "82EBEF",
+       "835713",
+       "835714",
+       "835717"
+      ],
+      "coords": [
+       -252158.0625,
+       10315.353515625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82EBED",
+        "source_type": "spawn",
+        "coords": [
+         -252158.0625,
+         10315.353515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82EBEE",
+        "source_type": "spawn",
+        "coords": [
+         -251646.265625,
+         10658.3466796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82EBEF",
+        "source_type": "spawn",
+        "coords": [
+         -252335.828125,
+         10709.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "835713",
+        "source_type": "spawn",
+        "coords": [
+         -259264.5625,
+         13084.2470703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "835714",
+        "source_type": "spawn",
+        "coords": [
+         -259233.125,
+         12825.240234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "835717",
+        "source_type": "spawn",
+        "coords": [
+         -259091.390625,
+         12980.6484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Prospect Hill",
+      "count": 10,
+      "sources": {
+       "spawn": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82813E",
+       "82813F",
+       "828142",
+       "828143",
+       "8286B9",
+       "8286BA",
+       "8286BD",
+       "82B182",
+       "82B183",
+       "82B186"
+      ],
+      "coords": [
+       -206283.3125,
+       104040.7578125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82813E",
+        "source_type": "spawn",
+        "coords": [
+         -206283.3125,
+         104040.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82813F",
+        "source_type": "spawn",
+        "coords": [
+         -206131.5625,
+         104252.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "828142",
+        "source_type": "spawn",
+        "coords": [
+         -206341.03125,
+         104234.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "828143",
+        "source_type": "spawn",
+        "coords": [
+         -205951.109375,
+         103942.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "8286B9",
+        "source_type": "spawn",
+        "coords": [
+         -219263.90625,
+         112263.046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "8286BA",
+        "source_type": "spawn",
+        "coords": [
+         -219112.15625,
+         112475.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "8286BD",
+        "source_type": "spawn",
+        "coords": [
+         -219321.625,
+         112456.3984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "82B182",
+        "source_type": "spawn",
+        "coords": [
+         -206696.84375,
+         96629.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "82B183",
+        "source_type": "spawn",
+        "coords": [
+         -206545.75,
+         96840.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #10",
+        "ref": "82B186",
+        "source_type": "spawn",
+        "coords": [
+         -206740.515625,
+         96842.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 10,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Railroad Service Yard",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B6B1",
+       "82B6B2",
+       "82B6B5",
+       "82B6C0",
+       "82B6C1",
+       "82B6C4"
+      ],
+      "coords": [
+       -228658.296875,
+       20969.275390625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82B6B1",
+        "source_type": "spawn",
+        "coords": [
+         -228658.296875,
+         20969.275390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82B6B2",
+        "source_type": "spawn",
+        "coords": [
+         -226697.578125,
+         23689.529296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82B6B5",
+        "source_type": "spawn",
+        "coords": [
+         -229166.625,
+         24393.958984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "82B6C0",
+        "source_type": "spawn",
+        "coords": [
+         -235466.109375,
+         30518.8671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "82B6C1",
+        "source_type": "spawn",
+        "coords": [
+         -235314.34375,
+         30731.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "82B6C4",
+        "source_type": "spawn",
+        "coords": [
+         -235731.046875,
+         30712.216796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sand Fork Lumber",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82A390",
+       "82A39F",
+       "82A3A1",
+       "83A211",
+       "83A212",
+       "83A214",
+       "84630E",
+       "846320",
+       "846321"
+      ],
+      "coords": [
+       -210310.625,
+       -9300.849609375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82A390",
+        "source_type": "spawn",
+        "coords": [
+         -214842.0625,
+         406.143310546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82A39F",
+        "source_type": "spawn",
+        "coords": [
+         -214994.96875,
+         274.491943359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82A3A1",
+        "source_type": "spawn",
+        "coords": [
+         -214739.28125,
+         222.662841796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "83A211",
+        "source_type": "spawn",
+        "coords": [
+         -217680.15625,
+         -19010.83203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "83A212",
+        "source_type": "spawn",
+        "coords": [
+         -217882.84375,
+         -18846.607421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "83A214",
+        "source_type": "spawn",
+        "coords": [
+         -217686.390625,
+         -18800.6171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "84630E",
+        "source_type": "spawn",
+        "coords": [
+         -210310.625,
+         -9300.849609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "846320",
+        "source_type": "spawn",
+        "coords": [
+         -210463.53125,
+         -9432.5009765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "846321",
+        "source_type": "spawn",
+        "coords": [
+         -210207.84375,
+         -9484.330078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sandy's Sock Hop",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83FD8B",
+       "83FDE3",
+       "83FDE4"
+      ],
+      "coords": [
+       -251605.75,
+       105526.5859375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "83FD8B",
+        "source_type": "spawn",
+        "coords": [
+         -251605.75,
+         105526.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "83FDE3",
+        "source_type": "spawn",
+        "coords": [
+         -251111.25,
+         105035.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "83FDE4",
+        "source_type": "spawn",
+        "coords": [
+         -251758.65625,
+         105073.6953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Shade Hill Church",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B67A",
+       "82B6A6",
+       "82B6A7"
+      ],
+      "coords": [
+       -238585.34375,
+       117479.5390625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82B67A",
+        "source_type": "spawn",
+        "coords": [
+         -238585.34375,
+         117479.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82B6A6",
+        "source_type": "spawn",
+        "coords": [
+         -238243.9375,
+         117396.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82B6A7",
+        "source_type": "spawn",
+        "coords": [
+         -238395.6875,
+         117184.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Starlight Drive-in",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "828130",
+       "828131",
+       "828134",
+       "82869A",
+       "82869B",
+       "82869E",
+       "8286AA",
+       "8286AB",
+       "8286AE"
+      ],
+      "coords": [
+       -211066.3125,
+       124763.71875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "828130",
+        "source_type": "spawn",
+        "coords": [
+         -211066.3125,
+         124763.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "828131",
+        "source_type": "spawn",
+        "coords": [
+         -210914.5625,
+         124975.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "828134",
+        "source_type": "spawn",
+        "coords": [
+         -211124.03125,
+         124957.0703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "82869A",
+        "source_type": "spawn",
+        "coords": [
+         -194612.90625,
+         103830.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "82869B",
+        "source_type": "spawn",
+        "coords": [
+         -194638.90625,
+         104069.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "82869E",
+        "source_type": "spawn",
+        "coords": [
+         -195005.640625,
+         104242.75
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "8286AA",
+        "source_type": "spawn",
+        "coords": [
+         -193020.203125,
+         122190.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "8286AB",
+        "source_type": "spawn",
+        "coords": [
+         -192868.4375,
+         122402.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "8286AE",
+        "source_type": "spawn",
+        "coords": [
+         -193077.90625,
+         122383.6796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Super Duper Mart",
+      "count": 12,
+      "sources": {
+       "placement": 6,
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82A674",
+       "82A67B",
+       "82A67C",
+       "82B6D9",
+       "82B6DB",
+       "82B6DC",
+       "834041",
+       "834042",
+       "834043",
+       "834044",
+       "834045",
+       "834046"
+      ],
+      "coords": [
+       -230017.859375,
+       127115.765625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "834041",
+        "source_type": "placement",
+        "coords": [
+         -230017.859375,
+         127115.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "834042",
+        "source_type": "placement",
+        "coords": [
+         -230184.984375,
+         127083.7890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "834043",
+        "source_type": "placement",
+        "coords": [
+         -230347.59375,
+         127064.3046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "834044",
+        "source_type": "placement",
+        "coords": [
+         -229810.25,
+         127119.1015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "834045",
+        "source_type": "placement",
+        "coords": [
+         -229648.796875,
+         127105.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "834046",
+        "source_type": "placement",
+        "coords": [
+         -230762.921875,
+         127099.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82A674",
+        "source_type": "spawn",
+        "coords": [
+         -236600.0,
+         137952.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82A67B",
+        "source_type": "spawn",
+        "coords": [
+         -236328.0,
+         138416.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82A67C",
+        "source_type": "spawn",
+        "coords": [
+         -236200.0,
+         136776.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "82B6D9",
+        "source_type": "spawn",
+        "coords": [
+         -227752.0,
+         134208.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "82B6DB",
+        "source_type": "spawn",
+        "coords": [
+         -228064.90625,
+         133793.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "82B6DC",
+        "source_type": "spawn",
+        "coords": [
+         -227096.0,
+         135832.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Chop Shop",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82369A",
+       "8236C8",
+       "8236C9"
+      ],
+      "coords": [
+       -223225.9375,
+       79753.3203125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82369A",
+        "source_type": "spawn",
+        "coords": [
+         -223225.9375,
+         79753.3203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "8236C8",
+        "source_type": "spawn",
+        "coords": [
+         -223378.84375,
+         79621.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "8236C9",
+        "source_type": "spawn",
+        "coords": [
+         -223123.15625,
+         79569.8359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Rust Kingdom",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82A38D",
+       "82A393",
+       "82A394",
+       "82EBF1",
+       "82EC2D",
+       "82EC2E"
+      ],
+      "coords": [
+       -248476.25,
+       -1638.67309570313
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82A38D",
+        "source_type": "spawn",
+        "coords": [
+         -239261.15625,
+         2037.26208496094
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82A393",
+        "source_type": "spawn",
+        "coords": [
+         -239327.734375,
+         1846.79077148438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82A394",
+        "source_type": "spawn",
+        "coords": [
+         -239080.40625,
+         1929.75183105469
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "82EBF1",
+        "source_type": "spawn",
+        "coords": [
+         -248476.25,
+         -1638.67309570313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "82EC2D",
+        "source_type": "spawn",
+        "coords": [
+         -248628.671875,
+         -2573.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "82EC2E",
+        "source_type": "spawn",
+        "coords": [
+         -247547.15625,
+         -1535.40063476562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Tycoon Lake",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "84630B",
+       "846318",
+       "846319"
+      ],
+      "coords": [
+       -195007.015625,
+       13382.77734375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "84630B",
+        "source_type": "spawn",
+        "coords": [
+         -195007.015625,
+         13382.77734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "846318",
+        "source_type": "spawn",
+        "coords": [
+         -194992.0,
+         13584.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "846319",
+        "source_type": "spawn",
+        "coords": [
+         -195209.46875,
+         13439.81640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "World of Corn",
+      "count": 7,
+      "sources": {
+       "placement": 4,
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82E099",
+       "82E09B",
+       "82E0A4",
+       "8337BC",
+       "83A188",
+       "83A18B",
+       "83A18D"
+      ],
+      "coords": [
+       -236859.859375,
+       55293.37109375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "82E099",
+        "source_type": "placement",
+        "coords": [
+         -236859.859375,
+         55293.37109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "82E09B",
+        "source_type": "placement",
+        "coords": [
+         -236345.1875,
+         54945.50390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "82E0A4",
+        "source_type": "placement",
+        "coords": [
+         -237572.546875,
+         56233.6484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "8337BC",
+        "source_type": "placement",
+        "coords": [
+         -238253.53125,
+         55753.69921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "83A188",
+        "source_type": "spawn",
+        "coords": [
+         -252127.25,
+         59345.3515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "83A18B",
+        "source_type": "spawn",
+        "coords": [
+         -251974.34375,
+         59477.00390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "83A18D",
+        "source_type": "spawn",
+        "coords": [
+         -251871.5625,
+         59293.5234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Fort Defiance",
+      "count": 12,
+      "sources": {
+       "spawn": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31BF15",
+       "31BF9B",
+       "31BF9E",
+       "31BF9F",
+       "31BFA3",
+       "31BFA6",
+       "31BFA9",
+       "31BFAC",
+       "31BFAF",
+       "31BFB2",
+       "31BFC7",
+       "4E543A"
+      ],
+      "coords": [
+       -6416.0,
+       1784.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "31BF15",
+        "source_type": "spawn",
+        "coords": [
+         -6416.0,
+         1784.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "31BF9B",
+        "source_type": "spawn",
+        "coords": [
+         -2928.0,
+         1304.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "31BF9E",
+        "source_type": "spawn",
+        "coords": [
+         -4510.91748046875,
+         1366.77087402344
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "31BF9F",
+        "source_type": "spawn",
+        "coords": [
+         -5961.23583984375,
+         1914.19201660156
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "31BFA3",
+        "source_type": "spawn",
+        "coords": [
+         -4026.74047851562,
+         1836.56384277344
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "31BFA6",
+        "source_type": "spawn",
+        "coords": [
+         -4484.09619140625,
+         806.03076171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "31BFA9",
+        "source_type": "spawn",
+        "coords": [
+         -6253.3232421875,
+         1323.00817871094
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "31BFAC",
+        "source_type": "spawn",
+        "coords": [
+         -6937.2587890625,
+         2000.43872070313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "31BFAF",
+        "source_type": "spawn",
+        "coords": [
+         -5301.9814453125,
+         2481.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #10",
+        "ref": "31BFB2",
+        "source_type": "spawn",
+        "coords": [
+         -2838.24951171875,
+         1053.4794921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #11",
+        "ref": "31BFC7",
+        "source_type": "spawn",
+        "coords": [
+         -2914.615234375,
+         2176.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #12",
+        "ref": "4E543A",
+        "source_type": "spawn",
+        "coords": [
+         -3632.61865234375,
+         1325.08227539062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 12,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-02",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50AFC3",
+       "50AFC4",
+       "529DC8",
+       "529DC9"
+      ],
+      "coords": [
+       142957.359375,
+       -121049.4375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "50AFC3",
+        "source_type": "spawn",
+        "coords": [
+         142957.359375,
+         -121049.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "50AFC4",
+        "source_type": "spawn",
+        "coords": [
+         143280.5,
+         -121010.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "529DC8",
+        "source_type": "spawn",
+        "coords": [
+         142966.421875,
+         -120932.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "529DC9",
+        "source_type": "spawn",
+        "coords": [
+         143291.84375,
+         -120924.1484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga High School",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "12BC72",
+       "12BC73",
+       "12BC78",
+       "12BC80",
+       "12BC81",
+       "5191C0"
+      ],
+      "coords": [
+       -1408.0,
+       1992.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "12BC72",
+        "source_type": "spawn",
+        "coords": [
+         -1408.0,
+         1992.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "12BC73",
+        "source_type": "spawn",
+        "coords": [
+         -1440.0,
+         1312.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "12BC78",
+        "source_type": "spawn",
+        "coords": [
+         -1575.998046875,
+         4696.00146484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "12BC80",
+        "source_type": "spawn",
+        "coords": [
+         2488.0,
+         1264.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "12BC81",
+        "source_type": "spawn",
+        "coords": [
+         2035.47448730469,
+         1253.0556640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "5191C0",
+        "source_type": "spawn",
+        "coords": [
+         866.916625976563,
+         1707.80541992187
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Camp McClintock",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "112377",
+       "112379",
+       "11237B"
+      ],
+      "coords": [
+       -65912.984375,
+       -14895.90234375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "112377",
+        "source_type": "spawn",
+        "coords": [
+         -65912.984375,
+         -14895.90234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "112379",
+        "source_type": "spawn",
+        "coords": [
+         -72312.3671875,
+         -19853.720703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "11237B",
+        "source_type": "spawn",
+        "coords": [
+         -71777.9765625,
+         -19368.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "New River Gorge Bridge - West",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "486605",
+       "486606"
+      ],
+      "coords": [
+       -110507.390625,
+       -460.434143066406
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "486605",
+        "source_type": "placement",
+        "coords": [
+         -110507.390625,
+         -460.434143066406
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "486606",
+        "source_type": "placement",
+        "coords": [
+         -110323.5,
+         173.833618164062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "New River Gorge Resort",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D128D",
+       "3D128E",
+       "3D128F",
+       "3D1292",
+       "3D1293",
+       "3D1294",
+       "3D1295",
+       "3D1296",
+       "3D12C3"
+      ],
+      "coords": [
+       -80697.453125,
+       14836.8408203125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "3D128D",
+        "source_type": "spawn",
+        "coords": [
+         -80697.453125,
+         14836.8408203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "3D128E",
+        "source_type": "spawn",
+        "coords": [
+         -82134.765625,
+         16163.4228515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "3D128F",
+        "source_type": "spawn",
+        "coords": [
+         -81799.765625,
+         14608.2470703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "3D1292",
+        "source_type": "spawn",
+        "coords": [
+         -83408.859375,
+         11350.1826171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "3D1293",
+        "source_type": "spawn",
+        "coords": [
+         -84348.2734375,
+         9772.9912109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "3D1294",
+        "source_type": "spawn",
+        "coords": [
+         -84013.9765625,
+         10564.3408203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "3D1295",
+        "source_type": "spawn",
+        "coords": [
+         -79721.7265625,
+         11034.9482421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "3D1296",
+        "source_type": "spawn",
+        "coords": [
+         -80905.078125,
+         10975.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "3D12C3",
+        "source_type": "spawn",
+        "coords": [
+         -80824.5859375,
+         9723.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave South",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "54A583",
+       "54A584",
+       "54A585"
+      ],
+      "coords": [
+       -118035.3828125,
+       86245.609375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "54A583",
+        "source_type": "placement",
+        "coords": [
+         -118035.3828125,
+         86245.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "54A584",
+        "source_type": "placement",
+        "coords": [
+         -118018.8984375,
+         86262.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "54A585",
+        "source_type": "placement",
+        "coords": [
+         -118029.265625,
+         86247.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Atlas Substructure",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5B6DDC"
+      ],
+      "coords": [
+       2990.103515625,
+       996.664733886719
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn",
+        "ref": "5B6DDC",
+        "source_type": "placement",
+        "coords": [
+         2990.103515625,
+         996.664733886719
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DC9A5",
+       "5EACC4",
+       "5EACC5"
+      ],
+      "coords": [
+       -4675.7109375,
+       2698.46044921875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "5DC9A5",
+        "source_type": "placement",
+        "coords": [
+         -2228.05200195313,
+         6773.6953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "5EACC4",
+        "source_type": "placement",
+        "coords": [
+         -4675.7109375,
+         2698.46044921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "5EACC5",
+        "source_type": "placement",
+        "coords": [
+         -4676.83642578125,
+         2682.927734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Freak Show",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "38E4F1"
+      ],
+      "coords": [
+       85028.015625,
+       -102497.9921875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn",
+        "ref": "38E4F1",
+        "source_type": "placement",
+        "coords": [
+         85028.015625,
+         -102497.9921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Uncanny Caverns",
+      "count": 11,
+      "sources": {
+       "spawn": 11
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "049BCF",
+       "049BD7",
+       "29FB3D",
+       "29FB4D",
+       "29FB5E",
+       "2CE620",
+       "2CE622",
+       "336B93",
+       "336B94",
+       "51AABC",
+       "53080C"
+      ],
+      "coords": [
+       3460.23461914063,
+       3335.10815429687
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "049BCF",
+        "source_type": "spawn",
+        "coords": [
+         3460.23461914063,
+         3335.10815429687
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "049BD7",
+        "source_type": "spawn",
+        "coords": [
+         3841.70141601562,
+         9909.4208984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "29FB3D",
+        "source_type": "spawn",
+        "coords": [
+         -42573.62109375,
+         -90727.3515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "29FB4D",
+        "source_type": "spawn",
+        "coords": [
+         -41708.28125,
+         -89520.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "29FB5E",
+        "source_type": "spawn",
+        "coords": [
+         -40659.40625,
+         -87779.1796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "2CE620",
+        "source_type": "spawn",
+        "coords": [
+         -40488.796875,
+         -92429.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "2CE622",
+        "source_type": "spawn",
+        "coords": [
+         -41401.38671875,
+         -88763.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "336B93",
+        "source_type": "spawn",
+        "coords": [
+         -147.419662475586,
+         2066.54711914062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "336B94",
+        "source_type": "spawn",
+        "coords": [
+         368.852722167969,
+         2541.6357421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #10",
+        "ref": "51AABC",
+        "source_type": "spawn",
+        "coords": [
+         -40447.9921875,
+         -92287.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #11",
+        "ref": "53080C",
+        "source_type": "spawn",
+        "coords": [
+         3341.53247070313,
+         3227.67431640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 11,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Old Crimora Mines",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "758657",
+       "758658",
+       "75865B",
+       "75865C"
+      ],
+      "coords": [
+       -46968.0,
+       -247872.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "758657",
+        "source_type": "spawn",
+        "coords": [
+         -46968.0,
+         -247872.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "758658",
+        "source_type": "spawn",
+        "coords": [
+         -47368.0,
+         -247560.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "75865B",
+        "source_type": "spawn",
+        "coords": [
+         -54336.0,
+         -251024.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "75865C",
+        "source_type": "spawn",
+        "coords": [
+         -54816.0,
+         -250992.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Old Rag Lookout",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74FC26",
+       "74FC27",
+       "74FC28",
+       "75AC9C",
+       "75AC9D",
+       "75AC9E",
+       "75ACA0"
+      ],
+      "coords": [
+       29453.9921875,
+       -236226.328125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "74FC26",
+        "source_type": "spawn",
+        "coords": [
+         18318.61328125,
+         -226612.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "74FC27",
+        "source_type": "spawn",
+        "coords": [
+         18591.3046875,
+         -226894.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "74FC28",
+        "source_type": "spawn",
+        "coords": [
+         18332.703125,
+         -226989.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "75AC9C",
+        "source_type": "spawn",
+        "coords": [
+         29453.9921875,
+         -236226.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "75AC9D",
+        "source_type": "spawn",
+        "coords": [
+         29832.00390625,
+         -236200.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "75AC9E",
+        "source_type": "spawn",
+        "coords": [
+         29680.0,
+         -236544.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "75ACA0",
+        "source_type": "spawn",
+        "coords": [
+         19624.0,
+         -239304.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Ranger Station Bunker",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74F4E4",
+       "74F4E5",
+       "74F4E6"
+      ],
+      "coords": [
+       51986.51171875,
+       -191670.796875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "74F4E4",
+        "source_type": "spawn",
+        "coords": [
+         51986.51171875,
+         -191670.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "74F4E5",
+        "source_type": "spawn",
+        "coords": [
+         51469.18359375,
+         -191595.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "74F4E6",
+        "source_type": "spawn",
+        "coords": [
+         52227.5390625,
+         -190609.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Saxony",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75D6FB",
+       "75D6FC",
+       "75D6FD"
+      ],
+      "coords": [
+       -52712.0,
+       -226328.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "75D6FB",
+        "source_type": "placement",
+        "coords": [
+         -52712.0,
+         -226328.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "75D6FC",
+        "source_type": "placement",
+        "coords": [
+         -52521.5390625,
+         -226433.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "75D6FD",
+        "source_type": "placement",
+        "coords": [
+         -52397.703125,
+         -226105.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Slumber Mill Motel",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75AC99",
+       "75AC9A",
+       "75AC9B",
+       "75AC9F",
+       "75ACA1"
+      ],
+      "coords": [
+       23864.0,
+       -255784.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "75AC99",
+        "source_type": "spawn",
+        "coords": [
+         23864.0,
+         -255784.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "75AC9A",
+        "source_type": "spawn",
+        "coords": [
+         24104.0,
+         -255824.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "75AC9B",
+        "source_type": "spawn",
+        "coords": [
+         23968.0,
+         -256128.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "75AC9F",
+        "source_type": "spawn",
+        "coords": [
+         19334.265625,
+         -239559.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "75ACA1",
+        "source_type": "spawn",
+        "coords": [
+         19640.0,
+         -239712.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "South River Bridge",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75ACA2",
+       "75ACA3",
+       "75ACA4",
+       "75ACA5",
+       "75ACA6",
+       "75ACA7"
+      ],
+      "coords": [
+       38656.0,
+       -237904.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "75ACA2",
+        "source_type": "spawn",
+        "coords": [
+         38656.0,
+         -237904.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "75ACA3",
+        "source_type": "spawn",
+        "coords": [
+         39048.0078125,
+         -238304.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "75ACA4",
+        "source_type": "spawn",
+        "coords": [
+         38631.99609375,
+         -238352.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "75ACA5",
+        "source_type": "spawn",
+        "coords": [
+         35888.0,
+         -254432.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "75ACA6",
+        "source_type": "spawn",
+        "coords": [
+         36128.0,
+         -254248.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "75ACA7",
+        "source_type": "spawn",
+        "coords": [
+         36224.0,
+         -254648.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Stony Man Lookout",
+      "count": 10,
+      "sources": {
+       "placement": 3,
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75C6F7",
+       "75C6F8",
+       "75C6F9",
+       "75C700",
+       "75C701",
+       "75C702",
+       "75C703",
+       "75C713",
+       "75C714",
+       "75C715"
+      ],
+      "coords": [
+       51464.01171875,
+       -227320.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "75C6F7",
+        "source_type": "placement",
+        "coords": [
+         51464.01171875,
+         -227320.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "75C6F8",
+        "source_type": "placement",
+        "coords": [
+         51074.921875,
+         -227292.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "75C6F9",
+        "source_type": "placement",
+        "coords": [
+         51208.0,
+         -227840.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "75C700",
+        "source_type": "spawn",
+        "coords": [
+         55963.8046875,
+         -230833.03125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "75C701",
+        "source_type": "spawn",
+        "coords": [
+         56024.0,
+         -231128.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "75C702",
+        "source_type": "spawn",
+        "coords": [
+         55688.73828125,
+         -230848.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "75C703",
+        "source_type": "spawn",
+        "coords": [
+         55720.0,
+         -231272.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "75C713",
+        "source_type": "spawn",
+        "coords": [
+         62297.3671875,
+         -222288.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "75C714",
+        "source_type": "spawn",
+        "coords": [
+         62176.0,
+         -222120.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "75C715",
+        "source_type": "spawn",
+        "coords": [
+         62072.0,
+         -222432.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-03",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74F4D8",
+       "74F4DA"
+      ],
+      "coords": [
+       46538.02734375,
+       -204597.265625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "74F4D8",
+        "source_type": "spawn",
+        "coords": [
+         46538.02734375,
+         -204597.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "74F4DA",
+        "source_type": "spawn",
+        "coords": [
+         45536.7734375,
+         -204708.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Abandoned Bunker",
+      "count": 5,
+      "sources": {
+       "placement": 2,
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "09DA23",
+       "09DA24",
+       "09DA25",
+       "09DA35",
+       "09DA38"
+      ],
+      "coords": [
+       154858.328125,
+       127724.5
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "09DA35",
+        "source_type": "placement",
+        "coords": [
+         154858.328125,
+         127724.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "09DA38",
+        "source_type": "placement",
+        "coords": [
+         154502.140625,
+         127421.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "09DA23",
+        "source_type": "spawn",
+        "coords": [
+         154787.875,
+         127683.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "09DA24",
+        "source_type": "spawn",
+        "coords": [
+         154907.84375,
+         127387.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "09DA25",
+        "source_type": "spawn",
+        "coords": [
+         155048.953125,
+         127633.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Crevasse Dam",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3520B6",
+       "3520B7",
+       "3520B8"
+      ],
+      "coords": [
+       183796.75,
+       81668.4609375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "3520B6",
+        "source_type": "spawn",
+        "coords": [
+         183796.75,
+         81668.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "3520B7",
+        "source_type": "spawn",
+        "coords": [
+         184354.5625,
+         82161.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "3520B8",
+        "source_type": "spawn",
+        "coords": [
+         183166.015625,
+         82195.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dabney Homestead",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "049638",
+       "4E3D6A",
+       "4E3D6B",
+       "4E3D6C",
+       "4E3D6D"
+      ],
+      "coords": [
+       186534.546875,
+       -25747.728515625
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "049638",
+        "source_type": "spawn",
+        "coords": [
+         186534.546875,
+         -25747.728515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "4E3D6A",
+        "source_type": "spawn",
+        "coords": [
+         186199.015625,
+         -25845.955078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "4E3D6B",
+        "source_type": "spawn",
+        "coords": [
+         186416.984375,
+         -26086.97265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "4E3D6C",
+        "source_type": "spawn",
+        "coords": [
+         186368.9375,
+         -25820.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "4E3D6D",
+        "source_type": "spawn",
+        "coords": [
+         186258.5625,
+         -25998.638671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Lookout",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "061B7C",
+       "061BB4"
+      ],
+      "coords": [
+       151420.828125,
+       85497.4921875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "061B7C",
+        "source_type": "spawn",
+        "coords": [
+         151420.828125,
+         85497.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "061BB4",
+        "source_type": "spawn",
+        "coords": [
+         151962.625,
+         85979.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Wilderness",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "061B7E",
+       "061B82",
+       "061BB9",
+       "36BEBF",
+       "51AA66",
+       "51AA76",
+       "51AA77"
+      ],
+      "coords": [
+       151633.109375,
+       84880.4453125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "061B7E",
+        "source_type": "spawn",
+        "coords": [
+         151633.109375,
+         84880.4453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "061B82",
+        "source_type": "spawn",
+        "coords": [
+         151243.078125,
+         84571.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "061BB9",
+        "source_type": "spawn",
+        "coords": [
+         152074.5625,
+         85951.5546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "36BEBF",
+        "source_type": "spawn",
+        "coords": [
+         152588.046875,
+         85208.375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "51AA66",
+        "source_type": "spawn",
+        "coords": [
+         158937.03125,
+         87128.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "51AA76",
+        "source_type": "spawn",
+        "coords": [
+         157166.953125,
+         87987.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "51AA77",
+        "source_type": "spawn",
+        "coords": [
+         159165.421875,
+         87109.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Freddy Fear's House of Scares",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "38FF49",
+       "38FF4A",
+       "38FF4B",
+       "38FF4C",
+       "38FF4D",
+       "390C6B"
+      ],
+      "coords": [
+       179465.15625,
+       166568.34375
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "38FF49",
+        "source_type": "placement",
+        "coords": [
+         177633.078125,
+         166495.90625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "38FF4A",
+        "source_type": "placement",
+        "coords": [
+         178710.84375,
+         166322.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "38FF4B",
+        "source_type": "placement",
+        "coords": [
+         179465.15625,
+         166568.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "38FF4C",
+        "source_type": "placement",
+        "coords": [
+         178839.125,
+         165866.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "38FF4D",
+        "source_type": "placement",
+        "coords": [
+         177512.828125,
+         167549.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "390C6B",
+        "source_type": "placement",
+        "coords": [
+         176256.71875,
+         165381.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Haven Church",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "343FFC",
+       "3DAA45",
+       "3DAA48"
+      ],
+      "coords": [
+       175697.71875,
+       43003.41796875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "343FFC",
+        "source_type": "spawn",
+        "coords": [
+         175697.71875,
+         43003.41796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "3DAA45",
+        "source_type": "spawn",
+        "coords": [
+         176070.859375,
+         43534.09765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "3DAA48",
+        "source_type": "spawn",
+        "coords": [
+         176019.734375,
+         43309.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mire's Eye",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "369BF6",
+       "369BF8",
+       "369BF9"
+      ],
+      "coords": [
+       194813.515625,
+       201945.53125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "369BF6",
+        "source_type": "placement",
+        "coords": [
+         194813.515625,
+         201945.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "369BF8",
+        "source_type": "placement",
+        "coords": [
+         194386.625,
+         201207.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "369BF9",
+        "source_type": "placement",
+        "coords": [
+         195119.484375,
+         201544.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 74,
+  "total_placements": 411
+ },
+ "blurb": "The Bloatfly in Fallout 76 — drops Bloatfly Meat, 20 NPC variants, 411 known spawn points."
+}

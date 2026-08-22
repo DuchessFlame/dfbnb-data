@@ -1203,6 +1203,15 @@ def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
                vendor_master=vendor_master, rates=rates, harvest=harvest)
         if cfg.get("multi_item"):
             _inject_multi_item(slug, cfg, dist_dir, data_dir)
+        # Honeycomb also hosts the Honey Beast creature (it drops Honeycomb). Fold
+        # the creature bundle in AFTER used_for so both survive (inject() above
+        # copies unknown keys like honey_beast through). Runs in the CI --all pass.
+        if slug == "honeycomb":
+            try:
+                import honeycomb_honey_beast
+                honeycomb_honey_beast.inject(dist_dir)
+            except Exception as e:
+                print(f"  [warn] Honey Beast fold-in skipped for honeycomb ({e})")
 
 
 def _inject_multi_item(slug, cfg, dist_dir, data_dir):

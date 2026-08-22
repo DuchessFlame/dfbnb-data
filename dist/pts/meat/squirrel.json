@@ -1,0 +1,714 @@
+{
+ "_meta": {
+  "generated": "2026-08-22",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "RadSquirrelRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 13,
+   "spawn": 4
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "squirrel",
+ "name": "Squirrel",
+ "page_title": "Farming - Meat - Squirrel",
+ "url": "/bnb/farming/meat/squirrel/",
+ "npc_summary": {
+  "npc_count": 5,
+  "level_min": 1,
+  "level_max": 1,
+  "health_max": 5
+ },
+ "meat_items": [
+  {
+   "name": "Intestine",
+   "form_id": "003EEA40",
+   "rate_display": "100%"
+  },
+  {
+   "name": "Squirrel Bits",
+   "form_id": "000366BC",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Event",
+   "name": "Summer Camp: Collect Mirelurk Queen Meat with the Squirrel Backpack equipped",
+   "required": 1,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Collect_MirelurkSteak",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Summer Camp: Cook Steak with the Squirrel Backpack equipped",
+   "required": 10,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Collect_CookSteak",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Summer Camp: Craft Disease Cure with the Squirrel Backpack equipped",
+   "required": 5,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Craft_Cure",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Summer Camp: Craft Healing Salve with the Squirrel Backpack equipped",
+   "required": 5,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Craft_HealingSalve",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Summer Camp: Kill Radrat or Molerat with the Squirrel Backpack equipped",
+   "required": 10,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Kill_Radrats",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Summer Camp: Pick Lock with the Squirrel Backpack equipped",
+   "required": 5,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_PickLock",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Summer Camp: Take a Camera Picture of Blue Devil with the Squirrel Backpack equipped",
+   "required": 1,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Camera_BlueDevil",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Summer Camp: Take a Camera Picture of Jaggy with the Squirrel Backpack equipped",
+   "required": 1,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Camera_Jaggy",
+   "page": "events"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_RadSquirrel",
+    "form_id": "00382264",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 3,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creature Critter",
+      "sub_id": "003DF3D9",
+      "edid": "LLS_Ammo_Creature_Critter",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Critters Intestines",
+      "sub_id": "00477AF3",
+      "edid": "LLS_Loot_Critters_Intestines",
+      "item_count": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Intestine",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Squirrel Bits",
+      "form_id": "000366BC",
+      "edid": "SquirrelMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Critters Intestines",
+      "sub_id": "00477AF3",
+      "edid": "LLS_Loot_Critters_Intestines",
+      "item_count": 1,
+      "rate_value": 0.6,
+      "rate_display": "60%",
+      "top_items": [
+       {
+        "name": "Intestine",
+        "rate_display": "100%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Rollins Labor Camp",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5725D3"
+      ],
+      "coords": [
+       -97369.8515625,
+       -115455.6875
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn",
+        "ref": "5725D3",
+        "source_type": "placement",
+        "coords": [
+         -97369.8515625,
+         -115455.6875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Superior Sunset Farm",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "379FE4"
+      ],
+      "coords": [
+       123934.28125,
+       -95639.96875
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn",
+        "ref": "379FE4",
+        "source_type": "spawn",
+        "coords": [
+         123934.28125,
+         -95639.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga Underground",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59E66D"
+      ],
+      "coords": [
+       -7476.26953125,
+       7011.5341796875
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn",
+        "ref": "59E66D",
+        "source_type": "placement",
+        "coords": [
+         -7476.26953125,
+         7011.5341796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Moonshiner's Shack",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "554239"
+      ],
+      "coords": [
+       -116189.25,
+       86775.4921875
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn",
+        "ref": "554239",
+        "source_type": "placement",
+        "coords": [
+         -116189.25,
+         86775.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Vault-Tec Agricultural Research Center",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B9FCB",
+       "2DD199",
+       "2DD19A"
+      ],
+      "coords": [
+       -112060.4453125,
+       26662.984375
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn #1",
+        "ref": "2B9FCB",
+        "source_type": "spawn",
+        "coords": [
+         -112060.4453125,
+         26662.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Squirrel spawn #2",
+        "ref": "2DD199",
+        "source_type": "spawn",
+        "coords": [
+         -112296.34375,
+         26488.759765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Squirrel spawn #3",
+        "ref": "2DD19A",
+        "source_type": "spawn",
+        "coords": [
+         -112262.578125,
+         26650.783203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "98 NAR Regional",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CCD7",
+       "43CCD8",
+       "43CCD9"
+      ],
+      "coords": [
+       19307.509765625,
+       5776.8955078125
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn #1",
+        "ref": "43CCD7",
+        "source_type": "placement",
+        "coords": [
+         19307.509765625,
+         5776.8955078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Squirrel spawn #2",
+        "ref": "43CCD8",
+        "source_type": "placement",
+        "coords": [
+         19244.771484375,
+         5398.26611328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Squirrel spawn #3",
+        "ref": "43CCD9",
+        "source_type": "placement",
+        "coords": [
+         19459.41015625,
+         5569.4384765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5EACDC"
+      ],
+      "coords": [
+       -4936.16650390625,
+       2575.88916015625
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn",
+        "ref": "5EACDC",
+        "source_type": "placement",
+        "coords": [
+         -4936.16650390625,
+         2575.88916015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Safe 'n Clean Disposal",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A0BD9"
+      ],
+      "coords": [
+       6780.66455078125,
+       -38149.40234375
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn",
+        "ref": "3A0BD9",
+        "source_type": "placement",
+        "coords": [
+         6780.66455078125,
+         -38149.40234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Whitespring Resort",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A10A6",
+       "3D61F8",
+       "3D61F9"
+      ],
+      "coords": [
+       7925.7705078125,
+       -44314.875
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn #1",
+        "ref": "3A10A6",
+        "source_type": "placement",
+        "coords": [
+         7925.7705078125,
+         -44314.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Squirrel spawn #2",
+        "ref": "3D61F8",
+        "source_type": "placement",
+        "coords": [
+         12725.8271484375,
+         -50787.8359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Squirrel spawn #3",
+        "ref": "3D61F9",
+        "source_type": "placement",
+        "coords": [
+         13466.1669921875,
+         -50700.8515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Whitespring Service Entrance",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D7522"
+      ],
+      "coords": [
+       8652.142578125,
+       -62133.73828125
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn",
+        "ref": "3D7522",
+        "source_type": "placement",
+        "coords": [
+         8652.142578125,
+         -62133.73828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Ranger Monitoring Bunker",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "788656"
+      ],
+      "coords": [
+       -986.418273925781,
+       -342.565155029297
+      ],
+      "spawns": [
+       {
+        "label": "Squirrel spawn",
+        "ref": "788656",
+        "source_type": "placement",
+        "coords": [
+         -986.418273925781,
+         -342.565155029297
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 11,
+  "total_placements": 17
+ },
+ "blurb": "The Squirrel in Fallout 76 — drops Intestine, Squirrel Bits, 5 NPC variants, 17 known spawn points."
+}
