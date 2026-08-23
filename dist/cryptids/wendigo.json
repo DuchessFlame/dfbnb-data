@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-22",
+  "generated": "2026-08-23",
   "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -22,12 +22,12 @@
  "name": "Wendigo",
  "page_title": "Cryptids - Wendigo",
  "url": "/df/cryptids/wendigo/",
- "blurb": "The Wendigo in Fallout 76 — 26 NPC variants, 73 known spawn points, 15194 possible drops.",
+ "blurb": "The Wendigo in Fallout 76 — 73 known spawn points.",
  "npc_summary": {
-  "npc_count": 26,
-  "level_min": 15,
-  "level_max": 100,
-  "health_max": 30000
+  "npc_count": 0,
+  "level_min": null,
+  "level_max": null,
+  "health_max": null
  },
  "used_for": [
   {
@@ -98,523 +98,9 @@
   }
  ],
  "drops": {
-  "lists": [
-   {
-    "edid": "LLD_Creature_Wendigo",
-    "form_id": "0032F76C",
-    "row_count": 3,
-    "direct_items": 0,
-    "pool_count": 3,
-    "item_count": 13872,
-    "rows": [
-     {
-      "kind": "pool",
-      "name": "LLE Creature Boss Component Wendigo",
-      "sub_id": "0043438E",
-      "edid": "LLE_Creature_Boss_Component_Wendigo",
-      "item_count": 6,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Fiberglass Spool",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Loose Screws",
-        "rate_display": "100%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "Wendigo",
-      "sub_id": "003DF3CE",
-      "edid": "LLS_Creature_Wendigo",
-      "item_count": 12680,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Wendigo Teeth",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Ammo Grenade Launcher",
-        "rate_display": "40.18%"
-       },
-       {
-        "name": "Ammo2mm EC",
-        "rate_display": "22.32%"
-       },
-       {
-        "name": "Ammo38Caliber",
-        "rate_display": "22.32%"
-       },
-       {
-        "name": "Ammo45Caliber",
-        "rate_display": "22.32%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "LLE Creature Wendigo",
-      "sub_id": "003DF3DB",
-      "edid": "LLE_Creature_Wendigo",
-      "item_count": 1186,
-      "rate_value": 0.5,
-      "rate_display": "50%",
-      "top_items": [
-       {
-        "name": "Wendigo Teeth",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Ammo Grenade Launcher",
-        "rate_display": "42.75%"
-       },
-       {
-        "name": "Ammo2mm EC",
-        "rate_display": "23.75%"
-       },
-       {
-        "name": "Ammo38Caliber",
-        "rate_display": "23.75%"
-       },
-       {
-        "name": "Ammo45Caliber",
-        "rate_display": "23.75%"
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "edid": "LLD_Creature_WendigoColossusSpawn",
-    "form_id": "005C459B",
-    "row_count": 5,
-    "direct_items": 1,
-    "pool_count": 4,
-    "item_count": 1131,
-    "rows": [
-     {
-      "kind": "pool",
-      "name": "Ammo Loot Contextual Open World",
-      "sub_id": "006CD246",
-      "edid": "LL_Ammo_Loot_Contextual_OpenWorld",
-      "item_count": 1106,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Ammo Grenade Launcher",
-        "rate_display": "42.75%"
-       },
-       {
-        "name": "Ammo2mm EC",
-        "rate_display": "23.75%"
-       },
-       {
-        "name": "Ammo38Caliber",
-        "rate_display": "23.75%"
-       },
-       {
-        "name": "Ammo45Caliber",
-        "rate_display": "23.75%"
-       },
-       {
-        "name": "Ammo10mm",
-        "rate_display": "23.75%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "LLE Creature Boss Component Wendigo",
-      "sub_id": "0043438E",
-      "edid": "LLE_Creature_Boss_Component_Wendigo",
-      "item_count": 6,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Fiberglass Spool",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Loose Screws",
-        "rate_display": "100%"
-       }
-      ]
-     },
-     {
-      "kind": "item",
-      "name": "Wendigo Teeth",
-      "form_id": "00329F59",
-      "edid": "WendigoTeeth",
-      "sig": "MISC",
-      "qty": 1,
-      "rate_value": 1.0,
-      "rate_display": "100%"
-     },
-     {
-      "kind": "pool",
-      "name": "Systemic Rewards Goodies Aid",
-      "sub_id": "005C28B1",
-      "edid": "LLS_Systemic_Rewards_Goodies_Aid",
-      "item_count": 9,
-      "rate_value": 0.4,
-      "rate_display": "40%",
-      "top_items": [
-       {
-        "name": "Stimpak",
-        "rate_display": "11.11%"
-       },
-       {
-        "name": "Stimpak: Super",
-        "rate_display": "11.11%"
-       },
-       {
-        "name": "RadAway",
-        "rate_display": "11.11%"
-       },
-       {
-        "name": "Purified Water",
-        "rate_display": "11.11%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "Systemic Rewards Goodies Aid",
-      "sub_id": "005C28B1",
-      "edid": "LLS_Systemic_Rewards_Goodies_Aid",
-      "item_count": 9,
-      "rate_value": 0.25,
-      "rate_display": "25%",
-      "top_items": [
-       {
-        "name": "Stimpak",
-        "rate_display": "11.11%"
-       },
-       {
-        "name": "Stimpak: Super",
-        "rate_display": "11.11%"
-       },
-       {
-        "name": "RadAway",
-        "rate_display": "11.11%"
-       },
-       {
-        "name": "Purified Water",
-        "rate_display": "11.11%"
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "edid": "LLD_Creature_WendigoColossus",
-    "form_id": "00558306",
-    "row_count": 5,
-    "direct_items": 0,
-    "pool_count": 5,
-    "item_count": 91,
-    "rows": [
-     {
-      "kind": "pool",
-      "name": "Boss Component Wendigo Colossus",
-      "sub_id": "00588AFF",
-      "edid": "LLS_Creature_Boss_Component_WendigoColossus",
-      "item_count": 9,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Fiberglass Spool",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Loose Screws",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Ballistic Fiber Scrap",
-        "rate_display": "100%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "Loot Explosives All",
-      "sub_id": "001B8811",
-      "edid": "LLS_Loot_Explosives_All",
-      "item_count": 62,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Molotov Cocktail",
-        "rate_display": "5.83%"
-       },
-       {
-        "name": "Baseball Grenade",
-        "rate_display": "5.83%"
-       },
-       {
-        "name": "Fragmentation Grenade",
-        "rate_display": "5.83%"
-       },
-       {
-        "name": "Pulse Grenade",
-        "rate_display": "5.83%"
-       },
-       {
-        "name": "Cryogenic Grenade",
-        "rate_display": "5.83%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "Wendigo Colossus Parts",
-      "sub_id": "00588AFE",
-      "edid": "LLS_Creature_WendigoColossus_Parts",
-      "item_count": 2,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Wendigo Colossus Vocal Sac",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Wendigo Teeth",
-        "rate_display": "0%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "World Boss Currency Caps",
-      "sub_id": "005A405D",
-      "edid": "LLS_Creature_WorldBoss_Currency_Caps",
-      "item_count": 4,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Caps",
-        "rate_display": "25%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "World Boss Stimpaks",
-      "sub_id": "005A405B",
-      "edid": "LLS_Creature_WorldBoss_Stimpaks",
-      "item_count": 14,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Stimpak",
-        "rate_display": "14.29%"
-       },
-       {
-        "name": "Stimpak: Super",
-        "rate_display": "14.29%"
-       }
-      ]
-     }
-    ]
-   },
-   {
-    "edid": "LLD_Creature_WendigoColossus_PartyCrasher",
-    "form_id": "0089740C",
-    "row_count": 8,
-    "direct_items": 1,
-    "pool_count": 7,
-    "item_count": 100,
-    "rows": [
-     {
-      "kind": "pool",
-      "name": "Boss Component Wendigo Colossus",
-      "sub_id": "00588AFF",
-      "edid": "LLS_Creature_Boss_Component_WendigoColossus",
-      "item_count": 9,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Fiberglass Spool",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Loose Screws",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Ballistic Fiber Scrap",
-        "rate_display": "100%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "Loot Explosives All",
-      "sub_id": "001B8811",
-      "edid": "LLS_Loot_Explosives_All",
-      "item_count": 62,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Molotov Cocktail",
-        "rate_display": "5.83%"
-       },
-       {
-        "name": "Baseball Grenade",
-        "rate_display": "5.83%"
-       },
-       {
-        "name": "Fragmentation Grenade",
-        "rate_display": "5.83%"
-       },
-       {
-        "name": "Pulse Grenade",
-        "rate_display": "5.83%"
-       },
-       {
-        "name": "Cryogenic Grenade",
-        "rate_display": "5.83%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "RA LLS Loot Legendary3Star",
-      "sub_id": "0086A8A9",
-      "edid": "RA_LLS_Loot_Legendary3Star",
-      "item_count": 4,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Legendary Items Power Armor Rank3",
-        "rate_display": "25%"
-       },
-       {
-        "name": "Legendary Items Weapons Melee Rank3",
-        "rate_display": "25%"
-       },
-       {
-        "name": "Legendary Items Weapons Ranged Rank3",
-        "rate_display": "25%"
-       },
-       {
-        "name": "Legendary Items Armor Rank3",
-        "rate_display": "25%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "RA LLS Loot Legendary3Star",
-      "sub_id": "0086A8A9",
-      "edid": "RA_LLS_Loot_Legendary3Star",
-      "item_count": 4,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Legendary Items Power Armor Rank3",
-        "rate_display": "25%"
-       },
-       {
-        "name": "Legendary Items Weapons Melee Rank3",
-        "rate_display": "25%"
-       },
-       {
-        "name": "Legendary Items Weapons Ranged Rank3",
-        "rate_display": "25%"
-       },
-       {
-        "name": "Legendary Items Armor Rank3",
-        "rate_display": "25%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "Wendigo Colossus Parts",
-      "sub_id": "00588AFE",
-      "edid": "LLS_Creature_WendigoColossus_Parts",
-      "item_count": 2,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Wendigo Colossus Vocal Sac",
-        "rate_display": "100%"
-       },
-       {
-        "name": "Wendigo Teeth",
-        "rate_display": "0%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "World Boss Currency Caps",
-      "sub_id": "005A405D",
-      "edid": "LLS_Creature_WorldBoss_Currency_Caps",
-      "item_count": 4,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Caps",
-        "rate_display": "25%"
-       }
-      ]
-     },
-     {
-      "kind": "pool",
-      "name": "World Boss Stimpaks",
-      "sub_id": "005A405B",
-      "edid": "LLS_Creature_WorldBoss_Stimpaks",
-      "item_count": 14,
-      "rate_value": 1.0,
-      "rate_display": "100%",
-      "top_items": [
-       {
-        "name": "Stimpak",
-        "rate_display": "14.29%"
-       },
-       {
-        "name": "Stimpak: Super",
-        "rate_display": "14.29%"
-       }
-      ]
-     },
-     {
-      "kind": "item",
-      "name": "Player Title: Uninvited",
-      "form_id": "008AA951",
-      "edid": "PlayerTitle_Recipe_Prefix_Uninvited",
-      "sig": "BOOK",
-      "qty": 1,
-      "rate_value": 0.05,
-      "rate_display": "5%"
-     }
-    ]
-   }
-  ],
+  "lists": [],
   "inherited_only": false,
-  "empty_reason": ""
+  "empty_reason": "none"
  },
  "random_encounters": [
   {
@@ -688,8 +174,8 @@
        "7F5F28"
       ],
       "coords": [
-       -215623.984375,
-       74003.984375
+       -215624.0,
+       74004.0
       ],
       "spawns": [
        {
@@ -697,8 +183,8 @@
         "ref": "7F5F13",
         "source_type": "ambush",
         "coords": [
-         -215623.984375,
-         74003.984375
+         -215624.0,
+         74004.0
         ],
         "image_top": "",
         "directions": "",
@@ -709,7 +195,7 @@
         "ref": "7F5F28",
         "source_type": "placement",
         "coords": [
-         -215367.78125,
+         -215367.8,
          73992.0
         ],
         "image_top": "",
@@ -754,8 +240,8 @@
        "60D046"
       ],
       "coords": [
-       1364.86779785156,
-       -1889.84387207031
+       1364.9,
+       -1889.8
       ],
       "spawns": [
        {
@@ -763,8 +249,8 @@
         "ref": "60D00C",
         "source_type": "ambush",
         "coords": [
-         1364.86779785156,
-         -1889.84387207031
+         1364.9,
+         -1889.8
         ],
         "image_top": "",
         "directions": "",
@@ -775,8 +261,8 @@
         "ref": "60D046",
         "source_type": "placement",
         "coords": [
-         1506.35046386719,
-         -1872.14611816406
+         1506.4,
+         -1872.1
         ],
         "image_top": "",
         "directions": "",
@@ -819,8 +305,8 @@
        "5DD4A6"
       ],
       "coords": [
-       -2225.11669921875,
-       2604.25927734375
+       -2225.1,
+       2604.3
       ],
       "spawns": [
        {
@@ -828,8 +314,8 @@
         "ref": "5DD493",
         "source_type": "ambush",
         "coords": [
-         -2225.11669921875,
-         2604.25927734375
+         -2225.1,
+         2604.3
         ],
         "image_top": "",
         "directions": "",
@@ -840,8 +326,8 @@
         "ref": "5DD4A3",
         "source_type": "ambush",
         "coords": [
-         -2042.875,
-         2809.11694335938
+         -2042.9,
+         2809.1
         ],
         "image_top": "",
         "directions": "",
@@ -852,8 +338,8 @@
         "ref": "5DD4A5",
         "source_type": "ambush",
         "coords": [
-         -2043.5859375,
-         3373.10009765625
+         -2043.6,
+         3373.1
         ],
         "image_top": "",
         "directions": "",
@@ -864,8 +350,8 @@
         "ref": "5DD4A6",
         "source_type": "ambush",
         "coords": [
-         -2221.10595703125,
-         3544.6103515625
+         -2221.1,
+         3544.6
         ],
         "image_top": "",
         "directions": "",
@@ -876,8 +362,8 @@
         "ref": "5DC99D",
         "source_type": "placement",
         "coords": [
-         -1664.57104492187,
-         6774.4267578125
+         -1664.6,
+         6774.4
         ],
         "image_top": "",
         "directions": "",
@@ -939,8 +425,8 @@
        "5B4EF3"
       ],
       "coords": [
-       -10659.865234375,
-       14567.8310546875
+       -10659.9,
+       14567.8
       ],
       "spawns": [
        {
@@ -948,8 +434,8 @@
         "ref": "58A853",
         "source_type": "ambush",
         "coords": [
-         -7841.03076171875,
-         16146.228515625
+         -7841.0,
+         16146.2
         ],
         "image_top": "",
         "directions": "",
@@ -960,8 +446,8 @@
         "ref": "58A8E8",
         "source_type": "ambush",
         "coords": [
-         -9235.6787109375,
-         14514.728515625
+         -9235.7,
+         14514.7
         ],
         "image_top": "",
         "directions": "",
@@ -972,8 +458,8 @@
         "ref": "58A8E9",
         "source_type": "ambush",
         "coords": [
-         -11044.2900390625,
-         14067.30859375
+         -11044.3,
+         14067.3
         ],
         "image_top": "",
         "directions": "",
@@ -984,8 +470,8 @@
         "ref": "58A8EA",
         "source_type": "ambush",
         "coords": [
-         -9020.400390625,
-         15313.181640625
+         -9020.4,
+         15313.2
         ],
         "image_top": "",
         "directions": "",
@@ -996,8 +482,8 @@
         "ref": "5A2D28",
         "source_type": "ambush",
         "coords": [
-         -4510.5224609375,
-         9989.5302734375
+         -4510.5,
+         9989.5
         ],
         "image_top": "",
         "directions": "",
@@ -1008,8 +494,8 @@
         "ref": "5A2D29",
         "source_type": "ambush",
         "coords": [
-         -5357.15185546875,
-         8249.900390625
+         -5357.2,
+         8249.9
         ],
         "image_top": "",
         "directions": "",
@@ -1020,8 +506,8 @@
         "ref": "5A2D2A",
         "source_type": "ambush",
         "coords": [
-         -7793.1318359375,
-         8268.47265625
+         -7793.1,
+         8268.5
         ],
         "image_top": "",
         "directions": "",
@@ -1032,8 +518,8 @@
         "ref": "5A2D2E",
         "source_type": "ambush",
         "coords": [
-         -8922.4736328125,
-         11890.3779296875
+         -8922.5,
+         11890.4
         ],
         "image_top": "",
         "directions": "",
@@ -1044,8 +530,8 @@
         "ref": "5A2FA4",
         "source_type": "ambush",
         "coords": [
-         -7785.03271484375,
-         16270.2392578125
+         -7785.0,
+         16270.2
         ],
         "image_top": "",
         "directions": "",
@@ -1056,8 +542,8 @@
         "ref": "5A2FA5",
         "source_type": "ambush",
         "coords": [
-         -9033.30859375,
-         15280.2421875
+         -9033.3,
+         15280.2
         ],
         "image_top": "",
         "directions": "",
@@ -1068,8 +554,8 @@
         "ref": "5A2FA7",
         "source_type": "ambush",
         "coords": [
-         -11361.5078125,
-         14447.099609375
+         -11361.5,
+         14447.1
         ],
         "image_top": "",
         "directions": "",
@@ -1080,8 +566,8 @@
         "ref": "5A2FA9",
         "source_type": "ambush",
         "coords": [
-         -11357.791015625,
-         14382.966796875
+         -11357.8,
+         14383.0
         ],
         "image_top": "",
         "directions": "",
@@ -1092,8 +578,8 @@
         "ref": "5A2FAF",
         "source_type": "ambush",
         "coords": [
-         -11229.8046875,
-         14288.396484375
+         -11229.8,
+         14288.4
         ],
         "image_top": "",
         "directions": "",
@@ -1104,8 +590,8 @@
         "ref": "5A4FF8",
         "source_type": "ambush",
         "coords": [
-         -10659.865234375,
-         14567.8310546875
+         -10659.9,
+         14567.8
         ],
         "image_top": "",
         "directions": "",
@@ -1116,8 +602,8 @@
         "ref": "5A5301",
         "source_type": "ambush",
         "coords": [
-         -12377.9697265625,
-         8495.041015625
+         -12378.0,
+         8495.0
         ],
         "image_top": "",
         "directions": "",
@@ -1128,8 +614,8 @@
         "ref": "5A5303",
         "source_type": "ambush",
         "coords": [
-         -11332.892578125,
-         11862.4482421875
+         -11332.9,
+         11862.4
         ],
         "image_top": "",
         "directions": "",
@@ -1140,8 +626,8 @@
         "ref": "5A5304",
         "source_type": "ambush",
         "coords": [
-         -11365.4677734375,
-         11950.474609375
+         -11365.5,
+         11950.5
         ],
         "image_top": "",
         "directions": "",
@@ -1152,8 +638,8 @@
         "ref": "5A5305",
         "source_type": "ambush",
         "coords": [
-         -9732.951171875,
-         11145.62890625
+         -9733.0,
+         11145.6
         ],
         "image_top": "",
         "directions": "",
@@ -1164,8 +650,8 @@
         "ref": "5A5306",
         "source_type": "ambush",
         "coords": [
-         -9828.412109375,
-         11253.3984375
+         -9828.4,
+         11253.4
         ],
         "image_top": "",
         "directions": "",
@@ -1176,8 +662,8 @@
         "ref": "5A532B",
         "source_type": "ambush",
         "coords": [
-         -10607.044921875,
-         8009.26806640625
+         -10607.0,
+         8009.3
         ],
         "image_top": "",
         "directions": "",
@@ -1188,8 +674,8 @@
         "ref": "5A532C",
         "source_type": "ambush",
         "coords": [
-         -10543.9599609375,
-         7998.7373046875
+         -10544.0,
+         7998.7
         ],
         "image_top": "",
         "directions": "",
@@ -1200,8 +686,8 @@
         "ref": "5A532D",
         "source_type": "ambush",
         "coords": [
-         -10556.47265625,
-         7941.77490234375
+         -10556.5,
+         7941.8
         ],
         "image_top": "",
         "directions": "",
@@ -1212,8 +698,8 @@
         "ref": "5A61CD",
         "source_type": "ambush",
         "coords": [
-         -7165.2421875,
-         7438.79736328125
+         -7165.2,
+         7438.8
         ],
         "image_top": "",
         "directions": "",
@@ -1224,8 +710,8 @@
         "ref": "5A61F3",
         "source_type": "ambush",
         "coords": [
-         -7680.47509765625,
-         7430.6845703125
+         -7680.5,
+         7430.7
         ],
         "image_top": "",
         "directions": "",
@@ -1236,8 +722,8 @@
         "ref": "5A621E",
         "source_type": "ambush",
         "coords": [
-         -8559.2509765625,
-         12029.8984375
+         -8559.3,
+         12029.9
         ],
         "image_top": "",
         "directions": "",
@@ -1248,8 +734,8 @@
         "ref": "5A7BB7",
         "source_type": "ambush",
         "coords": [
-         -9101.9072265625,
-         10533.6650390625
+         -9101.9,
+         10533.7
         ],
         "image_top": "",
         "directions": "",
@@ -1260,8 +746,8 @@
         "ref": "5A7BC7",
         "source_type": "ambush",
         "coords": [
-         -9096.1787109375,
-         10851.6064453125
+         -9096.2,
+         10851.6
         ],
         "image_top": "",
         "directions": "",
@@ -1272,8 +758,8 @@
         "ref": "5B4EF3",
         "source_type": "ambush",
         "coords": [
-         -4285.744140625,
-         9538.6201171875
+         -4285.7,
+         9538.6
         ],
         "image_top": "",
         "directions": "",
@@ -1284,8 +770,8 @@
         "ref": "5A4FFC",
         "source_type": "placement",
         "coords": [
-         -10629.9638671875,
-         14449.6240234375
+         -10630.0,
+         14449.6
         ],
         "image_top": "",
         "directions": "",
@@ -1320,8 +806,8 @@
        "7C62CB"
       ],
       "coords": [
-       163707.59375,
-       216714.265625
+       163707.6,
+       216714.3
       ],
       "spawns": [
        {
@@ -1329,8 +815,8 @@
         "ref": "7C62CB",
         "source_type": "ambush",
         "coords": [
-         163707.59375,
-         216714.265625
+         163707.6,
+         216714.3
         ],
         "image_top": "",
         "directions": "",
@@ -1341,8 +827,8 @@
         "ref": "7B774C",
         "source_type": "placement",
         "coords": [
-         162723.171875,
-         217213.265625
+         162723.2,
+         217213.3
         ],
         "image_top": "",
         "directions": "",
@@ -1384,8 +870,8 @@
        "585B19"
       ],
       "coords": [
-       -4561.3173828125,
-       5129.3486328125
+       -4561.3,
+       5129.3
       ],
       "spawns": [
        {
@@ -1393,8 +879,8 @@
         "ref": "585AFE",
         "source_type": "ambush",
         "coords": [
-         -5290.611328125,
-         5550.39404296875
+         -5290.6,
+         5550.4
         ],
         "image_top": "",
         "directions": "",
@@ -1405,8 +891,8 @@
         "ref": "585B02",
         "source_type": "ambush",
         "coords": [
-         -4854.0673828125,
-         5303.736328125
+         -4854.1,
+         5303.7
         ],
         "image_top": "",
         "directions": "",
@@ -1417,8 +903,8 @@
         "ref": "585B03",
         "source_type": "ambush",
         "coords": [
-         -4561.3173828125,
-         5129.3486328125
+         -4561.3,
+         5129.3
         ],
         "image_top": "",
         "directions": "",
@@ -1429,8 +915,8 @@
         "ref": "585B0E",
         "source_type": "ambush",
         "coords": [
-         -3794.53540039063,
-         5070.13427734375
+         -3794.5,
+         5070.1
         ],
         "image_top": "",
         "directions": "",
@@ -1441,8 +927,8 @@
         "ref": "585B19",
         "source_type": "ambush",
         "coords": [
-         -3898.36010742188,
-         5160.24853515625
+         -3898.4,
+         5160.2
         ],
         "image_top": "",
         "directions": "",
@@ -1453,8 +939,8 @@
         "ref": "585AFF",
         "source_type": "placement",
         "coords": [
-         -5749.568359375,
-         5660.28369140625
+         -5749.6,
+         5660.3
         ],
         "image_top": "",
         "directions": "",
@@ -1465,8 +951,8 @@
         "ref": "585B01",
         "source_type": "placement",
         "coords": [
-         -4440.58154296875,
-         5435.8671875
+         -4440.6,
+         5435.9
         ],
         "image_top": "",
         "directions": "",
@@ -1477,8 +963,8 @@
         "ref": "585B04",
         "source_type": "placement",
         "coords": [
-         -4577.29931640625,
-         5034.0791015625
+         -4577.3,
+         5034.1
         ],
         "image_top": "",
         "directions": "",
@@ -1489,8 +975,8 @@
         "ref": "585B0F",
         "source_type": "placement",
         "coords": [
-         -3660.96240234375,
-         4934.33984375
+         -3661.0,
+         4934.3
         ],
         "image_top": "",
         "directions": "",
@@ -1523,8 +1009,8 @@
        "2AD9DB"
       ],
       "coords": [
-       11959.876953125,
-       -8604.923828125
+       11959.9,
+       -8604.9
       ],
       "spawns": [
        {
@@ -1532,8 +1018,8 @@
         "ref": "2AD9DB",
         "source_type": "placement",
         "coords": [
-         11959.876953125,
-         -8604.923828125
+         11959.9,
+         -8604.9
         ],
         "image_top": "",
         "directions": "",
@@ -1566,8 +1052,8 @@
        "753A06"
       ],
       "coords": [
-       26346.625,
-       -225080.6875
+       26346.6,
+       -225080.7
       ],
       "spawns": [
        {
@@ -1575,8 +1061,8 @@
         "ref": "753A06",
         "source_type": "placement",
         "coords": [
-         26346.625,
-         -225080.6875
+         26346.6,
+         -225080.7
         ],
         "image_top": "",
         "directions": "",
@@ -1605,8 +1091,8 @@
        "77151C"
       ],
       "coords": [
-       -377.612396240234,
-       1608.79321289062
+       -377.6,
+       1608.8
       ],
       "spawns": [
        {
@@ -1614,8 +1100,8 @@
         "ref": "77151B",
         "source_type": "placement",
         "coords": [
-         -377.612396240234,
-         1608.79321289062
+         -377.6,
+         1608.8
         ],
         "image_top": "",
         "directions": "",
@@ -1626,8 +1112,8 @@
         "ref": "77151C",
         "source_type": "placement",
         "coords": [
-         -476.074279785156,
-         1718.802734375
+         -476.1,
+         1718.8
         ],
         "image_top": "",
         "directions": "",
@@ -1666,8 +1152,8 @@
        "450253"
       ],
       "coords": [
-       193279.125,
-       127242.609375
+       193279.1,
+       127242.6
       ],
       "spawns": [
        {
@@ -1675,8 +1161,8 @@
         "ref": "45024D",
         "source_type": "ambush",
         "coords": [
-         193279.125,
-         127242.609375
+         193279.1,
+         127242.6
         ],
         "image_top": "",
         "directions": "",
@@ -1687,8 +1173,8 @@
         "ref": "450250",
         "source_type": "ambush",
         "coords": [
-         193181.890625,
-         125493.03125
+         193181.9,
+         125493.0
         ],
         "image_top": "",
         "directions": "",
@@ -1699,8 +1185,8 @@
         "ref": "450252",
         "source_type": "ambush",
         "coords": [
-         192109.34375,
-         126466.03125
+         192109.3,
+         126466.0
         ],
         "image_top": "",
         "directions": "",
@@ -1712,7 +1198,7 @@
         "source_type": "placement",
         "coords": [
          192809.5,
-         127073.8984375
+         127073.9
         ],
         "image_top": "",
         "directions": "",
@@ -1723,8 +1209,8 @@
         "ref": "450251",
         "source_type": "placement",
         "coords": [
-         192931.609375,
-         125934.8671875
+         192931.6,
+         125934.9
         ],
         "image_top": "",
         "directions": "",
@@ -1735,8 +1221,8 @@
         "ref": "450253",
         "source_type": "placement",
         "coords": [
-         192597.265625,
-         126608.421875
+         192597.3,
+         126608.4
         ],
         "image_top": "",
         "directions": "",
@@ -1775,8 +1261,8 @@
        "48CC61"
       ],
       "coords": [
-       156013.046875,
-       28615.60546875
+       156013.0,
+       28615.6
       ],
       "spawns": [
        {
@@ -1784,8 +1270,8 @@
         "ref": "450297",
         "source_type": "ambush",
         "coords": [
-         156013.046875,
-         28615.60546875
+         156013.0,
+         28615.6
         ],
         "image_top": "",
         "directions": "",
@@ -1796,8 +1282,8 @@
         "ref": "48CC5D",
         "source_type": "ambush",
         "coords": [
-         143662.421875,
-         47525.55078125
+         143662.4,
+         47525.6
         ],
         "image_top": "",
         "directions": "",
@@ -1808,8 +1294,8 @@
         "ref": "48CC60",
         "source_type": "ambush",
         "coords": [
-         143509.4375,
-         48003.328125
+         143509.4,
+         48003.3
         ],
         "image_top": "",
         "directions": "",
@@ -1820,8 +1306,8 @@
         "ref": "450298",
         "source_type": "placement",
         "coords": [
-         156056.0625,
-         28499.39453125
+         156056.1,
+         28499.4
         ],
         "image_top": "",
         "directions": "",
@@ -1833,7 +1319,7 @@
         "source_type": "placement",
         "coords": [
          143583.0,
-         47571.8125
+         47571.8
         ],
         "image_top": "",
         "directions": "",
@@ -1844,8 +1330,8 @@
         "ref": "48CC61",
         "source_type": "placement",
         "coords": [
-         143466.203125,
-         47903.4921875
+         143466.2,
+         47903.5
         ],
         "image_top": "",
         "directions": "",
@@ -1880,8 +1366,8 @@
        "45027F"
       ],
       "coords": [
-       143141.28125,
-       52805.14453125
+       143141.3,
+       52805.1
       ],
       "spawns": [
        {
@@ -1889,8 +1375,8 @@
         "ref": "45027F",
         "source_type": "ambush",
         "coords": [
-         143141.28125,
-         52805.14453125
+         143141.3,
+         52805.1
         ],
         "image_top": "",
         "directions": "",
@@ -1901,8 +1387,8 @@
         "ref": "45027E",
         "source_type": "placement",
         "coords": [
-         142973.265625,
-         52762.67578125
+         142973.3,
+         52762.7
         ],
         "image_top": "",
         "directions": "",
@@ -1937,8 +1423,8 @@
        "45023D"
       ],
       "coords": [
-       175387.90625,
-       115559.203125
+       175387.9,
+       115559.2
       ],
       "spawns": [
        {
@@ -1946,8 +1432,8 @@
         "ref": "45023D",
         "source_type": "ambush",
         "coords": [
-         175387.90625,
-         115559.203125
+         175387.9,
+         115559.2
         ],
         "image_top": "",
         "directions": "",
@@ -1958,8 +1444,8 @@
         "ref": "45023C",
         "source_type": "placement",
         "coords": [
-         175382.921875,
-         115435.40625
+         175382.9,
+         115435.4
         ],
         "image_top": "",
         "directions": "",
@@ -1994,8 +1480,8 @@
        "450267"
       ],
       "coords": [
-       188431.65625,
-       43432.515625
+       188431.7,
+       43432.5
       ],
       "spawns": [
        {
@@ -2003,8 +1489,8 @@
         "ref": "450267",
         "source_type": "ambush",
         "coords": [
-         188431.65625,
-         43432.515625
+         188431.7,
+         43432.5
         ],
         "image_top": "",
         "directions": "",
@@ -2015,8 +1501,8 @@
         "ref": "450266",
         "source_type": "placement",
         "coords": [
-         188322.453125,
-         43491.03515625
+         188322.5,
+         43491.0
         ],
         "image_top": "",
         "directions": "",
@@ -2051,8 +1537,8 @@
        "450293"
       ],
       "coords": [
-       156495.96875,
-       25702.484375
+       156496.0,
+       25702.5
       ],
       "spawns": [
        {
@@ -2060,8 +1546,8 @@
         "ref": "450293",
         "source_type": "ambush",
         "coords": [
-         156495.96875,
-         25702.484375
+         156496.0,
+         25702.5
         ],
         "image_top": "",
         "directions": "",
@@ -2072,8 +1558,8 @@
         "ref": "450292",
         "source_type": "placement",
         "coords": [
-         156501.921875,
-         25826.236328125
+         156501.9,
+         25826.2
         ],
         "image_top": "",
         "directions": "",
