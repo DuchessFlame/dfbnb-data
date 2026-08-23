@@ -25,7 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
-from spawns_configs import nuka_cola, farming, bobbleheads, cryptids, meat
+from spawns_configs import nuka_cola, farming, bobbleheads, cryptids, meat, insects
 from farming_spawns_config import SETS_BY_SLUG
 
 
@@ -51,6 +51,8 @@ def main(argv):
         cryptids.run(["cryptids"] + rest)             # hub + one page per cryptid
     elif cmd == "meat":
         meat.run(["meat"] + rest)                     # hub + one page per meat
+    elif cmd in ("insects", "insect"):
+        insects.run(["insects"] + rest)               # hub + one page per insect
     elif cmd == "--all":
         farming.main(["--all"] + rest)
     elif cmd in SETS_BY_SLUG:

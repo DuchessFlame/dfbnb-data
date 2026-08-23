@@ -4373,11 +4373,12 @@ CHEM_SETS = [
         },
     },
     {
-        'slug': 'chems-super-chem-mk-i',
-        'name': 'Super Chem MK I',
-        'page_title': 'Super Chem MK I',
-        'blurb': 'How to obtain Super Chem MK I — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.',
+        'slug': 'chems-super-chem',
+        'name': 'Super Chem',
+        'page_title': 'Super Chem',
+        'blurb': 'How to obtain Super Chem — the MK I / II / III / IV chems produced by the Brawling Chemist legendary perk card. All variants covered on this page. Directions and photos are added by hand.',
         'category': 'chems',
+        'is_quest': True,
         'place_item_bases': True,
         'items': [
             {
@@ -4386,210 +4387,18 @@ CHEM_SETS = [
                 'full': 'Super Chem MK I',
                 'sig': 'ALCH',
             },
-        ],
-        'farming_tips': {
-            'spoils': False,
-            'spoil_duration_hours': None,
-            'base_weight': 0.1,
-            'object_type': 'Chem',
-            'yield_perk': None,
-            'weight_perk': 'traveling_pharmacy',
-            'weight_perk_ranks': [
-                {
-                    'rank': 1,
-                    'reduction': '45%',
-                    'weight': 0.06,
-                },
-                {
-                    'rank': 2,
-                    'reduction': '90%',
-                    'weight': 0.01,
-                },
-            ],
-            'backpack_mod': 'chemists',
-            'backpack_weight': 0.01,
-            'armour_mod': 'thru_hikers',
-            'armour_mod_per_piece': 0.2,
-            'armour_mod_weights': [
-                {
-                    'pieces': 1,
-                    'reduction': '20%',
-                    'weight': 0.08,
-                },
-                {
-                    'pieces': 2,
-                    'reduction': '40%',
-                    'weight': 0.06,
-                },
-                {
-                    'pieces': 3,
-                    'reduction': '60%',
-                    'weight': 0.04,
-                },
-                {
-                    'pieces': 4,
-                    'reduction': '80%',
-                    'weight': 0.02,
-                },
-                {
-                    'pieces': 5,
-                    'reduction': '90% cap',
-                    'weight': 0.01,
-                },
-            ],
-            'magazines_affect_yield': False,
-            'good_with_salt': False,
-        },
-        'is_quest': True,
-    },
-    {
-        'slug': 'chems-super-chem-mk-ii',
-        'name': 'Super Chem MK II',
-        'page_title': 'Super Chem MK II',
-        'blurb': 'How to obtain Super Chem MK II — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.',
-        'category': 'chems',
-        'place_item_bases': True,
-        'items': [
             {
                 'formid': '005A5DB4',
                 'edid': 'LGN_BrawlingChemist_Chem02',
                 'full': 'Super Chem MK II',
                 'sig': 'ALCH',
             },
-        ],
-        'farming_tips': {
-            'spoils': False,
-            'spoil_duration_hours': None,
-            'base_weight': 0.1,
-            'object_type': 'Chem',
-            'yield_perk': None,
-            'weight_perk': 'traveling_pharmacy',
-            'weight_perk_ranks': [
-                {
-                    'rank': 1,
-                    'reduction': '45%',
-                    'weight': 0.06,
-                },
-                {
-                    'rank': 2,
-                    'reduction': '90%',
-                    'weight': 0.01,
-                },
-            ],
-            'backpack_mod': 'chemists',
-            'backpack_weight': 0.01,
-            'armour_mod': 'thru_hikers',
-            'armour_mod_per_piece': 0.2,
-            'armour_mod_weights': [
-                {
-                    'pieces': 1,
-                    'reduction': '20%',
-                    'weight': 0.08,
-                },
-                {
-                    'pieces': 2,
-                    'reduction': '40%',
-                    'weight': 0.06,
-                },
-                {
-                    'pieces': 3,
-                    'reduction': '60%',
-                    'weight': 0.04,
-                },
-                {
-                    'pieces': 4,
-                    'reduction': '80%',
-                    'weight': 0.02,
-                },
-                {
-                    'pieces': 5,
-                    'reduction': '90% cap',
-                    'weight': 0.01,
-                },
-            ],
-            'magazines_affect_yield': False,
-            'good_with_salt': False,
-        },
-        'is_quest': True,
-    },
-    {
-        'slug': 'chems-super-chem-mk-iii',
-        'name': 'Super Chem MK III',
-        'page_title': 'Super Chem MK III',
-        'blurb': 'How to obtain Super Chem MK III — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.',
-        'category': 'chems',
-        'place_item_bases': True,
-        'items': [
             {
                 'formid': '005A5DB5',
                 'edid': 'LGN_BrawlingChemist_Chem03',
                 'full': 'Super Chem MK III',
                 'sig': 'ALCH',
             },
-        ],
-        'farming_tips': {
-            'spoils': False,
-            'spoil_duration_hours': None,
-            'base_weight': 0.1,
-            'object_type': 'Chem',
-            'yield_perk': None,
-            'weight_perk': 'traveling_pharmacy',
-            'weight_perk_ranks': [
-                {
-                    'rank': 1,
-                    'reduction': '45%',
-                    'weight': 0.06,
-                },
-                {
-                    'rank': 2,
-                    'reduction': '90%',
-                    'weight': 0.01,
-                },
-            ],
-            'backpack_mod': 'chemists',
-            'backpack_weight': 0.01,
-            'armour_mod': 'thru_hikers',
-            'armour_mod_per_piece': 0.2,
-            'armour_mod_weights': [
-                {
-                    'pieces': 1,
-                    'reduction': '20%',
-                    'weight': 0.08,
-                },
-                {
-                    'pieces': 2,
-                    'reduction': '40%',
-                    'weight': 0.06,
-                },
-                {
-                    'pieces': 3,
-                    'reduction': '60%',
-                    'weight': 0.04,
-                },
-                {
-                    'pieces': 4,
-                    'reduction': '80%',
-                    'weight': 0.02,
-                },
-                {
-                    'pieces': 5,
-                    'reduction': '90% cap',
-                    'weight': 0.01,
-                },
-            ],
-            'magazines_affect_yield': False,
-            'good_with_salt': False,
-        },
-        'is_quest': True,
-    },
-    {
-        'slug': 'chems-superchem',
-        'name': 'SuperChem',
-        'page_title': 'SuperChem',
-        'blurb': 'How to obtain SuperChem — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.',
-        'category': 'chems',
-        'place_item_bases': True,
-        'items': [
             {
                 'formid': '005A5DB6',
                 'edid': 'LGN_BrawlingChemist_Chem04',
@@ -4650,7 +4459,6 @@ CHEM_SETS = [
             'magazines_affect_yield': False,
             'good_with_salt': False,
         },
-        'is_quest': True,
     },
     {
         'slug': 'chems-surlys-buffout',
@@ -5278,4 +5086,3 @@ CHEM_SETS = [
         },
     },
 ]
-

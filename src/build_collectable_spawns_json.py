@@ -152,6 +152,17 @@ GRAVE_NOTES_TSV = os.path.join(REPO, "tsv", "phantom_grave_notes.tsv")
 GRAVE_REGION_ALIASES = {"the forest": "Forest"}
 
 
+_GRAVE_NOTES = None
+
+
+def _grave_notes_cache():
+    """load_grave_notes(), parsed once. _read_grave_rows needs the overrides per row."""
+    global _GRAVE_NOTES
+    if _GRAVE_NOTES is None:
+        _GRAVE_NOTES = load_grave_notes()
+    return _GRAVE_NOTES
+
+
 def grave_key(site_number, marker):
     """Stable editorial key for a grave: its number, else '@<marker>'."""
     sn = (site_number or "").strip()
@@ -161,7 +172,15 @@ def grave_key(site_number, marker):
 
 
 def load_grave_notes():
-    """tsv/phantom_grave_notes.tsv -> {grave_key: {directions, photo_*}}.
+    """tsv/phantom_grave_notes.tsv -> {grave_key: {directions, photo_*, *_override}}.
+
+    region_override / marker_override are EDITORIAL corrections to the two generated
+    columns in the sites TSV. Mappalachia resolves those from coordinates, which is
+    right for placement but sometimes wrong for the page: a grave can sit inside one
+    region's polygon while every player reaches it from the next region over, and a
+    workshop marker cannot be fast-travelled to at all, so the nearest-marker name is
+    not the name a reader needs. Overrides live here, with the other hand-authored
+    content, precisely so a placement rebuild cannot silently revert them.
 
     Hand-authored and never written by any build script. Missing file is not an
     error — the page simply renders without directions or photos.
@@ -185,7 +204,8 @@ def load_grave_notes():
             if not key:
                 continue
             notes[key] = {c: cell(c) for c in
-                          ("directions", "photo_region", "photo_approach", "photo_spawn")}
+                          ("directions", "photo_region", "photo_approach", "photo_spawn",
+                           "region_override", "marker_override")}
     return notes
 
 # Sets that share the export/cross-ref pipeline but belong to a DIFFERENT category and are
@@ -340,11 +360,20 @@ def _read_grave_rows():
             if not line.strip():
                 continue
             cols = line.rstrip("\n").split("\t")
+            site_number = cell(cols, "site_number")
+            marker = cell(cols, "closest_fast_travel")
+            region = cell(cols, "region")
+            # Editorial overrides win over the generated columns. Key on the ORIGINAL
+            # marker so an unnumbered grave ("@<marker>") still resolves after its own
+            # marker has been overridden.
+            ov = _grave_notes_cache().get(grave_key(site_number, marker), {})
+            region = ov.get("region_override") or region
+            marker = ov.get("marker_override") or marker
             rows.append({
-                "region": cell(cols, "region"),
-                "site_number": cell(cols, "site_number"),
+                "region": region,
+                "site_number": site_number,
                 "ref_formid": cell(cols, "ref_formid"),
-                "marker": cell(cols, "closest_fast_travel"),
+                "marker": marker,
                 # Provenance: which export (or manual verification) this row came from.
                 "source_export": cell(cols, "source_export"),
                 "x": cell(cols, "x"), "y": cell(cols, "y"),

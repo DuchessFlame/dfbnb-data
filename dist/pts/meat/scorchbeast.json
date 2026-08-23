@@ -9,8 +9,7 @@
   ],
   "source_totals": {
    "ambush": 30,
-   "nest": 9,
-   "placement": 2
+   "nest": 9
   },
   "unresolved": {}
  },
@@ -18,7 +17,7 @@
  "slug": "scorchbeast",
  "name": "Scorchbeast",
  "page_title": "Farming - Meat - Scorchbeast",
- "url": "/bnb/farming/meat/scorchbeast/",
+ "url": "/bnb/farming/meat/scorchbeast/scorchbeast-location-guide/",
  "npc_summary": {
   "npc_count": 12,
   "level_min": 50,
@@ -1090,17 +1089,14 @@
      },
      {
       "marker": "Glassed Cavern",
-      "count": 3,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 2
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "3534DE",
-       "43A919",
        "491473"
       ],
       "coords": [
@@ -1119,30 +1115,6 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
-       },
-       {
-        "label": "Scorchbeast spawn #1",
-        "ref": "3534DE",
-        "source_type": "placement",
-        "coords": [
-         -8321.4169921875,
-         4948.322265625
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Scorchbeast spawn #2",
-        "ref": "43A919",
-        "source_type": "placement",
-        "coords": [
-         201657.75,
-         -161232.765625
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -1150,11 +1122,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
        }
       ]
      },
@@ -2016,18 +1983,23 @@
    }
   ],
   "total_markers": 27,
-  "total_placements": 41
+  "total_placements": 39
  },
- "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 41 known spawn points.",
- "drop_rates": {
-  "containers": {
-   "types": [
-    {
-     "name": "Scorchbeast Corpse",
-     "rate": 1.0,
-     "rate_display": "100%"
-    }
-   ]
-  }
- }
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Glassed Cavern",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Scorchbeast"
+    ],
+    "count": 2
+   }
+  ],
+  "total": 1,
+  "note": null
+ },
+ "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 39 known spawn points."
 }

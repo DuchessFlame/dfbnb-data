@@ -2,25 +2,37 @@
  "_meta": {
   "generated": "2026-08-23",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
-  "races": [],
-  "source_totals": {
-   "placement": 14,
-   "spawn": 7
-  },
+  "races": [
+   {
+    "edid": "OpossumRace"
+   }
+  ],
+  "source_totals": {},
   "unresolved": {}
  },
  "set": "meat",
  "slug": "opossum",
  "name": "Opossum",
  "page_title": "Farming - Meat - Opossum",
- "url": "/bnb/farming/meat/opossum/",
+ "url": "/bnb/farming/meat/opossum/opossum-location-guide/",
  "npc_summary": {
-  "npc_count": 0,
-  "level_min": null,
-  "level_max": null,
-  "health_max": null
+  "npc_count": 7,
+  "level_min": 1,
+  "level_max": 1,
+  "health_max": 10
  },
- "meat_items": [],
+ "meat_items": [
+  {
+   "name": "Intestine",
+   "form_id": "003EEA40",
+   "rate_display": "100%"
+  },
+  {
+   "name": "Opossum Meat",
+   "form_id": "004FE51A",
+   "rate_display": "100%"
+  }
+ ],
  "used_for": [
   {
    "type": "Event",
@@ -33,119 +45,77 @@
  "farming_tips": null,
  "events_activities": [],
  "drops": {
-  "lists": [],
+  "lists": [
+   {
+    "edid": "LLD_Creature_Opossum",
+    "form_id": "002FD038",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 3,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creature Critter",
+      "sub_id": "003DF3D9",
+      "edid": "LLS_Ammo_Creature_Critter",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Critters Intestines",
+      "sub_id": "00477AF3",
+      "edid": "LLS_Loot_Critters_Intestines",
+      "item_count": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Intestine",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Opossum Meat",
+      "form_id": "004FE51A",
+      "edid": "OpossumMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Critters Intestines",
+      "sub_id": "00477AF3",
+      "edid": "LLS_Loot_Critters_Intestines",
+      "item_count": 1,
+      "rate_value": 0.6,
+      "rate_display": "60%",
+      "top_items": [
+       {
+        "name": "Intestine",
+        "rate_display": "100%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
   "inherited_only": false,
-  "empty_reason": "none"
+  "empty_reason": ""
  },
  "random_encounters": [],
  "fixed_spawns": {
   "regions": [
    {
     "region": "Ash Heap",
-    "locations": [
-     {
-      "marker": "Brim Quarry",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "387D8C",
-       "387D92",
-       "38C432"
-      ],
-      "coords": [
-       -163511.5,
-       -71411.2
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn #1",
-        "ref": "387D8C",
-        "source_type": "spawn",
-        "coords": [
-         -163511.5,
-         -71411.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #2",
-        "ref": "387D92",
-        "source_type": "spawn",
-        "coords": [
-         -163009.8,
-         -70870.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #3",
-        "ref": "38C432",
-        "source_type": "spawn",
-        "coords": [
-         -164317.1,
-         -72020.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Nuka-World On Tour",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "66EA1C"
-      ],
-      "coords": [
-       -73751.7,
-       -115985.4
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn",
-        "ref": "66EA1C",
-        "source_type": "placement",
-        "coords": [
-         -73751.7,
-         -115985.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     }
-    ]
+    "locations": []
    },
    {
     "region": "Atlantic City",
@@ -157,439 +127,15 @@
    },
    {
     "region": "Cranberry Bog",
-    "locations": [
-     {
-      "marker": "Superior Sunset Farm",
-      "count": 1,
-      "sources": {
-       "spawn": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "379FE4"
-      ],
-      "coords": [
-       123934.3,
-       -95640.0
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn",
-        "ref": "379FE4",
-        "source_type": "spawn",
-        "coords": [
-         123934.3,
-         -95640.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn point",
-        "count": 1,
-        "source_type": "spawn"
-       }
-      ]
-     }
-    ]
+    "locations": []
    },
    {
     "region": "Forest",
-    "locations": [
-     {
-      "marker": "Flatwoods",
-      "count": 2,
-      "sources": {
-       "placement": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "31C8A0",
-       "31C8A3"
-      ],
-      "coords": [
-       -106124.9,
-       18676.4
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn #1",
-        "ref": "31C8A0",
-        "source_type": "placement",
-        "coords": [
-         -106124.9,
-         18676.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #2",
-        "ref": "31C8A3",
-        "source_type": "placement",
-        "coords": [
-         -106800.7,
-         17230.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Green Country Lodge",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3337D6"
-      ],
-      "coords": [
-       -100750.9,
-       29567.6
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn",
-        "ref": "3337D6",
-        "source_type": "placement",
-        "coords": [
-         -100750.9,
-         29567.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Moonshiner's Shack",
-      "count": 2,
-      "sources": {
-       "placement": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "554235",
-       "554236"
-      ],
-      "coords": [
-       -116299.7,
-       86794.3
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn #1",
-        "ref": "554235",
-        "source_type": "placement",
-        "coords": [
-         -116299.7,
-         86794.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #2",
-        "ref": "554236",
-        "source_type": "placement",
-        "coords": [
-         -116293.1,
-         86840.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Vault-Tec Agricultural Research Center",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2B9FCB",
-       "2DD199",
-       "2DD19A"
-      ],
-      "coords": [
-       -112060.4,
-       26663.0
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn #1",
-        "ref": "2B9FCB",
-        "source_type": "spawn",
-        "coords": [
-         -112060.4,
-         26663.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #2",
-        "ref": "2DD199",
-        "source_type": "spawn",
-        "coords": [
-         -112296.3,
-         26488.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #3",
-        "ref": "2DD19A",
-        "source_type": "spawn",
-        "coords": [
-         -112262.6,
-         26650.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "White Powder Winter Sports",
-      "count": 4,
-      "sources": {
-       "placement": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "43CCCC",
-       "43CCCD",
-       "43CCCE",
-       "43CCCF"
-      ],
-      "coords": [
-       8697.9,
-       18106.8
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn #1",
-        "ref": "43CCCC",
-        "source_type": "placement",
-        "coords": [
-         9474.9,
-         18296.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #2",
-        "ref": "43CCCD",
-        "source_type": "placement",
-        "coords": [
-         9472.6,
-         17890.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #3",
-        "ref": "43CCCE",
-        "source_type": "placement",
-        "coords": [
-         8697.9,
-         18106.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #4",
-        "ref": "43CCCF",
-        "source_type": "placement",
-        "coords": [
-         9760.9,
-         17752.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 4,
-        "source_type": "placement"
-       }
-      ]
-     }
-    ]
+    "locations": []
    },
    {
     "region": "Savage Divide",
-    "locations": [
-     {
-      "marker": "East Mountain Lookout",
-      "count": 2,
-      "sources": {
-       "placement": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "389E82",
-       "389E8B"
-      ],
-      "coords": [
-       117188.3,
-       -59925.1
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn #1",
-        "ref": "389E82",
-        "source_type": "placement",
-        "coords": [
-         117188.3,
-         -59925.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #2",
-        "ref": "389E8B",
-        "source_type": "placement",
-        "coords": [
-         116921.2,
-         -60295.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Enclave Research Facility",
-      "count": 2,
-      "sources": {
-       "placement": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "5E41AE",
-       "5E41AF"
-      ],
-      "coords": [
-       -1152.4,
-       6655.3
-      ],
-      "spawns": [
-       {
-        "label": "Opossum spawn #1",
-        "ref": "5E41AE",
-        "source_type": "placement",
-        "coords": [
-         -1152.4,
-         6655.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Opossum spawn #2",
-        "ref": "5E41AF",
-        "source_type": "placement",
-        "coords": [
-         -1134.9,
-         6754.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
-       }
-      ]
-     }
-    ]
+    "locations": []
    },
    {
     "region": "Skyline Valley",
@@ -608,13 +154,114 @@
     "locations": []
    }
   ],
-  "total_markers": 10,
-  "total_placements": 21
+  "total_markers": 0,
+  "total_placements": 0
  },
- "blurb": "The Opossum in Fallout 76 — drops Intestine, Opossum Meat, 7 NPC variants, 21 known spawn points.",
- "drop_rates": {
-  "containers": {
-   "types": []
-  }
- }
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Brim Quarry",
+    "region": "Ash Heap",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "East Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Enclave Research Facility",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Flatwoods",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Green Country Lodge",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Moonshiner's Shack",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Nuka-World On Tour",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Superior Sunset Farm",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Vault-Tec Agricultural Research Center",
+    "region": "Forest",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "White Powder Winter Sports",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Opossum"
+    ],
+    "count": 4
+   }
+  ],
+  "total": 10,
+  "note": null
+ },
+ "blurb": "The Opossum in Fallout 76 — drops Intestine, Opossum Meat, 7 NPC variants."
 }

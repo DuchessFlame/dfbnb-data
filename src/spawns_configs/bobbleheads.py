@@ -64,7 +64,10 @@ except Exception:
 SET_SLUG = "bobbleheads"
 SET_NAME = "Bobbleheads"
 PAGE_TITLE = "Bobbleheads Location Guide"
-URL_BASE = "/df/collectables/bobbleheads/location-guide/"
+# Re-homed Aug 2026: bobbleheads live under Farming - Consumables (one home), not
+# /df/collectables/. Same proven page structure (…/location-guide/ hub + region
+# children), just under the consumables path. Renderer matches both (old=redirect).
+URL_BASE = "/df/farming/consumables/bobbleheads/location-guide/"
 
 # The world spawn-point list. Everything else (rate, entries, member items) is
 # read from the exports — this is the one seed the page can't infer.

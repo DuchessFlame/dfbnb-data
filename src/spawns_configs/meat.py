@@ -57,20 +57,15 @@ SOURCE_TAG = ("Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia
 MEAT = [
     {"slug": "angler", "name": "Angler", "lld": r"^LLD_Creature_Angler",
      "tokens": ["angler"], "mappalachia": ["Angler"]},
-    {"slug": "bloatfly", "name": "Bloatfly", "lld": r"^LLD_Creature_Bloatfly",
-     "tokens": ["bloatfly"], "mappalachia": ["Bloatfly"]},
-    {"slug": "bloodbug", "name": "Bloodbug", "lld": r"^LLD_Creature_Bloodbug",
-     "tokens": ["bloodbug"], "mappalachia": ["Bloodbug"]},
     {"slug": "brahmin", "name": "Brahmin", "lld": r"^LLD_Creature_Brahmin",
      "tokens": ["brahmin"], "mappalachia": []},
-    {"slug": "cave-cricket", "name": "Cave Cricket", "lld": r"^LLD_Creature_CaveCricket",
-     "tokens": ["cavecricket", "cave cricket"], "mappalachia": ["Cave Cricket"]},
+    {"slug": "cat", "name": "Cat", "lld": r"^LLD_Creature_Cat(?![A-Za-z])",
+     "tokens": ["cat"], "ambush_tokens": ["cat"], "ambush_exclude": ["fabricat"],
+     "mappalachia": ["Cat"], "promote_unique_placements": True},
     {"slug": "chicken", "name": "Chicken", "lld": r"^LLD_Creature_Chicken",
      "tokens": ["chicken"], "mappalachia": ["Chicken"]},
     {"slug": "deathclaw", "name": "Deathclaw", "lld": r"^LLD_Creature_Deathclaw",
      "tokens": ["deathclaw"], "mappalachia": ["Deathclaw"]},
-    {"slug": "fog-crawler", "name": "Fog Crawler", "lld": r"^LLD_Creature_FogCrawler",
-     "tokens": ["fogcrawler", "fog crawler"], "mappalachia": ["Fog Crawler"]},
     {"slug": "fox", "name": "Fox", "lld": r"^LLD_Creature_Fox",
      "tokens": ["fox"], "mappalachia": ["Fox"]},
     {"slug": "frog", "name": "Frog", "lld": r"^LLD_Creature_Radfrog",
@@ -107,16 +102,10 @@ MEAT = [
      "tokens": ["owlet"], "mappalachia": []},
     {"slug": "rabbit", "name": "Rabbit", "lld": r"^LLD_Creature_Rabbit",
      "tokens": ["rabbit"], "mappalachia": ["Rabbit"]},
-    {"slug": "rad-ant", "name": "Rad Ant", "lld": r"^LLD_Creature_RadAnt",
-     "tokens": ["radant", "rad ant"], "mappalachia": ["Rad Ant"]},
     {"slug": "radhog", "name": "Radhog", "lld": r"^LLD_Creature_RadHog",
      "tokens": ["radhog", "rad hog"], "mappalachia": []},
     {"slug": "radrat", "name": "Radrat", "lld": r"^LLD_Creature_Radrat",
      "tokens": ["radrat", "rad rat"], "mappalachia": ["Rad Rat"]},
-    {"slug": "radroach", "name": "Radroach", "lld": r"^LLD_Creature_Radroach",
-     "tokens": ["radroach"], "mappalachia": ["Radroach"]},
-    {"slug": "radscorpion", "name": "Radscorpion", "lld": r"^LLD_Creature_Radscorpion",
-     "tokens": ["radscorpion", "rad scorpion"], "mappalachia": ["Rad Scorpion"]},
     {"slug": "radstag", "name": "Radstag", "lld": r"^LLD_Creature_Radstag",
      "tokens": ["radstag", "rad stag"], "mappalachia": ["Radstag"]},
     {"slug": "radtoad", "name": "Radtoad", "lld": r"^LLD_Creature_Radtoad",
@@ -131,8 +120,6 @@ MEAT = [
      "tokens": ["sheepsquatch"], "mappalachia": []},
     {"slug": "squirrel", "name": "Squirrel", "lld": r"^LLD_Creature_RadSquirrel",
      "tokens": ["radsquirrel", "squirrel"], "mappalachia": ["Squirrel"]},
-    {"slug": "stingwing", "name": "Stingwing", "lld": r"^LLD_Creature_Stingwing",
-     "tokens": ["stingwing"], "mappalachia": ["Stingwing"]},
     {"slug": "wolf", "name": "Wolf", "lld": r"^LLD_Creature_Wolf",
      "tokens": ["creature_wolf", "wolf meat"], "ambush_tokens": ["wolf"],
      "mappalachia": ["Wolf"]},
@@ -143,7 +130,10 @@ MEAT = [
      "tokens": ["iguana"], "meat_fid": "000330FD"},
 ]
 
-URL_OF = lambda slug: f"{URL_BASE}{slug}/"
+# Naming convention (Aug 2026): each creature is a sub-category CARD named by the
+# creature, and the guide PAGE lives under it at <slug>/<slug>-location-guide/ titled
+# "{name} Location Guide". URL_OF returns the guide-page URL (doc.url + internal links).
+URL_OF = lambda slug: f"{URL_BASE}{slug}/{slug}-location-guide/"
 
 
 # ── raw-meat item set (MealTypeRaw ∩ IngredientTypeMeat) ─────────────────────
@@ -327,6 +317,7 @@ def run(argv=None):
                 "drops": bundle["drops"],
                 "random_encounters": bundle["random_encounters"],
                 "fixed_spawns": bundle["fixed_spawns"],
+                "chance_spawns": bundle["chance_spawns"],
             }
             doc["blurb"] = _blurb(pg, bundle, meat_set, doc["meat_items"])
             if pg.get("note"):

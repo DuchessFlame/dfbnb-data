@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-22",
+  "generated": "2026-08-23",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,8 +8,7 @@
    }
   ],
   "source_totals": {
-   "ambush": 18,
-   "placement": 1
+   "ambush": 18
   },
   "unresolved": {}
  },
@@ -17,7 +16,7 @@
  "slug": "sheepsquatch",
  "name": "Sheepsquatch",
  "page_title": "Farming - Meat - Sheepsquatch",
- "url": "/bnb/farming/meat/sheepsquatch/",
+ "url": "/bnb/farming/meat/sheepsquatch/sheepsquatch-location-guide/",
  "npc_summary": {
   "npc_count": 11,
   "level_min": 50,
@@ -549,46 +548,7 @@
    },
    {
     "region": "Skyline Valley",
-    "locations": [
-     {
-      "marker": "South River Bridge",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "769BED"
-      ],
-      "coords": [
-       42610.203125,
-       -253943.390625
-      ],
-      "spawns": [
-       {
-        "label": "Sheepsquatch spawn",
-        "ref": "769BED",
-        "source_type": "placement",
-        "coords": [
-         42610.203125,
-         -253943.390625
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     }
-    ]
+    "locations": []
    },
    {
     "region": "The Mire",
@@ -655,13 +615,24 @@
     "locations": []
    }
   ],
-  "total_markers": 7,
-  "total_placements": 19
+  "total_markers": 6,
+  "total_placements": 18
  },
- "blurb": "The Sheepsquatch in Fallout 76 — drops Sheepsquatch Meat, 11 NPC variants, 19 known spawn points.",
- "drop_rates": {
-  "containers": {
-   "types": []
-  }
- }
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "South River Bridge",
+    "region": "Skyline Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Sheepsquatch"
+    ],
+    "count": 1
+   }
+  ],
+  "total": 1,
+  "note": null
+ },
+ "blurb": "The Sheepsquatch in Fallout 76 — drops Sheepsquatch Meat, 11 NPC variants, 18 known spawn points."
 }

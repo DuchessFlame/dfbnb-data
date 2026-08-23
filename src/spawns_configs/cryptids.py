@@ -54,6 +54,7 @@ DIST = os.path.join(REPO, "dist")
 OUT_DIR = os.path.join(DIST, "cryptids")
 HUB_FILE = os.path.join(DIST, "cryptids.json")
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
+APPALACHIA_SPACE = 2480661   # the only worldspace with regions/markers in the DB
 GEO_CACHE = os.environ.get(
     "CRYPTIDS_GEO_CACHE",
     os.path.join(REPO, "data", "cryptid_spawns", "geo_cache.json"))
@@ -85,7 +86,12 @@ PAGES = [
     {"slug": "blue-devil", "name": "Blue Devil", "races": ["BlueDevilRace"],
      "tokens": ["bluedevil"], "mappalachia": []},
     {"slug": "flatwoods-monster", "name": "Flatwoods Monster",
-     "races": ["FlatwoodsMonsterRace"], "tokens": ["flatwoods"], "mappalachia": []},
+     "races": ["FlatwoodsMonsterRace"], "tokens": ["flatwoods"], "mappalachia": [],
+     "chance_note": ("The Flatwoods Monster is a random night encounter — after roughly "
+                     "6&nbsp;pm in-game it has about a 2.5% chance to appear at almost any "
+                     "location on the map. It has no fixed spawn points, so there is nothing "
+                     "to map; the Invaders From Beyond event and the Queen of the Hunt daily "
+                     "are the reliable ways to find one.")},
     {"slug": "grafton-monster", "name": "Grafton Monster",
      "races": ["GraftonMonsterRace"], "tokens": ["grafton"],
      "mappalachia": ["Grafton Monster"]},
@@ -94,7 +100,11 @@ PAGES = [
      "tokens": ["jerseydevil", "lesserdevil"], "mappalachia": []},
     {"slug": "mothman", "name": "Mothman", "races": ["MothmanRace"],
      "extra_npcs": ["004EC627"],  # Stalking Mothman (EncMothman01Defender)
-     "tokens": ["mothman"], "mappalachia": []},
+     "tokens": ["mothman"], "mappalachia": [],
+     "chance_note": ("These are NIGHT spawns — the Mothman only appears after roughly "
+                     "6&nbsp;pm in-game, and each is a chance (not guaranteed) spawn. See the "
+                     "separate night-spawn map for where they can appear. Its one guaranteed "
+                     "fixed spawn (Enclave Research Facility) is in Fixed Spawn Locations above.")},
     {"slug": "ogua", "name": "Ogua", "races": ["OguaRace"],
      "tokens": ["ogua"], "mappalachia": []},
     {"slug": "sheepsquatch", "name": "Sheepsquatch", "races": ["SheepsquatchRace"],
@@ -666,16 +676,33 @@ def _chunks(seq, n=900):
         yield seq[i:i + n]
 
 
-def _record(cache, seen, slug, inst, space, ref, x, y, region, marker, stype):
+def _record(cache, seen, slug, inst, space, ref, x, y, region, marker, stype,
+            weight=None, shared=None, variant=None, uniq=None):
     # PAGE-SCOPED cache key: a single Mappalachia spawn-point instance can belong to
     # more than one cryptid (a leveled point that can spawn e.g. Snallygaster OR
     # Angler is listed under both npcNames). A global inst key would let a later page
     # clobber an earlier one, so CI (cache-only) wouldn't reproduce the DB run. Scoping
     # the key by page keeps each page's placements independent and faithful.
-    cache[f"{slug}:{inst}"] = {"page": slug, "base": ref, "space": space,
-                               "x": round(x, 1) if x is not None else None,
-                               "y": round(y, 1) if y is not None else None,
-                               "region": region, "marker": marker, "source_type": stype}
+    #
+    # weight / shared / variant power the guaranteed-vs-weighted tiering (spawn-guide):
+    #   weight  — the creature's Mappalachia spawnWeight at this NPC-table point (its
+    #             share of that point's weighted pool). None for ambush/placement.
+    #   shared  — True when the point's pool holds >1 creature (weighted, not guaranteed).
+    #   variant — the specific variant display name for a `placement` (e.g. "Burning
+    #             Radscorpion"); lets the Chance-to-Spawn list name the variants.
+    rec = {"page": slug, "base": ref, "space": space,
+           "x": round(x, 1) if x is not None else None,
+           "y": round(y, 1) if y is not None else None,
+           "region": region, "marker": marker, "source_type": stype}
+    if weight is not None:
+        rec["weight"] = round(weight, 4)
+    if shared is not None:
+        rec["shared"] = bool(shared)
+    if variant:
+        rec["variant"] = variant
+    if uniq is not None:
+        rec["unique_placement"] = bool(uniq)
+    cache[f"{slug}:{inst}"] = rec
     seen[slug][inst] = (x, y, region, marker, stype)
 
 
@@ -731,36 +758,67 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
 
     # 2) static NPC-base placements
     base_slug = {}
+    base_full = {}   # base FormID -> variant display name (e.g. "Burning Radscorpion")
     for pg in pages:
         for n in npcs_by_page[pg["slug"]]:
             try:
-                base_slug[int(n["formid"], 16)] = pg["slug"]
+                fid = int(n["formid"], 16)
             except ValueError:
-                pass
+                continue
+            base_slug[fid] = pg["slug"]
+            base_full[fid] = n.get("full") or pg["name"]
     if base_slug:
+        # gather placement rows first so we can count how many times each base is
+        # placed on the map — a base placed exactly once is a UNIQUE INDIVIDUAL (e.g.
+        # a named story cat), which is a guaranteed spawn; a base placed many times is
+        # a leveled/ambient variant (spawn-guide: weighted). Pages opt in to promoting
+        # unique individuals to guaranteed via `promote_unique_placements`.
+        prows = []
+        ref_count = defaultdict(int)
         for chunk in _chunks(list(base_slug.keys())):
             q = ("SELECT x, y, instanceFormID, spaceFormID, referenceFormID FROM Position "
                  "WHERE referenceFormID IN (%s)" % ",".join("?" * len(chunk)))
             for x, y, inst, space, ref in cur.execute(q, tuple(chunk)):
-                slug = base_slug.get(int(ref))
-                if not slug or inst in seen[slug]:
-                    continue
-                region, marker, _ = geo.resolve(space, x, y)
-                _record(cache, seen, slug, inst, space, ref, x, y, region, marker, "placement")
+                prows.append((x, y, inst, space, ref))
+                ref_count[int(ref)] += 1
+        for x, y, inst, space, ref in prows:
+            slug = base_slug.get(int(ref))
+            if not slug or inst in seen[slug]:
+                continue
+            region, marker, _ = geo.resolve(space, x, y)
+            # `placement` = a world placement of a specific variant base. Carry the
+            # variant name (so the Chance-to-Spawn list can name it) and a `uniq` flag
+            # = this base is placed exactly once (a named individual, not a leveled
+            # variant) — used by tiering when the page opts in.
+            _record(cache, seen, slug, inst, space, ref, x, y, region, marker,
+                    "placement", variant=base_full.get(int(ref)),
+                    uniq=(ref_count.get(int(ref)) == 1))
 
-    # 3) Mappalachia npcName spawns
-    for pg in pages:
-        for nm in pg.get("mappalachia", []):
-            q = ("SELECT n.instanceFormID, n.spaceFormID, p.x, p.y "
-                 "FROM NPC n JOIN Position p "
-                 "ON p.instanceFormID = n.instanceFormID AND p.spaceFormID = n.spaceFormID "
-                 "WHERE n.npcName = ?")
-            for inst, space, x, y in cur.execute(q, (nm,)):
-                if inst in seen[pg["slug"]]:
-                    continue
-                region, marker, _ = geo.resolve(space, x, y)
-                _record(cache, seen, pg["slug"], inst, space, None, x, y,
-                        region, marker, "spawn")
+    # 3) Mappalachia npcName spawns — with spawnWeight + shared-pool tiering.
+    # A single spawn point (instanceFormID) carries a WEIGHTED POOL of creatures; the
+    # creature is guaranteed there only when its spawnWeight >= 1.0 AND it's the only
+    # creature in the pool. Otherwise it's a weighted "possible" spawn (spawn-guide).
+    npc_names = sorted({nm for pg in pages for nm in pg.get("mappalachia", [])})
+    if npc_names:
+        # Pool size per instance (how many distinct creatures can roll at that point).
+        pool_size = {}
+        pq = ("SELECT instanceFormID, COUNT(DISTINCT npcName) FROM NPC "
+              "WHERE spaceFormID = ? GROUP BY instanceFormID")
+        for inst, n in cur.execute(pq, (APPALACHIA_SPACE,)):
+            pool_size[inst] = n
+        for pg in pages:
+            for nm in pg.get("mappalachia", []):
+                q = ("SELECT n.instanceFormID, n.spaceFormID, p.x, p.y, n.spawnWeight "
+                     "FROM NPC n JOIN Position p "
+                     "ON p.instanceFormID = n.instanceFormID AND p.spaceFormID = n.spaceFormID "
+                     "WHERE n.npcName = ?")
+                for inst, space, x, y, sw in cur.execute(q, (nm,)):
+                    if inst in seen[pg["slug"]]:
+                        continue
+                    region, marker, _ = geo.resolve(space, x, y)
+                    shared = (pool_size.get(inst, 1) or 1) > 1
+                    _record(cache, seen, pg["slug"], inst, space, None, x, y,
+                            region, marker, "spawn", weight=sw, shared=shared)
     return seen
 
 
@@ -780,6 +838,70 @@ def label_spawns(regions_out, name):
                 single = len(typed[st]) <= 1
                 base = label_word.get(st, f"{name} spawn")
                 sp["label"] = base if single else f"{base} #{counts[st]}"
+
+
+def _pct(w):
+    """0.0714 -> '7.1%', 1.0 -> '100%', 0.083 -> '8.3%'."""
+    s = f"{w * 100:.1f}".rstrip("0").rstrip(".")
+    return s + "%"
+
+
+def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False):
+    """Split a page's resolved placements into two tiers (spawn-guide):
+
+      GUARANTEED — ambush / nest markers, and NPC-table points where the creature's
+                   spawnWeight >= 1.0 AND it's the only creature in the point's pool.
+                   These stay in Fixed Spawn Locations (photos / directions / map).
+      WEIGHTED   — everything else: weighted shared spawn-pool points (real % chance
+                   from spawnWeight) and leveled/encounter `placement` points. These
+                   go to the new "Chance to Spawn Locations" list (deduped by marker,
+                   naming the variants that can spawn there).
+
+    Returns (guaranteed_seen{inst: tuple}, chance_spawns[list]). chance_spawns is
+    sorted A-Z by marker; each row = {marker, region, chance_value, chance_display,
+    variants[], count}.
+    """
+    guaranteed = {}
+    weighted = []
+    for inst, tup in seen_slug.items():
+        x, y, region, marker, stype = tup
+        rec = cache.get(f"{slug}:{inst}", {})
+        weight = rec.get("weight")
+        shared = rec.get("shared", False)
+        variant = rec.get("variant") or page_name
+        is_guaranteed = (stype in ("ambush", "nest")) or (
+            stype == "spawn" and weight is not None and weight >= 0.999 and not shared)
+        # opt-in: a `placement` that is a UNIQUE NAMED INDIVIDUAL (placed exactly once,
+        # with its own FULL name distinct from the page) is a guaranteed static spawn —
+        # e.g. the named story cats. Generic/leveled placements (variant == page name,
+        # or placed many times) stay weighted.
+        if promote_unique and stype == "placement" and rec.get("unique_placement") \
+                and variant and variant != page_name:
+            is_guaranteed = True
+        if is_guaranteed:
+            guaranteed[inst] = tup
+        else:
+            weighted.append({"region": region, "marker": marker, "weight": weight,
+                             "variant": variant, "source_type": stype})
+    by = {}
+    for w in weighted:
+        marker = w["marker"] or "Unknown location"
+        e = by.setdefault((w["region"], marker),
+                          {"region": w["region"], "marker": marker,
+                           "weights": [], "variants": set(), "count": 0})
+        e["count"] += 1
+        if w["weight"]:
+            e["weights"].append(w["weight"])
+        e["variants"].add(w["variant"])
+    rows = []
+    for e in by.values():
+        wmax = max(e["weights"]) if e["weights"] else None
+        rows.append({"marker": e["marker"], "region": e["region"],
+                     "chance_value": round(wmax, 4) if wmax else None,
+                     "chance_display": _pct(wmax) if wmax else "possible",
+                     "variants": sorted(e["variants"]), "count": e["count"]})
+    rows.sort(key=lambda r: r["marker"].lower())
+    return guaranteed, rows
 
 
 def attach_breakdowns(regions_out):
@@ -873,10 +995,26 @@ def compute_bundle(pg, geo_cache_path, keep=None, ctx=None):
         cache.pop(k, None)
 
     seen = resolve_fixed_spawns([pg], {pg["slug"]: npcs}, geo, cur, cache, db_ok)
+    # Tier: Fixed Spawn Locations = GUARANTEED only; Chance to Spawn = weighted rest.
+    guaranteed, chance_spawns = tier_spawns(seen[pg["slug"]], cache, pg["slug"], pg["name"],
+                                            promote_unique=pg.get("promote_unique_placements", False))
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
-        seen[pg["slug"]], ALL_REGIONS, keep or {})
+        guaranteed, ALL_REGIONS, keep or {})
     label_spawns(regions_out, pg["name"])
     attach_breakdowns(regions_out)
+    # Name guaranteed placements after the individual (e.g. the named story cats) when
+    # the cache carries a distinct variant name — additive, only affects promoted
+    # unique placements (other pages' guaranteed spawns carry no variant).
+    for reg in regions_out:
+        for loc in reg["locations"]:
+            for sp in loc.get("spawns") or []:
+                try:
+                    rec = cache.get(f"{pg['slug']}:{int(sp['ref'], 16)}")
+                except (ValueError, TypeError):
+                    rec = None
+                if rec and rec.get("variant") and rec["variant"] != pg["name"]:
+                    sp["variant"] = rec["variant"]
+                    sp["label"] = rec["variant"]
 
     drops = resolve_drops(pg, npcs, resolver)
     events = resolve_events(pg, [dl["form_id"] for dl in drops["lists"]],
@@ -898,6 +1036,9 @@ def compute_bundle(pg, geo_cache_path, keep=None, ctx=None):
         "random_encounters": res,
         "fixed_spawns": {"regions": regions_out, "total_markers": total,
                          "total_placements": placements},
+        "chance_spawns": {"locations": chance_spawns,
+                          "total": len(chance_spawns),
+                          "note": pg.get("chance_note")},
         "_meta": {"source_totals": src_totals, "unresolved": unresolved,
                   "placements": placements},
     }
@@ -954,8 +1095,11 @@ def run(argv=None):
         npcs = npcs_by_page[pg["slug"]]
         cur_url = f"{URL_BASE}{pg['slug']}/"
         keep = ebuild.load_existing(os.path.join(OUT_DIR, pg["slug"] + ".json"))
+        # Tier: Fixed Spawn Locations = GUARANTEED only; Chance to Spawn = weighted rest.
+        guaranteed, chance_spawns = tier_spawns(
+            seen_by_page[pg["slug"]], cache, pg["slug"], pg["name"])
         regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
-            seen_by_page[pg["slug"]], ALL_REGIONS, keep)
+            guaranteed, ALL_REGIONS, keep)
         label_spawns(regions_out, pg["name"])
         attach_breakdowns(regions_out)
 
@@ -981,6 +1125,8 @@ def run(argv=None):
             "random_encounters": res,
             "fixed_spawns": {"regions": regions_out, "total_markers": total,
                              "total_placements": placements},
+            "chance_spawns": {"locations": chance_spawns, "total": len(chance_spawns),
+                              "note": pg.get("chance_note")},
         }
 
         # ── assertion: spawns[] must cover every placement (spawn-guide §9k) ──

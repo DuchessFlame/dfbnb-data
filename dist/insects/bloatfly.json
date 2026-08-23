@@ -1,0 +1,1163 @@
+{
+ "_meta": {
+  "generated": "2026-08-23",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "BloatflyRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 7,
+   "spawn": 9
+  },
+  "unresolved": {}
+ },
+ "set": "insects",
+ "slug": "bloatfly",
+ "name": "Bloatfly",
+ "page_title": "Farming - Insects - Bloatfly",
+ "url": "/bnb/farming/insects/bloatfly/bloatfly-location-guide/",
+ "npc_summary": {
+  "npc_count": 20,
+  "level_min": 1,
+  "level_max": 90,
+  "health_max": 470
+ },
+ "meat_items": [
+  {
+   "name": "Bloatfly Meat",
+   "form_id": "000330F4",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Sell Bloatfly Meat to an NPC vendor",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Barter_Sell_Bloatfly_meat",
+   "page": "daily"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Bloatfly",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Bloatfly_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Bloatfly",
+    "form_id": "000375B8",
+    "row_count": 4,
+    "direct_items": 2,
+    "pool_count": 2,
+    "item_count": 30,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Bloatfly",
+      "sub_id": "0008E3A8",
+      "edid": "LLS_Creature_Bloatfly",
+      "item_count": 28,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Caps",
+        "rate_display": "3.12%"
+       },
+       {
+        "name": "Bloatfly Meat",
+        "rate_display": "0%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Bloatfly Meat",
+      "form_id": "000330F4",
+      "edid": "BloatflyMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Small",
+      "sub_id": "003DF3FB",
+      "edid": "LLE_Creature_Small",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Bloatfly Gland",
+      "form_id": "0002C59E",
+      "edid": "BloatflyGland",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Athens",
+      "count": 7,
+      "sources": {
+       "ambush": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83F38E",
+       "83F38F",
+       "83F390",
+       "83F393",
+       "83F394",
+       "84D4E4",
+       "84D4E5"
+      ],
+      "coords": [
+       -237990.171875,
+       156275.71875
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly ambush #1",
+        "ref": "83F38E",
+        "source_type": "ambush",
+        "coords": [
+         -237990.171875,
+         156275.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #2",
+        "ref": "83F38F",
+        "source_type": "ambush",
+        "coords": [
+         -237899.84375,
+         156039.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #3",
+        "ref": "83F390",
+        "source_type": "ambush",
+        "coords": [
+         -238183.109375,
+         156148.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #4",
+        "ref": "83F393",
+        "source_type": "ambush",
+        "coords": [
+         -257548.078125,
+         155476.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #5",
+        "ref": "83F394",
+        "source_type": "ambush",
+        "coords": [
+         -257435.921875,
+         155462.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #6",
+        "ref": "84D4E4",
+        "source_type": "ambush",
+        "coords": [
+         -249710.609375,
+         158070.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly ambush #7",
+        "ref": "84D4E5",
+        "source_type": "ambush",
+        "coords": [
+         -249809.546875,
+         158133.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 7,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "New River Gorge Resort",
+      "count": 9,
+      "sources": {
+       "spawn": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D128D",
+       "3D128E",
+       "3D128F",
+       "3D1292",
+       "3D1293",
+       "3D1294",
+       "3D1295",
+       "3D1296",
+       "3D12C3"
+      ],
+      "coords": [
+       -80697.453125,
+       14836.8408203125
+      ],
+      "spawns": [
+       {
+        "label": "Bloatfly spawn #1",
+        "ref": "3D128D",
+        "source_type": "spawn",
+        "coords": [
+         -80697.453125,
+         14836.8408203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #2",
+        "ref": "3D128E",
+        "source_type": "spawn",
+        "coords": [
+         -82134.765625,
+         16163.4228515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #3",
+        "ref": "3D128F",
+        "source_type": "spawn",
+        "coords": [
+         -81799.765625,
+         14608.2470703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #4",
+        "ref": "3D1292",
+        "source_type": "spawn",
+        "coords": [
+         -83408.859375,
+         11350.1826171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #5",
+        "ref": "3D1293",
+        "source_type": "spawn",
+        "coords": [
+         -84348.2734375,
+         9772.9912109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #6",
+        "ref": "3D1294",
+        "source_type": "spawn",
+        "coords": [
+         -84013.9765625,
+         10564.3408203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #7",
+        "ref": "3D1295",
+        "source_type": "spawn",
+        "coords": [
+         -79721.7265625,
+         11034.9482421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #8",
+        "ref": "3D1296",
+        "source_type": "spawn",
+        "coords": [
+         -80905.078125,
+         10975.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloatfly spawn #9",
+        "ref": "3D12C3",
+        "source_type": "spawn",
+        "coords": [
+         -80824.5859375,
+         9723.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 9,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": []
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 2,
+  "total_placements": 16
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Abandoned Bunker",
+    "region": "The Mire",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Black Bloatfly",
+     "Bloatfly"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Abandoned Mine Shaft 1",
+    "region": "Ash Heap",
+    "chance_value": 0.0588,
+    "chance_display": "5.9%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Abandoned Mine Shaft 2",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abandoned Mine Shaft 4",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Abandoned Mine Shaft 5",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Mine Shaft Elaine",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abandoned Mine Site Kittery",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Abraxodyne Chemical Power Substation",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Albany",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "AMS Testing Site",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Ash Cave",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 16
+   },
+   {
+    "marker": "Athens",
+    "region": "Burning Springs",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Atlas Substructure",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Big Bend Tunnel West",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Brim Quarry",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Camden Park",
+    "region": "Ash Heap",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Camp McClintock",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Crevasse Dam",
+    "region": "The Mire",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Dabney Homestead",
+    "region": "The Mire",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Dino Peaks Mini Golf",
+    "region": "Burning Springs",
+    "chance_value": 0.2381,
+    "chance_display": "23.8%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 21
+   },
+   {
+    "marker": "Dolly Sods Lookout",
+    "region": "The Mire",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Dolly Sods Wilderness",
+    "region": "The Mire",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Enclave Research Facility",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Black Bloatfly",
+     "Scorched Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Fort Defiance",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Fort Steuben",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Freddy Fear's House of Scares",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Hamley Run Camp",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 10
+   },
+   {
+    "marker": "Haven Church",
+    "region": "The Mire",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Highway Town",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Hocking Hills Train Station",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 15
+   },
+   {
+    "marker": "Honey Well Apiary",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Hornwright Air Purifier Site #03",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hornwright Air Purifier Site #04",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hornwright Testing Site #02",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Hornwright Testing Site #04",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Jackson Junkyard",
+    "region": "Burning Springs",
+    "chance_value": 0.4545,
+    "chance_display": "45.5%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Lake Reynolds",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Lewisburg Station",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Meadow Breeze Storage Depot",
+    "region": "Burning Springs",
+    "chance_value": 0.0312,
+    "chance_display": "3.1%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Mire's Eye",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Mount Blair",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "New River Gorge Bridge - West",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Festering Bloatfly"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Old Crimora Mines",
+    "region": "Skyline Valley",
+    "chance_value": 0.1634,
+    "chance_display": "16.3%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Old Rag Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Organ Cave South",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Black Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Prospect Hill",
+    "region": "Burning Springs",
+    "chance_value": 0.4444,
+    "chance_display": "44.4%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 10
+   },
+   {
+    "marker": "Pylon Ambush Site",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Railroad Service Yard",
+    "region": "Burning Springs",
+    "chance_value": 0.2381,
+    "chance_display": "23.8%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Ranger Station Bunker",
+    "region": "Skyline Valley",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Red Rocket Filling Station",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Relay Tower HG-B7-09",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Research Site Saxony",
+    "region": "Skyline Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Sand Fork Lumber",
+    "region": "Burning Springs",
+    "chance_value": 0.4545,
+    "chance_display": "45.5%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Sandy's Sock Hop",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Shade Hill Church",
+    "region": "Burning Springs",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Slumber Mill Motel",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "South River Bridge",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Starlight Drive-in",
+    "region": "Burning Springs",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Stony Man Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.16,
+    "chance_display": "16%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 10
+   },
+   {
+    "marker": "Super Duper Mart",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "The Burning Mine",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Chop Shop",
+    "region": "Burning Springs",
+    "chance_value": 0.0588,
+    "chance_display": "5.9%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "The Freak Show",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Black Bloatfly"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Rust Kingdom",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-02",
+    "region": "Cranberry Bog",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-03",
+    "region": "Skyline Valley",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Tycoon Lake",
+    "region": "Burning Springs",
+    "chance_value": 0.037,
+    "chance_display": "3.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Uncanny Caverns",
+    "region": "Savage Divide",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Vault 63",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Watoga High School",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Welch",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Widow's Perch",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "World of Corn",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Bloatfly"
+    ],
+    "count": 7
+   }
+  ],
+  "total": 73,
+  "note": null
+ },
+ "blurb": "The Bloatfly in Fallout 76 — drops Bloatfly Meat, 20 NPC variants, 16 known spawn points."
+}

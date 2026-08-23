@@ -2,11 +2,17 @@
  "_meta": {
   "generated": "2026-08-23",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
-  "races": [],
+  "races": [
+   {
+    "edid": "CUT_DLC04DeathclawRaceQuantum"
+   },
+   {
+    "edid": "DeathclawRace"
+   }
+  ],
   "source_totals": {
    "ambush": 19,
-   "placement": 26,
-   "spawn": 157
+   "spawn": 4
   },
   "unresolved": {}
  },
@@ -14,14 +20,20 @@
  "slug": "deathclaw",
  "name": "Deathclaw",
  "page_title": "Farming - Meat - Deathclaw",
- "url": "/bnb/farming/meat/deathclaw/",
+ "url": "/bnb/farming/meat/deathclaw/deathclaw-location-guide/",
  "npc_summary": {
-  "npc_count": 0,
-  "level_min": null,
-  "level_max": null,
-  "health_max": null
+  "npc_count": 51,
+  "level_min": 21,
+  "level_max": 101,
+  "health_max": 11725
  },
- "meat_items": [],
+ "meat_items": [
+  {
+   "name": "Deathclaw Meat",
+   "form_id": "00074D0E",
+   "rate_display": "100%"
+  }
+ ],
  "used_for": [
   {
    "type": "Daily",
@@ -168,9 +180,300 @@
   }
  ],
  "drops": {
-  "lists": [],
+  "lists": [
+   {
+    "edid": "LLD_Creature_Deathclaw",
+    "form_id": "0002EF6C",
+    "row_count": 6,
+    "direct_items": 3,
+    "pool_count": 3,
+    "item_count": 11648,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Deathclaw",
+      "sub_id": "0008E3AE",
+      "edid": "LLS_Creature_Deathclaw",
+      "item_count": 104,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Plan: Deathclaw Gauntlet",
+        "rate_display": "1.46%"
+       },
+       {
+        "name": "Plan: Deathclaw Gauntlet Extra Claw",
+        "rate_display": "1.46%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "0.15%"
+       },
+       {
+        "name": "Deathclaw Meat",
+        "rate_display": "0%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Deathclaw Meat",
+      "form_id": "00074D0E",
+      "edid": "DeathclawMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (large)",
+      "sub_id": "003DF3F4",
+      "edid": "LLS_Creature_Large",
+      "item_count": 11535,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Raw Cobalt Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Fluorescent Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Violet Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Crimson Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Yellowcake Flux",
+        "rate_display": "20%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Deathclaw",
+      "sub_id": "00434383",
+      "edid": "LLE_Creature_Boss_Component_Deathclaw",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Black Titanium Scrap",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Loose Gears",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Deathclaw Hand",
+      "form_id": "0002EF67",
+      "edid": "DeathclawHand",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.25,
+      "rate_display": "25%"
+     },
+     {
+      "kind": "item",
+      "name": "Deathclaw Hide",
+      "form_id": "00034604",
+      "edid": "DeathclawHide",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.25,
+      "rate_display": "25%"
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_Deathclaw_PartyCrasher",
+    "form_id": "0089740B",
+    "row_count": 9,
+    "direct_items": 4,
+    "pool_count": 5,
+    "item_count": 11655,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Deathclaw",
+      "sub_id": "0008E3AE",
+      "edid": "LLS_Creature_Deathclaw",
+      "item_count": 104,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Plan: Deathclaw Gauntlet",
+        "rate_display": "1.46%"
+       },
+       {
+        "name": "Plan: Deathclaw Gauntlet Extra Claw",
+        "rate_display": "1.46%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "0.15%"
+       },
+       {
+        "name": "Deathclaw Meat",
+        "rate_display": "0%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Deathclaw Meat",
+      "form_id": "00074D0E",
+      "edid": "DeathclawMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (large)",
+      "sub_id": "003DF3F4",
+      "edid": "LLS_Creature_Large",
+      "item_count": 11535,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Raw Cobalt Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Fluorescent Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Violet Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Crimson Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Yellowcake Flux",
+        "rate_display": "20%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Deathclaw",
+      "sub_id": "00434383",
+      "edid": "LLE_Creature_Boss_Component_Deathclaw",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Black Titanium Scrap",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Loose Gears",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "RA LL Rewards Legendary Items Rank3",
+      "sub_id": "0086A8BC",
+      "edid": "RA_LL_Rewards_LegendaryItems_Rank3",
+      "item_count": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Legendary Items Armor Rank3",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Legendary Items Power Armor Rank3",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Legendary Items Weapons Any Rank3",
+        "rate_display": "33.33%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "RA LL Rewards Legendary Items Rank3",
+      "sub_id": "0086A8BC",
+      "edid": "RA_LL_Rewards_LegendaryItems_Rank3",
+      "item_count": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Legendary Items Armor Rank3",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Legendary Items Power Armor Rank3",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Legendary Items Weapons Any Rank3",
+        "rate_display": "33.33%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Deathclaw Hand",
+      "form_id": "0002EF67",
+      "edid": "DeathclawHand",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.25,
+      "rate_display": "25%"
+     },
+     {
+      "kind": "item",
+      "name": "Deathclaw Hide",
+      "form_id": "00034604",
+      "edid": "DeathclawHide",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.25,
+      "rate_display": "25%"
+     },
+     {
+      "kind": "item",
+      "name": "Player Title: Uninvited",
+      "form_id": "008AA951",
+      "edid": "PlayerTitle_Recipe_Prefix_Uninvited",
+      "sig": "BOOK",
+      "qty": 1,
+      "rate_value": 0.05,
+      "rate_display": "5%"
+     }
+    ]
+   }
+  ],
   "inherited_only": false,
-  "empty_reason": "none"
+  "empty_reason": ""
  },
  "random_encounters": [
   {
@@ -297,200 +600,7 @@
   "regions": [
    {
     "region": "Ash Heap",
-    "locations": [
-     {
-      "marker": "Gleaming Depths",
-      "count": 2,
-      "sources": {
-       "placement": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "386E5D",
-       "386E5E"
-      ],
-      "coords": [
-       -119492.8,
-       -163343.5
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "386E5D",
-        "source_type": "placement",
-        "coords": [
-         -119492.8,
-         -163343.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "386E5E",
-        "source_type": "placement",
-        "coords": [
-         -122159.6,
-         -162203.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Monongah Power Substation MZ-03",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3D3BB1",
-       "4E4AA6",
-       "4E4AA7",
-       "4E4AAA"
-      ],
-      "coords": [
-       -47522.3,
-       -131429.1
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "3D3BB1",
-        "source_type": "spawn",
-        "coords": [
-         -47522.3,
-         -131429.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "4E4AA6",
-        "source_type": "spawn",
-        "coords": [
-         -47394.9,
-         -131480.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "4E4AA7",
-        "source_type": "spawn",
-        "coords": [
-         -47139.2,
-         -131532.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "4E4AAA",
-        "source_type": "spawn",
-        "coords": [
-         -47242.0,
-         -131348.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Unfinished Mansion",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "4E3E62",
-       "4E3E63",
-       "4E3E66"
-      ],
-      "coords": [
-       -72202.6,
-       -142480.5
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "4E3E62",
-        "source_type": "spawn",
-        "coords": [
-         -72202.6,
-         -142480.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "4E3E63",
-        "source_type": "spawn",
-        "coords": [
-         -71946.9,
-         -142532.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "4E3E66",
-        "source_type": "spawn",
-        "coords": [
-         -72049.7,
-         -142348.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     }
-    ]
+    "locations": []
    },
    {
     "region": "Atlantic City",
@@ -500,62 +610,19 @@
     "region": "Burning Springs",
     "locations": [
      {
-      "marker": "Ash Cave",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "80F83E"
-      ],
-      "coords": [
-       -257486.4,
-       123785.5
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "80F83E",
-        "source_type": "placement",
-        "coords": [
-         -257486.4,
-         123785.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
       "marker": "Dino Peaks Mini Golf",
-      "count": 8,
+      "count": 4,
       "sources": {
-       "ambush": 4,
-       "placement": 4
+       "ambush": 4
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
        "8039C1",
-       "8039C3",
        "8039C4",
-       "8039C5",
        "8039C7",
-       "8039C8",
-       "816448",
-       "816460"
+       "816448"
       ],
       "coords": [
        -208284.0,
@@ -579,8 +646,8 @@
         "ref": "8039C4",
         "source_type": "ambush",
         "coords": [
-         -209704.7,
-         147060.2
+         -209704.71875,
+         147060.203125
         ],
         "image_top": "",
         "directions": "",
@@ -591,8 +658,8 @@
         "ref": "8039C7",
         "source_type": "ambush",
         "coords": [
-         -211678.9,
-         147124.1
+         -211678.9375,
+         147124.0625
         ],
         "image_top": "",
         "directions": "",
@@ -603,56 +670,8 @@
         "ref": "816448",
         "source_type": "ambush",
         "coords": [
-         -198271.8,
-         132680.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "8039C3",
-        "source_type": "placement",
-        "coords": [
-         -208240.0,
-         146192.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "8039C5",
-        "source_type": "placement",
-        "coords": [
-         -209695.0,
-         147280.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "8039C8",
-        "source_type": "placement",
-        "coords": [
-         -211717.5,
-         147120.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "816460",
-        "source_type": "placement",
-        "coords": [
-         -198015.0,
-         132579.9
+         -198271.75,
+         132680.515625
         ],
         "image_top": "",
         "directions": "",
@@ -664,31 +683,24 @@
         "label": "ambush points",
         "count": 4,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawns",
-        "count": 4,
-        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Jackson Junkyard",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "821A9F",
        "82E0A9"
       ],
       "coords": [
-       -258746.2,
-       32275.2
+       -258746.15625,
+       32275.208984375
       ],
       "spawns": [
        {
@@ -696,20 +708,8 @@
         "ref": "82E0A9",
         "source_type": "ambush",
         "coords": [
-         -258746.2,
-         32275.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn",
-        "ref": "821A9F",
-        "source_type": "placement",
-        "coords": [
-         -258136.0,
-         32312.0
+         -258746.15625,
+         32275.208984375
         ],
         "image_top": "",
         "directions": "",
@@ -721,33 +721,25 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Rust Kingdom Arena",
-      "count": 4,
+      "count": 2,
       "sources": {
-       "ambush": 2,
-       "placement": 2
+       "ambush": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
        "80E27D",
-       "80E281",
-       "80E2DB",
-       "80E2DD"
+       "80E281"
       ],
       "coords": [
-       -4733.4,
-       1505.9
+       -4733.38720703125,
+       1505.87341308594
       ],
       "spawns": [
        {
@@ -755,8 +747,8 @@
         "ref": "80E27D",
         "source_type": "ambush",
         "coords": [
-         -4733.4,
-         1505.9
+         -4733.38720703125,
+         1505.87341308594
         ],
         "image_top": "",
         "directions": "",
@@ -767,32 +759,8 @@
         "ref": "80E281",
         "source_type": "ambush",
         "coords": [
-         -4476.1,
-         942.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "80E2DB",
-        "source_type": "placement",
-        "coords": [
-         -4813.4,
-         1737.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "80E2DD",
-        "source_type": "placement",
-        "coords": [
-         -4365.9,
-         881.9
+         -4476.1494140625,
+         942.853210449219
         ],
         "image_top": "",
         "directions": "",
@@ -804,11 +772,6 @@
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
        }
       ]
      }
@@ -817,832 +780,6 @@
    {
     "region": "Cranberry Bog",
     "locations": [
-     {
-      "marker": "Abandoned Bog Town",
-      "count": 1,
-      "sources": {
-       "spawn": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "35E73A"
-      ],
-      "coords": [
-       181596.7,
-       -104745.3
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "35E73A",
-        "source_type": "spawn",
-        "coords": [
-         181596.7,
-         -104745.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn point",
-        "count": 1,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Big Bend Tunnel East",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39D1FC",
-       "39D1FD",
-       "39D200",
-       "3D3BA9"
-      ],
-      "coords": [
-       113496.7,
-       -157764.2
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39D1FC",
-        "source_type": "spawn",
-        "coords": [
-         113496.7,
-         -157764.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39D1FD",
-        "source_type": "spawn",
-        "coords": [
-         113633.1,
-         -156428.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39D200",
-        "source_type": "spawn",
-        "coords": [
-         112405.5,
-         -156076.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3D3BA9",
-        "source_type": "spawn",
-        "coords": [
-         112580.5,
-         -157202.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Drop Site V9",
-      "count": 4,
-      "sources": {
-       "placement": 1,
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3A2759",
-       "3A275C",
-       "3D3B95",
-       "4391B6"
-      ],
-      "coords": [
-       197759.9,
-       -148219.5
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "4391B6",
-        "source_type": "placement",
-        "coords": [
-         197759.9,
-         -148219.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "3A2759",
-        "source_type": "spawn",
-        "coords": [
-         185124.0,
-         -163318.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "3A275C",
-        "source_type": "spawn",
-        "coords": [
-         184881.2,
-         -162395.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "3D3B95",
-        "source_type": "spawn",
-        "coords": [
-         185550.1,
-         -163276.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       },
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Fissure Site",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "386D87"
-      ],
-      "coords": [
-       172588.6,
-       -159092.8
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "386D87",
-        "source_type": "placement",
-        "coords": [
-         172588.6,
-         -159092.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Fissure Site Prime",
-      "count": 2,
-      "sources": {
-       "placement": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "386ED9",
-       "386EDA"
-      ],
-      "coords": [
-       195315.7,
-       -166148.0
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "386ED9",
-        "source_type": "placement",
-        "coords": [
-         195315.7,
-         -166148.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "386EDA",
-        "source_type": "placement",
-        "coords": [
-         198491.8,
-         -165629.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Flooded Trainyard",
-      "count": 9,
-      "sources": {
-       "spawn": 9
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2EFD2C",
-       "3A2742",
-       "3A2743",
-       "3A2746",
-       "3A27BA",
-       "3A27BB",
-       "3A27BE",
-       "3D3B96",
-       "3D3BAD"
-      ],
-      "coords": [
-       183038.0,
-       -134854.2
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "2EFD2C",
-        "source_type": "spawn",
-        "coords": [
-         164600.0,
-         -140205.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "3A2742",
-        "source_type": "spawn",
-        "coords": [
-         166921.7,
-         -135873.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "3A2743",
-        "source_type": "spawn",
-        "coords": [
-         167073.5,
-         -135661.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3A2746",
-        "source_type": "spawn",
-        "coords": [
-         166864.0,
-         -135680.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "3A27BA",
-        "source_type": "spawn",
-        "coords": [
-         183038.0,
-         -134854.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #6",
-        "ref": "3A27BB",
-        "source_type": "spawn",
-        "coords": [
-         183189.8,
-         -134642.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #7",
-        "ref": "3A27BE",
-        "source_type": "spawn",
-        "coords": [
-         182980.3,
-         -134660.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #8",
-        "ref": "3D3B96",
-        "source_type": "spawn",
-        "coords": [
-         183189.5,
-         -135239.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #9",
-        "ref": "3D3BAD",
-        "source_type": "spawn",
-        "coords": [
-         183291.7,
-         -134841.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 9,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Glassed Cavern",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2EFDEE",
-       "2EFDEF",
-       "2EFDF0",
-       "2EFDF2",
-       "44D516"
-      ],
-      "coords": [
-       201811.9,
-       -154909.4
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "2EFDEE",
-        "source_type": "spawn",
-        "coords": [
-         201811.9,
-         -154909.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "2EFDEF",
-        "source_type": "spawn",
-        "coords": [
-         202613.4,
-         -155080.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "2EFDF0",
-        "source_type": "spawn",
-        "coords": [
-         201986.2,
-         -155023.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "2EFDF2",
-        "source_type": "spawn",
-        "coords": [
-         202369.2,
-         -155039.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "44D516",
-        "source_type": "spawn",
-        "coords": [
-         202208.9,
-         -154991.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Overgrown Sundew Grove",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3A2758",
-       "3D3BAF"
-      ],
-      "coords": [
-       185137.7,
-       -163769.3
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "3A2758",
-        "source_type": "spawn",
-        "coords": [
-         185137.7,
-         -163769.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "3D3BAF",
-        "source_type": "spawn",
-        "coords": [
-         185677.2,
-         -164259.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Ranger Lookout",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "399DFF",
-       "399E00",
-       "399E03",
-       "3D3BAB"
-      ],
-      "coords": [
-       148368.5,
-       -79273.4
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "399DFF",
-        "source_type": "spawn",
-        "coords": [
-         148368.5,
-         -79273.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "399E00",
-        "source_type": "spawn",
-        "coords": [
-         150471.4,
-         -79054.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "399E03",
-        "source_type": "spawn",
-        "coords": [
-         149414.5,
-         -80829.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3D3BAB",
-        "source_type": "spawn",
-        "coords": [
-         147937.6,
-         -81300.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "RobCo Research Center",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "13B79F",
-       "13B7B5"
-      ],
-      "coords": [
-       198111.4,
-       -71028.7
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "13B79F",
-        "source_type": "spawn",
-        "coords": [
-         198111.4,
-         -71028.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "13B7B5",
-        "source_type": "spawn",
-        "coords": [
-         198354.4,
-         -71383.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Sacramental Glade",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2EFDD5",
-       "2EFDE8",
-       "2EFDE9",
-       "2EFDEA",
-       "2EFDEB"
-      ],
-      "coords": [
-       193713.4,
-       -137289.6
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "2EFDD5",
-        "source_type": "spawn",
-        "coords": [
-         193713.4,
-         -137289.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "2EFDE8",
-        "source_type": "spawn",
-        "coords": [
-         193650.2,
-         -136787.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "2EFDE9",
-        "source_type": "spawn",
-        "coords": [
-         194115.1,
-         -136862.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "2EFDEA",
-        "source_type": "spawn",
-        "coords": [
-         193945.8,
-         -137328.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "2EFDEB",
-        "source_type": "spawn",
-        "coords": [
-         193781.2,
-         -137053.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Superior Sunset Farm",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "439928"
-      ],
-      "coords": [
-       129083.8,
-       -91424.8
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "439928",
-        "source_type": "placement",
-        "coords": [
-         129083.8,
-         -91424.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
      {
       "marker": "Thunder Mountain Substation TM-02",
       "count": 1,
@@ -1656,8 +793,8 @@
        "529DBE"
       ],
       "coords": [
-       143089.7,
-       -120767.3
+       143089.6875,
+       -120767.3359375
       ],
       "spawns": [
        {
@@ -1665,8 +802,8 @@
         "ref": "529DBE",
         "source_type": "spawn",
         "coords": [
-         143089.7,
-         -120767.3
+         143089.6875,
+         -120767.3359375
         ],
         "image_top": "",
         "directions": "",
@@ -1677,121 +814,6 @@
        {
         "label": "spawn point",
         "count": 1,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Watoga",
-      "count": 1,
-      "sources": {
-       "spawn": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "34ECEF"
-      ],
-      "coords": [
-       145141.0,
-       -131002.1
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "34ECEF",
-        "source_type": "spawn",
-        "coords": [
-         145141.0,
-         -131002.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn point",
-        "count": 1,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Watoga Underground",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2EFD3F",
-       "2EFD40",
-       "2EFD41",
-       "2EFD42"
-      ],
-      "coords": [
-       163156.0,
-       -140637.8
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "2EFD3F",
-        "source_type": "spawn",
-        "coords": [
-         163156.0,
-         -140637.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "2EFD40",
-        "source_type": "spawn",
-        "coords": [
-         164182.1,
-         -140193.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "2EFD41",
-        "source_type": "spawn",
-        "coords": [
-         164012.7,
-         -140660.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "2EFD42",
-        "source_type": "spawn",
-        "coords": [
-         163287.1,
-         -140903.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
         "source_type": "spawn"
        }
       ]
@@ -1815,8 +837,8 @@
        "420FFE"
       ],
       "coords": [
-       -1384.0,
-       3760.0
+       -1383.990234375,
+       3760.0009765625
       ],
       "spawns": [
        {
@@ -1824,8 +846,8 @@
         "ref": "420FFD",
         "source_type": "ambush",
         "coords": [
-         -1384.0,
-         3760.0
+         -1383.990234375,
+         3760.0009765625
         ],
         "image_top": "",
         "directions": "",
@@ -1836,8 +858,8 @@
         "ref": "420FFE",
         "source_type": "ambush",
         "coords": [
-         -5488.0,
-         3752.0
+         -5487.990234375,
+         3752.0068359375
         ],
         "image_top": "",
         "directions": "",
@@ -1854,21 +876,19 @@
      },
      {
       "marker": "Deathclaw Island",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "0638C1",
        "0638CF"
       ],
       "coords": [
-       -172793.0,
-       133453.2
+       -172793.046875,
+       133453.25
       ],
       "spawns": [
        {
@@ -1876,20 +896,8 @@
         "ref": "0638CF",
         "source_type": "ambush",
         "coords": [
-         -172793.0,
-         133453.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn",
-        "ref": "0638C1",
-        "source_type": "placement",
-        "coords": [
-         -172843.4,
-         133150.7
+         -172793.046875,
+         133453.25
         ],
         "image_top": "",
         "directions": "",
@@ -1901,11 +909,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
        }
       ]
      }
@@ -1914,352 +917,6 @@
    {
     "region": "Savage Divide",
     "locations": [
-     {
-      "marker": "Ammo Dump",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39383B",
-       "39383C",
-       "39383F",
-       "3D3BA0",
-       "3D3BA8"
-      ],
-      "coords": [
-       96780.5,
-       107862.8
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39383B",
-        "source_type": "spawn",
-        "coords": [
-         96780.5,
-         107862.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39383C",
-        "source_type": "spawn",
-        "coords": [
-         97036.2,
-         107811.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39383F",
-        "source_type": "spawn",
-        "coords": [
-         96933.4,
-         107994.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3D3BA0",
-        "source_type": "spawn",
-        "coords": [
-         97223.4,
-         107929.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "3D3BA8",
-        "source_type": "spawn",
-        "coords": [
-         96557.0,
-         107927.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Autumn Acre Cabin",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "30B4F1",
-       "30B4F2",
-       "30B4F3"
-      ],
-      "coords": [
-       100393.5,
-       36116.6
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "30B4F1",
-        "source_type": "spawn",
-        "coords": [
-         100393.5,
-         36116.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "30B4F2",
-        "source_type": "spawn",
-        "coords": [
-         100061.4,
-         36280.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "30B4F3",
-        "source_type": "spawn",
-        "coords": [
-         100290.2,
-         36466.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Beckwith Farm",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "398560",
-       "398561",
-       "398564"
-      ],
-      "coords": [
-       36988.5,
-       -18275.9
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "398560",
-        "source_type": "spawn",
-        "coords": [
-         36988.5,
-         -18275.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "398561",
-        "source_type": "spawn",
-        "coords": [
-         37244.1,
-         -18327.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "398564",
-        "source_type": "spawn",
-        "coords": [
-         37141.4,
-         -18144.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Dent & Sons Construction",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2B912E",
-       "3A63F0",
-       "3A63F3"
-      ],
-      "coords": [
-       -36482.7,
-       -155657.0
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "2B912E",
-        "source_type": "spawn",
-        "coords": [
-         -36482.7,
-         -155657.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "3A63F0",
-        "source_type": "spawn",
-        "coords": [
-         -36465.1,
-         -155793.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "3A63F3",
-        "source_type": "spawn",
-        "coords": [
-         -36384.2,
-         -155651.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Devil's Backbone",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39B173",
-       "39B174",
-       "39B177"
-      ],
-      "coords": [
-       88313.3,
-       -88686.2
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39B173",
-        "source_type": "spawn",
-        "coords": [
-         88313.3,
-         -88686.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39B174",
-        "source_type": "spawn",
-        "coords": [
-         88569.0,
-         -88738.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39B177",
-        "source_type": "spawn",
-        "coords": [
-         88466.2,
-         -88554.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
      {
       "marker": "Emmett Mountain Disposal Site",
       "count": 4,
@@ -2276,8 +933,8 @@
        "588FF0"
       ],
       "coords": [
-       5052.7,
-       2617.9
+       5052.6943359375,
+       2617.92041015625
       ],
       "spawns": [
        {
@@ -2285,8 +942,8 @@
         "ref": "588FED",
         "source_type": "ambush",
         "coords": [
-         5052.7,
-         2617.9
+         5052.6943359375,
+         2617.92041015625
         ],
         "image_top": "",
         "directions": "",
@@ -2297,8 +954,8 @@
         "ref": "588FEE",
         "source_type": "ambush",
         "coords": [
-         3903.1,
-         6112.3
+         3903.10400390625,
+         6112.337890625
         ],
         "image_top": "",
         "directions": "",
@@ -2309,8 +966,8 @@
         "ref": "588FEF",
         "source_type": "ambush",
         "coords": [
-         -1152.3,
-         5143.7
+         -1152.26428222656,
+         5143.70556640625
         ],
         "image_top": "",
         "directions": "",
@@ -2321,8 +978,8 @@
         "ref": "588FF0",
         "source_type": "ambush",
         "coords": [
-         -1107.0,
-         2620.1
+         -1106.97912597656,
+         2620.09106445313
         ],
         "image_top": "",
         "directions": "",
@@ -2339,21 +996,19 @@
      },
      {
       "marker": "Enclave Research Facility",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "5DBE6F",
-       "5DC035"
+       "5DBE6F"
       ],
       "coords": [
-       -17.8,
-       6135.4
+       -17.8110961914062,
+       6135.38818359375
       ],
       "spawns": [
        {
@@ -2361,20 +1016,8 @@
         "ref": "5DBE6F",
         "source_type": "ambush",
         "coords": [
-         -17.8,
-         6135.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn",
-        "ref": "5DC035",
-        "source_type": "placement",
-        "coords": [
-         -87.4,
-         6056.5
+         -17.8110961914062,
+         6135.38818359375
         ],
         "image_top": "",
         "directions": "",
@@ -2386,134 +1029,25 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Fissure Site",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "386DB6"
-      ],
-      "coords": [
-       152026.3,
-       182021.7
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "386DB6",
-        "source_type": "placement",
-        "coords": [
-         152026.3,
-         182021.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Gleaming Depths",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "4E4A35",
-       "4E4A36",
-       "4E4A38"
-      ],
-      "coords": [
-       -136065.2,
-       -174249.7
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "4E4A35",
-        "source_type": "spawn",
-        "coords": [
-         -136065.2,
-         -174249.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "4E4A36",
-        "source_type": "spawn",
-        "coords": [
-         -135690.5,
-         -174089.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "4E4A38",
-        "source_type": "spawn",
-        "coords": [
-         -135882.1,
-         -174174.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
        }
       ]
      },
      {
       "marker": "Hopewell Cave",
-      "count": 3,
+      "count": 2,
       "sources": {
-       "ambush": 2,
-       "placement": 1
+       "ambush": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "238B1D",
        "360E97",
        "4FD1A2"
       ],
       "coords": [
-       117167.4,
-       112846.3
+       117167.359375,
+       112846.3125
       ],
       "spawns": [
        {
@@ -2521,8 +1055,8 @@
         "ref": "360E97",
         "source_type": "ambush",
         "coords": [
-         116221.5,
-         113226.7
+         116221.46875,
+         113226.71875
         ],
         "image_top": "",
         "directions": "",
@@ -2533,20 +1067,8 @@
         "ref": "4FD1A2",
         "source_type": "ambush",
         "coords": [
-         117167.4,
-         112846.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn",
-        "ref": "238B1D",
-        "source_type": "placement",
-        "coords": [
-         116612.0,
-         113108.0
+         117167.359375,
+         112846.3125
         ],
         "image_top": "",
         "directions": "",
@@ -2558,955 +1080,24 @@
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Hornwright Testing Site #03",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39B11D",
-       "39B11E",
-       "39B121",
-       "3D3B9A"
-      ],
-      "coords": [
-       -93161.2,
-       -161440.1
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39B11D",
-        "source_type": "spawn",
-        "coords": [
-         -93161.2,
-         -161440.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39B11E",
-        "source_type": "spawn",
-        "coords": [
-         -92772.0,
-         -161538.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39B121",
-        "source_type": "spawn",
-        "coords": [
-         -92960.7,
-         -161493.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3D3B9A",
-        "source_type": "spawn",
-        "coords": [
-         -92625.8,
-         -161568.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Lucky Hole Mine",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39B178",
-       "39B179",
-       "39B17C"
-      ],
-      "coords": [
-       84687.4,
-       -141865.8
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39B178",
-        "source_type": "spawn",
-        "coords": [
-         84687.4,
-         -141865.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39B179",
-        "source_type": "spawn",
-        "coords": [
-         84451.8,
-         -141753.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39B17C",
-        "source_type": "spawn",
-        "coords": [
-         84507.3,
-         -141956.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Miners Monument",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39B155",
-       "39B156",
-       "39B159",
-       "3D3BA1",
-       "3D3BB2"
-      ],
-      "coords": [
-       -28136.0,
-       -91586.8
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39B155",
-        "source_type": "spawn",
-        "coords": [
-         -28136.0,
-         -91586.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39B156",
-        "source_type": "spawn",
-        "coords": [
-         -28308.3,
-         -91784.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39B159",
-        "source_type": "spawn",
-        "coords": [
-         -28411.1,
-         -91601.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3D3BA1",
-        "source_type": "spawn",
-        "coords": [
-         -27893.7,
-         -91720.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "3D3BB2",
-        "source_type": "spawn",
-        "coords": [
-         -28090.7,
-         -91759.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Monongah",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "31DD78",
-       "31DD79",
-       "31DD7A"
-      ],
-      "coords": [
-       45632.9,
-       85752.4
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "31DD78",
-        "source_type": "spawn",
-        "coords": [
-         45632.9,
-         85752.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "31DD79",
-        "source_type": "spawn",
-        "coords": [
-         46639.8,
-         85175.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "31DD7A",
-        "source_type": "spawn",
-        "coords": [
-         45825.2,
-         84892.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Monongah Overlook",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "31DD8A",
-       "31DD8B"
-      ],
-      "coords": [
-       39457.6,
-       89942.6
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "31DD8A",
-        "source_type": "spawn",
-        "coords": [
-         39457.6,
-         89942.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "31DD8B",
-        "source_type": "spawn",
-        "coords": [
-         40706.2,
-         89672.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Monongah Power Plant",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "31DD8C",
-       "3D3B9C"
-      ],
-      "coords": [
-       39351.8,
-       89235.3
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "31DD8C",
-        "source_type": "spawn",
-        "coords": [
-         39351.8,
-         89235.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "3D3B9C",
-        "source_type": "spawn",
-        "coords": [
-         40118.1,
-         88576.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Monongah Power Plant Yard",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "31DD5F",
-       "31DD60",
-       "31DD61"
-      ],
-      "coords": [
-       51757.9,
-       74245.5
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "31DD5F",
-        "source_type": "spawn",
-        "coords": [
-         51757.9,
-         74245.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "31DD60",
-        "source_type": "spawn",
-        "coords": [
-         52630.4,
-         74454.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "31DD61",
-        "source_type": "spawn",
-        "coords": [
-         50937.7,
-         74718.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Monongah Power Substation MZ-01",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3931A4",
-       "3931A5",
-       "3931A8",
-       "3D3B97",
-       "3D3BB3"
-      ],
-      "coords": [
-       74211.6,
-       149443.2
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "3931A4",
-        "source_type": "spawn",
-        "coords": [
-         74211.6,
-         149443.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "3931A5",
-        "source_type": "spawn",
-        "coords": [
-         74467.2,
-         149391.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "3931A8",
-        "source_type": "spawn",
-        "coords": [
-         74364.5,
-         149574.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3D3B97",
-        "source_type": "spawn",
-        "coords": [
-         73964.0,
-         149531.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "3D3BB3",
-        "source_type": "spawn",
-        "coords": [
-         74653.0,
-         149433.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Mysterious Cave",
-      "count": 7,
-      "sources": {
-       "spawn": 7
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3930B9",
-       "3930BA",
-       "3930BD",
-       "3930FA",
-       "3930FB",
-       "393101",
-       "3D3BB4"
-      ],
-      "coords": [
-       127334.7,
-       198681.2
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "3930B9",
-        "source_type": "spawn",
-        "coords": [
-         127334.7,
-         198681.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "3930BA",
-        "source_type": "spawn",
-        "coords": [
-         127590.4,
-         198629.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "3930BD",
-        "source_type": "spawn",
-        "coords": [
-         127487.6,
-         198812.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3930FA",
-        "source_type": "spawn",
-        "coords": [
-         153017.1,
-         197228.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "3930FB",
-        "source_type": "spawn",
-        "coords": [
-         153592.4,
-         197322.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #6",
-        "ref": "393101",
-        "source_type": "spawn",
-        "coords": [
-         153384.2,
-         197620.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #7",
-        "ref": "3D3BB4",
-        "source_type": "spawn",
-        "coords": [
-         127803.3,
-         198658.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 7,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "National Isolated Radio Array",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39857C",
-       "39857D",
-       "398580",
-       "3D3BAA"
-      ],
-      "coords": [
-       76376.6,
-       -34857.4
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39857C",
-        "source_type": "spawn",
-        "coords": [
-         76376.6,
-         -34857.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39857D",
-        "source_type": "spawn",
-        "coords": [
-         76632.3,
-         -34909.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "398580",
-        "source_type": "spawn",
-        "coords": [
-         76724.1,
-         -34738.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3D3BAA",
-        "source_type": "spawn",
-        "coords": [
-         76318.0,
-         -34688.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "National Radio Astronomy Research Center",
-      "count": 7,
-      "sources": {
-       "spawn": 7
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "09CB66",
-       "09CB76",
-       "09CB7B",
-       "398AD4",
-       "398AD5",
-       "398AD8",
-       "3D3B94"
-      ],
-      "coords": [
-       121214.6,
-       -39395.6
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "09CB66",
-        "source_type": "spawn",
-        "coords": [
-         121214.6,
-         -39395.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "09CB76",
-        "source_type": "spawn",
-        "coords": [
-         121097.9,
-         -39481.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "09CB7B",
-        "source_type": "spawn",
-        "coords": [
-         121238.7,
-         -39565.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "398AD4",
-        "source_type": "spawn",
-        "coords": [
-         129276.4,
-         -45631.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "398AD5",
-        "source_type": "spawn",
-        "coords": [
-         129532.1,
-         -45683.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #6",
-        "ref": "398AD8",
-        "source_type": "spawn",
-        "coords": [
-         129429.3,
-         -45500.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #7",
-        "ref": "3D3B94",
-        "source_type": "spawn",
-        "coords": [
-         129001.3,
-         -45625.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 7,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "R & G Processing Services",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39B12C",
-       "39B12D",
-       "39B130"
-      ],
-      "coords": [
-       403.2,
-       -128634.7
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39B12C",
-        "source_type": "spawn",
-        "coords": [
-         403.2,
-         -128634.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39B12D",
-        "source_type": "spawn",
-        "coords": [
-         544.1,
-         -128854.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39B130",
-        "source_type": "spawn",
-        "coords": [
-         604.1,
-         -128652.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
        }
       ]
      },
      {
       "marker": "Red Rocket Mega Stop",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "09D9F6",
        "4FCFF4"
       ],
       "coords": [
-       136247.1,
-       162699.1
+       136247.125,
+       162699.0625
       ],
       "spawns": [
        {
@@ -3514,20 +1105,8 @@
         "ref": "4FCFF4",
         "source_type": "ambush",
         "coords": [
-         136247.1,
-         162699.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn",
-        "ref": "09D9F6",
-        "source_type": "placement",
-        "coords": [
-         136157.3,
-         162581.5
+         136247.125,
+         162699.0625
         ],
         "image_top": "",
         "directions": "",
@@ -3539,856 +1118,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Relay Tower LW-B1-22",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "393858",
-       "393859",
-       "39385C",
-       "3D3B98",
-       "3D3BA4"
-      ],
-      "coords": [
-       108506.8,
-       83728.6
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "393858",
-        "source_type": "spawn",
-        "coords": [
-         108506.8,
-         83728.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "393859",
-        "source_type": "spawn",
-        "coords": [
-         108762.5,
-         83676.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39385C",
-        "source_type": "spawn",
-        "coords": [
-         108659.8,
-         83860.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3D3B98",
-        "source_type": "spawn",
-        "coords": [
-         108266.8,
-         83806.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "3D3BA4",
-        "source_type": "spawn",
-        "coords": [
-         109024.9,
-         83512.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Seneca Rocks Visitor Center",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "31DD4C",
-       "31DD4D",
-       "31DD4E"
-      ],
-      "coords": [
-       53602.0,
-       62908.8
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "31DD4C",
-        "source_type": "spawn",
-        "coords": [
-         53602.0,
-         62908.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "31DD4D",
-        "source_type": "spawn",
-        "coords": [
-         54264.0,
-         62888.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "31DD4E",
-        "source_type": "spawn",
-        "coords": [
-         53368.0,
-         62400.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Site Alpha",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "398528",
-       "398529",
-       "39852C",
-       "3D3BA5"
-      ],
-      "coords": [
-       82492.5,
-       -3761.8
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "398528",
-        "source_type": "spawn",
-        "coords": [
-         82492.5,
-         -3761.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "398529",
-        "source_type": "spawn",
-        "coords": [
-         82748.2,
-         -3813.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39852C",
-        "source_type": "spawn",
-        "coords": [
-         82754.2,
-         -3656.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "3D3BA5",
-        "source_type": "spawn",
-        "coords": [
-         82916.1,
-         -3816.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Site Bravo",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3931DD",
-       "3931DE",
-       "3931E1"
-      ],
-      "coords": [
-       39852.8,
-       133481.1
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "3931DD",
-        "source_type": "spawn",
-        "coords": [
-         39852.8,
-         133481.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "3931DE",
-        "source_type": "spawn",
-        "coords": [
-         40108.4,
-         133429.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "3931E1",
-        "source_type": "spawn",
-        "coords": [
-         40005.7,
-         133612.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "South Mountain Lookout",
-      "count": 7,
-      "sources": {
-       "spawn": 7
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39B136",
-       "39B137",
-       "39B13A",
-       "39B140",
-       "39B141",
-       "39B144",
-       "3D3B92"
-      ],
-      "coords": [
-       54650.3,
-       -130308.2
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39B136",
-        "source_type": "spawn",
-        "coords": [
-         54650.3,
-         -130308.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39B137",
-        "source_type": "spawn",
-        "coords": [
-         54686.4,
-         -130015.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39B13A",
-        "source_type": "spawn",
-        "coords": [
-         54543.6,
-         -130169.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #4",
-        "ref": "39B140",
-        "source_type": "spawn",
-        "coords": [
-         63805.4,
-         -130867.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #5",
-        "ref": "39B141",
-        "source_type": "spawn",
-        "coords": [
-         64061.1,
-         -130918.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #6",
-        "ref": "39B144",
-        "source_type": "spawn",
-        "coords": [
-         63958.3,
-         -130735.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #7",
-        "ref": "3D3B92",
-        "source_type": "spawn",
-        "coords": [
-         63664.2,
-         -130798.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 7,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Striker Row",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39B113",
-       "39B114",
-       "39B117"
-      ],
-      "coords": [
-       -93180.4,
-       -179471.4
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39B113",
-        "source_type": "spawn",
-        "coords": [
-         -93180.4,
-         -179471.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39B114",
-        "source_type": "spawn",
-        "coords": [
-         -92953.3,
-         -179342.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39B117",
-        "source_type": "spawn",
-        "coords": [
-         -93151.2,
-         -179271.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Sugar Grove",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "398ABA",
-       "398ABB",
-       "398ABE"
-      ],
-      "coords": [
-       109656.1,
-       -24780.4
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "398ABA",
-        "source_type": "spawn",
-        "coords": [
-         109656.1,
-         -24780.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "398ABB",
-        "source_type": "spawn",
-        "coords": [
-         109911.8,
-         -24832.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "398ABE",
-        "source_type": "spawn",
-        "coords": [
-         109809.0,
-         -24648.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Sunnytop Station",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "399D35",
-       "399D36"
-      ],
-      "coords": [
-       60152.6,
-       129326.1
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "399D35",
-        "source_type": "spawn",
-        "coords": [
-         60152.6,
-         129326.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "399D36",
-        "source_type": "spawn",
-        "coords": [
-         60221.6,
-         129051.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "The Whitespring Golf Club",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "1FAF3B",
-       "1FAFC5"
-      ],
-      "coords": [
-       -7214.1,
-       -48398.3
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "1FAF3B",
-        "source_type": "spawn",
-        "coords": [
-         -7214.1,
-         -48398.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "1FAFC5",
-        "source_type": "spawn",
-        "coords": [
-         -6888.8,
-         -47032.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "The Whitespring North Entrance",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "1FAF4F",
-       "1FAFC6",
-       "1FAFC9"
-      ],
-      "coords": [
-       -3080.8,
-       -44792.0
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "1FAF4F",
-        "source_type": "spawn",
-        "coords": [
-         -3080.8,
-         -44792.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "1FAFC6",
-        "source_type": "spawn",
-        "coords": [
-         -848.5,
-         -42740.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "1FAFC9",
-        "source_type": "spawn",
-        "coords": [
-         -2280.7,
-         -45848.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Twin Lakes",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39B15F",
-       "39B160",
-       "39B163"
-      ],
-      "coords": [
-       44629.7,
-       -87337.9
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "39B15F",
-        "source_type": "spawn",
-        "coords": [
-         44629.7,
-         -87337.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "39B160",
-        "source_type": "spawn",
-        "coords": [
-         44885.4,
-         -87389.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #3",
-        "ref": "39B163",
-        "source_type": "spawn",
-        "coords": [
-         44782.6,
-         -87206.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "West Tek Research Center",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "59F2D9"
-      ],
-      "coords": [
-       85140.7,
-       -69449.6
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "59F2D9",
-        "source_type": "placement",
-        "coords": [
-         85140.7,
-         -69449.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "White Powder Winter Sports",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "50E4A6"
-      ],
-      "coords": [
-       18376.9,
-       15263.0
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "50E4A6",
-        "source_type": "placement",
-        "coords": [
-         18376.9,
-         15263.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
        }
       ]
      }
@@ -4412,8 +1141,8 @@
        "74F4E3"
       ],
       "coords": [
-       49823.3,
-       -188786.4
+       49823.296875,
+       -188786.4375
       ],
       "spawns": [
        {
@@ -4421,8 +1150,8 @@
         "ref": "74F4E1",
         "source_type": "spawn",
         "coords": [
-         49823.3,
-         -188786.4
+         49823.296875,
+         -188786.4375
         ],
         "image_top": "",
         "directions": "",
@@ -4433,8 +1162,8 @@
         "ref": "74F4E2",
         "source_type": "spawn",
         "coords": [
-         50035.8,
-         -189135.4
+         50035.75,
+         -189135.390625
         ],
         "image_top": "",
         "directions": "",
@@ -4445,8 +1174,8 @@
         "ref": "74F4E3",
         "source_type": "spawn",
         "coords": [
-         49697.4,
-         -189183.4
+         49697.359375,
+         -189183.390625
         ],
         "image_top": "",
         "directions": "",
@@ -4463,21 +1192,19 @@
      },
      {
       "marker": "Shining Creek Cavern",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "771524",
        "771525"
       ],
       "coords": [
-       2393.7,
-       336.2
+       2393.67993164062,
+       336.168182373047
       ],
       "spawns": [
        {
@@ -4485,20 +1212,8 @@
         "ref": "771525",
         "source_type": "ambush",
         "coords": [
-         2393.7,
-         336.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn",
-        "ref": "771524",
-        "source_type": "placement",
-        "coords": [
-         2306.6,
-         612.5
+         2393.67993164062,
+         336.168182373047
         ],
         "image_top": "",
         "directions": "",
@@ -4510,11 +1225,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
        }
       ]
      }
@@ -4522,97 +1232,7 @@
    },
    {
     "region": "The Mire",
-    "locations": [
-     {
-      "marker": "Cavern",
-      "count": 2,
-      "sources": {
-       "placement": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "022E2B",
-       "022E60"
-      ],
-      "coords": [
-       2186.8,
-       3056.0
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn #1",
-        "ref": "022E2B",
-        "source_type": "placement",
-        "coords": [
-         2186.8,
-         3056.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Deathclaw spawn #2",
-        "ref": "022E60",
-        "source_type": "placement",
-        "coords": [
-         -152.0,
-         1819.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Fissure Site",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "386F56"
-      ],
-      "coords": [
-       130972.4,
-       74543.3
-      ],
-      "spawns": [
-       {
-        "label": "Deathclaw spawn",
-        "ref": "386F56",
-        "source_type": "placement",
-        "coords": [
-         130972.4,
-         74543.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     }
-    ]
+    "locations": []
    },
    {
     "region": "The Pitt",
@@ -4623,39 +1243,615 @@
     "locations": []
    }
   ],
-  "total_markers": 64,
-  "total_placements": 202
+  "total_markers": 12,
+  "total_placements": 23
  },
- "blurb": "The Deathclaw in Fallout 76 — drops Deathclaw Meat, 51 NPC variants, 202 known spawn points.",
- "drop_rates": {
-  "containers": {
-   "types": [
-    {
-     "name": "Meat Bag",
-     "rate": 0.07692307692307687,
-     "rate_display": "7.69%"
-    },
-    {
-     "name": "Scorchbeast Guano Pile",
-     "rate": 0.07538461538461538,
-     "rate_display": "7.54%"
-    },
-    {
-     "name": "Waste Pile",
-     "rate": 0.07538461538461538,
-     "rate_display": "7.54%"
-    },
-    {
-     "name": "Meat Bag",
-     "rate": 0.007692307692307665,
-     "rate_display": "0.77%"
-    },
-    {
-     "name": "Bear-Proof Trash Can",
-     "rate": 0.0050000000000000044,
-     "rate_display": "0.5%"
-    }
-   ]
-  }
- }
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Ammo Dump",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Ash Cave",
+    "region": "Burning Springs",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Autumn Acre Cabin",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Beckwith Farm",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Big Bend Tunnel East",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Cavern",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Deathclaw Island",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dent & Sons Construction",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Devil's Backbone",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Dino Peaks Mini Golf",
+    "region": "Burning Springs",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Drop Site V9",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Alpha Deathclaw",
+     "Deathclaw"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Enclave Research Facility",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Alpha Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Alpha Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Alpha Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site Prime",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Alpha Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Flooded Trainyard",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Glassed Cavern",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Gleaming Depths",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Alpha Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Gleaming Depths",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Hopewell Cave",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Hornwright Testing Site #03",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Jackson Junkyard",
+    "region": "Burning Springs",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Tamed Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Lucky Hole Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Miners Monument",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Monongah",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Overlook",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Monongah Power Plant",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Monongah Power Plant Yard",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Power Substation MZ-01",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Monongah Power Substation MZ-03",
+    "region": "Ash Heap",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Mysterious Cave",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "National Isolated Radio Array",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "National Radio Astronomy Research Center",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Overgrown Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "R & G Processing Services",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Ranger Lookout",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Red Rocket Mega Stop",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Relay Tower LW-B1-22",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "RobCo Research Center",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Rust Kingdom Arena",
+    "region": "Burning Springs",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sacramental Glade",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Seneca Rocks Visitor Center",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Shining Creek Cavern",
+    "region": "Skyline Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Site Alpha",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Site Bravo",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "South Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Striker Row",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Sugar Grove",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Sunnytop Station",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Superior Sunset Farm",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Alpha Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Whitespring Golf Club",
+    "region": "Savage Divide",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Whitespring North Entrance",
+    "region": "Savage Divide",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Twin Lakes",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Unfinished Mansion",
+    "region": "Ash Heap",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Watoga",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Watoga Underground",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "West Tek Research Center",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "White Powder Winter Sports",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Deathclaw"
+    ],
+    "count": 1
+   }
+  ],
+  "total": 60,
+  "note": null
+ },
+ "blurb": "The Deathclaw in Fallout 76 — drops Deathclaw Meat, 51 NPC variants, 23 known spawn points."
 }

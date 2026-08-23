@@ -1,0 +1,8313 @@
+{
+ "_meta": {
+  "generated": "2026-08-23",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "RadRoachRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 313
+  },
+  "unresolved": {}
+ },
+ "set": "insects",
+ "slug": "radroach",
+ "name": "Radroach",
+ "page_title": "Farming - Insects - Radroach",
+ "url": "/bnb/farming/insects/radroach/radroach-location-guide/",
+ "npc_summary": {
+  "npc_count": 15,
+  "level_min": 1,
+  "level_max": 5,
+  "health_max": 30
+ },
+ "meat_items": [
+  {
+   "name": "Radroach Meat",
+   "form_id": "00033106",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Radroach",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_RadRoach_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Radroach",
+    "form_id": "0004D8F9",
+    "row_count": 3,
+    "direct_items": 1,
+    "pool_count": 2,
+    "item_count": 2,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "LLE Creature Small",
+      "sub_id": "003DF3FB",
+      "edid": "LLE_Creature_Small",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Radroach Meat",
+      "form_id": "00033106",
+      "edid": "RadroachMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Radroach",
+      "sub_id": "0008E3B3",
+      "edid": "LLE_Creature_Radroach",
+      "item_count": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Radroach Meat",
+        "rate_display": "0%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0003568F",
+   "edid": "RE_ObjectTS02",
+   "name": "Glowing Radroaches",
+   "type": "Object Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "003B7D2D",
+   "edid": "RE_AssaultMJP03",
+   "name": "Greaser Scorched vs Radroaches",
+   "type": "Assault Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Abandoned Mine Shaft 1",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3DC59B",
+       "3DC5A0"
+      ],
+      "coords": [
+       -144050.28125,
+       -139359.203125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3DC59B",
+        "source_type": "ambush",
+        "coords": [
+         -144050.28125,
+         -139359.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3DC5A0",
+        "source_type": "ambush",
+        "coords": [
+         -144242.03125,
+         -139629.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Beckley",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "52627C",
+       "526281",
+       "526286"
+      ],
+      "coords": [
+       -183896.0,
+       -120272.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "52627C",
+        "source_type": "ambush",
+        "coords": [
+         -183896.0,
+         -120272.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "526281",
+        "source_type": "ambush",
+        "coords": [
+         -185008.0,
+         -122752.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "526286",
+        "source_type": "ambush",
+        "coords": [
+         -187192.0,
+         -124688.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Camden Park",
+      "count": 6,
+      "sources": {
+       "ambush": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "33411C",
+       "334122",
+       "334127",
+       "33412B",
+       "334130",
+       "334E22"
+      ],
+      "coords": [
+       -184521.828125,
+       -75877.28125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "33411C",
+        "source_type": "ambush",
+        "coords": [
+         -184486.59375,
+         -75754.8828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "334122",
+        "source_type": "ambush",
+        "coords": [
+         -184521.828125,
+         -75877.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "334127",
+        "source_type": "ambush",
+        "coords": [
+         -176177.25,
+         -82223.9921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "33412B",
+        "source_type": "ambush",
+        "coords": [
+         -176223.09375,
+         -82416.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "334130",
+        "source_type": "ambush",
+        "coords": [
+         -176479.25,
+         -82420.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "334E22",
+        "source_type": "ambush",
+        "coords": [
+         -184773.640625,
+         -75676.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 6,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Garrahan Estate",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1B5985"
+      ],
+      "coords": [
+       -74334.78125,
+       -151162.703125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "1B5985",
+        "source_type": "ambush",
+        "coords": [
+         -74334.78125,
+         -151162.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Mount Blair",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C7137",
+       "3C713B"
+      ],
+      "coords": [
+       -137627.59375,
+       -105161.84375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3C7137",
+        "source_type": "ambush",
+        "coords": [
+         -137627.59375,
+         -105161.84375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3C713B",
+        "source_type": "ambush",
+        "coords": [
+         -137798.984375,
+         -105610.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Mount Blair Trainyard",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C0171"
+      ],
+      "coords": [
+       -131121.796875,
+       -123524.421875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "3C0171",
+        "source_type": "ambush",
+        "coords": [
+         -131121.796875,
+         -123524.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Sal's Grinders",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "526277"
+      ],
+      "coords": [
+       -190784.0,
+       -120288.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "526277",
+        "source_type": "ambush",
+        "coords": [
+         -190784.0,
+         -120288.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Striker Row",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B90A6",
+       "2B90AB"
+      ],
+      "coords": [
+       -112841.90625,
+       -168006.390625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "2B90A6",
+        "source_type": "ambush",
+        "coords": [
+         -112841.90625,
+         -168006.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "2B90AB",
+        "source_type": "ambush",
+        "coords": [
+         -115631.21875,
+         -168442.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": [
+     {
+      "marker": "Casino Quarter",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6CCA6C"
+      ],
+      "coords": [
+       -4364.923828125,
+       792.032775878906
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "6CCA6C",
+        "source_type": "ambush",
+        "coords": [
+         -4364.923828125,
+         792.032775878906
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Community Center",
+      "count": 7,
+      "sources": {
+       "ambush": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75EC40",
+       "75EC45",
+       "75EC51",
+       "75EC56",
+       "75EC61",
+       "75EC6F",
+       "75EC80"
+      ],
+      "coords": [
+       921.541442871094,
+       2760.0927734375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "75EC40",
+        "source_type": "ambush",
+        "coords": [
+         1694.71826171875,
+         -832.389770507812
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "75EC45",
+        "source_type": "ambush",
+        "coords": [
+         921.541442871094,
+         2760.0927734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "75EC51",
+        "source_type": "ambush",
+        "coords": [
+         823.025695800781,
+         2744.52563476562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "75EC56",
+        "source_type": "ambush",
+        "coords": [
+         3582.74731445313,
+         1775.00732421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "75EC61",
+        "source_type": "ambush",
+        "coords": [
+         1724.33239746094,
+         1519.23278808594
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "75EC6F",
+        "source_type": "ambush",
+        "coords": [
+         -889.1474609375,
+         1175.12744140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #7",
+        "ref": "75EC80",
+        "source_type": "ambush",
+        "coords": [
+         363.866546630859,
+         1526.10400390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 7,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Flooded City Center",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6D2AA0",
+       "6D2AA1",
+       "6D2AA2"
+      ],
+      "coords": [
+       2160.00170898438,
+       -623.999816894531
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "6D2AA0",
+        "source_type": "ambush",
+        "coords": [
+         2160.00170898438,
+         -623.999816894531
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "6D2AA1",
+        "source_type": "ambush",
+        "coords": [
+         1968.00439453125,
+         -399.997528076172
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "6D2AA2",
+        "source_type": "ambush",
+        "coords": [
+         1935.99951171875,
+         -807.997131347656
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "The Neapolitan Casino",
+      "count": 4,
+      "sources": {
+       "ambush": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6EF8A6",
+       "6EF8A9",
+       "6EF8B2",
+       "6EF8B5"
+      ],
+      "coords": [
+       -1881.07287597656,
+       -2927.37573242188
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "6EF8A6",
+        "source_type": "ambush",
+        "coords": [
+         -1881.07287597656,
+         -2927.37573242188
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "6EF8A9",
+        "source_type": "ambush",
+        "coords": [
+         -2512.74291992187,
+         3216.9912109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "6EF8B2",
+        "source_type": "ambush",
+        "coords": [
+         -614.650573730469,
+         1011.35626220703
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "6EF8B5",
+        "source_type": "ambush",
+        "coords": [
+         -418.595245361328,
+         912.930908203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Dino Peaks Mini Golf",
+      "count": 10,
+      "sources": {
+       "ambush": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "80CF2B",
+       "80CF2C",
+       "80CF2D",
+       "80CF2E",
+       "82E7BB",
+       "82E7BC",
+       "82E7BE",
+       "82E7CB",
+       "82E7D0",
+       "82E7D1"
+      ],
+      "coords": [
+       -219774.5625,
+       138553.015625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "80CF2B",
+        "source_type": "ambush",
+        "coords": [
+         -219774.5625,
+         138553.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "80CF2C",
+        "source_type": "ambush",
+        "coords": [
+         -220136.0,
+         138976.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "80CF2D",
+        "source_type": "ambush",
+        "coords": [
+         -220100.625,
+         138362.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "80CF2E",
+        "source_type": "ambush",
+        "coords": [
+         -220536.015625,
+         138424.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "82E7BB",
+        "source_type": "ambush",
+        "coords": [
+         -212046.25,
+         148473.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "82E7BC",
+        "source_type": "ambush",
+        "coords": [
+         -212468.46875,
+         148825.75
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #7",
+        "ref": "82E7BE",
+        "source_type": "ambush",
+        "coords": [
+         -211792.046875,
+         141733.03125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #8",
+        "ref": "82E7CB",
+        "source_type": "ambush",
+        "coords": [
+         -211614.875,
+         148388.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #9",
+        "ref": "82E7D0",
+        "source_type": "ambush",
+        "coords": [
+         -212270.03125,
+         141643.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #10",
+        "ref": "82E7D1",
+        "source_type": "ambush",
+        "coords": [
+         -211242.265625,
+         141831.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 10,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Hocking Hills Train Station",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7FDA7F",
+       "7FDA8C",
+       "81F2A2"
+      ],
+      "coords": [
+       -254737.515625,
+       78814.3359375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "7FDA7F",
+        "source_type": "ambush",
+        "coords": [
+         -254737.515625,
+         78814.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "7FDA8C",
+        "source_type": "ambush",
+        "coords": [
+         -257728.0,
+         80822.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "81F2A2",
+        "source_type": "ambush",
+        "coords": [
+         -253913.21875,
+         77544.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Railroad Service Yard",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "833910"
+      ],
+      "coords": [
+       -236723.4375,
+       16053.6455078125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "833910",
+        "source_type": "ambush",
+        "coords": [
+         -236723.4375,
+         16053.6455078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Starlight Drive-in",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8111FF",
+       "811201"
+      ],
+      "coords": [
+       -206416.0,
+       125168.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "8111FF",
+        "source_type": "ambush",
+        "coords": [
+         -206966.71875,
+         125534.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "811201",
+        "source_type": "ambush",
+        "coords": [
+         -206416.0,
+         125168.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Super Duper Mart",
+      "count": 5,
+      "sources": {
+       "ambush": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "803B17",
+       "803B19",
+       "804A9A",
+       "804A9C",
+       "804A9D"
+      ],
+      "coords": [
+       -229328.0,
+       125280.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "803B17",
+        "source_type": "ambush",
+        "coords": [
+         -229328.0,
+         125280.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "803B19",
+        "source_type": "ambush",
+        "coords": [
+         -229400.0,
+         125768.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "804A9A",
+        "source_type": "ambush",
+        "coords": [
+         -229603.171875,
+         125424.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "804A9C",
+        "source_type": "ambush",
+        "coords": [
+         -229488.0,
+         125456.0078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "804A9D",
+        "source_type": "ambush",
+        "coords": [
+         -229447.53125,
+         125424.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "The Chop Shop",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8324B5"
+      ],
+      "coords": [
+       -218101.6875,
+       72912.21875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "8324B5",
+        "source_type": "ambush",
+        "coords": [
+         -218101.6875,
+         72912.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "World of Corn",
+      "count": 6,
+      "sources": {
+       "ambush": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "80626E",
+       "806284",
+       "8062E7",
+       "8062F0",
+       "8062F2",
+       "8062FB"
+      ],
+      "coords": [
+       -237826.0625,
+       51024.4453125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "80626E",
+        "source_type": "ambush",
+        "coords": [
+         -237826.0625,
+         51024.4453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "806284",
+        "source_type": "ambush",
+        "coords": [
+         -236384.0,
+         51302.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "8062E7",
+        "source_type": "ambush",
+        "coords": [
+         -237469.015625,
+         51410.55859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "8062F0",
+        "source_type": "ambush",
+        "coords": [
+         -237826.0625,
+         51024.4453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "8062F2",
+        "source_type": "ambush",
+        "coords": [
+         -236384.0,
+         51302.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "8062FB",
+        "source_type": "ambush",
+        "coords": [
+         -237469.015625,
+         51410.55859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 6,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Abandoned Bog Town",
+      "count": 7,
+      "sources": {
+       "ambush": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "334DF2",
+       "334DF7",
+       "334DFB",
+       "334E00",
+       "334E05",
+       "34E8C3",
+       "34E8C8"
+      ],
+      "coords": [
+       183892.6875,
+       -100884.140625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "334DF2",
+        "source_type": "ambush",
+        "coords": [
+         183892.6875,
+         -100884.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "334DF7",
+        "source_type": "ambush",
+        "coords": [
+         182051.828125,
+         -100202.15625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "334DFB",
+        "source_type": "ambush",
+        "coords": [
+         181787.765625,
+         -100232.8984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "334E00",
+        "source_type": "ambush",
+        "coords": [
+         183684.84375,
+         -99472.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "334E05",
+        "source_type": "ambush",
+        "coords": [
+         183757.296875,
+         -99214.2421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "34E8C3",
+        "source_type": "ambush",
+        "coords": [
+         179715.875,
+         -87599.1015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #7",
+        "ref": "34E8C8",
+        "source_type": "ambush",
+        "coords": [
+         179659.984375,
+         -87790.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 7,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "AMS Headquarters",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D1F99"
+      ],
+      "coords": [
+       -2159.30395507813,
+       670.086120605469
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "3D1F99",
+        "source_type": "ambush",
+        "coords": [
+         -2159.30395507813,
+         670.086120605469
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Bootlegger's Shack",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3453A9"
+      ],
+      "coords": [
+       166128.0625,
+       -83690.65625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "3453A9",
+        "source_type": "ambush",
+        "coords": [
+         166128.0625,
+         -83690.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Duncan & Duncan Robotics",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "556A01",
+       "556A07"
+      ],
+      "coords": [
+       -2944.51342773438,
+       1140.43762207031
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "556A01",
+        "source_type": "ambush",
+        "coords": [
+         -2634.15844726562,
+         1366.63903808594
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "556A07",
+        "source_type": "ambush",
+        "coords": [
+         -2944.51342773438,
+         1140.43762207031
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Flooded Trainyard",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "52E59E",
+       "52E5A4",
+       "52E5A8"
+      ],
+      "coords": [
+       170419.515625,
+       -140874.3125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "52E59E",
+        "source_type": "ambush",
+        "coords": [
+         170720.03125,
+         -141240.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "52E5A4",
+        "source_type": "ambush",
+        "coords": [
+         170419.515625,
+         -140874.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "52E5A8",
+        "source_type": "ambush",
+        "coords": [
+         170458.4375,
+         -141363.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Fort Defiance",
+      "count": 6,
+      "sources": {
+       "ambush": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "52060D",
+       "52D6F8",
+       "52D6FB",
+       "52D715",
+       "52D717",
+       "52D719"
+      ],
+      "coords": [
+       -3432.0,
+       1616.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "52060D",
+        "source_type": "ambush",
+        "coords": [
+         -3432.0,
+         1616.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "52D6F8",
+        "source_type": "ambush",
+        "coords": [
+         -7016.0,
+         2496.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "52D6FB",
+        "source_type": "ambush",
+        "coords": [
+         -6032.0,
+         1472.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "52D715",
+        "source_type": "ambush",
+        "coords": [
+         -3472.0,
+         712.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "52D717",
+        "source_type": "ambush",
+        "coords": [
+         -3704.0,
+         592.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "52D719",
+        "source_type": "ambush",
+        "coords": [
+         -3416.0,
+         2096.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 6,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Kerwood Mine",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "37E260"
+      ],
+      "coords": [
+       131631.75,
+       -63720.40625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "37E260",
+        "source_type": "ambush",
+        "coords": [
+         131631.75,
+         -63720.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "RobCo Research Center",
+      "count": 5,
+      "sources": {
+       "ambush": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D3699",
+       "3D369E",
+       "3D36A3",
+       "3D36A8",
+       "3D37C1"
+      ],
+      "coords": [
+       197288.0,
+       -66768.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3D3699",
+        "source_type": "ambush",
+        "coords": [
+         197288.0,
+         -66768.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3D369E",
+        "source_type": "ambush",
+        "coords": [
+         198848.0,
+         -68080.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3D36A3",
+        "source_type": "ambush",
+        "coords": [
+         203080.0,
+         -66096.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "3D36A8",
+        "source_type": "ambush",
+        "coords": [
+         200616.0,
+         -63688.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "3D37C1",
+        "source_type": "ambush",
+        "coords": [
+         203080.0,
+         -66096.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Valley Galleria",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "308719",
+       "30871D"
+      ],
+      "coords": [
+       4683.078125,
+       1991.14208984375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "308719",
+        "source_type": "ambush",
+        "coords": [
+         4683.078125,
+         1991.14208984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "30871D",
+        "source_type": "ambush",
+        "coords": [
+         4327.7724609375,
+         2233.4365234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Veiled Sundew Grove",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3CE8B2",
+       "3CE8B6"
+      ],
+      "coords": [
+       178134.125,
+       -108154.1640625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3CE8B2",
+        "source_type": "ambush",
+        "coords": [
+         178134.125,
+         -108154.1640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3CE8B6",
+        "source_type": "ambush",
+        "coords": [
+         177713.015625,
+         -108080.0703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga Underground",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "55817F",
+       "58C9A3"
+      ],
+      "coords": [
+       5353.1044921875,
+       1570.49340820313
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "55817F",
+        "source_type": "ambush",
+        "coords": [
+         5353.1044921875,
+         1570.49340820313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "58C9A3",
+        "source_type": "ambush",
+        "coords": [
+         6978.4111328125,
+         -555.794372558594
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Arktos Pharma Biome Lab",
+      "count": 6,
+      "sources": {
+       "ambush": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3EEC91",
+       "3EEC97",
+       "3EEC9D",
+       "3EECA2",
+       "3EECA8",
+       "3EECAF"
+      ],
+      "coords": [
+       -3394.884765625,
+       3449.5537109375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3EEC91",
+        "source_type": "ambush",
+        "coords": [
+         -1703.61486816406,
+         -1444.85949707031
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3EEC97",
+        "source_type": "ambush",
+        "coords": [
+         -2752.0517578125,
+         -3063.2890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3EEC9D",
+        "source_type": "ambush",
+        "coords": [
+         -4543.826171875,
+         -1507.19738769531
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "3EECA2",
+        "source_type": "ambush",
+        "coords": [
+         -7953.54833984375,
+         -192.147109985352
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "3EECA8",
+        "source_type": "ambush",
+        "coords": [
+         -3394.884765625,
+         3449.5537109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "3EECAF",
+        "source_type": "ambush",
+        "coords": [
+         1451.42504882813,
+         -5959.4306640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 6,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "AVR Medical Center",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "30867F"
+      ],
+      "coords": [
+       4716.15478515625,
+       -2667.7021484375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "30867F",
+        "source_type": "ambush",
+        "coords": [
+         4716.15478515625,
+         -2667.7021484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Big Al's Tattoo Parlor",
+      "count": 5,
+      "sources": {
+       "ambush": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50B584",
+       "50B58C",
+       "50B591",
+       "50B594",
+       "50B597"
+      ],
+      "coords": [
+       -6835.30712890625,
+       73959.9453125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "50B584",
+        "source_type": "ambush",
+        "coords": [
+         -14402.7705078125,
+         67792.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "50B58C",
+        "source_type": "ambush",
+        "coords": [
+         -6835.30712890625,
+         73959.9453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "50B591",
+        "source_type": "ambush",
+        "coords": [
+         -7200.92626953125,
+         73245.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "50B594",
+        "source_type": "ambush",
+        "coords": [
+         -7009.38037109375,
+         73353.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "50B597",
+        "source_type": "ambush",
+        "coords": [
+         -14451.94921875,
+         74419.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Charleston Landfill",
+      "count": 6,
+      "sources": {
+       "ambush": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "37F7B3",
+       "37F7B8",
+       "37F7BD",
+       "37F7C2",
+       "37F7C7",
+       "37F7CC"
+      ],
+      "coords": [
+       -124049.8515625,
+       -60278.15625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "37F7B3",
+        "source_type": "ambush",
+        "coords": [
+         -124049.8515625,
+         -60278.15625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "37F7B8",
+        "source_type": "ambush",
+        "coords": [
+         -123906.4921875,
+         -60676.66015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "37F7BD",
+        "source_type": "ambush",
+        "coords": [
+         -125401.703125,
+         -61364.7734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "37F7C2",
+        "source_type": "ambush",
+        "coords": [
+         -129332.8046875,
+         -62778.74609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "37F7C7",
+        "source_type": "ambush",
+        "coords": [
+         -126997.0625,
+         -59457.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "37F7CC",
+        "source_type": "ambush",
+        "coords": [
+         -124724.3125,
+         -62631.5546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 6,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Cow Spots Creamery",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D02BE"
+      ],
+      "coords": [
+       -125779.328125,
+       -13540.1484375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "3D02BE",
+        "source_type": "ambush",
+        "coords": [
+         -125779.328125,
+         -13540.1484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Flatwoods",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D0FE8",
+       "3D0FEC"
+      ],
+      "coords": [
+       -108301.6953125,
+       20456.46875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3D0FE8",
+        "source_type": "ambush",
+        "coords": [
+         -108301.6953125,
+         20456.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3D0FEC",
+        "source_type": "ambush",
+        "coords": [
+         -104052.4296875,
+         20156.673828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Gorge Junkyard",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2F8A34",
+       "2F8A3A"
+      ],
+      "coords": [
+       -56832.0,
+       89784.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "2F8A34",
+        "source_type": "ambush",
+        "coords": [
+         -56832.0,
+         89784.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "2F8A3A",
+        "source_type": "ambush",
+        "coords": [
+         -53315.37109375,
+         87430.1328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Green Country Lodge",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D05B7",
+       "3D05BD",
+       "3D05C2"
+      ],
+      "coords": [
+       -101388.96875,
+       24751.33203125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3D05B7",
+        "source_type": "ambush",
+        "coords": [
+         -101086.9609375,
+         28995.150390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3D05BD",
+        "source_type": "ambush",
+        "coords": [
+         -101388.96875,
+         24751.33203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3D05C2",
+        "source_type": "ambush",
+        "coords": [
+         -100728.765625,
+         25355.08984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Industrial HQ",
+      "count": 4,
+      "sources": {
+       "ambush": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C70C1",
+       "3C70C6",
+       "3C70CB",
+       "3C70CF"
+      ],
+      "coords": [
+       691.079833984375,
+       -864.119567871094
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3C70C1",
+        "source_type": "ambush",
+        "coords": [
+         691.079833984375,
+         -864.119567871094
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3C70C6",
+        "source_type": "ambush",
+        "coords": [
+         2188.119140625,
+         -528.816711425781
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3C70CB",
+        "source_type": "ambush",
+        "coords": [
+         578.416015625,
+         1591.82104492187
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "3C70CF",
+        "source_type": "ambush",
+        "coords": [
+         44.7018127441406,
+         214.122161865234
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Landview Lighthouse",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C755F",
+       "3C756A"
+      ],
+      "coords": [
+       -76607.328125,
+       75446.890625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3C755F",
+        "source_type": "ambush",
+        "coords": [
+         -76607.328125,
+         75446.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3C756A",
+        "source_type": "ambush",
+        "coords": [
+         -76016.578125,
+         72328.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Mama Dolce's Food Processing",
+      "count": 5,
+      "sources": {
+       "ambush": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "291D2D",
+       "3E3C8B",
+       "3E3C95",
+       "3E3CA4",
+       "3E3CA9"
+      ],
+      "coords": [
+       543.197448730469,
+       -54.1561126708984
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "291D2D",
+        "source_type": "ambush",
+        "coords": [
+         -18746.60546875,
+         82295.4765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3E3C8B",
+        "source_type": "ambush",
+        "coords": [
+         -14575.57421875,
+         83655.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3E3C95",
+        "source_type": "ambush",
+        "coords": [
+         543.197448730469,
+         -54.1561126708984
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "3E3CA4",
+        "source_type": "ambush",
+        "coords": [
+         -325.11865234375,
+         2859.81665039062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "3E3CA9",
+        "source_type": "ambush",
+        "coords": [
+         -15905.4267578125,
+         83892.8515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Morgantown",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50B5A4"
+      ],
+      "coords": [
+       -7328.39794921875,
+       94491.4609375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "50B5A4",
+        "source_type": "ambush",
+        "coords": [
+         -7328.39794921875,
+         94491.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Morgantown High School",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "308692",
+       "308696"
+      ],
+      "coords": [
+       379.144561767578,
+       -1909.74194335938
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "308692",
+        "source_type": "ambush",
+        "coords": [
+         379.144561767578,
+         -1909.74194335938
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "308696",
+        "source_type": "ambush",
+        "coords": [
+         150.05012512207,
+         -2543.4833984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "73DB00"
+      ],
+      "coords": [
+       2139.85961914062,
+       -1554.52563476562
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "73DB00",
+        "source_type": "ambush",
+        "coords": [
+         2139.85961914062,
+         -1554.52563476562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Orwell Bomb Shelter",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5C3C67",
+       "5C3D10"
+      ],
+      "coords": [
+       246.645645141602,
+       2894.70190429687
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "5C3C67",
+        "source_type": "ambush",
+        "coords": [
+         246.645645141602,
+         2894.70190429687
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "5C3D10",
+        "source_type": "ambush",
+        "coords": [
+         -762.164245605469,
+         143.88037109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Pi House",
+      "count": 4,
+      "sources": {
+       "ambush": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4821EE",
+       "4821F3",
+       "4821F8",
+       "482202"
+      ],
+      "coords": [
+       111.920799255371,
+       1263.70825195312
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "4821EE",
+        "source_type": "ambush",
+        "coords": [
+         111.920799255371,
+         1263.70825195312
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "4821F3",
+        "source_type": "ambush",
+        "coords": [
+         751.925476074219,
+         1082.05834960938
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "4821F8",
+        "source_type": "ambush",
+        "coords": [
+         16.0333099365234,
+         644.038513183594
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "482202",
+        "source_type": "ambush",
+        "coords": [
+         17.6512641906738,
+         1163.05212402344
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Point Pleasant",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C7046",
+       "3C704C",
+       "3C704F"
+      ],
+      "coords": [
+       -175204.15625,
+       71833.5859375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3C7046",
+        "source_type": "ambush",
+        "coords": [
+         -175402.25,
+         71739.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3C704C",
+        "source_type": "ambush",
+        "coords": [
+         -175204.15625,
+         71833.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3C704F",
+        "source_type": "ambush",
+        "coords": [
+         -175528.46875,
+         71917.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Poseidon Power Substation PX-02",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50AFAD"
+      ],
+      "coords": [
+       -34620.72265625,
+       -1109.13781738281
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "50AFAD",
+        "source_type": "ambush",
+        "coords": [
+         -34620.72265625,
+         -1109.13781738281
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "RobCo Auto-Cache #001",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "557F59"
+      ],
+      "coords": [
+       -4234.99755859375,
+       2155.37280273438
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "557F59",
+        "source_type": "ambush",
+        "coords": [
+         -4234.99755859375,
+         2155.37280273438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Silva Homestead",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E14B5",
+       "3E14BE",
+       "3E14C4"
+      ],
+      "coords": [
+       -160359.796875,
+       -5504.9794921875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3E14B5",
+        "source_type": "ambush",
+        "coords": [
+         -160359.796875,
+         -5504.9794921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3E14BE",
+        "source_type": "ambush",
+        "coords": [
+         -160328.671875,
+         -6113.509765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3E14C4",
+        "source_type": "ambush",
+        "coords": [
+         -160765.796875,
+         -6102.99560546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Summersville Docks",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C7586",
+       "3C758C",
+       "3C7595"
+      ],
+      "coords": [
+       -69478.0,
+       -46690.25
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3C7586",
+        "source_type": "ambush",
+        "coords": [
+         -70111.8046875,
+         -47936.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3C758C",
+        "source_type": "ambush",
+        "coords": [
+         -69478.0,
+         -46690.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3C7595",
+        "source_type": "ambush",
+        "coords": [
+         -69880.9609375,
+         -45029.6328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Tyler County Fairgrounds",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B7F83",
+       "2B7F88"
+      ],
+      "coords": [
+       -147458.921875,
+       140555.6875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "2B7F83",
+        "source_type": "ambush",
+        "coords": [
+         -147458.921875,
+         140555.6875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "2B7F88",
+        "source_type": "ambush",
+        "coords": [
+         -143946.53125,
+         141975.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Van Lowe Taxidermy",
+      "count": 4,
+      "sources": {
+       "ambush": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "478F11",
+       "478F20",
+       "478F21",
+       "47B749"
+      ],
+      "coords": [
+       1970.95129394531,
+       722.118347167969
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "478F11",
+        "source_type": "ambush",
+        "coords": [
+         1773.4404296875,
+         876.05712890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "478F20",
+        "source_type": "ambush",
+        "coords": [
+         1970.95129394531,
+         722.118347167969
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "478F21",
+        "source_type": "ambush",
+        "coords": [
+         1521.42492675781,
+         -416.486572265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "47B749",
+        "source_type": "ambush",
+        "coords": [
+         1240.98962402344,
+         257.502960205078
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Vault-Tec University",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59032F"
+      ],
+      "coords": [
+       -4943.8193359375,
+       -729.528381347656
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "59032F",
+        "source_type": "ambush",
+        "coords": [
+         -4943.8193359375,
+         -729.528381347656
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Atlas Substructure",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5E6FC6"
+      ],
+      "coords": [
+       -2097.92749023438,
+       -18137.724609375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "5E6FC6",
+        "source_type": "ambush",
+        "coords": [
+         -2097.92749023438,
+         -18137.724609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Dent & Sons Construction",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B912A"
+      ],
+      "coords": [
+       -36575.6796875,
+       -155289.328125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "2B912A",
+        "source_type": "ambush",
+        "coords": [
+         -36575.6796875,
+         -155289.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "East Mountain Lookout",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2415B3"
+      ],
+      "coords": [
+       110980.34375,
+       -70107.890625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "2415B3",
+        "source_type": "ambush",
+        "coords": [
+         110980.34375,
+         -70107.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Emmett Mountain Disposal Site",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "308B00",
+       "308B08"
+      ],
+      "coords": [
+       3656.35522460937,
+       2561.46875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "308B00",
+        "source_type": "ambush",
+        "coords": [
+         3656.35522460937,
+         2561.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "308B08",
+        "source_type": "ambush",
+        "coords": [
+         55264.765625,
+         -51419.0859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DD000",
+       "5DD005"
+      ],
+      "coords": [
+       -4079.68603515625,
+       2207.2607421875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "5DD000",
+        "source_type": "ambush",
+        "coords": [
+         -4079.68603515625,
+         2207.2607421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "5DD005",
+        "source_type": "ambush",
+        "coords": [
+         -4979.234375,
+         2399.17724609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Federal Disposal Field HZ-21",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2F8A0A",
+       "2F8A15",
+       "2F8A22"
+      ],
+      "coords": [
+       440.0,
+       -153344.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "2F8A0A",
+        "source_type": "ambush",
+        "coords": [
+         440.0,
+         -153344.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "2F8A15",
+        "source_type": "ambush",
+        "coords": [
+         -1120.0,
+         -152944.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "2F8A22",
+        "source_type": "ambush",
+        "coords": [
+         1304.0,
+         -152544.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Hopewell Cave",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E4026"
+      ],
+      "coords": [
+       114165.265625,
+       115784.03125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "3E4026",
+        "source_type": "ambush",
+        "coords": [
+         114165.265625,
+         115784.03125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Estate",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5A055B",
+       "5A0562",
+       "5A0564"
+      ],
+      "coords": [
+       -54724.9140625,
+       -149413.171875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "5A055B",
+        "source_type": "ambush",
+        "coords": [
+         -55148.62109375,
+         -148793.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "5A0562",
+        "source_type": "ambush",
+        "coords": [
+         -54724.9140625,
+         -149413.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "5A0564",
+        "source_type": "ambush",
+        "coords": [
+         -55269.765625,
+         -149528.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Lucky Hole Mine",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E1DE8",
+       "3E1DED",
+       "3E1DF2"
+      ],
+      "coords": [
+       887.134582519531,
+       -7799.865234375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3E1DE8",
+        "source_type": "ambush",
+        "coords": [
+         887.134582519531,
+         -7799.865234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3E1DED",
+        "source_type": "ambush",
+        "coords": [
+         1524.19702148438,
+         -7956.47509765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3E1DF2",
+        "source_type": "ambush",
+        "coords": [
+         200.644317626953,
+         -6833.1005859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Metal Dome",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B9138"
+      ],
+      "coords": [
+       68808.1015625,
+       102162.2265625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "2B9138",
+        "source_type": "ambush",
+        "coords": [
+         68808.1015625,
+         102162.2265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "National Isolated Radio Array",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3086E1"
+      ],
+      "coords": [
+       87822.7109375,
+       -41050.203125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "3086E1",
+        "source_type": "ambush",
+        "coords": [
+         87822.7109375,
+         -41050.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Palace of the Winding Path",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D4EB1"
+      ],
+      "coords": [
+       59848.6953125,
+       171134.234375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "3D4EB1",
+        "source_type": "ambush",
+        "coords": [
+         59848.6953125,
+         171134.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Pleasant Valley Cabins",
+      "count": 7,
+      "sources": {
+       "ambush": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "308BF2",
+       "308BF8",
+       "308BFD",
+       "3097F5",
+       "54626C",
+       "546271",
+       "546272"
+      ],
+      "coords": [
+       45689.96484375,
+       24752.724609375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "308BF2",
+        "source_type": "ambush",
+        "coords": [
+         45471.3125,
+         24802.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "308BF8",
+        "source_type": "ambush",
+        "coords": [
+         45689.96484375,
+         24752.724609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "308BFD",
+        "source_type": "ambush",
+        "coords": [
+         45766.1171875,
+         24896.7109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "3097F5",
+        "source_type": "ambush",
+        "coords": [
+         50675.6953125,
+         27313.69921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "54626C",
+        "source_type": "ambush",
+        "coords": [
+         47887.734375,
+         22851.298828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "546271",
+        "source_type": "ambush",
+        "coords": [
+         47832.6015625,
+         22689.298828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #7",
+        "ref": "546272",
+        "source_type": "ambush",
+        "coords": [
+         47844.04296875,
+         22893.294921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 7,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Pleasant Valley Ski Resort",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "33346C"
+      ],
+      "coords": [
+       45438.91015625,
+       16890.3203125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "33346C",
+        "source_type": "ambush",
+        "coords": [
+         45438.91015625,
+         16890.3203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Pumpkin House",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D3673",
+       "3D3791"
+      ],
+      "coords": [
+       126552.0,
+       132984.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3D3673",
+        "source_type": "ambush",
+        "coords": [
+         126552.0,
+         132984.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3D3791",
+        "source_type": "ambush",
+        "coords": [
+         126552.0,
+         132984.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Red Rocket Mega Stop",
+      "count": 8,
+      "sources": {
+       "ambush": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D367C",
+       "3D3681",
+       "3D3686",
+       "3D368B",
+       "3D3690",
+       "3D37A4",
+       "3D37A9",
+       "3D37AE"
+      ],
+      "coords": [
+       139448.0,
+       144464.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3D367C",
+        "source_type": "ambush",
+        "coords": [
+         139448.0,
+         144464.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3D3681",
+        "source_type": "ambush",
+        "coords": [
+         139690.3125,
+         144644.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3D3686",
+        "source_type": "ambush",
+        "coords": [
+         140272.0,
+         147368.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "3D368B",
+        "source_type": "ambush",
+        "coords": [
+         134208.0,
+         149424.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "3D3690",
+        "source_type": "ambush",
+        "coords": [
+         140688.0,
+         152000.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "3D37A4",
+        "source_type": "ambush",
+        "coords": [
+         140272.0,
+         147368.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #7",
+        "ref": "3D37A9",
+        "source_type": "ambush",
+        "coords": [
+         134208.0,
+         149424.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #8",
+        "ref": "3D37AE",
+        "source_type": "ambush",
+        "coords": [
+         140688.0,
+         152000.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 8,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Seneca Rocks Visitor Center",
+      "count": 4,
+      "sources": {
+       "ambush": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B85C2",
+       "2B85C6",
+       "2B85CA",
+       "3CD338"
+      ],
+      "coords": [
+       56060.453125,
+       53828.90234375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "2B85C2",
+        "source_type": "ambush",
+        "coords": [
+         52145.76171875,
+         55475.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "2B85C6",
+        "source_type": "ambush",
+        "coords": [
+         52395.7734375,
+         54396.55078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "2B85CA",
+        "source_type": "ambush",
+        "coords": [
+         51924.59375,
+         55221.73046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "3CD338",
+        "source_type": "ambush",
+        "coords": [
+         56060.453125,
+         53828.90234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Sugar Grove",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D35E4",
+       "3D35E8",
+       "3D35ED"
+      ],
+      "coords": [
+       2585.85107421875,
+       2950.93408203125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3D35E4",
+        "source_type": "ambush",
+        "coords": [
+         2585.85107421875,
+         2950.93408203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3D35E8",
+        "source_type": "ambush",
+        "coords": [
+         2529.06372070313,
+         3402.49194335937
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3D35ED",
+        "source_type": "ambush",
+        "coords": [
+         3209.83349609375,
+         3688.46557617188
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Sunnytop Ski Lanes",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C9E9A",
+       "3C9E9F"
+      ],
+      "coords": [
+       87654.375,
+       133724.734375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3C9E9A",
+        "source_type": "ambush",
+        "coords": [
+         87654.375,
+         133724.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3C9E9F",
+        "source_type": "ambush",
+        "coords": [
+         85698.765625,
+         128620.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Sunnytop Ski Lanes Base Lodge",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3DC83F"
+      ],
+      "coords": [
+       97504.359375,
+       144285.28125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "3DC83F",
+        "source_type": "ambush",
+        "coords": [
+         97504.359375,
+         144285.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "The Whitespring Golf Club",
+      "count": 7,
+      "sources": {
+       "ambush": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1F6C1B",
+       "1FABD6",
+       "1FAC0C",
+       "1FC011",
+       "1FC8E2",
+       "1FC939",
+       "3CD478"
+      ],
+      "coords": [
+       -12818.4755859375,
+       -52909.703125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "1F6C1B",
+        "source_type": "ambush",
+        "coords": [
+         -12818.4755859375,
+         -52909.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "1FABD6",
+        "source_type": "ambush",
+        "coords": [
+         -12762.2734375,
+         -52752.2578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "1FAC0C",
+        "source_type": "ambush",
+        "coords": [
+         -12714.59765625,
+         -53232.23046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "1FC011",
+        "source_type": "ambush",
+        "coords": [
+         -12514.53515625,
+         -52884.84375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "1FC8E2",
+        "source_type": "ambush",
+        "coords": [
+         -12543.3515625,
+         -53025.75390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "1FC939",
+        "source_type": "ambush",
+        "coords": [
+         -12546.6494140625,
+         -53166.25390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #7",
+        "ref": "3CD478",
+        "source_type": "ambush",
+        "coords": [
+         -12787.5224609375,
+         -61781.9453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 7,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Uncanny Caverns",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2CB34D"
+      ],
+      "coords": [
+       -41391.875,
+       -89946.0078125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "2CB34D",
+        "source_type": "ambush",
+        "coords": [
+         -41391.875,
+         -89946.0078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "US-13C Bivouac",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "51172F"
+      ],
+      "coords": [
+       99639.8515625,
+       -58250.69921875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "51172F",
+        "source_type": "ambush",
+        "coords": [
+         99639.8515625,
+         -58250.69921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 79",
+      "count": 5,
+      "sources": {
+       "ambush": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "55831A",
+       "558322",
+       "558326",
+       "55832D",
+       "55832F"
+      ],
+      "coords": [
+       -10256.521484375,
+       3477.49340820313
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "55831A",
+        "source_type": "ambush",
+        "coords": [
+         -10256.521484375,
+         3477.49340820313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "558322",
+        "source_type": "ambush",
+        "coords": [
+         -9739.916015625,
+         3517.98217773438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "558326",
+        "source_type": "ambush",
+        "coords": [
+         -10376.4990234375,
+         2549.05688476562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "55832D",
+        "source_type": "ambush",
+        "coords": [
+         -7508.759765625,
+         4340.19775390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "55832F",
+        "source_type": "ambush",
+        "coords": [
+         -7666.00048828125,
+         4312.904296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Whitespring Bunker",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4F49F2"
+      ],
+      "coords": [
+       6346.43505859375,
+       -64975.73828125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "4F49F2",
+        "source_type": "ambush",
+        "coords": [
+         6346.43505859375,
+         -64975.73828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Hemlock Springs Dump",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75C560",
+       "75C562"
+      ],
+      "coords": [
+       72053.0078125,
+       -196334.1875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "75C560",
+        "source_type": "ambush",
+        "coords": [
+         71277.4296875,
+         -197074.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "75C562",
+        "source_type": "ambush",
+        "coords": [
+         72053.0078125,
+         -196334.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Makeout Point",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74F4C0",
+       "74F4C4"
+      ],
+      "coords": [
+       63296.3359375,
+       -199180.359375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "74F4C0",
+        "source_type": "ambush",
+        "coords": [
+         63296.3359375,
+         -199180.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "74F4C4",
+        "source_type": "ambush",
+        "coords": [
+         63318.44140625,
+         -199942.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Shenandoah Visitor Center",
+      "count": 6,
+      "sources": {
+       "ambush": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "744A7C",
+       "744A83",
+       "750613",
+       "750614",
+       "78429D",
+       "78429E"
+      ],
+      "coords": [
+       29740.939453125,
+       -187319.1875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "744A7C",
+        "source_type": "ambush",
+        "coords": [
+         29740.939453125,
+         -187319.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "744A83",
+        "source_type": "ambush",
+        "coords": [
+         33410.875,
+         -188029.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "750613",
+        "source_type": "ambush",
+        "coords": [
+         29866.423828125,
+         -187491.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "750614",
+        "source_type": "ambush",
+        "coords": [
+         34412.51171875,
+         -189158.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "78429D",
+        "source_type": "ambush",
+        "coords": [
+         1302.32409667969,
+         2745.90258789062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "78429E",
+        "source_type": "ambush",
+        "coords": [
+         2270.91943359375,
+         3171.62548828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 6,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Shining Creek Cavern",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "718108",
+       "718109"
+      ],
+      "coords": [
+       -3961.55029296875,
+       3072.47143554687
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "718108",
+        "source_type": "ambush",
+        "coords": [
+         -3961.55029296875,
+         3072.47143554687
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "718109",
+        "source_type": "ambush",
+        "coords": [
+         -3530.0,
+         2366.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "The Brown House",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "773A9D",
+       "773AA1"
+      ],
+      "coords": [
+       2400.0,
+       -1388.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "773A9D",
+        "source_type": "ambush",
+        "coords": [
+         2400.0,
+         -1388.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "773AA1",
+        "source_type": "ambush",
+        "coords": [
+         2144.0,
+         -1000.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Abandoned Bunker",
+      "count": 5,
+      "sources": {
+       "ambush": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "37B0A3",
+       "38AF86",
+       "38AF8A",
+       "58B695",
+       "58B697"
+      ],
+      "coords": [
+       1253.84436035156,
+       1820.31030273438
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "37B0A3",
+        "source_type": "ambush",
+        "coords": [
+         1253.84436035156,
+         1820.31030273438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "38AF86",
+        "source_type": "ambush",
+        "coords": [
+         -529.310119628906,
+         2473.0634765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "38AF8A",
+        "source_type": "ambush",
+        "coords": [
+         -616.365844726563,
+         2535.41967773438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "58B695",
+        "source_type": "ambush",
+        "coords": [
+         365.381652832031,
+         2243.94677734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "58B697",
+        "source_type": "ambush",
+        "coords": [
+         1167.44482421875,
+         1579.01110839844
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Abbie's Bunker",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "308708",
+       "308712"
+      ],
+      "coords": [
+       1464.61401367187,
+       1341.59497070312
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "308708",
+        "source_type": "ambush",
+        "coords": [
+         1464.61401367187,
+         1341.59497070312
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "308712",
+        "source_type": "ambush",
+        "coords": [
+         1168.888671875,
+         1369.66809082031
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Berkeley Springs",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "308676"
+      ],
+      "coords": [
+       131933.203125,
+       24716.732421875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "308676",
+        "source_type": "ambush",
+        "coords": [
+         131933.203125,
+         24716.732421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Carson Family Bunker",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2E319C",
+       "2E3E6A",
+       "2E3FA4"
+      ],
+      "coords": [
+       940.156311035156,
+       979.41162109375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "2E319C",
+        "source_type": "ambush",
+        "coords": [
+         -685.365112304687,
+         1040.74279785156
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "2E3E6A",
+        "source_type": "ambush",
+        "coords": [
+         940.156311035156,
+         979.41162109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "2E3FA4",
+        "source_type": "ambush",
+        "coords": [
+         -753.944396972656,
+         1149.89855957031
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Crevasse Dam",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3096F3",
+       "3096F8"
+      ],
+      "coords": [
+       182877.921875,
+       80130.609375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3096F3",
+        "source_type": "ambush",
+        "coords": [
+         182877.921875,
+         80130.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3096F8",
+        "source_type": "ambush",
+        "coords": [
+         184421.390625,
+         80125.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Dagger's Den",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5C4F84"
+      ],
+      "coords": [
+       4813.72216796875,
+       1622.7177734375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "5C4F84",
+        "source_type": "ambush",
+        "coords": [
+         4813.72216796875,
+         1622.7177734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Wilderness",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "37E22F",
+       "37E235"
+      ],
+      "coords": [
+       158243.984375,
+       87088.1640625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "37E22F",
+        "source_type": "ambush",
+        "coords": [
+         158243.984375,
+         87088.1640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "37E235",
+        "source_type": "ambush",
+        "coords": [
+         152515.0625,
+         85361.9453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Dyer Chemical",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D3B0B",
+       "3D3B1D",
+       "3D3B22"
+      ],
+      "coords": [
+       176856.046875,
+       65055.8515625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3D3B0B",
+        "source_type": "ambush",
+        "coords": [
+         174088.046875,
+         61591.87890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3D3B1D",
+        "source_type": "ambush",
+        "coords": [
+         176856.046875,
+         65055.8515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3D3B22",
+        "source_type": "ambush",
+        "coords": [
+         177480.046875,
+         61055.8515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Dyer Chemical Sewer",
+      "count": 4,
+      "sources": {
+       "ambush": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D3AEA",
+       "3D3AFC",
+       "3D3B01",
+       "3D3B06"
+      ],
+      "coords": [
+       8537.357421875,
+       1277.45495605469
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3D3AEA",
+        "source_type": "ambush",
+        "coords": [
+         8537.357421875,
+         1277.45495605469
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3D3AFC",
+        "source_type": "ambush",
+        "coords": [
+         5826.39013671875,
+         3495.943359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3D3B01",
+        "source_type": "ambush",
+        "coords": [
+         12465.2421875,
+         6621.49267578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "3D3B06",
+        "source_type": "ambush",
+        "coords": [
+         12124.1318359375,
+         4813.11962890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Harpers Ferry Tunnel",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6083A7"
+      ],
+      "coords": [
+       3182.20947265625,
+       1536.23010253906
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "6083A7",
+        "source_type": "ambush",
+        "coords": [
+         3182.20947265625,
+         1536.23010253906
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Haven Church",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58B699",
+       "58B6AD"
+      ],
+      "coords": [
+       177091.453125,
+       36155.7578125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "58B699",
+        "source_type": "ambush",
+        "coords": [
+         177091.453125,
+         36155.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "58B6AD",
+        "source_type": "ambush",
+        "coords": [
+         177496.171875,
+         34744.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Raleigh Clay's Bunker",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "308738",
+       "308759",
+       "30875F"
+      ],
+      "coords": [
+       673.662170410156,
+       2608.88305664062
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "308738",
+        "source_type": "ambush",
+        "coords": [
+         963.690124511719,
+         1919.37158203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "308759",
+        "source_type": "ambush",
+        "coords": [
+         673.662170410156,
+         2608.88305664062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "30875F",
+        "source_type": "ambush",
+        "coords": [
+         572.147888183594,
+         2927.9765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Sunday Brothers' Cabin",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "651B46"
+      ],
+      "coords": [
+       138308.78125,
+       1926.20788574219
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "651B46",
+        "source_type": "ambush",
+        "coords": [
+         138308.78125,
+         1926.20788574219
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Power",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D5BC3",
+       "3D5BC7"
+      ],
+      "coords": [
+       -1637.7998046875,
+       -948.293579101562
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3D5BC3",
+        "source_type": "ambush",
+        "coords": [
+         -1637.7998046875,
+         -948.293579101562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3D5BC7",
+        "source_type": "ambush",
+        "coords": [
+         -2279.39721679687,
+         -957.940246582031
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": [
+     {
+      "marker": "The Foundry",
+      "count": 6,
+      "sources": {
+       "ambush": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6611FF",
+       "661239",
+       "6612EF",
+       "6612F8",
+       "6612FD",
+       "66137D"
+      ],
+      "coords": [
+       2630.64233398438,
+       10353.62890625
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "6611FF",
+        "source_type": "ambush",
+        "coords": [
+         2630.64233398438,
+         10353.62890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "661239",
+        "source_type": "ambush",
+        "coords": [
+         -562.57373046875,
+         10672.9296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "6612EF",
+        "source_type": "ambush",
+        "coords": [
+         6124.25732421875,
+         8455.1025390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "6612F8",
+        "source_type": "ambush",
+        "coords": [
+         6039.10009765625,
+         3266.66723632812
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "6612FD",
+        "source_type": "ambush",
+        "coords": [
+         6098.54638671875,
+         4368.50830078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "66137D",
+        "source_type": "ambush",
+        "coords": [
+         5132.3505859375,
+         7397.943359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 6,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "The Pitt - Industrial",
+      "count": 13,
+      "sources": {
+       "ambush": 13
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "660F19",
+       "660F20",
+       "660F23",
+       "660F28",
+       "660F2D",
+       "660F3E",
+       "660F44",
+       "660F4C",
+       "660F52",
+       "660F59",
+       "660F5E",
+       "660F63",
+       "6638DD"
+      ],
+      "coords": [
+       -3347.98266601562,
+       -5854.81982421875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "660F19",
+        "source_type": "ambush",
+        "coords": [
+         -2966.078125,
+         -6197.97607421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "660F20",
+        "source_type": "ambush",
+        "coords": [
+         -3347.98266601562,
+         -5854.81982421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "660F23",
+        "source_type": "ambush",
+        "coords": [
+         -4461.30810546875,
+         -8259.4443359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "660F28",
+        "source_type": "ambush",
+        "coords": [
+         -3989.74755859375,
+         -4695.32958984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "660F2D",
+        "source_type": "ambush",
+        "coords": [
+         -331.979400634766,
+         -5278.2939453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "660F3E",
+        "source_type": "ambush",
+        "coords": [
+         -4347.40283203125,
+         -8528.916015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #7",
+        "ref": "660F44",
+        "source_type": "ambush",
+        "coords": [
+         -8632.4716796875,
+         -3331.89672851562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #8",
+        "ref": "660F4C",
+        "source_type": "ambush",
+        "coords": [
+         -10733.6083984375,
+         -2661.466796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #9",
+        "ref": "660F52",
+        "source_type": "ambush",
+        "coords": [
+         -11184.517578125,
+         -6764.5634765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #10",
+        "ref": "660F59",
+        "source_type": "ambush",
+        "coords": [
+         -1110.50708007812,
+         -5816.06396484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #11",
+        "ref": "660F5E",
+        "source_type": "ambush",
+        "coords": [
+         -12501.8662109375,
+         -766.87451171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #12",
+        "ref": "660F63",
+        "source_type": "ambush",
+        "coords": [
+         -14610.349609375,
+         880.646423339844
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #13",
+        "ref": "6638DD",
+        "source_type": "ambush",
+        "coords": [
+         -9956.767578125,
+         -4356.02978515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 13,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "The Pitt - Trench",
+      "count": 15,
+      "sources": {
+       "ambush": 15
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "663929",
+       "664FE4",
+       "664FE9",
+       "66AEEB",
+       "66AEEF",
+       "66AEFE",
+       "66AF01",
+       "66AF05",
+       "66AF0D",
+       "66AF19",
+       "66AF24",
+       "66AF27",
+       "66AF29",
+       "66AF31",
+       "66AF34"
+      ],
+      "coords": [
+       152.175003051758,
+       1584.56091308594
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "663929",
+        "source_type": "ambush",
+        "coords": [
+         152.175003051758,
+         1584.56091308594
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "664FE4",
+        "source_type": "ambush",
+        "coords": [
+         -13463.5771484375,
+         -11070.2021484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "664FE9",
+        "source_type": "ambush",
+        "coords": [
+         -14378.76171875,
+         -10751.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "66AEEB",
+        "source_type": "ambush",
+        "coords": [
+         -4384.84130859375,
+         -12723.60546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #5",
+        "ref": "66AEEF",
+        "source_type": "ambush",
+        "coords": [
+         57.2404441833496,
+         -2599.30200195313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #6",
+        "ref": "66AEFE",
+        "source_type": "ambush",
+        "coords": [
+         -4969.21923828125,
+         -1354.44140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #7",
+        "ref": "66AF01",
+        "source_type": "ambush",
+        "coords": [
+         -7341.13818359375,
+         -4988.2275390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #8",
+        "ref": "66AF05",
+        "source_type": "ambush",
+        "coords": [
+         -12346.3427734375,
+         -3984.0283203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #9",
+        "ref": "66AF0D",
+        "source_type": "ambush",
+        "coords": [
+         -4888.0166015625,
+         -9832.9794921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #10",
+        "ref": "66AF19",
+        "source_type": "ambush",
+        "coords": [
+         -3463.41796875,
+         -12369.751953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #11",
+        "ref": "66AF24",
+        "source_type": "ambush",
+        "coords": [
+         -15549.3525390625,
+         -3685.30078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #12",
+        "ref": "66AF27",
+        "source_type": "ambush",
+        "coords": [
+         -14222.7822265625,
+         -577.150512695313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #13",
+        "ref": "66AF29",
+        "source_type": "ambush",
+        "coords": [
+         -16445.771484375,
+         -5641.49951171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #14",
+        "ref": "66AF31",
+        "source_type": "ambush",
+        "coords": [
+         -4584.11083984375,
+         -3113.333984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #15",
+        "ref": "66AF34",
+        "source_type": "ambush",
+        "coords": [
+         -4361.8974609375,
+         -3530.83129882812
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 15,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Clarksburg Shooting Club",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43E840",
+       "43E841",
+       "43E842"
+      ],
+      "coords": [
+       -15775.3984375,
+       169790.171875
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "43E840",
+        "source_type": "ambush",
+        "coords": [
+         -15775.3984375,
+         169790.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "43E841",
+        "source_type": "ambush",
+        "coords": [
+         -16420.640625,
+         170060.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "43E842",
+        "source_type": "ambush",
+        "coords": [
+         -16745.353515625,
+         169282.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Hemlock Holes",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "37D070"
+      ],
+      "coords": [
+       -66840.0,
+       182888.0
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush",
+        "ref": "37D070",
+        "source_type": "ambush",
+        "coords": [
+         -66840.0,
+         182888.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Philippi Battlefield Cemetery",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C70EA",
+       "3C70F0"
+      ],
+      "coords": [
+       39683.828125,
+       173092.78125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3C70EA",
+        "source_type": "ambush",
+        "coords": [
+         39217.72265625,
+         172877.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3C70F0",
+        "source_type": "ambush",
+        "coords": [
+         39683.828125,
+         173092.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Prickett's Fort",
+      "count": 4,
+      "sources": {
+       "ambush": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C70F9",
+       "3C70FE",
+       "3C7104",
+       "3C7109"
+      ],
+      "coords": [
+       60587.0703125,
+       191393.59375
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "3C70F9",
+        "source_type": "ambush",
+        "coords": [
+         65265.796875,
+         195402.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "3C70FE",
+        "source_type": "ambush",
+        "coords": [
+         63446.41796875,
+         190141.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #3",
+        "ref": "3C7104",
+        "source_type": "ambush",
+        "coords": [
+         60587.0703125,
+         191393.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #4",
+        "ref": "3C7109",
+        "source_type": "ambush",
+        "coords": [
+         60737.68359375,
+         189224.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Wavy Willard's Water Park",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "30876A",
+       "30876E"
+      ],
+      "coords": [
+       -31370.958984375,
+       194221.078125
+      ],
+      "spawns": [
+       {
+        "label": "Radroach ambush #1",
+        "ref": "30876A",
+        "source_type": "ambush",
+        "coords": [
+         -31370.958984375,
+         194221.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radroach ambush #2",
+        "ref": "30876E",
+        "source_type": "ambush",
+        "coords": [
+         -32077.083984375,
+         194656.6875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 106,
+  "total_placements": 313
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Aaronholt Homestead",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Abandoned Bunker",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Abandoned Waste Dump",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abbie's Bunker",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Abraxodyne Chemical Power Substation",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Albany",
+    "region": "Burning Springs",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "AMS Headquarters",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Arktos Pharma Biome Lab",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Ash Cave",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 24
+   },
+   {
+    "marker": "Athens",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Atlas Substructure",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "AVR Medical Center",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Beckley",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Berkeley Springs",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Big Al's Tattoo Parlor",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Big B's Rest Stop",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Bootlegger's Shack",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Camden Park",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Camp McClintock",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Camp Venture",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Carleton Mine",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Carson Family Bunker",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Casino Quarter",
+    "region": "Atlantic City",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Charleston Landfill",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Clarksburg Shooting Club",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Community Center",
+    "region": "Atlantic City",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Cow Spots Creamery",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Crevasse Dam",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Dagger's Den",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dent & Sons Construction",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dino Peaks Mini Golf",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 31
+   },
+   {
+    "marker": "Dolly Sods Wilderness",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Duncan & Duncan Robotics",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Dyer Chemical",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Dyer Chemical Sewer",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "East Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Emmett Mountain Disposal Site",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Enclave Research Facility",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Federal Disposal Field HZ-21",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Flatwoods",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Flooded City Center",
+    "region": "Atlantic City",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Flooded Trainyard",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Fort Defiance",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Fort Steuben",
+    "region": "Burning Springs",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Garrahan Estate",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Gorge Junkyard",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Grafton",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Glowing Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Green Country Lodge",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Hamley Run Camp",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 13
+   },
+   {
+    "marker": "Harpers Ferry Tunnel",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Haven Church",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hemlock Holes",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Hemlock Holes Maintenance",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Hemlock Springs Dump",
+    "region": "Skyline Valley",
+    "chance_value": 0.1438,
+    "chance_display": "14.4%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "High Knob Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Highway Town",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Hocking Hills Train Station",
+    "region": "Burning Springs",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 18
+   },
+   {
+    "marker": "Honey Well Apiary",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Hopewell Cave",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Hornwright Estate",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Hornwright Industrial HQ",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Jackson Junkyard",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Johnson's Acre",
+    "region": "Skyline Valley",
+    "chance_value": 0.1438,
+    "chance_display": "14.4%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Kanawha Nuka-Cola Plant",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Kerwood Mine",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Landview Lighthouse",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Lucky Hole Mine",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Makeout Point",
+    "region": "Skyline Valley",
+    "chance_value": 0.1111,
+    "chance_display": "11.1%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Mama Dolce's Food Processing",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Meadow Breeze Storage Depot",
+    "region": "Burning Springs",
+    "chance_value": 0.0312,
+    "chance_display": "3.1%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Metal Dome",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Morgantown",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Morgantown High School",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Moth-Home",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Mount Blair",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Mount Blair Trainyard",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "National Isolated Radio Array",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "North Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Old Rag Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Organ Cave",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Organ Cave North",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Orwell Bomb Shelter",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Palace of the Winding Path",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Philippi Battlefield Cemetery",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Pi House",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Pleasant Valley Cabins",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Pleasant Valley Ski Resort",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Point Pleasant",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Poseidon Power Substation PX-02",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Prickett's Fort",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Prospect Hill",
+    "region": "Burning Springs",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 10
+   },
+   {
+    "marker": "Pumpkin House",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Radio Astronomy Research Center",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Railroad Service Yard",
+    "region": "Burning Springs",
+    "chance_value": 0.0476,
+    "chance_display": "4.8%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Raleigh Clay's Bunker",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Red Rocket Mega Stop",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "RobCo Auto-Cache #001",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "RobCo Research Center",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Sal's Grinders",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Sanctum",
+    "region": "The Pitt",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sand Fork Lumber",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Sandy's Sock Hop",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Seneca Rocks Visitor Center",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Shade Hill Church",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Shenandoah Visitor Center",
+    "region": "Skyline Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 17
+   },
+   {
+    "marker": "Shining Creek Cavern",
+    "region": "Skyline Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Silva Homestead",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Skullbone Vantage",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Slumber Mill Motel",
+    "region": "Skyline Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Starlight Drive-in",
+    "region": "Burning Springs",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Striker Row",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sugar Grove",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Summersville Docks",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Sunday Brothers' Cabin",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Sunnytop Ski Lanes",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sunnytop Ski Lanes Base Lodge",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Super Duper Mart",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Susan's Cabin",
+    "region": "Skyline Valley",
+    "chance_value": 0.1438,
+    "chance_display": "14.4%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "The Brown House",
+    "region": "Skyline Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Chop Shop",
+    "region": "Burning Springs",
+    "chance_value": 0.1176,
+    "chance_display": "11.8%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "The Foundry",
+    "region": "The Pitt",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "The Giant Teapot",
+    "region": "Forest",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Neapolitan Casino",
+    "region": "Atlantic City",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Pitt - Industrial",
+    "region": "The Pitt",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 13
+   },
+   {
+    "marker": "The Pitt - Trench",
+    "region": "The Pitt",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 15
+   },
+   {
+    "marker": "The Rust Kingdom",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "The Whitespring Golf Club",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Thunder Mountain Power",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Tycoon Lake",
+    "region": "Burning Springs",
+    "chance_value": 0.037,
+    "chance_display": "3.7%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Tyler County Fairgrounds",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Uncanny Caverns",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "US-13C Bivouac",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Valley Galleria",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Van Lowe Taxidermy",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Vault 79",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Vault-Tec University",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Veiled Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Watoga Underground",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Wavy Willard's Water Park",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Whitespring Bunker",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "World of Corn",
+    "region": "Burning Springs",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Radroach"
+    ],
+    "count": 10
+   }
+  ],
+  "total": 142,
+  "note": null
+ },
+ "blurb": "The Radroach in Fallout 76 — drops Radroach Meat, 15 NPC variants, 313 known spawn points."
+}

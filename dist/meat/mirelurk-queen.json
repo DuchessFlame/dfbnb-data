@@ -2,10 +2,13 @@
  "_meta": {
   "generated": "2026-08-23",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
-  "races": [],
+  "races": [
+   {
+    "edid": "MirelurkQueenRace"
+   }
+  ],
   "source_totals": {
-   "ambush": 16,
-   "placement": 10
+   "ambush": 16
   },
   "unresolved": {}
  },
@@ -13,14 +16,20 @@
  "slug": "mirelurk-queen",
  "name": "Mirelurk Queen",
  "page_title": "Farming - Meat - Mirelurk Queen",
- "url": "/bnb/farming/meat/mirelurk-queen/",
+ "url": "/bnb/farming/meat/mirelurk-queen/mirelurk-queen-location-guide/",
  "npc_summary": {
-  "npc_count": 0,
-  "level_min": null,
-  "level_max": null,
-  "health_max": null
+  "npc_count": 22,
+  "level_min": 20,
+  "level_max": 100,
+  "health_max": 8500
  },
- "meat_items": [],
+ "meat_items": [
+  {
+   "name": "Queen Mirelurk Meat",
+   "form_id": "0020D3DE",
+   "rate_display": "100%"
+  }
+ ],
  "used_for": [
   {
    "type": "Daily",
@@ -89,9 +98,388 @@
  "farming_tips": null,
  "events_activities": [],
  "drops": {
-  "lists": [],
+  "lists": [
+   {
+    "edid": "LLD_Creature_MirelurkQueen",
+    "form_id": "0020D3DF",
+    "row_count": 6,
+    "direct_items": 1,
+    "pool_count": 5,
+    "item_count": 1128,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Loot Contextual Open World",
+      "sub_id": "006CD246",
+      "edid": "LL_Ammo_Loot_Contextual_OpenWorld",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "42.75%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "23.75%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Mirelurk Queen",
+      "sub_id": "00434389",
+      "edid": "LLE_Creature_Boss_Component_MirelurkQueen",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Fiberglass Spool",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Loose Gears",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Stimpak Or Rads All",
+      "sub_id": "002AD640",
+      "edid": "LLS_Loot_Stimpak_Or_Rads_All",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Stimpak",
+        "rate_display": "45%"
+       },
+       {
+        "name": "RadAway: Diluted",
+        "rate_display": "17.5%"
+       },
+       {
+        "name": "Rad-X: Diluted",
+        "rate_display": "17.5%"
+       },
+       {
+        "name": "RadAway",
+        "rate_display": "7.5%"
+       },
+       {
+        "name": "Rad-X",
+        "rate_display": "7.5%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Queen Mirelurk Meat",
+      "form_id": "0020D3DE",
+      "edid": "MirelurkQueenMeat",
+      "sig": "ALCH",
+      "qty": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Weapons Ranged Short 25",
+      "sub_id": "000673B3",
+      "edid": "LL_Weapons_Ranged_Short_25",
+      "item_count": 7,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Pipe",
+        "rate_display": "5%"
+       },
+       {
+        "name": "Pipe Revolver",
+        "rate_display": "5%"
+       },
+       {
+        "name": "10mm",
+        "rate_display": "5%"
+       },
+       {
+        "name": ".44",
+        "rate_display": "2.5%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Armor Marine Underarmor Set",
+      "sub_id": "0034E967",
+      "edid": "LL_Armor_Marine_Underarmor_Set",
+      "item_count": 2,
+      "rate_value": 0.03,
+      "rate_display": "3%",
+      "top_items": [
+       {
+        "name": "Marine Wetsuit",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Marine Tactical Helmet",
+        "rate_display": "100%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_MirelurkQueenEmpty",
+    "form_id": "0049508E",
+    "row_count": 1,
+    "direct_items": 1,
+    "pool_count": 0,
+    "item_count": 1,
+    "rows": [
+     {
+      "kind": "item",
+      "name": "Queen Mirelurk Meat",
+      "form_id": "0020D3DE",
+      "edid": "MirelurkQueenMeat",
+      "sig": "ALCH",
+      "qty": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_MirelurkQueen_PartyCrasher",
+    "form_id": "0089740D",
+    "row_count": 9,
+    "direct_items": 2,
+    "pool_count": 7,
+    "item_count": 1137,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Loot Contextual Open World",
+      "sub_id": "006CD246",
+      "edid": "LL_Ammo_Loot_Contextual_OpenWorld",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "42.75%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "23.75%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Mirelurk Queen",
+      "sub_id": "00434389",
+      "edid": "LLE_Creature_Boss_Component_MirelurkQueen",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Fiberglass Spool",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Loose Gears",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Stimpak Or Rads All",
+      "sub_id": "002AD640",
+      "edid": "LLS_Loot_Stimpak_Or_Rads_All",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Stimpak",
+        "rate_display": "45%"
+       },
+       {
+        "name": "RadAway: Diluted",
+        "rate_display": "17.5%"
+       },
+       {
+        "name": "Rad-X: Diluted",
+        "rate_display": "17.5%"
+       },
+       {
+        "name": "RadAway",
+        "rate_display": "7.5%"
+       },
+       {
+        "name": "Rad-X",
+        "rate_display": "7.5%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Queen Mirelurk Meat",
+      "form_id": "0020D3DE",
+      "edid": "MirelurkQueenMeat",
+      "sig": "ALCH",
+      "qty": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "RA LLS Loot Legendary3Star",
+      "sub_id": "0086A8A9",
+      "edid": "RA_LLS_Loot_Legendary3Star",
+      "item_count": 4,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Legendary Items Power Armor Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Weapons Melee Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Weapons Ranged Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Armor Rank3",
+        "rate_display": "25%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "RA LLS Loot Legendary3Star",
+      "sub_id": "0086A8A9",
+      "edid": "RA_LLS_Loot_Legendary3Star",
+      "item_count": 4,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Legendary Items Power Armor Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Weapons Melee Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Weapons Ranged Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Armor Rank3",
+        "rate_display": "25%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Weapons Ranged Short 25",
+      "sub_id": "000673B3",
+      "edid": "LL_Weapons_Ranged_Short_25",
+      "item_count": 7,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Pipe",
+        "rate_display": "5%"
+       },
+       {
+        "name": "Pipe Revolver",
+        "rate_display": "5%"
+       },
+       {
+        "name": "10mm",
+        "rate_display": "5%"
+       },
+       {
+        "name": ".44",
+        "rate_display": "2.5%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Player Title: Uninvited",
+      "form_id": "008AA951",
+      "edid": "PlayerTitle_Recipe_Prefix_Uninvited",
+      "sig": "BOOK",
+      "qty": 1,
+      "rate_value": 0.971429,
+      "rate_display": "97.14%"
+     },
+     {
+      "kind": "pool",
+      "name": "Armor Marine Underarmor Set",
+      "sub_id": "0034E967",
+      "edid": "LL_Armor_Marine_Underarmor_Set",
+      "item_count": 2,
+      "rate_value": 0.03,
+      "rate_display": "3%",
+      "top_items": [
+       {
+        "name": "Marine Wetsuit",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Marine Tactical Helmet",
+        "rate_display": "100%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
   "inherited_only": false,
-  "empty_reason": "none"
+  "empty_reason": ""
  },
  "random_encounters": [],
  "fixed_spawns": {
@@ -112,86 +500,20 @@
     "region": "Cranberry Bog",
     "locations": [
      {
-      "marker": "Glassed Cavern",
-      "count": 3,
-      "sources": {
-       "placement": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "437B3D",
-       "52FBFB",
-       "53049D"
-      ],
-      "coords": [
-       5898.8,
-       -8981.8
-      ],
-      "spawns": [
-       {
-        "label": "Mirelurk Queen spawn #1",
-        "ref": "437B3D",
-        "source_type": "placement",
-        "coords": [
-         5898.8,
-         -8981.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mirelurk Queen spawn #2",
-        "ref": "52FBFB",
-        "source_type": "placement",
-        "coords": [
-         -8482.2,
-         6228.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mirelurk Queen spawn #3",
-        "ref": "53049D",
-        "source_type": "placement",
-        "coords": [
-         -5587.2,
-         2893.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 3,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
       "marker": "Mac's Farm",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "3AB961",
-       "3AB962"
+       "3AB961"
       ],
       "coords": [
-       170060.1,
-       -72949.6
+       170060.140625,
+       -72949.6328125
       ],
       "spawns": [
        {
@@ -199,20 +521,8 @@
         "ref": "3AB961",
         "source_type": "ambush",
         "coords": [
-         170060.1,
-         -72949.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mirelurk Queen spawn",
-        "ref": "3AB962",
-        "source_type": "placement",
-        "coords": [
-         169998.3,
-         -72543.0
+         170060.140625,
+         -72949.6328125
         ],
         "image_top": "",
         "directions": "",
@@ -224,32 +534,25 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Quarry X3",
-      "count": 3,
+      "count": 2,
       "sources": {
-       "ambush": 2,
-       "placement": 1
+       "ambush": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "37FAB1",
        "3AB986",
        "43E31D"
       ],
       "coords": [
-       157416.0,
-       -114280.9
+       157415.984375,
+       -114280.90625
       ],
       "spawns": [
        {
@@ -257,8 +560,8 @@
         "ref": "3AB986",
         "source_type": "ambush",
         "coords": [
-         157416.0,
-         -114280.9
+         157415.984375,
+         -114280.90625
         ],
         "image_top": "",
         "directions": "",
@@ -269,20 +572,8 @@
         "ref": "43E31D",
         "source_type": "ambush",
         "coords": [
-         159096.0,
-         -112952.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mirelurk Queen spawn",
-        "ref": "37FAB1",
-        "source_type": "placement",
-        "coords": [
-         158218.6,
-         -109605.4
+         159095.984375,
+         -112952.90625
         ],
         "image_top": "",
         "directions": "",
@@ -294,31 +585,24 @@
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Sunrise Field",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "360FAB",
        "360FC3"
       ],
       "coords": [
-       153102.0,
-       -164086.2
+       153101.953125,
+       -164086.25
       ],
       "spawns": [
        {
@@ -326,20 +610,8 @@
         "ref": "360FC3",
         "source_type": "ambush",
         "coords": [
-         153102.0,
-         -164086.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mirelurk Queen spawn",
-        "ref": "360FAB",
-        "source_type": "placement",
-        "coords": [
-         153404.5,
-         -163520.2
+         153101.953125,
+         -164086.25
         ],
         "image_top": "",
         "directions": "",
@@ -351,11 +623,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
        }
       ]
      }
@@ -367,46 +634,7 @@
    },
    {
     "region": "Savage Divide",
-    "locations": [
-     {
-      "marker": "Spruce Knob Lake",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "4EC26A"
-      ],
-      "coords": [
-       34507.5,
-       -122422.7
-      ],
-      "spawns": [
-       {
-        "label": "Mirelurk Queen spawn",
-        "ref": "4EC26A",
-        "source_type": "placement",
-        "coords": [
-         34507.5,
-         -122422.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     }
-    ]
+    "locations": []
    },
    {
     "region": "Skyline Valley",
@@ -428,8 +656,8 @@
        "1486B0"
       ],
       "coords": [
-       189365.0,
-       23610.9
+       189365.03125,
+       23610.9140625
       ],
       "spawns": [
        {
@@ -437,8 +665,8 @@
         "ref": "1486B0",
         "source_type": "ambush",
         "coords": [
-         189365.0,
-         23610.9
+         189365.03125,
+         23610.9140625
         ],
         "image_top": "",
         "directions": "",
@@ -466,8 +694,8 @@
        "1473B5"
       ],
       "coords": [
-       146708.2,
-       58494.7
+       146708.25,
+       58494.71875
       ],
       "spawns": [
        {
@@ -475,8 +703,8 @@
         "ref": "1473B5",
         "source_type": "ambush",
         "coords": [
-         146708.2,
-         58494.7
+         146708.25,
+         58494.71875
         ],
         "image_top": "",
         "directions": "",
@@ -504,8 +732,8 @@
        "144D05"
       ],
       "coords": [
-       163836.6,
-       100300.3
+       163836.640625,
+       100300.328125
       ],
       "spawns": [
        {
@@ -513,8 +741,8 @@
         "ref": "144D05",
         "source_type": "ambush",
         "coords": [
-         163836.6,
-         100300.3
+         163836.640625,
+         100300.328125
         ],
         "image_top": "",
         "directions": "",
@@ -542,8 +770,8 @@
        "058AFA"
       ],
       "coords": [
-       174445.7,
-       -6374.4
+       174445.703125,
+       -6374.39404296875
       ],
       "spawns": [
        {
@@ -551,8 +779,8 @@
         "ref": "058AFA",
         "source_type": "ambush",
         "coords": [
-         174445.7,
-         -6374.4
+         174445.703125,
+         -6374.39404296875
         ],
         "image_top": "",
         "directions": "",
@@ -580,8 +808,8 @@
        "450119"
       ],
       "coords": [
-       172981.4,
-       132991.0
+       172981.375,
+       132991.03125
       ],
       "spawns": [
        {
@@ -589,8 +817,8 @@
         "ref": "450119",
         "source_type": "ambush",
         "coords": [
-         172981.4,
-         132991.0
+         172981.375,
+         132991.03125
         ],
         "image_top": "",
         "directions": "",
@@ -607,22 +835,19 @@
      },
      {
       "marker": "Mire's Eye",
-      "count": 3,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 2
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "450236",
-       "450238",
-       "5B6F5E"
+       "450238"
       ],
       "coords": [
-       197526.2,
-       186074.4
+       197526.1875,
+       186074.359375
       ],
       "spawns": [
        {
@@ -630,32 +855,8 @@
         "ref": "450238",
         "source_type": "ambush",
         "coords": [
-         197526.2,
-         186074.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mirelurk Queen spawn #1",
-        "ref": "450236",
-        "source_type": "placement",
-        "coords": [
-         197569.7,
-         185642.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mirelurk Queen spawn #2",
-        "ref": "5B6F5E",
-        "source_type": "placement",
-        "coords": [
-         433.2,
-         -310.1
+         197526.1875,
+         186074.359375
         ],
         "image_top": "",
         "directions": "",
@@ -667,11 +868,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
        }
       ]
      },
@@ -688,8 +884,8 @@
        "2AB0E4"
       ],
       "coords": [
-       174965.5,
-       34484.5
+       174965.453125,
+       34484.51953125
       ],
       "spawns": [
        {
@@ -697,8 +893,8 @@
         "ref": "2AB0E4",
         "source_type": "ambush",
         "coords": [
-         174965.5,
-         34484.5
+         174965.453125,
+         34484.51953125
         ],
         "image_top": "",
         "directions": "",
@@ -715,21 +911,19 @@
      },
      {
       "marker": "The Retreat",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "450286",
        "450287"
       ],
       "coords": [
-       158867.0,
-       35426.8
+       158867.015625,
+       35426.7578125
       ],
       "spawns": [
        {
@@ -737,20 +931,8 @@
         "ref": "450287",
         "source_type": "ambush",
         "coords": [
-         158867.0,
-         35426.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mirelurk Queen spawn",
-        "ref": "450286",
-        "source_type": "placement",
-        "coords": [
-         158896.9,
-         35745.9
+         158867.015625,
+         35426.7578125
         ],
         "image_top": "",
         "directions": "",
@@ -762,11 +944,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
        }
       ]
      }
@@ -794,8 +971,8 @@
        "346BF0"
       ],
       "coords": [
-       -28414.8,
-       172757.9
+       -28414.826171875,
+       172757.9375
       ],
       "spawns": [
        {
@@ -803,8 +980,8 @@
         "ref": "346BEC",
         "source_type": "ambush",
         "coords": [
-         -28414.8,
-         172757.9
+         -28414.826171875,
+         172757.9375
         ],
         "image_top": "",
         "directions": "",
@@ -815,8 +992,8 @@
         "ref": "346BEE",
         "source_type": "ambush",
         "coords": [
-         -28051.7,
-         174505.7
+         -28051.67578125,
+         174505.671875
         ],
         "image_top": "",
         "directions": "",
@@ -827,8 +1004,8 @@
         "ref": "346BF0",
         "source_type": "ambush",
         "coords": [
-         -26035.3,
-         170604.7
+         -26035.34765625,
+         170604.71875
         ],
         "image_top": "",
         "directions": "",
@@ -856,8 +1033,8 @@
        "451F44"
       ],
       "coords": [
-       -20241.2,
-       179499.2
+       -20241.25,
+       179499.171875
       ],
       "spawns": [
        {
@@ -865,8 +1042,8 @@
         "ref": "451F44",
         "source_type": "ambush",
         "coords": [
-         -20241.2,
-         179499.2
+         -20241.25,
+         179499.171875
         ],
         "image_top": "",
         "directions": "",
@@ -884,13 +1061,84 @@
     ]
    }
   ],
-  "total_markers": 15,
-  "total_placements": 26
+  "total_markers": 13,
+  "total_placements": 16
  },
- "blurb": "The Mirelurk Queen in Fallout 76 — drops Queen Mirelurk Meat, 22 NPC variants, 26 known spawn points.",
- "drop_rates": {
-  "containers": {
-   "types": []
-  }
- }
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Glassed Cavern",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mirelurk Queen"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Mac's Farm",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mirelurk Queen"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Mire's Eye",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mirelurk Queen"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Quarry X3",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mirelurk Queen"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Spruce Knob Lake",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mirelurk Queen"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Sunrise Field",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mirelurk Queen"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Retreat",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mirelurk Queen"
+    ],
+    "count": 1
+   }
+  ],
+  "total": 7,
+  "note": null
+ },
+ "blurb": "The Mirelurk Queen in Fallout 76 — drops Queen Mirelurk Meat, 22 NPC variants, 16 known spawn points."
 }

@@ -2,11 +2,13 @@
  "_meta": {
   "generated": "2026-08-23",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
-  "races": [],
+  "races": [
+   {
+    "edid": "MegaSlothRace"
+   }
+  ],
   "source_totals": {
-   "ambush": 12,
-   "placement": 15,
-   "spawn": 87
+   "ambush": 12
   },
   "unresolved": {}
  },
@@ -14,14 +16,20 @@
  "slug": "megasloth",
  "name": "Megasloth",
  "page_title": "Farming - Meat - Megasloth",
- "url": "/bnb/farming/meat/megasloth/",
+ "url": "/bnb/farming/meat/megasloth/megasloth-location-guide/",
  "npc_summary": {
-  "npc_count": 0,
-  "level_min": null,
-  "level_max": null,
-  "health_max": null
+  "npc_count": 15,
+  "level_min": 20,
+  "level_max": 50,
+  "health_max": 1500
  },
- "meat_items": [],
+ "meat_items": [
+  {
+   "name": "Megasloth Meat",
+   "form_id": "0005303E",
+   "rate_display": "100%"
+  }
+ ],
  "used_for": [
   {
    "type": "Lifetime",
@@ -77,9 +85,161 @@
   }
  ],
  "drops": {
-  "lists": [],
+  "lists": [
+   {
+    "edid": "LLD_Creature_Megasloth",
+    "form_id": "00053032",
+    "row_count": 8,
+    "direct_items": 3,
+    "pool_count": 5,
+    "item_count": 12707,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (very large)",
+      "sub_id": "003DF3DA",
+      "edid": "LLS_Creature_VeryLarge",
+      "item_count": 12636,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "40.18%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "22.32%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Megasloth",
+      "sub_id": "00434388",
+      "edid": "LLE_Creature_Boss_Component_Megasloth",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Silver Scrap",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Loose Screws",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Caps Very Large",
+      "sub_id": "003DF3D7",
+      "edid": "LLE_Creature_Caps_VeryLarge",
+      "item_count": 40,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Caps",
+        "rate_display": "10%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Megasloth Meat",
+      "form_id": "0005303E",
+      "edid": "MegaslothMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Spotlight Back To Nature",
+      "sub_id": "004845CB",
+      "edid": "LLD_Spotlight_BackToNature",
+      "item_count": 19,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Backwoodsman 3",
+        "rate_display": "6.25%"
+       },
+       {
+        "name": "Backwoodsman 5",
+        "rate_display": "6.25%"
+       },
+       {
+        "name": "Guns and Bullets 5",
+        "rate_display": "6.25%"
+       },
+       {
+        "name": "Guns and Bullets 8",
+        "rate_display": "6.25%"
+       },
+       {
+        "name": "Leather Left Arm",
+        "rate_display": "3.33%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Megasloth Claw",
+      "form_id": "003259EA",
+      "edid": "MegaSlothClaw",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.3,
+      "rate_display": "30%"
+     },
+     {
+      "kind": "pool",
+      "name": "Flora Fungus Mega Sloth",
+      "sub_id": "002AB0F4",
+      "edid": "LL_Flora_FungusMegaSloth",
+      "item_count": 3,
+      "rate_value": 0.2,
+      "rate_display": "20%",
+      "top_items": [
+       {
+        "name": "Megasloth Mushroom",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Megasloth Pelt",
+      "form_id": "00053040",
+      "edid": "MegaslothPelt",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.2,
+      "rate_display": "20%"
+     }
+    ]
+   }
+  ],
   "inherited_only": false,
-  "empty_reason": "none"
+  "empty_reason": ""
  },
  "random_encounters": [
   {
@@ -120,892 +280,7 @@
    },
    {
     "region": "Cranberry Bog",
-    "locations": [
-     {
-      "marker": "Abandoned Bog Town",
-      "count": 1,
-      "sources": {
-       "spawn": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "35E73A"
-      ],
-      "coords": [
-       181596.7,
-       -104745.3
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn",
-        "ref": "35E73A",
-        "source_type": "spawn",
-        "coords": [
-         181596.7,
-         -104745.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn point",
-        "count": 1,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Big Bend Tunnel East",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39D1FC",
-       "39D1FD",
-       "39D200",
-       "3D3BA9"
-      ],
-      "coords": [
-       113496.7,
-       -157764.2
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "39D1FC",
-        "source_type": "spawn",
-        "coords": [
-         113496.7,
-         -157764.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "39D1FD",
-        "source_type": "spawn",
-        "coords": [
-         113633.1,
-         -156428.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "39D200",
-        "source_type": "spawn",
-        "coords": [
-         112405.5,
-         -156076.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "3D3BA9",
-        "source_type": "spawn",
-        "coords": [
-         112580.5,
-         -157202.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Drop Site V9",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3A2759",
-       "3A275C",
-       "3D3B95"
-      ],
-      "coords": [
-       185124.0,
-       -163318.1
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "3A2759",
-        "source_type": "spawn",
-        "coords": [
-         185124.0,
-         -163318.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "3A275C",
-        "source_type": "spawn",
-        "coords": [
-         184881.2,
-         -162395.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "3D3B95",
-        "source_type": "spawn",
-        "coords": [
-         185550.1,
-         -163276.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Fissure Site",
-      "count": 2,
-      "sources": {
-       "placement": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "386DF5",
-       "386DF6"
-      ],
-      "coords": [
-       151916.0,
-       -67499.4
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "386DF5",
-        "source_type": "placement",
-        "coords": [
-         151916.0,
-         -67499.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "386DF6",
-        "source_type": "placement",
-        "coords": [
-         153384.8,
-         -65841.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Fissure Site Prime",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "386EDB"
-      ],
-      "coords": [
-       196245.9,
-       -166897.9
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn",
-        "ref": "386EDB",
-        "source_type": "placement",
-        "coords": [
-         196245.9,
-         -166897.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Flooded Trainyard",
-      "count": 9,
-      "sources": {
-       "spawn": 9
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2EFD2C",
-       "3A2742",
-       "3A2743",
-       "3A2746",
-       "3A27BA",
-       "3A27BB",
-       "3A27BE",
-       "3D3B96",
-       "3D3BAD"
-      ],
-      "coords": [
-       183038.0,
-       -134854.2
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "2EFD2C",
-        "source_type": "spawn",
-        "coords": [
-         164600.0,
-         -140205.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "3A2742",
-        "source_type": "spawn",
-        "coords": [
-         166921.7,
-         -135873.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "3A2743",
-        "source_type": "spawn",
-        "coords": [
-         167073.5,
-         -135661.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "3A2746",
-        "source_type": "spawn",
-        "coords": [
-         166864.0,
-         -135680.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #5",
-        "ref": "3A27BA",
-        "source_type": "spawn",
-        "coords": [
-         183038.0,
-         -134854.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #6",
-        "ref": "3A27BB",
-        "source_type": "spawn",
-        "coords": [
-         183189.8,
-         -134642.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #7",
-        "ref": "3A27BE",
-        "source_type": "spawn",
-        "coords": [
-         182980.3,
-         -134660.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #8",
-        "ref": "3D3B96",
-        "source_type": "spawn",
-        "coords": [
-         183189.5,
-         -135239.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #9",
-        "ref": "3D3BAD",
-        "source_type": "spawn",
-        "coords": [
-         183291.7,
-         -134841.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 9,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Glassed Cavern",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2EFDEE",
-       "2EFDEF",
-       "2EFDF0",
-       "2EFDF2",
-       "44D516"
-      ],
-      "coords": [
-       201811.9,
-       -154909.4
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "2EFDEE",
-        "source_type": "spawn",
-        "coords": [
-         201811.9,
-         -154909.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "2EFDEF",
-        "source_type": "spawn",
-        "coords": [
-         202613.4,
-         -155080.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "2EFDF0",
-        "source_type": "spawn",
-        "coords": [
-         201986.2,
-         -155023.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "2EFDF2",
-        "source_type": "spawn",
-        "coords": [
-         202369.2,
-         -155039.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #5",
-        "ref": "44D516",
-        "source_type": "spawn",
-        "coords": [
-         202208.9,
-         -154991.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Overgrown Sundew Grove",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3A2758",
-       "3D3BAF"
-      ],
-      "coords": [
-       185137.7,
-       -163769.3
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "3A2758",
-        "source_type": "spawn",
-        "coords": [
-         185137.7,
-         -163769.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "3D3BAF",
-        "source_type": "spawn",
-        "coords": [
-         185677.2,
-         -164259.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Ranger Lookout",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "399DFF",
-       "399E00",
-       "399E03",
-       "3D3BAB"
-      ],
-      "coords": [
-       148368.5,
-       -79273.4
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "399DFF",
-        "source_type": "spawn",
-        "coords": [
-         148368.5,
-         -79273.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "399E00",
-        "source_type": "spawn",
-        "coords": [
-         150471.4,
-         -79054.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "399E03",
-        "source_type": "spawn",
-        "coords": [
-         149414.5,
-         -80829.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "3D3BAB",
-        "source_type": "spawn",
-        "coords": [
-         147937.6,
-         -81300.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "RobCo Research Center",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "13B79F",
-       "13B7B5"
-      ],
-      "coords": [
-       198111.4,
-       -71028.7
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "13B79F",
-        "source_type": "spawn",
-        "coords": [
-         198111.4,
-         -71028.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "13B7B5",
-        "source_type": "spawn",
-        "coords": [
-         198354.4,
-         -71383.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Sacramental Glade",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2EFDD5",
-       "2EFDE8",
-       "2EFDE9",
-       "2EFDEA",
-       "2EFDEB"
-      ],
-      "coords": [
-       193713.4,
-       -137289.6
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "2EFDD5",
-        "source_type": "spawn",
-        "coords": [
-         193713.4,
-         -137289.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "2EFDE8",
-        "source_type": "spawn",
-        "coords": [
-         193650.2,
-         -136787.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "2EFDE9",
-        "source_type": "spawn",
-        "coords": [
-         194115.1,
-         -136862.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "2EFDEA",
-        "source_type": "spawn",
-        "coords": [
-         193945.8,
-         -137328.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #5",
-        "ref": "2EFDEB",
-        "source_type": "spawn",
-        "coords": [
-         193781.2,
-         -137053.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Watoga",
-      "count": 1,
-      "sources": {
-       "spawn": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "34ECEF"
-      ],
-      "coords": [
-       145141.0,
-       -131002.1
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn",
-        "ref": "34ECEF",
-        "source_type": "spawn",
-        "coords": [
-         145141.0,
-         -131002.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn point",
-        "count": 1,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Watoga Underground",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2EFD3F",
-       "2EFD40",
-       "2EFD41",
-       "2EFD42"
-      ],
-      "coords": [
-       163156.0,
-       -140637.8
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "2EFD3F",
-        "source_type": "spawn",
-        "coords": [
-         163156.0,
-         -140637.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "2EFD40",
-        "source_type": "spawn",
-        "coords": [
-         164182.1,
-         -140193.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "2EFD41",
-        "source_type": "spawn",
-        "coords": [
-         164012.7,
-         -140660.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "2EFD42",
-        "source_type": "spawn",
-        "coords": [
-         163287.1,
-         -140903.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     }
-    ]
+    "locations": []
    },
    {
     "region": "Forest",
@@ -1020,17 +295,15 @@
     "locations": [
      {
       "marker": "Dark Hollow Manor",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "75762D",
-       "757655"
+       "75762D"
       ],
       "coords": [
        30952.0,
@@ -1048,18 +321,6 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn",
-        "ref": "757655",
-        "source_type": "placement",
-        "coords": [
-         30821.2,
-         -219947.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -1067,40 +328,26 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "High Knob Lookout",
-      "count": 11,
+      "count": 3,
       "sources": {
-       "ambush": 3,
-       "spawn": 8
+       "ambush": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
        "758CCE",
-       "758CEA",
-       "758CEB",
-       "758CEC",
-       "758CED",
-       "758CF1",
-       "758CF2",
-       "758CF3",
-       "758CFB",
        "790390",
        "790392"
       ],
       "coords": [
-       -14398.2,
-       -224772.5
+       -14398.2373046875,
+       -224772.484375
       ],
       "spawns": [
        {
@@ -1120,8 +367,8 @@
         "ref": "790390",
         "source_type": "ambush",
         "coords": [
-         -14398.2,
-         -224772.5
+         -14398.2373046875,
+         -224772.484375
         ],
         "image_top": "",
         "directions": "",
@@ -1132,104 +379,8 @@
         "ref": "790392",
         "source_type": "ambush",
         "coords": [
-         -13328.3,
-         -224392.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "758CEA",
-        "source_type": "spawn",
-        "coords": [
-         -13956.4,
-         -224655.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "758CEB",
-        "source_type": "spawn",
-        "coords": [
-         -20352.0,
-         -223608.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "758CEC",
-        "source_type": "spawn",
-        "coords": [
-         -20840.2,
-         -223685.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "758CED",
-        "source_type": "spawn",
-        "coords": [
-         -20496.0,
-         -224096.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #5",
-        "ref": "758CF1",
-        "source_type": "spawn",
-        "coords": [
-         -28456.0,
-         -219896.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #6",
-        "ref": "758CF2",
-        "source_type": "spawn",
-        "coords": [
-         -28384.0,
-         -220352.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #7",
-        "ref": "758CF3",
-        "source_type": "spawn",
-        "coords": [
-         -28208.0,
-         -220048.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #8",
-        "ref": "758CFB",
-        "source_type": "spawn",
-        "coords": [
-         -28792.0,
-         -220152.0
+         -13328.255859375,
+         -224392.140625
         ],
         "image_top": "",
         "directions": "",
@@ -1241,32 +392,24 @@
         "label": "ambush points",
         "count": 3,
         "source_type": "ambush"
-       },
-       {
-        "label": "spawn points",
-        "count": 8,
-        "source_type": "spawn"
        }
       ]
      },
      {
       "marker": "The Trading Post",
-      "count": 3,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 2
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "753A0A",
-       "753A0B",
        "753A0D"
       ],
       "coords": [
-       38772.9,
-       -231779.7
+       38772.890625,
+       -231779.671875
       ],
       "spawns": [
        {
@@ -1274,32 +417,8 @@
         "ref": "753A0D",
         "source_type": "ambush",
         "coords": [
-         38772.9,
-         -231779.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "753A0A",
-        "source_type": "placement",
-        "coords": [
-         38630.6,
-         -231760.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "753A0B",
-        "source_type": "placement",
-        "coords": [
-         39169.9,
-         -231711.1
+         38772.890625,
+         -231779.671875
         ],
         "image_top": "",
         "directions": "",
@@ -1311,11 +430,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
        }
       ]
      }
@@ -1325,232 +439,20 @@
     "region": "The Mire",
     "locations": [
      {
-      "marker": "Abandoned Waste Dump",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3953F9",
-       "3953FA",
-       "3953FD",
-       "395483",
-       "3D3B99"
-      ],
-      "coords": [
-       182599.2,
-       34375.7
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "3953F9",
-        "source_type": "spawn",
-        "coords": [
-         182599.2,
-         34375.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "3953FA",
-        "source_type": "spawn",
-        "coords": [
-         182878.8,
-         34385.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "3953FD",
-        "source_type": "spawn",
-        "coords": [
-         182776.0,
-         34568.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "395483",
-        "source_type": "spawn",
-        "coords": [
-         198627.5,
-         30502.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #5",
-        "ref": "3D3B99",
-        "source_type": "spawn",
-        "coords": [
-         198742.8,
-         30382.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Camp Venture",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "161308",
-       "16213D"
-      ],
-      "coords": [
-       159763.3,
-       -33831.0
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "161308",
-        "source_type": "spawn",
-        "coords": [
-         159763.3,
-         -33831.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "16213D",
-        "source_type": "spawn",
-        "coords": [
-         160298.2,
-         -33816.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Crevasse Dam",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39549B",
-       "39549C",
-       "39549F"
-      ],
-      "coords": [
-       170086.2,
-       80180.1
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "39549B",
-        "source_type": "spawn",
-        "coords": [
-         170086.2,
-         80180.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "39549C",
-        "source_type": "spawn",
-        "coords": [
-         170385.4,
-         79914.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "39549F",
-        "source_type": "spawn",
-        "coords": [
-         170239.2,
-         80311.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
       "marker": "Dabney Homestead",
-      "count": 6,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1,
-       "spawn": 4
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "3953C1",
-       "3953C2",
-       "3953C5",
-       "3953C6",
-       "4502B8",
-       "4502BB"
+       "4502B8"
       ],
       "coords": [
-       176223.0,
-       -29396.7
+       176223.046875,
+       -29396.740234375
       ],
       "spawns": [
        {
@@ -1558,68 +460,8 @@
         "ref": "4502B8",
         "source_type": "ambush",
         "coords": [
-         176223.0,
-         -29396.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn",
-        "ref": "4502BB",
-        "source_type": "placement",
-        "coords": [
-         175930.6,
-         -29692.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "3953C1",
-        "source_type": "spawn",
-        "coords": [
-         194232.2,
-         -27459.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "3953C2",
-        "source_type": "spawn",
-        "coords": [
-         194487.9,
-         -27511.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "3953C5",
-        "source_type": "spawn",
-        "coords": [
-         194385.1,
-         -27328.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "3953C6",
-        "source_type": "spawn",
-        "coords": [
-         194252.5,
-         -27785.9
+         176223.046875,
+         -29396.740234375
         ],
         "image_top": "",
         "directions": "",
@@ -1631,345 +473,25 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       },
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Dolly Sods Lookout",
-      "count": 5,
-      "sources": {
-       "spawn": 5
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "395505",
-       "395506",
-       "395509",
-       "39550A",
-       "3D3B9B"
-      ],
-      "coords": [
-       150521.8,
-       99952.6
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "395505",
-        "source_type": "spawn",
-        "coords": [
-         150521.8,
-         99952.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "395506",
-        "source_type": "spawn",
-        "coords": [
-         150777.5,
-         99900.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "395509",
-        "source_type": "spawn",
-        "coords": [
-         150674.7,
-         100084.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "39550A",
-        "source_type": "spawn",
-        "coords": [
-         150854.2,
-         100348.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #5",
-        "ref": "3D3B9B",
-        "source_type": "spawn",
-        "coords": [
-         150638.9,
-         99826.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 5,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Ella Ames' Bunker",
-      "count": 1,
-      "sources": {
-       "spawn": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3C042A"
-      ],
-      "coords": [
-       162343.0,
-       107329.3
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn",
-        "ref": "3C042A",
-        "source_type": "spawn",
-        "coords": [
-         162343.0,
-         107329.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn point",
-        "count": 1,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Gnarled Shallows",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3954CA",
-       "3954CD"
-      ],
-      "coords": [
-       193549.4,
-       146277.4
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "3954CA",
-        "source_type": "spawn",
-        "coords": [
-         193549.4,
-         146277.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "3954CD",
-        "source_type": "spawn",
-        "coords": [
-         193577.4,
-         146433.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Gulper Lagoon",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3C0300",
-       "3C042B"
-      ],
-      "coords": [
-       162285.3,
-       107522.7
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "3C0300",
-        "source_type": "spawn",
-        "coords": [
-         162285.3,
-         107522.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "3C042B",
-        "source_type": "spawn",
-        "coords": [
-         162494.7,
-         107541.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Highland Marsh",
-      "count": 4,
-      "sources": {
-       "spawn": 4
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "3954E0",
-       "3954E1",
-       "3954E4",
-       "3D3B9D"
-      ],
-      "coords": [
-       182923.2,
-       125201.9
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "3954E0",
-        "source_type": "spawn",
-        "coords": [
-         182923.2,
-         125201.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "3954E1",
-        "source_type": "spawn",
-        "coords": [
-         182644.4,
-         124553.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "3954E4",
-        "source_type": "spawn",
-        "coords": [
-         182823.5,
-         125827.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #4",
-        "ref": "3D3B9D",
-        "source_type": "spawn",
-        "coords": [
-         183350.8,
-         124907.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 4,
-        "source_type": "spawn"
        }
       ]
      },
      {
       "marker": "KMAX Transmission",
-      "count": 4,
+      "count": 2,
       "sources": {
-       "ambush": 2,
-       "placement": 2
+       "ambush": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "48CC55",
        "48CC56",
-       "48CC59",
-       "48CC5A"
+       "48CC59"
       ],
       "coords": [
-       179595.6,
-       -41842.4
+       179595.609375,
+       -41842.37890625
       ],
       "spawns": [
        {
@@ -1977,8 +499,8 @@
         "ref": "48CC56",
         "source_type": "ambush",
         "coords": [
-         179595.6,
-         -41842.4
+         179595.609375,
+         -41842.37890625
         ],
         "image_top": "",
         "directions": "",
@@ -1989,32 +511,8 @@
         "ref": "48CC59",
         "source_type": "ambush",
         "coords": [
-         177650.4,
-         -42089.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "48CC55",
-        "source_type": "placement",
-        "coords": [
-         179528.4,
-         -42074.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "48CC5A",
-        "source_type": "placement",
-        "coords": [
-         177867.7,
-         -41982.6
+         177650.359375,
+         -42089.07421875
         ],
         "image_top": "",
         "directions": "",
@@ -2026,118 +524,26 @@
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Mosstown",
-      "count": 4,
-      "sources": {
-       "placement": 1,
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39551B",
-       "39551C",
-       "39551F",
-       "43CCA1"
-      ],
-      "coords": [
-       130296.9,
-       58520.3
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn",
-        "ref": "43CCA1",
-        "source_type": "placement",
-        "coords": [
-         130296.9,
-         58520.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "39551B",
-        "source_type": "spawn",
-        "coords": [
-         137753.4,
-         79335.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "39551C",
-        "source_type": "spawn",
-        "coords": [
-         138008.7,
-         79284.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "39551F",
-        "source_type": "spawn",
-        "coords": [
-         137906.3,
-         79466.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       },
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
        }
       ]
      },
      {
       "marker": "Southern Belle Motel",
-      "count": 6,
+      "count": 3,
       "sources": {
-       "ambush": 3,
-       "placement": 3
+       "ambush": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "45026E",
        "45026F",
        "4502A1",
-       "4502A4",
-       "4502A6",
-       "4502A7"
+       "4502A6"
       ],
       "coords": [
-       164754.7,
-       30555.9
+       164754.6875,
+       30555.9296875
       ],
       "spawns": [
        {
@@ -2145,8 +551,8 @@
         "ref": "45026F",
         "source_type": "ambush",
         "coords": [
-         164754.7,
-         30555.9
+         164754.6875,
+         30555.9296875
         ],
         "image_top": "",
         "directions": "",
@@ -2157,8 +563,8 @@
         "ref": "4502A1",
         "source_type": "ambush",
         "coords": [
-         170526.6,
-         14415.1
+         170526.59375,
+         14415.095703125
         ],
         "image_top": "",
         "directions": "",
@@ -2169,44 +575,8 @@
         "ref": "4502A6",
         "source_type": "ambush",
         "coords": [
-         169826.0,
-         15253.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "45026E",
-        "source_type": "placement",
-        "coords": [
-         164513.8,
-         30895.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "4502A4",
-        "source_type": "placement",
-        "coords": [
-         170346.3,
-         15192.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "4502A7",
-        "source_type": "placement",
-        "coords": [
-         170060.3,
-         14874.6
+         169825.953125,
+         15253.0595703125
         ],
         "image_top": "",
         "directions": "",
@@ -2218,31 +588,24 @@
         "label": "ambush points",
         "count": 3,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawns",
-        "count": 3,
-        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Sunday Brothers' Cabin",
-      "count": 2,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 1
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "4502A9",
-       "4502AC"
+       "4502A9"
       ],
       "coords": [
-       135627.3,
-       -6832.2
+       135627.3125,
+       -6832.21728515625
       ],
       "spawns": [
        {
@@ -2250,20 +613,8 @@
         "ref": "4502A9",
         "source_type": "ambush",
         "coords": [
-         135627.3,
-         -6832.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn",
-        "ref": "4502AC",
-        "source_type": "placement",
-        "coords": [
-         135874.5,
-         -7166.7
+         135627.3125,
+         -6832.21728515625
         ],
         "image_top": "",
         "directions": "",
@@ -2275,228 +626,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Tanagra Town",
-      "count": 1,
-      "sources": {
-       "placement": 1
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "2FF477"
-      ],
-      "coords": [
-       193535.9,
-       16678.2
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn",
-        "ref": "2FF477",
-        "source_type": "placement",
-        "coords": [
-         193535.9,
-         16678.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "static spawn",
-        "count": 1,
-        "source_type": "placement"
-       }
-      ]
-     },
-     {
-      "marker": "Thunder Mountain Power Plant",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "39542A",
-       "39542B",
-       "39542E"
-      ],
-      "coords": [
-       190329.4,
-       112376.4
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "39542A",
-        "source_type": "spawn",
-        "coords": [
-         190329.4,
-         112376.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "39542B",
-        "source_type": "spawn",
-        "coords": [
-         190582.3,
-         112305.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "39542E",
-        "source_type": "spawn",
-        "coords": [
-         190636.2,
-         112508.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Thunder Mountain Substation TM-01",
-      "count": 2,
-      "sources": {
-       "spawn": 2
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "395374",
-       "395377"
-      ],
-      "coords": [
-       145774.7,
-       6283.6
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "395374",
-        "source_type": "spawn",
-        "coords": [
-         145774.7,
-         6283.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "395377",
-        "source_type": "spawn",
-        "coords": [
-         145673.8,
-         6467.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 2,
-        "source_type": "spawn"
-       }
-      ]
-     },
-     {
-      "marker": "Treetops",
-      "count": 3,
-      "sources": {
-       "spawn": 3
-      },
-      "image_top": "",
-      "directions": "",
-      "image_bottom": "",
-      "refs": [
-       "45419E",
-       "45419F",
-       "4541A0"
-      ],
-      "coords": [
-       162313.1,
-       -27604.2
-      ],
-      "spawns": [
-       {
-        "label": "Megasloth spawn #1",
-        "ref": "45419E",
-        "source_type": "spawn",
-        "coords": [
-         162313.1,
-         -27604.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #2",
-        "ref": "45419F",
-        "source_type": "spawn",
-        "coords": [
-         162444.0,
-         -27618.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Megasloth spawn #3",
-        "ref": "4541A0",
-        "source_type": "spawn",
-        "coords": [
-         162556.1,
-         -27640.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
-      "breakdown": [
-       {
-        "label": "spawn points",
-        "count": 3,
-        "source_type": "spawn"
        }
       ]
      }
@@ -2511,13 +640,344 @@
     "locations": []
    }
   ],
-  "total_markers": 33,
-  "total_placements": 114
+  "total_markers": 7,
+  "total_placements": 12
  },
- "blurb": "The Megasloth in Fallout 76 — drops Megasloth Meat, 15 NPC variants, 114 known spawn points.",
- "drop_rates": {
-  "containers": {
-   "types": []
-  }
- }
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Abandoned Waste Dump",
+    "region": "The Mire",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Big Bend Tunnel East",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Camp Venture",
+    "region": "The Mire",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Crevasse Dam",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Dabney Homestead",
+    "region": "The Mire",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Dark Hollow Manor",
+    "region": "Skyline Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dolly Sods Lookout",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Drop Site V9",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Ella Ames' Bunker",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mega Sloth"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Fissure Site Prime",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Hulking Mega Sloth"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Flooded Trainyard",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Glassed Cavern",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Gnarled Shallows",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Gulper Lagoon",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "High Knob Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.4,
+    "chance_display": "40%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Highland Marsh",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "KMAX Transmission",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Mosstown",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Overgrown Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Ranger Lookout",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "RobCo Research Center",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sacramental Glade",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Southern Belle Motel",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Sunday Brothers' Cabin",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Tanagra Town",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Trading Post",
+    "region": "Skyline Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Thunder Mountain Power Plant",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-01",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Treetops",
+    "region": "The Mire",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Watoga",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Watoga Underground",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Megasloth"
+    ],
+    "count": 4
+   }
+  ],
+  "total": 33,
+  "note": null
+ },
+ "blurb": "The Megasloth in Fallout 76 — drops Megasloth Meat, 15 NPC variants, 12 known spawn points."
 }

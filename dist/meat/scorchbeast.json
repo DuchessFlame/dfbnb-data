@@ -2,11 +2,14 @@
  "_meta": {
   "generated": "2026-08-23",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
-  "races": [],
+  "races": [
+   {
+    "edid": "ScorchBeastRace"
+   }
+  ],
   "source_totals": {
    "ambush": 30,
-   "nest": 9,
-   "placement": 2
+   "nest": 9
   },
   "unresolved": {}
  },
@@ -14,14 +17,40 @@
  "slug": "scorchbeast",
  "name": "Scorchbeast",
  "page_title": "Farming - Meat - Scorchbeast",
- "url": "/bnb/farming/meat/scorchbeast/",
+ "url": "/bnb/farming/meat/scorchbeast/scorchbeast-location-guide/",
  "npc_summary": {
-  "npc_count": 0,
-  "level_min": null,
-  "level_max": null,
-  "health_max": null
+  "npc_count": 12,
+  "level_min": 50,
+  "level_max": 100,
+  "health_max": 32767
  },
- "meat_items": [],
+ "meat_items": [
+  {
+   "name": "Scorchbeast Brain",
+   "form_id": "002DB87B",
+   "rate_display": "20%"
+  },
+  {
+   "name": "Scorchbeast Heart",
+   "form_id": "002DB87C",
+   "rate_display": "20%"
+  },
+  {
+   "name": "Scorchbeast Liver",
+   "form_id": "002DB87D",
+   "rate_display": "20%"
+  },
+  {
+   "name": "Scorchbeast Lung",
+   "form_id": "002DB87E",
+   "rate_display": "20%"
+  },
+  {
+   "name": "Scorchbeast Meat",
+   "form_id": "002DB87A",
+   "rate_display": "20%"
+  }
+ ],
  "used_for": [
   {
    "type": "Mini Season",
@@ -55,9 +84,629 @@
  "farming_tips": null,
  "events_activities": [],
  "drops": {
-  "lists": [],
+  "lists": [
+   {
+    "edid": "LLD_Creature_Scorchbeast",
+    "form_id": "0036BA96",
+    "row_count": 6,
+    "direct_items": 0,
+    "pool_count": 6,
+    "item_count": 12707,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (very large)",
+      "sub_id": "003DF3DA",
+      "edid": "LLS_Creature_VeryLarge",
+      "item_count": 12636,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "40.18%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "22.32%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Recipes Mods Power Armor Ultracite",
+      "sub_id": "00437553",
+      "edid": "LL_Recipes_Mods_PowerArmor_Ultracite",
+      "item_count": 21,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Plan: Ultracite Cooling Vent",
+        "rate_display": "14%"
+       },
+       {
+        "name": "Plan: Ultracite Internal Database",
+        "rate_display": "14%"
+       },
+       {
+        "name": "Plan: Ultracite Sensor Array",
+        "rate_display": "14%"
+       },
+       {
+        "name": "Plan: Ultracite Motion-Assist Servos",
+        "rate_display": "14%"
+       },
+       {
+        "name": "Plan: Ultracite Optimized Bracers",
+        "rate_display": "14%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Scorchbeast Meats",
+      "sub_id": "0036BA9A",
+      "edid": "LLS_Creature_Scorchbeast_Meats",
+      "item_count": 5,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Scorchbeast Meat",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Liver",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Heart",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Brain",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Lung",
+        "rate_display": "20%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Scorchbeast Parts",
+      "sub_id": "0036BA99",
+      "edid": "LLS_Creature_Scorchbeast_Parts",
+      "item_count": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Scorchbeast Hide",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Scorchbeast Wing Fragment",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Scorchbeast Bones",
+        "rate_display": "33.33%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Weapon Ranged Ultracite All",
+      "sub_id": "0043E757",
+      "edid": "LLS_Weapon_Ranged_Ultracite_All",
+      "item_count": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ultracite Laser",
+        "rate_display": "50%"
+       },
+       {
+        "name": "Ultracite Gatling Laser",
+        "rate_display": "50%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Mods Weapons Ranged Anti Scorch Beast",
+      "sub_id": "00470A06",
+      "edid": "LLS_Mods_Weapons_Ranged_AntiScorchBeast",
+      "item_count": 40,
+      "rate_value": 0.971429,
+      "rate_display": "97.14%",
+      "top_items": [
+       {
+        "name": "Plan: Prime Automatic 10mm Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime 10mm Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime 10mm Submachine Gun Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime .44 Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime 50 Cal Machine Gun Receiver",
+        "rate_display": "2.5%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_ScorchbeastQueen",
+    "form_id": "0050D7FE",
+    "row_count": 7,
+    "direct_items": 0,
+    "pool_count": 7,
+    "item_count": 12721,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (very large)",
+      "sub_id": "003DF3DA",
+      "edid": "LLS_Creature_VeryLarge",
+      "item_count": 12636,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "40.18%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "22.32%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Scorchbeast",
+      "sub_id": "0043438B",
+      "edid": "LLE_Creature_Boss_Component_Scorchbeast",
+      "item_count": 5,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ultracite Scrap",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Mods Weapons Ranged Anti Scorch Beast",
+      "sub_id": "00470A06",
+      "edid": "LLS_Mods_Weapons_Ranged_AntiScorchBeast",
+      "item_count": 40,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Plan: Prime Automatic 10mm Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime 10mm Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime 10mm Submachine Gun Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime .44 Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime 50 Cal Machine Gun Receiver",
+        "rate_display": "2.5%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Scorchbeast Meats",
+      "sub_id": "0036BA9A",
+      "edid": "LLS_Creature_Scorchbeast_Meats",
+      "item_count": 5,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Scorchbeast Meat",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Liver",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Heart",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Brain",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Lung",
+        "rate_display": "20%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Scorchbeast Parts",
+      "sub_id": "0036BA99",
+      "edid": "LLS_Creature_Scorchbeast_Parts",
+      "item_count": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Scorchbeast Hide",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Scorchbeast Wing Fragment",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Scorchbeast Bones",
+        "rate_display": "33.33%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Scorchbeast Queen Recipes",
+      "sub_id": "0050D800",
+      "edid": "LLS_Creature_ScorchbeastQueen_Recipes",
+      "item_count": 26,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Plan: Ultracite Jet Pack",
+        "rate_display": "10%"
+       },
+       {
+        "name": "Plan: Raider Jet Pack",
+        "rate_display": "10%"
+       },
+       {
+        "name": "Plan: T-45 Jet Pack",
+        "rate_display": "10%"
+       },
+       {
+        "name": "Plan: T-51b Jet Pack",
+        "rate_display": "10%"
+       },
+       {
+        "name": "Plan: T-60 Jet Pack",
+        "rate_display": "10%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Scorchbeast Queen Recipes Ultracite Power Armor",
+      "sub_id": "0047195C",
+      "edid": "LLS_Creature_ScorchbeastQueen_Recipes_Ultracite_PowerArmor",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Plan: Ultracite Left Arm",
+        "rate_display": "16.67%"
+       },
+       {
+        "name": "Plan: Ultracite Right Arm",
+        "rate_display": "16.67%"
+       },
+       {
+        "name": "Plan: Ultracite Helm",
+        "rate_display": "16.67%"
+       },
+       {
+        "name": "Plan: Ultracite Left Leg",
+        "rate_display": "16.67%"
+       },
+       {
+        "name": "Plan: Ultracite Right Leg",
+        "rate_display": "16.67%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_Scorchbeast_PartyCrasher",
+    "form_id": "0089740A",
+    "row_count": 9,
+    "direct_items": 1,
+    "pool_count": 8,
+    "item_count": 12716,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (very large)",
+      "sub_id": "003DF3DA",
+      "edid": "LLS_Creature_VeryLarge",
+      "item_count": 12636,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "40.18%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "22.32%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "RA LLS Loot Legendary3Star",
+      "sub_id": "0086A8A9",
+      "edid": "RA_LLS_Loot_Legendary3Star",
+      "item_count": 4,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Legendary Items Power Armor Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Weapons Melee Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Weapons Ranged Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Armor Rank3",
+        "rate_display": "25%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "RA LLS Loot Legendary3Star",
+      "sub_id": "0086A8A9",
+      "edid": "RA_LLS_Loot_Legendary3Star",
+      "item_count": 4,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Legendary Items Power Armor Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Weapons Melee Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Weapons Ranged Rank3",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Legendary Items Armor Rank3",
+        "rate_display": "25%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Recipes Mods Power Armor Ultracite",
+      "sub_id": "00437553",
+      "edid": "LL_Recipes_Mods_PowerArmor_Ultracite",
+      "item_count": 21,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Plan: Ultracite Cooling Vent",
+        "rate_display": "14%"
+       },
+       {
+        "name": "Plan: Ultracite Internal Database",
+        "rate_display": "14%"
+       },
+       {
+        "name": "Plan: Ultracite Sensor Array",
+        "rate_display": "14%"
+       },
+       {
+        "name": "Plan: Ultracite Motion-Assist Servos",
+        "rate_display": "14%"
+       },
+       {
+        "name": "Plan: Ultracite Optimized Bracers",
+        "rate_display": "14%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Scorchbeast Meats",
+      "sub_id": "0036BA9A",
+      "edid": "LLS_Creature_Scorchbeast_Meats",
+      "item_count": 5,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Scorchbeast Meat",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Liver",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Heart",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Brain",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Scorchbeast Lung",
+        "rate_display": "20%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Scorchbeast Parts",
+      "sub_id": "0036BA99",
+      "edid": "LLS_Creature_Scorchbeast_Parts",
+      "item_count": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Scorchbeast Hide",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Scorchbeast Wing Fragment",
+        "rate_display": "33.33%"
+       },
+       {
+        "name": "Scorchbeast Bones",
+        "rate_display": "33.33%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Weapon Ranged Ultracite All",
+      "sub_id": "0043E757",
+      "edid": "LLS_Weapon_Ranged_Ultracite_All",
+      "item_count": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ultracite Laser",
+        "rate_display": "50%"
+       },
+       {
+        "name": "Ultracite Gatling Laser",
+        "rate_display": "50%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Mods Weapons Ranged Anti Scorch Beast",
+      "sub_id": "00470A06",
+      "edid": "LLS_Mods_Weapons_Ranged_AntiScorchBeast",
+      "item_count": 40,
+      "rate_value": 0.971429,
+      "rate_display": "97.14%",
+      "top_items": [
+       {
+        "name": "Plan: Prime Automatic 10mm Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime 10mm Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime 10mm Submachine Gun Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime .44 Receiver",
+        "rate_display": "2.5%"
+       },
+       {
+        "name": "Plan: Prime 50 Cal Machine Gun Receiver",
+        "rate_display": "2.5%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Player Title: Uninvited",
+      "form_id": "008AA951",
+      "edid": "PlayerTitle_Recipe_Prefix_Uninvited",
+      "sig": "BOOK",
+      "qty": 1,
+      "rate_value": 0.971429,
+      "rate_display": "97.14%"
+     }
+    ]
+   }
+  ],
   "inherited_only": false,
-  "empty_reason": "none"
+  "empty_reason": ""
  },
  "random_encounters": [
   {
@@ -133,8 +782,8 @@
        "3C37CB"
       ],
       "coords": [
-       115112.0,
-       -119316.8
+       115111.9609375,
+       -119316.84375
       ],
       "spawns": [
        {
@@ -142,8 +791,8 @@
         "ref": "3C37CB",
         "source_type": "ambush",
         "coords": [
-         115112.0,
-         -119316.8
+         115111.9609375,
+         -119316.84375
         ],
         "image_top": "",
         "directions": "",
@@ -171,8 +820,8 @@
        "3C37F8"
       ],
       "coords": [
-       158076.9,
-       -82876.6
+       158076.9375,
+       -82876.5703125
       ],
       "spawns": [
        {
@@ -180,8 +829,8 @@
         "ref": "3C37F8",
         "source_type": "ambush",
         "coords": [
-         158076.9,
-         -82876.6
+         158076.9375,
+         -82876.5703125
         ],
         "image_top": "",
         "directions": "",
@@ -209,8 +858,8 @@
        "3C3089"
       ],
       "coords": [
-       198012.0,
-       -148874.1
+       198012.03125,
+       -148874.0625
       ],
       "spawns": [
        {
@@ -218,8 +867,8 @@
         "ref": "3C3089",
         "source_type": "ambush",
         "coords": [
-         198012.0,
-         -148874.1
+         198012.03125,
+         -148874.0625
         ],
         "image_top": "",
         "directions": "",
@@ -247,8 +896,8 @@
        "3C37FA"
       ],
       "coords": [
-       169461.3,
-       -61445.5
+       169461.3125,
+       -61445.546875
       ],
       "spawns": [
        {
@@ -256,8 +905,8 @@
         "ref": "3C37FA",
         "source_type": "ambush",
         "coords": [
-         169461.3,
-         -61445.5
+         169461.3125,
+         -61445.546875
         ],
         "image_top": "",
         "directions": "",
@@ -286,8 +935,8 @@
        "3A7462"
       ],
       "coords": [
-       152581.0,
-       -66498.6
+       152580.953125,
+       -66498.578125
       ],
       "spawns": [
        {
@@ -295,8 +944,8 @@
         "ref": "3A57DB",
         "source_type": "ambush",
         "coords": [
-         152581.0,
-         -66498.6
+         152580.953125,
+         -66498.578125
         ],
         "image_top": "",
         "directions": "",
@@ -307,8 +956,8 @@
         "ref": "3A7462",
         "source_type": "ambush",
         "coords": [
-         173198.9,
-         -159112.3
+         173198.90625,
+         -159112.328125
         ],
         "image_top": "",
         "directions": "",
@@ -339,8 +988,8 @@
        "3D0E7C"
       ],
       "coords": [
-       197262.9,
-       -165903.3
+       197262.9375,
+       -165903.34375
       ],
       "spawns": [
        {
@@ -348,8 +997,8 @@
         "ref": "38EBBA",
         "source_type": "ambush",
         "coords": [
-         195162.0,
-         -168842.3
+         195161.96875,
+         -168842.34375
         ],
         "image_top": "",
         "directions": "",
@@ -360,8 +1009,8 @@
         "ref": "38EBBB",
         "source_type": "ambush",
         "coords": [
-         197470.1,
-         -163334.7
+         197470.109375,
+         -163334.65625
         ],
         "image_top": "",
         "directions": "",
@@ -372,8 +1021,8 @@
         "ref": "3D0E7B",
         "source_type": "ambush",
         "coords": [
-         193382.2,
-         -166299.0
+         193382.21875,
+         -166298.953125
         ],
         "image_top": "",
         "directions": "",
@@ -384,8 +1033,8 @@
         "ref": "3D0E7C",
         "source_type": "ambush",
         "coords": [
-         197262.9,
-         -165903.3
+         197262.9375,
+         -165903.34375
         ],
         "image_top": "",
         "directions": "",
@@ -413,8 +1062,8 @@
        "3C3086"
       ],
       "coords": [
-       196439.8,
-       -172220.5
+       196439.765625,
+       -172220.53125
       ],
       "spawns": [
        {
@@ -422,8 +1071,8 @@
         "ref": "3C3086",
         "source_type": "ambush",
         "coords": [
-         196439.8,
-         -172220.5
+         196439.765625,
+         -172220.53125
         ],
         "image_top": "",
         "directions": "",
@@ -440,17 +1089,14 @@
      },
      {
       "marker": "Glassed Cavern",
-      "count": 3,
+      "count": 1,
       "sources": {
-       "ambush": 1,
-       "placement": 2
+       "ambush": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "3534DE",
-       "43A919",
        "491473"
       ],
       "coords": [
@@ -469,30 +1115,6 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
-       },
-       {
-        "label": "Scorchbeast spawn #1",
-        "ref": "3534DE",
-        "source_type": "placement",
-        "coords": [
-         -8321.4,
-         4948.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Scorchbeast spawn #2",
-        "ref": "43A919",
-        "source_type": "placement",
-        "coords": [
-         201657.8,
-         -161232.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -500,11 +1122,6 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
-       },
-       {
-        "label": "static spawns",
-        "count": 2,
-        "source_type": "placement"
        }
       ]
      },
@@ -521,8 +1138,8 @@
        "3C3E44"
       ],
       "coords": [
-       178549.0,
-       -73663.6
+       178549.015625,
+       -73663.6171875
       ],
       "spawns": [
        {
@@ -530,8 +1147,8 @@
         "ref": "3C3E44",
         "source_type": "ambush",
         "coords": [
-         178549.0,
-         -73663.6
+         178549.015625,
+         -73663.6171875
         ],
         "image_top": "",
         "directions": "",
@@ -559,8 +1176,8 @@
        "3C3073"
       ],
       "coords": [
-       133426.7,
-       -156596.8
+       133426.71875,
+       -156596.75
       ],
       "spawns": [
        {
@@ -568,8 +1185,8 @@
         "ref": "3C3073",
         "source_type": "ambush",
         "coords": [
-         133426.7,
-         -156596.8
+         133426.71875,
+         -156596.75
         ],
         "image_top": "",
         "directions": "",
@@ -597,8 +1214,8 @@
        "3C3084"
       ],
       "coords": [
-       171815.0,
-       -173968.9
+       171815.03125,
+       -173968.859375
       ],
       "spawns": [
        {
@@ -606,8 +1223,8 @@
         "ref": "3C3084",
         "source_type": "ambush",
         "coords": [
-         171815.0,
-         -173968.9
+         171815.03125,
+         -173968.859375
         ],
         "image_top": "",
         "directions": "",
@@ -635,8 +1252,8 @@
        "3C3E42"
       ],
       "coords": [
-       194043.9,
-       -85019.4
+       194043.9375,
+       -85019.3515625
       ],
       "spawns": [
        {
@@ -644,8 +1261,8 @@
         "ref": "3C3E42",
         "source_type": "ambush",
         "coords": [
-         194043.9,
-         -85019.4
+         194043.9375,
+         -85019.3515625
         ],
         "image_top": "",
         "directions": "",
@@ -673,8 +1290,8 @@
        "3C37C9"
       ],
       "coords": [
-       165674.0,
-       -105796.5
+       165673.984375,
+       -105796.4765625
       ],
       "spawns": [
        {
@@ -682,8 +1299,8 @@
         "ref": "3C37C9",
         "source_type": "ambush",
         "coords": [
-         165674.0,
-         -105796.5
+         165673.984375,
+         -105796.4765625
         ],
         "image_top": "",
         "directions": "",
@@ -711,8 +1328,8 @@
        "3C37C7"
       ],
       "coords": [
-       182581.1,
-       -125147.4
+       182581.078125,
+       -125147.3984375
       ],
       "spawns": [
        {
@@ -720,8 +1337,8 @@
         "ref": "3C37C7",
         "source_type": "ambush",
         "coords": [
-         182581.1,
-         -125147.4
+         182581.078125,
+         -125147.3984375
         ],
         "image_top": "",
         "directions": "",
@@ -749,8 +1366,8 @@
        "3C307C"
       ],
       "coords": [
-       132897.2,
-       -179396.4
+       132897.234375,
+       -179396.359375
       ],
       "spawns": [
        {
@@ -758,8 +1375,8 @@
         "ref": "3C307C",
         "source_type": "ambush",
         "coords": [
-         132897.2,
-         -179396.4
+         132897.234375,
+         -179396.359375
         ],
         "image_top": "",
         "directions": "",
@@ -787,8 +1404,8 @@
        "43918C"
       ],
       "coords": [
-       152442.5,
-       -179605.0
+       152442.53125,
+       -179605.03125
       ],
       "spawns": [
        {
@@ -796,8 +1413,8 @@
         "ref": "43918C",
         "source_type": "ambush",
         "coords": [
-         152442.5,
-         -179605.0
+         152442.53125,
+         -179605.03125
         ],
         "image_top": "",
         "directions": "",
@@ -825,8 +1442,8 @@
        "3C37D6"
       ],
       "coords": [
-       129436.4,
-       -92047.0
+       129436.375,
+       -92046.9609375
       ],
       "spawns": [
        {
@@ -834,8 +1451,8 @@
         "ref": "3C37D6",
         "source_type": "ambush",
         "coords": [
-         129436.4,
-         -92047.0
+         129436.375,
+         -92046.9609375
         ],
         "image_top": "",
         "directions": "",
@@ -1022,8 +1639,8 @@
        "3A5851"
       ],
       "coords": [
-       -98976.9,
-       177681.6
+       -98976.8828125,
+       177681.578125
       ],
       "spawns": [
        {
@@ -1031,8 +1648,8 @@
         "ref": "3A5851",
         "source_type": "ambush",
         "coords": [
-         -98976.9,
-         177681.6
+         -98976.8828125,
+         177681.578125
         ],
         "image_top": "",
         "directions": "",
@@ -1060,8 +1677,8 @@
        "3A5880"
       ],
       "coords": [
-       -38742.2,
-       -70941.1
+       -38742.2265625,
+       -70941.1015625
       ],
       "spawns": [
        {
@@ -1069,8 +1686,8 @@
         "ref": "3A5880",
         "source_type": "ambush",
         "coords": [
-         -38742.2,
-         -70941.1
+         -38742.2265625,
+         -70941.1015625
         ],
         "image_top": "",
         "directions": "",
@@ -1098,8 +1715,8 @@
        "3A5972"
       ],
       "coords": [
-       19003.9,
-       34055.5
+       19003.857421875,
+       34055.484375
       ],
       "spawns": [
        {
@@ -1107,8 +1724,8 @@
         "ref": "3A5972",
         "source_type": "ambush",
         "coords": [
-         19003.9,
-         34055.5
+         19003.857421875,
+         34055.484375
         ],
         "image_top": "",
         "directions": "",
@@ -1141,8 +1758,8 @@
        "3A5944"
       ],
       "coords": [
-       -9012.0,
-       -11133.9
+       -9011.96875,
+       -11133.927734375
       ],
       "spawns": [
        {
@@ -1150,8 +1767,8 @@
         "ref": "3A5944",
         "source_type": "ambush",
         "coords": [
-         -9012.0,
-         -11133.9
+         -9011.96875,
+         -11133.927734375
         ],
         "image_top": "",
         "directions": "",
@@ -1181,8 +1798,8 @@
        "3A5911"
       ],
       "coords": [
-       153526.6,
-       182427.6
+       153526.59375,
+       182427.578125
       ],
       "spawns": [
        {
@@ -1190,8 +1807,8 @@
         "ref": "3A070A",
         "source_type": "ambush",
         "coords": [
-         153526.6,
-         182427.6
+         153526.59375,
+         182427.578125
         ],
         "image_top": "",
         "directions": "",
@@ -1202,8 +1819,8 @@
         "ref": "3A581E",
         "source_type": "ambush",
         "coords": [
-         59004.8,
-         -151003.5
+         59004.76171875,
+         -151003.53125
         ],
         "image_top": "",
         "directions": "",
@@ -1214,8 +1831,8 @@
         "ref": "3A5911",
         "source_type": "ambush",
         "coords": [
-         112615.3,
-         124753.1
+         112615.2734375,
+         124753.078125
         ],
         "image_top": "",
         "directions": "",
@@ -1290,8 +1907,8 @@
        "3A58E2"
       ],
       "coords": [
-       129598.4,
-       75645.7
+       129598.390625,
+       75645.6875
       ],
       "spawns": [
        {
@@ -1299,8 +1916,8 @@
         "ref": "3A58E2",
         "source_type": "ambush",
         "coords": [
-         129598.4,
-         75645.7
+         129598.390625,
+         75645.6875
         ],
         "image_top": "",
         "directions": "",
@@ -1337,8 +1954,8 @@
        "3A57A1"
       ],
       "coords": [
-       35512.4,
-       194939.9
+       35512.41796875,
+       194939.890625
       ],
       "spawns": [
        {
@@ -1346,8 +1963,8 @@
         "ref": "3A57A1",
         "source_type": "ambush",
         "coords": [
-         35512.4,
-         194939.9
+         35512.41796875,
+         194939.890625
         ],
         "image_top": "",
         "directions": "",
@@ -1366,18 +1983,23 @@
    }
   ],
   "total_markers": 27,
-  "total_placements": 41
+  "total_placements": 39
  },
- "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 41 known spawn points.",
- "drop_rates": {
-  "containers": {
-   "types": [
-    {
-     "name": "Scorchbeast Corpse",
-     "rate": 1.0,
-     "rate_display": "100%"
-    }
-   ]
-  }
- }
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Glassed Cavern",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Scorchbeast"
+    ],
+    "count": 2
+   }
+  ],
+  "total": 1,
+  "note": null
+ },
+ "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 39 known spawn points."
 }
