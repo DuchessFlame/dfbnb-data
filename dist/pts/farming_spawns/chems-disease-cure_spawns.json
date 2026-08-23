@@ -1,0 +1,1268 @@
+{
+ "_meta": {
+  "generated": "2026-08-23",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "lists_in_closure": 134,
+  "source_totals": {
+   "container": 11280,
+   "direct": 1,
+   "loot-list": 42,
+   "nest": 19,
+   "npc": 1568,
+   "static": 10,
+   "vendor": 5
+  },
+  "unresolved": {
+   "Prospector Saloon Shelter": 1
+  }
+ },
+ "set": "chems-disease-cure",
+ "name": "Disease Cure",
+ "page_title": "Disease Cure",
+ "blurb": "How to obtain Disease Cure — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
+ "drop_rates": {
+  "containers": {
+   "types": [
+    {
+     "name": "Animal Control Kit",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Chem Box",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Chem Cooler",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Doctor's Bag",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Dr. Ladek's Bag",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "First Aid",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Government Aid Drop",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Medical Examiner's Bag",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Mirror",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Secure Transport Container",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "U.S.S.A. Supply Crate",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Chem Box",
+     "rate": 0.09999999999999998,
+     "rate_display": "10%"
+    },
+    {
+     "name": "Cooler",
+     "rate": 0.09999999999999998,
+     "rate_display": "10%"
+    },
+    {
+     "name": "First Aid",
+     "rate": 0.09999999999999998,
+     "rate_display": "10%"
+    },
+    {
+     "name": "Government Aid Drop",
+     "rate": 0.09999999999999998,
+     "rate_display": "10%"
+    },
+    {
+     "name": "Hollow Stump",
+     "rate": 0.09999999999999998,
+     "rate_display": "10%"
+    },
+    {
+     "name": "Infirmary Safe",
+     "rate": 0.09999999999999998,
+     "rate_display": "10%"
+    },
+    {
+     "name": "U.S.S.A. Supply Crate",
+     "rate": 0.09999999999999998,
+     "rate_display": "10%"
+    },
+    {
+     "name": "Vault Trunk",
+     "rate": 0.09999999999999998,
+     "rate_display": "10%"
+    },
+    {
+     "name": "Cargobot Wreckage",
+     "rate": 0.08499999999999996,
+     "rate_display": "8.5%"
+    },
+    {
+     "name": "Responder Cache",
+     "rate": 0.050000000000000044,
+     "rate_display": "5%"
+    },
+    {
+     "name": "Doctor's Bag",
+     "rate": 0.03249999999999997,
+     "rate_display": "3.25%"
+    },
+    {
+     "name": "Medical Examiner's Bag",
+     "rate": 0.03249999999999997,
+     "rate_display": "3.25%"
+    }
+   ]
+  },
+  "creatures": {
+   "note": "Around 1,568 creatures can drop Disease Cure as generic loot; they are not listed individually. Guaranteed fixed placements are under Fixed Spawn Locations."
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.25,
+  "object_type": "Chem",
+  "yield_perk": null,
+  "weight_perk": "traveling_pharmacy",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.14
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.03
+   }
+  ],
+  "backpack_mod": "chemists",
+  "backpack_weight": 0.03,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.05
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.03
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 20,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Disease Cure is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Cure Disease",
+     "display": "+100 Cure Disease",
+     "duration": null
+    },
+    {
+     "name": "Chems: Thirst",
+     "display": "Quenches thirst (108/1.8 min)",
+     "duration": null
+    },
+    {
+     "name": "Increase Hunger",
+     "display": "Increase Hunger",
+     "duration": null
+    },
+    {
+     "name": "GHL_SURV_Chem_Effect",
+     "display": "GHL_SURV_Chem_Effect",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Summer Camp: Craft Disease Cure with the Squirrel Backpack equipped",
+    "edid": "ATX_DE2023_SummerCamp_Challenge_Craft_Cure",
+    "page": "season:summer-camp",
+    "type": "Mini Season",
+    "required": 5
+   },
+   {
+    "name": "Craft Disease Cure",
+    "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Medic_Sub_CraftDiseaseCure",
+    "page": "scouts-tadpole",
+    "type": "Lifetime",
+    "required": 3
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Antibiotics",
+    "form_id": "003E08A9",
+    "recipe_edid": "co_chem_SURV_DiseaseCure_Antibiotics_WorkbenchChemLab",
+    "category": "Chems",
+    "workbench": "Chemistry Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": null,
+    "ingredients": [
+     {
+      "name": "Antiseptic",
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/antiseptic/"
+     },
+     {
+      "name": "Stimpak",
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/bnb/chems/chems-stimpak/"
+     },
+     {
+      "name": "Purified Water",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-purified-water/"
+     },
+     {
+      "name": "Blood Pack",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/chems/chems-blood-pack/"
+     },
+     {
+      "name": "Disease Cure",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/chems/chems-disease-cure/",
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Disease Resist",
+      "display": "+50 Disease Resistance",
+      "duration": "1 hour 30 min"
+     },
+     {
+      "name": "Cure Disease",
+      "display": "+100 Cure Disease",
+      "duration": null
+     },
+     {
+      "name": "Chems: Thirst",
+      "display": "Quenches thirst (180/3 min)",
+      "duration": null
+     },
+     {
+      "name": "Increase Hunger",
+      "display": "+240 Increase Hunger",
+      "duration": null
+     },
+     {
+      "name": "GHL_SURV_Chem_Effect",
+      "display": "+360 GHL_SURV_Chem_Effect",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Recipe: Antibiotics"
+   }
+  ],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Disease Cure",
+     "form_id": "003E08A8",
+     "recipe_edid": "co_chem_SURV_DiseaseCure_HerbalMedicine_Forest_WorkbenchChemLab",
+     "category": "Chems",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Boiled Water",
+       "qty": 1
+      },
+      {
+       "name": "Firecap",
+       "qty": 2,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/firecap/"
+      },
+      {
+       "name": "Bloodleaf",
+       "qty": 2,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/bloodleaf/"
+      },
+      {
+       "name": "Snaptail Reed",
+       "qty": 2,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/snaptail-reed/"
+      }
+     ],
+     "effects": [
+      {
+       "name": "Cure Disease",
+       "display": "+100 Cure Disease",
+       "duration": null
+      },
+      {
+       "name": "Chems: Thirst",
+       "display": "Quenches thirst (108/1.8 min)",
+       "duration": null
+      },
+      {
+       "name": "Increase Hunger",
+       "display": "+108 Increase Hunger",
+       "duration": null
+      },
+      {
+       "name": "GHL_SURV_Chem_Effect",
+       "display": "+90 GHL_SURV_Chem_Effect",
+       "duration": null
+      }
+     ],
+     "how_to_obtain": "Known by default."
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Del Walsh",
+   "marker": "Nuka-World on Tour",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Mac",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "29.71%"
+   ],
+   "rate_display": "29.71%",
+   "rate_value": 0.29707,
+   "count": 1
+  }
+ ],
+ "additional_expands": null,
+ "info_notes": null,
+ "random_encounters": null,
+ "random_encounters_intro": null,
+ "events_activities": [
+  {
+   "list_id": "006820F7",
+   "edid": "NWOT_LL_Del_Consumable",
+   "name": "Del Consumable",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "00853D3F",
+   "edid": "SCORE_S23_LL_ChemMysteryMachine_Uncommon",
+   "name": "SCORE S23 Chem Mystery Machine Uncommon",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the SCORE S23 Chem Mystery Machine Uncommon reward pool per event/activity payout.",
+   "rate_value": 0.111111,
+   "rate_display": "11.11%",
+   "rate_lines": [
+    "11.11%"
+   ]
+  },
+  {
+   "list_id": "0086A8B8",
+   "edid": "RA_LL_Rewards_General_AidItems",
+   "name": "Rewards General Aid Items",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Rewards General Aid Items reward pool per event/activity payout.",
+   "rate_value": 0.075,
+   "rate_display": "7.5%",
+   "rate_lines": [
+    "7.5%"
+   ]
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Tunnel of Love",
+     "count": 5,
+     "sources": {
+      "nest": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "66E6BD",
+      "66FB40",
+      "6747E9",
+      "674813",
+      "67AE18",
+      "67E92A",
+      "67E952"
+     ],
+     "coords": [
+      1013.63397216797,
+      -4784.69482421875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "6747E9",
+       "source_type": "nest",
+       "coords": [
+        7124.53955078125,
+        -762.631103515625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "674813",
+       "source_type": "nest",
+       "coords": [
+        4050.90698242188,
+        5718.90234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "67AE18",
+       "source_type": "nest",
+       "coords": [
+        4288.8935546875,
+        5618.74755859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "67E92A",
+       "source_type": "nest",
+       "coords": [
+        3954.568359375,
+        5656.095703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "67E952",
+       "source_type": "nest",
+       "coords": [
+        4007.40625,
+        5604.75048828125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Dino Peaks Mini Golf",
+     "count": 6,
+     "sources": {
+      "nest": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7F0A81",
+      "7F0A84",
+      "7F6500",
+      "7F6501",
+      "7F6502",
+      "7F6503",
+      "7F6505",
+      "80391B",
+      "80F2AD",
+      "80F2AF",
+      "80F2B3",
+      "80F2B4",
+      "81CD06",
+      "823A93",
+      "825AA6",
+      "825AAE",
+      "825AB6",
+      "826047",
+      "82604D",
+      "8277D4",
+      "827D97",
+      "82859D",
+      "82A3B2",
+      "82A3B3",
+      "82A3B4",
+      "82B955",
+      "82B956",
+      "82B959",
+      "82E083",
+      "82E084",
+      "82E087",
+      "82E08F",
+      "82E090",
+      "82E093",
+      "8315F0",
+      "8316EA",
+      "831706",
+      "831707",
+      "83643D",
+      "84474E",
+      "8488A0",
+      "8488A5",
+      "8623C0",
+      "86241A"
+     ],
+     "coords": [
+      -224416.375,
+      161717.28125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "7F0A81",
+       "source_type": "nest",
+       "coords": [
+        -208312.0,
+        145838.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F0A84",
+       "source_type": "nest",
+       "coords": [
+        -211674.375,
+        147038.671875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80391B",
+       "source_type": "nest",
+       "coords": [
+        -209705.140625,
+        146995.40625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82A3B2",
+       "source_type": "nest",
+       "coords": [
+        -211870.8125,
+        146337.6875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82A3B3",
+       "source_type": "nest",
+       "coords": [
+        -208732.40625,
+        146803.140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82A3B4",
+       "source_type": "nest",
+       "coords": [
+        -209155.21875,
+        145142.09375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "New River Gorge Resort",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "01EC13",
+      "01EC14",
+      "01EC1B",
+      "052B76",
+      "052B7C",
+      "091F12",
+      "091F13",
+      "11CBE2",
+      "11F9F3",
+      "11F9F4",
+      "11FAAF",
+      "146808",
+      "1FB9D0",
+      "1FB9D9",
+      "279D95",
+      "290F54",
+      "290F5A",
+      "2913A6",
+      "2913A7",
+      "2913BE",
+      "2913C0",
+      "2914B7",
+      "2914B8",
+      "2914BC",
+      "2914BE",
+      "2914BF",
+      "2914C2",
+      "291577",
+      "291645",
+      "29165A",
+      "29166B",
+      "29166E",
+      "29166F",
+      "291670",
+      "29C9C2",
+      "29C9EA",
+      "29CA31",
+      "2BE95D",
+      "2E405B",
+      "2E405C",
+      "2E4061",
+      "2E4069",
+      "2E406A",
+      "2E4079",
+      "2E407A",
+      "2E407F",
+      "2E4087",
+      "2E4089",
+      "2E4090",
+      "2E4091",
+      "2E4097",
+      "3D128D",
+      "3D128E",
+      "3D128F",
+      "3D1292",
+      "3D1293",
+      "3D1294",
+      "3D1295",
+      "3D1296",
+      "3D12C3",
+      "4FA7A6",
+      "779DDD",
+      "779DDE"
+     ],
+     "coords": [
+      -76312.671875,
+      16126.9638671875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2BE95D",
+       "source_type": "direct",
+       "coords": [
+        -77656.9921875,
+        11663.1376953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Hopewell Cave",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "30BE1D",
+      "30BE1E",
+      "30BE20",
+      "36C3F1",
+      "36C927",
+      "38B43F",
+      "3BF64A",
+      "4F582B",
+      "4F8A48"
+     ],
+     "coords": [
+      113875.1484375,
+      116405.390625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "36C927",
+       "source_type": "nest",
+       "coords": [
+        115886.515625,
+        113074.953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Abandoned Waste Dump",
+     "count": 2,
+     "sources": {
+      "nest": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3866FE",
+      "3953F9",
+      "3953FA",
+      "3953FD",
+      "395483",
+      "3CDEF0",
+      "3D3B99",
+      "3DC3DD",
+      "3DC449",
+      "55BEDF",
+      "55BEE0",
+      "58B9EA"
+     ],
+     "coords": [
+      198543.390625,
+      42937.04296875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "3DC3DD",
+       "source_type": "nest",
+       "coords": [
+        184725.0,
+        26157.234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3DC449",
+       "source_type": "nest",
+       "coords": [
+        184763.40625,
+        26928.63671875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Cavern",
+     "count": 3,
+     "sources": {
+      "nest": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "1837FD",
+      "1910F0",
+      "1A6435",
+      "1A6460",
+      "2EB13B",
+      "2EB13E",
+      "2EB14B",
+      "3621D6",
+      "3641CA"
+     ],
+     "coords": [
+      -614.028686523437,
+      5417.9384765625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "1837FD",
+       "source_type": "nest",
+       "coords": [
+        -1139.41076660156,
+        4467.67822265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1A6435",
+       "source_type": "nest",
+       "coords": [
+        3441.55615234375,
+        2221.54565429687
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1A6460",
+       "source_type": "nest",
+       "coords": [
+        -2488.404296875,
+        2359.12451171875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Excelsior Model Home",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2C089D",
+      "38A824",
+      "38A84C",
+      "38A856"
+     ],
+     "coords": [
+      172757.4375,
+      106937.546875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2C089D",
+       "source_type": "nest",
+       "coords": [
+        173343.578125,
+        99286.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Thunder Mt. Power Plant Yard",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2D14A0",
+      "2D14A5",
+      "2D14A8",
+      "2DAF78",
+      "314F73",
+      "35184E",
+      "351857",
+      "35185D",
+      "37BE5C",
+      "4FCDB9",
+      "51BF18"
+     ],
+     "coords": [
+      190783.390625,
+      91931.546875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "37BE5C",
+       "source_type": "nest",
+       "coords": [
+        190414.734375,
+        86812.40625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 94",
+     "count": 10,
+     "sources": {
+      "static": 10
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "27FEF1",
+      "27FF2A",
+      "27FF2B",
+      "27FF2C",
+      "5B8FFB",
+      "5B980D",
+      "5B98EE",
+      "5BB199",
+      "5BB1F4",
+      "5BB209",
+      "5BB282",
+      "5BB2B4",
+      "5BB424",
+      "5BB427",
+      "5BB52B",
+      "5BB574",
+      "5BB577",
+      "5BB819",
+      "5BB858",
+      "5BB868",
+      "5BBE6C",
+      "5BBE73",
+      "5BBE74",
+      "5BBE75",
+      "5BBE7F",
+      "5BBFC9",
+      "5BC6A1",
+      "5BCFDE",
+      "5BCFE1",
+      "5BDFAB",
+      "5BDFE2",
+      "5BE0FB",
+      "5BE12E",
+      "5BE1DE",
+      "5BE22E",
+      "5BE22F",
+      "5BE51B",
+      "5BE51C",
+      "5BE51F",
+      "5BE6F0",
+      "5BE6F1",
+      "5BE6F2",
+      "5BE77F",
+      "5BE944",
+      "5BEBD9",
+      "5BEEE9",
+      "5BEEEA",
+      "5BEEEC",
+      "5BEEED",
+      "5BEF6F",
+      "5BF97F",
+      "5BF9AE",
+      "5BF9B1",
+      "5BFA35",
+      "5BFBA3",
+      "5BFC62",
+      "5C006A",
+      "5C0071",
+      "5C0078",
+      "5C0092",
+      "5C00B2",
+      "5C00C8",
+      "5C00F3",
+      "5C0115",
+      "5C0119",
+      "5C015C",
+      "5C0164",
+      "5C0165",
+      "5C018D",
+      "5C01DA",
+      "5C01DB",
+      "5C028B",
+      "5C028C",
+      "5C028D",
+      "5C028E",
+      "5C028F",
+      "5C0290",
+      "5C0291",
+      "5C0292",
+      "5C0293",
+      "5C0294",
+      "5C029C",
+      "5C029E",
+      "5C029F",
+      "5C02A1",
+      "5C02EE",
+      "5C033F",
+      "5C037B",
+      "5C037D",
+      "5C037E",
+      "5C03C0",
+      "5C03CE",
+      "5C03DF",
+      "5C0C03",
+      "5C0C04",
+      "5C2525",
+      "5D20C4"
+     ],
+     "coords": [
+      -15123.1904296875,
+      -1802.63110351562
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "5C01DA",
+       "source_type": "static",
+       "coords": [
+        -17553.0625,
+        1737.49670410156
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C01DB",
+       "source_type": "static",
+       "coords": [
+        -15654.3349609375,
+        -4346.0556640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C028B",
+       "source_type": "static",
+       "coords": [
+        -13909.90625,
+        2675.32348632813
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C028C",
+       "source_type": "static",
+       "coords": [
+        -15128.67578125,
+        -1706.33044433594
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C028D",
+       "source_type": "static",
+       "coords": [
+        -15037.140625,
+        -3383.53051757812
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C028E",
+       "source_type": "static",
+       "coords": [
+        -12036.7431640625,
+        -3644.1748046875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C028F",
+       "source_type": "static",
+       "coords": [
+        -10088.1474609375,
+        -3301.78002929687
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C0290",
+       "source_type": "static",
+       "coords": [
+        -11583.513671875,
+        -3341.826171875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C0291",
+       "source_type": "static",
+       "coords": [
+        -11577.1376953125,
+        -3328.03002929687
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C029C",
+       "source_type": "static",
+       "coords": [
+        -16967.73046875,
+        2638.55639648438
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "total": 30
+}

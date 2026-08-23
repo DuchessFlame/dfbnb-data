@@ -41,6 +41,7 @@ from typing import Dict, List
 
 from events_page_pools import load_events_index, build_page_from_events
 from patchlog_utils import write_patchlog_feed
+import tsv_source          # one resolver for every export selection
 
 PTS = "--pts" in sys.argv
 
@@ -96,7 +97,7 @@ def latest_tsv(tsv_dir: Path, pattern: str, exclude_keywords=None) -> str | None
     exclude_keywords = [kw.lower() for kw in (exclude_keywords or [])]
     candidates = sorted(
         glob.glob(str(tsv_dir / pattern)),
-        key=lambda x: os.path.getmtime(x),
+        key=tsv_source.export_key,
     )
     if exclude_keywords:
         candidates = [

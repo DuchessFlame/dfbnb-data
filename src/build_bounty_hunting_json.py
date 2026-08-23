@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from patchlog_utils import write_patchlog_feed
+import tsv_source          # one resolver for every export selection
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -225,8 +226,8 @@ HEAD_CUT = [
 # ── TSV helpers ───────────────────────────────────────────────────────────────
 
 def find_latest_tsv(pattern: str) -> Path | None:
-    files = sorted(glob.glob(str(TSV_DIR / pattern)))
-    return Path(files[-1]) if files else None
+    hit = tsv_source.newest(str(TSV_DIR / pattern), required=False)
+    return Path(hit) if hit else None
 
 
 def _to_int(v: str) -> int:

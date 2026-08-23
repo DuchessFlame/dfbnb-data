@@ -44,6 +44,7 @@ import sys
 import json
 import glob
 import datetime
+import tsv_source          # one resolver for every export selection
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 TSV_ROOT = os.path.join(SCRIPT_DIR, "..", "tsv")
@@ -62,20 +63,19 @@ _MONTH_ORDER = {
 
 
 def _filename_date_key(path):
-    base = os.path.basename(path).lower()
-    m = re.search(r"_([a-z]+)_(\d{4})", base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 
 def _newest_tsv(prefix):
     paths = glob.glob(os.path.join(TSV_ROOT, prefix + "_Export_*.tsv"))
     if not paths:
         return None
-    paths.sort(key=lambda p: (_filename_date_key(p), os.path.getmtime(p)))
+    paths.sort(key=lambda p: (_filename_date_key(p), os.path.basename(p)))
     return paths[-1]
 
 

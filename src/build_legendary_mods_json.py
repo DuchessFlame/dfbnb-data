@@ -37,6 +37,7 @@ import json
 import os
 import re
 from datetime import date
+import tsv_source          # one resolver for every export selection
 
 # ── tier display names (from the retired star pages) ──────────────
 TIER_NAME = {1: "Prefix", 2: "Major", 3: "Minor", 4: "Minor Extra"}
@@ -218,7 +219,7 @@ def read_murmrgh_pools_from_lgdi(tsv_dir, edid2name):
     cands = glob.glob(os.path.join(tsv_dir, "LGDI_Export_*_Mods.tsv"))
     if not cands:
         return None
-    path = max(cands, key=os.path.getmtime)
+    path = max(cands, key=tsv_source.export_key)
     stars = {1: set(), 2: set(), 3: set()}
     with open(path, encoding="utf-8-sig", errors="replace") as f:
         r = csv.reader(f, delimiter="\t")
@@ -431,7 +432,7 @@ def build_channel(channel, base, tsv_dir, dist_dir):
     if not cands:
         print(f"  [warn] no OMOD_Export_*.tsv in {tsv_dir}; skipping {channel}")
         return
-    omod_path = max(cands, key=os.path.getmtime)
+    omod_path = max(cands, key=tsv_source.export_key)
     live = read_omod_live(omod_path)
 
     master = build_master(pools, descs, live)

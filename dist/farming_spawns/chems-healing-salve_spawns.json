@@ -1,0 +1,903 @@
+{
+ "_meta": {
+  "generated": "2026-08-23",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "lists_in_closure": 18,
+  "source_totals": {
+   "container": 1,
+   "direct": 21,
+   "static": 1,
+   "vendor": 2
+  },
+  "unresolved": {}
+ },
+ "set": "chems-healing-salve",
+ "name": "Healing Salve",
+ "page_title": "Healing Salve",
+ "blurb": "How to obtain Healing Salve — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
+ "drop_rates": {
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Rip Daring's Survival Cache",
+     "edid": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
+     "obtain": "Purchase with tickets from the RIP Darling & The Cryptids from Beyond the Cosmos Scoreboard (Season 24)",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Healing Salve",
+       "form_id": "000522F7",
+       "rate": 0.85,
+       "rate_display": "85%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "containers": {
+   "types": [
+    {
+     "name": "Responder Cache",
+     "rate": 1.0,
+     "rate_display": "100%"
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Chem",
+  "yield_perk": null,
+  "weight_perk": "traveling_pharmacy",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "chemists",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.5,
+   "value": 20,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Healing Salve is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 20 Health",
+     "duration": "5s"
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Summer Camp: Craft Healing Salve with the Squirrel Backpack equipped",
+    "edid": "ATX_DE2023_SummerCamp_Challenge_Craft_HealingSalve",
+    "page": "season:summer-camp",
+    "type": "Mini Season",
+    "required": 5
+   },
+   {
+    "name": "Craft Healing Salve",
+    "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Medic_Sub_CraftHealingSalve",
+    "page": "scouts-tadpole",
+    "type": "Lifetime",
+    "required": 3
+   }
+  ],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Healing Salve",
+     "form_id": "",
+     "recipe_edid": "co_meal_HealingSalveForest_WorkbenchCooking",
+     "category": "Food",
+     "workbench": "Cooking Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Bloodleaf",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/bloodleaf/"
+      },
+      {
+       "name": "Soot Flower",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/soot-flower/"
+      },
+      {
+       "name": "Boiled Water",
+       "qty": 1
+      }
+     ],
+     "effects": [],
+     "how_to_obtain": "Recipe: Healing Salve (Forest)"
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Del Walsh",
+   "marker": "Nuka-World on Tour",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Duchess",
+   "marker": "The Wayward",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Mac",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "29.71%"
+   ],
+   "rate_display": "29.71%",
+   "rate_value": 0.29707,
+   "count": 1
+  }
+ ],
+ "additional_expands": null,
+ "info_notes": null,
+ "random_encounters": null,
+ "random_encounters_intro": null,
+ "events_activities": [
+  {
+   "list_id": "006820F7",
+   "edid": "NWOT_LL_Del_Consumable",
+   "name": "Del Consumable",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "005480BD",
+   "edid": "W05_MQ_002P_Radical_LL_Quest_Reward",
+   "name": "Hunter for Hire",
+   "type": "Primary",
+   "note": "Chance the item is in the Hunter for Hire reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "00556D57",
+   "edid": "W05_MQ_003P_Muscle_LL_Quest_Reward",
+   "name": "Strength in Numbers",
+   "type": "Primary",
+   "note": "Chance the item is in the Strength in Numbers reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "0059D134",
+   "edid": "W05_MQ_004P_Crane_LL_Quest_Reward",
+   "name": "The Elusive Crane",
+   "type": "Primary",
+   "note": "Chance the item is in the The Elusive Crane reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "0053B002",
+   "edid": "W05_Wayward_001P_LL_Quest_Reward",
+   "name": "Wayward Souls",
+   "type": "Primary",
+   "note": "Chance the item is in the Wayward Souls reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "0052E1AE",
+   "edid": "zzzRS01A_LL_QuestReward",
+   "name": "Zzz RS01A Quest Reward",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the Zzz RS01A Quest Reward reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "0055AB7D",
+   "edid": "W05_Daily_R02_MidquestReward_Hunter1_LL_Meds",
+   "name": "Daily: Retirement Plan",
+   "type": "Daily",
+   "note": "Chance the item is in the Daily: Retirement Plan reward pool per event/activity payout.",
+   "rate_value": 0.25,
+   "rate_display": "25%",
+   "rate_lines": [
+    "25%"
+   ]
+  },
+  {
+   "list_id": "0055AB84",
+   "edid": "W05_Daily_R02_MidquestReward_Hunter2_LL_Meds",
+   "name": "QuestReward_W05_Daily_R02_Retirement_Stage3520_01",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the QuestReward_W05_Daily_R02_Retirement_Stage3520_01 reward pool per event/activity payout.",
+   "rate_value": 0.25,
+   "rate_display": "25%",
+   "rate_lines": [
+    "25%"
+   ]
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Highway Town Interior",
+     "count": 1,
+     "sources": {
+      "vendor": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "845A71"
+     ],
+     "coords": [
+      -3519.67919921875,
+      13035.724609375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "845A71",
+       "source_type": "vendor",
+       "coords": [
+        -3519.67919921875,
+        13035.724609375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Honey Well Apiary",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "8351AE"
+     ],
+     "coords": [
+      -218623.125,
+      87454.765625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "8351AE",
+       "source_type": "direct",
+       "coords": [
+        -218623.125,
+        87454.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "NAR Repair Yard",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5368C7"
+     ],
+     "coords": [
+      138834.78125,
+      -158391.09375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "5368C7",
+       "source_type": "direct",
+       "coords": [
+        138834.78125,
+        -158391.09375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sunrise Field",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "59AE67"
+     ],
+     "coords": [
+      157032.765625,
+      -163062.125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "59AE67",
+       "source_type": "direct",
+       "coords": [
+        157032.765625,
+        -163062.125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Gilman Lumber Mill",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6EB162",
+      "6EB178"
+     ],
+     "coords": [
+      -104824.328125,
+      69315.8125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "6EB162",
+       "source_type": "direct",
+       "coords": [
+        -104824.328125,
+        69315.8125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6EB178",
+       "source_type": "direct",
+       "coords": [
+        -104901.109375,
+        69279.046875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Morgantown Airport",
+     "count": 6,
+     "sources": {
+      "direct": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6D9554",
+      "6D955B",
+      "6D9580",
+      "6D9585",
+      "6D958A",
+      "6D9592"
+     ],
+     "coords": [
+      -21034.33984375,
+      97068.421875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "6D9554",
+       "source_type": "direct",
+       "coords": [
+        -21034.33984375,
+        97068.421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6D955B",
+       "source_type": "direct",
+       "coords": [
+        -20071.888671875,
+        97337.8515625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6D9580",
+       "source_type": "direct",
+       "coords": [
+        -19028.640625,
+        103693.640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6D9585",
+       "source_type": "direct",
+       "coords": [
+        -19652.05078125,
+        103195.09375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6D958A",
+       "source_type": "direct",
+       "coords": [
+        -15898.2548828125,
+        103348.0234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6D9592",
+       "source_type": "direct",
+       "coords": [
+        -9590.859375,
+        104044.1484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Summersville",
+     "count": 5,
+     "sources": {
+      "direct": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6D8A62",
+      "6D8A69",
+      "6D8A70",
+      "6D8A7F",
+      "6D8A96"
+     ],
+     "coords": [
+      -43309.74609375,
+      -18133.6015625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "6D8A62",
+       "source_type": "direct",
+       "coords": [
+        -43309.74609375,
+        -18133.6015625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6D8A69",
+       "source_type": "direct",
+       "coords": [
+        -43960.78515625,
+        -19702.5234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6D8A70",
+       "source_type": "direct",
+       "coords": [
+        -43619.14453125,
+        -21705.677734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6D8A7F",
+       "source_type": "direct",
+       "coords": [
+        -44463.140625,
+        -18137.59375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6D8A96",
+       "source_type": "direct",
+       "coords": [
+        -43483.28515625,
+        -19276.19921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Wayward",
+     "count": 1,
+     "sources": {
+      "vendor": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "42B140"
+     ],
+     "coords": [
+      4338.0830078125,
+      -1624.39880371094
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "42B140",
+       "source_type": "vendor",
+       "coords": [
+        4338.0830078125,
+        -1624.39880371094
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Gulper Lagoon",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "51B921"
+     ],
+     "coords": [
+      139192.1875,
+      111565.859375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "51B921",
+       "source_type": "direct",
+       "coords": [
+        139192.1875,
+        111565.859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Thunder Mountain Power",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "434E92"
+     ],
+     "coords": [
+      -24.8781356811523,
+      3465.70092773438
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "434E92",
+       "source_type": "direct",
+       "coords": [
+        -24.8781356811523,
+        3465.70092773438
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Treetops",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B2BFD"
+     ],
+     "coords": [
+      172304.0625,
+      -34722.1953125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "3B2BFD",
+       "source_type": "direct",
+       "coords": [
+        172304.0625,
+        -34722.1953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Pitt",
+   "locations": [
+    {
+     "marker": "The Foundry",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "655CD3",
+      "738674"
+     ],
+     "coords": [
+      3732.64624023438,
+      4515.435546875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "655CD3",
+       "source_type": "direct",
+       "coords": [
+        3732.64624023438,
+        4515.435546875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "738674",
+       "source_type": "direct",
+       "coords": [
+        3732.64624023438,
+        4515.435546875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "Carleton Mine",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "592591"
+     ],
+     "coords": [
+      -804.252197265625,
+      19904.935546875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "592591",
+       "source_type": "static",
+       "coords": [
+        -804.252197265625,
+        19904.935546875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "total": 24
+}

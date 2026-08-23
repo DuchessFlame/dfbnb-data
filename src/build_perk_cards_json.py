@@ -42,6 +42,7 @@ Usage:
 
 import argparse, csv, glob, json, os, re, sys
 from pathlib import Path
+import tsv_source          # one resolver for every export selection
 
 SRC_DIR    = Path(__file__).resolve().parent
 REPO_ROOT  = SRC_DIR.parent
@@ -67,8 +68,7 @@ def to_num(v):
     except (TypeError, ValueError): return None
 
 def newest(pattern):
-    files = sorted(glob.glob(pattern), key=lambda f: os.path.getmtime(f))
-    return files[-1] if files else None
+    return tsv_source.newest(pattern, required=False)
 
 def read_tsv(path):
     with open(path, "r", encoding="latin-1", newline="") as f:

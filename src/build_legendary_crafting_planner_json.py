@@ -17,6 +17,7 @@ import os
 import re
 from datetime import date
 from pathlib import Path
+import tsv_source          # one resolver for every export selection
 
 # ── CLI ────────────────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser(
@@ -36,7 +37,7 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 def newest(pattern):
     """Return the newest file matching *pattern* under TSV_DIR."""
     hits = glob.glob(str(TSV_DIR / pattern))
-    return max(hits, key=os.path.getmtime) if hits else None
+    return max(hits, key=tsv_source.export_key) if hits else None
 
 
 def read_tsv(path):

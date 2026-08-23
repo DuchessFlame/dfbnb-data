@@ -55,6 +55,7 @@ from typing import Any, Dict, List, Optional, Tuple
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from diagnostics import Diagnostics  # noqa: E402
 from cut_content import is_cut  # noqa: E402
+import tsv_source          # one resolver for every export selection
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -362,7 +363,8 @@ def read_tsv(path: str) -> List[Dict[str, str]]:
 
 
 def find_tsv_files(data_dir: str, pattern: str = "COBJ_Export_*.tsv") -> List[str]:
-    return sorted(glob.glob(os.path.join(data_dir, pattern)))
+    """Matching exports, OLDEST -> NEWEST chronologically (callers take [-1])."""
+    return tsv_source.all_matching(os.path.join(data_dir, pattern))
 
 
 def resolve_edid_column(row: Dict[str, str]) -> str:

@@ -1,0 +1,384 @@
+{
+ "_meta": {
+  "generated": "2026-08-23",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "lists_in_closure": 27,
+  "source_totals": {
+   "vendor": 1
+  },
+  "unresolved": {}
+ },
+ "set": "chems-herbivore-serum",
+ "name": "Herbivore Serum",
+ "page_title": "Herbivore Serum",
+ "blurb": "How to obtain Herbivore Serum — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.25,
+  "object_type": "Chem",
+  "yield_perk": null,
+  "weight_perk": "traveling_pharmacy",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.14
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.03
+   }
+  ],
+  "backpack_mod": "chemists",
+  "backpack_weight": 0.03,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.05
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.03
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": null,
+   "weight": 0.25,
+   "value": 2000,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Consuming Herbivore Serum applies the effects below.",
+   "effects": [
+    {
+     "name": "Suppress negative effects",
+     "display": "+1 Suppress negative effects",
+     "duration": "1 hour"
+    },
+    {
+     "name": "Apply effect script",
+     "display": "+1 Apply effect script",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Herbivore Serum",
+     "form_id": "",
+     "recipe_edid": "co_serum_Herbivore",
+     "category": "Serums",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Bone",
+       "qty": 5,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/bone/"
+      },
+      {
+       "name": "Fertilizer",
+       "qty": 5,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/fertilizer/"
+      },
+      {
+       "name": "Nuke Flora_Orange",
+       "qty": 1
+      },
+      {
+       "name": "Ultracite",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/ultracite/"
+      }
+     ],
+     "effects": [],
+     "how_to_obtain": "Recipe: Herbivore Serum"
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Frankie",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "5.26%"
+   ],
+   "rate_display": "5.26%",
+   "rate_value": 0.052632,
+   "count": 1
+  }
+ ],
+ "additional_expands": null,
+ "info_notes": null,
+ "random_encounters": null,
+ "random_encounters_intro": null,
+ "events_activities": [
+  {
+   "list_id": "00888532",
+   "edid": "HTO_crLLS_Rewards_Serums",
+   "name": "HTO cr LLS Rewards Serums",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HTO cr LLS Rewards Serums reward pool per event/activity payout.",
+   "rate_value": 0.052632,
+   "rate_display": "5.26%",
+   "rate_lines": [
+    "5.26%"
+   ]
+  },
+  {
+   "list_id": "00699719",
+   "edid": "LL_MutatedEvents_Generic_DoubleMutation_Fallout1st_Rewards",
+   "name": "Mutated Events Generic Double Mutation Fallout1st Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Mutated Events Generic Double Mutation Fallout1st Rewards reward pool per event/activity payout.",
+   "rate_value": 0.026316,
+   "rate_display": "2.63%",
+   "rate_lines": [
+    "2.63%"
+   ]
+  },
+  {
+   "list_id": "0067F382",
+   "edid": "LL_MutatedEvents_Generic_DoubleMutation_Rewards",
+   "name": "Mutated Events Generic Double Mutation Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Mutated Events Generic Double Mutation Rewards reward pool per event/activity payout.",
+   "rate_value": 0.015789,
+   "rate_display": "1.58%",
+   "rate_lines": [
+    "1.58%"
+   ]
+  },
+  {
+   "list_id": "00698825",
+   "edid": "LL_MutatedEvents_Generic_SingleMutation_Fallout1st_Rewards",
+   "name": "Mutated Events Generic Single Mutation Fallout1st Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Mutated Events Generic Single Mutation Fallout1st Rewards reward pool per event/activity payout.",
+   "rate_value": 0.015789,
+   "rate_display": "1.58%",
+   "rate_lines": [
+    "1.58%"
+   ]
+  },
+  {
+   "list_id": "007965E2",
+   "edid": "RD01_LL_Raids_Rewards_Enc02",
+   "name": "Drill Complex Module",
+   "type": "Module",
+   "note": "Chance the item is in the Drill Complex Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
+  },
+  {
+   "list_id": "007965E4",
+   "edid": "RD01_LL_Raids_Rewards_Enc04",
+   "name": "Enclave Research Lab Module",
+   "type": "Module",
+   "note": "Chance the item is in the Enclave Research Lab Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
+  },
+  {
+   "list_id": "007965E3",
+   "edid": "RD01_LL_Raids_Rewards_Enc03",
+   "name": "Enclave Squad Module",
+   "type": "Module",
+   "note": "Chance the item is in the Enclave Squad Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
+  },
+  {
+   "list_id": "007965E1",
+   "edid": "RD01_LL_Raids_Rewards_Enc01",
+   "name": "Guardian Bot Module",
+   "type": "Module",
+   "note": "Chance the item is in the Guardian Bot Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
+  },
+  {
+   "list_id": "007965E5",
+   "edid": "RD01_LL_Raids_Rewards_Enc05",
+   "name": "Scorchtongue Module",
+   "type": "Module",
+   "note": "Chance the item is in the Scorchtongue Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
+  },
+  {
+   "list_id": "00802158",
+   "edid": "P62_LL_Drifter_Rewards_TrancheXX",
+   "name": "Defeat The Drifter",
+   "type": "Primary",
+   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
+   "rate_value": 0.010526,
+   "rate_display": "1.05%",
+   "rate_lines": [
+    "1.05%"
+   ]
+  },
+  {
+   "list_id": "0080CFB1",
+   "edid": "P62_LL_Drifter_Rewards_Tranche04",
+   "name": "Defeat The Drifter",
+   "type": "Primary",
+   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
+   "rate_value": 0.010526,
+   "rate_display": "1.05%",
+   "rate_lines": [
+    "1.05%"
+   ]
+  },
+  {
+   "list_id": "0080CFB2",
+   "edid": "P62_LL_Drifter_Rewards_Tranche05",
+   "name": "Defeat The Drifter",
+   "type": "Primary",
+   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
+   "rate_value": 0.010526,
+   "rate_display": "1.05%",
+   "rate_lines": [
+    "1.05%"
+   ]
+  },
+  {
+   "list_id": "0067F378",
+   "edid": "LL_MutatedEvents_Generic_SingleMutation_Rewards",
+   "name": "Mutated Events Generic Single Mutation Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Mutated Events Generic Single Mutation Rewards reward pool per event/activity payout.",
+   "rate_value": 0.010526,
+   "rate_display": "1.05%",
+   "rate_lines": [
+    "1.05%"
+   ]
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Whitespring Bunker",
+     "count": 1,
+     "sources": {
+      "vendor": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2B8028"
+     ],
+     "coords": [
+      -22446.251953125,
+      -6997.48779296875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2B8028",
+       "source_type": "vendor",
+       "coords": [
+        -22446.251953125,
+        -6997.48779296875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ]
+}

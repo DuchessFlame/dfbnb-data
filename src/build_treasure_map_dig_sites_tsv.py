@@ -25,7 +25,14 @@ import crossref_mappalachia_markers as xref
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-OUT_TSV = os.environ.get("TM_DIG_SITES_TSV", os.path.join(REPO, "tsv", "treasure_map_dig_sites.tsv"))
+import tsv_source
+
+# Channel-scoped: LIVE -> tsv/, PTS -> tsv/pts/. Writing a derived TSV to one shared
+# path lets a PTS run overwrite live data — the same class of bug as reading across
+# channels, one step further down the pipeline.
+OUT_TSV = os.environ.get("TM_DIG_SITES_TSV",
+                         tsv_source.derived("treasure_map_dig_sites.tsv",
+                                            tsv_source.channel_of()))
 
 SET = "treasure-maps"
 FIELDS = ["region", "site_number", "ref_edid", "ref_formid", "closest_fast_travel",

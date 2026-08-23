@@ -49,6 +49,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from diagnostics import Diagnostics  # noqa: E402
 from cut_content import is_cut  # noqa: E402
+import tsv_source          # one resolver for every export selection
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -285,7 +286,7 @@ def load_cobj_refs(data_dir: str) -> Dict[str, str]:
 
     tsv_file = None
     for pattern in COBJ_GLOBS:
-        candidates = sorted(glob.glob(os.path.join(data_dir, pattern)))
+        candidates = tsv_source.all_matching(os.path.join(data_dir, pattern))
         if candidates:
             tsv_file = candidates[-1]
             break

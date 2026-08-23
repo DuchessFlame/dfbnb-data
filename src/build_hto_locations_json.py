@@ -37,6 +37,7 @@ Flags:
 import json, os, sys, glob, csv, sqlite3
 from pathlib import Path
 from collections import Counter
+import tsv_source          # one resolver for every export selection
 
 PTS = "--pts" in sys.argv
 GENERATIVE = PTS or "--generative" in sys.argv
@@ -123,8 +124,7 @@ CURATED_LOCATIONS = [
 
 
 def newest(pattern):
-    hits = sorted(glob.glob(str(TSV_DIR / pattern)))
-    return hits[-1] if hits else None
+    return tsv_source.newest(str(TSV_DIR / pattern), required=False)
 
 def read_tsv(path):
     if not path or not os.path.exists(path):

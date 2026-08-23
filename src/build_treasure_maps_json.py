@@ -40,6 +40,7 @@ if str(_SRC) not in sys.path:
 from rng76 import (
     Rng76Data, safe_float, humanize_edid, fmt_pct,
 )
+import tsv_source          # one resolver for every export selection
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 DIST_DIR   = _REPO_ROOT / "dist"
@@ -53,13 +54,12 @@ _MONTH_ORDER = {
 }
 
 def _filename_date_key(path):
-    base = os.path.basename(path).lower()
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 def newest(pattern, exclude_substrings=None):
     full_pattern = str(TSV_DIR / pattern)
@@ -69,7 +69,7 @@ def newest(pattern, exclude_substrings=None):
                  if not any(s in os.path.basename(f) for s in exclude_substrings)]
     if not files:
         raise FileNotFoundError(f"No files matching {pattern} in {TSV_DIR}")
-    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
     return files[-1]
 
 def read_tsv(path):
@@ -102,7 +102,7 @@ except FileNotFoundError:
     except FileNotFoundError: MGEF_DATA = []
 # Load ALL OMOD exports and merge — different exports may have different DESC fields
 OMOD_DATA = []
-for _omod_f in sorted(glob.glob(str(TSV_DIR / "OMOD_Export_*.tsv")), key=lambda x: os.path.getmtime(x)):
+for _omod_f in tsv_source.all_matching(str(TSV_DIR / "OMOD_Export_*.tsv")):
     try:    OMOD_DATA.extend(read_tsv(_omod_f))
     except Exception: pass
 
@@ -2136,8 +2136,11 @@ def _load_location_sites(filename):
     rebuilds because they live in this committed TSV, not in datamined output.
     Regions are ABC-ordered; sites within a region sort by number (blank last).
     Returns [] when the file is absent so the block simply omits.
+
+    Channel-scoped: reads tsv/pts/ on a PTS build, tsv/ on live, falling back to
+    live when PTS has no copy. Live pages must never render PTS placements.
     """
-    path = TSV_DIR / filename
+    path = Path(tsv_source.derived_read(filename, tsv_source.channel_of()))
     if not path.exists():
         return []
     groups = OrderedDict()

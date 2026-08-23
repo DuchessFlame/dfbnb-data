@@ -39,6 +39,7 @@ import json
 import os
 import re
 from datetime import date
+import tsv_source          # one resolver for every export selection
 
 ROOT_FORMID = "007C62AF"  # Fishing_LL_ChumTroughReward
 
@@ -62,7 +63,7 @@ def newest_export(tsv_dir: str, suffix: str) -> str:
     matches = glob.glob(os.path.join(tsv_dir, f"LVLI_Export_*_{suffix}.tsv"))
     if not matches:
         raise FileNotFoundError(f"No LVLI_Export_*_{suffix}.tsv in {tsv_dir}")
-    return max(matches, key=os.path.getmtime)
+    return max(matches, key=tsv_source.export_key)
 
 
 def month_label(path: str) -> str:

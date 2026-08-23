@@ -58,6 +58,7 @@ import os
 import sys
 import tempfile
 from typing import Any, Dict, List, Set
+import tsv_source          # one resolver for every export selection
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -75,7 +76,7 @@ def newest_tsv(pattern: str, data_dir: str) -> str | None:
     matches = glob.glob(os.path.join(data_dir, pattern))
     if not matches:
         return None
-    return max(matches, key=os.path.getmtime)
+    return max(matches, key=tsv_source.export_key)
 
 
 def read_tsv_rows(path: str) -> list[dict]:

@@ -31,6 +31,7 @@ import os
 import re
 import sys
 from datetime import date
+import tsv_source          # one resolver for every export selection
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PTS = "--pts" in sys.argv
@@ -46,23 +47,19 @@ _MONTH_ORDER = {
 
 
 def _filename_date_key(path):
-    base = os.path.basename(path).lower()
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    m2 = re.search(r'_(\d{4})(\d{2})\d{2}_\d+', base)
-    if m2:
-        return (int(m2.group(1)), int(m2.group(2)))
-    return (0, 0)
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 
 def find_newest_tsv(pattern):
     files = globmod.glob(os.path.join(TSV_DIR, pattern))
     if not files:
         return None
-    return max(files, key=lambda p: (_filename_date_key(p), os.path.getmtime(p)))
+    return max(files, key=lambda p: (_filename_date_key(p), os.path.basename(p)))
 
 
 def read_tsv(filepath):
@@ -331,7 +328,7 @@ def build_enemies():
         all_files = globmod.glob(os.path.join(TSV_DIR, "NPC_Export_*.tsv"))
         base_files = [f for f in all_files if "_PRPS" not in f and "_Refs" not in f]
         if base_files:
-            tsv_path = max(base_files, key=lambda p: (_filename_date_key(p), os.path.getmtime(p)))
+            tsv_path = max(base_files, key=lambda p: (_filename_date_key(p), os.path.basename(p)))
     if not tsv_path:
         print("  [WARN] No NPC_Export_*.tsv found", file=sys.stderr)
         return []

@@ -23,6 +23,7 @@ Output: dist/bounty-hunting/bounty_hunting_rewards.json
 
 import json, os, glob, csv
 from pathlib import Path
+import tsv_source          # one resolver for every export selection
 
 # ── Paths ───────────────────────────────────────────────────────────────────
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -31,9 +32,8 @@ DIST_DIR   = _REPO_ROOT / "dist" / "bounty-hunting"
 
 
 def newest(pattern):
-    """Pick the newest TSV matching a glob pattern."""
-    hits = sorted(glob.glob(str(TSV_DIR / pattern)))
-    return hits[-1] if hits else None
+    """Pick the chronologically newest TSV matching a glob pattern."""
+    return tsv_source.newest(str(TSV_DIR / pattern), required=False)
 
 
 def read_tsv(path):

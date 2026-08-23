@@ -21,6 +21,7 @@ import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+import tsv_source          # one resolver for every export selection
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT       = SCRIPT_DIR.parent
@@ -33,7 +34,7 @@ def newest(pattern):
     hits = glob.glob(str(TSV_DIR / pattern))
     if not hits:
         return None
-    hits.sort(key=lambda p: os.path.getmtime(p))
+    hits.sort(key=tsv_source.export_key)
     return Path(hits[-1])
 
 
@@ -764,8 +765,9 @@ def main():
     weap_otft = newest("WEAP_Export_*_ObjectTemplate.tsv")
     ench_path = newest("ENCH_Export_*.tsv")
     mgef_path = newest("MGEF_Export_*.tsv")
-    _omod_all = [p for p in glob.glob(str(TSV_DIR / "OMOD_Export_*.tsv")) if "Properties" not in p]
-    omod_path = Path(max(_omod_all, key=os.path.getmtime)) if _omod_all else None
+    _omod = tsv_source.newest(str(TSV_DIR / "OMOD_Export_*.tsv"),
+                              exclude="Properties", required=False)
+    omod_path = Path(_omod) if _omod else None
     omod_prop_path = newest("OMOD_Export_*_Properties.tsv")
     spel_path = newest("SPEL_Export_*_HEADER.tsv") or newest("SPEL_Export_*.tsv")
     spel_eff_path = newest("SPEL_Export_*_EFFECTS.tsv")

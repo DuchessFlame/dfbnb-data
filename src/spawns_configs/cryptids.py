@@ -43,6 +43,7 @@ from spawns_engine.geo import Geo
 from spawns_engine import sources as esources
 from spawns_engine import build as ebuild
 from spawns_engine import events as eevents
+import tsv_source          # one resolver for every export selection
 
 # ── constants ────────────────────────────────────────────────────────────────
 CRYPTID_KEYWORD = "00331AC2"          # ActorTypeCryptid (roster authority)
@@ -122,9 +123,11 @@ URL_BASE = "/df/cryptids/"
 
 
 # ── file helpers ─────────────────────────────────────────────────────────────
-def _newest(pattern):
-    hits = sorted(glob.glob(os.path.join(TSV, pattern)), key=os.path.getmtime, reverse=True)
-    return hits[0] if hits else None
+def _newest(pattern, exclude=None):
+    # `exclude` filters sibling exports that share the same date token — a bare
+    # "NPC_Export_*.tsv" otherwise also matches "..._Refs"/"..._PRPS" and the
+    # date-tie sort can return the wrong one (no INAM column -> zero races).
+    return tsv_source.newest(os.path.join(TSV, pattern), exclude=exclude, required=False)
 
 
 def pct(v, places=2):
@@ -176,7 +179,7 @@ def verify_roster():
 def load_npcs():
     """Return {RNAM_EDID -> [npc rows]} and {FormID -> npc row} from the NPC export.
     npc row = dict of the columns we need."""
-    path = _newest("NPC_Export_*.tsv")
+    path = _newest("NPC_Export_*.tsv", exclude=["_Refs", "_PRPS"])
     if not path:
         raise FileNotFoundError("no NPC_Export_*.tsv")
     by_race, by_fid = defaultdict(list), {}
@@ -632,6 +635,31 @@ def sweep_ambush_markers(pages, cur):
     return out
 
 
+def sweep_nest_markers(pages, cur):
+    """Entity sweep for NEST objects (EDID contains 'Nest'), matched to a page's
+    `nest_tokens` -> {entityFormID(int) -> (edid, page_slug)}. Only pages that opt in
+    via `nest_tokens` get nests, so this never changes a page that didn't ask for it.
+    A nest is a distinct source_type ('nest') per spawn-guide §9k — never merged into
+    the creature-spawn count."""
+    active = [pg for pg in pages if pg.get("nest_tokens")]
+    if cur is None or not active:
+        return {}
+    rows = cur.execute("SELECT entityFormID, editorID, signature FROM Entity "
+                       "WHERE editorID LIKE '%Nest%'").fetchall()
+    out = {}
+    for fid, edid, sig in rows:
+        if sig not in ("CONT", "STAT", "FURN", "ACTI", "MSTT"):
+            continue
+        e = (edid or "").lower()
+        if DEV_MARKER_RE.search(e):
+            continue
+        for pg in active:
+            if any(t in e for t in pg["nest_tokens"]):
+                out[int(fid)] = (edid, pg["slug"])
+                break
+    return out
+
+
 def _chunks(seq, n=900):
     seq = list(seq)
     for i in range(0, len(seq), n):
@@ -687,6 +715,20 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
                 region, marker, _ = geo.resolve(space, x, y)
                 _record(cache, seen, slug, inst, space, ref, x, y, region, marker, "ambush")
 
+    # 1b) nest markers (opt-in via nest_tokens) — a DISTINCT 'nest' source_type,
+    # never merged into the creature-spawn count (spawn-guide §9k).
+    nest_map = sweep_nest_markers(pages, cur)       # entityFormID -> (edid, slug)
+    if nest_map:
+        for chunk in _chunks(list(nest_map.keys())):
+            q = ("SELECT x, y, instanceFormID, spaceFormID, referenceFormID FROM Position "
+                 "WHERE referenceFormID IN (%s)" % ",".join("?" * len(chunk)))
+            for x, y, inst, space, ref in cur.execute(q, tuple(chunk)):
+                edid, slug = nest_map[int(ref)]
+                if inst in seen[slug]:
+                    continue
+                region, marker, _ = geo.resolve(space, x, y)
+                _record(cache, seen, slug, inst, space, ref, x, y, region, marker, "nest")
+
     # 2) static NPC-base placements
     base_slug = {}
     for pg in pages:
@@ -730,7 +772,7 @@ def label_spawns(regions_out, name):
             for sp in loc.get("spawns") or []:
                 typed[sp.get("source_type", "spawn")].append(sp)
             label_word = {"ambush": f"{name} ambush", "placement": f"{name} spawn",
-                          "spawn": f"{name} spawn"}
+                          "spawn": f"{name} spawn", "nest": f"{name} nest"}
             counts = defaultdict(int)
             for sp in loc.get("spawns") or []:
                 st = sp.get("source_type", "spawn")
@@ -746,7 +788,7 @@ def attach_breakdowns(regions_out):
             bd = []
             for st, n in sorted((loc.get("sources") or {}).items()):
                 word = {"ambush": "ambush point", "placement": "static spawn",
-                        "spawn": "spawn point"}.get(st, st)
+                        "spawn": "spawn point", "nest": "nest"}.get(st, st)
                 bd.append({"label": word + ("" if n == 1 else "s"), "count": n,
                            "source_type": st})
             if bd:

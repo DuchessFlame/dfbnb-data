@@ -25,19 +25,7 @@
    "rate_source": "computed"
   },
   "containers": {
-   "container_edid": "Container_Loot_DeathclawNest01",
-   "container_id": "003099CD",
-   "nest_list_edid": "LL_Deathclaw_Nest",
-   "nest_list_id": "001B0084",
-   "chance_none_glob": "ItemTwo_High_ChanceNone_Tier",
-   "count": 19,
-   "as_fixed_spawn": true,
-   "marker_label": "Deathclaw Nest",
-   "marker_yield": "each gives 1 Raw + 1 Cracked Egg",
-   "note": "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). Each nest's chance to contain 1 raw egg + 1 cracked egg is computed from the ItemTwo_High_ChanceNone_Tier GLOB.",
-   "rate": 0.9,
-   "rate_display": "90%",
-   "rate_source": "computed"
+   "types": []
   },
   "vendors": null,
   "resource_generators": null,
@@ -200,11 +188,14 @@
     "ingredients": [
      {
       "name": "Wood",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
      },
      {
       "name": "Deathclaw Egg",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/",
+      "is_main": true
      }
     ],
     "effects": [
@@ -243,7 +234,8 @@
     "ingredients": [
      {
       "name": "Wood",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
      },
      {
       "name": "Boiled Water",
@@ -251,7 +243,9 @@
      },
      {
       "name": "Deathclaw Egg",
-      "qty": 2
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/",
+      "is_main": true
      },
      {
       "name": "Deathclaw Meat",
@@ -298,7 +292,8 @@
     "ingredients": [
      {
       "name": "Wood",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
      },
      {
       "name": "Boiled Water",
@@ -306,11 +301,14 @@
      },
      {
       "name": "Deathclaw Egg",
-      "qty": 2
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/",
+      "is_main": true
      },
      {
       "name": "Carrot",
-      "qty": 2
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/carrot/"
      },
      {
       "name": "Summer Filet",
@@ -341,7 +339,11 @@
     ],
     "how_to_obtain": "Unlocked by the challenge: Catch Summer Seasonal Local Legend: \"Glass Ghost\""
    }
-  ]
+  ],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
  },
  "vendor_list": [],
  "additional_expands": null,

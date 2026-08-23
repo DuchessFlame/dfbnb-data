@@ -198,7 +198,14 @@ def get_minerva_lists(row):
 
 
 def main():
-    src = sys.argv[1] if len(sys.argv) > 1 else 'BOOK_Export_March_2026.tsv'
+    # The workflow passes the export explicitly. The fallback used to be the literal
+    # string 'BOOK_Export_March_2026.tsv' — a frozen filename that would have quietly
+    # pinned Minerva's stock to March for anyone running this by hand.
+    if len(sys.argv) > 1:
+        src = sys.argv[1]
+    else:
+        import tsv_source
+        src = tsv_source.newest('BOOK_Export_*.tsv', exclude='Locations')
 
     minerva_plans = []
     all_plans = []

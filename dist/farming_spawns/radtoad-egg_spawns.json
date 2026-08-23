@@ -32,7 +32,16 @@
    "rate_display": "100% / 30% / 20% / 15% / 10%"
   },
   "vendors": null,
-  "resource_generators": null
+  "resource_generators": null,
+  "containers": {
+   "types": [
+    {
+     "name": "Egg Cluster",
+     "rate": 1.0,
+     "rate_display": "100%"
+    }
+   ]
+  }
  },
  "farming_tips": {
   "spoils": true,
@@ -128,11 +137,14 @@
     "ingredients": [
      {
       "name": "Wood",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
      },
      {
       "name": "Radtoad Egg",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-radtoad/radtoad-guide/",
+      "is_main": true
      }
     ],
     "effects": [
@@ -159,7 +171,11 @@
     ],
     "how_to_obtain": "Known by default."
    }
-  ]
+  ],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
  },
  "vendor_list": [],
  "additional_expands": null,
@@ -199,248 +215,7 @@
   },
   {
    "region": "Forest",
-   "locations": [
-    {
-     "marker": "Helvetia",
-     "count": 17,
-     "sources": {
-      "container": 16,
-      "loot-list": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3EE38B",
-      "3EE38C",
-      "3EE38D",
-      "3EE38E",
-      "3EE38F",
-      "3EE390",
-      "3EE391",
-      "3EE392",
-      "3EE393",
-      "3EE394",
-      "3EE395",
-      "3EE396",
-      "3EE397",
-      "3EE398",
-      "3EE399",
-      "3EE39A",
-      "4988AF"
-     ],
-     "coords": [
-      -32633.5,
-      35556.6
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "3EE38B",
-       "source_type": "container",
-       "coords": [
-        -32633.5,
-        35556.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE38C",
-       "source_type": "container",
-       "coords": [
-        -31663.1,
-        35301.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE38D",
-       "source_type": "container",
-       "coords": [
-        -32430.2,
-        35225.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE38E",
-       "source_type": "container",
-       "coords": [
-        -32726.2,
-        35580.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE38F",
-       "source_type": "container",
-       "coords": [
-        -33292.9,
-        35384.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE390",
-       "source_type": "container",
-       "coords": [
-        -33001.2,
-        35018.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE391",
-       "source_type": "container",
-       "coords": [
-        -33556.3,
-        34595.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE392",
-       "source_type": "container",
-       "coords": [
-        -33951.9,
-        34832.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE393",
-       "source_type": "container",
-       "coords": [
-        -34598.6,
-        34375.7
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE394",
-       "source_type": "container",
-       "coords": [
-        -35024.9,
-        33745.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE395",
-       "source_type": "container",
-       "coords": [
-        -35525.9,
-        33799.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE396",
-       "source_type": "container",
-       "coords": [
-        -35622.1,
-        33621.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE397",
-       "source_type": "container",
-       "coords": [
-        -35619.0,
-        33001.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE398",
-       "source_type": "container",
-       "coords": [
-        -35987.0,
-        31933.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE399",
-       "source_type": "container",
-       "coords": [
-        -36315.9,
-        31301.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3EE39A",
-       "source_type": "container",
-       "coords": [
-        -35197.3,
-        33534.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4988AF",
-       "source_type": "loot-list",
-       "coords": [
-        -32935.1,
-        33937.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   },
   {
    "region": "Savage Divide",
@@ -622,5 +397,6 @@
    "region": "Toxic Valley",
    "locations": []
   }
- ]
+ ],
+ "total": 8
 }

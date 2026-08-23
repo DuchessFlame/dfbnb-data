@@ -70,6 +70,7 @@ if str(_SRC) not in sys.path:
 # Reuse the verified engine + phantom-building helpers.
 import build_treasure_maps_json as btm
 from rng76 import Rng76Data
+import tsv_source          # one resolver for every export selection
 
 _REPO_ROOT = _SRC.parent
 DIST_DIR = _REPO_ROOT / "dist"
@@ -98,10 +99,8 @@ def main():
     # XP curves are static universal game data, so supplement the point data
     # from the main tsv/ export as a fallback.
     if not rng_data.curvs.points:
-        main_points = sorted(
-            glob.glob(str(_REPO_ROOT / "tsv" / "CURV_Export_*_POINTS.tsv")),
-            key=os.path.getmtime,
-        )
+        main_points = tsv_source.all_matching(
+            str(_REPO_ROOT / "tsv" / "CURV_Export_*_POINTS.tsv"))
         if main_points:
             print(f"  CURV points fallback: {os.path.basename(main_points[-1])}")
             rng_data.curvs.load_points(main_points[-1])

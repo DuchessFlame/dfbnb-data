@@ -53,6 +53,7 @@ from spawns_engine import sources as esources
 from spawns_engine import build as ebuild
 from spawns_engine import events as eevents
 from spawns_engine.classify import nuka_classify
+import tsv_source          # one resolver for every export selection
 
 try:
     from build_farming_used_for import build_consumption
@@ -108,8 +109,7 @@ CONTAINER_TYPES = {"container", "loot-list"}
 
 # ── file helpers ─────────────────────────────────────────────────────────────
 def _newest(pattern):
-    hits = sorted(glob.glob(os.path.join(TSV, pattern)), key=os.path.getmtime, reverse=True)
-    return hits[0] if hits else None
+    return tsv_source.newest(os.path.join(TSV, pattern), required=False)
 
 
 # ── seeds ────────────────────────────────────────────────────────────────────

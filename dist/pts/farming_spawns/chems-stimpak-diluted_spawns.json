@@ -1,0 +1,2266 @@
+{
+ "_meta": {
+  "generated": "2026-08-23",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "lists_in_closure": 479,
+  "source_totals": {
+   "container": 16195,
+   "direct": 1,
+   "loot-list": 1654,
+   "nest": 20,
+   "npc": 9632,
+   "vendor": 92
+  },
+  "unresolved": {
+   "Prospector Saloon Shelter": 1
+  }
+ },
+ "set": "chems-stimpak-diluted",
+ "name": "Stimpak: Diluted",
+ "page_title": "Stimpak: Diluted",
+ "blurb": "How to obtain Stimpak: Diluted — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
+ "drop_rates": {
+  "containers": {
+   "types": [
+    {
+     "name": "Animal Control Kit",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Chem Box",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Chem Cooler",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Doctor's Bag",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Dr. Ladek's Bag",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "First Aid",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Government Aid Drop",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Medical Examiner's Bag",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Mirror",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Secure Transport Container",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "U.S.S.A. Supply Crate",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Corpse Pile",
+     "rate": 0.10143902218929679,
+     "rate_display": "10.14%"
+    }
+   ]
+  },
+  "creatures": {
+   "note": "Around 9,632 creatures can drop Stimpak: Diluted as generic loot; they are not listed individually. Guaranteed fixed placements are under Fixed Spawn Locations."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_Resource_Communist_Collectron_Proletariat",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Stimpak: Diluted",
+       "form_id": "003078C2",
+       "rate": 0.133333,
+       "rate_display": "13.33%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Ashforge",
+     "edid": "AshResource",
+     "obtain": "Available in the base game.",
+     "interval": "3 min",
+     "items": [
+      {
+       "name": "Stimpak: Diluted",
+       "form_id": "003078C2",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.38,
+  "object_type": "Chem",
+  "yield_perk": null,
+  "weight_perk": "traveling_pharmacy",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.21
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.04
+   }
+  ],
+  "backpack_mod": "chemists",
+  "backpack_weight": 0.04,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.23
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.08
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.04
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.38,
+   "value": 11,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Stimpak: Diluted is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 20 Health",
+     "duration": "20s"
+    },
+    {
+     "name": "Restore Health",
+     "display": "Restores 10 Health",
+     "duration": "2s"
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Use a Stimpak: Diluted",
+    "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Medic_Sub_UseStimpakDiluted",
+    "page": "scouts-tadpole",
+    "type": "Lifetime",
+    "required": 3
+   }
+  ],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Stimpak: Diluted",
+     "form_id": "003078C2",
+     "recipe_edid": "co_chem_StimpakDiluted",
+     "category": "Chems",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Stimpak",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/chems/chems-stimpak/"
+      },
+      {
+       "name": "Purified Water",
+       "qty": 2,
+       "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-purified-water/"
+      }
+     ],
+     "effects": [
+      {
+       "name": "Restore Health",
+       "display": "Restores 20 Health",
+       "duration": "20s"
+      }
+     ],
+     "how_to_obtain": "Known by default."
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Del Walsh",
+   "marker": "Nuka-World on Tour",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Carmen",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Fast Nicky",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Pete Rutledge",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Hocking Hills Vendor Bot",
+   "marker": "Hocking Hills Train Station",
+   "region": "Burning Springs",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Phoenix",
+   "marker": "Watoga Shopping Plaza",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Watoga Vendor Bot",
+   "marker": "Watoga Station",
+   "region": "Cranberry Bog",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sutton Station",
+   "region": "Forest",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Sunny",
+   "marker": "Foundation",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Pleasant Valley Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "R&G Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sunnytop Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Brotherhood Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Free States Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Shopping Mall Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "The Whitespring Station Vendor",
+   "marker": "Whitespring Station",
+   "region": "Savage Divide",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Murry",
+   "marker": "",
+   "region": "Skyline Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Wallace",
+   "marker": "Berkeley Springs Station",
+   "region": "The Mire",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Beckham",
+   "marker": "Raleigh Clay's Bunker",
+   "region": "The Mire",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Raf",
+   "marker": "The Crater",
+   "region": "Toxic Valley",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Daphne",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Grahm",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Sam Nguyen",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Xerxo",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Mac",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "29.71%"
+   ],
+   "rate_display": "29.71%",
+   "rate_value": 0.29707,
+   "count": 1
+  }
+ ],
+ "additional_expands": null,
+ "info_notes": null,
+ "random_encounters": null,
+ "random_encounters_intro": null,
+ "events_activities": [
+  {
+   "list_id": "006820F7",
+   "edid": "NWOT_LL_Del_Consumable",
+   "name": "Del Consumable",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "00519A29",
+   "edid": "zzzFFZ03_LL_QuestReward",
+   "name": "Zzz FFZ03 Quest Reward",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the Zzz FFZ03 Quest Reward reward pool per event/activity payout.",
+   "rate_value": 0.784,
+   "rate_display": "78.4%",
+   "rate_lines": [
+    "78.4%"
+   ]
+  },
+  {
+   "list_id": "005B2FF6",
+   "edid": "LLS_DailyOps_Stimpak",
+   "name": "Daily Ops Stimpak",
+   "type": "Daily Op",
+   "note": "Chance the item is in the Daily Ops Stimpak reward pool per event/activity payout.",
+   "rate_value": 0.6,
+   "rate_display": "60%",
+   "rate_lines": [
+    "60%"
+   ]
+  },
+  {
+   "list_id": "00519A2F",
+   "edid": "FFZ10_LL_QuestReward_Event",
+   "name": "Quest Reward Event",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the Quest Reward Event reward pool per event/activity payout.",
+   "rate_value": 0.4,
+   "rate_display": "40%",
+   "rate_lines": [
+    "40%"
+   ]
+  },
+  {
+   "list_id": "00519A2B",
+   "edid": "zzzFFZ04_LL_QuestReward",
+   "name": "Zzz FFZ04 Quest Reward",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the Zzz FFZ04 Quest Reward reward pool per event/activity payout.",
+   "rate_value": 0.4,
+   "rate_display": "40%",
+   "rate_lines": [
+    "40%"
+   ]
+  },
+  {
+   "list_id": "00893F6F",
+   "edid": "HTO_crLLS_Rewards_Bespoke_Boss",
+   "name": "HTO cr LLS Rewards Bespoke Boss",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HTO cr LLS Rewards Bespoke Boss reward pool per event/activity payout.",
+   "rate_value": 0.253598,
+   "rate_display": "25.36%",
+   "rate_lines": [
+    "25.36%"
+   ]
+  },
+  {
+   "list_id": "005A38E4",
+   "edid": "W05_COMP_RQ_Fetch_LL_Quest_Reward",
+   "name": "<Alias=QuestNameOverride>",
+   "type": "Secondary",
+   "note": "Chance the item is in the <Alias=QuestNameOverride> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "005A38E5",
+   "edid": "W05_COMP_RQ_Kill_LL_Quest_Reward",
+   "name": "<Alias=QuestNameOverride>",
+   "type": "Secondary",
+   "note": "Chance the item is in the <Alias=QuestNameOverride> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "005A38E6",
+   "edid": "W05_COMP_RQ_Rescue_LL_Quest_Reward",
+   "name": "<Alias=QuestNameOverride>",
+   "type": "Secondary",
+   "note": "Chance the item is in the <Alias=QuestNameOverride> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "003EB67C",
+   "edid": "PowerPlantEvent_LL_QuestReward_Minimal",
+   "name": "Activity: Powering Up <Alias=PowerPlantTitleNameLocation>",
+   "type": "Event",
+   "note": "Chance the item is in the Activity: Powering Up <Alias=PowerPlantTitleNameLocation> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "003EB67D",
+   "edid": "PowerPlantEvent_LL_QuestReward_Full",
+   "name": "Activity: Powering Up <Alias=PowerPlantTitleNameLocation>",
+   "type": "Event",
+   "note": "Chance the item is in the Activity: Powering Up <Alias=PowerPlantTitleNameLocation> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00599A7B",
+   "edid": "W05_MQS_205P_LL_Quest_Reward",
+   "name": "All That Glitters",
+   "type": "Primary",
+   "note": "Chance the item is in the All That Glitters reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "005A21E2",
+   "edid": "W05_COMP_Quest_Camp_Full_Beckett_LL_Quest_Reward",
+   "name": "Ally: An Eagle Flies Free",
+   "type": "Secondary",
+   "note": "Chance the item is in the Ally: An Eagle Flies Free reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "005A21A0",
+   "edid": "W05_COMP_Quest_Camp_Full_Astronaut_LL_Quest_Reward",
+   "name": "Ally: The Woman Who Fell To Earth",
+   "type": "Secondary",
+   "note": "Chance the item is in the Ally: The Woman Who Fell To Earth reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "0055557A",
+   "edid": "W05_MQR_205P_LL_Quest_Reward",
+   "name": "Buried Treasure",
+   "type": "Primary",
+   "note": "Chance the item is in the Buried Treasure reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "003666F7",
+   "edid": "MoM02A_LL_QuestReward",
+   "name": "Chasing Shadows",
+   "type": "Secondary",
+   "note": "Chance the item is in the Chasing Shadows reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00555576",
+   "edid": "W05_MQR_201P_LL_Quest_Reward",
+   "name": "Cheating Death",
+   "type": "Primary",
+   "note": "Chance the item is in the Cheating Death reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "007DC663",
+   "edid": "Fishing_BigFish_LL_Quest_Rewards",
+   "name": "Daily: Big Fish in a Small Pond",
+   "type": "Daily",
+   "note": "Chance the item is in the Daily: Big Fish in a Small Pond reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "0054FA99",
+   "edid": "W05_Daily_R01_Rewards",
+   "name": "Daily: The Importance of Communication",
+   "type": "Daily",
+   "note": "Chance the item is in the Daily: The Importance of Communication reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00599A7D",
+   "edid": "W05_MQS_204P_LL_Quest_Reward",
+   "name": "Division of Wealth",
+   "type": "Primary",
+   "note": "Chance the item is in the Division of Wealth reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00564314",
+   "edid": "W05_MQS_203P_LL_Quest_Reward",
+   "name": "Duty Calls",
+   "type": "Primary",
+   "note": "Chance the item is in the Duty Calls reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "003666F8",
+   "edid": "MoM02B_LL_QuestReward",
+   "name": "Forging a Legend",
+   "type": "Secondary",
+   "note": "Chance the item is in the Forging a Legend reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00555579",
+   "edid": "W05_MQR_204P_LL_Quest_Reward",
+   "name": "From Russia With Lev",
+   "type": "Primary",
+   "note": "Chance the item is in the From Russia With Lev reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00555577",
+   "edid": "W05_MQR_202P_LL_Quest_Reward",
+   "name": "Fun and Games",
+   "type": "Primary",
+   "note": "Chance the item is in the Fun and Games reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "003666F4",
+   "edid": "MoM01_LL_QuestReward",
+   "name": "Initiate of Mysteries",
+   "type": "Secondary",
+   "note": "Chance the item is in the Initiate of Mysteries reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "004E60E8",
+   "edid": "MoM00_LL_QuestReward",
+   "name": "Into the Mystery",
+   "type": "Secondary",
+   "note": "Chance the item is in the Into the Mystery reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "004FACD4",
+   "edid": "LL_MSiloReward_Monongah_QuestReward",
+   "name": "Mission: Countdown <Alias=MSiloShortNameLocation>",
+   "type": "Secondary",
+   "note": "Chance the item is in the Mission: Countdown <Alias=MSiloShortNameLocation> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "004FACD5",
+   "edid": "LL_MSiloReward_SpruceKnob_QuestReward",
+   "name": "Mission: Countdown <Alias=MSiloShortNameLocation>",
+   "type": "Secondary",
+   "note": "Chance the item is in the Mission: Countdown <Alias=MSiloShortNameLocation> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "0051B055",
+   "edid": "LL_MSiloReward_SugarGrove_QuestReward",
+   "name": "Mission: Countdown <Alias=MSiloShortNameLocation>",
+   "type": "Secondary",
+   "note": "Chance the item is in the Mission: Countdown <Alias=MSiloShortNameLocation> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "003666F5",
+   "edid": "MoM02_LL_QuestReward",
+   "name": "Novice of Mysteries",
+   "type": "Secondary",
+   "note": "Chance the item is in the Novice of Mysteries reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00599A7C",
+   "edid": "W05_MQ_102P_LL_Quest_Reward",
+   "name": "Overseer, Overseen",
+   "type": "Primary",
+   "note": "Chance the item is in the Overseer, Overseen reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "003666F9",
+   "edid": "MoM02C_LL_QuestReward",
+   "name": "Prototypical Problems",
+   "type": "Secondary",
+   "note": "Chance the item is in the Prototypical Problems reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "005A354D",
+   "edid": "W05_MQA_206P_LL_Quest_Reward",
+   "name": "Secrets Revealed",
+   "type": "Primary",
+   "note": "Chance the item is in the Secrets Revealed reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "003666F6",
+   "edid": "MoM03_LL_QuestReward",
+   "name": "Seeker of Mysteries",
+   "type": "Secondary",
+   "note": "Chance the item is in the Seeker of Mysteries reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00596748",
+   "edid": "W05_MQ_101P_A_Rewards",
+   "name": "Strange Bedfellows",
+   "type": "Primary",
+   "note": "Chance the item is in the Strange Bedfellows reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "003666FB",
+   "edid": "MoM04_LL_QuestReward",
+   "name": "The Mistress of Mystery",
+   "type": "Secondary",
+   "note": "Chance the item is in the The Mistress of Mystery reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00596747",
+   "edid": "W05_MQ_101P_Rewards",
+   "name": "The New Arrivals",
+   "type": "Primary",
+   "note": "Chance the item is in the The New Arrivals reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00555578",
+   "edid": "W05_MQR_203P_LL_Quest_Reward",
+   "name": "The Ol' Weston Shuffle",
+   "type": "Primary",
+   "note": "Chance the item is in the The Ol' Weston Shuffle reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00564312",
+   "edid": "W05_MQS_201P_LL_Quest_Reward",
+   "name": "Trade Secrets",
+   "type": "Primary",
+   "note": "Chance the item is in the Trade Secrets reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "0041F887",
+   "edid": "V94_1_LL_VaultSystemRewards_Standard",
+   "name": "Vault Mission: Dead in the Water<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc>",
+   "type": "Secondary",
+   "note": "Chance the item is in the Vault Mission: Dead in the Water<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "0041F888",
+   "edid": "V94_1_LL_VaultSystemRewards_Expert",
+   "name": "Vault Mission: Dead in the Water<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc>",
+   "type": "Secondary",
+   "note": "Chance the item is in the Vault Mission: Dead in the Water<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "0041F889",
+   "edid": "V94_2_LL_VaultSystemRewards_Standard",
+   "name": "Vault Mission: Meltdown<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc>",
+   "type": "Secondary",
+   "note": "Chance the item is in the Vault Mission: Meltdown<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "0041F88A",
+   "edid": "V94_2_LL_VaultSystemRewards_Expert",
+   "name": "Vault Mission: Meltdown<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc>",
+   "type": "Secondary",
+   "note": "Chance the item is in the Vault Mission: Meltdown<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "0041F88B",
+   "edid": "V94_3_LL_VaultSystemRewards_Standard",
+   "name": "Vault Mission: Washout<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc>",
+   "type": "Secondary",
+   "note": "Chance the item is in the Vault Mission: Washout<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "0041F88C",
+   "edid": "V94_3_LL_VaultSystemRewards_Expert",
+   "name": "Vault Mission: Washout<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc>",
+   "type": "Secondary",
+   "note": "Chance the item is in the Vault Mission: Washout<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc> reward pool per event/activity payout.",
+   "rate_value": 0.225,
+   "rate_display": "22.5%",
+   "rate_lines": [
+    "22.5%"
+   ]
+  },
+  {
+   "list_id": "00853D3D",
+   "edid": "SCORE_S23_LL_ChemMysteryMachine_Common",
+   "name": "SCORE S23 Chem Mystery Machine Common",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the SCORE S23 Chem Mystery Machine Common reward pool per event/activity payout.",
+   "rate_value": 0.2,
+   "rate_display": "20%",
+   "rate_lines": [
+    "20%"
+   ]
+  },
+  {
+   "list_id": "00478940",
+   "edid": "QuestReward_LLS_Aid_Workshop",
+   "name": "Event: Defend <Alias=AttackLocation>",
+   "type": "Event",
+   "note": "Chance the item is in the Event: Defend <Alias=AttackLocation> reward pool per event/activity payout.",
+   "rate_value": 0.166667,
+   "rate_display": "16.67%",
+   "rate_lines": [
+    "16.67%"
+   ]
+  },
+  {
+   "list_id": "0043934D",
+   "edid": "QuestReward_LLS_Aid_All",
+   "name": "Breaking Radio Silence",
+   "type": "Secondary",
+   "note": "Chance the item is in the Breaking Radio Silence reward pool per event/activity payout.",
+   "rate_value": 0.133333,
+   "rate_display": "13.33%",
+   "rate_lines": [
+    "13.33%"
+   ]
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Tunnel of Love",
+     "count": 5,
+     "sources": {
+      "nest": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "66E507",
+      "66E6BD",
+      "66FB40",
+      "6747E9",
+      "674813",
+      "67AE18",
+      "67E92A",
+      "67E952"
+     ],
+     "coords": [
+      5377.35009765625,
+      -1031.001953125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "6747E9",
+       "source_type": "nest",
+       "coords": [
+        7124.53955078125,
+        -762.631103515625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "674813",
+       "source_type": "nest",
+       "coords": [
+        4050.90698242188,
+        5718.90234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "67AE18",
+       "source_type": "nest",
+       "coords": [
+        4288.8935546875,
+        5618.74755859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "67E92A",
+       "source_type": "nest",
+       "coords": [
+        3954.568359375,
+        5656.095703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "67E952",
+       "source_type": "nest",
+       "coords": [
+        4007.40625,
+        5604.75048828125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": [
+    {
+     "marker": "The Neapolitan Casino",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6A471F",
+      "6A4720",
+      "6A47FF",
+      "6A4801",
+      "6A4803",
+      "6A4805",
+      "6A4807",
+      "6A4808",
+      "6A48D1",
+      "6A48D2",
+      "6A48ED",
+      "6A48EE",
+      "6A4907",
+      "6A4908",
+      "6A4A7E",
+      "6A4CD7",
+      "6A4CD8",
+      "6A4CD9",
+      "6B570F",
+      "6B5745",
+      "6B5746",
+      "6B5747",
+      "6B574A",
+      "6B5970",
+      "6B5986",
+      "6B59C9",
+      "6B5A1B",
+      "6B5A51",
+      "6B5A52",
+      "6B5A53",
+      "6B5A56",
+      "6B5B01",
+      "6B5B04",
+      "6B5B05",
+      "6B5B06",
+      "6B5B3C",
+      "6B9081",
+      "6B9437",
+      "6BB317",
+      "6BB318",
+      "6BB319",
+      "6BB31A",
+      "6C361C",
+      "6C361E",
+      "6C3620",
+      "6C3622",
+      "6C369C",
+      "6C369D",
+      "6C369F",
+      "6C36A0",
+      "6C3DDF",
+      "6C3DF7",
+      "6C3DF9",
+      "6C3E2D",
+      "6C3E37",
+      "6C4814",
+      "6C4831",
+      "6D954F",
+      "6DB534",
+      "6DB555",
+      "6DB55A",
+      "6DB561",
+      "6DB562",
+      "6DB578",
+      "6DB58C",
+      "6DB58D",
+      "6DD9DC",
+      "6DD9DE",
+      "6DD9E1",
+      "6DD9E7",
+      "6DD9E9",
+      "6E0FFE",
+      "6E1002",
+      "6E1005",
+      "6E1007",
+      "6E1008",
+      "6E1009",
+      "6E100B",
+      "6E100F",
+      "6E1015",
+      "6E1016",
+      "6E1017",
+      "6E1018",
+      "6E101B",
+      "6E101E",
+      "6E1028",
+      "6E1030",
+      "6E2240",
+      "6E36E9",
+      "6E36F6",
+      "6E376B",
+      "6E37F7",
+      "6E3807",
+      "6E3DB8",
+      "6E4D2C",
+      "6E4D37",
+      "6E4D8C",
+      "6E5C8D",
+      "6E5C92",
+      "6E5D44",
+      "6E5D4C",
+      "6E6155",
+      "6E6157",
+      "6E61AB",
+      "6E61AE",
+      "6E61B8",
+      "6E6E89",
+      "6E6E94",
+      "6E6E95",
+      "6E6E96",
+      "6E700C",
+      "6E700E",
+      "6E7266",
+      "6E7292",
+      "6E7293",
+      "6E729B",
+      "6E72A3",
+      "6E72BF",
+      "6E72D5",
+      "6E730D",
+      "6E7327",
+      "6E7487",
+      "6E78D4",
+      "6E79D7",
+      "6E79EE",
+      "6E7E84",
+      "6E7E86",
+      "6E846A",
+      "6E85B9",
+      "6E85BB",
+      "6E85BC",
+      "6E85BF",
+      "6E85CB",
+      "6E85CF",
+      "6E85D0",
+      "6E85D3",
+      "6E85D9",
+      "6E85DA",
+      "6E85DB",
+      "6E85F3",
+      "6E8B04",
+      "6E8BA9",
+      "6E8C09",
+      "6E9029",
+      "6EA833",
+      "6EA834",
+      "6EA917",
+      "6EA96D",
+      "6EAA24",
+      "6EAA25",
+      "6EAA2E",
+      "6EAA2F",
+      "6EAA39",
+      "6EAA3C",
+      "6EAA45",
+      "6EAA46",
+      "6EAA47",
+      "6EAA49",
+      "6EAB76",
+      "6EAB7E",
+      "6EAB86",
+      "6EAB8E",
+      "6EAB90",
+      "6EABA0",
+      "6EABA1",
+      "6EABA2",
+      "6EAE8F",
+      "6EAE90",
+      "6EAEEB",
+      "6EAEF8",
+      "6EAF32",
+      "6EFFD8",
+      "6F2379",
+      "6F28F3",
+      "6F28F6",
+      "6F28F9",
+      "6F28FA",
+      "726DFB",
+      "726DFC",
+      "73280B",
+      "73DCBF",
+      "767F03",
+      "767F07",
+      "767F0F",
+      "767F10",
+      "767F11",
+      "767F14",
+      "767F1C",
+      "767F21",
+      "767F24",
+      "767F26",
+      "767F28",
+      "767F30",
+      "767F31",
+      "767F33",
+      "767F52",
+      "767F53",
+      "767F55",
+      "767F5B",
+      "767F5F",
+      "767F63",
+      "767F66",
+      "767F68",
+      "767F6B",
+      "767F6D",
+      "767F6E",
+      "767F6F",
+      "767F71",
+      "767F72",
+      "767F73",
+      "767F77",
+      "767F79",
+      "767F7B",
+      "76B513",
+      "76B514",
+      "76B515",
+      "76B516",
+      "76B517"
+     ],
+     "coords": [
+      -594.086547851562,
+      432.533721923828
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "6F28FA",
+       "source_type": "nest",
+       "coords": [
+        -223.420715332031,
+        54.3448524475098
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Dino Peaks Mini Golf",
+     "count": 6,
+     "sources": {
+      "nest": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7F0A81",
+      "7F0A84",
+      "7F6500",
+      "7F6501",
+      "7F6502",
+      "7F6503",
+      "7F6505",
+      "80391B",
+      "8039C3",
+      "8039C5",
+      "8039C8",
+      "80F2AC",
+      "80F2AD",
+      "80F2AE",
+      "80F2AF",
+      "80F2B3",
+      "80F2B4",
+      "80F2B6",
+      "80F2BA",
+      "8109EA",
+      "8109EE",
+      "8109EF",
+      "816453",
+      "816454",
+      "816460",
+      "8165C3",
+      "818A66",
+      "818A68",
+      "819710",
+      "81A36D",
+      "81CD06",
+      "81CDF7",
+      "81E1F5",
+      "823A93",
+      "825AA6",
+      "825AAE",
+      "825AB6",
+      "826047",
+      "82604D",
+      "8277D4",
+      "827D93",
+      "827D97",
+      "82859D",
+      "8295E3",
+      "8295E4",
+      "8295E7",
+      "82A3B2",
+      "82A3B3",
+      "82A3B4",
+      "82B955",
+      "82B956",
+      "82B959",
+      "82E083",
+      "82E084",
+      "82E087",
+      "82E08F",
+      "82E090",
+      "82E093",
+      "8315F0",
+      "8316EA",
+      "831706",
+      "831707",
+      "8325CA",
+      "83643D",
+      "83A654",
+      "83A655",
+      "83A656",
+      "83A657",
+      "83A66C",
+      "83A66D",
+      "83A66F",
+      "841749",
+      "84474E",
+      "84479D",
+      "84479E",
+      "8447A0",
+      "8488A0",
+      "8488A5",
+      "8488DD",
+      "8593AA",
+      "8593AC",
+      "8593AD",
+      "8593AE",
+      "8593AF",
+      "8623C0",
+      "86241A"
+     ],
+     "coords": [
+      -209948.578125,
+      143224.84375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "7F0A81",
+       "source_type": "nest",
+       "coords": [
+        -208312.0,
+        145838.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F0A84",
+       "source_type": "nest",
+       "coords": [
+        -211674.375,
+        147038.671875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80391B",
+       "source_type": "nest",
+       "coords": [
+        -209705.140625,
+        146995.40625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82A3B2",
+       "source_type": "nest",
+       "coords": [
+        -211870.8125,
+        146337.6875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82A3B3",
+       "source_type": "nest",
+       "coords": [
+        -208732.40625,
+        146803.140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82A3B4",
+       "source_type": "nest",
+       "coords": [
+        -209155.21875,
+        145142.09375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "New River Gorge Resort",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "01EC13",
+      "01EC14",
+      "01EC1B",
+      "052B76",
+      "052B7C",
+      "091F12",
+      "091F13",
+      "11CBE2",
+      "11F9F3",
+      "11F9F4",
+      "11FAAF",
+      "146808",
+      "146851",
+      "1FB9D0",
+      "1FB9D9",
+      "279D8F",
+      "279D95",
+      "279D97",
+      "290F54",
+      "290F5A",
+      "2913A6",
+      "2913A7",
+      "2913BE",
+      "2913C0",
+      "2914B7",
+      "2914B8",
+      "2914BC",
+      "2914BD",
+      "2914BE",
+      "2914BF",
+      "2914C2",
+      "291577",
+      "29157C",
+      "29157E",
+      "291645",
+      "291646",
+      "29165A",
+      "29166B",
+      "29166E",
+      "29166F",
+      "291670",
+      "29C9C2",
+      "29C9EA",
+      "29CA31",
+      "2BE95D",
+      "2E405B",
+      "2E405C",
+      "2E4060",
+      "2E4061",
+      "2E4069",
+      "2E406A",
+      "2E4075",
+      "2E4079",
+      "2E407A",
+      "2E407F",
+      "2E4087",
+      "2E4089",
+      "2E408C",
+      "2E408D",
+      "2E4090",
+      "2E4091",
+      "2E4097",
+      "3D1284",
+      "3D1285",
+      "3D1286",
+      "3D1287",
+      "3D1288",
+      "3D128A",
+      "3D128B",
+      "3D128C",
+      "3D128D",
+      "3D128E",
+      "3D128F",
+      "3D1290",
+      "3D1291",
+      "3D1292",
+      "3D1293",
+      "3D1294",
+      "3D1295",
+      "3D1296",
+      "3D1297",
+      "3D12C3",
+      "3D12D4",
+      "3D12DD",
+      "3D130E",
+      "3D1A5C",
+      "3E7D35",
+      "43BB7E",
+      "4F8FD6",
+      "4F8FD8",
+      "4F99F0",
+      "4FA7A6",
+      "4FB0D4",
+      "59BEB3",
+      "59BEB4",
+      "59BEB5",
+      "779DDD",
+      "779DDE"
+     ],
+     "coords": [
+      -83343.8046875,
+      13034.673828125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2BE95D",
+       "source_type": "direct",
+       "coords": [
+        -77656.9921875,
+        11663.1376953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Hopewell Cave",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "09CAB1",
+      "09CAB5",
+      "21E642",
+      "238B13",
+      "238B1D",
+      "2B9F29",
+      "30BE1D",
+      "30BE1E",
+      "30BE20",
+      "36C3F1",
+      "36C401",
+      "36C927",
+      "38B43F",
+      "393845",
+      "393846",
+      "393848",
+      "3BF640",
+      "3BF641",
+      "3BF64A",
+      "3D0A3A",
+      "4F582B",
+      "4F8A48",
+      "59474A"
+     ],
+     "coords": [
+      120213.4921875,
+      104191.0859375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "36C927",
+       "source_type": "nest",
+       "coords": [
+        115886.515625,
+        113074.953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Abandoned Waste Dump",
+     "count": 2,
+     "sources": {
+      "nest": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3866FE",
+      "395353",
+      "395354",
+      "3953F9",
+      "3953FA",
+      "3953FD",
+      "395483",
+      "3AFAA1",
+      "3CDEF0",
+      "3D1AB4",
+      "3D1AB5",
+      "3D1AB8",
+      "3D3B99",
+      "3DC3DC",
+      "3DC3DD",
+      "3DC449",
+      "55BEDF",
+      "55BEE0",
+      "58B9EA"
+     ],
+     "coords": [
+      179012.40625,
+      21609.134765625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "3DC3DD",
+       "source_type": "nest",
+       "coords": [
+        184725.0,
+        26157.234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3DC449",
+       "source_type": "nest",
+       "coords": [
+        184763.40625,
+        26928.63671875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Cavern",
+     "count": 3,
+     "sources": {
+      "nest": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "022E2B",
+      "022E60",
+      "1837FD",
+      "1910F0",
+      "192624",
+      "1A6435",
+      "1A6460",
+      "2EB13B",
+      "2EB13E",
+      "2EB13F",
+      "2EB14B",
+      "2EB14D",
+      "3621D6",
+      "3641CA"
+     ],
+     "coords": [
+      144.641983032227,
+      -165.840560913086
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "1837FD",
+       "source_type": "nest",
+       "coords": [
+        -1139.41076660156,
+        4467.67822265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1A6435",
+       "source_type": "nest",
+       "coords": [
+        3441.55615234375,
+        2221.54565429687
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1A6460",
+       "source_type": "nest",
+       "coords": [
+        -2488.404296875,
+        2359.12451171875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Excelsior Model Home",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2C089D",
+      "2EF005",
+      "2EF006",
+      "2EF007",
+      "2EF008",
+      "38A824",
+      "38A838",
+      "38A84C",
+      "38A856",
+      "395502",
+      "3D0A46",
+      "3D0A59",
+      "3D0A5A",
+      "45023C",
+      "59AB8B",
+      "59AB8C",
+      "59AB8D",
+      "59B208",
+      "59B20A",
+      "59B21E",
+      "59B21F"
+     ],
+     "coords": [
+      182143.515625,
+      109398.9921875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2C089D",
+       "source_type": "nest",
+       "coords": [
+        173343.578125,
+        99286.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Thunder Mt. Power Plant Yard",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2D145A",
+      "2D14A0",
+      "2D14A5",
+      "2D14A7",
+      "2D14A8",
+      "2DAF78",
+      "314F73",
+      "35184E",
+      "351857",
+      "35185D",
+      "35C528",
+      "35C52B",
+      "35C52C",
+      "35C52D",
+      "35C52E",
+      "35C537",
+      "35C538",
+      "35C539",
+      "37BE5C",
+      "3BF7EE",
+      "3D0A5B",
+      "48CC3F",
+      "49268B",
+      "49268C",
+      "49268D",
+      "49268E",
+      "4FCDB9",
+      "51BF18"
+     ],
+     "coords": [
+      189271.3125,
+      94290.9609375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "37BE5C",
+       "source_type": "nest",
+       "coords": [
+        190414.734375,
+        86812.40625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "total": 21
+}

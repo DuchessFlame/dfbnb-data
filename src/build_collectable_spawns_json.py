@@ -24,7 +24,7 @@ Env overrides:
   OUT_DIR        output dir                  default <repo>/dist
 """
 
-import os, json, datetime
+import os, re, csv, json, datetime
 from collections import defaultdict
 
 import crossref_mappalachia_markers as xref
@@ -99,6 +99,20 @@ SET_META = {
         "page_title": "Pint-Sized Phantoms' Grave Site Locations",
         "blurb": "Every grave site for the Pint-Sized Phantoms' treasure map, grouped by region.",
     },
+    # Two more TSV-sourced dig-site sets that render through the SAME
+    # df-bnb-collectables-spawns.js engine + collect tracking, but live under
+    # Treasure Maps. Regions are pre-resolved in their committed TSVs (see
+    # DIG_SETS / build_dig_set), so CI needs no Mappalachia DB.
+    "treasure-maps-locations": {
+        "name": "Treasure Map Locations",
+        "page_title": "Treasure Map Dig Locations",
+        "blurb": "Every treasure-map dig site in Appalachia, grouped by region.",
+    },
+    "u-mine-it": {
+        "name": "U Mine It Dig Locations",
+        "page_title": "U Mine It (Lucky Strike) Dig Locations",
+        "blurb": "Every U-Mine-It / Lucky Strike dig site in Appalachia, grouped by region.",
+    },
 }
 
 # ── Pint-Sized Phantoms grave sites (TSV-sourced collectables-spawns set) ──────
@@ -124,7 +138,15 @@ SET_META = {
 # routine rebuild. A placement rebuild can no longer touch editorial content at all,
 # because it no longer writes it.
 GRAVE_SLUG = "pint-sized-phantom-graves"
-GRAVE_TSV = os.path.join(REPO, "tsv", "phantom_grave_sites.tsv")
+GRAVE_BASE = "008F1672"          # SDOW_MQ02_Graves_GraveActivator01 ("Disturbed Grave")
+
+# Read the placements for THIS channel — tsv/pts/ on a PTS build, tsv/ on live —
+# falling back to live when PTS has none. That fallback is safe in this direction
+# only: a PTS page showing live data is merely behind, while a live page showing
+# PTS data is wrong, which is how the grave page shipped graves that weren't there.
+import tsv_source as _ts
+GRAVE_CHANNEL = _ts.channel_of()
+GRAVE_TSV = _ts.derived_read("phantom_grave_sites.tsv", GRAVE_CHANNEL)
 GRAVE_NOTES_TSV = os.path.join(REPO, "tsv", "phantom_grave_notes.tsv")
 # The grave TSV uses "The Forest"; the ten canonical regions call it "Forest".
 GRAVE_REGION_ALIASES = {"the forest": "Forest"}
@@ -410,6 +432,89 @@ def build_grave_set():
     return data, out_path
 
 
+# ── TSV-sourced dig-site sets (Treasure Maps locations + U Mine It) ──────────
+# Both live under Treasure Maps and render through the SAME collectables-spawns
+# engine + collect tracking. Their committed TSVs already carry region +
+# closest_fast_travel, so CI needs no Mappalachia DB.
+DIG_SETS = {
+    # Same channel rule as the graves TSV above: read this channel's file, fall
+    # back to live if PTS hasn't generated one.
+    "treasure-maps-locations": _ts.derived_read("treasure_map_dig_sites.tsv", GRAVE_CHANNEL),
+    "u-mine-it": _ts.derived_read("u_mine_it_dig_sites.tsv", GRAVE_CHANNEL),
+}
+
+
+def _dig_label(ref_edid, site_number, idx):
+    """Per-site label. A hand-set site_number wins; else a treasure-map mound is named
+    by its map number; else generic 'Dig Site #N' within the marker."""
+    sn = str(site_number or "").strip()
+    if sn:
+        return f"Dig Site #{sn}"
+    m = re.search(r"(\d+)\s*$", ref_edid or "")
+    if m and "treasuremapmound" in (ref_edid or "").lower():
+        return f"Treasure Map {int(m.group(1)):02d}"
+    return f"Dig Site #{idx + 1}"
+
+
+def _read_dig_rows(tsv_path):
+    with open(tsv_path, newline="", encoding="utf-8") as f:
+        return [{k: (r.get(k) or "").strip() for k in
+                 ("region", "site_number", "ref_edid", "ref_formid",
+                  "closest_fast_travel", "directions", "photo_approach", "photo_spawn")}
+                for r in csv.DictReader(f, delimiter="\t")]
+
+
+def build_dig_set(slug):
+    """Reshape a committed dig-site TSV into collectable_spawns_<slug>.json — the
+    per-spawn, 2-photo (Map location / Directions / Item in place) layout the grave
+    page uses. Editorial directions/photos live IN the TSV (merge-preserved by the
+    TSV generator) and are also merge-preserved from any published JSON by identity."""
+    tsv_path = DIG_SETS[slug]
+    meta = meta_for(slug)
+    out_path = os.path.join(OUT_DIR, f"collectable_spawns_{slug}.json")
+    handfills = load_grave_spawn_handfills(out_path)     # (region,marker,label) safety net
+    existing_top = load_existing_top(out_path)
+    full_map = meta.get("full_map") or existing_top.get("full_map", "")
+    blurb_quote = meta.get("blurb_quote") or existing_top.get("blurb_quote", "")
+
+    by_region = defaultdict(lambda: defaultdict(list))
+    for r in _read_dig_rows(tsv_path):
+        region = r["region"] or ""
+        marker = r["closest_fast_travel"] or "(unknown location)"
+        by_region[region][marker].append(r)
+
+    regions_out, total = [], 0
+    for region in REGIONS_AZ:
+        locs = []
+        for marker in sorted(by_region.get(region, {}), key=lambda m: marker_sort_key(region, m)):
+            spawns = []
+            for i, g in enumerate(by_region[region][marker]):
+                label = _dig_label(g["ref_edid"], g["site_number"], i)
+                hf = handfills.get((region, marker, label), {})
+                spawns.append({
+                    "label": label,
+                    "image_top": g["photo_approach"] or hf.get("image_top", ""),
+                    "directions": g["directions"] or hf.get("directions", ""),
+                    "image_bottom": g["photo_spawn"] or hf.get("image_bottom", ""),
+                    "refs": [g["ref_formid"]] if g["ref_formid"] else [],
+                })
+            total += len(spawns)
+            locs.append({"marker": marker, "count": len(spawns), "spawns": spawns})
+        regions_out.append({"region": region, "locations": locs})
+
+    data = {
+        "_meta": {
+            "generated": datetime.date.today().isoformat(),
+            "source": f"{os.path.relpath(tsv_path, REPO)} (placements + editorial, regions "
+                      "pre-resolved) — reshaped for the collectables-spawns engine",
+        },
+        "set": slug, "name": meta["name"], "page_title": meta["page_title"],
+        "blurb": meta["blurb"], "blurb_quote": blurb_quote, "full_map": full_map,
+        "total": total, "regions": regions_out, "unplaced": [],
+    }
+    return data, out_path
+
+
 def _manifest_entry(data):
     region_counts = {reg["region"]: len(reg["locations"]) for reg in data["regions"] if reg["locations"]}
     return {"set": data["set"], "name": data["name"], "page_title": data["page_title"],
@@ -428,6 +533,29 @@ def build_graves_only():
     rc = {reg["region"]: len(reg["locations"]) for reg in data["regions"] if reg["locations"]}
     print(f"[collectable_spawns] {GRAVE_SLUG}: {data['total']} grave sites across "
           f"{len(rc)} region(s) -> {os.path.basename(out_path)}")
+
+    # Placement patch log. Built from REFR export vs REFR export — the only place
+    # a grave being added, removed or re-placed is visible. Diffing this file
+    # against its own previous revision (what every other feed used to do) could
+    # never see it: with no new export the output never moved, so the page showed
+    # a cheerful "nothing changed" for five weeks while sending players to graves
+    # that were not there.
+    try:
+        import patchlog_utils as _pl
+        _pl.write_export_patchlog(
+            dist_dir=OUT_DIR,
+            feed_name="patchlog_latest_df_placements.json",
+            record_type="REFR",
+            pattern="REFR_Placements_*.tsv",
+            key_col="RefFormID",
+            name_cols=("RefEDID", "RefFormID"),
+            fields={"X": "X", "Y": "Y", "Z": "Z"},
+            # Only the graves' own base object — not every placement in Appalachia.
+            scope=lambda r: (r.get("BaseFormID", "") or "").strip().upper() == GRAVE_BASE,
+            current_count=data["total"],
+        )
+    except Exception as e:
+        print(f"[collectable_spawns] placement patch log skipped: {e}")
 
     mpath = os.path.join(OUT_DIR, "collectable_spawns_manifest.json")
     try:
@@ -484,6 +612,19 @@ def main():
         print(f"[collectable_spawns] {GRAVE_SLUG}: {gdata['total']} grave sites across "
               f"{len(grc)} region(s) -> {os.path.basename(gpath)}")
 
+    # TSV-sourced dig-site sets (Treasure Maps locations + U Mine It). Regions are
+    # pre-resolved in their committed TSVs, so these build with no Mappalachia DB.
+    for slug in DIG_SETS:
+        if not os.path.exists(DIG_SETS[slug]):
+            print(f"[collectable_spawns] {slug}: {os.path.basename(DIG_SETS[slug])} not found — skipped.")
+            continue
+        ddata, dpath = build_dig_set(slug)
+        json.dump(ddata, open(dpath, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+        manifest_sets.append(_manifest_entry(ddata))
+        drc = {reg["region"]: len(reg["locations"]) for reg in ddata["regions"] if reg["locations"]}
+        print(f"[collectable_spawns] {slug}: {ddata['total']} dig sites across "
+              f"{len(drc)} region(s) -> {os.path.basename(dpath)}")
+
     manifest = {
         "_meta": {"generated": datetime.date.today().isoformat()},
         "sets": manifest_sets,
@@ -494,9 +635,50 @@ def main():
           f"{os.path.basename(mpath)}")
 
 
+def _rebuild_manifest_from_docs():
+    """Rebuild the manifest from EVERY committed collectable_spawns_<set>.json on disk,
+    so a targeted build (graves-only / dig-only, or a run missing an export) never drops
+    a set that already has a doc."""
+    import glob
+    sets = []
+    for f in sorted(glob.glob(os.path.join(OUT_DIR, "collectable_spawns_*.json"))):
+        if f.endswith("_manifest.json"):
+            continue
+        try:
+            d = json.load(open(f, encoding="utf-8"))
+        except Exception:
+            continue
+        if isinstance(d, dict) and d.get("set") and "regions" in d:
+            sets.append(_manifest_entry(d))
+    mpath = os.path.join(OUT_DIR, "collectable_spawns_manifest.json")
+    json.dump({"_meta": {"generated": datetime.date.today().isoformat()}, "sets": sets},
+              open(mpath, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    print(f"[collectable_spawns] manifest rebuilt from {len(sets)} on-disk set(s): "
+          f"{[s['set'] for s in sets]}")
+
+
+def build_dig_only():
+    """Build ONLY the TSV-sourced dig-site sets (Treasure Maps locations + U Mine It) —
+    no Mappalachia resolve — then rebuild the manifest from all on-disk docs so the mask
+    / grave sets are preserved."""
+    os.makedirs(OUT_DIR, exist_ok=True)
+    for slug in DIG_SETS:
+        if not os.path.exists(DIG_SETS[slug]):
+            print(f"[collectable_spawns] {slug}: {os.path.basename(DIG_SETS[slug])} not found — skipped.")
+            continue
+        data, path = build_dig_set(slug)
+        json.dump(data, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+        drc = {reg["region"]: len(reg["locations"]) for reg in data["regions"] if reg["locations"]}
+        print(f"[collectable_spawns] {slug}: {data['total']} dig sites across "
+              f"{len(drc)} region(s) -> {os.path.basename(path)}")
+    _rebuild_manifest_from_docs()
+
+
 if __name__ == "__main__":
     import sys
     if "--graves-only" in sys.argv[1:]:
         build_graves_only()
+    elif "--dig-only" in sys.argv[1:]:
+        build_dig_only()
     else:
         main()

@@ -34,6 +34,7 @@ only newly-seen refs are reported as unresolved.
 
 import os, re, csv, glob, json, sqlite3, datetime
 from collections import defaultdict
+import tsv_source          # one resolver for every export selection
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -117,11 +118,9 @@ def load_lctn_regions(tsv_root=None):
     (walked up to 6 hops). Only the 10 canonical map regions are emitted.
     Returns ({}, {}) if the export is absent (callers fall back to the old logic)."""
     root = tsv_root or os.path.join(REPO, "tsv")
-    hits = sorted(glob.glob(os.path.join(root, "LCTN_Export_*_LCTN.tsv")),
-                  key=os.path.getmtime, reverse=True)
-    if not hits:
+    path = tsv_source.newest(os.path.join(root, "LCTN_Export_*_LCTN.tsv"), required=False)
+    if not path:
         return {}, {}
-    path = hits[0]
 
     recs = {}
     with open(path, encoding="utf-8", errors="replace") as f:
@@ -216,7 +215,82 @@ MARKER_REGION_OVERRIDES = {
 
 
 # ── Mappalachia geometry ─────────────────────────────────────────────────────────
+# The Appalachia geography — region polygons + map markers — extracted from the
+# 480 MB Mappalachia DB into ~170 KB of JSON and committed.
+#
+# Region boundaries and marker positions are the same for everyone and change only
+# when Bethesda adds land. Requiring the whole DB to look them up is what made every
+# placement generator local-only, which is what stopped them running in CI, which is
+# what let the grave data sit untouched for five weeks. The DB stays the source of
+# truth; this is its committed shadow so CI can resolve coordinates too.
+GEO_SNAPSHOT = os.environ.get(
+    "MAPPALACHIA_GEO_SNAPSHOT",
+    os.path.join(REPO, "data", "mappalachia_geo.json"))
+
+
+def _save_geo_snapshot(rings, markers, spaces=None):
+    try:
+        os.makedirs(os.path.dirname(GEO_SNAPSHOT), exist_ok=True)
+        prev = {}
+        if os.path.exists(GEO_SNAPSHOT):
+            try:
+                with open(GEO_SNAPSHOT, encoding="utf-8") as f:
+                    prev = json.load(f)
+            except Exception:
+                prev = {}
+        payload = {
+            "_note": ("Region polygons, map markers and worldspace names extracted from "
+                      "mappalachia.db so builds without the DB (CI) can resolve "
+                      "coordinates. Regenerated automatically by any local run that has "
+                      "the DB."),
+            "worldspace": WORLDSPACE,
+            "rings": {reg: [[[x, y] for (x, y) in ring] for ring in ringlist]
+                      for reg, ringlist in rings.items()},
+            "markers": [[l, x, y] for (l, x, y) in markers],
+            # Keep whatever a previous run captured if this caller didn't supply it,
+            # so a partial refresh can't silently drop a section CI depends on.
+            "spaces": (spaces if spaces is not None else prev.get("spaces", [])),
+        }
+        with open(GEO_SNAPSHOT, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
+    except Exception as e:
+        print(f"[crossref] could not write geo snapshot ({e}) — not fatal.")
+
+
+def _load_geo_snapshot():
+    with open(GEO_SNAPSHOT, encoding="utf-8") as f:
+        d = json.load(f)
+    rings = {reg: [[(p[0], p[1]) for p in ring] for ring in ringlist]
+             for reg, ringlist in d.get("rings", {}).items()}
+    markers = [(m[0], m[1], m[2]) for m in d.get("markers", [])]
+    return rings, markers
+
+
+def geo_snapshot_spaces():
+    """{spaceFormID: (editorID, displayName)} from the committed snapshot, or {}.
+
+    Mappalachia's Space table is 204 rows / 10 KB. Keeping it here means the spawns
+    engine no longer needs the 480 MB DB just to name a worldspace.
+    """
+    try:
+        with open(GEO_SNAPSHOT, encoding="utf-8") as f:
+            d = json.load(f)
+        return {int(s[0]): (s[1] or "", s[2] or "") for s in d.get("spaces", [])}
+    except Exception:
+        return {}
+
+
 def load_mappalachia():
+    """(rings, markers). Uses the Mappalachia DB when present, else the committed
+    snapshot. A local run refreshes the snapshot so CI stays in step."""
+    if not os.path.isfile(MAPPALACHIA_DB):
+        if os.path.exists(GEO_SNAPSHOT):
+            print(f"[crossref] Mappalachia DB not found — using committed geo snapshot "
+                  f"{os.path.relpath(GEO_SNAPSHOT, REPO)}.")
+            return _load_geo_snapshot()
+        raise SystemExit(
+            f"Mappalachia DB not found at {MAPPALACHIA_DB} and no geo snapshot at "
+            f"{GEO_SNAPSHOT}. Run this once on a machine with the DB to create it.")
     con = sqlite3.connect(MAPPALACHIA_DB)
     cur = con.cursor()
     fam_ids = defaultdict(list)
@@ -236,7 +310,12 @@ def load_mappalachia():
     markers = [(l, x, y) for (x, y, l) in
                cur.execute("SELECT x, y, label FROM MapMarker WHERE spaceFormID=? AND label<>''",
                            (WORLDSPACE,))]
+    spaces = [[sid, eid or "", nm or ""] for sid, eid, nm in
+              cur.execute("SELECT spaceFormID, spaceEditorID, spaceDisplayName FROM Space")]
     con.close()
+    # Refresh the committed snapshot on every DB-backed run, so the file CI reads
+    # can never quietly fall behind the DB it was taken from.
+    _save_geo_snapshot(rings, markers, spaces)
     return rings, markers
 
 
@@ -298,7 +377,7 @@ def newest_per_section(paths):
         base = os.path.basename(p)
         m = re.match(r"(.+?)_(?:Export|CollectableLocations)_", base)
         sec = m.group(1) if m else base
-        if sec not in by_sec or os.path.getmtime(p) > os.path.getmtime(by_sec[sec]):
+        if sec not in by_sec or tsv_source.export_key(p) > tsv_source.export_key(by_sec[sec]):
             by_sec[sec] = p
     return sorted(by_sec.values())
 
@@ -404,7 +483,7 @@ def resolve_dataset(input_glob=None, verbose=True):
     geo cache — no files are written, so build_collectable_spawns_json.py can import and reuse
     this without side effects. The CLI main() wraps this to also write the resolved TSV + cache.
     """
-    paths = newest_per_section(sorted(glob.glob(input_glob or INPUT_GLOB)))
+    paths = newest_per_section(tsv_source.all_matching(input_glob or INPUT_GLOB))
     if not paths:
         if verbose:
             print(f"[crossref] no input files matched {input_glob or INPUT_GLOB}")

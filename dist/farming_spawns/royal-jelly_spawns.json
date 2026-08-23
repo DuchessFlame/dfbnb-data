@@ -12,7 +12,11 @@
  "name": "Royal Jelly",
  "page_title": "Royal Jelly Spawn Locations",
  "blurb": "Every known world spawn for Royal Jelly, grouped by region. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -111,19 +115,24 @@
      },
      {
       "name": "Wood",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
      },
      {
       "name": "Purified Water",
-      "qty": 2
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-purified-water/"
      },
      {
       "name": "Razorgrain",
-      "qty": 2
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/razorgrain/"
      },
      {
       "name": "Royal Jelly",
-      "qty": 3
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-royal-jelly/",
+      "is_main": true
      }
     ],
     "effects": [
@@ -167,11 +176,14 @@
     "ingredients": [
      {
       "name": "Wood",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
      },
      {
       "name": "Royal Jelly",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-royal-jelly/",
+      "is_main": true
      }
     ],
     "effects": [
@@ -198,7 +210,11 @@
     ],
     "how_to_obtain": "Known by default."
    }
-  ]
+  ],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
  },
  "vendor_list": [],
  "additional_expands": null,

@@ -8,6 +8,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+import tsv_source          # one resolver for every export selection
 
 
 ROOT = Path(__file__).resolve().parents[1]  # repo root (src/..)
@@ -50,12 +51,11 @@ def find_latest_file(prefix: str) -> Optional[Path]:
       tsv/<prefix>_Export_*.tsv
     Example prefix: "CMPT" or "PLYT"
     """
-    candidates = sorted(TSV_DIR.glob(f"{prefix}_Export_*.tsv"))
-    if not candidates:
-        return None
-    # Use mtime to avoid month-name parsing edge cases
-    candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
-    return candidates[0]
+    # Month-name parsing lives in tsv_source now, so this no longer has to fall
+    # back to mtime — which was arbitrary in CI anyway, since actions/checkout
+    # stamps every file with the same timestamp.
+    hit = tsv_source.newest(str(TSV_DIR / f"{prefix}_Export_*.tsv"), required=False)
+    return Path(hit) if hit else None
 
 
 def truthy(v: str) -> bool:

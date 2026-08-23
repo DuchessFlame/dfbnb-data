@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-22",
+  "generated": "2026-08-23",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -9,6 +9,7 @@
   ],
   "source_totals": {
    "ambush": 30,
+   "nest": 9,
    "placement": 2
   },
   "unresolved": {}
@@ -1498,6 +1499,160 @@
         "source_type": "ambush"
        }
       ]
+     },
+     {
+      "marker": "Watoga Civic Center",
+      "count": 3,
+      "sources": {
+       "nest": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C4FC3",
+       "3C4FC7",
+       "3C4FCC"
+      ],
+      "coords": [
+       136806.90625,
+       -136841.84375
+      ],
+      "spawns": [
+       {
+        "label": "Scorchbeast nest #1",
+        "ref": "3C4FC3",
+        "source_type": "nest",
+        "coords": [
+         136806.90625,
+         -136841.84375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast nest #2",
+        "ref": "3C4FC7",
+        "source_type": "nest",
+        "coords": [
+         136617.859375,
+         -136814.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast nest #3",
+        "ref": "3C4FCC",
+        "source_type": "nest",
+        "coords": [
+         136955.171875,
+         -136889.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "nests",
+        "count": 3,
+        "source_type": "nest"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga Municipal Center",
+      "count": 5,
+      "sources": {
+       "nest": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "390229",
+       "390326",
+       "390356",
+       "390361",
+       "390362"
+      ],
+      "coords": [
+       144235.4375,
+       -141975.390625
+      ],
+      "spawns": [
+       {
+        "label": "Scorchbeast nest #1",
+        "ref": "390229",
+        "source_type": "nest",
+        "coords": [
+         144235.4375,
+         -141975.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast nest #2",
+        "ref": "390326",
+        "source_type": "nest",
+        "coords": [
+         144199.4375,
+         -141918.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast nest #3",
+        "ref": "390356",
+        "source_type": "nest",
+        "coords": [
+         144280.28125,
+         -141877.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast nest #4",
+        "ref": "390361",
+        "source_type": "nest",
+        "coords": [
+         144275.203125,
+         -142082.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast nest #5",
+        "ref": "390362",
+        "source_type": "nest",
+        "coords": [
+         144224.203125,
+         -142143.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "nests",
+        "count": 5,
+        "source_type": "nest"
+       }
+      ]
      }
     ]
    },
@@ -1724,6 +1879,44 @@
         "source_type": "ambush"
        }
       ]
+     },
+     {
+      "marker": "Vault 96",
+      "count": 1,
+      "sources": {
+       "nest": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "56BDC1"
+      ],
+      "coords": [
+       24609.53515625,
+       -153272.984375
+      ],
+      "spawns": [
+       {
+        "label": "Scorchbeast nest",
+        "ref": "56BDC1",
+        "source_type": "nest",
+        "coords": [
+         24609.53515625,
+         -153272.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "nest",
+        "count": 1,
+        "source_type": "nest"
+       }
+      ]
      }
     ]
    },
@@ -1822,8 +2015,19 @@
     ]
    }
   ],
-  "total_markers": 24,
-  "total_placements": 32
+  "total_markers": 27,
+  "total_placements": 41
  },
- "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 32 known spawn points."
+ "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 41 known spawn points.",
+ "drop_rates": {
+  "containers": {
+   "types": [
+    {
+     "name": "Scorchbeast Corpse",
+     "rate": 1.0,
+     "rate_display": "100%"
+    }
+   ]
+  }
+ }
 }

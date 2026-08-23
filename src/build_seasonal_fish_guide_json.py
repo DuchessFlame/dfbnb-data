@@ -29,6 +29,7 @@ import re
 import sys
 import glob
 from datetime import datetime, timezone
+import tsv_source          # one resolver for every export selection
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
@@ -178,13 +179,12 @@ def read_tsv(filepath):
 
 
 def _date_key(path):
-    """Sort key from a 'Name_<Month>_<Year>.tsv' filename (month-name aware)."""
-    name = os.path.basename(path)
-    m = re.search(r"_([A-Za-z]+)_(\d{4})", name)
-    if not m:
-        return (0, 0)
-    month = MONTHS.get(m.group(1).lower(), 0)
-    return (int(m.group(2)), month)
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 
 def find_latest_tsv(pattern):

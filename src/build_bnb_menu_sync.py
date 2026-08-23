@@ -56,6 +56,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from diagnostics import Diagnostics  # noqa: E402
 from cut_content import is_cut, purge_cut_rows  # noqa: E402
+import tsv_source          # one resolver for every export selection
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -399,26 +400,13 @@ _MONTH_TO_NUM = {
 _DATE_RE = re.compile(r"_([A-Za-z]+)_(\d{4})", re.IGNORECASE)
 
 
-def _filename_date_key(path: str) -> Tuple[int, int, str]:
-    """Extract (year, month, basename) from a TSV filename for sorting.
+def _filename_date_key(path):
+    """Chronological sort key for an export filename.
 
-    Filenames look like "ALCH_Export_Apr_2026.tsv" or "COBJ_Export_March_2026.tsv".
-    We pull out the month word + 4-digit year and map to a (year, month) tuple
-    so sorts put calendar-latest last. Files that don't match the pattern get
-    (0, 0, basename) so they sort first — harmless, since real exports always
-    include the date.
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
     """
-    base = os.path.basename(path)
-    m = _DATE_RE.search(base)
-    if not m:
-        return (0, 0, base.lower())
-    month_word = m.group(1).lower()
-    try:
-        year = int(m.group(2))
-    except ValueError:
-        return (0, 0, base.lower())
-    month = _MONTH_TO_NUM.get(month_word, 0)
-    return (year, month, base.lower())
+    return tsv_source.export_key(path)
 
 
 def find_latest_file(data_dir: str, pattern: str) -> Optional[str]:
@@ -437,7 +425,7 @@ def find_latest_file(data_dir: str, pattern: str) -> Optional[str]:
     if any(k[0] > 0 for _, k in dated):
         dated.sort(key=lambda pk: pk[1])
         return dated[-1][0]
-    matches.sort(key=lambda p: os.path.getmtime(p))
+    matches.sort(key=tsv_source.export_key)
     return matches[-1]
 
 

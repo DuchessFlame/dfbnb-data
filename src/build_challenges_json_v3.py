@@ -36,6 +36,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from patchlog_utils import diff_item_lists, _write_json, _git_show_json, write_empty_patchlog_feed
+import tsv_source          # one resolver for every export selection
 
 # Mini-season / LTE event reward overlay. Event challenges (ATX_DE…) pay
 # scoreboard tickets (mini-season era) or a named item (older LTE era); neither
@@ -64,14 +65,12 @@ _MONTH_ORDER = {
 }
 
 def _filename_date_key(path):
-    """Extract (year, month_number) from filenames like LVLI_Export_April_2026_*.tsv."""
-    base = os.path.basename(path).lower()
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)  # unknown → sort low so parseable dates always win
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 _SIDECAR_RE = re.compile(r'_\d{4}_.+\.tsv$', re.IGNORECASE)
 
@@ -107,7 +106,7 @@ def newest(pattern):
     files = _drop_sidecars(pattern, glob.glob(full_pattern))
     if not files:
         return None
-    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
     return files[-1]
 
 
@@ -123,7 +122,7 @@ def previous(pattern):
     files = glob.glob(full_pattern)
     if len(files) < 2:
         return None
-    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
     return files[-2]
 
 
@@ -1996,18 +1995,29 @@ def extract_all_challenges(data):
     return items
 
 dist_base = str(DIST_DIR.parent)  # Go up one level to dist/
-prev_json = _git_show_json('HEAD^', str(out_path))
 
-entry = diff_item_lists(
-    prev_items=extract_all_challenges(prev_json),
-    curr_items=extract_all_challenges(output),
-    key_field='form_id',
-    name_field='full,edid',
-    compare_fields=['scope', 'classification', 'required', 'rewards'],
+# The patch log is built by diffing the CHAL EXPORTS against each other, not by
+# diffing this file against its own previous git revision. The old way could only
+# ever report what we had already ingested: with the input sitting still, the
+# output sat still, and the page showed "today · Added 0 Removed 0 Changed 0"
+# every six hours whether or not the game had moved.
+import patchlog_utils as _pl
+
+_pl.write_export_patchlog(
+    dist_dir=dist_base,
+    feed_name='patchlog_latest_df_challenges.json',
+    record_type='CHAL',
+    key_col='FormID',
+    name_cols=('FULL', 'EDID'),
+    # Only these columns are worth reporting. A change in a column not listed is
+    # ignored, so export churn can never manufacture a patch note.
+    fields={
+        'SNAM': 'Required count',
+        'CNAM': 'Frequency',
+        'ENAM': 'Category',
+        'MNAM': 'Reward',
+        'FULL': 'Name',
+    },
+    current_count=len(extract_all_challenges(output)),
 )
-feed = {"entries": [entry]}
-feed_path = os.path.join(dist_base, 'patchlog_latest_df_challenges.json')
-_write_json(feed_path, feed)
-a, r, c = len(entry["added"]), len(entry["removed"]), len(entry["changed"])
-print(f"[patchlog] patchlog_latest_df_challenges.json: current={entry['current']}  added={a}  removed={r}  changed={c}")
 print("[challenges] Done.")

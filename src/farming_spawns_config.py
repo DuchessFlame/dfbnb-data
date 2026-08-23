@@ -1868,6 +1868,18 @@ ALL_SETS = [CREAM, DEATHCLAW_EGG, FROG_EGG, MIRELURK_EGG, MOTHMAN_EGG,
             PERFECT_BUBBLEGUM, PURIFIED_WATER, ROYAL_JELLY, SUGAR_BOMBS,
             SALT_PEPPER_SUGAR_SPICES, HONEY]
 
+# ── Farming - Chems ────────────────────────────────────────────────────────────
+# 76 chem/serum/disease-cure item sets live in their own generated module
+# (chems_spawns_config.CHEM_SETS) to keep this file readable. They use the same
+# set schema and are appended to ALL_SETS so the engine + build_farming_used_for
+# treat them identically to the food/egg sets. Glowing Blood is intentionally NOT
+# here (it already has a Non-Perishable page — GLOWING_BLOOD above).
+try:
+    from chems_spawns_config import CHEM_SETS
+except ImportError:  # pragma: no cover - chems module optional
+    CHEM_SETS = []
+ALL_SETS = ALL_SETS + list(CHEM_SETS)
+
 # Slug → config dict, for --item <slug> lookup in the build script.
 SETS_BY_SLUG = {s["slug"]: s for s in ALL_SETS}
 

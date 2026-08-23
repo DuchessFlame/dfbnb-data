@@ -73,12 +73,23 @@ from build_farming_guides_json import (  # noqa: E402
     _format_effect_duration,
     find_first,
     load_weight_backfill,
-    ALCH_GLOBS,
-    ALCH_EFFECTS_GLOBS,
-    BOOK_GLOBS,
-    COBJ_GLOBS,
-    GLOB_GLOBS,
 )
+import glob as _glob       # noqa: E402
+import tsv_source          # one resolver for every export selection
+
+
+# The refactored build_farming_guides_json no longer exports the month-named
+# {ALCH,BOOK,COBJ,GLOB}_GLOBS filename lists; resolve the newest matching export
+# locally via tsv_source (globs + newest-by-date, works for live tsv/ and tsv/pts/).
+def _newest_export(data_dir: str, glob_name: str, exclude: Optional[str] = None) -> Optional[str]:
+    cands = [p for p in _glob.glob(os.path.join(data_dir, glob_name))
+             if not (exclude and exclude in os.path.basename(p))]
+    if not cands:
+        return None
+    try:
+        return max(cands, key=lambda p: (tsv_source.export_date(p), os.path.getmtime(p)))
+    except Exception:
+        return max(cands, key=os.path.getmtime)
 
 # Cache the weight-backfill map per data_dir (the current ALCH export lost its
 # Weight column; older month-named exports still carry it — see
@@ -88,8 +99,8 @@ _WEIGHT_BACKFILL: Dict[str, Dict[str, float]] = {}
 
 def _weight_backfill(data_dir: str, current_main: Optional[str]) -> Dict[str, float]:
     if data_dir not in _WEIGHT_BACKFILL:
-        paths = [os.path.join(data_dir, n) for n in ALCH_GLOBS
-                 if os.path.join(data_dir, n) != current_main]
+        paths = [p for p in _glob.glob(os.path.join(data_dir, "ALCH_Export_*.tsv"))
+                 if "_Effects" not in os.path.basename(p) and p != current_main]
         _WEIGHT_BACKFILL[data_dir] = load_weight_backfill(paths)
     return _WEIGHT_BACKFILL[data_dir]
 
@@ -101,16 +112,15 @@ def _resolve_alch(data_dir: str, effects: bool) -> Optional[str]:
     """Return the newest ALCH export in data_dir. Prefers the month-named live
     exports (ALCH_GLOBS order); falls back to PTS-named exports for local
     --data-dir tsv/pts runs (newest by filename)."""
-    names = ALCH_EFFECTS_GLOBS if effects else ALCH_GLOBS
-    hit = find_first(data_dir, names)
+    hit = _newest_export(data_dir,
+                         "ALCH_Export_*_Effects.tsv" if effects else "ALCH_Export_*.tsv",
+                         exclude=None if effects else "_Effects")
     if hit:
         return hit
     pat = "ALCH_Export_PTS_*_Effects.tsv" if effects else "ALCH_Export_PTS_*.tsv"
-    cands = sorted(glob.glob(os.path.join(data_dir, pat)))
-    # exclude the *_Effects.tsv when we want the main file
-    if not effects:
-        cands = [c for c in cands if not c.endswith("_Effects.tsv")]
-    return cands[-1] if cands else None
+    return tsv_source.newest(os.path.join(data_dir, pat),
+                             exclude=None if effects else "_Effects",
+                             required=False)
 
 
 def _read_tsv(path: str) -> List[Dict[str, str]]:
@@ -140,10 +150,10 @@ def _load_globs(data_dir: str) -> Dict[str, float]:
     if data_dir in _GLOB_CACHE:
         return _GLOB_CACHE[data_dir]
     out: Dict[str, float] = {}
-    path = find_first(data_dir, GLOB_GLOBS)
+    path = _newest_export(data_dir, "GLOB_Export_*.tsv")
     if not path:
-        cands = sorted(glob.glob(os.path.join(data_dir, "GLOB_Export_*.tsv")))
-        path = cands[-1] if cands else None
+        path = tsv_source.newest(os.path.join(data_dir, "GLOB_Export_*.tsv"),
+                                 required=False)
     if path:
         with open(path, encoding="utf-8", errors="replace", newline="") as f:
             rdr = csv.reader(f, delimiter="\t")
@@ -390,8 +400,8 @@ def _load_recipe_plans(data_dir: str) -> Dict[str, str]:
     if data_dir in _PLAN_CACHE:
         return _PLAN_CACHE[data_dir]
     out: Dict[str, str] = {}
-    book_path = find_first(data_dir, BOOK_GLOBS)
-    cobj_path = find_first(data_dir, COBJ_GLOBS)
+    book_path = _newest_export(data_dir, "BOOK_Export_*.tsv")
+    cobj_path = _newest_export(data_dir, "COBJ_Export_*.tsv")
     books: Dict[str, str] = {}
     if book_path:
         for r in _read_tsv(book_path):
@@ -439,7 +449,8 @@ def _obtain_text(recipe: Dict[str, Any], plans: Optional[Dict[str, str]] = None)
 
 def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
                   bench_cat: Dict[str, str],
-                  data_dir: Optional[str] = None) -> List[Dict[str, Any]]:
+                  data_dir: Optional[str] = None,
+                  guide_urls: Optional[Dict[str, str]] = None) -> List[Dict[str, Any]]:
     want = item_name.strip().lower()
     plans = _load_recipe_plans(data_dir) if data_dir else {}
     globs = _load_globs(data_dir) if data_dir else {}
@@ -481,12 +492,181 @@ def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
             "output_qty": out.get("qty") or rec.get("output_qty") or 1,
             "item_qty": item_qty,
             "mutation": out.get("mutation"),
-            "ingredients": [{"name": i.get("name"), "qty": i.get("qty")} for i in ings],
+            "ingredients": _link_ings(ings, guide_urls, item_name),
             "effects": effects,
             "how_to_obtain": _obtain_text(rec, plans),
         })
     recipes.sort(key=lambda r: (r.get("name") or "").lower())
     return recipes
+
+
+# ── Ingredient → farming-guide hyperlinks + How-to-Obtain (item is the OUTPUT) ──
+# Every recipe ingredient that has its own farming guide page (meat / eggs /
+# non-perishable / chems / nuka-cola / plants / junk …) is linked to that page.
+# The lookup is built from tsv/guide_index.tsv (item-hub rows), so a new guide
+# page is linkable the moment it exists — no hardcoded URLs.
+_GUIDE_URL_CACHE: Optional[Dict[str, str]] = None
+SITE_BASE = "https://www.buffsnbrew.com"
+
+# Recipe ingredient names that differ from the guide page's display name.
+_ING_ALIASES = {
+    "bloodpack": "blood pack",
+    "super stimpak": "stimpak: super",
+    "stimpack": "stimpak",
+}
+
+
+def _load_guide_urls() -> Dict[str, str]:
+    """lower(item name) → absolute guide URL, from the guide_index item-hub rows.
+
+    Prefers the item HUB (the `sub`/`page` node), not the deeper `-guide` subpage,
+    and prefers a bnb-brand page over a df one when both exist."""
+    global _GUIDE_URL_CACHE
+    if _GUIDE_URL_CACHE is not None:
+        return _GUIDE_URL_CACHE
+    out: Dict[str, str] = {}
+    best: Dict[str, Tuple[int, int]] = {}   # name -> (brand_rank, url_len) chosen so far
+    path = os.path.join(REPO, "tsv", "guide_index.tsv")
+    try:
+        with open(path, newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f, delimiter="\t"):
+                tags = (row.get("tags,nodeType") or row.get("tags") or "").lower()
+                if "farming" not in tags and "non-perishable" not in tags \
+                        and "nuka-cola" not in tags and "chems" not in tags \
+                        and "meat" not in tags and "eggs" not in tags:
+                    continue
+                node = (row.get("nodeType") or "").strip()
+                if node not in ("sub", "page", "top"):
+                    continue
+                url = (row.get("url") or "").strip()
+                name = (row.get("menuTitle") or row.get("title") or "").strip()
+                if not url or not name:
+                    continue
+                # Skip the deep "... Location Guide" subpages — link the hub instead.
+                low = name.lower()
+                for suff in (" location guide", " spawn locations", " meat", " guide"):
+                    if low.endswith(suff):
+                        low = low[: -len(suff)].strip()
+                if not low:
+                    continue
+                brand_rank = 0 if (row.get("brand") or "").strip() == "bnb" else 1
+                key = (brand_rank, len(url))
+                if low not in best or key < best[low]:
+                    best[low] = key
+                    out[low] = SITE_BASE + url if url.startswith("/") else url
+    except FileNotFoundError:
+        pass
+    _GUIDE_URL_CACHE = out
+    return out
+
+
+def _ing_url(name: Optional[str], guide_urls: Optional[Dict[str, str]]) -> Optional[str]:
+    if not name or not guide_urls:
+        return None
+    low = name.strip().lower()
+    if low in guide_urls:
+        return guide_urls[low]
+    alias = _ING_ALIASES.get(low)
+    if alias and alias in guide_urls:
+        return guide_urls[alias]
+    return None
+
+
+def _link_ings(ings: List[Dict[str, Any]], guide_urls: Optional[Dict[str, str]],
+               main_name: Optional[str]) -> List[Dict[str, Any]]:
+    main = (main_name or "").strip().lower()
+    out = []
+    for i in ings:
+        nm = i.get("name")
+        d: Dict[str, Any] = {"name": nm, "qty": i.get("qty")}
+        url = _ing_url(nm, guide_urls)
+        if url:
+            d["url"] = url
+        if main and nm and nm.strip().lower() == main:
+            d["is_main"] = True
+        out.append(d)
+    return out
+
+
+def _quest_source_note(edid: Optional[str]) -> str:
+    e = edid or ""
+    if "SurvivalShortcut" in e:
+        return ("Produced by the <b>Survival Shortcut</b> legendary perk card — "
+                "it hands you a Survival Syringe when your health runs low.")
+    if "BrawlingChemist" in e:
+        return ("Produced by the <b>Brawling Chemist</b> legendary perk card while "
+                "you fight unarmed / one-handed.")
+    if "GHL_" in e:
+        return "A Ghoul-update chem, obtained through Ghoul-character content."
+    if "HellsEagles" in e or e.startswith("AC_SQ01"):
+        return "Reward from the Atlantic City <b>Hell&rsquo;s Eagles</b> side quest."
+    if e.startswith("W05"):
+        return "Obtained during the Skyline Valley questline."
+    if e.startswith("MTNZ"):
+        return "Obtained during a mountain / expedition questline."
+    if e.startswith("SFS"):
+        return "A quest formula (given during the Secrets questline)."
+    if e.startswith("SFM"):
+        return "An organic / quest-sourced chem."
+    if e.startswith("EN07"):
+        return "Quest-sourced during the High-Radiation Fluids objective."
+    if e.startswith("POST"):
+        return "A quest / event-sourced salve."
+    if e.startswith("MoM"):
+        return "A Mystery of the Mothman quest item."
+    return "A quest- or event-locked chem — not craftable at a chem station."
+
+
+def build_obtain(item_name: str, formid: str, is_quest: bool, item_edid: str,
+                 recipe_guide: Dict[str, Any], bench_cat: Dict[str, str],
+                 data_dir: Optional[str] = None,
+                 guide_urls: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
+    """The How-to-Obtain block: the crafting recipe(s) that PRODUCE this item
+    (item is the recipe OUTPUT), each with hyperlinked ingredients + plan name.
+    For quest-locked chems with no station recipe, a source note is returned."""
+    want = item_name.strip().lower()
+    want_fid = (formid or "").strip().upper()
+    plans = _load_recipe_plans(data_dir) if data_dir else {}
+    globs = _load_globs(data_dir) if data_dir else {}
+    seen = set()
+    recipes: List[Dict[str, Any]] = []
+    for rec in _iter_recipe_entries(recipe_guide):
+        out = rec.get("output") or {}
+        oname = (out.get("name") or "").strip().lower()
+        ofid = (out.get("formId") or out.get("form_id") or "").strip().upper()
+        if oname != want and (not want_fid or ofid != want_fid):
+            continue
+        key = rec.get("recipe_edid") or ofid or oname
+        if key in seen:
+            continue
+        seen.add(key)
+        r_edid = rec.get("recipe_edid") or ""
+        effects = []
+        for e in out.get("effects") or []:
+            effects.append({
+                "name": e.get("name"),
+                "display": _effect_display(e.get("name"), e.get("magnitude"),
+                                           e.get("mag_glob"),
+                                           duration=e.get("duration"), globs=globs),
+                "duration": e.get("dur_display"),
+            })
+        effects = _sort_effects(effects)
+        recipes.append({
+            "name": rec.get("name") or out.get("name"),
+            "form_id": out.get("formId"),
+            "recipe_edid": r_edid,
+            "category": bench_cat.get(r_edid, (rec.get("category") or "Chem").title()),
+            "workbench": rec.get("workbench") or "Chemistry Station",
+            "output_qty": out.get("qty") or rec.get("output_qty") or 1,
+            "ingredients": _link_ings(rec.get("ingredients") or [], guide_urls, None),
+            "effects": effects,
+            "how_to_obtain": _obtain_text(rec, plans),
+        })
+    recipes.sort(key=lambda r: (r.get("name") or "").lower())
+    note = None
+    if not recipes and is_quest:
+        note = _quest_source_note(item_edid)
+    return {"recipes": recipes, "note": note}
 
 
 # ── Challenges (item referenced in challenge conditions) ──────────────────────
@@ -684,7 +864,7 @@ def _raider_list_id(cfg: Dict[str, Any]) -> str:
 
 def _newest(data_dir: str, pattern: str) -> Optional[str]:
     cands = glob.glob(os.path.join(data_dir, pattern))
-    return max(cands, key=os.path.getmtime) if cands else None
+    return max(cands, key=tsv_source.export_key) if cands else None
 
 
 class HarvestProduce:
@@ -716,7 +896,7 @@ class HarvestProduce:
     def _load_flor(self, data_dir: str) -> Dict[str, set]:
         cands = [p for p in glob.glob(os.path.join(data_dir, "FLOR_Export_*.tsv"))
                  if not p.endswith("_Refs.tsv")]
-        path = max(cands, key=os.path.getmtime) if cands else None
+        path = max(cands, key=tsv_source.export_key) if cands else None
         out: Dict[str, set] = {}
         if not path:
             return out
@@ -1087,19 +1267,117 @@ def build_used_for(cfg: Dict[str, Any], dist_dir: str, data_dir: str,
                    recipe_guide: Dict[str, Any], bench_cat: Dict[str, str]) -> Dict[str, Any]:
     items = cfg.get("items") or []
     formid = (items[0].get("formid") if items else "") or ""
+    edid = (items[0].get("edid") if items else "") or ""
     name = cfg["name"]
+    guide_urls = _load_guide_urls()
     return {
         "consumption": build_consumption(formid, data_dir, name),
         "challenges": build_challenges(formid, dist_dir),
-        "recipes": build_recipes(name, recipe_guide, bench_cat, data_dir),
+        "recipes": build_recipes(name, recipe_guide, bench_cat, data_dir, guide_urls),
+        # How to Obtain: the crafting recipe(s) that PRODUCE this item + quest note.
+        "obtain": build_obtain(name, formid, bool(cfg.get("is_quest")), edid,
+                               recipe_guide, bench_cat, data_dir, guide_urls),
     }
+
+
+# ── Containers expand — container TYPE → rng76 appearance rate ────────────────
+# The Containers expand lists each lootable world CONTAINER TYPE that can hold the
+# item, with the item's drop rate for that container type: "if you open a {type},
+# there is X% chance it holds this item." NOT a location list, NOT a map.
+#
+# Method (spawn-guide §9k Containers rule):
+#   - Walk the item's LVLI up-closure. For every closure list L, take the CONT
+#     bases that reference it (LVLI_Refs, sig CONT).
+#   - Keep only REAL lootable containers: farming_classify("CONT", edid, via) must
+#     return "container" (this drops VendorChest→Vendors, VendingMachine/collectron
+#     →Resource Generators/Collectrons) AND the base must have a display name in
+#     CONT_Export.
+#   - Rate = rng76 appearance_prob(L, item) — the waterfall/pick-one/ChanceNone
+#     resolved chance the item shows when that container's loot list is rolled once.
+#     NEVER a bare ChanceNone, never hand-rolled.
+#   - Aggregate by container display name. Identical rates for the same name dedupe
+#     to one row; DISTINCT rates under the same name each get their own row (a "Safe"
+#     that rolls three different loot lists shows three rows). Drop genuine 0%. Show
+#     ALL — no cap, no minimum-rate cutoff. Sort by rate desc, then name.
+_CONT_NAME_CACHE: Dict[str, Dict[str, str]] = {}
+CONT_GLOBS = ["CONT_Export_*.tsv"]
+
+
+def _load_cont_names(data_dir: str) -> Dict[str, str]:
+    """CONT FormID (upper hex) → in-game FULL display name."""
+    if data_dir in _CONT_NAME_CACHE:
+        return _CONT_NAME_CACHE[data_dir]
+    out: Dict[str, str] = {}
+    path = _newest_export(data_dir, "CONT_Export_*.tsv")
+    if path:
+        for r in _read_tsv(path):
+            fid = (r.get("FormID") or "").strip().upper()
+            full = (r.get("FULL") or "").strip()
+            if fid and full:
+                out[fid] = full
+    _CONT_NAME_CACHE[data_dir] = out
+    return out
+
+
+def container_types(closure, targets: set, appearance, cont_names: Dict[str, str],
+                    lvli_refs: Dict[str, Any], parent_edid: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """The Containers type+rate list. REUSABLE across families (farming / meat /
+    drinks): `appearance(list_id, targets) -> float` is the family's rng76
+    appearance-probability callable. Distinct rates under one name are kept as
+    separate rows; identical rates dedupe; 0% dropped; sorted by rate desc, name."""
+    from spawns_engine.classify import farming_classify as _classify  # lazy (avoid import cycle)
+    by_name: Dict[str, Dict[float, float]] = {}
+    for L in closure:
+        refs = lvli_refs.get(L) or lvli_refs.get(str(L).upper()) or ()
+        via = parent_edid.get(L, "")
+        names = []
+        for rf, red, rs in refs:
+            if rs != "CONT":
+                continue
+            if _classify("CONT", red, via) != "container":
+                continue
+            nm = cont_names.get((rf or "").upper())
+            if nm:
+                names.append(nm)
+        if not names:
+            continue
+        rate = appearance(L, targets)
+        if not rate or rate <= 0:
+            continue
+        key = round(rate, 4)
+        for nm in names:
+            by_name.setdefault(nm, {})[key] = rate
+    types = []
+    for nm, rate_map in by_name.items():
+        for rr in rate_map.values():
+            types.append({"name": nm, "rate": rr, "rate_display": _fmt_rate(rr)})
+    types.sort(key=lambda t: (-t["rate"], t["name"].lower()))
+    return types
+
+
+def _patch_containers(doc: Dict[str, Any], closure, targets: set,
+                      rates: Optional["VendorRates"], cont_names: Dict[str, str],
+                      tables: Any) -> None:
+    """Set doc['drop_rates']['containers'] = {'types': [{name, rate, rate_display}]}"""
+    if not rates or not tables or not closure or not targets:
+        return
+    types = container_types(closure, targets, lambda L, t: rates.appearance([L], t),
+                            cont_names, tables.get("lvli_refs", {}), tables.get("parent_edid", {}))
+    dr = doc.get("drop_rates")
+    if not isinstance(dr, dict):
+        dr = {}
+        doc["drop_rates"] = dr
+    dr["containers"] = {"types": types}
 
 
 def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: str,
            item_closure: Optional[set] = None,
            vendor_master: Optional[List[Dict[str, Any]]] = None,
            rates: Optional["VendorRates"] = None,
-           harvest: Optional["HarvestProduce"] = None) -> bool:
+           harvest: Optional["HarvestProduce"] = None,
+           cont_names: Optional[Dict[str, str]] = None,
+           tables: Any = None,
+           closure_lists: Any = None) -> bool:
     path = os.path.join(dist_dir, "farming_spawns", f"{slug}_spawns.json")
     if not os.path.exists(path):
         print(f"  [skip] {os.path.relpath(path, REPO)} not built")
@@ -1110,6 +1388,10 @@ def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: s
     _patch_drop_rates(doc, rates, _target_fids(cfg), harvest=harvest, extra_base_ids=extra_ids)
     _patch_events_activities(doc, rates, _target_fids(cfg))
     _patch_camp_producers(doc, _target_fids(cfg), dist_dir)
+    # Containers expand → container-type → rng76 rate (runs AFTER _patch_drop_rates
+    # so the type list is the final word on doc['drop_rates']['containers']).
+    _patch_containers(doc, closure_lists, _target_fids(cfg), rates,
+                      cont_names or {}, tables)
     vendor_list = build_vendor_list(doc.get("regions", []), cfg,
                                     item_closure=item_closure, vendor_master=vendor_master,
                                     rates=rates)
@@ -1188,6 +1470,10 @@ def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
     except Exception as e:
         print(f"  [warn] harvest-produce reader unavailable ({e}); harvestables stay not_leveled_list.")
 
+    cont_names = _load_cont_names(data_dir)
+    if cont_names:
+        print(f"  container names: {len(cont_names)} CONT records for the Containers type list.")
+
     print(f"Building used_for  (dist={dist_dir}  data={data_dir})")
     for slug in slugs:
         cfg = SETS_BY_SLUG.get(slug)
@@ -1195,12 +1481,15 @@ def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
             print(f"  [skip] unknown slug '{slug}'")
             continue
         item_closure = None
-        if tables and vendor_master:
+        closure_lists = None
+        if tables:
             src = sources.get_sources(cfg["items"], tables)
-            item_closure = {f.upper() for f in src["lvli_closure"]}
+            closure_lists = src["lvli_closure"]
+            item_closure = {f.upper() for f in closure_lists}
         uf = build_used_for(cfg, dist_dir, data_dir, recipe_guide, bench_cat)
         inject(slug, uf, cfg, dist_dir, item_closure=item_closure,
-               vendor_master=vendor_master, rates=rates, harvest=harvest)
+               vendor_master=vendor_master, rates=rates, harvest=harvest,
+               cont_names=cont_names, tables=tables, closure_lists=closure_lists)
         if cfg.get("multi_item"):
             _inject_multi_item(slug, cfg, dist_dir, data_dir)
         # Honeycomb also hosts the Honey Beast creature (it drops Honeycomb). Fold
@@ -1268,6 +1557,17 @@ def main(argv=None):
 
     slugs = [c["slug"] for c in ALL_SETS] if args.all else [args.item]
     run(slugs, args.dist_dir, args.data_dir)
+
+    # Farming - Chems: fold the huge generic medical-loot placements (15k–27k on
+    # Stimpak/RadAway/Rad-X/Mentats-family docs) into note-only Containers/Creatures
+    # expands, keeping only genuine fixed world points. Runs AFTER the used_for join
+    # so its container/creature notes are the final word; idempotent + threshold-gated
+    # so Blood-Sac-sized docs stay fully enumerated. See chem_loot_collapse.py.
+    try:
+        import chem_loot_collapse
+        chem_loot_collapse.run(args.dist_dir)
+    except Exception as e:  # pragma: no cover - collapse is best-effort
+        print(f"  [warn] chem_loot_collapse skipped ({e})")
 
 
 if __name__ == "__main__":

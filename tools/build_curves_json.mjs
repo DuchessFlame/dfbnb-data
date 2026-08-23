@@ -70,7 +70,9 @@ function toNum(v) {
 
 function normalizeFormId(formId) {
   if (!formId) return "";
-  let s = String(formId).trim().toUpperCase();
+  // The xEdit exports quote most string cells ("00032997"); strip them before
+  // matching, so a quoted FormID does not silently resolve to nothing.
+  let s = String(formId).trim().replace(/^"|"$/g, "").replace(/""/g, '"').trim().toUpperCase();
   if (s.startsWith("0X")) s = s.slice(2);
   if (/^[0-9A-F]+$/.test(s)) s = s.padStart(8, "0");
   return s;
@@ -113,7 +115,9 @@ function isRejectedEdid(edid) {
 }
 
 function extractFormIdsFromRef(refText) {
-  const s = String(refText || "").trim();
+  // Strip the surrounding quotes the xEdit exports wrap string cells in,
+  // otherwise Format A below never matches (it is anchored at ^).
+  const s = String(refText || "").trim().replace(/^"|"$/g, "").replace(/""/g, '"').trim();
   if (!s) return [];
 
   const out = [];
@@ -138,6 +142,191 @@ function extractFormIdsFromRef(refText) {
 function pushIfFormId(set, s) {
   const id = normalizeFormId(s);
   if (id) set.add(id);
+}
+
+// ─── Export schema tolerance ──────────────────────────────────────────────
+// The xEdit exports have renamed columns between sweeps. Read both spellings
+// rather than pinning to one, so a builder never silently resolves zero refs
+// because a column was renamed upstream.
+//
+//   field            March 2026                July 2026
+//   ---------------  ------------------------  ---------------------------
+//   CURV id          CURV_FormID               FormID
+//   ref columns      Ref1, Ref2, …             Ref_1, Ref_2, …
+//   PCRD rank perk   RankPERK_N_FormID         Rank_N_MalePerk_FormID
+//                                              Rank_N_FemalePerk_FormID
+//   PCRD name        MNAM_Name                 MNAM_MaleName / FNAM_FemaleName
+//
+// The PERK outgoing-link columns (EffectLink_N, Spell_FormID,
+// CurveTable_FormID) are what carry the PERK → SPEL → CURV hop. They are
+// emitted by "!!!Wordpress - ExportPERKToTSV.pas" in GitHub\xedit scripts\.
+// An export taken without them, or with them present but unpopulated, cannot
+// resolve that hop; see perkLinkScore() and reportLinkageSchema() below.
+
+const MONTH_ORDER = {
+  january:1, february:2, march:3, april:4, may:5, june:6, july:7,
+  august:8, september:9, sept:9, october:10, november:11, december:12,
+  jan:1, feb:2, mar:3, apr:4, jun:6, jul:7, aug:8, sep:9, oct:10, nov:11, dec:12
+};
+
+/**
+ * Sortable date from an export filename. Mirrors src/tsv_source.export_key:
+ * understands PTS_YYYY-MM-DD_HHMM and Month_Year, never uses mtime (a fresh
+ * actions/checkout stamps every file with the same one), and scores an undated
+ * filename as oldest rather than newest.
+ */
+function exportDateScore(filePath) {
+  const name = path.basename(filePath);
+  const pts = /_PTS_(\d{4})-(\d{2})-(\d{2})(?:[_-](\d{3,6}))?/i.exec(name);
+  if (pts) {
+    const hhmm = Number(String(pts[4] || "0").padStart(4, "0").slice(0, 4));
+    return Number(pts[1]) * 1e8 + Number(pts[2]) * 1e6 + Number(pts[3]) * 1e4 + hhmm;
+  }
+  const mon = /_([A-Za-z]{3,9})_(\d{4})(?:\D|$)/.exec(name);
+  if (mon) {
+    const m = MONTH_ORDER[mon[1].toLowerCase()];
+    if (m) return Number(mon[2]) * 1e8 + m * 1e6 + 1e4;
+  }
+  return 0;
+}
+
+/**
+ * How many perks in this export carry a link that actually reaches a curve.
+ *
+ * Column presence is NOT a usable test, and neither is "has some FormIDs".
+ * The August 2026 export declares CurveTable_FormID and Spell_FormID and
+ * leaves every row of both empty, while its EPFD_Float column still yields
+ * 274 FormIDs — enough to pass either weaker check and still resolve six perk
+ * cards instead of forty. The only meaningful measure is how many of an
+ * export's links land in the CURV ref index we just built, so that is what
+ * this counts.
+ */
+function perkLinkScore(filePath, refToCurvs) {
+  try {
+    const lines = readText(filePath).split(/\r?\n/);
+    if (lines.length < 2) return 0;
+
+    const cols = lines[0].split("\t").map(s => s.trim());
+    const perkCol = cols.indexOf("PERK_FormID");
+    if (perkCol < 0) return 0;
+
+    const linkCols = [];
+    cols.forEach((c, i) => {
+      if (/^EffectLink_\d+$/.test(c) || c === "Spell_FormID" ||
+          c === "CurveTable_FormID" || c === "EPFD_Float") linkCols.push(i);
+    });
+    if (!linkCols.length) return 0;
+
+    const hits = new Set();
+    for (let i = 1; i < lines.length; i++) {
+      if (!lines[i]) continue;
+      const cells = lines[i].split("\t");
+      const perkId = normalizeFormId(cells[perkCol]);
+      if (!perkId || hits.has(perkId)) continue;
+      for (const c of linkCols) {
+        const v = cells[c];
+        if (!v) continue;
+        for (const id of extractFormIdsFromRef(v)) {
+          if (refToCurvs.has(id)) { hits.add(perkId); break; }
+        }
+        if (hits.has(perkId)) break;
+      }
+    }
+    return hits.size;
+  } catch {
+    return 0;
+  }
+}
+
+/**
+ * The PERK export to actually read: the NEWEST one that resolves as many
+ * perk links as the best export available.
+ *
+ * Not "the newest", because an export taken with a script that omits the
+ * outgoing-link columns silently shortens the Perk Cards page. Not "the one
+ * that worked last time" either — that is the preserve-the-last-known-answer
+ * pattern that turns stale input into confident output. Every candidate is
+ * scored against the CURV index from THIS build, so the answer is measured
+ * fresh each time and a fixed export wins outright the moment it lands.
+ */
+function resolvePerkTsv(preferred, refToCurvs) {
+  if (!fs.existsSync(preferred)) return preferred;
+
+  const dir = path.dirname(preferred);
+  const candidates = fs.readdirSync(dir)
+    .filter(f => /^PERK_Export_.*\.tsv$/i.test(f))
+    .map(f => path.join(dir, f))
+    .sort((a, b) => exportDateScore(b) - exportDateScore(a));   // newest first
+
+  const scored = candidates.map(p => ({ path: p, score: perkLinkScore(p, refToCurvs) }));
+  const best = Math.max(0, ...scored.map(s => s.score));
+  if (!best) return preferred;
+
+  const winner = scored.find(s => s.score >= best);
+  if (!winner || winner.path === preferred) return preferred;
+
+  const preferredScore = (scored.find(s => s.path === preferred) || {}).score ?? 0;
+  console.warn(
+    `[build_curves_json] ${path.basename(preferred)} resolves ${preferredScore} linked perk(s); ` +
+    `${path.basename(winner.path)} resolves ${winner.score}. Using the latter so the Perk Cards ` +
+    `page does not shrink. Re-export PERK with "!!!Wordpress - ExportPERKToTSV.pas" ` +
+    `(GitHub\\xedit scripts\\) to make this unnecessary.`
+  );
+  return winner.path;
+}
+
+/** First non-empty value among the given column names. */
+function pickCol(row, ...names) {
+  for (const n of names) {
+    const v = row[n];
+    if (v !== undefined && String(v).trim() !== "") return String(v).trim();
+  }
+  return "";
+}
+
+/** Every non-empty "referenced by" cell, matching both Ref1 and Ref_1. */
+function refCells(row) {
+  const out = [];
+  for (const [k, v] of Object.entries(row)) {
+    if (!/^Ref_?\d+$/.test(k)) continue;
+    const s = String(v || "").trim();
+    if (s) out.push(s);
+  }
+  return out;
+}
+
+/**
+ * Report which linkage columns the PERK export actually carries.
+ * Returns a plain object that is stamped into perk_cards.json meta, so a
+ * degraded export is visible in the published artifact instead of showing up
+ * as a quietly shorter list of perk cards.
+ */
+function reportLinkageSchema(perkRows) {
+  const cols = new Set();
+  for (const r of perkRows.slice(0, 50)) for (const k of Object.keys(r)) cols.add(k);
+
+  const hasEffectLinks = [...cols].some(k => /^EffectLink_\d+$/.test(k));
+  const hasSpell       = cols.has("Spell_FormID");
+  const hasCurveTable  = cols.has("CurveTable_FormID");
+  const complete       = hasEffectLinks || hasSpell || hasCurveTable;
+
+  const missing = [];
+  if (!hasEffectLinks) missing.push("EffectLink_1..30");
+  if (!hasSpell)       missing.push("Spell_FormID");
+  if (!hasCurveTable)  missing.push("CurveTable_FormID");
+
+  return {
+    perkLinkColumnsPresent: complete,
+    missingPerkLinkColumns: missing,
+    // Only the direct "a CURV names this PERK in its Ref columns" route can
+    // work without the link columns. It finds a small fraction of the links.
+    routes: complete ? ["curv-ref", "perk-effect-link"] : ["curv-ref"],
+    note: complete
+      ? ""
+      : "PERK export lacks outgoing-link columns; only curves that name a perk " +
+        "directly in their Ref columns can be resolved. Re-export PERK with " +
+        "\"!!!Wordpress - ExportPERKToTSV.pas\" (GitHub\\xedit scripts\\) to restore full linkage."
+  };
 }
 
 function titleCaseCategory(id) {
@@ -716,12 +905,11 @@ function build() {
   // =========================================================
 
   const absPcrd    = path.resolve(PCRD_TSV);
-  const absPerk    = path.resolve(PERK_TSV);
+  const requestedPerk = path.resolve(PERK_TSV);
   const absCurvHdr = path.resolve(CURV_HDR_TSV);
 
-  if (fs.existsSync(absPcrd) && fs.existsSync(absPerk) && fs.existsSync(absCurvHdr)) {
+  if (fs.existsSync(absPcrd) && fs.existsSync(requestedPerk) && fs.existsSync(absCurvHdr)) {
     const pcrdRows    = parseTSV(readText(absPcrd)).rows;
-    const perkRows    = parseTSV(readText(absPerk)).rows;
     const curvHdrRows = parseTSV(readText(absCurvHdr)).rows;
 
     // Quick lookup for curve stubs (from indexCurves we just built)
@@ -735,15 +923,11 @@ function build() {
     const refToCurvs = new Map();
 
     for (const r of curvHdrRows) {
-      const curvId = normalizeFormId(r.CURV_FormID);
+      const curvId = normalizeFormId(pickCol(r, "CURV_FormID", "FormID"));
       if (!curvId || !curveStubById.has(curvId)) continue;
 
-      // Scan all Ref columns
-      for (const [key, val] of Object.entries(r)) {
-        if (!/^Ref\d+$/.test(key)) continue;
-        const v = String(val || "").trim();
-        if (!v) continue;
-
+      // Scan all Ref columns (Ref1 in the March schema, Ref_1 in July's)
+      for (const v of refCells(r)) {
         // Extract FormIDs from ref text (formats: "FormID:EDID:TYPE" or "[TYPE:FormID]")
         const ids = extractFormIdsFromRef(v);
         for (const refId of ids) {
@@ -753,12 +937,34 @@ function build() {
       }
     }
 
+    if (!refToCurvs.size) {
+      throw new Error(
+        `[build_curves_json] CURV ref index is empty for ${path.basename(absCurvHdr)}. ` +
+        `Expected a FormID (or CURV_FormID) column plus Ref_N / RefN columns; got: ` +
+        `${Object.keys(curvHdrRows[0] || {}).slice(0, 8).join(", ")}`
+      );
+    }
+
     console.log(`[build_curves_json] CURV ref index: ${refToCurvs.size} unique referencing FormIDs`);
 
     // --------------------------------------------------
     // Step 2: Build PERK_FormID → Set<EffectLink FormIDs> from PERK TSV
     // EffectLink columns contain "TYPE:EDID[FormID]" entries (e.g. "SPEL:AbPerkFoo[00AABBCC]")
+    // Emitted by "!!!Wordpress - ExportPERKToTSV.pas" in GitHub\xedit scripts\.
     // --------------------------------------------------
+    // Chosen only now: picking the PERK export needs the CURV ref index above
+    // to score each candidate against.
+    const absPerk  = resolvePerkTsv(requestedPerk, refToCurvs);
+    const perkRows = parseTSV(readText(absPerk)).rows;
+
+    const linkage = reportLinkageSchema(perkRows);
+    if (absPerk !== requestedPerk) {
+      // Say in the artifact, not only in the build log, that the perk linkage
+      // is older than the rest of the data it sits next to.
+      linkage.substitutedFor = path.basename(requestedPerk);
+      linkage.note = `Perk linkage read from ${path.basename(absPerk)} because ` +
+        `${path.basename(requestedPerk)} resolves fewer perk links against the current CURV export.`;
+    }
     const perkToLinks = new Map();
 
     for (const r of perkRows) {
@@ -778,10 +984,25 @@ function build() {
       pushIfFormId(linkIds, r.Spell_FormID);
       pushIfFormId(linkIds, r.CurveTable_FormID);
 
+      // EPFD_Float carries its target inline as display text, e.g.
+      // 'Spell=PerkMedicSpell "Medic" [SPEL:0079C8A9]'. Reading the FormID out
+      // of it recovers the EPFD link even from an export whose dedicated
+      // columns came back empty. Same link, read from the text form.
+      for (const id of extractFormIdsFromRef(r.EPFD_Float)) linkIds.add(id);
+
       if (linkIds.size) perkToLinks.set(perkId, linkIds);
     }
 
     console.log(`[build_curves_json] PERK link index: ${perkToLinks.size} perks with links`);
+
+    if (!linkage.perkLinkColumnsPresent) {
+      console.warn(
+        `[build_curves_json] WARNING: ${path.basename(absPerk)} has no perk link columns ` +
+        `(${linkage.missingPerkLinkColumns.join(", ")}). Perk→curve linkage falls back to the ` +
+        `direct CURV-ref route only and will resolve far fewer curves than a complete export. ` +
+        `Re-export PERK with "!!!Wordpress - ExportPERKToTSV.pas" to restore it.`
+      );
+    }
 
     // --------------------------------------------------
     // Step 3: For each PCRD, collect curves via:
@@ -793,15 +1014,22 @@ function build() {
     for (const r of pcrdRows) {
       const pcrdFormId = normalizeFormId(r.PCRD_FormID);
       const pcrdEdid = String(r.PCRD_EDID || "").trim();
-      const pcrdName = String(r.MNAM_Name || r.PCRD_EDID || "").trim();
+      const pcrdName = pickCol(r, "MNAM_Name", "MNAM_MaleName", "FNAM_FemaleName", "PCRD_EDID");
 
       if (!pcrdFormId) continue;
 
-      // Collect rank PERK FormIDs
+      // Collect rank PERK FormIDs. March exports carry one perk per rank;
+      // July splits it into a male and a female perk per rank. Take all of them.
       const rankPerkIds = new Set();
       for (let i = 1; i <= 12; i++) {
-        const pid = normalizeFormId(r[`RankPERK_${i}_FormID`]);
-        if (pid) rankPerkIds.add(pid);
+        for (const col of [
+          `RankPERK_${i}_FormID`,
+          `Rank_${i}_MalePerk_FormID`,
+          `Rank_${i}_FemalePerk_FormID`,
+        ]) {
+          const pid = normalizeFormId(r[col]);
+          if (pid) rankPerkIds.add(pid);
+        }
       }
 
       const curveIdsSet = new Set();
@@ -854,16 +1082,23 @@ function build() {
     for (const cat of usedCats) perkChunks[cat] = chunkIndex[cat] || [];
 
     writeJson(path.join(OUT_DIR, "perk_cards.json"), {
-      meta,
+      meta: {
+        ...meta,
+        pcrdSource: path.basename(absPcrd),
+        perkSource: path.basename(absPerk),
+        curvHdrSource: path.basename(absCurvHdr),
+        linkage
+      },
       perks: perkGroups,
       chunks: perkChunks
     });
 
-    console.log(`[build_curves_json] perk_cards.json: ${perkGroups.length} perks, ${Array.from(usedCats).length} chunk categories`);
+    console.log(`[build_curves_json] perk_cards.json: ${perkGroups.length} perks with curves, ${Array.from(usedCats).length} chunk categories`);
+    console.log(`[build_curves_json] linkage routes: ${linkage.routes.join(" + ")}`);
   } else {
     const missing = [];
     if (!fs.existsSync(absPcrd))    missing.push("PCRD_TSV");
-    if (!fs.existsSync(absPerk))    missing.push("PERK_TSV");
+    if (!fs.existsSync(requestedPerk)) missing.push("PERK_TSV");
     if (!fs.existsSync(absCurvHdr)) missing.push("CURV_HDR_TSV");
     console.log(`[build_curves_json] perk_cards.json skipped (missing: ${missing.join(", ")})`);
   }

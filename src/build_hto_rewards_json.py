@@ -16,6 +16,7 @@ so the renderer loads the right twin automatically.
 
 import json, os, sys, glob, re, csv
 from pathlib import Path
+import tsv_source          # one resolver for every export selection
 
 PTS = "--pts" in sys.argv
 
@@ -26,12 +27,12 @@ DIST_DIR   = (_REPO_ROOT / "dist" / "pts" / "infestations") if PTS \
              else (_REPO_ROOT / "dist" / "infestations")
 
 def newest(pattern):
-    """Pick the newest TSV matching a glob pattern (by filename date, then mtime)."""
-    hits = sorted(glob.glob(str(TSV_DIR / pattern)))
-    if not hits:
-        return None
-    # Prefer Apr > March > Feb etc.
-    return hits[-1]
+    """Pick the chronologically newest TSV matching a glob pattern.
+
+    This used to sort lexically, which is how "Apr > March > Feb" was meant to
+    work and never did — alphabetically May outranks every other month.
+    """
+    return tsv_source.newest(str(TSV_DIR / pattern), required=False)
 
 def read_tsv(path):
     """Read a TSV file, return list of dicts."""

@@ -25,6 +25,7 @@ import csv
 import glob
 import re
 from datetime import date
+import tsv_source          # one resolver for every export selection
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_PATH = os.path.join(ROOT, "dist", "calculators", "weak_spot_multipliers.json")
@@ -42,26 +43,8 @@ _MONTH_ORDER = {
 
 def _find_newest_bptd_tsv():
     """Glob for BPTD_Export_*.tsv and pick the newest by embedded month/year."""
-    pattern = os.path.join(ROOT, "tsv", "BPTD_Export_*.tsv")
-    candidates = sorted(glob.glob(pattern))
-    if not candidates:
-        return None
-    best = None
-    best_key = (-1, -1)
-    for path in candidates:
-        fname = os.path.basename(path).lower()
-        parts = re.split(r'[_./]', fname)
-        cm, cy = 0, 0
-        for tok in parts:
-            if tok in _MONTH_ORDER:
-                cm = _MONTH_ORDER[tok]
-            if re.fullmatch(r'\d{4}', tok):
-                cy = int(tok)
-        key = (cy, cm)
-        if key >= best_key:
-            best_key = key
-            best = path
-    return best
+    return tsv_source.newest(os.path.join(ROOT, "tsv", "BPTD_Export_*.tsv"),
+                             required=False)
 
 
 # ---------------------------------------------------------------------------

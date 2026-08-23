@@ -36,6 +36,7 @@ import argparse
 from pathlib import Path
 
 from patchlog_utils import write_patchlog_feed
+import tsv_source          # one resolver for every export selection
 
 # ---------------------------------------------------------------------------
 # CLI args + env var resolution (matches dfbnb build-workflow pattern)
@@ -66,14 +67,12 @@ _MONTH_ORD = {"jan": 1, "feb": 2, "mar": 3, "march": 3, "apr": 4, "april": 4,
 
 
 def _tsv_date_key(path):
-    """(year, month) from the TSV filename so the chronologically newest export
-    wins — plain alphabetical sorting picks May/March over June."""
-    bn = re.split(r"[\\/]", path)[-1]
-    m = re.search(r"(Jan|Feb|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|Sep|Oct|Nov|Dec)[a-z]*[_-](\d{4})",
-                  bn, re.IGNORECASE)
-    if m:
-        return (int(m.group(2)), _MONTH_ORD.get(m.group(1).lower(), 0))
-    return (0, 0)
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 
 def _newest_glob(pattern, exclude_suffix=None):

@@ -126,7 +126,7 @@ MEAT = [
     {"slug": "pheasant", "name": "Pheasant", "lld": r"^LLD_Creature_Pheasant",
      "tokens": ["pheasant"], "mappalachia": []},
     {"slug": "scorchbeast", "name": "Scorchbeast", "lld": r"^LLD_Creature_Scorchbeast",
-     "tokens": ["scorchbeast"], "mappalachia": []},
+     "tokens": ["scorchbeast"], "nest_tokens": ["scorchbeast"], "mappalachia": []},
     {"slug": "sheepsquatch", "name": "Sheepsquatch", "lld": r"^LLD_Creature_Sheepsquatch",
      "tokens": ["sheepsquatch"], "mappalachia": []},
     {"slug": "squirrel", "name": "Squirrel", "lld": r"^LLD_Creature_RadSquirrel",
@@ -150,7 +150,7 @@ URL_OF = lambda slug: f"{URL_BASE}{slug}/"
 def _load_meat_items():
     """Raw meat = MealTypeRaw ∩ IngredientTypeMeat, EXCLUDING eggs (they have their own
     farming category)."""
-    path = C._newest("ALCH_Export_*.tsv")
+    path = C._newest("ALCH_Export_*.tsv", exclude=["_Effects"])
     out = {}
     if path:
         with open(path, encoding="utf-8", errors="replace") as f:

@@ -58,6 +58,7 @@ from rng76 import (
     Rng76Data, Rng76Resolver,
     humanize_edid, fmt_pct, pick, read_tsv, newest, safe_float,
 )
+import tsv_source          # one resolver for every export selection
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -1984,8 +1985,7 @@ def _omod_desc_by_fid():
     import glob as _glob
     desc = {}        # omod_fid -> description
     omod_perk = {}   # omod_fid -> linked perk fid (from property type 18)
-    for f in sorted(_glob.glob(str(_REPO_ROOT / "tsv" / "OMOD_Export_*.tsv")),
-                    key=lambda p: os.path.getmtime(p)):
+    for f in tsv_source.all_matching(str(_REPO_ROOT / "tsv" / "OMOD_Export_*.tsv")):
         try:
             rows = read_tsv(f)
         except Exception:
@@ -2007,8 +2007,7 @@ def _omod_desc_by_fid():
     needed = {p for o, p in omod_perk.items() if o not in desc}
     if needed:
         perk_desc = {}
-        for f in sorted(_glob.glob(str(_REPO_ROOT / "tsv" / "PERK_Export_*.tsv")),
-                        key=lambda p: os.path.getmtime(p)):
+        for f in tsv_source.all_matching(str(_REPO_ROOT / "tsv" / "PERK_Export_*.tsv")):
             try:
                 with open(f, encoding="utf-8", errors="replace") as fh:
                     header = fh.readline().rstrip("\n").split("\t")

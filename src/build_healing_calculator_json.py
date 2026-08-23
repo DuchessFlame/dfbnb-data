@@ -27,6 +27,7 @@ import os
 import re
 import sys
 from datetime import date
+import tsv_source          # one resolver for every export selection
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -48,14 +49,12 @@ _MONTH_ORDER = {
 
 
 def _filename_date_key(path):
-    """Extract (year, month_number) from filenames like GLOB_Export_March_2026.tsv."""
-    base = os.path.basename(path).lower()
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 
 def find_newest_tsv(pattern):
@@ -64,7 +63,7 @@ def find_newest_tsv(pattern):
     if not files:
         return None
     # Sort by embedded date first, then by mtime as tiebreaker
-    return max(files, key=lambda p: (_filename_date_key(p), os.path.getmtime(p)))
+    return max(files, key=lambda p: (_filename_date_key(p), os.path.basename(p)))
 
 
 # ---------------------------------------------------------------------------

@@ -41,6 +41,7 @@ import os
 import re
 from collections import defaultdict
 from typing import Any, Dict, List, Optional, Set, Tuple
+import tsv_source          # one resolver for every export selection
 
 
 # ============================================================
@@ -54,15 +55,13 @@ _MONTH_ORDER = {
     "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
 }
 
-def _filename_date_key(path: str) -> Tuple[int, int]:
-    """Extract (year, month_number) from filenames like LVLI_Export_April_2026_*.tsv."""
-    base = os.path.basename(path).lower()
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)  # unknown → sort low so parseable dates always win
+def _filename_date_key(path):
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 def newest(pattern: str, exclude_substrings=None) -> str:
     """Return the most recent file matching *pattern*.
@@ -81,7 +80,7 @@ def newest(pattern: str, exclude_substrings=None) -> str:
                  if not any(s in os.path.basename(f) for s in exclude_substrings)]
     if not files:
         raise FileNotFoundError(pattern)
-    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
     return files[-1]
 
 
@@ -243,7 +242,7 @@ class ItemNameIndex:
                                     for suf in exclude_suffixes)]
             if not files:
                 return
-            files.sort(key=lambda x: os.path.getmtime(x))
+            files.sort(key=tsv_source.export_key)
             loader(read_tsv(files[-1]))
 
         _safe_load("BOOK_Export_*.tsv", self.load_book,
@@ -441,7 +440,7 @@ class CurvIndex:
             main_files = [f for f in candidates
                           if "_POINTS" not in f and "CurvePoints" not in f]
             if main_files:
-                main_files.sort(key=lambda x: os.path.getmtime(x))
+                main_files.sort(key=tsv_source.export_key)
                 self.load_main(main_files[-1])
         except FileNotFoundError:
             pass

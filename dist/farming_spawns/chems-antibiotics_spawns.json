@@ -1,0 +1,469 @@
+{
+ "_meta": {
+  "generated": "2026-08-23",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "lists_in_closure": 17,
+  "source_totals": {
+   "container": 1722,
+   "vendor": 2
+  },
+  "unresolved": {
+   "Prospector Saloon Shelter": 1
+  }
+ },
+ "set": "chems-antibiotics",
+ "name": "Antibiotics",
+ "page_title": "Antibiotics",
+ "blurb": "How to obtain Antibiotics — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
+ "drop_rates": {
+  "containers": {
+   "types": [
+    {
+     "name": "Animal Control Kit",
+     "rate": 0.9714285714285714,
+     "rate_display": "97.14%"
+    },
+    {
+     "name": "First Aid",
+     "rate": 0.9714285714285714,
+     "rate_display": "97.14%"
+    },
+    {
+     "name": "Refrigerator",
+     "rate": 0.9714285714285714,
+     "rate_display": "97.14%"
+    },
+    {
+     "name": "Animal Control Kit",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Chem Box",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Chem Cooler",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Doctor's Bag",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Dr. Ladek's Bag",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "First Aid",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Government Aid Drop",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Medical Examiner's Bag",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Mirror",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "Secure Transport Container",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    },
+    {
+     "name": "U.S.S.A. Supply Crate",
+     "rate": 0.275715712,
+     "rate_display": "27.57%"
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.25,
+  "object_type": "Chem",
+  "yield_perk": null,
+  "weight_perk": "traveling_pharmacy",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.14
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.03
+   }
+  ],
+  "backpack_mod": "chemists",
+  "backpack_weight": 0.03,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.05
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.03
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 40,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Antibiotics is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Resist",
+     "display": "+50 Disease Resistance",
+     "duration": "1 hour 30 min"
+    },
+    {
+     "name": "Cure Disease",
+     "display": "+100 Cure Disease",
+     "duration": null
+    },
+    {
+     "name": "Chems: Thirst",
+     "display": "Quenches thirst (180/3 min)",
+     "duration": null
+    },
+    {
+     "name": "Increase Hunger",
+     "display": "Increase Hunger",
+     "duration": null
+    },
+    {
+     "name": "GHL_SURV_Chem_Effect",
+     "display": "GHL_SURV_Chem_Effect",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Summer Camp: Craft Disease Cure with the Squirrel Backpack equipped",
+    "edid": "ATX_DE2023_SummerCamp_Challenge_Craft_Cure",
+    "page": "season:summer-camp",
+    "type": "Mini Season",
+    "required": 5
+   },
+   {
+    "name": "Craft Antibiotics",
+    "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Medic_Sub_CraftAntibiotics",
+    "page": "scouts-tadpole",
+    "type": "Lifetime",
+    "required": 3
+   }
+  ],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Antibiotics",
+     "form_id": "003E08A9",
+     "recipe_edid": "co_chem_SURV_DiseaseCure_Antibiotics_WorkbenchChemLab",
+     "category": "Chems",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Antiseptic",
+       "qty": 3,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/antiseptic/"
+      },
+      {
+       "name": "Stimpak",
+       "qty": 3,
+       "url": "https://www.buffsnbrew.com/bnb/chems/chems-stimpak/"
+      },
+      {
+       "name": "Purified Water",
+       "qty": 2,
+       "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-purified-water/"
+      },
+      {
+       "name": "Blood Pack",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/chems/chems-blood-pack/"
+      },
+      {
+       "name": "Disease Cure",
+       "qty": 2,
+       "url": "https://www.buffsnbrew.com/bnb/chems/chems-disease-cure/"
+      }
+     ],
+     "effects": [
+      {
+       "name": "Disease Resist",
+       "display": "+50 Disease Resistance",
+       "duration": "1 hour 30 min"
+      },
+      {
+       "name": "Cure Disease",
+       "display": "+100 Cure Disease",
+       "duration": null
+      },
+      {
+       "name": "Chems: Thirst",
+       "display": "Quenches thirst (180/3 min)",
+       "duration": null
+      },
+      {
+       "name": "Increase Hunger",
+       "display": "+240 Increase Hunger",
+       "duration": null
+      },
+      {
+       "name": "GHL_SURV_Chem_Effect",
+       "display": "+360 GHL_SURV_Chem_Effect",
+       "duration": null
+      }
+     ],
+     "how_to_obtain": "Recipe: Antibiotics"
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Del Walsh",
+   "marker": "Nuka-World on Tour",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Trader",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Mac",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "29.71%"
+   ],
+   "rate_display": "29.71%",
+   "rate_value": 0.29707,
+   "count": 1
+  }
+ ],
+ "additional_expands": null,
+ "info_notes": null,
+ "random_encounters": null,
+ "random_encounters_intro": null,
+ "events_activities": [
+  {
+   "list_id": "006820F7",
+   "edid": "NWOT_LL_Del_Consumable",
+   "name": "Del Consumable",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "006446B6",
+   "edid": "XPD_Fuel_CodeBlue_Rewards",
+   "name": "XPD Fuel Code Blue Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the XPD Fuel Code Blue Rewards reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "003FB9B0",
+   "edid": "CB04_RewardContainerList",
+   "name": "CB04 Reward Container List",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the CB04 Reward Container List reward pool per event/activity payout.",
+   "rate_value": 0.971429,
+   "rate_display": "97.14%",
+   "rate_lines": [
+    "97.14%"
+   ]
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Highway Town Interior",
+     "count": 1,
+     "sources": {
+      "vendor": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "8051FA",
+      "805225",
+      "809C43",
+      "809C4E",
+      "809C5A",
+      "822911",
+      "831013",
+      "845A71",
+      "85CD56"
+     ],
+     "coords": [
+      -4590.5283203125,
+      13607.529296875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "845A71",
+       "source_type": "vendor",
+       "coords": [
+        -3519.67919921875,
+        13035.724609375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Whitespring Bunker",
+     "count": 1,
+     "sources": {
+      "vendor": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "162468",
+      "16339D",
+      "2A4C83",
+      "2B8021",
+      "2CA837"
+     ],
+     "coords": [
+      -12167.2470703125,
+      -10266.69921875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2B8021",
+       "source_type": "vendor",
+       "coords": [
+        -22622.822265625,
+        -6972.22412109375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "total": 2
+}

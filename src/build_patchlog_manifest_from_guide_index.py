@@ -175,6 +175,15 @@ def main() -> None:
     # EXACT rules = one-off pages you listed
     # ---------------------------------------------
     EXACT_RULES: List[Tuple[str, str, str]] = [
+        # Grave sites are PLACEMENT data (REFR), not treasure-map reward data, so
+        # they need their own feed rather than inheriting the /df/treasure-maps/
+        # prefix rule. This page had no placement patch log at all, which is why
+        # five weeks of wrong grave locations produced no signal anywhere. The
+        # feed carries the freshness line even with nothing to report, so the page
+        # says when it was last checked instead of implying it is current.
+        ("/df/treasure-maps/pint-sized-phantoms/grave-sites/",
+         "patchlog_latest_df_placements.json", "df-placements"),
+
         ("/df/expos/atlantic-city/atlantic-city-expos-all-rewards/",
          "patchlog_latest_df_expos_atlantic_city_rewards.json", "df-expos-atlantic-city-rewards"),
         ("/df/expos/the-pitt/pitt-expos-all-rewards/",

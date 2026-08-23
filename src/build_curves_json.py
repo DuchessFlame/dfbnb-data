@@ -32,6 +32,7 @@ import shutil
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+import tsv_source          # one resolver for every export selection
 
 # ==================================================================
 # Paths — run from repo root (dfbnb-data/)
@@ -54,15 +55,13 @@ _MONTHS = {
 }
 
 
-def name_date_key(filepath):
-    """Extract (year, month) from a filename like 'CURV_Export_March_2026.tsv'."""
-    base = os.path.basename(filepath).lower()
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month = _MONTHS.get(m.group(1), 0)
-        if month:
-            return (int(m.group(2)), month)
-    return (0, 0)
+def name_date_key(path):
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 
 def newest(pattern):
@@ -74,7 +73,7 @@ def newest(pattern):
     files = glob.glob(str(pattern))
     if not files:
         return None
-    files.sort(key=lambda x: (name_date_key(x), os.path.getmtime(x)))
+    files.sort(key=lambda x: (name_date_key(x), os.path.basename(x)))
     return files[-1]
 
 
@@ -602,7 +601,7 @@ def build():
     _curv_all = glob.glob(str(TSV_DIR / "CURV_Export_*.tsv"))
     _curv_hdr_candidates = [f for f in _curv_all if "_POINTS" not in f]
     if _curv_hdr_candidates:
-        _curv_hdr_candidates.sort(key=lambda x: (name_date_key(x), os.path.getmtime(x)))
+        _curv_hdr_candidates.sort(key=lambda x: (name_date_key(x), os.path.basename(x)))
         curv_hdr_tsv = _curv_hdr_candidates[-1]
     else:
         curv_hdr_tsv = None

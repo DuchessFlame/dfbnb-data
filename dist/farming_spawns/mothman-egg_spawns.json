@@ -73,6 +73,9 @@
      ]
     }
    ]
+  },
+  "containers": {
+   "types": []
   }
  },
  "farming_tips": {
@@ -186,23 +189,29 @@
     "ingredients": [
      {
       "name": "Wood",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
      },
      {
       "name": "Sugar Bombs",
-      "qty": 3
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-sugar-bombs/"
      },
      {
       "name": "Purified Water",
-      "qty": 2
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-purified-water/"
      },
      {
       "name": "Mothman Egg",
-      "qty": 2
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-mothman/mothman-guide/",
+      "is_main": true
      },
      {
       "name": "Brain Fungus",
-      "qty": 3
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/brain-fungus/"
      }
     ],
     "effects": [
@@ -246,11 +255,14 @@
     "ingredients": [
      {
       "name": "Wood",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
      },
      {
       "name": "Mothman Egg",
-      "qty": 1
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-mothman/mothman-guide/",
+      "is_main": true
      }
     ],
     "effects": [
@@ -277,7 +289,11 @@
     ],
     "how_to_obtain": "Known by default."
    }
-  ]
+  ],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
  },
  "vendor_list": [],
  "additional_expands": [
@@ -425,10 +441,9 @@
    "locations": [
     {
      "marker": "Clancy Manor",
-     "count": 10,
+     "count": 9,
      "sources": {
-      "flora": 9,
-      "loot-list": 1
+      "flora": 9
      },
      "image_top": "",
      "directions": "",
@@ -553,18 +568,6 @@
        "coords": [
         -93800.4,
         183587.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "5A0375",
-       "source_type": "loot-list",
-       "coords": [
-        -93531.2,
-        183603.9
        ],
        "image_top": "",
        "directions": "",
@@ -1404,120 +1407,6 @@
        "image_bottom": ""
       }
      ]
-    },
-    {
-     "marker": "Mysterious Cave",
-     "count": 1,
-     "sources": {
-      "container": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "45C4AC"
-     ],
-     "coords": [
-      143637.3,
-      200472.4
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "45C4AC",
-       "source_type": "container",
-       "coords": [
-        143637.3,
-        200472.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Sacrament",
-     "count": 5,
-     "sources": {
-      "loot-list": 5
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "55E3B5",
-      "55E3B8",
-      "55E3B9",
-      "55E3BB",
-      "55E3BC"
-     ],
-     "coords": [
-      80195.5,
-      176381.8
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "55E3B5",
-       "source_type": "loot-list",
-       "coords": [
-        80195.5,
-        176381.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55E3B8",
-       "source_type": "loot-list",
-       "coords": [
-        80223.6,
-        176282.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55E3B9",
-       "source_type": "loot-list",
-       "coords": [
-        80320.2,
-        176289.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55E3BB",
-       "source_type": "loot-list",
-       "coords": [
-        79894.1,
-        176857.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55E3BC",
-       "source_type": "loot-list",
-       "coords": [
-        79969.9,
-        176893.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
     }
    ]
   },
@@ -1634,5 +1523,6 @@
    "region": "Toxic Valley",
    "locations": []
   }
- ]
+ ],
+ "total": 76
 }

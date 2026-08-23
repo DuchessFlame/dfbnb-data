@@ -49,6 +49,7 @@ PTS_DIR   = TSV_DIR / "pts"
 
 sys.path.insert(0, str(SRC_DIR))
 from patchlog_utils import write_empty_patchlog_feed
+import tsv_source          # one resolver for every export selection
 
 
 # ---------------------------------------------------------------------------
@@ -61,9 +62,12 @@ def strip_q(s):
 
 
 def newest(pattern, tsv_dir):
-    """Return the newest file matching glob pattern by mtime, or None."""
-    files = sorted(glob.glob(str(tsv_dir / pattern)), key=os.path.getmtime)
-    return files[-1] if files else None
+    """Chronologically newest file matching the glob pattern, or None.
+
+    Was mtime-sorted, which is arbitrary in CI — actions/checkout gives every
+    file the same timestamp.
+    """
+    return tsv_source.newest(str(tsv_dir / pattern), required=False)
 
 
 def read_tsv(path):
@@ -419,10 +423,8 @@ def extract_unique_name_from_omod(custom_mods_data, omod_props_dict):
 # ===================================================================
 
 def find_omod_base(tsv_dir):
-    pattern = str(tsv_dir / "OMOD_Export_*.tsv")
-    candidates = [f for f in sorted(glob.glob(pattern), key=os.path.getmtime)
-                  if not f.endswith("_Properties.tsv")]
-    return candidates[-1] if candidates else None
+    return tsv_source.newest(str(tsv_dir / "OMOD_Export_*.tsv"),
+                             exclude="_Properties", required=False)
 
 
 def build_channel(channel, tsv_dir, dist_dir):
@@ -443,10 +445,8 @@ def build_channel(channel, tsv_dir, dist_dir):
     gmrw_path      = newest("GMRW_Export_*.tsv", tsv_dir)
     quest_path     = newest("QUEST_Export_*.tsv", tsv_dir)
     cobj_path      = newest("COBJ_Export_*.tsv", tsv_dir)
-    _book_candidates = [f for f in sorted(
-        glob.glob(str(tsv_dir / "BOOK_Export_*.tsv")), key=os.path.getmtime)
-        if not f.endswith("_Locations.tsv")]
-    book_path = _book_candidates[-1] if _book_candidates else None
+    book_path = tsv_source.newest(str(tsv_dir / "BOOK_Export_*.tsv"),
+                                  exclude="_Locations", required=False)
 
     required = {"LVLI Entries": lvli_path, "WEAP Base": weap_base_path, "WEAP DNAM": weap_dnam_path}
     for label, path in required.items():

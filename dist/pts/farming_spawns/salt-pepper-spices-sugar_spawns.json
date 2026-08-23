@@ -14,7 +14,17 @@
  "name": "Salt, Pepper, Sugar & Spices",
  "page_title": "Salt, Pepper, Sugar & Spices Spawn Locations",
  "blurb": "Every known world spawn for Salt, Pepper, Sugar and Spices, indexed by region. Per-region location guides are linked below.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": [
+    {
+     "name": "Refrigerator",
+     "rate": 0.95,
+     "rate_display": "95%"
+    }
+   ]
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -91,7 +101,11 @@
    ]
   },
   "challenges": [],
-  "recipes": []
+  "recipes": [],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
  },
  "vendor_list": [
   {
@@ -2037,9 +2051,8 @@
     },
     {
      "marker": "Quentino's Night Club",
-     "count": 6,
+     "count": 2,
      "sources": {
-      "container": 4,
       "direct": 2
      },
      "image_top": "",
@@ -2058,54 +2071,6 @@
       2256.0
      ],
      "spawns": [
-      {
-       "label": "",
-       "ref": "6B66DD",
-       "source_type": "container",
-       "coords": [
-        -1944.0,
-        2256.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "6B6743",
-       "source_type": "container",
-       "coords": [
-        594.0,
-        937.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "6B6760",
-       "source_type": "container",
-       "coords": [
-        824.0,
-        1828.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "6B6764",
-       "source_type": "container",
-       "coords": [
-        592.0,
-        867.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
       {
        "label": "",
        "ref": "6E2B61",
@@ -9325,9 +9290,8 @@
     },
     {
      "marker": "Overseer's Home",
-     "count": 12,
+     "count": 11,
      "sources": {
-      "container": 1,
       "direct": 11
      },
      "image_top": "",
@@ -9352,18 +9316,6 @@
       896.5
      ],
      "spawns": [
-      {
-       "label": "",
-       "ref": "53F7BC",
-       "source_type": "container",
-       "coords": [
-        2416.6,
-        896.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
       {
        "label": "",
        "ref": "11276D",
@@ -20925,5 +20877,6 @@
     "url": "/bnb/non-perishable/salt-pepper-spices-sugar/salt-pepper-spices-sugar-toxic-valley/"
    }
   ]
- }
+ },
+ "total": 1115
 }

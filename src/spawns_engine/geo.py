@@ -24,7 +24,7 @@ Interior coords in the DB are cell-local, so we resolve interiors by NAME, not c
 import os, sqlite3
 from crossref_mappalachia_markers import (
     load_mappalachia, region_for_xy, nearest_marker, MARKER_REGION_OVERRIDES,
-    load_lctn_regions, lctn_region_for,
+    load_lctn_regions, lctn_region_for, geo_snapshot_spaces,
 )
 
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
@@ -100,12 +100,21 @@ class Geo:
         for lbl, x, y in self.markers:
             self.marker_xy.setdefault(lbl, (x, y))
         self.labels_by_len = sorted((l for l in self.marker_xy), key=len, reverse=True)
-        # spaceFormID -> (editorID, displayName)
-        con = sqlite3.connect(db); cur = con.cursor()
-        self.spaces = {sid: (eid or "", nm or "")
-                       for sid, eid, nm in cur.execute(
-                           "SELECT spaceFormID, spaceEditorID, spaceDisplayName FROM Space")}
-        con.close()
+        # spaceFormID -> (editorID, displayName). The last thing in this class that
+        # needed the 480 MB DB — 204 rows. It now comes from the committed geo
+        # snapshot when the DB is absent, so the spawn generators can run in CI.
+        if os.path.isfile(db):
+            con = sqlite3.connect(db); cur = con.cursor()
+            self.spaces = {sid: (eid or "", nm or "")
+                           for sid, eid, nm in cur.execute(
+                               "SELECT spaceFormID, spaceEditorID, spaceDisplayName FROM Space")}
+            con.close()
+        else:
+            self.spaces = geo_snapshot_spaces()
+            if not self.spaces:
+                print("[geo] no Mappalachia DB and no 'spaces' in the geo snapshot — "
+                      "worldspace names will be blank. Run once locally with the DB "
+                      "to refresh data/mappalachia_geo.json.")
         # LCTN-derived region maps (POI/interior name + editorID core -> region),
         # the authoritative coordinate-free region tag from the game's Location
         # records. Consulted before the hand-maintained INTERIOR_REGION_OVERRIDES.

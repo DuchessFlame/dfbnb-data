@@ -30,6 +30,12 @@ import csv, glob, json, os, re
 from collections import defaultdict
 from pathlib import Path
 
+import os as _os, sys as _sys
+_SRC = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), 'src')
+if _SRC not in _sys.path:
+    _sys.path.insert(0, _SRC)
+import tsv_source          # one resolver for every export selection
+
 DIST_DIR     = Path("dist/activities")
 PATCHLOG_DIR = Path("dist/patchlogs")
 
@@ -40,7 +46,7 @@ PATCHLOG_DIR = Path("dist/patchlogs")
 def newest(pattern):
     files = glob.glob(pattern)
     if not files: raise FileNotFoundError(pattern)
-    files.sort(key=lambda x: os.path.getmtime(x))
+    files.sort(key=tsv_source.export_key)
     return files[-1]
 
 def read_tsv(path):
@@ -467,14 +473,14 @@ _book_files = [f for f in glob.glob("tsv/BOOK_Export_*.tsv")
                if "_Locations" not in f]
 if not _book_files:
     raise FileNotFoundError("tsv/BOOK_Export_*.tsv (non-Locations)")
-_book_files.sort(key=lambda x: os.path.getmtime(x))
+_book_files.sort(key=tsv_source.export_key)
 BOOK         = read_tsv(_book_files[-1])
 # ARMO: exclude SLOTS and ObjectTemplate sub-exports (no ARMO_FULL column)
 _armo_files = [f for f in glob.glob("tsv/ARMO_Export_*.tsv")
                if "_SLOTS" not in f and "_ObjectTemplate" not in f]
 if not _armo_files:
     raise FileNotFoundError("tsv/ARMO_Export_*.tsv (non-SLOTS)")
-_armo_files.sort(key=lambda x: os.path.getmtime(x))
+_armo_files.sort(key=tsv_source.export_key)
 ARMO         = read_tsv(_armo_files[-1])
 GLOB         = read_tsv(newest("tsv/GLOB_Export_*.tsv"))
 GUIDE        = read_tsv(newest("tsv/guide_index.tsv"))
@@ -507,7 +513,7 @@ except FileNotFoundError:
     except FileNotFoundError: MGEF_DATA = []
 # Load ALL OMOD exports and merge — different exports may have different DESC fields
 OMOD_DATA = []
-for _omod_f in sorted(glob.glob("tsv/OMOD_Export_*.tsv"), key=lambda x: os.path.getmtime(x)):
+for _omod_f in tsv_source.all_matching("tsv/OMOD_Export_*.tsv"):
     try:    OMOD_DATA.extend(read_tsv(_omod_f))
     except Exception: pass
 try:    COBJ = read_tsv(newest("tsv/COBJ_Export_*.tsv"))

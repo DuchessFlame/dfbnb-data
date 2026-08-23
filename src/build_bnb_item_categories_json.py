@@ -128,6 +128,7 @@ try:
 except Exception:  # pragma: no cover - diagnostics is optional at runtime
     Diagnostics = None  # type: ignore
 from cut_content import is_cut  # noqa: E402
+import tsv_source          # one resolver for every export selection
 
 
 # ---------------------------------------------------------------------------
@@ -416,7 +417,7 @@ def find_latest_tsv(data_dir: str, pattern: str) -> Optional[str]:
     matches = glob.glob(os.path.join(data_dir, pattern))
     if not matches:
         return None
-    matches.sort(key=lambda p: os.path.getmtime(p), reverse=True)
+    matches.sort(key=tsv_source.export_key, reverse=True)
     return matches[0]
 
 
@@ -583,7 +584,7 @@ def main() -> int:
         p for p in glob.glob(os.path.join(args.data_dir, "ALCH_Export_*.tsv"))
         if "_Effects" not in os.path.basename(p)
     ]
-    alch_candidates.sort(key=lambda p: os.path.getmtime(p), reverse=True)
+    alch_candidates.sort(key=tsv_source.export_key, reverse=True)
     alch_path = alch_candidates[0] if alch_candidates else None
 
     if not kywd_refs_path:

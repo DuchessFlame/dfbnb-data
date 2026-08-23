@@ -34,6 +34,7 @@ except ImportError:
     if _this_dir not in sys.path:
         sys.path.insert(0, _this_dir)
     from mini_seasons_tickets import apply_ticket_overlay
+import tsv_source          # one resolver for every export selection
 
 # ─────────────────────────────────────────────────────────────
 # Condition parsing
@@ -100,7 +101,7 @@ def parse_condition_display(raw):
 _CNDF_BY_FID = {}
 
 def _load_cndf(tsv_root):
-    files = sorted(glob.glob(os.path.join(tsv_root, 'CNDF_Export_*.tsv')), key=os.path.getmtime)
+    files = tsv_source.all_matching(os.path.join(tsv_root, 'CNDF_Export_*.tsv'))
     if not files:
         return
     with open(files[-1], 'r', encoding='utf-8-sig', errors='replace') as fh:
@@ -1191,7 +1192,7 @@ def load_keyword_refs(tsv_root):
 
     # Pick the newest file by modification time (alphabetical sort fails on
     # month names like "Apr" vs "March").
-    refs_file = max(refs_files, key=os.path.getmtime)
+    refs_file = max(refs_files, key=tsv_source.export_key)
     lookup = {}
     # xEdit saves in ANSI (Windows-1252 / cp1252).  Use cp1252 which is a
     # superset of latin-1 and handles accented characters (e.g. "Michellé").
@@ -1406,7 +1407,7 @@ def load_entm_rewards(tsv_root):
     Returns dict[event_key] → list of {name, description, edid, image_url}.
     Image URLs use .avif format under /wp-content/uploads/guide-images/mini-seasons/.
     """
-    entm_files = sorted(glob.glob(os.path.join(tsv_root, 'ENTM_Export_*.tsv')))
+    entm_files = tsv_source.all_matching(os.path.join(tsv_root, 'ENTM_Export_*.tsv'))
     if not entm_files:
         print("  WARNING: No ENTM_Export_*.tsv found, skipping reward loading")
         return {}
@@ -1551,8 +1552,10 @@ def main():
     _load_cndf(args.tsv_root)
     print(f"  CNDF: {len(_CNDF_BY_FID)} condition-forms loaded")
 
-    # Find all CHAL TSVs, sort by name (oldest first so newest wins)
-    tsv_files = sorted(glob.glob(os.path.join(args.tsv_root, 'CHAL_Export_*.tsv')))
+    # All CHAL TSVs, oldest first so the newest export wins the merge. Sorting by
+    # NAME did the opposite of what this comment claimed: "May" sorts after "July",
+    # so May was applied last and overwrote July.
+    tsv_files = tsv_source.all_matching(os.path.join(args.tsv_root, 'CHAL_Export_*.tsv'))
     if not tsv_files:
         print(f"ERROR: No CHAL_Export_*.tsv found in {args.tsv_root}", file=sys.stderr)
         sys.exit(1)

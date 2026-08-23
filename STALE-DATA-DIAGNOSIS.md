@@ -362,6 +362,55 @@ One thing this cannot do, stated plainly: it makes the site always current **wit
 the exports in the repo**. It cannot make an export appear — that is still §4.1 and §4.3. But
 it closes the half of the gap that is pure code, and today that half is three months wide.
 
+### Status: done 2026-08-22
+
+`src/tsv_source.py` written; 22 private date helpers now delegate to it; every lexical and
+mtime selection replaced; composite tie-breaks made deterministic (filename, not mtime, so
+local and CI agree); the lint runs as the first step of both `dfbnb-patch-build.yml` and
+`dfbnb-pts-build.yml` and is currently green. 18 builders re-run clean; `dist/` verified
+unchanged afterwards.
+
+---
+
+## 4B. Three more things found while doing it
+
+**1. `tools/build_curves_json.mjs` has March 2026 hardcoded.** This is the builder CI actually
+runs, in the main patch build:
+
+```js
+const PCRD_TSV     = process.env.PCRD_TSV     || "tsv/PCRD_Export_March_2026.tsv";
+const PERK_TSV     = process.env.PERK_TSV     || "tsv/PERK_Export_March_2026.tsv";
+const CURV_HDR_TSV = process.env.CURV_HDR_TSV || "tsv/CURV_Export_March_2026.tsv";
+```
+
+The workflow sets `CURV_POINTS_TSV` but **not** the other three, so they fall through to the
+literal March filenames. Curve-table perk linkage has been built from March exports since
+March. A frozen filename is worse than a bad sort — no lint on selection logic can see it,
+because there is no selection. Not fixed: it needs a decision about which columns the linkage
+should read (see 2).
+
+**2. `src/build_curves_json.py` is dead code that shadows the live builder**, and its perk step
+reads columns the exports don't have — `CURV_FormID` where the header says `FormID`, and
+`^Ref\d+$` where the columns are `Ref_1`, `Ref_2`. It resolves 0 links and writes an empty
+result rather than failing. The 40 curve links in the committed `dist/curves/perk_cards.json`
+are inherited from an older export schema via `build_perk_cards_json.load_linkage()`, which
+reads the previously published file — the same "preserve the last known answer" pattern as
+`geo_cache.json`. **Deliberately not fixed:** PERK's `Ref_N` columns are *incoming* references,
+not the outgoing effect links the algorithm wants, so making it "work" would mean guessing at
+record semantics. That is the exact failure being diagnosed everywhere else in this document.
+Your call — it needs the domain answer, not a code change.
+
+**3. There are four independent implementations of "which export is newest."** 22 Python
+helpers (now one), `filenameDateScore` in the `.mjs` builders, an awk month-map inlined three
+times in the workflow YAML, and hardcoded filenames as fallbacks. The `.mjs` version carries
+this comment:
+
+> _Sort TSV filenames by the date encoded in their name rather than file mtime. Git checkouts
+> give every file the same mtime, making mtime-based sorting unreliable._
+
+The lesson was learned, written down, and never applied to the Python side, where 30 mtime
+sorts were live until today.
+
 **Payload, not file count.** The 30-second load is not 800 JSONs. It is:
 
 | File | Size | Fetched by |
@@ -421,15 +470,15 @@ re-placement. Doing it after means wiring them twice.
 
 1. ~~**§4.5** — decouple the handfills.~~ **Done 2026-08-22.**
 2. ~~**§6** — apply the 18-grave correction.~~ **Done 2026-08-22.**
-3. **§4A** — the shared TSV resolver. Promoted to the top: it is pure code, it needs no export
-   and no discipline, and it is currently costing three months of freshness on data that is
-   already sitting in the repo. Biggest correctness win per hour of work.
-4. **§4.1** — the export ledger. One block in the `.pas`, one helper in `patchlog_utils`.
+3. ~~**§4A** — the shared TSV resolver.~~ **Done 2026-08-22.**
+4. **§4B.1** — unfreeze the March filenames in `build_curves_json.mjs` (needs §4B.2 decided
+   first). **§4B.2** — decide what the perk↔curve linkage should actually read.
+5. **§4.1** — the export ledger. One block in the `.pas`, one helper in `patchlog_utils`.
    This is the load-bearing change for the half §4A can't reach.
-5. **§4.2** — the provenance line in `df-bnb-guide.js`. Cheap, and it ends the class of silent
+6. **§4.2** — the provenance line in `df-bnb-guide.js`. Cheap, and it ends the class of silent
    failure even where the data stays stale.
-6. **§5** — split the two monster payloads. Biggest user-visible win, independent of the rest.
-7. **§4.4**, then **§4.3**.
+7. **§5** — split the two monster payloads. Biggest user-visible win, independent of the rest.
+8. **§4.4**, then **§4.3**.
 
 Steps 1–5 remove `build_phantom_grave_sites_tsv.py`'s channel bug, `diff_refr_placements.py`,
 22 duplicated date helpers and ~36 ad-hoc selection expressions. They add no scheduled human
@@ -444,3 +493,9 @@ action and no file the browser fetches.
 | `src/build_phantom_grave_sites_tsv.py` | channel-explicit, date-aware, regression guard, no longer writes editorial columns | 261 |
 | `src/build_collectable_spawns_json.py` | joins the notes file by grave key; `_meta.observed` provenance | 502 |
 | `dist/collectable_spawns_pint-sized-phantom-graves.json` | rebuilt — 18 sites, photos on graves 7 and 9 | — |
+| `src/tsv_source.py` | **new** — the one resolver, plus `--lint` | 300 |
+| 22 builders | private date helper now delegates to `tsv_source.export_key` | — |
+| 20 builders | lexical / mtime selection replaced | — |
+| 15 builders | composite tie-break made deterministic | — |
+| `.github/workflows/dfbnb-patch-build.yml` | lint + resolution report as the first build steps | — |
+| `.github/workflows/dfbnb-pts-build.yml` | same lint | — |

@@ -30,6 +30,7 @@ except ImportError:
         sys.path.insert(0, str(_SRC_DIR))
     from rng76 import Rng76Data
 
+import tsv_source          # one resolver for every export selection
 # Populated once in main() from the TSV root; resolve_drops_via_rng76() reads it.
 _RNG_RESOLVER = None
 
@@ -209,13 +210,12 @@ MONTH_ORD = {"jan":1,"feb":2,"mar":3,"march":3,"apr":4,"april":4,"may":5,"jun":6
     "jul":7,"july":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
 
 def _tsv_date_key(path):
-    """Extract (year, month_number) from TSV filename for sorting. Returns (0,0) if unparseable."""
-    bn = os.path.basename(path)
-    m = re.search(r"(Jan|Feb|Mar|March|Apr|April|May|Jun|June|Jul|July|Aug|Sep|Oct|Nov|Dec)(?:uary|ruary|ch|il|e|ust|tember|ober|ember)?[_-](\d{4})", bn, re.IGNORECASE)
-    if m:
-        month_num = MONTH_ORD.get(m.group(1).lower(), 0)
-        return (int(m.group(2)), month_num)
-    return (0, 0)
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 def _find_latest_tsv(tsv_root, glob_pattern):
     import glob as globmod

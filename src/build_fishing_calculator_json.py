@@ -25,6 +25,7 @@ import re
 import sys
 import glob as globmod
 from datetime import datetime, timezone
+import tsv_source          # one resolver for every export selection
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
@@ -58,9 +59,9 @@ WB_BAIT_POOL_FID = "0081137A"   # Fishing_LL_Rewards_ImprovedBait
 WB_EVENTS_EXTRA = []
 
 def _wb_latest(rel_pattern):
-    """Newest file under the repo root matching a tsv/ glob pattern."""
-    matches = sorted(globmod.glob(os.path.join(SCRIPT_DIR, "..", rel_pattern)))
-    return matches[-1] if matches else None
+    """Chronologically newest file under the repo root matching a tsv/ glob."""
+    return tsv_source.newest(os.path.join(SCRIPT_DIR, "..", rel_pattern),
+                             required=False)
 
 def _wb_read_rows(path):
     """Read a TSV into a list of split rows, tolerant of export encodings."""
@@ -234,7 +235,7 @@ def find_latest_tsv(pattern):
     files = globmod.glob(os.path.join(TSV_DIR, pattern))
     if not files:
         return None
-    return max(files, key=os.path.getmtime)
+    return max(files, key=tsv_source.export_key)
 
 
 # ---------------------------------------------------------------------------

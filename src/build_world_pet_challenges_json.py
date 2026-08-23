@@ -23,6 +23,7 @@ Usage:
 
 import csv, glob, os, re, json, argparse, datetime
 from pathlib import Path
+import tsv_source          # one resolver for every export selection
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--tsv-dir", default="tsv",  help="Folder containing TSV exports")
@@ -43,14 +44,12 @@ _MONTH_ORDER = {
 }
 
 def _filename_date_key(path):
-    """Extract (year, month_number) from filenames like CHAL_Export_June_2026.tsv."""
-    base = os.path.basename(path).lower()
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 _SIDECAR_RE = re.compile(r'_\d{4}_.+\.tsv$', re.IGNORECASE)
 
@@ -80,7 +79,7 @@ def newest(pattern):
     fs = _drop_sidecars(pattern, glob.glob(str(TSV_DIR / pattern)))
     if not fs:
         return None
-    fs.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    fs.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
     return fs[-1]
 
 def read_tsv(path):

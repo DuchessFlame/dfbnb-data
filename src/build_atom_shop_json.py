@@ -31,6 +31,7 @@ import json
 import os
 import re
 import sys
+import tsv_source          # one resolver for every export selection
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 SRC      = os.path.join(SCRIPT_DIR, "..", "dist", "atom_shop.json")
@@ -66,14 +67,12 @@ _MONTH_ORDER = {
 
 
 def _filename_date_key(path):
-    """Extract (year, month_number) from names like ENTM_Export_June_2026.tsv."""
-    base = os.path.basename(path).lower()
-    m = re.search(r"_([a-z]+)_(\d{4})", base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)  # unknown → sort low so parseable dates always win
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 
 def _sorted_tsv(paths, exclude_substrings=None):
@@ -86,7 +85,7 @@ def _sorted_tsv(paths, exclude_substrings=None):
     if exclude_substrings:
         paths = [p for p in paths
                  if not any(s in os.path.basename(p) for s in exclude_substrings)]
-    return sorted(paths, key=lambda p: (_filename_date_key(p), os.path.getmtime(p)))
+    return sorted(paths, key=lambda p: (_filename_date_key(p), os.path.basename(p)))
 
 # ── Limited Time Bundles (real-money platform DLC) ───────────────────
 # Ordered newest-first. status: "active" | "replaced" | "discontinued" | "removed"

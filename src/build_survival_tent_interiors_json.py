@@ -81,6 +81,7 @@ import os
 import re
 import sys
 from datetime import datetime, timezone
+import tsv_source          # one resolver for every export selection
 
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -110,14 +111,12 @@ _MONTH_ORDER = {
 
 
 def _filename_date_key(path):
-    """Extract (year, month_number) from names like *_Export_June_2026.tsv."""
-    base = os.path.basename(path).lower()
-    m = re.search(r"_([a-z]+)_(\d{4})", base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)  # unknown → sort low so parseable dates always win
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 # Item sub-field positions inside a packed Item_N cell.
 ITEM_FIELDS = ("refrFormId", "baseSig", "baseFormId", "baseEdid", "baseFull")
@@ -211,7 +210,7 @@ def find_latest_tsv(pattern_glob: str = TSV_GLOB, required: bool = True) -> str 
     pattern = os.path.join(TSV_ROOT, pattern_glob)
     matches = sorted(
         glob.glob(pattern),
-        key=lambda p: (_filename_date_key(p), os.path.getmtime(p)),
+        key=lambda p: (_filename_date_key(p), os.path.basename(p)),
     )
     if not matches:
         if required:

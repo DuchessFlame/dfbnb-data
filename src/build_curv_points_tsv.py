@@ -60,6 +60,7 @@ import re
 import sys
 from pathlib import Path
 from typing import Optional
+import tsv_source          # one resolver for every export selection
 
 # --------------------------------------------------------------------------
 # Filename-date helpers — picking the newest CURV records TSV is the same
@@ -76,14 +77,13 @@ _MONTHS = {
 }
 
 
-def _name_date_key(path: str) -> tuple:
-    base = os.path.basename(path).lower()
-    m = re.search(r"_([a-z]+)_(\d{4})", base)
-    if m:
-        mon = _MONTHS.get(m.group(1), 0)
-        if mon:
-            return (int(m.group(2)), mon)
-    return (0, 0)
+def _name_date_key(path):
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 
 def _newest_records_tsv(tsv_dir: Path) -> Optional[Path]:
@@ -98,7 +98,7 @@ def _newest_records_tsv(tsv_dir: Path) -> Optional[Path]:
                   and "CurvePoints" not in os.path.basename(c)]
     if not candidates:
         return None
-    candidates.sort(key=lambda p: (_name_date_key(p), os.path.getmtime(p)))
+    candidates.sort(key=lambda p: (_name_date_key(p), os.path.basename(p)))
     return Path(candidates[-1])
 
 

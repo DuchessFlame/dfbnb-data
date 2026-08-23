@@ -31,6 +31,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from patchlog_utils import write_patchlog_feed
+from by_page_slices import write_by_page_slices
 
 # ---------------------------------------------------------------------------
 # Import shared drop-rate engine (rng76.py in same directory)
@@ -47,6 +48,7 @@ from rng76 import (
     humanize_edid, glob_formid_from_lvli_field,
     fmt_pct, REGION_BY_SUBLVLI_EDID,
 )
+import tsv_source          # one resolver for every export selection
 
 # Resolve paths relative to the repo root (one level up from src/) so the
 # script produces correct output regardless of which directory it's run from.
@@ -66,14 +68,12 @@ _MONTH_ORDER = {
 }
 
 def _filename_date_key(path):
-    """Extract (year, month_number) from filenames like LVLI_Export_April_2026_*.tsv."""
-    base = os.path.basename(path).lower()
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)  # unknown → sort low so parseable dates always win
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 def newest(pattern, exclude_substrings=None):
     """Pick the most recent file matching *pattern*.
@@ -92,7 +92,7 @@ def newest(pattern, exclude_substrings=None):
         files = [f for f in files
                  if not any(s in os.path.basename(f) for s in exclude_substrings)]
     if not files: raise FileNotFoundError(pattern)
-    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
     return files[-1]
 
 def read_tsv(path):
@@ -446,14 +446,14 @@ _book_files = [f for f in glob.glob(str(_REPO_ROOT / "tsv/BOOK_Export_*.tsv"))
                if "_Locations" not in f]
 if not _book_files:
     raise FileNotFoundError("tsv/BOOK_Export_*.tsv (non-Locations)")
-_book_files.sort(key=lambda x: os.path.getmtime(x))
+_book_files.sort(key=tsv_source.export_key)
 BOOK         = read_tsv(_book_files[-1])
 # ARMO: exclude SLOTS and ObjectTemplate sub-exports (no ARMO_FULL column)
 _armo_files = [f for f in glob.glob(str(_REPO_ROOT / "tsv/ARMO_Export_*.tsv"))
                if "_SLOTS" not in f and "_ObjectTemplate" not in f]
 if not _armo_files:
     raise FileNotFoundError("tsv/ARMO_Export_*.tsv (non-SLOTS)")
-_armo_files.sort(key=lambda x: os.path.getmtime(x))
+_armo_files.sort(key=tsv_source.export_key)
 ARMO         = read_tsv(_armo_files[-1])
 GLOB         = read_tsv(newest("tsv/GLOB_Export_*.tsv"))
 GUIDE        = read_tsv(newest("tsv/guide_index.tsv"))
@@ -3433,6 +3433,11 @@ with open(DIST_DIR / "events_rewards.json", "w", encoding="utf-8") as f:
     json.dump({"events": events}, f, separators=(",", ":"))
 with open(DIST_DIR / "events_rewards_by_page.json", "w", encoding="utf-8") as f:
     json.dump({"byPage": by_page}, f, separators=(",", ":"))
+
+# Per-page slices — see the note in build_activities_rewards_json.py. 60 MB
+# fetched per pageview becomes an index plus one ~80 KB file. Both shapes are
+# written while the old renderer is still in circulation.
+write_by_page_slices(DIST_DIR, by_page, name="events")
 
 write_patchlog_feed(
     dist_dir=str(_REPO_ROOT / "dist"),

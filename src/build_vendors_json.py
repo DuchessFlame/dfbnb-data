@@ -63,6 +63,7 @@ if HERE not in sys.path:
 from nuka_cola_spawns_geo import Geo
 import farming_spawns_sources as sources
 from patchlog_utils import write_empty_patchlog_feed
+import tsv_source          # one resolver for every export selection
 
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 SQL_CHUNK = 900
@@ -112,10 +113,8 @@ def _is_nonvendor(edid: str, full: str, tplt: str, fac_edid: str,
 # ── file helpers ──────────────────────────────────────────────────────────────
 
 def _newest(pattern, tsv_root, exclude_suffix=None):
-    hits = sorted(glob.glob(os.path.join(tsv_root, pattern)), key=os.path.getmtime, reverse=True)
-    if exclude_suffix:
-        hits = [h for h in hits if not h.endswith(exclude_suffix)]
-    return hits[0] if hits else None
+    return tsv_source.newest(os.path.join(tsv_root, pattern),
+                             exclude=exclude_suffix, required=False)
 
 
 def _chunks(seq, n=SQL_CHUNK):

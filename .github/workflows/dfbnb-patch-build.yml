@@ -54,6 +54,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas
 
+      # ===== INPUT SELECTION GUARD =====
+      # Every builder must pick its export through src/tsv_source.py. Sorting
+      # export filenames lexically resolves to MAY 2026 for every record type
+      # ("August" sorts before "July"; "May" outranks them all), and sorting by
+      # mtime is meaningless here because actions/checkout stamps every file
+      # with the same timestamp. Both bugs shipped silently for months. This
+      # step fails the build if either pattern reappears.
+      - name: Verify export selection (tsv_source lint)
+        run: python src/tsv_source.py --lint
+
+      - name: Report which export each record type resolves to
+        run: python src/tsv_source.py
+
       # ===== DROP RATES (must run before titles, events) =====
       - name: Build Drop Rates JSON
         run: python src/build_drop_rates.py
@@ -180,11 +193,33 @@ jobs:
           echo "CURV_POINTS_TSV=$FILE" >> $GITHUB_ENV
           echo "Using CURV points TSV: $FILE"
 
+          # build_curves_json.mjs also takes PCRD / PERK / CURV header exports for the
+          # perk-card linkage, and its built-in defaults are the LITERAL strings
+          # "tsv/PCRD_Export_March_2026.tsv" etc. Only CURV_POINTS_TSV was ever set
+          # here, so those three have been reading March 2026 since March. A frozen
+          # filename is worse than a bad sort — there is no selection logic for a lint
+          # to inspect. Resolve them the same way as the points file.
+          for pair in "PCRD_TSV:tsv/PCRD_Export_*.tsv" \
+                      "PERK_TSV:tsv/PERK_Export_*.tsv" \
+                      "CURV_HDR_TSV:tsv/CURV_Export_*_CURV.tsv"; do
+            var="${pair%%:*}"; pat="${pair#*:}"
+            f=$(newest_by_name "$pat")
+            if [ -n "$f" ]; then
+              echo "$var=$f" >> $GITHUB_ENV
+              echo "Using $var: $f"
+            else
+              echo "WARN: no match for $pat — $var falls back to the builder default"
+            fi
+          done
+
       - name: Build Curves JSON
         shell: bash
         run: |
           mkdir -p dist/curves
           CURV_POINTS_TSV="${CURV_POINTS_TSV}" \
+          PCRD_TSV="${PCRD_TSV}" \
+          PERK_TSV="${PERK_TSV}" \
+          CURV_HDR_TSV="${CURV_HDR_TSV}" \
           CURV_OUT_DIR="dist/curves" \
           CURV_CHUNK_MAX_CURVES="200" \
           node tools/build_curves_json.mjs
@@ -693,6 +728,29 @@ jobs:
       - name: Build NPC Spawns JSON
         run: python tools/build_npc_spawns.py
 
+      # --- PINT-SIZED PHANTOMS GRAVE PLACEMENTS ---
+      # Regenerates tsv/phantom_grave_sites.tsv from the newest LIVE REFR export.
+      # This used to be local-only because resolving coordinates needed the 480 MB
+      # Mappalachia DB; it now falls back to data/mappalachia_geo.json (~42 KB,
+      # committed, refreshed by any local DB-backed run), so a fresh REFR export is
+      # the ONLY manual step in this chain. Exits 0 with a message when there is no
+      # live REFR export yet, rather than failing the build or reaching into tsv/pts.
+      - name: Build Phantom Grave Sites TSV
+        run: python src/build_phantom_grave_sites_tsv.py || true
+
+      # --- TREASURE MAP + U-MINE-IT DIG SITES ---
+      # Both regenerate from committed exports and the geo snapshot, so they belong
+      # here rather than in someone's head. Treasure map mounds come from the ACTI2
+      # export; U-Mine-It reads the REFR export (base 000355A1) — it used to read
+      # Mappalachia's Position table directly, which is what made it local-only.
+      # `|| true` so a channel with no export yet logs and moves on instead of
+      # failing a build that has nothing to do with dig sites.
+      - name: Build Treasure Map Dig Sites TSV
+        run: python src/build_treasure_map_dig_sites_tsv.py || true
+
+      - name: Build U-Mine-It Dig Sites TSV
+        run: python src/build_u_mine_it_dig_sites_tsv.py || true
+
       # --- COLLECTABLE SPAWNS ({Item} Spawn Locations pages) ---
       # src/build_collectable_spawns_json.py outputs dist/collectable_spawns_<set>.json
       # (+ manifest) for df-bnb-collectables-spawns.js, from the MISC2/ACTI2 placement
@@ -946,6 +1004,17 @@ jobs:
           for f in dist/farming_spawns/*_spawns.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not built"; done
           for f in data/farming_spawns/geo_cache_*.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not seeded"; done
           test -f dist/unique_weapons/unique_weapons.json && echo "OK unique_weapons.json"     || (echo "MISSING unique_weapons/unique_weapons.json" && exit 1)
+
+      # --- PATCH LOG FEEDS ---
+      # Built from export-vs-export diffs, so an entry only exists when a NEW TSV
+      # was uploaded. The old path wrote a fresh "today · Added 0 Removed 0
+      # Changed 0" row every six hours whether or not the game had moved, which is
+      # how five weeks of wrong grave data produced no signal anywhere.
+      #
+      # Runs LAST so it takes precedence over any feed still written by a builder
+      # on the old item-diff path.
+      - name: Build patch log feeds (export diffs)
+        run: python src/patchlog_utils.py --write-feeds --dist dist --channel live
 
       # --- COMMIT ONCE ---
       - name: Commit & Push

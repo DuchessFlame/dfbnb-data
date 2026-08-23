@@ -67,11 +67,31 @@ jobs:
           echo "CURV_POINTS_TSV=$FILE" >> $GITHUB_ENV
           echo "Using CURV points TSV: $FILE"
 
+          # The perk-card linkage this workflow exists to produce comes from the
+          # PCRD / PERK / CURV header exports, not the points file. Leaving them
+          # unset falls through to the literal "tsv/*_March_2026.tsv" defaults
+          # baked into the builder. Resolve them like the points file.
+          for pair in "PCRD_TSV:tsv/PCRD_Export_*.tsv" \
+                      "PERK_TSV:tsv/PERK_Export_*.tsv" \
+                      "CURV_HDR_TSV:tsv/CURV_Export_*_CURV.tsv"; do
+            var="${pair%%:*}"; pat="${pair#*:}"
+            f=$(newest_by_name "$pat")
+            if [ -n "$f" ]; then
+              echo "$var=$f" >> $GITHUB_ENV
+              echo "Using $var: $f"
+            else
+              echo "WARN: no match for $pat — $var falls back to the builder default"
+            fi
+          done
+
       - name: Build curves JSON (provides linkage + index)
         shell: bash
         run: |
           mkdir -p dist/curves
           CURV_POINTS_TSV="${CURV_POINTS_TSV}" \
+          PCRD_TSV="${PCRD_TSV}" \
+          PERK_TSV="${PERK_TSV}" \
+          CURV_HDR_TSV="${CURV_HDR_TSV}" \
           CURV_OUT_DIR="dist/curves" \
           CURV_CHUNK_MAX_CURVES="200" \
           node tools/build_curves_json.mjs

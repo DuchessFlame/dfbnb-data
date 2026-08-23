@@ -24,6 +24,7 @@ import json
 import os
 import re
 from pathlib import Path
+import tsv_source          # one resolver for every export selection
 
 # ── Paths ──────────────────────────────────────────────────────────────────
 
@@ -39,19 +40,13 @@ _MONTH_ORDER = {
 }
 
 
-def _filename_date_key(path: str) -> tuple:
-    """Extract (year, month_number) from filenames like QUEST_Export_June_2026.tsv."""
-    base = os.path.basename(path).lower()
-    m = re.search(r"_([a-z]+)_(\d{4})", base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    # PTS filenames: QUEST_Export_PTS_2026-07-11_0946.tsv
-    m2 = re.search(r"_(\d{4})-(\d{2})-(\d{2})", base)
-    if m2:
-        return (int(m2.group(1)), int(m2.group(2)))
-    return (0, 0)
+def _filename_date_key(path):
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 
 def newest(pattern: str) -> str | None:
@@ -60,7 +55,7 @@ def newest(pattern: str) -> str | None:
     files = glob.glob(full_pattern)
     if not files:
         return None
-    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
     return files[-1]
 
 

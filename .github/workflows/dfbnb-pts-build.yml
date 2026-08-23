@@ -54,6 +54,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas
 
+      # Same guard as the live build — see dfbnb-patch-build.yml.
+      - name: Verify export selection (tsv_source lint)
+        run: python src/tsv_source.py --lint
+
       # ===== PTS CHANNEL SETUP =====
       # Overwrite the dated exports in the (ephemeral) tsv/ checkout with the
       # newest PTS pull, normalized to live-style names so every downstream
@@ -191,11 +195,30 @@ jobs:
           echo "CURV_POINTS_TSV=$FILE" >> $GITHUB_ENV
           echo "Using CURV points TSV: $FILE"
 
+          # Same as the live build: the .mjs defaults for these three are literal
+          # "March_2026" filenames, so they must be resolved here or the perk-card
+          # linkage silently reads March. See dfbnb-patch-build.yml.
+          for pair in "PCRD_TSV:tsv/PCRD_Export_*.tsv" \
+                      "PERK_TSV:tsv/PERK_Export_*.tsv" \
+                      "CURV_HDR_TSV:tsv/CURV_Export_*_CURV.tsv"; do
+            var="${pair%%:*}"; pat="${pair#*:}"
+            f=$(newest_by_name "$pat")
+            if [ -n "$f" ]; then
+              echo "$var=$f" >> $GITHUB_ENV
+              echo "Using $var: $f"
+            else
+              echo "WARN: no match for $pat — $var falls back to the builder default"
+            fi
+          done
+
       - name: Build Curves JSON
         shell: bash
         run: |
           mkdir -p dist/curves
           CURV_POINTS_TSV="${CURV_POINTS_TSV}" \
+          PCRD_TSV="${PCRD_TSV}" \
+          PERK_TSV="${PERK_TSV}" \
+          CURV_HDR_TSV="${CURV_HDR_TSV}" \
           CURV_OUT_DIR="dist/curves" \
           CURV_CHUNK_MAX_CURVES="200" \
           node tools/build_curves_json.mjs
@@ -770,7 +793,30 @@ jobs:
             git show "HEAD:dist/$f" > "dist/$f" 2>/dev/null || true
           done
 
+      # Grave placements for the PTS channel. Reads tsv/pts/REFR_Placements_*.tsv and
+      # writes tsv/pts/phantom_grave_sites.tsv — never the live file. Coordinates
+      # resolve from the committed geo snapshot, so no Mappalachia DB is needed here.
+      # See dfbnb-patch-build.yml for the live twin.
+      - name: Build Phantom Grave Sites TSV (PTS)
+        env:
+          DFBNB_CHANNEL: pts
+        run: python src/build_phantom_grave_sites_tsv.py --pts || true
+
+      # Dig sites for the PTS channel — writes tsv/pts/, never the live files.
+      # See dfbnb-patch-build.yml for the live twins.
+      - name: Build Treasure Map Dig Sites TSV (PTS)
+        env:
+          DFBNB_CHANNEL: pts
+        run: python src/build_treasure_map_dig_sites_tsv.py || true
+
+      - name: Build U-Mine-It Dig Sites TSV (PTS)
+        env:
+          DFBNB_CHANNEL: pts
+        run: python src/build_u_mine_it_dig_sites_tsv.py || true
+
       - name: Build Collectable Spawns JSON
+        env:
+          DFBNB_CHANNEL: pts
         run: python src/build_collectable_spawns_json.py
 
       # --- NUKA COLA SPAWNS ({Type} Locations pages) ---
@@ -1045,6 +1091,15 @@ jobs:
           # Farming spawns — check every item in config (soft-warn, geo cache may not be seeded yet)
           for f in dist/farming_spawns/*_spawns.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not built"; done
           for f in data/farming_spawns/geo_cache_*.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not seeded"; done
+
+      # --- PATCH LOG FEEDS (PTS) ---
+      # Reads tsv/pts/ directly, NOT the normalized tsv/ tree. normalize_pts_tsv
+      # keeps only the newest pull per record type, so the normalized tree has one
+      # file each and there is nothing to diff. tsv/pts/ still holds every
+      # timestamped pull, which is exactly the per-upload history the PTS toggle
+      # should show — several entries in a busy fortnight, none in a quiet month.
+      - name: Build patch log feeds (export diffs, PTS)
+        run: python src/patchlog_utils.py --write-feeds --dist dist --channel pts
 
       # --- RELOCATE TO dist/pts AND COMMIT (PTS channel) ---
       - name: Relocate build output into dist/pts

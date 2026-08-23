@@ -38,6 +38,7 @@ import os
 import re
 import csv
 import glob
+import tsv_source          # one resolver for every export selection
 
 # ── keyword vocabulary ───────────────────────────────────────────────────────
 # Reward / activity signal (build_events_rewards_json.py prefix vocabulary + known
@@ -73,10 +74,9 @@ _REGISTRY_CACHE = {}
 
 def _newest(patterns, tsv_root):
     for pat in patterns:
-        hits = sorted(glob.glob(os.path.join(tsv_root, pat)), key=os.path.getmtime,
-                      reverse=True)
-        if hits:
-            return hits[0]
+        hit = tsv_source.newest(os.path.join(tsv_root, pat), required=False)
+        if hit:
+            return hit
     return None
 
 

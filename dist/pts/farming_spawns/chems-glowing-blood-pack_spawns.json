@@ -1,0 +1,223 @@
+{
+ "_meta": {
+  "generated": "2026-08-23",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "lists_in_closure": 11,
+  "source_totals": {
+   "npc": 19
+  },
+  "unresolved": {}
+ },
+ "set": "chems-glowing-blood-pack",
+ "name": "Glowing Blood Pack",
+ "page_title": "Glowing Blood Pack",
+ "blurb": "How to obtain Glowing Blood Pack — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
+ "drop_rates": {
+  "containers": {
+   "types": []
+  },
+  "creatures": {
+   "note": "Around 19 creatures can drop Glowing Blood Pack as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.25,
+  "object_type": "Chem",
+  "yield_perk": null,
+  "weight_perk": "traveling_pharmacy",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.14
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.03
+   }
+  ],
+  "backpack_mod": "chemists",
+  "backpack_weight": 0.03,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.05
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.03
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 30,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Glowing Blood Pack is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 40 Health",
+     "duration": "5s"
+    },
+    {
+     "name": "GHL_SURV_Chem_Effect",
+     "display": "GHL_SURV_Chem_Effect",
+     "duration": null
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (540/9 min)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "+10 Rads",
+     "duration": null
+    },
+    {
+     "name": "Resist Radiation Exposure",
+     "display": "+75 Resist Radiation Exposure",
+     "duration": "10 min"
+    },
+    {
+     "name": "Resist Radiation Ingestion",
+     "display": "+75 Resist Radiation Ingestion",
+     "duration": "10 min"
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Collect a Blood pack",
+    "edid": "SCORE_Challenge_Daily_Collect_Bloodpacks",
+    "page": "daily",
+    "type": "Daily",
+    "required": 3
+   }
+  ],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Glowing Blood Pack",
+     "form_id": "",
+     "recipe_edid": "co_chem_BloodpackGlowing",
+     "category": "Chems",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Bloodpack",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/chems/chems-blood-pack/"
+      },
+      {
+       "name": "Glowing Blood",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-glowing-blood/"
+      },
+      {
+       "name": "Antiseptic",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/antiseptic/"
+      }
+     ],
+     "effects": [],
+     "how_to_obtain": "Known by default."
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [],
+ "additional_expands": null,
+ "info_notes": null,
+ "random_encounters": null,
+ "random_encounters_intro": null,
+ "events_activities": [
+  {
+   "list_id": "00853D3D",
+   "edid": "SCORE_S23_LL_ChemMysteryMachine_Common",
+   "name": "SCORE S23 Chem Mystery Machine Common",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the SCORE S23 Chem Mystery Machine Common reward pool per event/activity payout.",
+   "rate_value": 0.2,
+   "rate_display": "20%",
+   "rate_lines": [
+    "20%"
+   ]
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "total": 0
+}

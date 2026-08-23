@@ -13,6 +13,7 @@ import glob
 from datetime import datetime, timezone
 
 from patchlog_utils import write_patchlog_feed
+import tsv_source          # one resolver for every export selection
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
@@ -108,7 +109,7 @@ def find_latest_tsv(pattern):
     files = glob.glob(os.path.join(TSV_DIR, pattern))
     if not files:
         return None
-    return max(files, key=os.path.getmtime)
+    return max(files, key=tsv_source.export_key)
 
 
 def parse_fish_edid(edid):

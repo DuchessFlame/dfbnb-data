@@ -35,6 +35,7 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
+import tsv_source          # one resolver for every export selection
 
 # ---------------------------------------------------------------------------
 # 0. Shared helpers (subset from rng76.py to keep this script standalone)
@@ -47,14 +48,13 @@ _MONTH_ORDER = {
     "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
 }
 
-def _filename_date_key(path: str) -> Tuple[int, int]:
-    base = os.path.basename(path).lower()
-    m = re.search(r'_([a-z]+)_(\d{4})', base)
-    if m:
-        month_num = _MONTH_ORDER.get(m.group(1), 0)
-        if month_num:
-            return (int(m.group(2)), month_num)
-    return (0, 0)
+def _filename_date_key(path):
+    """Chronological sort key for an export filename.
+
+    Delegates to tsv_source so all 22 copies of this helper agree, and so PTS
+    filenames (ACTI_Export_PTS_2026-08-22_0925.tsv) stop scoring as "undated".
+    """
+    return tsv_source.export_key(path)
 
 def newest(pattern: str, exclude_substrings=None) -> str:
     files = _glob.glob(pattern)
@@ -63,7 +63,7 @@ def newest(pattern: str, exclude_substrings=None) -> str:
                  if not any(s in os.path.basename(f) for s in exclude_substrings)]
     if not files:
         raise FileNotFoundError(f"No files matching {pattern}")
-    files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+    files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
     return files[-1]
 
 def read_tsv(path: str) -> List[Dict[str, str]]:
@@ -244,7 +244,7 @@ def build_edids(tsv_root: str) -> Dict[str, str]:
                 files = [f for f in files if not any(s in os.path.basename(f) for s in excludes)]
             if not files:
                 continue
-            files.sort(key=lambda x: (_filename_date_key(x), os.path.getmtime(x)))
+            files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
             path = files[-1]
             for row in read_tsv(path):
                 fid = pick(row, fid_key1, fid_key2)

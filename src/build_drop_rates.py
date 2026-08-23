@@ -104,6 +104,7 @@ from rng76 import (
     safe_float,
     humanize_edid,
 )
+import tsv_source          # one resolver for every export selection
 
 
 # ============================================================
@@ -292,7 +293,7 @@ def find_title_cobj_lvli_chains(
                       if "_Locations" not in f]
         if not book_files:
             return results
-        book_files.sort(key=lambda x: os.path.getmtime(x))
+        book_files.sort(key=tsv_source.export_key)
         book_rows = read_tsv(book_files[-1])
     except FileNotFoundError:
         return results

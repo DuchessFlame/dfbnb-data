@@ -14,6 +14,7 @@ import csv, json, os, re, sys
 from pathlib import Path
 
 from patchlog_utils import write_empty_patchlog_feed
+import tsv_source          # one resolver for every export selection
 
 # ─── PATHS ───────────────────────────────────────────────────────────────────
 
@@ -23,9 +24,9 @@ DIST_DIR    = SCRIPT_DIR.parent / "dist"
 DIST_DIR.mkdir(parents=True, exist_ok=True)
 
 def latest_tsv(pattern):
-    """Return the most recent TSV matching a glob pattern, or None."""
-    matches = sorted(TSV_DIR.glob(pattern))
-    return matches[-1] if matches else None
+    """Return the chronologically newest TSV matching a glob pattern, or None."""
+    hit = tsv_source.newest(str(TSV_DIR / pattern), required=False)
+    return Path(hit) if hit else None
 
 ENTM_TSV = latest_tsv("ENTM_Export*.tsv")
 COBJ_TSV = latest_tsv("COBJ_Export*.tsv")

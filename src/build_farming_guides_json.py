@@ -60,136 +60,97 @@ from collections import defaultdict
 from typing import Any, Dict, List, Optional, Tuple
 
 from cut_content import is_cut
+import tsv_source          # one resolver for every export selection
 
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
+#
+# These used to be twelve hand-typed lists of filenames, newest first — a
+# fourth independent implementation of "which export is newest", and one that
+# needed editing every time a sweep landed. Worse, a list that names a file
+# explicitly cannot notice that the file is wrong: several of them named the
+# June 2026 exports, which turned out to be a PTS sweep filed as live.
+#
+# They are now derived from tsv_source, which orders by the date IN THE
+# FILENAME (never lexically, never by mtime) and never crosses channels. Each
+# entry below is a glob plus, where needed, the substrings that separate
+# sibling exports sharing a prefix.
+#
+# The ordered-list shape is kept on purpose: several callers walk the chain,
+# taking the newest file that actually carries a given column and falling back
+# to older ones. Only the maintenance burden goes away, not the behaviour.
 
-# Order matters — first match wins when the same export exists for several
-# months. Newer first.
-ALCH_GLOBS = [
-    "ALCH_Export_July_2026.tsv",
-    "ALCH_Export_June_2026.tsv",
-    "ALCH_Export_Apr_2026.tsv",
-    "ALCH_Export_March_2026.tsv",
-    "ALCH_Export_Feb_2026.tsv",
-    "ALCH_Export_Dec_2025.tsv",
-]
-ALCH_EFFECTS_GLOBS = [
-    "ALCH_Export_July_2026_Effects.tsv",
-    "ALCH_Export_June_2026_Effects.tsv",
-    "ALCH_Export_Apr_2026_Effects.tsv",
-]
-COBJ_GLOBS = [
-    "COBJ_Export_July_2026.tsv",
-    "COBJ_Export_June_2026.tsv",
-    "COBJ_Export_Apr_2026.tsv",
-    "COBJ_Export_March_2026.tsv",
-    "COBJ_Export_Feb_2026.tsv",
-    "COBJ_Export_Dec_2025.tsv",
-]
-# KYWD refs includes CMPO (Component) records — used to resolve ingredient
-# EDIDs like "c_Wood" to their pretty names ("Wood").
-KYWD_REFS_GLOBS = [
-    "KYWD_Export_July_2026_Refs.tsv",
-    "KYWD_Export_June_2026_Refs.tsv",
-    "KYWD_Export_Apr_2026_Refs.tsv",
-    "KYWD_Export_March_2026_Refs.tsv",
-]
-# MISC records cover raw materials / containers used as recipe components
-# (e.g. Cannery_Clean_Can -> "Clean Can") that don't appear in ALCH.
-MISC_GLOBS = [
-    "MISC_Export_July_2026.tsv",
-    "MISC_Export_June_2026.tsv",
-    "MISC_Export_Apr_2026.tsv",
-    "MISC_Export_Mar_2026.tsv",
-]
-# CURV points exports. Y at X=1 for each ALCH's HealthCurve equals the
-# base spoil time in minutes — so we read this every build instead of
-# maintaining a hardcoded table. The April regression was fixed by the
-# rewritten ExportCURVToTSV.pas (external-JSON fallback via JASF), which
-# now emits *_POINTS.tsv matching the March naming. The old
-# *_CurvePoints.tsv (with the double-`.tsv` bug) and the March file are
-# kept as fallbacks so previously-committed exports still work.
-CURV_POINTS_GLOBS = [
-    "CURV_Export_July_2026_POINTS.tsv",
-    "CURV_Export_June_2026_POINTS.tsv",
-    "CURV_Export_Apr_2026_POINTS.tsv",
-    "CURV_Export_Apr_2026.tsv_CurvePoints.tsv",
-    "CURV_Export_March_2026_POINTS.tsv",
-]
-# CURV record tables — the source of truth for curve EDIDs and their
-# associated JsonFileName (when exported). Used to resolve each curve
-# to its raw JSON file on disk when the POINTS TSV doesn't include it
-# (common for non-Large food curves whose CURV record has no JASF_Path).
-CURV_RECORD_GLOBS = [
-    "CURV_Export_July_2026_CURV.tsv",
-    "CURV_Export_June_2026_CURV.tsv",
-    # Preferred new naming (matches tools\build-curv-points.ps1 output)
-    "CURV_Export_Apr_2026_CURV.tsv",
-    # Legacy double-extension name from the old xEdit script — kept as
-    # fallback so previously-committed exports still build.
-    "CURV_Export_Apr_2026.tsv_CURV.tsv",
-    "CURV_Export_March_2026.tsv",
-    "CURV_Export_Feb_2026.tsv",
-    "CURV_Export_Dec_2025.tsv",
-]
-# GLOB table — holds the storage-activator spoil-rate multipliers
-# (refrigerator / freezer / fermenter). GLOB.FLTV is the actual numeric
-# value of the global.
-GLOB_GLOBS = [
-    "GLOB_Export_July_2026.tsv",
-    "GLOB_Export_June_2026.tsv",
-    "GLOB_Export_Apr_2026.tsv",
-    "GLOB_Export_March_2026.tsv",
-    "GLOB_Export_Feb_2026.tsv",
-    "GLOB_Export_Dec_2025.tsv",
-]
-# SPEL effects — per-rank magnitudes for perk abilities. Good with Salt
-# is encoded as a single SPEL (AbPerkGoodWithSalt) with one effect entry
-# per rank (index 0 = Rank 1, index 1 = Rank 2). Magnitudes are stored
-# as fractions (0.45 = 45%).
-SPEL_EFFECTS_GLOBS = [
-    "SPEL_Export_July_2026_EFFECTS.tsv",
-    "SPEL_Export_June_2026_EFFECTS.tsv",
-    "SPEL_Export_Apr_2026_EFFECTS.tsv",
-    "SPEL_Export_March_2026_EFFECTS.tsv",
-    "SPEL_Export_Feb_2026_EFFECTS.tsv",
-]
-# ENCH records — the Refrigerated Backpack mod's effect magnitude lives
-# on its ENCH. The Apr export doesn't include ENCH so we fall back to
-# the March one (the last one that existed when this was last exported).
-ENCH_GLOBS = [
-    "ENCH_Export_July_2026.tsv",
-    "ENCH_Export_June_2026.tsv",
-    "ENCH_Export_Apr_2026.tsv",
-    "ENCH_Export_March_2026.tsv",
-    "ENCH_Export_Feb_2026.tsv",
-    "ENCH_Export_Dec_2025.tsv",
-]
-# MGEF descriptions — used to parse inline "does not stack" hints and
-# other caveats that the game surfaces to players.
-MGEF_GLOBS = [
-    "MGEF_Export_July_2026.tsv",
-    "MGEF_Export_June_2026.tsv",
-    "MGEF_Export_Apr_2026.tsv",
-    "MGEF_Export_March_2026.tsv",
-    "MGEF_Export_Feb_2026.tsv",
-    "MGEF_Export_Dec_2025.tsv",
-]
+_EXPORT_PATTERNS = {
+    # ALCH base records. The _Effects sibling shares the prefix.
+    "ALCH":         ("ALCH_Export_*.tsv", {"exclude": "_Effects"}),
+    "ALCH_EFFECTS": ("ALCH_Export_*_Effects.tsv", {}),
+    "COBJ":         ("COBJ_Export_*.tsv", {}),
+    # KYWD refs includes CMPO (Component) records — used to resolve ingredient
+    # EDIDs like "c_Wood" to their pretty names ("Wood").
+    "KYWD_REFS":    ("KYWD_Export_*_Refs.tsv", {}),
+    # MISC records cover raw materials / containers used as recipe components
+    # (e.g. Cannery_Clean_Can -> "Clean Can") that don't appear in ALCH.
+    "MISC":         ("MISC_Export_*.tsv", {"exclude": "_Locations"}),
+    # CURV points exports. Y at X=1 for each ALCH's HealthCurve equals the base
+    # spoil time in minutes, so this is read every build instead of maintaining
+    # a hardcoded table. `require` also catches the legacy
+    # CURV_Export_Apr_2026.tsv_CurvePoints.tsv name (the old double-.tsv bug),
+    # so previously-committed exports still build.
+    "CURV_POINTS":  ("CURV_Export_*.tsv", {"require": ("POINTS", "CurvePoints")}),
+    # CURV record tables — the source of truth for curve EDIDs and their
+    # JsonFileName. Used to resolve a curve to its raw JSON on disk when the
+    # POINTS TSV has no JASF_Path (common for non-Large food curves).
+    "CURV_RECORD":  ("CURV_Export_*.tsv", {"exclude": ("POINTS", "CurvePoints")}),
+    # GLOB holds the storage-activator spoil-rate multipliers (refrigerator /
+    # freezer / fermenter). GLOB.FLTV is the actual numeric value.
+    "GLOB":         ("GLOB_Export_*.tsv", {}),
+    # SPEL effects — per-rank magnitudes for perk abilities. Good with Salt is
+    # one SPEL (AbPerkGoodWithSalt) with one effect entry per rank (index 0 =
+    # Rank 1). Magnitudes are fractions (0.45 = 45%).
+    "SPEL_EFFECTS": ("SPEL_Export_*_EFFECTS.tsv", {}),
+    # ENCH — the Refrigerated Backpack mod's effect magnitude lives on its ENCH.
+    "ENCH":         ("ENCH_Export_*.tsv", {}),
+    # MGEF descriptions — parsed for inline "does not stack" hints and other
+    # caveats the game surfaces to players.
+    "MGEF":         ("MGEF_Export_*.tsv", {}),
+    # BOOK — resolves plan names ("Recipe: Blight Soup") for the
+    # Food-That-Can-Be-Canned page. The _Locations sibling shares the prefix.
+    "BOOK":         ("BOOK_Export_*.tsv", {"exclude": "_Locations"}),
+}
+
+_globs_cache: Dict[Tuple[str, str], List[str]] = {}
+
+
+def export_globs(data_dir: str, key: str) -> List[str]:
+    """Basenames matching `key`, NEWEST FIRST, for the exports in data_dir."""
+    cache_key = (os.path.abspath(data_dir), key)
+    if cache_key in _globs_cache:
+        return _globs_cache[cache_key]
+
+    pattern, opts = _EXPORT_PATTERNS[key]
+    hits = tsv_source.all_matching(
+        os.path.join(data_dir, pattern), exclude=opts.get("exclude")
+    )
+    require = opts.get("require")
+    if require:
+        want = (require,) if isinstance(require, str) else tuple(require)
+        hits = [p for p in hits if any(w in os.path.basename(p) for w in want)]
+
+    names = [os.path.basename(p) for p in reversed(hits)]   # newest first
+    _globs_cache[cache_key] = names
+    return names
+
+
+def export_paths(data_dir: str, key: str) -> List[str]:
+    """As export_globs(), but full paths."""
+    return [os.path.join(data_dir, n) for n in export_globs(data_dir, key)]
 # BOOK records — used to resolve plan names ("Recipe: Blight Soup") for the
 # Food-That-Can-Be-Canned page. Each canned variant is unlocked by reading
 # the BASE food's plan (e.g. learning "Recipe: Blight Soup" also unlocks
 # Canned Blight Soup). Some bases are learned by default with no plan;
 # canned variants whose COBJ EDID starts with SCORE_S{N}_ are additionally
-# gated behind a Scoreboard season.
-BOOK_GLOBS = [
-    "BOOK_Export_July_2026.tsv",
-    "BOOK_Export_June_2026.tsv",
-    "BOOK_Export_May_2026.tsv",
-    "BOOK_Export_Apr_2026.tsv",
-    "BOOK_Export_March_2026.tsv",
-]
+# gated behind a Scoreboard season. (BOOK is resolved via _EXPORT_PATTERNS.)
 # Seasons reference table — maps SCORE_S{N} keys to the human-readable
 # season name (e.g. "Appalachia Under Siege" for Season 25).
 SEASONS_TSV = "fallout76_seasons.tsv"
@@ -1502,8 +1463,8 @@ def _vs_read_lines(path: Optional[str]) -> List[str]:
 
 
 def build_verdant_buff_chart(data_dir: str) -> Dict[str, Any]:
-    glob_lines = _vs_read_lines(find_first(data_dir, GLOB_GLOBS))
-    kywd_lines = _vs_read_lines(find_first(data_dir, KYWD_REFS_GLOBS))
+    glob_lines = _vs_read_lines(find_first(data_dir, export_globs(data_dir, "GLOB")))
+    kywd_lines = _vs_read_lines(find_first(data_dir, export_globs(data_dir, "KYWD_REFS")))
 
     def lvli_bases(pat: str) -> set:
         for line in glob_lines:
@@ -1672,12 +1633,12 @@ def build_verdant_buff_examples() -> Dict[str, Any]:
 
 
 def build(data_dir: str, outdir: str) -> str:
-    alch_path = find_first(data_dir, ALCH_GLOBS)
-    cobj_path = find_first(data_dir, COBJ_GLOBS)
-    eff_path  = find_first(data_dir, ALCH_EFFECTS_GLOBS)
-    kywd_refs_path = find_first(data_dir, KYWD_REFS_GLOBS)
-    misc_path = find_first(data_dir, MISC_GLOBS)
-    book_path = find_first(data_dir, BOOK_GLOBS)
+    alch_path = find_first(data_dir, export_globs(data_dir, "ALCH"))
+    cobj_path = find_first(data_dir, export_globs(data_dir, "COBJ"))
+    eff_path  = find_first(data_dir, export_globs(data_dir, "ALCH_EFFECTS"))
+    kywd_refs_path = find_first(data_dir, export_globs(data_dir, "KYWD_REFS"))
+    misc_path = find_first(data_dir, export_globs(data_dir, "MISC"))
+    book_path = find_first(data_dir, export_globs(data_dir, "BOOK"))
     seasons_path = os.path.join(data_dir, SEASONS_TSV)
     if not os.path.exists(seasons_path):
         seasons_path = None
@@ -1710,8 +1671,8 @@ def build(data_dir: str, outdir: str) -> str:
     # JASF_Path), the CURV record TSV (canonical list of curve EDIDs),
     # and the raw crafting/*.json files from fo76-tools. All are engine
     # data; rebalances propagate automatically on the next build.
-    curv_points_paths = [os.path.join(data_dir, n) for n in CURV_POINTS_GLOBS]
-    curv_record_paths = [os.path.join(data_dir, n) for n in CURV_RECORD_GLOBS]
+    curv_points_paths = export_paths(data_dir, "CURV_POINTS")
+    curv_record_paths = export_paths(data_dir, "CURV_RECORD")
     curvetables_roots = _discover_curvetables_roots(data_dir)
     curve_base_times = load_curve_base_times(
         curv_points_paths, curv_record_paths, curvetables_roots
@@ -1727,20 +1688,19 @@ def build(data_dir: str, outdir: str) -> str:
     # (ENCH). Replaces the old hardcoded SPOIL_REDUCTIONS list; every
     # number below is now pulled from the engine TSVs each build.
     glob_values = load_glob_values(
-        [os.path.join(data_dir, n) for n in GLOB_GLOBS]
+        export_paths(data_dir, "GLOB")
     )
     spel_mags = load_spel_effect_magnitudes(
-        [os.path.join(data_dir, n) for n in SPEL_EFFECTS_GLOBS]
+        export_paths(data_dir, "SPEL_EFFECTS")
     )
     ench_mags = load_ench_effect_magnitudes(
-        [os.path.join(data_dir, n) for n in ENCH_GLOBS]
+        export_paths(data_dir, "ENCH")
     )
 
     # Weight column in Apr 2026 ALCH is empty for all rows; backfill from the
     # newest older export that still has it.
     weight_backfill_paths = [
-        os.path.join(data_dir, n) for n in ALCH_GLOBS
-        if os.path.join(data_dir, n) != alch_path
+        p for p in export_paths(data_dir, "ALCH") if p != alch_path
     ]
     weight_backfill = load_weight_backfill(weight_backfill_paths)
 

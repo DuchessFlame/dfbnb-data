@@ -35,6 +35,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
+import tsv_source          # one resolver for every export selection
 
 MAPPALACHIA = os.environ.get("MAPPALACHIA_DIR", r"D:\Mappalachia")
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB",
@@ -227,8 +228,10 @@ def load_graves():
 
 
 def _newest_refr_placements(base_formid):
-    paths = sorted(glob.glob(os.path.join(REPO, "tsv", "REFR_Placements_*.tsv")) +
-                   glob.glob(os.path.join(REPO, "tsv", "pts", "REFR_Placements_*.tsv")))
+    # ONE channel, newest first. Concatenating tsv/ and tsv/pts/ and sorting the
+    # result lexically is what rendered PTS placements onto live maps.
+    _ch = (os.environ.get("DFBNB_CHANNEL") or "live").strip().lower()
+    paths = tsv_source.all_matching("REFR_Placements_*.tsv", channel=_ch)
     best = None
     for p in reversed(paths):
         with open(p, encoding="utf-8", errors="replace") as f:

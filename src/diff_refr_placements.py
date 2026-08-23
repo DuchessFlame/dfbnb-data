@@ -33,6 +33,7 @@ Exit code is 1 when anything changed, so it can gate a workflow step.
 
 import argparse, glob, os, sys, math
 from collections import OrderedDict
+import tsv_source          # one resolver for every export selection
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -45,9 +46,15 @@ DEFAULT_BASES = OrderedDict([
 MOVED_TOL = 64.0     # game units; below this a coord change is float noise, not a move
 
 
-def exports():
-    return sorted(glob.glob(os.path.join(REPO, "tsv", "REFR_Placements_*.tsv")) +
-                  glob.glob(os.path.join(REPO, "tsv", "pts", "REFR_Placements_*.tsv")))
+def exports(channel=None):
+    """Placement exports for ONE channel, oldest -> newest.
+
+    Defaults to the channel the caller is building. It used to concatenate both
+    channels and sort the result lexically, which mixed live and PTS placements in
+    one list ordered by filename — the bug that published PTS graves on a live page.
+    """
+    ch = (channel or os.environ.get("DFBNB_CHANNEL") or "live").strip().lower()
+    return tsv_source.all_matching("REFR_Placements_*.tsv", channel=ch)
 
 
 def read(path, bases):

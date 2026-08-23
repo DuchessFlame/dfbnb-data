@@ -35,6 +35,7 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+import tsv_source          # one resolver for every export selection
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TSV_DIR = REPO_ROOT / "tsv"
@@ -117,8 +118,8 @@ def safe_int(val, default=0):
 
 
 def find_entm_tsv(tsv_dir):
-    candidates = sorted(tsv_dir.glob("ENTM_Export_*.tsv"))
-    return candidates[-1] if candidates else None
+    hit = tsv_source.newest(str(Path(tsv_dir) / "ENTM_Export_*.tsv"), required=False)
+    return Path(hit) if hit else None
 
 
 def classify(edid_suffix):

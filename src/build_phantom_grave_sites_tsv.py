@@ -65,8 +65,17 @@ if HERE not in sys.path:
 
 import crossref_mappalachia_markers as xref
 
+import tsv_source
+
 GRAVE_BASE_FORMID = "008F1672"                       # SDOW_MQ02_Graves_GraveActivator01
-OUT_TSV = os.path.join(REPO, "tsv", "phantom_grave_sites.tsv")
+
+# Output follows the channel: LIVE -> tsv/, PTS -> tsv/pts/. A single shared path
+# meant a --pts run overwrote the live grave data with PTS placements, which is the
+# same failure as reading across channels, just one step later in the pipeline.
+OUT_TSV = tsv_source.derived("phantom_grave_sites.tsv", tsv_source.channel_of())
+
+# Editorial notes are NOT channel-specific — directions and photos describe the
+# grave, not the build it was datamined from — so both channels share one file.
 NOTES_TSV = os.path.join(REPO, "tsv", "phantom_grave_notes.tsv")
 COLUMNS = ["region", "site_number", "ref_edid", "ref_formid", "closest_fast_travel",
            "source_export", "x", "y", "z"]
@@ -204,9 +213,11 @@ def guard(src_name):
 
 
 def main():
+    # No longer requires the 480 MB Mappalachia DB. load_mappalachia() falls back to
+    # the committed geo snapshot (data/mappalachia_geo.json), so this can run in CI
+    # off a fresh REFR export instead of waiting for someone to run it locally —
+    # which is what left the grave data untouched for five weeks.
     xref.MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", xref.MAPPALACHIA_DB)
-    if not os.path.exists(xref.MAPPALACHIA_DB):
-        raise SystemExit(f"Mappalachia DB not found at {xref.MAPPALACHIA_DB} — set MAPPALACHIA_DB.")
     graves, src = read_grave_placements()
     guard(src)
     rings, markers = xref.load_mappalachia()

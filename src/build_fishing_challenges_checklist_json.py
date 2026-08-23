@@ -58,6 +58,7 @@ import io
 import glob
 import json
 from datetime import datetime, timezone
+import tsv_source          # one resolver for every export selection
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(SCRIPT_DIR, "..")
@@ -72,7 +73,7 @@ def newest(pattern):
     files = glob.glob(os.path.join(TSV_DIR, pattern))
     if not files:
         return None
-    files.sort(key=os.path.getmtime)
+    files.sort(key=tsv_source.export_key)
     return files[-1]
 
 
@@ -135,7 +136,7 @@ def build_desc_lookup():
                 "ENTM_Export_*.tsv", "KEYM_Export_*.tsv"):
         files += glob.glob(os.path.join(TSV_DIR, pat))
     files = [f for f in files if not _DESC_SIDECAR_RE.search(f)]
-    files.sort(key=os.path.getmtime)   # newest last -> newest wins
+    files.sort(key=tsv_source.export_key)   # newest last -> newest wins
     for path in files:
         rows = read_tsv(path)
         if not rows or "DESC" not in rows[0]:

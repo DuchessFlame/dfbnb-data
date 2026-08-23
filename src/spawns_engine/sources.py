@@ -26,6 +26,7 @@ no Mappalachia DB.
 """
 
 import os, re, csv, glob
+import tsv_source          # one resolver for every export selection
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))   # .../spawns_engine -> src -> repo
@@ -42,9 +43,9 @@ PLACED_SIGS_FLORA   = {"CONT", "ACTI", "FURN", "NPC_", "MSTT", "REFR", "FLOR"}
 def _newest(patterns, tsv_root=None):
     root = tsv_root or TSV
     for pat in patterns:
-        hits = sorted(glob.glob(os.path.join(root, pat)), key=os.path.getmtime, reverse=True)
-        if hits:
-            return hits[0]
+        hit = tsv_source.newest(os.path.join(root, pat), required=False)
+        if hit:
+            return hit
     return None
 
 

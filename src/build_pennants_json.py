@@ -41,6 +41,7 @@ import json
 import os
 import re
 import sys
+import tsv_source          # one resolver for every export selection
 
 LL_EDID = "ATX_workshop_LL_WallDecor_Pennant"
 
@@ -323,7 +324,7 @@ def latest(data_dir: str, pattern: str) -> str | None:
     files = glob.glob(os.path.join(data_dir, pattern))
     if not files:
         return None
-    return max(files, key=os.path.getmtime)
+    return max(files, key=tsv_source.export_key)
 
 
 def read_tsv(path: str) -> tuple[list[str], list[list[str]]]:
@@ -504,8 +505,8 @@ def main() -> int:
         })
 
     # --- Vault-Tec University pennant (craftable plan, no LL entry) -------
-    _bk = [f for f in sorted(glob.glob(os.path.join(args.data_dir, "BOOK_Export_*.tsv"))) if "Locations" not in f]
-    book_path = _bk[-1] if _bk else None
+    book_path = tsv_source.newest(os.path.join(args.data_dir, "BOOK_Export_*.tsv"),
+                                  exclude="Locations", required=False)
     vtu_added = any(p["entitlement"]["edid"].startswith("Babylon_") for p in pennants)
     if INCLUDE_VTU and book_path and not vtu_added:
         bh, brows = read_tsv(book_path)
