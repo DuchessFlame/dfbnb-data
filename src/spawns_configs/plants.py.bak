@@ -56,14 +56,6 @@ from spawns_configs import cryptids as C
 
 DIST = os.path.join(REPO, "dist")
 URL_BASE = "/bnb/farming/plants/"
-
-# Fixed-spawn count gate (per request). A plant with a TOTAL of <= FIXED_SPAWN_FULL_MAX
-# fixed spawn placements renders the FULL page; > FIXED_SPAWN_FULL_MAX renders only a
-# "Coming soon" card until the breakdown is finalised. Boundary: exactly 100 = full,
-# 101 = coming-soon. Stamped into each doc as `render_mode` so DB rebuilds auto-apply
-# the same rule and the renderer never has to guess (it also recomputes from
-# total_placements as a fallback for older JSON that predates this flag).
-FIXED_SPAWN_FULL_MAX = 100
 GUIDE_INDEX = os.path.join(REPO, "tsv", "guide_index.tsv")
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", C.MAPPALACHIA_DB)
 APPALACHIA_SPACE = C.APPALACHIA_SPACE
@@ -310,7 +302,6 @@ def build_plant(pg, flor, geo, cur, db_ok, cache_path, generated):
                   "mappalachia_names": mapp},
         "set": "plants", "slug": slug, "name": name,
         "page_title": f"{name} Location Guide", "url": pg["url"],
-        "render_mode": "coming_soon" if placements > FIXED_SPAWN_FULL_MAX else "full",
         "blurb": _blurb(name, flora, placements, chance_spawns),
         "flora": flora,
         "used_for": uf,
