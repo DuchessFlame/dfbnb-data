@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-23",
+  "generated": "2026-08-24",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 2,
   "source_totals": {
@@ -18,19 +18,10 @@
    "list_edid": "LLD_Creature_Radfrog",
    "list_id": "003B9761",
    "mechanism": "UseAll list with 5 entries. Entry 1: RadFrogEgg at CN=0 (guaranteed). Entry 3: RadFrogEgg at CN=50 (50% chance of a second egg).",
-   "note": "Every rad frog kill guarantees 1 frog egg. There is a 50% chance of receiving a second egg from the same kill. No world-placed spawns or vendor sources exist.",
-   "rate": 1.0,
-   "rate_lines": [
-    "100%",
-    "50%"
-   ],
-   "rate_display": "100% / 50%"
+   "note": "Every rad frog kill guarantees 1 frog egg. There is a 50% chance of receiving a second egg from the same kill. No world-placed spawns or vendor sources exist."
   },
   "vendors": null,
-  "resource_generators": null,
-  "containers": {
-   "types": []
-  }
+  "resource_generators": null
  },
  "farming_tips": {
   "spoils": true,
@@ -85,103 +76,7 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Food",
-   "weight": 0.25,
-   "value": 6,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": true,
-   "note": "Frog Egg is a food consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Disease Chance",
-     "display": "15% chance to catch a disease",
-     "duration": null
-    },
-    {
-     "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (300/5 min)",
-     "duration": null
-    },
-    {
-     "name": "Rads",
-     "display": "Rads",
-     "duration": null
-    }
-   ]
-  },
-  "challenges": [],
-  "recipes": [
-   {
-    "name": "Fasnacht Donut",
-    "form_id": "00478DE9",
-    "recipe_edid": "co_meal_Donut_Fasnacht",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": null,
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Cooking Oil",
-      "qty": 1
-     },
-     {
-      "name": "Salt",
-      "qty": 1
-     },
-     {
-      "name": "Spices",
-      "qty": 1
-     },
-     {
-      "name": "Brahmin Milk",
-      "qty": 3
-     },
-     {
-      "name": "Razorgrain Flour",
-      "qty": 1
-     },
-     {
-      "name": "Frog Egg",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-frog/frog-guide/",
-      "is_main": true
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 25 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (1080/18 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Recipe: Fasnacht Donut"
-   }
-  ],
-  "obtain": {
-   "recipes": [],
-   "note": null
-  }
- },
- "vendor_list": [],
+ "used_for": null,
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
@@ -228,8 +123,8 @@
       "50BC03"
      ],
      "coords": [
-      -10527.1,
-      -55166.9
+      -10527.14453125,
+      -55166.890625
      ],
      "spawns": [
       {
@@ -237,8 +132,8 @@
        "ref": "50BBFF",
        "source_type": "npc",
        "coords": [
-        -10527.1,
-        -55166.9
+        -10527.14453125,
+        -55166.890625
        ],
        "image_top": "",
        "directions": "",
@@ -249,8 +144,8 @@
        "ref": "50BC00",
        "source_type": "npc",
        "coords": [
-        -10456.4,
-        -55273.6
+        -10456.419921875,
+        -55273.578125
        ],
        "image_top": "",
        "directions": "",
@@ -261,8 +156,8 @@
        "ref": "50BC01",
        "source_type": "npc",
        "coords": [
-        -10385.7,
-        -55380.3
+        -10385.6953125,
+        -55380.265625
        ],
        "image_top": "",
        "directions": "",
@@ -273,8 +168,8 @@
        "ref": "50BC02",
        "source_type": "npc",
        "coords": [
-        -10315.0,
-        -55487.0
+        -10314.970703125,
+        -55486.953125
        ],
        "image_top": "",
        "directions": "",
@@ -285,8 +180,8 @@
        "ref": "50BC03",
        "source_type": "npc",
        "coords": [
-        -10244.2,
-        -55593.6
+        -10244.24609375,
+        -55593.640625
        ],
        "image_top": "",
        "directions": "",
@@ -310,8 +205,8 @@
       "5228CE"
      ],
      "coords": [
-      118453.0,
-      50019.2
+      118452.9609375,
+      50019.2265625
      ],
      "spawns": [
       {
@@ -319,8 +214,8 @@
        "ref": "5228CA",
        "source_type": "npc",
        "coords": [
-        118453.0,
-        50019.2
+        118452.9609375,
+        50019.2265625
        ],
        "image_top": "",
        "directions": "",
@@ -331,8 +226,8 @@
        "ref": "5228CC",
        "source_type": "npc",
        "coords": [
-        118325.0,
-        50147.2
+        118324.9609375,
+        50147.2265625
        ],
        "image_top": "",
        "directions": "",
@@ -343,8 +238,8 @@
        "ref": "5228CD",
        "source_type": "npc",
        "coords": [
-        118453.0,
-        50147.2
+        118452.9609375,
+        50147.2265625
        ],
        "image_top": "",
        "directions": "",
@@ -355,8 +250,8 @@
        "ref": "5228CE",
        "source_type": "npc",
        "coords": [
-        118581.0,
-        50147.2
+        118580.9609375,
+        50147.2265625
        ],
        "image_top": "",
        "directions": "",
@@ -403,8 +298,8 @@
       "556F9F"
      ],
      "coords": [
-      -6404.0,
-      21701.2
+      -6404.01123046875,
+      21701.2109375
      ],
      "spawns": [
       {
@@ -412,8 +307,8 @@
        "ref": "556493",
        "source_type": "npc",
        "coords": [
-        -6404.0,
-        21701.2
+        -6404.01123046875,
+        21701.2109375
        ],
        "image_top": "",
        "directions": "",
@@ -424,8 +319,8 @@
        "ref": "556494",
        "source_type": "npc",
        "coords": [
-        -6448.9,
-        20325.6
+        -6448.8779296875,
+        20325.609375
        ],
        "image_top": "",
        "directions": "",
@@ -436,8 +331,8 @@
        "ref": "556497",
        "source_type": "npc",
        "coords": [
-        -7649.0,
-        19423.4
+        -7648.9580078125,
+        19423.43359375
        ],
        "image_top": "",
        "directions": "",
@@ -448,8 +343,8 @@
        "ref": "55649B",
        "source_type": "npc",
        "coords": [
-        -9366.7,
-        18898.9
+        -9366.666015625,
+        18898.861328125
        ],
        "image_top": "",
        "directions": "",
@@ -460,8 +355,8 @@
        "ref": "55649C",
        "source_type": "npc",
        "coords": [
-        -8798.7,
-        20978.3
+        -8798.6611328125,
+        20978.27734375
        ],
        "image_top": "",
        "directions": "",
@@ -472,8 +367,8 @@
        "ref": "556EB1",
        "source_type": "npc",
        "coords": [
-        -9936.1,
-        22019.1
+        -9936.1064453125,
+        22019.09765625
        ],
        "image_top": "",
        "directions": "",
@@ -484,8 +379,8 @@
        "ref": "556EB4",
        "source_type": "npc",
        "coords": [
-        -10266.9,
-        24209.4
+        -10266.8603515625,
+        24209.423828125
        ],
        "image_top": "",
        "directions": "",
@@ -496,8 +391,8 @@
        "ref": "556EB6",
        "source_type": "npc",
        "coords": [
-        -9553.3,
-        23279.8
+        -9553.3154296875,
+        23279.751953125
        ],
        "image_top": "",
        "directions": "",
@@ -508,8 +403,8 @@
        "ref": "556F6B",
        "source_type": "npc",
        "coords": [
-        -7671.7,
-        22347.1
+        -7671.70263671875,
+        22347.1328125
        ],
        "image_top": "",
        "directions": "",
@@ -520,8 +415,8 @@
        "ref": "556F9F",
        "source_type": "npc",
        "coords": [
-        -7445.6,
-        23482.6
+        -7445.63623046875,
+        23482.609375
        ],
        "image_top": "",
        "directions": "",
