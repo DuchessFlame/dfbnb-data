@@ -98,28 +98,6 @@ EDID_CATEGORY_FALLBACK = [
     ("CAMP_",                     "C.A.M.P."),
 ]
 
-# ------- Non-collectible entitlements EXCLUDED from the upcoming pages --------
-# The Fallout First "Season Pass" entitlement (Season Access) and the S.C.O.R.E.
-# multiplier boosts are account perks, not collectible scoreboard rewards, so
-# they are dropped from /upcoming-rewards/ (the ticket-calculator / scoreboard
-# builders still keep them). This is applied to the UPCOMING build only.
-#
-# Matched by EDID stem first (most robust + future-proof: any SCORE_S{N}_ENTM_
-# season auto-drops these), then by resolved display category, then a display-
-# name fallback in case a future export changes the category/EDID signal.
-EXCLUDE_EDID_STEMS = (
-    "Account_ScoreBoost",         # 5% / 10% S.C.O.R.E. Boost multipliers
-    "Account_PremiumBattlePass",  # Fallout First Season Pass (Season Access)
-)
-EXCLUDE_CATEGORIES = {
-    "S.C.O.R.E. Booster",
-    "Season Access",
-}
-EXCLUDE_NAME_RE = re.compile(
-    r"(S\.?C\.?O\.?R\.?E\.?\s*Boost|Season\s*Pass|Season\s*Access)",
-    re.IGNORECASE,
-)
-
 # ------- Sub-category prettifier (from ATX_Entitlement_Filter_Store_*) --------
 SUBCAT_WORD_FIX = {
     "PowerArmor": "Power Armor",
@@ -220,27 +198,6 @@ def display_category(cat_raw, edid_suffix):
         if edid_suffix.startswith(prefix):
             return label
     return "Other"
-
-
-def is_excluded(edid_suffix, category, name):
-    """True for non-collectible entitlements that must NOT appear on the
-    Upcoming Rewards pages (season pass + S.C.O.R.E. boosts).
-
-    Robust, future-proof and layered so a single changed signal can't leak an
-    item through:
-      1. EDID stem  (primary; season-agnostic, so S27/28+ auto-drop)
-      2. resolved display category
-      3. display-name fallback
-    """
-    stem = (edid_suffix or "")
-    for s in EXCLUDE_EDID_STEMS:
-        if stem.lower().startswith(s.lower()):
-            return True
-    if category in EXCLUDE_CATEGORIES:
-        return True
-    if name and EXCLUDE_NAME_RE.search(name):
-        return True
-    return False
 
 
 def display_subcategory(sub_raw, cat_raw):
@@ -354,7 +311,6 @@ def make_item_id(season_num, edid_suffix):
 def extract_seasons(entm_tsv, overrides, target_season=None):
     rows = read_tsv(entm_tsv)
     seasons = defaultdict(list)
-    excluded = defaultdict(int)
 
     for row in rows:
         edid = (row.get("EDID") or "").strip()
@@ -366,12 +322,6 @@ def extract_seasons(entm_tsv, overrides, target_season=None):
         suffix = m.group(2)
         if target_season is not None and snum != target_season:
             continue
-
-        # Register the season the moment a valid entitlement is seen, so a
-        # season whose every item is excluded (e.g. a future season that only
-        # has the pass + S.C.O.R.E. boosts so far) still emits an empty-items
-        # file rather than leaving a stale one behind.
-        seasons.setdefault(snum, [])
 
         full_name = (row.get("FULL") or "").strip()
         nnam = (row.get("NNAM") or "").strip()
@@ -397,12 +347,6 @@ def extract_seasons(entm_tsv, overrides, target_season=None):
             "edid": edid,
         }
 
-        # Drop non-collectible entitlements (season pass + S.C.O.R.E. boosts)
-        # from the upcoming pages. Kept out here so nothing downstream sees them.
-        if is_excluded(suffix, item["category"], name):
-            excluded[snum] += 1
-            continue
-
         # Optional buff/output — overrides win; else derive output verbatim
         ov = overrides.get(edid, {})
         buff = ov.get("buff", "")
@@ -413,10 +357,6 @@ def extract_seasons(entm_tsv, overrides, target_season=None):
             item["output"] = output
 
         seasons[snum].append(item)
-
-    if excluded:
-        summ = ", ".join("S%d (%d)" % (n, excluded[n]) for n in sorted(excluded))
-        print(TAG + " Excluded non-collectible entitlements: " + summ)
 
     return dict(seasons)
 
@@ -459,11 +399,6 @@ def main():
         help="Build even if the season already has curated data in season_rewards.tsv.")
     parser.add_argument("--entm-tsv", type=str, default=None,
         help="Path to the ENTM export TSV (default: auto-detect in tsv/ then tsv/pts/).")
-    parser.add_argument("--pts", action="store_true",
-        help="Prefer the PTS ENTM export (tsv/pts/) over the live export. Upcoming "
-             "(PTS) reward previews are datamined from PTS builds, so future-season "
-             "SCORE_S{N}_ENTM entitlements (e.g. S26) only appear in the PTS export "
-             "-- the live export carries just the pass + S.C.O.R.E. boosts.")
     parser.add_argument("--out-dir", type=str, default=None,
         help="Output directory (default: dist/calculators/).")
     args = parser.parse_args()
@@ -476,17 +411,6 @@ def main():
         entm_tsv = Path(args.entm_tsv)
         if not entm_tsv.exists():
             raise SystemExit(TAG + " [ERROR] Specified ENTM TSV not found: " + str(entm_tsv))
-    elif args.pts:
-        # PTS channel: read tsv/pts/ first (that's where upcoming-season
-        # entitlements land). Fall back to the live export only if no PTS
-        # export is present, so the step still no-ops instead of erroring.
-        pts_dir = TSV_DIR / "pts"
-        entm_tsv = find_entm_tsv(pts_dir) if pts_dir.exists() else None
-        if entm_tsv is None:
-            entm_tsv = find_entm_tsv(TSV_DIR)
-        if entm_tsv is None:
-            print(TAG + " [WARN] No ENTM_Export_*.tsv found -- nothing to do.")
-            return
     else:
         entm_tsv = find_entm_tsv(TSV_DIR)
         if entm_tsv is None:

@@ -989,13 +989,10 @@ jobs:
       # rich A-Z upcoming_rewards_s{N}.json consumed by df-bnb-upcoming-rewards.js
       # on /df/scoreboards/season-{N}/upcoming-rewards/. Only builds seasons that
       # have NOT started yet (skips curated + past seasons); no-ops when there's
-      # nothing new. Runs against the PTS ENTM export (--pts reads tsv/pts/ first);
-      # the checkout is relocated to dist/pts/ downstream so both dist/ and
-      # dist/pts/ carry the file. Without --pts the builder auto-selects the LIVE
-      # ENTM, where a future season (e.g. S26) has only the pass + S.C.O.R.E.
-      # boosts, so it would emit an empty file and fail the S26 verify below.
+      # nothing new. Runs against the PTS ENTM export; the checkout is relocated
+      # to dist/pts/ downstream so both dist/ and dist/pts/ carry the file.
       - name: Build Upcoming Rewards JSON
-        run: python src/build_upcoming_rewards_json.py --pts
+        run: python src/build_upcoming_rewards_json.py
 
       - name: Verify Upcoming Rewards S26 built
         run: |

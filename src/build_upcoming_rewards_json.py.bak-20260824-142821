@@ -459,11 +459,6 @@ def main():
         help="Build even if the season already has curated data in season_rewards.tsv.")
     parser.add_argument("--entm-tsv", type=str, default=None,
         help="Path to the ENTM export TSV (default: auto-detect in tsv/ then tsv/pts/).")
-    parser.add_argument("--pts", action="store_true",
-        help="Prefer the PTS ENTM export (tsv/pts/) over the live export. Upcoming "
-             "(PTS) reward previews are datamined from PTS builds, so future-season "
-             "SCORE_S{N}_ENTM entitlements (e.g. S26) only appear in the PTS export "
-             "-- the live export carries just the pass + S.C.O.R.E. boosts.")
     parser.add_argument("--out-dir", type=str, default=None,
         help="Output directory (default: dist/calculators/).")
     args = parser.parse_args()
@@ -476,17 +471,6 @@ def main():
         entm_tsv = Path(args.entm_tsv)
         if not entm_tsv.exists():
             raise SystemExit(TAG + " [ERROR] Specified ENTM TSV not found: " + str(entm_tsv))
-    elif args.pts:
-        # PTS channel: read tsv/pts/ first (that's where upcoming-season
-        # entitlements land). Fall back to the live export only if no PTS
-        # export is present, so the step still no-ops instead of erroring.
-        pts_dir = TSV_DIR / "pts"
-        entm_tsv = find_entm_tsv(pts_dir) if pts_dir.exists() else None
-        if entm_tsv is None:
-            entm_tsv = find_entm_tsv(TSV_DIR)
-        if entm_tsv is None:
-            print(TAG + " [WARN] No ENTM_Export_*.tsv found -- nothing to do.")
-            return
     else:
         entm_tsv = find_entm_tsv(TSV_DIR)
         if entm_tsv is None:

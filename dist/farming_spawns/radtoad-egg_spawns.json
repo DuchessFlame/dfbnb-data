@@ -19,28 +19,10 @@
    "list_edid": "LLD_Creature_Radtoad",
    "list_id": "00047185",
    "mechanism": "UseAll list with 5 entries. Entry 0: RadToadEgg at CN=0 (guaranteed 1 egg). Additional bonus egg via LLE_Creature_RadToad entry 2 (CN=50) gated by LLS_Creature_RadToad level-scaled ChanceNone (60% fire rate at level 40+).",
-   "note": "Every radtoad kill guarantees 1 egg. At max level there is roughly a 30% chance of a bonus egg (60% list fire × 50% entry chance). No world-placed spawns or vendor sources exist.",
-   "rate": 1.0,
-   "rate_lines": [
-    "100%",
-    "30%",
-    "20%",
-    "15%",
-    "10%"
-   ],
-   "rate_display": "100% / 30% / 20% / 15% / 10%"
+   "note": "Every radtoad kill guarantees 1 egg. At max level there is roughly a 30% chance of a bonus egg (60% list fire × 50% entry chance). No world-placed spawns or vendor sources exist."
   },
   "vendors": null,
-  "resource_generators": null,
-  "containers": {
-   "types": [
-    {
-     "name": "Egg Cluster",
-     "rate": 1.0,
-     "rate_display": "100%"
-    }
-   ]
-  }
+  "resource_generators": null
  },
  "farming_tips": {
   "spoils": true,
@@ -95,88 +77,7 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Food",
-   "weight": 0.25,
-   "value": 9,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": true,
-   "note": "Radtoad Egg is a food consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Disease Chance",
-     "display": "15% chance to catch a disease",
-     "duration": null
-    },
-    {
-     "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (360/6 min)",
-     "duration": null
-    },
-    {
-     "name": "Rads",
-     "display": "+15 Rads",
-     "duration": null
-    }
-   ]
-  },
-  "challenges": [],
-  "recipes": [
-   {
-    "name": "Radtoad Omelette",
-    "form_id": "0003E053",
-    "recipe_edid": "co_meal_RadToadEggCooked",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Radtoad Egg",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-radtoad/radtoad-guide/",
-      "is_main": true
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 25 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Endurance",
-      "display": "+1 Fortify Endurance",
-      "duration": "30 min"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (720/12 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Known by default."
-   }
-  ],
-  "obtain": {
-   "recipes": [],
-   "note": null
-  }
- },
- "vendor_list": [],
+ "used_for": null,
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
@@ -186,13 +87,7 @@
    "list_id": "003EE383",
    "edid": "LLQ_E01F_Fasnacht_EggClusters",
    "name": "Fasnacht Egg Clusters",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the Fasnacht Egg Clusters reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
+   "type": "Seasonal / Public Event"
   }
  ],
  "regions": [
@@ -214,7 +109,234 @@
   },
   {
    "region": "Forest",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Helvetia",
+     "count": 16,
+     "sources": {
+      "container": 16
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3EE38B",
+      "3EE38C",
+      "3EE38D",
+      "3EE38E",
+      "3EE38F",
+      "3EE390",
+      "3EE391",
+      "3EE392",
+      "3EE393",
+      "3EE394",
+      "3EE395",
+      "3EE396",
+      "3EE397",
+      "3EE398",
+      "3EE399",
+      "3EE39A"
+     ],
+     "coords": [
+      -32633.5,
+      35556.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "3EE38B",
+       "source_type": "container",
+       "coords": [
+        -32633.5,
+        35556.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE38C",
+       "source_type": "container",
+       "coords": [
+        -31663.1,
+        35301.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE38D",
+       "source_type": "container",
+       "coords": [
+        -32430.2,
+        35225.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE38E",
+       "source_type": "container",
+       "coords": [
+        -32726.2,
+        35580.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE38F",
+       "source_type": "container",
+       "coords": [
+        -33292.9,
+        35384.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE390",
+       "source_type": "container",
+       "coords": [
+        -33001.2,
+        35018.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE391",
+       "source_type": "container",
+       "coords": [
+        -33556.3,
+        34595.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE392",
+       "source_type": "container",
+       "coords": [
+        -33951.9,
+        34832.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE393",
+       "source_type": "container",
+       "coords": [
+        -34598.6,
+        34375.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE394",
+       "source_type": "container",
+       "coords": [
+        -35024.9,
+        33745.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE395",
+       "source_type": "container",
+       "coords": [
+        -35525.9,
+        33799.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE396",
+       "source_type": "container",
+       "coords": [
+        -35622.1,
+        33621.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE397",
+       "source_type": "container",
+       "coords": [
+        -35619.0,
+        33001.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE398",
+       "source_type": "container",
+       "coords": [
+        -35987.0,
+        31933.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE399",
+       "source_type": "container",
+       "coords": [
+        -36315.9,
+        31301.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3EE39A",
+       "source_type": "container",
+       "coords": [
+        -35197.3,
+        33534.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Savage Divide",
@@ -239,8 +361,8 @@
       "758620"
      ],
      "coords": [
-      85190.8671875,
-      -193708.484375
+      85190.9,
+      -193708.5
      ],
      "spawns": [
       {
@@ -248,8 +370,8 @@
        "ref": "75268C",
        "source_type": "npc",
        "coords": [
-        85190.8671875,
-        -193708.484375
+        85190.9,
+        -193708.5
        ],
        "image_top": "",
        "directions": "",
@@ -260,8 +382,8 @@
        "ref": "75268D",
        "source_type": "npc",
        "coords": [
-        85190.8671875,
-        -194089.625
+        85190.9,
+        -194089.6
        ],
        "image_top": "",
        "directions": "",
@@ -272,8 +394,8 @@
        "ref": "75861F",
        "source_type": "npc",
        "coords": [
-        71900.984375,
-        -199270.890625
+        71901.0,
+        -199270.9
        ],
        "image_top": "",
        "directions": "",
@@ -284,8 +406,8 @@
        "ref": "758620",
        "source_type": "npc",
        "coords": [
-        72343.5625,
-        -199471.5625
+        72343.6,
+        -199471.6
        ],
        "image_top": "",
        "directions": "",
@@ -313,8 +435,8 @@
       "43CC89"
      ],
      "coords": [
-      135037.140625,
-      47639.828125
+      135037.1,
+      47639.8
      ],
      "spawns": [
       {
@@ -322,8 +444,8 @@
        "ref": "43CC7D",
        "source_type": "npc",
        "coords": [
-        135037.140625,
-        47639.828125
+        135037.1,
+        47639.8
        ],
        "image_top": "",
        "directions": "",
@@ -334,8 +456,8 @@
        "ref": "43CC7E",
        "source_type": "npc",
        "coords": [
-        134852.703125,
-        46775.8125
+        134852.7,
+        46775.8
        ],
        "image_top": "",
        "directions": "",
@@ -346,8 +468,8 @@
        "ref": "43CC89",
        "source_type": "npc",
        "coords": [
-        135088.515625,
-        46869.21875
+        135088.5,
+        46869.2
        ],
        "image_top": "",
        "directions": "",
@@ -368,8 +490,8 @@
       "43CC7C"
      ],
      "coords": [
-      134440.421875,
-      47264.2734375
+      134440.4,
+      47264.3
      ],
      "spawns": [
       {
@@ -377,8 +499,8 @@
        "ref": "43CC7C",
        "source_type": "npc",
        "coords": [
-        134440.421875,
-        47264.2734375
+        134440.4,
+        47264.3
        ],
        "image_top": "",
        "directions": "",
@@ -396,6 +518,5 @@
    "region": "Toxic Valley",
    "locations": []
   }
- ],
- "total": 8
+ ]
 }

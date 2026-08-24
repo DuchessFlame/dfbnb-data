@@ -20,65 +20,22 @@
    "list_id": "002118C0",
    "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
    "marker_label": "Deathclaw Egg",
-   "note": "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a per-server-hop chance (computed). Deathclaw nests are listed below with their own rate.",
-   "rate": 0.5,
-   "rate_display": "50%",
-   "rate_source": "computed"
+   "note": "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a per-server-hop chance (computed). Deathclaw nests are listed below with their own rate."
   },
   "containers": {
-   "types": []
+   "container_edid": "Container_Loot_DeathclawNest01",
+   "container_id": "003099CD",
+   "nest_list_edid": "LL_Deathclaw_Nest",
+   "nest_list_id": "001B0084",
+   "chance_none_glob": "ItemTwo_High_ChanceNone_Tier",
+   "count": 19,
+   "as_fixed_spawn": true,
+   "marker_label": "Deathclaw Nest",
+   "marker_yield": "each gives 1 Raw + 1 Cracked Egg",
+   "note": "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). Each nest's chance to contain 1 raw egg + 1 cracked egg is computed from the ItemTwo_High_ChanceNone_Tier GLOB."
   },
   "vendors": null,
-  "resource_generators": null,
-  "collectrons": {
-   "entries": [
-    {
-     "name": "F.E.T.C.H. Collectron Station",
-     "edid": "ATX_Resource_Collectron_FETCH_Electronics",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "4 min 48 sec",
-     "items": [
-      {
-       "name": "Deathclaw Egg",
-       "form_id": "00046939",
-       "rate": 0.001023,
-       "rate_display": "0.1%",
-       "rate_source": "computed"
-      }
-     ]
-    },
-    {
-     "name": "Junkyard Dog Collectron Station",
-     "edid": "ATX_Resource_Collectron_FETCH_Electronics_Junk",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "4 min 48 sec",
-     "items": [
-      {
-       "name": "Deathclaw Egg",
-       "form_id": "00046939",
-       "rate": 0.001023,
-       "rate_display": "0.1%",
-       "rate_source": "computed"
-      }
-     ]
-    },
-    {
-     "name": "Sir Loin Collectron Station",
-     "edid": "ATX_SirLoinResource_Collector",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "9 min",
-     "items": [
-      {
-       "name": "Deathclaw Egg",
-       "form_id": "00046939",
-       "rate": 0.0,
-       "rate_display": "0%",
-       "rate_source": "computed_zero"
-      }
-     ]
-    }
-   ]
-  }
+  "resource_generators": null
  },
  "farming_tips": {
   "spoils": true,
@@ -133,220 +90,7 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Food",
-   "weight": 0.25,
-   "value": 15,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": true,
-   "note": "Deathclaw Egg is a food consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Disease Chance",
-     "display": "15% chance to catch a disease",
-     "duration": null
-    },
-    {
-     "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (720/12 min)",
-     "duration": null
-    },
-    {
-     "name": "Rads",
-     "display": "+15 Rads",
-     "duration": null
-    }
-   ]
-  },
-  "challenges": [
-   {
-    "name": "Collect Deathclaw eggs",
-    "edid": "SCORE_Challenge_Daily_Collect_Eggs_Deathclaw",
-    "page": "daily",
-    "type": "Daily",
-    "required": 1
-   },
-   {
-    "name": "Collect a Deathclaw Egg with the Sunset Sarsaparilla Deputy Hat Equipped",
-    "edid": "ATX_DE2025_SunsetStranger_Week2_Challenge_Collect_Eggs_Deathclaw",
-    "page": "season:sunset-stranger-week2",
-    "type": "Mini Season",
-    "required": 3
-   }
-  ],
-  "recipes": [
-   {
-    "name": "Deathclaw Egg Omelette",
-    "form_id": "0004693C",
-    "recipe_edid": "co_meal_DeathclawEggCooked",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Deathclaw Egg",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/",
-      "is_main": true
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 45 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Heal Rate",
-      "display": "Fortify Heal Rate",
-      "duration": "30 min"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (1080/18 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Known by default."
-   },
-   {
-    "name": "Deathclaw Wellington",
-    "form_id": "001A71E7",
-    "recipe_edid": "co_meal_DeathclawMeatTasty",
-    "category": "Food (Meat)",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Boiled Water",
-      "qty": 2
-     },
-     {
-      "name": "Deathclaw Egg",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/",
-      "is_main": true
-     },
-     {
-      "name": "Deathclaw Meat",
-      "qty": 2
-     },
-     {
-      "name": "Pepper",
-      "qty": 2
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 90 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Strength",
-      "display": "+3 Fortify Strength",
-      "duration": "1 hour"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (1800/30 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Recipe: Deathclaw Wellington"
-   },
-   {
-    "name": "Jellied Fish",
-    "form_id": "008B33D4",
-    "recipe_edid": "co_meal_Fishing_SummerJelliedFish",
-    "category": "Food (Meat)",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Boiled Water",
-      "qty": 1
-     },
-     {
-      "name": "Deathclaw Egg",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/",
-      "is_main": true
-     },
-     {
-      "name": "Carrot",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/farming/plants/carrot/"
-     },
-     {
-      "name": "Summer Filet",
-      "qty": 5
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 20 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Intelligence",
-      "display": "+4 Fortify Intelligence",
-      "duration": "1 hour"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (720/12 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+2 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Unlocked by the challenge: Catch Summer Seasonal Local Legend: \"Glass Ghost\""
-   }
-  ],
-  "obtain": {
-   "recipes": [],
-   "note": null
-  }
- },
- "vendor_list": [],
+ "used_for": null,
  "additional_expands": null,
  "info_notes": [
   {
@@ -413,8 +157,8 @@
       "67E952"
      ],
      "coords": [
-      7124.53955078125,
-      -762.631103515625
+      7124.5,
+      -762.6
      ],
      "spawns": [
       {
@@ -422,8 +166,8 @@
        "ref": "6747E9",
        "source_type": "nest",
        "coords": [
-        7124.53955078125,
-        -762.631103515625
+        7124.5,
+        -762.6
        ],
        "image_top": "",
        "directions": "",
@@ -435,8 +179,8 @@
        "ref": "674813",
        "source_type": "nest",
        "coords": [
-        4050.90698242188,
-        5718.90234375
+        4050.9,
+        5718.9
        ],
        "image_top": "",
        "directions": "",
@@ -448,8 +192,8 @@
        "ref": "67AE18",
        "source_type": "nest",
        "coords": [
-        4288.8935546875,
-        5618.74755859375
+        4288.9,
+        5618.7
        ],
        "image_top": "",
        "directions": "",
@@ -461,8 +205,8 @@
        "ref": "67E92A",
        "source_type": "nest",
        "coords": [
-        3954.568359375,
-        5656.095703125
+        3954.6,
+        5656.1
        ],
        "image_top": "",
        "directions": "",
@@ -474,8 +218,8 @@
        "ref": "67E952",
        "source_type": "nest",
        "coords": [
-        4007.40625,
-        5604.75048828125
+        4007.4,
+        5604.8
        ],
        "image_top": "",
        "directions": "",
@@ -514,8 +258,8 @@
       "80F840"
      ],
      "coords": [
-      -257522.171875,
-      124157.5078125
+      -257522.2,
+      124157.5
      ],
      "spawns": [
       {
@@ -523,8 +267,8 @@
        "ref": "80F840",
        "source_type": "direct",
        "coords": [
-        -257522.171875,
-        124157.5078125
+        -257522.2,
+        124157.5
        ],
        "image_top": "",
        "directions": "From the spawn-in location, line yourself up with the Ash Cave map marker and run straight up the hill. Continue forward and stop at the top of the stairs. Veer right and follow the path straight (north-ish) until you reach the pond. Turn right and enter the small cave — the Deathclaw Egg is against the north wall, behind the Brain Fungus and near the bobblehead spawn.",
@@ -562,7 +306,7 @@
      ],
      "coords": [
       -208312.0,
-      145838.765625
+      145838.8
      ],
      "spawns": [
       {
@@ -570,8 +314,8 @@
        "ref": "82A3B5",
        "source_type": "direct",
        "coords": [
-        -211856.15625,
-        146331.6875
+        -211856.2,
+        146331.7
        ],
        "image_top": "",
        "directions": "",
@@ -582,8 +326,8 @@
        "ref": "82A3B6",
        "source_type": "direct",
        "coords": [
-        -208731.515625,
-        146797.03125
+        -208731.5,
+        146797.0
        ],
        "image_top": "",
        "directions": "",
@@ -595,7 +339,7 @@
        "source_type": "nest",
        "coords": [
         -208312.0,
-        145838.765625
+        145838.8
        ],
        "image_top": "",
        "directions": "",
@@ -607,8 +351,8 @@
        "ref": "7F0A84",
        "source_type": "nest",
        "coords": [
-        -211674.375,
-        147038.671875
+        -211674.4,
+        147038.7
        ],
        "image_top": "",
        "directions": "",
@@ -620,8 +364,8 @@
        "ref": "80391B",
        "source_type": "nest",
        "coords": [
-        -209705.140625,
-        146995.40625
+        -209705.1,
+        146995.4
        ],
        "image_top": "",
        "directions": "",
@@ -633,8 +377,8 @@
        "ref": "82A3B2",
        "source_type": "nest",
        "coords": [
-        -211870.8125,
-        146337.6875
+        -211870.8,
+        146337.7
        ],
        "image_top": "",
        "directions": "",
@@ -646,8 +390,8 @@
        "ref": "82A3B3",
        "source_type": "nest",
        "coords": [
-        -208732.40625,
-        146803.140625
+        -208732.4,
+        146803.1
        ],
        "image_top": "",
        "directions": "",
@@ -659,8 +403,8 @@
        "ref": "82A3B4",
        "source_type": "nest",
        "coords": [
-        -209155.21875,
-        145142.09375
+        -209155.2,
+        145142.1
        ],
        "image_top": "",
        "directions": "",
@@ -696,8 +440,8 @@
       "831130"
      ],
      "coords": [
-      -2449.03247070313,
-      14270.1943359375
+      -2449.0,
+      14270.2
      ],
      "spawns": [
       {
@@ -705,8 +449,8 @@
        "ref": "831130",
        "source_type": "direct",
        "coords": [
-        -2449.03247070313,
-        14270.1943359375
+        -2449.0,
+        14270.2
        ],
        "image_top": "",
        "directions": "Highway Town Interior is a Burning Springs interior (it requires a load screen to enter). One loose Deathclaw Egg spawns inside. Step-by-step directions and photos are coming soon.",
@@ -735,8 +479,8 @@
       "84B014"
      ],
      "coords": [
-      -249322.6875,
-      -10382.044921875
+      -249322.7,
+      -10382.0
      ],
      "spawns": [
       {
@@ -744,8 +488,8 @@
        "ref": "84B014",
        "source_type": "direct",
        "coords": [
-        -249322.6875,
-        -10382.044921875
+        -249322.7,
+        -10382.0
        ],
        "image_top": "",
        "directions": "From the spawn-in location, face southwest and run straight until you reach the cliff wall in the distance. At the cliff face, turn left and use the machinery in front of you to climb to the rock ledge above. On the ledge, face north — the Deathclaw Egg is directly in front of you.",
@@ -783,8 +527,8 @@
       "312301"
      ],
      "coords": [
-      -42291.828125,
-      50632.6640625
+      -42291.8,
+      50632.7
      ],
      "spawns": [
       {
@@ -792,8 +536,8 @@
        "ref": "312301",
        "source_type": "direct",
        "coords": [
-        -42291.828125,
-        50632.6640625
+        -42291.8,
+        50632.7
        ],
        "image_top": "",
        "directions": "From the fast travel point, run straight through the doorway to the bottom of the stairs. Turn left, pass the Nuka-Cola and Medical Supplies machines, and run up the stairs in front of you. Follow the corridor around, pass the Arktos Pharma sign, and enter the doorway on your left. Continue straight and enter the second doorway on your left. Head slightly right and walk through the gap in the wall directly opposite. Jump down to ground level, turn around, and enter the doorway marked Protein Sequencing. Turn right and walk down the stairs — the Deathclaw Egg is on the metal shelves in front of you.",
@@ -823,8 +567,8 @@
       "0638D2"
      ],
      "coords": [
-      -172897.84375,
-      133486.765625
+      -172897.8,
+      133486.8
      ],
      "spawns": [
       {
@@ -832,8 +576,8 @@
        "ref": "0638D1",
        "source_type": "direct",
        "coords": [
-        -172897.84375,
-        133486.765625
+        -172897.8,
+        133486.8
        ],
        "image_top": "",
        "directions": "",
@@ -844,8 +588,8 @@
        "ref": "0638D2",
        "source_type": "direct",
        "coords": [
-        -172677.921875,
-        133507.28125
+        -172677.9,
+        133507.3
        ],
        "image_top": "",
        "directions": "",
@@ -879,8 +623,8 @@
       "5DD49E"
      ],
      "coords": [
-      -3672.44067382812,
-      5661.45751953125
+      -3672.4,
+      5661.5
      ],
      "spawns": [
       {
@@ -888,8 +632,8 @@
        "ref": "5DD49E",
        "source_type": "direct",
        "coords": [
-        -3672.44067382812,
-        5661.45751953125
+        -3672.4,
+        5661.5
        ],
        "image_top": "",
        "directions": "Heads-up: the Enclave Research Facility interior cannot be entered in normal gameplay — there is no accessible door or load-door into this cell. A loose Deathclaw Egg is placed here in the game files (ref 5DD49E), but because the location can't be reached, the egg cannot actually be collected. It is listed here for completeness only.",
@@ -922,8 +666,8 @@
       "62A873"
      ],
      "coords": [
-      115886.515625,
-      113074.953125
+      115886.5,
+      113075.0
      ],
      "spawns": [
       {
@@ -931,8 +675,8 @@
        "ref": "62A86C",
        "source_type": "direct",
        "coords": [
-        115886.7265625,
-        113069.828125
+        115886.7,
+        113069.8
        ],
        "image_top": "",
        "directions": "",
@@ -944,7 +688,7 @@
        "source_type": "direct",
        "coords": [
         117233.5,
-        113304.671875
+        113304.7
        ],
        "image_top": "",
        "directions": "",
@@ -955,8 +699,8 @@
        "ref": "62A873",
        "source_type": "direct",
        "coords": [
-        115991.578125,
-        114094.09375
+        115991.6,
+        114094.1
        ],
        "image_top": "",
        "directions": "",
@@ -967,8 +711,8 @@
        "ref": "36C927",
        "source_type": "nest",
        "coords": [
-        115886.515625,
-        113074.953125
+        115886.5,
+        113075.0
        ],
        "image_top": "",
        "directions": "",
@@ -1004,8 +748,8 @@
       "4F4CC1"
      ],
      "coords": [
-      80245.8203125,
-      -128574.296875
+      80245.8,
+      -128574.3
      ],
      "spawns": [
       {
@@ -1013,8 +757,8 @@
        "ref": "4F4CC1",
        "source_type": "direct",
        "coords": [
-        80245.8203125,
-        -128574.296875
+        80245.8,
+        -128574.3
        ],
        "image_top": "",
        "directions": "Note: you need the Marsupial mutation to reach this spot. From the fast travel point, follow the road until you reach the main pillar with the elevator at the bottom. Enter the elevator and select floor 2 (pressing the wrong floor takes you elsewhere). Exit and follow the path to your left, continuing until you reach a building. Jump onto the roof and follow it around, keeping to the left and away from the edge — the Deathclaw Egg is in the far corner as part of a picnic scene.",
@@ -1048,8 +792,8 @@
       "786717"
      ],
      "coords": [
-      8112.982421875,
-      -8673.9248046875
+      8113.0,
+      -8673.9
      ],
      "spawns": [
       {
@@ -1057,8 +801,8 @@
        "ref": "786717",
        "source_type": "static-raw",
        "coords": [
-        8112.982421875,
-        -8673.9248046875
+        8113.0,
+        -8673.9
        ],
        "image_top": "",
        "directions": "Vault 63 — Atrium Upper Level. One Deathclaw Egg spawns on the atrium's upper level.",
@@ -1096,7 +840,7 @@
      ],
      "coords": [
       184725.0,
-      26157.234375
+      26157.2
      ],
      "spawns": [
       {
@@ -1104,8 +848,8 @@
        "ref": "3DC447",
        "source_type": "direct",
        "coords": [
-        184875.046875,
-        26884.537109375
+        184875.0,
+        26884.5
        ],
        "image_top": "",
        "directions": "",
@@ -1117,7 +861,7 @@
        "source_type": "nest",
        "coords": [
         184725.0,
-        26157.234375
+        26157.2
        ],
        "image_top": "",
        "directions": "",
@@ -1129,8 +873,8 @@
        "ref": "3DC449",
        "source_type": "nest",
        "coords": [
-        184763.40625,
-        26928.63671875
+        184763.4,
+        26928.6
        ],
        "image_top": "",
        "directions": "",
@@ -1170,8 +914,8 @@
       "1A6460"
      ],
      "coords": [
-      -1139.41076660156,
-      4467.67822265625
+      -1139.4,
+      4467.7
      ],
      "spawns": [
       {
@@ -1179,8 +923,8 @@
        "ref": "022E32",
        "source_type": "direct",
        "coords": [
-        3353.82373046875,
-        2321.06860351562
+        3353.8,
+        2321.1
        ],
        "image_top": "",
        "directions": "",
@@ -1191,8 +935,8 @@
        "ref": "1837FD",
        "source_type": "nest",
        "coords": [
-        -1139.41076660156,
-        4467.67822265625
+        -1139.4,
+        4467.7
        ],
        "image_top": "",
        "directions": "",
@@ -1204,8 +948,8 @@
        "ref": "1A6435",
        "source_type": "nest",
        "coords": [
-        3441.55615234375,
-        2221.54565429687
+        3441.6,
+        2221.5
        ],
        "image_top": "",
        "directions": "",
@@ -1217,8 +961,8 @@
        "ref": "1A6460",
        "source_type": "nest",
        "coords": [
-        -2488.404296875,
-        2359.12451171875
+        -2488.4,
+        2359.1
        ],
        "image_top": "",
        "directions": "",
@@ -1254,8 +998,8 @@
       "2C089D"
      ],
      "coords": [
-      173343.578125,
-      99286.765625
+      173343.6,
+      99286.8
      ],
      "spawns": [
       {
@@ -1263,8 +1007,8 @@
        "ref": "2C089D",
        "source_type": "nest",
        "coords": [
-        173343.578125,
-        99286.765625
+        173343.6,
+        99286.8
        ],
        "image_top": "",
        "directions": "",
@@ -1294,8 +1038,8 @@
       "37BE5C"
      ],
      "coords": [
-      190414.734375,
-      86812.40625
+      190414.7,
+      86812.4
      ],
      "spawns": [
       {
@@ -1303,8 +1047,8 @@
        "ref": "37BE5C",
        "source_type": "nest",
        "coords": [
-        190414.734375,
-        86812.40625
+        190414.7,
+        86812.4
        ],
        "image_top": "",
        "directions": "",
