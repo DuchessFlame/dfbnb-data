@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-23",
+  "generated": "2026-08-24",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 12,
   "source_totals": {
@@ -12,11 +12,7 @@
  "name": "Insect Repellent",
  "page_title": "Insect Repellent",
  "blurb": "How to obtain Insect Repellent — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": {
-  "containers": {
-   "types": []
-  }
- },
+ "drop_rates": null,
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -70,100 +66,7 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Chem",
-   "weight": 0.5,
-   "value": 20,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": false,
-   "note": "Insect Repellent is a chem consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Insect Repellent",
-     "display": "+1 Insect Repellent",
-     "duration": "30 min"
-    }
-   ]
-  },
-  "challenges": [],
-  "recipes": [],
-  "obtain": {
-   "recipes": [
-    {
-     "name": "Insect Repellent",
-     "form_id": "0045E3F6",
-     "recipe_edid": "co_D01C_InsectRepellent_WorkbenchChemLab",
-     "category": "Chems",
-     "workbench": "Chemistry Station",
-     "output_qty": 1,
-     "ingredients": [
-      {
-       "name": "Steel",
-       "qty": 2,
-       "url": "https://www.buffsnbrew.com/df/farming/junk/steel/"
-      },
-      {
-       "name": "Bloodbug Proboscis",
-       "qty": 1
-      },
-      {
-       "name": "Bloatfly Gland",
-       "qty": 1
-      },
-      {
-       "name": "Radroach Meat",
-       "qty": 1
-      },
-      {
-       "name": "Stingwing Barb",
-       "qty": 1
-      },
-      {
-       "name": "Tick Blood Sac",
-       "qty": 1
-      }
-     ],
-     "effects": [
-      {
-       "name": "Insect Repellent",
-       "display": "+1 Insect Repellent",
-       "duration": "30 min"
-      }
-     ],
-     "how_to_obtain": "Recipe: Insect Repellent"
-    }
-   ],
-   "note": null
-  }
- },
- "vendor_list": [
-  {
-   "name": "Del Walsh",
-   "marker": "Nuka-World on Tour",
-   "region": "Ash Heap",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "100%"
-   ],
-   "rate_display": "100%",
-   "rate_value": 1.0,
-   "count": 1
-  },
-  {
-   "name": "Mac",
-   "marker": "Highway Town Interior",
-   "region": "Burning Springs",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "29.71%"
-   ],
-   "rate_display": "29.71%",
-   "rate_value": 0.29707,
-   "count": 1
-  }
- ],
+ "used_for": null,
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
@@ -173,25 +76,13 @@
    "list_id": "006820F7",
    "edid": "NWOT_LL_Del_Consumable",
    "name": "Del Consumable",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
+   "type": "Seasonal / Public Event"
   },
   {
    "list_id": "003FBB9F",
    "edid": "D01C_StingsAndThings_LL_Quest_Reward",
    "name": "Repeatable: Stings and Things",
-   "type": "Daily",
-   "note": "Chance the item is in the Repeatable: Stings and Things reward pool per event/activity payout.",
-   "rate_value": 0.5,
-   "rate_display": "50%",
-   "rate_lines": [
-    "50%"
-   ]
+   "type": "Daily"
   }
  ],
  "regions": [

@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-23",
+  "generated": "2026-08-24",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 18,
   "source_totals": {
@@ -15,17 +15,7 @@
  "name": "Healing Salve",
  "page_title": "Healing Salve",
  "blurb": "How to obtain Healing Salve — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": {
-  "containers": {
-   "types": [
-    {
-     "name": "Responder Cache",
-     "rate": 1.0,
-     "rate_display": "100%"
-    }
-   ]
-  }
- },
+ "drop_rates": null,
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -79,210 +69,59 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Chem",
-   "weight": 0.5,
-   "value": 20,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": false,
-   "note": "Healing Salve is a chem consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Restore Health",
-     "display": "Restores 20 Health",
-     "duration": "5s"
-    }
-   ]
-  },
-  "challenges": [
-   {
-    "name": "Summer Camp: Craft Healing Salve with the Squirrel Backpack equipped",
-    "edid": "ATX_DE2023_SummerCamp_Challenge_Craft_HealingSalve",
-    "page": "season:summer-camp",
-    "type": "Mini Season",
-    "required": 5
-   },
-   {
-    "name": "Craft Healing Salve",
-    "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Medic_Sub_CraftHealingSalve",
-    "page": "scouts-tadpole",
-    "type": "Lifetime",
-    "required": 3
-   }
-  ],
-  "recipes": [],
-  "obtain": {
-   "recipes": [
-    {
-     "name": "Healing Salve",
-     "form_id": "",
-     "recipe_edid": "co_meal_HealingSalveForest_WorkbenchCooking",
-     "category": "Food",
-     "workbench": "Cooking Station",
-     "output_qty": 1,
-     "ingredients": [
-      {
-       "name": "Bloodleaf",
-       "qty": 1,
-       "url": "https://www.buffsnbrew.com/bnb/farming/plants/bloodleaf/"
-      },
-      {
-       "name": "Soot Flower",
-       "qty": 1,
-       "url": "https://www.buffsnbrew.com/bnb/farming/plants/soot-flower/"
-      },
-      {
-       "name": "Boiled Water",
-       "qty": 1
-      }
-     ],
-     "effects": [],
-     "how_to_obtain": "Recipe: Healing Salve (Forest)"
-    }
-   ],
-   "note": null
-  }
- },
- "vendor_list": [
-  {
-   "name": "Del Walsh",
-   "marker": "Nuka-World on Tour",
-   "region": "Ash Heap",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "100%"
-   ],
-   "rate_display": "100%",
-   "rate_value": 1.0,
-   "count": 1
-  },
-  {
-   "name": "Duchess",
-   "marker": "The Wayward",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "100%"
-   ],
-   "rate_display": "100%",
-   "rate_value": 1.0,
-   "count": 1
-  },
-  {
-   "name": "Mac",
-   "marker": "Highway Town Interior",
-   "region": "Burning Springs",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "29.71%"
-   ],
-   "rate_display": "29.71%",
-   "rate_value": 0.29707,
-   "count": 1
-  }
- ],
+ "used_for": null,
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
  "random_encounters_intro": null,
  "events_activities": [
   {
+   "list_id": "0055AB7D",
+   "edid": "W05_Daily_R02_MidquestReward_Hunter1_LL_Meds",
+   "name": "Daily: Retirement Plan",
+   "type": "Daily"
+  },
+  {
    "list_id": "006820F7",
    "edid": "NWOT_LL_Del_Consumable",
    "name": "Del Consumable",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
+   "type": "Seasonal / Public Event"
   },
   {
    "list_id": "005480BD",
    "edid": "W05_MQ_002P_Radical_LL_Quest_Reward",
    "name": "Hunter for Hire",
-   "type": "Primary",
-   "note": "Chance the item is in the Hunter for Hire reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "00556D57",
-   "edid": "W05_MQ_003P_Muscle_LL_Quest_Reward",
-   "name": "Strength in Numbers",
-   "type": "Primary",
-   "note": "Chance the item is in the Strength in Numbers reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0059D134",
-   "edid": "W05_MQ_004P_Crane_LL_Quest_Reward",
-   "name": "The Elusive Crane",
-   "type": "Primary",
-   "note": "Chance the item is in the The Elusive Crane reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0053B002",
-   "edid": "W05_Wayward_001P_LL_Quest_Reward",
-   "name": "Wayward Souls",
-   "type": "Primary",
-   "note": "Chance the item is in the Wayward Souls reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0052E1AE",
-   "edid": "zzzRS01A_LL_QuestReward",
-   "name": "Zzz RS01A Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz RS01A Quest Reward reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0055AB7D",
-   "edid": "W05_Daily_R02_MidquestReward_Hunter1_LL_Meds",
-   "name": "Daily: Retirement Plan",
-   "type": "Daily",
-   "note": "Chance the item is in the Daily: Retirement Plan reward pool per event/activity payout.",
-   "rate_value": 0.25,
-   "rate_display": "25%",
-   "rate_lines": [
-    "25%"
-   ]
+   "type": "Primary"
   },
   {
    "list_id": "0055AB84",
    "edid": "W05_Daily_R02_MidquestReward_Hunter2_LL_Meds",
    "name": "QuestReward_W05_Daily_R02_Retirement_Stage3520_01",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the QuestReward_W05_Daily_R02_Retirement_Stage3520_01 reward pool per event/activity payout.",
-   "rate_value": 0.25,
-   "rate_display": "25%",
-   "rate_lines": [
-    "25%"
-   ]
+   "type": "Quest Reward"
+  },
+  {
+   "list_id": "00556D57",
+   "edid": "W05_MQ_003P_Muscle_LL_Quest_Reward",
+   "name": "Strength in Numbers",
+   "type": "Primary"
+  },
+  {
+   "list_id": "0059D134",
+   "edid": "W05_MQ_004P_Crane_LL_Quest_Reward",
+   "name": "The Elusive Crane",
+   "type": "Primary"
+  },
+  {
+   "list_id": "0053B002",
+   "edid": "W05_Wayward_001P_LL_Quest_Reward",
+   "name": "Wayward Souls",
+   "type": "Primary"
+  },
+  {
+   "list_id": "0052E1AE",
+   "edid": "zzzRS01A_LL_QuestReward",
+   "name": "Zzz RS01A Quest Reward",
+   "type": "Quest Reward"
   }
  ],
  "regions": [
@@ -564,6 +403,37 @@
        "coords": [
         -9590.859375,
         104044.1484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Morgantown Trainyard",
+     "count": 1,
+     "sources": {
+      "container": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "48FB1B"
+     ],
+     "coords": [
+      -32493.029296875,
+      86536.7421875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "48FB1B",
+       "source_type": "container",
+       "coords": [
+        -32493.029296875,
+        86536.7421875
        ],
        "image_top": "",
        "directions": "",
@@ -879,6 +749,5 @@
     }
    ]
   }
- ],
- "total": 24
+ ]
 }

@@ -12,7 +12,11 @@
  "name": "Speed Demon Serum",
  "page_title": "Speed Demon Serum",
  "blurb": "How to obtain Speed Demon Serum — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -66,107 +70,249 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": null,
+   "weight": 0.25,
+   "value": 2000,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Consuming Speed Demon Serum applies the effects below.",
+   "effects": [
+    {
+     "name": "Suppress negative effects",
+     "display": "+1 Suppress negative effects",
+     "duration": "1 hour"
+    },
+    {
+     "name": "Apply effect script",
+     "display": "+1 Apply effect script",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Epic - Sell a Speed Demon Serum to an NPC vendor",
+    "edid": "SCORE_Challenge_Weekly_Sell_Serum_Speed_Demon",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 1
+   }
+  ],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Speed Demon Serum",
+     "form_id": "",
+     "recipe_edid": "co_serum_SpeedDemon",
+     "category": "Serums",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Antiseptic",
+       "qty": 5,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/antiseptic/"
+      },
+      {
+       "name": "Gold",
+       "qty": 4,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/gold/"
+      },
+      {
+       "name": "Nuke Flora_Yellow",
+       "qty": 1
+      },
+      {
+       "name": "Ultracite",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/ultracite/"
+      }
+     ],
+     "effects": [],
+     "how_to_obtain": "Recipe: Speed Demon Serum"
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Frankie",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "5.26%"
+   ],
+   "rate_display": "5.26%",
+   "rate_value": 0.052632,
+   "count": 1
+  }
+ ],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
  "random_encounters_intro": null,
  "events_activities": [
   {
-   "list_id": "00802158",
-   "edid": "P62_LL_Drifter_Rewards_TrancheXX",
-   "name": "Defeat The Drifter",
-   "type": "Primary"
-  },
-  {
-   "list_id": "0080CFAE",
-   "edid": "P62_LL_Drifter_Rewards_Tranche01",
-   "name": "Defeat The Drifter",
-   "type": "Primary"
-  },
-  {
-   "list_id": "0080CFAF",
-   "edid": "P62_LL_Drifter_Rewards_Tranche02",
-   "name": "Defeat The Drifter",
-   "type": "Primary"
-  },
-  {
-   "list_id": "0080CFB0",
-   "edid": "P62_LL_Drifter_Rewards_Tranche03",
-   "name": "Defeat The Drifter",
-   "type": "Primary"
-  },
-  {
-   "list_id": "0080CFB1",
-   "edid": "P62_LL_Drifter_Rewards_Tranche04",
-   "name": "Defeat The Drifter",
-   "type": "Primary"
-  },
-  {
-   "list_id": "0080CFB2",
-   "edid": "P62_LL_Drifter_Rewards_Tranche05",
-   "name": "Defeat The Drifter",
-   "type": "Primary"
-  },
-  {
-   "list_id": "007965E2",
-   "edid": "RD01_LL_Raids_Rewards_Enc02",
-   "name": "Drill Complex Module",
-   "type": "Module"
-  },
-  {
-   "list_id": "007965E4",
-   "edid": "RD01_LL_Raids_Rewards_Enc04",
-   "name": "Enclave Research Lab Module",
-   "type": "Module"
-  },
-  {
-   "list_id": "007965E3",
-   "edid": "RD01_LL_Raids_Rewards_Enc03",
-   "name": "Enclave Squad Module",
-   "type": "Module"
-  },
-  {
-   "list_id": "007965E1",
-   "edid": "RD01_LL_Raids_Rewards_Enc01",
-   "name": "Guardian Bot Module",
-   "type": "Module"
-  },
-  {
    "list_id": "00888532",
    "edid": "HTO_crLLS_Rewards_Serums",
    "name": "HTO cr LLS Rewards Serums",
-   "type": "Event / Activity"
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HTO cr LLS Rewards Serums reward pool per event/activity payout.",
+   "rate_value": 0.052632,
+   "rate_display": "5.26%",
+   "rate_lines": [
+    "5.26%"
+   ]
   },
   {
    "list_id": "00699719",
    "edid": "LL_MutatedEvents_Generic_DoubleMutation_Fallout1st_Rewards",
    "name": "Mutated Events Generic Double Mutation Fallout1st Rewards",
-   "type": "Event / Activity"
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Mutated Events Generic Double Mutation Fallout1st Rewards reward pool per event/activity payout.",
+   "rate_value": 0.026316,
+   "rate_display": "2.63%",
+   "rate_lines": [
+    "2.63%"
+   ]
   },
   {
    "list_id": "0067F382",
    "edid": "LL_MutatedEvents_Generic_DoubleMutation_Rewards",
    "name": "Mutated Events Generic Double Mutation Rewards",
-   "type": "Event / Activity"
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Mutated Events Generic Double Mutation Rewards reward pool per event/activity payout.",
+   "rate_value": 0.015789,
+   "rate_display": "1.58%",
+   "rate_lines": [
+    "1.58%"
+   ]
   },
   {
    "list_id": "00698825",
    "edid": "LL_MutatedEvents_Generic_SingleMutation_Fallout1st_Rewards",
    "name": "Mutated Events Generic Single Mutation Fallout1st Rewards",
-   "type": "Event / Activity"
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Mutated Events Generic Single Mutation Fallout1st Rewards reward pool per event/activity payout.",
+   "rate_value": 0.015789,
+   "rate_display": "1.58%",
+   "rate_lines": [
+    "1.58%"
+   ]
   },
   {
-   "list_id": "0067F378",
-   "edid": "LL_MutatedEvents_Generic_SingleMutation_Rewards",
-   "name": "Mutated Events Generic Single Mutation Rewards",
-   "type": "Event / Activity"
+   "list_id": "007965E2",
+   "edid": "RD01_LL_Raids_Rewards_Enc02",
+   "name": "Drill Complex Module",
+   "type": "Module",
+   "note": "Chance the item is in the Drill Complex Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
+  },
+  {
+   "list_id": "007965E4",
+   "edid": "RD01_LL_Raids_Rewards_Enc04",
+   "name": "Enclave Research Lab Module",
+   "type": "Module",
+   "note": "Chance the item is in the Enclave Research Lab Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
+  },
+  {
+   "list_id": "007965E3",
+   "edid": "RD01_LL_Raids_Rewards_Enc03",
+   "name": "Enclave Squad Module",
+   "type": "Module",
+   "note": "Chance the item is in the Enclave Squad Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
+  },
+  {
+   "list_id": "007965E1",
+   "edid": "RD01_LL_Raids_Rewards_Enc01",
+   "name": "Guardian Bot Module",
+   "type": "Module",
+   "note": "Chance the item is in the Guardian Bot Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
   },
   {
    "list_id": "007965E5",
    "edid": "RD01_LL_Raids_Rewards_Enc05",
    "name": "Scorchtongue Module",
-   "type": "Module"
+   "type": "Module",
+   "note": "Chance the item is in the Scorchtongue Module reward pool per event/activity payout.",
+   "rate_value": 0.013158,
+   "rate_display": "1.32%",
+   "rate_lines": [
+    "1.32%"
+   ]
+  },
+  {
+   "list_id": "00802158",
+   "edid": "P62_LL_Drifter_Rewards_TrancheXX",
+   "name": "Defeat The Drifter",
+   "type": "Primary",
+   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
+   "rate_value": 0.010526,
+   "rate_display": "1.05%",
+   "rate_lines": [
+    "1.05%"
+   ]
+  },
+  {
+   "list_id": "0080CFB1",
+   "edid": "P62_LL_Drifter_Rewards_Tranche04",
+   "name": "Defeat The Drifter",
+   "type": "Primary",
+   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
+   "rate_value": 0.010526,
+   "rate_display": "1.05%",
+   "rate_lines": [
+    "1.05%"
+   ]
+  },
+  {
+   "list_id": "0080CFB2",
+   "edid": "P62_LL_Drifter_Rewards_Tranche05",
+   "name": "Defeat The Drifter",
+   "type": "Primary",
+   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
+   "rate_value": 0.010526,
+   "rate_display": "1.05%",
+   "rate_lines": [
+    "1.05%"
+   ]
+  },
+  {
+   "list_id": "0067F378",
+   "edid": "LL_MutatedEvents_Generic_SingleMutation_Rewards",
+   "name": "Mutated Events Generic Single Mutation Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Mutated Events Generic Single Mutation Rewards reward pool per event/activity payout.",
+   "rate_value": 0.010526,
+   "rate_display": "1.05%",
+   "rate_lines": [
+    "1.05%"
+   ]
   }
  ],
  "regions": [

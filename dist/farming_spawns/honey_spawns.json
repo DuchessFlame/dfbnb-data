@@ -13,7 +13,17 @@
  "name": "Honey",
  "page_title": "Honey Spawn Locations",
  "blurb": "Every known world spawn for Honey, grouped by region. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": [
+    {
+     "name": "Beehive",
+     "rate": 1.0,
+     "rate_display": "100%"
+    }
+   ]
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -67,7 +77,378 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.25,
+   "value": 5,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Honey is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Action Points",
+     "display": "Restore Action Points",
+     "duration": "15s"
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (240/4 min)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [
+   {
+    "name": "Fermentable Mountain Honey Moonshine",
+    "form_id": "003F3054",
+    "recipe_edid": "co_Brewing_MountainHoneyMoonshine",
+    "category": "Food",
+    "workbench": "Brewing Station",
+    "output_qty": 1,
+    "item_qty": 3,
+    "mutation": null,
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 3
+     },
+     {
+      "name": "Snaptail Reed",
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/snaptail-reed/"
+     },
+     {
+      "name": "Honey",
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-honey/",
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Disease Chance",
+      "display": "9% chance to catch a disease",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Recipe: Mountain Honey Moonshine"
+   },
+   {
+    "name": "Steeped Carrot Flower Tea",
+    "form_id": "002944D8",
+    "recipe_edid": "co_meal_CarrotFlowerHerbTastyTea",
+    "category": "Drink",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Herbivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Melon Bloom",
+      "qty": 2
+     },
+     {
+      "name": "Carrot Flower",
+      "qty": 2
+     },
+     {
+      "name": "Honey",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-honey/",
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "10s"
+     },
+     {
+      "name": "Fortify Perception",
+      "display": "+2 Fortify Perception",
+      "duration": "1 hour"
+     },
+     {
+      "name": "Quench Thirst",
+      "display": "Quenches thirst (900/15 min)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+1 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Recipe: Steeped Carrot Flower Tea"
+   },
+   {
+    "name": "Steeped Fern Flower Tea",
+    "form_id": "002944D9",
+    "recipe_edid": "co_meal_FernFlowerHerbTastyTea",
+    "category": "Drink",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Herbivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Mutated Fern Flower",
+      "qty": 2
+     },
+     {
+      "name": "Aster",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/aster/"
+     },
+     {
+      "name": "Honey",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-honey/",
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "10s"
+     },
+     {
+      "name": "Fortify Strength",
+      "display": "+2 Fortify Strength",
+      "duration": "1 hour"
+     },
+     {
+      "name": "Quench Thirst",
+      "display": "Quenches thirst (900/15 min)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+1 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Recipe: Steeped Fern Flower Tea"
+   },
+   {
+    "name": "Steeped Fever Blossom Tea",
+    "form_id": "002944DA",
+    "recipe_edid": "co_meal_FeverBlossomHerbTastyTea",
+    "category": "Drink",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Herbivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Fever Blossom",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/fever-blossom/"
+     },
+     {
+      "name": "Soot Flower",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/soot-flower/"
+     },
+     {
+      "name": "Honey",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-honey/",
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "10s"
+     },
+     {
+      "name": "+AP Regen",
+      "display": "+5 Action Point regen",
+      "duration": "1 hour"
+     },
+     {
+      "name": "Quench Thirst",
+      "display": "Quenches thirst (900/15 min)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+1 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Recipe: Steeped Fever Blossom Tea"
+   },
+   {
+    "name": "Steeped Strangler Bloom Tea",
+    "form_id": "002944E0",
+    "recipe_edid": "co_meal_StranglerBloomHerbTastyTea",
+    "category": "Drink",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Herbivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Strangler Bloom",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/strangler-bloom/"
+     },
+     {
+      "name": "Soot Flower",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/soot-flower/"
+     },
+     {
+      "name": "Honey",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-honey/",
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "10s"
+     },
+     {
+      "name": "Quench Thirst",
+      "display": "Quenches thirst (900/15 min)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     },
+     {
+      "name": "Radiation Resistance",
+      "display": "+25 Radiation Resistance",
+      "duration": "1 hour"
+     }
+    ],
+    "how_to_obtain": "Recipe: Steeped Strangler Bloom Tea"
+   },
+   {
+    "name": "Sweetwater Special Blend",
+    "form_id": "002A8E1F",
+    "recipe_edid": "co_meal_FFZ13_SweetwaterSpecialBlend",
+    "category": "Drink",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Herbivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Bourbon",
+      "qty": 1
+     },
+     {
+      "name": "Bloodleaf",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/bloodleaf/"
+     },
+     {
+      "name": "Honey",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-honey/",
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Fortify Perception",
+      "display": "+2 Fortify Perception",
+      "duration": "1 hour"
+     },
+     {
+      "name": "Quench Thirst",
+      "display": "Quenches thirst (900/15 min)",
+      "duration": null
+     },
+     {
+      "name": "Chance Addiction Alcohol",
+      "display": "5% chance to catch a disease",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+1 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Quest: FFZ13_StrangeBrew"
+   }
+  ],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
@@ -77,7 +458,13 @@
    "list_id": "004E5EA8",
    "edid": "FFZ13_BeehiveHarvest_Loot",
    "name": "Daily: Strange Brew",
-   "type": "Daily"
+   "type": "Daily",
+   "note": "Chance the item is in the Daily: Strange Brew reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   }
  ],
  "regions": [
@@ -99,1207 +486,7 @@
   },
   {
    "region": "Forest",
-   "locations": [
-    {
-     "marker": "Aaronholt Homestead",
-     "count": 8,
-     "sources": {
-      "container": 8
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4F3E68",
-      "4F3E69",
-      "4F3E6A",
-      "4F3E6B",
-      "4F3E6C",
-      "4F3E6D",
-      "4F3E6E",
-      "4F3E6F"
-     ],
-     "coords": [
-      -116556.4375,
-      173532.671875
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4F3E68",
-       "source_type": "container",
-       "coords": [
-        -116556.4375,
-        173532.671875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E69",
-       "source_type": "container",
-       "coords": [
-        -116524.7421875,
-        173494.546875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E6A",
-       "source_type": "container",
-       "coords": [
-        -116578.765625,
-        173563.921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E6B",
-       "source_type": "container",
-       "coords": [
-        -116566.203125,
-        173565.984375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E6C",
-       "source_type": "container",
-       "coords": [
-        -116520.4296875,
-        173540.203125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E6D",
-       "source_type": "container",
-       "coords": [
-        -116537.0703125,
-        173545.359375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E6E",
-       "source_type": "container",
-       "coords": [
-        -116555.5859375,
-        173518.078125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E6F",
-       "source_type": "container",
-       "coords": [
-        -116498.921875,
-        173492.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Alpine River Cabins",
-     "count": 7,
-     "sources": {
-      "container": 7
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4EDBAC",
-      "4EDBAD",
-      "4EDBAE",
-      "4EDBAF",
-      "4EDBB0",
-      "4EDBB1",
-      "4EDBB2"
-     ],
-     "coords": [
-      -137944.796875,
-      53166.296875
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4EDBAC",
-       "source_type": "container",
-       "coords": [
-        -137944.796875,
-        53166.296875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBAD",
-       "source_type": "container",
-       "coords": [
-        -138074.296875,
-        53460.5234375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBAE",
-       "source_type": "container",
-       "coords": [
-        -138051.453125,
-        53430.6171875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBAF",
-       "source_type": "container",
-       "coords": [
-        -138038.71875,
-        53436.79296875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBB0",
-       "source_type": "container",
-       "coords": [
-        -138150.234375,
-        53350.1015625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBB1",
-       "source_type": "container",
-       "coords": [
-        -138140.25,
-        53357.8515625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBB2",
-       "source_type": "container",
-       "coords": [
-        -138123.25,
-        53343.6484375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Camp McClintock",
-     "count": 7,
-     "sources": {
-      "container": 7
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4F3E71",
-      "4F3E72",
-      "4F3E73",
-      "4F3E74",
-      "4F3E75",
-      "4F3E76",
-      "4F3E77"
-     ],
-     "coords": [
-      -85847.34375,
-      -12644.68359375
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4F3E71",
-       "source_type": "container",
-       "coords": [
-        -85847.34375,
-        -12644.68359375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E72",
-       "source_type": "container",
-       "coords": [
-        -85836.9453125,
-        -12633.51171875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E73",
-       "source_type": "container",
-       "coords": [
-        -85796.8359375,
-        -12761.3857421875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E74",
-       "source_type": "container",
-       "coords": [
-        -85811.625,
-        -12776.9580078125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E75",
-       "source_type": "container",
-       "coords": [
-        -85868.1796875,
-        -12787.6669921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E76",
-       "source_type": "container",
-       "coords": [
-        -85895.46875,
-        -12759.365234375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E77",
-       "source_type": "container",
-       "coords": [
-        -85840.6953125,
-        -12792.7177734375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Gilman Lumber Mill",
-     "count": 6,
-     "sources": {
-      "container": 6
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4F3E88",
-      "4F3E89",
-      "4F3E8A",
-      "4F3E8B",
-      "4F3E8C",
-      "4F3E8D"
-     ],
-     "coords": [
-      -96767.7734375,
-      67777.59375
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4F3E88",
-       "source_type": "container",
-       "coords": [
-        -96767.7734375,
-        67777.59375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E89",
-       "source_type": "container",
-       "coords": [
-        -96720.65625,
-        67749.1796875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E8A",
-       "source_type": "container",
-       "coords": [
-        -96686.7578125,
-        67728.7734375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E8B",
-       "source_type": "container",
-       "coords": [
-        -96687.5625,
-        67750.0234375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E8C",
-       "source_type": "container",
-       "coords": [
-        -96746.1640625,
-        67764.5234375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E8D",
-       "source_type": "container",
-       "coords": [
-        -96642.40625,
-        67706.3125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Morgantown Trainyard",
-     "count": 6,
-     "sources": {
-      "container": 6
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4F3E60",
-      "4F3E61",
-      "4F3E62",
-      "4F3E64",
-      "4F3E65",
-      "4F3E66"
-     ],
-     "coords": [
-      -40939.68359375,
-      93049.671875
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4F3E60",
-       "source_type": "container",
-       "coords": [
-        -40939.68359375,
-        93049.671875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E61",
-       "source_type": "container",
-       "coords": [
-        -40933.859375,
-        93052.34375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E62",
-       "source_type": "container",
-       "coords": [
-        -40896.44140625,
-        93032.3984375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E64",
-       "source_type": "container",
-       "coords": [
-        -40982.56640625,
-        93050.6328125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E65",
-       "source_type": "container",
-       "coords": [
-        -41003.9453125,
-        93035.5859375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E66",
-       "source_type": "container",
-       "coords": [
-        -41007.40234375,
-        93039.234375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "New River Gorge Bridge - East",
-     "count": 7,
-     "sources": {
-      "container": 7
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4F3E52",
-      "4F3E53",
-      "4F3E54",
-      "4F3E55",
-      "4F3E56",
-      "4F3E57",
-      "4F3E59"
-     ],
-     "coords": [
-      -96558.7890625,
-      7377.7412109375
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4F3E52",
-       "source_type": "container",
-       "coords": [
-        -96558.7890625,
-        7377.7412109375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E53",
-       "source_type": "container",
-       "coords": [
-        -96540.1015625,
-        7381.798828125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E54",
-       "source_type": "container",
-       "coords": [
-        -96575.3515625,
-        7357.0888671875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E55",
-       "source_type": "container",
-       "coords": [
-        -96900.234375,
-        7610.35693359375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E56",
-       "source_type": "container",
-       "coords": [
-        -96423.140625,
-        7368.208984375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E57",
-       "source_type": "container",
-       "coords": [
-        -96430.0078125,
-        7341.51708984375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E59",
-       "source_type": "container",
-       "coords": [
-        -96860.9765625,
-        7604.33544921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "North Kanawha Lookout",
-     "count": 7,
-     "sources": {
-      "container": 7
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4F430A",
-      "4F430B",
-      "4F430C",
-      "4F430D",
-      "4F430E",
-      "4F430F",
-      "4F4310"
-     ],
-     "coords": [
-      -86445.5,
-      109157.6796875
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4F430A",
-       "source_type": "container",
-       "coords": [
-        -86445.5,
-        109157.6796875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F430B",
-       "source_type": "container",
-       "coords": [
-        -86476.8125,
-        109135.1015625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F430C",
-       "source_type": "container",
-       "coords": [
-        -86496.546875,
-        109104.3125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F430D",
-       "source_type": "container",
-       "coords": [
-        -86496.203125,
-        109091.921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F430E",
-       "source_type": "container",
-       "coords": [
-        -86360.765625,
-        109086.5859375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F430F",
-       "source_type": "container",
-       "coords": [
-        -86384.234375,
-        109106.015625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F4310",
-       "source_type": "container",
-       "coords": [
-        -86358.125,
-        109072.1484375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Orwell Orchards",
-     "count": 8,
-     "sources": {
-      "container": 8
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4F3E4A",
-      "4F3E4B",
-      "4F3E4C",
-      "4F3E4D",
-      "4F3E4E",
-      "4F3E4F",
-      "4F3E50",
-      "4F3E51"
-     ],
-     "coords": [
-      -141593.296875,
-      -14460.6728515625
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4F3E4A",
-       "source_type": "container",
-       "coords": [
-        -141593.296875,
-        -14460.6728515625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E4B",
-       "source_type": "container",
-       "coords": [
-        -141574.78125,
-        -14445.3466796875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E4C",
-       "source_type": "container",
-       "coords": [
-        -141623.46875,
-        -14455.9208984375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E4D",
-       "source_type": "container",
-       "coords": [
-        -141449.375,
-        -14590.3779296875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E4E",
-       "source_type": "container",
-       "coords": [
-        -141428.0,
-        -14550.97265625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E4F",
-       "source_type": "container",
-       "coords": [
-        -141420.34375,
-        -14575.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E50",
-       "source_type": "container",
-       "coords": [
-        -141474.875,
-        -14449.1015625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E51",
-       "source_type": "container",
-       "coords": [
-        -141488.828125,
-        -14444.3642578125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Point Pleasant",
-     "count": 8,
-     "sources": {
-      "container": 8
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4EDBB4",
-      "4EDBB5",
-      "4EDBB6",
-      "4EDBB7",
-      "4EDBB8",
-      "4EDBB9",
-      "4EDBBA",
-      "4EDBBB"
-     ],
-     "coords": [
-      -165972.890625,
-      62987.44921875
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4EDBB4",
-       "source_type": "container",
-       "coords": [
-        -165972.890625,
-        62987.44921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBB5",
-       "source_type": "container",
-       "coords": [
-        -165950.765625,
-        62975.1484375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBB6",
-       "source_type": "container",
-       "coords": [
-        -165931.296875,
-        62989.81640625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBB7",
-       "source_type": "container",
-       "coords": [
-        -165946.75,
-        63145.53515625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBB8",
-       "source_type": "container",
-       "coords": [
-        -165923.421875,
-        63123.44921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBB9",
-       "source_type": "container",
-       "coords": [
-        -165957.453125,
-        63155.671875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBBA",
-       "source_type": "container",
-       "coords": [
-        -166104.34375,
-        63066.28125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4EDBBB",
-       "source_type": "container",
-       "coords": [
-        -166109.671875,
-        63056.59765625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Settler's Ridge",
-     "count": 7,
-     "sources": {
-      "container": 7
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4F3E80",
-      "4F3E81",
-      "4F3E82",
-      "4F3E83",
-      "4F3E84",
-      "4F3E85",
-      "4F3E86"
-     ],
-     "coords": [
-      -117905.4140625,
-      113315.4375
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4F3E80",
-       "source_type": "container",
-       "coords": [
-        -117905.4140625,
-        113315.4375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E81",
-       "source_type": "container",
-       "coords": [
-        -117942.75,
-        113318.921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E82",
-       "source_type": "container",
-       "coords": [
-        -117973.203125,
-        113341.3515625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E83",
-       "source_type": "container",
-       "coords": [
-        -117982.96875,
-        113334.171875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E84",
-       "source_type": "container",
-       "coords": [
-        -117914.3828125,
-        113322.6484375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E85",
-       "source_type": "container",
-       "coords": [
-        -118027.0703125,
-        113312.734375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E86",
-       "source_type": "container",
-       "coords": [
-        -117971.203125,
-        113327.28125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Slocum's Joe",
-     "count": 6,
-     "sources": {
-      "container": 6
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "746F4B",
-      "746F4C",
-      "746F4D",
-      "746F4E",
-      "746F4F",
-      "746F50"
-     ],
-     "coords": [
-      -69984.0,
-      48872.0
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "746F4B",
-       "source_type": "container",
-       "coords": [
-        -69984.0,
-        48872.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "746F4C",
-       "source_type": "container",
-       "coords": [
-        -69976.0,
-        48824.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "746F4D",
-       "source_type": "container",
-       "coords": [
-        -69952.0,
-        48784.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "746F4E",
-       "source_type": "container",
-       "coords": [
-        -69952.0,
-        48800.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "746F4F",
-       "source_type": "container",
-       "coords": [
-        -69968.0,
-        48832.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "746F50",
-       "source_type": "container",
-       "coords": [
-        -69982.015625,
-        48862.609375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   },
   {
    "region": "Savage Divide",
@@ -1362,37 +549,6 @@
      ]
     },
     {
-     "marker": "Old Danielson Cabin",
-     "count": 1,
-     "sources": {
-      "container": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "7B2752"
-     ],
-     "coords": [
-      164161.234375,
-      220271.203125
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "7B2752",
-       "source_type": "container",
-       "coords": [
-        164161.234375,
-        220271.203125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
      "marker": "The Freak Show",
      "count": 1,
      "sources": {
@@ -1429,41 +585,9 @@
    "region": "Skyline Valley",
    "locations": [
     {
-     "marker": "Big Meadows Gas Well",
+     "marker": "Camp Liberty",
      "count": 1,
      "sources": {
-      "container": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CD05"
-     ],
-     "coords": [
-      -9476.5263671875,
-      -256301.203125
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CD05",
-       "source_type": "container",
-       "coords": [
-        -9476.5263671875,
-        -256301.203125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Camp Liberty",
-     "count": 5,
-     "sources": {
-      "container": 4,
       "npc": 1
      },
      "image_top": "",
@@ -1483,54 +607,6 @@
      "spawns": [
       {
        "label": "",
-       "ref": "78CD13",
-       "source_type": "container",
-       "coords": [
-        53765.09765625,
-        -256354.28125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD14",
-       "source_type": "container",
-       "coords": [
-        57090.0625,
-        -261612.296875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD15",
-       "source_type": "container",
-       "coords": [
-        86015.3125,
-        -257066.046875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD16",
-       "source_type": "container",
-       "coords": [
-        92178.578125,
-        -260333.265625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
        "ref": "74F231",
        "source_type": "npc",
        "coords": [
@@ -1544,648 +620,9 @@
      ]
     },
     {
-     "marker": "High Knob Lookout",
-     "count": 1,
-     "sources": {
-      "container": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CD24"
-     ],
-     "coords": [
-      -17541.2578125,
-      -231375.828125
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CD24",
-       "source_type": "container",
-       "coords": [
-        -17541.2578125,
-        -231375.828125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Milepost Zero",
-     "count": 4,
-     "sources": {
-      "container": 4
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CD06",
-      "78CD07",
-      "78CD08",
-      "78CD0A"
-     ],
-     "coords": [
-      -4479.66845703125,
-      -260301.578125
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CD06",
-       "source_type": "container",
-       "coords": [
-        -4479.66845703125,
-        -260301.578125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD07",
-       "source_type": "container",
-       "coords": [
-        -5487.71337890625,
-        -262848.96875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD08",
-       "source_type": "container",
-       "coords": [
-        -2749.251953125,
-        -260064.34375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD0A",
-       "source_type": "container",
-       "coords": [
-        6983.55615234375,
-        -254535.859375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Old Crimora Mines",
-     "count": 17,
-     "sources": {
-      "container": 17
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CCF7",
-      "78CCF8",
-      "78CCF9",
-      "78CCFA",
-      "78CCFB",
-      "78CCFC",
-      "78CCFD",
-      "78CCFF",
-      "78CD00",
-      "78CD01",
-      "78CD02",
-      "78CD03",
-      "78CD04",
-      "78CD2A",
-      "78CD2B",
-      "78CD2C",
-      "78CD2D"
-     ],
-     "coords": [
-      -38469.84375,
-      -243706.796875
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CCF7",
-       "source_type": "container",
-       "coords": [
-        -38469.84375,
-        -243706.796875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CCF8",
-       "source_type": "container",
-       "coords": [
-        -40215.73046875,
-        -254047.8125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CCF9",
-       "source_type": "container",
-       "coords": [
-        -39118.81640625,
-        -260481.09375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CCFA",
-       "source_type": "container",
-       "coords": [
-        -48200.83203125,
-        -257299.5625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CCFB",
-       "source_type": "container",
-       "coords": [
-        -51872.8046875,
-        -260936.90625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CCFC",
-       "source_type": "container",
-       "coords": [
-        -58289.89453125,
-        -258451.109375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CCFD",
-       "source_type": "container",
-       "coords": [
-        -58981.5625,
-        -255351.328125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CCFF",
-       "source_type": "container",
-       "coords": [
-        -61867.01953125,
-        -257771.875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD00",
-       "source_type": "container",
-       "coords": [
-        -61860.51171875,
-        -260524.703125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD01",
-       "source_type": "container",
-       "coords": [
-        -63263.8203125,
-        -268889.59375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD02",
-       "source_type": "container",
-       "coords": [
-        -54613.8515625,
-        -268786.3125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD03",
-       "source_type": "container",
-       "coords": [
-        -38985.05859375,
-        -267864.53125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD04",
-       "source_type": "container",
-       "coords": [
-        -34778.84765625,
-        -265722.15625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD2A",
-       "source_type": "container",
-       "coords": [
-        -61791.92578125,
-        -256109.671875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD2B",
-       "source_type": "container",
-       "coords": [
-        -59032.43359375,
-        -257529.28125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD2C",
-       "source_type": "container",
-       "coords": [
-        -60412.5078125,
-        -258594.6875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD2D",
-       "source_type": "container",
-       "coords": [
-        -57515.33984375,
-        -252343.453125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Rapidan Camp",
-     "count": 1,
-     "sources": {
-      "container": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CD21"
-     ],
-     "coords": [
-      -5955.62451171875,
-      -235710.9375
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CD21",
-       "source_type": "container",
-       "coords": [
-        -5955.62451171875,
-        -235710.9375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Research Site Bavaria",
-     "count": 6,
-     "sources": {
-      "container": 6
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CD17",
-      "78CD18",
-      "78CD19",
-      "78CD1A",
-      "78CD1B",
-      "78CD1C"
-     ],
-     "coords": [
-      96572.515625,
-      -260280.640625
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CD17",
-       "source_type": "container",
-       "coords": [
-        96572.515625,
-        -260280.640625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD18",
-       "source_type": "container",
-       "coords": [
-        96826.03125,
-        -256414.078125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD19",
-       "source_type": "container",
-       "coords": [
-        100374.3125,
-        -253405.609375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD1A",
-       "source_type": "container",
-       "coords": [
-        91610.765625,
-        -245350.296875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD1B",
-       "source_type": "container",
-       "coords": [
-        84064.3359375,
-        -241795.59375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD1C",
-       "source_type": "container",
-       "coords": [
-        73030.5,
-        -239771.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Research Site Rhineland",
-     "count": 1,
-     "sources": {
-      "container": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CD23"
-     ],
-     "coords": [
-      -9929.1337890625,
-      -225838.40625
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CD23",
-       "source_type": "container",
-       "coords": [
-        -9929.1337890625,
-        -225838.40625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Research Site Saxony",
-     "count": 6,
-     "sources": {
-      "container": 6
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CCF5",
-      "78CCF6",
-      "78CD25",
-      "78CD26",
-      "78CD28",
-      "78CD29"
-     ],
-     "coords": [
-      -50507.8359375,
-      -238686.859375
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CCF5",
-       "source_type": "container",
-       "coords": [
-        -50507.8359375,
-        -238686.859375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CCF6",
-       "source_type": "container",
-       "coords": [
-        -42984.83984375,
-        -234298.578125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD25",
-       "source_type": "container",
-       "coords": [
-        -56905.8828125,
-        -240326.03125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD26",
-       "source_type": "container",
-       "coords": [
-        -62850.13671875,
-        -244800.546875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD28",
-       "source_type": "container",
-       "coords": [
-        -67756.828125,
-        -249169.90625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD29",
-       "source_type": "container",
-       "coords": [
-        -62789.47265625,
-        -252310.6875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Slumber Mill Motel",
+     "marker": "South River Bridge",
      "count": 2,
      "sources": {
-      "container": 2
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CD0C",
-      "78CD0E"
-     ],
-     "coords": [
-      30787.533203125,
-      -257415.140625
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CD0C",
-       "source_type": "container",
-       "coords": [
-        30787.533203125,
-        -257415.140625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD0E",
-       "source_type": "container",
-       "coords": [
-        20759.125,
-        -253965.34375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "South River Bridge",
-     "count": 17,
-     "sources": {
-      "container": 15,
       "npc": 2
      },
      "image_top": "",
@@ -2217,186 +654,6 @@
      "spawns": [
       {
        "label": "",
-       "ref": "6DE636",
-       "source_type": "container",
-       "coords": [
-        42931.25,
-        -242067.390625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "72A65C",
-       "source_type": "container",
-       "coords": [
-        44170.68359375,
-        -244644.203125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "744169",
-       "source_type": "container",
-       "coords": [
-        44447.8203125,
-        -244611.421875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "74416A",
-       "source_type": "container",
-       "coords": [
-        44344.10546875,
-        -244450.78125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD0B",
-       "source_type": "container",
-       "coords": [
-        39004.77734375,
-        -253223.984375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD0F",
-       "source_type": "container",
-       "coords": [
-        35930.98046875,
-        -257156.71875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD10",
-       "source_type": "container",
-       "coords": [
-        40926.18359375,
-        -256232.390625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD11",
-       "source_type": "container",
-       "coords": [
-        42726.46875,
-        -252113.5625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD12",
-       "source_type": "container",
-       "coords": [
-        46704.4921875,
-        -252937.375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD1E",
-       "source_type": "container",
-       "coords": [
-        48786.359375,
-        -237302.96875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD1F",
-       "source_type": "container",
-       "coords": [
-        39435.609375,
-        -238736.015625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "78CD20",
-       "source_type": "container",
-       "coords": [
-        34657.98046875,
-        -243735.46875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "7931AA",
-       "source_type": "container",
-       "coords": [
-        44666.15625,
-        -244355.546875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "79339E",
-       "source_type": "container",
-       "coords": [
-        44683.35546875,
-        -244339.484375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "7933A0",
-       "source_type": "container",
-       "coords": [
-        44382.43359375,
-        -244670.234375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
        "ref": "6DCA12",
        "source_type": "npc",
        "coords": [
@@ -2422,41 +679,9 @@
      ]
     },
     {
-     "marker": "Stony Man Lookout",
-     "count": 1,
-     "sources": {
-      "container": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "78CD1D"
-     ],
-     "coords": [
-      58223.88671875,
-      -236948.90625
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "78CD1D",
-       "source_type": "container",
-       "coords": [
-        58223.88671875,
-        -236948.90625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
      "marker": "Susan's Cabin",
-     "count": 12,
+     "count": 7,
      "sources": {
-      "container": 5,
       "npc": 7
      },
      "image_top": "",
@@ -2481,66 +706,6 @@
       -206670.890625
      ],
      "spawns": [
-      {
-       "label": "",
-       "ref": "7B7232",
-       "source_type": "container",
-       "coords": [
-        96398.203125,
-        -206670.890625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "7B7233",
-       "source_type": "container",
-       "coords": [
-        96400.15625,
-        -206661.578125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "7B7342",
-       "source_type": "container",
-       "coords": [
-        96394.8359375,
-        -206574.1875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "7B7343",
-       "source_type": "container",
-       "coords": [
-        96392.3359375,
-        -206689.765625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "7B7348",
-       "source_type": "container",
-       "coords": [
-        96412.0859375,
-        -206542.90625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
       {
        "label": "",
        "ref": "79ABD3",
@@ -2675,393 +840,6 @@
        "image_bottom": ""
       }
      ]
-    },
-    {
-     "marker": "Gnarled Shallows",
-     "count": 4,
-     "sources": {
-      "container": 4
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "52B5DE",
-      "52B5DF",
-      "52B5E0",
-      "52B5E1"
-     ],
-     "coords": [
-      201957.0625,
-      124048.6328125
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "52B5DE",
-       "source_type": "container",
-       "coords": [
-        201957.0625,
-        124048.6328125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52B5DF",
-       "source_type": "container",
-       "coords": [
-        201972.5625,
-        124088.9921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52B5E0",
-       "source_type": "container",
-       "coords": [
-        202431.328125,
-        122959.671875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52B5E1",
-       "source_type": "container",
-       "coords": [
-        202470.046875,
-        122992.6796875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Raleigh Clay's Bunker",
-     "count": 23,
-     "sources": {
-      "container": 23
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "52C00F",
-      "52C010",
-      "52C011",
-      "52C012",
-      "52C013",
-      "52C014",
-      "52C017",
-      "52C018",
-      "52C019",
-      "52C01A",
-      "52C01D",
-      "52C01E",
-      "52C027",
-      "52C028",
-      "52C029",
-      "52C02A",
-      "52C02B",
-      "52C02C",
-      "52C02D",
-      "52C02E",
-      "52C02F",
-      "52C030",
-      "52C031"
-     ],
-     "coords": [
-      186993.671875,
-      68506.71875
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "52C00F",
-       "source_type": "container",
-       "coords": [
-        186993.671875,
-        68506.71875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C010",
-       "source_type": "container",
-       "coords": [
-        187028.59375,
-        68522.6640625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C011",
-       "source_type": "container",
-       "coords": [
-        186916.8125,
-        68483.65625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C012",
-       "source_type": "container",
-       "coords": [
-        186889.671875,
-        68667.4921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C013",
-       "source_type": "container",
-       "coords": [
-        187248.015625,
-        68229.5703125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C014",
-       "source_type": "container",
-       "coords": [
-        187224.0625,
-        68259.921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C017",
-       "source_type": "container",
-       "coords": [
-        190056.765625,
-        66905.578125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C018",
-       "source_type": "container",
-       "coords": [
-        190106.328125,
-        66733.9921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C019",
-       "source_type": "container",
-       "coords": [
-        190141.984375,
-        66753.640625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C01A",
-       "source_type": "container",
-       "coords": [
-        190024.34375,
-        66894.140625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C01D",
-       "source_type": "container",
-       "coords": [
-        190135.359375,
-        69390.1953125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C01E",
-       "source_type": "container",
-       "coords": [
-        190254.3125,
-        69529.8203125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C027",
-       "source_type": "container",
-       "coords": [
-        190702.78125,
-        67195.34375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C028",
-       "source_type": "container",
-       "coords": [
-        190732.015625,
-        67214.21875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C029",
-       "source_type": "container",
-       "coords": [
-        190755.78125,
-        67205.8203125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C02A",
-       "source_type": "container",
-       "coords": [
-        190779.296875,
-        67185.5078125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C02B",
-       "source_type": "container",
-       "coords": [
-        190775.78125,
-        67202.2421875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C02C",
-       "source_type": "container",
-       "coords": [
-        190702.90625,
-        67123.171875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C02D",
-       "source_type": "container",
-       "coords": [
-        190729.296875,
-        67110.421875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C02E",
-       "source_type": "container",
-       "coords": [
-        190135.40625,
-        66758.046875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C02F",
-       "source_type": "container",
-       "coords": [
-        190170.796875,
-        69392.1328125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C030",
-       "source_type": "container",
-       "coords": [
-        187269.125,
-        68229.890625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "52C031",
-       "source_type": "container",
-       "coords": [
-        190266.671875,
-        67803.25
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
     }
    ]
   },
@@ -3071,104 +849,8 @@
   },
   {
    "region": "Toxic Valley",
-   "locations": [
-    {
-     "marker": "Twin Pine Cabins",
-     "count": 6,
-     "sources": {
-      "container": 6
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "4F3E79",
-      "4F3E7A",
-      "4F3E7B",
-      "4F3E7C",
-      "4F3E7D",
-      "4F3E7E"
-     ],
-     "coords": [
-      -67346.2578125,
-      126712.0390625
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4F3E79",
-       "source_type": "container",
-       "coords": [
-        -67346.2578125,
-        126712.0390625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E7A",
-       "source_type": "container",
-       "coords": [
-        -67421.796875,
-        126699.25
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E7B",
-       "source_type": "container",
-       "coords": [
-        -67385.9296875,
-        126730.4375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E7C",
-       "source_type": "container",
-       "coords": [
-        -67443.609375,
-        126665.921875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E7D",
-       "source_type": "container",
-       "coords": [
-        -67434.046875,
-        126690.21875
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "4F3E7E",
-       "source_type": "container",
-       "coords": [
-        -67402.0859375,
-        126716.625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   }
- ]
+ ],
+ "total": 16
 }

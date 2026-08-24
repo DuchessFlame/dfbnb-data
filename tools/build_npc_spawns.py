@@ -123,6 +123,34 @@ NPCS = [
       "Rust Raiders only spawn in the Burning Springs region.",
     ],
   },
+  {
+    # PRE-STAGED: no Mappalachia dig exists yet. The build loop skips any entry
+    # whose dig_file is absent, so this emits NO page until
+    # data/npc_spawns/digs/PintSizedPhantom_spawns.txt is added. The instant that
+    # dig exists (with a "# PINT-SIZED PHANTOM" section header) this page builds.
+    "slug": "pint-sized-phantom-spawn-locations",
+    "name": "Pint-Sized Phantom",
+    "page_title": "Pint-Sized Phantom Spawn Locations",
+    "dig_file": "PintSizedPhantom_spawns.txt",
+    "dig_header": "# PINT-SIZED PHANTOM",
+    "blurb": "Every location where Pint-Sized Phantoms spawn, ordered from most to fewest.",
+    "category": "Score Challenges",
+    # Race + Faction are derived generatively from the NPC export. The family's
+    # internal identity is "Slasher" (SDOW_EncSlasherFan* / SDOW_LvlSlasherFan*).
+    "npc_name_match": ["slasher"],
+    # Pint-Sized Phantoms have no tracked companion creatures; sentinel matches
+    # nothing so companion_counts() returns empty (never pass [] here — that
+    # matches every entity).
+    "companion_label": "Companions",
+    "companion_match": ["__none__"],
+    # ActorType keywords: SDOW_ActorTypeSlasherFan / SDOW_ActorTypeSlasherBoss.
+    "usedfor_keywords": ["008E065B", "008E0665"],
+    "usedfor_name_match": [],
+    "interior_region_overrides": {},
+    "notes": [
+      "Pint-Sized Phantoms are the \"Slasher\" enemy family (NPC records SDOW_EncSlasherFan* / SDOW_LvlSlasherFan*).",
+    ],
+  },
 ]
 
 # ---- Mappalachia: regions + markers + companion tally -------------------------
@@ -440,7 +468,12 @@ def main():
          "npcs": {}}
   for cfg in NPCS:
     slug = cfg["slug"]
-    dig = parse_dig(os.path.join(DIG_DIR, cfg["dig_file"]), cfg["dig_header"])
+    dig_path = os.path.join(DIG_DIR, cfg["dig_file"])
+    if not os.path.isfile(dig_path):
+      print(f"[npc_spawns] SKIP {slug}: dig file not found ({dig_path}). "
+            f"Add the Mappalachia dig to build this page.")
+      continue
+    dig = parse_dig(dig_path, cfg["dig_header"])
     comp = companion_counts(cur, markers, cfg["companion_match"]) if db_ok else None
     qflags = quest_flags(*cfg["enemy_lcsr"]) if cfg.get("enemy_lcsr") else {}
     slug_cache = cache.get(slug, {})
