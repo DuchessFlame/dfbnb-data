@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-24T01:30:30+00:00",
+  "generatedAt": "2026-08-24T03:10:36+00:00",
   "type": "collectrons",
-  "count": 28,
+  "count": 29,
   "items": [
     {
       "formId": "006C6DC0",
@@ -4890,6 +4890,160 @@
       "cutContent": false
     },
     {
+      "formId": "008F2B0B",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_FloraTron",
+      "resoFormId": "008F2B16",
+      "contFormId": "008F2B09",
+      "entmFormId": "008F2B0B",
+      "displayName": "FloraTron",
+      "description": "",
+      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/atx_entm_camp_utility_collectron_floratron.webp",
+      "imageCarousel": [
+        "/wp-content/uploads/storefront/camp-items-collectrons/atx_camp_utility_collectron_floratron_c1.ddsatx_camp_utility_collectron_floratron_c2.webp"
+      ],
+      "imageDds": "ATX_CAMP_Utility_Collectron_FloraTron.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
+      "isCollectron": true,
+      "production": {
+        "intervalHours": 0.15,
+        "intervalDisplay": "9 min",
+        "drops": [],
+        "modes": [
+          {
+            "name": "Default",
+            "resoFormId": "008F2B16",
+            "lvliFormId": "008F2B0E",
+            "drops": []
+          }
+        ]
+      },
+      "station": {
+        "capacity": 10,
+        "powerRequired": false,
+        "flamingoUnits": 5,
+        "lockable": true
+      },
+      "crafting": {
+        "components": [
+          {
+            "item": "Circuitry",
+            "count": 1
+          },
+          {
+            "item": "Copper",
+            "count": 1
+          },
+          {
+            "item": "Gears",
+            "count": 1
+          },
+          {
+            "item": "Steel",
+            "count": 3
+          }
+        ]
+      },
+      "craftingRequirements": [
+        {
+          "name": "Circuitry",
+          "qty": 1
+        },
+        {
+          "name": "Copper",
+          "qty": 1
+        },
+        {
+          "name": "Gears",
+          "qty": 1
+        },
+        {
+          "name": "Steel",
+          "qty": 3
+        }
+      ],
+      "howToObtain": {
+        "method": "atom",
+        "seasonNumber": null,
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase from the Atom Shop.",
+        "badge": "atom"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": true,
+          "lines": [
+            "Purchase from the Atom Shop."
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
+      "seasonNumber": null,
+      "releaseDate": "2026-08-24",
+      "cutContent": false
+    },
+    {
       "formId": "0055417F",
       "edid": "ATX_ENTM_CAMP_Utility_Collectron_FreeStates",
       "resoFormId": "0055417E",
@@ -8836,14 +8990,14 @@
         }
       ],
       "howToObtain": {
-        "method": "scoreboard",
+        "method": "gold",
         "seasonNumber": 25,
         "goldBullionPrice": 4000,
-        "vendor": null,
+        "vendor": "Samuel",
         "tradeable": false,
         "planName": "Plan: Mr. Farmhand Collectron",
-        "display": "Purchase with tickets from the Appalachia Under Siege Scoreboard (Season 25)",
-        "badge": "scoreboard"
+        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Appalachia Under Siege Scoreboard (Season 25).",
+        "badge": "gold"
       },
       "obtainRoutes": [
         {
@@ -8862,19 +9016,21 @@
         },
         {
           "route": "Scoreboard",
-          "populated": true,
-          "lines": [
-            "Purchase with tickets from the Appalachia Under Siege Scoreboard (Season 25)"
-          ],
-          "tradeable": false,
-          "dropRate": "N/A"
-        },
-        {
-          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": true,
+          "lines": [
+            "Plan: Plan: Mr. Farmhand Collectron",
+            "Samuel — Gold Bullion vendor",
+            "4000 Gold Bullion"
+          ],
+          "tradeable": false,
+          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
