@@ -25,7 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
-from spawns_configs import nuka_cola, farming, bobbleheads, cryptids, meat, insects
+from spawns_configs import nuka_cola, farming, bobbleheads, cryptids, meat, insects, magazines, consumable_items
 from farming_spawns_config import SETS_BY_SLUG
 
 
@@ -47,6 +47,10 @@ def main(argv):
         farming.main(rest)                            # farming's argparse (--item/--all/--pts)
     elif cmd in ("bobbleheads", "bobblehead"):
         bobbleheads.run(rest)                         # hub + one page per region
+    elif cmd in ("magazines", "magazine"):
+        magazines.run(rest)                           # hub + one page per region (BOOK-seeded)
+    elif cmd in ("consumable-items", "consumable_items"):
+        consumable_items.run(rest)                    # single-page reward consumables (Scout's Banner, Lunchbox)
     elif cmd in ("cryptids", "cryptid"):
         cryptids.run(["cryptids"] + rest)             # hub + one page per cryptid
     elif cmd == "meat":

@@ -435,6 +435,16 @@ jobs:
             --tsv-root tsv \
             --outdir dist
 
+      # --- PLAN CHECKLISTS (How to Obtain) ---
+      # Writes dist/plan_master.json from the PTS tsvs; the relocate step below
+      # moves it to dist/pts/plan_master.json for the PTS plan-checklist pages.
+      - name: Build Plan Checklists (How to Obtain) JSON
+        run: |
+          python src/build_plan_obtain_json.py \
+            --data-dir tsv \
+            --outdir dist \
+            --report dist/plan_master_unresolved.json
+
       # --- VENDORS (must run before Allies — ally inventory reads vendor data) ---
       - name: Build Vendors JSON
         run: python src/build_vendors_json.py
