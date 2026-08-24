@@ -1,34 +1,34 @@
-name: DFBNB Patch Build
+name: DFBNB PTS Build
+
+# Builds the PTS (public test server) data channel into dist/pts/.
+# This MIRRORS dfbnb-patch-build.yml step-for-step on purpose.
+#
+# >>> SYNC NOTE <<<
+# When you add / remove / reorder a build step in dfbnb-patch-build.yml,
+# make the SAME change here. The ONLY intended differences are:
+#   * triggers on tsv/pts/** (not tsv/**)
+#   * a "Normalize PTS TSV" + "Clear dist" step before the builds
+#   * the final steps relocate dist/ -> dist/pts/ and commit ONLY dist/pts/
+# Live dist/ and tsv/ are never modified by this workflow.
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 */12 * * *'        # midnight & noon UTC
   push:
     branches: [ main ]
     paths:
-      # tsv/** intentionally broad — covers CHAL, KYWD, LVLI, CURV, BOOK, ARMO,
-      # COBJ, FURN, FLST, ENTM, ALCH, FISH, GLOB, etc. Do NOT narrow this glob
-      # without auditing which downstream builds depend on which TSVs. In
-      # particular, mini-seasons keyword pill resolution (Archaic, Bow, etc.)
-      # depends on KYWD_Export_*_Refs.tsv — if the glob is narrowed to only
-      # CHAL exports, weapon renames from Bethesda won't rebuild mini_seasons.
-      - "tsv/**"
-      # PTS data lives in tsv/pts/ and has its own workflow (dfbnb-pts-build.yml).
-      # Exclude it so PTS pulls don't trigger a wasteful live rebuild.
-      - "!tsv/pts/**"
-      - "tools/**"
+      - "tsv/pts/**"
       - "src/**"
-      - "data/**"
-      - ".github/workflows/dfbnb-patch-build.yml"
+      - "tools/**"
+      - ".github/workflows/dfbnb-pts-build.yml"
 
 permissions:
   contents: write
 
 concurrency:
-  group: dist-main
+  group: dist-pts
   cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,18 +54,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas
 
-      # ===== INPUT SELECTION GUARD =====
-      # Every builder must pick its export through src/tsv_source.py. Sorting
-      # export filenames lexically resolves to MAY 2026 for every record type
-      # ("August" sorts before "July"; "May" outranks them all), and sorting by
-      # mtime is meaningless here because actions/checkout stamps every file
-      # with the same timestamp. Both bugs shipped silently for months. This
-      # step fails the build if either pattern reappears.
+      # Same guard as the live build — see dfbnb-patch-build.yml.
       - name: Verify export selection (tsv_source lint)
         run: python src/tsv_source.py --lint
 
-      - name: Report which export each record type resolves to
-        run: python src/tsv_source.py
+      # ===== PTS CHANNEL SETUP =====
+      # Overwrite the dated exports in the (ephemeral) tsv/ checkout with the
+      # newest PTS pull, normalized to live-style names so every downstream
+      # builder works unchanged. Then wipe dist/ so whatever remains after the
+      # build is PURE PTS output (no leftover live files).
+      - name: Normalize PTS TSV into tsv/
+        run: python src/normalize_pts_tsv.py --src tsv/pts --dst tsv --in-place
+
+      - name: Clear dist for a clean PTS build
+        run: rm -rf dist && mkdir -p dist
 
       # ===== DROP RATES (must run before titles, events) =====
       - name: Build Drop Rates JSON
@@ -193,12 +195,9 @@ jobs:
           echo "CURV_POINTS_TSV=$FILE" >> $GITHUB_ENV
           echo "Using CURV points TSV: $FILE"
 
-          # build_curves_json.mjs also takes PCRD / PERK / CURV header exports for the
-          # perk-card linkage, and its built-in defaults are the LITERAL strings
-          # "tsv/PCRD_Export_March_2026.tsv" etc. Only CURV_POINTS_TSV was ever set
-          # here, so those three have been reading March 2026 since March. A frozen
-          # filename is worse than a bad sort — there is no selection logic for a lint
-          # to inspect. Resolve them the same way as the points file.
+          # Same as the live build: the .mjs defaults for these three are literal
+          # "March_2026" filenames, so they must be resolved here or the perk-card
+          # linkage silently reads March. See dfbnb-patch-build.yml.
           for pair in "PCRD_TSV:tsv/PCRD_Export_*.tsv" \
                       "PERK_TSV:tsv/PERK_Export_*.tsv" \
                       "CURV_HDR_TSV:tsv/CURV_Export_*_CURV.tsv"; do
@@ -234,19 +233,29 @@ jobs:
 
       # --- INFESTATIONS (HTO) REWARDS ---
       - name: Build Infestations (HTO) Rewards JSON
-        run: |
-          python src/build_hto_rewards_json.py
-          python src/build_hto_rewards_json.py --pts
+        run: python src/build_hto_rewards_json.py
 
       # --- INFESTATIONS (HTO) LOCATIONS ---
+      # --generative reads LCTN records from tsv/ (PTS-normalized) and extracts
+      # locations tagged with LocTypeHostileTakeover, so new/removed PTS
+      # locations are picked up automatically. Output goes to dist/infestations/
+      # and the relocate step moves it to dist/pts/infestations/.
       - name: Build Infestations (HTO) Locations JSON
-        run: |
-          python src/build_hto_locations_json.py
-          python src/build_hto_locations_json.py --pts
+        run: python src/build_hto_locations_json.py --generative
 
       # --- SEASONAL EVENTS REWARDS ---
       - name: Build Seasonal Events Rewards JSON
         run: python src/build_seasonal_events_json.py
+
+      # The flat seasonal_events_rewards.json is legacy static data still consumed
+      # by some guide pages. The rewritten builder only emits _by_page.json, so
+      # restore the committed flat file from git into the (cleared) dist to keep
+      # the PTS channel at parity with live. `git show` reads the blob from the
+      # object store even though the Clear dist step wiped the working tree.
+      - name: Seed legacy seasonal_events_rewards.json (PTS)
+        run: |
+          mkdir -p dist/seasonal_events
+          git show HEAD:dist/seasonal_events/seasonal_events_rewards.json > dist/seasonal_events/seasonal_events_rewards.json
 
       # --- RAIDS / EXPOS / DAILY OPS REWARDS ---
       # Each reads dist/events/events_rewards.json (built above) via the shared
@@ -264,6 +273,25 @@ jobs:
       # --- BOUNTY HUNTING CHALLENGES (reads CHAL TSV directly) ---
       - name: Build Bounty Hunting Challenges JSON
         run: python src/build_bounty_hunting_json.py
+
+      # --- BOUNTY HUNTING REWARDS (Grunt/Head Hunt reward tree) ---
+      # NOTE: not present in dfbnb-patch-build.yml — the live rewards JSON is
+      # built by its own workflow (build-bounty-hunting-rewards.yml). We add it
+      # here so the PTS channel produces dist/pts/bounty-hunting/. DFBNB_CHANNEL=pts
+      # surfaces the seasonal Slasher party-crasher group in the PTS preview even
+      # while the live Head Hunt toggle is still off.
+      - name: Build Bounty Hunting Rewards JSON
+        env:
+          DFBNB_CHANNEL: pts
+        run: python src/build_bounty_hunting_rewards_json.py
+
+      # Head Hunt boss groups (lifetime-challenge checklist). Built here on the
+      # PTS channel so dist/pts/bounty-hunting/head_hunt_bosses.json includes the
+      # seasonal Slasher party-crasher group while the live toggle is still off.
+      - name: Build Head Hunt Bosses JSON
+        env:
+          DFBNB_CHANNEL: pts
+        run: python src/build_head_hunt_bosses_json.py
 
       # --- MINI SEASONS ---
       - name: Build Mini Seasons JSON
@@ -348,8 +376,8 @@ jobs:
           cp dist/calculators/build_inspiration_patchlog.json  dist/patchlog_latest_df_build_inspiration.json
           cp dist/calculators/outfit_inspiration_patchlog.json dist/patchlog_latest_df_outfit_inspiration.json
 
-      - name: Build Weapon Spin Wheel JSON
-        run: python src/build_spin_wheel_json.py
+      - name: Build Weapon Spin Wheel JSON (PTS)
+        run: python src/build_spin_wheel_json.py --pts
 
       # --- DF SCOREBOARDS (placeholder patchlog) ---
       - name: Stage scoreboards patchlog feed (placeholder)
@@ -384,12 +412,21 @@ jobs:
         run: python src/build_armour_json.py --data-dir tsv --out dist/armour.json
 
       # --- COLLECTABLES ---
+      # Seed the live collectables_notes.json so the PTS build can compute
+      # isPtsNew (items in PTS but not in live). `git show` reads from the
+      # object store — safe even though dist/ was cleared.
+      - name: Seed live collectables_notes.json for PTS comparison
+        run: |
+          mkdir -p /tmp/live-dist
+          git show HEAD:dist/collectables_notes.json > /tmp/live-dist/collectables_notes.json 2>/dev/null || true
+
       - name: Build Collectables JSON
         run: |
           python src/build_collectables_json.py \
             --tsv-root tsv \
             --seasons tsv/fallout76_seasons.tsv \
-            --outdir dist
+            --outdir dist \
+            --live-dist /tmp/live-dist
 
       # --- CAMP ITEMS ---
       - name: Build Camp Items JSON
@@ -397,6 +434,16 @@ jobs:
           python src/build_camp_items_json.py \
             --tsv-root tsv \
             --outdir dist
+
+      # --- PLAN CHECKLISTS (How to Obtain) ---
+      # Writes dist/plan_master.json from the PTS tsvs; the relocate step below
+      # moves it to dist/pts/plan_master.json for the PTS plan-checklist pages.
+      - name: Build Plan Checklists (How to Obtain) JSON
+        run: |
+          python src/build_plan_obtain_json.py \
+            --data-dir tsv \
+            --outdir dist \
+            --report dist/plan_master_unresolved.json
 
       # --- VENDORS (must run before Allies — ally inventory reads vendor data) ---
       - name: Build Vendors JSON
@@ -554,7 +601,10 @@ jobs:
       - name: Build Home Events JSON
         run: node tools/build-home-events-json.mjs
 
-      # --- BUNDLES (now handled by Build Atom Shop JSON below) ---
+      # --- BUNDLES ---
+      # Extracts bundle items from dist/atom_shop.json into dist/bundles.json
+      # for df-bnb-bundles.js. Must run AFTER Build Atom Shop JSON (below).
+      # Deferred to after the Atom Shop step — see "Build Bundles JSON" below.
 
       # ===== GAP-FILLER CATEGORY BUILDS (scaffolded — real logic TBD) =====
 
@@ -637,6 +687,13 @@ jobs:
       - name: Build Legendary Mods JSON
         run: python src/build_legendary_mods_json.py
 
+      # --- LEGENDARY CRAFTING PLANNER ---
+      # Reads COBJ (shard-crafting + random-roll recipes), resolves ingredient
+      # quantities via CURV_POINTS, and looks up display names from OMOD/ALCH/MISC.
+      # Outputs dist/legendary_crafting_planner.json for df-bnb-legendary-crafting-planner.js.
+      - name: Build Legendary Crafting Planner JSON
+        run: python src/build_legendary_crafting_planner_json.py
+
       # --- LOAD SCREENS ---
       - name: Build Load Screens JSON
         run: python src/build_load_screens_json.py --data-dir tsv --out dist/load_screens.json
@@ -670,11 +727,15 @@ jobs:
         run: python src/build_weapons_json.py
 
       # --- UNIQUE WEAPONS ---
-      # Outputs dist/unique_weapons/unique_weapons.json (live) and
-      # dist/pts/unique_weapons/unique_weapons.json (PTS) for
-      # df-bnb-unique-weapons.js. Reads LVLI, WEAP, OMOD, ENCH, GMRW, QUEST TSVs.
+      # Build the single (live) channel into dist/unique_weapons/. In this
+      # workflow tsv/ has already been PTS-normalized, so that IS PTS data, and
+      # the "Relocate build output into dist/pts" step moves it to
+      # dist/pts/unique_weapons/ like every other builder. Do NOT use
+      # --channel both here: the pts channel writes straight into dist/pts/
+      # unique_weapons/, which then collides with the relocate mv ("Directory
+      # not empty"). Output consumed by df-bnb-unique-weapons.js.
       - name: Build Unique Weapons JSON
-        run: python src/build_unique_weapons_json.py --channel both
+        run: python src/build_unique_weapons_json.py --channel live
 
       # --- PENNANTS (Pennants checklist page) ---
       # Outputs dist/pennants.json, served via raw.githubusercontent to
@@ -728,61 +789,90 @@ jobs:
       - name: Build NPC Spawns JSON
         run: python tools/build_npc_spawns.py
 
-      # --- PINT-SIZED PHANTOMS GRAVE PLACEMENTS ---
-      # Regenerates tsv/phantom_grave_sites.tsv from the newest LIVE REFR export.
-      # This used to be local-only because resolving coordinates needed the 480 MB
-      # Mappalachia DB; it now falls back to data/mappalachia_geo.json (~42 KB,
-      # committed, refreshed by any local DB-backed run), so a fresh REFR export is
-      # the ONLY manual step in this chain. Exits 0 with a message when there is no
-      # live REFR export yet, rather than failing the build or reaching into tsv/pts.
-      - name: Build Phantom Grave Sites TSV
-        run: python src/build_phantom_grave_sites_tsv.py || true
+      # --- COLLECTABLE SPAWNS ({Item} Spawn Locations pages) ---
+      # Same builder as the live channel (CI CACHE mode via data/collectable_spawns/
+      # geo_cache.json). dist was wiped for the clean PTS build, so restore the committed
+      # copies first: the builder MERGE-preserves hand-filled directions/images per
+      # (region, marker), and without the seed those slots would come back empty in PTS.
+      # Seeds from live dist/ (hand-fills are authored there); `git show` reads the blob even
+      # though the working-tree file was rm -rf'd. || true so a brand-new set with no committed
+      # copy yet doesn't fail the run. Add a line here when a new set ships.
+      - name: Seed Collectable Spawns JSON from committed copies (PTS)
+        run: |
+          for f in collectable_spawns_pint-sized-slasher-masks.json; do
+            git show "HEAD:dist/$f" > "dist/$f" 2>/dev/null || true
+          done
 
-      # --- TREASURE MAP + U-MINE-IT DIG SITES ---
-      # Both regenerate from committed exports and the geo snapshot, so they belong
-      # here rather than in someone's head. Treasure map mounds come from the ACTI2
-      # export; U-Mine-It reads the REFR export (base 000355A1) — it used to read
-      # Mappalachia's Position table directly, which is what made it local-only.
-      # `|| true` so a channel with no export yet logs and moves on instead of
-      # failing a build that has nothing to do with dig sites.
-      - name: Build Treasure Map Dig Sites TSV
+      # Grave placements for the PTS channel. Reads tsv/pts/REFR_Placements_*.tsv and
+      # writes tsv/pts/phantom_grave_sites.tsv — never the live file. Coordinates
+      # resolve from the committed geo snapshot, so no Mappalachia DB is needed here.
+      # See dfbnb-patch-build.yml for the live twin.
+      - name: Build Phantom Grave Sites TSV (PTS)
+        env:
+          DFBNB_CHANNEL: pts
+        run: python src/build_phantom_grave_sites_tsv.py --pts || true
+
+      # Dig sites for the PTS channel — writes tsv/pts/, never the live files.
+      # See dfbnb-patch-build.yml for the live twins.
+      - name: Build Treasure Map Dig Sites TSV (PTS)
+        env:
+          DFBNB_CHANNEL: pts
         run: python src/build_treasure_map_dig_sites_tsv.py || true
 
-      - name: Build U-Mine-It Dig Sites TSV
+      - name: Build U-Mine-It Dig Sites TSV (PTS)
+        env:
+          DFBNB_CHANNEL: pts
         run: python src/build_u_mine_it_dig_sites_tsv.py || true
 
-      # --- COLLECTABLE SPAWNS ({Item} Spawn Locations pages) ---
-      # src/build_collectable_spawns_json.py outputs dist/collectable_spawns_<set>.json
-      # (+ manifest) for df-bnb-collectables-spawns.js, from the MISC2/ACTI2 placement
-      # exports. Like NPC spawns this runs in CI CACHE mode: it re-resolves every placement
-      # by FormID from data/collectable_spawns/geo_cache.json (committed) — regions/markers
-      # only change when DuchessFlame re-runs it locally with the Mappalachia DB and commits a
-      # fresh geo_cache.json. Hand-filled directions/images are merge-preserved on rebuild.
       - name: Build Collectable Spawns JSON
+        env:
+          DFBNB_CHANNEL: pts
         run: python src/build_collectable_spawns_json.py
 
       # --- NUKA COLA SPAWNS ({Type} Locations pages) ---
-      # src/build_nuka_cola_spawns_json.py outputs dist/nuka_cola_spawns_<slug>.json (+ manifest)
-      # for df-bnb-nuka-cola-spawns.js. It computes each flavour's FULL source closure — vending
-      # machines / collectrons / containers / loot lists / direct placements — from the committed
-      # game-file exports (LVLI_Entries / LVLI_Refs / ALCH), then attaches coordinates + region.
-      # Like the collectable/NPC spawn builds it runs in CI CACHE mode: coordinates & regions come
-      # from the committed data/nuka_cola_spawns/geo_cache.json, so the 459 MB Mappalachia DB is
-      # NOT needed in CI. The cache only changes when DuchessFlame re-runs this locally with the DB
-      # (which also retriggers this build via the data/** path). Hand-filled directions/images are
-      # merge-preserved on every rebuild.
+      # Same builder as the live channel, in CI CACHE mode: the full source closure comes from the
+      # committed game-file exports and coordinates+regions from data/nuka_cola_spawns/geo_cache.json
+      # (no Mappalachia DB in CI). data/ is NOT wiped by the PTS clean, so the cache survives; only
+      # dist/ is wiped, so restore the committed dist copies first — the builder MERGE-preserves
+      # hand-filled directions/images per (region, marker), and without the seed those slots would
+      # come back empty in PTS. Seeds from live dist/ via `git show` (reads the blob even though the
+      # working-tree file was rm -rf'd). || true so a brand-new variant with no committed copy yet
+      # doesn't fail the run. Add a line to the list when a new variant ships.
+      - name: Seed Nuka Cola Spawns JSON from committed copies (PTS)
+        run: |
+          for f in \
+            nuka_cola_spawns_manifest.json \
+            nuka_cola_spawns_nuka-cola.json \
+            nuka_cola_spawns_nuka-cola-cherry.json \
+            nuka_cola_spawns_nuka-cola-cranberry.json \
+            nuka_cola_spawns_nuka-cola-dark.json \
+            nuka_cola_spawns_nuka-cola-grape.json \
+            nuka_cola_spawns_nuka-cola-orange.json \
+            nuka_cola_spawns_nuka-cola-quantum.json \
+            nuka_cola_spawns_nuka-cola-twist.json \
+            nuka_cola_spawns_nuka-cola-vaccinated.json \
+            nuka_cola_spawns_nuka-cola-wild.json \
+            nuka_cola_spawns_nukashine.json \
+            nuka_cola_spawns_sunset-sarsaparilla.json; do
+            git show "HEAD:dist/$f" > "dist/$f" 2>/dev/null || true
+          done
+
       - name: Build Nuka Cola Spawns JSON
         run: python src/build_nuka_cola_spawns_json.py
 
-      # --- FARMING SPAWNS (config-driven, all items in farming_spawns_config.py) ---
-      # build_farming_spawns_json.py --all builds every item defined in
-      # farming_spawns_config.ALL_SETS → dist/farming_spawns/<slug>_spawns.json.
-      # Runs in CI CACHE mode: coordinates & regions come from the committed
-      # data/farming_spawns/geo_cache_*.json files (no Mappalachia DB in CI).
-      # The caches only change when DuchessFlame re-runs locally with the DB.
-      # Hand-filled directions/images are merge-preserved on every rebuild.
-      # To add a new food: add a config entry to farming_spawns_config.py,
-      # seed its geo cache locally, and the next CI run picks it up.
+      # --- FARMING SPAWNS (Cream, Deathclaw Egg Spawn Locations pages) ---
+      # Same builder as the live channel, in CI CACHE mode. dist/ was wiped for the
+      # clean PTS build, so restore the committed copies first — the builder
+      # MERGE-preserves hand-filled directions/images per (region, marker), and
+      # without the seed those slots would come back empty in PTS. Seeds from live
+      # dist/ via `git show`. || true so a first run with no committed copy doesn't fail.
+      - name: Seed Farming Spawns JSON from committed copies (PTS)
+        run: |
+          mkdir -p dist/farming_spawns
+          for f in $(git ls-tree --name-only HEAD:dist/farming_spawns/ 2>/dev/null | grep '_spawns\.json$'); do
+            git show "HEAD:dist/farming_spawns/$f" > "dist/farming_spawns/$f" 2>/dev/null || true
+          done
+
       - name: Build All Farming Spawns JSON
         run: python src/build_farming_spawns_json.py --all
 
@@ -835,10 +925,9 @@ jobs:
         run: python src/build_recipe_guide_json.py --data-dir tsv --outdir dist
 
       # --- FARMING SPAWNS "Used For" (generative) ---
-      # Injects the used_for block (consumption effects from ALCH exports,
-      # recipes from recipe_guide.json, challenges from challenges.json) into
-      # every dist/farming_spawns/<slug>_spawns.json.  Must run AFTER
-      # build_farming_spawns_json.py AND build_recipe_guide_json.py.
+      # PTS reads the PTS-normalised tsv/ + PTS dist/ produced above; the later
+      # relocate step moves dist/ -> dist/pts/, so no --pts flag is needed here.
+      # Must run AFTER build_farming_spawns_json.py AND build_recipe_guide_json.py.
       - name: Build Farming Spawns "Used For" JSON
         run: python src/build_farming_used_for.py --all
 
@@ -863,25 +952,19 @@ jobs:
       # Scoreboard season / Mini-Season event / Burning Springs).
       # Consumed by the /df/fishing/fishing-bobbers-floats/ page.
       - name: Build Fishing Equipment JSON
-        run: |
-          python src/build_fishing_equipment_json.py
-          python src/build_fishing_equipment_json.py --pts
+        run: python src/build_fishing_equipment_json.py
 
       # --- FISHING CHALLENGES CHECKLIST ---
       # Groups the fishing CHAL rows (already selected + leaf-expanded by
       # build_challenges_json_v3.py above) into Daily / Weekly / Big Fish in a
       # Little Pond / Lifetime, resolves rewards (Score + GMRW + overlay), and
-      # emits dist/fishing_challenges_checklist.json (live + PTS twins) for the
+      # emits dist/fishing_challenges_checklist.json for the
       # /df/fishing/challenges-checklist/ page. Depends on challenges.json and
       # fishing_big_fish.json, so it runs after both.
       - name: Build Fishing Daily (Big Fish) rewards
-        run: |
-          python src/build_fishing_daily_rewards_json.py
-          python src/build_fishing_daily_rewards_json.py --pts
+        run: python src/build_fishing_daily_rewards_json.py
       - name: Build Fishing Challenges Checklist JSON
-        run: |
-          python src/build_fishing_challenges_checklist_json.py
-          python src/build_fishing_challenges_checklist_json.py --pts
+        run: python src/build_fishing_challenges_checklist_json.py
 
       # --- SEASONS ---
       # Reads tsv/fallout76_seasons.tsv and emits dist/seasons.json — the
@@ -901,18 +984,26 @@ jobs:
       - name: Build PTS Season Scoreboard JSON
         run: python src/build_pts_season_scoreboard.py
 
-      # --- UPCOMING (PTS) REWARDS PREVIEW ---
-      # Same SCORE_S{N}_ENTM discovery as the scoreboard builder, but emits the
-      # rich A-Z upcoming_rewards_s{N}.json consumed by df-bnb-upcoming-rewards.js
-      # on /df/scoreboards/season-{N}/upcoming-rewards/. Only builds seasons that
-      # have NOT started yet (skips curated + past seasons); no-ops when there's
-      # nothing new.
-      - name: Build Upcoming Rewards JSON
-        run: python src/build_upcoming_rewards_json.py
-
       # --- ATOM SHOP ---
+      # build_atom_shop_json.py is a read-modify-write over dist/atom_shop.json:
+      # it reads the committed, curated item list and enriches it in place
+      # (image URLs, DESC from the ENTM export, categories, PA applicability).
+      # The "Clear dist for a clean PTS build" step above wiped the working-tree
+      # copy, so restore the committed seed from git first. `git show` reads the
+      # blob from the object store, so this works even though the file was
+      # rm -rf'd from the working tree. Live dist/ is never touched -- this only
+      # writes into the ephemeral checkout, which is relocated to dist/pts/.
+      - name: Seed atom_shop.json from committed copy (PTS)
+        run: git show HEAD:dist/atom_shop.json > dist/atom_shop.json
+
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
+
+      # --- BUNDLES (extracted from Atom Shop JSON) ---
+      # Filters atom_shop.json for bundle items + LTB bundles → dist/bundles.json
+      # for df-bnb-bundles.js (Items Available to Request page).
+      - name: Build Bundles JSON
+        run: python src/build_bundles_json.py
 
       # --- SURVIVAL TENT INTERIORS ---
       # Reads the latest tsv/SurvivalTentInteriors_Export_*.tsv (produced
@@ -925,10 +1016,8 @@ jobs:
         run: python src/build_survival_tent_interiors_json.py
 
       # --- EMOTES ---
-      # Reads the latest tsv/EMOT_Export_*.tsv (+ ENTM for name polish) and
-      # emits dist/emotes.json — consumed by the emotes page (df-bnb-atom-shop.js).
-      # Generative replacement for the old inline EMOTE_DATA array; same page
-      # family as Atom Shop / Tents so it runs alongside them.
+      # Generative emotes.json from the newest EMOT export (+ ENTM for names).
+      # Mirrors the same step in dfbnb-patch-build.yml.
       - name: Build Emotes JSON
         run: python src/build_emotes_json.py
 
@@ -1012,47 +1101,66 @@ jobs:
           # Farming spawns — check every item in config (soft-warn, geo cache may not be seeded yet)
           for f in dist/farming_spawns/*_spawns.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not built"; done
           for f in data/farming_spawns/geo_cache_*.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not seeded"; done
-          test -f dist/unique_weapons/unique_weapons.json && echo "OK unique_weapons.json"     || (echo "MISSING unique_weapons/unique_weapons.json" && exit 1)
 
-      # --- PATCH LOG FEEDS ---
-      # Built from export-vs-export diffs, so an entry only exists when a NEW TSV
-      # was uploaded. The old path wrote a fresh "today · Added 0 Removed 0
-      # Changed 0" row every six hours whether or not the game had moved, which is
-      # how five weeks of wrong grave data produced no signal anywhere.
-      #
-      # Runs LAST so it takes precedence over any feed still written by a builder
-      # on the old item-diff path.
-      - name: Build patch log feeds (export diffs)
-        run: python src/patchlog_utils.py --write-feeds --dist dist --channel live
+      # --- PATCH LOG FEEDS (PTS) ---
+      # Reads tsv/pts/ directly, NOT the normalized tsv/ tree. normalize_pts_tsv
+      # keeps only the newest pull per record type, so the normalized tree has one
+      # file each and there is nothing to diff. tsv/pts/ still holds every
+      # timestamped pull, which is exactly the per-upload history the PTS toggle
+      # should show — several entries in a busy fortnight, none in a quiet month.
+      - name: Build patch log feeds (export diffs, PTS)
+        run: python src/patchlog_utils.py --write-feeds --dist dist --channel pts
 
-      # --- COMMIT ONCE ---
-      - name: Commit & Push
+      # --- RELOCATE TO dist/pts AND COMMIT (PTS channel) ---
+      - name: Relocate build output into dist/pts
+        shell: bash
+        run: |
+          shopt -s extglob dotglob
+          mkdir -p dist/pts
+          for item in dist/!(pts); do
+            mv "$item" dist/pts/
+          done
+          echo "dist/pts now contains:"; ls -1 dist/pts | head -50
+
+      - name: Generate PTS vs Live changelog
+        shell: bash
+        run: |
+          # Restore live dist/ (from HEAD) so we can diff the two channels — but
+          # EXCLUDE dist/pts. A plain `git checkout HEAD -- dist` also reverts the
+          # freshly-relocated dist/pts back to the committed (stale) version, so the
+          # commit step below then sees no diff ("No PTS changes to commit") and the
+          # PTS channel never updates. The exclude pathspec keeps the fresh build.
+          git checkout HEAD -- dist ':(exclude)dist/pts' 2>/dev/null || true
+          python src/diff_live_pts.py --live dist --pts dist/pts --json || true
+
+      - name: Commit & Push (dist/pts only)
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@users.noreply.github.com"
 
-          git add dist/
-          git add tsv/BnB_Menu_Items.tsv
-          # Stage regenerated CURV POINTS TSV (built by build_curv_points_tsv.py)
-          git add tsv/CURV_Export_*_POINTS.tsv 2>/dev/null || true
-
+          # Stage ONLY dist/pts. This run overwrote tsv/ and cleared dist/ in the
+          # ephemeral checkout; commit dist/pts, then discard everything else so
+          # the rebase/push stays clean and live tsv/ + dist/ are untouched.
+          git add dist/pts
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+            echo "No PTS changes to commit."
           else
-            git commit -m "DFBNB Patch Build update"
+            git commit -m "DFBNB PTS Build update" -- dist/pts
+            git checkout -- . 2>/dev/null || true
+            git clean -fd tsv dist 2>/dev/null || true
             # Land on top of a moving main. Regenerated-JSON conflicts resolve in
             # favour of THIS build's output (-X theirs = the commit being replayed),
-            # and we retry to survive a push race with the PTS build. --autostash
-            # handles any remaining unstaged changes during rebase.
+            # and we retry to survive a push race with the live patch build.
             pushed=0
             for attempt in 1 2 3 4 5; do
               git fetch origin main
-              if git pull --rebase --autostash -X theirs origin main; then
+              if git pull --rebase -X theirs origin main; then
                 if git push origin main; then pushed=1; break; fi
               else
                 git rebase --abort 2>/dev/null || true
               fi
               echo "push race, retry $attempt"; sleep $((RANDOM % 6 + 3))
             done
-            [ "$pushed" = 1 ] || { echo "ERROR: could not push dist after retries"; exit 1; }
+            [ "$pushed" = 1 ] || { echo "ERROR: could not push dist/pts after retries"; exit 1; }
           fi
