@@ -42,6 +42,25 @@ VAULT_LEGENDS_SUBTITLE = (
 
 PLACEHOLDER_SUBTITLE = "Coming soon."
 
+# Follow — intro card copy only. The link cards themselves live in
+# _FOLLOW_LINKS in df-bnb-about.js (they carry inline SVG icons, so they
+# can't round-trip through JSON cleanly).
+#
+# This MUST be a real entry rather than a placeholder: renderFollow() falls
+# back to its own hardcoded blurb only when pageData.subtitle is falsy, and
+# "Coming soon." is truthy — so leaving Follow in the placeholder loop below
+# silently shipped "Coming soon." as the live subtitle. (Fixed Aug 2026.)
+FOLLOW = {
+    "title": "Follow",
+    "subtitle": (
+        "Hey, I’m Kat — also known as DuchessFlame! I create Fallout 76 "
+        "guides, break down game updates, and built Buffs n Brew to help "
+        "the community get the most out of the Wasteland. Follow me on your "
+        "favourite platform to stay in the loop with new guides, patch "
+        "breakdowns, and everything in between."
+    ),
+}
+
 # Support My Work — narrative + action cards. Edit this constant to update
 # the page content; the workflow regenerates dist/about.json on push.
 SUPPORT_MY_WORK = {
@@ -220,11 +239,13 @@ def build(src_dir: Path) -> dict:
     # in functions.php keeps the old URL working.
     about["work-with-me"] = WORK_WITH_ME
 
+    # Follow — intro card copy. Link cards are rendered from the JS module.
+    about["follow"] = FOLLOW
+
     # Other /about/ pages — placeholder until content is added.
     # Each is keyed by URL slug; the JS module dispatches by slug.
     for slug, title in [
         ("community-groups", "Community Groups"),
-        ("follow",           "Follow"),
     ]:
         about[slug] = {
             "title": title,
@@ -256,7 +277,8 @@ def main() -> int:
     print(f"  vault-legends donors: {len(data['vault-legends']['donors'])}")
     print(f"  support-my-work    actions: {len(data['support-my-work']['actions'])}")
     print(f"  work-with-me       actions: {len(data['work-with-me']['actions'])}")
-    for k in ("community-groups", "follow"):
+    print(f"  follow             subtitle={data['follow']['subtitle'][:48]!r}...")
+    for k in ("community-groups",):
         print(f"  {k:<18} title={data[k]['title']!r}, subtitle={data[k]['subtitle']!r}")
 
     return 0
