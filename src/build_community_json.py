@@ -41,14 +41,18 @@ from pathlib import Path
 
 PLACEHOLDER_SUBTITLE = "Coming soon."
 
+# `subtitle` may be a single string or a list of strings. A list renders
+# as one paragraph per entry in the intro card — use it when the copy has
+# a deliberate line break, as this page does.
 COMMUNITY_GROUPS = {
     "title": "Community Groups",
-    "subtitle": (
-        "Depending on your platform, where you live and how you like to "
-        "play, there's a community here to suit you. These are the groups "
-        "and servers I run or recommend — sorted by the platform they're "
-        "for, so start with your own and work down."
-    ),
+    "subtitle": [
+        "Here you'll find the groups and servers I run or recommend, "
+        "organised by platform.",
+        "Whether you're looking for people to play with, trade with, get "
+        "help from, or simply be part of a community, there will be "
+        "something here that suits the way you play.",
+    ],
 }
 
 
