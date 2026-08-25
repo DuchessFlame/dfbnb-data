@@ -10,7 +10,11 @@
  "name": "Trench-Med",
  "page_title": "Trench-Med",
  "blurb": "How to obtain Trench-Med — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,7 +68,41 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 25,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Trench-Med is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Chems: Thirst",
+     "display": "Quenches thirst (900/15 min)",
+     "duration": null
+    },
+    {
+     "name": "Resist Radiation Exposure",
+     "display": "+200 Resist Radiation Exposure",
+     "duration": "10 min"
+    },
+    {
+     "name": "Resist Radiation Ingestion",
+     "display": "+75 Resist Radiation Ingestion",
+     "duration": "10 min"
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,

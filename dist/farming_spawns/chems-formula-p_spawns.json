@@ -10,7 +10,11 @@
  "name": "Formula P",
  "page_title": "Formula P",
  "blurb": "How to obtain Formula P — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,7 +68,119 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 80,
+   "addiction": "Formula P Addiction",
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Formula P is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Gun Accuracy",
+     "display": "+33 Gun Accuracy",
+     "duration": "5 min"
+    },
+    {
+     "name": "Fortify Charisma",
+     "display": "+5 Fortify Charisma",
+     "duration": "5 min"
+    },
+    {
+     "name": "Fortify Luck",
+     "display": "+3 Fortify Luck",
+     "duration": "5 min"
+    },
+    {
+     "name": "Chems: Thirst",
+     "display": "Quenches thirst (180/3 min)",
+     "duration": null
+    },
+    {
+     "name": "Chance Addiction Calmex",
+     "display": "35% chance to catch a disease",
+     "duration": null
+    },
+    {
+     "name": "GHL_SURV_Chem_Effect",
+     "display": "GHL_SURV_Chem_Effect",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Formula P",
+     "form_id": "00417A42",
+     "recipe_edid": "co_chem_SFS09_FormulaP",
+     "category": "Chems",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Antiseptic",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/antiseptic/"
+      },
+      {
+       "name": "Ash Rose",
+       "qty": 2,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/ash-rose/"
+      },
+      {
+       "name": "Bloodleaf",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/bloodleaf/"
+      },
+      {
+       "name": "Kaleidopore Flower",
+       "qty": 2
+      }
+     ],
+     "effects": [
+      {
+       "name": "Gun Accuracy",
+       "display": "+33 Gun Accuracy",
+       "duration": "5 min"
+      },
+      {
+       "name": "Fortify Charisma",
+       "display": "+5 Fortify Charisma",
+       "duration": "5 min"
+      },
+      {
+       "name": "Fortify Luck",
+       "display": "+3 Fortify Luck",
+       "duration": "5 min"
+      },
+      {
+       "name": "Chems: Thirst",
+       "display": "Quenches thirst (180/3 min)",
+       "duration": null
+      },
+      {
+       "name": "Chance Addiction Calmex",
+       "display": "35% chance to catch a disease",
+       "duration": null
+      },
+      {
+       "name": "GHL_SURV_Chem_Effect",
+       "display": "+720 GHL_SURV_Chem_Effect",
+       "duration": null
+      }
+     ],
+     "how_to_obtain": "Loot List: LLS_XPD_AC_LL_Sidequest_Reward_RarePlans"
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,

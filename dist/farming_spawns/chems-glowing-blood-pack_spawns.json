@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-24",
+  "generated": "2026-08-25",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 9,
   "source_totals": {
@@ -12,7 +12,14 @@
  "name": "Glowing Blood Pack",
  "page_title": "Glowing Blood Pack",
  "blurb": "How to obtain Glowing Blood Pack — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  },
+  "creatures": {
+   "note": "Around 19 creatures can drop Glowing Blood Pack as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -66,7 +73,84 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 30,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Glowing Blood Pack is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 40 Health",
+     "duration": "5s"
+    },
+    {
+     "name": "GHL_SURV_Chem_Effect",
+     "display": "GHL_SURV_Chem_Effect",
+     "duration": null
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (540/9 min)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "+10 Rads",
+     "duration": null
+    },
+    {
+     "name": "Resist Radiation Exposure",
+     "display": "+75 Resist Radiation Exposure",
+     "duration": "10 min"
+    },
+    {
+     "name": "Resist Radiation Ingestion",
+     "display": "+75 Resist Radiation Ingestion",
+     "duration": "10 min"
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Glowing Blood Pack",
+     "form_id": "",
+     "recipe_edid": "co_chem_BloodpackGlowing",
+     "category": "Chems",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Antiseptic",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/antiseptic/"
+      },
+      {
+       "name": "Blood Pack",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/chems/chems-blood-pack/"
+      },
+      {
+       "name": "Glowing Blood",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-glowing-blood/"
+      }
+     ],
+     "effects": [],
+     "how_to_obtain": "Known by default."
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
@@ -76,7 +160,13 @@
    "list_id": "00853D3D",
    "edid": "SCORE_S23_LL_ChemMysteryMachine_Common",
    "name": "SCORE S23 Chem Mystery Machine Common",
-   "type": "Seasonal / Public Event"
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the SCORE S23 Chem Mystery Machine Common reward pool per event/activity payout.",
+   "rate_value": 0.2,
+   "rate_display": "20%",
+   "rate_lines": [
+    "20%"
+   ]
   }
  ],
  "regions": [
@@ -102,161 +192,7 @@
   },
   {
    "region": "Savage Divide",
-   "locations": [
-    {
-     "marker": "The Whitespring Golf Club",
-     "count": 5,
-     "sources": {
-      "npc": 5
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "50BBFF",
-      "50BC00",
-      "50BC01",
-      "50BC02",
-      "50BC03"
-     ],
-     "coords": [
-      -10527.14453125,
-      -55166.890625
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "50BBFF",
-       "source_type": "npc",
-       "coords": [
-        -10527.14453125,
-        -55166.890625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "50BC00",
-       "source_type": "npc",
-       "coords": [
-        -10456.419921875,
-        -55273.578125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "50BC01",
-       "source_type": "npc",
-       "coords": [
-        -10385.6953125,
-        -55380.265625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "50BC02",
-       "source_type": "npc",
-       "coords": [
-        -10314.970703125,
-        -55486.953125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "50BC03",
-       "source_type": "npc",
-       "coords": [
-        -10244.24609375,
-        -55593.640625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Toxic Larry's Meat 'n Go",
-     "count": 4,
-     "sources": {
-      "npc": 4
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "5228CA",
-      "5228CC",
-      "5228CD",
-      "5228CE"
-     ],
-     "coords": [
-      118452.9609375,
-      50019.2265625
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "5228CA",
-       "source_type": "npc",
-       "coords": [
-        118452.9609375,
-        50019.2265625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "5228CC",
-       "source_type": "npc",
-       "coords": [
-        118324.9609375,
-        50147.2265625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "5228CD",
-       "source_type": "npc",
-       "coords": [
-        118452.9609375,
-        50147.2265625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "5228CE",
-       "source_type": "npc",
-       "coords": [
-        118580.9609375,
-        50147.2265625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   },
   {
    "region": "Skyline Valley",
@@ -272,156 +208,8 @@
   },
   {
    "region": "Toxic Valley",
-   "locations": [
-    {
-     "marker": "Carleton Mine",
-     "count": 10,
-     "sources": {
-      "npc": 10
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "556493",
-      "556494",
-      "556497",
-      "55649B",
-      "55649C",
-      "556EB1",
-      "556EB4",
-      "556EB6",
-      "556F6B",
-      "556F9F"
-     ],
-     "coords": [
-      -6404.01123046875,
-      21701.2109375
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "556493",
-       "source_type": "npc",
-       "coords": [
-        -6404.01123046875,
-        21701.2109375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "556494",
-       "source_type": "npc",
-       "coords": [
-        -6448.8779296875,
-        20325.609375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "556497",
-       "source_type": "npc",
-       "coords": [
-        -7648.9580078125,
-        19423.43359375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55649B",
-       "source_type": "npc",
-       "coords": [
-        -9366.666015625,
-        18898.861328125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55649C",
-       "source_type": "npc",
-       "coords": [
-        -8798.6611328125,
-        20978.27734375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "556EB1",
-       "source_type": "npc",
-       "coords": [
-        -9936.1064453125,
-        22019.09765625
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "556EB4",
-       "source_type": "npc",
-       "coords": [
-        -10266.8603515625,
-        24209.423828125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "556EB6",
-       "source_type": "npc",
-       "coords": [
-        -9553.3154296875,
-        23279.751953125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "556F6B",
-       "source_type": "npc",
-       "coords": [
-        -7671.70263671875,
-        22347.1328125
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "556F9F",
-       "source_type": "npc",
-       "coords": [
-        -7445.63623046875,
-        23482.609375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   }
- ]
+ ],
+ "total": 0
 }

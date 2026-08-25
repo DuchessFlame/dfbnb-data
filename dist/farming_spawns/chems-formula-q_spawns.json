@@ -10,7 +10,11 @@
  "name": "Formula Q",
  "page_title": "Formula Q",
  "blurb": "How to obtain Formula Q — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,7 +68,41 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 80,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Formula Q is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Gun Accuracy",
+     "display": "+33 Gun Accuracy",
+     "duration": "5 min"
+    },
+    {
+     "name": "Fortify Luck",
+     "display": "+3 Fortify Luck",
+     "duration": "5 min"
+    },
+    {
+     "name": "Fortify Charisma",
+     "display": "+5 Fortify Charisma",
+     "duration": "5 min"
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [],
+   "note": "A quest- or event-locked chem — not craftable at a chem station."
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,

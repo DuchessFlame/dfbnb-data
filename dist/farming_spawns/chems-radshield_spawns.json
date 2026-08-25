@@ -10,7 +10,11 @@
  "name": "RadShield",
  "page_title": "RadShield",
  "blurb": "How to obtain RadShield — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,23 +68,128 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 80,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "RadShield is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Chems: Thirst",
+     "display": "Quenches thirst (108/1.8 min)",
+     "duration": null
+    },
+    {
+     "name": "GHL_SURV_Chem_Effect",
+     "display": "GHL_SURV_Chem_Effect",
+     "duration": null
+    },
+    {
+     "name": "Resist Radiation Exposure",
+     "display": "+600 Resist Radiation Exposure",
+     "duration": "15 min"
+    },
+    {
+     "name": "Resist Radiation Ingestion",
+     "display": "+600 Resist Radiation Ingestion",
+     "duration": "15 min"
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "RadShield",
+     "form_id": "00081FDE",
+     "recipe_edid": "SFM04_Organic_co_chem_RadShield",
+     "category": "Chems",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Antiseptic",
+       "qty": 2,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/antiseptic/"
+      },
+      {
+       "name": "Plastic",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/plastic/"
+      },
+      {
+       "name": "Purified Water",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-purified-water/"
+      },
+      {
+       "name": "Strangler Bloom",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/strangler-bloom/"
+      }
+     ],
+     "effects": [
+      {
+       "name": "Chems: Thirst",
+       "display": "Quenches thirst (108/1.8 min)",
+       "duration": null
+      },
+      {
+       "name": "GHL_SURV_Chem_Effect",
+       "display": "+720 GHL_SURV_Chem_Effect",
+       "duration": null
+      },
+      {
+       "name": "Resist Radiation Exposure",
+       "display": "+600 Resist Radiation Exposure",
+       "duration": "15 min"
+      },
+      {
+       "name": "Resist Radiation Ingestion",
+       "display": "+600 Resist Radiation Ingestion",
+       "duration": "15 min"
+      }
+     ],
+     "how_to_obtain": "Quest: SFM04_Organic"
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
  "random_encounters_intro": null,
  "events_activities": [
   {
-   "list_id": "00582151",
-   "edid": "LL_E05_Radiation_Quest_RewardList_Lvl3",
-   "name": "Event: Radiation Rumble",
-   "type": "Public Event"
-  },
-  {
    "list_id": "00582152",
    "edid": "LL_E05_Radiation_Quest_RewardList_Lvl4",
    "name": "Event: Radiation Rumble",
-   "type": "Public Event"
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Radiation Rumble reward pool per event/activity payout.",
+   "rate_value": 0.025,
+   "rate_display": "2.5%",
+   "rate_lines": [
+    "2.5%"
+   ]
+  },
+  {
+   "list_id": "00582151",
+   "edid": "LL_E05_Radiation_Quest_RewardList_Lvl3",
+   "name": "Event: Radiation Rumble",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Radiation Rumble reward pool per event/activity payout.",
+   "rate_value": 0.0125,
+   "rate_display": "1.25%",
+   "rate_lines": [
+    "1.25%"
+   ]
   }
  ],
  "regions": [

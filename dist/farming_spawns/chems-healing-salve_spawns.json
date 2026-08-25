@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-24",
+  "generated": "2026-08-25",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 18,
   "source_totals": {
@@ -15,7 +15,17 @@
  "name": "Healing Salve",
  "page_title": "Healing Salve",
  "blurb": "How to obtain Healing Salve — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": [
+    {
+     "name": "Responder Cache",
+     "rate": 1.0,
+     "rate_display": "100%"
+    }
+   ]
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -69,59 +79,210 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.5,
+   "value": 20,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Healing Salve is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 20 Health",
+     "duration": "5s"
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Summer Camp: Craft Healing Salve with the Squirrel Backpack equipped",
+    "edid": "ATX_DE2023_SummerCamp_Challenge_Craft_HealingSalve",
+    "page": "season:summer-camp",
+    "type": "Mini Season",
+    "required": 5
+   },
+   {
+    "name": "Craft Healing Salve",
+    "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Medic_Sub_CraftHealingSalve",
+    "page": "scouts-tadpole",
+    "type": "Lifetime",
+    "required": 3
+   }
+  ],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Healing Salve",
+     "form_id": "",
+     "recipe_edid": "co_meal_HealingSalveForest_WorkbenchCooking",
+     "category": "Chems",
+     "workbench": "Cooking Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Bloodleaf",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/bloodleaf/"
+      },
+      {
+       "name": "Boiled Water",
+       "qty": 1
+      },
+      {
+       "name": "Soot Flower",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/soot-flower/"
+      }
+     ],
+     "effects": [],
+     "how_to_obtain": "Known by default."
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Del Walsh",
+   "marker": "Nuka-World on Tour",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Duchess",
+   "marker": "The Wayward",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Mac",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "29.71%"
+   ],
+   "rate_display": "29.71%",
+   "rate_value": 0.29707,
+   "count": 1
+  }
+ ],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
  "random_encounters_intro": null,
  "events_activities": [
   {
-   "list_id": "0055AB7D",
-   "edid": "W05_Daily_R02_MidquestReward_Hunter1_LL_Meds",
-   "name": "Daily: Retirement Plan",
-   "type": "Daily"
-  },
-  {
    "list_id": "006820F7",
    "edid": "NWOT_LL_Del_Consumable",
    "name": "Del Consumable",
-   "type": "Seasonal / Public Event"
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   },
   {
    "list_id": "005480BD",
    "edid": "W05_MQ_002P_Radical_LL_Quest_Reward",
    "name": "Hunter for Hire",
-   "type": "Primary"
-  },
-  {
-   "list_id": "0055AB84",
-   "edid": "W05_Daily_R02_MidquestReward_Hunter2_LL_Meds",
-   "name": "QuestReward_W05_Daily_R02_Retirement_Stage3520_01",
-   "type": "Quest Reward"
+   "type": "Primary",
+   "note": "Chance the item is in the Hunter for Hire reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   },
   {
    "list_id": "00556D57",
    "edid": "W05_MQ_003P_Muscle_LL_Quest_Reward",
    "name": "Strength in Numbers",
-   "type": "Primary"
+   "type": "Primary",
+   "note": "Chance the item is in the Strength in Numbers reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   },
   {
    "list_id": "0059D134",
    "edid": "W05_MQ_004P_Crane_LL_Quest_Reward",
    "name": "The Elusive Crane",
-   "type": "Primary"
+   "type": "Primary",
+   "note": "Chance the item is in the The Elusive Crane reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   },
   {
    "list_id": "0053B002",
    "edid": "W05_Wayward_001P_LL_Quest_Reward",
    "name": "Wayward Souls",
-   "type": "Primary"
+   "type": "Primary",
+   "note": "Chance the item is in the Wayward Souls reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   },
   {
    "list_id": "0052E1AE",
    "edid": "zzzRS01A_LL_QuestReward",
    "name": "Zzz RS01A Quest Reward",
-   "type": "Quest Reward"
+   "type": "Quest Reward",
+   "note": "Chance the item is in the Zzz RS01A Quest Reward reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "0055AB7D",
+   "edid": "W05_Daily_R02_MidquestReward_Hunter1_LL_Meds",
+   "name": "Daily: Retirement Plan",
+   "type": "Daily",
+   "note": "Chance the item is in the Daily: Retirement Plan reward pool per event/activity payout.",
+   "rate_value": 0.25,
+   "rate_display": "25%",
+   "rate_lines": [
+    "25%"
+   ]
+  },
+  {
+   "list_id": "0055AB84",
+   "edid": "W05_Daily_R02_MidquestReward_Hunter2_LL_Meds",
+   "name": "QuestReward_W05_Daily_R02_Retirement_Stage3520_01",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the QuestReward_W05_Daily_R02_Retirement_Stage3520_01 reward pool per event/activity payout.",
+   "rate_value": 0.25,
+   "rate_display": "25%",
+   "rate_lines": [
+    "25%"
+   ]
   }
  ],
  "regions": [
@@ -149,8 +310,8 @@
       "845A71"
      ],
      "coords": [
-      -3519.67919921875,
-      13035.724609375
+      -3519.7,
+      13035.7
      ],
      "spawns": [
       {
@@ -158,8 +319,8 @@
        "ref": "845A71",
        "source_type": "vendor",
        "coords": [
-        -3519.67919921875,
-        13035.724609375
+        -3519.7,
+        13035.7
        ],
        "image_top": "",
        "directions": "",
@@ -180,8 +341,8 @@
       "8351AE"
      ],
      "coords": [
-      -218623.125,
-      87454.765625
+      -218623.1,
+      87454.8
      ],
      "spawns": [
       {
@@ -189,8 +350,8 @@
        "ref": "8351AE",
        "source_type": "direct",
        "coords": [
-        -218623.125,
-        87454.765625
+        -218623.1,
+        87454.8
        ],
        "image_top": "",
        "directions": "",
@@ -216,8 +377,8 @@
       "5368C7"
      ],
      "coords": [
-      138834.78125,
-      -158391.09375
+      138834.8,
+      -158391.1
      ],
      "spawns": [
       {
@@ -225,8 +386,8 @@
        "ref": "5368C7",
        "source_type": "direct",
        "coords": [
-        138834.78125,
-        -158391.09375
+        138834.8,
+        -158391.1
        ],
        "image_top": "",
        "directions": "",
@@ -247,8 +408,8 @@
       "59AE67"
      ],
      "coords": [
-      157032.765625,
-      -163062.125
+      157032.8,
+      -163062.1
      ],
      "spawns": [
       {
@@ -256,8 +417,8 @@
        "ref": "59AE67",
        "source_type": "direct",
        "coords": [
-        157032.765625,
-        -163062.125
+        157032.8,
+        -163062.1
        ],
        "image_top": "",
        "directions": "",
@@ -284,8 +445,8 @@
       "6EB178"
      ],
      "coords": [
-      -104824.328125,
-      69315.8125
+      -104824.3,
+      69315.8
      ],
      "spawns": [
       {
@@ -293,8 +454,8 @@
        "ref": "6EB162",
        "source_type": "direct",
        "coords": [
-        -104824.328125,
-        69315.8125
+        -104824.3,
+        69315.8
        ],
        "image_top": "",
        "directions": "",
@@ -305,8 +466,8 @@
        "ref": "6EB178",
        "source_type": "direct",
        "coords": [
-        -104901.109375,
-        69279.046875
+        -104901.1,
+        69279.0
        ],
        "image_top": "",
        "directions": "",
@@ -332,8 +493,8 @@
       "6D9592"
      ],
      "coords": [
-      -21034.33984375,
-      97068.421875
+      -19028.6,
+      103693.6
      ],
      "spawns": [
       {
@@ -341,8 +502,8 @@
        "ref": "6D9554",
        "source_type": "direct",
        "coords": [
-        -21034.33984375,
-        97068.421875
+        -21034.3,
+        97068.4
        ],
        "image_top": "",
        "directions": "",
@@ -353,8 +514,8 @@
        "ref": "6D955B",
        "source_type": "direct",
        "coords": [
-        -20071.888671875,
-        97337.8515625
+        -20071.9,
+        97337.9
        ],
        "image_top": "",
        "directions": "",
@@ -365,8 +526,8 @@
        "ref": "6D9580",
        "source_type": "direct",
        "coords": [
-        -19028.640625,
-        103693.640625
+        -19028.6,
+        103693.6
        ],
        "image_top": "",
        "directions": "",
@@ -377,8 +538,8 @@
        "ref": "6D9585",
        "source_type": "direct",
        "coords": [
-        -19652.05078125,
-        103195.09375
+        -19652.1,
+        103195.1
        ],
        "image_top": "",
        "directions": "",
@@ -389,8 +550,8 @@
        "ref": "6D958A",
        "source_type": "direct",
        "coords": [
-        -15898.2548828125,
-        103348.0234375
+        -15898.3,
+        103348.0
        ],
        "image_top": "",
        "directions": "",
@@ -401,39 +562,8 @@
        "ref": "6D9592",
        "source_type": "direct",
        "coords": [
-        -9590.859375,
-        104044.1484375
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Morgantown Trainyard",
-     "count": 1,
-     "sources": {
-      "container": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "48FB1B"
-     ],
-     "coords": [
-      -32493.029296875,
-      86536.7421875
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "48FB1B",
-       "source_type": "container",
-       "coords": [
-        -32493.029296875,
-        86536.7421875
+        -9590.9,
+        104044.1
        ],
        "image_top": "",
        "directions": "",
@@ -458,8 +588,8 @@
       "6D8A96"
      ],
      "coords": [
-      -43309.74609375,
-      -18133.6015625
+      -43483.3,
+      -19276.2
      ],
      "spawns": [
       {
@@ -467,8 +597,8 @@
        "ref": "6D8A62",
        "source_type": "direct",
        "coords": [
-        -43309.74609375,
-        -18133.6015625
+        -43309.7,
+        -18133.6
        ],
        "image_top": "",
        "directions": "",
@@ -479,8 +609,8 @@
        "ref": "6D8A69",
        "source_type": "direct",
        "coords": [
-        -43960.78515625,
-        -19702.5234375
+        -43960.8,
+        -19702.5
        ],
        "image_top": "",
        "directions": "",
@@ -491,8 +621,8 @@
        "ref": "6D8A70",
        "source_type": "direct",
        "coords": [
-        -43619.14453125,
-        -21705.677734375
+        -43619.1,
+        -21705.7
        ],
        "image_top": "",
        "directions": "",
@@ -503,8 +633,8 @@
        "ref": "6D8A7F",
        "source_type": "direct",
        "coords": [
-        -44463.140625,
-        -18137.59375
+        -44463.1,
+        -18137.6
        ],
        "image_top": "",
        "directions": "",
@@ -515,8 +645,8 @@
        "ref": "6D8A96",
        "source_type": "direct",
        "coords": [
-        -43483.28515625,
-        -19276.19921875
+        -43483.3,
+        -19276.2
        ],
        "image_top": "",
        "directions": "",
@@ -537,8 +667,8 @@
       "42B140"
      ],
      "coords": [
-      4338.0830078125,
-      -1624.39880371094
+      4338.1,
+      -1624.4
      ],
      "spawns": [
       {
@@ -546,8 +676,8 @@
        "ref": "42B140",
        "source_type": "vendor",
        "coords": [
-        4338.0830078125,
-        -1624.39880371094
+        4338.1,
+        -1624.4
        ],
        "image_top": "",
        "directions": "",
@@ -573,8 +703,8 @@
       "51B921"
      ],
      "coords": [
-      139192.1875,
-      111565.859375
+      139192.2,
+      111565.9
      ],
      "spawns": [
       {
@@ -582,8 +712,8 @@
        "ref": "51B921",
        "source_type": "direct",
        "coords": [
-        139192.1875,
-        111565.859375
+        139192.2,
+        111565.9
        ],
        "image_top": "",
        "directions": "",
@@ -613,8 +743,8 @@
       "434E92"
      ],
      "coords": [
-      -24.8781356811523,
-      3465.70092773438
+      -24.9,
+      3465.7
      ],
      "spawns": [
       {
@@ -622,8 +752,8 @@
        "ref": "434E92",
        "source_type": "direct",
        "coords": [
-        -24.8781356811523,
-        3465.70092773438
+        -24.9,
+        3465.7
        ],
        "image_top": "",
        "directions": "",
@@ -644,8 +774,8 @@
       "3B2BFD"
      ],
      "coords": [
-      172304.0625,
-      -34722.1953125
+      172304.1,
+      -34722.2
      ],
      "spawns": [
       {
@@ -653,8 +783,8 @@
        "ref": "3B2BFD",
        "source_type": "direct",
        "coords": [
-        172304.0625,
-        -34722.1953125
+        172304.1,
+        -34722.2
        ],
        "image_top": "",
        "directions": "",
@@ -681,8 +811,8 @@
       "738674"
      ],
      "coords": [
-      3732.64624023438,
-      4515.435546875
+      3732.6,
+      4515.4
      ],
      "spawns": [
       {
@@ -690,8 +820,8 @@
        "ref": "655CD3",
        "source_type": "direct",
        "coords": [
-        3732.64624023438,
-        4515.435546875
+        3732.6,
+        4515.4
        ],
        "image_top": "",
        "directions": "",
@@ -702,8 +832,8 @@
        "ref": "738674",
        "source_type": "direct",
        "coords": [
-        3732.64624023438,
-        4515.435546875
+        3732.6,
+        4515.4
        ],
        "image_top": "",
        "directions": "",
@@ -729,8 +859,8 @@
       "592591"
      ],
      "coords": [
-      -804.252197265625,
-      19904.935546875
+      -804.3,
+      19904.9
      ],
      "spawns": [
       {
@@ -738,8 +868,8 @@
        "ref": "592591",
        "source_type": "static",
        "coords": [
-        -804.252197265625,
-        19904.935546875
+        -804.3,
+        19904.9
        ],
        "image_top": "",
        "directions": "",
@@ -749,5 +879,6 @@
     }
    ]
   }
- ]
+ ],
+ "total": 24
 }
