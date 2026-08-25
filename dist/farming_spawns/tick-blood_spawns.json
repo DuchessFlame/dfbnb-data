@@ -18,36 +18,11 @@
    "list_edid": "LLD_Creature_Tick",
    "list_id": "0008EDE7",
    "mechanism": "UseAll list with 3 entries. Entry 0: TickBlood at CN=65 (35% chance of 1 tick blood). Entry 1: TickBloodSac at CN=0 (guaranteed 1 tick blood sac). Entry 2: LLE_Creature_Small (generic small creature loot).",
-   "note": "Every tick kill guarantees 1 tick blood sac. There is a 35% chance of also receiving 1 tick blood from the same kill. All tick variants (Tick, Foul Tick, Wretched Tick, Vile Tick, Glowing Tick) share the same death item list.",
-   "rate": 0.35,
-   "rate_lines": [
-    "35%"
-   ],
-   "rate_display": "35%"
+   "note": "Every tick kill guarantees 1 tick blood sac. There is a 35% chance of also receiving 1 tick blood from the same kill. All tick variants (Tick, Foul Tick, Wretched Tick, Vile Tick, Glowing Tick) share the same death item list."
   },
   "vendors": null,
   "resource_generators": {
-   "note": "Mystery Crate (Mire) has a ~3.85% chance per crate (2 of 52 entries in LL_InsectParts, pick-one).",
-   "entries": [
-    {
-     "name": "Morbid Well Collector",
-     "edid": "ATX_MorbidWell",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "7 min 12 sec",
-     "items": [
-      {
-       "name": "Tick Blood",
-       "form_id": "003D7494",
-       "rate": 0.142857,
-       "rate_display": "14.29%",
-       "rate_source": "computed"
-      }
-     ]
-    }
-   ]
-  },
-  "containers": {
-   "types": []
+   "note": "Mystery Crate (Mire) has a ~3.85% chance per crate (2 of 52 entries in LL_InsectParts, pick-one)."
   }
  },
  "farming_tips": {
@@ -103,194 +78,7 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Drink",
-   "weight": 0.75,
-   "value": 7,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": false,
-   "note": "Tick Blood is a drink consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Restore Health",
-     "display": "Restores 20 Health",
-     "duration": "10s"
-    },
-    {
-     "name": "Quench Thirst",
-     "display": "Quenches thirst (540/9 min)",
-     "duration": null
-    },
-    {
-     "name": "Rads",
-     "display": "+15 Rads",
-     "duration": null
-    }
-   ]
-  },
-  "challenges": [],
-  "recipes": [
-   {
-    "name": "Blood Pack",
-    "form_id": "00052409",
-    "recipe_edid": "co_chem_Bloodpack",
-    "category": "Chems",
-    "workbench": "Chemistry Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": null,
-    "ingredients": [
-     {
-      "name": "Antiseptic",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/antiseptic/"
-     },
-     {
-      "name": "Tick Blood",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-tick-blood/",
-      "is_main": true
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 50 Health",
-      "duration": "10s"
-     },
-     {
-      "name": "Quench Thirst",
-      "display": "Quenches thirst (540/9 min)",
-      "duration": null
-     },
-     {
-      "name": "GHL_SURV_Chem_Effect",
-      "display": "+90 GHL_SURV_Chem_Effect",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+10 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Known by default."
-   },
-   {
-    "name": "Fasnacht Sausage",
-    "form_id": "003EEA45",
-    "recipe_edid": "co_meal_Sausage_Fasnacht",
-    "category": "Food (Meat)",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Boiled Water",
-      "qty": 2
-     },
-     {
-      "name": "Spices",
-      "qty": 1
-     },
-     {
-      "name": "Spoiled Meat",
-      "qty": 2
-     },
-     {
-      "name": "Tick Blood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-tick-blood/",
-      "is_main": true
-     },
-     {
-      "name": "Intestine",
-      "qty": 1
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 30 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Health",
-      "display": "+40 Fortify Health",
-      "duration": "30 min"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (1440/24 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+2 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Recipe: Fasnacht Sausage"
-   },
-   {
-    "name": "Fermentable Tick Blood Tequila",
-    "form_id": "0046985C",
-    "recipe_edid": "co_Brewing_TickBloodTequila",
-    "category": "Food",
-    "workbench": "Brewing Station",
-    "output_qty": 1,
-    "item_qty": 3,
-    "mutation": null,
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 3,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Mutfruit",
-      "qty": 3,
-      "url": "https://www.buffsnbrew.com/bnb/farming/plants/mutfruit/"
-     },
-     {
-      "name": "Boiled Water",
-      "qty": 3
-     },
-     {
-      "name": "Stable Crimson Flux",
-      "qty": 3
-     },
-     {
-      "name": "Tick Blood",
-      "qty": 3,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-tick-blood/",
-      "is_main": true
-     }
-    ],
-    "effects": [
-     {
-      "name": "Disease Chance",
-      "display": "9% chance to catch a disease",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Quest: D01A_Brewing_MasterQuest"
-   }
-  ],
-  "obtain": {
-   "recipes": [],
-   "note": null
-  }
- },
- "vendor_list": [],
+ "used_for": null,
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
@@ -326,8 +114,8 @@
       "36B207"
      ],
      "coords": [
-      147875.7,
-      -107686.7
+      147875.65625,
+      -107686.65625
      ],
      "spawns": [
       {
@@ -335,8 +123,8 @@
        "ref": "36B205",
        "source_type": "npc",
        "coords": [
-        147875.7,
-        -107686.7
+        147875.65625,
+        -107686.65625
        ],
        "image_top": "",
        "directions": "",
@@ -347,8 +135,8 @@
        "ref": "36B207",
        "source_type": "npc",
        "coords": [
-        147747.7,
-        -107686.7
+        147747.65625,
+        -107686.65625
        ],
        "image_top": "",
        "directions": "",
@@ -371,8 +159,8 @@
       "36B1F6"
      ],
      "coords": [
-      207913.5,
-      -144565.4
+      207913.515625,
+      -144565.40625
      ],
      "spawns": [
       {
@@ -380,8 +168,8 @@
        "ref": "36B1F3",
        "source_type": "npc",
        "coords": [
-        207913.5,
-        -144565.4
+        207913.515625,
+        -144565.40625
        ],
        "image_top": "",
        "directions": "",
@@ -392,8 +180,8 @@
        "ref": "36B1F5",
        "source_type": "npc",
        "coords": [
-        207785.5,
-        -144565.4
+        207785.515625,
+        -144565.40625
        ],
        "image_top": "",
        "directions": "",
@@ -404,8 +192,8 @@
        "ref": "36B1F6",
        "source_type": "npc",
        "coords": [
-        208041.5,
-        -144565.4
+        208041.515625,
+        -144565.40625
        ],
        "image_top": "",
        "directions": "",
@@ -431,8 +219,8 @@
       "33E129"
      ],
      "coords": [
-      -14067.6,
-      -8255.4
+      -14067.64453125,
+      -8255.423828125
      ],
      "spawns": [
       {
@@ -440,8 +228,8 @@
        "ref": "33E129",
        "source_type": "npc",
        "coords": [
-        -14067.6,
-        -8255.4
+        -14067.64453125,
+        -8255.423828125
        ],
        "image_top": "",
        "directions": "",
@@ -468,8 +256,8 @@
       "587B81"
      ],
      "coords": [
-      -108691.0,
-      84200.4
+      -108690.953125,
+      84200.421875
      ],
      "spawns": [
       {
@@ -477,8 +265,8 @@
        "ref": "289E6A",
        "source_type": "npc",
        "coords": [
-        -108691.0,
-        84200.4
+        -108690.953125,
+        84200.421875
        ],
        "image_top": "",
        "directions": "",
@@ -489,8 +277,8 @@
        "ref": "289E6B",
        "source_type": "npc",
        "coords": [
-        -109033.8,
-        83801.7
+        -109033.828125,
+        83801.734375
        ],
        "image_top": "",
        "directions": "",
@@ -501,8 +289,8 @@
        "ref": "289E6C",
        "source_type": "npc",
        "coords": [
-        -108924.4,
-        84169.2
+        -108924.421875,
+        84169.15625
        ],
        "image_top": "",
        "directions": "",
@@ -513,8 +301,8 @@
        "ref": "289E6D",
        "source_type": "npc",
        "coords": [
-        -108810.2,
-        84292.2
+        -108810.203125,
+        84292.1796875
        ],
        "image_top": "",
        "directions": "",
@@ -525,8 +313,8 @@
        "ref": "587B7F",
        "source_type": "npc",
        "coords": [
-        -108755.2,
-        84486.8
+        -108755.2265625,
+        84486.796875
        ],
        "image_top": "",
        "directions": "",
@@ -537,8 +325,8 @@
        "ref": "587B80",
        "source_type": "npc",
        "coords": [
-        -108675.6,
-        84575.7
+        -108675.625,
+        84575.703125
        ],
        "image_top": "",
        "directions": "",
@@ -549,8 +337,8 @@
        "ref": "587B81",
        "source_type": "npc",
        "coords": [
-        -108716.5,
-        84523.3
+        -108716.4609375,
+        84523.28125
        ],
        "image_top": "",
        "directions": "",
@@ -573,8 +361,8 @@
       "30869D"
      ],
      "coords": [
-      -236.8,
-      -4309.5
+      -236.83186340332,
+      -4309.5439453125
      ],
      "spawns": [
       {
@@ -582,8 +370,8 @@
        "ref": "30869B",
        "source_type": "npc",
        "coords": [
-        -236.8,
-        -4309.5
+        -236.83186340332,
+        -4309.5439453125
        ],
        "image_top": "",
        "directions": "",
@@ -594,8 +382,8 @@
        "ref": "30869C",
        "source_type": "npc",
        "coords": [
-        -228.3,
-        -3894.5
+        -228.330307006836,
+        -3894.48291015625
        ],
        "image_top": "",
        "directions": "",
@@ -606,8 +394,8 @@
        "ref": "30869D",
        "source_type": "npc",
        "coords": [
-        -172.5,
-        -4091.7
+        -172.548721313477,
+        -4091.708984375
        ],
        "image_top": "",
        "directions": "",
@@ -634,8 +422,8 @@
       "2474F1"
      ],
      "coords": [
-      67528.0,
-      -30133.4
+      67527.9765625,
+      -30133.421875
      ],
      "spawns": [
       {
@@ -643,8 +431,8 @@
        "ref": "2460E7",
        "source_type": "npc",
        "coords": [
-        67528.0,
-        -30133.4
+        67527.9765625,
+        -30133.421875
        ],
        "image_top": "",
        "directions": "",
@@ -655,8 +443,8 @@
        "ref": "2474F1",
        "source_type": "npc",
        "coords": [
-        67699.4,
-        -30256.4
+        67699.375,
+        -30256.376953125
        ],
        "image_top": "",
        "directions": "",
@@ -678,8 +466,8 @@
       "08E1D6"
      ],
      "coords": [
-      -13559.2,
-      -161215.6
+      -13559.203125,
+      -161215.609375
      ],
      "spawns": [
       {
@@ -687,8 +475,8 @@
        "ref": "08E1D5",
        "source_type": "npc",
        "coords": [
-        -13559.2,
-        -161215.6
+        -13559.203125,
+        -161215.609375
        ],
        "image_top": "",
        "directions": "",
@@ -699,8 +487,8 @@
        "ref": "08E1D6",
        "source_type": "npc",
        "coords": [
-        -14180.6,
-        -161572.9
+        -14180.591796875,
+        -161572.875
        ],
        "image_top": "",
        "directions": "",
@@ -721,8 +509,8 @@
       "5DC9A4"
      ],
      "coords": [
-      -2696.2,
-      6768.2
+      -2696.2021484375,
+      6768.236328125
      ],
      "spawns": [
       {
@@ -730,8 +518,8 @@
        "ref": "5DC9A4",
        "source_type": "npc",
        "coords": [
-        -2696.2,
-        6768.2
+        -2696.2021484375,
+        6768.236328125
        ],
        "image_top": "",
        "directions": "",
@@ -754,7 +542,7 @@
       "14C1A8"
      ],
      "coords": [
-      9532.0,
+      9531.962890625,
       -166100.0
      ],
      "spawns": [
@@ -763,7 +551,7 @@
        "ref": "14C03F",
        "source_type": "npc",
        "coords": [
-        9532.0,
+        9531.962890625,
         -166100.0
        ],
        "image_top": "",
@@ -775,8 +563,8 @@
        "ref": "14C040",
        "source_type": "npc",
        "coords": [
-        9610.7,
-        -165671.0
+        9610.6689453125,
+        -165671.015625
        ],
        "image_top": "",
        "directions": "",
@@ -787,8 +575,8 @@
        "ref": "14C1A8",
        "source_type": "npc",
        "coords": [
-        9180.2,
-        -165416.1
+        9180.2431640625,
+        -165416.0625
        ],
        "image_top": "",
        "directions": "",
@@ -811,8 +599,8 @@
       "50C2B2"
      ],
      "coords": [
-      111471.8,
-      130209.9
+      111471.765625,
+      130209.9375
      ],
      "spawns": [
       {
@@ -820,8 +608,8 @@
        "ref": "50C2AF",
        "source_type": "npc",
        "coords": [
-        111471.8,
-        130209.9
+        111471.765625,
+        130209.9375
        ],
        "image_top": "",
        "directions": "",
@@ -832,8 +620,8 @@
        "ref": "50C2B1",
        "source_type": "npc",
        "coords": [
-        111315.2,
-        130349.1
+        111315.171875,
+        130349.109375
        ],
        "image_top": "",
        "directions": "",
@@ -844,8 +632,8 @@
        "ref": "50C2B2",
        "source_type": "npc",
        "coords": [
-        111653.7,
-        130238.3
+        111653.71875,
+        130238.3125
        ],
        "image_top": "",
        "directions": "",
@@ -867,8 +655,8 @@
       "3DC846"
      ],
      "coords": [
-      104298.3,
-      140079.9
+      104298.296875,
+      140079.90625
      ],
      "spawns": [
       {
@@ -876,8 +664,8 @@
        "ref": "3DC843",
        "source_type": "npc",
        "coords": [
-        104298.3,
-        140079.9
+        104298.296875,
+        140079.90625
        ],
        "image_top": "",
        "directions": "",
@@ -888,8 +676,8 @@
        "ref": "3DC846",
        "source_type": "npc",
        "coords": [
-        104649.8,
-        140075.7
+        104649.8203125,
+        140075.734375
        ],
        "image_top": "",
        "directions": "",
@@ -969,8 +757,8 @@
       "3C7172"
      ],
      "coords": [
-      42205.8,
-      -112324.8
+      42205.828125,
+      -112324.8125
      ],
      "spawns": [
       {
@@ -978,8 +766,8 @@
        "ref": "3C716F",
        "source_type": "npc",
        "coords": [
-        42205.8,
-        -112324.8
+        42205.828125,
+        -112324.8125
        ],
        "image_top": "",
        "directions": "",
@@ -990,8 +778,8 @@
        "ref": "3C7171",
        "source_type": "npc",
        "coords": [
-        42113.4,
-        -112168.6
+        42113.390625,
+        -112168.6328125
        ],
        "image_top": "",
        "directions": "",
@@ -1002,8 +790,8 @@
        "ref": "3C7172",
        "source_type": "npc",
        "coords": [
-        42369.4,
-        -112168.6
+        42369.390625,
+        -112168.6328125
        ],
        "image_top": "",
        "directions": "",
@@ -1026,8 +814,8 @@
       "3DDF28"
      ],
      "coords": [
-      79436.4,
-      119218.6
+      79436.421875,
+      119218.625
      ],
      "spawns": [
       {
@@ -1035,8 +823,8 @@
        "ref": "3DDF25",
        "source_type": "npc",
        "coords": [
-        79436.4,
-        119218.6
+        79436.421875,
+        119218.625
        ],
        "image_top": "",
        "directions": "",
@@ -1047,8 +835,8 @@
        "ref": "3DDF27",
        "source_type": "npc",
        "coords": [
-        78786.3,
-        119567.3
+        78786.328125,
+        119567.2578125
        ],
        "image_top": "",
        "directions": "",
@@ -1059,8 +847,8 @@
        "ref": "3DDF28",
        "source_type": "npc",
        "coords": [
-        80027.7,
-        119778.2
+        80027.6953125,
+        119778.2421875
        ],
        "image_top": "",
        "directions": "",
@@ -1082,8 +870,8 @@
       "3E0D5C"
      ],
      "coords": [
-      -21465.6,
-      -35310.4
+      -21465.60546875,
+      -35310.3515625
      ],
      "spawns": [
       {
@@ -1091,8 +879,8 @@
        "ref": "3E0D59",
        "source_type": "npc",
        "coords": [
-        -21465.6,
-        -35310.4
+        -21465.60546875,
+        -35310.3515625
        ],
        "image_top": "",
        "directions": "",
@@ -1103,8 +891,8 @@
        "ref": "3E0D5C",
        "source_type": "npc",
        "coords": [
-        -20996.2,
-        -35103.3
+        -20996.158203125,
+        -35103.3125
        ],
        "image_top": "",
        "directions": "",
@@ -1126,8 +914,8 @@
       "2CB374"
      ],
      "coords": [
-      -31059.0,
-      -94500.9
+      -31058.994140625,
+      -94500.8984375
      ],
      "spawns": [
       {
@@ -1135,8 +923,8 @@
        "ref": "2CB373",
        "source_type": "npc",
        "coords": [
-        -31059.0,
-        -94500.9
+        -31058.994140625,
+        -94500.8984375
        ],
        "image_top": "",
        "directions": "",
@@ -1147,8 +935,8 @@
        "ref": "2CB374",
        "source_type": "npc",
        "coords": [
-        -31371.9,
-        -94605.7
+        -31371.892578125,
+        -94605.7421875
        ],
        "image_top": "",
        "directions": "",
@@ -1170,8 +958,8 @@
       "3E0D4D"
      ],
      "coords": [
-      80926.3,
-      -56786.0
+      80926.3125,
+      -56786.046875
      ],
      "spawns": [
       {
@@ -1179,8 +967,8 @@
        "ref": "3E0D4B",
        "source_type": "npc",
        "coords": [
-        80926.3,
-        -56786.0
+        80926.3125,
+        -56786.046875
        ],
        "image_top": "",
        "directions": "",
@@ -1191,8 +979,8 @@
        "ref": "3E0D4D",
        "source_type": "npc",
        "coords": [
-        80798.3,
-        -56786.0
+        80798.3125,
+        -56786.046875
        ],
        "image_top": "",
        "directions": "",
@@ -1223,8 +1011,8 @@
       "390098"
      ],
      "coords": [
-      184661.4,
-      156504.5
+      184661.390625,
+      156504.515625
      ],
      "spawns": [
       {
@@ -1232,8 +1020,8 @@
        "ref": "390041",
        "source_type": "npc",
        "coords": [
-        184661.4,
-        156504.5
+        184661.390625,
+        156504.515625
        ],
        "image_top": "",
        "directions": "",
@@ -1244,8 +1032,8 @@
        "ref": "390098",
        "source_type": "npc",
        "coords": [
-        184440.8,
-        156485.6
+        184440.78125,
+        156485.59375
        ],
        "image_top": "",
        "directions": "",
@@ -1267,8 +1055,8 @@
       "37E24A"
      ],
      "coords": [
-      154343.6,
-      90732.8
+      154343.609375,
+      90732.84375
      ],
      "spawns": [
       {
@@ -1276,8 +1064,8 @@
        "ref": "37E247",
        "source_type": "npc",
        "coords": [
-        154343.6,
-        90732.8
+        154343.609375,
+        90732.84375
        ],
        "image_top": "",
        "directions": "",
@@ -1288,8 +1076,8 @@
        "ref": "37E24A",
        "source_type": "npc",
        "coords": [
-        154567.2,
-        90723.9
+        154567.1875,
+        90723.921875
        ],
        "image_top": "",
        "directions": "",
@@ -1315,8 +1103,8 @@
       "37E243"
      ],
      "coords": [
-      155575.7,
-      86560.9
+      155575.6875,
+      86560.8984375
      ],
      "spawns": [
       {
@@ -1324,8 +1112,8 @@
        "ref": "37E239",
        "source_type": "npc",
        "coords": [
-        155575.7,
-        86560.9
+        155575.6875,
+        86560.8984375
        ],
        "image_top": "",
        "directions": "",
@@ -1336,8 +1124,8 @@
        "ref": "37E23B",
        "source_type": "npc",
        "coords": [
-        155461.6,
-        86407.5
+        155461.625,
+        86407.453125
        ],
        "image_top": "",
        "directions": "",
@@ -1348,7 +1136,7 @@
        "ref": "37E23C",
        "source_type": "npc",
        "coords": [
-        155720.4,
+        155720.375,
         86723.5
        ],
        "image_top": "",
@@ -1360,8 +1148,8 @@
        "ref": "37E240",
        "source_type": "npc",
        "coords": [
-        160022.8,
-        83880.6
+        160022.796875,
+        83880.59375
        ],
        "image_top": "",
        "directions": "",
@@ -1372,7 +1160,7 @@
        "ref": "37E242",
        "source_type": "npc",
        "coords": [
-        159848.5,
+        159848.453125,
         83878.0
        ],
        "image_top": "",
@@ -1384,8 +1172,8 @@
        "ref": "37E243",
        "source_type": "npc",
        "coords": [
-        160233.5,
-        83862.3
+        160233.453125,
+        83862.34375
        ],
        "image_top": "",
        "directions": "",
@@ -1407,8 +1195,8 @@
       "3D758C"
      ],
      "coords": [
-      160731.8,
-      126233.7
+      160731.75,
+      126233.65625
      ],
      "spawns": [
       {
@@ -1416,8 +1204,8 @@
        "ref": "3D758B",
        "source_type": "npc",
        "coords": [
-        160731.8,
-        126233.7
+        160731.75,
+        126233.65625
        ],
        "image_top": "",
        "directions": "",
@@ -1428,8 +1216,8 @@
        "ref": "3D758C",
        "source_type": "npc",
        "coords": [
-        161115.8,
-        126147.3
+        161115.796875,
+        126147.2890625
        ],
        "image_top": "",
        "directions": "",
@@ -1457,8 +1245,8 @@
       "4398D0"
      ],
      "coords": [
-      145438.8,
-      -19413.1
+      145438.78125,
+      -19413.09765625
      ],
      "spawns": [
       {
@@ -1466,8 +1254,8 @@
        "ref": "4398C9",
        "source_type": "npc",
        "coords": [
-        145438.8,
-        -19413.1
+        145438.78125,
+        -19413.09765625
        ],
        "image_top": "",
        "directions": "",
@@ -1478,8 +1266,8 @@
        "ref": "4398CA",
        "source_type": "npc",
        "coords": [
-        145303.7,
-        -19390.7
+        145303.6875,
+        -19390.685546875
        ],
        "image_top": "",
        "directions": "",
@@ -1490,8 +1278,8 @@
        "ref": "4398CB",
        "source_type": "npc",
        "coords": [
-        145175.7,
-        -19379.5
+        145175.734375,
+        -19379.533203125
        ],
        "image_top": "",
        "directions": "",
@@ -1502,8 +1290,8 @@
        "ref": "4398CC",
        "source_type": "npc",
        "coords": [
-        145576.7,
-        -19424.0
+        145576.65625,
+        -19424.009765625
        ],
        "image_top": "",
        "directions": "",
@@ -1514,8 +1302,8 @@
        "ref": "4398CD",
        "source_type": "npc",
        "coords": [
-        146398.0,
-        -19921.4
+        146398.03125,
+        -19921.443359375
        ],
        "image_top": "",
        "directions": "",
@@ -1526,8 +1314,8 @@
        "ref": "4398CE",
        "source_type": "npc",
        "coords": [
-        146171.8,
-        -19535.2
+        146171.84375,
+        -19535.185546875
        ],
        "image_top": "",
        "directions": "",
@@ -1538,8 +1326,8 @@
        "ref": "4398CF",
        "source_type": "npc",
        "coords": [
-        146008.4,
-        -20636.2
+        146008.375,
+        -20636.2265625
        ],
        "image_top": "",
        "directions": "",
@@ -1550,8 +1338,8 @@
        "ref": "4398D0",
        "source_type": "npc",
        "coords": [
-        145153.4,
-        -20658.6
+        145153.390625,
+        -20658.646484375
        ],
        "image_top": "",
        "directions": "",
@@ -1573,8 +1361,8 @@
       "3B769F"
      ],
      "coords": [
-      201394.5,
-      -3644.6
+      201394.53125,
+      -3644.55517578125
      ],
      "spawns": [
       {
@@ -1582,8 +1370,8 @@
        "ref": "3B769C",
        "source_type": "npc",
        "coords": [
-        201394.5,
-        -3644.6
+        201394.53125,
+        -3644.55517578125
        ],
        "image_top": "",
        "directions": "",
@@ -1594,8 +1382,8 @@
        "ref": "3B769F",
        "source_type": "npc",
        "coords": [
-        201692.1,
-        -3610.9
+        201692.078125,
+        -3610.91064453125
        ],
        "image_top": "",
        "directions": "",

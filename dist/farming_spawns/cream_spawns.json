@@ -4,7 +4,7 @@
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 61,
   "source_totals": {
-   "direct": 81,
+   "direct": 80,
    "static": 3,
    "vendor": 30
   },
@@ -19,34 +19,20 @@
    "list_edid": "LPI_Drink_Cream",
    "list_id": "00215C9C",
    "chance_none_glob": "LPI_Chance_Drink_Common_ECON",
-   "note": "Each world spawn rolls a per-server-hop chance (computed).",
-   "rate": 0.5,
-   "rate_display": "50%",
-   "rate_source": "computed"
+   "note": "Each world spawn rolls a per-server-hop chance (computed)."
   },
   "vendors": {
    "general": {
     "list_edid": "LLV_Vendor_Drink",
     "list_id": "003C24EA",
     "mechanism": "Cream is 1 of 3 items in LL_Drink_NonAlcohol_Basic_NoWater (pick-one), so its per-roll pick rate from the drink pool is ~33%.",
-    "note": "Cream's per-roll pick rate from a general vendor's drink pool (computed).",
-    "rate": 0.782407,
-    "rate_lines": [
-     "78.24%",
-     "27.78%"
-    ],
-    "rate_display": "78.24% / 27.78%"
+    "note": "Cream's per-roll pick rate from a general vendor's drink pool (computed)."
    },
    "raider": {
     "list_edid": "LLV_Vendor_Healing_Faction_Raiders",
     "list_id": "003D7F7C",
     "mechanism": "In the raider healing pool cream sits at ChanceNone 85, i.e. a 15% per-roll pick rate.",
-    "note": "Cream's per-roll pick rate in the raider healing pool (computed).",
-    "rate": 0.15,
-    "rate_lines": [
-     "15%"
-    ],
-    "rate_display": "15%"
+    "note": "Cream's per-roll pick rate in the raider healing pool (computed)."
    },
    "vera": {
     "list_edid": "Vendor_Moon_Vera_BlueRidge",
@@ -54,18 +40,10 @@
     "qty": 3,
     "location": "Middle Mountain Pitstop",
     "region": "Savage Divide",
-    "note": "Vera always stocks 3 cream.",
-    "rate": 1.0,
-    "rate_lines": [
-     "100%"
-    ],
-    "rate_display": "100%"
+    "note": "Vera always stocks 3 cream."
    }
   },
-  "resource_generators": null,
-  "containers": {
-   "types": []
-  }
+  "resource_generators": null
  },
  "farming_tips": {
   "spoils": false,
@@ -120,812 +98,7 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Drink",
-   "weight": 0.5,
-   "value": 5,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": false,
-   "note": "Cream is a drink consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Restore Health",
-     "display": "Restores 20 Health",
-     "duration": "10s"
-    },
-    {
-     "name": "Quench Thirst",
-     "display": "Quenches thirst (900/15 min)",
-     "duration": null
-    },
-    {
-     "name": "Disease Chance",
-     "display": "5% chance to catch a disease",
-     "duration": null
-    }
-   ]
-  },
-  "challenges": [],
-  "recipes": [
-   {
-    "name": "Company Tea",
-    "form_id": "00120C9B",
-    "recipe_edid": "co_meal_CompanyTea_RSVP02",
-    "category": "Drink",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "Herbivore",
-    "ingredients": [
-     {
-      "name": "Whiskey",
-      "qty": 1
-     },
-     {
-      "name": "Nuka-Cola",
-      "qty": 1
-     },
-     {
-      "name": "Cream",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-cream/",
-      "is_main": true
-     },
-     {
-      "name": "Sweet Labrador Tea",
-      "qty": 1
-     }
-    ],
-    "effects": [
-     {
-      "name": "+AP Regen",
-      "display": "+10 Action Point regen",
-      "duration": "1 hour"
-     },
-     {
-      "name": "Disease Resistance",
-      "display": "+20 Disease Resistance",
-      "duration": "1 hour"
-     },
-     {
-      "name": "Quench Thirst",
-      "display": "Quenches thirst (1500/25 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+2 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Recipe: Delbert's Company Tea"
-   },
-   {
-    "name": "Fish Chowder",
-    "form_id": "007B3FB6",
-    "recipe_edid": "co_meal_Fishing_FishChowder",
-    "category": "Food (Meat)",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Boiled Water",
-      "qty": 1
-     },
-     {
-      "name": "Salt",
-      "qty": 1
-     },
-     {
-      "name": "Pepper",
-      "qty": 1
-     },
-     {
-      "name": "Cream",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-cream/",
-      "is_main": true
-     },
-     {
-      "name": "Fish Bits",
-      "qty": 5
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 20 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Reduced Hunger",
-      "display": "-25% hunger rate",
-      "duration": "30 min"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (5400/90 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+2 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Recipe: Fish Chowder"
-   },
-   {
-    "name": "Moo-Moo Curd",
-    "form_id": "008B73C0",
-    "recipe_edid": "co_meal_BrahminCurd",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": null,
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Spices",
-      "qty": 2
-     },
-     {
-      "name": "Cream",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-cream/",
-      "is_main": true
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 25 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Action Points",
-      "display": "+10 Action Points",
-      "duration": "30 min"
-     },
-     {
-      "name": "Quench Thirst",
-      "display": "Quenches thirst (240/4 min)",
-      "duration": null
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (720/12 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Recipe: Moo-Moo Curd"
-   }
-  ],
-  "obtain": {
-   "recipes": [],
-   "note": null
-  }
- },
- "vendor_list": [
-  {
-   "name": "Vera (Blue Ridge)",
-   "marker": "Middle Mountain Pitstop",
-   "region": "Savage Divide",
-   "vendor_type": "Named vendor",
-   "rate_lines": [
-    "100% (3 guaranteed)"
-   ],
-   "rate_display": "100% (3 guaranteed)",
-   "rate_value": 1.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Chad",
-   "marker": "Camden Park",
-   "region": "Ash Heap",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Lewisburg Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Welch Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Carmen",
-   "marker": "Atlantic City",
-   "region": "Atlantic City",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Fast Nicky",
-   "marker": "Atlantic City",
-   "region": "Atlantic City",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Pete Rutledge",
-   "marker": "Atlantic City",
-   "region": "Atlantic City",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "May",
-   "marker": "Highway Town Interior",
-   "region": "Burning Springs",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Hocking Hills Vendor Bot",
-   "marker": "Hocking Hills Train Station",
-   "region": "Burning Springs",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Phoenix",
-   "marker": "Watoga Shopping Plaza",
-   "region": "Cranberry Bog",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Watoga Vendor Bot",
-   "marker": "Watoga Station",
-   "region": "Cranberry Bog",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Mack",
-   "marker": "Charleston Fire Department",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Charleston Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Bob",
-   "marker": "Flatwoods",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Responder Vendor",
-   "marker": "Morgantown High School",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Morgantown Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "Sutton Station",
-   "region": "Forest",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Sunny",
-   "marker": "Foundation",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Resin",
-   "marker": "Pleasant Valley Ski Resort",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%",
-    "7.5%"
-   ],
-   "rate_display": "78.24% / 27.78% / 7.5%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "Pleasant Valley Station",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "R&G Station",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "Sunnytop Station",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Brotherhood Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Free States Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Raiders Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%",
-    "7.5%"
-   ],
-   "rate_display": "78.24% / 27.78% / 7.5%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Responders Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Shopping Mall Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "The Whitespring Station Vendor",
-   "marker": "Whitespring Station",
-   "region": "Savage Divide",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Wallace",
-   "marker": "Berkeley Springs Station",
-   "region": "The Mire",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Beckham",
-   "marker": "Raleigh Clay's Bunker",
-   "region": "The Mire",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Greg",
-   "marker": "Grafton",
-   "region": "Toxic Valley",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Grafton Station",
-   "region": "Toxic Valley",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Molly",
-   "marker": "The Crater",
-   "region": "Toxic Valley",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "A.T.H.E.N.A.",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Astronaut Emerson Vendor",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Beckett",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Daphne",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 2
-  },
-  {
-   "name": "Frankie",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Grahm",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Hunter",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Sam Nguyen",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Scavenger Trader",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 6
-  },
-  {
-   "name": "Trader",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Traveling Merchant",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  },
-  {
-   "name": "Xerxo",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [
-    "78.24%",
-    "27.78%"
-   ],
-   "rate_display": "78.24% / 27.78%",
-   "rate_value": 0.782407,
-   "count": 1
-  }
- ],
+ "used_for": null,
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
@@ -948,8 +121,8 @@
       "387D75"
      ],
      "coords": [
-      -164236.7,
-      -72042.5
+      -164236.671875,
+      -72042.53125
      ],
      "spawns": [
       {
@@ -957,8 +130,8 @@
        "ref": "387D75",
        "source_type": "direct",
        "coords": [
-        -164236.7,
-        -72042.5
+        -164236.671875,
+        -72042.53125
        ],
        "image_top": "",
        "directions": "",
@@ -979,8 +152,8 @@
       "3C17FE"
      ],
      "coords": [
-      -176308.6,
-      -76796.9
+      -176308.578125,
+      -76796.8984375
      ],
      "spawns": [
       {
@@ -988,8 +161,8 @@
        "ref": "3C17FE",
        "source_type": "vendor",
        "coords": [
-        -176308.6,
-        -76796.9
+        -176308.578125,
+        -76796.8984375
        ],
        "image_top": "",
        "directions": "",
@@ -1010,8 +183,8 @@
       "43037D"
      ],
      "coords": [
-      -63037.9,
-      -117213.6
+      -63037.91015625,
+      -117213.5703125
      ],
      "spawns": [
       {
@@ -1019,8 +192,8 @@
        "ref": "43037D",
        "source_type": "vendor",
        "coords": [
-        -63037.9,
-        -117213.6
+        -63037.91015625,
+        -117213.5703125
        ],
        "image_top": "",
        "directions": "",
@@ -1041,8 +214,8 @@
       "58B53F"
      ],
      "coords": [
-      -99886.3,
-      -114811.3
+      -99886.328125,
+      -114811.2578125
      ],
      "spawns": [
       {
@@ -1050,8 +223,8 @@
        "ref": "58B53F",
        "source_type": "direct",
        "coords": [
-        -99886.3,
-        -114811.3
+        -99886.328125,
+        -114811.2578125
        ],
        "image_top": "",
        "directions": "",
@@ -1072,8 +245,8 @@
       "430378"
      ],
      "coords": [
-      -148839.3,
-      -132090.8
+      -148839.3125,
+      -132090.828125
      ],
      "spawns": [
       {
@@ -1081,8 +254,8 @@
        "ref": "430378",
        "source_type": "vendor",
        "coords": [
-        -148839.3,
-        -132090.8
+        -148839.3125,
+        -132090.828125
        ],
        "image_top": "",
        "directions": "",
@@ -1108,8 +281,8 @@
       "6F2D86"
      ],
      "coords": [
-      -8647.5,
-      4403.0
+      -8647.50390625,
+      4402.99951171875
      ],
      "spawns": [
       {
@@ -1117,8 +290,8 @@
        "ref": "6F2D86",
        "source_type": "direct",
        "coords": [
-        -8647.5,
-        4403.0
+        -8647.50390625,
+        4402.99951171875
        ],
        "image_top": "",
        "directions": "",
@@ -1140,8 +313,8 @@
       "6E2B66"
      ],
      "coords": [
-      879.5,
-      1212.9
+      879.469604492188,
+      1212.9287109375
      ],
      "spawns": [
       {
@@ -1149,8 +322,8 @@
        "ref": "6E2B64",
        "source_type": "direct",
        "coords": [
-        879.5,
-        1212.9
+        879.469604492188,
+        1212.9287109375
        ],
        "image_top": "",
        "directions": "",
@@ -1161,8 +334,8 @@
        "ref": "6E2B66",
        "source_type": "direct",
        "coords": [
-        873.6,
-        1196.0
+        873.633666992188,
+        1196.0341796875
        ],
        "image_top": "",
        "directions": "",
@@ -1183,8 +356,8 @@
       "6E71F0"
      ],
      "coords": [
-      -440.6,
-      -1581.5
+      -440.586181640625,
+      -1581.533203125
      ],
      "spawns": [
       {
@@ -1192,8 +365,8 @@
        "ref": "6E71F0",
        "source_type": "direct",
        "coords": [
-        -440.6,
-        -1581.5
+        -440.586181640625,
+        -1581.533203125
        ],
        "image_top": "",
        "directions": "",
@@ -1220,8 +393,8 @@
       "8295FC"
      ],
      "coords": [
-      -206854.9,
-      145078.0
+      -206854.875,
+      145078.046875
      ],
      "spawns": [
       {
@@ -1229,8 +402,8 @@
        "ref": "8295FA",
        "source_type": "direct",
        "coords": [
-        -206854.9,
-        145078.0
+        -206854.875,
+        145078.046875
        ],
        "image_top": "",
        "directions": "",
@@ -1241,8 +414,8 @@
        "ref": "8295FC",
        "source_type": "direct",
        "coords": [
-        -206847.2,
-        145051.4
+        -206847.21875,
+        145051.4375
        ],
        "image_top": "",
        "directions": "",
@@ -1264,7 +437,7 @@
      ],
      "coords": [
       -218870.0,
-      33989.5
+      33989.47265625
      ],
      "spawns": [
       {
@@ -1273,7 +446,7 @@
        "source_type": "direct",
        "coords": [
         -218870.0,
-        33989.5
+        33989.47265625
        ],
        "image_top": "",
        "directions": "",
@@ -1294,8 +467,8 @@
       "845A70"
      ],
      "coords": [
-      -5105.8,
-      14258.2
+      -5105.765625,
+      14258.2197265625
      ],
      "spawns": [
       {
@@ -1303,8 +476,8 @@
        "ref": "845A70",
        "source_type": "vendor",
        "coords": [
-        -5105.8,
-        14258.2
+        -5105.765625,
+        14258.2197265625
        ],
        "image_top": "",
        "directions": "",
@@ -1325,8 +498,8 @@
       "800650"
      ],
      "coords": [
-      -254505.2,
-      78547.6
+      -254505.1875,
+      78547.578125
      ],
      "spawns": [
       {
@@ -1334,8 +507,8 @@
        "ref": "800650",
        "source_type": "vendor",
        "coords": [
-        -254505.2,
-        78547.6
+        -254505.1875,
+        78547.578125
        ],
        "image_top": "",
        "directions": "",
@@ -1359,8 +532,8 @@
       "859B60"
      ],
      "coords": [
-      -202031.3,
-      114328.2
+      -202031.328125,
+      114328.1875
      ],
      "spawns": [
       {
@@ -1368,8 +541,8 @@
        "ref": "7F125A",
        "source_type": "direct",
        "coords": [
-        -202031.3,
-        114328.2
+        -202031.328125,
+        114328.1875
        ],
        "image_top": "",
        "directions": "",
@@ -1380,8 +553,8 @@
        "ref": "7F125B",
        "source_type": "direct",
        "coords": [
-        -201996.2,
-        114324.3
+        -201996.15625,
+        114324.2578125
        ],
        "image_top": "",
        "directions": "",
@@ -1392,8 +565,8 @@
        "ref": "7F125D",
        "source_type": "direct",
        "coords": [
-        -202058.5,
-        114372.2
+        -202058.515625,
+        114372.171875
        ],
        "image_top": "",
        "directions": "",
@@ -1404,8 +577,8 @@
        "ref": "859B60",
        "source_type": "direct",
        "coords": [
-        -202061.1,
-        114326.7
+        -202061.140625,
+        114326.65625
        ],
        "image_top": "",
        "directions": "",
@@ -1426,8 +599,8 @@
       "82DF26"
      ],
      "coords": [
-      -229855.6,
-      125796.1
+      -229855.625,
+      125796.140625
      ],
      "spawns": [
       {
@@ -1435,8 +608,8 @@
        "ref": "82DF26",
        "source_type": "direct",
        "coords": [
-        -229855.6,
-        125796.1
+        -229855.625,
+        125796.140625
        ],
        "image_top": "",
        "directions": "",
@@ -1462,8 +635,8 @@
       "55F36E"
      ],
      "coords": [
-      142607.5,
-      -103560.0
+      142607.453125,
+      -103560.0390625
      ],
      "spawns": [
       {
@@ -1471,8 +644,8 @@
        "ref": "55F36E",
        "source_type": "direct",
        "coords": [
-        142607.5,
-        -103560.0
+        142607.453125,
+        -103560.0390625
        ],
        "image_top": "",
        "directions": "",
@@ -1493,8 +666,8 @@
       "360D25"
      ],
      "coords": [
-      -1521.2,
-      571.6
+      -1521.19641113281,
+      571.582763671875
      ],
      "spawns": [
       {
@@ -1502,8 +675,8 @@
        "ref": "360D25",
        "source_type": "direct",
        "coords": [
-        -1521.2,
-        571.6
+        -1521.19641113281,
+        571.582763671875
        ],
        "image_top": "",
        "directions": "",
@@ -1524,8 +697,8 @@
       "4DE413"
      ],
      "coords": [
-      152113.8,
-      -160436.9
+      152113.75,
+      -160436.890625
      ],
      "spawns": [
       {
@@ -1533,8 +706,8 @@
        "ref": "4DE413",
        "source_type": "direct",
        "coords": [
-        152113.8,
-        -160436.9
+        152113.75,
+        -160436.890625
        ],
        "image_top": "",
        "directions": "",
@@ -1555,8 +728,8 @@
       "3C180A"
      ],
      "coords": [
-      152547.9,
-      -138615.7
+      152547.859375,
+      -138615.71875
      ],
      "spawns": [
       {
@@ -1564,8 +737,8 @@
        "ref": "3C180A",
        "source_type": "vendor",
        "coords": [
-        152547.9,
-        -138615.7
+        152547.859375,
+        -138615.71875
        ],
        "image_top": "",
        "directions": "",
@@ -1588,8 +761,8 @@
       "43032F"
      ],
      "coords": [
-      149257.0,
-      -150213.2
+      149257.046875,
+      -150213.234375
      ],
      "spawns": [
       {
@@ -1597,8 +770,8 @@
        "ref": "3DAD6E",
        "source_type": "direct",
        "coords": [
-        150742.1,
-        -149110.1
+        150742.140625,
+        -149110.109375
        ],
        "image_top": "",
        "directions": "",
@@ -1609,8 +782,8 @@
        "ref": "43032F",
        "source_type": "vendor",
        "coords": [
-        149257.0,
-        -150213.2
+        149257.046875,
+        -150213.234375
        ],
        "image_top": "",
        "directions": "",
@@ -1636,8 +809,8 @@
       "391135"
      ],
      "coords": [
-      -123783.4,
-      142083.7
+      -123783.359375,
+      142083.71875
      ],
      "spawns": [
       {
@@ -1645,8 +818,8 @@
        "ref": "391135",
        "source_type": "direct",
        "coords": [
-        -123783.4,
-        142083.7
+        -123783.359375,
+        142083.71875
        ],
        "image_top": "",
        "directions": "",
@@ -1668,8 +841,8 @@
       "61BA73"
      ],
      "coords": [
-      -4229.3,
-      -697.0
+      -4229.3173828125,
+      -696.98974609375
      ],
      "spawns": [
       {
@@ -1677,8 +850,8 @@
        "ref": "3F4B32",
        "source_type": "direct",
        "coords": [
-        -4229.3,
-        -697.0
+        -4229.3173828125,
+        -696.98974609375
        ],
        "image_top": "",
        "directions": "",
@@ -1689,8 +862,8 @@
        "ref": "61BA73",
        "source_type": "direct",
        "coords": [
-        -4229.3,
-        -697.0
+        -4229.3173828125,
+        -696.98974609375
        ],
        "image_top": "",
        "directions": "",
@@ -1711,8 +884,8 @@
       "522CBA"
      ],
      "coords": [
-      1954.4,
-      -2120.8
+      1954.35217285156,
+      -2120.80615234375
      ],
      "spawns": [
       {
@@ -1720,8 +893,8 @@
        "ref": "522CBA",
        "source_type": "direct",
        "coords": [
-        1954.4,
-        -2120.8
+        1954.35217285156,
+        -2120.80615234375
        ],
        "image_top": "",
        "directions": "",
@@ -1742,8 +915,8 @@
       "39115A"
      ],
      "coords": [
-      -89158.0,
-      143583.2
+      -89158.015625,
+      143583.25
      ],
      "spawns": [
       {
@@ -1751,8 +924,8 @@
        "ref": "39115A",
        "source_type": "direct",
        "coords": [
-        -89158.0,
-        143583.2
+        -89158.015625,
+        143583.25
        ],
        "image_top": "",
        "directions": "",
@@ -1773,8 +946,8 @@
       "4F79A0"
      ],
      "coords": [
-      14048.6,
-      47541.0
+      14048.5908203125,
+      47540.98828125
      ],
      "spawns": [
       {
@@ -1782,8 +955,8 @@
        "ref": "4F79A0",
        "source_type": "direct",
        "coords": [
-        14048.6,
-        47541.0
+        14048.5908203125,
+        47540.98828125
        ],
        "image_top": "",
        "directions": "",
@@ -1804,8 +977,8 @@
       "1269E6"
      ],
      "coords": [
-      -68793.6,
-      -12108.5
+      -68793.578125,
+      -12108.5166015625
      ],
      "spawns": [
       {
@@ -1813,8 +986,8 @@
        "ref": "1269E6",
        "source_type": "vendor",
        "coords": [
-        -68793.6,
-        -12108.5
+        -68793.578125,
+        -12108.5166015625
        ],
        "image_top": "",
        "directions": "",
@@ -1835,8 +1008,8 @@
       "3C1802"
      ],
      "coords": [
-      -105493.0,
-      -68998.6
+      -105493.0390625,
+      -68998.6484375
      ],
      "spawns": [
       {
@@ -1844,8 +1017,8 @@
        "ref": "3C1802",
        "source_type": "vendor",
        "coords": [
-        -105493.0,
-        -68998.6
+        -105493.0390625,
+        -68998.6484375
        ],
        "image_top": "",
        "directions": "",
@@ -1866,8 +1039,8 @@
       "430370"
      ],
      "coords": [
-      -114843.1,
-      -35297.2
+      -114843.125,
+      -35297.203125
      ],
      "spawns": [
       {
@@ -1875,8 +1048,8 @@
        "ref": "430370",
        "source_type": "vendor",
        "coords": [
-        -114843.1,
-        -35297.2
+        -114843.125,
+        -35297.203125
        ],
        "image_top": "",
        "directions": "",
@@ -1886,15 +1059,14 @@
     },
     {
      "marker": "Cow Spots Creamery",
-     "count": 15,
+     "count": 14,
      "sources": {
-      "direct": 15
+      "direct": 14
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "08C8D1",
       "52D289",
       "52D28A",
       "52D28B",
@@ -1911,29 +1083,17 @@
       "52D297"
      ],
      "coords": [
-      -125528.8,
-      -14253.2
+      -125528.8359375,
+      -14253.1796875
      ],
      "spawns": [
-      {
-       "label": "",
-       "ref": "08C8D1",
-       "source_type": "direct",
-       "coords": [
-        -124574.4,
-        -15449.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
       {
        "label": "",
        "ref": "52D289",
        "source_type": "direct",
        "coords": [
-        -125528.8,
-        -14253.2
+        -125528.8359375,
+        -14253.1796875
        ],
        "image_top": "",
        "directions": "",
@@ -1944,8 +1104,8 @@
        "ref": "52D28A",
        "source_type": "direct",
        "coords": [
-        -125534.8,
-        -14245.1
+        -125534.7734375,
+        -14245.14453125
        ],
        "image_top": "",
        "directions": "",
@@ -1956,8 +1116,8 @@
        "ref": "52D28B",
        "source_type": "direct",
        "coords": [
-        -125540.0,
-        -14236.3
+        -125540.015625,
+        -14236.2763671875
        ],
        "image_top": "",
        "directions": "",
@@ -1968,8 +1128,8 @@
        "ref": "52D28C",
        "source_type": "direct",
        "coords": [
-        -125546.0,
-        -14228.2
+        -125545.953125,
+        -14228.2412109375
        ],
        "image_top": "",
        "directions": "",
@@ -1980,8 +1140,8 @@
        "ref": "52D28D",
        "source_type": "direct",
        "coords": [
-        -125520.1,
-        -14247.9
+        -125520.1171875,
+        -14247.90234375
        ],
        "image_top": "",
        "directions": "",
@@ -1992,8 +1152,8 @@
        "ref": "52D28E",
        "source_type": "direct",
        "coords": [
-        -125526.1,
-        -14239.9
+        -125526.0546875,
+        -14239.8671875
        ],
        "image_top": "",
        "directions": "",
@@ -2004,8 +1164,8 @@
        "ref": "52D28F",
        "source_type": "direct",
        "coords": [
-        -125531.8,
-        -14232.2
+        -125531.84375,
+        -14232.1669921875
        ],
        "image_top": "",
        "directions": "",
@@ -2016,8 +1176,8 @@
        "ref": "52D291",
        "source_type": "direct",
        "coords": [
-        -125541.4,
-        -14212.3
+        -125541.3515625,
+        -14212.330078125
        ],
        "image_top": "",
        "directions": "",
@@ -2028,8 +1188,8 @@
        "ref": "52D292",
        "source_type": "direct",
        "coords": [
-        -125549.9,
-        -14217.6
+        -125549.8828125,
+        -14217.560546875
        ],
        "image_top": "",
        "directions": "",
@@ -2040,8 +1200,8 @@
        "ref": "52D293",
        "source_type": "direct",
        "coords": [
-        -125506.5,
-        -14205.6
+        -125506.453125,
+        -14205.6435546875
        ],
        "image_top": "",
        "directions": "",
@@ -2052,8 +1212,8 @@
        "ref": "52D294",
        "source_type": "direct",
        "coords": [
-        -124041.9,
-        -15269.5
+        -124041.9296875,
+        -15269.537109375
        ],
        "image_top": "",
        "directions": "",
@@ -2064,8 +1224,8 @@
        "ref": "52D295",
        "source_type": "direct",
        "coords": [
-        -124038.8,
-        -15318.2
+        -124038.796875,
+        -15318.1826171875
        ],
        "image_top": "",
        "directions": "",
@@ -2076,8 +1236,8 @@
        "ref": "52D296",
        "source_type": "direct",
        "coords": [
-        -124034.6,
-        -15278.7
+        -124034.6484375,
+        -15278.6943359375
        ],
        "image_top": "",
        "directions": "",
@@ -2088,8 +1248,8 @@
        "ref": "52D297",
        "source_type": "direct",
        "coords": [
-        -124436.8,
-        -15601.2
+        -124436.7578125,
+        -15601.244140625
        ],
        "image_top": "",
        "directions": "",
@@ -2112,8 +1272,8 @@
       "3E6165"
      ],
      "coords": [
-      -109424.6,
-      21074.7
+      -109424.5625,
+      21074.662109375
      ],
      "spawns": [
       {
@@ -2121,8 +1281,8 @@
        "ref": "3E6165",
        "source_type": "direct",
        "coords": [
-        -105301.0,
-        21533.8
+        -105300.9609375,
+        21533.83203125
        ],
        "image_top": "",
        "directions": "",
@@ -2133,8 +1293,8 @@
        "ref": "3DB45B",
        "source_type": "vendor",
        "coords": [
-        -109424.6,
-        21074.7
+        -109424.5625,
+        21074.662109375
        ],
        "image_top": "",
        "directions": "",
@@ -2156,8 +1316,8 @@
       "3F17B3"
      ],
      "coords": [
-      -36469.1,
-      34260.3
+      -36469.1015625,
+      34260.31640625
      ],
      "spawns": [
       {
@@ -2165,8 +1325,8 @@
        "ref": "3F17B2",
        "source_type": "direct",
        "coords": [
-        -36469.1,
-        34260.3
+        -36469.1015625,
+        34260.31640625
        ],
        "image_top": "",
        "directions": "",
@@ -2177,8 +1337,8 @@
        "ref": "3F17B3",
        "source_type": "direct",
        "coords": [
-        -36452.2,
-        34254.5
+        -36452.20703125,
+        34254.48046875
        ],
        "image_top": "",
        "directions": "",
@@ -2199,8 +1359,8 @@
       "33B0D8"
      ],
      "coords": [
-      -8333.8,
-      105952.0
+      -8333.7744140625,
+      105952.0078125
      ],
      "spawns": [
       {
@@ -2208,8 +1368,8 @@
        "ref": "33B0D8",
        "source_type": "direct",
        "coords": [
-        -8333.8,
-        105952.0
+        -8333.7744140625,
+        105952.0078125
        ],
        "image_top": "",
        "directions": "",
@@ -2233,8 +1393,8 @@
       "677016"
      ],
      "coords": [
-      -1245.9,
-      101139.0
+      -1245.90295410156,
+      101139.0078125
      ],
      "spawns": [
       {
@@ -2242,8 +1402,8 @@
        "ref": "48F8CD",
        "source_type": "direct",
        "coords": [
-        1549.0,
-        -1995.7
+        1548.98388671875,
+        -1995.65319824219
        ],
        "image_top": "",
        "directions": "",
@@ -2254,8 +1414,8 @@
        "ref": "677016",
        "source_type": "direct",
        "coords": [
-        1549.0,
-        -1995.7
+        1548.98388671875,
+        -1995.65319824219
        ],
        "image_top": "",
        "directions": "",
@@ -2266,8 +1426,8 @@
        "ref": "3C1806",
        "source_type": "vendor",
        "coords": [
-        -1245.9,
-        101139.0
+        -1245.90295410156,
+        101139.0078125
        ],
        "image_top": "",
        "directions": "",
@@ -2288,8 +1448,8 @@
       "43036B"
      ],
      "coords": [
-      -28611.9,
-      100555.0
+      -28611.853515625,
+      100555.015625
      ],
      "spawns": [
       {
@@ -2297,8 +1457,8 @@
        "ref": "43036B",
        "source_type": "vendor",
        "coords": [
-        -28611.9,
-        100555.0
+        -28611.853515625,
+        100555.015625
        ],
        "image_top": "",
        "directions": "",
@@ -2319,8 +1479,8 @@
       "3B81D0"
      ],
      "coords": [
-      -283.4,
-      49.4
+      -283.3662109375,
+      49.44091796875
      ],
      "spawns": [
       {
@@ -2328,8 +1488,8 @@
        "ref": "3B81D0",
        "source_type": "direct",
        "coords": [
-        -283.4,
-        49.4
+        -283.3662109375,
+        49.44091796875
        ],
        "image_top": "",
        "directions": "",
@@ -2352,8 +1512,8 @@
       "430337"
      ],
      "coords": [
-      -60065.7,
-      13105.7
+      -60065.72265625,
+      13105.7216796875
      ],
      "spawns": [
       {
@@ -2361,8 +1521,8 @@
        "ref": "3DEEF9",
        "source_type": "direct",
        "coords": [
-        -60324.3,
-        11581.3
+        -60324.34765625,
+        11581.271484375
        ],
        "image_top": "",
        "directions": "",
@@ -2373,8 +1533,8 @@
        "ref": "430337",
        "source_type": "vendor",
        "coords": [
-        -60065.7,
-        13105.7
+        -60065.72265625,
+        13105.7216796875
        ],
        "image_top": "",
        "directions": "",
@@ -2395,8 +1555,8 @@
       "316D43"
      ],
      "coords": [
-      -60507.2,
-      -55707.8
+      -60507.18359375,
+      -55707.81640625
      ],
      "spawns": [
       {
@@ -2404,8 +1564,8 @@
        "ref": "316D43",
        "source_type": "direct",
        "coords": [
-        -60507.2,
-        -55707.8
+        -60507.18359375,
+        -55707.81640625
        ],
        "image_top": "",
        "directions": "",
@@ -2426,7 +1586,7 @@
       "56275C"
      ],
      "coords": [
-      -169195.0,
+      -169194.96875,
       190729.0
      ],
      "spawns": [
@@ -2435,7 +1595,7 @@
        "ref": "56275C",
        "source_type": "direct",
        "coords": [
-        -169195.0,
+        -169194.96875,
         190729.0
        ],
        "image_top": "",
@@ -2462,8 +1622,8 @@
       "596745"
      ],
      "coords": [
-      37124.5,
-      -103339.8
+      37124.46484375,
+      -103339.765625
      ],
      "spawns": [
       {
@@ -2471,8 +1631,8 @@
        "ref": "596745",
        "source_type": "vendor",
        "coords": [
-        37124.5,
-        -103339.8
+        37124.46484375,
+        -103339.765625
        ],
        "image_top": "",
        "directions": "",
@@ -2495,8 +1655,8 @@
       "3E2C60"
      ],
      "coords": [
-      88414.9,
-      -128777.7
+      88466.75,
+      -128710.4375
      ],
      "spawns": [
       {
@@ -2504,8 +1664,8 @@
        "ref": "3E2BF5",
        "source_type": "direct",
        "coords": [
-        88466.8,
-        -128710.4
+        88466.75,
+        -128710.4375
        ],
        "image_top": "",
        "directions": "",
@@ -2516,8 +1676,8 @@
        "ref": "3E2C5F",
        "source_type": "direct",
        "coords": [
-        88414.9,
-        -128777.7
+        88414.8671875,
+        -128777.6953125
        ],
        "image_top": "",
        "directions": "",
@@ -2528,8 +1688,8 @@
        "ref": "3E2C60",
        "source_type": "direct",
        "coords": [
-        88407.2,
-        -128761.1
+        88407.25,
+        -128761.0625
        ],
        "image_top": "",
        "directions": "",
@@ -2550,8 +1710,8 @@
       "52154B"
      ],
      "coords": [
-      96271.3,
-      -37647.5
+      96271.2890625,
+      -37647.53125
      ],
      "spawns": [
       {
@@ -2559,8 +1719,8 @@
        "ref": "52154B",
        "source_type": "direct",
        "coords": [
-        96271.3,
-        -37647.5
+        96271.2890625,
+        -37647.53125
        ],
        "image_top": "",
        "directions": "",
@@ -2582,8 +1742,8 @@
       "3C142C"
      ],
      "coords": [
-      11179.8,
-      -21373.2
+      16575.67578125,
+      -20917.9140625
      ],
      "spawns": [
       {
@@ -2591,8 +1751,8 @@
        "ref": "1F7B47",
        "source_type": "direct",
        "coords": [
-        16575.7,
-        -20917.9
+        16575.67578125,
+        -20917.9140625
        ],
        "image_top": "",
        "directions": "",
@@ -2603,8 +1763,8 @@
        "ref": "3C142C",
        "source_type": "direct",
        "coords": [
-        11179.8,
-        -21373.2
+        11179.7958984375,
+        -21373.25
        ],
        "image_top": "",
        "directions": "",
@@ -2627,8 +1787,8 @@
       "3C46B5"
      ],
      "coords": [
-      45998.6,
-      16188.5
+      45998.578125,
+      16188.537109375
      ],
      "spawns": [
       {
@@ -2636,8 +1796,8 @@
        "ref": "3C46B5",
        "source_type": "direct",
        "coords": [
-        44458.9,
-        14271.3
+        44458.93359375,
+        14271.263671875
        ],
        "image_top": "",
        "directions": "",
@@ -2648,8 +1808,8 @@
        "ref": "3C1808",
        "source_type": "vendor",
        "coords": [
-        45998.6,
-        16188.5
+        45998.578125,
+        16188.537109375
        ],
        "image_top": "",
        "directions": "",
@@ -2670,8 +1830,8 @@
       "43033F"
      ],
      "coords": [
-      49527.5,
-      10269.0
+      49527.4765625,
+      10269.0048828125
      ],
      "spawns": [
       {
@@ -2679,8 +1839,8 @@
        "ref": "43033F",
        "source_type": "vendor",
        "coords": [
-        49527.5,
-        10269.0
+        49527.4765625,
+        10269.0048828125
        ],
        "image_top": "",
        "directions": "",
@@ -2701,8 +1861,8 @@
       "430344"
      ],
      "coords": [
-      9530.3,
-      -132478.1
+      9530.2724609375,
+      -132478.078125
      ],
      "spawns": [
       {
@@ -2710,8 +1870,8 @@
        "ref": "430344",
        "source_type": "vendor",
        "coords": [
-        9530.3,
-        -132478.1
+        9530.2724609375,
+        -132478.078125
        ],
        "image_top": "",
        "directions": "",
@@ -2732,8 +1892,8 @@
       "32D061"
      ],
      "coords": [
-      138775.2,
-      151567.6
+      138775.15625,
+      151567.59375
      ],
      "spawns": [
       {
@@ -2741,8 +1901,8 @@
        "ref": "32D061",
        "source_type": "direct",
        "coords": [
-        138775.2,
-        151567.6
+        138775.15625,
+        151567.59375
        ],
        "image_top": "",
        "directions": "",
@@ -2763,8 +1923,8 @@
       "3CC3D2"
      ],
      "coords": [
-      9591.5,
-      -41172.8
+      9591.4931640625,
+      -41172.76171875
      ],
      "spawns": [
       {
@@ -2772,8 +1932,8 @@
        "ref": "3CC3D2",
        "source_type": "direct",
        "coords": [
-        9591.5,
-        -41172.8
+        9591.4931640625,
+        -41172.76171875
        ],
        "image_top": "",
        "directions": "",
@@ -2794,8 +1954,8 @@
       "310A05"
      ],
      "coords": [
-      106216.8,
-      93992.6
+      106216.796875,
+      93992.609375
      ],
      "spawns": [
       {
@@ -2803,8 +1963,8 @@
        "ref": "310A05",
        "source_type": "direct",
        "coords": [
-        106216.8,
-        93992.6
+        106216.796875,
+        93992.609375
        ],
        "image_top": "",
        "directions": "",
@@ -2825,8 +1985,8 @@
       "43033B"
      ],
      "coords": [
-      74489.6,
-      131289.5
+      74489.59375,
+      131289.484375
      ],
      "spawns": [
       {
@@ -2834,8 +1994,8 @@
        "ref": "43033B",
        "source_type": "vendor",
        "coords": [
-        74489.6,
-        131289.5
+        74489.59375,
+        131289.484375
        ],
        "image_top": "",
        "directions": "",
@@ -2857,8 +2017,8 @@
       "58C71E"
      ],
      "coords": [
-      64397.2,
-      -146083.9
+      64397.21875,
+      -146083.9375
      ],
      "spawns": [
       {
@@ -2866,8 +2026,8 @@
        "ref": "58C6CD",
        "source_type": "direct",
        "coords": [
-        64397.2,
-        -146083.9
+        64397.21875,
+        -146083.9375
        ],
        "image_top": "",
        "directions": "",
@@ -2878,8 +2038,8 @@
        "ref": "58C71E",
        "source_type": "direct",
        "coords": [
-        67056.0,
-        -145187.6
+        67056.015625,
+        -145187.609375
        ],
        "image_top": "",
        "directions": "",
@@ -2900,8 +2060,8 @@
       "744FCA"
      ],
      "coords": [
-      1616.5,
-      453.1
+      1616.53649902344,
+      453.105316162109
      ],
      "spawns": [
       {
@@ -2909,8 +2069,8 @@
        "ref": "744FCA",
        "source_type": "direct",
        "coords": [
-        1616.5,
-        453.1
+        1616.53649902344,
+        453.105316162109
        ],
        "image_top": "",
        "directions": "",
@@ -2931,7 +2091,7 @@
       "59C753"
      ],
      "coords": [
-      -6005.3,
+      -6005.32763671875,
       -57509.5
      ],
      "spawns": [
@@ -2940,7 +2100,7 @@
        "ref": "59C753",
        "source_type": "direct",
        "coords": [
-        -6005.3,
+        -6005.32763671875,
         -57509.5
        ],
        "image_top": "",
@@ -2964,8 +2124,8 @@
       "3D679E"
      ],
      "coords": [
-      -1200.1,
-      -40049.6
+      -1200.13952636719,
+      -40049.578125
      ],
      "spawns": [
       {
@@ -2973,8 +2133,8 @@
        "ref": "3D679E",
        "source_type": "direct",
        "coords": [
-        2873.3,
-        -47399.1
+        2873.3037109375,
+        -47399.05859375
        ],
        "image_top": "",
        "directions": "",
@@ -2985,8 +2145,8 @@
        "ref": "3CC301",
        "source_type": "static",
        "coords": [
-        -1200.1,
-        -40049.6
+        -1200.13952636719,
+        -40049.578125
        ],
        "image_top": "",
        "directions": "",
@@ -3007,8 +2167,8 @@
       "5FAB51"
      ],
      "coords": [
-      5327.6,
-      2872.0
+      5327.64599609375,
+      2871.99731445313
      ],
      "spawns": [
       {
@@ -3016,8 +2176,8 @@
        "ref": "5FAB51",
        "source_type": "direct",
        "coords": [
-        5327.6,
-        2872.0
+        5327.64599609375,
+        2871.99731445313
        ],
        "image_top": "",
        "directions": "",
@@ -3038,8 +2198,8 @@
       "3B0B2A"
      ],
      "coords": [
-      89058.5,
-      -59399.3
+      89058.5234375,
+      -59399.33203125
      ],
      "spawns": [
       {
@@ -3047,8 +2207,8 @@
        "ref": "3B0B2A",
        "source_type": "direct",
        "coords": [
-        89058.5,
-        -59399.3
+        89058.5234375,
+        -59399.33203125
        ],
        "image_top": "",
        "directions": "",
@@ -3073,8 +2233,8 @@
       "629E10"
      ],
      "coords": [
-      -7980.0,
-      9207.0
+      -7980.0126953125,
+      9207.0029296875
      ],
      "spawns": [
       {
@@ -3082,8 +2242,8 @@
        "ref": "629E02",
        "source_type": "vendor",
        "coords": [
-        -7980.0,
-        9207.0
+        -7980.0126953125,
+        9207.0029296875
        ],
        "image_top": "",
        "directions": "",
@@ -3094,8 +2254,8 @@
        "ref": "629E07",
        "source_type": "vendor",
        "coords": [
-        -5282.2,
-        7509.2
+        -5282.240234375,
+        7509.2236328125
        ],
        "image_top": "",
        "directions": "",
@@ -3106,8 +2266,8 @@
        "ref": "629E0C",
        "source_type": "vendor",
        "coords": [
-        -4307.9,
-        6828.8
+        -4307.90185546875,
+        6828.83056640625
        ],
        "image_top": "",
        "directions": "",
@@ -3118,8 +2278,8 @@
        "ref": "629E0F",
        "source_type": "vendor",
        "coords": [
-        -6609.9,
-        7324.6
+        -6609.88720703125,
+        7324.619140625
        ],
        "image_top": "",
        "directions": "",
@@ -3130,8 +2290,8 @@
        "ref": "629E10",
        "source_type": "vendor",
        "coords": [
-        -8958.2,
-        9078.6
+        -8958.2197265625,
+        9078.56640625
        ],
        "image_top": "",
        "directions": "",
@@ -3152,8 +2312,8 @@
       "430334"
      ],
      "coords": [
-      20441.7,
-      -45934.8
+      20441.658203125,
+      -45934.84765625
      ],
      "spawns": [
       {
@@ -3161,8 +2321,8 @@
        "ref": "430334",
        "source_type": "vendor",
        "coords": [
-        20441.7,
-        -45934.8
+        20441.658203125,
+        -45934.84765625
        ],
        "image_top": "",
        "directions": "",
@@ -3190,8 +2350,8 @@
       "7586C6"
      ],
      "coords": [
-      -23683.9,
-      -245169.8
+      -23683.853515625,
+      -245169.75
      ],
      "spawns": [
       {
@@ -3199,8 +2359,8 @@
        "ref": "7586BE",
        "source_type": "direct",
        "coords": [
-        -23683.9,
-        -245169.8
+        -23683.853515625,
+        -245169.75
        ],
        "image_top": "",
        "directions": "",
@@ -3211,8 +2371,8 @@
        "ref": "7586C0",
        "source_type": "direct",
        "coords": [
-        -23731.8,
-        -245232.1
+        -23731.7890625,
+        -245232.125
        ],
        "image_top": "",
        "directions": "",
@@ -3223,8 +2383,8 @@
        "ref": "7586C6",
        "source_type": "direct",
        "coords": [
-        -23727.8,
-        -245197.0
+        -23727.83203125,
+        -245196.953125
        ],
        "image_top": "",
        "directions": "",
@@ -3250,8 +2410,8 @@
       "4F77B2"
      ],
      "coords": [
-      131502.6,
-      20822.0
+      131502.578125,
+      20822.01171875
      ],
      "spawns": [
       {
@@ -3259,8 +2419,8 @@
        "ref": "4F77B2",
        "source_type": "direct",
        "coords": [
-        131502.6,
-        20822.0
+        131502.578125,
+        20822.01171875
        ],
        "image_top": "",
        "directions": "",
@@ -3281,8 +2441,8 @@
       "5C54DC"
      ],
      "coords": [
-      136874.3,
-      15415.1
+      136874.3125,
+      15415.0634765625
      ],
      "spawns": [
       {
@@ -3290,8 +2450,8 @@
        "ref": "5C54DC",
        "source_type": "vendor",
        "coords": [
-        136874.3,
-        15415.1
+        136874.3125,
+        15415.0634765625
        ],
        "image_top": "",
        "directions": "",
@@ -3312,8 +2472,8 @@
       "55FF08"
      ],
      "coords": [
-      128529.4,
-      35202.6
+      128529.390625,
+      35202.5703125
      ],
      "spawns": [
       {
@@ -3321,8 +2481,8 @@
        "ref": "55FF08",
        "source_type": "direct",
        "coords": [
-        128529.4,
-        35202.6
+        128529.390625,
+        35202.5703125
        ],
        "image_top": "",
        "directions": "",
@@ -3343,8 +2503,8 @@
       "18913B"
      ],
      "coords": [
-      160008.1,
-      -39290.5
+      160008.125,
+      -39290.4609375
      ],
      "spawns": [
       {
@@ -3352,8 +2512,8 @@
        "ref": "18913B",
        "source_type": "direct",
        "coords": [
-        160008.1,
-        -39290.5
+        160008.125,
+        -39290.4609375
        ],
        "image_top": "",
        "directions": "",
@@ -3376,8 +2536,8 @@
       "125B6C"
      ],
      "coords": [
-      133599.1,
-      72504.9
+      133599.0625,
+      72504.8515625
      ],
      "spawns": [
       {
@@ -3385,8 +2545,8 @@
        "ref": "111D58",
        "source_type": "direct",
        "coords": [
-        133599.1,
-        72504.9
+        133599.0625,
+        72504.8515625
        ],
        "image_top": "",
        "directions": "",
@@ -3397,8 +2557,8 @@
        "ref": "125B6A",
        "source_type": "direct",
        "coords": [
-        133453.0,
-        72236.8
+        133452.953125,
+        72236.8046875
        ],
        "image_top": "",
        "directions": "",
@@ -3409,8 +2569,8 @@
        "ref": "125B6C",
        "source_type": "direct",
        "coords": [
-        133482.3,
-        72277.9
+        133482.3125,
+        72277.9296875
        ],
        "image_top": "",
        "directions": "",
@@ -3431,8 +2591,8 @@
       "528539"
      ],
      "coords": [
-      188698.0,
-      67635.0
+      188697.953125,
+      67634.9765625
      ],
      "spawns": [
       {
@@ -3440,8 +2600,8 @@
        "ref": "528539",
        "source_type": "vendor",
        "coords": [
-        188698.0,
-        67635.0
+        188697.953125,
+        67634.9765625
        ],
        "image_top": "",
        "directions": "",
@@ -3463,8 +2623,8 @@
       "0DD263"
      ],
      "coords": [
-      137729.2,
-      2352.3
+      137749.875,
+      2303.33471679687
      ],
      "spawns": [
       {
@@ -3472,8 +2632,8 @@
        "ref": "0DBE8A",
        "source_type": "direct",
        "coords": [
-        137749.9,
-        2303.3
+        137749.875,
+        2303.33471679687
        ],
        "image_top": "",
        "directions": "",
@@ -3484,8 +2644,8 @@
        "ref": "0DD263",
        "source_type": "direct",
        "coords": [
-        137729.2,
-        2352.3
+        137729.15625,
+        2352.30932617187
        ],
        "image_top": "",
        "directions": "",
@@ -3507,8 +2667,8 @@
       "4F8E9B"
      ],
      "coords": [
-      197364.1,
-      14942.0
+      197364.078125,
+      14941.974609375
      ],
      "spawns": [
       {
@@ -3516,8 +2676,8 @@
        "ref": "4F8E99",
        "source_type": "static",
        "coords": [
-        197364.1,
-        14942.0
+        197364.078125,
+        14941.974609375
        ],
        "image_top": "",
        "directions": "",
@@ -3528,8 +2688,8 @@
        "ref": "4F8E9B",
        "source_type": "static",
        "coords": [
-        197375.9,
-        14940.0
+        197375.875,
+        14939.9501953125
        ],
        "image_top": "",
        "directions": "",
@@ -3556,8 +2716,8 @@
       "738E50"
      ],
      "coords": [
-      6064.8,
-      3316.3
+      6064.77392578125,
+      3316.25024414063
      ],
      "spawns": [
       {
@@ -3565,8 +2725,8 @@
        "ref": "6611AC",
        "source_type": "direct",
        "coords": [
-        6064.8,
-        3316.3
+        6064.77392578125,
+        3316.25024414063
        ],
        "image_top": "",
        "directions": "",
@@ -3577,8 +2737,8 @@
        "ref": "738E50",
        "source_type": "direct",
        "coords": [
-        6064.8,
-        3316.3
+        6064.77392578125,
+        3316.25024414063
        ],
        "image_top": "",
        "directions": "",
@@ -3604,8 +2764,8 @@
       "2FD00E"
      ],
      "coords": [
-      -92139.7,
-      161289.5
+      -92139.7109375,
+      161289.484375
      ],
      "spawns": [
       {
@@ -3613,8 +2773,8 @@
        "ref": "2FD00E",
        "source_type": "direct",
        "coords": [
-        -92139.7,
-        161289.5
+        -92139.7109375,
+        161289.484375
        ],
        "image_top": "",
        "directions": "",
@@ -3635,7 +2795,7 @@
       "3C1800"
      ],
      "coords": [
-      -52370.3,
+      -52370.34375,
       151420.5
      ],
      "spawns": [
@@ -3644,7 +2804,7 @@
        "ref": "3C1800",
        "source_type": "vendor",
        "coords": [
-        -52370.3,
+        -52370.34375,
         151420.5
        ],
        "image_top": "",
@@ -3666,8 +2826,8 @@
       "430366"
      ],
      "coords": [
-      -59212.8,
-      143246.9
+      -59212.8359375,
+      143246.875
      ],
      "spawns": [
       {
@@ -3675,8 +2835,8 @@
        "ref": "430366",
        "source_type": "vendor",
        "coords": [
-        -59212.8,
-        143246.9
+        -59212.8359375,
+        143246.875
        ],
        "image_top": "",
        "directions": "",
@@ -3697,8 +2857,8 @@
       "300236"
      ],
      "coords": [
-      62513.2,
-      191138.0
+      62513.17578125,
+      191137.96875
      ],
      "spawns": [
       {
@@ -3706,8 +2866,8 @@
        "ref": "300236",
        "source_type": "direct",
        "coords": [
-        62513.2,
-        191138.0
+        62513.17578125,
+        191137.96875
        ],
        "image_top": "",
        "directions": "",
@@ -3728,8 +2888,8 @@
       "4270EA"
      ],
      "coords": [
-      29787.1,
-      201918.4
+      29787.091796875,
+      201918.421875
      ],
      "spawns": [
       {
@@ -3737,8 +2897,8 @@
        "ref": "4270EA",
        "source_type": "vendor",
        "coords": [
-        29787.1,
-        201918.4
+        29787.091796875,
+        201918.421875
        ],
        "image_top": "",
        "directions": "",

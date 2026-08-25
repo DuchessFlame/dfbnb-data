@@ -2,9 +2,10 @@
  "_meta": {
   "generated": "2026-08-24",
   "source": "Game-file exports (LVLI/ALCH/MISC) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 10,
+  "lists_in_closure": 17,
   "source_totals": {
    "direct": 15,
+   "nest": 19,
    "static-raw": 1
   },
   "unresolved": {}
@@ -19,65 +20,22 @@
    "list_id": "002118C0",
    "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
    "marker_label": "Deathclaw Egg",
-   "note": "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a per-server-hop chance (computed). Deathclaw nests are listed below with their own rate.",
-   "rate": 0.5,
-   "rate_display": "50%",
-   "rate_source": "computed"
+   "note": "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a per-server-hop chance (computed). Deathclaw nests are listed below with their own rate."
   },
   "containers": {
-   "types": []
+   "container_edid": "Container_Loot_DeathclawNest01",
+   "container_id": "003099CD",
+   "nest_list_edid": "LL_Deathclaw_Nest",
+   "nest_list_id": "001B0084",
+   "chance_none_glob": "ItemTwo_High_ChanceNone_Tier",
+   "count": 19,
+   "as_fixed_spawn": true,
+   "marker_label": "Deathclaw Nest",
+   "marker_yield": "each gives 1 Raw + 1 Cracked Egg",
+   "note": "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). Each nest's chance to contain 1 raw egg + 1 cracked egg is computed from the ItemTwo_High_ChanceNone_Tier GLOB."
   },
   "vendors": null,
-  "resource_generators": null,
-  "collectrons": {
-   "entries": [
-    {
-     "name": "F.E.T.C.H. Collectron Station",
-     "edid": "ATX_Resource_Collectron_FETCH_Electronics",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "4 min 48 sec",
-     "items": [
-      {
-       "name": "Deathclaw Egg",
-       "form_id": "00046939",
-       "rate": 0.001023,
-       "rate_display": "0.1%",
-       "rate_source": "computed"
-      }
-     ]
-    },
-    {
-     "name": "Junkyard Dog Collectron Station",
-     "edid": "ATX_Resource_Collectron_FETCH_Electronics_Junk",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "4 min 48 sec",
-     "items": [
-      {
-       "name": "Deathclaw Egg",
-       "form_id": "00046939",
-       "rate": 0.001023,
-       "rate_display": "0.1%",
-       "rate_source": "computed"
-      }
-     ]
-    },
-    {
-     "name": "Sir Loin Collectron Station",
-     "edid": "ATX_SirLoinResource_Collector",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "9 min",
-     "items": [
-      {
-       "name": "Deathclaw Egg",
-       "form_id": "00046939",
-       "rate": 0.0,
-       "rate_display": "0%",
-       "rate_source": "computed_zero"
-      }
-     ]
-    }
-   ]
-  }
+  "resource_generators": null
  },
  "farming_tips": {
   "spoils": true,
@@ -132,220 +90,7 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Food",
-   "weight": 0.25,
-   "value": 15,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": true,
-   "note": "Deathclaw Egg is a food consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Disease Chance",
-     "display": "15% chance to catch a disease",
-     "duration": null
-    },
-    {
-     "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (720/12 min)",
-     "duration": null
-    },
-    {
-     "name": "Rads",
-     "display": "+15 Rads",
-     "duration": null
-    }
-   ]
-  },
-  "challenges": [
-   {
-    "name": "Collect Deathclaw eggs",
-    "edid": "SCORE_Challenge_Daily_Collect_Eggs_Deathclaw",
-    "page": "daily",
-    "type": "Daily",
-    "required": 1
-   },
-   {
-    "name": "Collect a Deathclaw Egg with the Sunset Sarsaparilla Deputy Hat Equipped",
-    "edid": "ATX_DE2025_SunsetStranger_Week2_Challenge_Collect_Eggs_Deathclaw",
-    "page": "season:sunset-stranger-week2",
-    "type": "Mini Season",
-    "required": 3
-   }
-  ],
-  "recipes": [
-   {
-    "name": "Deathclaw Egg Omelette",
-    "form_id": "0004693C",
-    "recipe_edid": "co_meal_DeathclawEggCooked",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Deathclaw Egg",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/",
-      "is_main": true
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 45 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Heal Rate",
-      "display": "Fortify Heal Rate",
-      "duration": "30 min"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (1080/18 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Known by default."
-   },
-   {
-    "name": "Deathclaw Wellington",
-    "form_id": "001A71E7",
-    "recipe_edid": "co_meal_DeathclawMeatTasty",
-    "category": "Food (Meat)",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Boiled Water",
-      "qty": 2
-     },
-     {
-      "name": "Deathclaw Egg",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/",
-      "is_main": true
-     },
-     {
-      "name": "Deathclaw Meat",
-      "qty": 2
-     },
-     {
-      "name": "Pepper",
-      "qty": 2
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 90 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Strength",
-      "display": "+3 Fortify Strength",
-      "duration": "1 hour"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (1800/30 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Recipe: Deathclaw Wellington"
-   },
-   {
-    "name": "Jellied Fish",
-    "form_id": "008B33D4",
-    "recipe_edid": "co_meal_Fishing_SummerJelliedFish",
-    "category": "Food (Meat)",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Boiled Water",
-      "qty": 1
-     },
-     {
-      "name": "Deathclaw Egg",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/",
-      "is_main": true
-     },
-     {
-      "name": "Carrot",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/farming/plants/carrot/"
-     },
-     {
-      "name": "Summer Filet",
-      "qty": 5
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 20 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Intelligence",
-      "display": "+4 Fortify Intelligence",
-      "duration": "1 hour"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (720/12 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+2 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Unlocked by the challenge: Catch Summer Seasonal Local Legend: \"Glass Ghost\""
-   }
-  ],
-  "obtain": {
-   "recipes": [],
-   "note": null
-  }
- },
- "vendor_list": [],
+ "used_for": null,
  "additional_expands": null,
  "info_notes": [
   {
@@ -394,7 +139,104 @@
  "regions": [
   {
    "region": "Ash Heap",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Tunnel of Love",
+     "count": 5,
+     "sources": {
+      "nest": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6747E9",
+      "674813",
+      "67AE18",
+      "67E92A",
+      "67E952"
+     ],
+     "coords": [
+      7124.53955078125,
+      -762.631103515625
+     ],
+     "spawns": [
+      {
+       "label": "Deathclaw Nest #1",
+       "ref": "6747E9",
+       "source_type": "nest",
+       "coords": [
+        7124.53955078125,
+        -762.631103515625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #2",
+       "ref": "674813",
+       "source_type": "nest",
+       "coords": [
+        4050.90698242188,
+        5718.90234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #3",
+       "ref": "67AE18",
+       "source_type": "nest",
+       "coords": [
+        4288.8935546875,
+        5618.74755859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #4",
+       "ref": "67E92A",
+       "source_type": "nest",
+       "coords": [
+        3954.568359375,
+        5656.095703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #5",
+       "ref": "67E952",
+       "source_type": "nest",
+       "coords": [
+        4007.40625,
+        5604.75048828125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Deathclaw Nest",
+       "count": 5,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Atlantic City",
@@ -416,8 +258,8 @@
       "80F840"
      ],
      "coords": [
-      -257522.2,
-      124157.5
+      -257522.171875,
+      124157.5078125
      ],
      "spawns": [
       {
@@ -425,8 +267,8 @@
        "ref": "80F840",
        "source_type": "direct",
        "coords": [
-        -257522.2,
-        124157.5
+        -257522.171875,
+        124157.5078125
        ],
        "image_top": "",
        "directions": "From the spawn-in location, line yourself up with the Ash Cave map marker and run straight up the hill. Continue forward and stop at the top of the stairs. Veer right and follow the path straight (north-ish) until you reach the pond. Turn right and enter the small cave — the Deathclaw Egg is against the north wall, behind the Brain Fungus and near the bobblehead spawn.",
@@ -444,20 +286,27 @@
     },
     {
      "marker": "Dino Peaks Mini Golf",
-     "count": 2,
+     "count": 8,
      "sources": {
-      "direct": 2
+      "direct": 2,
+      "nest": 6
      },
      "image_top": "",
      "directions": "From the spawn-in location, face north and run forward, stopping just past the Welcome to Dino Peak entrance sign. Turn left and walk to the Hole 1 sign, then line yourself up with the Hole 1 putting green and follow it to the end. The nests run in sequence along the course (Holes 1–6): several sit on top of the putting greens and stairs and can be partly covered by dirt depending on how the Deathclaw exits, so wave your cursor around to find the loot window. A Deathclaw Egg can also spawn on top of several of these nests.",
      "image_bottom": "",
      "refs": [
+      "7F0A81",
+      "7F0A84",
+      "80391B",
+      "82A3B2",
+      "82A3B3",
+      "82A3B4",
       "82A3B5",
       "82A3B6"
      ],
      "coords": [
-      -211856.2,
-      146331.7
+      -208312.0,
+      145838.765625
      ],
      "spawns": [
       {
@@ -465,8 +314,8 @@
        "ref": "82A3B5",
        "source_type": "direct",
        "coords": [
-        -211856.2,
-        146331.7
+        -211856.15625,
+        146331.6875
        ],
        "image_top": "",
        "directions": "",
@@ -477,12 +326,90 @@
        "ref": "82A3B6",
        "source_type": "direct",
        "coords": [
-        -208731.5,
-        146797.0
+        -208731.515625,
+        146797.03125
        ],
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "Deathclaw Nest #1",
+       "ref": "7F0A81",
+       "source_type": "nest",
+       "coords": [
+        -208312.0,
+        145838.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #2",
+       "ref": "7F0A84",
+       "source_type": "nest",
+       "coords": [
+        -211674.375,
+        147038.671875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #3",
+       "ref": "80391B",
+       "source_type": "nest",
+       "coords": [
+        -209705.140625,
+        146995.40625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #4",
+       "ref": "82A3B2",
+       "source_type": "nest",
+       "coords": [
+        -211870.8125,
+        146337.6875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #5",
+       "ref": "82A3B3",
+       "source_type": "nest",
+       "coords": [
+        -208732.40625,
+        146803.140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #6",
+       "ref": "82A3B4",
+       "source_type": "nest",
+       "coords": [
+        -209155.21875,
+        145142.09375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ],
      "breakdown": [
@@ -491,6 +418,12 @@
        "count": 2,
        "rate_key": "world_spawns",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 6,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     },
@@ -507,8 +440,8 @@
       "831130"
      ],
      "coords": [
-      -2449.0,
-      14270.2
+      -2449.03247070313,
+      14270.1943359375
      ],
      "spawns": [
       {
@@ -516,8 +449,8 @@
        "ref": "831130",
        "source_type": "direct",
        "coords": [
-        -2449.0,
-        14270.2
+        -2449.03247070313,
+        14270.1943359375
        ],
        "image_top": "",
        "directions": "Highway Town Interior is a Burning Springs interior (it requires a load screen to enter). One loose Deathclaw Egg spawns inside. Step-by-step directions and photos are coming soon.",
@@ -546,8 +479,8 @@
       "84B014"
      ],
      "coords": [
-      -249322.7,
-      -10382.0
+      -249322.6875,
+      -10382.044921875
      ],
      "spawns": [
       {
@@ -555,8 +488,8 @@
        "ref": "84B014",
        "source_type": "direct",
        "coords": [
-        -249322.7,
-        -10382.0
+        -249322.6875,
+        -10382.044921875
        ],
        "image_top": "",
        "directions": "From the spawn-in location, face southwest and run straight until you reach the cliff wall in the distance. At the cliff face, turn left and use the machinery in front of you to climb to the rock ledge above. On the ledge, face north — the Deathclaw Egg is directly in front of you.",
@@ -594,8 +527,8 @@
       "312301"
      ],
      "coords": [
-      -42291.8,
-      50632.7
+      -42291.828125,
+      50632.6640625
      ],
      "spawns": [
       {
@@ -603,8 +536,8 @@
        "ref": "312301",
        "source_type": "direct",
        "coords": [
-        -42291.8,
-        50632.7
+        -42291.828125,
+        50632.6640625
        ],
        "image_top": "",
        "directions": "From the fast travel point, run straight through the doorway to the bottom of the stairs. Turn left, pass the Nuka-Cola and Medical Supplies machines, and run up the stairs in front of you. Follow the corridor around, pass the Arktos Pharma sign, and enter the doorway on your left. Continue straight and enter the second doorway on your left. Head slightly right and walk through the gap in the wall directly opposite. Jump down to ground level, turn around, and enter the doorway marked Protein Sequencing. Turn right and walk down the stairs — the Deathclaw Egg is on the metal shelves in front of you.",
@@ -634,8 +567,8 @@
       "0638D2"
      ],
      "coords": [
-      -172897.8,
-      133486.8
+      -172897.84375,
+      133486.765625
      ],
      "spawns": [
       {
@@ -643,8 +576,8 @@
        "ref": "0638D1",
        "source_type": "direct",
        "coords": [
-        -172897.8,
-        133486.8
+        -172897.84375,
+        133486.765625
        ],
        "image_top": "",
        "directions": "",
@@ -655,8 +588,8 @@
        "ref": "0638D2",
        "source_type": "direct",
        "coords": [
-        -172677.9,
-        133507.3
+        -172677.921875,
+        133507.28125
        ],
        "image_top": "",
        "directions": "",
@@ -690,8 +623,8 @@
       "5DD49E"
      ],
      "coords": [
-      -3672.4,
-      5661.5
+      -3672.44067382812,
+      5661.45751953125
      ],
      "spawns": [
       {
@@ -699,8 +632,8 @@
        "ref": "5DD49E",
        "source_type": "direct",
        "coords": [
-        -3672.4,
-        5661.5
+        -3672.44067382812,
+        5661.45751953125
        ],
        "image_top": "",
        "directions": "Heads-up: the Enclave Research Facility interior cannot be entered in normal gameplay — there is no accessible door or load-door into this cell. A loose Deathclaw Egg is placed here in the game files (ref 5DD49E), but because the location can't be reached, the egg cannot actually be collected. It is listed here for completeness only.",
@@ -718,21 +651,23 @@
     },
     {
      "marker": "Hopewell Cave",
-     "count": 3,
+     "count": 4,
      "sources": {
-      "direct": 3
+      "direct": 3,
+      "nest": 1
      },
      "image_top": "",
      "directions": "From the fast travel point, run straight across the road and enter the cave. The first Deathclaw nest is on the left-hand side of the cave, just past the small pond of water near the entrance — a Deathclaw Egg can spawn on top of this nest. From the nest, face east and walk to the back of the cave until you reach a rock face, then turn left; a Deathclaw Egg can spawn behind the Firecracker Berry bush. Next, face west and follow the edge of the pond as it curves around the cave until you see a small campfire and a sleeping bag. Behind the sleeping bag, against the rock face and to the left of a Firecracker Berry bush, is the final Deathclaw Egg spawn for this area.",
      "image_bottom": "",
      "refs": [
+      "36C927",
       "62A86C",
       "62A86F",
       "62A873"
      ],
      "coords": [
-      115886.7,
-      113069.8
+      115886.515625,
+      113074.953125
      ],
      "spawns": [
       {
@@ -740,8 +675,8 @@
        "ref": "62A86C",
        "source_type": "direct",
        "coords": [
-        115886.7,
-        113069.8
+        115886.7265625,
+        113069.828125
        ],
        "image_top": "",
        "directions": "",
@@ -753,7 +688,7 @@
        "source_type": "direct",
        "coords": [
         117233.5,
-        113304.7
+        113304.671875
        ],
        "image_top": "",
        "directions": "",
@@ -764,12 +699,25 @@
        "ref": "62A873",
        "source_type": "direct",
        "coords": [
-        115991.6,
-        114094.1
+        115991.578125,
+        114094.09375
        ],
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "ref": "36C927",
+       "source_type": "nest",
+       "coords": [
+        115886.515625,
+        113074.953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ],
      "breakdown": [
@@ -778,6 +726,12 @@
        "count": 3,
        "rate_key": "world_spawns",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 1,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     },
@@ -794,8 +748,8 @@
       "4F4CC1"
      ],
      "coords": [
-      80245.8,
-      -128574.3
+      80245.8203125,
+      -128574.296875
      ],
      "spawns": [
       {
@@ -803,8 +757,8 @@
        "ref": "4F4CC1",
        "source_type": "direct",
        "coords": [
-        80245.8,
-        -128574.3
+        80245.8203125,
+        -128574.296875
        ],
        "image_top": "",
        "directions": "Note: you need the Marsupial mutation to reach this spot. From the fast travel point, follow the road until you reach the main pillar with the elevator at the bottom. Enter the elevator and select floor 2 (pressing the wrong floor takes you elsewhere). Exit and follow the path to your left, continuing until you reach a building. Jump onto the roof and follow it around, keeping to the left and away from the edge — the Deathclaw Egg is in the far corner as part of a picnic scene.",
@@ -838,8 +792,8 @@
       "786717"
      ],
      "coords": [
-      8113.0,
-      -8673.9
+      8112.982421875,
+      -8673.9248046875
      ],
      "spawns": [
       {
@@ -847,8 +801,8 @@
        "ref": "786717",
        "source_type": "static-raw",
        "coords": [
-        8113.0,
-        -8673.9
+        8112.982421875,
+        -8673.9248046875
        ],
        "image_top": "",
        "directions": "Vault 63 — Atrium Upper Level. One Deathclaw Egg spawns on the atrium's upper level.",
@@ -871,19 +825,22 @@
    "locations": [
     {
      "marker": "Abandoned Waste Dump",
-     "count": 1,
+     "count": 3,
      "sources": {
-      "direct": 1
+      "direct": 1,
+      "nest": 2
      },
      "image_top": "",
      "directions": "External approach. From the fast travel point, walk forward and jump over the gate. Head toward the back of the truck, keeping the trailer on your left. On your right you'll see a dead brahmin and a radiation barrel — the first Deathclaw nest is behind the brahmin. Continue following the trailer until you reach the cab of the truck; in front of you is a dead Yao Guai, and behind it is a Deathclaw nest and a Deathclaw egg.",
      "image_bottom": "",
      "refs": [
-      "3DC447"
+      "3DC3DD",
+      "3DC447",
+      "3DC449"
      ],
      "coords": [
-      184875.0,
-      26884.5
+      184725.0,
+      26157.234375
      ],
      "spawns": [
       {
@@ -891,12 +848,38 @@
        "ref": "3DC447",
        "source_type": "direct",
        "coords": [
-        184875.0,
-        26884.5
+        184875.046875,
+        26884.537109375
        ],
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "Deathclaw Nest #1",
+       "ref": "3DC3DD",
+       "source_type": "nest",
+       "coords": [
+        184725.0,
+        26157.234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #2",
+       "ref": "3DC449",
+       "source_type": "nest",
+       "coords": [
+        184763.40625,
+        26928.63671875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ],
      "breakdown": [
@@ -905,24 +888,34 @@
        "count": 1,
        "rate_key": "world_spawns",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 2,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     },
     {
      "marker": "Cavern",
-     "count": 1,
+     "count": 4,
      "sources": {
-      "direct": 1
+      "direct": 1,
+      "nest": 3
      },
      "image_top": "",
      "directions": "This is the internal cavern beneath the Abandoned Waste Dump (it requires a load screen to enter). Once inside, walk past the rad barrels and stop at the bottom of the ramp. Turn left and keep the wall on your left-hand side the whole time you are in the cavern — it will lead you to the three Deathclaw nests in turn. The last Deathclaw nest has a fixed-spawn Deathclaw egg next to it.",
      "image_bottom": "",
      "refs": [
-      "022E32"
+      "022E32",
+      "1837FD",
+      "1A6435",
+      "1A6460"
      ],
      "coords": [
-      3353.8,
-      2321.1
+      -1139.41076660156,
+      4467.67822265625
      ],
      "spawns": [
       {
@@ -930,12 +923,51 @@
        "ref": "022E32",
        "source_type": "direct",
        "coords": [
-        3353.8,
-        2321.1
+        3353.82373046875,
+        2321.06860351562
        ],
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "Deathclaw Nest #1",
+       "ref": "1837FD",
+       "source_type": "nest",
+       "coords": [
+        -1139.41076660156,
+        4467.67822265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #2",
+       "ref": "1A6435",
+       "source_type": "nest",
+       "coords": [
+        3441.55615234375,
+        2221.54565429687
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      },
+      {
+       "label": "Deathclaw Nest #3",
+       "ref": "1A6460",
+       "source_type": "nest",
+       "coords": [
+        -2488.404296875,
+        2359.12451171875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ],
      "breakdown": [
@@ -944,6 +976,92 @@
        "count": 1,
        "rate_key": "world_spawns",
        "note": ""
+      },
+      {
+       "label": "Deathclaw Nest",
+       "count": 3,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ]
+    },
+    {
+     "marker": "Ella Ames' Bunker",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2C089D"
+     ],
+     "coords": [
+      173343.578125,
+      99286.765625
+     ],
+     "spawns": [
+      {
+       "label": "Deathclaw Nest",
+       "ref": "2C089D",
+       "source_type": "nest",
+       "coords": [
+        173343.578125,
+        99286.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Deathclaw Nest",
+       "count": 1,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ]
+    },
+    {
+     "marker": "Thunder Mt. Power Plant Yard",
+     "count": 1,
+     "sources": {
+      "nest": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "37BE5C"
+     ],
+     "coords": [
+      190414.734375,
+      86812.40625
+     ],
+     "spawns": [
+      {
+       "label": "Deathclaw Nest",
+       "ref": "37BE5C",
+       "source_type": "nest",
+       "coords": [
+        190414.734375,
+        86812.40625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Deathclaw Nest",
+       "count": 1,
+       "rate_key": "containers",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ]
     }

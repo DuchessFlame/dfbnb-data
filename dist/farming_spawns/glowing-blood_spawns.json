@@ -12,14 +12,7 @@
  "name": "Glowing Blood",
  "page_title": "Glowing Blood Spawn Locations",
  "blurb": "Every known world spawn for Glowing Blood, grouped by region. Directions and photos are added by hand.",
- "drop_rates": {
-  "creatures": {
-   "note": "Around 343 creatures can drop Glowing Blood as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
-  },
-  "containers": {
-   "types": []
-  }
- },
+ "drop_rates": null,
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -73,128 +66,7 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Chem",
-   "weight": 0.3,
-   "value": 30,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": false,
-   "note": "Glowing Blood is a chem consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Restore Health",
-     "display": "Restores 20 Health",
-     "duration": "25s"
-    },
-    {
-     "name": "Chems: Thirst",
-     "display": "Quenches thirst (900/15 min)",
-     "duration": null
-    },
-    {
-     "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
-    },
-    {
-     "name": "Rads",
-     "display": "Rads",
-     "duration": null
-    }
-   ]
-  },
-  "challenges": [],
-  "recipes": [
-   {
-    "name": "Glowing Blood Pack",
-    "form_id": "",
-    "recipe_edid": "co_chem_BloodpackGlowing",
-    "category": "Chems",
-    "workbench": "Chemistry Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "",
-    "ingredients": [
-     {
-      "name": "Bloodpack",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/chems/chems-blood-pack/"
-     },
-     {
-      "name": "Glowing Blood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-glowing-blood/",
-      "is_main": true
-     },
-     {
-      "name": "Antiseptic",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/antiseptic/"
-     }
-    ],
-    "effects": [],
-    "how_to_obtain": "Known by default."
-   },
-   {
-    "name": "Sunshine Oil",
-    "form_id": "00529DE0",
-    "recipe_edid": "co_meal_SunshineOil_RSVP02",
-    "category": "Drink",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "Herbivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Sugar Bombs",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-sugar-bombs/"
-     },
-     {
-      "name": "Glowing Blood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-glowing-blood/",
-      "is_main": true
-     },
-     {
-      "name": "Blight",
-      "qty": 3,
-      "url": "https://www.buffsnbrew.com/bnb/farming/plants/blight/"
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Action Points",
-      "display": "+16 Action Points",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Damage Resist",
-      "display": "+15 Fortify Damage Resist",
-      "duration": "5 min"
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Recipe: Delbert's Sunshine Oil"
-   }
-  ],
-  "obtain": {
-   "recipes": [],
-   "note": null
-  }
- },
- "vendor_list": [],
+ "used_for": null,
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
@@ -203,7 +75,65 @@
  "regions": [
   {
    "region": "Ash Heap",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Relay Tower HG-B7-09",
+     "count": 3,
+     "sources": {
+      "npc": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "397152",
+      "397153",
+      "397154"
+     ],
+     "coords": [
+      -145888.9375,
+      -67261.078125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "397152",
+       "source_type": "npc",
+       "coords": [
+        -145888.9375,
+        -67261.078125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "397153",
+       "source_type": "npc",
+       "coords": [
+        -145306.3125,
+        -68290.578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "397154",
+       "source_type": "npc",
+       "coords": [
+        -144876.84375,
+        -67057.984375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Atlantic City",
@@ -211,19 +141,5018 @@
   },
   {
    "region": "Burning Springs",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Abraxodyne Chemical Power Substation",
+     "count": 4,
+     "sources": {
+      "npc": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81C30A",
+      "81C30C",
+      "833903",
+      "833904"
+     ],
+     "coords": [
+      -220349.828125,
+      19352.880859375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "81C30A",
+       "source_type": "npc",
+       "coords": [
+        -220349.828125,
+        19352.880859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81C30C",
+       "source_type": "npc",
+       "coords": [
+        -219849.515625,
+        18625.2109375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "833903",
+       "source_type": "npc",
+       "coords": [
+        -214490.953125,
+        5482.2392578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "833904",
+       "source_type": "npc",
+       "coords": [
+        -214195.59375,
+        5439.6552734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Ash Cave",
+     "count": 9,
+     "sources": {
+      "npc": 9
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "840741",
+      "840742",
+      "840743",
+      "840744",
+      "846A00",
+      "848DF0",
+      "848DF1",
+      "848DF2",
+      "848DF3"
+     ],
+     "coords": [
+      -258551.53125,
+      100927.359375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "840741",
+       "source_type": "npc",
+       "coords": [
+        -266627.96875,
+        112711.5546875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "840742",
+       "source_type": "npc",
+       "coords": [
+        -266695.15625,
+        113199.9140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "840743",
+       "source_type": "npc",
+       "coords": [
+        -267088.28125,
+        112734.390625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "840744",
+       "source_type": "npc",
+       "coords": [
+        -266884.65625,
+        112628.1484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "846A00",
+       "source_type": "npc",
+       "coords": [
+        -258551.53125,
+        100927.359375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "848DF0",
+       "source_type": "npc",
+       "coords": [
+        -266968.53125,
+        117389.8125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "848DF1",
+       "source_type": "npc",
+       "coords": [
+        -267150.3125,
+        117614.9296875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "848DF2",
+       "source_type": "npc",
+       "coords": [
+        -267043.6875,
+        117651.890625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "848DF3",
+       "source_type": "npc",
+       "coords": [
+        -267603.75,
+        117238.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Athens",
+     "count": 40,
+     "sources": {
+      "npc": 40
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "808372",
+      "808373",
+      "808374",
+      "808376",
+      "808377",
+      "808378",
+      "808379",
+      "80837A",
+      "80837B",
+      "80837C",
+      "80837D",
+      "80837E",
+      "80837F",
+      "808380",
+      "808382",
+      "808383",
+      "808384",
+      "808385",
+      "808386",
+      "808388",
+      "808389",
+      "80838A",
+      "80838C",
+      "80838E",
+      "80838F",
+      "808392",
+      "808393",
+      "808394",
+      "808395",
+      "808399",
+      "80FBC8",
+      "80FBED",
+      "80FBEE",
+      "83BAD9",
+      "8451CD",
+      "8451CE",
+      "8451CF",
+      "8451D0",
+      "84D4ED",
+      "8593A9"
+     ],
+     "coords": [
+      -250199.875,
+      155814.640625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "808372",
+       "source_type": "npc",
+       "coords": [
+        -240015.109375,
+        153124.625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808373",
+       "source_type": "npc",
+       "coords": [
+        -239795.703125,
+        152916.53125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808374",
+       "source_type": "npc",
+       "coords": [
+        -239593.015625,
+        152994.296875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808376",
+       "source_type": "npc",
+       "coords": [
+        -245600.0625,
+        160309.671875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808377",
+       "source_type": "npc",
+       "coords": [
+        -244584.359375,
+        158216.25
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808378",
+       "source_type": "npc",
+       "coords": [
+        -244534.03125,
+        159406.78125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808379",
+       "source_type": "npc",
+       "coords": [
+        -245668.796875,
+        150103.734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80837A",
+       "source_type": "npc",
+       "coords": [
+        -244506.4375,
+        150299.171875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80837B",
+       "source_type": "npc",
+       "coords": [
+        -244613.375,
+        149318.796875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80837C",
+       "source_type": "npc",
+       "coords": [
+        -249690.953125,
+        160728.140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80837D",
+       "source_type": "npc",
+       "coords": [
+        -248270.78125,
+        161211.875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80837E",
+       "source_type": "npc",
+       "coords": [
+        -249328.6875,
+        159646.21875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80837F",
+       "source_type": "npc",
+       "coords": [
+        -246720.5625,
+        157670.140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808380",
+       "source_type": "npc",
+       "coords": [
+        -246716.171875,
+        157422.921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808382",
+       "source_type": "npc",
+       "coords": [
+        -249733.375,
+        155253.4375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808383",
+       "source_type": "npc",
+       "coords": [
+        -249669.375,
+        154674.421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808384",
+       "source_type": "npc",
+       "coords": [
+        -247321.9375,
+        154074.1875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808385",
+       "source_type": "npc",
+       "coords": [
+        -247478.0,
+        154884.15625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808386",
+       "source_type": "npc",
+       "coords": [
+        -246364.65625,
+        153579.53125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808388",
+       "source_type": "npc",
+       "coords": [
+        -248210.078125,
+        154893.265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808389",
+       "source_type": "npc",
+       "coords": [
+        -247987.078125,
+        155066.25
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80838A",
+       "source_type": "npc",
+       "coords": [
+        -252559.1875,
+        160455.65625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80838C",
+       "source_type": "npc",
+       "coords": [
+        -250875.4375,
+        160643.171875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80838E",
+       "source_type": "npc",
+       "coords": [
+        -252609.25,
+        157374.5625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80838F",
+       "source_type": "npc",
+       "coords": [
+        -252933.828125,
+        157571.703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808392",
+       "source_type": "npc",
+       "coords": [
+        -253644.359375,
+        155531.078125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808393",
+       "source_type": "npc",
+       "coords": [
+        -250477.25,
+        154044.640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808394",
+       "source_type": "npc",
+       "coords": [
+        -250501.34375,
+        154887.375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808395",
+       "source_type": "npc",
+       "coords": [
+        -254463.796875,
+        155737.75
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "808399",
+       "source_type": "npc",
+       "coords": [
+        -254340.84375,
+        155145.34375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80FBC8",
+       "source_type": "npc",
+       "coords": [
+        -253892.875,
+        158002.875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80FBED",
+       "source_type": "npc",
+       "coords": [
+        -254248.796875,
+        158101.515625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80FBEE",
+       "source_type": "npc",
+       "coords": [
+        -254032.953125,
+        157740.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83BAD9",
+       "source_type": "npc",
+       "coords": [
+        -250199.875,
+        155814.640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8451CD",
+       "source_type": "npc",
+       "coords": [
+        -233220.796875,
+        180011.21875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8451CE",
+       "source_type": "npc",
+       "coords": [
+        -233166.390625,
+        180501.78125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8451CF",
+       "source_type": "npc",
+       "coords": [
+        -233912.21875,
+        180322.578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8451D0",
+       "source_type": "npc",
+       "coords": [
+        -233794.59375,
+        179679.78125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "84D4ED",
+       "source_type": "npc",
+       "coords": [
+        -251677.78125,
+        160962.328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8593A9",
+       "source_type": "npc",
+       "coords": [
+        -233373.703125,
+        179774.703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Checkpoint Canyon",
+     "count": 7,
+     "sources": {
+      "npc": 7
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "8338E1",
+      "8338E2",
+      "8338E3",
+      "8338E4",
+      "864E40",
+      "864E41",
+      "864E42"
+     ],
+     "coords": [
+      -197367.0,
+      94389.6484375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "8338E1",
+       "source_type": "npc",
+       "coords": [
+        -197367.0,
+        94389.6484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8338E2",
+       "source_type": "npc",
+       "coords": [
+        -197434.171875,
+        94625.0859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8338E3",
+       "source_type": "npc",
+       "coords": [
+        -197649.921875,
+        94596.7734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8338E4",
+       "source_type": "npc",
+       "coords": [
+        -197623.671875,
+        94399.3125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "864E40",
+       "source_type": "npc",
+       "coords": [
+        -194780.65625,
+        80343.8671875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "864E41",
+       "source_type": "npc",
+       "coords": [
+        -194582.28125,
+        81207.2578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "864E42",
+       "source_type": "npc",
+       "coords": [
+        -194024.8125,
+        80264.0546875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Dino Peaks Mini Golf",
+     "count": 14,
+     "sources": {
+      "npc": 14
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7F6500",
+      "7F6501",
+      "7F6502",
+      "7F6503",
+      "7F6505",
+      "83A654",
+      "83A655",
+      "83A656",
+      "83A657",
+      "8593AA",
+      "8593AC",
+      "8593AD",
+      "8593AE",
+      "8593AF"
+     ],
+     "coords": [
+      -209129.421875,
+      140907.609375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "7F6500",
+       "source_type": "npc",
+       "coords": [
+        -209129.421875,
+        140907.609375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F6501",
+       "source_type": "npc",
+       "coords": [
+        -209505.890625,
+        143196.375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F6502",
+       "source_type": "npc",
+       "coords": [
+        -211856.0,
+        143848.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F6503",
+       "source_type": "npc",
+       "coords": [
+        -207976.0,
+        143384.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F6505",
+       "source_type": "npc",
+       "coords": [
+        -211504.0,
+        140800.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83A654",
+       "source_type": "npc",
+       "coords": [
+        -210750.046875,
+        167151.453125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83A655",
+       "source_type": "npc",
+       "coords": [
+        -210817.21875,
+        167386.90625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83A656",
+       "source_type": "npc",
+       "coords": [
+        -211032.96875,
+        167358.59375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83A657",
+       "source_type": "npc",
+       "coords": [
+        -211006.71875,
+        167161.125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8593AA",
+       "source_type": "npc",
+       "coords": [
+        -211244.734375,
+        167208.84375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8593AC",
+       "source_type": "npc",
+       "coords": [
+        -207242.734375,
+        156985.890625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8593AD",
+       "source_type": "npc",
+       "coords": [
+        -207945.171875,
+        157115.0625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8593AE",
+       "source_type": "npc",
+       "coords": [
+        -208093.859375,
+        156831.90625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8593AF",
+       "source_type": "npc",
+       "coords": [
+        -207634.984375,
+        156743.3125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Fort Steuben",
+     "count": 4,
+     "sources": {
+      "npc": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81C30B",
+      "83A3A6",
+      "83A3A7",
+      "85059F"
+     ],
+     "coords": [
+      -218695.03125,
+      19667.259765625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "81C30B",
+       "source_type": "npc",
+       "coords": [
+        -218695.03125,
+        19667.259765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83A3A6",
+       "source_type": "npc",
+       "coords": [
+        -204161.671875,
+        42361.9765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83A3A7",
+       "source_type": "npc",
+       "coords": [
+        -207523.0,
+        43797.21875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "85059F",
+       "source_type": "npc",
+       "coords": [
+        -205972.4375,
+        44010.8125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hocking Hills Train Station",
+     "count": 18,
+     "sources": {
+      "npc": 18
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7FBA91",
+      "7FBA94",
+      "7FBA9D",
+      "81CC64",
+      "81E105",
+      "821305",
+      "845D89",
+      "845D8A",
+      "845D8B",
+      "845D8C",
+      "846133",
+      "846134",
+      "846135",
+      "846136",
+      "846474",
+      "846475",
+      "846476",
+      "846477"
+     ],
+     "coords": [
+      -261640.34375,
+      74951.9375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "7FBA91",
+       "source_type": "npc",
+       "coords": [
+        -253409.84375,
+        79802.7421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FBA94",
+       "source_type": "npc",
+       "coords": [
+        -256332.3125,
+        81267.34375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FBA9D",
+       "source_type": "npc",
+       "coords": [
+        -254944.0,
+        79792.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81CC64",
+       "source_type": "npc",
+       "coords": [
+        -261640.34375,
+        74951.9375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81E105",
+       "source_type": "npc",
+       "coords": [
+        -261640.34375,
+        74615.640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "821305",
+       "source_type": "npc",
+       "coords": [
+        -251806.84375,
+        70308.375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "845D89",
+       "source_type": "npc",
+       "coords": [
+        -245916.703125,
+        78629.921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "845D8A",
+       "source_type": "npc",
+       "coords": [
+        -245710.109375,
+        78968.7578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "845D8B",
+       "source_type": "npc",
+       "coords": [
+        -246199.625,
+        79489.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "845D8C",
+       "source_type": "npc",
+       "coords": [
+        -246443.109375,
+        78836.7109375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "846133",
+       "source_type": "npc",
+       "coords": [
+        -267912.4375,
+        90613.125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "846134",
+       "source_type": "npc",
+       "coords": [
+        -267374.0625,
+        91423.71875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "846135",
+       "source_type": "npc",
+       "coords": [
+        -268598.40625,
+        91880.921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "846136",
+       "source_type": "npc",
+       "coords": [
+        -268356.6875,
+        91197.9453125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "846474",
+       "source_type": "npc",
+       "coords": [
+        -259443.734375,
+        90966.7890625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "846475",
+       "source_type": "npc",
+       "coords": [
+        -258826.625,
+        91202.2265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "846476",
+       "source_type": "npc",
+       "coords": [
+        -259586.109375,
+        91173.9140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "846477",
+       "source_type": "npc",
+       "coords": [
+        -258869.703125,
+        90807.6640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Honey Well Apiary",
+     "count": 13,
+     "sources": {
+      "npc": 13
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "80E890",
+      "81F42B",
+      "81F42C",
+      "81F42D",
+      "81F42E",
+      "830953",
+      "830954",
+      "830955",
+      "830956",
+      "831BED",
+      "831BEE",
+      "831BEF",
+      "831BF0"
+     ],
+     "coords": [
+      -233908.71875,
+      75615.9765625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "80E890",
+       "source_type": "npc",
+       "coords": [
+        -233908.71875,
+        75615.9765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81F42B",
+       "source_type": "npc",
+       "coords": [
+        -243288.078125,
+        84455.65625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81F42C",
+       "source_type": "npc",
+       "coords": [
+        -243318.203125,
+        84665.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81F42D",
+       "source_type": "npc",
+       "coords": [
+        -242767.4375,
+        84502.390625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81F42E",
+       "source_type": "npc",
+       "coords": [
+        -243032.734375,
+        84744.90625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "830953",
+       "source_type": "npc",
+       "coords": [
+        -236546.984375,
+        81012.90625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "830954",
+       "source_type": "npc",
+       "coords": [
+        -236665.609375,
+        81280.1015625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "830955",
+       "source_type": "npc",
+       "coords": [
+        -236735.671875,
+        81386.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "830956",
+       "source_type": "npc",
+       "coords": [
+        -236814.96875,
+        80966.1328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "831BED",
+       "source_type": "npc",
+       "coords": [
+        -218768.0,
+        95072.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "831BEE",
+       "source_type": "npc",
+       "coords": [
+        -218352.890625,
+        95564.1328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "831BEF",
+       "source_type": "npc",
+       "coords": [
+        -219050.25,
+        95277.4609375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "831BF0",
+       "source_type": "npc",
+       "coords": [
+        -219024.0,
+        95080.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Prospect Hill",
+     "count": 3,
+     "sources": {
+      "npc": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81D994",
+      "81D995",
+      "81D996"
+     ],
+     "coords": [
+      -212256.0,
+      109320.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "81D994",
+       "source_type": "npc",
+       "coords": [
+        -212256.0,
+        109320.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81D995",
+       "source_type": "npc",
+       "coords": [
+        -210952.0,
+        109551.9921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81D996",
+       "source_type": "npc",
+       "coords": [
+        -210304.0,
+        108248.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Railroad Service Yard",
+     "count": 14,
+     "sources": {
+      "npc": 14
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7F645F",
+      "7F649C",
+      "7F649D",
+      "7F649E",
+      "7F649F",
+      "7F64B8",
+      "7FF9D3",
+      "7FF9D4",
+      "833922",
+      "833929",
+      "833934",
+      "834202",
+      "834204",
+      "8521F3"
+     ],
+     "coords": [
+      -236046.859375,
+      14596.1748046875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "7F645F",
+       "source_type": "npc",
+       "coords": [
+        -236046.859375,
+        14596.1748046875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F649C",
+       "source_type": "npc",
+       "coords": [
+        -238226.734375,
+        14228.4658203125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F649D",
+       "source_type": "npc",
+       "coords": [
+        -238439.078125,
+        15821.4345703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F649E",
+       "source_type": "npc",
+       "coords": [
+        -238491.78125,
+        14590.205078125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F649F",
+       "source_type": "npc",
+       "coords": [
+        -239153.640625,
+        13147.0107421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7F64B8",
+       "source_type": "npc",
+       "coords": [
+        -238139.03125,
+        17759.77734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FF9D3",
+       "source_type": "npc",
+       "coords": [
+        -239074.65625,
+        14245.45703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FF9D4",
+       "source_type": "npc",
+       "coords": [
+        -238967.46875,
+        14243.1728515625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "833922",
+       "source_type": "npc",
+       "coords": [
+        -237035.484375,
+        14401.5947265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "833929",
+       "source_type": "npc",
+       "coords": [
+        -238893.78125,
+        20913.4296875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "833934",
+       "source_type": "npc",
+       "coords": [
+        -240279.625,
+        15082.6328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "834202",
+       "source_type": "npc",
+       "coords": [
+        -245737.4375,
+        8326.37109375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "834204",
+       "source_type": "npc",
+       "coords": [
+        -246020.359375,
+        8533.4970703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8521F3",
+       "source_type": "npc",
+       "coords": [
+        -238050.546875,
+        18032.892578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sandy's Sock Hop",
+     "count": 4,
+     "sources": {
+      "npc": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81617E",
+      "81617F",
+      "819BD2",
+      "819BF6"
+     ],
+     "coords": [
+      -243673.359375,
+      107409.78125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "81617E",
+       "source_type": "npc",
+       "coords": [
+        -243673.359375,
+        107409.78125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81617F",
+       "source_type": "npc",
+       "coords": [
+        -243572.421875,
+        107318.6953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "819BD2",
+       "source_type": "npc",
+       "coords": [
+        -254980.796875,
+        101643.53125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "819BF6",
+       "source_type": "npc",
+       "coords": [
+        -255040.53125,
+        101881.1796875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Shade Hill Church",
+     "count": 6,
+     "sources": {
+      "npc": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "8175DB",
+      "817A1F",
+      "8464D4",
+      "8464D5",
+      "8464D6",
+      "8464D7"
+     ],
+     "coords": [
+      -244382.171875,
+      127138.4609375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "8175DB",
+       "source_type": "npc",
+       "coords": [
+        -244382.171875,
+        127138.4609375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "817A1F",
+       "source_type": "npc",
+       "coords": [
+        -244773.96875,
+        126372.078125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8464D4",
+       "source_type": "npc",
+       "coords": [
+        -249547.71875,
+        136342.15625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8464D5",
+       "source_type": "npc",
+       "coords": [
+        -249563.21875,
+        136778.15625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8464D6",
+       "source_type": "npc",
+       "coords": [
+        -251269.4375,
+        137411.203125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8464D7",
+       "source_type": "npc",
+       "coords": [
+        -251509.4375,
+        136787.734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Starlight Drive-in",
+     "count": 9,
+     "sources": {
+      "npc": 9
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7F66B4",
+      "7FECB2",
+      "7FECB7",
+      "7FECD3",
+      "7FECD4",
+      "7FECD5",
+      "7FECD6",
+      "804B88",
+      "81F096"
+     ],
+     "coords": [
+      -201982.0,
+      114444.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "7F66B4",
+       "source_type": "npc",
+       "coords": [
+        -201982.0,
+        114444.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FECB2",
+       "source_type": "npc",
+       "coords": [
+        -199888.0,
+        112144.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FECB7",
+       "source_type": "npc",
+       "coords": [
+        -197218.0,
+        114278.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FECD3",
+       "source_type": "npc",
+       "coords": [
+        -199138.0,
+        113324.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FECD4",
+       "source_type": "npc",
+       "coords": [
+        -201000.0,
+        116288.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FECD5",
+       "source_type": "npc",
+       "coords": [
+        -196080.0,
+        114272.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7FECD6",
+       "source_type": "npc",
+       "coords": [
+        -195720.0,
+        113904.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "804B88",
+       "source_type": "npc",
+       "coords": [
+        -202152.0,
+        115184.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "81F096",
+       "source_type": "npc",
+       "coords": [
+        -198254.40625,
+        113954.1953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Super Duper Mart",
+     "count": 9,
+     "sources": {
+      "npc": 9
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "80CF9C",
+      "80CF9D",
+      "80CF9E",
+      "8325FA",
+      "8325FB",
+      "8325FC",
+      "8325FD",
+      "83A224",
+      "8593AB"
+     ],
+     "coords": [
+      -231181.296875,
+      142154.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "80CF9C",
+       "source_type": "npc",
+       "coords": [
+        -231181.296875,
+        142154.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80CF9D",
+       "source_type": "npc",
+       "coords": [
+        -230504.0,
+        141200.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "80CF9E",
+       "source_type": "npc",
+       "coords": [
+        -230895.75,
+        140872.40625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8325FA",
+       "source_type": "npc",
+       "coords": [
+        -225136.0,
+        140848.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8325FB",
+       "source_type": "npc",
+       "coords": [
+        -225200.0,
+        141080.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8325FC",
+       "source_type": "npc",
+       "coords": [
+        -225425.890625,
+        141058.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8325FD",
+       "source_type": "npc",
+       "coords": [
+        -225392.0,
+        140856.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83A224",
+       "source_type": "npc",
+       "coords": [
+        -234821.109375,
+        130792.578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8593AB",
+       "source_type": "npc",
+       "coords": [
+        -225308.703125,
+        141226.1875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Chop Shop",
+     "count": 11,
+     "sources": {
+      "npc": 11
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "832E0D",
+      "832E0E",
+      "832E0F",
+      "832E10",
+      "8338F3",
+      "8338F4",
+      "8338F5",
+      "8338F6",
+      "836ABB",
+      "836ABC",
+      "836AFB"
+     ],
+     "coords": [
+      -219717.53125,
+      85008.578125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "832E0D",
+       "source_type": "npc",
+       "coords": [
+        -228509.734375,
+        75380.421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "832E0E",
+       "source_type": "npc",
+       "coords": [
+        -228576.90625,
+        75615.859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "832E0F",
+       "source_type": "npc",
+       "coords": [
+        -228792.65625,
+        75587.546875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "832E10",
+       "source_type": "npc",
+       "coords": [
+        -228766.40625,
+        75390.0859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8338F3",
+       "source_type": "npc",
+       "coords": [
+        -209170.21875,
+        80611.6953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8338F4",
+       "source_type": "npc",
+       "coords": [
+        -209237.390625,
+        80847.1328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8338F5",
+       "source_type": "npc",
+       "coords": [
+        -209453.140625,
+        80818.8203125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8338F6",
+       "source_type": "npc",
+       "coords": [
+        -209426.890625,
+        80621.359375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "836ABB",
+       "source_type": "npc",
+       "coords": [
+        -219717.53125,
+        85008.578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "836ABC",
+       "source_type": "npc",
+       "coords": [
+        -219411.765625,
+        84190.4921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "836AFB",
+       "source_type": "npc",
+       "coords": [
+        -219112.8125,
+        85543.484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Westbrook Horse Ranch",
+     "count": 8,
+     "sources": {
+      "npc": 8
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "83B644",
+      "83B645",
+      "83B646",
+      "83B647",
+      "8451A1",
+      "8451A2",
+      "8451A3",
+      "8451A4"
+     ],
+     "coords": [
+      -206308.859375,
+      51349.234375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "83B644",
+       "source_type": "npc",
+       "coords": [
+        -206308.859375,
+        51349.234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83B645",
+       "source_type": "npc",
+       "coords": [
+        -206376.03125,
+        51584.671875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83B646",
+       "source_type": "npc",
+       "coords": [
+        -206591.78125,
+        51556.359375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "83B647",
+       "source_type": "npc",
+       "coords": [
+        -206565.53125,
+        51358.8984375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8451A1",
+       "source_type": "npc",
+       "coords": [
+        -214941.828125,
+        61194.14453125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8451A2",
+       "source_type": "npc",
+       "coords": [
+        -215939.875,
+        61373.79296875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8451A3",
+       "source_type": "npc",
+       "coords": [
+        -216017.390625,
+        60639.28515625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8451A4",
+       "source_type": "npc",
+       "coords": [
+        -215694.296875,
+        60102.78125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "World of Corn",
+     "count": 5,
+     "sources": {
+      "npc": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "8035A5",
+      "848DCB",
+      "848DCC",
+      "848DCD",
+      "848DCE"
+     ],
+     "coords": [
+      -237247.40625,
+      51904.265625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "8035A5",
+       "source_type": "npc",
+       "coords": [
+        -237247.40625,
+        51904.265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "848DCB",
+       "source_type": "npc",
+       "coords": [
+        -234093.171875,
+        39974.67578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "848DCC",
+       "source_type": "npc",
+       "coords": [
+        -234164.109375,
+        40574.90625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "848DCD",
+       "source_type": "npc",
+       "coords": [
+        -234958.5,
+        40109.6171875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "848DCE",
+       "source_type": "npc",
+       "coords": [
+        -234506.84375,
+        39950.82421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Cranberry Bog",
-   "locations": []
+   "locations": [
+    {
+     "marker": "RobCo Research Center",
+     "count": 1,
+     "sources": {
+      "npc": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5A1CC5"
+     ],
+     "coords": [
+      -944.638977050781,
+      2013.51391601562
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "5A1CC5",
+       "source_type": "npc",
+       "coords": [
+        -944.638977050781,
+        2013.51391601562
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Forest",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Charleston Fire Department",
+     "count": 5,
+     "sources": {
+      "npc": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "28A444",
+      "28A445",
+      "28A447",
+      "50DD45",
+      "50DD46"
+     ],
+     "coords": [
+      -100683.5859375,
+      -61266.0234375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "28A444",
+       "source_type": "npc",
+       "coords": [
+        -100683.5859375,
+        -61266.0234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "28A445",
+       "source_type": "npc",
+       "coords": [
+        -100693.3203125,
+        -61258.30859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "28A447",
+       "source_type": "npc",
+       "coords": [
+        -100319.015625,
+        -61216.578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50DD45",
+       "source_type": "npc",
+       "coords": [
+        -101896.765625,
+        -63242.484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50DD46",
+       "source_type": "npc",
+       "coords": [
+        -102018.375,
+        -63423.74609375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Gilman Lumber Mill",
+     "count": 5,
+     "sources": {
+      "npc": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "76F498",
+      "76F499",
+      "7709CD",
+      "7709CE",
+      "7709CF"
+     ],
+     "coords": [
+      -104127.84375,
+      73211.90625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "76F498",
+       "source_type": "npc",
+       "coords": [
+        -104127.84375,
+        73211.90625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "76F499",
+       "source_type": "npc",
+       "coords": [
+        -104288.0,
+        73168.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7709CD",
+       "source_type": "npc",
+       "coords": [
+        -100817.8984375,
+        66764.6484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7709CE",
+       "source_type": "npc",
+       "coords": [
+        -100883.4140625,
+        66187.78125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7709CF",
+       "source_type": "npc",
+       "coords": [
+        -99798.3671875,
+        66341.15625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Greg's Mine Supply",
+     "count": 1,
+     "sources": {
+      "npc": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "139110"
+     ],
+     "coords": [
+      -22592.98046875,
+      48175.15234375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "139110",
+       "source_type": "npc",
+       "coords": [
+        -22592.98046875,
+        48175.15234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Moonshiner's Shack",
+     "count": 2,
+     "sources": {
+      "npc": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "76F48E",
+      "76F48F"
+     ],
+     "coords": [
+      -97410.9296875,
+      82293.5234375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "76F48E",
+       "source_type": "npc",
+       "coords": [
+        -97410.9296875,
+        82293.5234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "76F48F",
+       "source_type": "npc",
+       "coords": [
+        -97320.0,
+        82640.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Orwell Bomb Shelter",
+     "count": 7,
+     "sources": {
+      "npc": 7
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5C3CB8",
+      "5C3CB9",
+      "5C3CC9",
+      "5C3CCA",
+      "5C3CF8",
+      "5C3CF9",
+      "5C3D03"
+     ],
+     "coords": [
+      3238.98999023438,
+      2506.431640625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "5C3CB8",
+       "source_type": "npc",
+       "coords": [
+        3238.98999023438,
+        2506.431640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C3CB9",
+       "source_type": "npc",
+       "coords": [
+        2583.19995117187,
+        2390.21411132813
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C3CC9",
+       "source_type": "npc",
+       "coords": [
+        139.62890625,
+        402.975891113281
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C3CCA",
+       "source_type": "npc",
+       "coords": [
+        737.771423339844,
+        1328.03125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C3CF8",
+       "source_type": "npc",
+       "coords": [
+        705.753662109375,
+        2471.470703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C3CF9",
+       "source_type": "npc",
+       "coords": [
+        1605.76342773438,
+        1428.74047851562
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C3D03",
+       "source_type": "npc",
+       "coords": [
+        1579.42736816406,
+        2397.92919921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Summersville",
+     "count": 7,
+     "sources": {
+      "npc": 7
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "311A41",
+      "311A48",
+      "312829",
+      "5A0475",
+      "5A0477",
+      "5A0479",
+      "5A047F"
+     ],
+     "coords": [
+      -45503.87109375,
+      -13724.2470703125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "311A41",
+       "source_type": "npc",
+       "coords": [
+        -45503.87109375,
+        -13724.2470703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "311A48",
+       "source_type": "npc",
+       "coords": [
+        -44928.06640625,
+        -13197.45703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "312829",
+       "source_type": "npc",
+       "coords": [
+        -48682.171875,
+        -14247.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A0475",
+       "source_type": "npc",
+       "coords": [
+        -44216.0,
+        -11084.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A0477",
+       "source_type": "npc",
+       "coords": [
+        -44372.0,
+        -11452.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A0479",
+       "source_type": "npc",
+       "coords": [
+        -43960.0,
+        -10712.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A047F",
+       "source_type": "npc",
+       "coords": [
+        -44956.5390625,
+        -11522.037109375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Wayward",
+     "count": 1,
+     "sources": {
+      "npc": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6FAD2A"
+     ],
+     "coords": [
+      -83641.7265625,
+      48142.7734375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "6FAD2A",
+       "source_type": "npc",
+       "coords": [
+        -83641.7265625,
+        48142.7734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 51",
+     "count": 6,
+     "sources": {
+      "npc": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "60CB15",
+      "60D011",
+      "60D2F0",
+      "60D2F1",
+      "60D2F2",
+      "60DC7C"
+     ],
+     "coords": [
+      -4654.9140625,
+      1963.48608398438
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "60CB15",
+       "source_type": "npc",
+       "coords": [
+        -4654.9140625,
+        1963.48608398438
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "60D011",
+       "source_type": "npc",
+       "coords": [
+        2730.6845703125,
+        335.756286621094
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "60D2F0",
+       "source_type": "npc",
+       "coords": [
+        -2429.4912109375,
+        136.872970581055
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "60D2F1",
+       "source_type": "npc",
+       "coords": [
+        -2296.79028320313,
+        1160.8779296875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "60D2F2",
+       "source_type": "npc",
+       "coords": [
+        -1811.12951660156,
+        -331.653503417969
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "60DC7C",
+       "source_type": "npc",
+       "coords": [
+        -3085.3447265625,
+        1904.59399414062
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 76",
+     "count": 13,
+     "sources": {
+      "npc": 13
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "0A1A97",
+      "0A1AA5",
+      "0A1B0B",
+      "0A1BC2",
+      "0A1FFD",
+      "0A24C7",
+      "0A24E3",
+      "2F73E3",
+      "2F745E",
+      "73E39B",
+      "76F480",
+      "76F481",
+      "76F48B"
+     ],
+     "coords": [
+      -112397.8671875,
+      95412.1875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "0A1A97",
+       "source_type": "npc",
+       "coords": [
+        -112397.8671875,
+        95412.1875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "0A1AA5",
+       "source_type": "npc",
+       "coords": [
+        -112103.609375,
+        95467.5859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "0A1B0B",
+       "source_type": "npc",
+       "coords": [
+        -107410.328125,
+        92313.4765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "0A1BC2",
+       "source_type": "npc",
+       "coords": [
+        -110232.3828125,
+        93956.6328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "0A1FFD",
+       "source_type": "npc",
+       "coords": [
+        -106890.765625,
+        94631.265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "0A24C7",
+       "source_type": "npc",
+       "coords": [
+        -107562.40625,
+        95521.0703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "0A24E3",
+       "source_type": "npc",
+       "coords": [
+        -106644.2421875,
+        95076.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "2F73E3",
+       "source_type": "npc",
+       "coords": [
+        -97485.59375,
+        87901.2421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "2F745E",
+       "source_type": "npc",
+       "coords": [
+        -98134.0859375,
+        87706.046875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "73E39B",
+       "source_type": "npc",
+       "coords": [
+        -98778.8515625,
+        87556.3046875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "76F480",
+       "source_type": "npc",
+       "coords": [
+        -101023.15625,
+        93711.921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "76F481",
+       "source_type": "npc",
+       "coords": [
+        -101004.390625,
+        92857.4140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "76F48B",
+       "source_type": "npc",
+       "coords": [
+        -107051.53125,
+        92254.75
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault-Tec University",
+     "count": 9,
+     "sources": {
+      "npc": 9
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5A1CA5",
+      "5A1CA9",
+      "5A1CAA",
+      "5A1CAB",
+      "5A1CAC",
+      "5A1CAD",
+      "5A1CB8",
+      "5A1CBA",
+      "5A1CBB"
+     ],
+     "coords": [
+      -281.428253173828,
+      721.32177734375
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "5A1CA5",
+       "source_type": "npc",
+       "coords": [
+        -281.428253173828,
+        721.32177734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A1CA9",
+       "source_type": "npc",
+       "coords": [
+        -362.031127929687,
+        454.889068603516
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A1CAA",
+       "source_type": "npc",
+       "coords": [
+        -116.470077514648,
+        1.09217298030853
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A1CAB",
+       "source_type": "npc",
+       "coords": [
+        -1086.50915527344,
+        591.00146484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A1CAC",
+       "source_type": "npc",
+       "coords": [
+        -1703.7353515625,
+        1005.06750488281
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A1CAD",
+       "source_type": "npc",
+       "coords": [
+        -1360.09765625,
+        0.261150985956192
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A1CB8",
+       "source_type": "npc",
+       "coords": [
+        -1141.92761230469,
+        -866.436950683594
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A1CBA",
+       "source_type": "npc",
+       "coords": [
+        -1101.13098144531,
+        7.27987289428711
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5A1CBB",
+       "source_type": "npc",
+       "coords": [
+        -1648.65368652344,
+        260.666015625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Wixon Homestead",
+     "count": 2,
+     "sources": {
+      "npc": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3E5470",
+      "3E5471"
+     ],
+     "coords": [
+      -89660.9140625,
+      56919.16796875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "3E5470",
+       "source_type": "npc",
+       "coords": [
+        -89660.9140625,
+        56919.16796875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3E5471",
+       "source_type": "npc",
+       "coords": [
+        -89404.9140625,
+        56919.16796875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Savage Divide",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Emmett Mountain Disposal Site",
+     "count": 7,
+     "sources": {
+      "npc": 7
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7A3054",
+      "7A3055",
+      "7A3056",
+      "7A3057",
+      "7A3058",
+      "7A305A",
+      "7A305B"
+     ],
+     "coords": [
+      2052.04248046875,
+      -2562.90869140625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "7A3054",
+       "source_type": "npc",
+       "coords": [
+        2007.95666503906,
+        -2825.41674804687
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7A3055",
+       "source_type": "npc",
+       "coords": [
+        2083.7021484375,
+        -2918.40014648438
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7A3056",
+       "source_type": "npc",
+       "coords": [
+        2052.04248046875,
+        -2562.90869140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7A3057",
+       "source_type": "npc",
+       "coords": [
+        2207.43505859375,
+        -2598.19262695313
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7A3058",
+       "source_type": "npc",
+       "coords": [
+        1931.31848144531,
+        -2631.69384765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7A305A",
+       "source_type": "npc",
+       "coords": [
+        2165.55712890625,
+        -2976.83178710937
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7A305B",
+       "source_type": "npc",
+       "coords": [
+        2258.12768554687,
+        -2676.39111328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hornwright Estate",
+     "count": 1,
+     "sources": {
+      "npc": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "33F82E"
+     ],
+     "coords": [
+      -57134.34765625,
+      -147802.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "33F82E",
+       "source_type": "npc",
+       "coords": [
+        -57134.34765625,
+        -147802.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Point Repose",
+     "count": 8,
+     "sources": {
+      "npc": 8
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7AD0D3",
+      "7AD0D5",
+      "7AD0D6",
+      "7AD0D7",
+      "7AD0D8",
+      "7AD0D9",
+      "7AD0DB",
+      "7AD0DC"
+     ],
+     "coords": [
+      164898.90625,
+      243236.46875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "7AD0D3",
+       "source_type": "npc",
+       "coords": [
+        164898.90625,
+        243236.46875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7AD0D5",
+       "source_type": "npc",
+       "coords": [
+        164646.65625,
+        243194.859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7AD0D6",
+       "source_type": "npc",
+       "coords": [
+        164288.609375,
+        243194.859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7AD0D7",
+       "source_type": "npc",
+       "coords": [
+        164374.46875,
+        244323.859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7AD0D8",
+       "source_type": "npc",
+       "coords": [
+        165302.203125,
+        244421.65625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7AD0D9",
+       "source_type": "npc",
+       "coords": [
+        165965.3125,
+        244091.265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7AD0DB",
+       "source_type": "npc",
+       "coords": [
+        164188.71875,
+        244899.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "7AD0DC",
+       "source_type": "npc",
+       "coords": [
+        165597.84375,
+        244852.65625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Safe 'n Clean Disposal",
+     "count": 16,
+     "sources": {
+      "npc": 16
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "1FC5A7",
+      "1FC5B2",
+      "1FC5D8",
+      "1FC60B",
+      "1FC61B",
+      "1FC620",
+      "1FC635",
+      "1FC63B",
+      "3A0BB6",
+      "3A0BB7",
+      "3D719E",
+      "3D719F",
+      "3D71A1",
+      "3D71A2",
+      "3D71A3",
+      "3D71A4"
+     ],
+     "coords": [
+      4073.552734375,
+      -37812.70703125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "1FC5A7",
+       "source_type": "npc",
+       "coords": [
+        4073.552734375,
+        -37812.70703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FC5B2",
+       "source_type": "npc",
+       "coords": [
+        3416.86010742188,
+        -38190.8359375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FC5D8",
+       "source_type": "npc",
+       "coords": [
+        4577.84765625,
+        -38162.39453125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FC60B",
+       "source_type": "npc",
+       "coords": [
+        3717.93212890625,
+        -39117.875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FC61B",
+       "source_type": "npc",
+       "coords": [
+        3258.07495117188,
+        -38114.65625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FC620",
+       "source_type": "npc",
+       "coords": [
+        3307.916015625,
+        -38109.85546875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FC635",
+       "source_type": "npc",
+       "coords": [
+        4354.76025390625,
+        -38197.66015625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FC63B",
+       "source_type": "npc",
+       "coords": [
+        4222.54541015625,
+        -38956.1796875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3A0BB6",
+       "source_type": "npc",
+       "coords": [
+        8504.3359375,
+        -40614.33203125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3A0BB7",
+       "source_type": "npc",
+       "coords": [
+        8621.140625,
+        -40666.68359375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D719E",
+       "source_type": "npc",
+       "coords": [
+        6100.44140625,
+        -39929.0390625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D719F",
+       "source_type": "npc",
+       "coords": [
+        6227.0302734375,
+        -39947.9921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D71A1",
+       "source_type": "npc",
+       "coords": [
+        10873.306640625,
+        -42196.67578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D71A2",
+       "source_type": "npc",
+       "coords": [
+        10773.15234375,
+        -42116.96875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D71A3",
+       "source_type": "npc",
+       "coords": [
+        10672.998046875,
+        -42037.265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D71A4",
+       "source_type": "npc",
+       "coords": [
+        8387.5615234375,
+        -40561.859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Whitespring Golf Club",
+     "count": 11,
+     "sources": {
+      "npc": 11
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "1FB043",
+      "1FB0F6",
+      "1FB0FC",
+      "1FB117",
+      "1FB123",
+      "3D60A7",
+      "3D60AB",
+      "3D60AE",
+      "3D60B1",
+      "3D60B2",
+      "50BC04"
+     ],
+     "coords": [
+      -8726.8232421875,
+      -44695.89453125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "1FB043",
+       "source_type": "npc",
+       "coords": [
+        -8726.8232421875,
+        -44695.89453125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB0F6",
+       "source_type": "npc",
+       "coords": [
+        -8464.1103515625,
+        -44687.00390625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB0FC",
+       "source_type": "npc",
+       "coords": [
+        -8028.0693359375,
+        -44189.91796875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB117",
+       "source_type": "npc",
+       "coords": [
+        -7492.2666015625,
+        -43995.58203125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB123",
+       "source_type": "npc",
+       "coords": [
+        -6995.85302734375,
+        -43490.421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D60A7",
+       "source_type": "npc",
+       "coords": [
+        -7841.63330078125,
+        -38678.87109375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D60AB",
+       "source_type": "npc",
+       "coords": [
+        -7597.69970703125,
+        -39002.0234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D60AE",
+       "source_type": "npc",
+       "coords": [
+        -7415.029296875,
+        -39244.01953125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D60B1",
+       "source_type": "npc",
+       "coords": [
+        -7488.1875,
+        -38942.7109375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D60B2",
+       "source_type": "npc",
+       "coords": [
+        -7727.6005859375,
+        -38625.18359375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50BC04",
+       "source_type": "npc",
+       "coords": [
+        -10026.388671875,
+        -55699.80859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Whitespring North Entrance",
+     "count": 18,
+     "sources": {
+      "npc": 18
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "1FB170",
+      "1FB1F7",
+      "1FB2A8",
+      "1FB2C3",
+      "1FB2CD",
+      "1FB301",
+      "1FB33A",
+      "1FC570",
+      "1FC5AC",
+      "3D60BA",
+      "3D60BB",
+      "50BB8F",
+      "50BB90",
+      "50BB9B",
+      "50BB9C",
+      "50BB9D",
+      "50BB9E",
+      "50BB9F"
+     ],
+     "coords": [
+      -5473.57275390625,
+      -42202.97265625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "1FB170",
+       "source_type": "npc",
+       "coords": [
+        -5966.34619140625,
+        -42882.21484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB1F7",
+       "source_type": "npc",
+       "coords": [
+        -5473.57275390625,
+        -42202.97265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB2A8",
+       "source_type": "npc",
+       "coords": [
+        -5453.00537109375,
+        -42323.80859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB2C3",
+       "source_type": "npc",
+       "coords": [
+        -6104.49169921875,
+        -42683.83203125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB2CD",
+       "source_type": "npc",
+       "coords": [
+        -3041.08129882812,
+        -40042.94140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB301",
+       "source_type": "npc",
+       "coords": [
+        -2675.81494140625,
+        -40567.9296875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FB33A",
+       "source_type": "npc",
+       "coords": [
+        -2206.92114257813,
+        -40657.140625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FC570",
+       "source_type": "npc",
+       "coords": [
+        -5631.6533203125,
+        -43272.36328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "1FC5AC",
+       "source_type": "npc",
+       "coords": [
+        3183.9453125,
+        -38957.453125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D60BA",
+       "source_type": "npc",
+       "coords": [
+        -6576.26513671875,
+        -38107.45703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D60BB",
+       "source_type": "npc",
+       "coords": [
+        -6280.5634765625,
+        -38102.3984375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50BB8F",
+       "source_type": "npc",
+       "coords": [
+        -945.10546875,
+        -53217.72265625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50BB90",
+       "source_type": "npc",
+       "coords": [
+        -1026.298828125,
+        -53152.734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50BB9B",
+       "source_type": "npc",
+       "coords": [
+        -2819.83178710938,
+        -53081.32421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50BB9C",
+       "source_type": "npc",
+       "coords": [
+        -2919.54272460937,
+        -53093.0078125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50BB9D",
+       "source_type": "npc",
+       "coords": [
+        -3279.81811523438,
+        -53103.71875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50BB9E",
+       "source_type": "npc",
+       "coords": [
+        -3385.40942382812,
+        -53099.4375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "50BB9F",
+       "source_type": "npc",
+       "coords": [
+        -3490.81420898438,
+        -53093.94921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 79",
+     "count": 30,
+     "sources": {
+      "npc": 30
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "539B91",
+      "539B92",
+      "539B93",
+      "539B94",
+      "539B95",
+      "539B96",
+      "539B97",
+      "539B98",
+      "53ACC3",
+      "53ACC4",
+      "53ACC5",
+      "53ACC6",
+      "53ACC7",
+      "53ACC8",
+      "53ACC9",
+      "53ACCA",
+      "53ACCB",
+      "53ACCC",
+      "53ACCD",
+      "53ACCE",
+      "53ACD5",
+      "53ACE1",
+      "53ACE5",
+      "53ACE8",
+      "53ACEA",
+      "5584B3",
+      "5584DA",
+      "585B14",
+      "585B15",
+      "59F216"
+     ],
+     "coords": [
+      -6579.24267578125,
+      3099.06127929687
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "539B91",
+       "source_type": "npc",
+       "coords": [
+        -6579.24267578125,
+        3099.06127929687
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "539B92",
+       "source_type": "npc",
+       "coords": [
+        -6584.263671875,
+        3240.07568359375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "539B93",
+       "source_type": "npc",
+       "coords": [
+        -6426.9228515625,
+        3240.07568359375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "539B94",
+       "source_type": "npc",
+       "coords": [
+        -6421.9013671875,
+        3099.0615234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "539B95",
+       "source_type": "npc",
+       "coords": [
+        -5069.4052734375,
+        1821.23449707031
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "539B96",
+       "source_type": "npc",
+       "coords": [
+        -5966.95361328125,
+        2402.13623046875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "539B97",
+       "source_type": "npc",
+       "coords": [
+        -5844.82373046875,
+        2402.13623046875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "539B98",
+       "source_type": "npc",
+       "coords": [
+        -5844.8232421875,
+        2559.478515625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACC3",
+       "source_type": "npc",
+       "coords": [
+        -5347.19140625,
+        6354.392578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACC4",
+       "source_type": "npc",
+       "coords": [
+        -5222.130859375,
+        6354.392578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACC5",
+       "source_type": "npc",
+       "coords": [
+        -5222.1318359375,
+        6220.828125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACC6",
+       "source_type": "npc",
+       "coords": [
+        -5347.1923828125,
+        6220.828125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACC7",
+       "source_type": "npc",
+       "coords": [
+        -5222.130859375,
+        6075.591796875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACC8",
+       "source_type": "npc",
+       "coords": [
+        -5347.19140625,
+        6075.5908203125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACC9",
+       "source_type": "npc",
+       "coords": [
+        -5222.1318359375,
+        5961.80859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACCA",
+       "source_type": "npc",
+       "coords": [
+        -5347.1923828125,
+        5961.8095703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACCB",
+       "source_type": "npc",
+       "coords": [
+        -5222.1318359375,
+        5825.56640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACCC",
+       "source_type": "npc",
+       "coords": [
+        -5347.1923828125,
+        5825.56640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACCD",
+       "source_type": "npc",
+       "coords": [
+        -5221.373046875,
+        5697.6962890625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACCE",
+       "source_type": "npc",
+       "coords": [
+        -5347.1923828125,
+        5696.484375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACD5",
+       "source_type": "npc",
+       "coords": [
+        -3316.24829101562,
+        5398.02392578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACE1",
+       "source_type": "npc",
+       "coords": [
+        -4019.01831054687,
+        5347.0380859375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACE5",
+       "source_type": "npc",
+       "coords": [
+        -3680.46997070313,
+        5125.4677734375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACE8",
+       "source_type": "npc",
+       "coords": [
+        -3931.46215820313,
+        4865.373046875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "53ACEA",
+       "source_type": "npc",
+       "coords": [
+        -3512.10620117188,
+        5034.6669921875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5584B3",
+       "source_type": "npc",
+       "coords": [
+        -3940.33618164063,
+        6176.79345703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5584DA",
+       "source_type": "npc",
+       "coords": [
+        -3987.15649414063,
+        5777.86328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "585B14",
+       "source_type": "npc",
+       "coords": [
+        -4140.04248046875,
+        5102.8408203125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "585B15",
+       "source_type": "npc",
+       "coords": [
+        -4093.2548828125,
+        4935.30615234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "59F216",
+       "source_type": "npc",
+       "coords": [
+        -5071.6572265625,
+        1938.96801757813
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Whitespring Bunker",
+     "count": 5,
+     "sources": {
+      "npc": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "39713C",
+      "39713D",
+      "39713E",
+      "39713F",
+      "397140"
+     ],
+     "coords": [
+      8285.328125,
+      -67500.171875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "39713C",
+       "source_type": "npc",
+       "coords": [
+        8285.328125,
+        -67500.171875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "39713D",
+       "source_type": "npc",
+       "coords": [
+        8708.552734375,
+        -68675.234375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "39713E",
+       "source_type": "npc",
+       "coords": [
+        8122.2900390625,
+        -69070.015625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "39713F",
+       "source_type": "npc",
+       "coords": [
+        8871.494140625,
+        -69223.3046875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "397140",
+       "source_type": "npc",
+       "coords": [
+        7384.0,
+        -68264.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Skyline Valley",
@@ -231,7 +5160,83 @@
   },
   {
    "region": "The Mire",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Big Maw",
+     "count": 1,
+     "sources": {
+      "npc": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "45029D"
+     ],
+     "coords": [
+      155899.140625,
+      26492.154296875
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "45029D",
+       "source_type": "npc",
+       "coords": [
+        155899.140625,
+        26492.154296875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Southern Belle Motel",
+     "count": 2,
+     "sources": {
+      "npc": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "45029C",
+      "45029E"
+     ],
+     "coords": [
+      156194.75,
+      26356.86328125
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "45029C",
+       "source_type": "npc",
+       "coords": [
+        156194.75,
+        26356.86328125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "45029E",
+       "source_type": "npc",
+       "coords": [
+        156409.9375,
+        26307.95703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "The Pitt",
@@ -239,8 +5244,78 @@
   },
   {
    "region": "Toxic Valley",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Black Bear Lodge",
+     "count": 4,
+     "sources": {
+      "npc": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "10E448",
+      "10E449",
+      "10E44A",
+      "10E44B"
+     ],
+     "coords": [
+      5604.95849609375,
+      190283.515625
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "10E448",
+       "source_type": "npc",
+       "coords": [
+        5732.75439453125,
+        190222.59375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "10E449",
+       "source_type": "npc",
+       "coords": [
+        5604.95849609375,
+        190283.515625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "10E44A",
+       "source_type": "npc",
+       "coords": [
+        5755.62646484375,
+        190376.421875
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "10E44B",
+       "source_type": "npc",
+       "coords": [
+        5574.9560546875,
+        190434.453125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   }
- ],
- "total": 0
+ ]
 }

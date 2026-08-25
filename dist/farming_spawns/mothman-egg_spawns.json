@@ -4,10 +4,8 @@
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 12,
   "source_totals": {
-   "container": 1,
    "enlightened-flora": 20,
    "flora": 54,
-   "loot-list": 6,
    "npc": 2
   },
   "unresolved": {}
@@ -24,10 +22,7 @@
     "0035D237",
     "0035D22B"
    ],
-   "note": "66 mothman egg flora placements across 3 LPI lists. Each harvest yields 1 egg; respawns on the standard flora timer. 23 additional enlightened flora placements (E07A event) yield Perfect Mothman Eggs.",
-   "rate": 1.0,
-   "rate_display": "100%",
-   "rate_source": "computed"
+   "note": "66 mothman egg flora placements across 3 LPI lists. Each harvest yields 1 egg; respawns on the standard flora timer. 23 additional enlightened flora placements (E07A event) yield Perfect Mothman Eggs."
   },
   "creature_drops": null,
   "event_loot": {
@@ -36,47 +31,7 @@
    "note": "Mothman Equinox High Priest reward (quest-assigned, UseAll 9 entries): 1 guaranteed mothman egg + 20% chance of 2 more + 5% chance of a Perfect Mothman Egg."
   },
   "vendors": null,
-  "resource_generators": {
-   "entries": [
-    {
-     "name": "Mothman Nest",
-     "edid": "ATX_Resource_MothmanNest_Egg",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "10 min 12 sec",
-     "items": [
-      {
-       "name": "Mothman Egg",
-       "form_id": "0008E922",
-       "rate": 1.0,
-       "rate_display": "100%",
-       "rate_source": "computed"
-      }
-     ]
-    }
-   ]
-  },
-  "collectrons": {
-   "entries": [
-    {
-     "name": "Liberated Collectron Station",
-     "edid": "ATX_LiberatedResource_Collector",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "9 min",
-     "items": [
-      {
-       "name": "Mothman Egg",
-       "form_id": "0008E922",
-       "rate": 0.25,
-       "rate_display": "25%",
-       "rate_source": "computed"
-      }
-     ]
-    }
-   ]
-  },
-  "containers": {
-   "types": []
-  }
+  "resource_generators": {}
  },
  "farming_tips": {
   "spoils": true,
@@ -131,171 +86,7 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": {
-  "consumption": {
-   "object_type": "Food",
-   "weight": 0.25,
-   "value": 15,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": true,
-   "note": "Mothman Egg is a food consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (360/6 min)",
-     "duration": null
-    },
-    {
-     "name": "Rads",
-     "display": "Rads",
-     "duration": null
-    }
-   ]
-  },
-  "challenges": [
-   {
-    "name": "Epic - Collect Mothman Eggs",
-    "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman_Epic",
-    "page": "daily",
-    "type": "Daily",
-    "required": 5
-   },
-   {
-    "name": "Collect Mothman Eggs",
-    "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman",
-    "page": "daily",
-    "type": "Daily",
-    "required": 5
-   },
-   {
-    "name": "Birthday: Collect a Mothman Egg while wearing the Birthday Suit",
-    "edid": "ATX_DE2023_Birthday_Challenge_Collect_MothmanEgg",
-    "page": "season:birthday",
-    "type": "Mini Season",
-    "required": 1
-   }
-  ],
-  "recipes": [
-   {
-    "name": "Brain Bombs",
-    "form_id": "0011C5B0",
-    "recipe_edid": "co_meal_BrainBombsGourmet",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 2,
-    "mutation": "Herbivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Sugar Bombs",
-      "qty": 3,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-sugar-bombs/"
-     },
-     {
-      "name": "Purified Water",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-purified-water/"
-     },
-     {
-      "name": "Mothman Egg",
-      "qty": 2,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-mothman/mothman-guide/",
-      "is_main": true
-     },
-     {
-      "name": "Brain Fungus",
-      "qty": 3,
-      "url": "https://www.buffsnbrew.com/bnb/farming/plants/brain-fungus/"
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 90 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Restore Action Points",
-      "display": "+12 Action Points",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Intelligence",
-      "display": "+3 Fortify Intelligence",
-      "duration": "1 hour 30 min"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (1800/30 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Recipe: Brain Bombs"
-   },
-   {
-    "name": "Mothman Egg Omelette",
-    "form_id": "0029451A",
-    "recipe_edid": "co_meal_MothmanEggCooked",
-    "category": "Food",
-    "workbench": "Cooking Station",
-    "output_qty": 1,
-    "item_qty": 1,
-    "mutation": "Carnivore",
-    "ingredients": [
-     {
-      "name": "Wood",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
-     },
-     {
-      "name": "Mothman Egg",
-      "qty": 1,
-      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-mothman/mothman-guide/",
-      "is_main": true
-     }
-    ],
-    "effects": [
-     {
-      "name": "Restore Health",
-      "display": "Restores 45 Health",
-      "duration": "25s"
-     },
-     {
-      "name": "Fortify Charisma",
-      "display": "+2 Fortify Charisma",
-      "duration": "30 min"
-     },
-     {
-      "name": "Satisfy Hunger",
-      "display": "Satisfies hunger (1080/18 min)",
-      "duration": null
-     },
-     {
-      "name": "Rads",
-      "display": "+5 Rads",
-      "duration": null
-     }
-    ],
-    "how_to_obtain": "Known by default."
-   }
-  ],
-  "obtain": {
-   "recipes": [],
-   "note": null
-  }
- },
- "vendor_list": [],
+ "used_for": null,
  "additional_expands": [
   {
    "title": "Perfect Mothman Eggs",
@@ -352,13 +143,7 @@
    "list_id": "00635071",
    "edid": "E07A_Mothman_CultistHighPriestReward_Loot",
    "name": "Mothman Cultist High Priest Reward Loot",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the Mothman Cultist High Priest Reward Loot reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
+   "type": "Seasonal / Public Event"
   }
  ],
  "regions": [
@@ -392,8 +177,8 @@
       "6BA8A5"
      ],
      "coords": [
-      191710.8,
-      -119570.1
+      191710.765625,
+      -119570.125
      ],
      "spawns": [
       {
@@ -401,8 +186,8 @@
        "ref": "6BA8A1",
        "source_type": "flora",
        "coords": [
-        191710.8,
-        -119604.1
+        191710.765625,
+        -119604.09375
        ],
        "image_top": "",
        "directions": "",
@@ -413,8 +198,8 @@
        "ref": "6BA8A2",
        "source_type": "flora",
        "coords": [
-        191710.8,
-        -119570.1
+        191710.765625,
+        -119570.125
        ],
        "image_top": "",
        "directions": "",
@@ -425,8 +210,8 @@
        "ref": "6BA8A5",
        "source_type": "flora",
        "coords": [
-        191650.9,
-        -119582.0
+        191650.890625,
+        -119581.9609375
        ],
        "image_top": "",
        "directions": "",
@@ -441,16 +226,14 @@
    "locations": [
     {
      "marker": "Clancy Manor",
-     "count": 10,
+     "count": 9,
      "sources": {
-      "flora": 9,
-      "loot-list": 1
+      "flora": 9
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "5A0375",
       "5A0376",
       "5A0377",
       "5A0378",
@@ -462,8 +245,8 @@
       "5A037E"
      ],
      "coords": [
-      -93531.2,
-      183603.9
+      -91313.359375,
+      183681.359375
      ],
      "spawns": [
       {
@@ -471,8 +254,8 @@
        "ref": "5A0376",
        "source_type": "flora",
        "coords": [
-        -91332.6,
-        184060.4
+        -91332.6171875,
+        184060.421875
        ],
        "image_top": "",
        "directions": "",
@@ -483,8 +266,8 @@
        "ref": "5A0377",
        "source_type": "flora",
        "coords": [
-        -91313.4,
-        183681.4
+        -91313.359375,
+        183681.359375
        ],
        "image_top": "",
        "directions": "",
@@ -495,8 +278,8 @@
        "ref": "5A0378",
        "source_type": "flora",
        "coords": [
-        -91313.4,
-        183681.4
+        -91313.359375,
+        183681.359375
        ],
        "image_top": "",
        "directions": "",
@@ -507,8 +290,8 @@
        "ref": "5A0379",
        "source_type": "flora",
        "coords": [
-        -93756.5,
-        183438.4
+        -93756.546875,
+        183438.421875
        ],
        "image_top": "",
        "directions": "",
@@ -519,8 +302,8 @@
        "ref": "5A037A",
        "source_type": "flora",
        "coords": [
-        -93719.3,
-        183732.2
+        -93719.3359375,
+        183732.25
        ],
        "image_top": "",
        "directions": "",
@@ -531,8 +314,8 @@
        "ref": "5A037B",
        "source_type": "flora",
        "coords": [
-        -93419.5,
-        183448.7
+        -93419.546875,
+        183448.71875
        ],
        "image_top": "",
        "directions": "",
@@ -543,8 +326,8 @@
        "ref": "5A037C",
        "source_type": "flora",
        "coords": [
-        -91482.4,
-        183994.5
+        -91482.4140625,
+        183994.515625
        ],
        "image_top": "",
        "directions": "",
@@ -555,8 +338,8 @@
        "ref": "5A037D",
        "source_type": "flora",
        "coords": [
-        -93419.2,
-        183606.7
+        -93419.1953125,
+        183606.671875
        ],
        "image_top": "",
        "directions": "",
@@ -567,20 +350,8 @@
        "ref": "5A037E",
        "source_type": "flora",
        "coords": [
-        -93800.4,
-        183587.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "5A0375",
-       "source_type": "loot-list",
-       "coords": [
-        -93531.2,
-        183603.9
+        -93800.390625,
+        183587.4375
        ],
        "image_top": "",
        "directions": "",
@@ -603,8 +374,8 @@
       "5A0374"
      ],
      "coords": [
-      -176254.1,
-      -21059.5
+      -176254.140625,
+      -21059.5390625
      ],
      "spawns": [
       {
@@ -612,8 +383,8 @@
        "ref": "5A0372",
        "source_type": "flora",
        "coords": [
-        -176431.5,
-        -20905.9
+        -176431.484375,
+        -20905.884765625
        ],
        "image_top": "",
        "directions": "",
@@ -625,7 +396,7 @@
        "source_type": "flora",
        "coords": [
         -176420.0,
-        -21055.9
+        -21055.869140625
        ],
        "image_top": "",
        "directions": "",
@@ -636,8 +407,8 @@
        "ref": "5A0374",
        "source_type": "flora",
        "coords": [
-        -176254.1,
-        -21059.5
+        -176254.140625,
+        -21059.5390625
        ],
        "image_top": "",
        "directions": "",
@@ -658,8 +429,8 @@
       "3879A0"
      ],
      "coords": [
-      -76118.6,
-      73049.2
+      -76118.6484375,
+      73049.1875
      ],
      "spawns": [
       {
@@ -667,8 +438,8 @@
        "ref": "3879A0",
        "source_type": "npc",
        "coords": [
-        -76118.6,
-        73049.2
+        -76118.6484375,
+        73049.1875
        ],
        "image_top": "",
        "directions": "",
@@ -739,8 +510,8 @@
       "627819"
      ],
      "coords": [
-      -177469.8,
-      73192.6
+      -177469.828125,
+      73192.625
      ],
      "spawns": [
       {
@@ -748,8 +519,8 @@
        "ref": "618A2D",
        "source_type": "enlightened-flora",
        "coords": [
-        -179274.9,
-        74022.2
+        -179274.875,
+        74022.1875
        ],
        "image_top": "",
        "directions": "",
@@ -760,8 +531,8 @@
        "ref": "618A2E",
        "source_type": "enlightened-flora",
        "coords": [
-        -179093.2,
-        74010.6
+        -179093.1875,
+        74010.5859375
        ],
        "image_top": "",
        "directions": "",
@@ -772,8 +543,8 @@
        "ref": "618A2F",
        "source_type": "enlightened-flora",
        "coords": [
-        -179280.8,
-        74264.0
+        -179280.84375,
+        74264.0390625
        ],
        "image_top": "",
        "directions": "",
@@ -784,8 +555,8 @@
        "ref": "618A30",
        "source_type": "enlightened-flora",
        "coords": [
-        -179412.2,
-        74964.0
+        -179412.171875,
+        74964.0078125
        ],
        "image_top": "",
        "directions": "",
@@ -796,8 +567,8 @@
        "ref": "618A31",
        "source_type": "enlightened-flora",
        "coords": [
-        -179350.0,
-        75310.0
+        -179350.03125,
+        75310.03125
        ],
        "image_top": "",
        "directions": "",
@@ -809,7 +580,7 @@
        "source_type": "enlightened-flora",
        "coords": [
         -179399.5,
-        73514.7
+        73514.6640625
        ],
        "image_top": "",
        "directions": "",
@@ -820,8 +591,8 @@
        "ref": "618A34",
        "source_type": "enlightened-flora",
        "coords": [
-        -179308.1,
-        73989.3
+        -179308.140625,
+        73989.3125
        ],
        "image_top": "",
        "directions": "",
@@ -832,8 +603,8 @@
        "ref": "618A35",
        "source_type": "enlightened-flora",
        "coords": [
-        -179110.1,
-        74567.4
+        -179110.109375,
+        74567.3671875
        ],
        "image_top": "",
        "directions": "",
@@ -844,8 +615,8 @@
        "ref": "618A36",
        "source_type": "enlightened-flora",
        "coords": [
-        -179063.7,
-        75350.9
+        -179063.6875,
+        75350.9296875
        ],
        "image_top": "",
        "directions": "",
@@ -856,8 +627,8 @@
        "ref": "618A38",
        "source_type": "enlightened-flora",
        "coords": [
-        -179133.2,
-        74596.8
+        -179133.21875,
+        74596.8203125
        ],
        "image_top": "",
        "directions": "",
@@ -868,8 +639,8 @@
        "ref": "618A39",
        "source_type": "enlightened-flora",
        "coords": [
-        -179301.4,
-        74344.6
+        -179301.359375,
+        74344.6484375
        ],
        "image_top": "",
        "directions": "",
@@ -880,8 +651,8 @@
        "ref": "618A3A",
        "source_type": "enlightened-flora",
        "coords": [
-        -179296.9,
-        73966.1
+        -179296.9375,
+        73966.125
        ],
        "image_top": "",
        "directions": "",
@@ -892,8 +663,8 @@
        "ref": "618A3B",
        "source_type": "enlightened-flora",
        "coords": [
-        -179115.8,
-        74035.1
+        -179115.78125,
+        74035.09375
        ],
        "image_top": "",
        "directions": "",
@@ -904,8 +675,8 @@
        "ref": "618A3C",
        "source_type": "enlightened-flora",
        "coords": [
-        -178990.4,
-        74325.5
+        -178990.40625,
+        74325.46875
        ],
        "image_top": "",
        "directions": "",
@@ -917,7 +688,7 @@
        "source_type": "enlightened-flora",
        "coords": [
         -179333.0,
-        74604.7
+        74604.6875
        ],
        "image_top": "",
        "directions": "",
@@ -928,8 +699,8 @@
        "ref": "618A3E",
        "source_type": "enlightened-flora",
        "coords": [
-        -179193.0,
-        74628.0
+        -179193.046875,
+        74627.984375
        ],
        "image_top": "",
        "directions": "",
@@ -940,8 +711,8 @@
        "ref": "618A3F",
        "source_type": "enlightened-flora",
        "coords": [
-        -179112.1,
-        74807.3
+        -179112.078125,
+        74807.2734375
        ],
        "image_top": "",
        "directions": "",
@@ -952,8 +723,8 @@
        "ref": "618A40",
        "source_type": "enlightened-flora",
        "coords": [
-        -179011.5,
-        74339.8
+        -179011.53125,
+        74339.8359375
        ],
        "image_top": "",
        "directions": "",
@@ -964,8 +735,8 @@
        "ref": "618A41",
        "source_type": "enlightened-flora",
        "coords": [
-        -179268.4,
-        74501.2
+        -179268.40625,
+        74501.1953125
        ],
        "image_top": "",
        "directions": "",
@@ -976,8 +747,8 @@
        "ref": "618A42",
        "source_type": "enlightened-flora",
        "coords": [
-        -179121.9,
-        73532.9
+        -179121.9375,
+        73532.8671875
        ],
        "image_top": "",
        "directions": "",
@@ -988,8 +759,8 @@
        "ref": "30DBF0",
        "source_type": "flora",
        "coords": [
-        -177427.9,
-        73221.5
+        -177427.890625,
+        73221.4921875
        ],
        "image_top": "",
        "directions": "",
@@ -1000,8 +771,8 @@
        "ref": "30DBFA",
        "source_type": "flora",
        "coords": [
-        -177469.8,
-        73192.6
+        -177469.828125,
+        73192.625
        ],
        "image_top": "",
        "directions": "",
@@ -1012,8 +783,8 @@
        "ref": "30DBFE",
        "source_type": "flora",
        "coords": [
-        -177489.2,
-        73160.2
+        -177489.203125,
+        73160.15625
        ],
        "image_top": "",
        "directions": "",
@@ -1024,8 +795,8 @@
        "ref": "30DC00",
        "source_type": "flora",
        "coords": [
-        -177483.4,
-        73093.1
+        -177483.359375,
+        73093.0625
        ],
        "image_top": "",
        "directions": "",
@@ -1036,8 +807,8 @@
        "ref": "30DC02",
        "source_type": "flora",
        "coords": [
-        -177419.3,
-        72981.3
+        -177419.3125,
+        72981.3359375
        ],
        "image_top": "",
        "directions": "",
@@ -1048,8 +819,8 @@
        "ref": "30DC03",
        "source_type": "flora",
        "coords": [
-        -177449.4,
-        72984.0
+        -177449.421875,
+        72983.9609375
        ],
        "image_top": "",
        "directions": "",
@@ -1060,8 +831,8 @@
        "ref": "30DC04",
        "source_type": "flora",
        "coords": [
-        -177477.4,
-        73029.1
+        -177477.4375,
+        73029.109375
        ],
        "image_top": "",
        "directions": "",
@@ -1072,8 +843,8 @@
        "ref": "30DC06",
        "source_type": "flora",
        "coords": [
-        -177124.7,
-        72531.3
+        -177124.734375,
+        72531.3359375
        ],
        "image_top": "",
        "directions": "",
@@ -1084,8 +855,8 @@
        "ref": "30DC07",
        "source_type": "flora",
        "coords": [
-        -177210.8,
-        72529.3
+        -177210.78125,
+        72529.3359375
        ],
        "image_top": "",
        "directions": "",
@@ -1096,8 +867,8 @@
        "ref": "30DC08",
        "source_type": "flora",
        "coords": [
-        -177184.6,
-        72554.2
+        -177184.640625,
+        72554.21875
        ],
        "image_top": "",
        "directions": "",
@@ -1108,8 +879,8 @@
        "ref": "30DC0D",
        "source_type": "flora",
        "coords": [
-        -177317.9,
-        72588.5
+        -177317.890625,
+        72588.484375
        ],
        "image_top": "",
        "directions": "",
@@ -1120,8 +891,8 @@
        "ref": "30DC0E",
        "source_type": "flora",
        "coords": [
-        -177353.9,
-        72589.9
+        -177353.9375,
+        72589.90625
        ],
        "image_top": "",
        "directions": "",
@@ -1132,8 +903,8 @@
        "ref": "30DC0F",
        "source_type": "flora",
        "coords": [
-        -180094.3,
-        71627.3
+        -180094.28125,
+        71627.2734375
        ],
        "image_top": "",
        "directions": "",
@@ -1145,7 +916,7 @@
        "source_type": "flora",
        "coords": [
         -180068.0,
-        71530.1
+        71530.0703125
        ],
        "image_top": "",
        "directions": "",
@@ -1156,8 +927,8 @@
        "ref": "30DC11",
        "source_type": "flora",
        "coords": [
-        -179947.2,
-        71505.0
+        -179947.171875,
+        71505.015625
        ],
        "image_top": "",
        "directions": "",
@@ -1168,8 +939,8 @@
        "ref": "30DC12",
        "source_type": "flora",
        "coords": [
-        -179924.9,
-        71579.6
+        -179924.875,
+        71579.6328125
        ],
        "image_top": "",
        "directions": "",
@@ -1180,8 +951,8 @@
        "ref": "30DC13",
        "source_type": "flora",
        "coords": [
-        -179945.5,
-        71643.0
+        -179945.53125,
+        71642.984375
        ],
        "image_top": "",
        "directions": "",
@@ -1192,8 +963,8 @@
        "ref": "30DC14",
        "source_type": "flora",
        "coords": [
-        -180029.6,
-        71726.1
+        -180029.578125,
+        71726.0625
        ],
        "image_top": "",
        "directions": "",
@@ -1204,8 +975,8 @@
        "ref": "30DC18",
        "source_type": "flora",
        "coords": [
-        -177559.6,
-        73424.7
+        -177559.5625,
+        73424.703125
        ],
        "image_top": "",
        "directions": "",
@@ -1216,8 +987,8 @@
        "ref": "30DC1A",
        "source_type": "flora",
        "coords": [
-        -177537.5,
-        73485.9
+        -177537.546875,
+        73485.890625
        ],
        "image_top": "",
        "directions": "",
@@ -1228,8 +999,8 @@
        "ref": "30DC1C",
        "source_type": "flora",
        "coords": [
-        -177517.2,
-        73458.0
+        -177517.203125,
+        73458.0078125
        ],
        "image_top": "",
        "directions": "",
@@ -1240,8 +1011,8 @@
        "ref": "30DC2A",
        "source_type": "flora",
        "coords": [
-        -177565.2,
-        73379.0
+        -177565.234375,
+        73379.03125
        ],
        "image_top": "",
        "directions": "",
@@ -1252,8 +1023,8 @@
        "ref": "30DC2B",
        "source_type": "flora",
        "coords": [
-        -177225.5,
-        73513.1
+        -177225.46875,
+        73513.1328125
        ],
        "image_top": "",
        "directions": "",
@@ -1264,8 +1035,8 @@
        "ref": "30DC30",
        "source_type": "flora",
        "coords": [
-        -177283.1,
-        73485.3
+        -177283.140625,
+        73485.28125
        ],
        "image_top": "",
        "directions": "",
@@ -1276,8 +1047,8 @@
        "ref": "30DC31",
        "source_type": "flora",
        "coords": [
-        -177327.5,
-        73449.9
+        -177327.515625,
+        73449.9453125
        ],
        "image_top": "",
        "directions": "",
@@ -1288,8 +1059,8 @@
        "ref": "30DC49",
        "source_type": "flora",
        "coords": [
-        -177327.8,
-        73480.2
+        -177327.796875,
+        73480.21875
        ],
        "image_top": "",
        "directions": "",
@@ -1300,8 +1071,8 @@
        "ref": "30DC5F",
        "source_type": "flora",
        "coords": [
-        -177321.0,
-        72785.7
+        -177320.953125,
+        72785.671875
        ],
        "image_top": "",
        "directions": "",
@@ -1312,8 +1083,8 @@
        "ref": "30DC60",
        "source_type": "flora",
        "coords": [
-        -177259.9,
-        72744.6
+        -177259.859375,
+        72744.5703125
        ],
        "image_top": "",
        "directions": "",
@@ -1324,8 +1095,8 @@
        "ref": "627819",
        "source_type": "npc",
        "coords": [
-        -177171.5,
-        74278.3
+        -177171.515625,
+        74278.2890625
        ],
        "image_top": "",
        "directions": "",
@@ -1355,8 +1126,8 @@
       "5DC9EB"
      ],
      "coords": [
-      -2382.3,
-      1474.0
+      -2382.318359375,
+      1474.00659179687
      ],
      "spawns": [
       {
@@ -1364,8 +1135,8 @@
        "ref": "5DC9E7",
        "source_type": "flora",
        "coords": [
-        -1801.4,
-        1619.7
+        -1801.42834472656,
+        1619.66259765625
        ],
        "image_top": "",
        "directions": "",
@@ -1376,8 +1147,8 @@
        "ref": "5DC9E8",
        "source_type": "flora",
        "coords": [
-        -1730.4,
-        1420.3
+        -1730.42956542969,
+        1420.25073242188
        ],
        "image_top": "",
        "directions": "",
@@ -1388,8 +1159,8 @@
        "ref": "5DC9E9",
        "source_type": "flora",
        "coords": [
-        -2382.3,
-        1474.0
+        -2382.318359375,
+        1474.00659179687
        ],
        "image_top": "",
        "directions": "",
@@ -1400,8 +1171,8 @@
        "ref": "5DC9EA",
        "source_type": "flora",
        "coords": [
-        -2360.0,
-        1349.5
+        -2359.95434570313,
+        1349.49755859375
        ],
        "image_top": "",
        "directions": "",
@@ -1412,122 +1183,8 @@
        "ref": "5DC9EB",
        "source_type": "flora",
        "coords": [
-        -2360.9,
-        1593.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Mysterious Cave",
-     "count": 1,
-     "sources": {
-      "container": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "45C4AC"
-     ],
-     "coords": [
-      143637.3,
-      200472.4
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "45C4AC",
-       "source_type": "container",
-       "coords": [
-        143637.3,
-        200472.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Sacrament",
-     "count": 5,
-     "sources": {
-      "loot-list": 5
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "55E3B5",
-      "55E3B8",
-      "55E3B9",
-      "55E3BB",
-      "55E3BC"
-     ],
-     "coords": [
-      80195.5,
-      176381.8
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "55E3B5",
-       "source_type": "loot-list",
-       "coords": [
-        80195.5,
-        176381.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55E3B8",
-       "source_type": "loot-list",
-       "coords": [
-        80223.6,
-        176282.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55E3B9",
-       "source_type": "loot-list",
-       "coords": [
-        80320.2,
-        176289.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55E3BB",
-       "source_type": "loot-list",
-       "coords": [
-        79894.1,
-        176857.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "55E3BC",
-       "source_type": "loot-list",
-       "coords": [
-        79969.9,
-        176893.1
+        -2360.90551757813,
+        1593.24194335938
        ],
        "image_top": "",
        "directions": "",
@@ -1562,8 +1219,8 @@
       "5A0371"
      ],
      "coords": [
-      150848.9,
-      -32220.9
+      150848.921875,
+      -32220.947265625
      ],
      "spawns": [
       {
@@ -1572,7 +1229,7 @@
        "source_type": "flora",
        "coords": [
         150112.0,
-        -32088.6
+        -32088.578125
        ],
        "image_top": "",
        "directions": "",
@@ -1583,8 +1240,8 @@
        "ref": "5A036D",
        "source_type": "flora",
        "coords": [
-        151083.4,
-        -31931.4
+        151083.359375,
+        -31931.38671875
        ],
        "image_top": "",
        "directions": "",
@@ -1595,8 +1252,8 @@
        "ref": "5A036E",
        "source_type": "flora",
        "coords": [
-        150671.2,
-        -31823.3
+        150671.171875,
+        -31823.349609375
        ],
        "image_top": "",
        "directions": "",
@@ -1607,8 +1264,8 @@
        "ref": "5A036F",
        "source_type": "flora",
        "coords": [
-        150872.8,
-        -32118.2
+        150872.796875,
+        -32118.1953125
        ],
        "image_top": "",
        "directions": "",
@@ -1619,8 +1276,8 @@
        "ref": "5A0370",
        "source_type": "flora",
        "coords": [
-        150423.3,
-        -31855.0
+        150423.265625,
+        -31855.01171875
        ],
        "image_top": "",
        "directions": "",
@@ -1631,8 +1288,8 @@
        "ref": "5A0371",
        "source_type": "flora",
        "coords": [
-        150848.9,
-        -32220.9
+        150848.921875,
+        -32220.947265625
        ],
        "image_top": "",
        "directions": "",
@@ -1650,6 +1307,5 @@
    "region": "Toxic Valley",
    "locations": []
   }
- ],
- "total": 76
+ ]
 }
