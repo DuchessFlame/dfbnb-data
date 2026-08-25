@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-24",
+  "generated": "2026-08-25",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 12,
   "source_totals": {
@@ -22,7 +22,10 @@
     "0035D237",
     "0035D22B"
    ],
-   "note": "66 mothman egg flora placements across 3 LPI lists. Each harvest yields 1 egg; respawns on the standard flora timer. 23 additional enlightened flora placements (E07A event) yield Perfect Mothman Eggs."
+   "note": "66 mothman egg flora placements across 3 LPI lists. Each harvest yields 1 egg; respawns on the standard flora timer. 23 additional enlightened flora placements (E07A event) yield Perfect Mothman Eggs.",
+   "rate": 1.0,
+   "rate_display": "100%",
+   "rate_source": "computed"
   },
   "creature_drops": null,
   "event_loot": {
@@ -31,7 +34,47 @@
    "note": "Mothman Equinox High Priest reward (quest-assigned, UseAll 9 entries): 1 guaranteed mothman egg + 20% chance of 2 more + 5% chance of a Perfect Mothman Egg."
   },
   "vendors": null,
-  "resource_generators": {}
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Mothman Nest",
+     "edid": "ATX_Resource_MothmanNest_Egg",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Mothman Egg",
+       "form_id": "0008E922",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Liberated Collectron Station",
+     "edid": "ATX_LiberatedResource_Collector",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Mothman Egg",
+       "form_id": "0008E922",
+       "rate": 0.25,
+       "rate_display": "25%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "containers": {
+   "types": []
+  }
  },
  "farming_tips": {
   "spoils": true,
@@ -86,7 +129,171 @@
   "magazines_affect_yield": false,
   "good_with_salt": true
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.25,
+   "value": 15,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Mothman Egg is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (360/6 min)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Epic - Collect Mothman Eggs",
+    "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman_Epic",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Collect Mothman Eggs",
+    "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Birthday: Collect a Mothman Egg while wearing the Birthday Suit",
+    "edid": "ATX_DE2023_Birthday_Challenge_Collect_MothmanEgg",
+    "page": "season:birthday",
+    "type": "Mini Season",
+    "required": 1
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Brain Bombs",
+    "form_id": "0011C5B0",
+    "recipe_edid": "co_meal_BrainBombsGourmet",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Herbivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
+     },
+     {
+      "name": "Sugar Bombs",
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-sugar-bombs/"
+     },
+     {
+      "name": "Purified Water",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-purified-water/"
+     },
+     {
+      "name": "Mothman Egg",
+      "qty": 2,
+      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-mothman/mothman-guide/",
+      "is_main": true
+     },
+     {
+      "name": "Brain Fungus",
+      "qty": 3,
+      "url": "https://www.buffsnbrew.com/bnb/farming/plants/brain-fungus/"
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 90 Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Restore Action Points",
+      "display": "+12 Action Points",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Intelligence",
+      "display": "+3 Fortify Intelligence",
+      "duration": "1 hour 30 min"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1800/30 min)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Recipe: Brain Bombs"
+   },
+   {
+    "name": "Mothman Egg Omelette",
+    "form_id": "0029451A",
+    "recipe_edid": "co_meal_MothmanEggCooked",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
+     },
+     {
+      "name": "Mothman Egg",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-mothman/mothman-guide/",
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 45 Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Charisma",
+      "display": "+2 Fortify Charisma",
+      "duration": "30 min"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   }
+  ],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
+ },
+ "vendor_list": [],
  "additional_expands": [
   {
    "title": "Perfect Mothman Eggs",
@@ -143,7 +350,13 @@
    "list_id": "00635071",
    "edid": "E07A_Mothman_CultistHighPriestReward_Loot",
    "name": "Mothman Cultist High Priest Reward Loot",
-   "type": "Seasonal / Public Event"
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Mothman Cultist High Priest Reward Loot reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   }
  ],
  "regions": [
