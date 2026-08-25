@@ -301,6 +301,7 @@ def main(argv=None):
     global TSV, DIST, SIG_INDEX
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="cap roster (0=all) for testing")
+    ap.add_argument("--offset", type=int, default=0, help="skip the first N of the roster (for chunked builds)")
     ap.add_argument("--only", default="", help="only plans whose name contains this substring")
     ap.add_argument("--data-dir", default=TSV, help="TSV export root (PTS build points this at the PTS tsvs)")
     ap.add_argument("--outdir", default=DIST, help="output dir (PTS build relocates dist/ -> dist/pts/)")
@@ -343,6 +344,8 @@ def main(argv=None):
 
     if args.only:
         roster = [r for r in roster if args.only.lower() in (r.get("FULL") or "").lower()]
+    if args.offset:
+        roster = roster[args.offset:]
     if args.limit:
         roster = roster[:args.limit]
     print(f"[plan-obtain] building {len(roster)} plans ...")

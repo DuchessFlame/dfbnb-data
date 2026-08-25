@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-08-24T01:32:23Z",
+  "generated": "2026-08-25T07:01:20Z",
   "channel": "pts",
   "count": 96,
   "weapons": [
@@ -2627,7 +2627,7 @@
           "effects": [
             {
               "property": "Keywords",
-              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value": "ma_Gun_Appearance \"\"\"\" [KYWD:0037D0B2]",
               "value2": "2",
               "function": "REM"
             },
@@ -3275,7 +3275,7 @@
             },
             {
               "property": "Keywords",
-              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value": "ma_Gun_Appearance \"\"\"\" [KYWD:0037D0B2]",
               "value2": "2",
               "function": "REM"
             },
@@ -5989,11 +5989,17 @@
       ],
       "customMods": [
         {
-          "name": "Super Slasher Paint",
+          "name": "Pint-Sized Paint",
           "edid": "SDOW_Mod_Custom_SlasherAxe_Appearance",
           "formId": "008E075F",
           "description": null,
           "effects": [
+            {
+              "property": "Keywords",
+              "value": "dn_HasMaterial_AutoAxe_PintSized \"\"\"\" [KYWD:0093C668]",
+              "value2": "2",
+              "function": "ADD"
+            },
             {
               "property": "IdleSound",
               "value": "WPNAutoAxeIdleLPM \"\"\"\" [SNDR:00595CC9]",
@@ -6011,12 +6017,6 @@
               "value": "SDOW_MDSP_Weapon_SlasherAxe \"\"\"\" [MDSP:008E0773]",
               "value2": "3",
               "function": "ADD"
-            },
-            {
-              "property": "SoundTagSet",
-              "value": "SDOW_WPNAutoAxeSlasherAxeATS \"\"\"\" [STAG:008E0774]",
-              "value2": "3",
-              "function": "SET"
             }
           ]
         },
@@ -7186,7 +7186,7 @@
           "effects": [
             {
               "property": "Keywords",
-              "value": "ma_Melee_Appearance \"\"\"\" [KYWD:005117B1]",
+              "value": "ma_Gun_Appearance \"\"\"\" [KYWD:0037D0B2]",
               "value2": "2",
               "function": "REM"
             },

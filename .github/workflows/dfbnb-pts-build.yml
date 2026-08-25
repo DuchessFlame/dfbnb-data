@@ -984,6 +984,28 @@ jobs:
       - name: Build PTS Season Scoreboard JSON
         run: python src/build_pts_season_scoreboard.py
 
+      # --- UPCOMING (PTS) REWARDS PREVIEW ---
+      # Same SCORE_S{N}_ENTM discovery as the scoreboard builder, but emits the
+      # rich A-Z upcoming_rewards_s{N}.json consumed by df-bnb-upcoming-rewards.js
+      # on /df/scoreboards/season-{N}/upcoming-rewards/. Only builds seasons that
+      # have NOT started yet (skips curated + past seasons); no-ops when there's
+      # nothing new. Runs against the PTS ENTM export (--pts reads tsv/pts/ first);
+      # the checkout is relocated to dist/pts/ downstream so both dist/ and
+      # dist/pts/ carry the file. Without --pts the builder auto-selects the LIVE
+      # ENTM, where a future season (e.g. S26) has only the pass + S.C.O.R.E.
+      # boosts, so it would emit an empty file and fail the S26 verify below.
+      - name: Build Upcoming Rewards JSON
+        run: python src/build_upcoming_rewards_json.py --pts
+
+      - name: Verify Upcoming Rewards S26 built
+        run: |
+          python -c "import json,glob,sys; \
+          fs=glob.glob('dist/calculators/upcoming_rewards_s26.json'); \
+          d=json.load(open(fs[0])) if fs else {}; \
+          n=len(d.get('items',[])); \
+          print('[verify] S26 upcoming items:', n); \
+          sys.exit(0 if n>0 else 1)"
+
       # --- ATOM SHOP ---
       # build_atom_shop_json.py is a read-modify-write over dist/atom_shop.json:
       # it reads the committed, curated item list and enriches it in place

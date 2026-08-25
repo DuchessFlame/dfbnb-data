@@ -1029,6 +1029,7 @@ def build_weather_stations():
     # storefront ECIL-derived URLs.
     WEATHER_STATION_IMG_BASE = "/wp-content/uploads/guide-images/camp-items/weather-stations/"
     WEATHER_STATION_IMG_MAP = {
+        "008E09A2": ["score_s26_camp_utility_weatherstation_bloodmoon_l.avif", "score_s26_camp_utility_weatherstation_bloodmoon_c1.avif", "score_s26_camp_utility_weatherstation_bloodmoon_c2.avif"],  # Weather Station (Blood Moon)
         "008998E2": ["score_s24_camp_utility_weatherstation_invasion_l.avif", "score_s24_camp_utility_weatherstation_invasion_c1.avif", "score_s24_camp_utility_weatherstation_invasion_c2.avif"],  # Weather Station (Alien Invasion)
         "0073ABA6": ["score_s15_camp_utility_weatherstation_xpdacboardwalk_l.avif", "score_s15_camp_utility_weatherstation_xpdacboardwalk_c1.avif", "score_s15_camp_utility_weatherstation_xpdacboardwalk_c2.avif", "score_s15_camp_utility_weatherstation_xpdacboardwalk_c3.avif"],  # Weather Station (Atlantic City Fog)
         "007B28BB": ["atx_camp_utility_weatherstation_verdantpollen_l.avif", "atx_camp_utility_weatherstation_verdantpollen_c1.avif", "atx_camp_utility_weatherstation_verdantpollen_c2.avif", "atx_camp_utility_weatherstation_verdantpollen_c3.avif"],  # Weather Station (Blooming Haze)

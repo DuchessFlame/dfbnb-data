@@ -901,6 +901,18 @@ jobs:
       - name: Build PTS Season Scoreboard JSON
         run: python src/build_pts_season_scoreboard.py
 
+      # --- UPCOMING (PTS) REWARDS PREVIEW ---
+      # Same SCORE_S{N}_ENTM discovery as the scoreboard builder, but emits the
+      # rich A-Z upcoming_rewards_s{N}.json consumed by df-bnb-upcoming-rewards.js
+      # on /df/scoreboards/season-{N}/upcoming-rewards/. Only builds seasons that
+      # have NOT started yet (skips curated + past seasons); no-ops when there's
+      # nothing new. Reads the PTS ENTM export (--pts) because upcoming-reward
+      # previews are datamined from PTS builds -- the LIVE ENTM only carries the
+      # pass + S.C.O.R.E. boosts for a future season, so a bare run would empty
+      # the committed upcoming_rewards_s{N}.json (e.g. S26) on every live build.
+      - name: Build Upcoming Rewards JSON
+        run: python src/build_upcoming_rewards_json.py --pts
+
       # --- ATOM SHOP ---
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py

@@ -1,14 +1,15 @@
 {
  "_meta": {
-  "generated": "2026-08-23",
+  "generated": "2026-08-25",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 350,
+  "lists_in_closure": 379,
   "source_totals": {
-   "container": 11617,
-   "direct": 1667,
-   "loot-list": 1689,
+   "container": 11866,
+   "direct": 1788,
+   "loot-list": 1654,
    "nest": 20,
    "npc": 2909,
+   "quest-reward": 35,
    "vendor": 37
   },
   "unresolved": {}
@@ -362,7 +363,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Recipe: Brain Bombs"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Granny's Tea",
@@ -422,7 +423,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Granny's Sweet Tea"
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
    },
    {
     "name": "Sunshine Oil",
@@ -473,7 +474,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Sunshine Oil"
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
    },
    {
     "name": "Sweet Roll",
@@ -537,7 +538,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Recipe: Sweet Roll"
+    "how_to_obtain": "Known by default."
    }
   ],
   "obtain": {
@@ -1803,6 +1804,18 @@
    "rate_lines": [
     "0.66%"
    ]
+  },
+  {
+   "list_id": "00893F6F",
+   "edid": "HTO_crLLS_Rewards_Bespoke_Boss",
+   "name": "HTO cr LLS Rewards Bespoke Boss",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HTO cr LLS Rewards Bespoke Boss reward pool per event/activity payout.",
+   "rate_value": 0.00119,
+   "rate_display": "0.12%",
+   "rate_lines": [
+    "0.12%"
+   ]
   }
  ],
  "regions": [
@@ -1970,6 +1983,7 @@
       "33D336",
       "33D34A",
       "342AE5",
+      "342AE7",
       "342AED",
       "3D1DD1",
       "3D2628",
@@ -2374,6 +2388,7 @@
      "image_bottom": "",
      "refs": [
       "0008CC",
+      "0008D2",
       "00090E",
       "000941",
       "000942",
@@ -2952,6 +2967,8 @@
       "188E32",
       "188E55",
       "19E8EB",
+      "1AF52F",
+      "293C85",
       "293CF0",
       "293D64",
       "293D66",
@@ -3481,6 +3498,7 @@
       "34238F",
       "354D95",
       "354D97",
+      "354D99",
       "3564A9",
       "3564B4",
       "3564B7",
@@ -4066,7 +4084,7 @@
      "count": 4,
      "sources": {
       "direct": 3,
-      "loot-list": 1
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
@@ -4125,7 +4143,7 @@
       {
        "label": "",
        "ref": "38B1D7",
-       "source_type": "loot-list",
+       "source_type": "quest-reward",
        "coords": [
         -101486.9,
         -81484.0
@@ -4344,7 +4362,9 @@
       "3C5D74",
       "3C5D75",
       "4FCF9E",
-      "4FCFA0"
+      "4FCFA0",
+      "6771BF",
+      "67AC18"
      ],
      "coords": [
       -65835.4,
@@ -4380,6 +4400,7 @@
       "256ADD",
       "256ADF",
       "2EEA5E",
+      "30587D",
       "309C79",
       "309C7A",
       "309C7E",
@@ -4496,8 +4517,12 @@
       "4FCF93",
       "525B10",
       "525B11",
+      "66C520",
+      "66C52D",
       "66C53D",
-      "66C563"
+      "66C545",
+      "66C563",
+      "66C56B"
      ],
      "coords": [
       -56656.2,
@@ -4652,6 +4677,7 @@
       "355AE6",
       "355B24",
       "355B28",
+      "357A42",
       "357A60",
       "357A61",
       "357A62",
@@ -5004,6 +5030,7 @@
       "38AD98",
       "38AD99",
       "3CB4B3",
+      "4DE821",
       "4F8FB5",
       "4F8FB8",
       "4F9978",
@@ -5080,6 +5107,56 @@
        "coords": [
         -136233.1,
         -121754.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pleasant Hills Cemetery",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "12B169",
+      "349BAC",
+      "3581F7",
+      "3581FC",
+      "3581FD",
+      "3AA56D",
+      "4FA30C",
+      "793F25"
+     ],
+     "coords": [
+      -60060.9,
+      -96075.2
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "349BAC",
+       "source_type": "direct",
+       "coords": [
+        -55024.3,
+        -101171.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "793F25",
+       "source_type": "direct",
+       "coords": [
+        -55032.1,
+        -101108.9
        ],
        "image_top": "",
        "directions": "",
@@ -5498,9 +5575,9 @@
     },
     {
      "marker": "Sal's Grinders",
-     "count": 11,
+     "count": 12,
      "sources": {
-      "direct": 5,
+      "direct": 6,
       "npc": 6
      },
      "image_top": "",
@@ -5525,6 +5602,7 @@
       "318EB4",
       "318EB5",
       "3296FB",
+      "3296FF",
       "329706",
       "329707",
       "32FAF7",
@@ -5547,6 +5625,18 @@
       -120638.2
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "3296FF",
+       "source_type": "direct",
+       "coords": [
+        -189647.8,
+        -121170.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "343245",
@@ -6337,9 +6427,9 @@
     },
     {
      "marker": "Welch",
-     "count": 17,
+     "count": 18,
      "sources": {
-      "direct": 12,
+      "direct": 13,
       "npc": 5
      },
      "image_top": "",
@@ -6367,6 +6457,7 @@
       "2E9E62",
       "2E9E79",
       "2E9E7B",
+      "30EA4E",
       "3295BE",
       "3295BF",
       "3295C0",
@@ -6399,6 +6490,18 @@
       -130335.8
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "30EA4E",
+       "source_type": "direct",
+       "coords": [
+        -153678.2,
+        -134177.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "3295BE",
@@ -6674,7 +6777,7 @@
      "count": 3,
      "sources": {
       "direct": 2,
-      "loot-list": 1
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
@@ -6687,7 +6790,8 @@
       "311ADB",
       "34969F",
       "3496A7",
-      "38B176"
+      "38B176",
+      "3A9526"
      ],
      "coords": [
       -79040.1,
@@ -6721,7 +6825,7 @@
       {
        "label": "",
        "ref": "38B176",
-       "source_type": "loot-list",
+       "source_type": "quest-reward",
        "coords": [
         -78384.2,
         -84171.1
@@ -6739,9 +6843,9 @@
    "locations": [
     {
      "marker": "Aquarium of the Atlantic",
-     "count": 71,
+     "count": 72,
      "sources": {
-      "direct": 4,
+      "direct": 5,
       "npc": 67
      },
      "image_top": "",
@@ -6808,6 +6912,7 @@
       "6EF6CF",
       "6F281D",
       "6F2D77",
+      "6F2DBD",
       "72A4FB",
       "72A500",
       "72A501",
@@ -6893,6 +6998,18 @@
        "coords": [
         -1973.7,
         -6202.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6F2DBD",
+       "source_type": "direct",
+       "coords": [
+        -7949.9,
+        4479.7
        ],
        "image_top": "",
        "directions": "",
@@ -8807,12 +8924,14 @@
       "6EF81C",
       "6EF81D",
       "7332ED",
+      "7332FD",
       "73330B",
       "733981",
       "733982",
       "73398B",
       "7345F8",
       "7345F9",
+      "73518B",
       "73518C",
       "735514",
       "735515",
@@ -8821,6 +8940,7 @@
       "74F0DA",
       "74F0DE",
       "751D95",
+      "7533E7",
       "753B3A",
       "756196",
       "756197",
@@ -10947,9 +11067,9 @@
     },
     {
      "marker": "The Boardwalk",
-     "count": 83,
+     "count": 89,
      "sources": {
-      "direct": 13,
+      "direct": 19,
       "npc": 70
      },
      "image_top": "",
@@ -10984,6 +11104,10 @@
       "6DEE5D",
       "6DEE62",
       "6E0E81",
+      "6E1B41",
+      "6E1B42",
+      "6E1B43",
+      "6E1B44",
       "6E1BAC",
       "6E1BB6",
       "6E1BB7",
@@ -11052,6 +11176,8 @@
       "75993D",
       "75993E",
       "75993F",
+      "75F0E1",
+      "75F0E2",
       "76C781",
       "76C783",
       "76C784",
@@ -11128,6 +11254,54 @@
        "coords": [
         -5446.6,
         -10266.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6E1B41",
+       "source_type": "direct",
+       "coords": [
+        -4767.2,
+        -12506.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6E1B42",
+       "source_type": "direct",
+       "coords": [
+        -4770.1,
+        -12513.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6E1B43",
+       "source_type": "direct",
+       "coords": [
+        -4768.6,
+        -12525.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6E1B44",
+       "source_type": "direct",
+       "coords": [
+        -4797.6,
+        -12527.2
        ],
        "image_top": "",
        "directions": "",
@@ -11224,6 +11398,30 @@
        "coords": [
         715.9,
         1410.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "75F0E1",
+       "source_type": "direct",
+       "coords": [
+        -2911.5,
+        -3646.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "75F0E2",
+       "source_type": "direct",
+       "coords": [
+        -2911.5,
+        -3625.4
        ],
        "image_top": "",
        "directions": "",
@@ -12073,9 +12271,9 @@
     },
     {
      "marker": "The Neapolitan Casino",
-     "count": 83,
+     "count": 85,
      "sources": {
-      "direct": 8,
+      "direct": 10,
       "nest": 1,
       "npc": 74
      },
@@ -12182,10 +12380,14 @@
       "6E72BF",
       "6E730D",
       "6E7329",
+      "6E7406",
+      "6E7409",
       "6E7487",
       "6E78D4",
       "6E79D7",
       "6E79EE",
+      "6E7E17",
+      "6E7E21",
       "6E7E84",
       "6E7E86",
       "6E846A",
@@ -12218,6 +12420,7 @@
       "6EAEF8",
       "6EAF32",
       "6EDD50",
+      "6EDD6B",
       "6EF8B9",
       "6F2379",
       "6F28F3",
@@ -12270,6 +12473,18 @@
       5032.0
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "6E7E21",
+       "source_type": "direct",
+       "coords": [
+        -505.2,
+        -2514.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "6E85FE",
@@ -12349,6 +12564,18 @@
        "coords": [
         -3741.4,
         -169.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6EDD6B",
+       "source_type": "direct",
+       "coords": [
+        -461.0,
+        -593.1
        ],
        "image_top": "",
        "directions": "",
@@ -13296,6 +13523,7 @@
       "81E0FE",
       "824490",
       "82B14E",
+      "83DF38",
       "83F95F",
       "8510CE"
      ],
@@ -13780,6 +14008,7 @@
       "7DC02D",
       "7EDFA2",
       "7EDFBB",
+      "7FE758",
       "8005D7",
       "80204B",
       "808372",
@@ -13819,6 +14048,7 @@
       "80B022",
       "80FB34",
       "80FB3D",
+      "80FB4B",
       "80FB59",
       "80FB5D",
       "80FB60",
@@ -13829,6 +14059,7 @@
       "80FB9F",
       "80FBA3",
       "80FBA4",
+      "80FBAA",
       "80FBAB",
       "80FBC7",
       "80FBC8",
@@ -13873,6 +14104,7 @@
       "81ED47",
       "81ED49",
       "81ED53",
+      "81ED54",
       "81ED71",
       "81ED72",
       "81ED73",
@@ -13929,6 +14161,7 @@
       "839FC3",
       "839FCB",
       "839FEE",
+      "83A007",
       "83A009",
       "83A00A",
       "83A00B",
@@ -15541,14 +15774,16 @@
     },
     {
      "marker": "Checkpoint Canyon",
-     "count": 3,
+     "count": 4,
      "sources": {
+      "direct": 1,
       "npc": 3
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "816337",
       "833FA7",
       "835E58",
       "846E49",
@@ -15565,6 +15800,18 @@
       95000.4
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "816337",
+       "source_type": "direct",
+       "coords": [
+        -194275.5,
+        99076.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "864E40",
@@ -15596,6 +15843,40 @@
        "coords": [
         -194024.8,
         80264.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Diner Basement",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "82DBC4",
+      "82DCB5",
+      "82DCB6",
+      "82DCCB"
+     ],
+     "coords": [
+      -1370.3,
+      675.2
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "82DCCB",
+       "source_type": "direct",
+       "coords": [
+        -957.1,
+        1317.2
        ],
        "image_top": "",
        "directions": "",
@@ -15982,10 +16263,58 @@
      ]
     },
     {
-     "marker": "Fort Steuben",
-     "count": 10,
+     "marker": "Executive's Apartment",
+     "count": 2,
      "sources": {
-      "direct": 3,
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "825A0D",
+      "825A24",
+      "825A25",
+      "825A28",
+      "850D15",
+      "850D18"
+     ],
+     "coords": [
+      1121.8,
+      2626.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "850D15",
+       "source_type": "direct",
+       "coords": [
+        402.0,
+        1821.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "850D18",
+       "source_type": "direct",
+       "coords": [
+        606.4,
+        1936.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Fort Steuben",
+     "count": 9,
+     "sources": {
+      "direct": 2,
       "npc": 7
      },
      "image_top": "",
@@ -15996,8 +16325,10 @@
       "7F26DC",
       "7F26DE",
       "7F26E4",
+      "7F26EA",
       "7F26EE",
       "81C30B",
+      "81F446",
       "821CDF",
       "82B4EC",
       "82D85C",
@@ -16010,8 +16341,8 @@
       "84C20F"
      ],
      "coords": [
-      -218931.3,
-      33800.5
+      -216713.5,
+      32206.2
      ],
      "spawns": [
       {
@@ -16139,6 +16470,7 @@
       "8279A9",
       "82BD6B",
       "82E298",
+      "82E2A9",
       "82E2BE",
       "82ED84",
       "82ED86",
@@ -16338,9 +16670,9 @@
     },
     {
      "marker": "Highway Town Interior",
-     "count": 4,
+     "count": 3,
      "sources": {
-      "direct": 3,
+      "direct": 2,
       "vendor": 1
      },
      "image_top": "",
@@ -16354,9 +16686,11 @@
       "805141",
       "80514A",
       "80514F",
+      "8051A8",
       "8051B3",
       "809087",
       "8090C6",
+      "809C40",
       "809C43",
       "809C44",
       "809C4B",
@@ -16364,6 +16698,7 @@
       "809C50",
       "809C54",
       "809C5A",
+      "809C64",
       "809C65",
       "80AEF9",
       "80AEFA",
@@ -16379,6 +16714,7 @@
       "827EA7",
       "827EB1",
       "82DE7F",
+      "83100A",
       "83104E",
       "83112F",
       "833B8F",
@@ -16396,11 +16732,11 @@
      "spawns": [
       {
        "label": "",
-       "ref": "827EA6",
+       "ref": "83100A",
        "source_type": "direct",
        "coords": [
-        -1418.5,
-        14158.9
+        -5115.3,
+        14326.8
        ],
        "image_top": "",
        "directions": "",
@@ -16434,8 +16770,9 @@
     },
     {
      "marker": "Hocking Hills Train Station",
-     "count": 12,
+     "count": 17,
      "sources": {
+      "direct": 5,
       "npc": 11,
       "vendor": 1
      },
@@ -16460,10 +16797,15 @@
       "81EC4C",
       "821305",
       "821C62",
+      "82E5BE",
       "832B22",
       "845D9D",
       "845D9E",
       "845DA1",
+      "8572D5",
+      "8572D6",
+      "8572D7",
+      "8572D8",
       "86C9A6",
       "86C9C1"
      ],
@@ -16472,6 +16814,66 @@
       78890.1
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "82E5BE",
+       "source_type": "direct",
+       "coords": [
+        -250259.9,
+        67996.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8572D5",
+       "source_type": "direct",
+       "coords": [
+        -257795.6,
+        88508.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8572D6",
+       "source_type": "direct",
+       "coords": [
+        -257739.6,
+        88508.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8572D7",
+       "source_type": "direct",
+       "coords": [
+        -257719.3,
+        88508.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8572D8",
+       "source_type": "direct",
+       "coords": [
+        -257740.6,
+        88466.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "7DADBF",
@@ -16641,6 +17043,7 @@
       "8236AC",
       "8236D7",
       "8236DF",
+      "834FDB",
       "83502B",
       "8351C2",
       "8351C4",
@@ -16652,6 +17055,7 @@
       "835233",
       "835281",
       "836B0A",
+      "836B0B",
       "836B0C",
       "836B11",
       "836B12",
@@ -16844,6 +17248,7 @@
       "83A189",
       "83A18A",
       "83A18C",
+      "83BF1E",
       "83BF1F",
       "847E73",
       "869013"
@@ -16964,16 +17369,49 @@
      ]
     },
     {
-     "marker": "Prospect Hill",
-     "count": 7,
+     "marker": "Moose's House",
+     "count": 1,
      "sources": {
-      "direct": 1,
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "821702",
+      "84A813"
+     ],
+     "coords": [
+      1031.5,
+      2445.9
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "84A813",
+       "source_type": "direct",
+       "coords": [
+        1077.1,
+        2332.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Prospect Hill",
+     "count": 8,
+     "sources": {
+      "direct": 2,
       "npc": 6
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "813256",
       "81C679",
       "81C68E",
       "81C6A0",
@@ -16993,6 +17431,18 @@
       108468.7
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "813256",
+       "source_type": "direct",
+       "coords": [
+        -211019.2,
+        109593.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "81C6A0",
@@ -17081,9 +17531,9 @@
     },
     {
      "marker": "Railroad Service Yard",
-     "count": 28,
+     "count": 29,
      "sources": {
-      "direct": 3,
+      "direct": 4,
       "npc": 25
      },
      "image_top": "",
@@ -17141,6 +17591,7 @@
       "833934",
       "84716A",
       "85145E",
+      "85147E",
       "85148C",
       "8521F3",
       "8584E5",
@@ -17173,6 +17624,18 @@
        "coords": [
         -238487.3,
         20333.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "85147E",
+       "source_type": "direct",
+       "coords": [
+        -236178.7,
+        14548.7
        ],
        "image_top": "",
        "directions": "",
@@ -18053,9 +18516,9 @@
     },
     {
      "marker": "Super Duper Mart",
-     "count": 23,
+     "count": 27,
      "sources": {
-      "direct": 7,
+      "direct": 11,
       "npc": 16
      },
      "image_top": "",
@@ -18081,6 +18544,10 @@
       "82DF28",
       "82DF2F",
       "82DF30",
+      "82DF43",
+      "82DF54",
+      "82DF55",
+      "82DF56",
       "82DF65",
       "82DF67",
       "830FC9",
@@ -18130,6 +18597,54 @@
        "coords": [
         -228514.3,
         125589.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82DF43",
+       "source_type": "direct",
+       "coords": [
+        -228840.0,
+        124944.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82DF54",
+       "source_type": "direct",
+       "coords": [
+        -227376.6,
+        125231.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82DF55",
+       "source_type": "direct",
+       "coords": [
+        -227390.5,
+        125239.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "82DF56",
+       "source_type": "direct",
+       "coords": [
+        -227376.6,
+        125247.5
        ],
        "image_top": "",
        "directions": "",
@@ -18533,9 +19048,11 @@
       "812F38",
       "812F39",
       "815BC4",
+      "815BC5",
       "815BC6",
       "815BCB",
       "815BE1",
+      "815BEE",
       "815BF7",
       "815C03",
       "815C0A",
@@ -18550,6 +19067,7 @@
       "84D1E2",
       "84D1E3",
       "84D1FB",
+      "84E37D",
       "84E37E",
       "84E398",
       "84E399",
@@ -18562,6 +19080,7 @@
       "84F11E",
       "84F120",
       "84F136",
+      "84F139",
       "84F146",
       "84F150",
       "84F151",
@@ -18572,6 +19091,7 @@
       "85257C",
       "85257E",
       "852E58",
+      "8534E6",
       "853501",
       "85454D",
       "85607A",
@@ -18721,6 +19241,37 @@
      ]
     },
     {
+     "marker": "Train Carriage",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "84C98C"
+     ],
+     "coords": [
+      2098.8,
+      1416.9
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "84C98C",
+       "source_type": "direct",
+       "coords": [
+        2098.8,
+        1416.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Tycoon Lake",
      "count": 2,
      "sources": {
@@ -18821,9 +19372,9 @@
     },
     {
      "marker": "World of Corn",
-     "count": 15,
+     "count": 14,
      "sources": {
-      "direct": 4,
+      "direct": 3,
       "npc": 11
      },
      "image_top": "",
@@ -18869,6 +19420,7 @@
       "858EE2",
       "858EE3",
       "858EF2",
+      "866CCB",
       "866CFB"
      ],
      "coords": [
@@ -18876,18 +19428,6 @@
       54655.1
      ],
      "spawns": [
-      {
-       "label": "",
-       "ref": "8184F7",
-       "source_type": "direct",
-       "coords": [
-        -237624.6,
-        51389.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
       {
        "label": "",
        "ref": "82E3D1",
@@ -19065,9 +19605,9 @@
    "locations": [
     {
      "marker": "Abandoned Bog Town",
-     "count": 63,
+     "count": 64,
      "sources": {
-      "direct": 47,
+      "direct": 48,
       "npc": 16
      },
      "image_top": "",
@@ -19161,6 +19701,8 @@
       "35E73A",
       "3D54C6",
       "3D54C7",
+      "3DB004",
+      "3DB0E8",
       "3DB149",
       "3DB1CA",
       "3DB2D2",
@@ -19239,6 +19781,7 @@
       "51E515",
       "51E523",
       "5216F7",
+      "5273FE",
       "55977E",
       "55977F",
       "559780"
@@ -19814,6 +20357,18 @@
       },
       {
        "label": "",
+       "ref": "5273FE",
+       "source_type": "direct",
+       "coords": [
+        183705.8,
+        -80149.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
        "ref": "35E73A",
        "source_type": "npc",
        "coords": [
@@ -20201,6 +20756,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38ADAB",
+       "source_type": "quest-reward",
+       "coords": [
+        130433.7,
+        -129577.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -20354,9 +20921,9 @@
     },
     {
      "marker": "Big Bend Tunnels",
-     "count": 10,
+     "count": 11,
      "sources": {
-      "direct": 5,
+      "direct": 6,
       "npc": 5
      },
      "image_top": "",
@@ -20395,6 +20962,7 @@
       "50F889",
       "50F985",
       "50F986",
+      "563E42",
       "8A447A",
       "8A448A",
       "8A449A",
@@ -20419,6 +20987,18 @@
        "coords": [
         -3869.5,
         22180.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "563E42",
+       "source_type": "direct",
+       "coords": [
+        -2185.1,
+        16683.2
        ],
        "image_top": "",
        "directions": "",
@@ -20645,6 +21225,7 @@
      "image_bottom": "",
      "refs": [
       "378EF4",
+      "435687",
       "43568D",
       "439967",
       "4F7C96",
@@ -20689,8 +21270,10 @@
       "37AF00",
       "3CE897",
       "3CE898",
+      "429CD9",
       "429CDC",
       "42C133",
+      "42C17A",
       "42C17B",
       "43845F",
       "438461",
@@ -20699,6 +21282,7 @@
       "5362A2",
       "5362A3",
       "5362A5",
+      "53771C",
       "55F33E",
       "55F347",
       "55F3B7",
@@ -20707,6 +21291,7 @@
       "55F45F",
       "55F46E",
       "55F494",
+      "55F4D9",
       "55F4DD",
       "55F501",
       "55F53C"
@@ -21469,6 +22054,7 @@
       "315B0B",
       "315B0C",
       "315B0E",
+      "315B10",
       "315B68",
       "315B7C",
       "315B87",
@@ -21891,9 +22477,9 @@
     },
     {
      "marker": "Fort Defiance",
-     "count": 36,
+     "count": 41,
      "sources": {
-      "direct": 18,
+      "direct": 23,
       "npc": 18
      },
      "image_top": "",
@@ -21942,6 +22528,7 @@
       "137625",
       "137638",
       "137642",
+      "13B724",
       "13B767",
       "13CAFF",
       "150DFA",
@@ -22045,6 +22632,8 @@
       "284714",
       "284715",
       "28478A",
+      "28478B",
+      "284799",
       "2847B7",
       "284817",
       "284828",
@@ -22078,7 +22667,9 @@
       "387A4A",
       "3896B7",
       "3896BF",
+      "38A065",
       "38A079",
+      "38D6E4",
       "38D7EE",
       "38D7EF",
       "38D7F0",
@@ -22146,6 +22737,18 @@
      "spawns": [
       {
        "label": "",
+       "ref": "13B724",
+       "source_type": "direct",
+       "coords": [
+        6103.6,
+        2820.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
        "ref": "19683B",
        "source_type": "direct",
        "coords": [
@@ -22187,6 +22790,30 @@
        "coords": [
         -786.7,
         1569.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "28478B",
+       "source_type": "direct",
+       "coords": [
+        -6451.5,
+        2133.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "284799",
+       "source_type": "direct",
+       "coords": [
+        -4684.8,
+        888.0
        ],
        "image_top": "",
        "directions": "",
@@ -22259,6 +22886,30 @@
        "coords": [
         3683.8,
         1046.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38A065",
+       "source_type": "direct",
+       "coords": [
+        -5714.2,
+        1340.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38D6E4",
+       "source_type": "direct",
+       "coords": [
+        -1261.2,
+        329.8
        ],
        "image_top": "",
        "directions": "",
@@ -23768,9 +24419,9 @@
     },
     {
      "marker": "Old Mold Quarry",
-     "count": 1,
+     "count": 2,
      "sources": {
-      "direct": 1
+      "direct": 2
      },
      "image_top": "",
      "directions": "",
@@ -23783,6 +24434,7 @@
       "3987A7",
       "3987AB",
       "3987E1",
+      "3B69AE",
       "4DE44E",
       "50BFF5",
       "51E485",
@@ -23806,6 +24458,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3B69AE",
+       "source_type": "direct",
+       "coords": [
+        204558.4,
+        -93385.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -23820,8 +24484,11 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "36C314",
       "36C31B",
       "370E4A",
+      "379FEC",
+      "379FFB",
       "380BB1",
       "38AD47",
       "396C89",
@@ -23869,6 +24536,18 @@
        "coords": [
         185677.2,
         -164259.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AD47",
+       "source_type": "quest-reward",
+       "coords": [
+        175651.8,
+        -176662.5
        ],
        "image_top": "",
        "directions": "",
@@ -23961,6 +24640,18 @@
        "coords": [
         194442.4,
         -86617.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38ACBD",
+       "source_type": "quest-reward",
+       "coords": [
+        192578.8,
+        -89122.9
        ],
        "image_top": "",
        "directions": "",
@@ -24131,14 +24822,26 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AD50",
+       "source_type": "quest-reward",
+       "coords": [
+        157542.4,
+        -88259.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
     {
      "marker": "RobCo Research Center",
-     "count": 12,
+     "count": 13,
      "sources": {
-      "direct": 1,
+      "direct": 2,
       "npc": 11
      },
      "image_top": "",
@@ -24233,6 +24936,7 @@
       "360AF0",
       "360B35",
       "360B3B",
+      "360CE2",
       "360D06",
       "360D08",
       "360D67",
@@ -24295,6 +24999,18 @@
        "coords": [
         -1276.6,
         1481.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "360CE2",
+       "source_type": "direct",
+       "coords": [
+        -1472.2,
+        758.4
        ],
        "image_top": "",
        "directions": "",
@@ -24552,9 +25268,9 @@
     },
     {
      "marker": "Sunrise Field",
-     "count": 5,
+     "count": 6,
      "sources": {
-      "direct": 4,
+      "direct": 5,
       "npc": 1
      },
      "image_top": "",
@@ -24575,6 +25291,7 @@
       "3AC712",
       "3AEDE0",
       "3CE8D3",
+      "42C25D",
       "4384AA",
       "4391E8",
       "4399FB",
@@ -24644,6 +25361,18 @@
        "coords": [
         152177.6,
         -160291.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "42C25D",
+       "source_type": "direct",
+       "coords": [
+        140842.1,
+        -160335.5
        ],
        "image_top": "",
        "directions": "",
@@ -25086,6 +25815,10 @@
      "image_bottom": "",
      "refs": [
       "04E76D",
+      "094BF1",
+      "094BFD",
+      "094BFE",
+      "094BFF",
       "1F4EA2",
       "1F4ED6",
       "1F4ED7",
@@ -25093,6 +25826,12 @@
       "1F64B5",
       "29E307",
       "29E685",
+      "29E6E5",
+      "29E727",
+      "29E728",
+      "29E729",
+      "29E72A",
+      "29E72B",
       "29E768",
       "29E76C",
       "29E76D",
@@ -25106,6 +25845,10 @@
       "2AC259",
       "2AC26E",
       "2AC2B0",
+      "2AC358",
+      "2AC359",
+      "2AC35A",
+      "2AC35B",
       "2AC43B",
       "2AC43C",
       "2AC498",
@@ -25131,6 +25874,8 @@
       "31BD4B",
       "342C5D",
       "342C5E",
+      "382ACE",
+      "382ACF",
       "39F320",
       "39F322",
       "39F325",
@@ -25298,6 +26043,7 @@
       "37D7E2",
       "380BDE",
       "3CE86B",
+      "435682",
       "435686",
       "43994B",
       "4FA8F0",
@@ -25505,6 +26251,10 @@
       "1212A6",
       "121C7D",
       "18EEA6",
+      "24E078",
+      "24E079",
+      "24E07A",
+      "25028C",
       "2502E3",
       "2502E4",
       "2502E5",
@@ -27273,6 +28023,10 @@
       "5CC8C6",
       "5CC8C7",
       "5CC8C8",
+      "5CC90F",
+      "5CCB28",
+      "5CCBCD",
+      "5CCBCE",
       "5CD7BE",
       "5CD7C6",
       "5CD7C7",
@@ -27443,8 +28197,12 @@
       "121C82",
       "1D5277",
       "1D53F7",
+      "246DFD",
       "246DFE",
       "246DFF",
+      "246E01",
+      "25502E",
+      "257509",
       "27CCF6",
       "27CCF7",
       "27CCF8",
@@ -28514,6 +29272,7 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "04A5DF",
       "3227FD",
       "32283E",
       "322842",
@@ -28584,6 +29343,18 @@
        "coords": [
         -117116.1,
         119887.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B1DA",
+       "source_type": "quest-reward",
+       "coords": [
+        -119683.6,
+        119820.7
        ],
        "image_top": "",
        "directions": "",
@@ -28857,9 +29628,11 @@
       "3FCC65",
       "3FCD4B",
       "3FCD4E",
+      "40314C",
       "40F4C9",
       "421769",
       "45B07A",
+      "45B081",
       "45C760",
       "45C84D",
       "45C84E",
@@ -28888,6 +29661,7 @@
       "47C39E",
       "47C3A0",
       "47C3A2",
+      "47C3A6",
       "47CADA",
       "47CB1E",
       "47D069",
@@ -28922,6 +29696,7 @@
       "619A1C",
       "619CF4",
       "619CF5",
+      "619D6E",
       "619D71",
       "619D73",
       "619D75",
@@ -28937,6 +29712,7 @@
       "619F28",
       "619F29",
       "61A04E",
+      "61A406",
       "61A40D",
       "61A51D",
       "61A51E",
@@ -29398,9 +30174,9 @@
     },
     {
      "marker": "AVR Medical Center",
-     "count": 8,
+     "count": 9,
      "sources": {
-      "direct": 6,
+      "direct": 7,
       "npc": 2
      },
      "image_top": "",
@@ -29463,6 +30239,7 @@
       "492FC5",
       "492FC7",
       "492FC9",
+      "522CB9",
       "522CBC",
       "522CBF",
       "526D96",
@@ -29481,6 +30258,18 @@
       -56888.3
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "522CB9",
+       "source_type": "direct",
+       "coords": [
+        1703.3,
+        -1795.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "522CBC",
@@ -29581,9 +30370,9 @@
     },
     {
      "marker": "Big Al's Tattoo Parlor",
-     "count": 5,
+     "count": 6,
      "sources": {
-      "direct": 4,
+      "direct": 5,
       "npc": 1
      },
      "image_top": "",
@@ -29621,6 +30410,7 @@
       "32C705",
       "32C71F",
       "357F9A",
+      "3C0E8D",
       "3C0E93",
       "3C0E94",
       "3C0E95",
@@ -29668,6 +30458,18 @@
        "coords": [
         -14446.8,
         67313.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3C0E8D",
+       "source_type": "direct",
+       "coords": [
+        -3825.9,
+        72393.9
        ],
        "image_top": "",
        "directions": "",
@@ -29724,8 +30526,10 @@
      "refs": [
       "07248E",
       "07F80D",
+      "179989",
       "357B2E",
       "357B3A",
+      "357B42",
       "3DC957",
       "492A1A",
       "492A1E",
@@ -29866,6 +30670,7 @@
       "361B72",
       "361B73",
       "361B74",
+      "3A17B7",
       "3D3E85",
       "437BA9",
       "4E4BB2",
@@ -30022,6 +30827,8 @@
       "03F327",
       "03F38C",
       "03F393",
+      "041F29",
+      "041F2D",
       "0684AD",
       "068532",
       "06853A",
@@ -30283,7 +31090,7 @@
      "count": 2,
      "sources": {
       "direct": 1,
-      "loot-list": 1
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
@@ -30322,7 +31129,7 @@
       {
        "label": "",
        "ref": "38B252",
-       "source_type": "loot-list",
+       "source_type": "quest-reward",
        "coords": [
         -158059.8,
         -40684.8
@@ -30812,6 +31619,7 @@
       "551CE1",
       "551CE2",
       "551CE3",
+      "551CE4",
       "5539B5",
       "63357B",
       "63357F",
@@ -30868,6 +31676,7 @@
       "673EC6",
       "673EC7",
       "673ECC",
+      "673F87",
       "673F88",
       "6740A2",
       "6740A5",
@@ -31222,6 +32031,7 @@
       "551E34",
       "551E9C",
       "551E9D",
+      "551EA9",
       "551EAA",
       "559CB5",
       "55A2AA",
@@ -31234,8 +32044,8 @@
       "55CCEB"
      ],
      "coords": [
-      4242.1,
-      -3158.5
+      3222.5,
+      -4128.5
      ],
      "spawns": [
       {
@@ -31758,6 +32568,50 @@
      ]
     },
     {
+     "marker": "Charleston Landfill",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2D2D77",
+      "2D2D88",
+      "2D2DA5",
+      "2D2DDC",
+      "32E9B2",
+      "3DF0E4",
+      "3DF0EB",
+      "3DF0F7",
+      "485A32",
+      "529636",
+      "52963A",
+      "52963E",
+      "599A5E",
+      "5C9999"
+     ],
+     "coords": [
+      -125765.5,
+      -62891.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2D2D88",
+       "source_type": "direct",
+       "coords": [
+        -129245.8,
+        -63077.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Charleston Station",
      "count": 3,
      "sources": {
@@ -31912,6 +32766,18 @@
        "coords": [
         -119400.9,
         -47539.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B1F0",
+       "source_type": "quest-reward",
+       "coords": [
+        -122167.5,
+        -49725.0
        ],
        "image_top": "",
        "directions": "",
@@ -32209,6 +33075,7 @@
       "02E5F7",
       "02F7D2",
       "030E06",
+      "177153",
       "2FD8E0",
       "2FD8E2",
       "2FD8E3",
@@ -32290,7 +33157,8 @@
       "479045",
       "479046",
       "47F3EA",
-      "47F3FA"
+      "47F3FA",
+      "4821CB"
      ],
      "coords": [
       737.2,
@@ -32299,11 +33167,11 @@
      "spawns": [
       {
        "label": "",
-       "ref": "483159",
+       "ref": "4821CB",
        "source_type": "direct",
        "coords": [
-        735.4,
-        660.9
+        743.4,
+        998.2
        ],
        "image_top": "",
        "directions": "",
@@ -32414,9 +33282,9 @@
     },
     {
      "marker": "Flatwoods",
-     "count": 25,
+     "count": 29,
      "sources": {
-      "direct": 5,
+      "direct": 9,
       "npc": 19,
       "vendor": 1
      },
@@ -32430,6 +33298,7 @@
       "058015",
       "0588A0",
       "058B22",
+      "05BCE3",
       "1477E2",
       "1EF3BF",
       "1F127E",
@@ -32445,6 +33314,9 @@
       "3AD6C9",
       "3AD70E",
       "3AD722",
+      "3B830A",
+      "3B830B",
+      "3B830C",
       "3BFDCE",
       "3BFDD8",
       "3BFDF1",
@@ -32454,6 +33326,7 @@
       "3D157A",
       "3D1584",
       "3D1586",
+      "3D7BBF",
       "3DB3DB",
       "3DB3DC",
       "3DB3DD",
@@ -32489,11 +33362,59 @@
      "spawns": [
       {
        "label": "",
+       "ref": "05BCE3",
+       "source_type": "direct",
+       "coords": [
+        -107284.5,
+        9459.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
        "ref": "3AD70E",
        "source_type": "direct",
        "coords": [
         -108493.3,
         20074.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3B830A",
+       "source_type": "direct",
+       "coords": [
+        -108347.2,
+        20419.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3B830B",
+       "source_type": "direct",
+       "coords": [
+        -108305.6,
+        20404.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3B830C",
+       "source_type": "direct",
+       "coords": [
+        -108310.0,
+        20422.3
        ],
        "image_top": "",
        "directions": "",
@@ -32843,8 +33764,9 @@
     },
     {
      "marker": "Gauley Mine",
-     "count": 38,
+     "count": 39,
      "sources": {
+      "direct": 1,
       "npc": 38
      },
      "image_top": "",
@@ -32901,6 +33823,7 @@
       "54DD86",
       "54DD8D",
       "54DD9B",
+      "56E6C2",
       "58FF3F",
       "58FF44",
       "58FF46",
@@ -32912,6 +33835,18 @@
       61873.4
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "56E6C2",
+       "source_type": "direct",
+       "coords": [
+        5386.5,
+        2114.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "1A020C",
@@ -33448,6 +34383,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B156",
+       "source_type": "quest-reward",
+       "coords": [
+        -41079.3,
+        72407.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -33563,9 +34510,9 @@
     },
     {
      "marker": "Gorge Junkyard",
-     "count": 11,
+     "count": 12,
      "sources": {
-      "direct": 1,
+      "direct": 2,
       "npc": 10
      },
      "image_top": "",
@@ -33587,8 +34534,10 @@
       "052148",
       "068C3C",
       "12CE86",
+      "146BFD",
       "16AAC4",
       "185008",
+      "188B7F",
       "18B4B3",
       "18B75C",
       "18CD2D",
@@ -33627,6 +34576,18 @@
       89525.8
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "146BFD",
+       "source_type": "direct",
+       "coords": [
+        -59372.6,
+        91615.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "3A734D",
@@ -33958,6 +34919,7 @@
       "3B0703",
       "3B0705",
       "3BB3CA",
+      "3BB3CE",
       "3BB469",
       "3BB470",
       "3BB472",
@@ -34109,6 +35071,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B109",
+       "source_type": "quest-reward",
+       "coords": [
+        -25714.6,
+        43075.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -34125,6 +35099,8 @@
      "refs": [
       "038E51",
       "10ED67",
+      "17EFF0",
+      "17EFF9",
       "196D13",
       "196D20",
       "196D62",
@@ -34592,6 +35568,46 @@
      ]
     },
     {
+     "marker": "Hillfolk Hotdogs",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "07BD2B",
+      "07BD47",
+      "130F87",
+      "25605E",
+      "2A05CC",
+      "2AD816",
+      "2E40EF",
+      "4F9A00",
+      "50FC01",
+      "55C6AF"
+     ],
+     "coords": [
+      -153214.8,
+      13223.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2AD816",
+       "source_type": "direct",
+       "coords": [
+        -149383.2,
+        22804.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Horizon's Rest",
      "count": 7,
      "sources": {
@@ -34712,8 +35728,9 @@
     },
     {
      "marker": "Hornwright Industrial Headquarters",
-     "count": 10,
+     "count": 12,
      "sources": {
+      "direct": 2,
       "npc": 10
      },
      "image_top": "",
@@ -34734,6 +35751,8 @@
       "35CA72",
       "35CA75",
       "35CA84",
+      "35CAA4",
+      "35CAA7",
       "35CAC3",
       "35CAE1",
       "35CAEE",
@@ -34771,6 +35790,30 @@
       -43656.8
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "35CAA4",
+       "source_type": "direct",
+       "coords": [
+        -106774.4,
+        -47848.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "35CAA7",
+       "source_type": "direct",
+       "coords": [
+        -106847.0,
+        -47854.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "33FFFA",
@@ -35039,9 +36082,8 @@
     },
     {
      "marker": "Hornwright Summer Villa",
-     "count": 3,
+     "count": 1,
      "sources": {
-      "direct": 2,
       "npc": 1
      },
      "image_top": "",
@@ -35056,6 +36098,7 @@
       "18CC3D",
       "18CF47",
       "18CF6C",
+      "18CF86",
       "194066",
       "252A77",
       "252A86",
@@ -35071,30 +36114,6 @@
       -52069.3
      ],
      "spawns": [
-      {
-       "label": "",
-       "ref": "3D0876",
-       "source_type": "direct",
-       "coords": [
-        -46629.0,
-        -51946.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "3D0877",
-       "source_type": "direct",
-       "coords": [
-        -46632.1,
-        -51954.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
       {
        "label": "",
        "ref": "357FA9",
@@ -35120,6 +36139,8 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "187CEA",
+      "187D92",
       "20AF6F",
       "20AFBC",
       "28E627",
@@ -35222,6 +36243,7 @@
       "13A448",
       "13A48C",
       "13A494",
+      "1799F1",
       "2EC822",
       "2EC833",
       "2EC834",
@@ -35304,6 +36326,7 @@
       "2D2E84",
       "2D2E85",
       "2D2E86",
+      "2D2E87",
       "2D2E88",
       "32965F",
       "32E9A4",
@@ -35339,6 +36362,7 @@
       "3D13BB",
       "3D13DD",
       "3D13DE",
+      "45033C",
       "51E4E0",
       "51E4E1",
       "51E4E2",
@@ -36832,6 +37856,7 @@
       "31D92E",
       "31D92F",
       "31D931",
+      "4E9E9C",
       "4F9A18",
       "4F9A1C",
       "4F9A1E",
@@ -36935,9 +37960,9 @@
     },
     {
      "marker": "Morgantown",
-     "count": 30,
+     "count": 31,
      "sources": {
-      "direct": 28,
+      "direct": 29,
       "npc": 2
      },
      "image_top": "",
@@ -36968,6 +37993,7 @@
       "32B363",
       "32B368",
       "32B3C6",
+      "32B3C9",
       "32B3E8",
       "32B3FA",
       "32D43E",
@@ -37021,7 +38047,9 @@
       "4E5E4F",
       "4E84A8",
       "4E84A9",
+      "50B54E",
       "8A5FAE",
+      "8A5FAF",
       "8A5FCF",
       "8A5FD0",
       "8A5FD1",
@@ -37042,6 +38070,18 @@
       82463.5
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "32B3C9",
+       "source_type": "direct",
+       "coords": [
+        -8545.6,
+        95010.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "3BAFE0",
@@ -37440,6 +38480,7 @@
       "351912",
       "351915",
       "35191C",
+      "35192B",
       "3519D9",
       "37D282",
       "37D283",
@@ -37455,6 +38496,7 @@
       "3C16C2",
       "3C16C8",
       "3C6059",
+      "3C605B",
       "43BAF7",
       "48637D",
       "4930EF",
@@ -37991,9 +39033,9 @@
     },
     {
      "marker": "Morgantown Airport Terminal",
-     "count": 37,
+     "count": 38,
      "sources": {
-      "direct": 7,
+      "direct": 8,
       "npc": 30
      },
      "image_top": "",
@@ -38021,6 +39063,7 @@
       "41C085",
       "41C18B",
       "41C18C",
+      "41C195",
       "41C196",
       "41C244",
       "41C48E",
@@ -38146,6 +39189,18 @@
        "coords": [
         -1035.4,
         1093.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "41C195",
+       "source_type": "direct",
+       "coords": [
+        -628.0,
+        1074.8
        ],
        "image_top": "",
        "directions": "",
@@ -38551,9 +39606,9 @@
     },
     {
      "marker": "Morgantown High School",
-     "count": 27,
+     "count": 28,
      "sources": {
-      "direct": 25,
+      "direct": 26,
       "npc": 1,
       "vendor": 1
      },
@@ -38653,6 +39708,7 @@
       "2C3D98",
       "2C3D9D",
       "30869F",
+      "30B116",
       "313E8F",
       "31E589",
       "342C12",
@@ -38801,6 +39857,18 @@
       -1664.6
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "30B116",
+       "source_type": "direct",
+       "coords": [
+        -1769.3,
+        100758.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "342C12",
@@ -39468,6 +40536,7 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "1CAEED",
       "28EA25",
       "291639",
       "29167A",
@@ -39671,9 +40740,9 @@
     },
     {
      "marker": "New River Gorge Bridge - West",
-     "count": 9,
+     "count": 12,
      "sources": {
-      "direct": 4,
+      "direct": 7,
       "npc": 5
      },
      "image_top": "",
@@ -39683,6 +40752,9 @@
       "2E403D",
       "3D223D",
       "3EA917",
+      "452FC7",
+      "452FC8",
+      "452FC9",
       "453227",
       "4865D0",
       "492801",
@@ -39703,6 +40775,42 @@
       -2150.3
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "452FC7",
+       "source_type": "direct",
+       "coords": [
+        -123639.8,
+        -10883.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "452FC8",
+       "source_type": "direct",
+       "coords": [
+        -123650.2,
+        -10894.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "452FC9",
+       "source_type": "direct",
+       "coords": [
+        -123670.6,
+        -10908.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "4DEADF",
@@ -40123,6 +41231,7 @@
       "31D0DF",
       "31D0E0",
       "31D0E1",
+      "387B71",
       "387B72",
       "387B7B",
       "387B7D",
@@ -40132,6 +41241,7 @@
       "387B90",
       "389F03",
       "38B2EC",
+      "38DCE1",
       "4F8ADF",
       "4F8AE1",
       "4F8AE3",
@@ -40720,6 +41830,7 @@
       "3D0515",
       "3E32E1",
       "3E32ED",
+      "50B360",
       "50DB76",
       "50DB78",
       "50DB7A",
@@ -40781,9 +41892,53 @@
      ]
     },
     {
-     "marker": "Overseer's Camp",
+     "marker": "Overlook Cabin",
      "count": 1,
      "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "159E33",
+      "15BF3C",
+      "15BF4D",
+      "15BF4E",
+      "15BF54",
+      "15BF62",
+      "316866",
+      "316958",
+      "31696A",
+      "3169DD",
+      "317071",
+      "317077",
+      "3170E0"
+     ],
+     "coords": [
+      -50808.7,
+      -47612.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "31696A",
+       "source_type": "direct",
+       "coords": [
+        -51161.3,
+        -46976.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Overseer's Camp",
+     "count": 2,
+     "sources": {
+      "direct": 1,
       "npc": 1
      },
      "image_top": "",
@@ -40791,6 +41946,7 @@
      "image_bottom": "",
      "refs": [
       "131419",
+      "1EE044",
       "291679",
       "4F99EE",
       "4FBCF5",
@@ -40802,6 +41958,18 @@
       44420.4
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "1EE044",
+       "source_type": "direct",
+       "coords": [
+        -67518.5,
+        41073.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "291679",
@@ -41027,6 +42195,8 @@
       "143D78",
       "143D79",
       "167695",
+      "1676EF",
+      "187D5F",
       "195B64",
       "29CF1E",
       "29CF20",
@@ -41082,6 +42252,7 @@
       "3700E8",
       "370136",
       "38B328",
+      "4EC1D0",
       "4ED994",
       "4ED99A",
       "4F574B",
@@ -41414,6 +42585,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B328",
+       "source_type": "quest-reward",
+       "coords": [
+        -177856.2,
+        66008.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -41428,6 +42611,7 @@
      "image_bottom": "",
      "refs": [
       "14EB99",
+      "340058",
       "34184C",
       "341C52",
       "341CC7",
@@ -41478,6 +42662,7 @@
       "4328C2",
       "432914",
       "432915",
+      "563BE8",
       "563BEB",
       "563BF9",
       "563C01",
@@ -41562,9 +42747,9 @@
     },
     {
      "marker": "Poseidon Energy Plant WV-06",
-     "count": 15,
+     "count": 16,
      "sources": {
-      "direct": 9,
+      "direct": 10,
       "npc": 6
      },
      "image_top": "",
@@ -41694,6 +42879,7 @@
       "3A840F",
       "3A8413",
       "3A841D",
+      "3A8480",
       "3BAAF2",
       "3BAB33",
       "3BAB43",
@@ -41819,6 +43005,18 @@
        "coords": [
         -130446.5,
         -39308.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3A8480",
+       "source_type": "direct",
+       "coords": [
+        -3355.9,
+        5370.4
        ],
        "image_top": "",
        "directions": "",
@@ -41992,7 +43190,8 @@
       "5C608A",
       "5C6113",
       "5C6123",
-      "5CFC66"
+      "5CFC66",
+      "5D8625"
      ],
      "coords": [
       -477.5,
@@ -42018,7 +43217,7 @@
      "count": 5,
      "sources": {
       "direct": 4,
-      "loot-list": 1
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
@@ -42088,7 +43287,7 @@
       {
        "label": "",
        "ref": "38B220",
-       "source_type": "loot-list",
+       "source_type": "quest-reward",
        "coords": [
         -135648.6,
         -65181.5
@@ -42195,9 +43394,9 @@
     },
     {
      "marker": "Riverside Manor",
-     "count": 16,
+     "count": 17,
      "sources": {
-      "direct": 6,
+      "direct": 7,
       "npc": 10
      },
      "image_top": "",
@@ -42206,6 +43405,7 @@
      "refs": [
       "01924E",
       "0471B8",
+      "052DBA",
       "07816F",
       "088AF4",
       "088C1C",
@@ -42223,8 +43423,10 @@
       "135585",
       "137FF7",
       "137FFD",
+      "138000",
       "138013",
       "13803B",
+      "138052",
       "139502",
       "139513",
       "13A6D0",
@@ -42250,6 +43452,7 @@
       "194D35",
       "194D37",
       "194E69",
+      "2B6428",
       "2B67DA",
       "2F17D9",
       "2F17DD",
@@ -42272,6 +43475,18 @@
       1432.1
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "2B6428",
+       "source_type": "direct",
+       "coords": [
+        3846.5,
+        1471.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "36FE73",
@@ -42467,6 +43682,81 @@
      ]
     },
     {
+     "marker": "RobCo Auto-Cache #001",
+     "count": 3,
+     "sources": {
+      "direct": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "416517",
+      "41651A",
+      "41651D",
+      "416CB8",
+      "416CB9",
+      "416CBA",
+      "416CF0",
+      "53B6B2",
+      "53B6C5",
+      "55FCBB",
+      "5618EE",
+      "563C37",
+      "563C38",
+      "563C39",
+      "563C3A",
+      "563C3B",
+      "563C3C",
+      "563C3F",
+      "563C40",
+      "564409",
+      "564414"
+     ],
+     "coords": [
+      -5307.5,
+      2463.9
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "416CB8",
+       "source_type": "direct",
+       "coords": [
+        -4520.8,
+        1716.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "416CB9",
+       "source_type": "direct",
+       "coords": [
+        -4513.0,
+        1716.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "416CBA",
+       "source_type": "direct",
+       "coords": [
+        -4515.3,
+        1732.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Settler's Ridge",
      "count": 5,
      "sources": {
@@ -42610,6 +43900,38 @@
      ]
     },
     {
+     "marker": "Shelters Claim Center",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5EE504",
+      "5EE638"
+     ],
+     "coords": [
+      -5816.0,
+      -303.1
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "5EE504",
+       "source_type": "direct",
+       "coords": [
+        -4953.5,
+        627.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Silva Homestead",
      "count": 2,
      "sources": {
@@ -42619,6 +43941,8 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "1CAFEA",
+      "1CB43F",
       "2D1B71",
       "2D1DDA",
       "2D1FFE",
@@ -42833,9 +44157,9 @@
     },
     {
      "marker": "Summersville",
-     "count": 26,
+     "count": 27,
      "sources": {
-      "direct": 12,
+      "direct": 13,
       "npc": 13,
       "quest-reward": 1
      },
@@ -42845,6 +44169,7 @@
      "refs": [
       "09D323",
       "09E138",
+      "20AD19",
       "2B1223",
       "2B65A9",
       "2EAFDA",
@@ -42856,6 +44181,7 @@
       "311A48",
       "312829",
       "357FAB",
+      "358300",
       "358379",
       "35837A",
       "358388",
@@ -42918,6 +44244,18 @@
       -21649.1
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "358300",
+       "source_type": "direct",
+       "coords": [
+        -46739.9,
+        -19163.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "3AB108",
@@ -43217,14 +44555,26 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B14D",
+       "source_type": "quest-reward",
+       "coords": [
+        -41273.7,
+        -24995.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
     {
      "marker": "Summersville Dam",
-     "count": 8,
+     "count": 10,
      "sources": {
-      "direct": 2,
+      "direct": 4,
       "npc": 6
      },
      "image_top": "",
@@ -43271,6 +44621,8 @@
       "52C7AF",
       "52C7B7",
       "52C881",
+      "52E745",
+      "52E747",
       "52E749"
      ],
      "coords": [
@@ -43285,6 +44637,30 @@
        "coords": [
         -84524.9,
         -59336.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "52E745",
+       "source_type": "direct",
+       "coords": [
+        -78412.0,
+        -59869.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "52E747",
+       "source_type": "direct",
+       "coords": [
+        -78419.8,
+        -59873.5
        ],
        "image_top": "",
        "directions": "",
@@ -43869,6 +45245,7 @@
       "32520A",
       "3BA697",
       "3BA698",
+      "3BA699",
       "3BA6A5",
       "3BA6C0",
       "3BA6C1",
@@ -44390,8 +45767,9 @@
     },
     {
      "marker": "The Giant Teapot",
-     "count": 4,
+     "count": 5,
      "sources": {
+      "direct": 1,
       "npc": 4
      },
      "image_top": "",
@@ -44402,6 +45780,7 @@
       "35D07C",
       "35D0A2",
       "35D0A3",
+      "35DB5C",
       "366F28",
       "368EF3",
       "3926BD",
@@ -44416,6 +45795,18 @@
       -31547.5
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "35DB5C",
+       "source_type": "direct",
+       "coords": [
+        -130228.2,
+        -31642.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "3A474A",
@@ -44518,6 +45909,7 @@
      "count": 8,
      "sources": {
       "npc": 6,
+      "quest-reward": 1,
       "vendor": 1
      },
      "image_top": "",
@@ -44620,6 +46012,18 @@
        "coords": [
         -83641.7,
         48142.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B198",
+       "source_type": "quest-reward",
+       "coords": [
+        -81548.5,
+        48992.0
        ],
        "image_top": "",
        "directions": "",
@@ -45432,6 +46836,7 @@
       "60D2F1",
       "60D2F2",
       "60DC7C",
+      "612E91",
       "613942",
       "61D96B",
       "61D96C"
@@ -45443,11 +46848,11 @@
      "spawns": [
       {
        "label": "",
-       "ref": "3F02AF",
+       "ref": "612E91",
        "source_type": "direct",
        "coords": [
-        -126415.1,
-        203021.6
+        -1127.1,
+        1460.6
        ],
        "image_top": "",
        "directions": "",
@@ -46231,6 +47636,7 @@
      "refs": [
       "00E22A",
       "00E22B",
+      "00E395",
       "00E3DF",
       "00E41A",
       "00E41B",
@@ -46304,6 +47710,7 @@
       "1231F2",
       "1231F6",
       "1231FB",
+      "123220",
       "123246",
       "123247",
       "123248",
@@ -47663,6 +49070,7 @@
       "3229BE",
       "36AC7E",
       "36AC82",
+      "36AC87",
       "36AC8D",
       "3919E5",
       "39383B",
@@ -47676,8 +49084,8 @@
       "522DCB"
      ],
      "coords": [
-      86257.1,
-      98925.3
+      91243.0,
+      100383.0
      ],
      "spawns": [
       {
@@ -48093,8 +49501,8 @@
      "count": 7,
      "sources": {
       "direct": 2,
-      "loot-list": 1,
-      "npc": 4
+      "npc": 4,
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
@@ -48143,18 +49551,6 @@
       },
       {
        "label": "",
-       "ref": "38ADD7",
-       "source_type": "loot-list",
-       "coords": [
-        98820.3,
-        42795.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
        "ref": "30B4F1",
        "source_type": "npc",
        "coords": [
@@ -48196,6 +49592,18 @@
        "coords": [
         95192.8,
         55042.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38ADD7",
+       "source_type": "quest-reward",
+       "coords": [
+        98820.3,
+        42795.5
        ],
        "image_top": "",
        "directions": "",
@@ -48398,8 +49806,8 @@
      "count": 12,
      "sources": {
       "direct": 7,
-      "loot-list": 1,
-      "npc": 4
+      "npc": 4,
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
@@ -48567,18 +49975,6 @@
       },
       {
        "label": "",
-       "ref": "38AF64",
-       "source_type": "loot-list",
-       "coords": [
-        33260.1,
-        -47051.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
        "ref": "14EB9C",
        "source_type": "npc",
        "coords": [
@@ -48620,6 +50016,18 @@
        "coords": [
         -2140.0,
         -1311.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AF64",
+       "source_type": "quest-reward",
+       "coords": [
+        33260.1,
+        -47051.6
        ],
        "image_top": "",
        "directions": "",
@@ -48933,6 +50341,7 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "08E1CD",
       "2B9128",
       "2B912E",
       "32C362",
@@ -50362,6 +51771,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B0DD",
+       "source_type": "quest-reward",
+       "coords": [
+        -8329.7,
+        -157138.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -50780,6 +52201,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AD61",
+       "source_type": "quest-reward",
+       "coords": [
+        150924.8,
+        180168.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -50804,6 +52237,7 @@
       "5EEE5A",
       "5EEE5B",
       "5F0CE3",
+      "5F1378",
       "601D7F",
       "605F16"
      ],
@@ -51196,7 +52630,7 @@
       {
        "label": "",
        "ref": "38ADA2",
-       "source_type": "loot-list",
+       "source_type": "quest-reward",
        "coords": [
         140590.7,
         111465.0
@@ -51305,8 +52739,9 @@
     },
     {
      "marker": "Hopewell Cave",
-     "count": 8,
+     "count": 9,
      "sources": {
+      "direct": 1,
       "nest": 1,
       "npc": 7
      },
@@ -51319,6 +52754,7 @@
       "30BE1E",
       "30BE20",
       "36C3F1",
+      "36C3FD",
       "36C927",
       "37D10F",
       "37D111",
@@ -51333,6 +52769,18 @@
       116411.3
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "36C3FD",
+       "source_type": "direct",
+       "coords": [
+        114211.3,
+        113434.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "36C927",
@@ -51656,7 +53104,8 @@
       "3D5432",
       "434F02",
       "434F04",
-      "434F06"
+      "434F06",
+      "4396DE"
      ],
      "coords": [
       63655.8,
@@ -51715,14 +53164,15 @@
     },
     {
      "marker": "Johnson's Acre",
-     "count": 1,
+     "count": 2,
      "sources": {
-      "direct": 1
+      "direct": 2
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "3782CE",
       "3782F6",
       "37918A",
       "379195",
@@ -51739,6 +53189,18 @@
      "spawns": [
       {
        "label": "",
+       "ref": "3782CE",
+       "source_type": "direct",
+       "coords": [
+        74875.8,
+        -179596.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
        "ref": "37918A",
        "source_type": "direct",
        "coords": [
@@ -51753,9 +53215,9 @@
     },
     {
      "marker": "Lake Eloise",
-     "count": 2,
+     "count": 3,
      "sources": {
-      "direct": 2
+      "direct": 3
      },
      "image_top": "",
      "directions": "",
@@ -51768,6 +53230,7 @@
       "3A45ED",
       "3DEFA3",
       "3DEFA4",
+      "3DEFA8",
       "3DEFA9",
       "3DEFB4",
       "3DEFBE",
@@ -51798,6 +53261,18 @@
        "coords": [
         40060.6,
         -148671.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3DEFA8",
+       "source_type": "direct",
+       "coords": [
+        49949.1,
+        -154514.8
        ],
        "image_top": "",
        "directions": "",
@@ -52065,6 +53540,7 @@
      "refs": [
       "38C2E0",
       "38C2E5",
+      "3A7648",
       "3A875A",
       "3A875C",
       "3D0507",
@@ -52180,10 +53656,12 @@
       "4306FB",
       "4306FC",
       "4306FE",
+      "4306FF",
       "43083A",
       "4308A5",
       "43090A",
       "43090B",
+      "43094C",
       "430A10",
       "430A69",
       "430AB3",
@@ -52211,6 +53689,7 @@
       "43114E",
       "43114F",
       "431174",
+      "431187",
       "4311B8",
       "43125C",
       "431274",
@@ -52218,6 +53697,8 @@
       "431402",
       "431403",
       "431404",
+      "43142E",
+      "43142F",
       "431508",
       "431512",
       "431532",
@@ -52228,6 +53709,7 @@
       "431639",
       "431694",
       "431696",
+      "45119F",
       "5A0E7F",
       "5A0E81",
       "5A0F7F",
@@ -52761,6 +54243,7 @@
      "refs": [
       "12CCB1",
       "12E22D",
+      "1ABE9A",
       "27BAEE",
       "27CEB3",
       "2B77B0",
@@ -53592,12 +55075,14 @@
       "335EDF",
       "336772",
       "336773",
+      "3C22DC",
       "3C22E5",
       "3C22F3",
       "3C2307",
       "3C2308",
       "3C230E",
       "3C2A7A",
+      "3C2A7C",
       "3C2AE8",
       "3C2BD1",
       "3C2BD2",
@@ -53806,6 +55291,7 @@
       "115ED3",
       "1171CC",
       "198590",
+      "198598",
       "198599",
       "2B9114",
       "2B9115",
@@ -54602,6 +56088,7 @@
       "31DD5F",
       "31DD60",
       "31DD61",
+      "31DD66",
       "328EFC",
       "328F04",
       "3B5B53",
@@ -54843,9 +56330,9 @@
     },
     {
      "marker": "Mountainside Bed & Breakfast",
-     "count": 15,
+     "count": 16,
      "sources": {
-      "direct": 13,
+      "direct": 14,
       "npc": 2
      },
      "image_top": "",
@@ -54860,6 +56347,7 @@
       "110D66",
       "110F7A",
       "111322",
+      "112652",
       "1885D6",
       "18870E",
       "197BC4",
@@ -54901,6 +56389,18 @@
       -94309.6
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "112652",
+       "source_type": "direct",
+       "coords": [
+        8113.8,
+        -98733.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "387615",
@@ -55657,11 +57157,11 @@
     },
     {
      "marker": "New Appalachian Central Trainyard",
-     "count": 3,
+     "count": 5,
      "sources": {
-      "direct": 1,
-      "loot-list": 1,
-      "npc": 1
+      "direct": 3,
+      "npc": 1,
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
@@ -55702,6 +57202,8 @@
       "3C1367",
       "3C13BF",
       "3C1422",
+      "3C142A",
+      "3C142B",
       "3C3665",
       "3C3673",
       "3C367B",
@@ -55730,11 +57232,23 @@
       },
       {
        "label": "",
-       "ref": "38B06A",
-       "source_type": "loot-list",
+       "ref": "3C142A",
+       "source_type": "direct",
        "coords": [
-        16156.7,
-        -16360.7
+        11184.8,
+        -21389.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3C142B",
+       "source_type": "direct",
+       "coords": [
+        11183.6,
+        -21379.9
        ],
        "image_top": "",
        "directions": "",
@@ -55747,6 +57261,18 @@
        "coords": [
         16292.8,
         -21251.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B06A",
+       "source_type": "quest-reward",
+       "coords": [
+        16156.7,
+        -16360.7
        ],
        "image_top": "",
        "directions": "",
@@ -55837,6 +57363,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38ADDC",
+       "source_type": "quest-reward",
+       "coords": [
+        66572.6,
+        30560.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -55852,6 +57390,7 @@
      "refs": [
       "10E2E5",
       "387601",
+      "389D7A",
       "389D7D",
       "434A47"
      ],
@@ -55876,9 +57415,9 @@
     },
     {
      "marker": "Palace of the Winding Path",
-     "count": 4,
+     "count": 5,
      "sources": {
-      "direct": 1,
+      "direct": 2,
       "npc": 2,
       "quest-reward": 1
      },
@@ -55917,6 +57456,7 @@
       "3661BF",
       "3661C1",
       "366295",
+      "366394",
       "366991",
       "3669A4",
       "36B88E",
@@ -55943,6 +57483,18 @@
       172555.1
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "366394",
+       "source_type": "direct",
+       "coords": [
+        56460.5,
+        168562.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "3E0D72",
@@ -55974,6 +57526,18 @@
        "coords": [
         58726.7,
         171003.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AF4C",
+       "source_type": "quest-reward",
+       "coords": [
+        56127.0,
+        176659.1
        ],
        "image_top": "",
        "directions": "",
@@ -56014,6 +57578,7 @@
       "1448FE",
       "14492F",
       "145D8E",
+      "298319",
       "298342",
       "298343",
       "2C658D",
@@ -57015,9 +58580,9 @@
     },
     {
      "marker": "Pumpkin House",
-     "count": 4,
+     "count": 5,
      "sources": {
-      "direct": 1,
+      "direct": 2,
       "npc": 3
      },
      "image_top": "",
@@ -57027,13 +58592,16 @@
       "10E274",
       "2C959C",
       "347246",
+      "35DA4A",
       "35DA4E",
       "35DA56",
+      "366DC8",
       "390C56",
       "397353",
       "3C3E4D",
       "3C402A",
       "3C40DE",
+      "3C4D3D",
       "3C4D3E",
       "3D1DB8",
       "3D1DEE",
@@ -57057,6 +58625,18 @@
        "coords": [
         116482.5,
         135314.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "366DC8",
+       "source_type": "direct",
+       "coords": [
+        126891.7,
+        133104.7
        ],
        "image_top": "",
        "directions": "",
@@ -57102,14 +58682,17 @@
     },
     {
      "marker": "R & G Processing Services",
-     "count": 4,
+     "count": 5,
      "sources": {
+      "direct": 1,
       "npc": 4
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "1806E6",
+      "180CB2",
       "1AE656",
       "2FAA89",
       "357F96",
@@ -57123,6 +58706,18 @@
       -132738.7
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "1806E6",
+       "source_type": "direct",
+       "coords": [
+        -1271.2,
+        -126973.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "357F96",
@@ -57289,6 +58884,8 @@
       "7ACA7E",
       "7B2744",
       "7B2745",
+      "7B274B",
+      "7B274C",
       "7B72AA",
       "7B73F4",
       "7B99AE",
@@ -57479,9 +59076,9 @@
     },
     {
      "marker": "Red Rocket Mega Stop",
-     "count": 14,
+     "count": 16,
      "sources": {
-      "direct": 2,
+      "direct": 4,
       "npc": 12
      },
      "image_top": "",
@@ -57534,11 +59131,13 @@
       "32B793",
       "32B834",
       "32B83C",
+      "32B850",
       "32B853",
       "32B867",
       "32B86C",
       "32B988",
       "32C09B",
+      "32C0A5",
       "32C0AB",
       "32C0DA",
       "32C122",
@@ -57569,6 +59168,30 @@
       153505.8
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "32B850",
+       "source_type": "direct",
+       "coords": [
+        141315.8,
+        145424.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "32C0A5",
+       "source_type": "direct",
+       "coords": [
+        135025.4,
+        149512.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "34272A",
@@ -58308,9 +59931,9 @@
     },
     {
      "marker": "Scenic Overlook",
-     "count": 5,
+     "count": 6,
      "sources": {
-      "direct": 3,
+      "direct": 4,
       "npc": 2
      },
      "image_top": "",
@@ -58339,6 +59962,7 @@
       "434F24",
       "44193B",
       "44193C",
+      "441948",
       "441968",
       "441971",
       "50FAD3",
@@ -58381,6 +60005,18 @@
        "coords": [
         -14536.7,
         -156346.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "441948",
+       "source_type": "direct",
+       "coords": [
+        -8176.6,
+        -137816.9
        ],
        "image_top": "",
        "directions": "",
@@ -59085,6 +60721,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AF8C",
+       "source_type": "quest-reward",
+       "coords": [
+        32254.2,
+        27944.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -59093,7 +60741,7 @@
      "count": 4,
      "sources": {
       "direct": 3,
-      "loot-list": 1
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
@@ -59154,7 +60802,7 @@
       {
        "label": "",
        "ref": "38AF66",
-       "source_type": "loot-list",
+       "source_type": "quest-reward",
        "coords": [
         36779.8,
         -62224.1
@@ -59386,6 +61034,7 @@
      "refs": [
       "18B8A5",
       "304C3C",
+      "304D34",
       "3CD3C9",
       "3D2874",
       "3D2875",
@@ -59393,8 +61042,8 @@
       "492D29"
      ],
      "coords": [
-      43125.9,
-      7564.2
+      42962.9,
+      5849.0
      ],
      "spawns": [
       {
@@ -59527,6 +61176,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AE4D",
+       "source_type": "quest-reward",
+       "coords": [
+        61745.3,
+        -124896.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -59541,6 +61202,7 @@
      "image_bottom": "",
      "refs": [
       "547044",
+      "54704B",
       "54704D",
       "54704F",
       "569B87"
@@ -61140,6 +62802,7 @@
      "image_bottom": "",
      "refs": [
       "28CA74",
+      "38E51F",
       "3942B5",
       "3D02E0",
       "3D02E1",
@@ -61147,8 +62810,8 @@
       "3D02E3"
      ],
      "coords": [
-      85195.7,
-      -95896.3
+      84687.1,
+      -103171.1
      ],
      "spawns": [
       {
@@ -61375,9 +63038,9 @@
     },
     {
      "marker": "The Whitespring Golf Club",
-     "count": 29,
+     "count": 30,
      "sources": {
-      "direct": 15,
+      "direct": 16,
       "npc": 14
      },
      "image_top": "",
@@ -61404,6 +63067,8 @@
       "27817B",
       "27817D",
       "278189",
+      "2781AE",
+      "278439",
       "27AC3D",
       "27ACC2",
       "27ACC3",
@@ -61438,7 +63103,9 @@
       "301592",
       "36FFD4",
       "37A425",
+      "37AFD6",
       "39D25F",
+      "39D26B",
       "3A0806",
       "3A1C9F",
       "3A1CA3",
@@ -61474,6 +63141,8 @@
       "4D84E8",
       "4D84F0",
       "4D85C8",
+      "4D863A",
+      "4D8644",
       "4D951E",
       "4D952A",
       "4D9536",
@@ -61595,6 +63264,18 @@
        "coords": [
         -13249.5,
         -52972.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "39D26B",
+       "source_type": "direct",
+       "coords": [
+        -17917.4,
+        -36080.3
        ],
        "image_top": "",
        "directions": "",
@@ -61844,9 +63525,9 @@
     },
     {
      "marker": "The Whitespring North Entrance",
-     "count": 25,
+     "count": 28,
      "sources": {
-      "direct": 1,
+      "direct": 4,
       "npc": 24
      },
      "image_top": "",
@@ -61898,13 +63579,16 @@
       "3020DE",
       "302122",
       "30212A",
+      "302734",
       "357F98",
       "3A1B8C",
       "3CC247",
       "3CC2B8",
+      "3CC32B",
       "3CD503",
       "3CD507",
       "3CD51A",
+      "3CD56F",
       "3CD57D",
       "3D3F24",
       "3D3F25",
@@ -61917,6 +63601,7 @@
       "3D66F4",
       "3D6778",
       "3D677E",
+      "3D679D",
       "3D67E8",
       "3D6828",
       "3D6829",
@@ -61985,6 +63670,42 @@
       -42010.5
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "3CC32B",
+       "source_type": "direct",
+       "coords": [
+        -3156.4,
+        -41280.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3CD56F",
+       "source_type": "direct",
+       "coords": [
+        3140.2,
+        -41702.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D679D",
+       "source_type": "direct",
+       "coords": [
+        2846.5,
+        -47377.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "3D67E8",
@@ -63364,9 +65085,9 @@
     },
     {
      "marker": "Vault 79",
-     "count": 43,
+     "count": 51,
      "sources": {
-      "direct": 7,
+      "direct": 15,
       "npc": 36
      },
      "image_top": "",
@@ -63436,6 +65157,7 @@
       "53ACEA",
       "53BB1A",
       "53BB74",
+      "53BB8A",
       "53BB98",
       "53BBF8",
       "53BD17",
@@ -63511,6 +65233,13 @@
       "589123",
       "589124",
       "589C5C",
+      "589CB0",
+      "589CB1",
+      "589CB2",
+      "589CB3",
+      "589CBB",
+      "589CBC",
+      "589CBF",
       "589DA8",
       "589E08",
       "589E3F",
@@ -63543,6 +65272,18 @@
       1705.9
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "53BB8A",
+       "source_type": "direct",
+       "coords": [
+        -7636.6,
+        4329.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "53BB98",
@@ -63622,6 +65363,90 @@
        "coords": [
         -6227.0,
         3541.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "589CB0",
+       "source_type": "direct",
+       "coords": [
+        -532.6,
+        1451.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "589CB1",
+       "source_type": "direct",
+       "coords": [
+        -784.8,
+        1454.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "589CB2",
+       "source_type": "direct",
+       "coords": [
+        -769.4,
+        1456.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "589CB3",
+       "source_type": "direct",
+       "coords": [
+        -759.9,
+        1454.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "589CBB",
+       "source_type": "direct",
+       "coords": [
+        -1545.0,
+        1408.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "589CBC",
+       "source_type": "direct",
+       "coords": [
+        -1530.8,
+        1416.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "589CBF",
+       "source_type": "direct",
+       "coords": [
+        -1455.7,
+        1412.0
        ],
        "image_top": "",
        "directions": "",
@@ -64175,6 +66000,7 @@
       "5E24BE",
       "5E256E",
       "5E27BA",
+      "5E28F6",
       "5E29D1",
       "5E29D2",
       "5E29D5",
@@ -65203,6 +67029,7 @@
       "2A4CC7",
       "2A4CD6",
       "2A4CED",
+      "2A4F38",
       "2A4FD9",
       "2A4FDE",
       "2A4FED",
@@ -65220,6 +67047,7 @@
       "2A58D6",
       "2A58E8",
       "2A5908",
+      "2A5A09",
       "2A7896",
       "2A78AB",
       "2A78AC",
@@ -65463,6 +67291,7 @@
       "627E5F",
       "627E60",
       "627ED7",
+      "627F7D",
       "62809D",
       "62811D",
       "62811E",
@@ -65752,7 +67581,10 @@
       "74793F",
       "747940",
       "754BB4",
+      "754BB5",
       "754BB6",
+      "754BDD",
+      "754BDE",
       "754BDF",
       "754BE2",
       "754BEA",
@@ -66019,6 +67851,7 @@
       "762C58",
       "762CDF",
       "762CE0",
+      "762DB7",
       "762DCA",
       "762DD8",
       "762FDF",
@@ -66154,6 +67987,7 @@
      "image_bottom": "",
      "refs": [
       "6CDA79",
+      "6F4DFF",
       "6F4E04",
       "6F4E07",
       "6F4E1C",
@@ -66171,6 +68005,7 @@
       "744094",
       "74409B",
       "74409F",
+      "744841",
       "744843",
       "745122",
       "745125",
@@ -66185,6 +68020,7 @@
       "74674F",
       "7467F4",
       "748068",
+      "74E7FB",
       "74EB59",
       "74F240",
       "74F4EB",
@@ -66582,6 +68418,7 @@
       "74555B",
       "74768C",
       "7477A1",
+      "748A22",
       "750616",
       "751C0D",
       "751C14",
@@ -66704,6 +68541,7 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "72D3B2",
       "72D3B5",
       "72D3B7",
       "72D3BC",
@@ -67067,6 +68905,7 @@
       "6BED08",
       "6C342C",
       "6D9CEB",
+      "6D9CEE",
       "6D9D08",
       "6D9D1F",
       "6D9D20",
@@ -67374,6 +69213,7 @@
       "734B2A",
       "74F4CF",
       "74F4D0",
+      "78597E",
       "785992",
       "7859AB",
       "78981F"
@@ -67492,9 +69332,9 @@
     },
     {
      "marker": "Naked Creek",
-     "count": 7,
+     "count": 6,
      "sources": {
-      "direct": 3,
+      "direct": 2,
       "npc": 4
      },
      "image_top": "",
@@ -67521,18 +69361,6 @@
       -231147.7
      ],
      "spawns": [
-      {
-       "label": "",
-       "ref": "7338A4",
-       "source_type": "direct",
-       "coords": [
-        -26604.7,
-        -234373.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
       {
        "label": "",
        "ref": "75D8CA",
@@ -68048,6 +69876,7 @@
       "6F7954",
       "6F7955",
       "6F795F",
+      "6F7961",
       "6F7964",
       "6F7DAD",
       "6F7DAE",
@@ -68231,6 +70060,7 @@
       "783973",
       "783976",
       "78397C",
+      "78397F",
       "783980",
       "7855F6"
      ],
@@ -68605,6 +70435,7 @@
       "77FF16",
       "7842CD",
       "7842CF",
+      "7842D4",
       "7842D5",
       "7842DC",
       "7842DE",
@@ -68757,6 +70588,7 @@
       "6FC568",
       "6FC56C",
       "6FC573",
+      "6FC591",
       "726ECF",
       "72B09B",
       "72B70C",
@@ -68771,6 +70603,7 @@
       "7466B0",
       "748729",
       "74872E",
+      "74872F",
       "753E5B",
       "753E62",
       "753E63",
@@ -68925,9 +70758,9 @@
     },
     {
      "marker": "Slumber Mill Motel",
-     "count": 8,
+     "count": 7,
      "sources": {
-      "direct": 2,
+      "direct": 1,
       "npc": 6
      },
      "image_top": "",
@@ -69081,9 +70914,9 @@
     },
     {
      "marker": "South River Bridge",
-     "count": 10,
+     "count": 9,
      "sources": {
-      "direct": 4,
+      "direct": 3,
       "npc": 6
      },
      "image_top": "",
@@ -69559,9 +71392,11 @@
      "image_bottom": "",
      "refs": [
       "731533",
+      "734F37",
       "734F3C",
       "734F45",
       "734F46",
+      "734FDB",
       "734FE0",
       "749D36",
       "7539FD",
@@ -69952,6 +71787,7 @@
      "refs": [
       "6C6C54",
       "6E56CD",
+      "6E69B6",
       "6E69B7",
       "6E69B8",
       "6E69BA",
@@ -69985,6 +71821,7 @@
       "72E86B",
       "72E994",
       "72E9E0",
+      "72EA11",
       "7323C3",
       "73C2D5",
       "73D146",
@@ -70167,6 +72004,7 @@
       "3DC449",
       "55BEDF",
       "55BEE0",
+      "58B9DC",
       "58B9EA",
       "685D85"
      ],
@@ -70273,6 +72111,7 @@
      "refs": [
       "241C94",
       "270953",
+      "2A3122",
       "2A67A4",
       "2A67A5",
       "2A67B1",
@@ -70312,9 +72151,9 @@
     },
     {
      "marker": "Berkeley Springs",
-     "count": 6,
+     "count": 7,
      "sources": {
-      "direct": 6
+      "direct": 7
      },
      "image_top": "",
      "directions": "",
@@ -70374,7 +72213,8 @@
       "4FCC36",
       "51DAB8",
       "51DB0A",
-      "526FC2"
+      "526FC2",
+      "5270A6"
      ],
      "coords": [
       130896.0,
@@ -70448,6 +72288,18 @@
        "coords": [
         127400.2,
         26997.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5270A6",
+       "source_type": "direct",
+       "coords": [
+        131310.9,
+        23827.4
        ],
        "image_top": "",
        "directions": "",
@@ -70713,9 +72565,9 @@
     },
     {
      "marker": "Blakes Offering",
-     "count": 2,
+     "count": 3,
      "sources": {
-      "direct": 2
+      "direct": 3
      },
      "image_top": "",
      "directions": "",
@@ -70726,6 +72578,7 @@
       "3B2BB1",
       "4F8485",
       "4F900A",
+      "5555FA",
       "555600",
       "555606",
       "5678FA",
@@ -70760,6 +72613,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5555FA",
+       "source_type": "direct",
+       "coords": [
+        201515.5,
+        -36496.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -70783,6 +72648,8 @@
       "430460",
       "43CC7C",
       "54263A",
+      "554280",
+      "55C08C",
       "55FE20",
       "55FE51",
       "55FEBA",
@@ -71392,6 +73259,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AD4A",
+       "source_type": "quest-reward",
+       "coords": [
+        175781.5,
+        78368.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -71553,6 +73432,7 @@
       "5C2CB2",
       "5C2CC0",
       "5C4B60",
+      "5C620D",
       "5C6226",
       "5C892C"
      ],
@@ -72580,8 +74460,8 @@
      "count": 4,
      "sources": {
       "direct": 2,
-      "loot-list": 1,
-      "nest": 1
+      "nest": 1,
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
@@ -72626,11 +74506,11 @@
       },
       {
        "label": "",
-       "ref": "38AD1A",
-       "source_type": "loot-list",
+       "ref": "2C089D",
+       "source_type": "nest",
        "coords": [
-        181776.0,
-        104687.5
+        173343.6,
+        99286.8
        ],
        "image_top": "",
        "directions": "",
@@ -72638,11 +74518,11 @@
       },
       {
        "label": "",
-       "ref": "2C089D",
-       "source_type": "nest",
+       "ref": "38AD1A",
+       "source_type": "quest-reward",
        "coords": [
-        173343.6,
-        99286.8
+        181776.0,
+        104687.5
        ],
        "image_top": "",
        "directions": "",
@@ -72666,6 +74546,7 @@
       "7A8B4A",
       "7A8B4B",
       "7A8B4D",
+      "7A8B57",
       "7A8BF2",
       "7A8C11",
       "7A8C12",
@@ -73089,6 +74970,7 @@
       "2C4BBD",
       "2C4BBE",
       "2C4BC1",
+      "2C4BD9",
       "2EEE22",
       "2EF5BD",
       "2EF5E5",
@@ -74660,9 +76542,9 @@
     },
     {
      "marker": "Mire's Eye",
-     "count": 5,
+     "count": 6,
      "sources": {
-      "direct": 2,
+      "direct": 3,
       "npc": 3
      },
      "image_top": "",
@@ -74678,6 +76560,7 @@
       "4FCDFC",
       "4FCDFF",
       "4FCE01",
+      "5B6D57",
       "5B6F28",
       "5B6F2B",
       "5B6F2C",
@@ -74688,6 +76571,18 @@
       200955.4
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "5B6D57",
+       "source_type": "direct",
+       "coords": [
+        -1013.6,
+        -245.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "5B6F2B",
@@ -74752,8 +76647,9 @@
     },
     {
      "marker": "Mosstown",
-     "count": 3,
+     "count": 8,
      "sources": {
+      "direct": 5,
       "npc": 3
      },
      "image_top": "",
@@ -74769,6 +76665,11 @@
       "09E9C8",
       "112F6A",
       "16EF90",
+      "16F001",
+      "16F003",
+      "16F2A5",
+      "16F8CB",
+      "16F8E3",
       "1703CE",
       "30A334",
       "30B4B5",
@@ -74798,6 +76699,66 @@
       70032.1
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "16F001",
+       "source_type": "direct",
+       "coords": [
+        133063.2,
+        71487.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "16F003",
+       "source_type": "direct",
+       "coords": [
+        133089.7,
+        71481.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "16F2A5",
+       "source_type": "direct",
+       "coords": [
+        133065.0,
+        71466.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "16F8CB",
+       "source_type": "direct",
+       "coords": [
+        133125.8,
+        71506.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "16F8E3",
+       "source_type": "direct",
+       "coords": [
+        133069.4,
+        71483.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "39551B",
@@ -74937,6 +76898,7 @@
       "16CF26",
       "16CF47",
       "16D184",
+      "23D462",
       "2A79C7",
       "2A79C8",
       "2A79D4",
@@ -74993,6 +76955,7 @@
       "35CE18",
       "35CE19",
       "35CE1B",
+      "39EB95",
       "39EBEC",
       "39EBED",
       "3E627C",
@@ -75161,6 +77124,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AD4D",
+       "source_type": "quest-reward",
+       "coords": [
+        160578.3,
+        18416.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -75239,9 +77214,9 @@
     },
     {
      "marker": "Sunday Brothers' Cabin",
-     "count": 1,
+     "count": 2,
      "sources": {
-      "direct": 1
+      "direct": 2
      },
      "image_top": "",
      "directions": "",
@@ -75255,6 +77230,7 @@
       "283764",
       "2B097C",
       "2B09E3",
+      "2B09E4",
       "35CE51",
       "35CE56",
       "3CFD48",
@@ -75267,6 +77243,18 @@
       -6885.7
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "2B09E4",
+       "source_type": "direct",
+       "coords": [
+        137992.6,
+        2529.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "52C728",
@@ -75283,9 +77271,9 @@
     },
     {
      "marker": "Tanagra Town",
-     "count": 14,
+     "count": 15,
      "sources": {
-      "direct": 4,
+      "direct": 5,
       "npc": 10
      },
      "image_top": "",
@@ -75296,6 +77284,7 @@
       "3447F5",
       "344ACC",
       "344AF0",
+      "344B52",
       "368262",
       "368263",
       "368265",
@@ -75318,6 +77307,7 @@
       "3E4E96",
       "3E6C9D",
       "3E6DCD",
+      "4F7C3D",
       "4F8EDB",
       "4F8F35",
       "4FDEB2",
@@ -75375,6 +77365,18 @@
        "coords": [
         191836.9,
         16729.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "4F7C3D",
+       "source_type": "direct",
+       "coords": [
+        197694.5,
+        15746.0
        ],
        "image_top": "",
        "directions": "",
@@ -75504,9 +77506,9 @@
     },
     {
      "marker": "The Burrows",
-     "count": 91,
+     "count": 92,
      "sources": {
-      "direct": 14,
+      "direct": 15,
       "npc": 77
      },
      "image_top": "",
@@ -75567,6 +77569,7 @@
       "3F42CC",
       "3F444B",
       "3F46D6",
+      "3F46E6",
       "3F534B",
       "3F6C86",
       "3F6C88",
@@ -75651,6 +77654,18 @@
        "coords": [
         517.6,
         -1555.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3F46E6",
+       "source_type": "direct",
+       "coords": [
+        -2503.0,
+        9964.8
        ],
        "image_top": "",
        "directions": "",
@@ -76869,9 +78884,9 @@
     },
     {
      "marker": "The Burrows South",
-     "count": 13,
+     "count": 16,
      "sources": {
-      "direct": 7,
+      "direct": 10,
       "npc": 6
      },
      "image_top": "",
@@ -76907,6 +78922,9 @@
       "335650",
       "335763",
       "33C024",
+      "3D78F2",
+      "3D78F3",
+      "3D78F4",
       "3E8BB7",
       "3E8BB8",
       "3E8BB9",
@@ -77012,6 +79030,42 @@
        "coords": [
         162514.3,
         -5955.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D78F2",
+       "source_type": "direct",
+       "coords": [
+        162148.3,
+        -6111.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D78F3",
+       "source_type": "direct",
+       "coords": [
+        161797.0,
+        -6239.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D78F4",
+       "source_type": "direct",
+       "coords": [
+        162680.8,
+        -3516.3
        ],
        "image_top": "",
        "directions": "",
@@ -77296,6 +79350,7 @@
       "3517DD",
       "3517F0",
       "351805",
+      "351822",
       "351847",
       "351848",
       "35187E",
@@ -77404,6 +79459,7 @@
       "3529C8",
       "3529CA",
       "3529CC",
+      "3866F6",
       "38FF0D",
       "39542A",
       "39542B",
@@ -77871,9 +79927,9 @@
     },
     {
      "marker": "Vault 94",
-     "count": 2,
+     "count": 4,
      "sources": {
-      "direct": 2
+      "direct": 4
      },
      "image_top": "",
      "directions": "",
@@ -77943,6 +79999,8 @@
       "5C00C8",
       "5C00F3",
       "5C0115",
+      "5C0144",
+      "5C0145",
       "5C0164",
       "5C029F",
       "5C02A1",
@@ -77967,6 +80025,30 @@
       -1802.6
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "5C0144",
+       "source_type": "direct",
+       "coords": [
+        -12549.1,
+        -575.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "5C0145",
+       "source_type": "direct",
+       "coords": [
+        -12567.2,
+        -584.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "5C036B",
@@ -78037,6 +80119,7 @@
       "64A608",
       "64CC72",
       "64EB3C",
+      "64EB41",
       "64EE3C",
       "64FF2A",
       "64FF6E",
@@ -78122,9 +80205,9 @@
     },
     {
      "marker": "The Foundry",
-     "count": 16,
+     "count": 20,
      "sources": {
-      "direct": 14,
+      "direct": 18,
       "npc": 2
      },
      "image_top": "",
@@ -78158,6 +80241,7 @@
       "6553DC",
       "6553DE",
       "6553E3",
+      "655406",
       "655459",
       "6558A7",
       "6558A9",
@@ -78180,6 +80264,8 @@
       "65F131",
       "65F139",
       "65F143",
+      "6611AA",
+      "6611AB",
       "661462",
       "6618AE",
       "6638F0",
@@ -78214,6 +80300,7 @@
       "737DFF",
       "737E00",
       "737E10",
+      "73837D",
       "73839D",
       "7383A2",
       "7383A4",
@@ -78241,6 +80328,8 @@
       "738CBB",
       "738CC3",
       "738D09",
+      "738E51",
+      "738E52",
       "738EB1",
       "738ECF",
       "738F33",
@@ -78300,6 +80389,30 @@
        "coords": [
         813.0,
         7853.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6611AA",
+       "source_type": "direct",
+       "coords": [
+        6081.3,
+        3312.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "6611AB",
+       "source_type": "direct",
+       "coords": [
+        6072.5,
+        3316.2
        ],
        "image_top": "",
        "directions": "",
@@ -78391,6 +80504,30 @@
       },
       {
        "label": "",
+       "ref": "738E51",
+       "source_type": "direct",
+       "coords": [
+        6072.5,
+        3316.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "738E52",
+       "source_type": "direct",
+       "coords": [
+        6081.3,
+        3312.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
        "ref": "738F33",
        "source_type": "direct",
        "coords": [
@@ -78462,6 +80599,7 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "6337F1",
       "634C79",
       "634D2E",
       "634E6A",
@@ -78481,6 +80619,7 @@
       "65888B",
       "65888F",
       "658891",
+      "65A4A0",
       "65BE4A",
       "65BE5F",
       "65E178",
@@ -78663,6 +80802,7 @@
       "6540B1",
       "654783",
       "654D87",
+      "654D89",
       "654D92",
       "654D94",
       "654DA8",
@@ -78697,12 +80837,14 @@
       "6633C9",
       "66344F",
       "664581",
+      "664604",
       "66553F",
       "6661AE",
       "6661B3",
       "6661B4",
       "6661DC",
       "6661ED",
+      "666615",
       "666640",
       "666659",
       "666690",
@@ -78731,6 +80873,7 @@
       "668641",
       "668642",
       "668644",
+      "669192",
       "66AF3A",
       "66C827",
       "66C83D",
@@ -79179,6 +81322,7 @@
       "54AE74",
       "54AE8A",
       "54AEA1",
+      "54B1B1",
       "54B1C0",
       "553584",
       "553585",
@@ -79452,6 +81596,7 @@
       "38B147",
       "3BCBA2",
       "3BCBE6",
+      "3BCBE9",
       "3BCBEB",
       "3BCBF2",
       "3BCBF4",
@@ -79771,6 +81916,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B147",
+       "source_type": "quest-reward",
+       "coords": [
+        -31294.2,
+        163443.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -79977,6 +82134,7 @@
       "42F003",
       "42F004",
       "42F009",
+      "42F00A",
       "42F00E",
       "51A1E4"
      ],
@@ -80025,9 +82183,9 @@
     },
     {
      "marker": "Eastern Regional Penitentiary",
-     "count": 28,
+     "count": 29,
      "sources": {
-      "direct": 10,
+      "direct": 11,
       "npc": 18
      },
      "image_top": "",
@@ -80074,10 +82232,12 @@
       "178157",
       "17967B",
       "179680",
+      "17972A",
       "179730",
       "17973A",
       "179741",
       "17F80A",
+      "17F8C7",
       "17F8C9",
       "1810CD",
       "181103",
@@ -80087,18 +82247,22 @@
       "182080",
       "182252",
       "182276",
+      "18232B",
       "182398",
       "18239E",
       "182445",
       "182446",
       "1836DB",
+      "1836E6",
       "1836E8",
       "1836EB",
       "1836F1",
       "1836F7",
       "183775",
       "183777",
+      "18505B",
       "1852B6",
+      "186934",
       "186E41",
       "186E58",
       "187D47",
@@ -80124,6 +82288,7 @@
       "1D5D88",
       "1D5DC0",
       "1D6759",
+      "1D6EEE",
       "1D6EEF",
       "1D6F10",
       "1D6F67",
@@ -80139,6 +82304,7 @@
       "36FF0E",
       "3B07E3",
       "3B07ED",
+      "3B1A04",
       "3B40C7",
       "3C2CA2",
       "3C2D9F",
@@ -80247,6 +82413,18 @@
        "coords": [
         1487.8,
         4191.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3B1A04",
+       "source_type": "direct",
+       "coords": [
+        5509.6,
+        -3928.5
        ],
        "image_top": "",
        "directions": "",
@@ -80496,9 +82674,9 @@
     },
     {
      "marker": "Grafton",
-     "count": 33,
+     "count": 34,
      "sources": {
-      "direct": 13,
+      "direct": 14,
       "npc": 19,
       "vendor": 1
      },
@@ -80510,14 +82688,18 @@
       "050677",
       "05080D",
       "1BDB94",
+      "1C06B3",
       "1C5A16",
       "20CE56",
       "21D4D8",
+      "21D570",
       "21E6F2",
+      "21E730",
       "21E76C",
       "21E77D",
       "29FB6F",
       "29FC56",
+      "2AF4AD",
       "2D3F40",
       "2D3F66",
       "2EAD92",
@@ -80586,6 +82768,7 @@
       "3CFC30",
       "3CFC31",
       "439C72",
+      "439C75",
       "439C77",
       "439C83",
       "439C9B",
@@ -80625,6 +82808,18 @@
       149577.3
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "2AF4AD",
+       "source_type": "direct",
+       "coords": [
+        -49748.4,
+        157535.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "386B8F",
@@ -81189,6 +83384,7 @@
       "2AF4CF",
       "2AF4D5",
       "2B66ED",
+      "2B66FA",
       "2C4602",
       "2EA68B",
       "2EA68C",
@@ -81383,9 +83579,9 @@
     },
     {
      "marker": "Grafton Steel Underground",
-     "count": 5,
+     "count": 7,
      "sources": {
-      "direct": 5
+      "direct": 7
      },
      "image_top": "",
      "directions": "",
@@ -81421,7 +83617,9 @@
       "594D4A",
       "595025",
       "59874B",
+      "599D9A",
       "599DCF",
+      "599DF0",
       "599E0C",
       "59C3A3",
       "5A109F",
@@ -81444,6 +83642,30 @@
        "coords": [
         -1628.6,
         3197.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "599D9A",
+       "source_type": "direct",
+       "coords": [
+        -1374.6,
+        -11046.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "599DF0",
+       "source_type": "direct",
+       "coords": [
+        108.7,
+        -11307.0
        ],
        "image_top": "",
        "directions": "",
@@ -81594,6 +83816,7 @@
       "43841E",
       "43C5D2",
       "43C5D4",
+      "43D7BD",
       "50EB57",
       "51A1E0",
       "51A274"
@@ -81784,6 +84007,7 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "00089C",
       "23C837",
       "2D3309",
       "2D3345",
@@ -81796,6 +84020,7 @@
       "35D10B",
       "35D118",
       "39F0F7",
+      "3C3F83",
       "3C3F84",
       "3C3F87",
       "3C3F89",
@@ -82673,6 +84898,18 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38B0DA",
+       "source_type": "quest-reward",
+       "coords": [
+        5849.5,
+        134711.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     },
@@ -82864,6 +85101,7 @@
      "count": 5,
      "sources": {
       "npc": 2,
+      "quest-reward": 1,
       "vendor": 2
      },
      "image_top": "",
@@ -82915,6 +85153,18 @@
        "coords": [
         36003.5,
         194484.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AF9D",
+       "source_type": "quest-reward",
+       "coords": [
+        26592.5,
+        192093.2
        ],
        "image_top": "",
        "directions": "",
@@ -83241,5 +85491,5 @@
    ]
   }
  ],
- "total": 4679
+ "total": 4789
 }
