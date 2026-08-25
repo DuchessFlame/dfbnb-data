@@ -412,20 +412,19 @@ def _filename_date_key(path):
 def find_latest_file(data_dir: str, pattern: str) -> Optional[str]:
     """Find the most recent file matching a glob pattern.
 
-    Prefers the embedded-date key (year, month) from the filename. Falls back
-    to mtime if no match has a parseable date. This was previously a plain
-    alphabetical sort and silently picked March over April.
+    Sorts by the embedded-date key (via tsv_source.export_key) which already
+    gives a total order — (date, time), with undated filenames sorting oldest —
+    and never touches mtime, so a fresh git checkout (identical mtimes) still
+    resolves correctly. This was previously a plain alphabetical sort and
+    silently picked March over April.
     """
     matches = glob.glob(os.path.join(data_dir, pattern))
     if not matches:
         return None
-    # If at least one file has a parseable date, trust the filename.
-    # Otherwise fall back to mtime.
-    dated = [(p, _filename_date_key(p)) for p in matches]
-    if any(k[0] > 0 for _, k in dated):
-        dated.sort(key=lambda pk: pk[1])
-        return dated[-1][0]
-    matches.sort(key=tsv_source.export_key)
+    # _filename_date_key delegates to tsv_source.export_key, returning
+    # (datetime.date, time). A single sort is correct; the old code compared
+    # that key with `> 0`, which raised once the key became a date, not an int.
+    matches.sort(key=_filename_date_key)
     return matches[-1]
 
 

@@ -118,6 +118,24 @@ ALIASES = {
 }
 
 
+# FLOR EDID stems that mark a record as NOT a live harvestable node. The game
+# places a depleted "…_Harvested" model at (and around) many flora points — it has
+# an empty FULL name, yields nothing when interacted with, and is environmental
+# dressing, not a spawn the player can pick. Counting its Position REFRs as
+# guaranteed fixed spawns is the silt-bean over-count bug: silt bean's only bases
+# are UseLPI_FloraSiltBean01/02 + their _Harvested twins, so the harvested
+# placements roughly DOUBLE the count (verified generally on the committed caches:
+# glowing-fungus 150 -> 100, corn 112 -> 91 once harvested bases are dropped).
+# These are Leveled-Placed-Item depleted variants ("the LPI ones"), never true
+# FLOR harvest nodes — exclude them from the seed for EVERY plant.
+_DEPLETED_STEMS = ("harvested",)
+
+
+def _is_depleted(edid):
+    e = _norm(edid)
+    return any(stem in e for stem in _DEPLETED_STEMS)
+
+
 def _norm(s):
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
@@ -172,6 +190,8 @@ def resolve_flora(slug, name, flor):
     for r in flor:
         edid = r.get("FLOR_EDID", "")
         full = r.get("FLOR_FULL", "")
+        if _is_depleted(edid):        # drop "…_Harvested" depleted-state models
+            continue
         e, fu = _norm(edid), _norm(full)
         if (any(t in e for t in inc) or (fu and fu in names)) \
                 and not any(x in e for x in exc):
@@ -217,11 +237,19 @@ def _static_pass(flora_ids, slug, cur, geo, cache, seen):
         C._record(cache, seen, slug, inst, space, ref, x, y, region, marker, "static")
 
 
-def _rebuild_from_cache(cache, slug, seen):
+def _rebuild_from_cache(cache, slug, seen, allowed_bases=None):
     """DB absent → reconstruct this plant's placements from the committed geo cache
-    (page-scoped keys `<slug>:<inst>`, written by C._record)."""
+    (page-scoped keys `<slug>:<inst>`, written by C._record).
+
+    `allowed_bases` (a set of int FLOR FormIDs = the current post-seed flora bases)
+    filters out any cached static placement whose base is no longer a valid seed —
+    e.g. a `_Harvested` depleted node left in an older committed cache. NPC-pass
+    ("spawn") entries carry no base and are always kept."""
     for key, e in cache.items():
         if not isinstance(e, dict) or e.get("page") != slug:
+            continue
+        base = e.get("base")
+        if allowed_bases and base is not None and int(base) not in allowed_bases:
             continue
         inst = key.rsplit(":", 1)[-1]
         if inst.isdigit():
@@ -272,14 +300,14 @@ def build_plant(pg, flor, geo, cur, db_ok, cache_path, generated):
     flora, mapp = resolve_flora(slug, name, flor)
     flora_ids = [fr["form_id"] for fr in flora]
 
-    cache = ebuild.load_cache(cache_path)
-    # prune cache to this plant (page-scoped keys)
-    for k in [k for k, v in cache.items()
-              if isinstance(v, dict) and v.get("page") not in (slug,)]:
-        cache.pop(k, None)
+    allowed_bases = {int(fid, 16) for fid in flora_ids if fid}
 
     seen = {slug: {}}
     if db_ok:
+        # Rebuild this plant's geo cache FRESH from the DB — the two passes below are
+        # authoritative, so a stale entry from an earlier run (e.g. a now-excluded
+        # `_Harvested` placement) can never linger into the committed cache.
+        cache = {}
         pool_size = {}
         for inst, n in cur.execute("SELECT instanceFormID, COUNT(DISTINCT npcName) "
                                    "FROM NPC WHERE spaceFormID = ? GROUP BY instanceFormID",
@@ -288,7 +316,12 @@ def build_plant(pg, flor, geo, cur, db_ok, cache_path, generated):
         _npc_pass(mapp, slug, cur, geo, cache, seen, pool_size)   # PRIMARY
         _static_pass(flora_ids, slug, cur, geo, cache, seen)      # FALLBACK
     else:
-        _rebuild_from_cache(cache, slug, seen)
+        cache = ebuild.load_cache(cache_path)
+        # prune cache to this plant (page-scoped keys)
+        for k in [k for k, v in cache.items()
+                  if isinstance(v, dict) and v.get("page") not in (slug,)]:
+            cache.pop(k, None)
+        _rebuild_from_cache(cache, slug, seen, allowed_bases)
 
     guaranteed, chance_spawns = plants_tier(seen[slug], cache, slug, name)
 

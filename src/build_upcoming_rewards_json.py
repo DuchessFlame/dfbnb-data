@@ -60,6 +60,16 @@ from pathlib import Path
 
 import tsv_source          # one resolver for every export selection
 
+# Shared drop-rate engine — SAME source of truth used by build_drop_rates.py and
+# build_camp_items_json.py. Resource-generator OUTPUT lists are resolved through
+# this (never a standalone re-implementation, per the drop-rate-engine skill's
+# "Standalone Copy Rule"). Import is best-effort: if rng76 can't load, the build
+# still runs and simply omits the resolved output drop list.
+try:
+    from rng76 import Rng76Data
+except Exception:  # pragma: no cover - resolver is optional
+    Rng76Data = None
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TSV_DIR = REPO_ROOT / "tsv"
 DIST_DIR = REPO_ROOT / "dist" / "calculators"
@@ -274,6 +284,232 @@ def clean_rarity(rar_raw):
     return r
 
 
+# =====================================================================
+# Resource-generator OUTPUT drop-list resolution
+# ---------------------------------------------------------------------
+# A resource generator (Altar of Bones, Creepy Cultist Well, ...) is a
+# workshop object backed by a RESO (resource generator) record. The RESO's
+# NAM2_Produce field points at the PRODUCTION leveled list (LVLI); that list
+# is resolved through the shared rng76 engine — exactly the way the activity /
+# reward / camp-item builders do it — to a full per-item drop-rate list.
+#
+# Linkage:  ENTM entitlement  --(EDID name key + season)-->  RESO record
+#           RESO.NAM2_Produce --(LVLI FormID)-->  rng76.resolve_deep()  -> drops
+#
+# Never bare ChanceNone, never hardcoded FormIDs. Where rng76 cannot resolve a
+# list to clean (non-negative) rates — e.g. a First-Match graduated production
+# list whose cascade goes non-monotonic — the drops are still listed but with
+# chance=None and ratesResolved=False so the renderer shows the produced items
+# honestly WITHOUT fabricating a percentage.
+# =====================================================================
+
+_LVLI_REF_RE = re.compile(r"\[LVLI:([0-9A-Fa-f]{8})\]")
+_GLOB_REF_RE = re.compile(r"\[GLOB:([0-9A-Fa-f]{8})\]")
+_SEASON_RE = re.compile(r"SCORE[_-]?S(\d+)[_-]", re.IGNORECASE)
+_RESO_NOISE = set((
+    "score workshop co camp entm reso resource resources collector collectron "
+    "utility generators generator decorations decoration containers container "
+    "empty atx community f1 the copy default all blood bones morbid"
+).split())
+
+
+def _reso_name_key(edid):
+    """Distinctive lower-case name key for a RESO/ENTM EDID: split camelCase,
+    drop structural/category words and numeric tokens, keep the rest joined.
+    Mirrors build_camp_items_json.recipe_name_key so matching agrees."""
+    s = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", edid or "")
+    s = re.sub(r"[^A-Za-z0-9]", " ", s).lower()
+    out = []
+    for w in s.split():
+        if w in _RESO_NOISE:
+            continue
+        if re.fullmatch(r"s?\d+|w\d+|\d+", w):
+            continue
+        if len(w) >= 3:
+            out.append(w)
+    return "".join(out)
+
+
+def _season_of_edid(edid):
+    m = _SEASON_RE.search(edid or "")
+    return int(m.group(1)) if m else None
+
+
+def _extract_lvli_formid(field):
+    if not field:
+        return None
+    m = _LVLI_REF_RE.search(field)
+    if m:
+        return m.group(1).upper()
+    m = re.match(r"^([0-9A-Fa-f]{8}):", field.strip())
+    return m.group(1).upper() if m else None
+
+
+def _extract_glob_formid(field):
+    if not field:
+        return None
+    m = _GLOB_REF_RE.search(field)
+    if m:
+        return m.group(1).upper()
+    m = re.match(r"^([0-9A-Fa-f]{8}):", field.strip())
+    return m.group(1).upper() if m else None
+
+
+def _interval_display(hours):
+    """Human production-interval string from a float hours value."""
+    if hours is None:
+        return None
+    total_seconds = hours * 3600.0
+    if total_seconds <= 0:
+        return None
+    if total_seconds % 3600 == 0:
+        h = int(total_seconds // 3600)
+        return "{} hour{}".format(h, "" if h == 1 else "s")
+    mins = int(total_seconds // 60)
+    secs = int(round(total_seconds % 60))
+    if mins == 0:
+        return "{} sec".format(secs)
+    if secs == 0:
+        return "{} min".format(mins)
+    return "{} min {} sec".format(mins, secs)
+
+
+def _consolidate_output_drops(drops):
+    """Merge duplicate FormIDs (duplicate entry = quantity, not extra
+    probability — use max), sort by chance desc then name. Identical convention
+    to build_camp_items_json.consolidate_drops so the two pages agree."""
+    merged = {}
+    for d in drops:
+        key = d["formId"]
+        if key in merged:
+            merged[key]["chance"] = round(max(merged[key]["chance"], d["chance"]), 5)
+        else:
+            merged[key] = dict(d)
+    return sorted(merged.values(), key=lambda x: (-x["chance"], (x.get("name") or "").lower()))
+
+
+def find_reso_tsv(tsv_dir):
+    hit = tsv_source.newest(str(Path(tsv_dir) / "RESO_Export_*.tsv"), required=False)
+    return Path(hit) if hit else None
+
+
+class GeneratorOutputResolver:
+    """Resolves a resource-generator ENTM to its production drop list via rng76.
+
+    Built once per build from the same TSV directory the ENTM export came from
+    (so PTS builds resolve PTS production lists). Degrades gracefully: if rng76
+    or the RESO export is unavailable, match() returns None for everything and
+    the build falls back to the DESC-derived prose output only.
+    """
+
+    def __init__(self, entm_tsv_path):
+        self.ok = False
+        self._reso_by_key = {}    # (season, name_key) -> reso row dict
+        self._reso_keys = []      # [(season, name_key, reso_row)] for containment match
+        self._resolver = None
+        self._globs = None
+        tsv_dir = Path(entm_tsv_path).parent
+        if Rng76Data is None:
+            print(TAG + " [WARN] rng76 unavailable -- output drop lists will be omitted.")
+            return
+        reso_tsv = find_reso_tsv(tsv_dir)
+        if reso_tsv is None:
+            print(TAG + " [WARN] No RESO_Export_*.tsv in " + str(tsv_dir)
+                  + " -- output drop lists will be omitted.")
+            return
+        try:
+            data = Rng76Data.from_tsv_root(str(tsv_dir))
+            self._resolver = data.resolver
+            self._globs = getattr(data, "globs", None)
+        except Exception as exc:  # pragma: no cover
+            print(TAG + " [WARN] rng76 failed to load (" + str(exc)
+                  + ") -- output drop lists will be omitted.")
+            return
+        for row in read_tsv(reso_tsv):
+            edid = (row.get("EDID") or "").strip()
+            if not edid:
+                continue
+            key = _reso_name_key(edid)
+            if not key:
+                continue
+            season = _season_of_edid(edid)
+            self._reso_keys.append((season, key, row))
+        print(TAG + " Loaded RESO: " + reso_tsv.name + " (" + str(len(self._reso_keys))
+              + " producers) + rng76 engine for output drops")
+        self.ok = True
+
+    def _find_reso(self, entm_edid):
+        """Best RESO match for an ENTM EDID: prefer same season, then longest
+        shared name-key containment (a specific producer wins over a generic)."""
+        suffix = re.sub(r"^(?:zzz_?|ZZZ_?)?SCORE_S\d+_ENTM_", "", entm_edid or "",
+                        flags=re.IGNORECASE)
+        ik = _reso_name_key(suffix)
+        if len(ik) < 4:
+            return None
+        want_season = _season_of_edid(entm_edid)
+        best, best_len = None, 0
+        for season, rk, row in self._reso_keys:
+            if not rk:
+                continue
+            if not (ik in rk or rk in ik):
+                continue
+            season_ok = (want_season is None or season is None or season == want_season)
+            if not season_ok:
+                continue
+            L = min(len(ik), len(rk))
+            # same-season matches outrank cross-season; then longer shared key wins
+            score = L + (1000 if season == want_season else 0)
+            if score > best_len:
+                best, best_len = row, score
+        return best
+
+    def match(self, entm_edid):
+        """Return an output-drops payload for a resource-generator ENTM, or None
+        when the ENTM is not backed by a resolvable production list."""
+        if not self.ok:
+            return None
+        reso = self._find_reso(entm_edid)
+        if not reso:
+            return None
+        lvli_fid = _extract_lvli_formid(reso.get("NAM2_Produce") or "")
+        if not lvli_fid:
+            return None
+        raw = []
+        for it in self._resolver.resolve_deep(lvli_fid):
+            raw.append({
+                "name":   it.get("name") or it.get("edid") or it.get("formid") or "",
+                "formId": (it.get("formid") or "").upper(),
+                "chance": round(float(it.get("dropRate") or 0.0) * 100.0, 5),
+                "qty":    it.get("qty") or 1,
+            })
+        if not raw:
+            return None
+        drops = _consolidate_output_drops(raw)
+        rates_ok = all(d["chance"] >= 0 for d in drops)
+        # Honest display: never surface a fabricated / non-monotonic negative
+        # rate. When the list can't be resolved cleanly, list the produced items
+        # with chance=None so the renderer shows them WITHOUT a percentage.
+        if not rates_ok:
+            for d in drops:
+                d["chance"] = None
+        # Production interval (NAM4 GLOB -> hours), best-effort.
+        interval_display = None
+        gfid = _extract_glob_formid(reso.get("NAM4_Interval") or "")
+        if gfid and self._globs is not None:
+            try:
+                fltv = self._globs.value(gfid)
+            except Exception:
+                fltv = None
+            interval_display = _interval_display(fltv)
+        return {
+            "produceEdid": (reso.get("EDID") or "").strip(),
+            "produceLvli": lvli_fid,
+            "drops": drops,
+            "ratesResolved": rates_ok,
+            "intervalDisplay": interval_display,
+        }
+
+
 def detect_output(desc):
     """Verbatim item-output sentence from the game's DESC (resource generators).
     Never invents text — returns '' when the DESC states no output."""
@@ -351,10 +587,11 @@ def make_item_id(season_num, edid_suffix):
     return "S" + str(season_num) + "_" + slug
 
 
-def extract_seasons(entm_tsv, overrides, target_season=None):
+def extract_seasons(entm_tsv, overrides, target_season=None, gen_resolver=None):
     rows = read_tsv(entm_tsv)
     seasons = defaultdict(list)
     excluded = defaultdict(int)
+    generators = []          # (season, name, edid, payload) for the build summary
 
     for row in rows:
         edid = (row.get("EDID") or "").strip()
@@ -412,11 +649,34 @@ def extract_seasons(entm_tsv, overrides, target_season=None):
         if output:
             item["output"] = output
 
+        # Resource-generator OUTPUT drop list (rng76-resolved). Only attached
+        # where the ENTM is backed by a resolvable production LVLI. The prose
+        # `output`/`description` above are left untouched — this adds the full
+        # per-item drop list the renderer shows in the Output expand.
+        if gen_resolver is not None:
+            payload = gen_resolver.match(edid)
+            if payload:
+                item["outputDrops"] = payload["drops"]
+                item["outputRatesResolved"] = payload["ratesResolved"]
+                item["outputProduceEdid"] = payload["produceEdid"]
+                item["outputProduceLvli"] = payload["produceLvli"]
+                if payload["intervalDisplay"]:
+                    item["outputInterval"] = payload["intervalDisplay"]
+                generators.append((snum, name, edid, payload))
+
         seasons[snum].append(item)
 
     if excluded:
         summ = ", ".join("S%d (%d)" % (n, excluded[n]) for n in sorted(excluded))
         print(TAG + " Excluded non-collectible entitlements: " + summ)
+
+    if generators:
+        print(TAG + " Resource generators with resolved OUTPUT lists:")
+        for snum, name, _edid, payload in generators:
+            n = len(payload["drops"])
+            state = "clean %d-entry rate list" % n if payload["ratesResolved"] \
+                else "%d items listed WITHOUT rates (rng76 non-monotonic)" % n
+            print(TAG + "   S%d  %-32s %s" % (snum, name, state))
 
     return dict(seasons)
 
@@ -512,7 +772,11 @@ def main():
         clist = ", ".join("S" + str(n) for n in sorted(curated))
         print(TAG + " Curated seasons in season_rewards.tsv: " + clist)
 
-    season_items = extract_seasons(entm_tsv, overrides, target_season=args.season)
+    print(TAG + " Loading resource-generator output resolver (rng76 + RESO)...")
+    gen_resolver = GeneratorOutputResolver(entm_tsv)
+
+    season_items = extract_seasons(entm_tsv, overrides, target_season=args.season,
+                                   gen_resolver=gen_resolver)
     if not season_items:
         print(TAG + " [WARN] No SCORE_S*_ENTM entries found -- nothing to do.")
         return

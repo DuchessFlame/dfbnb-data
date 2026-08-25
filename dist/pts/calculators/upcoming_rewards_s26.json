@@ -6,7 +6,7 @@
   },
   "seasonNumber": 26,
   "seasonName": "Beware the Blood Moon",
-  "generated": "2026-08-24T05:41:34Z",
+  "generated": "2026-08-24T12:31:56Z",
   "sourceFile": "ENTM_Export_PTS_2026-08-22_1026.tsv",
   "count": 66,
   "startDate": "2026-09-15",
@@ -26,7 +26,79 @@
       "formId": "008E062B",
       "ddsHandle": "Textures/ATX/Storefront/Camp/Utility/SCORE_S26_CAMP_Collector_SkullCollector.dds",
       "edid": "SCORE_S26_ENTM_CAMP_Collector_SkullCollector",
-      "output": "Generates Bone scraps and skulls."
+      "output": "Generates Bone scraps and skulls.",
+      "outputDrops": [
+        {
+          "name": "Large Sheepsquatch Horn",
+          "formId": "0041665E",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Plastic Skull",
+          "formId": "0083361E",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Capless Skull",
+          "formId": "00188CA3",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Skull Cap Bone",
+          "formId": "00188CA2",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Skull Eye Socket",
+          "formId": "00188C9F",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Human Jaw",
+          "formId": "00188CA0",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Skull Faceplate",
+          "formId": "00188C9E",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Skull Fragment",
+          "formId": "00188CA1",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Upper Skull",
+          "formId": "000347EC",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Skull",
+          "formId": "000347E1",
+          "chance": null,
+          "qty": 1
+        },
+        {
+          "name": "Brahmin Skull",
+          "formId": "00059B0C",
+          "chance": null,
+          "qty": 1
+        }
+      ],
+      "outputRatesResolved": false,
+      "outputProduceEdid": "SCORE_S26_Resource_SkullCollector_resource",
+      "outputProduceLvli": "008E062F",
+      "outputInterval": "10 min 12 sec"
     },
     {
       "id": "S26_camp_furniture_instrument_altosax",
@@ -458,7 +530,49 @@
       "falloutFirst": true,
       "formId": "008F10DF",
       "ddsHandle": "Textures/ATX/Storefront/Camp/Utility/SCORE_S26_CAMP_Utility_Collector_CultistWell.dds",
-      "edid": "SCORE_S26_ENTM_CAMP_Utility_Collector_CultistWell"
+      "edid": "SCORE_S26_ENTM_CAMP_Utility_Collector_CultistWell",
+      "outputDrops": [
+        {
+          "name": "Blood Pack",
+          "formId": "00052409",
+          "chance": 14.28571,
+          "qty": 1
+        },
+        {
+          "name": "Blood Sac",
+          "formId": "00028A63",
+          "chance": 14.28571,
+          "qty": 1
+        },
+        {
+          "name": "Empty Blood Sac",
+          "formId": "00028A64",
+          "chance": 14.28571,
+          "qty": 1
+        },
+        {
+          "name": "Ichor Sac",
+          "formId": "00028A62",
+          "chance": 14.28571,
+          "qty": 1
+        },
+        {
+          "name": "Irradiated Blood Pack",
+          "formId": "0037FE9B",
+          "chance": 14.28571,
+          "qty": 1
+        },
+        {
+          "name": "Tick Blood",
+          "formId": "003D7494",
+          "chance": 14.28571,
+          "qty": 1
+        }
+      ],
+      "outputRatesResolved": true,
+      "outputProduceEdid": "SCORE_S26_CultistWell",
+      "outputProduceLvli": "008F10E4",
+      "outputInterval": "7 min 12 sec"
     },
     {
       "id": "S26_weapons_cryolator_magazine_mods",
