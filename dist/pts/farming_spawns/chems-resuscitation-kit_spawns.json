@@ -10,7 +10,11 @@
  "name": "Resuscitation Kit",
  "page_title": "Resuscitation Kit",
  "blurb": "How to obtain Resuscitation Kit — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,7 +68,31 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": null,
+   "weight": 1.0,
+   "value": 15,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Consuming Resuscitation Kit applies the effects below.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 25 Health",
+     "duration": "5s"
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,

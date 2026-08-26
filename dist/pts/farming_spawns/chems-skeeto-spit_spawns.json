@@ -10,7 +10,11 @@
  "name": "Skeeto Spit",
  "page_title": "Skeeto Spit",
  "blurb": "How to obtain Skeeto Spit — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,7 +68,105 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 35,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Skeeto Spit is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Fortify Health",
+     "display": "+25 Fortify Health",
+     "duration": "10 min"
+    },
+    {
+     "name": "Chems: Thirst",
+     "display": "Quenches thirst (108/1.8 min)",
+     "duration": null
+    },
+    {
+     "name": "GHL_SURV_Chem_Effect",
+     "display": "GHL_SURV_Chem_Effect",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [
+    {
+     "name": "Skeeto Spit",
+     "form_id": "00058ABC",
+     "recipe_edid": "co_chem_SkeetoSpit",
+     "category": "Chems",
+     "workbench": "Chemistry Station",
+     "output_qty": 1,
+     "ingredients": [
+      {
+       "name": "Glass",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/glass/"
+      },
+      {
+       "name": "Steel",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/df/farming/junk/steel/"
+      },
+      {
+       "name": "Blood Sac",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/non-perishable/non-perishable-blood-sac/"
+      },
+      {
+       "name": "Bloodleaf",
+       "qty": 1,
+       "url": "https://www.buffsnbrew.com/bnb/farming/plants/bloodleaf/"
+      }
+     ],
+     "effects": [
+      {
+       "name": "Fortify Health",
+       "display": "+25 Fortify Health",
+       "duration": "10 min"
+      },
+      {
+       "name": "Chems: Thirst",
+       "display": "Quenches thirst (108/1.8 min)",
+       "duration": null
+      },
+      {
+       "name": "GHL_SURV_Chem_Effect",
+       "display": "+480 GHL_SURV_Chem_Effect",
+       "duration": null
+      }
+     ],
+     "how_to_obtain": "Known by default."
+    }
+   ],
+   "note": null
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Mystical Junkie Merchant",
+   "marker": "",
+   "region": "Skyline Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "1.67%",
+    "1.67%",
+    "1.67%"
+   ],
+   "rate_display": "1.67% / 1.67% / 1.67%",
+   "rate_value": 0.016667,
+   "count": 1
+  }
+ ],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,

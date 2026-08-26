@@ -2,7 +2,7 @@
  "_meta": {
   "generated": "2026-08-24",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 7,
+  "lists_in_closure": 4,
   "source_totals": {},
   "unresolved": {}
  },
@@ -10,7 +10,49 @@
  "name": "Irradiated Blood Pack",
  "page_title": "Irradiated Blood Pack",
  "blurb": "How to obtain Irradiated Blood Pack — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_Resource_Communist_Collectron_Proletariat",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Irradiated Blood Pack",
+       "form_id": "0037FE9B",
+       "rate": 0.007,
+       "rate_display": "0.7%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Morbid Well Collector",
+     "edid": "ATX_MorbidWell",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Irradiated Blood Pack",
+       "form_id": "0037FE9B",
+       "rate": 0.142857,
+       "rate_display": "14.29%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,19 +106,69 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 30,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Irradiated Blood Pack is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 40 Health",
+     "duration": "5s"
+    },
+    {
+     "name": "GHL_SURV_Chem_Effect",
+     "display": "GHL_SURV_Chem_Effect",
+     "duration": null
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (540/9 min)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    },
+    {
+     "name": "Resist Radiation Exposure",
+     "display": "+75 Resist Radiation Exposure",
+     "duration": "10 min"
+    },
+    {
+     "name": "Resist Radiation Ingestion",
+     "display": "+75 Resist Radiation Ingestion",
+     "duration": "10 min"
+    }
+   ]
+  },
+  "challenges": [
+   {
+    "name": "Collect a Blood pack",
+    "edid": "SCORE_Challenge_Daily_Collect_Bloodpacks",
+    "page": "daily",
+    "type": "Daily",
+    "required": 3
+   }
+  ],
+  "recipes": [],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
  "random_encounters_intro": null,
- "events_activities": [
-  {
-   "list_id": "0090312D",
-   "edid": "SDOW_LL_SQ01_RepeatableRewards",
-   "name": "SDOW SQ01 Repeatable Rewards",
-   "type": "Event / Activity"
-  }
- ],
+ "events_activities": [],
  "regions": [
   {
    "region": "Ash Heap",
