@@ -10,7 +10,11 @@
  "name": "The Fix",
  "page_title": "The Fix",
  "blurb": "How to obtain The Fix — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,7 +68,31 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Chem",
+   "weight": 0.25,
+   "value": 40,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "The Fix is a chem consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "GHL_SURV_Chem_Effect",
+     "display": "GHL_SURV_Chem_Effect",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [],
+   "note": "A Ghoul-update chem, obtained through Ghoul-character content."
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
@@ -74,7 +102,13 @@
    "list_id": "0083B867",
    "edid": "GHL00_TransformPlayer_LL_Quest_Reward",
    "name": "Leap of Faith",
-   "type": "Primary"
+   "type": "Primary",
+   "note": "Chance the item is in the Leap of Faith reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   }
  ],
  "regions": [

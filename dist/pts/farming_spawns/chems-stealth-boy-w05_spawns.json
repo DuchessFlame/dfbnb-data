@@ -10,7 +10,11 @@
  "name": "Stealth Boy",
  "page_title": "Stealth Boy",
  "blurb": "How to obtain Stealth Boy — crafting recipe, ingredients, vendors and any world sources. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,7 +68,71 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": null,
+   "weight": 1.0,
+   "value": 60,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Consuming Stealth Boy applies the effects below.",
+   "effects": [
+    {
+     "name": "Stealth Field",
+     "display": "+99 Stealth Field",
+     "duration": "5s"
+    },
+    {
+     "name": "Stealth Boy Transition",
+     "display": "Stealth Boy Transition",
+     "duration": "5s"
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [
+   {
+    "name": "Phantom Device",
+    "form_id": "",
+    "recipe_edid": "co_MoM_PhantomDevice",
+    "category": "Chems",
+    "workbench": "Workbench_Crafting_Tinkers",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "",
+    "ingredients": [
+     {
+      "name": "Adhesive",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/adhesive/"
+     },
+     {
+      "name": "Copper",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/copper/"
+     },
+     {
+      "name": "Halluci Gen Gas Canister",
+      "qty": 1
+     },
+     {
+      "name": "Stealth Boy",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/chems/chems-stealth-boy/",
+      "is_main": true
+     }
+    ],
+    "effects": [],
+    "how_to_obtain": "Quest: MoM02A"
+   }
+  ],
+  "obtain": {
+   "recipes": [],
+   "note": "Obtained during the Skyline Valley questline."
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,

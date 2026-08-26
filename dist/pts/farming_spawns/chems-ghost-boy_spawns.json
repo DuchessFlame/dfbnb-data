@@ -2,7 +2,7 @@
  "_meta": {
   "generated": "2026-08-24",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 9,
+  "lists_in_closure": 1,
   "source_totals": {},
   "unresolved": {}
  },
@@ -10,7 +10,11 @@
  "name": "Ghost Boy",
  "page_title": "Ghost Boy",
  "blurb": "How to obtain Ghost Boy — a modified Stealth Boy that drops from the Spooky Scorched slasher loot bag (SDOW season content). Its stealth effect, any vendor/world sources, and challenges. Directions and photos are added by hand.",
- "drop_rates": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  }
+ },
  "farming_tips": {
   "spoils": false,
   "spoil_duration_hours": null,
@@ -64,37 +68,51 @@
   "magazines_affect_yield": false,
   "good_with_salt": false
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": null,
+   "weight": 1.0,
+   "value": 60,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Consuming Ghost Boy applies the effects below.",
+   "effects": [
+    {
+     "name": "Stealth Field",
+     "display": "+99 Stealth Field",
+     "duration": "3 min"
+    },
+    {
+     "name": "Ghost Boy Transition",
+     "display": "Ghost Boy Transition",
+     "duration": "30s"
+    },
+    {
+     "name": "Detect Life: Apply Client Effect",
+     "display": "+1 Detect Life: Apply Client Effect",
+     "duration": "3 min"
+    },
+    {
+     "name": "Phantom Cloak",
+     "display": "+1 Phantom Cloak",
+     "duration": "3 min"
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [],
+  "obtain": {
+   "recipes": [],
+   "note": "A quest- or event-locked chem — not craftable at a chem station."
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
  "random_encounters_intro": null,
- "events_activities": [
-  {
-   "list_id": "00904CDC",
-   "edid": "SDOW_MischiefPartyCrasherRewards_Rare",
-   "name": "SDOW Mischief Party Crasher Rewards Rare",
-   "type": "Event / Activity"
-  },
-  {
-   "list_id": "0092B344",
-   "edid": "SDOW_SlasherFanReward_Loot",
-   "name": "SDOW Slasher Fan Reward Loot",
-   "type": "Event / Activity"
-  },
-  {
-   "list_id": "008F6AC2",
-   "edid": "SDOW_LLD_SpookyScorched",
-   "name": "SDOW Spooky Scorched",
-   "type": "Seasonal / Public Event"
-  },
-  {
-   "list_id": "0090312D",
-   "edid": "SDOW_LL_SQ01_RepeatableRewards",
-   "name": "SDOW SQ01 Repeatable Rewards",
-   "type": "Event / Activity"
-  }
- ],
+ "events_activities": [],
  "regions": [
   {
    "region": "Ash Heap",

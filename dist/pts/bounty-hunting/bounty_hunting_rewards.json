@@ -1101,7 +1101,613 @@
           "mode": "useall"
         }
       ],
-      "seasonalGroups": [],
+      "seasonalGroups": [
+        {
+          "id": "slasher",
+          "label": "Seasonal — Slasher Party Crasher",
+          "blurb": "Seasonal Shadows of the Dead of Winter encounter · when active, The Reborn Pint-Sized Slasher can replace the normal bounty target with a Level 100 boss carrying its own loot pool · spawn rate currently set to 0%",
+          "open": false,
+          "lists": [
+            {
+              "tier": "event",
+              "title": "Event Rewards",
+              "rosterBlurb": "Same quest-completion rewards as a standard Head Hunt.",
+              "pools": [
+                {
+                  "label": "Legendary Modules",
+                  "formid": "00843A0F",
+                  "blurb": "Guaranteed 3 modules · 60% chance of a 4th · 40% chance of a 5th",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Legendary Module",
+                      "formid": "005652F9",
+                      "sig": "MISC",
+                      "qty": 3,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "Legendary Module",
+                      "formid": "005652F9",
+                      "sig": "MISC",
+                      "qty": 1,
+                      "dropRate": 60
+                    },
+                    {
+                      "name": "Legendary Module",
+                      "formid": "005652F9",
+                      "sig": "MISC",
+                      "qty": 1,
+                      "dropRate": 40
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "3★ BOUNTY Legendary Items",
+                  "formid": "00833A16",
+                  "blurb": "Guaranteed drop of all 3 items · 3★ Legendary",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "3★ Legendary BOUNTY Armour",
+                      "formid": "00853D20",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "3★ Legendary BOUNTY Melee Weapon",
+                      "formid": "0085DCD4",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "3★ Legendary BOUNTY Ranged Weapon",
+                      "formid": "0085DCD7",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "LTT 4★ Legendary",
+                  "formid": "0085646D",
+                  "blurb": "Bonus 4★ legendary from the Live Tuning Table · Currently disabled by Bethesda",
+                  "dropRate": 0,
+                  "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+                  "items": [
+                    {
+                      "name": "4★ Legendary Armour",
+                      "formid": "00884073",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 25
+                    },
+                    {
+                      "name": "4★ Legendary Power Armour",
+                      "formid": "00884074",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 25
+                    },
+                    {
+                      "name": "4★ Legendary Melee Weapon",
+                      "formid": "00884075",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 25
+                    },
+                    {
+                      "name": "4★ Legendary Ranged Weapon",
+                      "formid": "00884076",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 25
+                    }
+                  ],
+                  "mode": "pickone",
+                  "toggleGlob": "008553A3",
+                  "chanceNoneGlob": "0085712E"
+                },
+                {
+                  "label": "Improved Bait",
+                  "formid": "0081137A",
+                  "blurb": "Guaranteed drop · 33% chance each of 1, 2, or 3 bait",
+                  "dropRate": 100,
+                  "conditions": [
+                    "Player has completed quest: Casting Off (Fishing MQ01)"
+                  ],
+                  "items": [
+                    {
+                      "name": "Improved Bait",
+                      "formid": "007FDC33",
+                      "sig": "MISC",
+                      "qty": 1,
+                      "dropRate": 33.33
+                    },
+                    {
+                      "name": "Improved Bait",
+                      "formid": "007FDC33",
+                      "sig": "MISC",
+                      "qty": 2,
+                      "dropRate": 33.33
+                    },
+                    {
+                      "name": "Improved Bait",
+                      "formid": "007FDC33",
+                      "sig": "MISC",
+                      "qty": 3,
+                      "dropRate": 33.33
+                    }
+                  ],
+                  "mode": "pickone"
+                },
+                {
+                  "label": "Treasury Notes",
+                  "formid": "005A5442",
+                  "blurb": "Guaranteed drop · 2 notes",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Treasury Note",
+                      "formid": "005A5443",
+                      "sig": "MISC",
+                      "qty": 2,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Camp Title Recipe: Hideout",
+                  "formid": "0089EA74",
+                  "blurb": "25.0% chance · only drops if you haven't learned it yet",
+                  "dropRate": 25.0,
+                  "conditions": [
+                    "Player has NOT learned recipe: CAMPTitle Suffix Hideout"
+                  ],
+                  "items": [
+                    {
+                      "name": "Camp Title: Hideout",
+                      "formid": "0089EA74",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 25.0
+                    }
+                  ],
+                  "chanceNoneGlob": "0089EA90"
+                }
+              ]
+            },
+            {
+              "tier": "boss",
+              "title": "Boss Loot",
+              "pools": [
+                {
+                  "label": "Caps",
+                  "formid": "003AE2A1",
+                  "blurb": "3 rolls on the caps table · average ~14 caps total",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Caps (roll 1)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100,
+                      "note": "Pick-one of 3–7 caps"
+                    },
+                    {
+                      "name": "Caps (roll 2)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100,
+                      "note": "Pick-one of 3–7 caps"
+                    },
+                    {
+                      "name": "Caps (roll 3)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100,
+                      "note": "Pick-one of 3–7 caps"
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "Rad-X",
+                  "formid": "002AD63F",
+                  "blurb": "Waterfall · Rad-X or Diluted Rad-X",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Rad-X",
+                      "formid": "00024057",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100,
+                      "note": "ChanceNone varies by tier GLOB"
+                    },
+                    {
+                      "name": "Diluted Rad-X",
+                      "formid": "0012D3F1",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100,
+                      "note": "Fallback if Rad-X fails"
+                    }
+                  ],
+                  "mode": "waterfall"
+                },
+                {
+                  "label": "Contextual Ammo",
+                  "formid": "00621922",
+                  "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Contextual Ammo",
+                      "formid": "00621922",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Stimpaks",
+                  "formid": "00307C9E",
+                  "blurb": "Waterfall · Stimpak or Diluted Stimpak",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Stimpak",
+                      "formid": "00307C9E",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Bounty Junk",
+                  "formid": "00843A10",
+                  "blurb": "3 junk items · 2 common rolls + 1 rare roll (80% chance)",
+                  "dropRate": 100,
+                  "children": [
+                    {
+                      "label": "Common Junk (roll 1)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Common Junk (roll 2)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Rare Junk",
+                      "formid": "00843A12",
+                      "blurb": "Pick-one of 40 rare junk items · 80% chance to drop",
+                      "dropRate": 80,
+                      "mode": "pickone",
+                      "listChanceNone": 20
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "Slasher Rare Recipes",
+                  "formid": "008E06F6",
+                  "blurb": "20% chance to roll · pick-one of 5 Slasher plans",
+                  "dropRate": 20,
+                  "conditions": [
+                    "Only from The Reborn Pint-Sized Slasher"
+                  ],
+                  "items": [
+                    {
+                      "name": "Plan: Slasher Power Armor Torso Paint",
+                      "formid": "008DE08B",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    },
+                    {
+                      "name": "Plan: Slasher Power Armor Arms Paint",
+                      "formid": "008DE089",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    },
+                    {
+                      "name": "Plan: Slasher Power Armor Legs Paint",
+                      "formid": "008DE087",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    },
+                    {
+                      "name": "Plan: Slasher Power Armor Jetpack Paint",
+                      "formid": "008DE088",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    },
+                    {
+                      "name": "Plan: Slasher Auto Axe Paint",
+                      "formid": "008E069A",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    }
+                  ],
+                  "mode": "pickone"
+                },
+                {
+                  "label": "Slasher Legendary Rewards",
+                  "formid": "0090FC46",
+                  "blurb": "Guaranteed 4★ legendary · Super Slasher Auto Axe currently disabled by Bethesda",
+                  "dropRate": 100,
+                  "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+                  "items": [
+                    {
+                      "name": "4★ Legendary Item",
+                      "formid": "00863A9D",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 100,
+                      "note": "Standard 4-star legendary template"
+                    },
+                    {
+                      "name": "Super Slasher Auto Axe",
+                      "formid": "006361A2",
+                      "sig": "WEAP",
+                      "qty": 1,
+                      "dropRate": 0,
+                      "note": "Auto Axe carrying the new Severing 4★ legendary effect",
+                      "conditions": [
+                        "Requires completing quest: Blood Will Have Blood (SDOW_MQ05)",
+                        "5% roll · only when the SlasherAxeLootOverride toggle is ON"
+                      ]
+                    }
+                  ],
+                  "mode": "useall"
+                }
+              ]
+            },
+            {
+              "tier": "mob",
+              "title": "Mob Loot",
+              "rosterBlurb": "Same as the standard Head Hunt — the adds are unchanged.",
+              "pools": [
+                {
+                  "label": "Caps",
+                  "formid": "003AE2A1",
+                  "blurb": "2 rolls on the caps table · average ~9 caps total",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Caps (roll 1)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "Caps (roll 2)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "Rad-X",
+                  "formid": "002AD63F",
+                  "blurb": "Waterfall · Rad-X or Diluted Rad-X",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Rad-X",
+                      "formid": "00024057",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "Diluted Rad-X",
+                      "formid": "0012D3F1",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "waterfall"
+                },
+                {
+                  "label": "Contextual Ammo",
+                  "formid": "00621922",
+                  "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Contextual Ammo",
+                      "formid": "00621922",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Stimpaks",
+                  "formid": "00307C9E",
+                  "blurb": "Waterfall · Stimpak or Diluted Stimpak",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Stimpak",
+                      "formid": "00307C9E",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Bounty Junk",
+                  "formid": "00843A10",
+                  "blurb": "3 junk items · 2 common rolls + 1 rare roll (80% chance)",
+                  "dropRate": 100,
+                  "children": [
+                    {
+                      "label": "Common Junk (roll 1)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Common Junk (roll 2)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Rare Junk",
+                      "formid": "00843A12",
+                      "blurb": "Pick-one of 40 rare junk items · 80% chance to drop",
+                      "dropRate": 80,
+                      "mode": "pickone",
+                      "listChanceNone": 20
+                    }
+                  ],
+                  "mode": "useall"
+                }
+              ]
+            },
+            {
+              "tier": "support",
+              "title": "Support Loot",
+              "rosterBlurb": "Same as the standard Head Hunt — the support enemies are unchanged.",
+              "pools": [
+                {
+                  "label": "Caps",
+                  "formid": "003AE2A1",
+                  "blurb": "1 roll on the caps table · average ~5 caps",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Caps",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "Rad-X",
+                  "formid": "002AD63F",
+                  "blurb": "Waterfall · Rad-X or Diluted Rad-X",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Rad-X",
+                      "formid": "00024057",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "Diluted Rad-X",
+                      "formid": "0012D3F1",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "waterfall"
+                },
+                {
+                  "label": "Contextual Ammo",
+                  "formid": "00621922",
+                  "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Contextual Ammo",
+                      "formid": "00621922",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Stimpaks",
+                  "formid": "00307C9E",
+                  "blurb": "Waterfall · Stimpak or Diluted Stimpak",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Stimpak",
+                      "formid": "00307C9E",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Bounty Junk",
+                  "formid": "00843A10",
+                  "blurb": "3 junk items · 2 common rolls + 1 rare roll (80% chance)",
+                  "dropRate": 100,
+                  "children": [
+                    {
+                      "label": "Common Junk (roll 1)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Common Junk (roll 2)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Rare Junk",
+                      "formid": "00843A12",
+                      "blurb": "Pick-one of 40 rare junk items · 80% chance to drop",
+                      "dropRate": 80,
+                      "mode": "pickone",
+                      "listChanceNone": 20
+                    }
+                  ],
+                  "mode": "useall"
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "lttStatus": {
         "toggleGlob": "008553A3",
         "toggleValue": 0.0,

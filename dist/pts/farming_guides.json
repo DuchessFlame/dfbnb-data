@@ -1,14 +1,14 @@
 {
-  "version": "2026-08-22",
-  "generated": "2026-08-22T13:02:09+00:00",
+  "version": "2026-08-26",
+  "generated": "2026-08-26T01:07:59+00:00",
   "sources": {
-    "alch": "ALCH_Export_July_2026.tsv",
-    "cobj": "COBJ_Export_July_2026.tsv",
-    "alch_effects": "ALCH_Export_July_2026_Effects.tsv"
+    "alch": "ALCH_Export_August_2026.tsv",
+    "cobj": "COBJ_Export_August_2026.tsv",
+    "alch_effects": "ALCH_Export_August_2026_Effects.tsv"
   },
   "pages": {
     "ingredient-search": {
-      "count_ingredients": 218,
+      "count_ingredients": 221,
       "ingredients": [
         {
           "edid": "E08A_GulperVenom",
@@ -545,7 +545,7 @@
                 "formId": "007FDA58",
                 "name": "Canned Aged Mirelurk Queen Steak",
                 "type": "Canned",
-                "weight": 4.0,
+                "weight": 1.5,
                 "value": 44,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -5672,7 +5672,7 @@
                 "formId": "008D385B",
                 "name": "Canned Blight Soup",
                 "type": "Canned",
-                "weight": null,
+                "weight": 1.5,
                 "value": 5,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -9576,7 +9576,7 @@
           "formId": "008A45CD",
           "name": "Bog Sucker",
           "type": "Raw",
-          "weight": null,
+          "weight": 1.0,
           "value": 10,
           "spoils_to": null,
           "spoil_time": null,
@@ -9638,7 +9638,7 @@
                 "formId": "008B76CE",
                 "name": "Winter Filet",
                 "type": "Raw",
-                "weight": null,
+                "weight": 0.1,
                 "value": 8,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -21167,7 +21167,7 @@
                 "formId": "008B33D4",
                 "name": "Jellied Fish",
                 "type": "Cooked",
-                "weight": null,
+                "weight": 1.0,
                 "value": 40,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -26167,6 +26167,193 @@
               "qty": 1
             },
             {
+              "recipe_edid": "co_meal_Fishing_FallSoup",
+              "recipe_name": "Spicy Eelgrass Soup",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallSoup",
+                "formId": "008EFCA8",
+                "name": "Spicy Eelgrass Soup",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Vegetable",
+                  "curve_edid": "CT_FoodHealth_CookedVegetable",
+                  "curve_formId": "0052B5B9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Fortify Health",
+                    "edid": "FortifyHealthFood",
+                    "magnitude": 60.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": null
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SwampPlantCookedTofu",
+                  "name": "Swamp Tofu",
+                  "qty": 1
+                },
+                {
+                  "edid": "VegetableSlipperCactus",
+                  "name": "Prickeye",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_FallEelgrass",
+                  "name": "Fall Sour Eelgrass",
+                  "qty": 5
+                }
+              ],
+              "qty": 1
+            },
+            {
               "recipe_edid": "co_meal_SquirrelMeatTasty",
               "recipe_name": "Squirrel On A Stick",
               "region": null,
@@ -31063,7 +31250,7 @@
               "qty": 2
             }
           ],
-          "used_in_count": 120
+          "used_in_count": 121
         },
         {
           "edid": "Brew_Bourbon",
@@ -34085,7 +34272,7 @@
                 "formId": "008D3855",
                 "name": "Canned Brain Bombs",
                 "type": "Canned",
-                "weight": null,
+                "weight": 1.5,
                 "value": 31,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -35193,7 +35380,7 @@
                 "formId": "008D385A",
                 "name": "Canned Broiled Scorchbeast Brain",
                 "type": "Canned",
-                "weight": null,
+                "weight": 3.0,
                 "value": 40,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -36154,7 +36341,7 @@
                 "formId": "008B33D4",
                 "name": "Jellied Fish",
                 "type": "Cooked",
-                "weight": null,
+                "weight": 1.0,
                 "value": 40,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -36415,6 +36602,188 @@
                 {
                   "edid": "SiltBeanVegetable",
                   "name": "Silt Bean",
+                  "qty": 1
+                }
+              ],
+              "qty": 2
+            },
+            {
+              "recipe_edid": "co_meal_Fishing_FallSalad",
+              "recipe_name": "River Salad",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallSalad",
+                "formId": "008EFCA7",
+                "name": "River Salad",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Vegetable",
+                  "curve_edid": "CT_FoodHealth_CookedVegetable",
+                  "curve_formId": "0052B5B9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Fortify Poison Resist",
+                    "edid": "FortifyResistPoisonFood",
+                    "magnitude": 100.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "TatoVegetableFruit",
+                  "name": "Tato",
+                  "qty": 1
+                },
+                {
+                  "edid": "CarrotVegetable",
+                  "name": "Carrot",
+                  "qty": 2
+                },
+                {
+                  "edid": "CookingFlavor_Pepper",
+                  "name": "Pepper",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_FallEelgrass",
+                  "name": "Fall Sour Eelgrass",
                   "qty": 1
                 }
               ],
@@ -36804,7 +37173,7 @@
               "qty": 2
             }
           ],
-          "used_in_count": 6
+          "used_in_count": 7
         },
         {
           "edid": "CarrotFlowerHerb",
@@ -42366,7 +42735,7 @@
                 "formId": "007FDA65",
                 "name": "Canned Corn Soup",
                 "type": "Canned",
-                "weight": 2.0,
+                "weight": 1.5,
                 "value": 6,
                 "spoils_to": "Spoiled Vegetables",
                 "spoil_time": null,
@@ -45415,7 +45784,7 @@
                 "formId": "008B73C0",
                 "name": "Moo-Moo Curd",
                 "type": "Gourmet",
-                "weight": null,
+                "weight": 0.25,
                 "value": 23,
                 "spoils_to": "Spoiled Brahmin Milk",
                 "spoil_time": {
@@ -46115,7 +46484,7 @@
                 "formId": "008B33D4",
                 "name": "Jellied Fish",
                 "type": "Cooked",
-                "weight": null,
+                "weight": 1.0,
                 "value": 40,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -46962,7 +47331,7 @@
                 "formId": "008D385F",
                 "name": "Canned Deathclaw Wellington",
                 "type": "Canned",
-                "weight": null,
+                "weight": 3.0,
                 "value": 58,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -48518,6 +48887,521 @@
           "used_in_count": 1
         },
         {
+          "edid": "SeasonalFish_Meal_FallEelgrass",
+          "formId": "008B76CF",
+          "name": "Fall Sour Eelgrass",
+          "type": "Raw",
+          "weight": 0.1,
+          "value": 8,
+          "spoils_to": "Spoiled Vegetables",
+          "spoil_time": {
+            "base_minutes": 75,
+            "curve_type": "Raw Vegetable",
+            "curve_edid": "CT_FoodHealth_RawVegetable",
+            "curve_formId": "0052B5BE",
+            "source": "curv_points",
+            "scope": "food",
+            "tiers": [
+              {
+                "kind": "storage",
+                "label": "Fridge",
+                "rate_mult": 0.5,
+                "reduction_pct": 50,
+                "minutes": 150.0,
+                "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+              },
+              {
+                "kind": "storage",
+                "label": "Freezer",
+                "rate_mult": 0.0,
+                "reduction_pct": 100,
+                "minutes": null,
+                "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+              },
+              {
+                "kind": "perk",
+                "label": "Good with Salt Rank 1",
+                "magnitude": 0.45,
+                "reduction_pct": 45,
+                "minutes": 136.36,
+                "source": "SPEL:AbPerkGoodWithSalt[0]"
+              },
+              {
+                "kind": "perk",
+                "label": "Good with Salt Rank 2",
+                "magnitude": 0.9,
+                "reduction_pct": 90,
+                "minutes": 750.0,
+                "source": "SPEL:AbPerkGoodWithSalt[1]"
+              },
+              {
+                "kind": "mod",
+                "label": "Refrigerated Backpack mod",
+                "magnitude": 0.5,
+                "reduction_pct": 50,
+                "minutes": 150.0,
+                "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+              }
+            ]
+          },
+          "is_canned": false,
+          "canned_base": null,
+          "mutation": "Herbivore",
+          "effects": [
+            {
+              "name": "Satisfy Hunger",
+              "edid": "SURV_Food_Effect",
+              "magnitude": 240.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RestoreHunger_Mag_1_Tiny",
+              "dur_glob": null
+            },
+            {
+              "name": "Rads",
+              "edid": "DamageRadiationEating",
+              "magnitude": 2.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+              "dur_glob": null
+            },
+            {
+              "name": "Restore Health",
+              "edid": "RestoreHealthFood",
+              "magnitude": 0.16,
+              "duration": 0.16,
+              "dur_display": "0s",
+              "mag_glob": "SURV_Food_Heal_Mag_1_Tiny",
+              "dur_glob": "SURV_Food_Heal_Mag_1_Tiny"
+            }
+          ],
+          "addiction_name": null,
+          "addiction_chance": 0.0,
+          "is_alcohol": false,
+          "is_nuka_cola": false,
+          "is_chem": false,
+          "spoiled_to_output": {
+            "edid": "SpoiledFood_Vegetable",
+            "formId": "0037E134",
+            "name": "Spoiled Vegetables",
+            "type": "Raw",
+            "weight": 0.1,
+            "value": 0,
+            "spoils_to": null,
+            "spoil_time": null,
+            "is_canned": false,
+            "canned_base": null,
+            "mutation": null,
+            "effects": [
+              {
+                "name": "Rads",
+                "edid": "DamageRadiationEating",
+                "magnitude": 5.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                "dur_glob": null
+              },
+              {
+                "name": "Disease Chance",
+                "edid": "SURV_DiseaseVector_Food_Effect",
+                "magnitude": 6.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                "dur_glob": null
+              },
+              {
+                "name": "Satisfy Hunger",
+                "edid": "SURV_Food_Effect",
+                "magnitude": 720.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                "dur_glob": null
+              }
+            ],
+            "addiction_name": null,
+            "addiction_chance": 0.0,
+            "is_alcohol": false,
+            "is_nuka_cola": false,
+            "is_chem": false
+          },
+          "used_in": [
+            {
+              "recipe_edid": "co_meal_Fishing_FallSalad",
+              "recipe_name": "River Salad",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallSalad",
+                "formId": "008EFCA7",
+                "name": "River Salad",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Vegetable",
+                  "curve_edid": "CT_FoodHealth_CookedVegetable",
+                  "curve_formId": "0052B5B9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Fortify Poison Resist",
+                    "edid": "FortifyResistPoisonFood",
+                    "magnitude": 100.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "TatoVegetableFruit",
+                  "name": "Tato",
+                  "qty": 1
+                },
+                {
+                  "edid": "CarrotVegetable",
+                  "name": "Carrot",
+                  "qty": 2
+                },
+                {
+                  "edid": "CookingFlavor_Pepper",
+                  "name": "Pepper",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_FallEelgrass",
+                  "name": "Fall Sour Eelgrass",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            },
+            {
+              "recipe_edid": "co_meal_Fishing_FallSoup",
+              "recipe_name": "Spicy Eelgrass Soup",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallSoup",
+                "formId": "008EFCA8",
+                "name": "Spicy Eelgrass Soup",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Vegetable",
+                  "curve_edid": "CT_FoodHealth_CookedVegetable",
+                  "curve_formId": "0052B5B9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Fortify Health",
+                    "edid": "FortifyHealthFood",
+                    "magnitude": 60.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": null
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SwampPlantCookedTofu",
+                  "name": "Swamp Tofu",
+                  "qty": 1
+                },
+                {
+                  "edid": "VegetableSlipperCactus",
+                  "name": "Prickeye",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_FallEelgrass",
+                  "name": "Fall Sour Eelgrass",
+                  "qty": 5
+                }
+              ],
+              "qty": 5
+            }
+          ],
+          "used_in_count": 2
+        },
+        {
           "edid": "FancyLadSnackCakes",
           "formId": "000330B4",
           "name": "Fancy Lads Snack Cakes",
@@ -48763,7 +49647,7 @@
           "formId": "008A581E",
           "name": "Fernskipper",
           "type": "Raw",
-          "weight": null,
+          "weight": 0.5,
           "value": 5,
           "spoils_to": null,
           "spoil_time": null,
@@ -48825,7 +49709,7 @@
                 "formId": "008B33D3",
                 "name": "Summer Filet",
                 "type": "Raw",
-                "weight": null,
+                "weight": 0.1,
                 "value": 8,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -48980,7 +49864,7 @@
           "formId": "008A45CC",
           "name": "Fester Koi",
           "type": "Raw",
-          "weight": null,
+          "weight": 1.0,
           "value": 10,
           "spoils_to": null,
           "spoil_time": null,
@@ -49033,23 +49917,23 @@
           "used_in": [
             {
               "recipe_edid": "SeasonalFish_CO_Meal_FallFilletFromFesterkoi",
-              "recipe_name": "Fall Filet",
-              "region": null,
+              "recipe_name": "Fall Sour Eelgrass - Festerkoi",
+              "region": "Festerkoi",
               "workbench": "Cooking Station",
               "category": "cooking",
               "output": {
-                "edid": "SeasonalFish_Meal_FallFillet",
+                "edid": "SeasonalFish_Meal_FallEelgrass",
                 "formId": "008B76CF",
-                "name": "Fall Filet",
+                "name": "Fall Sour Eelgrass",
                 "type": "Raw",
-                "weight": null,
+                "weight": 0.1,
                 "value": 8,
-                "spoils_to": "Spoiled Meat",
+                "spoils_to": "Spoiled Vegetables",
                 "spoil_time": {
                   "base_minutes": 75,
-                  "curve_type": "Raw Meat",
-                  "curve_edid": "CT_FoodHealth_RawMeat",
-                  "curve_formId": "0052B5BD",
+                  "curve_type": "Raw Vegetable",
+                  "curve_edid": "CT_FoodHealth_RawVegetable",
+                  "curve_formId": "0052B5BE",
                   "source": "curv_points",
                   "scope": "food",
                   "tiers": [
@@ -49097,7 +49981,7 @@
                 },
                 "is_canned": false,
                 "canned_base": null,
-                "mutation": "Carnivore",
+                "mutation": "Herbivore",
                 "effects": [
                   {
                     "name": "Satisfy Hunger",
@@ -49133,11 +50017,11 @@
                 "is_nuka_cola": false,
                 "is_chem": false,
                 "spoiled_to_output": {
-                  "edid": "SpoiledFood_Meat",
-                  "formId": "0037E133",
-                  "name": "Spoiled Meat",
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
                   "type": "Raw",
-                  "weight": 0.25,
+                  "weight": 0.1,
                   "value": 0,
                   "spoils_to": null,
                   "spoil_time": null,
@@ -49148,19 +50032,19 @@
                     {
                       "name": "Rads",
                       "edid": "DamageRadiationEating",
-                      "magnitude": 15.0,
+                      "magnitude": 5.0,
                       "duration": 0.0,
                       "dur_display": null,
-                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
                       "dur_glob": null
                     },
                     {
                       "name": "Disease Chance",
                       "edid": "SURV_DiseaseVector_Food_Effect",
-                      "magnitude": 9.0,
+                      "magnitude": 6.0,
                       "duration": 0.0,
                       "dur_display": null,
-                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
                       "dur_glob": null
                     },
                     {
@@ -51281,7 +52165,7 @@
                 "formId": "00804717",
                 "name": "Canned Fish Chowder",
                 "type": "Canned",
-                "weight": 4.0,
+                "weight": 3.0,
                 "value": 25,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": null,
@@ -52655,7 +53539,7 @@
           "formId": "008A45C9",
           "name": "Glass Ghost",
           "type": "Raw",
-          "weight": null,
+          "weight": 1.0,
           "value": 50,
           "spoils_to": null,
           "spoil_time": null,
@@ -52708,7 +53592,7 @@
                 "formId": "008B33D3",
                 "name": "Summer Filet",
                 "type": "Raw",
-                "weight": null,
+                "weight": 0.1,
                 "value": 8,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -54903,7 +55787,7 @@
                 "formId": "007FDA5E",
                 "name": "Canned Glowing Fungus Puree",
                 "type": "Canned",
-                "weight": 5.0,
+                "weight": 1.5,
                 "value": 22,
                 "spoils_to": "Spoiled Vegetables",
                 "spoil_time": null,
@@ -55199,7 +56083,7 @@
                 "formId": "007FDA63",
                 "name": "Canned Glowing Fungus Soup",
                 "type": "Canned",
-                "weight": 5.0,
+                "weight": 1.5,
                 "value": 6,
                 "spoils_to": "Spoiled Vegetables",
                 "spoil_time": null,
@@ -59150,7 +60034,7 @@
                 "formId": "007FDA64",
                 "name": "Canned Gourd Soup",
                 "type": "Canned",
-                "weight": 3.0,
+                "weight": 1.5,
                 "value": 6,
                 "spoils_to": "Spoiled Vegetables",
                 "spoil_time": null,
@@ -59437,7 +60321,7 @@
                 "formId": "00804719",
                 "name": "Canned Grilled Fish",
                 "type": "Canned",
-                "weight": 4.0,
+                "weight": 3.0,
                 "value": 25,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -61108,7 +61992,7 @@
                 "formId": "007FDA5F",
                 "name": "Canned Gut Shroom Soup",
                 "type": "Canned",
-                "weight": 3.0,
+                "weight": 1.5,
                 "value": 7,
                 "spoils_to": "Spoiled Vegetables",
                 "spoil_time": null,
@@ -66405,7 +67289,7 @@
                 "formId": "007FDA67",
                 "name": "Canned Megasloth Mushroom Soup",
                 "type": "Canned",
-                "weight": 5.0,
+                "weight": 1.5,
                 "value": 6,
                 "spoils_to": "Spoiled Vegetables",
                 "spoil_time": null,
@@ -70966,7 +71850,7 @@
                 "formId": "007FDA59",
                 "name": "Canned Mirelurk Queen Steak",
                 "type": "Canned",
-                "weight": 4.0,
+                "weight": 3.0,
                 "value": 39,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -78228,7 +79112,7 @@
           "formId": "008A45CB",
           "name": "Orange Overseer",
           "type": "Raw",
-          "weight": null,
+          "weight": 1.0,
           "value": 5,
           "spoils_to": null,
           "spoil_time": null,
@@ -78290,7 +79174,7 @@
                 "formId": "008B76D0",
                 "name": "Spring Filet",
                 "type": "Raw",
-                "weight": null,
+                "weight": 0.1,
                 "value": 8,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -81085,6 +81969,188 @@
               "qty": 2
             },
             {
+              "recipe_edid": "co_meal_Fishing_FallSalad",
+              "recipe_name": "River Salad",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallSalad",
+                "formId": "008EFCA7",
+                "name": "River Salad",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Vegetable",
+                  "curve_edid": "CT_FoodHealth_CookedVegetable",
+                  "curve_formId": "0052B5B9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Fortify Poison Resist",
+                    "edid": "FortifyResistPoisonFood",
+                    "magnitude": 100.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "TatoVegetableFruit",
+                  "name": "Tato",
+                  "qty": 1
+                },
+                {
+                  "edid": "CarrotVegetable",
+                  "name": "Carrot",
+                  "qty": 2
+                },
+                {
+                  "edid": "CookingFlavor_Pepper",
+                  "name": "Pepper",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_FallEelgrass",
+                  "name": "Fall Sour Eelgrass",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            },
+            {
               "recipe_edid": "co_meal_ScorchBeastTastyStew",
               "recipe_name": "Scorchbeast Mixed Meat Stew",
               "region": null,
@@ -82253,7 +83319,7 @@
               "qty": 4
             }
           ],
-          "used_in_count": 17
+          "used_in_count": 18
         },
         {
           "edid": "Fishing_Fish_Meal_Small_Raw_Axolotl02_PinkAxolotl",
@@ -82635,7 +83701,7 @@
                 "formId": "007FDA5B",
                 "name": "Canned Poached Angler",
                 "type": "Canned",
-                "weight": 4.0,
+                "weight": 3.0,
                 "value": 28,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -83590,9 +84656,196 @@
                 }
               ],
               "qty": 2
+            },
+            {
+              "recipe_edid": "co_meal_Fishing_FallSoup",
+              "recipe_name": "Spicy Eelgrass Soup",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallSoup",
+                "formId": "008EFCA8",
+                "name": "Spicy Eelgrass Soup",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Vegetable",
+                  "curve_edid": "CT_FoodHealth_CookedVegetable",
+                  "curve_formId": "0052B5B9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Fortify Health",
+                    "edid": "FortifyHealthFood",
+                    "magnitude": 60.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": null
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SwampPlantCookedTofu",
+                  "name": "Swamp Tofu",
+                  "qty": 1
+                },
+                {
+                  "edid": "VegetableSlipperCactus",
+                  "name": "Prickeye",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_FallEelgrass",
+                  "name": "Fall Sour Eelgrass",
+                  "qty": 5
+                }
+              ],
+              "qty": 1
             }
           ],
-          "used_in_count": 3
+          "used_in_count": 4
         },
         {
           "edid": "PumpkinVegetable",
@@ -83748,7 +85001,7 @@
                 "formId": "008B73C3",
                 "name": "Pickled Pumpkin",
                 "type": "Raw",
-                "weight": null,
+                "weight": 0.25,
                 "value": 23,
                 "spoils_to": "Dirty Water",
                 "spoil_time": {
@@ -86069,7 +87322,7 @@
                 "formId": "008B73C3",
                 "name": "Pickled Pumpkin",
                 "type": "Raw",
-                "weight": null,
+                "weight": 0.25,
                 "value": 23,
                 "spoils_to": "Dirty Water",
                 "spoil_time": {
@@ -91808,12 +93061,12 @@
                     "dur_glob": "SURV_Food_Heal_Dur_Standard"
                   },
                   {
-                    "name": "Fortify Energy Resist",
-                    "edid": "FortifyResistEnergyFood",
-                    "magnitude": 25.0,
+                    "name": "Fortify Fire Resist",
+                    "edid": "FortifyResistFireFood",
+                    "magnitude": 75.0,
                     "duration": 1800.0,
                     "dur_display": "30 min",
-                    "mag_glob": "SURV_Food_Effect_FortifyResistEnergy_Mag_2_Medium",
+                    "mag_glob": null,
                     "dur_glob": "SURV_Food_Effect_Any_Dur_1_Short"
                   }
                 ],
@@ -99346,7 +100599,7 @@
                 "formId": "008B33D5",
                 "name": "Wasteland Fish Sandwich",
                 "type": "Cooked",
-                "weight": null,
+                "weight": 1.0,
                 "value": 40,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -100597,7 +101850,7 @@
                 "formId": "007FDA57",
                 "name": "Canned Ribeye Steak",
                 "type": "Canned",
-                "weight": 4.0,
+                "weight": 3.0,
                 "value": 29,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -104156,7 +105409,7 @@
                 "formId": "008B73C3",
                 "name": "Pickled Pumpkin",
                 "type": "Raw",
-                "weight": null,
+                "weight": 0.25,
                 "value": 23,
                 "spoils_to": "Dirty Water",
                 "spoil_time": {
@@ -110999,6 +112252,214 @@
           "used_in_count": 7
         },
         {
+          "edid": "SeasonalFish_Meal_LocalLegend_Raw_SludgeEye",
+          "formId": "008EFCA6",
+          "name": "Sludge Eye",
+          "type": "Raw",
+          "weight": 0.5,
+          "value": 50,
+          "spoils_to": null,
+          "spoil_time": null,
+          "is_canned": false,
+          "canned_base": null,
+          "mutation": "Carnivore",
+          "effects": [
+            {
+              "name": "Satisfy Hunger",
+              "edid": "SURV_Food_Effect",
+              "magnitude": 1080.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RestoreHunger_Mag_4_Large",
+              "dur_glob": null
+            },
+            {
+              "name": "Disease Chance",
+              "edid": "SURV_DiseaseVector_Food_Effect",
+              "magnitude": 1.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_DiseaseChance_Mag_1_Low",
+              "dur_glob": null
+            },
+            {
+              "name": "Restore Health",
+              "edid": "RestoreHealthFood",
+              "magnitude": 0.8,
+              "duration": 25.0,
+              "dur_display": "25s",
+              "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+              "dur_glob": "SURV_Food_Heal_Dur_Standard"
+            }
+          ],
+          "addiction_name": null,
+          "addiction_chance": 0.0,
+          "is_alcohol": false,
+          "is_nuka_cola": false,
+          "is_chem": false,
+          "used_in": [
+            {
+              "recipe_edid": "SeasonalFish_CO_Meal_FallFilletFromSludgeEye",
+              "recipe_name": "Fall Sour Eelgrass - Sludge Eye",
+              "region": "Sludge Eye",
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallEelgrass",
+                "formId": "008B76CF",
+                "name": "Fall Sour Eelgrass",
+                "type": "Raw",
+                "weight": 0.1,
+                "value": 8,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 75,
+                  "curve_type": "Raw Vegetable",
+                  "curve_edid": "CT_FoodHealth_RawVegetable",
+                  "curve_formId": "0052B5BE",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 150.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 136.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 750.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 150.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 240.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_1_Tiny",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.16,
+                    "duration": 0.16,
+                    "dur_display": "0s",
+                    "mag_glob": "SURV_Food_Heal_Mag_1_Tiny",
+                    "dur_glob": "SURV_Food_Heal_Mag_1_Tiny"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "SeasonalFish_Meal_LocalLegend_Raw_SludgeEye",
+                  "name": "Sludge Eye",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            }
+          ],
+          "used_in_count": 1
+        },
+        {
           "edid": "SmokedMirelurkGourmet",
           "formId": "003D5F41",
           "name": "Smoked Mirelurk Fillets",
@@ -111170,7 +112631,7 @@
                 "formId": "008D3862",
                 "name": "Canned Smoked Mirelurk Fillets",
                 "type": "Canned",
-                "weight": null,
+                "weight": 3.0,
                 "value": 47,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -116730,7 +118191,7 @@
                 "formId": "008B73C0",
                 "name": "Moo-Moo Curd",
                 "type": "Gourmet",
-                "weight": null,
+                "weight": 0.25,
                 "value": 23,
                 "spoils_to": "Spoiled Brahmin Milk",
                 "spoil_time": {
@@ -117294,7 +118755,7 @@
                 "formId": "008B73C3",
                 "name": "Pickled Pumpkin",
                 "type": "Raw",
-                "weight": null,
+                "weight": 0.25,
                 "value": 23,
                 "spoils_to": "Dirty Water",
                 "spoil_time": {
@@ -118261,6 +119722,193 @@
               "qty": 1
             },
             {
+              "recipe_edid": "co_meal_Fishing_FallSoup",
+              "recipe_name": "Spicy Eelgrass Soup",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallSoup",
+                "formId": "008EFCA8",
+                "name": "Spicy Eelgrass Soup",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Vegetable",
+                  "curve_edid": "CT_FoodHealth_CookedVegetable",
+                  "curve_formId": "0052B5B9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Fortify Health",
+                    "edid": "FortifyHealthFood",
+                    "magnitude": 60.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": null
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SwampPlantCookedTofu",
+                  "name": "Swamp Tofu",
+                  "qty": 1
+                },
+                {
+                  "edid": "VegetableSlipperCactus",
+                  "name": "Prickeye",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_FallEelgrass",
+                  "name": "Fall Sour Eelgrass",
+                  "qty": 5
+                }
+              ],
+              "qty": 1
+            },
+            {
               "recipe_edid": "co_meal_MelonFlowerHerbTastyTea",
               "recipe_name": "Steeped Melon Blossom Chai",
               "region": null,
@@ -118840,7 +120488,7 @@
               "qty": 2
             }
           ],
-          "used_in_count": 18
+          "used_in_count": 19
         },
         {
           "edid": "Fishing_Fish_Meal_Small_Raw_Mire_Spikesnapper",
@@ -122424,7 +124072,7 @@
                 "formId": "007FDA60",
                 "name": "Canned Stingwing Stew",
                 "type": "Canned",
-                "weight": 5.0,
+                "weight": 3.0,
                 "value": 20,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": null,
@@ -129410,7 +131058,7 @@
           "formId": "008B33D3",
           "name": "Summer Filet",
           "type": "Raw",
-          "weight": null,
+          "weight": 0.1,
           "value": 8,
           "spoils_to": "Spoiled Meat",
           "spoil_time": {
@@ -129559,7 +131207,7 @@
                 "formId": "008B33D4",
                 "name": "Jellied Fish",
                 "type": "Cooked",
-                "weight": null,
+                "weight": 1.0,
                 "value": 40,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -129746,7 +131394,7 @@
                 "formId": "008B33D5",
                 "name": "Wasteland Fish Sandwich",
                 "type": "Cooked",
-                "weight": null,
+                "weight": 1.0,
                 "value": 40,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": {
@@ -130652,6 +132300,348 @@
           "used_in_count": 2
         },
         {
+          "edid": "SwampPlantCookedTofu",
+          "formId": "003D7887",
+          "name": "Swamp Tofu",
+          "type": "Cooked",
+          "weight": 0.5,
+          "value": 12,
+          "spoils_to": "Spoiled Vegetables",
+          "spoil_time": {
+            "base_minutes": 240,
+            "curve_type": "Cooked Vegetable",
+            "curve_edid": "CT_FoodHealth_CookedVegetable",
+            "curve_formId": "0052B5B9",
+            "source": "curv_points",
+            "scope": "food",
+            "tiers": [
+              {
+                "kind": "storage",
+                "label": "Fridge",
+                "rate_mult": 0.5,
+                "reduction_pct": 50,
+                "minutes": 480.0,
+                "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+              },
+              {
+                "kind": "storage",
+                "label": "Freezer",
+                "rate_mult": 0.0,
+                "reduction_pct": 100,
+                "minutes": null,
+                "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+              },
+              {
+                "kind": "perk",
+                "label": "Good with Salt Rank 1",
+                "magnitude": 0.45,
+                "reduction_pct": 45,
+                "minutes": 436.36,
+                "source": "SPEL:AbPerkGoodWithSalt[0]"
+              },
+              {
+                "kind": "perk",
+                "label": "Good with Salt Rank 2",
+                "magnitude": 0.9,
+                "reduction_pct": 90,
+                "minutes": 2400.0,
+                "source": "SPEL:AbPerkGoodWithSalt[1]"
+              },
+              {
+                "kind": "mod",
+                "label": "Refrigerated Backpack mod",
+                "magnitude": 0.5,
+                "reduction_pct": 50,
+                "minutes": 480.0,
+                "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+              }
+            ]
+          },
+          "is_canned": false,
+          "canned_base": null,
+          "mutation": "Herbivore",
+          "effects": [
+            {
+              "name": "Rads",
+              "edid": "DamageRadiationEating",
+              "magnitude": 2.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+              "dur_glob": null
+            },
+            {
+              "name": "Satisfy Hunger",
+              "edid": "SURV_Food_Effect",
+              "magnitude": 720.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+              "dur_glob": null
+            },
+            {
+              "name": "Restore Health",
+              "edid": "RestoreHealthFood",
+              "magnitude": 1.0,
+              "duration": 25.0,
+              "dur_display": "25s",
+              "mag_glob": "SURV_Food_Heal_Mag_3_Medium_Improved",
+              "dur_glob": "SURV_Food_Heal_Dur_Standard"
+            },
+            {
+              "name": "Fortify Heal Rate",
+              "edid": "FortifyHealRateFood",
+              "magnitude": 0.075,
+              "duration": 1800.0,
+              "dur_display": "30 min",
+              "mag_glob": "SURV_Food_Effect_HealthRegen_Mag_1_Low",
+              "dur_glob": "SURV_Food_Effect_Any_Dur_1_Short"
+            }
+          ],
+          "addiction_name": null,
+          "addiction_chance": 0.0,
+          "is_alcohol": false,
+          "is_nuka_cola": false,
+          "is_chem": false,
+          "spoiled_to_output": {
+            "edid": "SpoiledFood_Vegetable",
+            "formId": "0037E134",
+            "name": "Spoiled Vegetables",
+            "type": "Raw",
+            "weight": 0.1,
+            "value": 0,
+            "spoils_to": null,
+            "spoil_time": null,
+            "is_canned": false,
+            "canned_base": null,
+            "mutation": null,
+            "effects": [
+              {
+                "name": "Rads",
+                "edid": "DamageRadiationEating",
+                "magnitude": 5.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                "dur_glob": null
+              },
+              {
+                "name": "Disease Chance",
+                "edid": "SURV_DiseaseVector_Food_Effect",
+                "magnitude": 6.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                "dur_glob": null
+              },
+              {
+                "name": "Satisfy Hunger",
+                "edid": "SURV_Food_Effect",
+                "magnitude": 720.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                "dur_glob": null
+              }
+            ],
+            "addiction_name": null,
+            "addiction_chance": 0.0,
+            "is_alcohol": false,
+            "is_nuka_cola": false,
+            "is_chem": false
+          },
+          "used_in": [
+            {
+              "recipe_edid": "co_meal_Fishing_FallSoup",
+              "recipe_name": "Spicy Eelgrass Soup",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallSoup",
+                "formId": "008EFCA8",
+                "name": "Spicy Eelgrass Soup",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Vegetable",
+                  "curve_edid": "CT_FoodHealth_CookedVegetable",
+                  "curve_formId": "0052B5B9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Fortify Health",
+                    "edid": "FortifyHealthFood",
+                    "magnitude": 60.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": null
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SwampPlantCookedTofu",
+                  "name": "Swamp Tofu",
+                  "qty": 1
+                },
+                {
+                  "edid": "VegetableSlipperCactus",
+                  "name": "Prickeye",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_FallEelgrass",
+                  "name": "Fall Sour Eelgrass",
+                  "qty": 5
+                }
+              ],
+              "qty": 1
+            }
+          ],
+          "used_in_count": 1
+        },
+        {
           "edid": "SwampPlantTastyTofuSoup",
           "formId": "003D5F35",
           "name": "Swamp Tofu Soup",
@@ -130823,7 +132813,7 @@
                 "formId": "007FDA5A",
                 "name": "Canned Swamp Tofu Soup",
                 "type": "Canned",
-                "weight": 3.0,
+                "weight": 1.5,
                 "value": 22,
                 "spoils_to": null,
                 "spoil_time": null,
@@ -132761,7 +134751,7 @@
                 "formId": "007FDA5D",
                 "name": "Canned Tasty Squirrel Stew",
                 "type": "Canned",
-                "weight": 5.0,
+                "weight": 3.0,
                 "value": 16,
                 "spoils_to": "Spoiled Meat",
                 "spoil_time": null,
@@ -134524,6 +136514,188 @@
               "qty": 2
             },
             {
+              "recipe_edid": "co_meal_Fishing_FallSalad",
+              "recipe_name": "River Salad",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_FallSalad",
+                "formId": "008EFCA7",
+                "name": "River Salad",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Vegetable",
+                  "curve_edid": "CT_FoodHealth_CookedVegetable",
+                  "curve_formId": "0052B5B9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Fortify Poison Resist",
+                    "edid": "FortifyResistPoisonFood",
+                    "magnitude": 100.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "TatoVegetableFruit",
+                  "name": "Tato",
+                  "qty": 1
+                },
+                {
+                  "edid": "CarrotVegetable",
+                  "name": "Carrot",
+                  "qty": 2
+                },
+                {
+                  "edid": "CookingFlavor_Pepper",
+                  "name": "Pepper",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_FallEelgrass",
+                  "name": "Fall Sour Eelgrass",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            },
+            {
               "recipe_edid": "co_meal_SiltBeanVegetableTastySoup",
               "recipe_name": "Silt Bean Puree",
               "region": null,
@@ -136227,7 +138399,7 @@
               "qty": 2
             }
           ],
-          "used_in_count": 17
+          "used_in_count": 18
         },
         {
           "edid": "TatoFlowerHerb",
@@ -136725,7 +138897,7 @@
                 "formId": "008D3859",
                 "name": "Canned Tato Salad",
                 "type": "Canned",
-                "weight": null,
+                "weight": 3.0,
                 "value": 6,
                 "spoils_to": null,
                 "spoil_time": null,

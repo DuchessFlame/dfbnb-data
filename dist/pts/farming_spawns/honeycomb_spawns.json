@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-22",
+  "generated": "2026-08-26",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 10,
   "source_totals": {
@@ -156,7 +156,7 @@
       "duration": null
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Sweet Labrador Tea"
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
    }
   ],
   "obtain": {
@@ -530,5 +530,558 @@
    "region": "Toxic Valley",
    "locations": []
   }
- ]
+ ],
+ "honey_beast": {
+  "name": "Honey Beast",
+  "npc_summary": {
+   "npc_count": 23,
+   "level_min": 1,
+   "level_max": 100,
+   "health_max": 2000
+  },
+  "used_for": [
+   {
+    "type": "Daily",
+    "name": "Epic - Take a Camera Picture of a Honey Beast",
+    "required": 1,
+    "edid": "SCORE_Challenge_Daily_Picture_Creatures_Honey_Beast_While_Intoxicated_NukaShine_Camera_Epic",
+    "page": "daily"
+   },
+   {
+    "type": "Daily",
+    "name": "Kill a Honey Beast",
+    "required": 1,
+    "edid": "SCORE_Challenge_Daily_Kill_HoneyBeast",
+    "page": "daily"
+   },
+   {
+    "type": "Event",
+    "name": "Deal a Critical Hit to a Beezlebaby or Beezlebub  during The Big Bloom Event",
+    "required": 1,
+    "edid": "ATX_DE2024_Challenge_Daily_Event_Critical_Shots_Honeybeast_Seasonal_BigBloom",
+    "page": "events"
+   },
+   {
+    "type": "Lifetime",
+    "name": "Take a Camera Picture of a Glowing Honey Beast",
+    "required": 1,
+    "edid": "Challenge_Lifetime_Picture_Glowing_SUB_HoneyBeast_Camera",
+    "page": "world"
+   },
+   {
+    "type": "Weekly",
+    "name": "Kill a Beezlebaby or Beezlebub during The Big Bloom Event",
+    "required": 10,
+    "edid": "SCORE_Challenge_Weekly_Event_Kill_Honeybeast_Seasonal_BigBloom",
+    "page": "weekly"
+   }
+  ],
+  "events_activities": [
+   {
+    "name": "Event: The Big Bloom",
+    "edid": "SSE_BigBloom",
+    "type": "Public Event",
+    "location": "",
+    "form_id": "0079AA0F"
+   }
+  ],
+  "drops": {
+   "lists": [
+    {
+     "edid": "LLD_Creature_HoneyBeast",
+     "form_id": "00055FBD",
+     "row_count": 5,
+     "direct_items": 2,
+     "pool_count": 3,
+     "item_count": 11556,
+     "rows": [
+      {
+       "kind": "pool",
+       "name": "Generic creature loot (large)",
+       "sub_id": "003DF3F4",
+       "edid": "LLS_Creature_Large",
+       "item_count": 11535,
+       "rate_value": 1.0,
+       "rate_display": "100%",
+       "top_items": [
+        {
+         "name": "Raw Cobalt Flux",
+         "rate_display": "20%"
+        },
+        {
+         "name": "Raw Fluorescent Flux",
+         "rate_display": "20%"
+        },
+        {
+         "name": "Raw Violet Flux",
+         "rate_display": "20%"
+        },
+        {
+         "name": "Raw Crimson Flux",
+         "rate_display": "20%"
+        },
+        {
+         "name": "Raw Yellowcake Flux",
+         "rate_display": "20%"
+        }
+       ]
+      },
+      {
+       "kind": "item",
+       "name": "Honey",
+       "form_id": "004E7229",
+       "edid": "Honey",
+       "sig": "ALCH",
+       "qty": 2,
+       "rate_value": 1.0,
+       "rate_display": "100%"
+      },
+      {
+       "kind": "pool",
+       "name": "Honey Beast",
+       "sub_id": "00356BE4",
+       "edid": "LLS_Creature_HoneyBeast",
+       "item_count": 14,
+       "rate_value": 1.0,
+       "rate_display": "100%",
+       "top_items": [
+        {
+         "name": "Honeycomb",
+         "rate_display": "10%"
+        },
+        {
+         "name": "Hive Paper",
+         "rate_display": "10%"
+        },
+        {
+         "name": "Honey Beast Wing",
+         "rate_display": "10%"
+        },
+        {
+         "name": "Royal Jelly",
+         "rate_display": "10%"
+        },
+        {
+         "name": "Caps",
+         "rate_display": "1%"
+        }
+       ]
+      },
+      {
+       "kind": "pool",
+       "name": "LLE Creature Boss Component Honeybeast",
+       "sub_id": "00434387",
+       "edid": "LLE_Creature_Boss_Component_Honeybeast",
+       "item_count": 5,
+       "rate_value": 1.0,
+       "rate_display": "100%",
+       "top_items": [
+        {
+         "name": "Excess Adhesive",
+         "rate_display": "50%"
+        },
+        {
+         "name": "Gold Scrap",
+         "rate_display": "33.33%"
+        }
+       ]
+      },
+      {
+       "kind": "item",
+       "name": "Honeycomb",
+       "form_id": "004E722A",
+       "edid": "HoneyComb",
+       "sig": "ALCH",
+       "qty": 1,
+       "rate_value": 0.35,
+       "rate_display": "35%"
+      }
+     ]
+    },
+    {
+     "edid": "SSE_LLD_Creature_HoneyBeast",
+     "form_id": "007AD49F",
+     "row_count": 5,
+     "direct_items": 2,
+     "pool_count": 3,
+     "item_count": 1127,
+     "rows": [
+      {
+       "kind": "pool",
+       "name": "Ammo Loot Contextual Open World",
+       "sub_id": "006CD246",
+       "edid": "LL_Ammo_Loot_Contextual_OpenWorld",
+       "item_count": 1106,
+       "rate_value": 1.0,
+       "rate_display": "100%",
+       "top_items": [
+        {
+         "name": "Ammo Grenade Launcher",
+         "rate_display": "42.75%"
+        },
+        {
+         "name": "Ammo2mm EC",
+         "rate_display": "23.75%"
+        },
+        {
+         "name": "Ammo38Caliber",
+         "rate_display": "23.75%"
+        },
+        {
+         "name": "Ammo45Caliber",
+         "rate_display": "23.75%"
+        },
+        {
+         "name": "Ammo10mm",
+         "rate_display": "23.75%"
+        }
+       ]
+      },
+      {
+       "kind": "item",
+       "name": "Honey",
+       "form_id": "004E7229",
+       "edid": "Honey",
+       "sig": "ALCH",
+       "qty": 2,
+       "rate_value": 1.0,
+       "rate_display": "100%"
+      },
+      {
+       "kind": "pool",
+       "name": "Honey Beast",
+       "sub_id": "00356BE4",
+       "edid": "LLS_Creature_HoneyBeast",
+       "item_count": 14,
+       "rate_value": 1.0,
+       "rate_display": "100%",
+       "top_items": [
+        {
+         "name": "Honeycomb",
+         "rate_display": "10%"
+        },
+        {
+         "name": "Hive Paper",
+         "rate_display": "10%"
+        },
+        {
+         "name": "Honey Beast Wing",
+         "rate_display": "10%"
+        },
+        {
+         "name": "Royal Jelly",
+         "rate_display": "10%"
+        },
+        {
+         "name": "Caps",
+         "rate_display": "1%"
+        }
+       ]
+      },
+      {
+       "kind": "item",
+       "name": "Honeycomb",
+       "form_id": "004E722A",
+       "edid": "HoneyComb",
+       "sig": "ALCH",
+       "qty": 1,
+       "rate_value": 0.35,
+       "rate_display": "35%"
+      },
+      {
+       "kind": "pool",
+       "name": "LLE Creature Boss Component Honeybeast",
+       "sub_id": "00434387",
+       "edid": "LLE_Creature_Boss_Component_Honeybeast",
+       "item_count": 5,
+       "rate_value": 0.3,
+       "rate_display": "30%",
+       "top_items": [
+        {
+         "name": "Excess Adhesive",
+         "rate_display": "50%"
+        },
+        {
+         "name": "Gold Scrap",
+         "rate_display": "33.33%"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "inherited_only": false,
+   "empty_reason": ""
+  },
+  "random_encounters": [
+   {
+    "form_id": "00333850",
+    "edid": "RE_AssaultMJP01",
+    "name": "Yao Guai vs. Honey Beasts",
+    "type": "Assault Encounters",
+    "location": ""
+   }
+  ],
+  "fixed_spawns": {
+   "regions": [
+    {
+     "region": "Ash Heap",
+     "locations": []
+    },
+    {
+     "region": "Atlantic City",
+     "locations": []
+    },
+    {
+     "region": "Burning Springs",
+     "locations": []
+    },
+    {
+     "region": "Cranberry Bog",
+     "locations": []
+    },
+    {
+     "region": "Forest",
+     "locations": []
+    },
+    {
+     "region": "Savage Divide",
+     "locations": [
+      {
+       "marker": "Middle Mountain Pitstop",
+       "count": 2,
+       "sources": {
+        "ambush": 2
+       },
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "refs": [
+        "6906B8",
+        "6E0594"
+       ],
+       "coords": [
+        47663.4,
+        -39558.6
+       ],
+       "spawns": [
+        {
+         "label": "Honey Beast ambush #1",
+         "ref": "6906B8",
+         "source_type": "ambush",
+         "coords": [
+          47663.4,
+          -39558.6
+         ],
+         "image_top": "",
+         "directions": "",
+         "image_bottom": ""
+        },
+        {
+         "label": "Honey Beast ambush #2",
+         "ref": "6E0594",
+         "source_type": "ambush",
+         "coords": [
+          42577.6,
+          -45715.4
+         ],
+         "image_top": "",
+         "directions": "",
+         "image_bottom": ""
+        }
+       ],
+       "breakdown": [
+        {
+         "label": "ambush points",
+         "count": 2,
+         "source_type": "ambush"
+        }
+       ]
+      },
+      {
+       "marker": "The Freak Show",
+       "count": 1,
+       "sources": {
+        "ambush": 1
+       },
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "",
+       "refs": [
+        "3D02C7"
+       ],
+       "coords": [
+        84448.5,
+        -102757.9
+       ],
+       "spawns": [
+        {
+         "label": "Honey Beast ambush",
+         "ref": "3D02C7",
+         "source_type": "ambush",
+         "coords": [
+          84448.5,
+          -102757.9
+         ],
+         "image_top": "",
+         "directions": "",
+         "image_bottom": ""
+        }
+       ],
+       "breakdown": [
+        {
+         "label": "ambush point",
+         "count": 1,
+         "source_type": "ambush"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "region": "Skyline Valley",
+     "locations": []
+    },
+    {
+     "region": "The Mire",
+     "locations": []
+    },
+    {
+     "region": "The Pitt",
+     "locations": []
+    },
+    {
+     "region": "Toxic Valley",
+     "locations": []
+    }
+   ],
+   "total_markers": 2,
+   "total_placements": 3
+  },
+  "chance_spawns": {
+   "locations": [
+    {
+     "marker": "Camp Liberty",
+     "region": "Skyline Valley",
+     "chance_value": null,
+     "chance_display": "possible",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 1
+    },
+    {
+     "marker": "Freddy Fear's House of Scares",
+     "region": "The Mire",
+     "chance_value": null,
+     "chance_display": "possible",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 2
+    },
+    {
+     "marker": "Middle Mountain Pitstop",
+     "region": "Savage Divide",
+     "chance_value": null,
+     "chance_display": "possible",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 3
+    },
+    {
+     "marker": "Old Crimora Mines",
+     "region": "Skyline Valley",
+     "chance_value": 0.1114,
+     "chance_display": "11.1%",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 4
+    },
+    {
+     "marker": "Seneca Rocks Visitor Center",
+     "region": "Savage Divide",
+     "chance_value": 0.5,
+     "chance_display": "50%",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 1
+    },
+    {
+     "marker": "South River Bridge",
+     "region": "Skyline Valley",
+     "chance_value": null,
+     "chance_display": "possible",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 2
+    },
+    {
+     "marker": "Susan's Cabin",
+     "region": "Skyline Valley",
+     "chance_value": null,
+     "chance_display": "possible",
+     "variants": [
+      "Beezlebaby",
+      "Beezlebub, Giant Bee of Yore"
+     ],
+     "count": 7
+    },
+    {
+     "marker": "The Freak Show",
+     "region": "Savage Divide",
+     "chance_value": 0.0857,
+     "chance_display": "8.6%",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 9
+    },
+    {
+     "marker": "The Whitespring Golf Club",
+     "region": "Savage Divide",
+     "chance_value": 0.125,
+     "chance_display": "12.5%",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 2
+    },
+    {
+     "marker": "The Whitespring North Entrance",
+     "region": "Savage Divide",
+     "chance_value": 0.125,
+     "chance_display": "12.5%",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 3
+    },
+    {
+     "marker": "Treetops",
+     "region": "The Mire",
+     "chance_value": 0.3333,
+     "chance_display": "33.3%",
+     "variants": [
+      "Honey Beast"
+     ],
+     "count": 3
+    }
+   ],
+   "total": 11,
+   "note": null
+  },
+  "_meta": {
+   "source_totals": {
+    "ambush": 3
+   },
+   "unresolved": {},
+   "placements": 3
+  },
+  "intro": "Honey Beasts are giant mutated bees found across Appalachia. They drop Honeycomb (35% chance), which is why they share this page. During the Big Bloom public event they appear as Beezlebaby and Beezlebub."
+ }
 }

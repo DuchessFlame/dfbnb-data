@@ -3548,12 +3548,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Plan Checklist",
               "url": "/df/plan-checklists/weapon/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -5460,6 +5460,46 @@
           "has_subs": false
         },
         {
+          "form_id": "0093742C",
+          "edid": "SCORE_Challenge_Daily_Photomode_BloodEagle_PowerArmor_Epic",
+          "full": "Epic - Take a Photomode Picture of a Power Armored Blood Eagle",
+          "snam": "Photos Taken",
+          "required": 1,
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "10000000|1.000000|HasKeyword|00 00 00|00 00|PowerArmoredBloodEagle [KYWD:00690C76]|00 00 00 00|0|1|Target List|"
+          ],
+          "conditions_human": [
+            "10000000|1.000000|HasKeyword|00 00 00|00 00|PowerArmoredBloodEagle [KYWD:00690C76]|00 00 00 00|0|1|Target List|"
+          ],
+          "conditions_display": [
+            "Target List.HasKeyword(PowerArmoredBloodEagle [KYWD:00690C76]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [
+            "S.C.O.R.E."
+          ],
+          "reward_unknown": false,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": true,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "Challenge_Lifetime_Picture_Creatures_SUB_Tick_Camera.json",
+          "group": "Daily",
+          "has_subs": false
+        },
+        {
           "form_id": "0060E6D6",
           "edid": "SCORE_Challenge_Daily_RankGated_XP_Post100",
           "full": "Above Rank 100: Gain XP",
@@ -6040,6 +6080,49 @@
           "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Build_Plant_Crops.json",
+          "group": "Daily",
+          "has_subs": false
+        },
+        {
+          "form_id": "0093742B",
+          "edid": "SCORE_Challenge_Daily_CAMPS_Build_Traps",
+          "full": "Build a Trap in a Workshop or C.A.M.P.",
+          "snam": "Workshop Objects Crafted",
+          "required": 5,
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "category": "Sub Challenge (Unsorted)",
+          "reward_icon": "",
+          "required_count_global": "",
+          "required_from_glob": false,
+          "prerequisite": "",
+          "conditions": [
+            "00000000|1.000000|IsPlayerInShelter|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|CHAL_IsTargetWorkshopRecipeInCategory|00 00 00|00 00|Workshop2_SubCategory_Defense_Traps \"Traps\" [KYWD:008229F7]|00 00 00 00|0|-1|Subject|"
+          ],
+          "conditions_human": [
+            "00000000|1.000000|IsPlayerInShelter|00 00 00|00 00|00 00 00 00|00 00 00 00|0|-1|Subject|",
+            "10000000|1.000000|CHAL_IsTargetWorkshopRecipeInCategory|00 00 00|00 00|Workshop2_SubCategory_Defense_Traps \"Traps\" [KYWD:008229F7]|00 00 00 00|0|-1|Subject|"
+          ],
+          "conditions_display": [
+            ".IsPlayerInShelter() = 1",
+            ".CHAL_IsTargetWorkshopRecipeInCategory(Traps [KYWD:008229F7]) = 1"
+          ],
+          "condition_items": [],
+          "condition_keywords": [],
+          "rewards": [
+            "S.C.O.R.E."
+          ],
+          "reward_unknown": false,
+          "is_cut": false,
+          "is_meta": false,
+          "is_sub": false,
+          "is_epic": false,
+          "is_new": true,
+          "children": [],
+          "guides": [],
+          "image_url": "",
+          "jasf": "SCORE_Challenge_Daily_CAMPS_Build_Traps.json",
           "group": "Daily",
           "has_subs": false
         },
@@ -11706,12 +11789,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radtoad Meat Guide",
-              "url": "/bnb/farming/meat/radtoad/radtoad/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Cryptids.json",
           "group": "Daily",
@@ -15704,7 +15782,7 @@
         {
           "form_id": "008D272D",
           "edid": "SCORE_Challenge_Daily_Kill_Human_Sharp",
-          "full": "Kill a Human Enemy with a Sharp Weapon",
+          "full": "Kill a Human Enemy with a Sharp or Piercing Weapon",
           "snam": "Total Enemies Killed",
           "required": 6,
           "scope": "Daily",
@@ -15716,15 +15794,18 @@
           "prerequisite": "",
           "conditions": [
             "10000000|1.000000|GetIsRace|00 00 00|00 00|HumanRace \"Human\" [RACE:00013746]|00 00 00 00|0|-1|Target|",
-            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|"
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypePiercing [KYWD:0033AB14]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_human": [
             "10000000|1.000000|GetIsRace|00 00 00|00 00|HumanRace \"Human\" [RACE:00013746]|00 00 00 00|0|-1|Target|",
-            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|"
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypePiercing [KYWD:0033AB14]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_display": [
             "Target.GetIsRace(Human [RACE:00013746]) = 1",
-            ".CHAL_DoesTargetWeaponHaveKeyword(Sharp [KYWD:0033AB19]) = 1"
+            ".CHAL_DoesTargetWeaponHaveKeyword(Sharp [KYWD:0033AB19]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(WeaponTypePiercing [KYWD:0033AB14]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -15909,12 +15990,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_QuestComplete_Event.json",
           "group": "Daily",
@@ -17271,7 +17347,7 @@
         {
           "form_id": "0092B317",
           "edid": "SCORE_Challenge_Daily_Kill_Human_Sharp_GruntHunt",
-          "full": "Kill an Enemy with a Sharp Weapon during a Grunt Hunt",
+          "full": "Kill an Enemy with a Sharp or Piercing Weapon during a Grunt Hunt",
           "snam": "Total Enemies Killed",
           "required": 5,
           "scope": "Daily",
@@ -17283,15 +17359,18 @@
           "prerequisite": "",
           "conditions": [
             "10000000|1.000000|939|00 00 00|00 00|5F 31 84 00|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|"
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypePiercing [KYWD:0033AB14]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_human": [
             "10000000|1.000000|939|00 00 00|00 00|5F 31 84 00|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|"
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypePiercing [KYWD:0033AB14]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_display": [
             ".IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1",
-            ".CHAL_DoesTargetWeaponHaveKeyword(Sharp [KYWD:0033AB19]) = 1"
+            ".CHAL_DoesTargetWeaponHaveKeyword(Sharp [KYWD:0033AB19]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(WeaponTypePiercing [KYWD:0033AB14]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -21896,12 +21975,7 @@
           "is_epic": false,
           "is_new": true,
           "children": [],
-          "guides": [
-            {
-              "title": "Bigfoot",
-              "url": "/df/cryptids/bigfoot/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Daily",
@@ -28847,12 +28921,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing Challenge Checklist",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Tadpole Badge Vendors - Forest",
               "url": "/df/vendors/tadpole/forest/"
+            },
+            {
+              "title": "Fishing Challenge Checklist",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -28954,12 +29028,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing Challenge Checklist",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Treasury Notes Vendors - The Mire",
               "url": "/df/vendors/treasury-notes/mire/"
+            },
+            {
+              "title": "Fishing Challenge Checklist",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -38383,12 +38457,12 @@
           ],
           "guides": [
             {
-              "title": "Treasure Map Locations",
-              "url": "/df/treasure-maps/locations/"
-            },
-            {
               "title": "Burning Springs Challenge Checklist",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Treasure Map Locations",
+              "url": "/df/treasure-maps/locations/"
             }
           ],
           "image_url": "",
@@ -39986,12 +40060,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Burning Springs Challenge Checklist",
-              "url": "/df/challenges/springs/"
-            },
-            {
               "title": "Pistol",
               "url": "/bnb/builds/pistol/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
             }
           ],
           "image_url": "",
@@ -41245,12 +41319,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Blue Devil",
-                  "url": "/df/cryptids/blue-devil/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillBlueDevils_SUB.json",
               "group": "Lifetime - Burning Springs",
@@ -45245,12 +45314,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Plan Checklist",
               "url": "/df/plan-checklists/weapon/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -52487,12 +52556,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radtoad Meat Guide",
-              "url": "/bnb/farming/meat/radtoad/radtoad/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Cryptids.json",
           "group": "Weekly",
@@ -56106,12 +56170,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_QuestComplete_Event.json",
           "group": "Weekly",
@@ -57127,7 +57186,7 @@
         {
           "form_id": "0092B318",
           "edid": "SCORE_Challenge_Weekly_Kill_Human_Sharp_HeadHunt",
-          "full": "Kill an Enemy with a Sharp Weapon during a Head Hunt",
+          "full": "Kill an Enemy with a Sharp or Piercing Weapon during a Head Hunt",
           "snam": "Total Enemies Killed",
           "required": 18,
           "scope": "Weekly",
@@ -57139,15 +57198,18 @@
           "prerequisite": "",
           "conditions": [
             "10000000|1.000000|939|00 00 00|00 00|65 31 84 00|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|"
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypePiercing [KYWD:0033AB14]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_human": [
             "10000000|1.000000|939|00 00 00|00 00|65 31 84 00|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|"
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypeBladed \"Sharp\" [KYWD:0033AB19]|00 00 00 00|0|-1|Subject|",
+            "10010000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WeaponTypePiercing [KYWD:0033AB14]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_display": [
             ".IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
-            ".CHAL_DoesTargetWeaponHaveKeyword(Sharp [KYWD:0033AB19]) = 1"
+            ".CHAL_DoesTargetWeaponHaveKeyword(Sharp [KYWD:0033AB19]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(WeaponTypePiercing [KYWD:0033AB14]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -60502,12 +60564,7 @@
           "is_epic": false,
           "is_new": true,
           "children": [],
-          "guides": [
-            {
-              "title": "Bigfoot",
-              "url": "/df/cryptids/bigfoot/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Weekly",
@@ -62233,12 +62290,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -68587,12 +68639,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -69169,12 +69216,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Radtoad Meat Guide",
-                  "url": "/bnb/farming/meat/radtoad/radtoad/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "SCORE_Challenge_Weekly_Kill_Robots_SUB_Eyebots_Med.json",
               "group": "Event",
@@ -69648,12 +69690,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radrat Meat Guide",
-              "url": "/bnb/farming/meat/radrat/radrat/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -69738,12 +69775,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -69830,12 +69862,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Bigfoot",
-              "url": "/df/cryptids/bigfoot/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -71852,12 +71879,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Curve Tables",
               "url": "/bnb/curve-tables/weapons/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -74769,12 +74796,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Radtoad Meat Guide",
-                  "url": "/bnb/farming/meat/radtoad/radtoad/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Kill_Animals_SUB_Radtoad.json",
               "group": "Lifetime",
@@ -75059,12 +75081,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Radtoad Meat Guide",
-                  "url": "/bnb/farming/meat/radtoad/radtoad/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Kill_Aquatic_SUB_RadToad.json",
               "group": "Lifetime",
@@ -75106,12 +75123,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Frog Meat Guide",
-                  "url": "/bnb/farming/meat/frog/frog/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Kill_Aquatic_SUB_FrogCritter.json",
               "group": "Lifetime",
@@ -76260,12 +76272,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Opossum Meat Guide",
-                  "url": "/bnb/farming/meat/opossum/opossum/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Kill_Critters_SUB_Opossum.json",
               "group": "Lifetime",
@@ -76391,12 +76398,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Frog Meat Guide",
-                  "url": "/bnb/farming/meat/frog/frog/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Kill_Critters_SUB_Frog.json",
               "group": "Lifetime",
@@ -76513,7 +76515,12 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Megasloth",
+                  "url": "/df/cryptids/megasloth/"
+                }
+              ],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Kill_Cryptids_SUB_Megasloth.json",
               "group": "Lifetime",
@@ -77911,7 +77918,12 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Megasloth",
+                  "url": "/df/cryptids/megasloth/"
+                }
+              ],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Kill_Bosses_SUB_MegaSloth.json",
               "group": "Lifetime",
@@ -79616,12 +79628,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Curve Tables",
               "url": "/bnb/curve-tables/weapons/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -99108,7 +99120,12 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Megasloth",
+              "url": "/df/cryptids/megasloth/"
+            }
+          ],
           "image_url": "",
           "jasf": "Challenge_Lifetime_Picture_Glowing_SUB_Megasloth_Camera.json",
           "group": "Lifetime",
@@ -99426,12 +99443,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radrat Meat Guide",
-              "url": "/bnb/farming/meat/radrat/radrat/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Lifetime_Picture_Glowing_SUB_RadRat_Camera.json",
           "group": "Lifetime",
@@ -99592,12 +99604,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radtoad Meat Guide",
-              "url": "/bnb/farming/meat/radtoad/radtoad/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Lifetime_Picture_Glowing_SUB_RadToad_Camera.json",
           "group": "Lifetime",
@@ -100279,12 +100286,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radtoad Meat Guide",
-              "url": "/bnb/farming/meat/radtoad/radtoad/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Lifetime_Picture_Albino_SUB_Radtoad_Camera.json",
           "group": "Lifetime",
@@ -101068,12 +101070,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Frog Meat Guide",
-                  "url": "/bnb/farming/meat/frog/frog/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Picture_Creatures_SUB_Frog_Camera.json",
               "group": "Lifetime",
@@ -101310,7 +101307,12 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [],
+              "guides": [
+                {
+                  "title": "Megasloth",
+                  "url": "/df/cryptids/megasloth/"
+                }
+              ],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Picture_Creatures_SUB_Megasloth_Camera.json",
               "group": "Lifetime",
@@ -101661,12 +101663,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Opossum Meat Guide",
-                  "url": "/bnb/farming/meat/opossum/opossum/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Picture_Creatures_SUB_Opossum_Camera.json",
               "group": "Lifetime",
@@ -101825,12 +101822,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Radrat Meat Guide",
-                  "url": "/bnb/farming/meat/radrat/radrat/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Picture_Creatures_SUB_RadRat_Camera.json",
               "group": "Lifetime",
@@ -101986,12 +101978,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Radtoad Meat Guide",
-                  "url": "/bnb/farming/meat/radtoad/radtoad/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Picture_Creatures_SUB_RadToad_Camera.json",
               "group": "Lifetime",
@@ -106847,12 +106834,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Frog Meat Guide",
-                  "url": "/bnb/farming/meat/frog/frog/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Herpetologist_Sub_BuildWorkshopFrogHabitat.json",
               "group": "Lifetime",
@@ -106966,12 +106948,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Frog Meat Guide",
-                  "url": "/bnb/farming/meat/frog/frog/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Herpetologist_Sub_TakePictureOfFrog.json",
               "group": "Lifetime",
@@ -107208,12 +107185,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Radtoad Meat Guide",
-                  "url": "/bnb/farming/meat/radtoad/radtoad/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Herpetologist_Sub_TakePictureOfRadtoad.json",
               "group": "Lifetime",
@@ -108111,12 +108083,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Opossum Meat Guide",
-                  "url": "/bnb/farming/meat/opossum/opossum/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Tadpole_Mammalogist_Sub_TakePictureOfOpossum.json",
               "group": "Lifetime",
@@ -123487,12 +123454,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Frog Meat Guide",
-              "url": "/bnb/farming/meat/frog/frog/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "POST_Challenge_Weekly_Build_Workshop_CAMP_Taxidermy_SUB_RadFrog_Vaults.json",
           "group": "Weekly",
@@ -124056,12 +124018,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Opossum Meat Guide",
-              "url": "/bnb/farming/meat/opossum/opossum/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "POST_Challenge_Weekly_Build_Workshop_CAMP_Taxidermy_SUB_Opossum_Vaults.json",
           "group": "Weekly",
@@ -124104,12 +124061,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Owlet Meat Guide",
-              "url": "/bnb/farming/meat/owlet/owlet/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "POST_Challenge_Weekly_Build_Workshop_CAMP_Taxidermy_SUB_Owlet_Vaults.json",
           "group": "Weekly",
@@ -124281,12 +124233,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radtoad Meat Guide",
-              "url": "/bnb/farming/meat/radtoad/radtoad/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "POST_Challenge_Weekly_Build_Workshop_CAMP_Taxidermy_SUB_Radtoad_Vaults.json",
           "group": "Weekly",
@@ -164388,16 +164335,16 @@
           "children": [],
           "guides": [
             {
+              "title": "Ogua",
+              "url": "/df/cryptids/ogua/"
+            },
+            {
               "title": "Burning Springs Challenge Checklist",
               "url": "/df/challenges/springs/"
             },
             {
               "title": "Melee",
               "url": "/bnb/builds/melee/"
-            },
-            {
-              "title": "Ogua",
-              "url": "/df/cryptids/ogua/"
             }
           ],
           "image_url": "",
@@ -166329,7 +166276,12 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Megasloth",
+              "url": "/df/cryptids/megasloth/"
+            }
+          ],
           "image_url": "",
           "jasf": "Challenge_Daily_Kill_Megasloth_in_CranberryBog_Camera.json",
           "group": "Daily",
@@ -167287,7 +167239,12 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Megasloth",
+              "url": "/df/cryptids/megasloth/"
+            }
+          ],
           "image_url": "",
           "jasf": "Challenge_Weekly_Kill_Scorched_SUB_Megasloth.json",
           "group": "Weekly",
@@ -168508,12 +168465,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Opossum Meat Guide",
-              "url": "/bnb/farming/meat/opossum/opossum/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Weekly_Kill_Critters_with_FarmTools_SUB_Opossums_Hatchet.json",
           "group": "Weekly",
@@ -173723,12 +173675,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Weapon Curve Tables",
-              "url": "/bnb/curve-tables/weapons/"
-            },
-            {
               "title": "Melee",
               "url": "/bnb/builds/melee/"
+            },
+            {
+              "title": "Weapon Curve Tables",
+              "url": "/bnb/curve-tables/weapons/"
             }
           ],
           "image_url": "",
@@ -175767,12 +175719,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Melee",
-              "url": "/bnb/builds/melee/"
-            },
-            {
               "title": "Weapon Curve Tables",
               "url": "/bnb/curve-tables/weapons/"
+            },
+            {
+              "title": "Melee",
+              "url": "/bnb/builds/melee/"
             }
           ],
           "image_url": "",
@@ -179514,12 +179466,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "POST_Challenge_Lifetime_Lifestyle_Devil_META.json",
           "group": "Lifetime",
@@ -200214,12 +200161,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Bigfoot",
-              "url": "/df/cryptids/bigfoot/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Weekly_Collect_Skeleton_SUB_Foot.json",
           "group": "Weekly",
@@ -201119,12 +201061,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing Challenge Checklist",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Survival Challenge Checklist",
               "url": "/df/challenges/survival/"
+            },
+            {
+              "title": "Fishing Challenge Checklist",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -204469,12 +204411,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Frog Meat Guide",
-              "url": "/bnb/farming/meat/frog/frog/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_Critters_SUB_Frog_Camera.json",
           "group": "Weekly",
@@ -204520,12 +204457,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Frog Meat Guide",
-              "url": "/bnb/farming/meat/frog/frog/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_ToxicValley_Creatures_SUB_Frog_Camera.json",
           "group": "Weekly",
@@ -204565,12 +204497,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Frog Meat Guide",
-              "url": "/bnb/farming/meat/frog/frog/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_Critters_SUB_Frog_Low_Camera.json",
           "group": "Weekly",
@@ -205502,7 +205429,12 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Megasloth",
+              "url": "/df/cryptids/megasloth/"
+            }
+          ],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_MireSwamp_Creatures_SUB_Megasloth_Camera.json",
           "group": "Weekly",
@@ -205542,7 +205474,12 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Megasloth",
+              "url": "/df/cryptids/megasloth/"
+            }
+          ],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_Cryptids_SUB_Megasloth_Camera.json",
           "group": "Weekly",
@@ -205585,7 +205522,12 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Megasloth",
+              "url": "/df/cryptids/megasloth/"
+            }
+          ],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_CranberryBog_Creatures_SUB_Megasloth_Camera.json",
           "group": "Weekly",
@@ -206524,12 +206466,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Opossum Meat Guide",
-              "url": "/bnb/farming/meat/opossum/opossum/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_Critters_SUB_Opossum_Low_Camera.json",
           "group": "Weekly",
@@ -206569,12 +206506,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Opossum Meat Guide",
-              "url": "/bnb/farming/meat/opossum/opossum/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_Critters_SUB_Opossum_Camera.json",
           "group": "Weekly",
@@ -208015,12 +207947,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Daily_Picture_Player_at_Devils_Backbone_Camera.json",
           "group": "Daily",
@@ -209791,12 +209718,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radtoad Meat Guide",
-              "url": "/bnb/farming/meat/radtoad/radtoad/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_CranberryBog_Creatures_SUB_Toad_Camera.json",
           "group": "Weekly",
@@ -209839,12 +209761,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radtoad Meat Guide",
-              "url": "/bnb/farming/meat/radtoad/radtoad/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_MireSwamp_Creatures_SUB_Toad_Camera.json",
           "group": "Weekly",
@@ -210429,7 +210346,12 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [],
+          "guides": [
+            {
+              "title": "Megasloth",
+              "url": "/df/cryptids/megasloth/"
+            }
+          ],
           "image_url": "",
           "jasf": "Challenge_Weekly_Picture_Scorched_SUB_Megasloth_Camera.json",
           "group": "Weekly",
@@ -213830,12 +213752,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Owlet Meat Guide",
-              "url": "/bnb/farming/meat/owlet/owlet/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "POST_Challenge_Weekly_Picture_Critters_SUB_Owlet_Camera.json",
           "group": "Weekly",
@@ -213873,12 +213790,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Owlet Meat Guide",
-              "url": "/bnb/farming/meat/owlet/owlet/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "POST_Challenge_Lifetime_Picture_Creatures_SUB_Owlet_Camera.json",
           "group": "Lifetime",
@@ -233399,12 +233311,7 @@
               "is_epic": false,
               "is_new": false,
               "children": [],
-              "guides": [
-                {
-                  "title": "Radrat Meat Guide",
-                  "url": "/bnb/farming/meat/radrat/radrat/"
-                }
-              ],
+              "guides": [],
               "image_url": "",
               "jasf": "SCORE_Challenge_Weekly_Kill_Robots_SUB_Eyebots_Med.json",
               "group": "Weekly",
@@ -233904,12 +233811,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radrat Meat Guide",
-              "url": "/bnb/farming/meat/radrat/radrat/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Weekly_Kill_Robots_SUB_Eyebots_Med.json",
           "group": "Weekly",
@@ -236619,12 +236521,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Radrat Meat Guide",
-              "url": "/bnb/farming/meat/radrat/radrat/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -236709,12 +236606,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -237669,12 +237561,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -238817,12 +238704,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Blue Devil",
-              "url": "/df/cryptids/blue-devil/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -241429,12 +241311,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing Challenge Checklist",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Tadpole Badge Vendors - Forest",
               "url": "/df/vendors/tadpole/forest/"
+            },
+            {
+              "title": "Fishing Challenge Checklist",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -242872,12 +242754,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Burning Springs Challenge Checklist",
-              "url": "/df/challenges/springs/"
-            },
-            {
               "title": "Pistol",
               "url": "/bnb/builds/pistol/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
             }
           ],
           "image_url": "",
@@ -243253,12 +243135,7 @@
           "is_epic": false,
           "is_new": false,
           "children": [],
-          "guides": [
-            {
-              "title": "Bigfoot",
-              "url": "/df/cryptids/bigfoot/"
-            }
-          ],
+          "guides": [],
           "image_url": "",
           "jasf": "SCORE_Challenge_Daily_Kill_Scorched.json",
           "group": "Event",
@@ -244361,7 +244238,7 @@
       "has_meta": false
     },
     "daily": {
-      "count": 507,
+      "count": 509,
       "has_meta": false
     },
     "magazines": {
