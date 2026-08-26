@@ -62,15 +62,14 @@ def _filename_date_key(path):
     return tsv_source.export_key(path)
 
 def newest(pattern, exclude_substrings=None):
-    full_pattern = str(TSV_DIR / pattern)
-    files = glob.glob(full_pattern)
-    if exclude_substrings:
-        files = [f for f in files
-                 if not any(s in os.path.basename(f) for s in exclude_substrings)]
-    if not files:
+    # Delegate to tsv_source. The old basename tie-break handed same-date ties to
+    # the companion, so a bare "ALCH_Export_*.tsv" resolved to ..._Effects.tsv —
+    # no FULL column, no Keywords_Flat, one row per magic effect.
+    hit = tsv_source.newest(str(TSV_DIR / pattern),
+                            exclude=exclude_substrings, required=False)
+    if not hit:
         raise FileNotFoundError(f"No files matching {pattern} in {TSV_DIR}")
-    files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
-    return files[-1]
+    return hit
 
 def read_tsv(path):
     try:

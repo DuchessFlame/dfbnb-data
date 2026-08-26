@@ -1738,7 +1738,11 @@ SALT_PEPPER_SUGAR_SPICES = {
     # Per-item consumption expands + region-index Fixed Spawn (post-processed by
     # build_salt_pepper_spices_sugar_spawns_json.py after the used_for step).
     "multi_item": True,
-    "region_index_base": "/bnb/non-perishable/salt-pepper-spices-sugar/salt-pepper-spices-sugar-",
+    # One shape for every region-page family: {item}/location-guide/{region}/.
+    # Matches Bobbleheads and Magazines on DF. The old flat form
+    # (".../salt-pepper-spices-sugar-ash-heap/") is redirected, and the renderer
+    # still parses it so existing links keep resolving.
+    "region_index_base": "/bnb/farming/non-perishable/salt-pepper-spices-sugar/location-guide/",
     "farming_tips": {
         "spoils": False, "spoil_duration_hours": None, "base_weight": 0.25,
         "object_type": "Food", "yield_perk": None, "weight_perk": "thru_hiker",

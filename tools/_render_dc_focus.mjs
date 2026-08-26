@@ -3,7 +3,7 @@ import fs from "fs";
 const R = "/sessions/friendly-zealous-darwin/mnt/1 site-data/json/dfbnb-child/assets/df-bnb-farming-non-perishable-guide.js";
 const D = "/sessions/friendly-zealous-darwin/mnt/GitHub/dfbnb-data/dist/farming_spawns/deathclaw-egg_spawns.json";
 const jsonText = fs.readFileSync(D, "utf-8");
-const url = "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/";
+const url = "https://www.buffsnbrew.com/bnb/farming/eggs/deathclaw/deathclaw-guide/";
 const dom = new JSDOM(`<!DOCTYPE html><html><head><script src="https://x/assets/df-bnb-farming-non-perishable-guide.js"></script></head><body><div id="dfbnbGuideBody"></div></body></html>`,
   { url, runScripts: "outside-only", pretendToBeVisual: true });
 const { window } = dom;

@@ -1017,6 +1017,15 @@ jobs:
           for f in data/farming_spawns/geo_cache_*.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not seeded"; done
           test -f dist/unique_weapons/unique_weapons.json && echo "OK unique_weapons.json"     || (echo "MISSING unique_weapons/unique_weapons.json" && exit 1)
 
+      # Every internal link a builder emits must be a real page in
+      # guide_index.tsv. The file-existence checks above cannot see this: the
+      # JSON is well-formed and the page renders, only the link is dead. That
+      # is how the magazines guide pointed all ten region links at pages the
+      # index did not have, for as long as it did, with every build green.
+      # Pre-existing dead links are baselined; this fails on NEW ones only.
+      - name: Verify internal links resolve (guide_index)
+        run: python src/check_guide_links.py
+
       # --- PATCH LOG FEEDS ---
       # Built from export-vs-export diffs, so an entry only exists when a NEW TSV
       # was uploaded. The old path wrote a fresh "today · Added 0 Removed 0

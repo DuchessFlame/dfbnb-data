@@ -7,7 +7,7 @@ const DIST = "/sessions/friendly-zealous-darwin/mnt/GitHub/dfbnb-data/dist/farmi
 const jsonText = fs.readFileSync(DIST, "utf-8");
 const rendererJs = fs.readFileSync(RENDERER, "utf-8");
 
-const url = "https://www.buffsnbrew.com/bnb/farming/eggs/eggs-deathclaw/deathclaw-guide/";
+const url = "https://www.buffsnbrew.com/bnb/farming/eggs/deathclaw/deathclaw-guide/";
 const dom = new JSDOM(
   `<!DOCTYPE html><html><head>
      <script src="https://x/assets/df-bnb-farming-non-perishable-guide.js"></script>

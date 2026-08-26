@@ -1533,15 +1533,15 @@ def _inject_multi_item(slug, cfg, dist_dir, data_dir):
 
 
 def _region_slug(region):
-    """'The Mire' -> 'mire', 'Ash Heap' -> 'ash-heap', 'The Pitt' -> 'the-pitt'.
-    Matches the page slugs used in the guide index / nav for the per-region pages."""
-    r = (region or "").strip().lower()
-    # per-region page slugs: The Mire -> mire (drop leading 'the ' except The Pitt),
-    # everything else is hyphenated. Mirrors the existing salt-pepper region pages.
-    special = {"the mire": "mire", "the pitt": "the-pitt"}
-    if r in special:
-        return special[r]
-    return r.replace(" ", "-")
+    """'The Mire' -> 'the-mire', 'Ash Heap' -> 'ash-heap', 'The Pitt' -> 'the-pitt'.
+
+    Canonical hyphenated slugs, matching the DF location guides (Bobbleheads,
+    Magazines) and DF_REGION_SLUGS in df-bnb-farming-non-perishable-guide.js.
+    The old BNB pages dropped the leading 'the' for The Mire only — an
+    inconsistency with The Pitt right beside it — so 'mire' is now a legacy
+    alias the renderer still accepts rather than something we emit.
+    """
+    return (region or "").strip().lower().replace(" ", "-")
 
 
 def main(argv=None):

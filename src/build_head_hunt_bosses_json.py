@@ -31,11 +31,12 @@ OUT_FILE   = OUT_DIR / "head_hunt_bosses.json"
 
 
 def newest(pattern):
-    hits = glob.glob(str(TSV_DIR / pattern))
-    if not hits:
-        return None
-    hits.sort(key=tsv_source.export_key)
-    return Path(hits[-1])
+    # Delegate the whole selection, not just the date key. Sorting by export_key
+    # alone is stable, so same-date files keep glob order and the tie between
+    # KYWD_Export_July_2026.tsv and ..._Refs.tsv was decided by the filesystem.
+    # tsv_source ranks the base record file above its companions.
+    hit = tsv_source.newest(str(TSV_DIR / pattern), required=False)
+    return Path(hit) if hit else None
 
 
 def read_tsv(path):

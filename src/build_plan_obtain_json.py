@@ -60,9 +60,19 @@ from spawns_engine import sources as ssrc
 import build_farming_used_for as bfu
 
 # ── export selection ─────────────────────────────────────────────────────────
+import tsv_source          # one resolver for every export selection
+
+
 def newest(pat, root=None):
-    fs = glob.glob(os.path.join(root or TSV, pat))
-    return max(fs, key=os.path.getmtime) if fs else None
+    """Newest export matching *pat*, chronologically.
+
+    Was max(..., key=os.path.getmtime). In CI actions/checkout stamps every file
+    with the checkout time, so "newest by mtime" resolved to whatever the
+    filesystem felt like — a different file locally than in the build that
+    actually publishes. tsv_source reads the date out of the filename and ranks
+    base record files above their same-date companions.
+    """
+    return tsv_source.newest(os.path.join(root or TSV, pat), required=False)
 
 def read_rows(path):
     with open(path, encoding="utf-8", errors="replace") as f:

@@ -35,9 +35,15 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
 def newest(pattern):
-    """Return the newest file matching *pattern* under TSV_DIR."""
-    hits = glob.glob(str(TSV_DIR / pattern))
-    return max(hits, key=tsv_source.export_key) if hits else None
+    """Return the newest file matching *pattern* under TSV_DIR.
+
+    Delegates fully to tsv_source. max() with a date-only key returns the FIRST
+    maximal element, so a tie between OMOD_Export_July_2026.tsv and
+    ..._Properties.tsv (or ALCH ... and ..._Effects.tsv) resolved to whichever
+    the filesystem happened to yield first. tsv_source ranks base files above
+    their same-date companions.
+    """
+    return tsv_source.newest(str(TSV_DIR / pattern), required=False)
 
 
 def read_tsv(path):
