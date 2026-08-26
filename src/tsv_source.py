@@ -41,10 +41,19 @@ WHAT IT GUARANTEES
 
 TIE-BREAK
 ---------
-Among files sharing the newest date, the lexically-last wins. That is deliberate:
-it preserves whichever *variant* each caller was already getting
-(``ALCH_Export_*.tsv`` keeps selecting ``..._Effects.tsv``) so this module changes
-which **date** is read without changing which **file shape** is read.
+Among files sharing the newest date, the **base** record file wins over its
+companions. ``ALCH_Export_*.tsv`` resolves to ``ALCH_Export_August_2026.tsv``,
+not ``..._Effects.tsv``. Ask for a companion by naming it:
+``ALCH_Export_*_Effects.tsv``.
+
+This reverses the original migration rule, which kept the lexically-last file so
+that fixing the *date* would not also change the *shape*. That was the right call
+for a behaviour-neutral migration and the wrong one to leave standing: a bare
+pattern silently returned a file with a different schema. ``_Effects`` carries no
+FULL and no Keywords_Flat and repeats a record once per magic effect, so every
+caller asking for "the ALCH export" got nameless, untradeable-blind, duplicated
+rows — which is exactly how the bobblehead pages shipped 42 unnamed entries.
+See STALE-DATA-DIAGNOSIS.md §4A.
 
 USAGE
 -----
@@ -147,6 +156,31 @@ def _expand(pattern: str, channel: str):
     return os.path.join(_root(channel), pattern), True
 
 
+def _is_companion(path, hits) -> bool:
+    """True when `path` is a companion of another file in the same result set.
+
+    A companion is a same-date sibling whose name is a strict extension of a
+    shorter match: BOOK_Export_July_2026_Locations.tsv beside
+    BOOK_Export_July_2026.tsv, ALCH..._Effects beside ALCH..., NPC..._Refs
+    beside NPC..., OMOD..._Properties beside OMOD....
+
+    Derived from the files actually present rather than a hard-coded suffix list,
+    so a new companion suffix is handled the day it first appears — the failure
+    mode here was always a NEW file quietly outranking the one callers meant.
+    """
+    base = os.path.basename(path)
+    stem = base[:-4] if base.lower().endswith(".tsv") else base
+    key = export_key(path)
+    for other in hits:
+        ob = os.path.basename(other)
+        if ob == base or export_key(other) != key:
+            continue
+        ostem = ob[:-4] if ob.lower().endswith(".tsv") else ob
+        if len(ostem) < len(stem) and stem.startswith(ostem):
+            return True
+    return False
+
+
 def all_matching(pattern: str, *, channel: str = "live", exclude=None) -> list[str]:
     """Every file matching `pattern`, sorted OLDEST -> NEWEST.
 
@@ -168,7 +202,11 @@ def all_matching(pattern: str, *, channel: str = "live", exclude=None) -> list[s
         hits = [h for h in hits
                 if not any(t.lower() in os.path.basename(h).lower() for t in terms)]
 
-    return sorted(hits, key=lambda p: (export_key(p), os.path.basename(p)))
+    # newest() takes the LAST element, so the preferred file must sort last:
+    # base variants rank above their same-date companions.
+    return sorted(hits, key=lambda p: (export_key(p),
+                                       not _is_companion(p, hits),
+                                       os.path.basename(p)))
 
 
 def newest(pattern: str, *, channel: str = "live", exclude=None, required: bool = True):
@@ -425,7 +463,52 @@ _BAD = [
      "mtime sort — every file shares the checkout timestamp in CI"),
 ]
 
+# A key= that is still lexical. Adding key=lambda p: p.name to a bad sort used to
+# SILENCE this lint while changing nothing — that is how build_collectables_json
+# read May 2026 for three months with the lint green. Sorting by name, str, or
+# basename is the exact bug this module exists to stop.
+_LEXICAL_KEY = re.compile(
+    r"key\s*=\s*(?:lambda\s+\w+\s*:\s*)?"
+    r"(?:\w+\.name\b|str\b|os\.path\.basename|\w+\.stem\b)"
+)
+
+# sorted()/max()/min() over a list of export paths.
+_PICK = re.compile(r"\b(?:sorted|max|min)\s*\(\s*([A-Za-z_]\w*)\b")
+
+# name = ...glob('..._Export...')  /  name = [p for p in other if ...]
+_GLOB_ASSIGN = re.compile(
+    r"^\s*([A-Za-z_]\w*)\s*=\s*.*\.glob\(\s*[\"'][^\"']*"
+    r"(?:_Export|_Placements|_EXPORT)[^\"']*[\"']"
+)
+_DERIVED_ASSIGN = re.compile(
+    r"^\s*([A-Za-z_]\w*)\s*=\s*[\[\(].*\bfor\s+\w+\s+in\s+([A-Za-z_]\w*)\b"
+)
+
 _LINT_SKIP = {"tsv_source.py", "normalize_pts_tsv.py"}
+
+
+def _export_list_vars(lines):
+    """Variables in this file that hold a list of export paths.
+
+    Selection is often split across statements — the glob lands in a variable on
+    one line and the sort that picks from it is forty lines further down. The old
+    two-line window could not see that far, so the whole shape was invisible.
+    Derived lists (filtering _Locations out of a BOOK glob, say) stay tainted.
+    """
+    tainted = set()
+    for _ in range(3):          # let derivations chain a few levels
+        before = len(tainted)
+        for line in lines:
+            m = _GLOB_ASSIGN.match(line)
+            if m:
+                tainted.add(m.group(1))
+                continue
+            m = _DERIVED_ASSIGN.match(line)
+            if m and m.group(2) in tainted:
+                tainted.add(m.group(1))
+        if len(tainted) == before:
+            break
+    return tainted
 
 
 def lint(roots=("src", "tools")) -> int:
@@ -443,20 +526,44 @@ def lint(roots=("src", "tools")) -> int:
                     lines = open(path, encoding="utf-8", errors="replace").read().split("\n")
                 except OSError:
                     continue
+                rel = os.path.relpath(path, REPO).replace("\\", "/")
+                export_vars = _export_list_vars(lines)
+
                 for i, line in enumerate(lines, 1):
+                    window = line + (" " + lines[i].strip() if i < len(lines) else "")
+                    if "tsv_source" in window:
+                        continue
+
+                    # (a) selection split across statements: the glob is in a
+                    # variable defined elsewhere in the file, and this line picks
+                    # from it. Any key= that is not a real date key is a bug.
+                    m = _PICK.search(line)
+                    if m and m.group(1) in export_vars:
+                        if "getmtime" in window:
+                            why = "mtime sort — every file shares the checkout timestamp in CI"
+                        elif _LEXICAL_KEY.search(window):
+                            why = ("lexical key= on an export list — sorting by name is "
+                                   "still 'August' before 'July'")
+                        elif not re.search(r"key\s*=", window):
+                            why = "lexical sort of an export list — 'August' sorts before 'July'"
+                        else:
+                            continue        # a real key= — assume date-aware
+                        problems.append(f"{rel}:{i}  {why}\n      {line.strip()[:100]}")
+                        continue
+
+                    # (b) the original inline shape, plus lexical key= on it
                     if "glob" not in line.lower() and "getmtime" not in line:
                         continue
-                    # a multi-line call keeps its key= on the following line
-                    window = line + (" " + lines[i].strip() if i < len(lines) else "")
                     # Only export selection is in scope. Iterating every *.tsv to
                     # convert it (build_all.py) is not picking a newest anything.
                     if not re.search(r"_Export_|_Placements_|_EXPORT_", window):
                         continue
-                    for rx, why in _BAD:
-                        if rx.search(window) and "tsv_source" not in window:
-                            rel = os.path.relpath(path, REPO).replace("\\", "/")
-                            problems.append(f"{rel}:{i}  {why}\n      {line.strip()[:100]}")
-                            break
+                    hit = next((why for rx, why in _BAD if rx.search(window)), None)
+                    if hit is None and _PICK.search(window) and _LEXICAL_KEY.search(window):
+                        hit = ("lexical key= on an export glob — sorting by name is "
+                               "still 'August' before 'July'")
+                    if hit:
+                        problems.append(f"{rel}:{i}  {hit}\n      {line.strip()[:100]}")
     if problems:
         print("tsv_source lint FAILED — export selection must go through "
               "tsv_source.newest():\n")

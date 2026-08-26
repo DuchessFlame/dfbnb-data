@@ -26,6 +26,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from html import unescape
 
+import tsv_source
 from patchlog_utils import write_patchlog_feed, _git_show_json, diff_item_lists, _write_json
 
 
@@ -1916,64 +1917,52 @@ def main():
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
 
-    # Auto-discover TSV files
-    alch_files = list(tsv_root.glob('ALCH_Export*.tsv'))
-    glob_files = list(tsv_root.glob('GLOB_Export*.tsv'))
-    book_files = list(tsv_root.glob('BOOK_Export*.tsv'))
-    misc_files = list(tsv_root.glob('MISC_Export*.tsv'))
-    gmrw_files = list(tsv_root.glob('GMRW_Export*.tsv'))
+    # Auto-discover TSV files.
+    #
+    # Selection goes through tsv_source so it is CHRONOLOGICAL, not lexical.
+    # 'August' sorts before 'July' and 'May' beats both, so the old
+    # sorted(..., key=lambda p: p.name)[-1] read May 2026 for every record type
+    # no matter what was committed. Worse for ALCH: the alphabetically-last file
+    # is ALCH_Export_May_2026_Effects.tsv, the per-effect companion, which has no
+    # FULL and no Keywords_Flat and repeats a record once per magic effect. That
+    # is why every bobblehead shipped with an empty name, tradeable=True, and a
+    # duplicated Repair entry. See STALE-DATA-DIAGNOSIS.md §4A.
+    #
+    # tsv_root is honoured as given (it carries a separator), so a PTS build
+    # pointing at tsv/pts/ still resolves within its own channel.
+    def _pick(pattern, *, exclude=None, required=True, label=None):
+        hit = tsv_source.newest(str(tsv_root / pattern), exclude=exclude, required=required)
+        if hit is None:
+            return None
+        p = Path(hit)
+        print(f"  Using {label or pattern}: {p.name}", file=sys.stderr)
+        return p
 
-    # KYWD_Export_*_Refs.tsv (normalized refs from split xEdit KYWD export)
-    kywd_refs_files = list(tsv_root.glob('KYWD_Export*_Refs.tsv'))
+    try:
+        # ALCH: exclude the _Effects companion — it is a different schema.
+        alch_path      = _pick('ALCH_Export*.tsv', exclude='_Effects', label='ALCH')
+        glob_path      = _pick('GLOB_Export*.tsv', label='GLOB')
+        book_path      = _pick('BOOK_Export*.tsv', exclude='_Locations', label='BOOK')
+        misc_path      = _pick('MISC_Export*.tsv', label='MISC')
+        gmrw_path      = _pick('GMRW_Export*.tsv', label='GMRW')
+        # KYWD_Export_*_Refs.tsv (normalized refs from split xEdit KYWD export)
+        kywd_refs_path = _pick('KYWD_Export*_Refs.tsv', label='KYWD Refs')
+    except tsv_source.NoExportFound as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        if 'KYWD' in str(e):
+            print("  Run the ExportKYWDToTSV.pas xEdit script to generate the split KYWD files.",
+                  file=sys.stderr)
+        sys.exit(1)
 
-    # KEYM_Export*.tsv (key records — dedicated key record type)
-    keym_files = [p for p in tsv_root.glob('KEYM_Export*.tsv')
-                  if not p.name.endswith('_Locations.tsv')]
+    # KEYM_Export*.tsv (key records — dedicated key record type). Optional.
+    keym_path = _pick('KEYM_Export*.tsv', exclude='_Locations', required=False, label='KEYM')
+    if keym_path is None:
+        print("WARNING: No KEYM_Export*.tsv files found — keys will only come from MISC",
+              file=sys.stderr)
 
-    if not alch_files:
-        print("ERROR: No ALCH_Export*.tsv files found", file=sys.stderr)
-        sys.exit(1)
-    if not glob_files:
-        print("ERROR: No GLOB_Export*.tsv files found", file=sys.stderr)
-        sys.exit(1)
-    if not book_files:
-        print("ERROR: No BOOK_Export*.tsv files found", file=sys.stderr)
-        sys.exit(1)
-    if not kywd_refs_files:
-        print("ERROR: No KYWD_Export*_Refs.tsv files found", file=sys.stderr)
-        print("  Run the ExportKYWDToTSV.pas xEdit script to generate the split KYWD files.", file=sys.stderr)
-        sys.exit(1)
-    if not misc_files:
-        print("ERROR: No MISC_Export*.tsv files found", file=sys.stderr)
-        sys.exit(1)
-    if not gmrw_files:
-        print("ERROR: No GMRW_Export*.tsv files found", file=sys.stderr)
-        sys.exit(1)
-    if not keym_files:
-        print("WARNING: No KEYM_Export*.tsv files found — keys will only come from MISC", file=sys.stderr)
-
-    # Locations TSV (companion file from updated BOOK export script)
-    # Pattern: BOOK_Export_*_Locations.tsv
-    loc_files = list(tsv_root.glob('BOOK_Export*_Locations.tsv'))
-
-    # KEYM Locations TSV
-    keym_loc_files = list(tsv_root.glob('KEYM_Export*_Locations.tsv'))
-
-    # When multiple exports exist, pick the latest by filename (sorted descending)
-    alch_path = sorted(alch_files, key=lambda p: p.name)[-1]
-    glob_path = sorted(glob_files, key=lambda p: p.name)[-1]
-    # Exclude *_Locations.tsv from main BOOK file selection
-    book_files_main = [p for p in book_files if not p.name.endswith('_Locations.tsv')]
-    book_path = sorted(book_files_main, key=lambda p: p.name)[-1]
-    misc_path = sorted(misc_files, key=lambda p: p.name)[-1]
-    gmrw_path = sorted(gmrw_files, key=lambda p: p.name)[-1]
-    kywd_refs_path = sorted(kywd_refs_files, key=lambda p: p.name)[-1]
-    keym_path = sorted(keym_files, key=lambda p: p.name)[-1] if keym_files else None
-    print(f"  Using ALCH: {alch_path.name}", file=sys.stderr)
-    print(f"  Using KYWD Refs: {kywd_refs_path.name}", file=sys.stderr)
-    print(f"  Using MISC: {misc_path.name}", file=sys.stderr)
-    if keym_path:
-        print(f"  Using KEYM: {keym_path.name}", file=sys.stderr)
+    # Companion locations files (optional).
+    loc_path      = _pick('BOOK_Export*_Locations.tsv', required=False, label='BOOK Locations')
+    keym_loc_path = _pick('KEYM_Export*_Locations.tsv', required=False, label='KEYM Locations')
 
     print("Loading seasons...")
     seasons = seasons_map(args.seasons)
@@ -1994,8 +1983,7 @@ def main():
         keym_rows = read_tsv_rows(keym_path)
         print(f"  Loaded {len(keym_rows)} KEYM rows")
 
-        if keym_loc_files:
-            keym_loc_path = sorted(keym_loc_files, key=lambda p: p.name)[-1]
+        if keym_loc_path:
             print(f"Loading KEYM locations from {keym_loc_path.name}...")
             keym_locations = load_keym_locations(keym_loc_path)
             print(f"  Loaded {len(keym_locations)} KEYM location entries")
@@ -2023,8 +2011,7 @@ def main():
     # Build notes (streams BOOK file)
     # Load locations TSV if available
     book_locations = {}
-    if loc_files:
-        loc_path = sorted(loc_files, key=lambda p: p.name)[-1]
+    if loc_path:
         print(f"Loading locations from {loc_path.name}...")
         book_locations = load_book_locations(loc_path)
         print(f"  Loaded {len(book_locations)} location entries")
