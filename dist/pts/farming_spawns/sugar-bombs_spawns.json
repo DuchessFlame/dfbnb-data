@@ -5,7 +5,7 @@
   "lists_in_closure": 380,
   "source_totals": {
    "container": 11866,
-   "direct": 1788,
+   "direct": 1799,
    "loot-list": 1654,
    "nest": 20,
    "npc": 2909,
@@ -42,6 +42,11 @@
      "rate_display": "38.75%"
     },
     {
+     "name": "Safe",
+     "rate": 0.3875371231874023,
+     "rate_display": "38.75%"
+    },
+    {
      "name": "Security Office Safe",
      "rate": 0.3875371231874023,
      "rate_display": "38.75%"
@@ -54,11 +59,6 @@
     {
      "name": "Underdweller Dropbox",
      "rate": 0.3875371231874023,
-     "rate_display": "38.75%"
-    },
-    {
-     "name": "Safe",
-     "rate": 0.3875371231874022,
      "rate_display": "38.75%"
     },
     {
@@ -193,7 +193,7 @@
     },
     {
      "name": "Ash Pile",
-     "rate": 0.0011904761904761901,
+     "rate": 0.0011904761904761862,
      "rate_display": "0.12%"
     },
     {
@@ -16331,9 +16331,9 @@
     },
     {
      "marker": "Fort Steuben",
-     "count": 9,
+     "count": 10,
      "sources": {
-      "direct": 2,
+      "direct": 3,
       "npc": 7
      },
      "image_top": "",
@@ -16357,6 +16357,7 @@
       "83B6A0",
       "83B6A1",
       "83B6A4",
+      "8479CC",
       "84C20F"
      ],
      "coords": [
@@ -16371,6 +16372,18 @@
        "coords": [
         -218760.3,
         30280.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "8479CC",
+       "source_type": "direct",
+       "coords": [
+        -208163.0,
+        33113.1
        ],
        "image_top": "",
        "directions": "",
@@ -16689,9 +16702,9 @@
     },
     {
      "marker": "Highway Town Interior",
-     "count": 3,
+     "count": 5,
      "sources": {
-      "direct": 2,
+      "direct": 4,
       "vendor": 1
      },
      "image_top": "",
@@ -16730,6 +16743,7 @@
       "822634",
       "822721",
       "82275B",
+      "827EA6",
       "827EA7",
       "827EB1",
       "82DE7F",
@@ -16742,13 +16756,26 @@
       "8408CB",
       "845A70",
       "845CA2",
-      "856B7E"
+      "856B7E",
+      "85896A"
      ],
      "coords": [
       -1670.1,
       14439.3
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "827EA6",
+       "source_type": "direct",
+       "coords": [
+        -1418.5,
+        14158.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "83100A",
@@ -16768,6 +16795,18 @@
        "coords": [
         -2429.5,
         14279.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "85896A",
+       "source_type": "direct",
+       "coords": [
+        -1755.7,
+        14290.4
        ],
        "image_top": "",
        "directions": "",
@@ -19391,9 +19430,9 @@
     },
     {
      "marker": "World of Corn",
-     "count": 14,
+     "count": 15,
      "sources": {
-      "direct": 3,
+      "direct": 4,
       "npc": 11
      },
      "image_top": "",
@@ -19410,6 +19449,7 @@
       "81620E",
       "81621A",
       "8184ED",
+      "8184F7",
       "8184F8",
       "827B0B",
       "827B0C",
@@ -19447,6 +19487,18 @@
       54655.1
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "8184F7",
+       "source_type": "direct",
+       "coords": [
+        -237624.6,
+        51389.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "82E3D1",
@@ -33160,9 +33212,9 @@
     },
     {
      "marker": "Eta Psi House",
-     "count": 1,
+     "count": 2,
      "sources": {
-      "direct": 1
+      "direct": 2
      },
      "image_top": "",
      "directions": "",
@@ -33177,7 +33229,8 @@
       "479046",
       "47F3EA",
       "47F3FA",
-      "4821CB"
+      "4821CB",
+      "483159"
      ],
      "coords": [
       737.2,
@@ -33191,6 +33244,18 @@
        "coords": [
         743.4,
         998.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "483159",
+       "source_type": "direct",
+       "coords": [
+        735.4,
+        660.9
        ],
        "image_top": "",
        "directions": "",
@@ -36101,8 +36166,9 @@
     },
     {
      "marker": "Hornwright Summer Villa",
-     "count": 1,
+     "count": 3,
      "sources": {
+      "direct": 2,
       "npc": 1
      },
      "image_top": "",
@@ -36126,6 +36192,8 @@
       "316AEC",
       "357FA9",
       "3D0860",
+      "3D0876",
+      "3D0877",
       "4F6C13"
      ],
      "coords": [
@@ -36133,6 +36201,30 @@
       -52069.3
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "3D0876",
+       "source_type": "direct",
+       "coords": [
+        -46629.0,
+        -51946.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "3D0877",
+       "source_type": "direct",
+       "coords": [
+        -46632.1,
+        -51954.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "357FA9",
@@ -46753,9 +46845,9 @@
     },
     {
      "marker": "Vault 51",
-     "count": 30,
+     "count": 31,
      "sources": {
-      "direct": 3,
+      "direct": 4,
       "npc": 27
      },
      "image_top": "",
@@ -46770,6 +46862,7 @@
       "3E9BE4",
       "3F0281",
       "3F0282",
+      "3F02AF",
       "60A7B3",
       "60A8BE",
       "60A9E6",
@@ -46865,6 +46958,18 @@
       807.9
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "3F02AF",
+       "source_type": "direct",
+       "coords": [
+        -126415.1,
+        203021.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "612E91",
@@ -69351,15 +69456,16 @@
     },
     {
      "marker": "Naked Creek",
-     "count": 6,
+     "count": 7,
      "sources": {
-      "direct": 2,
+      "direct": 3,
       "npc": 4
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "7338A4",
       "735750",
       "73B14A",
       "73EC0A",
@@ -69380,6 +69486,18 @@
       -231147.7
      ],
      "spawns": [
+      {
+       "label": "",
+       "ref": "7338A4",
+       "source_type": "direct",
+       "coords": [
+        -26604.7,
+        -234373.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
       {
        "label": "",
        "ref": "75D8CA",
@@ -70777,9 +70895,9 @@
     },
     {
      "marker": "Slumber Mill Motel",
-     "count": 7,
+     "count": 8,
      "sources": {
-      "direct": 1,
+      "direct": 2,
       "npc": 6
      },
      "image_top": "",
@@ -70829,6 +70947,7 @@
       "7678DB",
       "767922",
       "7679CB",
+      "767A02",
       "767A03",
       "767A09",
       "7686EE",
@@ -70852,6 +70971,18 @@
        "coords": [
         20690.1,
         -248407.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "767A02",
+       "source_type": "direct",
+       "coords": [
+        24233.6,
+        -259015.4
        ],
        "image_top": "",
        "directions": "",
@@ -70933,9 +71064,9 @@
     },
     {
      "marker": "South River Bridge",
-     "count": 9,
+     "count": 10,
      "sources": {
-      "direct": 3,
+      "direct": 4,
       "npc": 6
      },
      "image_top": "",
@@ -70965,6 +71096,7 @@
       "769BE9",
       "769BEA",
       "769BEB",
+      "77445D",
       "77446F",
       "78508A",
       "78DCDC",
@@ -71006,6 +71138,18 @@
        "coords": [
         47507.3,
         -252063.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "77445D",
+       "source_type": "direct",
+       "coords": [
+        41553.6,
+        -260652.0
        ],
        "image_top": "",
        "directions": "",
@@ -85510,5 +85654,5 @@
    ]
   }
  ],
- "total": 4789
+ "total": 4800
 }
