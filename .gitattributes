@@ -4,3 +4,16 @@
 *.tsv  eol=lf
 *.yml  eol=lf
 *.py   eol=lf
+
+# dist/ is generated build output, so a three-way text merge of it is meaningless —
+# when a local build and the dfbnb-patch-build bot both touch the same file, git
+# used to throw dozens of conflicts (43 on 2026-08-24). The "ours" driver resolves
+# those to the local copy instead. Rebuild dist/ after merging to pick up the
+# bot's data; the tsv/ and src/ inputs it builds from still merge normally.
+#
+# NOTE: this only fires when BOTH sides changed the same file. If only the bot
+# changed it, git still takes the bot's version untouched — nothing is lost.
+#
+# Requires a matching local config (per clone, not carried in this file):
+#   git config merge.ours.driver true
+dist/** merge=ours

@@ -163,6 +163,14 @@ REGION_FAMILIES = {
 WORLDSPACE = 2480661
 
 def load_mappalachia():
+  # sqlite3.connect() silently CREATES an empty file when the path is missing, which
+  # on non-Windows turns the hardcoded r"D:\Mappalachia\..." default into a junk
+  # repo-root file plus a confusing "no such table: Region" later. The only caller
+  # already gates on os.path.isfile(), so this just makes a misuse fail loudly.
+  if not os.path.isfile(MAPPALACHIA_DB):
+    raise SystemExit(
+      f"[npc_spawns] Mappalachia DB not found at {MAPPALACHIA_DB}. "
+      f"Set MAPPALACHIA_DB, or run in cache mode (the caller falls back to {GEO_CACHE}).")
   con = sqlite3.connect(MAPPALACHIA_DB); cur = con.cursor()
   fam_ids = defaultdict(list)
   for fid, eid in cur.execute("SELECT regionFormID, regionEditorID FROM Region"):
