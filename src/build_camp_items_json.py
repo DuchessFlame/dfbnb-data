@@ -34,6 +34,19 @@ import tsv_source          # one resolver for every export selection
 # Populated once in main() from the TSV root; resolve_drops_via_rng76() reads it.
 _RNG_RESOLVER = None
 
+# AVIF EDID (upper) -> FULL name. The AVIF FULL is the in-game label for what a
+# station actually produces ("Junk", "Ore", "Party Supplies", "Holiday Cheer").
+# Populated in main() from AVIF_Export_*.tsv; read by build_station_item.
+_AVIF_FULL_BY_EDID = {}
+
+
+def resource_name_for_reso(reso_row):
+    """The produced-resource label for one RESO row, via its ActorValue -> AVIF FULL."""
+    avif_edid = extract_avif_edid(clean_str(reso_row.get("NAM1_ActorValue") or ""))
+    if not avif_edid:
+        return ""
+    return _AVIF_FULL_BY_EDID.get(avif_edid.strip().upper(), "")
+
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
 EXCLUDE_PATTERNS = re.compile(r"repair|repairbot", re.IGNORECASE)
 
@@ -932,7 +945,8 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
         mode_name = detect_mode_name(re_edid) if len(reso_rows) > 1 else "Default"
         lvli_fid = extract_lvli_formid(clean_str(reso_row.get("NAM2_Produce") or ""))
         drops = consolidate_drops(resolve_drops_via_rng76(_RNG_RESOLVER, lvli_fid)) if lvli_fid else []
-        modes.append({"name": mode_name, "resoFormId": re_fid, "lvliFormId": lvli_fid or "", "drops": drops})
+        modes.append({"name": mode_name, "resoFormId": re_fid, "lvliFormId": lvli_fid or "",
+                      "resourceName": resource_name_for_reso(reso_row), "drops": drops})
     interval_hours, interval_str = None, None
     nam4 = clean_str(primary_reso.get("NAM4_Interval") or "")
     if nam4:
@@ -973,6 +987,13 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
                 seen_drop_fids.add(d["formId"])
                 flat_drops.append(d)
     flat_drops.sort(key=lambda d: -d.get("chance", 0))
+    # What the station produces, as the game labels it (AVIF FULL). Prefer the
+    # primary RESO; multi-mode stations whose every RESO carries a mode suffix
+    # (Fasnacht Party/Treats) fall back to the first mode that resolved a name.
+    resource_edid = (extract_avif_edid(clean_str(primary_reso.get("NAM1_ActorValue") or "")) or "")
+    resource_name = resource_name_for_reso(primary_reso)
+    if not resource_name:
+        resource_name = next((m.get("resourceName") for m in modes if m.get("resourceName")), "")
     season_num = obtain.get("seasonNumber")
     item = {
         "formId": entm_fid or primary_fid, "edid": entm_edid,
@@ -986,6 +1007,7 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
         "isCollectron": is_collectron,
         "production": {
             "intervalHours": interval_hours, "intervalDisplay": interval_str,
+            "resourceName": resource_name, "resourceEdid": resource_edid,
             "drops": flat_drops, "modes": modes,
         },
         "station": cont_props,
@@ -1015,6 +1037,7 @@ def main():
     ap.add_argument("--entm", action="append"); ap.add_argument("--cobj", action="append")
     ap.add_argument("--book", action="append"); ap.add_argument("--lvli-list", action="append")
     ap.add_argument("--lvli-entries", action="append"); ap.add_argument("--glob", action="append")
+    ap.add_argument("--avif", action="append")
     ap.add_argument("--outdir", required=True)
     args = ap.parse_args()
     root = args.tsv_root
@@ -1027,6 +1050,17 @@ def main():
     lvli_list_rows = load_latest_tsv(root, args.lvli_list, "**/*LVLI*List*.tsv")
     lvli_entry_rows = load_latest_tsv(root, args.lvli_entries, "**/*LVLI*Entries*.tsv")
     glob_rows = load_latest_tsv(root, args.glob, "**/GLOB_Export_*.tsv")
+    avif_rows = load_latest_tsv(root, args.avif, "**/AVIF_Export_*.tsv")
+    # AVIF FULL is the produced-resource label shown on the item head pill.
+    global _AVIF_FULL_BY_EDID
+    _AVIF_FULL_BY_EDID = {}
+    for r in avif_rows:
+        ae = clean_str(r.get("EDID") or "")
+        full = clean_str(r.get("FULL") or "")
+        if ae and full:
+            _AVIF_FULL_BY_EDID[ae.upper()] = full
+    if not avif_rows:
+        print("[WARN] Missing: AVIF (produced-resource names will be blank)", file=sys.stderr)
     for name, rows in [("RESO", reso_rows), ("CONT", cont_rows), ("ENTM", entm_rows),
                         ("COBJ", cobj_rows), ("BOOK", book_rows), ("LVLI Entries", lvli_entry_rows)]:
         if not rows: print("[WARN] Missing: {}".format(name), file=sys.stderr)
