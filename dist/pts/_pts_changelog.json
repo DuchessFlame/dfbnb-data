@@ -96,6 +96,7 @@
     "calculators/upcoming_rewards_s8.json",
     "calculators/upcoming_rewards_s9.json",
     "cap-to-junk.json",
+    "collectrons-Sally.json",
     "community.json",
     "curves/chunks/armor/armor.0.json",
     "curves/chunks/armor/armor.1.json",
@@ -281,6 +282,22 @@
     "events_rewards.json",
     "events_rewards_by_page.json",
     "farming_meat.json",
+    "farming_spawns/canned-meat-stew_spawns-Sally.json",
+    "farming_spawns/chems-buffed-out-buffout_spawns-Sally.json",
+    "farming_spawns/chems-calmex-silk_spawns-Sally.json",
+    "farming_spawns/chems-detoxing-salve_spawns-Sally.json",
+    "farming_spawns/chems-formula-b_spawns-Sally.json",
+    "farming_spawns/chems-formula-q_spawns-Sally.json",
+    "farming_spawns/chems-ghost-boy_spawns-Sally.json",
+    "farming_spawns/chems-nuclear-dons-custom-chem-blend_spawns-Sally.json",
+    "farming_spawns/chems-resuscitation-kit_spawns-Sally.json",
+    "farming_spawns/chems-scorched-fever-innoculation_spawns-Sally.json",
+    "farming_spawns/chems-super-chem_spawns-Sally.json",
+    "farming_spawns/chems-surlys-buffout_spawns-Sally.json",
+    "farming_spawns/chems-survival-syringe_spawns-Sally.json",
+    "farming_spawns/chems-the-fix_spawns-Sally.json",
+    "farming_spawns/chems-the-whoopsie_spawns-Sally.json",
+    "farming_spawns/chems-trench-med_spawns-Sally.json",
     "fish_journal.json",
     "fishing_pts.json",
     "fortune_teller.json",
@@ -311,50 +328,95 @@
     "not-available.json",
     "patch-release-dates.json",
     "pint_sized_phantoms.json",
+    "plants-Sally.json",
     "plants.json",
+    "plants/ash-rose-Sally.json",
     "plants/ash-rose.json",
+    "plants/aster-Sally.json",
     "plants/aster.json",
+    "plants/blackberries-Sally.json",
     "plants/blackberries.json",
+    "plants/blight-Sally.json",
     "plants/blight.json",
+    "plants/bloodleaf-Sally.json",
     "plants/bloodleaf.json",
+    "plants/brain-fungus-Sally.json",
     "plants/brain-fungus.json",
+    "plants/carrot-Sally.json",
     "plants/carrot.json",
+    "plants/corn-Sally.json",
     "plants/corn.json",
+    "plants/cranberries-Sally.json",
     "plants/cranberries.json",
+    "plants/diseased-cranberries-Sally.json",
     "plants/diseased-cranberries.json",
+    "plants/fever-blossom-Sally.json",
     "plants/fever-blossom.json",
+    "plants/firecap-Sally.json",
     "plants/firecap.json",
+    "plants/firecracker-berries-Sally.json",
     "plants/firecracker-berries.json",
+    "plants/ginseng-root-Sally.json",
     "plants/ginseng-root.json",
+    "plants/glowing-fungus-Sally.json",
     "plants/glowing-fungus.json",
+    "plants/glowing-resin-Sally.json",
     "plants/glowing-resin.json",
+    "plants/gourd-Sally.json",
+    "plants/gourd-blossom-Sally.json",
     "plants/gourd-blossom.json",
     "plants/gourd.json",
+    "plants/gut-shroom-Sally.json",
     "plants/gut-shroom.json",
+    "plants/kaleidopore-Sally.json",
     "plants/kaleidopore.json",
+    "plants/lure-weed-Sally.json",
     "plants/lure-weed.json",
+    "plants/mega-sloth-mushroom-Sally.json",
     "plants/mega-sloth-mushroom.json",
+    "plants/melon-Sally.json",
+    "plants/melon-blossom-Sally.json",
     "plants/melon-blossom.json",
     "plants/melon.json",
+    "plants/mutated-fern-Sally.json",
     "plants/mutated-fern.json",
+    "plants/mutfruit-Sally.json",
     "plants/mutfruit.json",
+    "plants/pitcher-plant-Sally.json",
     "plants/pitcher-plant.json",
+    "plants/prickeye-Sally.json",
     "plants/prickeye.json",
+    "plants/pumpkin-Sally.json",
     "plants/pumpkin.json",
+    "plants/razorgrain-Sally.json",
     "plants/razorgrain.json",
+    "plants/rhododendron-Sally.json",
     "plants/rhododendron.json",
+    "plants/silt-bean-Sally.json",
     "plants/silt-bean.json",
+    "plants/snaptail-reed-Sally.json",
     "plants/snaptail-reed.json",
+    "plants/soot-flower-Sally.json",
     "plants/soot-flower.json",
+    "plants/starlight-berries-Sally.json",
     "plants/starlight-berries.json",
+    "plants/strangler-bloom-Sally.json",
     "plants/strangler-bloom.json",
+    "plants/strangler-pod-Sally.json",
     "plants/strangler-pod.json",
+    "plants/tarberry-Sally.json",
     "plants/tarberry.json",
+    "plants/tato-Sally.json",
+    "plants/tato-blossom-Sally.json",
     "plants/tato-blossom.json",
     "plants/tato.json",
+    "plants/thistle-Sally.json",
     "plants/thistle.json",
+    "plants/toxic-soot-flower-Sally.json",
     "plants/toxic-soot-flower.json",
+    "plants/wild-carrot-flower-Sally.json",
     "plants/wild-carrot-flower.json",
+    "resource_producers-Sally.json",
     "score_progression.json",
     "scouts_banner_spawns/scouts_banner_spawns.json",
     "scrap-breakdown.json",
@@ -588,6 +650,9 @@
           ]
         }
       ]
+    },
+    "armour.json": {
+      "structural_change": true
     },
     "atom_shop.json": {
       "key": "name",
@@ -13714,13 +13779,6 @@
           ]
         },
         {
-          "key": "ATX_Resource_Collectron_RadstagFieldDressingStation",
-          "label": "ATX_Resource_Collectron_RadstagFieldDressingStation",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
           "key": "ATX_Resource_Collectron_RedRocket_AutoParts",
           "label": "ATX_Resource_Collectron_RedRocket_AutoParts",
           "fields": [
@@ -13730,13 +13788,6 @@
         {
           "key": "ATX_Resource_Collectron_Santa_All",
           "label": "ATX_Resource_Collectron_Santa_All",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "ATX_Resource_Collectron_TreeSapBucket",
-          "label": "ATX_Resource_Collectron_TreeSapBucket",
           "fields": [
             "releaseDate"
           ]
@@ -13785,6 +13836,48 @@
           ]
         }
       ]
+    },
+    "cryptids.json": {
+      "structural_change": true
+    },
+    "cryptids/aliens.json": {
+      "structural_change": true
+    },
+    "cryptids/angler.json": {
+      "structural_change": true
+    },
+    "cryptids/bigfoot.json": {
+      "structural_change": true
+    },
+    "cryptids/blue-devil.json": {
+      "structural_change": true
+    },
+    "cryptids/flatwoods-monster.json": {
+      "structural_change": true
+    },
+    "cryptids/grafton-monster.json": {
+      "structural_change": true
+    },
+    "cryptids/jersey-lesser-devils.json": {
+      "structural_change": true
+    },
+    "cryptids/megasloth.json": {
+      "structural_change": true
+    },
+    "cryptids/mothman.json": {
+      "structural_change": true
+    },
+    "cryptids/ogua.json": {
+      "structural_change": true
+    },
+    "cryptids/sheepsquatch.json": {
+      "structural_change": true
+    },
+    "cryptids/snallygaster.json": {
+      "structural_change": true
+    },
+    "cryptids/wendigo.json": {
+      "structural_change": true
     },
     "currency.json": {
       "structural_change": true
@@ -14056,6 +14149,9 @@
     "farming_spawns/canned-coffee_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/chems-addictol_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/chems-adrenal-reaction-serum_spawns.json": {
       "structural_change": true
     },
@@ -14137,6 +14233,9 @@
     "farming_spawns/chems-herd-mentality-serum_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/chems-high-radiation-fluids_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/chems-insect-repellent_spawns.json": {
       "structural_change": true
     },
@@ -14156,6 +14255,9 @@
       "structural_change": true
     },
     "farming_spawns/chems-overdrive_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-phantom-device_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-plague-walker-serum_spawns.json": {
@@ -14189,6 +14291,15 @@
       "structural_change": true
     },
     "farming_spawns/chems-speed-demon-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-stealth-boy-mark-iii_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-stealth-boy-w05_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-stealth-boy_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-stimpak-diffuser_spawns.json": {
@@ -14242,10 +14353,16 @@
     "farming_spawns/mothman-egg_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/perfect-bubblegum_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/purified-water_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/radscorpion-egg_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/radtoad-egg_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/royal-jelly_spawns.json": {
@@ -14271,6 +14388,12 @@
     },
     "fishing_equipment.json": {
       "structural_change": true
+    },
+    "help_menu.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": []
     },
     "home-events.json": {
       "structural_change": true
@@ -15607,22 +15730,109 @@
         }
       ]
     },
+    "legendary_mod_drop_chances.json": {
+      "structural_change": true
+    },
     "legendary_mods.json": {
+      "structural_change": true
+    },
+    "load_screens.json": {
       "structural_change": true
     },
     "meat.json": {
       "structural_change": true
     },
+    "meat/angler.json": {
+      "structural_change": true
+    },
+    "meat/brahmin.json": {
+      "structural_change": true
+    },
+    "meat/cat.json": {
+      "structural_change": true
+    },
+    "meat/chicken.json": {
+      "structural_change": true
+    },
     "meat/deathclaw.json": {
+      "structural_change": true
+    },
+    "meat/fox.json": {
+      "structural_change": true
+    },
+    "meat/frog.json": {
+      "structural_change": true
+    },
+    "meat/glowing-meat.json": {
+      "structural_change": true
+    },
+    "meat/gulper.json": {
+      "structural_change": true
+    },
+    "meat/hermit-crab.json": {
+      "structural_change": true
+    },
+    "meat/iguana.json": {
+      "structural_change": true
+    },
+    "meat/megasloth.json": {
+      "structural_change": true
+    },
+    "meat/mirelurk-queen.json": {
+      "structural_change": true
+    },
+    "meat/mirelurk.json": {
       "structural_change": true
     },
     "meat/mole-rat.json": {
       "structural_change": true
     },
+    "meat/mongrel-dog.json": {
+      "structural_change": true
+    },
+    "meat/mutant-hound.json": {
+      "structural_change": true
+    },
+    "meat/opossum.json": {
+      "structural_change": true
+    },
+    "meat/owlet.json": {
+      "structural_change": true
+    },
+    "meat/pheasant.json": {
+      "structural_change": true
+    },
+    "meat/rabbit.json": {
+      "structural_change": true
+    },
     "meat/radhog.json": {
       "structural_change": true
     },
+    "meat/radrat.json": {
+      "structural_change": true
+    },
+    "meat/radstag.json": {
+      "structural_change": true
+    },
+    "meat/radtoad.json": {
+      "structural_change": true
+    },
+    "meat/radturkey.json": {
+      "structural_change": true
+    },
     "meat/scorchbeast.json": {
+      "structural_change": true
+    },
+    "meat/sheepsquatch.json": {
+      "structural_change": true
+    },
+    "meat/squirrel.json": {
+      "structural_change": true
+    },
+    "meat/wolf.json": {
+      "structural_change": true
+    },
+    "meat/yao-guai.json": {
       "structural_change": true
     },
     "menu-items.json": {
@@ -15640,10 +15850,40 @@
     "npc_spawns.json": {
       "structural_change": true
     },
+    "nuka_cola_spawns_cherry.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_cranberry.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_dark.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_grape.json": {
+      "structural_change": true
+    },
     "nuka_cola_spawns_nuka-cola.json": {
       "structural_change": true
     },
     "nuka_cola_spawns_nukashine.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_orange.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_quantum.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_sunset-sarsaparilla.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_twist.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_vaccinated.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_wild.json": {
       "structural_change": true
     },
     "pennants.json": {
@@ -15940,6 +16180,20 @@
         {
           "key": "ATX_Resource_BuddingApothecary_Flora",
           "label": "ATX_Resource_BuddingApothecary_Flora",
+          "fields": [
+            "releaseDate"
+          ]
+        },
+        {
+          "key": "ATX_Resource_Collectron_RadstagFieldDressingStation",
+          "label": "ATX_Resource_Collectron_RadstagFieldDressingStation",
+          "fields": [
+            "releaseDate"
+          ]
+        },
+        {
+          "key": "ATX_Resource_Collectron_TreeSapBucket",
+          "label": "ATX_Resource_Collectron_TreeSapBucket",
           "fields": [
             "releaseDate"
           ]
@@ -16724,6 +16978,13 @@
           "fields": [
             "debug",
             "dropRate"
+          ]
+        },
+        {
+          "key": "SFS09_PlayerTitles_Suffix_Manager",
+          "label": "SFS09_PlayerTitles_Suffix_Manager",
+          "fields": [
+            "debug"
           ]
         },
         {
