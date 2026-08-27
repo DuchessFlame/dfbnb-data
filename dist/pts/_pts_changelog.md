@@ -692,29 +692,36 @@ _Couldn't key this file to records; contents differ._
 **Added (1)**
 - Pint-Sized Slasher Plushie  `SDOW_Plushie_SlasherDoll_Misc`
 
-## `collectrons.json`  ·  +0 / -0 / ~20
+## `collectrons.json`  ·  +0 / -0 / ~27
 
-**Changed (20)**
-- ATX_ENTM_CAMP_Utility_Collectron_BivBev  `ATX_ENTM_CAMP_Utility_Collectron_BivBev` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_Collectron_FloraTron  `ATX_ENTM_CAMP_Utility_Collectron_FloraTron` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_Collectron_FreeStates  `ATX_ENTM_CAMP_Utility_Collectron_FreeStates` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_Collectron_LumberjackCollectron  `ATX_ENTM_CAMP_Utility_Collectron_LumberjackCollectron` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_Collectron_ToxicBob  `ATX_ENTM_CAMP_Utility_Collectron_ToxicBob` — fields: releaseDate
-- ATX_EvidenceCollectionAssistantResource_Collector  `ATX_EvidenceCollectionAssistantResource_Collector` — fields: releaseDate
-- ATX_LiberatedResource_Collector  `ATX_LiberatedResource_Collector` — fields: releaseDate
-- ATX_PeppinoResource_Collector  `ATX_PeppinoResource_Collector` — fields: releaseDate
-- ATX_Resource_Collectron_BoS_MissionSupplies  `ATX_Resource_Collectron_BoS_MissionSupplies` — fields: releaseDate
-- ATX_Resource_Collectron_FETCH_Electronics  `ATX_Resource_Collectron_FETCH_Electronics` — fields: releaseDate
-- ATX_Resource_Collectron_FETCH_Electronics_Junk  `ATX_Resource_Collectron_FETCH_Electronics_Junk` — fields: releaseDate
-- ATX_Resource_Collectron_Fasnacht_Party  `ATX_Resource_Collectron_Fasnacht_Party` — fields: releaseDate
-- ATX_Resource_Collectron_RedRocket_AutoParts  `ATX_Resource_Collectron_RedRocket_AutoParts` — fields: releaseDate
-- ATX_Resource_Collectron_Santa_All  `ATX_Resource_Collectron_Santa_All` — fields: releaseDate
-- ATX_Resource_Communist_Collectron_Proletariat  `ATX_Resource_Communist_Collectron_Proletariat` — fields: releaseDate
-- ATX_Resource_Raider_Collectron  `ATX_Resource_Raider_Collectron` — fields: releaseDate
-- ATX_Resource_Scrap_CollectronAll  `ATX_Resource_Scrap_CollectronAll` — fields: releaseDate
-- ATX_SirLoinResource_Collector  `ATX_SirLoinResource_Collector` — fields: releaseDate
+**Changed (27)**
+- ATX_ENTM_CAMP_Utility_Collectron_BivBev  `ATX_ENTM_CAMP_Utility_Collectron_BivBev` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Utility_Collectron_FloraTron  `ATX_ENTM_CAMP_Utility_Collectron_FloraTron` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Utility_Collectron_FreeStates  `ATX_ENTM_CAMP_Utility_Collectron_FreeStates` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Utility_Collectron_LumberjackCollectron  `ATX_ENTM_CAMP_Utility_Collectron_LumberjackCollectron` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Utility_Collectron_ToxicBob  `ATX_ENTM_CAMP_Utility_Collectron_ToxicBob` — fields: production, releaseDate
+- ATX_EvidenceCollectionAssistantResource_Collector  `ATX_EvidenceCollectionAssistantResource_Collector` — fields: production, releaseDate
+- ATX_LiberatedResource_Collector  `ATX_LiberatedResource_Collector` — fields: production, releaseDate
+- ATX_PeppinoResource_Collector  `ATX_PeppinoResource_Collector` — fields: production, releaseDate
+- ATX_Resource_Collectron_BoS_MissionSupplies  `ATX_Resource_Collectron_BoS_MissionSupplies` — fields: production, releaseDate
+- ATX_Resource_Collectron_FETCH_Electronics  `ATX_Resource_Collectron_FETCH_Electronics` — fields: production, releaseDate
+- ATX_Resource_Collectron_FETCH_Electronics_Junk  `ATX_Resource_Collectron_FETCH_Electronics_Junk` — fields: production, releaseDate
+- ATX_Resource_Collectron_Fasnacht_Party  `ATX_Resource_Collectron_Fasnacht_Party` — fields: production, releaseDate
+- ATX_Resource_Collectron_RedRocket_AutoParts  `ATX_Resource_Collectron_RedRocket_AutoParts` — fields: production, releaseDate
+- ATX_Resource_Collectron_Santa_All  `ATX_Resource_Collectron_Santa_All` — fields: production, releaseDate
+- ATX_Resource_Communist_Collectron_Proletariat  `ATX_Resource_Communist_Collectron_Proletariat` — fields: production, releaseDate
+- ATX_Resource_Raider_Collectron  `ATX_Resource_Raider_Collectron` — fields: production, releaseDate
+- ATX_Resource_Scrap_CollectronAll  `ATX_Resource_Scrap_CollectronAll` — fields: production, releaseDate
+- ATX_SirLoinResource_Collector  `ATX_SirLoinResource_Collector` — fields: production, releaseDate
+- SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum  `SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum` — fields: production
+- SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner  `SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner` — fields: production
+- SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster  `SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster` — fields: production
+- SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler  `SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler` — fields: production
+- SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot  `SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot` — fields: production
 - SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand  `SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand` — fields: production, releaseDate
-- ScrapResourceGold  `ScrapResourceGold` — fields: releaseDate
+- SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola  `SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola` — fields: production
+- SCORE_S8_ENTM_CAMP_Utility_Collectron_Silver  `SCORE_S8_ENTM_CAMP_Utility_Collectron_Silver` — fields: production
+- ScrapResourceGold  `ScrapResourceGold` — fields: production, releaseDate
 
 ## `cryptids.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1516,50 +1523,50 @@ _Couldn't key this file to records; contents differ._
 ## `recipe_guide.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `resource_producers.json`  ·  +0 / -0 / ~117
+## `resource_producers.json`  ·  +0 / -0 / ~130
 
-**Changed (117)**
-- ATX_DirtyWaterResource  `ATX_DirtyWaterResource` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_AppleTree  `ATX_ENTM_CAMP_Collector_AppleTree` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_BarrelofToxicGoo  `ATX_ENTM_CAMP_Collector_BarrelofToxicGoo` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_BrahminRack  `ATX_ENTM_CAMP_Collector_BrahminRack` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_CounterfeitBottleCapPress  `ATX_ENTM_CAMP_Collector_CounterfeitBottleCapPress` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_Curing  `ATX_ENTM_CAMP_Collector_Curing` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_CurioCabinet  `ATX_ENTM_CAMP_Collector_CurioCabinet` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_DeathclawSlowRoaster  `ATX_ENTM_CAMP_Collector_DeathclawSlowRoaster` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_DoctorsOrdersCigaretteMachine  `ATX_ENTM_CAMP_Collector_DoctorsOrdersCigaretteMachine` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_EnclaveDataCenter  `ATX_ENTM_CAMP_Collector_EnclaveDataCenter` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_FishPile  `ATX_ENTM_CAMP_Collector_FishPile` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_GamesCupboard  `ATX_ENTM_CAMP_Collector_GamesCupboard` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_PackBrahmin  `ATX_ENTM_CAMP_Collector_PackBrahmin` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_PaintCanGenerator_WhrilWhizard  `ATX_ENTM_CAMP_Collector_PaintCanGenerator_WhrilWhizard` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_PoisonedEarthWell  `ATX_ENTM_CAMP_Collector_PoisonedEarthWell` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_PumpkinPie  `ATX_ENTM_CAMP_Collector_PumpkinPie` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation  `ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_RockerBox  `ATX_ENTM_CAMP_Collector_RockerBox` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_Shredder  `ATX_ENTM_CAMP_Collector_Shredder` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_SteamBoiler  `ATX_ENTM_CAMP_Collector_SteamBoiler` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_TeaWizard  `ATX_ENTM_CAMP_Collector_TeaWizard` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_WallmountedOven  `ATX_ENTM_CAMP_Collector_WallmountedOven` — fields: releaseDate
-- ATX_ENTM_CAMP_Furniture_Couch_NukaVictory  `ATX_ENTM_CAMP_Furniture_Couch_NukaVictory` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_BirthdayCake  `ATX_ENTM_CAMP_Utility_BirthdayCake` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_BrahminMilkMachine  `ATX_ENTM_CAMP_Utility_BrahminMilkMachine` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_PopcornMachine  `ATX_ENTM_CAMP_Utility_PopcornMachine` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_SlocumsJoe_CoffeeMachine01  `ATX_ENTM_CAMP_Utility_SlocumsJoe_CoffeeMachine01` — fields: releaseDate
+**Changed (130)**
+- ATX_DirtyWaterResource  `ATX_DirtyWaterResource` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_AppleTree  `ATX_ENTM_CAMP_Collector_AppleTree` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_BarrelofToxicGoo  `ATX_ENTM_CAMP_Collector_BarrelofToxicGoo` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_BrahminRack  `ATX_ENTM_CAMP_Collector_BrahminRack` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_CounterfeitBottleCapPress  `ATX_ENTM_CAMP_Collector_CounterfeitBottleCapPress` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_Curing  `ATX_ENTM_CAMP_Collector_Curing` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_CurioCabinet  `ATX_ENTM_CAMP_Collector_CurioCabinet` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_DeathclawSlowRoaster  `ATX_ENTM_CAMP_Collector_DeathclawSlowRoaster` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_DoctorsOrdersCigaretteMachine  `ATX_ENTM_CAMP_Collector_DoctorsOrdersCigaretteMachine` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_EnclaveDataCenter  `ATX_ENTM_CAMP_Collector_EnclaveDataCenter` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_FishPile  `ATX_ENTM_CAMP_Collector_FishPile` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_GamesCupboard  `ATX_ENTM_CAMP_Collector_GamesCupboard` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_PackBrahmin  `ATX_ENTM_CAMP_Collector_PackBrahmin` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_PaintCanGenerator_WhrilWhizard  `ATX_ENTM_CAMP_Collector_PaintCanGenerator_WhrilWhizard` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_PoisonedEarthWell  `ATX_ENTM_CAMP_Collector_PoisonedEarthWell` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_PumpkinPie  `ATX_ENTM_CAMP_Collector_PumpkinPie` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation  `ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_RockerBox  `ATX_ENTM_CAMP_Collector_RockerBox` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_Shredder  `ATX_ENTM_CAMP_Collector_Shredder` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_SteamBoiler  `ATX_ENTM_CAMP_Collector_SteamBoiler` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_TeaWizard  `ATX_ENTM_CAMP_Collector_TeaWizard` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_WallmountedOven  `ATX_ENTM_CAMP_Collector_WallmountedOven` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Furniture_Couch_NukaVictory  `ATX_ENTM_CAMP_Furniture_Couch_NukaVictory` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Utility_BirthdayCake  `ATX_ENTM_CAMP_Utility_BirthdayCake` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Utility_BrahminMilkMachine  `ATX_ENTM_CAMP_Utility_BrahminMilkMachine` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Utility_PopcornMachine  `ATX_ENTM_CAMP_Utility_PopcornMachine` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Utility_SlocumsJoe_CoffeeMachine01  `ATX_ENTM_CAMP_Utility_SlocumsJoe_CoffeeMachine01` — fields: production, releaseDate
 - ATX_ENTM_CAMP_Utility_VaultTecGelatinCake  `ATX_ENTM_CAMP_Utility_VaultTecGelatinCake` — fields: bucket, production, releaseDate
-- ATX_MorbidWell  `ATX_MorbidWell` — fields: releaseDate
-- ATX_Resource_AmmOMatic_resource_10mm  `ATX_Resource_AmmOMatic_resource_10mm` — fields: releaseDate
-- ATX_Resource_AmmOMatic_resource_308Caliber  `ATX_Resource_AmmOMatic_resource_308Caliber` — fields: releaseDate
-- ATX_Resource_AmmOMatic_resource_44  `ATX_Resource_AmmOMatic_resource_44` — fields: releaseDate
-- ATX_Resource_AmmOMatic_resource_45Caliber  `ATX_Resource_AmmOMatic_resource_45Caliber` — fields: releaseDate
-- ATX_Resource_AmmOMatic_resource_556  `ATX_Resource_AmmOMatic_resource_556` — fields: releaseDate
-- ATX_Resource_AmmOMatic_resource_ShotgunShell  `ATX_Resource_AmmOMatic_resource_ShotgunShell` — fields: releaseDate
-- ATX_Resource_Boiler_BoiledWater  `ATX_Resource_Boiler_BoiledWater` — fields: releaseDate
-- ATX_Resource_BuddingApothecary_Flora  `ATX_Resource_BuddingApothecary_Flora` — fields: releaseDate
-- ATX_Resource_Collectron_RadstagFieldDressingStation  `ATX_Resource_Collectron_RadstagFieldDressingStation` — fields: releaseDate
-- ATX_Resource_Collectron_TreeSapBucket  `ATX_Resource_Collectron_TreeSapBucket` — fields: releaseDate
-- ATX_Resource_CompanyTeaKettle_Tea  `ATX_Resource_CompanyTeaKettle_Tea` — fields: releaseDate
-- …and 77 more
+- ATX_MorbidWell  `ATX_MorbidWell` — fields: production, releaseDate
+- ATX_Resource_AmmOMatic_resource_10mm  `ATX_Resource_AmmOMatic_resource_10mm` — fields: production, releaseDate
+- ATX_Resource_AmmOMatic_resource_308Caliber  `ATX_Resource_AmmOMatic_resource_308Caliber` — fields: production, releaseDate
+- ATX_Resource_AmmOMatic_resource_44  `ATX_Resource_AmmOMatic_resource_44` — fields: production, releaseDate
+- ATX_Resource_AmmOMatic_resource_45Caliber  `ATX_Resource_AmmOMatic_resource_45Caliber` — fields: production, releaseDate
+- ATX_Resource_AmmOMatic_resource_556  `ATX_Resource_AmmOMatic_resource_556` — fields: production, releaseDate
+- ATX_Resource_AmmOMatic_resource_ShotgunShell  `ATX_Resource_AmmOMatic_resource_ShotgunShell` — fields: production, releaseDate
+- ATX_Resource_Boiler_BoiledWater  `ATX_Resource_Boiler_BoiledWater` — fields: production, releaseDate
+- ATX_Resource_BuddingApothecary_Flora  `ATX_Resource_BuddingApothecary_Flora` — fields: production, releaseDate
+- ATX_Resource_Collectron_RadstagFieldDressingStation  `ATX_Resource_Collectron_RadstagFieldDressingStation` — fields: production, releaseDate
+- ATX_Resource_Collectron_TreeSapBucket  `ATX_Resource_Collectron_TreeSapBucket` — fields: production, releaseDate
+- ATX_Resource_CompanyTeaKettle_Tea  `ATX_Resource_CompanyTeaKettle_Tea` — fields: production, releaseDate
+- …and 90 more
 
 ## `seasonal-fish.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1600,14 +1607,14 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +3 / -0 / ~32
+## `titles_player.json`  ·  +3 / -0 / ~31
 
 **Added (3)**
 - ATX_PlayerTitles_Suffix_FinalDweller  `ATX_PlayerTitles_Suffix_FinalDweller`
 - ATX_PlayerTitles_Suffix_Sprinkles  `ATX_PlayerTitles_Suffix_Sprinkles`
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (32)**
+**Changed (31)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
@@ -1621,7 +1628,6 @@ _Couldn't key this file to records; contents differ._
 - SDOW_PlayerTitles_Prefix_PintSized  `SDOW_PlayerTitles_Prefix_PintSized` — fields: debug, dropRate
 - SDOW_PlayerTitles_Suffix_Keeper  `SDOW_PlayerTitles_Suffix_Keeper` — fields: debug, dropRate
 - SDOW_PlayerTitles_Suffix_Slasher  `SDOW_PlayerTitles_Suffix_Slasher` — fields: debug, dropRate
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_AnyPet01  `WorldPets_PlayerTitles_Prefix_AnyPet01` — fields: debug, howToObtain, unlockType
 - WorldPets_PlayerTitles_Prefix_AnyPet02  `WorldPets_PlayerTitles_Prefix_AnyPet02` — fields: debug, howToObtain, unlockType
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: debug
