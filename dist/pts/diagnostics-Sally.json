@@ -1,0 +1,2472 @@
+{
+  "generated": "2026-08-26T08:23:47+00:00",
+  "sections": {
+    "cobj_recipes": {
+      "generated": "2026-08-26T08:23:46+00:00",
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "info",
+          "code": "cobj.build.summary",
+          "message": "Extracted 5849 unique recipes from 99744 COBJ rows.",
+          "context": {
+            "unique_recipes": 5849,
+            "region_variant_items": 2,
+            "ingredient_alternates": 2,
+            "total_rows": 99744,
+            "skipped_cut": 14792,
+            "no_fvpa": 2396
+          }
+        }
+      ]
+    },
+    "menu_items": {
+      "generated": "2026-08-26T08:23:46+00:00",
+      "counts": {
+        "error": 27,
+        "warning": 69,
+        "info": 8
+      },
+      "entries": [
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Ballistic Bock' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Ballistic Bock",
+          "context": {
+            "name": "Fermentable Ballistic Bock",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Beer' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Beer",
+          "context": {
+            "name": "Fermentable Beer",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Blackwater Brew' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Blackwater Brew",
+          "context": {
+            "name": "Fermentable Blackwater Brew",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Bourbon' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Bourbon",
+          "context": {
+            "name": "Fermentable Bourbon",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Cranberry Moonshine' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Cranberry Moonshine",
+          "context": {
+            "name": "Fermentable Cranberry Moonshine",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable High Voltage Hefe' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable High Voltage Hefe",
+          "context": {
+            "name": "Fermentable High Voltage Hefe",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Hoppy Hunter IPA' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Hoppy Hunter IPA",
+          "context": {
+            "name": "Fermentable Hoppy Hunter IPA",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Lead Champagne' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Lead Champagne",
+          "context": {
+            "name": "Fermentable Lead Champagne",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Liquid Courage' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Liquid Courage",
+          "context": {
+            "name": "Fermentable Liquid Courage",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Mire Magic Moonshine' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Mire Magic Moonshine",
+          "context": {
+            "name": "Fermentable Mire Magic Moonshine",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Mountain Honey Moonshine' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Mountain Honey Moonshine",
+          "context": {
+            "name": "Fermentable Mountain Honey Moonshine",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable New River Red Ale' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable New River Red Ale",
+          "context": {
+            "name": "Fermentable New River Red Ale",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Nuka-Cola Dark' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Nuka-Cola Dark",
+          "context": {
+            "name": "Fermentable Nuka-Cola Dark",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Nukashine' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Nukashine",
+          "context": {
+            "name": "Fermentable Nukashine",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Oak Holler Lager' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Oak Holler Lager",
+          "context": {
+            "name": "Fermentable Oak Holler Lager",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Old Possum' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Old Possum",
+          "context": {
+            "name": "Fermentable Old Possum",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Pickaxe Pilsner' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Pickaxe Pilsner",
+          "context": {
+            "name": "Fermentable Pickaxe Pilsner",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Rad Ant Lager' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Rad Ant Lager",
+          "context": {
+            "name": "Fermentable Rad Ant Lager",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Rum' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Rum",
+          "context": {
+            "name": "Fermentable Rum",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Tick Blood Tequila' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Tick Blood Tequila",
+          "context": {
+            "name": "Fermentable Tick Blood Tequila",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Vodka' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Vodka",
+          "context": {
+            "name": "Fermentable Vodka",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Whiskey' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Whiskey",
+          "context": {
+            "name": "Fermentable Whiskey",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Fermentable Wine' (Alcohol) is missing limit for: new, existing",
+          "detail": "Fermentable Wine",
+          "context": {
+            "name": "Fermentable Wine",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "\"Rodgers' Reserve Beer\" (Alcohol) is missing limit for: new, existing",
+          "detail": "Rodgers' Reserve Beer",
+          "context": {
+            "name": "Rodgers' Reserve Beer",
+            "category": "Alcohol",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Survival Syringe' (Chems) is missing limit for: new, existing",
+          "detail": "Survival Syringe",
+          "context": {
+            "name": "Survival Syringe",
+            "category": "Chems",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Trench-Med' (Chems) is missing price for: xbox, ps, pc",
+          "detail": "Trench-Med",
+          "context": {
+            "name": "Trench-Med",
+            "category": "Chems",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Trench-Med' (Chems) is missing limit for: new, existing",
+          "detail": "Trench-Med",
+          "context": {
+            "name": "Trench-Med",
+            "category": "Chems",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "\"Chally's Milk\" (Condiments & Non-Perishable) is missing limit for: new, existing",
+          "detail": "Chally's Milk",
+          "context": {
+            "name": "Chally's Milk",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Cream' (Condiments & Non-Perishable) is missing limit for: new, existing",
+          "detail": "Cream",
+          "context": {
+            "name": "Cream",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Honeycomb' (Condiments & Non-Perishable) is missing limit for: new, existing",
+          "detail": "Honeycomb",
+          "context": {
+            "name": "Honeycomb",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Nuclear Wastewater' (Condiments & Non-Perishable) is missing limit for: new, existing",
+          "detail": "Nuclear Wastewater",
+          "context": {
+            "name": "Nuclear Wastewater",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Tick Blood' (Condiments & Non-Perishable) is missing limit for: new, existing",
+          "detail": "Tick Blood",
+          "context": {
+            "name": "Tick Blood",
+            "category": "Condiments & Non-Perishable",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu_items.row.duplicate",
+          "message": "Row 207: duplicate 'Fried Radroach On A Stick' - keeping first.",
+          "detail": "Fried Radroach On A Stick"
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Lucky Leaf Tea' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Lucky Leaf Tea",
+          "context": {
+            "name": "Lucky Leaf Tea",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Lucky Leaf Tea' (Dishes & Teas) is missing limit for: new, existing",
+          "detail": "Lucky Leaf Tea",
+          "context": {
+            "name": "Lucky Leaf Tea",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Restorative Venison and Tato Stew' (Dishes & Teas) is missing limit for: new, existing",
+          "detail": "Restorative Venison and Tato Stew",
+          "context": {
+            "name": "Restorative Venison and Tato Stew",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Slice of Vault-Tec Gelatin Cake' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Slice of Vault-Tec Gelatin Cake",
+          "context": {
+            "name": "Slice of Vault-Tec Gelatin Cake",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Slice of Vault-Tec Gelatin Cake' (Dishes & Teas) is missing limit for: new, existing",
+          "detail": "Slice of Vault-Tec Gelatin Cake",
+          "context": {
+            "name": "Slice of Vault-Tec Gelatin Cake",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Spicy Venison and Tato Stew' (Dishes & Teas) is missing limit for: new, existing",
+          "detail": "Spicy Venison and Tato Stew",
+          "context": {
+            "name": "Spicy Venison and Tato Stew",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Spiked Venison and Tato Stew' (Dishes & Teas) is missing limit for: new, existing",
+          "detail": "Spiked Venison and Tato Stew",
+          "context": {
+            "name": "Spiked Venison and Tato Stew",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'River Salad' (Fish) is missing limit for: new, existing",
+          "detail": "River Salad",
+          "context": {
+            "name": "River Salad",
+            "category": "Fish",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Sludge Eye' (Fish) is missing price for: xbox, ps, pc",
+          "detail": "Sludge Eye",
+          "context": {
+            "name": "Sludge Eye",
+            "category": "Fish",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Sludge Eye' (Fish) is missing limit for: new, existing",
+          "detail": "Sludge Eye",
+          "context": {
+            "name": "Sludge Eye",
+            "category": "Fish",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Spicy Eelgrass Soup' (Fish) is missing limit for: new, existing",
+          "detail": "Spicy Eelgrass Soup",
+          "context": {
+            "name": "Spicy Eelgrass Soup",
+            "category": "Fish",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu_items.row.duplicate",
+          "message": "Row 435: duplicate 'Chicken Thigh' - keeping first.",
+          "detail": "Chicken Thigh"
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Agility' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Agility",
+          "context": {
+            "name": "Glowing Bobblehead: Agility",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Agility' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Agility",
+          "context": {
+            "name": "Glowing Bobblehead: Agility",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Big Guns' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Big Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Big Guns",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Big Guns' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Big Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Big Guns",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Caps' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Caps",
+          "context": {
+            "name": "Glowing Bobblehead: Caps",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Caps' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Caps",
+          "context": {
+            "name": "Glowing Bobblehead: Caps",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Charisma' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Charisma",
+          "context": {
+            "name": "Glowing Bobblehead: Charisma",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Charisma' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Charisma",
+          "context": {
+            "name": "Glowing Bobblehead: Charisma",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Endurance' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Endurance",
+          "context": {
+            "name": "Glowing Bobblehead: Endurance",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Endurance' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Endurance",
+          "context": {
+            "name": "Glowing Bobblehead: Endurance",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Energy Weapons' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Energy Weapons",
+          "context": {
+            "name": "Glowing Bobblehead: Energy Weapons",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Energy Weapons' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Energy Weapons",
+          "context": {
+            "name": "Glowing Bobblehead: Energy Weapons",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Explosive' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Explosive",
+          "context": {
+            "name": "Glowing Bobblehead: Explosive",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Explosive' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Explosive",
+          "context": {
+            "name": "Glowing Bobblehead: Explosive",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Intelligence' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Intelligence",
+          "context": {
+            "name": "Glowing Bobblehead: Intelligence",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Intelligence' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Intelligence",
+          "context": {
+            "name": "Glowing Bobblehead: Intelligence",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Leader' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Leader",
+          "context": {
+            "name": "Glowing Bobblehead: Leader",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Leader' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Leader",
+          "context": {
+            "name": "Glowing Bobblehead: Leader",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Lock Picking' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Lock Picking",
+          "context": {
+            "name": "Glowing Bobblehead: Lock Picking",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Lock Picking' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Lock Picking",
+          "context": {
+            "name": "Glowing Bobblehead: Lock Picking",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Luck' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Luck",
+          "context": {
+            "name": "Glowing Bobblehead: Luck",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Luck' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Luck",
+          "context": {
+            "name": "Glowing Bobblehead: Luck",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Medicine' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Medicine",
+          "context": {
+            "name": "Glowing Bobblehead: Medicine",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Medicine' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Medicine",
+          "context": {
+            "name": "Glowing Bobblehead: Medicine",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Melee' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Melee",
+          "context": {
+            "name": "Glowing Bobblehead: Melee",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Melee' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Melee",
+          "context": {
+            "name": "Glowing Bobblehead: Melee",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Perception' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Perception",
+          "context": {
+            "name": "Glowing Bobblehead: Perception",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Perception' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Perception",
+          "context": {
+            "name": "Glowing Bobblehead: Perception",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Repair' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Repair",
+          "context": {
+            "name": "Glowing Bobblehead: Repair",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Repair' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Repair",
+          "context": {
+            "name": "Glowing Bobblehead: Repair",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Science' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Science",
+          "context": {
+            "name": "Glowing Bobblehead: Science",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Science' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Science",
+          "context": {
+            "name": "Glowing Bobblehead: Science",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Small Guns' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Small Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Small Guns",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Small Guns' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Small Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Small Guns",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Sneak' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Sneak",
+          "context": {
+            "name": "Glowing Bobblehead: Sneak",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Sneak' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Sneak",
+          "context": {
+            "name": "Glowing Bobblehead: Sneak",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Strength' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Strength",
+          "context": {
+            "name": "Glowing Bobblehead: Strength",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Strength' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Strength",
+          "context": {
+            "name": "Glowing Bobblehead: Strength",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Glowing Bobblehead: Unarmed' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Unarmed",
+          "context": {
+            "name": "Glowing Bobblehead: Unarmed",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Glowing Bobblehead: Unarmed' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Glowing Bobblehead: Unarmed",
+          "context": {
+            "name": "Glowing Bobblehead: Unarmed",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Mystery Bobblehead Box' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Mystery Bobblehead Box",
+          "context": {
+            "name": "Mystery Bobblehead Box",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu_items.row.duplicate",
+          "message": "Row 618: duplicate 'Mystery Bobblehead Box' - keeping first.",
+          "detail": "Mystery Bobblehead Box"
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Mystery Magazine Package' (Magazines & Bobbleheads) is missing limit for: new, existing",
+          "detail": "Mystery Magazine Package",
+          "context": {
+            "name": "Mystery Magazine Package",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu_items.row.duplicate",
+          "message": "Row 620: duplicate 'Mystery Magazine Package' - keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
+          "severity": "info",
+          "code": "menu_items.row.duplicate",
+          "message": "Row 621: duplicate 'Mystery Magazine Package' - keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Bioluminescent Fluid' (Other) is missing limit for: new, existing",
+          "detail": "Bioluminescent Fluid",
+          "context": {
+            "name": "Bioluminescent Fluid",
+            "category": "Other",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Ghost Boy' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Ghost Boy",
+          "context": {
+            "name": "Ghost Boy",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Ghost Boy' (Other) is missing limit for: new, existing",
+          "detail": "Ghost Boy",
+          "context": {
+            "name": "Ghost Boy",
+            "category": "Other",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Lunchbox' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Lunchbox",
+          "context": {
+            "name": "Lunchbox",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Lunchbox' (Other) is missing limit for: new, existing",
+          "detail": "Lunchbox",
+          "context": {
+            "name": "Lunchbox",
+            "category": "Other",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Raw Cobalt Flux' (Other) is missing limit for: new, existing",
+          "detail": "Raw Cobalt Flux",
+          "context": {
+            "name": "Raw Cobalt Flux",
+            "category": "Other",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Raw Crimson Flux' (Other) is missing limit for: new, existing",
+          "detail": "Raw Crimson Flux",
+          "context": {
+            "name": "Raw Crimson Flux",
+            "category": "Other",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Raw Fluorescent Flux' (Other) is missing limit for: new, existing",
+          "detail": "Raw Fluorescent Flux",
+          "context": {
+            "name": "Raw Fluorescent Flux",
+            "category": "Other",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Raw Violet Flux' (Other) is missing limit for: new, existing",
+          "detail": "Raw Violet Flux",
+          "context": {
+            "name": "Raw Violet Flux",
+            "category": "Other",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu_items.row.duplicate",
+          "message": "Row 688: duplicate 'Cotton Candy Bites' - keeping first.",
+          "detail": "Cotton Candy Bites"
+        },
+        {
+          "severity": "info",
+          "code": "menu_items.row.duplicate",
+          "message": "Row 696: duplicate 'Gum Drops' - keeping first.",
+          "detail": "Gum Drops"
+        },
+        {
+          "severity": "error",
+          "code": "menu_items.missing_price",
+          "message": "'Volatile Nuka Quantum' (Soda & Drinks) is missing price for: xbox, ps, pc",
+          "detail": "Volatile Nuka Quantum",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "menu_items.missing_limit",
+          "message": "'Volatile Nuka Quantum' (Soda & Drinks) is missing limit for: new, existing",
+          "detail": "Volatile Nuka Quantum",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks",
+            "missing_fields": [
+              "limit_new",
+              "limit_existing"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "menu_items.build.summary",
+          "message": "Wrote 748 menu items.",
+          "context": {
+            "total": 748,
+            "categories": {
+              "Alcohol": 59,
+              "Canned": 26,
+              "Chems": 45,
+              "Condiments & Non-Perishable": 22,
+              "Dishes & Teas": 196,
+              "Fish": 65,
+              "Ingredients": 108,
+              "Magazines & Bobbleheads": 138,
+              "Other": 15,
+              "Pre War Food": 38,
+              "Serums": 19,
+              "Soda & Drinks": 17
+            },
+            "source": {
+              "no_cobj": 444,
+              "cobj": 304
+            }
+          }
+        }
+      ]
+    },
+    "bnb_menu_sync": {
+      "generated": "2026-08-26T08:23:46+00:00",
+      "counts": {
+        "error": 34,
+        "warning": 1,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Pint-Sized Phantom Pack' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=SDOW_SlasherFanReward, form_id=0092B343",
+          "context": {
+            "name": "Pint-Sized Phantom Pack",
+            "category": "Other",
+            "edid": "SDOW_SlasherFanReward",
+            "form_id": "0092B343"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Trench-Med' (Chems)",
+          "detail": "Trench-Med",
+          "context": {
+            "name": "Trench-Med",
+            "category": "Chems"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Lucky Leaf Tea' (Dishes & Teas)",
+          "detail": "Lucky Leaf Tea",
+          "context": {
+            "name": "Lucky Leaf Tea",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Slice of Vault-Tec Gelatin Cake' (Dishes & Teas)",
+          "detail": "Slice of Vault-Tec Gelatin Cake",
+          "context": {
+            "name": "Slice of Vault-Tec Gelatin Cake",
+            "category": "Dishes & Teas"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Sludge Eye' (Fish)",
+          "detail": "Sludge Eye",
+          "context": {
+            "name": "Sludge Eye",
+            "category": "Fish"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Chicken Thigh' (Ingredients)",
+          "detail": "Chicken Thigh",
+          "context": {
+            "name": "Chicken Thigh",
+            "category": "Ingredients"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Agility' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Agility",
+          "context": {
+            "name": "Glowing Bobblehead: Agility",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Big Guns' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Big Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Big Guns",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Caps' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Caps",
+          "context": {
+            "name": "Glowing Bobblehead: Caps",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Charisma' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Charisma",
+          "context": {
+            "name": "Glowing Bobblehead: Charisma",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Endurance' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Endurance",
+          "context": {
+            "name": "Glowing Bobblehead: Endurance",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Energy Weapons' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Energy Weapons",
+          "context": {
+            "name": "Glowing Bobblehead: Energy Weapons",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Explosive' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Explosive",
+          "context": {
+            "name": "Glowing Bobblehead: Explosive",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Intelligence' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Intelligence",
+          "context": {
+            "name": "Glowing Bobblehead: Intelligence",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Leader' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Leader",
+          "context": {
+            "name": "Glowing Bobblehead: Leader",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Lock Picking' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Lock Picking",
+          "context": {
+            "name": "Glowing Bobblehead: Lock Picking",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Luck' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Luck",
+          "context": {
+            "name": "Glowing Bobblehead: Luck",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Medicine' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Medicine",
+          "context": {
+            "name": "Glowing Bobblehead: Medicine",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Melee' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Melee",
+          "context": {
+            "name": "Glowing Bobblehead: Melee",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Perception' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Perception",
+          "context": {
+            "name": "Glowing Bobblehead: Perception",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Repair' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Repair",
+          "context": {
+            "name": "Glowing Bobblehead: Repair",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Science' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Science",
+          "context": {
+            "name": "Glowing Bobblehead: Science",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Small Guns' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Small Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Small Guns",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Sneak' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Sneak",
+          "context": {
+            "name": "Glowing Bobblehead: Sneak",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Strength' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Strength",
+          "context": {
+            "name": "Glowing Bobblehead: Strength",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Glowing Bobblehead: Unarmed' (Magazines & Bobbleheads)",
+          "detail": "Glowing Bobblehead: Unarmed",
+          "context": {
+            "name": "Glowing Bobblehead: Unarmed",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Mystery Bobblehead Box' (Magazines & Bobbleheads)",
+          "detail": "Mystery Bobblehead Box",
+          "context": {
+            "name": "Mystery Bobblehead Box",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Mystery Magazine Package' (Magazines & Bobbleheads)",
+          "detail": "Mystery Magazine Package",
+          "context": {
+            "name": "Mystery Magazine Package",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Mystery Magazine Package' (Magazines & Bobbleheads)",
+          "detail": "Mystery Magazine Package",
+          "context": {
+            "name": "Mystery Magazine Package",
+            "category": "Magazines & Bobbleheads"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Ghost Boy' (Other)",
+          "detail": "Ghost Boy",
+          "context": {
+            "name": "Ghost Boy",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Lunchbox' (Other)",
+          "detail": "Lunchbox",
+          "context": {
+            "name": "Lunchbox",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Pint-Sized Phantom Pack' (Other)",
+          "detail": "Pint-Sized Phantom Pack",
+          "context": {
+            "name": "Pint-Sized Phantom Pack",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Cotton Candy Bites' (Pre War Food)",
+          "detail": "Cotton Candy Bites",
+          "context": {
+            "name": "Cotton Candy Bites",
+            "category": "Pre War Food"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Gum Drops' (Pre War Food)",
+          "detail": "Gum Drops",
+          "context": {
+            "name": "Gum Drops",
+            "category": "Pre War Food"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Volatile Nuka Quantum' (Soda & Drinks)",
+          "detail": "Volatile Nuka Quantum",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks"
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu_sync.summary",
+          "message": "Sync: 756 total, 1 new, 2 updated, 34 unpriced.",
+          "context": {
+            "total": 756,
+            "new": 1,
+            "updated": 2,
+            "unpriced": 34,
+            "skipped": 224
+          }
+        }
+      ]
+    },
+    "bnb_menu": {
+      "generated": "2026-08-26T08:23:46+00:00",
+      "counts": {
+        "error": 28,
+        "warning": 0,
+        "info": 8
+      },
+      "entries": [
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Trench-Med' (Chems) is missing price for: xbox, ps, pc",
+          "detail": "Trench-Med",
+          "context": {
+            "name": "Trench-Med",
+            "category": "Chems",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 207: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "detail": "Fried Radroach On A Stick"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Lucky Leaf Tea' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Lucky Leaf Tea",
+          "context": {
+            "name": "Lucky Leaf Tea",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Slice of Vault-Tec Gelatin Cake' (Dishes & Teas) is missing price for: xbox, ps, pc",
+          "detail": "Slice of Vault-Tec Gelatin Cake",
+          "context": {
+            "name": "Slice of Vault-Tec Gelatin Cake",
+            "category": "Dishes & Teas",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Sludge Eye' (Fish) is missing price for: xbox, ps, pc",
+          "detail": "Sludge Eye",
+          "context": {
+            "name": "Sludge Eye",
+            "category": "Fish",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 435: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "detail": "Chicken Thigh"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Agility' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Agility",
+          "context": {
+            "name": "Glowing Bobblehead: Agility",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Big Guns' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Big Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Big Guns",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Caps' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Caps",
+          "context": {
+            "name": "Glowing Bobblehead: Caps",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Charisma' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Charisma",
+          "context": {
+            "name": "Glowing Bobblehead: Charisma",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Endurance' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Endurance",
+          "context": {
+            "name": "Glowing Bobblehead: Endurance",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Energy Weapons' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Energy Weapons",
+          "context": {
+            "name": "Glowing Bobblehead: Energy Weapons",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Explosive' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Explosive",
+          "context": {
+            "name": "Glowing Bobblehead: Explosive",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Intelligence' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Intelligence",
+          "context": {
+            "name": "Glowing Bobblehead: Intelligence",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Leader' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Leader",
+          "context": {
+            "name": "Glowing Bobblehead: Leader",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Lock Picking' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Lock Picking",
+          "context": {
+            "name": "Glowing Bobblehead: Lock Picking",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Luck' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Luck",
+          "context": {
+            "name": "Glowing Bobblehead: Luck",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Medicine' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Medicine",
+          "context": {
+            "name": "Glowing Bobblehead: Medicine",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Melee' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Melee",
+          "context": {
+            "name": "Glowing Bobblehead: Melee",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Perception' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Perception",
+          "context": {
+            "name": "Glowing Bobblehead: Perception",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Repair' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Repair",
+          "context": {
+            "name": "Glowing Bobblehead: Repair",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Science' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Science",
+          "context": {
+            "name": "Glowing Bobblehead: Science",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Small Guns' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Small Guns",
+          "context": {
+            "name": "Glowing Bobblehead: Small Guns",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Sneak' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Sneak",
+          "context": {
+            "name": "Glowing Bobblehead: Sneak",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Strength' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Strength",
+          "context": {
+            "name": "Glowing Bobblehead: Strength",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Glowing Bobblehead: Unarmed' (Magazines & Bobbleheads) is missing price for: xbox, ps, pc",
+          "detail": "Glowing Bobblehead: Unarmed",
+          "context": {
+            "name": "Glowing Bobblehead: Unarmed",
+            "category": "Magazines & Bobbleheads",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 618: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Bobblehead Box"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 620: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 621: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "detail": "Mystery Magazine Package"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Ghost Boy' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Ghost Boy",
+          "context": {
+            "name": "Ghost Boy",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Lunchbox' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Lunchbox",
+          "context": {
+            "name": "Lunchbox",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Pint-Sized Phantom Pack' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Pint-Sized Phantom Pack",
+          "context": {
+            "name": "Pint-Sized Phantom Pack",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 689: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "detail": "Cotton Candy Bites"
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.row.duplicate",
+          "message": "Row 697: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "detail": "Gum Drops"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Volatile Nuka Quantum' (Soda & Drinks) is missing price for: xbox, ps, pc",
+          "detail": "Volatile Nuka Quantum",
+          "context": {
+            "name": "Volatile Nuka Quantum",
+            "category": "Soda & Drinks",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "info",
+          "code": "bnb_menu.build.summary",
+          "message": "Wrote 749 menu items across 12 categories.",
+          "context": {
+            "total": 749,
+            "categories": [
+              "Alcohol",
+              "Canned",
+              "Chems",
+              "Condiments & Non-Perishable",
+              "Dishes & Teas",
+              "Fish",
+              "Ingredients",
+              "Magazines & Bobbleheads",
+              "Other",
+              "Pre War Food",
+              "Serums",
+              "Soda & Drinks"
+            ]
+          }
+        }
+      ]
+    },
+    "bnb_item_categories": {
+      "generated": "2026-08-26T08:23:47+00:00",
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "info",
+          "code": "bnb_categories.build.summary",
+          "message": "Built 264 items across 7 categories",
+          "context": {
+            "total_items": 264,
+            "alch_records": 991,
+            "source_alch": "ALCH_Export_August_2026.tsv",
+            "source_kywd": "KYWD_Export_August_2026_Refs.tsv",
+            "stats": {
+              "food": {
+                "candidates": 604,
+                "excluded_cut": 44,
+                "excluded_no_name": 6,
+                "excluded_by_kywd": 81,
+                "excluded_raw": 406,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 67,
+                "post_included_via_suffix": 0
+              },
+              "canned": {
+                "candidates": 32,
+                "excluded_cut": 3,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 29,
+                "post_included_via_suffix": 0
+              },
+              "nuka_cola": {
+                "candidates": 160,
+                "excluded_cut": 25,
+                "excluded_no_name": 6,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 42,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 69,
+                "included": 18,
+                "post_included_via_suffix": 0
+              },
+              "chems": {
+                "candidates": 82,
+                "excluded_cut": 32,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 50,
+                "post_included_via_suffix": 0
+              },
+              "alcohol": {
+                "candidates": 80,
+                "excluded_cut": 15,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 6,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 59,
+                "post_included_via_suffix": 0
+              },
+              "serums": {
+                "candidates": 21,
+                "excluded_cut": 2,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 0,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 19,
+                "post_included_via_suffix": 0
+              },
+              "prewar_candy": {
+                "candidates": 21,
+                "excluded_cut": 0,
+                "excluded_no_name": 0,
+                "excluded_by_kywd": 0,
+                "excluded_raw": 1,
+                "excluded_missing_alch": 0,
+                "excluded_by_edid_substring": 0,
+                "included": 22,
+                "post_included_via_suffix": 2
+              }
+            }
+          }
+        }
+      ]
+    },
+    "recipe_guide": {
+      "generated": "2026-08-26T08:23:47+00:00",
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "info": 1
+      },
+      "entries": [
+        {
+          "severity": "info",
+          "code": "recipe_guide.build.summary",
+          "message": "Built recipe guide with 320 consumable recipes across 5 categories.",
+          "context": {
+            "total": 320,
+            "by_category": {
+              "food": 223,
+              "chems": 45,
+              "alcohol": 30,
+              "serums": 19,
+              "nuka_cola": 3
+            },
+            "skipped_other": 5529,
+            "skipped_cut": 0
+          }
+        }
+      ]
+    }
+  }
+}

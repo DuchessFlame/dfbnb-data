@@ -405,6 +405,33 @@ def resolve_output_qty(row: Dict[str, str], cnam_edid: str) -> int:
 
 
 # ---------------------------------------------------------------------------
+# Source-file recency ranking
+# ---------------------------------------------------------------------------
+# Month tokens that appear in the monthly COBJ export filenames
+# (e.g. COBJ_Export_July_2026.tsv). Used to rank exports chronologically so the
+# NEWEST export wins when two exports describe the same recipe with the same
+# number of ingredients. This matters because older exports use a legacy FVPA
+# format (pretty component names, no CURV table reference) whose ingredient
+# counts are the raw curve X-input rather than the resolved in-game quantity —
+# keeping a legacy entry over a newer one silently DOUBLES cooked-food
+# ingredient counts and leaks pretty ingredient keys the front-end can't map.
+_MONTH_TOKEN = {
+    "Jan": 1, "Feb": 2, "March": 3, "Apr": 4, "April": 4,
+    "May": 5, "June": 6, "July": 7, "Aug": 8, "Sept": 9,
+    "Oct": 10, "Nov": 11, "Dec": 12,
+}
+
+
+def _source_file_rank(fname: str) -> Tuple[int, int]:
+    """(year, month) rank parsed from a COBJ export filename; (0, 0) if none.
+    Higher tuples are newer, so ``a > b`` means ``a`` is the more recent export."""
+    m = re.search(r"_([A-Za-z]+)_(\d{4})", fname or "")
+    if not m:
+        return (0, 0)
+    return (int(m.group(2)), _MONTH_TOKEN.get(m.group(1), 0))
+
+
+# ---------------------------------------------------------------------------
 # Recipe extraction
 # ---------------------------------------------------------------------------
 
@@ -494,8 +521,25 @@ def build_recipes(
                     "source_file": os.path.basename(source_file),
                 }
             else:
-                # Prefer the entry with the most ingredients (most-specific recipe)
-                if len(ingredients) > len(recipes[display_name]):
+                # Prefer the entry with the most ingredients (most-specific
+                # recipe). On an EQUAL ingredient count, prefer the entry from
+                # the NEWER export. Older COBJ TSV exports use a legacy FVPA
+                # format (pretty component names, no CURV table reference) whose
+                # counts are the raw curve X-input, not the CURV-resolved
+                # in-game quantity. Because exports are processed oldest->newest
+                # and the original rule only replaced on *strictly more*
+                # ingredients, the legacy entry won every tie — silently
+                # DOUBLING cooked-food ingredient counts (e.g. Chicken Noodle
+                # Soup showing Wood/Boiled Water/Chicken Thigh = 2 instead of 1)
+                # and leaking pretty ingredient keys. The newest export carries
+                # the resolved counts + raw component EDIDs, so it must win ties.
+                _stored_rank = _source_file_rank(
+                    meta.get(display_name, {}).get("source_file", ""))
+                _cur_rank = _source_file_rank(os.path.basename(source_file))
+                if (len(ingredients) > len(recipes[display_name])) or (
+                    len(ingredients) == len(recipes[display_name])
+                    and _cur_rank > _stored_rank
+                ):
                     recipes[display_name] = ingredients
                     meta[display_name] = {
                         "edid": clean_str(edid),
@@ -591,18 +635,9 @@ def build_recipes(
     # "Static Sawgill" instead of FormID-backed EDIDs), alternates are
     # detected only against entries from the SINGLE most recent source
     # file. We rank source files by parsing month-year tokens from the
-    # filename so chronology — not alphabetic order — wins.
-    _MONTH_TOKEN = {
-        "Jan": 1, "Feb": 2, "March": 3, "Apr": 4, "April": 4,
-        "May": 5, "June": 6, "July": 7, "Aug": 8, "Sept": 9,
-        "Oct": 10, "Nov": 11, "Dec": 12,
-    }
-    def _source_file_rank(fname: str) -> Tuple[int, int]:
-        m = re.search(r"_([A-Za-z]+)_(\d{4})", fname)
-        if not m:
-            return (0, 0)
-        return (int(m.group(2)), _MONTH_TOKEN.get(m.group(1), 0))
-
+    # filename so chronology — not alphabetic order — wins. Ranking is done by
+    # the module-level _source_file_rank() helper (also used by the dedup
+    # tie-break above).
     latest_basename = ""
     if per_file_rows:
         latest_basename = os.path.basename(

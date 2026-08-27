@@ -1,0 +1,2103 @@
+{
+  "version": 1,
+  "generated": "2026-08-26T08:27:03.828931+00:00",
+  "isPts": false,
+  "source": {
+    "base": "dist/challenges/challenges.json",
+    "gmrwTsv": "GMRW_Export_July_2026.tsv",
+    "overlay": "src/fishing_challenges_checklist_rewards.json"
+  },
+  "page": {
+    "category": "Fishing",
+    "title": "Fishing Challenges Checklist",
+    "url": "/df/fishing/challenges-checklist/",
+    "blurb": "Track every fishing challenge in Appalachia — daily and weekly scoreboard challenges, the Big Fish daily-quest milestones, and the one-time lifetime challenges."
+  },
+  "bigFishQuest": {
+    "name": "Big Fish in a Small Pond",
+    "gameName": "Daily: Big Fish in a Small Pond",
+    "npc": "Captain Raymond",
+    "location": "Fisherman's Rest",
+    "fishRequired": 7,
+    "description": "Grab a rod and scour Appalachia's waters for fish!",
+    "formId": "007B95E1",
+    "edid": "Fishing_BigFish"
+  },
+  "groups": [
+    {
+      "key": "daily",
+      "label": "Daily",
+      "blurb": "",
+      "trackable": false,
+      "count": 19,
+      "track_ids": [],
+      "items": [
+        {
+          "form_id": "00805AA6",
+          "edid": "SCORE_Challenge_Daily_Craft_GrilledFish_Intoxicated",
+          "name": "Cook Grilled Fish while Intoxicated",
+          "required": 1,
+          "counter": "Item Crafted",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".HasMagicEffectKeyword(AlcoholEffect [KYWD:0005240A]) = 1",
+            "Target.GetIsID(Grilled Fish [ALCH:007B2B9A]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE5FF",
+          "edid": "SCORE_Challenge_Daily_Barter_Sell_GrilledFish",
+          "name": "Sell Grilled Fish to an NPC vendor",
+          "required": 1,
+          "counter": "Vendor Items Sold",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Grilled Fish [ALCH:007B2B9A]) = 1",
+            "Target.GetIsID(Canned Grilled Fish [ALCH:00804719]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE605",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_AshHeap",
+          "name": "Catch a Fish in the Ash Heap Region",
+          "required": 2,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionMTR [KYWD:0001CA8B]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "0085A403",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_BurningSprings",
+          "name": "Catch a Fish in the Burning Springs Region",
+          "required": 2,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE60F",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_CranberryBog",
+          "name": "Catch a Fish in the Cranberry Bog Region",
+          "required": 2,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionCranberryBog [KYWD:000012A1]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE60B",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_Forest",
+          "name": "Catch a Fish in the Forest Region",
+          "required": 2,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionForestFloodlands [KYWD:0001564F]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE602",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_Mire",
+          "name": "Catch a Fish in the Mire Region",
+          "required": 2,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionSwampForest [KYWD:0001CA8C]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE601",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_SavageDivide",
+          "name": "Catch a Fish in the Savage Divide Region",
+          "required": 2,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionMountain [KYWD:001789F7]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE600",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_SkylineValley",
+          "name": "Catch a Fish in the Skyline Valley Region",
+          "required": 2,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionStorm [KYWD:006923E7]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE60D",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_ToxicValley",
+          "name": "Catch a Fish in the Toxic Valley Region",
+          "required": 2,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionToxicValley [KYWD:00088AAB]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE608",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish",
+          "name": "Catch a Fish",
+          "required": 3,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE603",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_While_Intoxicated",
+          "name": "Catch a Fish while Intoxicated",
+          "required": 3,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".HasMagicEffectKeyword(AlcoholEffect [KYWD:0005240A]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE609",
+          "edid": "SCORE_Challenge_Daily_Craft_GrilledFish",
+          "name": "Cook Grilled Fish",
+          "required": 3,
+          "counter": "Item Crafted",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Grilled Fish [ALCH:007B2B9A]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE607",
+          "edid": "SCORE_Challenge_Daily_Fishing_Craft_Fishbits",
+          "name": "Craft Fish Bits",
+          "required": 5,
+          "counter": "Item Crafted",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Fish Bits [ALCH:007CE310]) = 1",
+            "Target.GetIsID(Glowing Fish Bits [ALCH:007CE311]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Linda-Lee and Chum Trough Rewards",
+              "url": "/df/fishing/linda-lee-chum-trough-rewards/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "00805AA5",
+          "edid": "SCORE_Challenge_Daily_Fishing_Consume_Regular_Fish",
+          "name": "Eat a Fish",
+          "required": 5,
+          "counter": "Items Consumed",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "00805AA3",
+          "edid": "SCORE_Challenge_Daily_Fishing_Consume_FishBit",
+          "name": "Eat a Fish Bit",
+          "required": 6,
+          "counter": "Items Consumed",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Fish Bits [ALCH:007CE310]) = 1",
+            "Target.GetIsID(Glowing Fish Bits [ALCH:007CE311]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Linda-Lee and Chum Trough Rewards",
+              "url": "/df/fishing/linda-lee-chum-trough-rewards/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE60E",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Epic",
+          "name": "Epic - Catch a Fish",
+          "required": 10,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "0085A404",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_Region_BurningSprings_Epic",
+          "name": "Epic - Catch a Fish in the Burning Springs Region",
+          "required": 10,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "00805AA7",
+          "edid": "SCORE_Challenge_Daily_Fishing_Catch_Regular_Fish_NotIntoxicated_Epic",
+          "name": "Epic - Catch a Fish while not intoxicated",
+          "required": 10,
+          "counter": "Fish Caught",
+          "type_label": "Daily",
+          "group_key": "daily",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".HasMagicEffectKeyword(AlcoholEffect [KYWD:0005240A]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        }
+      ]
+    },
+    {
+      "key": "weekly",
+      "label": "Weekly",
+      "blurb": "",
+      "trackable": false,
+      "count": 6,
+      "track_ids": [],
+      "items": [
+        {
+          "form_id": "00805AA4",
+          "edid": "SCORE_Challenge_Weekly_Fishing_Catch_Regular_Fish_InRain",
+          "name": "Catch a Fish while it is Raining",
+          "required": 2,
+          "counter": "Fish Caught",
+          "type_label": "Weekly",
+          "group_key": "weekly",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".GetCurrentCAMPWeatherHasKeyword(s_wt_StormMistyRainy [KYWD:0017698D]) = 1",
+            ".GetCurrentCAMPWeatherHasKeyword(s_wt_StormRain [KYWD:004510DB]) = 1",
+            ".GetCurrentCAMPWeatherHasKeyword(s_wt_StormRainOcclusion [KYWD:00176989]) = 1",
+            ".GetCurrentCAMPWeatherHasKeyword(ATX_Weather_WeatherTypeKW_ThunderStorm [KYWD:00743E6F]) = 1",
+            ".GetCurrentWeatherHasKeyword(s_wt_StormMistyRainy [KYWD:0017698D]) = 1",
+            ".GetCurrentWeatherHasKeyword(s_wt_StormRain [KYWD:004510DB]) = 1",
+            ".GetCurrentWeatherHasKeyword(s_wt_StormRainOcclusion [KYWD:00176989]) = 1",
+            ".GetCurrentWeatherHasKeyword(ATX_Weather_WeatherTypeKW_ThunderStorm [KYWD:00743E6F]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "0085A425",
+          "edid": "SCORE_Challenge_Weekly_Fishing_Catch_Regular_Fish_Region_BurningSprings",
+          "name": "Catch a Fish in the Burning Springs Region",
+          "required": 15,
+          "counter": "Fish Caught",
+          "type_label": "Weekly",
+          "group_key": "weekly",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1",
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE5FD",
+          "edid": "SCORE_Challenge_Weekly_Fishing_Catch_Regular_Fish",
+          "name": "Catch a Fish",
+          "required": 21,
+          "counter": "Fish Caught",
+          "type_label": "Weekly",
+          "group_key": "weekly",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE613",
+          "edid": "SCORE_Challenge_Weekly_Fishing_Catch_Regular_Fish_Epic",
+          "name": "Epic - Catch a Fish",
+          "required": 32,
+          "counter": "Fish Caught",
+          "type_label": "Weekly",
+          "group_key": "weekly",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE612",
+          "edid": "SCORE_Challenge_Weekly_Fishing_Craft_Fishbits",
+          "name": "Craft Fish Bits",
+          "required": 35,
+          "counter": "Item Crafted",
+          "type_label": "Weekly",
+          "group_key": "weekly",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Fish Bits [ALCH:007CE310]) = 1",
+            "Target.GetIsID(Glowing Fish Bits [ALCH:007CE311]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Linda-Lee and Chum Trough Rewards",
+              "url": "/df/fishing/linda-lee-chum-trough-rewards/"
+            }
+          ],
+          "trackable": false
+        },
+        {
+          "form_id": "007FE5FE",
+          "edid": "SCORE_Challenge_Weekly_Fishing_Craft_Fishbits_Epic",
+          "name": "Epic - Craft Fish Bits",
+          "required": 70,
+          "counter": "Item Crafted",
+          "type_label": "Weekly",
+          "group_key": "weekly",
+          "reward": "Score",
+          "reward_source": "score",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Fish Bits [ALCH:007CE310]) = 1",
+            "Target.GetIsID(Glowing Fish Bits [ALCH:007CE311]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Linda-Lee and Chum Trough Rewards",
+              "url": "/df/fishing/linda-lee-chum-trough-rewards/"
+            }
+          ],
+          "trackable": false
+        }
+      ]
+    },
+    {
+      "key": "bigfish",
+      "label": "Big Fish in a Little Pond",
+      "blurb": "",
+      "trackable": true,
+      "count": 3,
+      "track_ids": [
+        "Challenge_Lifetime_Fishing_CompleteDailies_01",
+        "Challenge_Lifetime_Fishing_CompleteDailies_02",
+        "Challenge_Lifetime_Fishing_CompleteDailies_03"
+      ],
+      "items": [
+        {
+          "form_id": "007CF76D",
+          "edid": "Challenge_Lifetime_Fishing_CompleteDailies_01",
+          "name": "Complete Daily Fishing Quests",
+          "required": 7,
+          "counter": "Quests Completed",
+          "type_label": "Big Fish",
+          "group_key": "bigfish",
+          "reward": "Plan: Mirelurk Plushie",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/MirelurkPlushie.avif",
+          "conditions_display": [
+            "Target.IsInList(Fishing Daily [FLST:007CF77F]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Big Fish in a Small Pond - Pip Boy Daily",
+              "url": "/df/fishing/big-fish-small-pond/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF772",
+          "edid": "Challenge_Lifetime_Fishing_CompleteDailies_02",
+          "name": "Complete Daily Fishing Quests",
+          "required": 14,
+          "counter": "Quests Completed",
+          "type_label": "Big Fish",
+          "group_key": "bigfish",
+          "reward": "Plan: Angler Plushie",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/AnglerPlushie.avif",
+          "conditions_display": [
+            "Target.IsInList(Fishing Daily [FLST:00800687]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Big Fish in a Small Pond - Pip Boy Daily",
+              "url": "/df/fishing/big-fish-small-pond/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF75E",
+          "edid": "Challenge_Lifetime_Fishing_CompleteDailies_03",
+          "name": "Complete Daily Fishing Quests",
+          "required": 28,
+          "counter": "Quests Completed",
+          "type_label": "Big Fish",
+          "group_key": "bigfish",
+          "reward": "Plan: Crab Boat Plushie",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/CrabBoatPlushie.avif",
+          "conditions_display": [
+            "Target.IsInList(Fishing Daily [FLST:00800688]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Big Fish in a Small Pond - Pip Boy Daily",
+              "url": "/df/fishing/big-fish-small-pond/"
+            }
+          ],
+          "trackable": true
+        }
+      ]
+    },
+    {
+      "key": "lifetime",
+      "label": "Lifetime",
+      "blurb": "",
+      "trackable": true,
+      "count": 42,
+      "track_ids": [
+        "Challenge_Lifetime_Fishing_Progress_01_META",
+        "Challenge_Lifetime_Fishing_Progress_02_META",
+        "Challenge_Lifetime_Fishing_Progress_03_META",
+        "Challenge_Lifetime_Fishing_Progress_04_META",
+        "Challenge_Lifetime_Fishing_Any_01",
+        "Challenge_Lifetime_Fishing_Any_02",
+        "Challenge_Lifetime_Fishing_Any_03",
+        "Challenge_Lifetime_Fishing_Any_04",
+        "Challenge_Lifetime_Fishing_AnyGlowing_01",
+        "Challenge_Lifetime_Fishing_AnyGlowing_02",
+        "Challenge_Lifetime_Fishing_AnyGlowing_03",
+        "Challenge_Lifetime_Fishing_Region_Common_META",
+        "Challenge_Lifetime_Fishing_Region_Forest_META",
+        "Challenge_Lifetime_Fishing_Region_Mire_META",
+        "Challenge_Lifetime_Fishing_Region_SavageDivide_META",
+        "Challenge_Lifetime_Fishing_Region_AshHeap_META",
+        "Challenge_Lifetime_Fishing_Region_CranBog_META",
+        "Challenge_Lifetime_Fishing_Region_ToxicValley_META",
+        "Challenge_Lifetime_Fishing_Region_SkylineValley_META",
+        "Burn_Challenge_Lifetime_Fishing_BurningSprings_META",
+        "Challenge_Lifetime_Fishing_AllRegions_META",
+        "Challenge_Lifetime_Fishing_CatchAxolotls",
+        "Challenge_Lifetime_Fishing_Axolotls_META",
+        "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any",
+        "Challenge_Lifetime_Fishing_SeasonalFish_Summer_LocalLegend",
+        "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any_02",
+        "Challenge_Lifetime_Fishing_SeasonalFish_AllSeasons_META",
+        "Challenge_Lifetime_Fishing_Any_LocalLegend",
+        "Challenge_Lifetime_Fishing_LocalLegend_01",
+        "Challenge_Lifetime_Fishing_LocalLegend_02",
+        "Challenge_Lifetime_Fishing_LocalLegend_03",
+        "Burn_Challenge_Lifetime_Fishing_LocalLegend_04",
+        "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_01",
+        "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_02",
+        "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_03",
+        "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_04",
+        "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_05",
+        "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_01",
+        "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_02",
+        "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_03",
+        "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_04",
+        "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_05"
+      ],
+      "items": [
+        {
+          "form_id": "007FE7A5",
+          "edid": "Challenge_Lifetime_Fishing_Progress_01_META",
+          "name": "Fish Quest I - \"Common bait for common fish\"",
+          "required": 2,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Fishing Rod Line Upgrade 02",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+              "url": "/df/fishing/reel-talk/"
+            },
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007FE7A6",
+          "edid": "Challenge_Lifetime_Fishing_Progress_02_META",
+          "name": "Fish Quest II - \"Rare fish are more common in the rain\"",
+          "required": 3,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Fishing Rod Line Upgrade 03",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+              "url": "/df/fishing/reel-talk/"
+            },
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007FE7A7",
+          "edid": "Challenge_Lifetime_Fishing_Progress_03_META",
+          "name": "Fish Quest III - \"Improved bait reels in rarer fish\"",
+          "required": 3,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Fishing Rod Line Upgrade 04",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+              "url": "/df/fishing/reel-talk/"
+            },
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007FE7A4",
+          "edid": "Challenge_Lifetime_Fishing_Progress_04_META",
+          "name": "Fish Quest IV - \"An upgraded rod catches lunkers\"",
+          "required": 3,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Fishing Rod Line Upgrade 05",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Reel Talk: A Guide to Rod Mods, Hooks and Reels",
+              "url": "/df/fishing/reel-talk/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF757",
+          "edid": "Challenge_Lifetime_Fishing_Any_01",
+          "name": "Catch Any Fish",
+          "required": 15,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Kelp Curtain",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/KelpCurtain.avif",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF74F",
+          "edid": "Challenge_Lifetime_Fishing_Any_02",
+          "name": "Catch Any Fish",
+          "required": 76,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Fishermans",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/FishermansWorkbench.avif",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF760",
+          "edid": "Challenge_Lifetime_Fishing_Any_03",
+          "name": "Catch Any Fish",
+          "required": 250,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Scuba Tank Backpack",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/ScubaTankBackpack.avif",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF758",
+          "edid": "Challenge_Lifetime_Fishing_Any_04",
+          "name": "Catch Any Fish",
+          "required": 760,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Title: Lunker",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF754",
+          "edid": "Challenge_Lifetime_Fishing_AnyGlowing_01",
+          "name": "Catch Any Glowing Fish",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Reclaimed Ship Chandelier",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/ReclaimedShipChandelier.avif",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF763",
+          "edid": "Challenge_Lifetime_Fishing_AnyGlowing_02",
+          "name": "Catch Any Glowing Fish",
+          "required": 15,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Quantum Bobber",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/NukaColaQuantum.avif",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF765",
+          "edid": "Challenge_Lifetime_Fishing_AnyGlowing_03",
+          "name": "Catch Any Glowing Fish",
+          "required": 76,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Makeshift Rod; Plan: Makeshift Rod Replica",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/MakeshiftRod.avif",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF75B",
+          "edid": "Challenge_Lifetime_Fishing_Region_Common_META",
+          "name": "Catch All Common Fish",
+          "required": 8,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Rocket Bobber",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/Rocket.avif",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF74B",
+          "edid": "Challenge_Lifetime_Fishing_Region_Forest_META",
+          "name": "Catch All Regional Fish - Forest",
+          "required": 4,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Red Tide Float",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/RedTideFloat.avif",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF747",
+          "edid": "Challenge_Lifetime_Fishing_Region_Mire_META",
+          "name": "Catch All Regional Fish - Mire",
+          "required": 4,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Festive Float",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/FestiveFloat.avif",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF746",
+          "edid": "Challenge_Lifetime_Fishing_Region_SavageDivide_META",
+          "name": "Catch All Regional Fish - Savage Divide",
+          "required": 4,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Crimson Stripe Float",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/CrimsonStripeFloat.avif",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF759",
+          "edid": "Challenge_Lifetime_Fishing_Region_AshHeap_META",
+          "name": "Catch All Regional Fish - Ash Heap",
+          "required": 4,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Flamewood Float",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/FlamewoodFloat.avif",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF753",
+          "edid": "Challenge_Lifetime_Fishing_Region_CranBog_META",
+          "name": "Catch All Regional Fish - Cranberry Bog",
+          "required": 4,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Twin Timber Float",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/TwinTimberFloat.avif",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF769",
+          "edid": "Challenge_Lifetime_Fishing_Region_ToxicValley_META",
+          "name": "Catch All Regional Fish - Toxic Valley",
+          "required": 4,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Pin Bobber",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/PinBobber.avif",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF770",
+          "edid": "Challenge_Lifetime_Fishing_Region_SkylineValley_META",
+          "name": "Catch All Regional Fish - Skyline Valley",
+          "required": 4,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Skyfire Float",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/SkyfireFloat.avif",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008411F6",
+          "edid": "Burn_Challenge_Lifetime_Fishing_BurningSprings_META",
+          "name": "Catch All Regional Fish - Burning Springs",
+          "required": 4,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Plan: Babydoll Head Bobber",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/DollHead.avif",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Rod Skins, Bobbers and Floats",
+              "url": "/df/fishing/fishing-bobbers-floats/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "007CF773",
+          "edid": "Challenge_Lifetime_Fishing_AllRegions_META",
+          "name": "Complete All Appalachian Fishing Challenges",
+          "required": 7,
+          "counter": "Challenges Completed",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Title: Captain",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.IsInList(Toxic Valley Fish Challenges [FLST:007CF777]) = 1"
+          ],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Fishing Basics",
+              "url": "/df/fishing/fishing-basics/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "00805ABA",
+          "edid": "Challenge_Lifetime_Fishing_CatchAxolotls",
+          "name": "Catch Any Axolotl",
+          "required": 3,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Title: Axolotl",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Axolotl [KYWD:00800713]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Axolotl Guide",
+              "url": "/df/fishing/axolotl-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008006DD",
+          "edid": "Challenge_Lifetime_Fishing_Axolotls_META",
+          "name": "Catch All Axolotls",
+          "required": 12,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Title: Of The Month",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Axolotl Guide",
+              "url": "/df/fishing/axolotl-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008B3D43",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any",
+          "name": "Catch A Summer Seasonal Fish",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Title: Solar",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Summer [KYWD:008B3A01]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008B3D49",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Summer_LocalLegend",
+          "name": "Catch Summer Seasonal Local Legend: \"Glass Ghost\"",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Jellied Fish",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/JelliedFish.avif",
+          "conditions_display": [
+            "Target.GetIsID(Glass Ghost [ALCH:008A45C9]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            },
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008B3D44",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Summer_Any_02",
+          "name": "Catch Summer Seasonal Fish",
+          "required": 15,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Title: Sunny",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Summer [KYWD:008B3A01]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008B3D4A",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_AllSeasons_META",
+          "name": "Catch Fish From Every Season",
+          "required": 4,
+          "counter": "",
+          "type_label": "META",
+          "group_key": "lifetime",
+          "reward": "Title: Seasoned",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [],
+          "is_meta": true,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "00805AB7",
+          "edid": "Challenge_Lifetime_Fishing_Any_LocalLegend",
+          "name": "Catch Any Local Legend",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Fishing Display Plaque; Title: Cove",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/FishingDisplayPlaque.avif",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_LocalLegend [KYWD:00804F7E]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "00805AB6",
+          "edid": "Challenge_Lifetime_Fishing_LocalLegend_01",
+          "name": "Catch Local Legend: \"Wavy Willard\"",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Caps",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Wavy Willard [ALCH:00804F75]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "00805AB8",
+          "edid": "Challenge_Lifetime_Fishing_LocalLegend_02",
+          "name": "Catch Local Legend: \"Organ Grinder\"",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "60x Legendary Module",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Organ Grinder [ALCH:00804F76]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "00805AB9",
+          "edid": "Challenge_Lifetime_Fishing_LocalLegend_03",
+          "name": "Catch Local Legend: \"Ryl-Tkannoth, Maw-Begotten\"",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "40x Treasury Note",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Ryl-Tkannoth, Maw-Begotten [ALCH:00804F74]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "0085479E",
+          "edid": "Burn_Challenge_Lifetime_Fishing_LocalLegend_04",
+          "name": "Catch Local Legend: \"Hocking Hill Hellion\"",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "20x Bait - Superb",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/Superb_Bait.webp",
+          "conditions_display": [
+            "Target.GetIsID(Hocking Hill Hellion [ALCH:0085A4F6]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            },
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008411EE",
+          "edid": "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_01",
+          "name": "Catch any Fish in Burning Springs",
+          "required": 3,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "10x Bait - Common",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/FO76_Misc_Bait_-_Common.webp",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "00841201",
+          "edid": "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_02",
+          "name": "Catch Fish in Burning Springs",
+          "required": 15,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "10x Bait - Improved",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/Score_utility_improvedbait_l.webp",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".HasCompletedChallenge(Catch any Fish in Burning Springs [CHAL:008411EE]) = 1",
+            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008411DD",
+          "edid": "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_03",
+          "name": "Catch Fish in Burning Springs",
+          "required": 76,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "10x Bait - Common",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/FO76_Misc_Bait_-_Common.webp",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".HasCompletedChallenge(Catch Fish in Burning Springs [CHAL:00841201]) = 1",
+            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008411E2",
+          "edid": "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_04",
+          "name": "Catch Fish in Burning Springs",
+          "required": 250,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "5x Bait - Improved",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/Score_utility_improvedbait_l.webp",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".HasCompletedChallenge(Catch Fish in Burning Springs [CHAL:008411DD]) = 1",
+            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "008411EB",
+          "edid": "Burn_Challenge_Lifetime_Fishing_Any_BurningSprings_05",
+          "name": "Catch Fish in Burning Springs",
+          "required": 760,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "5x Bait - Superb",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/Superb_Bait.webp",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".HasCompletedChallenge(Catch Fish in Burning Springs [CHAL:008411E2]) = 1",
+            ".LocationHierarchyHasKeyword(LocRegionBurningSprings [KYWD:007AE59D]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Burning Springs Challenge Checklist",
+              "url": "/df/challenges/springs/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "0084A7B7",
+          "edid": "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_01",
+          "name": "Catch any Fish in a Sandstorm",
+          "required": 3,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "3x Bait - Improved",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/Score_utility_improvedbait_l.webp",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".GetCurrentCAMPWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1",
+            ".GetCurrentWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "0084A7B8",
+          "edid": "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_02",
+          "name": "Catch any Fish in a Sandstorm",
+          "required": 10,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "3x Bait - Improved",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/Score_utility_improvedbait_l.webp",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".HasCompletedChallenge(Catch any Fish in a Sandstorm [CHAL:0084A7B7]) = 1",
+            ".GetCurrentCAMPWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1",
+            ".GetCurrentWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "0084A7B9",
+          "edid": "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_03",
+          "name": "Catch any Fish in a Sandstorm",
+          "required": 30,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "3x Bait - Improved",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/Score_utility_improvedbait_l.webp",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".HasCompletedChallenge(Catch any Fish in a Sandstorm [CHAL:0084A7B8]) = 1",
+            ".GetCurrentCAMPWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1",
+            ".GetCurrentWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "0084A7BA",
+          "edid": "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_04",
+          "name": "Catch any Fish in a Sandstorm",
+          "required": 50,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "5x Bait - Superb",
+          "reward_source": "gmrw",
+          "reward_desc": "",
+          "image_url": "/wp-content/uploads/guide-images/fishing/fishing-guide-images/fishing-challenges-rewards/Superb_Bait.webp",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".HasCompletedChallenge(Catch any Fish in a Sandstorm [CHAL:0084A7B9]) = 1",
+            ".GetCurrentCAMPWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1",
+            ".GetCurrentWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "0084A7BB",
+          "edid": "Burn_Challenge_Lifetime_Fishing_FishInSandStorm_05",
+          "name": "Catch any Fish in a Sandstorm",
+          "required": 76,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Title: Dusty",
+          "reward_source": "title",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(ObjectTypeFish [KYWD:007ABE8A]) = 1",
+            "Target.HasKeyword(Fishing_FishType_Glowing [KYWD:007BC5EB]) = 1",
+            ".HasCompletedChallenge(Catch any Fish in a Sandstorm [CHAL:0084A7BA]) = 1",
+            ".GetCurrentCAMPWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1",
+            ".GetCurrentWeatherHasKeyword(s_wt_Sandstorm [KYWD:0084A7BD]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "What's Biting? A Guide to Fish, Bait & Weather",
+              "url": "/df/fishing/whats-biting/"
+            },
+            {
+              "title": "Fish Types Guide",
+              "url": "/df/fishing/fish-types-guide/"
+            }
+          ],
+          "trackable": true
+        }
+      ]
+    }
+  ],
+  "gallery": []
+}

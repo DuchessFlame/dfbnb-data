@@ -1,0 +1,80 @@
+HOW TO GENERATE  PintSizedPhantom_spawns.txt
+============================================================
+The Pint-Sized Phantom NPCS entry is already pre-staged in tools/build_npc_spawns.py,
+plus its guide_index rows and nav.json node. The build SKIPS this page until this dig
+file exists, so nothing breaks in the meantime. Drop the file described below into this
+folder (data/npc_spawns/digs/) and re-run:  python tools/build_npc_spawns.py
+
+The page then builds automatically at:
+  /df/score-challenges/npc-spawns/pint-sized-phantom-spawn-locations/
+
+------------------------------------------------------------
+WHAT TO FILTER ON IN MAPPALACHIA (needs your local Mappalachia + mappalachia.db)
+------------------------------------------------------------
+The "Slasher" / Pint-Sized Phantom family. Filter the placed NPC references on the
+leveled + encounter forms, i.e. editorID (EDID) beginning:
+    SDOW_LvlSlasherFan     (the standard fans)
+    SDOW_EncSlasherFan     (encounter variants)
+  and, if you want the boss included on the same page:
+    SDOW_*SlasherBoss*
+These correspond to the actor-type keywords used on the page's "Used For" block:
+    008E065B  SDOW_ActorTypeSlasherFan
+    008E0665  SDOW_ActorTypeSlasherBoss
+
+Practically, in Mappalachia: search NPCs for  SlasherFan  (and SlasherBoss if wanted),
+select all matching entities, then export/read their placed spawn references exactly
+the way the Blood Eagle / Rust Raider dig was produced. Group open-world references by
+NEAREST fast-travel map marker; list interior / instanced spaces by their own cell name.
+
+------------------------------------------------------------
+FILE FORMAT — copy the Blood Eagle file EXACTLY
+(see BloodEagle_RustRaider_spawns.txt in this folder)
+------------------------------------------------------------
+- The parser (parse_dig) only reads the block that starts at the section header line:
+
+      ################################################################
+      # PINT-SIZED PHANTOM
+      ################################################################
+
+  The header line MUST be exactly  "# PINT-SIZED PHANTOM"  (it must match
+  "dig_header" in the NPCS config). A free-text intro above the header is fine and ignored.
+
+- Immediately under the header:
+      Total placed spawn references in the world: <N>
+
+- Then the two data sections. Section is detected by these phrases appearing in a line:
+      "OPEN-WORLD SPAWNS"                -> open-world rows follow
+      a line containing both "INTERIOR" and "LOCATIONS"  -> interior rows follow
+  A "BASE NPC FORMS" line ends the data (everything after it is ignored).
+
+- Each data ROW is:   two-or-more leading spaces, the COUNT (digits), two-or-more
+  spaces, then the LOCATION NAME. Example rows (note the 2+ space gap between count
+  and name — that gap is what the parser keys on):
+
+      ################################################################
+      # PINT-SIZED PHANTOM
+      ################################################################
+      Total placed spawn references in the world: 210
+
+      OPEN-WORLD SPAWNS  (grouped by nearest map marker) — 180 refs
+      ----------------------------------------------------------------
+         24  Some Location A
+         18  Some Location B
+          9  Some Location C
+
+      INTERIOR / INSTANCED LOCATIONS — 30 refs
+      ----------------------------------------------------------------
+         30  Some Interior Cell Name
+
+      BASE NPC FORMS INCLUDED  (FormID  EDID  —  display name)
+      ----------------------------------------------------------------
+        <hex>  SDOW_LvlSlasherFan...  —  (display name)
+
+Notes:
+- Regions and any "companion" counts are resolved by the build from the Mappalachia DB
+  (or the committed geo_cache.json in CI) using the map-marker names — so location NAMES
+  must match Mappalachia map markers for open-world rows, exactly like the Blood Eagle file.
+- Do NOT hand-fabricate counts. They come straight from the Mappalachia dig.
+- The config sets no companion creatures for phantoms (companion_match is a sentinel that
+  matches nothing) and no quest gating. If phantoms turn out to have quest-tied interiors
+  or companion creatures, add "enemy_lcsr" / a real "companion_match" to the NPCS entry.

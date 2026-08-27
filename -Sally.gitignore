@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.pyc
+
+# Rogue dist output created when scripts are run from src/ instead of repo root
+src/dist/
+
+# Scratch preview artefacts (not deliverables)
+dist/_*.html
+
+# Literal Windows paths accidentally created as repo-root filenames when a script
+# with a hardcoded MAPPALACHIA_DB / MAPPALACHIA_DIR default is run outside Windows
+# (Linux/CI/WSL treats "D:\..." as an ordinary filename). Never a real deliverable.
+/[A-Za-z]:\\*
+
+# Removed cryptid pages (folded elsewhere) — stale tombstones, delete manually
+dist/cryptids/honey-beast.json
+dist/cryptids/beast-of-beckley.json
+tmp_render_chems.js
+tmp_render_farm.js
+tmp_render_meat.js
+tmp_render_drink.js
+dist/farming_spawns/chems-super-chem-mk-i_spawns.json
+dist/farming_spawns/chems-super-chem-mk-ii_spawns.json
+dist/farming_spawns/chems-super-chem-mk-iii_spawns.json
+dist/farming_spawns/chems-superchem_spawns.json
+dist/pts/farming_spawns/chems-super-chem-mk-i_spawns.json
+dist/pts/farming_spawns/chems-super-chem-mk-ii_spawns.json
+dist/pts/farming_spawns/chems-super-chem-mk-iii_spawns.json
+dist/pts/farming_spawns/chems-superchem_spawns.json
+data/farming_spawns/geo_cache_chems_super_chem_mk_i.json
+data/farming_spawns/geo_cache_chems_super_chem_mk_ii.json
+data/farming_spawns/geo_cache_chems_super_chem_mk_iii.json
+data/farming_spawns/geo_cache_chems_superchem.json
+
+# moved to insects — git rm these
+dist/meat/bloatfly.json
+dist/meat/bloodbug.json
+dist/meat/cave-cricket.json
+dist/meat/fog-crawler.json
+dist/meat/rad-ant.json
+dist/meat/radroach.json
+dist/meat/radscorpion.json
+dist/meat/stingwing.json

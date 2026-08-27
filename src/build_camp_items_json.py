@@ -201,6 +201,60 @@ def prettify_edid_name(s):
     t = re.sub(r"\s{2,}", " ", t).strip()
     return t or (s or "")
 
+# --- Drop-name prettifier ---
+# rng76 resolves each dropped FormID to its record FULL name (ALCH/MISC/WEAP/
+# ARMO/…). Two record families can't resolve that way on the current export set,
+# so rng76 falls back to a humanised EDID and the collectron loot tables show a
+# raw-looking token instead of the real in-game name:
+#   * AMMO — no AMMO_Export_*.tsv is published, so ammo shows as "Ammo556" etc.
+#   * a couple of base crafting components humanised as "c Xxx".
+# Mirror the reward pages (see _AMMO_DISPLAY in build_activities_rewards_json.py)
+# and give those a clean display name. We ONLY rewrite names that are still a
+# humanised fallback (start with "Ammo"/"c ") so a genuine FULL name is never
+# clobbered, and we never invent a name — anything that can't be mapped cleanly
+# keeps its honest cleaned-EDID fallback and is reported to stderr.
+_AMMO_DISPLAY = {
+    "Ammo10mm":          "10mm Round",
+    "Ammo2mmEC":         "2mm Electromagnetic Cartridge",
+    "Ammo308Caliber":    ".308 Round",
+    "Ammo38Caliber":     ".38 Round",
+    "Ammo44":            ".44 Round",
+    "Ammo45Caliber":     ".45 Round",
+    "Ammo50Caliber":     ".50 Round",
+    "Ammo50CaliberBall": ".50 Caliber Ball",
+    "Ammo556":           "5.56 Round",
+    "Ammo5mm":           "5mm Round",
+    "AmmoRRSpike":       "Railway Spike",
+}
+
+_UNRESOLVED_DROP_NAMES = set()
+
+def prettify_drop_name(name, edid, formid=""):
+    """Clean a humanised ammo/component fallback into a real in-game name.
+    Leaves an already-resolved FULL name untouched (only acts on names that are
+    still a humanised EDID fallback)."""
+    n = (name or "").strip()
+    e = (edid or "").strip()
+    # AMMO family: rng76 humanises the EDID because no AMMO export is loaded.
+    if n.lower().startswith("ammo"):
+        if e in _AMMO_DISPLAY:
+            return _AMMO_DISPLAY[e]
+        base = re.sub(r"^Ammo[_ ]*", "", e or n)
+        base = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", base).replace("_", " ")
+        base = re.sub(r"\s{2,}", " ", base).strip()
+        if base:
+            return base
+        _UNRESOLVED_DROP_NAMES.add((formid, e, n))
+        return n
+    # Base crafting component humanised as "c Xxx" (from a c_ EDID).
+    if re.match(r"^c\s", n):
+        base = re.sub(r"^c[_ ]", "", e or n)
+        base = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", base).replace("_", " ")
+        base = re.sub(r"\s{2,}", " ", base).strip()
+        if base:
+            return base
+    return n
+
 # --- TSV loading ---
 def read_tsv(path):
     with open(path, "r", encoding="utf-8", errors="replace", newline="") as f:
@@ -283,10 +337,12 @@ def resolve_drops_via_rng76(resolver, lvli_formid):
     out = []
     for it in resolver.resolve_deep(fid):
         rate = float(it.get("dropRate") or 0.0)
+        edid = it.get("edid") or ""
+        _fid = (it.get("formid") or "").upper()
         out.append({
-            "item":   it.get("edid") or it.get("name") or it.get("formid") or "",
-            "name":   it.get("name") or "",
-            "formId": (it.get("formid") or "").upper(),
+            "item":   edid or it.get("name") or it.get("formid") or "",
+            "name":   prettify_drop_name(it.get("name") or "", edid, _fid),
+            "formId": _fid,
             "chance": round(rate * 100.0, 5),
         })
     return out
@@ -1033,8 +1089,30 @@ def main():
                 for br in book_rows:
                     if tok in (br.get("EDID") or "").lower() or tok in (br.get("FULL") or "").lower():
                         book_row = br; break
-        # Check RESO EDID first, then ENTM EDID, then CONT EDID for collectron classification
+        # Collectron classification. Three positive signals, checked in order:
+        #   S1  a RESO EDID literally contains "Collectron"
+        #   S2  the ENTM is a "_Utility_Collectron_" record
+        #   S3  the station container EDID names a "_Collectron_" station
         is_col = any(is_collectron_edid(clean_str(r.get("EDID") or "")) for r in grp)
+        # S1 is loose. Bethesda ships a couple of STATIC resource generators whose
+        # RESO EDID still contains "Collectron" but which are NOT robot collectrons:
+        #   * 0067F3B2 ATX_Resource_Collectron_TreeSapBucket  -> "Tree Sap Collector"
+        #   * 0068E77E ATX_Resource_Collectron_RadstagFieldDressingStation
+        #                                       -> "Radstag Field Dressing Station"
+        # Both sit on a bare "ATX_Collector_*" WorkshopCollectorObject container, not
+        # on a Collectron Station, and produce a raw resource on an interval like any
+        # generator. A genuine collectron's container EDID always names a Collectron
+        # (…Collectron_Station_…, …RobotCollectron…, …CollectronStation…) — note
+        # "Collector" is NOT a substring of "Collectron". So when S1 is the only
+        # signal and the container is a bare Collector object (EDID has "Collector"
+        # but NOT "Collectron"), demote it to the resource-producers page. This never
+        # touches GoldBot, RedRocket, the FETCH Junkyard Dog or any real collectron —
+        # they all carry a Collectron container (S3) or Collectron ENTM (S2).
+        if is_col and cont_row:
+            cont_edid = clean_str(cont_row.get("EDID") or "")
+            if (re.search(r"Collector", cont_edid, re.IGNORECASE)
+                    and not re.search(r"Collectron", cont_edid, re.IGNORECASE)):
+                is_col = False
         if not is_col and entm_row:
             entm_edid = clean_str(entm_row.get("EDID") or "")
             if re.search(r"_Utility_Collectron_", entm_edid, re.IGNORECASE):
@@ -1081,6 +1159,12 @@ def main():
         json.dump({"entries": [entry]}, f, ensure_ascii=False, indent=2)
     print("[patchlog] current={} added={} removed={} changed={}".format(
         entry['current'], len(entry["added"]), len(entry["removed"]), len(entry["changed"])), file=sys.stderr)
+    if _UNRESOLVED_DROP_NAMES:
+        print("[drop-names] {} dropped item(s) have no resolvable FULL name — "
+              "showing cleaned EDID (add the matching record export to fix):".format(
+                  len(_UNRESOLVED_DROP_NAMES)), file=sys.stderr)
+        for fid, edid, shown in sorted(_UNRESOLVED_DROP_NAMES):
+            print("           {} {} -> '{}'".format(fid, edid, shown), file=sys.stderr)
     return 0
 
 if __name__ == "__main__":
