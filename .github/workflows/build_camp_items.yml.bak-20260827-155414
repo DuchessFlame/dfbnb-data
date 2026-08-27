@@ -48,10 +48,6 @@ jobs:
           echo "=== resource_producers.json ==="
           python -c "import json; d=json.load(open('dist/resource_producers.json')); print(f'  Items: {d[\"count\"]}')"
 
-      - name: Verify camp-items JSON contract
-        run: |
-          python src/verify_camp_items_json.py --dist dist --allow-missing
-
       - name: Commit updated dist files
         run: |
           git config user.name  "github-actions[bot]"

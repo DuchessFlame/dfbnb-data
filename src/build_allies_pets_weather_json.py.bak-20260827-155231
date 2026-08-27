@@ -287,35 +287,18 @@ def save_json(filename, data):
 
 
 def clean_desc(raw):
-    """Strip the ALL-CAPS marketing/boilerplate runs from an ENTM DESC field.
-
-    Bethesda appends a shouty storefront note to most CAMP DESC strings, always
-    fenced by hyphens:
-
-        "Introducing Adelaide… - ALLIES APPEAR ONCE THEIR FURNITURE IS
-         PLACED IN C.A.M.P. MODE. -"
-
-    The wording varies per item type (ALLIES / C.A.M.P. ITEMS / PETS / THIS
-    ITEM…), so matching each phrase by hand meant a new regex every time a new
-    category shipped — which is why the ally descriptions still carried theirs.
-    Anything fenced in hyphens that is entirely upper case is a marketing tag by
-    construction, so that is what gets removed. The prose is untouched: the
-    camp-item-expands spec says clean the DESC, never rewrite it.
-    """
+    """Strip the boilerplate CAMP MODE suffix from ENTM DESC fields."""
     if not raw:
         return ""
     text = raw.strip()
-
-    # Hyphen-fenced ALL-CAPS run, anywhere in the string. "No lower-case
-    # letters" is the test, so punctuation, digits and C.A.M.P. dots are fine.
-    text = re.sub(r"\s*-\s*[^a-z\-]{8,}?\.?\s*-\s*", " ", text)
-
-    # Same run left dangling at the end with no closing hyphen.
-    text = re.sub(r"\s*-\s*[^a-z\-]{8,}\.?\s*$", "", text)
-
-    # Collapse multiple spaces and drop a trailing bare hyphen.
+    # Remove trailing "- C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -" block
+    text = re.sub(
+        r"\s*-\s*C\.?A\.?M\.?P\.?\s*ITEMS\s+APPEAR\s+WHILE\s+IN\s+C\.?A\.?M\.?P\.?\s+"
+        r"(EDIT\s+)?MODE\.?\s*-\s*",
+        " ", text, flags=re.IGNORECASE
+    )
+    # Collapse multiple spaces
     text = re.sub(r"  +", " ", text).strip()
-    text = re.sub(r"\s*-\s*$", "", text).strip()
     return text
 
 
@@ -509,98 +492,6 @@ def _limit_str(v):
     if v == 0:
         return "0 — Cannot be built"
     return str(v)
-
-# ---------------------------------------------------------------------------
-# Shared Build Information + Crafting Requirements
-# ---------------------------------------------------------------------------
-# The camp-item-expands spec requires EVERY camp-item page to carry the same
-# Build Information rows and a Crafting Requirements block. Weather stations
-# and repair bots already did; allies, pets, pet furniture, pet apparel,
-# fridges and cryos did not, which is why those pages rendered a thinner
-# Technical section than collectrons.
-#
-# Everything here is read from the TSVs — WorkshopCount GLOBs for the limits,
-# FURN PRPS for power and the CAMP budget cost, COBJ FVPA for components.
-# Nothing is invented: when a value genuinely has no record the row is either
-# omitted or spelled out ("As many as your CAMP budget allows"), because a
-# guessed number is worse than an honest absence.
-#
-# NOTE these two helpers are defined AFTER _limit_str but reference lookups
-# built further down (furn_by_id / cobj_by_cnam / fvpa_to_array). That is fine
-# — they are only ever CALLED from the build_* functions, which run at the
-# bottom of the file, long after every module-level map exists.
-
-
-def camp_build_block(furn_id: str = "", *wc_tokens, extra_lines=None) -> str:
-    """Standard Build Information block for a placeable CAMP item.
-
-    furn_id    FURN FormID whose PRPS carry PowerRequired and
-               WorkshopBudgetObjectMultiplier. Pass "" for non-placeable
-               items (pet apparel) — those rows are then simply left out.
-    wc_tokens  WorkshopCount GLOB tokens to try, in order.
-    extra_lines  page-specific rows appended verbatim (e.g. Fishing Weather).
-
-    Returns a "Label: value\\n…" string, or "" when there is nothing to say.
-    """
-    lines = []
-
-    camp, workshop = workshop_count_for(*wc_tokens) if wc_tokens else (None, None)
-    if wc_tokens:
-        lines.append(f"Build Limit per Camp: {_limit_str(camp)}")
-        lines.append(f"Build Limit per Workshop: {_limit_str(workshop)}")
-
-    if furn_id:
-        _power_raw = furn_prps_value(furn_id, "PowerRequired")
-        try:
-            _power = str(int(float(_power_raw))) if _power_raw else "0"
-        except (ValueError, TypeError):
-            _power = _power_raw or "0"
-        lines.append(f"Power Required: {_power}")
-
-        _flam_raw = furn_prps_value(furn_id, "WorkshopBudgetObjectMultiplier")
-        try:
-            _flam = str(int(float(_flam_raw))) if _flam_raw else "1"
-        except (ValueError, TypeError):
-            _flam = "1"
-        lines.append(f"Flamingo Units: {_flam}")
-
-    for extra in (extra_lines or []):
-        if extra:
-            lines.append(extra)
-
-    return "\n".join(lines)
-
-
-def craft_array_for(*form_ids, edid_hint: str = "") -> list:
-    """Crafting components for an item, as [{"name":…, "qty":…}, …].
-
-    Tries each FormID against the COBJ CNAM index (borrowing the shared LVLI
-    recipe's FVPA when the per-item CondProxy row has none), then falls back
-    to a COBJ_EDID suffix match on edid_hint for items whose recipe isn't
-    linked by CNAM. Returns [] when no recipe exists — the renderer prints
-    "obtained as a complete item" for that, which is the truthful outcome for
-    an Atom Shop bundle item.
-    """
-    for fid in form_ids:
-        fid = (fid or "").strip()
-        if not fid:
-            continue
-        for _c in cobj_by_cnam.get(fid, []):
-            arr = fvpa_to_array(effective_fvpa(_c))
-            if arr:
-                return arr
-
-    hint = (edid_hint or "").strip().lower()
-    if hint:
-        for _c in cobj_rows:
-            _ce = (_c.get("COBJ_EDID") or "").strip().lower()
-            if not _ce or hint not in _ce:
-                continue
-            arr = fvpa_to_array(effective_fvpa(_c))
-            if arr:
-                return arr
-    return []
-
 
 # ---------------------------------------------------------------------------
 # Build lookup maps
@@ -2252,12 +2143,6 @@ def build_allies():
         # Inventory: items the ally sells, grouped, with rng76 drop rates
         _ally_inventory = resolve_ally_inventory(meta.get("vendor_base", ""))
 
-        # Build Information. No WorkshopCount GLOB exists for allies, so no
-        # token is passed: printing "As many as your CAMP budget allows" would
-        # be an outright lie (the game caps you at one ally), and inventing a
-        # number is worse. Power + Flamingo Units come off the ally's FURN.
-        _ally_build_info = camp_build_block(furn_id)
-
         items.append({
             "formId":           furn_id or cobj_id,
             "cobjFormId":       cobj_id,
@@ -2285,7 +2170,6 @@ def build_allies():
             "xalgFlags":        xalg,
             "buffsAndEffects":  _buffs_effects,
             "inventory":        _ally_inventory,
-            "buildInfo":        _ally_build_info,
             "craftingRequirements": _ally_craft,
             "cutContent":       is_cut(_ally_furn_edid),
         })
@@ -2435,12 +2319,6 @@ def build_pets():
         else:
             how    = ATX_HOW
 
-        # Build Information + Crafting Requirements. Limits come from the
-        # CAMPPets_WorkshopCount / _CAMP globals (1 pet per camp and per
-        # workshop); power and CAMP budget cost from the bed/house FURN.
-        _pet_build_info = camp_build_block(furn_id, "CAMPPets_WorkshopCount")
-        _pet_craft      = craft_array_for(furn_id, entm_id, edid_hint=furn_edid)
-
         items.append({
             "formId":        furn_id,
             "entmFormId":    entm_id,
@@ -2463,8 +2341,7 @@ def build_pets():
             "homeImageUrl":  home_img,
             "imageCarousel": carousel,
             "xalgFlags":     xalg,
-            "buildInfo":     _pet_build_info,
-            "craftingRequirements": _pet_craft,
+            "craftingRequirements": [],
             "cutContent":    is_cut(furn_edid),
         })
 
@@ -2526,15 +2403,7 @@ def build_pet_furniture():
             "imageUrl":      img,
             "imageCarousel": carousel,
             "xalgFlags":     xalg,
-            # No build rows: these records are ENTM-led (no FURN FormID, so no
-            # PowerRequired / WorkshopBudgetObjectMultiplier to read), and the
-            # only candidate limit global — PETS_WorkshopCount_CampObjects = 4
-            # — carries neither a _CAMP nor a _Workshop suffix, so there is no
-            # way to tell which cap it is. Printing it under a guessed label
-            # would be worse than leaving the block out. If a suffixed global
-            # ever ships, pass its token to camp_build_block here.
-            "buildInfo":     "",
-            "craftingRequirements": craft_array_for(entm_id, edid_hint=edid),
+            "craftingRequirements": [],
             "cutContent":    is_cut(edid),
         })
 
@@ -2623,12 +2492,7 @@ def build_pet_apparel():
             "imageUrl":     img,
             "imageCarousel": carousel,
             "xalgFlags":    xalg,
-            # Apparel is worn, not placed — there is no build limit, no power
-            # draw and no CAMP budget cost, so buildInfo stays empty and the
-            # Technical section shows record IDs only. It IS craftable at the
-            # Armor Workbench, so the components are pulled from its COBJ.
-            "buildInfo":    "",
-            "craftingRequirements": craft_array_for(entm_id, edid_hint=_ap_edid_suffix),
+            "craftingRequirements": [],
             "cutContent":   is_cut(edid),
         })
 
@@ -2718,13 +2582,9 @@ def build_cryos():
                                   tradeable=_cryo_tradeable),
             "imageUrl":       img,
             "imageCarousel":  carousel,
-            # Limits from SCORE_S14_WorkshopCount_Cyro_Freezer / _Camp — one
-            # per CAMP, zero per workshop (cryos can't be placed at a workshop
-            # at all, which _limit_str spells out so 0 isn't read as unlimited).
-            "buildInfo":      camp_build_block("", "Cyro_Freezer"),
             "spoilageReduction": "100% (no spoilage)",
             "xalgFlags":      xalg,
-            "craftingRequirements": craft_array_for(entm_id, edid_hint=_cryo_key),
+            "craftingRequirements": [],
             "cutContent":     is_cut(edid),
         })
 
@@ -2792,10 +2652,7 @@ def build_fridges():
             "imageCarousel": carousel,
             "spoilageReduction": "-50%",
             "xalgFlags":     xalg,
-            # Limits from WorkshopCount_ATX_WorkshopAppliance_Refrigerator /
-            # _CAMP — ten per CAMP, none at a workshop.
-            "buildInfo":     camp_build_block("", "ATX_WorkshopAppliance_Refrigerator"),
-            "craftingRequirements": craft_array_for(entm_id, edid_hint=edid),
+            "craftingRequirements": [],
             "cutContent":    is_cut(edid),
         })
 

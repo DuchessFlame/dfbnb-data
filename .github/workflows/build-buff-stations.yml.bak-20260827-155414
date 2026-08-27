@@ -76,10 +76,6 @@ jobs:
             --tsv-dir tsv \
             --out-dir dist
 
-      - name: Verify camp-items JSON contract
-        run: |
-          python src/verify_camp_items_json.py --dist dist --allow-missing
-
       - name: Commit updated JSON
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

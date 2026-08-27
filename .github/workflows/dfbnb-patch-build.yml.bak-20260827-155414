@@ -1023,13 +1023,6 @@ jobs:
       # is how the magazines guide pointed all ten region links at pages the
       # index did not have, for as long as it did, with every build green.
       # Pre-existing dead links are baselined; this fails on NEW ones only.
-      # The whole camp-item category renders through one module + one
-      # stylesheet, so the eleven JSONs have to keep the same shape.
-      # This fails the build the moment one of them starts shipping
-      # without its images, build info or obtain routes.
-      - name: Verify camp-items JSON contract
-        run: python src/verify_camp_items_json.py --dist dist --allow-missing
-
       - name: Verify internal links resolve (guide_index)
         run: python src/check_guide_links.py
 

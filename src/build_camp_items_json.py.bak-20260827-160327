@@ -702,11 +702,7 @@ def build_obtain_routes(obtain, book_data):
             entry["populated"] = True
             lines = []
             plan = obtain.get("planName")
-            # GNAM_FULL values usually already read "Plan: X", so only add the
-            # prefix when it is actually missing — otherwise the Gold Bullion
-            # route renders "Plan: Plan: Auto-Miner Collectron".
-            if plan:
-                lines.append(plan if plan.lower().lstrip().startswith("plan") else "Plan: {}".format(plan))
+            if plan: lines.append("Plan: {}".format(plan))
             vendor = obtain.get("vendor", "")
             if vendor: lines.append("{} — Gold Bullion vendor".format(vendor))
             price = obtain.get("goldBullionPrice")

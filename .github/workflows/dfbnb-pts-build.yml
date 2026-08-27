@@ -1130,6 +1130,13 @@ jobs:
       # file each and there is nothing to diff. tsv/pts/ still holds every
       # timestamped pull, which is exactly the per-upload history the PTS toggle
       # should show — several entries in a busy fortnight, none in a quiet month.
+      # The whole camp-item category renders through one module + one
+      # stylesheet, so the eleven JSONs have to keep the same shape.
+      # This fails the build the moment one of them starts shipping
+      # without its images, build info or obtain routes.
+      - name: Verify camp-items JSON contract
+        run: python src/verify_camp_items_json.py --dist dist --allow-missing
+
       - name: Build patch log feeds (export diffs, PTS)
         run: python src/patchlog_utils.py --write-feeds --dist dist --channel pts
 

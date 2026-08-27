@@ -13,12 +13,7 @@ on:
       - 'tsv/WTHR_Export_*_WTHR.tsv'
       - 'tsv/NPC_Export_*_PRPS.tsv'
       - '!tsv/BOOK_Export_*_Locations.tsv'
-      # Build limits, power draw and Flamingo Units are read from the
-      # WorkshopCount / budget GLOBs, so a new GLOB export has to rebuild
-      # these pages too — without this the Technical section goes stale.
-      - 'tsv/GLOB_Export_*.tsv'
       - 'src/build_allies_pets_weather_json.py'
-      - 'src/verify_camp_items_json.py'
 
 jobs:
   build:
@@ -109,10 +104,6 @@ jobs:
           python src/build_allies_pets_weather_json.py \
             --tsv-dir tsv \
             --out-dir dist
-
-      - name: Verify camp-items JSON contract
-        run: |
-          python src/verify_camp_items_json.py --dist dist --allow-missing
 
       - name: Commit updated JSON
         uses: stefanzweifel/git-auto-commit-action@v5
