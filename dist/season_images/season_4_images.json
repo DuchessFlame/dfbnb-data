@@ -1,23 +1,43 @@
 {
-  "_generated": "2026-08-28T06:27:43Z",
+  "_generated": "2026-08-28T09:20:52Z",
   "_note": "Extract each ddsPath from the game archives (BAE), convert to AVIF (texconv -ft png, then avifenc --min 0 --max 20), name the output outAvif, then upload with: sync_season_images_to_site.ps1 -Season 4",
   "seasonNumber": 4,
   "seasonName": "Armor Ace and the Power Patrol in Cold Steel",
   "uploadTo": "/wp-content/uploads/season_images/season-4/",
   "imageCount": 50,
-  "itemsWithoutEntitlement": [],
-  "itemsWithoutTexturePath": [],
+  "itemsWithoutEntitlement": [
+    "Medium Vault-Tec Supply Package x 1",
+    "Tadpole Badge x 3",
+    "Large Vault-Tec Supply Package",
+    "Perk Card Pack x 1",
+    "Scrap Kit x 3",
+    "Fireworks x 10",
+    "Perfectly Preserved Pie x 1",
+    "Perk Card Pack x 1",
+    "Perk Card Pack x 1",
+    "Perfect Bubblegum x 1",
+    "Perk Card Pack x 1",
+    "Dungeon Wallpaper",
+    "Perk Card Pack x 1",
+    "Scrap Kit x 6",
+    "Perk Card Pack x 1",
+    "Perk Card Pack x 2",
+    "Perfect Bubblegum x 3",
+    "Dungeon Floor and Foundations",
+    "Perk Card Pack x 1",
+    "Atomic Ranger Power Armor Skin"
+  ],
+  "itemsWithoutTexturePath": [
+    "SCORE_S3_ENTM_CAMP_Floor_Shelters_VaultTile_Checkered",
+    "SCORE_S4_ENTM_CAMP_WallDecor_EndOfSeasonArt",
+    "SCORE_S4_ENTM_PlayerTitles_Suffix_Icebreaker",
+    "SCORE_S4_ENTM_CAMPTitles_Prefix_Icebreakers",
+    "SCORE_S4_ENTM_PlayerTitles_Prefix_PowerPatrol",
+    "SCORE_S4_ENTM_CAMPTitles_Prefix_YukonFives"
+  ],
   "images": [
     {
-      "id": "S4_P1_playericon_commisionerchaos",
-      "name": "Player Icon: Commissioner Chaos",
-      "entitlement": "SCORE_S4_ENTM_PlayerIcon_CommisionerChaos",
-      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_20.dds",
-      "outAvif": "score_s4_playericon_commisionerchaos.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P1_playericon_coldsteel",
+      "id": "S4_R2_cold_steel_player_icon",
       "name": "Player Icon: Cold Steel",
       "entitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel",
       "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_22.dds",
@@ -25,231 +45,7 @@
       "uploadTo": "/wp-content/uploads/season_images/season-4/"
     },
     {
-      "id": "S4_P1_playericon_yukonfive",
-      "name": "Player Icon: Mister Shivers",
-      "entitlement": "SCORE_S4_ENTM_PlayerIcon_YukonFive",
-      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_23.dds",
-      "outAvif": "score_s4_playericon_yukonfive.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P1_playericon_endofseason",
-      "name": "Player Icon: Complete Chaos",
-      "entitlement": "SCORE_S4_ENTM_PlayerIcon_EndOfSeason",
-      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_21.dds",
-      "outAvif": "score_s4_playericon_endofseason.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P1_playericon_coldsteel_2",
-      "name": "Player Icon: Icebreaker",
-      "entitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel_2",
-      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_18.dds",
-      "outAvif": "score_s4_playericon_coldsteel_2.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P1_playericon_coldsteel_3",
-      "name": "Player Icon: Doubletap",
-      "entitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel_3",
-      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_19.dds",
-      "outAvif": "score_s4_playericon_coldsteel_3.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P1_playericon_coldsteel_4",
-      "name": "Player Icon: Cold Steel Icon 4",
-      "entitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel_4",
-      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_14.dds",
-      "outAvif": "score_s4_playericon_coldsteel_4.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P2_apparel_headwear_beret_powerpatrol",
-      "name": "Power Patrol Red Beret",
-      "entitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beret_PowerPatrol",
-      "ddsPath": "textures/atx/storefront/player/headwear/score_s4_apparel_headwear_beret_powerpatrol.dds",
-      "outAvif": "score_s4_apparel_headwear_beret_powerpatrol.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P2_apparel_outfit_powerpatrol",
-      "name": "Power Patrol Fatigues",
-      "entitlement": "SCORE_S4_ENTM_Apparel_Outfit_PowerPatrol",
-      "ddsPath": "textures/atx/storefront/player/outfit/score_s4_apparel_outfit_powerpatrol.dds",
-      "outAvif": "score_s4_apparel_outfit_powerpatrol.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P2_apparel_headwear_beret_powerpatrolblue",
-      "name": "Power Patrol Blue Beret",
-      "entitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beret_PowerPatrolBlue",
-      "ddsPath": "textures/atx/storefront/player/headwear/score_s4_apparel_headwear_beret_powerpatrolblue.dds",
-      "outAvif": "score_s4_apparel_headwear_beret_powerpatrolblue.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P2_apparel_outfit_icebreaker",
-      "name": "Icebreaker Outfit",
-      "entitlement": "SCORE_S4_ENTM_Apparel_Outfit_IceBreaker",
-      "ddsPath": "textures/atx/storefront/player/outfit/score_s4_apparel_outfit_icebreaker.dds",
-      "outAvif": "score_s4_apparel_outfit_icebreaker.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P2_apparel_headwear_beekeeper",
-      "name": "Beekeeper Hat",
-      "entitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beekeeper",
-      "ddsPath": "textures/atx/storefront/player/headwear/score_s4_apparel_headwear_beekeeper.dds",
-      "outAvif": "score_s4_apparel_headwear_beekeeper.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P2_apparel_outfit_beekeeper",
-      "name": "Beekeeper Outfit",
-      "entitlement": "SCORE_S4_ENTM_Apparel_Outfit_Beekeeper",
-      "ddsPath": "textures/atx/storefront/player/outfit/score_s4_apparel_outfit_beekeeper.dds",
-      "outAvif": "score_s4_apparel_outfit_beekeeper.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_model_commissionerchaos_completechaos",
-      "name": "Complete Chaos Power Armor Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Model_CommissionerChaos_CompleteChaos",
-      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_model_commissionerchaos_completechaos.dds",
-      "outAvif": "score_s4_skin_powerarmor_model_commissionerchaos_completechaos.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_model_commissionerchaos",
-      "name": "Commissioner Chaos Power Armor Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Model_CommissionerChaos",
-      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_commissionerchaos.dds",
-      "outAvif": "score_s4_skin_powerarmor_model_commissionerchaos.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_excavator_yukonfive",
-      "name": "Yukon Five Power Armor Excavator Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_Excavator_YukonFive",
-      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_excavator_yukonfive.dds",
-      "outAvif": "score_s4_skin_powerarmor_paint_excavator_yukonfive.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_t45_yukonfive",
-      "name": "Yukon Five Power Armor T-45 Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T45_YukonFive",
-      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_t45_yukonfive.dds",
-      "outAvif": "score_s4_skin_powerarmor_paint_t45_yukonfive.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_t51_yukonfive",
-      "name": "Yukon Five Power Armor T-51 Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T51_YukonFive",
-      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_t51_yukonfive.dds",
-      "outAvif": "score_s4_skin_powerarmor_paint_t51_yukonfive.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_t60_yukonfive",
-      "name": "Yukon Five Power Armor T-60 Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T60_YukonFive",
-      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_t60_yukonfive.dds",
-      "outAvif": "score_s4_skin_powerarmor_paint_t60_yukonfive.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_t65_yukonfive",
-      "name": "Yukon Five Power Armor T-65 Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T65_YukonFive",
-      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_t65_yukonfive.dds",
-      "outAvif": "score_s4_skin_powerarmor_paint_t65_yukonfive.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_ultracite_yukonfive",
-      "name": "Yukon Five Power Armor Ultracite Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_Ultracite_YukonFive",
-      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_ultracite_yukonfive.dds",
-      "outAvif": "score_s4_skin_powerarmor_paint_ultracite_yukonfive.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P4_skin_powerarmor_paint_x01_yukonfive",
-      "name": "Yukon Five Power Armor X-01 Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_X01_YukonFive",
-      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_x01_yukonfive.dds",
-      "outAvif": "score_s4_skin_powerarmor_paint_x01_yukonfive.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_levergun_hunting",
-      "name": "Hunting Lever Action Rifle Paint",
-      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_LeverGun_Hunting",
-      "ddsPath": "textures/atx/storefront/player/weaponskin/atx_skin_weaponskin_levergun_goldandblue.dds",
-      "outAvif": "score_s4_skin_weaponskin_levergun_hunting.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_handmadegun_redviper",
-      "name": "Red Viper Paint (Handmade Rifle)",
-      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_HandmadeGun_RedViper",
-      "ddsPath": "textures/atx/storefront/player/weaponskin/score_s4_skin_weaponskin_handmadegun_redviper.dds",
-      "outAvif": "score_s4_skin_weaponskin_handmadegun_redviper.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_handmadegun_armorace",
-      "name": "Armor Ace Paint (Handmade Rifle)",
-      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_HandmadeGun_ArmorAce",
-      "ddsPath": "textures/atx/storefront/player/weaponskin/score_s2_skin_weaponskin_handmadegun_armorace.dds",
-      "outAvif": "score_s4_skin_weaponskin_handmadegun_armorace.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_powerfist_icebreaker",
-      "name": "Icebreaker (Power Fist)",
-      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_PowerFist_IceBreaker",
-      "ddsPath": "textures/atx/storefront/player/weaponskin/score_s4_skin_weaponskin_powerfist_icebreaker.dds",
-      "outAvif": "score_s4_skin_weaponskin_powerfist_icebreaker.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_plasmagatling_armorace",
-      "name": "Armor Ace Paint (Gatling Plasma)",
-      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_PlasmaGatling_ArmorAce",
-      "ddsPath": "textures/atx/storefront/player/weaponskin/score_s4_skin_weaponskin_plasmagatling_armorace.dds",
-      "outAvif": "score_s4_skin_weaponskin_plasmagatling_armorace.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P5_camp_floor_coldsteel",
-      "name": "Cold Steel Floors",
-      "entitlement": "SCORE_S4_ENTM_CAMP_Floor_ColdSteel",
-      "ddsPath": "textures/atx/storefront/camp/floors/score_s4_camp_floor_coldsteel.dds",
-      "outAvif": "score_s4_camp_floor_coldsteel.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P5_camp_floor_brick_starburst",
-      "name": "Starburst Brick Floor and Foundations",
-      "entitlement": "SCORE_S4_ENTM_CAMP_Floor_Brick_Starburst",
-      "ddsPath": "textures/atx/storefront/camp/floors/score_s4_camp_floor_brick_starburst.dds",
-      "outAvif": "score_s4_camp_floor_brick_starburst.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P5_camp_machinery_workbench_powerarmor_armorace",
-      "name": "Armor Ace Power Armor Station",
-      "entitlement": "SCORE_S4_ENTM_CAMP_Machinery_Workbench_PowerArmor_ArmorAce",
-      "ddsPath": "textures/atx/storefront/camp/machinery/atx_camp_machinery_workbench_powerarmor_armorace.dds",
-      "outAvif": "score_s4_camp_machinery_workbench_powerarmor_armorace.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P5_camp_collector_beehive",
+      "id": "S4_R5_beekeeper_s_beehive",
       "name": "Beehive",
       "entitlement": "SCORE_S4_ENTM_CAMP_Collector_Beehive",
       "ddsPath": "textures/atx/storefront/camp/utility/score_s4_camp_collector_beehive.dds",
@@ -257,103 +53,7 @@
       "uploadTo": "/wp-content/uploads/season_images/season-4/"
     },
     {
-      "id": "S4_P5_camp_utility_collectron_nukacola",
-      "name": "Nuka-Cola Collectron Station",
-      "entitlement": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
-      "ddsPath": "textures/atx/storefront/camp/utility/score_s4_camp_utility_collectron_nukacola.dds",
-      "outAvif": "score_s4_camp_utility_collectron_nukacola.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P6_camp_floordecor_toilet_gold",
-      "name": "Gold Toilet",
-      "entitlement": "SCORE_S4_ENTM_CAMP_FloorDecor_Toilet_Gold",
-      "ddsPath": "textures/atx/storefront/camp/utility/score_s4_camp_floordecor_toilet_gold.dds",
-      "outAvif": "score_s4_camp_floordecor_toilet_gold.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P6_camp_floordecor_stein_coldsteel",
-      "name": "Cold Steel Beer Stein",
-      "entitlement": "SCORE_S4_ENTM_CAMP_FloorDecor_Stein_ColdSteel",
-      "ddsPath": "textures/atx/storefront/camp/floordecoration/score_s4_camp_floordecor_stein_coldsteel.dds",
-      "outAvif": "score_s4_camp_floordecor_stein_coldsteel.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P6_camp_lights_treebranchchandelier",
-      "name": "Tree Branch Chandelier",
-      "entitlement": "SCORE_S4_ENTM_CAMP_Lights_TreeBranchChandelier",
-      "ddsPath": "textures/atx/storefront/camp/lights/score_s1_camp_lights_treebranchchandelier.dds",
-      "outAvif": "score_s4_camp_lights_treebranchchandelier.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P6_camp_display_mannequin_female",
-      "name": "Female Mannequin",
-      "entitlement": "SCORE_S4_ENTM_CAMP_Display_Mannequin_Female",
-      "ddsPath": "textures/atx/storefront/camp/utility/atx_camp_display_mannequin_female.dds",
-      "outAvif": "score_s4_camp_display_mannequin_female.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P6_camp_display_mannequin_male",
-      "name": "Male Mannequin",
-      "entitlement": "SCORE_S4_ENTM_CAMP_Display_Mannequin_Male",
-      "ddsPath": "textures/atx/storefront/camp/utility/atx_camp_display_mannequin_male.dds",
-      "outAvif": "score_s4_camp_display_mannequin_male.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P6_photomode_pose_1",
-      "name": "Cannonball Pose",
-      "entitlement": "SCORE_S4_ENTM_Photomode_Pose_1",
-      "ddsPath": "textures/atx/storefront/player/photopose/score_s4_photomode_pose_1.dds",
-      "outAvif": "score_s4_photomode_pose_1.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P6_photomode_pose_2",
-      "name": "Skiing Pose",
-      "entitlement": "SCORE_S4_ENTM_Photomode_Pose_2",
-      "ddsPath": "textures/atx/storefront/player/photopose/score_s4_photomode_pose_2.dds",
-      "outAvif": "score_s4_photomode_pose_2.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P6_camp_walldeco_coldsteel_gameboard",
-      "name": "Framed Cold Steel Gameboard",
-      "entitlement": "SCORE_S4_ENTM_CAMP_WallDeco_ColdSteel_Gameboard",
-      "ddsPath": "textures/atx/storefront/camp/walldecoration/score_s4_camp_walldeco_coldsteel_gameboard.dds",
-      "outAvif": "score_s4_camp_walldeco_coldsteel_gameboard.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P7_camp_wallpaper_coldsteel",
-      "name": "Cold Steel Wallpaper",
-      "entitlement": "SCORE_S4_ENTM_CAMP_WallPaper_ColdSteel",
-      "ddsPath": "textures/atx/storefront/camp/wallpaper/score_s4_camp_wallpaper_coldsteel.dds",
-      "outAvif": "score_s4_camp_wallpaper_coldsteel.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P7_skin_backpackflair_brickhouse",
-      "name": "Brickhouse Backpack Flair",
-      "entitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_Brickhouse",
-      "ddsPath": "textures/atx/storefront/player/flair/score_s4_skin_backpackflair_brickhouse.dds",
-      "outAvif": "score_s4_skin_backpackflair_brickhouse.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P7_skin_weaponmodel_flamer_death",
-      "name": "Death's Breath Skin (Flamer)",
-      "entitlement": "SCORE_S4_ENTM_Skin_WeaponModel_Flamer_Death",
-      "ddsPath": "textures/atx/storefront/player/weaponmodel/score_s4_skin_weaponmodel_flamer_death.dds",
-      "outAvif": "score_s4_skin_weaponmodel_flamer_death.avif",
-      "uploadTo": "/wp-content/uploads/season_images/season-4/"
-    },
-    {
-      "id": "S4_P7_skin_backpackflair_platinum",
+      "id": "S4_R6_platinum_backpack_flair",
       "name": "Platinum Backpack Flair",
       "entitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_Platinum",
       "ddsPath": "textures/atx/storefront/player/flair/score_s4_skin_backpackflair_platinum.dds",
@@ -361,31 +61,31 @@
       "uploadTo": "/wp-content/uploads/season_images/season-4/"
     },
     {
-      "id": "S4_P7_skin_backpackflair_armorace",
-      "name": "Armor Ace Backpack Flair",
-      "entitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_ArmorAce",
-      "ddsPath": "textures/atx/storefront/player/flair/score_s4_skin_backpackflair_armorace.dds",
-      "outAvif": "score_s4_skin_backpackflair_armorace.avif",
+      "id": "S4_R8_tree_branch_chandelier",
+      "name": "Tree Branch Chandelier",
+      "entitlement": "SCORE_S4_ENTM_CAMP_Lights_TreeBranchChandelier",
+      "ddsPath": "textures/atx/storefront/camp/lights/score_s1_camp_lights_treebranchchandelier.dds",
+      "outAvif": "score_s4_camp_lights_treebranchchandelier.avif",
       "uploadTo": "/wp-content/uploads/season_images/season-4/"
     },
     {
-      "id": "S4_P7_skin_backpack_flametanks",
-      "name": "Flamethrower Tanks Backpack",
-      "entitlement": "SCORE_S4_ENTM_Skin_Backpack_FlameTanks",
-      "ddsPath": "textures/atx/storefront/player/backpack/score_s4_skin_backpack_flametanks.dds",
-      "outAvif": "score_s4_skin_backpack_flametanks.avif",
+      "id": "S4_R12_hunting_lever_action_rifle_paint",
+      "name": "Hunting Lever Action Rifle Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_LeverGun_Hunting",
+      "ddsPath": "textures/atx/storefront/player/weaponskin/atx_skin_weaponskin_levergun_goldandblue.dds",
+      "outAvif": "score_s4_skin_weaponskin_levergun_hunting.avif",
       "uploadTo": "/wp-content/uploads/season_images/season-4/"
     },
     {
-      "id": "S4_P7_camp_statue_bosinfantrystatue",
-      "name": "Brotherhood of Steel Infantry Statue",
-      "entitlement": "SCORE_S4_ENTM_CAMP_Statue_BoSInfantryStatue",
-      "ddsPath": "textures/atx/storefront/camp/statues/score_s4_camp_statue_bosinfantrystatue.dds",
-      "outAvif": "score_s4_camp_statue_bosinfantrystatue.avif",
+      "id": "S4_R14_mister_shivers_player_icon",
+      "name": "Player Icon: Mister Shivers",
+      "entitlement": "SCORE_S4_ENTM_PlayerIcon_YukonFive",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_23.dds",
+      "outAvif": "score_s4_playericon_yukonfive.avif",
       "uploadTo": "/wp-content/uploads/season_images/season-4/"
     },
     {
-      "id": "S4_P7_photomode_pose_slalom",
+      "id": "S4_R15_slalom_pose",
       "name": "Slalom Pose",
       "entitlement": "SCORE_S4_ENTM_Photomode_Pose_Slalom",
       "ddsPath": "textures/atx/storefront/player/photopose/score_s4_photomode_pose_slalom.dds",
@@ -393,11 +93,331 @@
       "uploadTo": "/wp-content/uploads/season_images/season-4/"
     },
     {
-      "id": "S4_P8_photomode_pose_hotdog",
+      "id": "S4_R18_yukon_five_t_45_power_armor_paint",
+      "name": "Yukon Five Power Armor T-45 Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T45_YukonFive",
+      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_t45_yukonfive.dds",
+      "outAvif": "score_s4_skin_powerarmor_paint_t45_yukonfive.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R22_brickhouse_backpack_flair",
+      "name": "Brickhouse Backpack Flair",
+      "entitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_Brickhouse",
+      "ddsPath": "textures/atx/storefront/player/flair/score_s4_skin_backpackflair_brickhouse.dds",
+      "outAvif": "score_s4_skin_backpackflair_brickhouse.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R25_female_mannequin",
+      "name": "Female Mannequin",
+      "entitlement": "SCORE_S4_ENTM_CAMP_Display_Mannequin_Female",
+      "ddsPath": "textures/atx/storefront/camp/utility/atx_camp_display_mannequin_female.dds",
+      "outAvif": "score_s4_camp_display_mannequin_female.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R25_male_mannequin",
+      "name": "Male Mannequin",
+      "entitlement": "SCORE_S4_ENTM_CAMP_Display_Mannequin_Male",
+      "ddsPath": "textures/atx/storefront/camp/utility/atx_camp_display_mannequin_male.dds",
+      "outAvif": "score_s4_camp_display_mannequin_male.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R28_yukon_five_t_51b_power_armor_paint",
+      "name": "Yukon Five Power Armor T-51 Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T51_YukonFive",
+      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_t51_yukonfive.dds",
+      "outAvif": "score_s4_skin_powerarmor_paint_t51_yukonfive.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R29_starburst_brick_floor_and_foundations",
+      "name": "Starburst Brick Floor and Foundations",
+      "entitlement": "SCORE_S4_ENTM_CAMP_Floor_Brick_Starburst",
+      "ddsPath": "textures/atx/storefront/camp/floors/score_s4_camp_floor_brick_starburst.dds",
+      "outAvif": "score_s4_camp_floor_brick_starburst.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R32_beekeeper_outfit",
+      "name": "Beekeeper Outfit",
+      "entitlement": "SCORE_S4_ENTM_Apparel_Outfit_Beekeeper",
+      "ddsPath": "textures/atx/storefront/player/outfit/score_s4_apparel_outfit_beekeeper.dds",
+      "outAvif": "score_s4_apparel_outfit_beekeeper.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R34_beekeeper_hat",
+      "name": "Beekeeper Hat",
+      "entitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beekeeper",
+      "ddsPath": "textures/atx/storefront/player/headwear/score_s4_apparel_headwear_beekeeper.dds",
+      "outAvif": "score_s4_apparel_headwear_beekeeper.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R35_hot_dog_pose",
       "name": "Hot Dog Pose",
       "entitlement": "SCORE_S4_ENTM_Photomode_Pose_HotDog",
       "ddsPath": "textures/atx/storefront/player/photopose/score_s4_photomode_pose_hotdog.dds",
       "outAvif": "score_s4_photomode_pose_hotdog.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R36_death_s_breath_flamer_skin",
+      "name": "Death's Breath Skin (Flamer)",
+      "entitlement": "SCORE_S4_ENTM_Skin_WeaponModel_Flamer_Death",
+      "ddsPath": "textures/atx/storefront/player/weaponmodel/score_s4_skin_weaponmodel_flamer_death.dds",
+      "outAvif": "score_s4_skin_weaponmodel_flamer_death.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R38_yukon_five_excavator_power_armor_paint",
+      "name": "Yukon Five Power Armor Excavator Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_Excavator_YukonFive",
+      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_excavator_yukonfive.dds",
+      "outAvif": "score_s4_skin_powerarmor_paint_excavator_yukonfive.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R42_power_patrol_red_beret",
+      "name": "Power Patrol Red Beret",
+      "entitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beret_PowerPatrol",
+      "ddsPath": "textures/atx/storefront/player/headwear/score_s4_apparel_headwear_beret_powerpatrol.dds",
+      "outAvif": "score_s4_apparel_headwear_beret_powerpatrol.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R44_cannonball_pose",
+      "name": "Cannonball Pose",
+      "entitlement": "SCORE_S4_ENTM_Photomode_Pose_1",
+      "ddsPath": "textures/atx/storefront/player/photopose/score_s4_photomode_pose_1.dds",
+      "outAvif": "score_s4_photomode_pose_1.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R46_armor_ace_paint_handmade_rifle",
+      "name": "Armor Ace Paint (Handmade Rifle)",
+      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_HandmadeGun_ArmorAce",
+      "ddsPath": "textures/atx/storefront/player/weaponskin/score_s2_skin_weaponskin_handmadegun_armorace.dds",
+      "outAvif": "score_s4_skin_weaponskin_handmadegun_armorace.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R48_yukon_five_t_60_power_armor_paint",
+      "name": "Yukon Five Power Armor T-60 Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T60_YukonFive",
+      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_t60_yukonfive.dds",
+      "outAvif": "score_s4_skin_powerarmor_paint_t60_yukonfive.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R50_nuka_cola_collectron_station",
+      "name": "Nuka-Cola Collectron Station",
+      "entitlement": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
+      "ddsPath": "textures/atx/storefront/camp/utility/score_s4_camp_utility_collectron_nukacola.dds",
+      "outAvif": "score_s4_camp_utility_collectron_nukacola.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R54_commissioner_chaos_player_icon",
+      "name": "Player Icon: Commissioner Chaos",
+      "entitlement": "SCORE_S4_ENTM_PlayerIcon_CommisionerChaos",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_20.dds",
+      "outAvif": "score_s4_playericon_commisionerchaos.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R56_armor_ace_power_armor_station",
+      "name": "Armor Ace Power Armor Station",
+      "entitlement": "SCORE_S4_ENTM_CAMP_Machinery_Workbench_PowerArmor_ArmorAce",
+      "ddsPath": "textures/atx/storefront/camp/machinery/atx_camp_machinery_workbench_powerarmor_armorace.dds",
+      "outAvif": "score_s4_camp_machinery_workbench_powerarmor_armorace.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R58_yukon_five_x_01_power_armor_paint",
+      "name": "Yukon Five Power Armor X-01 Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_X01_YukonFive",
+      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_x01_yukonfive.dds",
+      "outAvif": "score_s4_skin_powerarmor_paint_x01_yukonfive.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R62_power_patrol_fatigues",
+      "name": "Power Patrol Fatigues",
+      "entitlement": "SCORE_S4_ENTM_Apparel_Outfit_PowerPatrol",
+      "ddsPath": "textures/atx/storefront/player/outfit/score_s4_apparel_outfit_powerpatrol.dds",
+      "outAvif": "score_s4_apparel_outfit_powerpatrol.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R64_icebreaker_player_icon",
+      "name": "Player Icon: Icebreaker",
+      "entitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel_2",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_18.dds",
+      "outAvif": "score_s4_playericon_coldsteel_2.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R66_icebreaker_skin",
+      "name": "Icebreaker (Power Fist)",
+      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_PowerFist_IceBreaker",
+      "ddsPath": "textures/atx/storefront/player/weaponskin/score_s4_skin_weaponskin_powerfist_icebreaker.dds",
+      "outAvif": "score_s4_skin_weaponskin_powerfist_icebreaker.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R68_yukon_five_ultracite_power_armor_paint",
+      "name": "Yukon Five Power Armor Ultracite Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_Ultracite_YukonFive",
+      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_ultracite_yukonfive.dds",
+      "outAvif": "score_s4_skin_powerarmor_paint_ultracite_yukonfive.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R69_gold_toilet",
+      "name": "Gold Toilet",
+      "entitlement": "SCORE_S4_ENTM_CAMP_FloorDecor_Toilet_Gold",
+      "ddsPath": "textures/atx/storefront/camp/utility/score_s4_camp_floordecor_toilet_gold.dds",
+      "outAvif": "score_s4_camp_floordecor_toilet_gold.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R72_armor_ace_backpack_flair",
+      "name": "Armor Ace Backpack Flair",
+      "entitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_ArmorAce",
+      "ddsPath": "textures/atx/storefront/player/flair/score_s4_skin_backpackflair_armorace.dds",
+      "outAvif": "score_s4_skin_backpackflair_armorace.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R74_skiing_pose",
+      "name": "Skiing Pose",
+      "entitlement": "SCORE_S4_ENTM_Photomode_Pose_2",
+      "ddsPath": "textures/atx/storefront/player/photopose/score_s4_photomode_pose_2.dds",
+      "outAvif": "score_s4_photomode_pose_2.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R75_red_viper_paint_handmade_rifle",
+      "name": "Red Viper Paint (Handmade Rifle)",
+      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_HandmadeGun_RedViper",
+      "ddsPath": "textures/atx/storefront/player/weaponskin/score_s4_skin_weaponskin_handmadegun_redviper.dds",
+      "outAvif": "score_s4_skin_weaponskin_handmadegun_redviper.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R76_yukon_five_t_65_power_armor_paint",
+      "name": "Yukon Five Power Armor T-65 Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T65_YukonFive",
+      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_t65_yukonfive.dds",
+      "outAvif": "score_s4_skin_powerarmor_paint_t65_yukonfive.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R78_cold_steel_floors",
+      "name": "Cold Steel Floors",
+      "entitlement": "SCORE_S4_ENTM_CAMP_Floor_ColdSteel",
+      "ddsPath": "textures/atx/storefront/camp/floors/score_s4_camp_floor_coldsteel.dds",
+      "outAvif": "score_s4_camp_floor_coldsteel.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R84_double_tap_player_icon",
+      "name": "Player Icon: Doubletap",
+      "entitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel_3",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_19.dds",
+      "outAvif": "score_s4_playericon_coldsteel_3.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R86_armor_ace_paint_gatling_plasma",
+      "name": "Armor Ace Paint (Gatling Plasma)",
+      "entitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_PlasmaGatling_ArmorAce",
+      "ddsPath": "textures/atx/storefront/player/weaponskin/score_s4_skin_weaponskin_plasmagatling_armorace.dds",
+      "outAvif": "score_s4_skin_weaponskin_plasmagatling_armorace.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R88_commissioner_chaos_power_armor_paint",
+      "name": "Commissioner Chaos Power Armor Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Model_CommissionerChaos",
+      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_paint_commissionerchaos.dds",
+      "outAvif": "score_s4_skin_powerarmor_model_commissionerchaos.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R89_cold_steel_wallpaper",
+      "name": "Cold Steel Wallpaper",
+      "entitlement": "SCORE_S4_ENTM_CAMP_WallPaper_ColdSteel",
+      "ddsPath": "textures/atx/storefront/camp/wallpaper/score_s4_camp_wallpaper_coldsteel.dds",
+      "outAvif": "score_s4_camp_wallpaper_coldsteel.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R92_flamethrower_tanks_backpack",
+      "name": "Flamethrower Tanks Backpack",
+      "entitlement": "SCORE_S4_ENTM_Skin_Backpack_FlameTanks",
+      "ddsPath": "textures/atx/storefront/player/backpack/score_s4_skin_backpack_flametanks.dds",
+      "outAvif": "score_s4_skin_backpack_flametanks.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R94_cold_steel_beer_stein",
+      "name": "Cold Steel Beer Stein",
+      "entitlement": "SCORE_S4_ENTM_CAMP_FloorDecor_Stein_ColdSteel",
+      "ddsPath": "textures/atx/storefront/camp/floordecoration/score_s4_camp_floordecor_stein_coldsteel.dds",
+      "outAvif": "score_s4_camp_floordecor_stein_coldsteel.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R96_power_patrol_blue_beret",
+      "name": "Power Patrol Blue Beret",
+      "entitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beret_PowerPatrolBlue",
+      "ddsPath": "textures/atx/storefront/player/headwear/score_s4_apparel_headwear_beret_powerpatrolblue.dds",
+      "outAvif": "score_s4_apparel_headwear_beret_powerpatrolblue.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R98_icebreaker_outfit",
+      "name": "Icebreaker Outfit",
+      "entitlement": "SCORE_S4_ENTM_Apparel_Outfit_IceBreaker",
+      "ddsPath": "textures/atx/storefront/player/outfit/score_s4_apparel_outfit_icebreaker.dds",
+      "outAvif": "score_s4_apparel_outfit_icebreaker.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R99_brotherhood_of_steel_infantry_statue",
+      "name": "Brotherhood of Steel Infantry Statue",
+      "entitlement": "SCORE_S4_ENTM_CAMP_Statue_BoSInfantryStatue",
+      "ddsPath": "textures/atx/storefront/camp/statues/score_s4_camp_statue_bosinfantrystatue.dds",
+      "outAvif": "score_s4_camp_statue_bosinfantrystatue.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R100_complete_chaos_power_armor_paint",
+      "name": "Complete Chaos Power Armor Paint",
+      "entitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Model_CommissionerChaos_CompleteChaos",
+      "ddsPath": "textures/atx/storefront/player/powerarmor/score_s4_skin_powerarmor_model_commissionerchaos_completechaos.dds",
+      "outAvif": "score_s4_skin_powerarmor_model_commissionerchaos_completechaos.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R100_framed_cold_steel_gameboard",
+      "name": "Framed Cold Steel Gameboard",
+      "entitlement": "SCORE_S4_ENTM_CAMP_WallDeco_ColdSteel_Gameboard",
+      "ddsPath": "textures/atx/storefront/camp/walldecoration/score_s4_camp_walldeco_coldsteel_gameboard.dds",
+      "outAvif": "score_s4_camp_walldeco_coldsteel_gameboard.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_R100_complete_chaos_player_icon",
+      "name": "Player Icon: Complete Chaos",
+      "entitlement": "SCORE_S4_ENTM_PlayerIcon_EndOfSeason",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_21.dds",
+      "outAvif": "score_s4_playericon_endofseason.avif",
       "uploadTo": "/wp-content/uploads/season_images/season-4/"
     },
     {
@@ -406,6 +426,14 @@
       "entitlement": "SCORE_S4_ENTM_CAMP_Statue_BoSInfantryStatuePatina",
       "ddsPath": "textures/atx/storefront/camp/statues/score_s4_camp_statue_bosinfantrystatuepatina.dds",
       "outAvif": "score_s4_camp_statue_bosinfantrystatuepatina.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-4/"
+    },
+    {
+      "id": "S4_P1_playericon_coldsteel_4",
+      "name": "Player Icon: Cold Steel Icon 4",
+      "entitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel_4",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_score_14.dds",
+      "outAvif": "score_s4_playericon_coldsteel_4.avif",
       "uploadTo": "/wp-content/uploads/season_images/season-4/"
     }
   ]
