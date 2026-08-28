@@ -982,9 +982,6 @@ _Couldn't key this file to records; contents differ._
 ## `farming_spawns/chems-psychobuff_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `farming_spawns/chems-psychotats_spawns.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `farming_spawns/chems-rad-x-diluted_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
