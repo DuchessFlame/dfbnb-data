@@ -75,6 +75,7 @@ TSV_DIR = REPO_ROOT / "tsv"
 DIST_DIR = REPO_ROOT / "dist" / "calculators"
 SEASONS_TSV = TSV_DIR / "fallout76_seasons.tsv"
 REWARDS_TSV = TSV_DIR / "season_rewards.tsv"
+LEGACY_TSV = TSV_DIR / "legacy_seasons.tsv"
 OVERRIDES_TSV = TSV_DIR / "score_buff_output_overrides.tsv"
 TAG = "[build_upcoming_rewards]"
 
@@ -172,6 +173,45 @@ NOTES = {
     ),
     "generated_by": "build_upcoming_rewards_json.py -- do not hand-edit.",
 }
+
+
+def legacy_rerun_seasons(path):
+    """Season numbers that have a legacy re-release listed in legacy_seasons.tsv."""
+    out = set()
+    if not path.exists():
+        return out
+    for row in read_tsv(path):
+        try:
+            out.add(int((row.get("SeasonNumber") or "").strip()))
+        except (TypeError, ValueError):
+            continue
+    return out
+
+
+def load_uploaded_images(season_num):
+    """Entitlement (lowercased) -> the artwork URL actually uploaded for it.
+
+    Read from dist/season_images/season_{N}_images.json, which
+    build_season_reward_images.py writes when it resolves each reward's texture.
+    That file records the OUTPUT filename, which is named after the curated
+    reward row rather than the source .dds - so it is the only reliable map from
+    an entitlement to the image that exists on the site.
+    """
+    path = REPO_ROOT / "dist" / "season_images" / f"season_{season_num}_images.json"
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    out = {}
+    for img in data.get("images", []):
+        ent = (img.get("entitlement") or "").strip().lower()
+        name = (img.get("outAvif") or "").strip()
+        upload = (img.get("uploadTo") or "").strip()
+        if ent and name and upload:
+            out[ent] = upload + name
+    return out
 
 
 def read_tsv(path):
@@ -683,6 +723,25 @@ def extract_seasons(entm_tsv, overrides, target_season=None, gen_resolver=None):
 
 def build_season_json(season_num, items, meta, source_name, observed):
     sm = meta.get(season_num, {})
+
+    # Resolve each item's real uploaded artwork.
+    #
+    # The renderer used to build the image path from the .dds basename, which is
+    # wrong whenever Bethesda reuses a texture: the Tree Branch Chandelier ships
+    # under score_s1_camp_lights_treebranchchandelier.dds, and Season 4's upload
+    # is named score_s4_camp_lights_treebranchchandelier.avif after the curated
+    # row. The guess 404s and the reward shows "Image not yet uploaded" while
+    # the scoreboard page displays it fine.
+    #
+    # The season image manifest is the only thing that knows the uploaded name,
+    # so take it from there, keyed on entitlement. Items with no manifest entry
+    # keep no imageUrl and the renderer falls back to the .dds guess.
+    art = load_uploaded_images(season_num)
+    for item in items:
+        url = art.get((item.get("edid") or "").lower())
+        if url:
+            item["imageUrl"] = url
+
     # A-Z by name (case-insensitive); rarity as a stable secondary key
     items.sort(key=lambda x: (x["name"].lower(), RARITY_RANK.get(x["rarity"], 9)))
 
@@ -748,11 +807,19 @@ def main():
             print(TAG + " [WARN] No ENTM_Export_*.tsv found -- nothing to do.")
             return
     else:
-        entm_tsv = find_entm_tsv(TSV_DIR)
+        # Default to the PTS export, falling back to the live one.
+        #
+        # These pages exist to show what is coming, and only the PTS export has
+        # it. Preferring the live export here silently rebuilt every upcoming
+        # page from shipped data: Season 26 dropped from 66 rewards to 0, and
+        # Season 4's re-release lost the five titles Bethesda added to it — the
+        # exact rewards the page is there to reveal. Defaulting the other way
+        # costs nothing, because a season with no PTS entitlements simply has no
+        # rows to emit.
+        pts_dir = TSV_DIR / "pts"
+        entm_tsv = find_entm_tsv(pts_dir) if pts_dir.exists() else None
         if entm_tsv is None:
-            pts_dir = TSV_DIR / "pts"
-            if pts_dir.exists():
-                entm_tsv = find_entm_tsv(pts_dir)
+            entm_tsv = find_entm_tsv(TSV_DIR)
         if entm_tsv is None:
             print(TAG + " [WARN] No ENTM_Export_*.tsv found -- nothing to do.")
             return
@@ -790,12 +857,25 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
     built = 0
 
+    # Seasons queued for a legacy re-release. A re-run is genuinely upcoming even
+    # though the season is curated and finished years ago: it has a live
+    # /upcoming-rewards/ page showing what the re-released board will hold, and
+    # that page is how players spot the rewards Bethesda ADDED to the re-run.
+    # Without this both skips below would fire and the page would be served a
+    # stale file forever.
+    relegacy = legacy_rerun_seasons(LEGACY_TSV)
+    if relegacy:
+        print(TAG + " Legacy re-runs (built despite being curated/past): "
+              + ", ".join("S" + str(n) for n in sorted(relegacy)))
+
     for snum in sorted(season_items):
-        if snum in curated and not args.force:
+        rerun = snum in relegacy
+
+        if snum in curated and not args.force and not rerun:
             print(TAG + " S" + str(snum) + ": skipped (curated data exists; use --force to override)")
             continue
 
-        if is_past_season(snum, meta) and not args.force:
+        if is_past_season(snum, meta) and not args.force and not rerun:
             print(TAG + " S" + str(snum) + ": skipped (season already started/finished -- not upcoming)")
             continue
 
