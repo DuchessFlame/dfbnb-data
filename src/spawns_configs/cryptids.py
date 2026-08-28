@@ -44,6 +44,7 @@ from spawns_engine import sources as esources
 from spawns_engine import build as ebuild
 from spawns_engine import events as eevents
 import tsv_source          # one resolver for every export selection
+from prune_outputs import prune_outputs
 
 # ── constants ────────────────────────────────────────────────────────────────
 CRYPTID_KEYWORD = "00331AC2"          # ActorTypeCryptid (roster authority)
@@ -1161,6 +1162,13 @@ def run(argv=None):
         "cryptids": [h for h in hub if not h["hold"]],
         "cryptids_pending": [h for h in hub if h["hold"]],
     }
+    # Prune before the hub is written. NOTE: the geo-cache prune further up
+    # (valid_slugs) only tidies data/ -- it never touched dist/, which is why
+    # beast-of-beckley and honey-beast were still being served after their pages
+    # were dropped from PAGES. Keyed on PAGES, not the filtered `pages`.
+    prune_outputs(OUT_DIR, [pg["slug"] for pg in PAGES],
+                  tag="[cryptids]", skip=bool(slug_filter), also_keep=())
+
     json.dump(hub_doc, open(HUB_FILE, "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
     print(f"[cryptids] wrote {HUB_FILE} ({len(hub_doc['cryptids'])} live, "

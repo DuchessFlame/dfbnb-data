@@ -57,6 +57,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_events.json
+          # by_page_slices.py prunes retired slices; -A stages the deletions too,
+          # otherwise the prune runs on the runner and is thrown away.
+          git add -A dist/events/by_page
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

@@ -856,6 +856,7 @@ def main():
 
     out_dir.mkdir(parents=True, exist_ok=True)
     built = 0
+    written = set()
 
     # Seasons queued for a legacy re-release. A re-run is genuinely upcoming even
     # though the season is curated and finished years ago: it has a live
@@ -889,7 +890,48 @@ def main():
 
         print(TAG + " S" + str(snum) + ": written " + out_path.name
               + "  (" + str(len(items)) + " items, A-Z)")
+        written.add(snum)
         built += 1
+
+    # ---- prune ----
+    #
+    # Delete every upcoming_rewards_s*.json this run did not write. Without this
+    # the output is append-only: a season keeps whatever file it had the day it
+    # was last built, forever. dist/ was still serving S1-S23 upcoming pages from
+    # a one-off build months after those seasons launched, so /upcoming-rewards/
+    # showed a "coming soon" reward list for a season that had already been and
+    # gone.
+    #
+    # Deleting is safe because this file is entirely generated: if a season
+    # should have one, this run just wrote it. The renderer treats a missing file
+    # as "nothing upcoming", which is the honest answer for a launched season.
+    #
+    # Skipped when --season narrows the run, because then "not written" only
+    # means "not asked for".
+    if args.season:
+        print(TAG + " Prune skipped (--season limits this run to one season).")
+    else:
+        removed, blocked = [], []
+        for path in sorted(out_dir.glob("upcoming_rewards_s*.json")):
+            m = re.match(r"upcoming_rewards_s(\d+)\.json$", path.name)
+            if not m or int(m.group(1)) in written:
+                continue
+            try:
+                path.unlink()
+                removed.append(path.name)
+            except OSError:
+                # A local checkout inside OneDrive refuses deletes until the
+                # folder is granted permission. Report and carry on rather than
+                # failing the build: CI runs on a plain filesystem and prunes
+                # for real, so the committed output still ends up correct.
+                blocked.append(path.name)
+        if removed:
+            print(TAG + " Pruned " + str(len(removed)) + " stale file(s): "
+                  + ", ".join(removed))
+        if blocked:
+            print(TAG + " [WARN] Could not delete " + str(len(blocked))
+                  + " stale file(s) -- no permission to delete here: "
+                  + ", ".join(blocked))
 
     if built == 0:
         print(TAG + " No seasons built (all are curated or no data found).")

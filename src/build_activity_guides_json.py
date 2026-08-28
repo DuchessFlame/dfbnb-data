@@ -37,6 +37,7 @@ ROOT = os.path.dirname(HERE)
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
 import tsv_source  # noqa: E402
+from prune_outputs import prune_outputs
 
 CATEGORY = "Activities"
 
@@ -169,6 +170,15 @@ def build(channel: str, out_dir: str) -> dict:
         manifest["pages"].append({"slug": slug, "name": name, "form_id": fid,
                                   "stage_count": total_stages, "stages_with_log": len(stages)})
         print(f"[ok] {slug:28s} listed={len(stages):3d} / total={total_stages:3d}  ({name})")
+
+    # Prune anything this run did not write, so a quest removed from QUEST_SLUGS
+    # stops being served instead of sitting in dist/ forever. Keyed on
+    # manifest["pages"] rather than QUEST_SLUGS: a quest missing from the export
+    # is skipped above, so "configured" and "actually written" are not the same
+    # set, and pruning against the config would delete a page that only failed
+    # to build this once.
+    prune_outputs(out_dir, [p["slug"] for p in manifest["pages"]],
+                  tag="[activity_guides]")
 
     with open(os.path.join(out_dir, "_index.json"), "w", encoding="utf-8") as fh:
         json.dump(manifest, fh, ensure_ascii=False, indent=2)

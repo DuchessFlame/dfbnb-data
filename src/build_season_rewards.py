@@ -278,10 +278,20 @@ def build_season_json(season_num: int, items: list[dict], meta: dict) -> dict:
     output["layout"] = "rank" if ranked else "pages"
     if ranked:
         output["maxRank"] = max(it["rank"] for it in ranked)
-        # Rewards the board list could not place. They are kept so no curated
-        # artwork or description is lost, and rendered in their own section
-        # rather than silently mixed into the rank order.
-        output["unplacedCount"] = len(output["items"]) - len(ranked)
+
+        # Mark the leftovers explicitly rather than leaving them defined by
+        # absence. A row with no page, no rank and no flag is indistinguishable
+        # from a broken one, so the CI sanity check cannot tell "this reward was
+        # never on the board" from "this reward lost its place in a bad build".
+        # These are kept so no curated artwork or description is lost, and are
+        # rendered in their own section rather than mixed into the rank order.
+        unplaced = 0
+        for it in output["items"]:
+            if "rank" in it or it.get("addedInRerun"):
+                continue
+            it["unplaced"] = True
+            unplaced += 1
+        output["unplacedCount"] = unplaced
 
     return output
 

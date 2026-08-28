@@ -913,6 +913,21 @@ jobs:
       - name: Build Upcoming Rewards JSON
         run: python src/build_upcoming_rewards_json.py --pts
 
+      # --- LEGACY RE-RELEASE ADDITIONS ---
+      # A legacy re-run is not a straight repeat: Bethesda quietly adds rewards
+      # (usually titles and the end-of-season art) that were never on the
+      # original board, and announces none of them. This compares the PTS export
+      # against the curated board on entitlement EDID and writes anything new
+      # into tsv/season_rewards.tsv with addedInRerun set, which is what puts the
+      # permanent gold NEW pill on the card.
+      #
+      # It must run AFTER the upcoming builder, which produces the export side of
+      # that comparison. Idempotent — a second run finds nothing — so it is safe
+      # on every build. Committing season_rewards.tsv fires build-season-rewards.yml,
+      # which regenerates the per-season JSON.
+      - name: Apply legacy re-release additions
+        run: python src/apply_legacy_additions.py
+
       # --- ATOM SHOP ---
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
@@ -1054,6 +1069,10 @@ jobs:
           git add tsv/BnB_Menu_Items.tsv
           # Stage regenerated CURV POINTS TSV (built by build_curv_points_tsv.py)
           git add tsv/CURV_Export_*_POINTS.tsv 2>/dev/null || true
+          # Rewards added by a legacy re-release (apply_legacy_additions.py).
+          # Pushing this fires build-season-rewards.yml, which rebuilds the
+          # per-season JSON so the NEW pills actually reach the site.
+          git add tsv/season_rewards.tsv 2>/dev/null || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

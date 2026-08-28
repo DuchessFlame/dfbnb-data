@@ -40,6 +40,7 @@ if SRC not in sys.path:
     sys.path.insert(0, SRC)
 
 from spawns_configs import cryptids as C
+from prune_outputs import prune_outputs
 
 DIST = os.path.join(REPO, "dist")
 OUT_DIR = os.path.join(DIST, "meat")
@@ -348,6 +349,14 @@ def run(argv=None):
                "blurb": ("Every farmable meat in Fallout 76 — the creature that drops it, "
                          "where it spawns, and the drop rates. Pick a meat below."),
                "meats": hub}
+    # Prune before the hub is written: an output directory that is only ever
+    # written to keeps serving whatever it was last given. dist/meat/ still held
+    # eight insect pages from before insects moved to their own family, and
+    # nothing anywhere reported it. `pages` is the filtered roster, so the prune
+    # is skipped whenever a slug filter narrowed the run.
+    prune_outputs(OUT_DIR, [pg["slug"] for pg in MEAT],
+                  tag="[meat]", skip=bool(slug_filter), also_keep=())
+
     json.dump(hub_doc, open(HUB_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"[meat] wrote {HUB_FILE} ({len(hub)} pages) + per-page docs in {OUT_DIR}")
     C.close_ctx(ctx)

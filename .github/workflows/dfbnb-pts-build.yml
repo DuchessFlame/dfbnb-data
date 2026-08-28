@@ -997,14 +997,28 @@ jobs:
       - name: Build Upcoming Rewards JSON
         run: python src/build_upcoming_rewards_json.py --pts
 
-      - name: Verify Upcoming Rewards S26 built
+      # Verify the upcoming preview is not empty across the board.
+      #
+      # This used to name S26 specifically, which is a dated assertion with a
+      # built-in expiry: the moment S26 launched the builder would correctly stop
+      # emitting it and this check would fail on correct output. Assert the
+      # invariant instead — SOME season is still upcoming with rewards in it —
+      # which stays true as the seasons roll forward.
+      - name: Verify Upcoming Rewards built
         run: |
-          python -c "import json,glob,sys; \
-          fs=glob.glob('dist/calculators/upcoming_rewards_s26.json'); \
-          d=json.load(open(fs[0])) if fs else {}; \
-          n=len(d.get('items',[])); \
-          print('[verify] S26 upcoming items:', n); \
-          sys.exit(0 if n>0 else 1)"
+          python3 - <<'PY'
+          import glob, json, sys, re
+          rows = []
+          for f in sorted(glob.glob('dist/calculators/upcoming_rewards_s*.json')):
+              n = int(re.search(r'_s(\d+)\.json$', f).group(1))
+              rows.append((n, len(json.load(open(f)).get('items', []))))
+          for n, c in sorted(rows):
+              print(f"[verify] S{n}: {c} upcoming items")
+          if not any(c > 0 for _, c in rows):
+              print("[verify] FAILED: no season has any upcoming rewards")
+              sys.exit(1)
+          print("[verify] OK")
+          PY
 
       # --- ATOM SHOP ---
       # build_atom_shop_json.py is a read-modify-write over dist/atom_shop.json:

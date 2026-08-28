@@ -85,16 +85,52 @@ jobs:
               if not items:
                   problems.append(f"S{n}: zero items")
                   continue
-              # Every curated item must be identifiable and placeable on a page.
+              # Every curated item must be identifiable and placeable.
+              #
+              # "Placeable" means a page OR a rank. Seasons 1-8 ran on the old
+              # 100-rank board game and have no pages at all — demanding a page
+              # there would fail the build on correct data.
+              #
+              # Two kinds of reward sit outside both, and each says so
+              # explicitly so that a row saying NOTHING is still an error:
+              #   addedInRerun — added when the season was re-released, so it
+              #                  was on no original board
+              #   unplaced     — curated rows the board list could not place
+              #                  (duplicates, colour variants, never shipped)
               no_id = sum(1 for i in items if not i.get("id"))
-              no_page = sum(1 for i in items if not str(i.get("page") or "").strip())
               no_name = sum(1 for i in items if not (i.get("name") or "").strip())
-              if no_id or no_page or no_name:
+              no_place = sum(
+                  1 for i in items
+                  if not str(i.get("page") or "").strip()
+                  and not isinstance(i.get("rank"), int)
+                  and not i.get("addedInRerun")
+                  and not i.get("unplaced")
+              )
+              if no_id or no_place or no_name:
                   problems.append(
-                      f"S{n}: {no_id} without id, {no_page} without page, "
-                      f"{no_name} without name")
+                      f"S{n}: {no_id} without id, {no_place} with neither page "
+                      f"nor rank, {no_name} without name")
+
+              # A season is one layout or the other, never a mix — a half-ranked
+              # season would render some rewards in the flat rank list and drop
+              # the rest into "not placed on the board".
+              layout = d.get("layout")
+              ranked = sum(1 for i in items if isinstance(i.get("rank"), int))
+              paged = sum(1 for i in items if str(i.get("page") or "").strip())
+              if layout == "rank" and paged:
+                  problems.append(f"S{n}: layout=rank but {paged} items still carry a page")
+              if layout == "pages" and ranked:
+                  problems.append(f"S{n}: layout=pages but {ranked} items carry a rank")
+              if layout == "rank":
+                  gaps = [r for r in range(2, (d.get("maxRank") or 0) + 1)
+                          if r not in {i.get("rank") for i in items}]
+                  if gaps:
+                      problems.append(f"S{n}: rank gaps {gaps[:10]}"
+                                      + (" …" if len(gaps) > 10 else ""))
+
               imgs = sum(1 for i in items if i.get("imageUrl"))
-              print(f"  S{n:<2} {len(items):>3} items | imageUrl {imgs:>3}")
+              shape = f"ranks 2-{d.get('maxRank')}" if layout == "rank" else f"{paged} paged"
+              print(f"  S{n:<2} {len(items):>3} items | {shape:<14} | imageUrl {imgs:>3}")
 
           allp = dist / "all_seasons.json"
           assert allp.exists(), "missing all_seasons.json"

@@ -53,6 +53,7 @@ import tsv_source
 from spawns_engine.geo import Geo
 from spawns_engine import build as ebuild
 from spawns_configs import cryptids as C
+from prune_outputs import prune_outputs
 
 DIST = os.path.join(REPO, "dist")
 URL_BASE = "/bnb/farming/plants/"
@@ -403,6 +404,7 @@ def run(argv=None):
 
     generated = datetime.date.today().isoformat()
     roster = load_roster()
+    full_roster = list(roster)
     if slug_filter:
         roster = [p for p in roster if p["slug"] in slug_filter]
     flor, flor_path = load_flor(tsv_root if pts else None)
@@ -439,6 +441,13 @@ def run(argv=None):
                          "guaranteed spawn points and its chance-to-spawn locations. "
                          "Pick a plant below."),
                "plants": hub}
+    # Prune before the hub is written. This roster comes from guide_index.tsv,
+    # so the key set moves whenever a plant sub-card is added or removed -- the
+    # highest-churn family here, and the one that had 43 orphaned duplicates.
+    # `full_roster` is the unfiltered set; prune only on an unfiltered run.
+    prune_outputs(out_dir, [pg["slug"] for pg in full_roster],
+                  tag="[plants]", skip=bool(slug_filter), also_keep=())
+
     json.dump(hub_doc, open(hub_file, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"[plants] wrote {hub_file} ({len(hub)} pages) + per-page docs in {out_dir}")
     if con:

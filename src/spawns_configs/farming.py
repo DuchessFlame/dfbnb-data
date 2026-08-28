@@ -24,6 +24,7 @@ from spawns_engine import sources as esources
 from spawns_engine import build as ebuild
 from spawns_engine import events as eevents
 from spawns_engine.classify import farming_classify
+from prune_outputs import prune_outputs
 
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 
@@ -318,6 +319,12 @@ def main(argv=None):
     if args.all:
         for cfg in ALL_SETS:
             run_item(cfg, pts=args.pts)
+        # Prune only on --all. run_item() builds a single slug, so pruning inside
+        # it would delete every other item on a one-item run.
+        dist_dir = os.path.join(REPO, "dist", "pts" if args.pts else "", "farming_spawns")
+        prune_outputs(os.path.normpath(dist_dir),
+                      [c["slug"] + "_spawns" for c in ALL_SETS],
+                      tag="[farming_spawns]", also_keep=())
     else:
         cfg = SETS_BY_SLUG.get(args.item)
         if cfg is None:

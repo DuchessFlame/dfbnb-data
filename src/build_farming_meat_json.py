@@ -24,6 +24,7 @@ if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
 from spawns_configs import meat
+from prune_outputs import mirror_dir
 
 
 def _mirror_to_pts():
@@ -32,9 +33,12 @@ def _mirror_to_pts():
     dist = os.path.join(REPO, "dist")
     pts = os.path.join(dist, "pts")
     os.makedirs(pts, exist_ok=True)
+    # mirror_dir copies AND removes what has left the source.
+    # shutil.copytree(dirs_exist_ok=True) only overlays: a file deleted from
+    # dist/meat/ survived in dist/pts/meat/ indefinitely, and the two had already
+    # drifted (39 files against 31) before this was fixed.
     src_dir, dst_dir = os.path.join(dist, "meat"), os.path.join(pts, "meat")
-    if os.path.isdir(src_dir):
-        shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+    mirror_dir(src_dir, dst_dir, tag="[meat->pts]")
     src_hub = os.path.join(dist, "meat.json")
     if os.path.exists(src_hub):
         shutil.copyfile(src_hub, os.path.join(pts, "meat.json"))
