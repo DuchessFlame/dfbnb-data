@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-27T02:59:34+00:00",
+  "generatedAt": "2026-08-28T01:03:59+00:00",
   "type": "collectrons",
-  "count": 27,
+  "count": 31,
   "items": [
     {
       "formId": "006C6DC0",
@@ -11,9 +11,10 @@
       "entmFormId": "006C6DC0",
       "displayName": "Auto-Miner Collectron Station",
       "description": "Tired of mining all that ore by yourself? Well now you don't have to with the Auto-Miner Collectron!",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/score_s14_entm_camp_utility_collectron_autominer.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s14_camp_utility_collectron_autominer_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/score_s14_camp_utility_collectron_autominer_c1.ddsscore_s14_camp_utility_collectron_autominer_c2.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s14_camp_utility_collectron_autominer_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s14_camp_utility_collectron_autominer_c2.avif"
       ],
       "imageDds": "SCORE_S14_CAMP_Utility_Collectron_AutoMiner.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -188,7 +189,7 @@
           "route": "Gold Bullion",
           "populated": true,
           "lines": [
-            "Plan: Plan: Auto-Miner Collectron",
+            "Plan: Auto-Miner Collectron",
             "Samuel — Gold Bullion vendor",
             "1250 Gold Bullion"
           ],
@@ -234,7 +235,8 @@
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": 14,
       "releaseDate": "2023-10-03",
-      "cutContent": false
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "0079A1D5",
@@ -244,9 +246,10 @@
       "entmFormId": "0079A1D5",
       "displayName": "Biv Bev Collectron Station",
       "description": "You'll never go thirsty with Biv Bev here to serve!",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/atx_entm_camp_utility_collectron_bivbev.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_bivbev_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/atx_camp_utility_collectron_bivbev_c1.ddsatx_camp_utility_collectron_bivbev_c2.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_bivbev_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_bivbev_c2.avif"
       ],
       "imageDds": "ATX_CAMP_Utility_Collectron_BivBev.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -692,21 +695,22 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "005C53B8",
-      "edid": "ATX_Resource_Collectron_BoS_MissionSupplies",
+      "formId": "005C53AC",
+      "edid": "ATX_Community2020_ATLAS_ENTM_CAMP_Utility_Collectron_BoS",
       "resoFormId": "005C53B8",
       "contFormId": "005C53AB",
-      "entmFormId": "",
+      "entmFormId": "005C53AC",
       "displayName": "BoS Collectron Station",
-      "description": "",
-      "imageUrl": null,
+      "description": "The BoS Collectron searches for mission critical supplies around your C.A.M.P. All items found are placed in a container connected to the Collectron Station. From the 2020 Fortifying ATLAS event.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_bos_l.avif",
       "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "imageDds": "ATX_Camp_Utility_ScavengeStation_BoS.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.12,
@@ -1743,14 +1747,14 @@
         }
       ],
       "howToObtain": {
-        "method": "atom",
+        "method": "community",
         "seasonNumber": null,
         "goldBullionPrice": null,
         "vendor": null,
         "tradeable": null,
         "planName": null,
-        "display": "Purchase from the Atom Shop.",
-        "badge": "atom"
+        "display": "Awarded through a Bethesda community event or promotion.",
+        "badge": "default"
       },
       "obtainRoutes": [
         {
@@ -1783,12 +1787,10 @@
         },
         {
           "route": "Atom Shop",
-          "populated": true,
-          "lines": [
-            "Purchase from the Atom Shop."
-          ],
+          "populated": false,
+          "lines": [],
           "tradeable": null,
-          "dropRate": "N/A"
+          "dropRate": null
         },
         {
           "route": "Limited Time Bundle",
@@ -1799,10 +1801,12 @@
         },
         {
           "route": "Events & Activities",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Awarded through a Bethesda community event or promotion."
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Quests",
@@ -1821,8 +1825,9 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "0085CE4D",
@@ -1832,9 +1837,11 @@
       "entmFormId": "0085CE4D",
       "displayName": "Cobby Collectron Station",
       "description": "Come collect Corn and various other types of items with the Cobby Collectron Station!",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/score_s23_entm_camp_utility_collectron_cornbot.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s23_camp_utility_collectron_cornbot_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/score_s23_camp_utility_collectron_cornbot_c1.ddsscore_s23_camp_utility_collectron_cornbot_c2.ddsscore_s23_camp_utility_collectron_cornbot_c3.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s23_camp_utility_collectron_cornbot_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s23_camp_utility_collectron_cornbot_c2.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s23_camp_utility_collectron_cornbot_c3.avif"
       ],
       "imageDds": "SCORE_S23_CAMP_Utility_Collectron_Cornbot.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -2117,7 +2124,7 @@
           "route": "Gold Bullion",
           "populated": true,
           "lines": [
-            "Plan: Plan: Cobby Collectron",
+            "Plan: Cobby Collectron",
             "Samuel — Gold Bullion vendor",
             "4000 Gold Bullion"
           ],
@@ -2163,20 +2170,24 @@
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": 23,
       "releaseDate": "2026-01-27",
-      "cutContent": false
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "005867B6",
-      "edid": "ATX_Resource_Communist_Collectron_Proletariat",
+      "formId": "00564AE4",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
       "resoFormId": "005867B6",
       "contFormId": "00536D41",
-      "entmFormId": "",
+      "entmFormId": "00564AE4",
       "displayName": "Communist Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "The Communist Collectron unit will work tirelessly to collect food and water rations, and revolutionary supplies like weapons and grenades. All items found are considered property of the Party, but will be graciously gifted to good workers via the container connected to the station. You may also provide orders to the unit's terminal to determine which supplies it should seek out.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_communist_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_communist_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_communist_c2.avif"
+      ],
+      "imageDds": "ATX_Camp_Utility_Collectron_Communist.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.08,
@@ -3215,8 +3226,9 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "008B2023",
@@ -3564,21 +3576,25 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "00622F7E",
-      "edid": "ATX_Resource_Collectron_FETCH_Electronics",
+      "formId": "0062201B",
+      "edid": "SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH",
       "resoFormId": "00622F7E",
       "contFormId": "00620F39",
-      "entmFormId": "",
+      "entmFormId": "0062201B",
       "displayName": "F.E.T.C.H. Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "The RobCo Faithful Electronic Trash Collection Hound collects electronic scrap and is programmed to always be happy to see you!",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s6_camp_utility_collectron_fetch_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s6_camp_utility_collectron_fetch_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s6_camp_utility_collectron_fetch_c2.avif"
+      ],
+      "imageDds": "SCORE_S6_CAMP_Utility_Collectron_FETCH.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.08,
@@ -4063,14 +4079,14 @@
         }
       ],
       "howToObtain": {
-        "method": "atom",
-        "seasonNumber": null,
+        "method": "scoreboard",
+        "seasonNumber": 6,
         "goldBullionPrice": null,
         "vendor": null,
         "tradeable": null,
         "planName": null,
-        "display": "Purchase from the Atom Shop.",
-        "badge": "atom"
+        "display": "Claim from the Unstoppables! vs the Diabolicals Scoreboard (Season 6)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -4089,10 +4105,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Claim from the Unstoppables! vs the Diabolicals Scoreboard (Season 6)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
@@ -4103,12 +4121,10 @@
         },
         {
           "route": "Atom Shop",
-          "populated": true,
-          "lines": [
-            "Purchase from the Atom Shop."
-          ],
+          "populated": false,
+          "lines": [],
           "tradeable": null,
-          "dropRate": "N/A"
+          "dropRate": null
         },
         {
           "route": "Limited Time Bundle",
@@ -4140,22 +4156,27 @@
         }
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
-      "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "seasonNumber": 6,
+      "releaseDate": "2021-09-21",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "005AD5AE",
-      "edid": "ATX_Resource_Collectron_Fasnacht_Party",
+      "formId": "005AD3DD",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_Fasnacht",
       "resoFormId": "005AD5AE",
       "contFormId": "005ACB21",
-      "entmFormId": "",
+      "entmFormId": "005AD3DD",
       "displayName": "Fasnacht Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "The Fasnacht Collectron searches for delicious treats and tasty drinks around your C.A.M.P. All items found are placed in a container connected to the Collectron Station.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_fasnacht_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_fasnacht_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_fasnacht_c2.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_fasnacht_c3.avif"
+      ],
+      "imageDds": "ATX_Camp_Utility_ScavengeStation_Fasnacht.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.12,
@@ -4912,8 +4933,9 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "008F2B0B",
@@ -4923,9 +4945,10 @@
       "entmFormId": "008F2B0B",
       "displayName": "FloraTron",
       "description": "",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/atx_entm_camp_utility_collectron_floratron.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_floratron_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/atx_camp_utility_collectron_floratron_c1.ddsatx_camp_utility_collectron_floratron_c2.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_floratron_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_floratron_c2.avif"
       ],
       "imageDds": "ATX_CAMP_Utility_Collectron_FloraTron.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -5069,8 +5092,9 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "0055417F",
@@ -5080,9 +5104,10 @@
       "entmFormId": "0055417F",
       "displayName": "Free States Collectron Station",
       "description": "",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/atx_entm_camp_utility_collectron_freestates.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_freestates_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/atx_camp_utility_scavengestation_freestates_c1.ddsatx_camp_utility_scavengestation_freestates_c2.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_freestates_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_freestates_c2.avif"
       ],
       "imageDds": "ATX_Camp_Utility_ScavengeStation_Freestates.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -6116,21 +6141,25 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "006667FA",
-      "edid": "ATX_Resource_Collectron_FETCH_Electronics_Junk",
+      "formId": "00662E6B",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_JunkyardDog",
       "resoFormId": "006667FA",
       "contFormId": "0065F22C",
-      "entmFormId": "",
+      "entmFormId": "00662E6B",
       "displayName": "Junkyard Dog Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "One man's trash is another man's best friend.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_junkyarddog_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_junkyarddog_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_junkyarddog_c2.avif"
+      ],
+      "imageDds": "ATX_CAMP_Utility_Collectron_JunkyardDog.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.08,
@@ -7041,21 +7070,25 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "0084CCA7",
-      "edid": "ATX_LiberatedResource_Collector",
+      "formId": "0082A6AB",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_Liberated",
       "resoFormId": "0084CCA7",
       "contFormId": "0082A6AA",
-      "entmFormId": "",
+      "entmFormId": "0082A6AB",
       "displayName": "Liberated Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "It's getting hard to tell who was liberated in this scenario...",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_liberated_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_liberated_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_liberated_c2.avif"
+      ],
+      "imageDds": "ATX_CAMP_Utility_Collectron_Liberated.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.15,
@@ -7246,8 +7279,9 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "0076A6BD",
@@ -7257,9 +7291,10 @@
       "entmFormId": "0076A6BD",
       "displayName": "Lumberjack Collectron",
       "description": "Embrace great American lumber with your own Lumberjack Collectron.",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/atx_entm_camp_utility_collectron_lumberjackcollectron.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx__camp_collector_lumberjackcollectron_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/atx_camp_collector_lumberjackcollectron_c1.ddsatx_camp_collector_lumberjackcollectron_c2.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_collector_lumberjackcollectron_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_collector_lumberjackcollectron_c2.avif"
       ],
       "imageDds": "ATX__CAMP_Collector_LumberjackCollectron.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -8821,8 +8856,9 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "008B3DC9",
@@ -8832,9 +8868,11 @@
       "entmFormId": "008B3DC9",
       "displayName": "Mr. Farmhand Collectron Station",
       "description": "Put your C.A.M.P. to work with the trusty Mr. Farmhand Collectron.",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/score_s25_entm_camp_utility_collectron_mrfarmhand.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s25_camp_utility_collectron_mrfarmhand_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/score_s25_camp_utility_collectron_mrfarmhand_c1.ddsscore_s25_camp_utility_collectron_mrfarmhand_c2.ddsscore_s25_camp_utility_collectron_mrfarmhand_c3.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s25_camp_utility_collectron_mrfarmhand_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s25_camp_utility_collectron_mrfarmhand_c2.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s25_camp_utility_collectron_mrfarmhand_c3.avif"
       ],
       "imageDds": "SCORE_S25_CAMP_Utility_Collectron_MrFarmhand.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -9069,7 +9107,7 @@
           "route": "Gold Bullion",
           "populated": true,
           "lines": [
-            "Plan: Plan: Mr. Farmhand Collectron",
+            "Plan: Mr. Farmhand Collectron",
             "Samuel — Gold Bullion vendor",
             "4000 Gold Bullion"
           ],
@@ -9114,8 +9152,9 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": 25,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "005FD9C1",
@@ -9125,9 +9164,10 @@
       "entmFormId": "005FD9C1",
       "displayName": "Nuka-Cola Collectron Station",
       "description": "Having a bad day? Have a Nuka-Cola! Don't have any Nuka-Cola? Let this Collectron find some for you!",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/score_s4_entm_camp_utility_collectron_nukacola.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s4_camp_utility_collectron_nukacola_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/score_s4_camp_utility_collectron_nukacola_c1.ddsscore_s4_camp_utility_collectron_nukacola_c2.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s4_camp_utility_collectron_nukacola_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s4_camp_utility_collectron_nukacola_c2.avif"
       ],
       "imageDds": "SCORE_S4_CAMP_Utility_Collectron_NukaCola.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -9326,7 +9366,7 @@
           "route": "Gold Bullion",
           "populated": true,
           "lines": [
-            "Plan: Plan: Nuka-Cola Collectron",
+            "Plan: Nuka-Cola Collectron",
             "Samuel — Gold Bullion vendor",
             "1250 Gold Bullion"
           ],
@@ -9372,7 +9412,8 @@
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": 4,
       "releaseDate": "2021-03-23",
-      "cutContent": false
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "00679A77",
@@ -9382,9 +9423,10 @@
       "entmFormId": "00679A77",
       "displayName": "Nuka-Cola Quantum Collectron Station",
       "description": "Take the leap... Enjoy a Quantum! Don't have any Nuka-Cola Quantum? Let this Collectron find some for you!",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/score_s11_entm_camp_utility_collectron_nukaquantum.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s11_camp_utility_collectron_nukaquantum_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/score_s11_camp_utility_collectron_nukaquantum_c1.ddsscore_s11_camp_utility_collectron_nukaquantum_c2.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s11_camp_utility_collectron_nukaquantum_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s11_camp_utility_collectron_nukaquantum_c2.avif"
       ],
       "imageDds": "SCORE_S11_CAMP_Utility_Collectron_NukaQuantum.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -9583,7 +9625,7 @@
           "route": "Gold Bullion",
           "populated": true,
           "lines": [
-            "Plan: Plan: Nuka-Cola Quantum Collectron",
+            "Plan: Nuka-Cola Quantum Collectron",
             "Samuel — Gold Bullion vendor",
             "1250 Gold Bullion"
           ],
@@ -9629,20 +9671,24 @@
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": 11,
       "releaseDate": "2023-01-03",
-      "cutContent": false
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "008A52C9",
-      "edid": "ATX_PeppinoResource_Collector",
+      "formId": "00857249",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_Peppino",
       "resoFormId": "008A52C9",
       "contFormId": "00857245",
-      "entmFormId": "",
-      "displayName": "Peppino Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "entmFormId": "00857249",
+      "displayName": "Peppino the Clown Collectron Station",
+      "description": "Even a sad clown can help you C.A.M.P.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/camp_utility_collectron_peppino_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/camp_utility_collectron_peppino_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/camp_utility_collectron_peppino_c2.avif"
+      ],
+      "imageDds": "CAMP_Utility_Collectron_Peppino.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.15,
@@ -9857,21 +9903,25 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "005698B9",
-      "edid": "ATX_Resource_Raider_Collectron",
+      "formId": "00564AE5",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_Raider",
       "resoFormId": "005698B9",
       "contFormId": "005698B3",
-      "entmFormId": "",
+      "entmFormId": "00564AE5",
       "displayName": "Raider Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "The Raider Collectron searches for Chems and Alcohol as well as Ammo and Weapons. All items found are placed in a container connected to the Collectron Station. Using the terminal, you can choose which types of items the Collectron should search for.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_raider_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_raider_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_raider_c2.avif"
+      ],
+      "imageDds": "ATX_Camp_Utility_ScavengeStation_Raider.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.1,
@@ -11212,21 +11262,25 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "0060DF57",
-      "edid": "ATX_Resource_Collectron_RedRocket_AutoParts",
+      "formId": "00609E6C",
+      "edid": "SCORE_S5_ENTM_CAMP_Utility_Collectron_RedRocket",
       "resoFormId": "0060DF57",
       "contFormId": "005FD095",
-      "entmFormId": "",
+      "entmFormId": "00609E6C",
       "displayName": "Red Rocket Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "You're good to go, friend! The Red Rocket Collectron will dutifully collect lightly used automotive parts for your C.A.M.P..",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s5_camp_utility_collectron_redrocket_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s5_camp_utility_collectron_redrocket_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s5_camp_utility_collectron_redrocket_c2.avif"
+      ],
+      "imageDds": "SCORE_S5_CAMP_Utility_Collectron_RedRocket.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.08,
@@ -11579,14 +11633,14 @@
         }
       ],
       "howToObtain": {
-        "method": "atom",
-        "seasonNumber": null,
+        "method": "scoreboard",
+        "seasonNumber": 5,
         "goldBullionPrice": null,
         "vendor": null,
         "tradeable": null,
         "planName": null,
-        "display": "Purchase from the Atom Shop.",
-        "badge": "atom"
+        "display": "Claim from the Escape from the 42nd Century Scoreboard (Season 5)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -11605,10 +11659,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Claim from the Escape from the 42nd Century Scoreboard (Season 5)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
@@ -11619,12 +11675,10 @@
         },
         {
           "route": "Atom Shop",
-          "populated": true,
-          "lines": [
-            "Purchase from the Atom Shop."
-          ],
+          "populated": false,
+          "lines": [],
           "tradeable": null,
-          "dropRate": "N/A"
+          "dropRate": null
         },
         {
           "route": "Limited Time Bundle",
@@ -11656,22 +11710,26 @@
         }
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 4",
-      "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "seasonNumber": 5,
+      "releaseDate": "2021-06-29",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "005A115B",
-      "edid": "ATX_Resource_Collectron_Santa_All",
+      "formId": "005A114F",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_Santa",
       "resoFormId": "005A115B",
       "contFormId": "005A1152",
-      "entmFormId": "",
+      "entmFormId": "005A114F",
       "displayName": "Santatron Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "Ho Ho Ho! Have you been naughty or nice? Santatron will give you toys, sweets, and if you're on the bad list, coal. All items are deposited into the container attached to its station.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_santa_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_santa_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_santa_c2.avif"
+      ],
+      "imageDds": "ATX_Camp_Utility_ScavengeStation_Santa.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.12,
@@ -12126,21 +12184,25 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "00554176",
-      "edid": "ATX_Resource_Scrap_CollectronAll",
+      "formId": "00555DAD",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_Scavenger",
       "resoFormId": "00554176",
       "contFormId": "0000729C",
-      "entmFormId": "",
+      "entmFormId": "00555DAD",
       "displayName": "Scavenger Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "The Scavenger Collectron searches for junk and scrap around your C.A.M.P. All items found are placed in a container connected to the Collectron Station. Using the terminal, you can choose which types of items the Collectron should search for.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_scavenger_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_scavenger_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_scavenger_c2.avif"
+      ],
+      "imageDds": "ATX_Camp_Utility_ScavengeStation_Scavenger.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.08,
@@ -12691,171 +12753,216 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "0054B432",
-      "edid": "ScrapResourceGold",
-      "resoFormId": "0054B432",
-      "contFormId": "00536D42",
-      "entmFormId": "",
-      "displayName": "Scavenging Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "formId": "00536D27",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_CopperBot",
+      "resoFormId": "00089806",
+      "contFormId": "0083956B",
+      "entmFormId": "00536D27",
+      "displayName": "Scavenging Station with Copper Scavenge Bot",
+      "description": "Enhance your junk finding Scavenge Bot with a fresh coat of paint! The Scavenging Station with Copper Scavenge Bot lets your bot find junk in style!",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_copper_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_copper_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_copper_c2.avif"
+      ],
+      "imageDds": "ATX_Camp_Utility_ScavengeStation_Copper.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
-        "intervalHours": 0.12,
-        "intervalDisplay": "7 min 12 sec",
+        "intervalHours": 0.05,
+        "intervalDisplay": "3 min",
+        "resourceName": "Copper",
+        "resourceEdid": "ResourceAV_Copper",
+        "drops": [
+          {
+            "item": "Chem_Smelting_Ore_Copper",
+            "name": "Copper Ore",
+            "formId": "00019E51",
+            "chance": 100.0
+          }
+        ],
+        "modes": [
+          {
+            "name": "Default",
+            "resoFormId": "00089806",
+            "lvliFormId": "00089807",
+            "resourceName": "Copper",
+            "drops": [
+              {
+                "item": "Chem_Smelting_Ore_Copper",
+                "name": "Copper Ore",
+                "formId": "00019E51",
+                "chance": 100.0
+              }
+            ]
+          }
+        ]
+      },
+      "station": {
+        "capacity": 1,
+        "powerRequired": true,
+        "flamingoUnits": null,
+        "lockable": true
+      },
+      "crafting": {
+        "components": [
+          {
+            "item": "Circuitry",
+            "count": 1
+          },
+          {
+            "item": "Copper",
+            "count": 1
+          },
+          {
+            "item": "Gears",
+            "count": 1
+          },
+          {
+            "item": "Steel",
+            "count": 3
+          }
+        ]
+      },
+      "craftingRequirements": [
+        {
+          "name": "Circuitry",
+          "qty": 1
+        },
+        {
+          "name": "Copper",
+          "qty": 1
+        },
+        {
+          "name": "Gears",
+          "qty": 1
+        },
+        {
+          "name": "Steel",
+          "qty": 3
+        }
+      ],
+      "howToObtain": {
+        "method": "atom",
+        "seasonNumber": null,
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase from the Atom Shop.",
+        "badge": "atom"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": true,
+          "lines": [
+            "Purchase from the Atom Shop."
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: Yes\nFlamingo Units: —",
+      "seasonNumber": null,
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
+    },
+    {
+      "formId": "00536D28",
+      "edid": "SCORE_S3_ENTM_CAMP_Utility_Collectron_GoldBot",
+      "resoFormId": "0008EC65",
+      "contFormId": "00839569",
+      "entmFormId": "00536D28",
+      "displayName": "Scavenging Station with Gold Scavenge Bot",
+      "description": "Enhance your junk finding Scavenge Bot with a fresh coat of paint! The Scavenging Station with Gold Scavenge Bot lets your bot find junk in style!",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_gold_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_gold_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_gold_c2.avif"
+      ],
+      "imageDds": "ATX_Camp_Utility_ScavengeStation_Gold.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
+      "isCollectron": true,
+      "production": {
+        "intervalHours": 0.05,
+        "intervalDisplay": "3 min",
         "resourceName": "Gold",
-        "resourceEdid": "ATX_ResourceAV_Collectron_Gold_Scrap",
+        "resourceEdid": "ResourceAV_Gold",
         "drops": [
           {
             "item": "Chem_Smelting_Ore_Gold",
             "name": "Gold Ore",
             "formId": "00019E36",
             "chance": 100.0
-          },
-          {
-            "item": "c_Gold_scrap",
-            "name": "Gold Scrap",
-            "formId": "000AEC62",
-            "chance": 12.5
-          },
-          {
-            "item": "c_Concrete_scrap",
-            "name": "Concrete Scrap",
-            "formId": "00106D99",
-            "chance": 5.0
-          },
-          {
-            "item": "c_Fertilizer_scrap",
-            "name": "Raw Fertilizer",
-            "formId": "001BF730",
-            "chance": 5.0
-          },
-          {
-            "item": "c_Glass_scrap",
-            "name": "Glass Shards",
-            "formId": "00069085",
-            "chance": 5.0
-          },
-          {
-            "item": "c_Leather_scrap",
-            "name": "Raw Leather",
-            "formId": "000AEC64",
-            "chance": 5.0
-          },
-          {
-            "item": "c_Rubber_scrap",
-            "name": "Raw Rubber",
-            "formId": "00106D98",
-            "chance": 5.0
-          },
-          {
-            "item": "c_Acid_scrap",
-            "name": "Waste Acid",
-            "formId": "001BF72D",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Adhesive_scrap",
-            "name": "Excess Adhesive",
-            "formId": "001BF72E",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Aluminum_scrap",
-            "name": "Aluminum Scrap",
-            "formId": "0006907A",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Bone_scrap",
-            "name": "Bone Shards",
-            "formId": "000AEC5D",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Ceramic_scrap",
-            "name": "Ceramic Scrap",
-            "formId": "000AEC5E",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Cloth_scrap",
-            "name": "Raw Cloth",
-            "formId": "000AEC5F",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Copper_scrap",
-            "name": "Copper Scrap",
-            "formId": "0006907C",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Cork_scrap",
-            "name": "Cork Scrap",
-            "formId": "000AEC60",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Fiberglass_scrap",
-            "name": "Fiberglass Spool",
-            "formId": "000AEC61",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Gears_scrap",
-            "name": "Loose Gears",
-            "formId": "0006907E",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Lead_scrap",
-            "name": "Lead Scrap",
-            "formId": "000AEC63",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Plastic_scrap",
-            "name": "Molded Plastic",
-            "formId": "0006907F",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Screws_scrap",
-            "name": "Loose Screws",
-            "formId": "00069081",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Springs_scrap",
-            "name": "Loose Spring",
-            "formId": "00069082",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Steel_scrap",
-            "name": "Steel Scrap",
-            "formId": "000731A4",
-            "chance": 3.125
-          },
-          {
-            "item": "c_Wood_scrap",
-            "name": "Wood Scraps",
-            "formId": "000731A3",
-            "chance": 3.125
           }
         ],
         "modes": [
           {
             "name": "Default",
-            "resoFormId": "0054B432",
+            "resoFormId": "0008EC65",
             "lvliFormId": "000897E2",
             "resourceName": "Gold",
             "drops": [
@@ -12866,159 +12973,13 @@
                 "chance": 100.0
               }
             ]
-          },
-          {
-            "name": "Gold",
-            "resoFormId": "005F0D2B",
-            "lvliFormId": "005F0D28",
-            "resourceName": "Gold",
-            "drops": [
-              {
-                "item": "c_Gold_scrap",
-                "name": "Gold Scrap",
-                "formId": "000AEC62",
-                "chance": 12.5
-              },
-              {
-                "item": "Chem_Smelting_Ore_Gold",
-                "name": "Gold Ore",
-                "formId": "00019E36",
-                "chance": 12.5
-              },
-              {
-                "item": "c_Concrete_scrap",
-                "name": "Concrete Scrap",
-                "formId": "00106D99",
-                "chance": 5.0
-              },
-              {
-                "item": "c_Fertilizer_scrap",
-                "name": "Raw Fertilizer",
-                "formId": "001BF730",
-                "chance": 5.0
-              },
-              {
-                "item": "c_Glass_scrap",
-                "name": "Glass Shards",
-                "formId": "00069085",
-                "chance": 5.0
-              },
-              {
-                "item": "c_Leather_scrap",
-                "name": "Raw Leather",
-                "formId": "000AEC64",
-                "chance": 5.0
-              },
-              {
-                "item": "c_Rubber_scrap",
-                "name": "Raw Rubber",
-                "formId": "00106D98",
-                "chance": 5.0
-              },
-              {
-                "item": "c_Acid_scrap",
-                "name": "Waste Acid",
-                "formId": "001BF72D",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Adhesive_scrap",
-                "name": "Excess Adhesive",
-                "formId": "001BF72E",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Aluminum_scrap",
-                "name": "Aluminum Scrap",
-                "formId": "0006907A",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Bone_scrap",
-                "name": "Bone Shards",
-                "formId": "000AEC5D",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Ceramic_scrap",
-                "name": "Ceramic Scrap",
-                "formId": "000AEC5E",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Cloth_scrap",
-                "name": "Raw Cloth",
-                "formId": "000AEC5F",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Copper_scrap",
-                "name": "Copper Scrap",
-                "formId": "0006907C",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Cork_scrap",
-                "name": "Cork Scrap",
-                "formId": "000AEC60",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Fiberglass_scrap",
-                "name": "Fiberglass Spool",
-                "formId": "000AEC61",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Gears_scrap",
-                "name": "Loose Gears",
-                "formId": "0006907E",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Lead_scrap",
-                "name": "Lead Scrap",
-                "formId": "000AEC63",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Plastic_scrap",
-                "name": "Molded Plastic",
-                "formId": "0006907F",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Screws_scrap",
-                "name": "Loose Screws",
-                "formId": "00069081",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Springs_scrap",
-                "name": "Loose Spring",
-                "formId": "00069082",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Steel_scrap",
-                "name": "Steel Scrap",
-                "formId": "000731A4",
-                "chance": 3.125
-              },
-              {
-                "item": "c_Wood_scrap",
-                "name": "Wood Scraps",
-                "formId": "000731A3",
-                "chance": 3.125
-              }
-            ]
           }
         ]
       },
       "station": {
-        "capacity": 10,
-        "powerRequired": false,
-        "flamingoUnits": 5,
+        "capacity": 1,
+        "powerRequired": true,
+        "flamingoUnits": null,
         "lockable": true
       },
       "crafting": {
@@ -13060,14 +13021,14 @@
         }
       ],
       "howToObtain": {
-        "method": "default",
-        "seasonNumber": null,
+        "method": "scoreboard",
+        "seasonNumber": 3,
         "goldBullionPrice": null,
         "vendor": null,
         "tradeable": null,
         "planName": null,
-        "display": "Available in the base game.",
-        "badge": "default"
+        "display": "Claim from the Scribe of Avalon Scoreboard (Season 3)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -13086,408 +13047,21 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Atom Shop",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Limited Time Bundle",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Events & Activities",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Challenges",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        }
-      ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
-      "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
-    },
-    {
-      "formId": "00771DC9",
-      "edid": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
-      "resoFormId": "00771DC7",
-      "contFormId": "00771DCB",
-      "entmFormId": "00771DC9",
-      "displayName": "Scoutmaster Collectron Station",
-      "description": "A good Scout understands the elements and knows how to best harvest from mother nature. Allow the Scoutmaster Collectron to lead by example!",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/score_s17_entm_camp_utility_collectron_scoutmaster.webp",
-      "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/score_s17_camp_utility_collectron_scoutmaster_c1.ddsscore_s17_camp_utility_collectron_scoutmaster_c2.ddsscore_s17_camp_utility_collectron_scoutmaster_c3.webp"
-      ],
-      "imageDds": "SCORE_S17_CAMP_Utility_Collectron_Scoutmaster.dds",
-      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
-      "isCollectron": true,
-      "production": {
-        "intervalHours": 0.17,
-        "intervalDisplay": "10 min 12 sec",
-        "resourceName": "Scout Supplies",
-        "resourceEdid": "SCORE_S17_ResourceAV_Collectron_Scoutmaster",
-        "drops": [
-          {
-            "item": "CranberryFruit",
-            "name": "Cranberries",
-            "formId": "0010D90E",
-            "chance": 98.0
-          },
-          {
-            "item": "c_Wood_scrap",
-            "name": "Wood Scraps",
-            "formId": "000731A3",
-            "chance": 50.0
-          },
-          {
-            "item": "BoardGame01",
-            "name": "Blast Radius Board Game",
-            "formId": "0006B165",
-            "chance": 0.0
-          },
-          {
-            "item": "BowieKnife",
-            "name": "Bowie Knife",
-            "formId": "000311DE",
-            "chance": 0.0
-          },
-          {
-            "item": "Bubblegum",
-            "name": "Bubblegum",
-            "formId": "000330F6",
-            "chance": 0.0
-          },
-          {
-            "item": "FancyLadSnackCakes",
-            "name": "Fancy Lads Snack Cakes",
-            "formId": "000330B4",
-            "chance": 0.0
-          },
-          {
-            "item": "PorknBeans",
-            "name": "Pork n' Beans",
-            "formId": "000330F0",
-            "chance": 0.0
-          },
-          {
-            "item": "PotatoCrisps",
-            "name": "Potato Crisps",
-            "formId": "000330F1",
-            "chance": 0.0
-          },
-          {
-            "item": "StarlightBerries",
-            "name": "Starlight Berries",
-            "formId": "00384D8C",
-            "chance": 0.0
-          },
-          {
-            "item": "SugarBombs",
-            "name": "Sugar Bombs",
-            "formId": "000330F2",
-            "chance": 0.0
-          },
-          {
-            "item": "SurgicalScissors",
-            "name": "Bandage Scissors",
-            "formId": "000C9AD7",
-            "chance": 0.0
-          },
-          {
-            "item": "SurvivalistRiceAndBeans",
-            "name": "Cajun Rice & Beans",
-            "formId": "0037E0C6",
-            "chance": 0.0
-          },
-          {
-            "item": "SurvivalistSeafood",
-            "name": "Imitation Seafood",
-            "formId": "0037E0C3",
-            "chance": 0.0
-          },
-          {
-            "item": "TickBloodSac",
-            "name": "Tick Blood Sac",
-            "formId": "0034EA42",
-            "chance": 0.0
-          },
-          {
-            "item": "Smores",
-            "name": "S'mores",
-            "formId": "0046D292",
-            "chance": -8.0
-          },
-          {
-            "item": "Knife",
-            "name": "Combat Knife",
-            "formId": "000913CA",
-            "chance": -10.0
-          },
-          {
-            "item": "PlushCat_Halloween02_Large",
-            "name": "Jumbo Candy Fan Mr. Fuzzy",
-            "formId": "003DC574",
-            "chance": -10.0
-          },
-          {
-            "item": "SurvivalistVegHam",
-            "name": "Vegetarian Ham",
-            "formId": "0037E0C5",
-            "chance": -10.0
-          },
-          {
-            "item": "Tomahawk",
-            "name": "Tomahawk",
-            "formId": "000042F2",
-            "chance": -10.0
-          }
-        ],
-        "modes": [
-          {
-            "name": "Default",
-            "resoFormId": "00771DC7",
-            "lvliFormId": "00771DC4",
-            "resourceName": "Scout Supplies",
-            "drops": [
-              {
-                "item": "CranberryFruit",
-                "name": "Cranberries",
-                "formId": "0010D90E",
-                "chance": 98.0
-              },
-              {
-                "item": "c_Wood_scrap",
-                "name": "Wood Scraps",
-                "formId": "000731A3",
-                "chance": 50.0
-              },
-              {
-                "item": "BoardGame01",
-                "name": "Blast Radius Board Game",
-                "formId": "0006B165",
-                "chance": 0.0
-              },
-              {
-                "item": "BowieKnife",
-                "name": "Bowie Knife",
-                "formId": "000311DE",
-                "chance": 0.0
-              },
-              {
-                "item": "Bubblegum",
-                "name": "Bubblegum",
-                "formId": "000330F6",
-                "chance": 0.0
-              },
-              {
-                "item": "FancyLadSnackCakes",
-                "name": "Fancy Lads Snack Cakes",
-                "formId": "000330B4",
-                "chance": 0.0
-              },
-              {
-                "item": "PorknBeans",
-                "name": "Pork n' Beans",
-                "formId": "000330F0",
-                "chance": 0.0
-              },
-              {
-                "item": "PotatoCrisps",
-                "name": "Potato Crisps",
-                "formId": "000330F1",
-                "chance": 0.0
-              },
-              {
-                "item": "StarlightBerries",
-                "name": "Starlight Berries",
-                "formId": "00384D8C",
-                "chance": 0.0
-              },
-              {
-                "item": "SugarBombs",
-                "name": "Sugar Bombs",
-                "formId": "000330F2",
-                "chance": 0.0
-              },
-              {
-                "item": "SurgicalScissors",
-                "name": "Bandage Scissors",
-                "formId": "000C9AD7",
-                "chance": 0.0
-              },
-              {
-                "item": "SurvivalistRiceAndBeans",
-                "name": "Cajun Rice & Beans",
-                "formId": "0037E0C6",
-                "chance": 0.0
-              },
-              {
-                "item": "SurvivalistSeafood",
-                "name": "Imitation Seafood",
-                "formId": "0037E0C3",
-                "chance": 0.0
-              },
-              {
-                "item": "TickBloodSac",
-                "name": "Tick Blood Sac",
-                "formId": "0034EA42",
-                "chance": 0.0
-              },
-              {
-                "item": "Smores",
-                "name": "S'mores",
-                "formId": "0046D292",
-                "chance": -8.0
-              },
-              {
-                "item": "Knife",
-                "name": "Combat Knife",
-                "formId": "000913CA",
-                "chance": -10.0
-              },
-              {
-                "item": "PlushCat_Halloween02_Large",
-                "name": "Jumbo Candy Fan Mr. Fuzzy",
-                "formId": "003DC574",
-                "chance": -10.0
-              },
-              {
-                "item": "SurvivalistVegHam",
-                "name": "Vegetarian Ham",
-                "formId": "0037E0C5",
-                "chance": -10.0
-              },
-              {
-                "item": "Tomahawk",
-                "name": "Tomahawk",
-                "formId": "000042F2",
-                "chance": -10.0
-              }
-            ]
-          }
-        ]
-      },
-      "station": {
-        "capacity": 10,
-        "powerRequired": false,
-        "flamingoUnits": 5,
-        "lockable": true
-      },
-      "crafting": {
-        "components": [
-          {
-            "item": "Circuitry",
-            "count": 1
-          },
-          {
-            "item": "Copper",
-            "count": 1
-          },
-          {
-            "item": "Gears",
-            "count": 1
-          },
-          {
-            "item": "Steel",
-            "count": 3
-          }
-        ]
-      },
-      "craftingRequirements": [
-        {
-          "name": "Circuitry",
-          "qty": 1
-        },
-        {
-          "name": "Copper",
-          "qty": 1
-        },
-        {
-          "name": "Gears",
-          "qty": 1
-        },
-        {
-          "name": "Steel",
-          "qty": 3
-        }
-      ],
-      "howToObtain": {
-        "method": "gold",
-        "seasonNumber": 17,
-        "goldBullionPrice": 4000,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Scoutmaster Collectron",
-        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
-        "badge": "gold"
-      },
-      "obtainRoutes": [
-        {
-          "route": "Caps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Stamps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
           "populated": true,
           "lines": [
-            "Plan: Plan: Scoutmaster Collectron",
-            "Samuel — Gold Bullion vendor",
-            "4000 Gold Bullion"
+            "Claim from the Scribe of Avalon Scoreboard (Season 3)"
           ],
-          "tradeable": false,
+          "tradeable": null,
           "dropRate": "N/A"
         },
         {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
           "route": "Atom Shop",
           "populated": false,
           "lines": [],
@@ -13523,22 +13097,24 @@
           "dropRate": null
         }
       ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
-      "seasonNumber": 17,
-      "releaseDate": "2024-07-30",
-      "cutContent": false
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: Yes\nFlamingo Units: —",
+      "seasonNumber": 3,
+      "releaseDate": "2020-12-15",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "0063C6E5",
-      "edid": "SCORE_S8_ENTM_CAMP_Utility_Collectron_Silver",
+      "formId": "00536D29",
+      "edid": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
       "resoFormId": "0064A14D",
       "contFormId": "00536D43",
-      "entmFormId": "0063C6E5",
-      "displayName": "Silver Collectron Station",
-      "description": "The Silver Collectron is polished and ready to serve!",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/score_s8_entm_camp_utility_collectron_silver.webp",
+      "entmFormId": "00536D29",
+      "displayName": "Scavenging Station with Silver Scavenge Bot",
+      "description": "Enhance your junk finding Scavenge Bot with a fresh coat of paint! The Scavenging Station with Silver Scavenge Bot lets your bot find junk in style!",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_silver_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/atx_camp_utility_scavengestation_silver_c1.ddsatx_camp_utility_scavengestation_silver_c2.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_silver_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_silver_c2.avif"
       ],
       "imageDds": "ATX_Camp_Utility_ScavengeStation_Silver.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -13882,13 +13458,401 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
-        "seasonNumber": 8,
+        "method": "default",
+        "seasonNumber": null,
         "goldBullionPrice": 4000,
         "vendor": "Samuel",
         "tradeable": false,
         "planName": "Plan: Silver Collectron",
-        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the A Better Life Underground Scoreboard (Season 8).",
+        "display": "Available in the base game.",
+        "badge": "default"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
+      "seasonNumber": null,
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
+    },
+    {
+      "formId": "00771DC9",
+      "edid": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
+      "resoFormId": "00771DC7",
+      "contFormId": "00771DCB",
+      "entmFormId": "00771DC9",
+      "displayName": "Scoutmaster Collectron Station",
+      "description": "A good Scout understands the elements and knows how to best harvest from mother nature. Allow the Scoutmaster Collectron to lead by example!",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s17_camp_utility_collectron_scoutmaster_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s17_camp_utility_collectron_scoutmaster_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s17_camp_utility_collectron_scoutmaster_c2.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s17_camp_utility_collectron_scoutmaster_c3.avif"
+      ],
+      "imageDds": "SCORE_S17_CAMP_Utility_Collectron_Scoutmaster.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
+      "isCollectron": true,
+      "production": {
+        "intervalHours": 0.17,
+        "intervalDisplay": "10 min 12 sec",
+        "resourceName": "Scout Supplies",
+        "resourceEdid": "SCORE_S17_ResourceAV_Collectron_Scoutmaster",
+        "drops": [
+          {
+            "item": "CranberryFruit",
+            "name": "Cranberries",
+            "formId": "0010D90E",
+            "chance": 98.0
+          },
+          {
+            "item": "c_Wood_scrap",
+            "name": "Wood Scraps",
+            "formId": "000731A3",
+            "chance": 50.0
+          },
+          {
+            "item": "BoardGame01",
+            "name": "Blast Radius Board Game",
+            "formId": "0006B165",
+            "chance": 0.0
+          },
+          {
+            "item": "BowieKnife",
+            "name": "Bowie Knife",
+            "formId": "000311DE",
+            "chance": 0.0
+          },
+          {
+            "item": "Bubblegum",
+            "name": "Bubblegum",
+            "formId": "000330F6",
+            "chance": 0.0
+          },
+          {
+            "item": "FancyLadSnackCakes",
+            "name": "Fancy Lads Snack Cakes",
+            "formId": "000330B4",
+            "chance": 0.0
+          },
+          {
+            "item": "PorknBeans",
+            "name": "Pork n' Beans",
+            "formId": "000330F0",
+            "chance": 0.0
+          },
+          {
+            "item": "PotatoCrisps",
+            "name": "Potato Crisps",
+            "formId": "000330F1",
+            "chance": 0.0
+          },
+          {
+            "item": "StarlightBerries",
+            "name": "Starlight Berries",
+            "formId": "00384D8C",
+            "chance": 0.0
+          },
+          {
+            "item": "SugarBombs",
+            "name": "Sugar Bombs",
+            "formId": "000330F2",
+            "chance": 0.0
+          },
+          {
+            "item": "SurgicalScissors",
+            "name": "Bandage Scissors",
+            "formId": "000C9AD7",
+            "chance": 0.0
+          },
+          {
+            "item": "SurvivalistRiceAndBeans",
+            "name": "Cajun Rice & Beans",
+            "formId": "0037E0C6",
+            "chance": 0.0
+          },
+          {
+            "item": "SurvivalistSeafood",
+            "name": "Imitation Seafood",
+            "formId": "0037E0C3",
+            "chance": 0.0
+          },
+          {
+            "item": "TickBloodSac",
+            "name": "Tick Blood Sac",
+            "formId": "0034EA42",
+            "chance": 0.0
+          },
+          {
+            "item": "Smores",
+            "name": "S'mores",
+            "formId": "0046D292",
+            "chance": -8.0
+          },
+          {
+            "item": "Knife",
+            "name": "Combat Knife",
+            "formId": "000913CA",
+            "chance": -10.0
+          },
+          {
+            "item": "PlushCat_Halloween02_Large",
+            "name": "Jumbo Candy Fan Mr. Fuzzy",
+            "formId": "003DC574",
+            "chance": -10.0
+          },
+          {
+            "item": "SurvivalistVegHam",
+            "name": "Vegetarian Ham",
+            "formId": "0037E0C5",
+            "chance": -10.0
+          },
+          {
+            "item": "Tomahawk",
+            "name": "Tomahawk",
+            "formId": "000042F2",
+            "chance": -10.0
+          }
+        ],
+        "modes": [
+          {
+            "name": "Default",
+            "resoFormId": "00771DC7",
+            "lvliFormId": "00771DC4",
+            "resourceName": "Scout Supplies",
+            "drops": [
+              {
+                "item": "CranberryFruit",
+                "name": "Cranberries",
+                "formId": "0010D90E",
+                "chance": 98.0
+              },
+              {
+                "item": "c_Wood_scrap",
+                "name": "Wood Scraps",
+                "formId": "000731A3",
+                "chance": 50.0
+              },
+              {
+                "item": "BoardGame01",
+                "name": "Blast Radius Board Game",
+                "formId": "0006B165",
+                "chance": 0.0
+              },
+              {
+                "item": "BowieKnife",
+                "name": "Bowie Knife",
+                "formId": "000311DE",
+                "chance": 0.0
+              },
+              {
+                "item": "Bubblegum",
+                "name": "Bubblegum",
+                "formId": "000330F6",
+                "chance": 0.0
+              },
+              {
+                "item": "FancyLadSnackCakes",
+                "name": "Fancy Lads Snack Cakes",
+                "formId": "000330B4",
+                "chance": 0.0
+              },
+              {
+                "item": "PorknBeans",
+                "name": "Pork n' Beans",
+                "formId": "000330F0",
+                "chance": 0.0
+              },
+              {
+                "item": "PotatoCrisps",
+                "name": "Potato Crisps",
+                "formId": "000330F1",
+                "chance": 0.0
+              },
+              {
+                "item": "StarlightBerries",
+                "name": "Starlight Berries",
+                "formId": "00384D8C",
+                "chance": 0.0
+              },
+              {
+                "item": "SugarBombs",
+                "name": "Sugar Bombs",
+                "formId": "000330F2",
+                "chance": 0.0
+              },
+              {
+                "item": "SurgicalScissors",
+                "name": "Bandage Scissors",
+                "formId": "000C9AD7",
+                "chance": 0.0
+              },
+              {
+                "item": "SurvivalistRiceAndBeans",
+                "name": "Cajun Rice & Beans",
+                "formId": "0037E0C6",
+                "chance": 0.0
+              },
+              {
+                "item": "SurvivalistSeafood",
+                "name": "Imitation Seafood",
+                "formId": "0037E0C3",
+                "chance": 0.0
+              },
+              {
+                "item": "TickBloodSac",
+                "name": "Tick Blood Sac",
+                "formId": "0034EA42",
+                "chance": 0.0
+              },
+              {
+                "item": "Smores",
+                "name": "S'mores",
+                "formId": "0046D292",
+                "chance": -8.0
+              },
+              {
+                "item": "Knife",
+                "name": "Combat Knife",
+                "formId": "000913CA",
+                "chance": -10.0
+              },
+              {
+                "item": "PlushCat_Halloween02_Large",
+                "name": "Jumbo Candy Fan Mr. Fuzzy",
+                "formId": "003DC574",
+                "chance": -10.0
+              },
+              {
+                "item": "SurvivalistVegHam",
+                "name": "Vegetarian Ham",
+                "formId": "0037E0C5",
+                "chance": -10.0
+              },
+              {
+                "item": "Tomahawk",
+                "name": "Tomahawk",
+                "formId": "000042F2",
+                "chance": -10.0
+              }
+            ]
+          }
+        ]
+      },
+      "station": {
+        "capacity": 10,
+        "powerRequired": false,
+        "flamingoUnits": 5,
+        "lockable": true
+      },
+      "crafting": {
+        "components": [
+          {
+            "item": "Circuitry",
+            "count": 1
+          },
+          {
+            "item": "Copper",
+            "count": 1
+          },
+          {
+            "item": "Gears",
+            "count": 1
+          },
+          {
+            "item": "Steel",
+            "count": 3
+          }
+        ]
+      },
+      "craftingRequirements": [
+        {
+          "name": "Circuitry",
+          "qty": 1
+        },
+        {
+          "name": "Copper",
+          "qty": 1
+        },
+        {
+          "name": "Gears",
+          "qty": 1
+        },
+        {
+          "name": "Steel",
+          "qty": 3
+        }
+      ],
+      "howToObtain": {
+        "method": "gold",
+        "seasonNumber": 17,
+        "goldBullionPrice": 4000,
+        "vendor": "Samuel",
+        "tradeable": false,
+        "planName": "Plan: Scoutmaster Collectron",
+        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
         "badge": "gold"
       },
       "obtainRoutes": [
@@ -13917,7 +13881,7 @@
           "route": "Gold Bullion",
           "populated": true,
           "lines": [
-            "Plan: Plan: Silver Collectron",
+            "Plan: Scoutmaster Collectron",
             "Samuel — Gold Bullion vendor",
             "4000 Gold Bullion"
           ],
@@ -13961,22 +13925,199 @@
         }
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
-      "seasonNumber": 8,
-      "releaseDate": "2022-04-19",
-      "cutContent": false
+      "seasonNumber": 17,
+      "releaseDate": "2024-07-30",
+      "cutContent": false,
+      "status": "live"
     },
     {
-      "formId": "008CD16C",
-      "edid": "ATX_SirLoinResource_Collector",
+      "formId": "0063C6E5",
+      "edid": "SCORE_S8_ENTM_CAMP_Utility_Collectron_Silver",
+      "resoFormId": "002FD8DE",
+      "contFormId": "00839566",
+      "entmFormId": "0063C6E5",
+      "displayName": "Silver Collectron Station",
+      "description": "The Silver Collectron is polished and ready to serve!",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_silver_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_silver_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_scavengestation_silver_c2.avif"
+      ],
+      "imageDds": "ATX_Camp_Utility_ScavengeStation_Silver.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
+      "isCollectron": true,
+      "production": {
+        "intervalHours": 0.05,
+        "intervalDisplay": "3 min",
+        "resourceName": "Silver",
+        "resourceEdid": "ResourceAV_Silver",
+        "drops": [
+          {
+            "item": "Chem_Smelting_Ore_Silver",
+            "name": "Silver Ore",
+            "formId": "00065328",
+            "chance": 100.0
+          }
+        ],
+        "modes": [
+          {
+            "name": "Default",
+            "resoFormId": "002FD8DE",
+            "lvliFormId": "0054B436",
+            "resourceName": "Silver",
+            "drops": [
+              {
+                "item": "Chem_Smelting_Ore_Silver",
+                "name": "Silver Ore",
+                "formId": "00065328",
+                "chance": 100.0
+              }
+            ]
+          }
+        ]
+      },
+      "station": {
+        "capacity": 1,
+        "powerRequired": true,
+        "flamingoUnits": null,
+        "lockable": true
+      },
+      "crafting": {
+        "components": [
+          {
+            "item": "Circuitry",
+            "count": 1
+          },
+          {
+            "item": "Copper",
+            "count": 1
+          },
+          {
+            "item": "Gears",
+            "count": 1
+          },
+          {
+            "item": "Steel",
+            "count": 3
+          }
+        ]
+      },
+      "craftingRequirements": [
+        {
+          "name": "Circuitry",
+          "qty": 1
+        },
+        {
+          "name": "Copper",
+          "qty": 1
+        },
+        {
+          "name": "Gears",
+          "qty": 1
+        },
+        {
+          "name": "Steel",
+          "qty": 3
+        }
+      ],
+      "howToObtain": {
+        "method": "scoreboard",
+        "seasonNumber": 8,
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Claim from the A Better Life Underground Scoreboard (Season 8)",
+        "badge": "scoreboard"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Claim from the A Better Life Underground Scoreboard (Season 8)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: Yes\nFlamingo Units: —",
+      "seasonNumber": 8,
+      "releaseDate": "2022-04-19",
+      "cutContent": false,
+      "status": "live"
+    },
+    {
+      "formId": "008B155D",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
       "resoFormId": "008CD16C",
       "contFormId": "008B155C",
-      "entmFormId": "",
+      "entmFormId": "008B155D",
       "displayName": "Sir Loin Collectron Station",
-      "description": "",
-      "imageUrl": null,
-      "imageCarousel": [],
-      "imageDds": "",
-      "imageFolder": "",
+      "description": "It's a pleasure to meat you. How can I be of service? I offer a variety of meats to the bravest connoisseur.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_sirloin_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_sirloin_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_sirloin_c2.avif"
+      ],
+      "imageDds": "ATX_CAMP_Utility_Collectron_SirLoin_L.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
       "isCollectron": true,
       "production": {
         "intervalHours": 0.15,
@@ -14455,8 +14596,9 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "0084130D",
@@ -14466,9 +14608,10 @@
       "entmFormId": "0084130D",
       "displayName": "Toxic Bob",
       "description": "Let this collectron gather some of that toxic stuff you'd rather not touch.",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/atx_entm_camp_utility_collectron_toxicbob.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/camp_utility_collectron_toxicbob_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/camp_utility_collectron_toxicbob_c1.ddscamp_utility_collectron_toxicbob_c2.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/camp_utility_collectron_toxicbob_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/camp_utility_collectron_toxicbob_c2.avif"
       ],
       "imageDds": "CAMP_Utility_Collectron_ToxicBob.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -14650,8 +14793,9 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": null,
-      "releaseDate": "2026-08-27",
-      "cutContent": false
+      "releaseDate": "2026-08-28",
+      "cutContent": false,
+      "status": "live"
     },
     {
       "formId": "00836464",
@@ -14661,9 +14805,11 @@
       "entmFormId": "00836464",
       "displayName": "Whitespring Robo Butler Collectron Station",
       "description": "Whitespring's legendary service now comes home with the Whitespring's Robo Butler Collectron!",
-      "imageUrl": "/wp-content/uploads/storefront/camp-items-collectrons/score_s22_entm_camp_utility_collectron_robobutler.webp",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s22_camp_utility_collectron_robobutler_l.avif",
       "imageCarousel": [
-        "/wp-content/uploads/storefront/camp-items-collectrons/score_s22_camp_utility_collectron_robobutler_c1.ddsscore_s22_camp_utility_collectron_robobutler_c2.ddsscore_s22_camp_utility_collectron_robobutler_c3.webp"
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s22_camp_utility_collectron_robobutler_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s22_camp_utility_collectron_robobutler_c2.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s22_camp_utility_collectron_robobutler_c3.avif"
       ],
       "imageDds": "SCORE_S22_CAMP_Utility_Collectron_RoboButler.dds",
       "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
@@ -14898,7 +15044,7 @@
           "route": "Gold Bullion",
           "populated": true,
           "lines": [
-            "Plan: Plan: Whitespring Robo Butler Collectron",
+            "Plan: Whitespring Robo Butler Collectron",
             "Samuel — Gold Bullion vendor",
             "1250 Gold Bullion"
           ],
@@ -14944,7 +15090,242 @@
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 5",
       "seasonNumber": 22,
       "releaseDate": "2025-10-28",
-      "cutContent": false
+      "cutContent": false,
+      "status": "live"
+    },
+    {
+      "formId": "008599E3",
+      "edid": "ATX_ENTM_CAMP_Utility_Collectron_EvidenceCollectionAssistantCollectron_ECT",
+      "resoFormId": "",
+      "contFormId": "",
+      "entmFormId": "008599E3",
+      "displayName": "Evidence Collection Assistant Collectron",
+      "description": "This Evidence Collection Assistant Collectron will help collect \"Evidence\" around your C.A.M.P. Collects junk over time with a small chance to collect Mystery Magazine Packages.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_evidencecollectionassistantcollectron_etc_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_evidencecollectionassistantcollectron_etc_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/atx_camp_utility_collectron_evidencecollectionassistantcollectron_etc_c2.avif"
+      ],
+      "imageDds": "ATX_CAMP_Utility_Collectron_EvidenceCollectionAssistantCollectron_ETC.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
+      "isCollectron": true,
+      "production": {
+        "intervalHours": null,
+        "intervalDisplay": null,
+        "resourceName": "",
+        "resourceEdid": "",
+        "drops": [],
+        "modes": []
+      },
+      "station": {
+        "capacity": null,
+        "powerRequired": false,
+        "flamingoUnits": null,
+        "lockable": null
+      },
+      "crafting": {
+        "components": []
+      },
+      "craftingRequirements": [],
+      "howToObtain": {
+        "method": "atom",
+        "seasonNumber": null,
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase from the Atom Shop.",
+        "badge": "atom"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": true,
+          "lines": [
+            "Purchase from the Atom Shop."
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "seasonNumber": null,
+      "cutContent": false,
+      "status": "unreleased",
+      "releaseDate": ""
+    },
+    {
+      "formId": "0062F43C",
+      "edid": "zzzSCORE_S7_ENTM_CAMP_Utility_Collectron_Zetan",
+      "resoFormId": "",
+      "contFormId": "",
+      "entmFormId": "0062F43C",
+      "displayName": "Zetan Matrix Collectron Station",
+      "description": "The RobCo Faithful Electronic Trash Collection Hound collects electronic scrap and is programmed to always be happy to see you!",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/collectrons/score_s7_camp_utility_collectron_zetan_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s7_camp_utility_collectron_zetan_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/collectrons/score_s7_camp_utility_collectron_zetan_c2.avif"
+      ],
+      "imageDds": "SCORE_S7_CAMP_Utility_Collectron_Zetan.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
+      "isCollectron": true,
+      "production": {
+        "intervalHours": null,
+        "intervalDisplay": null,
+        "resourceName": "",
+        "resourceEdid": "",
+        "drops": [],
+        "modes": []
+      },
+      "station": {
+        "capacity": null,
+        "powerRequired": false,
+        "flamingoUnits": null,
+        "lockable": null
+      },
+      "crafting": {
+        "components": []
+      },
+      "craftingRequirements": [],
+      "howToObtain": {
+        "method": "scoreboard",
+        "seasonNumber": 7,
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Claim from the Zorbo's Revenge Scoreboard (Season 7)",
+        "badge": "scoreboard"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Claim from the Zorbo's Revenge Scoreboard (Season 7)"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "seasonNumber": 7,
+      "cutContent": true,
+      "status": "cut",
+      "releaseDate": ""
     }
   ]
 }
