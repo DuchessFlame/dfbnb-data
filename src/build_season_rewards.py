@@ -56,7 +56,8 @@ NOTES = {
     ],
     "item_schema": {
         "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
-        "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+        "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus. Blank on board-game seasons, which use rank instead.",
+        "rank": "NUMBER (optional) - Board rank 1-100. Present only on the old board-game seasons (S1-S8), where the scoreboard had no pages. When a season has ranks the JSON carries layout:'rank' and df-bnb-seasons.js renders one flat ordered list instead of page groups.",
         "name": "STRING - Display name.",
         "cost": "NUMBER - Ticket cost (0 if free).",
         "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
@@ -76,23 +77,31 @@ NOTES = {
         "camp_player_title": "Camp & Player Titles",
         "caps": "Caps",
         "carry_weight_booster": "Carry Weight Booster",
+        "fireworks": "Fireworks",
         "gold_bullion": "Gold Bullion",
         "improved_bait": "Improved Bait",
+        "legendary_core": "Legendary Core",
         "legendary_module": "Legendary Module",
         "legendary_scrip": "Legendary Scrip",
+        "liquid_courage": "Liquid Courage",
         "lunchbox": "Lunchbox",
         "mystery_bobblehead": "Mystery Bobblehead",
         "mystery_magazine": "Mystery Magazine",
         "nuclear_keycard": "Nuclear Keycard",
         "nukashine": "Nukashine",
+        "perfect_bubblegum": "Perfect Bubblegum",
+        "perk_card_pack": "Perk Card Pack",
         "perk_coins": "Perk Coins",
         "player_icon": "Player Icon",
         "re_roller": "Re-Roller",
         "repair_kit": "Repair Kits",
         "score_booster": "S.C.O.R.E. Boosters",
         "scouts_banner": "Scout's Banner",
+        "scrap_kit": "Scrap Kit",
         "stamps": "Stamps",
         "superb_bait": "Superb Bait",
+        "supply_package": "Vault-Tec Supply Package",
+        "tadpole_badge": "Tadpole Badge",
     },
     "tally_behaviour": (
         "The tally table counts how many visible items (respecting the Fallout First "
@@ -149,6 +158,13 @@ def build_item(row: dict) -> dict:
         "name": row.get("name", ""),
         "cost": safe_int(row.get("cost", "0")),
     }
+
+    # rank — Seasons 1-17 were the 100-rank board game, not a paged scoreboard.
+    # A season whose rows carry ranks is rendered as one flat RANK 1..100 list
+    # and its `page` column is blank; see build_season() for the layout flag.
+    rank = (row.get("rank") or "").strip()
+    if rank:
+        item["rank"] = safe_int(rank)
 
     # isFirst: only include if True (matches original hand-built convention)
     if to_bool(row.get("isFirst", "")):
@@ -248,6 +264,24 @@ def build_season_json(season_num: int, items: list[dict], meta: dict) -> dict:
         output["unlockLineText"] = ult
 
     output["items"] = [build_item(row) for row in items]
+
+    # layout — how df-bnb-seasons.js should group this season.
+    #
+    #   "rank"  the old board game: one flat, ordered RANK 1..100 list, no page
+    #           headers. Used by every season whose rows carry a rank.
+    #   "pages" the modern scoreboard: Page 1..10 plus Bonus Pages.
+    #
+    # Grouping a board season by page was the bug this replaced - the page
+    # numbers on S1-S8 were invented by the datamined backfill, which bucketed
+    # rewards by category, so "Page 1" of Season 1 was nothing but player icons.
+    ranked = [it for it in output["items"] if "rank" in it]
+    output["layout"] = "rank" if ranked else "pages"
+    if ranked:
+        output["maxRank"] = max(it["rank"] for it in ranked)
+        # Rewards the board list could not place. They are kept so no curated
+        # artwork or description is lost, and rendered in their own section
+        # rather than silently mixed into the rank order.
+        output["unplacedCount"] = len(output["items"]) - len(ranked)
 
     return output
 

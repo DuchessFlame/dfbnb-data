@@ -13,7 +13,8 @@
     ],
     "item_schema": {
       "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
-      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus. Blank on board-game seasons, which use rank instead.",
+      "rank": "NUMBER (optional) - Board rank 1-100. Present only on the old board-game seasons (S1-S8), where the scoreboard had no pages. When a season has ranks the JSON carries layout:'rank' and df-bnb-seasons.js renders one flat ordered list instead of page groups.",
       "name": "STRING - Display name.",
       "cost": "NUMBER - Ticket cost (0 if free).",
       "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
@@ -32,23 +33,31 @@
       "camp_player_title": "Camp & Player Titles",
       "caps": "Caps",
       "carry_weight_booster": "Carry Weight Booster",
+      "fireworks": "Fireworks",
       "gold_bullion": "Gold Bullion",
       "improved_bait": "Improved Bait",
+      "legendary_core": "Legendary Core",
       "legendary_module": "Legendary Module",
       "legendary_scrip": "Legendary Scrip",
+      "liquid_courage": "Liquid Courage",
       "lunchbox": "Lunchbox",
       "mystery_bobblehead": "Mystery Bobblehead",
       "mystery_magazine": "Mystery Magazine",
       "nuclear_keycard": "Nuclear Keycard",
       "nukashine": "Nukashine",
+      "perfect_bubblegum": "Perfect Bubblegum",
+      "perk_card_pack": "Perk Card Pack",
       "perk_coins": "Perk Coins",
       "player_icon": "Player Icon",
       "re_roller": "Re-Roller",
       "repair_kit": "Repair Kits",
       "score_booster": "S.C.O.R.E. Boosters",
       "scouts_banner": "Scout's Banner",
+      "scrap_kit": "Scrap Kit",
       "stamps": "Stamps",
-      "superb_bait": "Superb Bait"
+      "superb_bait": "Superb Bait",
+      "supply_package": "Vault-Tec Supply Package",
+      "tadpole_badge": "Tadpole Badge"
     },
     "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
     "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
@@ -904,5 +913,6 @@
       "imageUrl": "/wp-content/uploads/season_images/score_s13_display_flairdisplay.webp",
       "description": "Show off your backpack flair collection by hanging them on this Jewelry Stand Flair Display!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     }
-  ]
+  ],
+  "layout": "pages"
 }

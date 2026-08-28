@@ -13,7 +13,8 @@
     ],
     "item_schema": {
       "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
-      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus. Blank on board-game seasons, which use rank instead.",
+      "rank": "NUMBER (optional) - Board rank 1-100. Present only on the old board-game seasons (S1-S8), where the scoreboard had no pages. When a season has ranks the JSON carries layout:'rank' and df-bnb-seasons.js renders one flat ordered list instead of page groups.",
       "name": "STRING - Display name.",
       "cost": "NUMBER - Ticket cost (0 if free).",
       "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
@@ -32,23 +33,31 @@
       "camp_player_title": "Camp & Player Titles",
       "caps": "Caps",
       "carry_weight_booster": "Carry Weight Booster",
+      "fireworks": "Fireworks",
       "gold_bullion": "Gold Bullion",
       "improved_bait": "Improved Bait",
+      "legendary_core": "Legendary Core",
       "legendary_module": "Legendary Module",
       "legendary_scrip": "Legendary Scrip",
+      "liquid_courage": "Liquid Courage",
       "lunchbox": "Lunchbox",
       "mystery_bobblehead": "Mystery Bobblehead",
       "mystery_magazine": "Mystery Magazine",
       "nuclear_keycard": "Nuclear Keycard",
       "nukashine": "Nukashine",
+      "perfect_bubblegum": "Perfect Bubblegum",
+      "perk_card_pack": "Perk Card Pack",
       "perk_coins": "Perk Coins",
       "player_icon": "Player Icon",
       "re_roller": "Re-Roller",
       "repair_kit": "Repair Kits",
       "score_booster": "S.C.O.R.E. Boosters",
       "scouts_banner": "Scout's Banner",
+      "scrap_kit": "Scrap Kit",
       "stamps": "Stamps",
-      "superb_bait": "Superb Bait"
+      "superb_bait": "Superb Bait",
+      "supply_package": "Vault-Tec Supply Package",
+      "tadpole_badge": "Tadpole Badge"
     },
     "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
     "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
@@ -59,22 +68,11 @@
   "seasonName": "Armor Ace and the Power Patrol in Cold Steel",
   "items": [
     {
-      "id": "S4_P1_playericon_commisionerchaos",
-      "page": "1",
-      "name": "Player Icon: Commissioner Chaos",
-      "cost": 0,
-      "kind": "playerIcon",
-      "value": "Commissioner Chaos",
-      "storefrontEntitlement": "SCORE_S4_ENTM_PlayerIcon_CommisionerChaos",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_20.avif",
-      "description": "Lead the fight against Armor Ace with the Commissioner Chaos Player Icon.  - UNLOCKS A PLAYER ICON. -",
-      "tallyCategory": "player_icon"
-    },
-    {
-      "id": "S4_P1_playericon_coldsteel",
-      "page": "1",
+      "id": "S4_R2_cold_steel_player_icon",
+      "page": "",
       "name": "Player Icon: Cold Steel",
       "cost": 0,
+      "rank": 2,
       "kind": "playerIcon",
       "value": "Cold Steel",
       "storefrontEntitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel",
@@ -83,10 +81,121 @@
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S4_P1_playericon_yukonfive",
-      "page": "1",
+      "id": "S4_R3_medium_vault_tec_supply_package",
+      "page": "",
+      "name": "Medium Vault-Tec Supply Package x 1",
+      "cost": 0,
+      "rank": 3,
+      "tallyCategory": "supply_package"
+    },
+    {
+      "id": "S4_R4_carry_weight_booster",
+      "page": "",
+      "name": "Carry Weight Booster x 1",
+      "cost": 0,
+      "rank": 4,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S4_R5_beekeeper_s_beehive",
+      "page": "",
+      "name": "Beehive",
+      "cost": 0,
+      "rank": 5,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Collector_Beehive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_collector_beehive.webp",
+      "description": "How sweet it is to harvest your own Honey!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R5_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 5,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R6_platinum_backpack_flair",
+      "page": "",
+      "name": "Platinum Backpack Flair",
+      "cost": 0,
+      "rank": 6,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_Platinum",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_backpackflair_platinum.webp",
+      "description": "Show your love for Armor Ace and Erin Moses with the Platinum Backpack Flair!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R7_sugar_free_nukashine",
+      "page": "",
+      "name": "Sugar-free Nukashine x 3",
+      "cost": 0,
+      "rank": 7,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_item_nukashine_sugarfree.webp",
+      "tallyCategory": "nukashine"
+    },
+    {
+      "id": "S4_R8_tree_branch_chandelier",
+      "page": "",
+      "name": "Tree Branch Chandelier",
+      "cost": 0,
+      "rank": 8,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Lights_TreeBranchChandelier",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_lights_treebranchchandelier.webp",
+      "description": "Add some earthy, cozy light to your favorite nook with this Tree Branch Chandelier.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R9_tadpole_badge",
+      "page": "",
+      "name": "Tadpole Badge x 3",
+      "cost": 0,
+      "rank": 9,
+      "tallyCategory": "tadpole_badge"
+    },
+    {
+      "id": "S4_R10_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 10,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R11_caps",
+      "page": "",
+      "name": "Caps x 1000",
+      "cost": 0,
+      "rank": 11,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S4_R12_hunting_lever_action_rifle_paint",
+      "page": "",
+      "name": "Hunting Lever Action Rifle Paint",
+      "cost": 0,
+      "rank": 12,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_LeverGun_Hunting",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_levergun_hunting.webp",
+      "description": "Stand out in the Wasteland with this intricately detailed Hunting Paint for the Lever Action Rifle.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R13_large_vault_tec_supply_package",
+      "page": "",
+      "name": "Large Vault-Tec Supply Package",
+      "cost": 0,
+      "rank": 13,
+      "tallyCategory": "supply_package"
+    },
+    {
+      "id": "S4_R14_mister_shivers_player_icon",
+      "page": "",
       "name": "Player Icon: Mister Shivers",
       "cost": 0,
+      "rank": 14,
       "kind": "playerIcon",
       "value": "Mister Shivers",
       "storefrontEntitlement": "SCORE_S4_ENTM_PlayerIcon_YukonFive",
@@ -95,22 +204,523 @@
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S4_P1_playericon_endofseason",
-      "page": "1",
-      "name": "Player Icon: Complete Chaos",
+      "id": "S4_R15_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
       "cost": 0,
+      "rank": 15,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S4_R15_slalom_pose",
+      "page": "",
+      "name": "Slalom Pose",
+      "cost": 0,
+      "rank": 15,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Photomode_Pose_Slalom",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_photomode_pose_slalom.webp",
+      "description": "Let your skiing experience show with the Slalom Pose.  - UNLOCKS A PHOTOMODE POSE. -"
+    },
+    {
+      "id": "S4_R16_vault_tile_checkered_floors",
+      "page": "",
+      "name": "Vault Tile Checkered Floors",
+      "cost": 0,
+      "rank": 16,
+      "storefrontEntitlement": "SCORE_S3_ENTM_CAMP_Floor_Shelters_VaultTile_Checkered",
+      "imageUrl": "/wp-content/uploads/season_images/score_s3_camp_floor_shelters_vaulttile_checkered.webp",
+      "description": "Decorate your C.A.M.P. or Shelters with these Vault Tile Checkered Floors!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R17_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 17,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R18_yukon_five_t_45_power_armor_paint",
+      "page": "",
+      "name": "Yukon Five Power Armor T-45 Paint",
+      "cost": 0,
+      "rank": 18,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T45_YukonFive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_t45_yukonfive.webp",
+      "description": "Freeze those who stand in the way of your freedom with this Yukon Five T-45 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S4_R19_scrap_kit",
+      "page": "",
+      "name": "Scrap Kit x 3",
+      "cost": 0,
+      "rank": 19,
+      "tallyCategory": "scrap_kit"
+    },
+    {
+      "id": "S4_R20_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R21_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 250",
+      "cost": 0,
+      "rank": 21,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S4_R22_brickhouse_backpack_flair",
+      "page": "",
+      "name": "Brickhouse Backpack Flair",
+      "cost": 0,
+      "rank": 22,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_Brickhouse",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_backpackflair_brickhouse.webp",
+      "description": "Show off your Armor Ace pride with the Brickhouse Backpack Flair for your backpacks!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R23_fireworks",
+      "page": "",
+      "name": "Fireworks x 10",
+      "cost": 0,
+      "rank": 23,
+      "tallyCategory": "fireworks"
+    },
+    {
+      "id": "S4_R24_perfectly_preserved_pie",
+      "page": "",
+      "name": "Perfectly Preserved Pie x 1",
+      "cost": 0,
+      "rank": 24
+    },
+    {
+      "id": "S4_R25_female_mannequin",
+      "page": "",
+      "name": "Female Mannequin",
+      "cost": 0,
+      "rank": 25,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Display_Mannequin_Female",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_display_mannequin_female.webp",
+      "description": "Display Armor, Underarmor, Outfits, and Headwear at your C.A.M.P. with this Female Mannequin!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R25_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 25,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R25_male_mannequin",
+      "page": "",
+      "name": "Male Mannequin",
+      "cost": 0,
+      "rank": 25,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Display_Mannequin_Male",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_display_mannequin_male.webp",
+      "description": "Display Armor, Underarmor, Outfits, and Headwear at your C.A.M.P. with this Male Mannequin!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R26_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 26,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S4_R27_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 3",
+      "cost": 0,
+      "rank": 27,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S4_R28_yukon_five_t_51b_power_armor_paint",
+      "page": "",
+      "name": "Yukon Five Power Armor T-51 Paint",
+      "cost": 0,
+      "rank": 28,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T51_YukonFive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_t51_yukonfive.webp",
+      "description": "Freeze those who stand in the way of your freedom with this Yukon T-51 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S4_R29_starburst_brick_floor_and_foundations",
+      "page": "",
+      "name": "Starburst Brick Floor and Foundations",
+      "cost": 0,
+      "rank": 29,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Floor_Brick_Starburst",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_floor_brick_starburst.webp",
+      "description": "Decorate your C.A.M.P. or Shelters with the Starburst Brick Floor and Foundations set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R30_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 30,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R31_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 250",
+      "cost": 0,
+      "rank": 31,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S4_R32_beekeeper_outfit",
+      "page": "",
+      "name": "Beekeeper Outfit",
+      "cost": 0,
+      "rank": 32,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Outfit_Beekeeper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_outfit_beekeeper.webp",
+      "description": "This Beekeeper Outfit is the perfect attire for harvesting delicious honey.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R33_carry_weight_booster",
+      "page": "",
+      "name": "Carry Weight Booster x 1",
+      "cost": 0,
+      "rank": 33,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S4_R34_beekeeper_hat",
+      "page": "",
+      "name": "Beekeeper Hat",
+      "cost": 0,
+      "rank": 34,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beekeeper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_headwear_beekeeper.webp",
+      "description": "This Beekeeper Hat is the perfect headwear for harvesting delicious honey.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R35_hot_dog_pose",
+      "page": "",
+      "name": "Hot Dog Pose",
+      "cost": 0,
+      "rank": 35,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Photomode_Pose_HotDog",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_photomode_pose_hotdog.webp",
+      "description": "Spread your wings on the slopes with the Hot Dog Pose.  - UNLOCKS A PHOTOMODE POSE. -"
+    },
+    {
+      "id": "S4_R35_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 35,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S4_R36_death_s_breath_flamer_skin",
+      "page": "",
+      "name": "Death's Breath Skin (Flamer)",
+      "cost": 0,
+      "rank": 36,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponModel_Flamer_Death",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponmodel_flamer_death.webp",
+      "description": "Add a little fear to your flames with this Death's Breath Flamer skin.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R37_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 37,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R38_yukon_five_excavator_power_armor_paint",
+      "page": "",
+      "name": "Yukon Five Power Armor Excavator Paint",
+      "cost": 0,
+      "rank": 38,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_Excavator_YukonFive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_excavator_yukonfive.webp",
+      "description": "Freeze those who stand in the way of your freedom with this Yukon Five Excavator Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S4_R39_perfect_bubblegum",
+      "page": "",
+      "name": "Perfect Bubblegum x 1",
+      "cost": 0,
+      "rank": 39,
+      "tallyCategory": "perfect_bubblegum"
+    },
+    {
+      "id": "S4_R40_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 40,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R41_caps",
+      "page": "",
+      "name": "Caps x 2500",
+      "cost": 0,
+      "rank": 41,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S4_R42_power_patrol_red_beret",
+      "page": "",
+      "name": "Power Patrol Red Beret",
+      "cost": 0,
+      "rank": 42,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beret_PowerPatrol",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_headwear_beret_powerpatrol.webp",
+      "description": "Continue to plant the seeds of liberty in this Power Patrol Red Beret!   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R43_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 3",
+      "cost": 0,
+      "rank": 43,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S4_R44_cannonball_pose",
+      "page": "",
+      "name": "Cannonball Pose",
+      "cost": 0,
+      "rank": 44,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Photomode_Pose_1",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_photomode_pose_1.webp",
+      "description": "Make a splash with the Cannonball Pose!  - UNLOCKS A PHOTOMODE POSE. -"
+    },
+    {
+      "id": "S4_R45_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 45,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R45_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 45,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S4_R46_armor_ace_paint_handmade_rifle",
+      "page": "",
+      "name": "Armor Ace Paint (Handmade Rifle)",
+      "cost": 0,
+      "rank": 46,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_HandmadeGun_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_handmadegun_armorace.webp",
+      "description": "Battle against the Red Vipers with the Armor Ace Paint for the Handmade Rifle.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R47_sugar_free_nukashine",
+      "page": "",
+      "name": "Sugar-free Nukashine x 3",
+      "cost": 0,
+      "rank": 47,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_item_nukashine_sugarfree.webp",
+      "tallyCategory": "nukashine"
+    },
+    {
+      "id": "S4_R48_yukon_five_t_60_power_armor_paint",
+      "page": "",
+      "name": "Yukon Five Power Armor T-60 Paint",
+      "cost": 0,
+      "rank": 48,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T60_YukonFive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_t60_yukonfive.webp",
+      "description": "Freeze those who stand in the way of your freedom with this Yukon Five T-60 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S4_R49_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 49,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R50_nuka_cola_collectron_station",
+      "page": "",
+      "name": "Nuka-Cola Collectron Station",
+      "cost": 0,
+      "rank": 50,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_utility_collectron_nukacola.webp",
+      "description": "Having a bad day? Have a Nuka-Cola! Don't have any Nuka-Cola? Let this Collectron find some for you!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R51_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 51,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R52_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 250",
+      "cost": 0,
+      "rank": 52,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S4_R53_carry_weight_booster",
+      "page": "",
+      "name": "Carry Weight Booster x 1",
+      "cost": 0,
+      "rank": 53,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S4_R54_commissioner_chaos_player_icon",
+      "page": "",
+      "name": "Player Icon: Commissioner Chaos",
+      "cost": 0,
+      "rank": 54,
       "kind": "playerIcon",
-      "value": "Complete Chaos",
-      "storefrontEntitlement": "SCORE_S4_ENTM_PlayerIcon_EndOfSeason",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_21.avif",
-      "description": "Celebrate the final confrontation with the Complete Chaos Player Icon.  - UNLOCKS A PLAYER ICON. -",
+      "value": "Commissioner Chaos",
+      "storefrontEntitlement": "SCORE_S4_ENTM_PlayerIcon_CommisionerChaos",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_20.avif",
+      "description": "Lead the fight against Armor Ace with the Commissioner Chaos Player Icon.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S4_P1_playericon_coldsteel_2",
-      "page": "1",
+      "id": "S4_R55_dungeon_wallpaper",
+      "page": "",
+      "name": "Dungeon Wallpaper",
+      "cost": 0,
+      "rank": 55,
+      "isFirst": true
+    },
+    {
+      "id": "S4_R55_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 55,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S4_R56_armor_ace_power_armor_station",
+      "page": "",
+      "name": "Armor Ace Power Armor Station",
+      "cost": 0,
+      "rank": 56,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Machinery_Workbench_PowerArmor_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_machinery_workbench_powerarmor_armorace.webp",
+      "description": "Upgrade your Power Armor using this Armor Ace Power Armor Station.   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R57_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 57,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R58_yukon_five_x_01_power_armor_paint",
+      "page": "",
+      "name": "Yukon Five Power Armor X-01 Paint",
+      "cost": 0,
+      "rank": 58,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_X01_YukonFive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_x01_yukonfive.webp",
+      "description": "Freeze those who stand in the way of your freedom with this Yukon Five X-01 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S4_R59_scrap_kit",
+      "page": "",
+      "name": "Scrap Kit x 6",
+      "cost": 0,
+      "rank": 59,
+      "tallyCategory": "scrap_kit"
+    },
+    {
+      "id": "S4_R60_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 60,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R61_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 250",
+      "cost": 0,
+      "rank": 61,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S4_R62_power_patrol_fatigues",
+      "page": "",
+      "name": "Power Patrol Fatigues",
+      "cost": 0,
+      "rank": 62,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Outfit_PowerPatrol",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_outfit_powerpatrol.webp",
+      "description": "Continue to plant the seeds of liberty in these Power Patrol Fatigues!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R63_nuclear_keycard",
+      "page": "",
+      "name": "Nuclear Keycard x 5",
+      "cost": 0,
+      "rank": 63,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_nuclearkeycard.webp",
+      "tallyCategory": "nuclear_keycard"
+    },
+    {
+      "id": "S4_R64_icebreaker_player_icon",
+      "page": "",
       "name": "Player Icon: Icebreaker",
       "cost": 0,
+      "rank": 64,
       "kind": "playerIcon",
       "value": "Icebreaker",
       "storefrontEntitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel_2",
@@ -119,10 +729,205 @@
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S4_P1_playericon_coldsteel_3",
-      "page": "1",
+      "id": "S4_R65_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 65,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R65_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 65,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S4_R66_icebreaker_skin",
+      "page": "",
+      "name": "Icebreaker (Power Fist)",
+      "cost": 0,
+      "rank": 66,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_PowerFist_IceBreaker",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_powerfist_icebreaker.webp",
+      "description": "Leave your foes red, white, and blue all over.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R67_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 6",
+      "cost": 0,
+      "rank": 67,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S4_R68_yukon_five_ultracite_power_armor_paint",
+      "page": "",
+      "name": "Yukon Five Power Armor Ultracite Paint",
+      "cost": 0,
+      "rank": 68,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_Ultracite_YukonFive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_ultracite_yukonfive.webp",
+      "description": "Freeze those who stand in the way of your freedom with this Yukon Five Ultracite Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S4_R69_gold_toilet",
+      "page": "",
+      "name": "Gold Toilet",
+      "cost": 0,
+      "rank": 69,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_FloorDecor_Toilet_Gold",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_floordecor_toilet_gold.webp",
+      "description": "Impress the best with the Gold Toilet.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R70_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 70,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R71_caps",
+      "page": "",
+      "name": "Caps x 2500",
+      "cost": 0,
+      "rank": 71,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S4_R72_armor_ace_backpack_flair",
+      "page": "",
+      "name": "Armor Ace Backpack Flair",
+      "cost": 0,
+      "rank": 72,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_backpackflair_armorace.webp",
+      "description": "Stand with Armor Ace, the American hero, with this Armor Ace Backpack Flair.   Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R73_carry_weight_booster",
+      "page": "",
+      "name": "Carry Weight Booster x 1",
+      "cost": 0,
+      "rank": 73,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S4_R74_skiing_pose",
+      "page": "",
+      "name": "Skiing Pose",
+      "cost": 0,
+      "rank": 74,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Photomode_Pose_2",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_photomode_pose_2.webp",
+      "description": "Hit the slopes with the Skiing Pose.  - UNLOCKS A PHOTOMODE POSE. -"
+    },
+    {
+      "id": "S4_R75_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 2",
+      "cost": 0,
+      "rank": 75,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S4_R75_red_viper_paint_handmade_rifle",
+      "page": "",
+      "name": "Red Viper Paint (Handmade Rifle)",
+      "cost": 0,
+      "rank": 75,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_HandmadeGun_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_handmadegun_redviper.webp",
+      "description": "Prepare to do battle with the Power Patrol using this Red Viper Paint for the Handmade Rifle.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R76_yukon_five_t_65_power_armor_paint",
+      "page": "",
+      "name": "Yukon Five Power Armor T-65 Paint",
+      "cost": 0,
+      "rank": 76,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T65_YukonFive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_t65_yukonfive.webp",
+      "description": "Freeze those who stand in the way of your freedom with this Yukon Five T-65 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S4_R77_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 77,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R78_cold_steel_floors",
+      "page": "",
+      "name": "Cold Steel Floors",
+      "cost": 0,
+      "rank": 78,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Floor_ColdSteel",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_floor_coldsteel.webp",
+      "description": "Create your own Armor Ace base with these Cold Steel Floors!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R79_perfect_bubblegum",
+      "page": "",
+      "name": "Perfect Bubblegum x 3",
+      "cost": 0,
+      "rank": 79,
+      "tallyCategory": "perfect_bubblegum"
+    },
+    {
+      "id": "S4_R80_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 80,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R81_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 250",
+      "cost": 0,
+      "rank": 81,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S4_R82_dungeon_floor_and_foundations",
+      "page": "",
+      "name": "Dungeon Floor and Foundations",
+      "cost": 0,
+      "rank": 82
+    },
+    {
+      "id": "S4_R83_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 9",
+      "cost": 0,
+      "rank": 83,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S4_R84_double_tap_player_icon",
+      "page": "",
       "name": "Player Icon: Doubletap",
       "cost": 0,
+      "rank": 84,
       "kind": "playerIcon",
       "value": "Doubletap",
       "storefrontEntitlement": "SCORE_S4_ENTM_PlayerIcon_ColdSteel_3",
@@ -131,8 +936,219 @@
       "tallyCategory": "player_icon"
     },
     {
+      "id": "S4_R85_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 85,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R85_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 85,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S4_R86_armor_ace_paint_gatling_plasma",
+      "page": "",
+      "name": "Armor Ace Paint (Gatling Plasma)",
+      "cost": 0,
+      "rank": 86,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_PlasmaGatling_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_plasmagatling_armorace.webp",
+      "description": "The Yukon Five will not be prepared when the Power Patrol brings this level of firepower.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R87_sugar_free_nukashine",
+      "page": "",
+      "name": "Sugar-free Nukashine x 3",
+      "cost": 0,
+      "rank": 87,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_item_nukashine_sugarfree.webp",
+      "tallyCategory": "nukashine"
+    },
+    {
+      "id": "S4_R88_commissioner_chaos_power_armor_paint",
+      "page": "",
+      "name": "Commissioner Chaos Power Armor Paint",
+      "cost": 0,
+      "rank": 88,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Model_CommissionerChaos",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_model_commissionerchaos.webp",
+      "description": "Reign in chaos as the leader of the Yukon Five with the Commissioner Chaos Power Armor Paint.  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors."
+    },
+    {
+      "id": "S4_R89_cold_steel_wallpaper",
+      "page": "",
+      "name": "Cold Steel Wallpaper",
+      "cost": 0,
+      "rank": 89,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_WallPaper_ColdSteel",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_wallpaper_coldsteel.webp",
+      "description": "Secure your perimeter with the Cold Steel Wallpaper.  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
+    },
+    {
+      "id": "S4_R90_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 90,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R91_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 250",
+      "cost": 0,
+      "rank": 91,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S4_R92_flamethrower_tanks_backpack",
+      "page": "",
+      "name": "Flamethrower Tanks Backpack",
+      "cost": 0,
+      "rank": 92,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_Backpack_FlameTanks",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_backpack_flametanks.webp",
+      "description": "Keep your gear hot with the Flamethrower Tanks Backpack!  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R93_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 15",
+      "cost": 0,
+      "rank": 93,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S4_R94_cold_steel_beer_stein",
+      "page": "",
+      "name": "Cold Steel Beer Stein",
+      "cost": 0,
+      "rank": 94,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_FloorDecor_Stein_ColdSteel",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_floordecor_stein_coldsteel.webp",
+      "description": "The only thing better than Cold Steel is a cold ale in this Cold Steel Beer Stein!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R95_atomic_ranger_power_armor_skin",
+      "page": "",
+      "name": "Atomic Ranger Power Armor Skin",
+      "cost": 0,
+      "rank": 95,
+      "isFirst": true
+    },
+    {
+      "id": "S4_R95_perk_coin",
+      "page": "",
+      "name": "Perk Coin x 50",
+      "cost": 0,
+      "rank": 95,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp",
+      "tallyCategory": "perk_coins"
+    },
+    {
+      "id": "S4_R96_power_patrol_blue_beret",
+      "page": "",
+      "name": "Power Patrol Blue Beret",
+      "cost": 0,
+      "rank": 96,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beret_PowerPatrolBlue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_headwear_beret_powerpatrolblue.webp",
+      "description": "Continue to plant the seeds of liberty in this Power Patrol Blue Beret!   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R97_carry_weight_booster",
+      "page": "",
+      "name": "Carry Weight Booster x 3",
+      "cost": 0,
+      "rank": 97,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S4_R98_icebreaker_outfit",
+      "page": "",
+      "name": "Icebreaker Outfit",
+      "cost": 0,
+      "rank": 98,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Outfit_IceBreaker",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_outfit_icebreaker.webp",
+      "description": "Get up close and personal with the Yukon Five in the Icebreaker Outfit.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S4_R99_brotherhood_of_steel_infantry_statue",
+      "page": "",
+      "name": "Brotherhood of Steel Infantry Statue",
+      "cost": 0,
+      "rank": 99,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Statue_BoSInfantryStatue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_statue_bosinfantrystatue.webp",
+      "description": "All guts, all glory. Decorate your C.A.M.P. with this life-sized Brotherhood of Steel Infantry Statue. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R100_atoms",
+      "page": "",
+      "name": "Atoms x 500",
+      "cost": 0,
+      "rank": 100,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S4_R100_complete_chaos_power_armor_paint",
+      "page": "",
+      "name": "Complete Chaos Power Armor Paint",
+      "cost": 0,
+      "rank": 100,
+      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Model_CommissionerChaos_CompleteChaos",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_model_commissionerchaos_completechaos.webp",
+      "description": "Don't hold back in the final showdown against Armor Ace with the Complete Chaos Power Armor Paint.  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S4_R100_framed_cold_steel_gameboard",
+      "page": "",
+      "name": "Framed Cold Steel Gameboard",
+      "cost": 0,
+      "rank": 100,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_WallDeco_ColdSteel_Gameboard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_walldeco_coldsteel_gameboard.webp",
+      "description": "Reminisce about your battles against the Yukon 5 with the Framed Cold Steel Gameboard.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S4_R100_complete_chaos_player_icon",
+      "page": "",
+      "name": "Player Icon: Complete Chaos",
+      "cost": 0,
+      "rank": 100,
+      "kind": "playerIcon",
+      "value": "Complete Chaos",
+      "storefrontEntitlement": "SCORE_S4_ENTM_PlayerIcon_EndOfSeason",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_21.avif",
+      "description": "Celebrate the final confrontation with the Complete Chaos Player Icon.  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S4_P8_camp_statue_bosinfantrystatuepatina",
+      "page": "",
+      "name": "Patina Brotherhood of Steel Infantry Statue",
+      "cost": 0,
+      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Statue_BoSInfantryStatuePatina",
+      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_statue_bosinfantrystatuepatina.webp",
+      "description": "All guts, all glory. Decorate your C.A.M.P. with this life-sized Brotherhood of Steel Infantry Statue. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
       "id": "S4_P1_playericon_coldsteel_4",
-      "page": "1",
+      "page": "",
       "name": "Player Icon: Cold Steel Icon 4",
       "cost": 0,
       "kind": "playerIcon",
@@ -141,404 +1157,9 @@
       "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_14.avif",
       "description": "The intrepid time traveling historian!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
-    },
-    {
-      "id": "S4_P2_apparel_headwear_beret_powerpatrol",
-      "page": "2",
-      "name": "Power Patrol Red Beret",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beret_PowerPatrol",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_headwear_beret_powerpatrol.webp",
-      "description": "Continue to plant the seeds of liberty in this Power Patrol Red Beret!   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P2_apparel_outfit_powerpatrol",
-      "page": "2",
-      "name": "Power Patrol Fatigues",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Outfit_PowerPatrol",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_outfit_powerpatrol.webp",
-      "description": "Continue to plant the seeds of liberty in these Power Patrol Fatigues!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P2_apparel_headwear_beret_powerpatrolblue",
-      "page": "2",
-      "name": "Power Patrol Blue Beret",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beret_PowerPatrolBlue",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_headwear_beret_powerpatrolblue.webp",
-      "description": "Continue to plant the seeds of liberty in this Power Patrol Blue Beret!   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P2_apparel_outfit_icebreaker",
-      "page": "2",
-      "name": "Icebreaker Outfit",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Outfit_IceBreaker",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_outfit_icebreaker.webp",
-      "description": "Get up close and personal with the Yukon Five in the Icebreaker Outfit.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P2_apparel_headwear_beekeeper",
-      "page": "2",
-      "name": "Beekeeper Hat",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Headwear_Beekeeper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_headwear_beekeeper.webp",
-      "description": "This Beekeeper Hat is the perfect headwear for harvesting delicious honey.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P2_apparel_outfit_beekeeper",
-      "page": "2",
-      "name": "Beekeeper Outfit",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Apparel_Outfit_Beekeeper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_apparel_outfit_beekeeper.webp",
-      "description": "This Beekeeper Outfit is the perfect attire for harvesting delicious honey.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_model_commissionerchaos_completechaos",
-      "page": "3",
-      "name": "Complete Chaos Power Armor Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Model_CommissionerChaos_CompleteChaos",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_model_commissionerchaos_completechaos.webp",
-      "description": "Don't hold back in the final showdown against Armor Ace with the Complete Chaos Power Armor Paint.  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_model_commissionerchaos",
-      "page": "3",
-      "name": "Commissioner Chaos Power Armor Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Model_CommissionerChaos",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_model_commissionerchaos.webp",
-      "description": "Reign in chaos as the leader of the Yukon Five with the Commissioner Chaos Power Armor Paint.  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors."
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_excavator_yukonfive",
-      "page": "3",
-      "name": "Yukon Five Power Armor Excavator Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_Excavator_YukonFive",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_excavator_yukonfive.webp",
-      "description": "Freeze those who stand in the way of your freedom with this Yukon Five Excavator Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_t45_yukonfive",
-      "page": "3",
-      "name": "Yukon Five Power Armor T-45 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T45_YukonFive",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_t45_yukonfive.webp",
-      "description": "Freeze those who stand in the way of your freedom with this Yukon Five T-45 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_t51_yukonfive",
-      "page": "3",
-      "name": "Yukon Five Power Armor T-51 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T51_YukonFive",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_t51_yukonfive.webp",
-      "description": "Freeze those who stand in the way of your freedom with this Yukon T-51 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_t60_yukonfive",
-      "page": "3",
-      "name": "Yukon Five Power Armor T-60 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T60_YukonFive",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_t60_yukonfive.webp",
-      "description": "Freeze those who stand in the way of your freedom with this Yukon Five T-60 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_t65_yukonfive",
-      "page": "3",
-      "name": "Yukon Five Power Armor T-65 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_T65_YukonFive",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_t65_yukonfive.webp",
-      "description": "Freeze those who stand in the way of your freedom with this Yukon Five T-65 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S4_P3_skin_powerarmor_paint_ultracite_yukonfive",
-      "page": "3",
-      "name": "Yukon Five Power Armor Ultracite Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_Ultracite_YukonFive",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_ultracite_yukonfive.webp",
-      "description": "Freeze those who stand in the way of your freedom with this Yukon Five Ultracite Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S4_P4_skin_powerarmor_paint_x01_yukonfive",
-      "page": "4",
-      "name": "Yukon Five Power Armor X-01 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_PowerArmor_Paint_X01_YukonFive",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_powerarmor_paint_x01_yukonfive.webp",
-      "description": "Freeze those who stand in the way of your freedom with this Yukon Five X-01 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_levergun_hunting",
-      "page": "4",
-      "name": "Hunting Lever Action Rifle Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_LeverGun_Hunting",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_levergun_hunting.webp",
-      "description": "Stand out in the Wasteland with this intricately detailed Hunting Paint for the Lever Action Rifle.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_handmadegun_redviper",
-      "page": "4",
-      "name": "Red Viper Paint (Handmade Rifle)",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_HandmadeGun_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_handmadegun_redviper.webp",
-      "description": "Prepare to do battle with the Power Patrol using this Red Viper Paint for the Handmade Rifle.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_handmadegun_armorace",
-      "page": "4",
-      "name": "Armor Ace Paint (Handmade Rifle)",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_HandmadeGun_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_handmadegun_armorace.webp",
-      "description": "Battle against the Red Vipers with the Armor Ace Paint for the Handmade Rifle.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_powerfist_icebreaker",
-      "page": "4",
-      "name": "Icebreaker (Power Fist)",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_PowerFist_IceBreaker",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_powerfist_icebreaker.webp",
-      "description": "Leave your foes red, white, and blue all over.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P4_skin_weaponskin_plasmagatling_armorace",
-      "page": "4",
-      "name": "Armor Ace Paint (Gatling Plasma)",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponSkin_PlasmaGatling_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponskin_plasmagatling_armorace.webp",
-      "description": "The Yukon Five will not be prepared when the Power Patrol brings this level of firepower.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P5_camp_floor_coldsteel",
-      "page": "5",
-      "name": "Cold Steel Floors",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Floor_ColdSteel",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_floor_coldsteel.webp",
-      "description": "Create your own Armor Ace base with these Cold Steel Floors!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P5_camp_floor_brick_starburst",
-      "page": "5",
-      "name": "Starburst Brick Floor and Foundations",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Floor_Brick_Starburst",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_floor_brick_starburst.webp",
-      "description": "Decorate your C.A.M.P. or Shelters with the Starburst Brick Floor and Foundations set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P5_camp_machinery_workbench_powerarmor_armorace",
-      "page": "5",
-      "name": "Armor Ace Power Armor Station",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Machinery_Workbench_PowerArmor_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_machinery_workbench_powerarmor_armorace.webp",
-      "description": "Upgrade your Power Armor using this Armor Ace Power Armor Station.   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P5_camp_collector_beehive",
-      "page": "5",
-      "name": "Beehive",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Collector_Beehive",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_collector_beehive.webp",
-      "description": "How sweet it is to harvest your own Honey!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P5_camp_utility_collectron_nukacola",
-      "page": "5",
-      "name": "Nuka-Cola Collectron Station",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_utility_collectron_nukacola.webp",
-      "description": "Having a bad day? Have a Nuka-Cola! Don't have any Nuka-Cola? Let this Collectron find some for you!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P6_camp_floordecor_toilet_gold",
-      "page": "6",
-      "name": "Gold Toilet",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_FloorDecor_Toilet_Gold",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_floordecor_toilet_gold.webp",
-      "description": "Impress the best with the Gold Toilet.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P6_camp_floordecor_stein_coldsteel",
-      "page": "6",
-      "name": "Cold Steel Beer Stein",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_FloorDecor_Stein_ColdSteel",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_floordecor_stein_coldsteel.webp",
-      "description": "The only thing better than Cold Steel is a cold ale in this Cold Steel Beer Stein!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P6_camp_lights_treebranchchandelier",
-      "page": "6",
-      "name": "Tree Branch Chandelier",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Lights_TreeBranchChandelier",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_lights_treebranchchandelier.webp",
-      "description": "Add some earthy, cozy light to your favorite nook with this Tree Branch Chandelier.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P6_camp_display_mannequin_female",
-      "page": "6",
-      "name": "Female Mannequin",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Display_Mannequin_Female",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_display_mannequin_female.webp",
-      "description": "Display Armor, Underarmor, Outfits, and Headwear at your C.A.M.P. with this Female Mannequin!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P6_camp_display_mannequin_male",
-      "page": "6",
-      "name": "Male Mannequin",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Display_Mannequin_Male",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_display_mannequin_male.webp",
-      "description": "Display Armor, Underarmor, Outfits, and Headwear at your C.A.M.P. with this Male Mannequin!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P6_photomode_pose_1",
-      "page": "6",
-      "name": "Cannonball Pose",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Photomode_Pose_1",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_photomode_pose_1.webp",
-      "description": "Make a splash with the Cannonball Pose!  - UNLOCKS A PHOTOMODE POSE. -"
-    },
-    {
-      "id": "S4_P6_photomode_pose_2",
-      "page": "6",
-      "name": "Skiing Pose",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Photomode_Pose_2",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_photomode_pose_2.webp",
-      "description": "Hit the slopes with the Skiing Pose.  - UNLOCKS A PHOTOMODE POSE. -"
-    },
-    {
-      "id": "S4_P6_camp_walldeco_coldsteel_gameboard",
-      "page": "6",
-      "name": "Framed Cold Steel Gameboard",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_WallDeco_ColdSteel_Gameboard",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_walldeco_coldsteel_gameboard.webp",
-      "description": "Reminisce about your battles against the Yukon 5 with the Framed Cold Steel Gameboard.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P7_camp_wallpaper_coldsteel",
-      "page": "7",
-      "name": "Cold Steel Wallpaper",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_WallPaper_ColdSteel",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_wallpaper_coldsteel.webp",
-      "description": "Secure your perimeter with the Cold Steel Wallpaper.  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
-    },
-    {
-      "id": "S4_P7_skin_backpackflair_brickhouse",
-      "page": "7",
-      "name": "Brickhouse Backpack Flair",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_Brickhouse",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_backpackflair_brickhouse.webp",
-      "description": "Show off your Armor Ace pride with the Brickhouse Backpack Flair for your backpacks!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P7_skin_weaponmodel_flamer_death",
-      "page": "7",
-      "name": "Death's Breath Skin (Flamer)",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_WeaponModel_Flamer_Death",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_weaponmodel_flamer_death.webp",
-      "description": "Add a little fear to your flames with this Death's Breath Flamer skin.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P7_skin_backpackflair_platinum",
-      "page": "7",
-      "name": "Platinum Backpack Flair",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_Platinum",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_backpackflair_platinum.webp",
-      "description": "Show your love for Armor Ace and Erin Moses with the Platinum Backpack Flair!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P7_skin_backpackflair_armorace",
-      "page": "7",
-      "name": "Armor Ace Backpack Flair",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_BackpackFlair_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_backpackflair_armorace.webp",
-      "description": "Stand with Armor Ace, the American hero, with this Armor Ace Backpack Flair.   Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P7_skin_backpack_flametanks",
-      "page": "7",
-      "name": "Flamethrower Tanks Backpack",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Skin_Backpack_FlameTanks",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_skin_backpack_flametanks.webp",
-      "description": "Keep your gear hot with the Flamethrower Tanks Backpack!  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S4_P7_camp_statue_bosinfantrystatue",
-      "page": "7",
-      "name": "Brotherhood of Steel Infantry Statue",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Statue_BoSInfantryStatue",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_statue_bosinfantrystatue.webp",
-      "description": "All guts, all glory. Decorate your C.A.M.P. with this life-sized Brotherhood of Steel Infantry Statue. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S4_P7_photomode_pose_slalom",
-      "page": "7",
-      "name": "Slalom Pose",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Photomode_Pose_Slalom",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_photomode_pose_slalom.webp",
-      "description": "Let your skiing experience show with the Slalom Pose.  - UNLOCKS A PHOTOMODE POSE. -"
-    },
-    {
-      "id": "S4_P8_photomode_pose_hotdog",
-      "page": "8",
-      "name": "Hot Dog Pose",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_Photomode_Pose_HotDog",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_photomode_pose_hotdog.webp",
-      "description": "Spread your wings on the slopes with the Hot Dog Pose.  - UNLOCKS A PHOTOMODE POSE. -"
-    },
-    {
-      "id": "S4_P8_camp_statue_bosinfantrystatuepatina",
-      "page": "8",
-      "name": "Patina Brotherhood of Steel Infantry Statue",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S4_ENTM_CAMP_Statue_BoSInfantryStatuePatina",
-      "imageUrl": "/wp-content/uploads/season_images/score_s4_camp_statue_bosinfantrystatuepatina.webp",
-      "description": "All guts, all glory. Decorate your C.A.M.P. with this life-sized Brotherhood of Steel Infantry Statue. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     }
-  ]
+  ],
+  "layout": "rank",
+  "maxRank": 100,
+  "unplacedCount": 2
 }

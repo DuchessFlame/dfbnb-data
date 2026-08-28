@@ -13,7 +13,8 @@
     ],
     "item_schema": {
       "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
-      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus. Blank on board-game seasons, which use rank instead.",
+      "rank": "NUMBER (optional) - Board rank 1-100. Present only on the old board-game seasons (S1-S8), where the scoreboard had no pages. When a season has ranks the JSON carries layout:'rank' and df-bnb-seasons.js renders one flat ordered list instead of page groups.",
       "name": "STRING - Display name.",
       "cost": "NUMBER - Ticket cost (0 if free).",
       "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
@@ -32,23 +33,31 @@
       "camp_player_title": "Camp & Player Titles",
       "caps": "Caps",
       "carry_weight_booster": "Carry Weight Booster",
+      "fireworks": "Fireworks",
       "gold_bullion": "Gold Bullion",
       "improved_bait": "Improved Bait",
+      "legendary_core": "Legendary Core",
       "legendary_module": "Legendary Module",
       "legendary_scrip": "Legendary Scrip",
+      "liquid_courage": "Liquid Courage",
       "lunchbox": "Lunchbox",
       "mystery_bobblehead": "Mystery Bobblehead",
       "mystery_magazine": "Mystery Magazine",
       "nuclear_keycard": "Nuclear Keycard",
       "nukashine": "Nukashine",
+      "perfect_bubblegum": "Perfect Bubblegum",
+      "perk_card_pack": "Perk Card Pack",
       "perk_coins": "Perk Coins",
       "player_icon": "Player Icon",
       "re_roller": "Re-Roller",
       "repair_kit": "Repair Kits",
       "score_booster": "S.C.O.R.E. Boosters",
       "scouts_banner": "Scout's Banner",
+      "scrap_kit": "Scrap Kit",
       "stamps": "Stamps",
-      "superb_bait": "Superb Bait"
+      "superb_bait": "Superb Bait",
+      "supply_package": "Vault-Tec Supply Package",
+      "tadpole_badge": "Tadpole Badge"
     },
     "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
     "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
@@ -59,34 +68,11 @@
   "seasonName": "Armor Ace and the Power Patrol",
   "items": [
     {
-      "id": "S2_P1_playericon_subjugator",
-      "page": "1",
-      "name": "Player Icon: Subjugator",
-      "cost": 0,
-      "kind": "playerIcon",
-      "value": "Subjugator",
-      "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_Subjugator",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_03.avif",
-      "description": "Fear the Subjugator!  - UNLOCKS A PLAYER ICON. -",
-      "tallyCategory": "player_icon"
-    },
-    {
-      "id": "S2_P1_playericon_powerpatrol",
-      "page": "1",
-      "name": "Player Icon: Power Patrol",
-      "cost": 0,
-      "kind": "playerIcon",
-      "value": "Power Patrol",
-      "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_PowerPatrol",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_02.avif",
-      "description": "Continue to fight the good fight with this Power Patrol Icon!  - UNLOCKS A PLAYER ICON. -",
-      "tallyCategory": "player_icon"
-    },
-    {
-      "id": "S2_P1_playericon_ace",
-      "page": "1",
+      "id": "S2_R2_armor_ace_player_icon",
+      "page": "",
       "name": "Player Icon: Armor Ace",
       "cost": 0,
+      "rank": 2,
       "kind": "playerIcon",
       "value": "Armor Ace",
       "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_Ace",
@@ -95,10 +81,960 @@
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S2_P1_playericon_armorace01",
-      "page": "1",
+      "id": "S2_R3_health_kit_bundle",
+      "page": "",
+      "name": "Health Kit Bundle",
+      "cost": 0,
+      "rank": 3
+    },
+    {
+      "id": "S2_R4_military_foot_locker_stash_box",
+      "page": "",
+      "name": "Military Foot Locker Stash Box",
+      "cost": 0,
+      "rank": 4,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_StashBox_MilitaryFootLocker",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_stashbox_militaryfootlocker.webp",
+      "description": "Keep it neat with the Military Foot Locker Stash Box.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R5_weight_bench",
+      "page": "",
+      "name": "Weight Bench",
+      "cost": 0,
+      "rank": 5,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Utility_WeightBench",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_utility_weightbench.webp",
+      "description": "Get that beefy Wastelander look with the Weight Bench!  - Using the weight bench will grant a Strength Boost -  - AVAILABLE FOR GOLD BULLION PER CHARACTER. C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R6_red_viper_wood_armor_paint",
+      "page": "",
+      "name": "Red Viper Wood Armor Paint",
+      "cost": 0,
+      "rank": 6,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Wood_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_wood_redviper.webp",
+      "description": "Prepare to do battle with the Power Patrol.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R7_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 7,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R8_wooden_log_door",
+      "page": "",
+      "name": "Wooden Log Door",
+      "cost": 0,
+      "rank": 8,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Door_Wood_Log",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_door_wood_log.webp",
+      "description": "A do-it-yourself creative door solution using all your excess fire wood!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R9_medium_vault_tec_supply_package",
+      "page": "",
+      "name": "Medium Vault-Tec Supply Package",
+      "cost": 0,
+      "rank": 9,
+      "tallyCategory": "supply_package"
+    },
+    {
+      "id": "S2_R10_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 10,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R11_caps",
+      "page": "",
+      "name": "Caps x 2500",
+      "cost": 0,
+      "rank": 11,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S2_R12_red_viper_leather_armor_paint",
+      "page": "",
+      "name": "Red Viper Leather Armor Paint",
+      "cost": 0,
+      "rank": 12,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Leather_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_leather_redviper.webp",
+      "description": "Prepare to do battle with the Power Patrol.  Skin's appearance may differ when applied to different armor tiers.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R13_large_vault_tec_supply_package",
+      "page": "",
+      "name": "Large Vault-Tec Supply Package",
+      "cost": 0,
+      "rank": 13,
+      "tallyCategory": "supply_package"
+    },
+    {
+      "id": "S2_R14_brickhouse_s_armor_ace_paint_pump_action_shotgun",
+      "page": "",
+      "name": "Brickhouse's Armor Ace Paint (Pump Action Shotgun)",
+      "cost": 0,
+      "rank": 14,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_WeaponSkin_PumpActionShotgun_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_weaponskin_pumpactionshotgun_armorace.webp",
+      "description": "Wipe out the Red Vipers with a replica paint from Brickhouse's famous Shotgun.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R15_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 15,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S2_R16_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 50",
+      "cost": 0,
+      "rank": 16,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S2_R17_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 17,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R18_armor_ace_power_armor_t_45_paint",
+      "page": "",
+      "name": "Armor Ace Power Armor T-45 Paint",
+      "cost": 0,
+      "rank": 18,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_T45_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_t45_armorace.webp",
+      "description": "Show your enemies how technology is power in this unique paint for the T-45 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S2_R19_ship_in_a_bottle",
+      "page": "",
+      "name": "Ship in a Bottle",
+      "cost": 0,
+      "rank": 19,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_FloorDecor_ShipInABottle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_floordecor_shipinabottle.webp",
+      "description": "It seemed impossible but you were able to get the ship in the bottle.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R20_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R21_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 50",
+      "cost": 0,
+      "rank": 21,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S2_R22_red_viper_metal_armor_paint",
+      "page": "",
+      "name": "Red Viper Metal Armor Paint",
+      "cost": 0,
+      "rank": 22,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Metal_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_metal_redviper.webp",
+      "description": "Prepare to do battle with the Power Patrol.  Skin's appearance may differ when applied to different armor tiers.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R23_rad_kit_bundle",
+      "page": "",
+      "name": "Rad Kit Bundle",
+      "cost": 0,
+      "rank": 23
+    },
+    {
+      "id": "S2_R24_armor_ace_photomode_frame",
+      "page": "",
+      "name": "Armor Ace Photomode Frame",
+      "cost": 0,
+      "rank": 24,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Photomode_Frame_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_photomode_frame_armorace.webp",
+      "description": "Show off best of the best accomplishments with this Armor Ace Frame!  - UNLOCKS A PHOTOMODE FRAME. -"
+    },
+    {
+      "id": "S2_R25_vault_tec_foosball_table",
+      "page": "",
+      "name": "Vault-Tec Foosball Table",
+      "cost": 0,
+      "rank": 25,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Furniture_FoosballTable",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_furniture_foosballtable.webp",
+      "description": "Trying to pass the time in the vault? No worries! Play a friendly game with the Vault-Tec Foosball Table!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R26_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 26,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S2_R27_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 27,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R28_armor_ace_power_armor_t_51_paint",
+      "page": "",
+      "name": "Armor Ace Power Armor T-51 Paint",
+      "cost": 0,
+      "rank": 28,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_T51_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_t51_armorace.webp",
+      "description": "Show your enemies how technology is power in this unique paint for the T-51 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S2_R29_vintage_nukashine",
+      "page": "",
+      "name": "Vintage Nukashine x 12",
+      "cost": 0,
+      "rank": 29,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_item_nukashine_sugarfree.webp",
+      "tallyCategory": "nukashine"
+    },
+    {
+      "id": "S2_R30_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 30,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R31_caps",
+      "page": "",
+      "name": "Caps x 2500",
+      "cost": 0,
+      "rank": 31,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S2_R32_officer_s_gas_mask",
+      "page": "",
+      "name": "Officer's Gas Mask",
+      "cost": 0,
+      "rank": 32,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Headwear_GasMaskRaider_OfficerCap",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_headwear_gasmaskraider_officercap.webp",
+      "description": "Take command of the wasteland with this Officer's Gas Mask.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R33_scrap_kit",
+      "page": "",
+      "name": "Scrap Kit x 3",
+      "cost": 0,
+      "rank": 33,
+      "tallyCategory": "scrap_kit"
+    },
+    {
+      "id": "S2_R34_subjugator_player_icon",
+      "page": "",
+      "name": "Player Icon: Subjugator",
+      "cost": 0,
+      "rank": 34,
+      "kind": "playerIcon",
+      "value": "Subjugator",
+      "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_Subjugator",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_03.avif",
+      "description": "Fear the Subjugator!  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S2_R35_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 35,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S2_R36_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 100",
+      "cost": 0,
+      "rank": 36,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S2_R37_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 37,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R38_armor_ace_excavator_power_armor_paint",
+      "page": "",
+      "name": "Armor Ace Power Armor Excavator Paint",
+      "cost": 0,
+      "rank": 38,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_Excavator_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_excavator_armorace.webp",
+      "description": "Show your enemies how technology is power in this unique paint for the Excavator Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S2_R39_army_base_floor_and_foundations",
+      "page": "",
+      "name": "Army Base Floor and Foundations",
+      "cost": 0,
+      "rank": 39,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Floor_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_floor_armorace.webp",
+      "description": "Turn your entire C.A.M.P. into a bunker with this Army Base Tile Floor and Foundations set.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R40_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 40,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R41_nuclear_keycards",
+      "page": "",
+      "name": "Nuclear Keycard x 5",
+      "cost": 0,
+      "rank": 41,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_nuclearkeycard.webp",
+      "tallyCategory": "nuclear_keycard"
+    },
+    {
+      "id": "S2_R42_red_viper_robot_armor_paint",
+      "page": "",
+      "name": "Red Viper Robot Armor Paint",
+      "cost": 0,
+      "rank": 42,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Robot_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_robot_redviper.webp",
+      "description": "Prepare to do battle with the Power Patrol.  Skin's appearance may differ when applied to different armor tiers.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R43_basic_repair_kits",
+      "page": "",
+      "name": "Basic Repair Kit x 3",
+      "cost": 0,
+      "rank": 43,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S2_R44_i_see_no_evil_pose",
+      "page": "",
+      "name": "I See No Evil Pose",
+      "cost": 0,
+      "rank": 44,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Photomode_Pose_NoEvilSee",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_photomode_pose_noevilsee.webp",
+      "description": "Here's looking at you...!  - UNLOCKS A PHOTOMODE POSE. -"
+    },
+    {
+      "id": "S2_R45_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 45,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S2_R46_red_viper_fatigues",
+      "page": "",
+      "name": "Red Viper Fatigues",
+      "cost": 0,
+      "rank": 46,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Outfit_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_outfit_redviper.webp",
+      "description": "Show why they should fear the Red Viper!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R47_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 47,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R48_armor_ace_power_armor_t_60_paint",
+      "page": "",
+      "name": "Armor Ace Power Armor T-60 Paint",
+      "cost": 0,
+      "rank": 48,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_T60_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_t60_armorace.webp",
+      "description": "Show your enemies how technology is power in this unique paint for the T-60 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S2_R49_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 49,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R50_west_virginia_electric_train_set",
+      "page": "",
+      "name": "West Virginia Electric Train Set",
+      "cost": 0,
+      "rank": 50,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_FloorDecor_ElectricTrainset_WV",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_floordecor_electrictrainset_wv.webp",
+      "description": "Gather your five closest friends and take a miniature world with the West Virginia Electric Train Set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R51_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 51,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R52_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 50",
+      "cost": 0,
+      "rank": 52,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S2_R53_red_viper_combat_armor_paint",
+      "page": "",
+      "name": "Red Viper Combat Armor Paint",
+      "cost": 0,
+      "rank": 53,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Combat_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_combat_redviper.webp",
+      "description": "Prepare to do battle with the Power Patrol.  Skin's appearance may differ when applied to different armor tiers.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R54_watching_you_emote",
+      "page": "",
+      "name": "Watching You Emote",
+      "cost": 0,
+      "rank": 54,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Emotes_Taunt_WatchingYou",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_emotes_taunt_watchingyou.webp",
+      "description": "For when your fellow Wastelander is up to something...  - UNLOCKS AN EMOTE OPTION. -"
+    },
+    {
+      "id": "S2_R55_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 55,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S2_R56_armor_ace_wallpaper",
+      "page": "",
+      "name": "Armor Ace Wallpaper",
+      "cost": 0,
+      "rank": 56,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_WallPaper_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_wallpaper_armorace.webp",
+      "description": "Secure your C.A.M.P. with the Armor Ace Wallpaper!  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
+    },
+    {
+      "id": "S2_R57_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 57,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R58_armor_ace_power_armor_x_01_paint",
+      "page": "",
+      "name": "Armor Ace Power Armor X-01 Paint",
+      "cost": 0,
+      "rank": 58,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_X01_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_x01_armorace.webp",
+      "description": "Show your enemies how technology is power in this unique paint for the X-01 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S2_R59_rust_bucket_hammer_super_sledge",
+      "page": "",
+      "name": "Rust Bucket Hammer (Super Sledge)",
+      "cost": 0,
+      "rank": 59,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_WeaponModel_SuperSledge_RustBucket",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_weaponmodel_supersledge_rustbucket.webp",
+      "description": "The Rust Bucket Hammer holds the keys to success... and to concussions.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R60_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 60,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R61_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 250",
+      "cost": 0,
+      "rank": 61,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S2_R62_red_viper_scout_armor_paint",
+      "page": "",
+      "name": "Red Viper Scout Armor Paint",
+      "cost": 0,
+      "rank": 62,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Scout_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_scout_redviper.webp",
+      "description": "Prepare to do battle with the Power Patrol.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R63_scrap_kit",
+      "page": "",
+      "name": "Scrap Kit x 6",
+      "cost": 0,
+      "rank": 63,
+      "tallyCategory": "scrap_kit"
+    },
+    {
+      "id": "S2_R64_i_hear_no_evil_pose",
+      "page": "",
+      "name": "I Hear No Evil Pose",
+      "cost": 0,
+      "rank": 64,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Photomode_Pose_NoEvilHear",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_photomode_pose_noevilhear.webp",
+      "description": "What did you say?!  - UNLOCKS A PHOTOMODE POSE. -"
+    },
+    {
+      "id": "S2_R65_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 65,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S2_R66_brickhouse_player_icon",
+      "page": "",
+      "name": "Player Icon: Brickhouse",
+      "cost": 0,
+      "rank": 66,
+      "kind": "playerIcon",
+      "value": "Brickhouse",
+      "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_Brickhouse01",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_07.avif",
+      "description": "One of the best of the Power Patrol.  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S2_R67_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 67,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R68_armor_ace_power_armor_ultracite_paint",
+      "page": "",
+      "name": "Armor Ace Power Armor Ultracite Paint",
+      "cost": 0,
+      "rank": 68,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_Ultracite_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_ultracite_armorace.webp",
+      "description": "Show your enemies how technology is power in this unique paint for the Ultracite Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S2_R69_armor_ace_laser_shooting_gallery",
+      "page": "",
+      "name": "Armor Ace Laser Shooting Gallery",
+      "cost": 0,
+      "rank": 69,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Furniture_ShootingGallery_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_furniture_shootinggallery_armorace.webp",
+      "description": "Turn your C.A.M.P into a training center with the Armor Ace Laser Shooting Gallery!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R70_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 70,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R71_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 100",
+      "cost": 0,
+      "rank": 71,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S2_R72_red_viper_marine_armor_paint",
+      "page": "",
+      "name": "Red Viper Marine Armor Paint",
+      "cost": 0,
+      "rank": 72,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Marine_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_marine_redviper.webp",
+      "description": "Prepare to do battle with the Power Patrol.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R73_basic_repair_kits",
+      "page": "",
+      "name": "Basic Repair Kit x 3",
+      "cost": 0,
+      "rank": 73,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S2_R74_power_patrol_player_icon",
+      "page": "",
+      "name": "Player Icon: Power Patrol",
+      "cost": 0,
+      "rank": 74,
+      "kind": "playerIcon",
+      "value": "Power Patrol",
+      "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_PowerPatrol",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_02.avif",
+      "description": "Continue to fight the good fight with this Power Patrol Icon!  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S2_R75_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 2",
+      "cost": 0,
+      "rank": 75,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S2_R76_brotherhood_of_steel_field_station",
+      "page": "",
+      "name": "Brotherhood of Steel Field Station",
+      "cost": 0,
+      "rank": 76,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Structure_BoSFieldStation",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_structure_bosfieldstation.webp",
+      "description": "Keep your technology safe from the evils of the Wasteland with the Brotherhood of Steel Field Station.  Brotherhood Field Station door is included and built separately.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R77_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 77,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R78_armor_ace_power_armor_t_65_paint",
+      "page": "",
+      "name": "Armor Ace Power Armor T-65 Paint",
+      "cost": 0,
+      "rank": 78,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_T65_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_t65_armorace.webp",
+      "description": "Show your enemies how technology is power in this unique paint for the T-65 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S2_R79_tropic_lightning_camo_skin_handmade_rifle",
+      "page": "",
+      "name": "Tropic Lightning Camo Skin (Handmade Rifle)",
+      "cost": 0,
+      "rank": 79,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_WeaponModel_HandmadeGun_TropicLightning_Camo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_weaponmodel_handmadegun_tropiclightning_camo.webp",
+      "description": "Prepare for covert battle with the Tropic Lightning Camo Skin for the Handmade Rifle.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R80_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 80,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R81_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 250",
+      "cost": 0,
+      "rank": 81,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S2_R82_red_viper_secret_service_armor_paint",
+      "page": "",
+      "name": "Red Viper Secret Service Armor Paint",
+      "cost": 0,
+      "rank": 82,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_SecretService_RedViper",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_secretservice_redviper.webp",
+      "description": "Prepare to do battle with the Power Patrol.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R83_scrap_kit",
+      "page": "",
+      "name": "Scrap Kit x 15",
+      "cost": 0,
+      "rank": 83,
+      "tallyCategory": "scrap_kit"
+    },
+    {
+      "id": "S2_R84_i_speak_no_evil_pose",
+      "page": "",
+      "name": "I Speak No Evil Pose",
+      "cost": 0,
+      "rank": 84,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Photomode_Pose_NoEvilSpeak",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_photomode_pose_noevilspeak.webp",
+      "description": "Oh my!  - UNLOCKS A PHOTOMODE POSE. -"
+    },
+    {
+      "id": "S2_R85_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 2",
+      "cost": 0,
+      "rank": 85,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S2_R86_armor_ace_backpack",
+      "page": "",
+      "name": "Armor Ace Backpack",
+      "cost": 0,
+      "rank": 86,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_Backpack_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_backpack_armorace.webp",
+      "description": "Fly High with this Armor Ace Backpack.  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R87_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 6",
+      "cost": 0,
+      "rank": 87,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R88_armor_ace_jetpack",
+      "page": "",
+      "name": "Armor Ace Jetpack",
+      "cost": 0,
+      "rank": 88,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Jetpack_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_jetpack_armorace.webp",
+      "description": "Take the battle to the skies with the Armor Ace Jetpack!  Requires a known Jetpack plan to craft.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S2_R89_mind_blown_emote",
+      "page": "",
+      "name": "Mind Blown Emote",
+      "cost": 0,
+      "rank": 89,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Emotes_Misc_MindBlown",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_emotes_misc_mindblown.webp",
+      "description": "Like a Nuke to the forehead!  - UNLOCKS AN EMOTE OPTION. -"
+    },
+    {
+      "id": "S2_R90_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 90,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R91_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 100",
+      "cost": 0,
+      "rank": 91,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S2_R92_tanker_helmet",
+      "page": "",
+      "name": "Tank Helmet",
+      "cost": 0,
+      "rank": 92,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Headwear_Tank_Helmet",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_headwear_tank_helmet.webp",
+      "description": "Take command of the battlefield with this Tank Helmet!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R93_basic_repair_kits",
+      "page": "",
+      "name": "Basic Repair Kit x 15",
+      "cost": 0,
+      "rank": 93,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S2_R94_special_issue_gauss_pistol_paint",
+      "page": "",
+      "name": "Special Issue Gauss Pistol Paint",
+      "cost": 0,
+      "rank": 94,
+      "storefrontEntitlement": "SCORE_S1_ENTM_Skin_WeaponSkin_GaussPistol_SpecialIssue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_weaponskin_gausspistol_specialissue.webp",
+      "description": "Only a select few are worthy of the Special Issue Gauss Pistol Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R95_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 3",
+      "cost": 0,
+      "rank": 95,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S2_R96_the_subjugator_mask",
+      "page": "",
+      "name": "The Subjugator Mask",
+      "cost": 0,
+      "rank": 96,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Headwear_Subjugator",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_headwear_subjugator.webp",
+      "description": "All will fear the true power of the Subjugator!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R97_lunchboxes",
+      "page": "",
+      "name": "Lunchbox x 9",
+      "cost": 0,
+      "rank": 97,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S2_R98_the_subjugator_outfit",
+      "page": "",
+      "name": "The Subjugator Outfit",
+      "cost": 0,
+      "rank": 98,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Outfit_Subjugator",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_outfit_subjugator.webp",
+      "description": "All will fear the true power of the Subjugator!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_R99_greenhouse_set",
+      "page": "",
+      "name": "Greenhouse Set",
+      "cost": 0,
+      "rank": 99,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Kit_Greenhouse",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_kit_greenhouse.webp",
+      "description": "Build an indoor garden with the Greenhouse Set!  - Includes a wall kit with rooftops. - - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R100_ace_full_assault_power_armor_paint",
+      "page": "",
+      "name": "Ace Full Assault Power Armor Paint",
+      "cost": 0,
+      "rank": 100,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Model_AceFullAssault",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_model_acefullassault.webp",
+      "description": "End the threat of the Subjugator and Red Vipers with the Ace Full Assault Power Armor Paint.  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S2_R100_armor_ace_eagle_stein",
+      "page": "",
+      "name": "Armor Ace Eagle Stein",
+      "cost": 0,
+      "rank": 100,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_FloorDecor_Stein_ArmorAce",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_floordecor_stein_armorace.webp",
+      "description": "Have a drink and celebrate your decisive victory with this Armor Ace Stein!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R100_atoms",
+      "page": "",
+      "name": "Atoms x 500",
+      "cost": 0,
+      "rank": 100,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S2_R100_framed_armor_ace_gameboard",
+      "page": "",
+      "name": "Framed Armor Ace Gameboard",
+      "cost": 0,
+      "rank": 100,
+      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_WallDeco_ArmorAce_Gameboard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_walldeco_armorace_gameboard.webp",
+      "description": "Reminisce about your battles against the Red Vipers with the Framed Armor Ace Gameboard.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S2_R100_ace_full_assault_player_icon",
+      "page": "",
       "name": "Player Icon: Ace Full Assault",
       "cost": 0,
+      "rank": 100,
       "kind": "playerIcon",
       "value": "Ace Full Assault",
       "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_ArmorAce01",
@@ -107,8 +1043,35 @@
       "tallyCategory": "player_icon"
     },
     {
+      "id": "S2_P3_apparel_headwear_gasmaskraider_officercap_commie",
+      "page": "",
+      "name": "Commmunist Officer's Gas Mask",
+      "cost": 0,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Headwear_GasMaskRaider_OfficerCap_Commie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_headwear_gasmaskraider_officercap_commie.webp",
+      "description": "Take Command of the Wasteland with this Communist Officer's Gas Mask.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S2_P4_skin_weaponskin_huntingrifle_communist",
+      "page": "",
+      "name": "Communist Hunting Rifle Paint",
+      "cost": 0,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_WeaponSkin_HuntingRifle_Communist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_weaponskin_huntingrifle_communist.webp",
+      "description": "Conceal your weapon from your prey with the Ghillie Hunting Rifle Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S2_P7_utility_planter_metaltub",
+      "page": "",
+      "name": "Metal Tub Planter",
+      "cost": 0,
+      "storefrontEntitlement": "SCORE_S2_ENTM_Utility_Planter_MetalTub",
+      "imageUrl": "/wp-content/uploads/season_images/score_s2_utility_planter_metaltub.webp",
+      "description": "Plant your crops in style with the Metal Tub Planter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
       "id": "S2_P1_playericon_armorace02",
-      "page": "1",
+      "page": "",
       "name": "Player Icon: Armor Ace Helmet",
       "cost": 0,
       "kind": "playerIcon",
@@ -119,20 +1082,8 @@
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S2_P1_playericon_brickhouse01",
-      "page": "1",
-      "name": "Player Icon: Brickhouse",
-      "cost": 0,
-      "kind": "playerIcon",
-      "value": "Brickhouse",
-      "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_Brickhouse01",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_07.avif",
-      "description": "One of the best of the Power Patrol.  - UNLOCKS A PLAYER ICON. -",
-      "tallyCategory": "player_icon"
-    },
-    {
       "id": "S2_P1_playericon_platinum01",
-      "page": "1",
+      "page": "",
       "name": "Player Icon: Platinum",
       "cost": 0,
       "kind": "playerIcon",
@@ -143,20 +1094,8 @@
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S2_P1_playericon_subjugator02",
-      "page": "1",
-      "name": "Player Icon: Subjugator's Power",
-      "cost": 0,
-      "kind": "playerIcon",
-      "value": "Subjugator's Power",
-      "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_Subjugator02",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_11.avif",
-      "description": "All will know the power of the Subjugator!  - UNLOCKS A PLAYER ICON. -",
-      "tallyCategory": "player_icon"
-    },
-    {
       "id": "S2_P2_playericon_subjugator03",
-      "page": "2",
+      "page": "",
       "name": "Player Icon: Subjugator's Glare",
       "cost": 0,
       "kind": "playerIcon",
@@ -167,454 +1106,28 @@
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S2_P2_emotes_misc_mindblown",
-      "page": "2",
-      "name": "Mind Blown Emote",
+      "id": "S2_P1_playericon_subjugator02",
+      "page": "",
+      "name": "Player Icon: Subjugator's Power",
       "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Emotes_Misc_MindBlown",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_emotes_misc_mindblown.webp",
-      "description": "Like a Nuke to the forehead!  - UNLOCKS AN EMOTE OPTION. -"
-    },
-    {
-      "id": "S2_P2_emotes_taunt_watchingyou",
-      "page": "2",
-      "name": "Watching You Emote",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Emotes_Taunt_WatchingYou",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_emotes_taunt_watchingyou.webp",
-      "description": "For when your fellow Wastelander is up to something...  - UNLOCKS AN EMOTE OPTION. -"
-    },
-    {
-      "id": "S2_P2_apparel_headwear_gasmaskraider_officercap",
-      "page": "2",
-      "name": "Officer's Gas Mask",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Headwear_GasMaskRaider_OfficerCap",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_headwear_gasmaskraider_officercap.webp",
-      "description": "Take command of the wasteland with this Officer's Gas Mask.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P2_apparel_outfit_redviper",
-      "page": "2",
-      "name": "Red Viper Fatigues",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Outfit_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_outfit_redviper.webp",
-      "description": "Show why they should fear the Red Viper!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P2_apparel_outfit_subjugator",
-      "page": "2",
-      "name": "The Subjugator Outfit",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Outfit_Subjugator",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_outfit_subjugator.webp",
-      "description": "All will fear the true power of the Subjugator!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P2_apparel_headwear_subjugator",
-      "page": "2",
-      "name": "The Subjugator Mask",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Headwear_Subjugator",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_headwear_subjugator.webp",
-      "description": "All will fear the true power of the Subjugator!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P2_apparel_headwear_tank_helmet",
-      "page": "2",
-      "name": "Tank Helmet",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Headwear_Tank_Helmet",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_headwear_tank_helmet.webp",
-      "description": "Take command of the battlefield with this Tank Helmet!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P3_apparel_headwear_gasmaskraider_officercap_commie",
-      "page": "3",
-      "name": "Commmunist Officer's Gas Mask",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Headwear_GasMaskRaider_OfficerCap_Commie",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_headwear_gasmaskraider_officercap_commie.webp",
-      "description": "Take Command of the Wasteland with this Communist Officer's Gas Mask.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+      "kind": "playerIcon",
+      "value": "Subjugator's Power",
+      "storefrontEntitlement": "SCORE_S2_ENTM_PlayerIcon_Subjugator02",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_11.avif",
+      "description": "All will know the power of the Subjugator!  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
     },
     {
       "id": "S2_P3_apparel_headwear_redviper",
-      "page": "3",
+      "page": "",
       "name": "Red Viper Hat",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S2_ENTM_Apparel_Headwear_RedViper",
       "imageUrl": "/wp-content/uploads/season_images/score_s2_apparel_headwear_redviper.webp",
       "description": "Show why they should fear the Red Viper!   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P3_skin_powerarmor_model_acefullassault",
-      "page": "3",
-      "name": "Ace Full Assault Power Armor Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Model_AceFullAssault",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_model_acefullassault.webp",
-      "description": "End the threat of the Subjugator and Red Vipers with the Ace Full Assault Power Armor Paint.  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S2_P3_skin_powerarmor_paint_t45_armorace",
-      "page": "3",
-      "name": "Armor Ace Power Armor T-45 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_T45_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_t45_armorace.webp",
-      "description": "Show your enemies how technology is power in this unique paint for the T-45 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S2_P3_skin_powerarmor_paint_t51_armorace",
-      "page": "3",
-      "name": "Armor Ace Power Armor T-51 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_T51_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_t51_armorace.webp",
-      "description": "Show your enemies how technology is power in this unique paint for the T-51 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S2_P3_skin_powerarmor_paint_t60_armorace",
-      "page": "3",
-      "name": "Armor Ace Power Armor T-60 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_T60_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_t60_armorace.webp",
-      "description": "Show your enemies how technology is power in this unique paint for the T-60 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S2_P3_skin_powerarmor_paint_excavator_armorace",
-      "page": "3",
-      "name": "Armor Ace Power Armor Excavator Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_Excavator_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_excavator_armorace.webp",
-      "description": "Show your enemies how technology is power in this unique paint for the Excavator Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S2_P3_skin_powerarmor_paint_x01_armorace",
-      "page": "3",
-      "name": "Armor Ace Power Armor X-01 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_X01_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_x01_armorace.webp",
-      "description": "Show your enemies how technology is power in this unique paint for the X-01 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S2_P4_skin_powerarmor_paint_ultracite_armorace",
-      "page": "4",
-      "name": "Armor Ace Power Armor Ultracite Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_Ultracite_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_ultracite_armorace.webp",
-      "description": "Show your enemies how technology is power in this unique paint for the Ultracite Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S2_P4_skin_powerarmor_paint_t65_armorace",
-      "page": "4",
-      "name": "Armor Ace Power Armor T-65 Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Paint_T65_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_paint_t65_armorace.webp",
-      "description": "Show your enemies how technology is power in this unique paint for the T-65 Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S2_P4_skin_powerarmor_jetpack_armorace",
-      "page": "4",
-      "name": "Armor Ace Jetpack",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_PowerArmor_Jetpack_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_powerarmor_jetpack_armorace.webp",
-      "description": "Take the battle to the skies with the Armor Ace Jetpack!  Requires a known Jetpack plan to craft.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S2_P4_skin_weaponskin_pumpactionshotgun_armorace",
-      "page": "4",
-      "name": "Brickhouse's Armor Ace Paint (Pump Action Shotgun)",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_WeaponSkin_PumpActionShotgun_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_weaponskin_pumpactionshotgun_armorace.webp",
-      "description": "Wipe out the Red Vipers with a replica paint from Brickhouse's famous Shotgun.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P4_skin_weaponskin_huntingrifle_communist",
-      "page": "4",
-      "name": "Communist Hunting Rifle Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_WeaponSkin_HuntingRifle_Communist",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_weaponskin_huntingrifle_communist.webp",
-      "description": "Conceal your weapon from your prey with the Ghillie Hunting Rifle Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P5_camp_kit_greenhouse",
-      "page": "5",
-      "name": "Greenhouse Set",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Kit_Greenhouse",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_kit_greenhouse.webp",
-      "description": "Build an indoor garden with the Greenhouse Set!  - Includes a wall kit with rooftops. - - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P5_camp_floor_armorace",
-      "page": "5",
-      "name": "Army Base Floor and Foundations",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Floor_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_floor_armorace.webp",
-      "description": "Turn your entire C.A.M.P. into a bunker with this Army Base Tile Floor and Foundations set.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P5_camp_structure_bosfieldstation",
-      "page": "5",
-      "name": "Brotherhood of Steel Field Station",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Structure_BoSFieldStation",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_structure_bosfieldstation.webp",
-      "description": "Keep your technology safe from the evils of the Wasteland with the Brotherhood of Steel Field Station.  Brotherhood Field Station door is included and built separately.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P5_camp_door_wood_log",
-      "page": "5",
-      "name": "Wooden Log Door",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Door_Wood_Log",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_door_wood_log.webp",
-      "description": "A do-it-yourself creative door solution using all your excess fire wood!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P6_camp_furniture_shootinggallery_armorace",
-      "page": "6",
-      "name": "Armor Ace Laser Shooting Gallery",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_Furniture_ShootingGallery_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_furniture_shootinggallery_armorace.webp",
-      "description": "Turn your C.A.M.P into a training center with the Armor Ace Laser Shooting Gallery!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P6_camp_floordecor_stein_armorace",
-      "page": "6",
-      "name": "Armor Ace Eagle Stein",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_FloorDecor_Stein_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_floordecor_stein_armorace.webp",
-      "description": "Have a drink and celebrate your decisive victory with this Armor Ace Stein!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P6_camp_floordecor_shipinabottle",
-      "page": "6",
-      "name": "Ship in a Bottle",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_FloorDecor_ShipInABottle",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_floordecor_shipinabottle.webp",
-      "description": "It seemed impossible but you were able to get the ship in the bottle.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P6_camp_floordecor_electrictrainset_wv",
-      "page": "6",
-      "name": "West Virginia Electric Train Set",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_FloorDecor_ElectricTrainset_WV",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_floordecor_electrictrainset_wv.webp",
-      "description": "Gather your five closest friends and take a miniature world with the West Virginia Electric Train Set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P7_utility_weightbench",
-      "page": "7",
-      "name": "Weight Bench",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Utility_WeightBench",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_utility_weightbench.webp",
-      "description": "Get that beefy Wastelander look with the Weight Bench!  - Using the weight bench will grant a Strength Boost -  - AVAILABLE FOR GOLD BULLION PER CHARACTER. C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P7_utility_planter_metaltub",
-      "page": "7",
-      "name": "Metal Tub Planter",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Utility_Planter_MetalTub",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_utility_planter_metaltub.webp",
-      "description": "Plant your crops in style with the Metal Tub Planter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P7_camp_stashbox_militaryfootlocker",
-      "page": "7",
-      "name": "Military Foot Locker Stash Box",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_StashBox_MilitaryFootLocker",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_stashbox_militaryfootlocker.webp",
-      "description": "Keep it neat with the Military Foot Locker Stash Box.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P7_skin_weaponmodel_handmadegun_tropiclightning_camo",
-      "page": "7",
-      "name": "Tropic Lightning Camo Skin (Handmade Rifle)",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_WeaponModel_HandmadeGun_TropicLightning_Camo",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_weaponmodel_handmadegun_tropiclightning_camo.webp",
-      "description": "Prepare for covert battle with the Tropic Lightning Camo Skin for the Handmade Rifle.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P7_photomode_pose_noevilsee",
-      "page": "7",
-      "name": "I See No Evil Pose",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Photomode_Pose_NoEvilSee",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_photomode_pose_noevilsee.webp",
-      "description": "Here's looking at you...!  - UNLOCKS A PHOTOMODE POSE. -"
-    },
-    {
-      "id": "S2_P7_photomode_pose_noevilspeak",
-      "page": "7",
-      "name": "I Speak No Evil Pose",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Photomode_Pose_NoEvilSpeak",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_photomode_pose_noevilspeak.webp",
-      "description": "Oh my!  - UNLOCKS A PHOTOMODE POSE. -"
-    },
-    {
-      "id": "S2_P7_photomode_pose_noevilhear",
-      "page": "7",
-      "name": "I Hear No Evil Pose",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Photomode_Pose_NoEvilHear",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_photomode_pose_noevilhear.webp",
-      "description": "What did you say?!  - UNLOCKS A PHOTOMODE POSE. -"
-    },
-    {
-      "id": "S2_P7_photomode_frame_armorace",
-      "page": "7",
-      "name": "Armor Ace Photomode Frame",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Photomode_Frame_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_photomode_frame_armorace.webp",
-      "description": "Show off best of the best accomplishments with this Armor Ace Frame!  - UNLOCKS A PHOTOMODE FRAME. -"
-    },
-    {
-      "id": "S2_P8_skin_armorskin_combat_redviper",
-      "page": "8",
-      "name": "Red Viper Combat Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Combat_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_combat_redviper.webp",
-      "description": "Prepare to do battle with the Power Patrol.  Skin's appearance may differ when applied to different armor tiers.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P8_skin_armorskin_leather_redviper",
-      "page": "8",
-      "name": "Red Viper Leather Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Leather_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_leather_redviper.webp",
-      "description": "Prepare to do battle with the Power Patrol.  Skin's appearance may differ when applied to different armor tiers.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P8_skin_armorskin_marine_redviper",
-      "page": "8",
-      "name": "Red Viper Marine Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Marine_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_marine_redviper.webp",
-      "description": "Prepare to do battle with the Power Patrol.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P8_skin_armorskin_metal_redviper",
-      "page": "8",
-      "name": "Red Viper Metal Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Metal_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_metal_redviper.webp",
-      "description": "Prepare to do battle with the Power Patrol.  Skin's appearance may differ when applied to different armor tiers.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P8_skin_armorskin_robot_redviper",
-      "page": "8",
-      "name": "Red Viper Robot Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Robot_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_robot_redviper.webp",
-      "description": "Prepare to do battle with the Power Patrol.  Skin's appearance may differ when applied to different armor tiers.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P8_skin_armorskin_scout_redviper",
-      "page": "8",
-      "name": "Red Viper Scout Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Scout_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_scout_redviper.webp",
-      "description": "Prepare to do battle with the Power Patrol.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P8_skin_armorskin_secretservice_redviper",
-      "page": "8",
-      "name": "Red Viper Secret Service Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_SecretService_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_secretservice_redviper.webp",
-      "description": "Prepare to do battle with the Power Patrol.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P8_skin_armorskin_wood_redviper",
-      "page": "8",
-      "name": "Red Viper Wood Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_ArmorSkin_Wood_RedViper",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_armorskin_wood_redviper.webp",
-      "description": "Prepare to do battle with the Power Patrol.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P9_furniture_foosballtable",
-      "page": "9",
-      "name": "Vault-Tec Foosball Table",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Furniture_FoosballTable",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_furniture_foosballtable.webp",
-      "description": "Trying to pass the time in the vault? No worries! Play a friendly game with the Vault-Tec Foosball Table!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P9_camp_wallpaper_armorace",
-      "page": "9",
-      "name": "Armor Ace Wallpaper",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_WallPaper_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_wallpaper_armorace.webp",
-      "description": "Secure your C.A.M.P. with the Armor Ace Wallpaper!  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
-    },
-    {
-      "id": "S2_P9_camp_walldeco_armorace_gameboard",
-      "page": "9",
-      "name": "Framed Armor Ace Gameboard",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_CAMP_WallDeco_ArmorAce_Gameboard",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_camp_walldeco_armorace_gameboard.webp",
-      "description": "Reminisce about your battles against the Red Vipers with the Framed Armor Ace Gameboard.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S2_P9_skin_weaponmodel_supersledge_rustbucket",
-      "page": "9",
-      "name": "Rust Bucket Hammer (Super Sledge)",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_WeaponModel_SuperSledge_RustBucket",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_weaponmodel_supersledge_rustbucket.webp",
-      "description": "The Rust Bucket Hammer holds the keys to success... and to concussions.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S2_P9_skin_backpack_armorace",
-      "page": "9",
-      "name": "Armor Ace Backpack",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S2_ENTM_Skin_Backpack_ArmorAce",
-      "imageUrl": "/wp-content/uploads/season_images/score_s2_skin_backpack_armorace.webp",
-      "description": "Fly High with this Armor Ace Backpack.  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     }
-  ]
+  ],
+  "layout": "rank",
+  "maxRank": 100,
+  "unplacedCount": 8
 }

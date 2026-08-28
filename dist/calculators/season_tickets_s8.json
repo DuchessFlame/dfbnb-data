@@ -13,7 +13,8 @@
     ],
     "item_schema": {
       "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
-      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus. Blank on board-game seasons, which use rank instead.",
+      "rank": "NUMBER (optional) - Board rank 1-100. Present only on the old board-game seasons (S1-S8), where the scoreboard had no pages. When a season has ranks the JSON carries layout:'rank' and df-bnb-seasons.js renders one flat ordered list instead of page groups.",
       "name": "STRING - Display name.",
       "cost": "NUMBER - Ticket cost (0 if free).",
       "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
@@ -32,23 +33,31 @@
       "camp_player_title": "Camp & Player Titles",
       "caps": "Caps",
       "carry_weight_booster": "Carry Weight Booster",
+      "fireworks": "Fireworks",
       "gold_bullion": "Gold Bullion",
       "improved_bait": "Improved Bait",
+      "legendary_core": "Legendary Core",
       "legendary_module": "Legendary Module",
       "legendary_scrip": "Legendary Scrip",
+      "liquid_courage": "Liquid Courage",
       "lunchbox": "Lunchbox",
       "mystery_bobblehead": "Mystery Bobblehead",
       "mystery_magazine": "Mystery Magazine",
       "nuclear_keycard": "Nuclear Keycard",
       "nukashine": "Nukashine",
+      "perfect_bubblegum": "Perfect Bubblegum",
+      "perk_card_pack": "Perk Card Pack",
       "perk_coins": "Perk Coins",
       "player_icon": "Player Icon",
       "re_roller": "Re-Roller",
       "repair_kit": "Repair Kits",
       "score_booster": "S.C.O.R.E. Boosters",
       "scouts_banner": "Scout's Banner",
+      "scrap_kit": "Scrap Kit",
       "stamps": "Stamps",
-      "superb_bait": "Superb Bait"
+      "superb_bait": "Superb Bait",
+      "supply_package": "Vault-Tec Supply Package",
+      "tadpole_badge": "Tadpole Badge"
     },
     "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
     "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
@@ -59,22 +68,11 @@
   "seasonName": "A Better Life Underground",
   "items": [
     {
-      "id": "S8_P1_playericon_creepybaby",
-      "page": "1",
-      "name": "Player Icon: Creepy Baby",
-      "cost": 0,
-      "kind": "playerIcon",
-      "value": "Creepy Baby",
-      "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_CreepyBaby",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_48.avif",
-      "description": "That is one Creepy looking Baby!  - UNLOCKS A PLAYER ICON. -",
-      "tallyCategory": "player_icon"
-    },
-    {
-      "id": "S8_P1_playericon_undergroundlogo",
-      "page": "1",
+      "id": "S8_R2_underground_logo_player_icon",
+      "page": "",
       "name": "Player Icon: Underground Logo",
       "cost": 0,
+      "rank": 2,
       "kind": "playerIcon",
       "value": "Underground Logo",
       "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_UndergroundLogo",
@@ -83,46 +81,460 @@
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S8_P1_playericon_targetpractice",
-      "page": "1",
-      "name": "Player Icon: Target Practice",
+      "id": "S8_R3_vault_tec_supply_crate_level_2",
+      "page": "",
+      "name": "Vault-Tec Supply Crate (Level 2)",
       "cost": 0,
+      "rank": 3,
+      "tallyCategory": "supply_package"
+    },
+    {
+      "id": "S8_R4_health_kit_bundle",
+      "page": "",
+      "name": "Health Kit Bundle",
+      "cost": 0,
+      "rank": 4
+    },
+    {
+      "id": "S8_R5_exercise_bike",
+      "page": "",
+      "name": "Exercise Bike",
+      "cost": 0,
+      "rank": 5,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Utility_ExerciseBike",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_utility_exercisebike.webp",
+      "description": "Get that cardio in before you head out on an adventure with the Exercise Bike!  - Using the Exercise Bike will grant an Endurance Boost -  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R5_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 5,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S8_R6_free_states_wood_armor_paint",
+      "page": "",
+      "name": "Free States Wood Armor Paint",
+      "cost": 0,
+      "rank": 6,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Wood_FreeStates",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_wood_freestates.webp",
+      "description": "You have the right to be well-armored with this Free States Wood Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R7_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 7,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S8_R8_vault_tec_twin_bed",
+      "page": "",
+      "name": "Vault-Tec Twin Bed",
+      "cost": 0,
+      "rank": 8,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Bed_Twinbed_VaultTec",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_bed_twinbed_vaulttec.webp",
+      "description": "Snooze your problems away with the patented Vault-Tec Bed!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R9_legendary_module",
+      "page": "",
+      "name": "Legendary Module x 3",
+      "cost": 0,
+      "rank": 9,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S8_R10_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 10,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R10_liquid_courage",
+      "page": "",
+      "name": "Liquid Courage x 1",
+      "cost": 0,
+      "rank": 10,
+      "isFirst": true,
+      "tallyCategory": "liquid_courage"
+    },
+    {
+      "id": "S8_R11_caps",
+      "page": "",
+      "name": "Caps x 500",
+      "cost": 0,
+      "rank": 11,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S8_R12_robco_jumpsuit",
+      "page": "",
+      "name": "RobCo Jumpsuit",
+      "cost": 0,
+      "rank": 12,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Apparel_Outfit_Jumpsuit_RobCo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_apparel_outfit_jumpsuit_robco.webp",
+      "description": "What else could you ask for from your friends at RobCo? Maybe this awesome jumpsuit?!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R13_vault_tec_supply_crate_level_3",
+      "page": "",
+      "name": "Vault-Tec Supply Crate (Level 3)",
+      "cost": 0,
+      "rank": 13,
+      "tallyCategory": "supply_package"
+    },
+    {
+      "id": "S8_R14_purple_floater_mobile",
+      "page": "",
+      "name": "Purple Floater Mobile",
+      "cost": 0,
+      "rank": 14,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_WallDeco_Mobile_Floater_Purple",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_walldeco_mobile_floater_purple.webp",
+      "description": "All experiments have some value, no matter how horrifying they appear. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R15_bunny_slippers_player_icon",
+      "page": "",
+      "name": "Bunny Slippers Player Icon",
+      "cost": 0,
+      "rank": 15,
+      "isFirst": true
+    },
+    {
+      "id": "S8_R15_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 15,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S8_R16_trail_fireworks",
+      "page": "",
+      "name": "Trail Fireworks x 10",
+      "cost": 0,
+      "rank": 16,
+      "tallyCategory": "fireworks"
+    },
+    {
+      "id": "S8_R17_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 17,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S8_R18_free_states_leather_armor_paint",
+      "page": "",
+      "name": "Free States Leather Armor Paint",
+      "cost": 0,
+      "rank": 18,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Leather_FreeStates",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_leather_freestates.webp",
+      "description": "You have the right to be well-armored with this Free States Leather Armor Paint.   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R19_legendary_module",
+      "page": "",
+      "name": "Legendary Module x 3",
+      "cost": 0,
+      "rank": 19,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S8_R20_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R20_perfect_bubblegum",
+      "page": "",
+      "name": "Perfect Bubblegum x 3",
+      "cost": 0,
+      "rank": 20,
+      "isFirst": true,
+      "tallyCategory": "perfect_bubblegum"
+    },
+    {
+      "id": "S8_R21_caps",
+      "page": "",
+      "name": "Caps x 1000",
+      "cost": 0,
+      "rank": 21,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S8_R22_yellow_t_45_power_armor_paint",
+      "page": "",
+      "name": "Yellow T-45 Power Armor Paint",
+      "cost": 0,
+      "rank": 22,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_T45_BasicYellow",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_t45_basicyellow.webp",
+      "description": "Be sure to stand out in a crowd with the Yellow Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S8_R23_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 3",
+      "cost": 0,
+      "rank": 23,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S8_R24_creepy_baby_player_icon",
+      "page": "",
+      "name": "Player Icon: Creepy Baby",
+      "cost": 0,
+      "rank": 24,
       "kind": "playerIcon",
-      "value": "Target Practice",
-      "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_TargetPractice",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_49.avif",
-      "description": "Everyone can always use some more target practice!  - UNLOCKS A PLAYER ICON. -",
+      "value": "Creepy Baby",
+      "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_CreepyBaby",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_48.avif",
+      "description": "That is one Creepy looking Baby!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S8_P1_playericon_dinnersserved",
-      "page": "1",
-      "name": "Player Icon: Dinner's Served",
+      "id": "S8_R25_diner_wall_light",
+      "page": "",
+      "name": "Diner Wall Light",
       "cost": 0,
-      "kind": "playerIcon",
-      "value": "Dinner's Served",
-      "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_DinnersServed",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_50.avif",
-      "description": "I wonder where that steak came from?  - UNLOCKS A PLAYER ICON. -",
-      "tallyCategory": "player_icon"
+      "rank": 25,
+      "isFirst": true
     },
     {
-      "id": "S8_P1_playericon_2headedvaultgirl",
-      "page": "1",
-      "name": "Player Icon: Extra Handed Vault Girl",
+      "id": "S8_R25_lite_ally_sam_nguyen",
+      "page": "",
+      "name": "Lite Ally: Sam Nguyen",
       "cost": 0,
-      "kind": "playerIcon",
-      "value": "Extra Handed Vault Girl",
-      "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_2HeadedVaultGirl",
-      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_47.avif",
-      "description": "That extra arm must come in handy...  - UNLOCKS A PLAYER ICON. -",
-      "tallyCategory": "player_icon"
+      "rank": 25,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Ally_Mechanic_SamNguyen",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_ally_mechanic_samnguyen.webp",
+      "description": "If you need a handyman or a hearty tune, Sam's your man.  - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
     },
     {
-      "id": "S8_P1_playericon_experthacker",
-      "page": "1",
+      "id": "S8_R26_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 26,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S8_R27_nuclear_keycard",
+      "page": "",
+      "name": "Nuclear Keycard x 5",
+      "cost": 0,
+      "rank": 27,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_nuclearkeycard.webp",
+      "tallyCategory": "nuclear_keycard"
+    },
+    {
+      "id": "S8_R28_free_states_metal_armor_paint",
+      "page": "",
+      "name": "Free States Metal Armor Paint",
+      "cost": 0,
+      "rank": 28,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Metal_FreeStates",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_metal_freestates.webp",
+      "description": "You have the right to be well-armored with this Free States Metal Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R29_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 100",
+      "cost": 0,
+      "rank": 29,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S8_R30_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 30,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R30_carry_weight_booster",
+      "page": "",
+      "name": "Carry Weight Booster x 3",
+      "cost": 0,
+      "rank": 30,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S8_R31_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 100",
+      "cost": 0,
+      "rank": 31,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S8_R32_yellow_t_51_power_armor_paint",
+      "page": "",
+      "name": "Yellow T-51b Power Armor Paint",
+      "cost": 0,
+      "rank": 32,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_T51_BasicYellow",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_t51_basicyellow.webp",
+      "description": "Be sure to stand out in a crowd with the Yellow Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S8_R33_scrap_kit",
+      "page": "",
+      "name": "Scrap Kit x 3",
+      "cost": 0,
+      "rank": 33,
+      "tallyCategory": "scrap_kit"
+    },
+    {
+      "id": "S8_R34_floral_frame",
+      "page": "",
+      "name": "Floral Frame",
+      "cost": 0,
+      "rank": 34,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Photomode_Frame_Flowers",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_photomode_frame_flowers.webp",
+      "description": "Bring the local colors of West Virginia into your photos with this frame.   - UNLOCKS A PHOTOMODE FRAME. -"
+    },
+    {
+      "id": "S8_R35_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 35,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S8_R35_yellow_wooden_door",
+      "page": "",
+      "name": "Yellow Wooden Door",
+      "cost": 0,
+      "rank": 35,
+      "isFirst": true
+    },
+    {
+      "id": "S8_R36_rooster_mailbox",
+      "page": "",
+      "name": "Rooster Mailbox",
+      "cost": 0,
+      "rank": 36,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Utility_Mailbox_Rooster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_utility_mailbox_rooster.webp",
+      "description": "Brighten your day with this Rooster Mailbox!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R37_liquid_courage",
+      "page": "",
+      "name": "Liquid Courage x 1",
+      "cost": 0,
+      "rank": 37,
+      "tallyCategory": "liquid_courage"
+    },
+    {
+      "id": "S8_R38_free_states_robot_armor_paint",
+      "page": "",
+      "name": "Free States Robot Armor Paint",
+      "cost": 0,
+      "rank": 38,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Robot_FreeStates",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_robot_freestates.webp",
+      "description": "You have the right to be well-armored with this Free States Robot Armor Paint.   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R39_legendary_module",
+      "page": "",
+      "name": "Legendary Module x 3",
+      "cost": 0,
+      "rank": 39,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S8_R40_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 40,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R40_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 3",
+      "cost": 0,
+      "rank": 40,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S8_R41_caps",
+      "page": "",
+      "name": "Caps x 1000",
+      "cost": 0,
+      "rank": 41,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S8_R42_yellow_t_60_power_armor_paint",
+      "page": "",
+      "name": "Yellow T-60 Power Armor Paint",
+      "cost": 0,
+      "rank": 42,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_T60_BasicYellow",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_t60_basicyellow.webp",
+      "description": "Be sure to stand out in a crowd with the Yellow Power Armor Paint.    - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S8_R43_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 3",
+      "cost": 0,
+      "rank": 43,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S8_R44_expert_hacker_player_icon",
+      "page": "",
       "name": "Player Icon: Expert Hacker",
       "cost": 0,
+      "rank": 44,
       "kind": "playerIcon",
       "value": "Expert Hacker",
       "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_ExpertHacker",
@@ -131,8 +543,713 @@
       "tallyCategory": "player_icon"
     },
     {
+      "id": "S8_R45_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 45,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S8_R45_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 45,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S8_R46_black_modular_mainframe_set",
+      "page": "",
+      "name": "Black Modular Mainframe Set",
+      "cost": 0,
+      "rank": 46,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_FloorDecor_ModularMainFrame_Black",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_floordecor_modularmainframe_black.webp",
+      "description": "Every Shelter needs computer stations. Get yours now with the Modular Mainframe Set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R47_legendary_module",
+      "page": "",
+      "name": "Legendary Module x 5",
+      "cost": 0,
+      "rank": 47,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S8_R48_free_states_combat_armor_paint",
+      "page": "",
+      "name": "Free States Combat Armor Paint",
+      "cost": 0,
+      "rank": 48,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Combat_FreeStates",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_combat_freestates.webp",
+      "description": "You have the right to be well-armored with this Free States Combat Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R49_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 49,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R50_harmaceutical_chemistry_workstation",
+      "page": "",
+      "name": "Harmaceutical Chemistry Workstation",
+      "cost": 0,
+      "rank": 50
+    },
+    {
+      "id": "S8_R50_perfect_bubblegum",
+      "page": "",
+      "name": "Perfect Bubblegum x 3",
+      "cost": 0,
+      "rank": 50,
+      "isFirst": true,
+      "tallyCategory": "perfect_bubblegum"
+    },
+    {
+      "id": "S8_R51_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 51,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R52_caps",
+      "page": "",
+      "name": "Caps x 2500",
+      "cost": 0,
+      "rank": 52,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S8_R53_carry_weight_booster",
+      "page": "",
+      "name": "Carry Weight Booster x 3",
+      "cost": 0,
+      "rank": 53,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S8_R54_yellow_excavator_power_armor_paint",
+      "page": "",
+      "name": "Yellow Excavator Power Armor Paint",
+      "cost": 0,
+      "rank": 54,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_Excavator_BasicYellow",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_excavator_basicyellow.webp",
+      "description": "Be sure to stand out in a crowd with the Yellow T-45 Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S8_R55_modern_rug",
+      "page": "",
+      "name": "Modern Rug",
+      "cost": 0,
+      "rank": 55,
+      "isFirst": true
+    },
+    {
+      "id": "S8_R55_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 55,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S8_R56_blue_shag_carpet_floor_and_foundations",
+      "page": "",
+      "name": "Blue Shag Carpet Floor and Foundations",
+      "cost": 0,
+      "rank": 56,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Floor_ShagCarpetBlue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_floor_shagcarpetblue.webp",
+      "description": "Now available in blue, the newest style of carpeting can now be yours for your C.A.M.P.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R57_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 57,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S8_R58_free_states_marine_armor_paint",
+      "page": "",
+      "name": "Free States Marine Armor Paint",
+      "cost": 0,
+      "rank": 58,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Marine_FreeStates",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_marine_freestates.webp",
+      "description": "You have the right to be well-armored with this Free States Marine Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R59_legendary_module",
+      "page": "",
+      "name": "Legendary Module x 5",
+      "cost": 0,
+      "rank": 59,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S8_R60_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 60,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R60_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 3",
+      "cost": 0,
+      "rank": 60,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S8_R61_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 100",
+      "cost": 0,
+      "rank": 61,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S8_R62_vault_survivor_flair",
+      "page": "",
+      "name": "Vault Survivor Flair",
+      "cost": 0,
+      "rank": 62,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_BackpackFlair_VaultSurvivor",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_backpackflair_vaultsurvivor.webp",
+      "description": "Wear this badge of survival proudly!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R63_scrap_kit",
+      "page": "",
+      "name": "Scrap Kit x 6",
+      "cost": 0,
+      "rank": 63,
+      "tallyCategory": "scrap_kit"
+    },
+    {
+      "id": "S8_R64_yellow_x_01_power_armor_paint",
+      "page": "",
+      "name": "Yellow X-01 Power Armor Paint",
+      "cost": 0,
+      "rank": 64,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_X01_BasicYellow",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_x01_basicyellow.webp",
+      "description": "Be sure to stand out in a crowd with the Yellow Power Armor Paint.    - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S8_R65_carry_weight_booster",
+      "page": "",
+      "name": "Carry Weight Booster x 3",
+      "cost": 0,
+      "rank": 65,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S8_R65_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 65,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S8_R66_locomotive_railway_rifle_paint",
+      "page": "",
+      "name": "Locomotive Railway Rifle Paint",
+      "cost": 0,
+      "rank": 66,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_WeaponSkin_RailwayRifle_Locomotive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_weaponskin_railwayrifle_locomotive.webp",
+      "description": "The perfect weapon for shooting at trains, or was it shooting from trains? Doesn't matter with the Locomotive Railway Rifle Paint!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R67_carry_weight_booster",
+      "page": "",
+      "name": "Carry Weight Booster x 3",
+      "cost": 0,
+      "rank": 67,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S8_R68_elaborate_silver_chandelier",
+      "page": "",
+      "name": "Elaborate Silver Chandelier",
+      "cost": 0,
+      "rank": 68,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Lights_Ceiling_ElaborateSilver",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_lights_ceiling_elaboratesilver.webp",
+      "description": "Fancy Nukashine parties are made better when lit by silver!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R69_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 250",
+      "cost": 0,
+      "rank": 69,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S8_R70_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 70,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R70_liquid_courage",
+      "page": "",
+      "name": "Liquid Courage x 1",
+      "cost": 0,
+      "rank": 70,
+      "isFirst": true,
+      "tallyCategory": "liquid_courage"
+    },
+    {
+      "id": "S8_R71_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 250",
+      "cost": 0,
+      "rank": 71,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S8_R72_cream_modular_sofa_set",
+      "page": "",
+      "name": "Cream Modular Sofa Set",
+      "cost": 0,
+      "rank": 72,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Furniture_Couch_ModularSofaSet_Cream",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_furniture_couch_modularsofaset_cream.webp",
+      "description": "Relax in style with this Cream Modular Sofa Set.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R73_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 6",
+      "cost": 0,
+      "rank": 73,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S8_R74_science_guy_pose",
+      "page": "",
+      "name": "Science Guy Pose",
+      "cost": 0,
+      "rank": 74,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Photomode_Pose_ScienceGuy",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_photomode_pose_scienceguy.webp",
+      "description": "There is always time for a quick experiment! Show off your love of Science with the Science Guy Pose.  - UNLOCKS A PHOTOMODE POSE. -"
+    },
+    {
+      "id": "S8_R75_bass_mailbox",
+      "page": "",
+      "name": "Bass Mailbox",
+      "cost": 0,
+      "rank": 75,
+      "isFirst": true
+    },
+    {
+      "id": "S8_R75_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 75,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S8_R76_vault_tec_hellcat_power_armor_paint",
+      "page": "",
+      "name": "Vault-Tec Hellcat Power Armor Paint",
+      "cost": 0,
+      "rank": 76,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_Hellcat_Vaulttec",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_hellcat_vaulttec.webp",
+      "description": "Be prepared for life outside the vault in this special paint brought to you from your friends at Vault-Tec!  This is a paint for the Hellcat Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S8_R77_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 77,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S8_R78_silver_collectron_station",
+      "page": "",
+      "name": "Silver Collectron Station",
+      "cost": 0,
+      "rank": 78,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Utility_Collectron_Silver",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_utility_collectron_silver.webp",
+      "description": "The Silver Collectron is polished and ready to serve!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R79_legendary_module",
+      "page": "",
+      "name": "Legendary Module x 5",
+      "cost": 0,
+      "rank": 79,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S8_R80_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 80,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R80_perfect_bubblegum",
+      "page": "",
+      "name": "Perfect Bubblegum x 3",
+      "cost": 0,
+      "rank": 80,
+      "isFirst": true,
+      "tallyCategory": "perfect_bubblegum"
+    },
+    {
+      "id": "S8_R81_caps",
+      "page": "",
+      "name": "Caps x 2500",
+      "cost": 0,
+      "rank": 81,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S8_R82_yellow_curtains",
+      "page": "",
+      "name": "Yellow Curtains",
+      "cost": 0,
+      "rank": 82,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_WallDeco_Curtain_Yellow_Set",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_walldeco_curtain_yellow_set.webp",
+      "description": "Add some joy to the room with the Yellow Curtains.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R83_nuclear_keycard",
+      "page": "",
+      "name": "Nuclear Keycard x 5",
+      "cost": 0,
+      "rank": 83,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_nuclearkeycard.webp",
+      "tallyCategory": "nuclear_keycard"
+    },
+    {
+      "id": "S8_R84_extra_handed_vault_girl_player_icon",
+      "page": "",
+      "name": "Player Icon: Extra Handed Vault Girl",
+      "cost": 0,
+      "rank": 84,
+      "kind": "playerIcon",
+      "value": "Extra Handed Vault Girl",
+      "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_2HeadedVaultGirl",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_47.avif",
+      "description": "That extra arm must come in handy...  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S8_R85_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 3",
+      "cost": 0,
+      "rank": 85,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S8_R85_perk_card_pack",
+      "page": "",
+      "name": "Perk Card Pack x 1",
+      "cost": 0,
+      "rank": 85,
+      "tallyCategory": "perk_card_pack"
+    },
+    {
+      "id": "S8_R86_vault_tec_paint_machine_gun",
+      "page": "",
+      "name": "Vault-Tec Machine Gun Paint",
+      "cost": 0,
+      "rank": 86,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_WeaponSkin_50CalMachineGun_VaultTec",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_weaponskin_50calmachinegun_vaulttec.webp",
+      "description": "An officially branded Paint for your Machine Gun, from your friends at Vault-Tec.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R87_lunchbox",
+      "page": "",
+      "name": "Lunchbox x 9",
+      "cost": 0,
+      "rank": 87,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S8_R88_doorbell",
+      "page": "",
+      "name": "Doorbell",
+      "cost": 0,
+      "rank": 88,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_WallDeco_Doorbell",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_walldeco_doorbell.webp",
+      "description": "Let your visitors announce their presence with the Doorbell.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R89_legendary_scrip",
+      "page": "",
+      "name": "Legendary Scrip x 250",
+      "cost": 0,
+      "rank": 89,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_scrip.webp",
+      "tallyCategory": "legendary_scrip"
+    },
+    {
+      "id": "S8_R90_atoms",
+      "page": "",
+      "name": "Atoms x 150",
+      "cost": 0,
+      "rank": 90,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R90_basic_repair_kit",
+      "page": "",
+      "name": "Basic Repair Kit x 3",
+      "cost": 0,
+      "rank": 90,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S8_R91_gold_bullion",
+      "page": "",
+      "name": "Gold Bullion x 250",
+      "cost": 0,
+      "rank": 91,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S8_R92_vault_survivor_backpack",
+      "page": "",
+      "name": "Vault Survivor Backpack",
+      "cost": 0,
+      "rank": 92,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_Backpack_VaultSurvivor",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_backpack_vaultsurvivor.webp",
+      "description": "Never forget your time in the vault with this backpack!  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R93_vault_76_stein",
+      "page": "",
+      "name": "Vault 76 Stein",
+      "cost": 0,
+      "rank": 93,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_FloorDecor_Stein_Vault76",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_floordecor_stein_vault76.webp",
+      "description": "Raise a Stein to Vault 76, the best vault in all of Appalachia!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R94_dinner_s_served_player_icon",
+      "page": "",
+      "name": "Player Icon: Dinner's Served",
+      "cost": 0,
+      "rank": 94,
+      "kind": "playerIcon",
+      "value": "Dinner's Served",
+      "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_DinnersServed",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_50.avif",
+      "description": "I wonder where that steak came from?  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S8_R95_perk_coin",
+      "page": "",
+      "name": "Perk Coin x 50",
+      "cost": 0,
+      "rank": 95,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp",
+      "tallyCategory": "perk_coins"
+    },
+    {
+      "id": "S8_R95_weathered_hero_of_the_great_war_statue",
+      "page": "",
+      "name": "Weathered Hero of the Great War Statue",
+      "cost": 0,
+      "rank": 95,
+      "isFirst": true
+    },
+    {
+      "id": "S8_R96_vault_survivor_hood",
+      "page": "",
+      "name": "Vault Survivor Hood",
+      "cost": 0,
+      "rank": 96,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Apparel_Headwear_VaultSurvivorHood",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_apparel_headwear_vaultsurvivorhood.webp",
+      "description": "Survive the world outside the vault! Life was truly better underground.   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R97_hot_rod_mailbox",
+      "page": "",
+      "name": "Hot Rod Mailbox",
+      "cost": 0,
+      "rank": 97,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Utility_Mailbox_Hot_Rod",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_utility_mailbox_hot_rod.webp",
+      "description": "Add some vintage style to your C.A.M.P. with this Hot Rod Mailbox!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R98_vault_survivor_outfit",
+      "page": "",
+      "name": "Vault Survivor Outfit",
+      "cost": 0,
+      "rank": 98,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Apparel_Outfit_VaultSurvivor",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_apparel_outfit_vaultsurvivor.webp",
+      "description": "Survive the world outside the vault! Life was truly better underground.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_R99_legendary_module",
+      "page": "",
+      "name": "Legendary Module x 5",
+      "cost": 0,
+      "rank": 99,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S8_R100_atoms",
+      "page": "",
+      "name": "Atoms x 500",
+      "cost": 0,
+      "rank": 100,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S8_R100_life_underground_gameboard",
+      "page": "",
+      "name": "Life Underground Gameboard",
+      "cost": 0,
+      "rank": 100,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_WallDeco_S8Board_Gameboard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_walldeco_s8board_gameboard.webp",
+      "description": "Nothing better than life underground. Celebrate your Vault with this Gameboard  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R100_target_practice_player_icon",
+      "page": "",
+      "name": "Player Icon: Target Practice",
+      "cost": 0,
+      "rank": 100,
+      "kind": "playerIcon",
+      "value": "Target Practice",
+      "storefrontEntitlement": "SCORE_S8_ENTM_PlayerIcon_TargetPractice",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_49.avif",
+      "description": "Everyone can always use some more target practice!  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S8_R100_first_responders_camp_kit",
+      "page": "",
+      "name": "Responders Kit",
+      "cost": 0,
+      "rank": 100,
+      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Kit_Responders",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_kit_responders.webp",
+      "description": "Build your own Responders themed buildings with the Responders C.A.M.P. Kit.  - Includes a wall kit with rooftops. - - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_R100_scrap_kit",
+      "page": "",
+      "name": "Scrap Kit x 3",
+      "cost": 0,
+      "rank": 100,
+      "isFirst": true,
+      "tallyCategory": "scrap_kit"
+    },
+    {
+      "id": "S8_P8_skin_backpack_s8backpackskin",
+      "page": "",
+      "name": "Alistair's Chronotron Backpack",
+      "cost": 0,
+      "storefrontEntitlement": "zzzSCORE_S8_ENTM_Skin_Backpack_S8BackpackSkin",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_backpack_s8backpackskin.webp",
+      "description": "Do you love the Astoundingly Awesome Tales? If so, make sure to show your love with this Backpack.  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S8_P4_camp_structure_vaulttecstoragefacility",
+      "page": "",
+      "name": "Communist Bunker",
+      "cost": 0,
+      "storefrontEntitlement": "zzzSCORE_S8_ENTM_CAMP_Structure_VaultTecStorageFacility",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_structure_vaulttecstoragefacility.webp",
+      "description": "Shield yourself from the horrors of capitalism and nuclear blasts with this Communist Bunker for your C.A.M.P.  Communist Bunker door is included and built separately.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S8_P8_photomode_pose_notscienceguy",
+      "page": "",
+      "name": "Dr. Zorbo's Magic Pose",
+      "cost": 0,
+      "storefrontEntitlement": "SCORE_S8_ENTM_Photomode_Pose_NotScienceGuy",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_photomode_pose_notscienceguy.webp",
+      "description": "Make your enemies disappear! Impress your friends and scare your enemies with the Dr. Zorbo's Magic Pose.  - UNLOCKS A PHOTOMODE POSE. -"
+    },
+    {
+      "id": "S8_P8_camp_ally_sam",
+      "page": "",
+      "name": "Lite Ally: Xerxo",
+      "cost": 0,
+      "isFirst": true,
+      "storefrontEntitlement": "zzzSCORE_S8_ENTM_CAMP_Ally_Sam",
+      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_ally_sam.webp",
+      "description": "Xerxo is an alien from the proud Zebulon Empire. At least, that's what he thinks.  - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
+    },
+    {
       "id": "S8_P1_playericon_rank74icon",
-      "page": "1",
+      "page": "",
       "name": "Player Icon: Skellscream",
       "cost": 0,
       "kind": "playerIcon",
@@ -143,309 +1260,8 @@
       "tallyCategory": "player_icon"
     },
     {
-      "id": "S8_P2_apparel_outfit_jumpsuit_robco",
-      "page": "2",
-      "name": "RobCo Jumpsuit",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Apparel_Outfit_Jumpsuit_RobCo",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_apparel_outfit_jumpsuit_robco.webp",
-      "description": "What else could you ask for from your friends at RobCo? Maybe this awesome jumpsuit?!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P2_apparel_outfit_vaultsurvivor",
-      "page": "2",
-      "name": "Vault Survivor Outfit",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Apparel_Outfit_VaultSurvivor",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_apparel_outfit_vaultsurvivor.webp",
-      "description": "Survive the world outside the vault! Life was truly better underground.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P2_apparel_headwear_vaultsurvivorhood",
-      "page": "2",
-      "name": "Vault Survivor Hood",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Apparel_Headwear_VaultSurvivorHood",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_apparel_headwear_vaultsurvivorhood.webp",
-      "description": "Survive the world outside the vault! Life was truly better underground.   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P2_skin_powerarmor_paint_t45_basicyellow",
-      "page": "2",
-      "name": "Yellow T-45 Power Armor Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_T45_BasicYellow",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_t45_basicyellow.webp",
-      "description": "Be sure to stand out in a crowd with the Yellow Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S8_P2_skin_powerarmor_paint_t51_basicyellow",
-      "page": "2",
-      "name": "Yellow T-51b Power Armor Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_T51_BasicYellow",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_t51_basicyellow.webp",
-      "description": "Be sure to stand out in a crowd with the Yellow Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S8_P2_skin_powerarmor_paint_t60_basicyellow",
-      "page": "2",
-      "name": "Yellow T-60 Power Armor Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_T60_BasicYellow",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_t60_basicyellow.webp",
-      "description": "Be sure to stand out in a crowd with the Yellow Power Armor Paint.    - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S8_P2_skin_powerarmor_paint_x01_basicyellow",
-      "page": "2",
-      "name": "Yellow X-01 Power Armor Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_X01_BasicYellow",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_x01_basicyellow.webp",
-      "description": "Be sure to stand out in a crowd with the Yellow Power Armor Paint.    - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S8_P2_skin_powerarmor_paint_excavator_basicyellow",
-      "page": "2",
-      "name": "Yellow Excavator Power Armor Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_Excavator_BasicYellow",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_excavator_basicyellow.webp",
-      "description": "Be sure to stand out in a crowd with the Yellow T-45 Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S8_P3_skin_powerarmor_paint_hellcat_vaulttec",
-      "page": "3",
-      "name": "Vault-Tec Hellcat Power Armor Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_Hellcat_Vaulttec",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_powerarmor_paint_hellcat_vaulttec.webp",
-      "description": "Be prepared for life outside the vault in this special paint brought to you from your friends at Vault-Tec!  This is a paint for the Hellcat Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
-    },
-    {
-      "id": "S8_P3_skin_weaponskin_50calmachinegun_vaulttec",
-      "page": "3",
-      "name": "Vault-Tec Machine Gun Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_WeaponSkin_50CalMachineGun_VaultTec",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_weaponskin_50calmachinegun_vaulttec.webp",
-      "description": "An officially branded Paint for your Machine Gun, from your friends at Vault-Tec.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P3_skin_weaponskin_railwayrifle_locomotive",
-      "page": "3",
-      "name": "Locomotive Railway Rifle Paint",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_WeaponSkin_RailwayRifle_Locomotive",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_weaponskin_railwayrifle_locomotive.webp",
-      "description": "The perfect weapon for shooting at trains, or was it shooting from trains? Doesn't matter with the Locomotive Railway Rifle Paint!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P3_camp_kit_responders",
-      "page": "3",
-      "name": "Responders Kit",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Kit_Responders",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_kit_responders.webp",
-      "description": "Build your own Responders themed buildings with the Responders C.A.M.P. Kit.  - Includes a wall kit with rooftops. - - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P4_camp_floor_shagcarpetblue",
-      "page": "4",
-      "name": "Blue Shag Carpet Floor and Foundations",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Floor_ShagCarpetBlue",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_floor_shagcarpetblue.webp",
-      "description": "Now available in blue, the newest style of carpeting can now be yours for your C.A.M.P.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P4_camp_structure_vaulttecstoragefacility",
-      "page": "4",
-      "name": "Communist Bunker",
-      "cost": 0,
-      "storefrontEntitlement": "zzzSCORE_S8_ENTM_CAMP_Structure_VaultTecStorageFacility",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_structure_vaulttecstoragefacility.webp",
-      "description": "Shield yourself from the horrors of capitalism and nuclear blasts with this Communist Bunker for your C.A.M.P.  Communist Bunker door is included and built separately.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P4_camp_utility_mailbox_rooster",
-      "page": "4",
-      "name": "Rooster Mailbox",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Utility_Mailbox_Rooster",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_utility_mailbox_rooster.webp",
-      "description": "Brighten your day with this Rooster Mailbox!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P4_camp_utility_mailbox_hot_rod",
-      "page": "4",
-      "name": "Hot Rod Mailbox",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Utility_Mailbox_Hot_Rod",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_utility_mailbox_hot_rod.webp",
-      "description": "Add some vintage style to your C.A.M.P. with this Hot Rod Mailbox!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P4_camp_utility_exercisebike",
-      "page": "4",
-      "name": "Exercise Bike",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Utility_ExerciseBike",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_utility_exercisebike.webp",
-      "description": "Get that cardio in before you head out on an adventure with the Exercise Bike!  - Using the Exercise Bike will grant an Endurance Boost -  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P4_camp_utility_collectron_silver",
-      "page": "4",
-      "name": "Silver Collectron Station",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Utility_Collectron_Silver",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_utility_collectron_silver.webp",
-      "description": "The Silver Collectron is polished and ready to serve!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P5_camp_furniture_couch_modularsofaset_cream",
-      "page": "5",
-      "name": "Cream Modular Sofa Set",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Furniture_Couch_ModularSofaSet_Cream",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_furniture_couch_modularsofaset_cream.webp",
-      "description": "Relax in style with this Cream Modular Sofa Set.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P5_camp_bed_twinbed_vaulttec",
-      "page": "5",
-      "name": "Vault-Tec Twin Bed",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Bed_Twinbed_VaultTec",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_bed_twinbed_vaulttec.webp",
-      "description": "Snooze your problems away with the patented Vault-Tec Bed!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P5_camp_floordecor_modularmainframe_black",
-      "page": "5",
-      "name": "Black Modular Mainframe Set",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_FloorDecor_ModularMainFrame_Black",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_floordecor_modularmainframe_black.webp",
-      "description": "Every Shelter needs computer stations. Get yours now with the Modular Mainframe Set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P5_camp_floordecor_stein_vault76",
-      "page": "5",
-      "name": "Vault 76 Stein",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_FloorDecor_Stein_Vault76",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_floordecor_stein_vault76.webp",
-      "description": "Raise a Stein to Vault 76, the best vault in all of Appalachia!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P6_camp_lights_ceiling_elaboratesilver",
-      "page": "6",
-      "name": "Elaborate Silver Chandelier",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Lights_Ceiling_ElaborateSilver",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_lights_ceiling_elaboratesilver.webp",
-      "description": "Fancy Nukashine parties are made better when lit by silver!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P6_camp_walldeco_doorbell",
-      "page": "6",
-      "name": "Doorbell",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_WallDeco_Doorbell",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_walldeco_doorbell.webp",
-      "description": "Let your visitors announce their presence with the Doorbell.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P6_photomode_frame_flowers",
-      "page": "6",
-      "name": "Floral Frame",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Photomode_Frame_Flowers",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_photomode_frame_flowers.webp",
-      "description": "Bring the local colors of West Virginia into your photos with this frame.   - UNLOCKS A PHOTOMODE FRAME. -"
-    },
-    {
-      "id": "S8_P6_skin_armorskin_combat_freestates",
-      "page": "6",
-      "name": "Free States Combat Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Combat_FreeStates",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_combat_freestates.webp",
-      "description": "You have the right to be well-armored with this Free States Combat Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P6_skin_armorskin_leather_freestates",
-      "page": "6",
-      "name": "Free States Leather Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Leather_FreeStates",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_leather_freestates.webp",
-      "description": "You have the right to be well-armored with this Free States Leather Armor Paint.   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P6_skin_armorskin_metal_freestates",
-      "page": "6",
-      "name": "Free States Metal Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Metal_FreeStates",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_metal_freestates.webp",
-      "description": "You have the right to be well-armored with this Free States Metal Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P6_skin_armorskin_marine_freestates",
-      "page": "6",
-      "name": "Free States Marine Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Marine_FreeStates",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_marine_freestates.webp",
-      "description": "You have the right to be well-armored with this Free States Marine Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P6_skin_armorskin_robot_freestates",
-      "page": "6",
-      "name": "Free States Robot Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Robot_FreeStates",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_robot_freestates.webp",
-      "description": "You have the right to be well-armored with this Free States Robot Armor Paint.   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P7_skin_armorskin_wood_freestates",
-      "page": "7",
-      "name": "Free States Wood Armor Paint",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Wood_FreeStates",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_armorskin_wood_freestates.webp",
-      "description": "You have the right to be well-armored with this Free States Wood Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P7_camp_walldeco_curtain_yellow_set",
-      "page": "7",
-      "name": "Yellow Curtains",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_WallDeco_Curtain_Yellow_Set",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_walldeco_curtain_yellow_set.webp",
-      "description": "Add some joy to the room with the Yellow Curtains.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
       "id": "S8_P7_camp_walldeco_curtain_double_yellow",
-      "page": "7",
+      "page": "",
       "name": "Yellow Wide Curtains",
       "cost": 0,
       "storefrontEntitlement": "zzzSCORE_S8_ENTM_CAMP_WallDeco_Curtain_Double_Yellow",
@@ -453,92 +1269,8 @@
       "description": "For those bigger windows you will need some bigger curtains.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
-      "id": "S8_P7_camp_walldeco_mobile_floater_purple",
-      "page": "7",
-      "name": "Purple Floater Mobile",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_WallDeco_Mobile_Floater_Purple",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_walldeco_mobile_floater_purple.webp",
-      "description": "All experiments have some value, no matter how horrifying they appear. - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P7_camp_ally_mechanic_samnguyen",
-      "page": "7",
-      "name": "Lite Ally: Sam Nguyen",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_Ally_Mechanic_SamNguyen",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_ally_mechanic_samnguyen.webp",
-      "description": "If you need a handyman or a hearty tune, Sam's your man.  - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P7_skin_backpackflair_vaultsurvivor",
-      "page": "7",
-      "name": "Vault Survivor Flair",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_BackpackFlair_VaultSurvivor",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_backpackflair_vaultsurvivor.webp",
-      "description": "Wear this badge of survival proudly!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P7_photomode_pose_scienceguy",
-      "page": "7",
-      "name": "Science Guy Pose",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Photomode_Pose_ScienceGuy",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_photomode_pose_scienceguy.webp",
-      "description": "There is always time for a quick experiment! Show off your love of Science with the Science Guy Pose.  - UNLOCKS A PHOTOMODE POSE. -"
-    },
-    {
-      "id": "S8_P7_camp_walldeco_s8board_gameboard",
-      "page": "7",
-      "name": "Life Underground Gameboard",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_CAMP_WallDeco_S8Board_Gameboard",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_walldeco_s8board_gameboard.webp",
-      "description": "Nothing better than life underground. Celebrate your Vault with this Gameboard  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P8_camp_ally_sam",
-      "page": "8",
-      "name": "Lite Ally: Xerxo",
-      "cost": 0,
-      "isFirst": true,
-      "storefrontEntitlement": "zzzSCORE_S8_ENTM_CAMP_Ally_Sam",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_camp_ally_sam.webp",
-      "description": "Xerxo is an alien from the proud Zebulon Empire. At least, that's what he thinks.  - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
-    },
-    {
-      "id": "S8_P8_skin_backpack_s8backpackskin",
-      "page": "8",
-      "name": "Alistair's Chronotron Backpack",
-      "cost": 0,
-      "storefrontEntitlement": "zzzSCORE_S8_ENTM_Skin_Backpack_S8BackpackSkin",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_backpack_s8backpackskin.webp",
-      "description": "Do you love the Astoundingly Awesome Tales? If so, make sure to show your love with this Backpack.  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
-      "id": "S8_P8_photomode_pose_notscienceguy",
-      "page": "8",
-      "name": "Dr. Zorbo's Magic Pose",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Photomode_Pose_NotScienceGuy",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_photomode_pose_notscienceguy.webp",
-      "description": "Make your enemies disappear! Impress your friends and scare your enemies with the Dr. Zorbo's Magic Pose.  - UNLOCKS A PHOTOMODE POSE. -"
-    },
-    {
-      "id": "S8_P8_skin_backpack_vaultsurvivor",
-      "page": "8",
-      "name": "Vault Survivor Backpack",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S8_ENTM_Skin_Backpack_VaultSurvivor",
-      "imageUrl": "/wp-content/uploads/season_images/score_s8_skin_backpack_vaultsurvivor.webp",
-      "description": "Never forget your time in the vault with this backpack!  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
-    },
-    {
       "id": "S8_P8_weapon_alienblaster_zetasrevenge",
-      "page": "8",
+      "page": "",
       "name": "Zeta's Revenge (Alien Blaster)",
       "cost": 0,
       "isFirst": true,
@@ -546,5 +1278,8 @@
       "imageUrl": "/wp-content/uploads/season_images/score_s8_weapon_alienblaster_zetasrevenge.webp",
       "description": "- SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     }
-  ]
+  ],
+  "layout": "rank",
+  "maxRank": 100,
+  "unplacedCount": 7
 }
