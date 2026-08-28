@@ -256,7 +256,65 @@ def build_season_json(season_num: int, items: list[dict], meta: dict) -> dict:
 # Build all_seasons.json
 # ---------------------------------------------------------------------------
 
-def build_all_seasons(meta: dict) -> dict:
+def load_legacy_runs(path: Path, meta: dict) -> list[dict]:
+    """Load tsv/legacy_seasons.tsv — the re-runs of old seasons.
+
+    Bethesda re-releases a past season alongside the current one, and does NOT
+    announce the next one in advance, so this file is hand-maintained: add a row when
+    a legacy season is announced, and nothing more. An empty file is the normal state
+    between runs and simply means the hub shows no legacy season.
+
+    EndDate is optional. Legacy runs track the concurrent season's window, so when it
+    is blank the end date of whichever season is live at StartDate is used rather than
+    a guessed date. `endDateEstimated` records which of the two happened, so the page
+    can caveat honestly.
+    """
+    if not path.exists():
+        return []
+
+    runs = []
+    for row in read_tsv(path):
+        num = safe_int(row.get("SeasonNumber", ""), -1)
+        if num < 1:
+            continue
+        start = parse_date_dmy(row.get("StartDate", ""))
+        end = parse_date_dmy(row.get("EndDate", ""))
+        estimated = False
+        if not end and start:
+            # Borrow the end date of the season running at StartDate.
+            #
+            # Seasons share their changeover day - S25 ends and S26 starts on
+            # 2026-09-15 - so a plain "start <= date <= end" test matches the
+            # OUTGOING season and borrows a window that closes the same day the
+            # legacy run opens. A legacy season launches with the incoming season, so
+            # prefer the one whose startDate is the legacy start, and otherwise take
+            # the latest-ending match.
+            exact = [m for m in meta.values() if m.get("startDate") == start
+                     and m.get("endDate")]
+            spans = [m for m in meta.values()
+                     if m.get("startDate") and m.get("endDate")
+                     and m["startDate"] <= start <= m["endDate"]]
+            pick = exact or spans
+            if pick:
+                end = max(m["endDate"] for m in pick)
+                estimated = True
+        sm = meta.get(num, {})
+        entry = {"number": num, "name": sm.get("seasonName", f"Season {num}")}
+        if start:
+            entry["startDate"] = start
+        if end:
+            entry["endDate"] = end
+        entry["endDateEstimated"] = estimated
+        note = (row.get("Note") or "").strip()
+        if note:
+            entry["note"] = note
+        runs.append(entry)
+
+    runs.sort(key=lambda r: r.get("startDate") or "")
+    return runs
+
+
+def build_all_seasons(meta: dict, legacy: list[dict]) -> dict:
     """Build the all_seasons.json index from season metadata."""
     seasons = []
     for num in sorted(meta.keys()):
@@ -276,6 +334,9 @@ def build_all_seasons(meta: dict) -> dict:
         "generatedAt": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.000Z"),
         "kind": "all_seasons",
         "seasons": seasons,
+        # Legacy re-runs ride along in the same file so the hub's countdown card
+        # needs one fetch, not two.
+        "legacy": legacy,
     }
 
 
@@ -345,7 +406,14 @@ def main() -> None:
               f"{out_path.stat().st_size:,} bytes)")
 
     # --- Output all_seasons.json ---
-    all_seasons = build_all_seasons(meta)
+    legacy = load_legacy_runs(TSV_DIR / "legacy_seasons.tsv", meta)
+    if legacy:
+        print(f"{TAG} Legacy re-runs: "
+              + ", ".join(f"S{r['number']} from {r.get('startDate','?')}" for r in legacy))
+    else:
+        print(f"{TAG} Legacy re-runs: none listed")
+
+    all_seasons = build_all_seasons(meta, legacy)
     all_path = DIST_DIR / "all_seasons.json"
 
     with all_path.open("w", encoding="utf-8") as f:
