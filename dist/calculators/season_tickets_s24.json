@@ -21,6 +21,9 @@
       "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
       "value": "STRING (optional) - The title/icon label value when kind is set.",
       "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
       "imageUrl": "STRING (optional) - URL to item image.",
       "description": "STRING (optional) - Item description."
     },
@@ -121,7 +124,7 @@
       "kind": "playerIcon",
       "value": "Space Cow",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_SpaceCow",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_spacecow.webp",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s24_spacecow.avif",
       "description": "Moooooving along a new frontier.    - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -144,7 +147,7 @@
       "kind": "campTitlePrefix",
       "value": "Alien",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_Alien",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_alien.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-camp/score_s24_camptitles_prefix_alien.avif",
       "description": "Unlocks the C.A.M.P. Title Prefix \"Alien\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
       "tallyCategory": "camp_player_title"
     },
@@ -199,7 +202,7 @@
       "kind": "playerIcon",
       "value": "Alien Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_AlienPatch",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_alienpatch.webp",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s24_cryptidpatchalien.avif",
       "description": "They're amongst us, in the stars and in Appalachia.    - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -238,7 +241,7 @@
       "kind": "playerIcon",
       "value": "Flatwoods Monster Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_FlatwoodsMonsterPatch",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_flatwoodsmonsterpatch.webp",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s24_cryptidpatchflatwoodsmonster.avif",
       "description": "Time to play.    - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -251,7 +254,7 @@
       "kind": "playerIcon",
       "value": "Abduction",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_UFOAbduction",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_ufoabduction.webp",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s24_ufoabduction.avif",
       "description": "They're taking them to the Mooon.    - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -272,7 +275,7 @@
       "kind": "playerTitlePrefixSuffix",
       "value": "Alien",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_Alien",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_alien.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-camp/score_s24_camptitles_prefix_alien.avif",
       "description": "Unlocks the C.A.M.P. Title Prefix \"Alien\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
       "tallyCategory": "camp_player_title"
     },
@@ -338,7 +341,7 @@
       "kind": "campTitleSuffix",
       "value": "Retreat",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Suffix_Retreat",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_suffix_retreat.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-camp/score_s24_camptitles_suffix_retreat.avif",
       "description": "Unlocks the C.A.M.P. Title Suffix \"Retreat\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
       "tallyCategory": "camp_player_title"
     },
@@ -360,7 +363,7 @@
       "kind": "playerTitlePrefix",
       "value": "Space",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Space",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_space.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s24_playertitles_prefix_space.avif",
       "description": "Unlocks the Player Title Prefix \"Space\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
       "tallyCategory": "camp_player_title"
     },
@@ -486,7 +489,7 @@
       "kind": "playerIcon",
       "value": "Smiling Man Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_SmilingManPatch",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_smilingmanpatch.webp",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s24_cryptidpatchsmilingman.avif",
       "description": "A big smile that somehow feels Cold.    - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -508,7 +511,7 @@
       "kind": "playerTitleSuffix",
       "value": "Extraterrestrial",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Suffix_Extraterrestrial",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_suffix_extraterrestrial.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s24_playertitles_suffix_extraterrestrial.avif",
       "description": "Unlocks the Player Title Suffix \"Extraterrestrial\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
       "tallyCategory": "camp_player_title"
     },
@@ -608,7 +611,7 @@
       "kind": "playerTitlePrefix",
       "value": "Rip",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Rip",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_rip.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s24_playertitles_prefix_rip.avif",
       "description": "Unlocks the Player Title Prefix \"Rip\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
       "tallyCategory": "camp_player_title"
     },
@@ -621,7 +624,7 @@
       "kind": "campTitlePrefix",
       "value": "Bigfoot's",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_Bigfoots",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_bigfoots.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-camp/score_s24_camptitles_prefix_bigfoots.avif",
       "description": "Unlocks the C.A.M.P. Title Prefix \"Bigfoot's\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
       "tallyCategory": "camp_player_title"
     },
@@ -660,7 +663,7 @@
       "kind": "playerIcon",
       "value": "Jersey Devil Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_JerseyDevilPatch",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_jerseydevilpatch.webp",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s24_cryptidpatchjerseydevil.avif",
       "description": "This patch appears Once in a Blue Moon.    - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -726,7 +729,7 @@
       "kind": "playerIcon",
       "value": "Mothman Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_MothmanPatch",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_mothmanpatch.webp",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s24_cryptidpatchmothman.avif",
       "description": "This patch will help you find His Light.    - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -738,7 +741,7 @@
       "kind": "playerTitlePrefix",
       "value": "Guinevere's",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Guinevere",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_guinevere.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s24_playertitles_prefix_guinevere.avif",
       "description": "Unlocks the Player Title Prefix \"Guinevere's\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
       "tallyCategory": "camp_player_title"
     },
@@ -789,7 +792,7 @@
       "kind": "playerIcon",
       "value": "Grafton Monster Patch",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_GraftonMonsterPatch",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_graftonmonsterpatch.webp",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s24_cryptidpatchgraftonmonster.avif",
       "description": "Don't forget to pick one up for Grafton Day!    - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -880,7 +883,7 @@
       "kind": "playerTitlePrefix",
       "value": "Interstellar",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Interstellar",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_interstellar.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s24_playertitles_prefix_interstellar.avif",
       "description": "Unlocks the Player Title Prefix \"Interstellar\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
       "tallyCategory": "camp_player_title"
     },
@@ -944,7 +947,7 @@
       "kind": "playerTitleSuffix",
       "value": "Terrestrial",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Suffix_Terrestrial",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_suffix_terrestrial.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s24_playertitles_suffix_terrestrial.avif",
       "description": "Unlocks the Player Title Suffix \"Terrestrial\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
       "tallyCategory": "camp_player_title"
     },
@@ -956,7 +959,7 @@
       "kind": "campTitlePrefix",
       "value": "Rip Daring's",
       "storefrontEntitlement": "SCORE_S24_ENTM_CAMPTitles_Prefix_RipDarings",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_camptitles_prefix_ripdarings.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-camp/score_s24_camptitles_prefix_ripdarings.avif",
       "description": "Unlocks the C.A.M.P. Title Prefix \"Rip Daring's\".    - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
       "tallyCategory": "camp_player_title"
     },
@@ -986,7 +989,7 @@
       "kind": "playerIcon",
       "value": "Guinevere in Space",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerIcon_SpaceGuinevere",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playericon_spaceguinevere.webp",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s24_spaceguinevere.avif",
       "description": "In space, no one will hear Rip scream post-treatment!    - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -998,7 +1001,7 @@
       "kind": "playerTitlePrefix",
       "value": "Armed",
       "storefrontEntitlement": "SCORE_S24_ENTM_PlayerTitles_Prefix_Armed",
-      "imageUrl": "/wp-content/uploads/season_images/score_s24_playertitles_prefix_armed.webp",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s24_playertitles_prefix_armed.avif",
       "description": "Unlocks the Player Title Prefix \"Armed\".    - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
       "tallyCategory": "camp_player_title"
     },

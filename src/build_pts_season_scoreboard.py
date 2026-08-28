@@ -48,9 +48,16 @@ EDID_RE = re.compile(r"^(?:zzz_?|ZZZ_?)?SCORE_S(\d+)_ENTM_(.+)$", re.IGNORECASE)
 DISABLED_RE = re.compile(r"^(?:zzz|ZZZ)_")
 ITEMS_PER_PAGE = 8
 
+# Entitlements that exist in ENTM but are NOT board rewards, so they must never be
+# rendered as ones. Account_PremiumBattlePass is the real-money Season Pass that
+# unlocks the board for players without Fallout 1st - it is a purchase, not a reward
+# you claim off a page.
+SKIP_EDID_SUBSTRINGS = (
+    "Account_PremiumBattlePass",
+)
+
 CATEGORY_RULES = [
     ("Account_ScoreBoost",          "score_boost",     0),
-    ("Account_PremiumBattlePass",   "account",         1),
     ("PlayerIcon_",                 "player_icon",     2),
     ("PlayerTitles_Prefix_",        "player_title",    3),
     ("PlayerTitles_Suffix_",        "player_title",    3),
@@ -221,6 +228,9 @@ def extract_season_entm(entm_tsv, target_season=None):
         if not m:
             continue
         if DISABLED_RE.match(edid):
+            continue
+        # Not a board reward — see SKIP_EDID_SUBSTRINGS.
+        if any(s.lower() in edid.lower() for s in SKIP_EDID_SUBSTRINGS):
             continue
 
         snum = int(m.group(1))

@@ -66,6 +66,8 @@ NOTES = {
         "value": "STRING (optional) - The title/icon label value when kind is set.",
         "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
         "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+        "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+        "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
         "imageUrl": "STRING (optional) - URL to item image.",
         "description": "STRING (optional) - Item description.",
     },
@@ -157,6 +159,19 @@ def build_item(row: dict) -> dict:
         val = row.get(field, "").strip()
         if val:
             item[field] = val
+
+    # addedInRerun — set when Bethesda adds a reward to a season that has already
+    # run, which happens every time a legacy scoreboard is re-released. The value is
+    # the re-release it arrived in ("Aug 2026").
+    #
+    # This drives a PERMANENT ★ NEW pill, deliberately unlike the ~31-day date
+    # trigger used on the checklist pages: the point is to mark, forever, which
+    # rewards were not on the original board. A returning player comparing their
+    # collection to the page needs that distinction long after the re-run ends.
+    rerun = row.get("addedInRerun", "").strip()
+    if rerun:
+        item["addedInRerun"] = rerun
+        item["isNew"] = True
 
     # tallyCategory — only include if non-empty
     tally = row.get("tallyCategory", "").strip()

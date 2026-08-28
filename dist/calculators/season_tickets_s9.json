@@ -1,8 +1,59 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 9,
   "seasonName": "Heart of Steel: A Dread Island Tale",
@@ -45,6 +96,7 @@
       "kind": "playerIcon",
       "value": "Dread Island Skull",
       "storefrontEntitlement": "SCORE_S9_ENTM_PlayerIcon_DreadIslandSkullLogo",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_52.avif",
       "description": "Can you survive Dread Island?  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -56,6 +108,7 @@
       "kind": "playerIcon",
       "value": "H-4RT Protects",
       "storefrontEntitlement": "SCORE_S9_ENTM_PlayerIcon_H-4RT_Protects",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_51.avif",
       "description": "NO DANGER AROUND HERE!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -67,6 +120,7 @@
       "kind": "playerIcon",
       "value": "Spider Attack",
       "storefrontEntitlement": "SCORE_S9_ENTM_PlayerIcon_SpiderAttack",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_54.avif",
       "description": "H-4RT protects you from anything, even when it comes with eight legs!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -78,6 +132,7 @@
       "kind": "playerIcon",
       "value": "H-4RT",
       "storefrontEntitlement": "SCORE_S9_ENTM_PlayerIcon_H-4RT",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_57.avif",
       "description": "Show that you heart H-4RT with this Player Icon.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -89,6 +144,7 @@
       "kind": "playerIcon",
       "value": "Campfire",
       "storefrontEntitlement": "SCORE_S9_ENTM_PlayerIcon_Campfire",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_53.avif",
       "description": "Laser. The fastest way to make fire!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -100,6 +156,7 @@
       "kind": "playerIcon",
       "value": "Crashed Plane",
       "storefrontEntitlement": "SCORE_S9_ENTM_PlayerIcon_CrashedPlane",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_55.avif",
       "description": "Any landing you walk away from...  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -111,6 +168,7 @@
       "kind": "playerIcon",
       "value": "Beach Raider",
       "storefrontEntitlement": "SCORE_S9_ENTM_PlayerIcon_BeachRaider",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_58.avif",
       "description": "Probably just upset they didn't get a beach party invitation!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -122,6 +180,7 @@
       "kind": "playerIcon",
       "value": "Skull Cave",
       "storefrontEntitlement": "SCORE_S9_ENTM_PlayerIcon_SkullCave",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_56.avif",
       "description": "It be scary but also home away from home!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -133,6 +192,7 @@
       "kind": "playerIcon",
       "value": "Dread Island Inverse Logo",
       "storefrontEntitlement": "zzzSCORE_S9_ENTM_PlayerIcon_DreadIslandInverse",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/score_s9_playericon_dreadislandinverse.avif",
       "description": "Show off how you survived Dread Island!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -142,6 +202,7 @@
       "name": "Absolutely! Emote",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Emotes_Yes_CheckSign_Absolutely",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_emotes_yes_checksign_absolutely.webp",
       "description": "Yes!  - UNLOCKS AN EMOTE OPTION. -"
     },
     {
@@ -150,6 +211,7 @@
       "name": "Patrioteer Hat",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Apparel_Headwear_PatrioteerHat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_apparel_headwear_patrioteerhat.webp",
       "description": "Show your support for the Union with this Patrioteer Hat!   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -158,6 +220,7 @@
       "name": "Patrioteer Outfit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Apparel_Outfit_Patrioteer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_apparel_outfit_patrioteer.webp",
       "description": "Show your support for the Union with this Patrioteer Outfit!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -166,6 +229,7 @@
       "name": "Junkyard Cultist Helmet",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Apparel_Headwear_Cultist_Junkyard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_apparel_headwear_cultist_junkyard.webp",
       "description": "Scrap and junk are weapons in the hands of a Junkyard Cultist.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -174,6 +238,7 @@
       "name": "Junkyard Cultist Outfit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Apparel_Outfit_Cultist_Junkyard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_apparel_outfit_cultist_junkyard.webp",
       "description": "Scrap and junk are weapons in the hands of a Junkyard Cultist.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -183,6 +248,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PowerArmor_Model_Blackbird_Elite",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_model_blackbird_elite.webp",
       "description": "Escape Dread Island with this Blackbird Elite Power Armor Paint!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -192,6 +258,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PowerArmor_Paint_T45_MercenaryCompany",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_paint_t45_mercenarycompany.webp",
       "description": "Hellcats in Power Armor, that was not part of the plan. Paint your T-45 with the Mercenary Company Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -201,6 +268,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PowerArmor_Paint_T51_MercenaryCompany",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_paint_t51_mercenarycompany.webp",
       "description": "Hellcats in Power Armor, that was not part of the plan. Paint your T-51 with the Mercenary Company Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -210,6 +278,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PowerArmor_Paint_Excavator_MercenaryCompany",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_paint_excavator_mercenarycompany.webp",
       "description": "Hellcats in Power Armor, that was not part of the plan. Paint your Excavator with the Mercenary Company Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -219,6 +288,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PowerArmor_Paint_T60_MercenaryCompany",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_paint_t60_mercenarycompany.webp",
       "description": "Hellcats in Power Armor, that was not part of the plan. Paint your T-60 with the Mercenary Company Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -228,6 +298,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PowerArmor_Paint_X01_MercenaryCompany",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_paint_x01_mercenarycompany.webp",
       "description": "Hellcats in Power Armor, that was not part of the plan. Paint your X-01 with the Mercenary Company Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -237,6 +308,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PowerArmor_Paint_Ultracite_MercenaryCompany",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_paint_ultracite_mercenarycompany.webp",
       "description": "Hellcats in Power Armor, that was not part of the plan. Paint your Ultracite Power Armor with the Mercenary Company Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -245,6 +317,7 @@
       "name": "Mercenary Company T-65 Paint Power Armor",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PowerArmor_Paint_T65_MercenaryCompany",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_paint_t65_mercenarycompany.webp",
       "description": "Hellcats in Power Armor, that was not part of the plan. Paint your T-65 with the Mercenary Company Power Armor Paint.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -254,6 +327,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "zzzSCORE_S9_ENTM_Skin_PowerArmor_Paint_MercenaryCompany_Hellcat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_paint_mercenarycompany_hellcat.webp",
       "description": "Hellcats in Power Armor, that was not part of the plan. Paint your Hellcat with the Mercenary Company Power Armor Paint.   This is a paint for the Hellcat Power Armor.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -263,6 +337,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PowerArmor_Jetpack_Blackbird_Elite",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_powerarmor_jetpack_blackbird_elite.webp",
       "description": "The Blackbird Elite Jet Pack is built to help you take flight!  Requires a known Jetpack plan to craft.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -272,6 +347,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "zzzSCORE_S9_ENTM_Skin_WeaponSkin_REUSE",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_weaponskin_reuse.webp",
       "description": "Strength and swiftness must be used when wielding the razor-sharp weapon of choice of the ancient samurai.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -  - Works with most 1h melee weapons."
     },
     {
@@ -280,6 +356,7 @@
       "name": "Dastardly Duo Paint (Shotgun)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_WeaponSkin_Shotgun_DastardlyDuo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_weaponskin_shotgun_dastardlyduo.webp",
       "description": "Show off your Dastardly side with the Dastardly Duo Paint for the Double-Barrel Shotgun.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -289,6 +366,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_WeaponSkin_Supersledge_Raider",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_weaponskin_supersledge_raider.webp",
       "description": "Take down those goody-goody Union representatives with the Raider Super Sledge Paint!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -297,6 +375,7 @@
       "name": "Solid Blue Shipping Container",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Structure_ShippingContainer_Blue_Solid",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_structure_shippingcontainer_blue_solid.webp",
       "description": "Get your C.A.M.P. looking Shipshape with this Blue Shipping Container.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -305,6 +384,7 @@
       "name": "Blue Open Shipping Container",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Structure_ShippingContainer_Blue_Open",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_structure_shippingcontainer_blue_open.webp",
       "description": "Get your C.A.M.P. looking shipshape with this Blue Open Shipping Container.   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -313,6 +393,7 @@
       "name": "Blue Moulded Carpet Floor and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Floor_MouldedCarpet_Blue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_floor_mouldedcarpet_blue.webp",
       "description": "Is it Mold or Moulded? Why not both with the Moulded Carpet Floor and Foundations!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -321,6 +402,7 @@
       "name": "Green Moulded Carpet Floor and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Floor_MouldedCarpet_Green",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_floor_mouldedcarpet_green.webp",
       "description": "Is it Mold or Moulded? Why not both with the Moulded Carpet Floor and Foundations!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -329,6 +411,7 @@
       "name": "Yellow Moulded Carpet Floor and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Floor_MouldedCarpet_Yellow",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_floor_mouldedcarpet_yellow.webp",
       "description": "Is it Mold or Moulded? Why not both with the Moulded Carpet Floor and Foundations!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -337,6 +420,7 @@
       "name": "Chuckwagon Cooking Station",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Machinery_Workbench_Cooking_Grill_Chuckwagon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_machinery_workbench_cooking_grill_chuckwagon.webp",
       "description": "Feed the whole herd with the Chuckwagon Cooking Station!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -346,6 +430,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Utility_ArmWrestleMachine",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_utility_armwrestlemachine.webp",
       "description": "Are you strong enough to beat the Arm Wrestle Machine?  - Using the Arm Wrestle Machine grants a temporary boost to Charisma -  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -355,6 +440,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Furniture_HorseRacingGame",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_furniture_horseracinggame.webp",
       "description": "And they're off! Jockey for a win with the Mechanical Derby Game!  - Using the Derby Game grants a temporary boost to Intelligence -  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -364,6 +450,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Furniture_Chair_ThroneOfBone",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_furniture_chair_throneofbone.webp",
       "description": "Sitting on the throne is never easy, especially if you lean back!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -372,6 +459,7 @@
       "name": "Bone Shelf",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_FloorDecor_BoneShelf",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_floordecor_boneshelf.webp",
       "description": "The perfect shelf to terrify your guests while staying organized!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -380,6 +468,7 @@
       "name": "Dread Island Stein",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_FloorDecor_Stein_DreadIsland",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_floordecor_stein_dreadisland.webp",
       "description": "Celebrate your time on Dread Island with this commemorative Dread Island Stein.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -388,6 +477,7 @@
       "name": "Clown Painting",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_WallDeco_PictureFrameClown_01",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_walldeco_pictureframeclown_01.webp",
       "description": "Who's afraid of clowns these days?  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -396,6 +486,7 @@
       "name": "Rusted Iron Secret Service Dog Statues",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Statue_Dog_Iron",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_statue_dog_iron.webp",
       "description": "Remember the fallen and remember our friends with the Rusted Iron Secret Service Dog Statues.  Includes a small and large variant.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -404,6 +495,7 @@
       "name": "Ultracite Backpack Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_BackpackFlair_Ultracite",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_backpackflair_ultracite.webp",
       "description": "Celebrate your dedication to mining with the Ultracite Backpack Flair.  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
     },
     {
@@ -413,6 +505,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Statue_Medieval_Armor",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_statue_medieval_armor.webp",
       "description": "Bring medieval fanfare to your home with the Medieval Suit of Armor!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -421,6 +514,7 @@
       "name": "Glow In The Dark Skull Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_BackpackFlair_GlowInTheDarkSkull",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_backpackflair_glowinthedarkskull.webp",
       "description": "Useful and Creepy all at the same time!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
     },
     {
@@ -429,6 +523,7 @@
       "name": "Industrial Floodlight",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Lights_IndustrialFloodlight",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_lights_industrialfloodlight.webp",
       "description": "Illuminate your space with this wall mounted Industrial Floodlight.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -437,6 +532,7 @@
       "name": "Raiderish Leather Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_ArmorSkin_Leather_Raiderish",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_armorskin_leather_raiderish.webp",
       "description": "Are you Raider, or are you just Raiderish? Find out with the Raiderish Leather Armor Paint.   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -446,6 +542,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_WeaponModel_Bow_BoneBow",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_weaponmodel_bow_bonebow.webp",
       "description": "Even if the arrow misses you still might scare your enemy to death with this deathclaw Bone Bow.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -454,6 +551,7 @@
       "name": "Raiderish Metal Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_ArmorSkin_Metal_Raiderish",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_armorskin_metal_raiderish.webp",
       "description": "Are you Raider, or are you just Raiderish? Find out with the Raiderish Metal Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -462,6 +560,7 @@
       "name": "Mercenary Company Pip-Boy Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_PipBoySkin_MercenaryCompany",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_pipboyskin_mercenarycompany.webp",
       "description": "Wear your true Mercenary Company colors on your sleeve with this Mercenary Company Paint for your Pip-Boy!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -470,6 +569,7 @@
       "name": "Raiderish Robot Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_ArmorSkin_Robot_Raiderish",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_armorskin_robot_raiderish.webp",
       "description": "Are you Raider, or are you just Raiderish? Find out with the Raiderish Robot Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -478,6 +578,7 @@
       "name": "Raiderish Marine Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_ArmorSkin_Marine_Raiderish",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_armorskin_marine_raiderish.webp",
       "description": "Are you Raider, or are you just Raiderish? Find out with the Raiderish Marine Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -486,6 +587,7 @@
       "name": "Raiderish Combat Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_ArmorSkin_Combat_Raiderish",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_armorskin_combat_raiderish.webp",
       "description": "Are you Raider, or are you just Raiderish? Find out with the Raiderish Combat Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -494,6 +596,7 @@
       "name": "Gold-Dipped Grenade Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_BackpackFlair_GoldDippedGrenade",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_backpackflair_golddippedgrenade.webp",
       "description": "I wonder if the explosion would be shiny?  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
     },
     {
@@ -502,6 +605,7 @@
       "name": "Raiderish Secret Service Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_ArmorSkin_SecretService_Raiderish",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_armorskin_secretservice_raiderish.webp",
       "description": "Are you Raider, or are you just Raiderish? Find out with the Raiderish Secret Service Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -510,6 +614,7 @@
       "name": "Steel Pitt Wall Bust",
       "cost": 0,
       "storefrontEntitlement": "zzzSCORE_S9_ENTM_CAMP_WallDeco_SteelPittWallBust",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_walldeco_steelpittwallbust.webp",
       "description": "Add a sense of foreboding to your sitting room with the Steel Pitt Wall Bust.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -518,6 +623,7 @@
       "name": "Rusted Brick Wallpaper",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_WallPaper_RustedBrick",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_wallpaper_rustedbrick.webp",
       "description": "I didn't think that bricks could rust! Expect the unexpected with the Rusted Brick Wallpaper.  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
     },
     {
@@ -526,6 +632,7 @@
       "name": "Dread Island Gameboard",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_WallDeco_S9Board_Gameboard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_walldeco_s9board_gameboard.webp",
       "description": "Show off how you conquered Dread Island with this framed Dread Island Gameboard.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -534,6 +641,7 @@
       "name": "Red Industrial Floodlight",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_Lights_IndustrialFloodlight_Red",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_lights_industrialfloodlight_red.webp",
       "description": "Illuminate your space red with this wall mounted Industrial Floodlight.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -542,6 +650,7 @@
       "name": "Skull Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_Skin_BackpackFlair_Skull",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_skin_backpackflair_skull.webp",
       "description": "Useful and Creepy all at the same time!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
     },
     {
@@ -550,6 +659,7 @@
       "name": "Rusted Red Brick Wallpaper",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S9_ENTM_CAMP_WallPaper_RustedBrick_Red",
+      "imageUrl": "/wp-content/uploads/season_images/score_s9_camp_wallpaper_rustedbrick_red.webp",
       "description": "I didn't think that bricks could rust! Expect the unexpected with the Rusted Red Brick Wallpaper.  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
     }
   ]

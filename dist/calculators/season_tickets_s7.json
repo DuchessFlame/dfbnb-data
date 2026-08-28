@@ -1,8 +1,59 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 7,
   "seasonName": "Zorbo's Revenge",
@@ -15,6 +66,7 @@
       "kind": "playerIcon",
       "value": "Heroic Captain Cosmos",
       "storefrontEntitlement": "SCORE_S7_ENTM_PlayerIcon_CaptCosmos_S1",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_08.avif",
       "description": "The true hero of the legendary run!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -26,6 +78,7 @@
       "kind": "playerIcon",
       "value": "Jangles",
       "storefrontEntitlement": "SCORE_S7_ENTM_PlayerIcon_Jangles_S1",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_09.avif",
       "description": "Trusted sidekick of Captain Cosmos.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -37,6 +90,7 @@
       "kind": "playerIcon",
       "value": "Zorbo",
       "storefrontEntitlement": "SCORE_S7_ENTM_PlayerIcon_Zorbo_S1",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_12.avif",
       "description": "I must defeat Captain Cosmos!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -48,6 +102,7 @@
       "kind": "playerIcon",
       "value": "General Confusion",
       "storefrontEntitlement": "SCORE_S7_ENTM_PlayerIcon_GeneralConfusion",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_41.avif",
       "description": "The Bismuth Bruiser of Sbibulour! Confused yet?  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -59,6 +114,7 @@
       "kind": "playerIcon",
       "value": "Skellscream",
       "storefrontEntitlement": "SCORE_S7_ENTM_PlayerIcon_Skellscream",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_40.avif",
       "description": "The only thing you can hear on his home planet is his haunted howls!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -70,6 +126,7 @@
       "kind": "playerIcon",
       "value": "Opus and Obra",
       "storefrontEntitlement": "SCORE_S7_ENTM_PlayerIcon_OpusObra",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_43.avif",
       "description": "Two heads better than one? How bout four guns better than one!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -81,6 +138,7 @@
       "kind": "playerIcon",
       "value": "Floating Face Farrah",
       "storefrontEntitlement": "SCORE_S7_ENTM_PlayerIcon_FloatingFace",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_42.avif",
       "description": "Farrah is so generous in sharing her evil ways!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -92,6 +150,7 @@
       "kind": "playerIcon",
       "value": "Dr. Zorbo",
       "storefrontEntitlement": "SCORE_S7_ENTM_PlayerIcon_DrZorbo",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_39.avif",
       "description": "Dr. Zorbo's Revenge is nigh!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -103,6 +162,7 @@
       "kind": "playerIcon",
       "value": "Baron von Longneck",
       "storefrontEntitlement": "SCORE_S7_ENTM_PlayerIcon_Baron",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_44.avif",
       "description": "The Baron looms large in this galaxy!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -112,6 +172,7 @@
       "name": "Confusion Emote",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Emotes_Confused_Scorched",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_emotes_confused_scorched.webp",
       "description": "How did we even get here?  - UNLOCKS AN EMOTE OPTION. -"
     },
     {
@@ -120,6 +181,7 @@
       "name": "Come Get Me! Emote",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Emotes_Taunt_Wanted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_emotes_taunt_wanted.webp",
       "description": "Tell all of Appalachia - you've never felt more Wanted.  - UNLOCKS AN EMOTE OPTION. -"
     },
     {
@@ -128,6 +190,7 @@
       "name": "Watoga Jumpsuit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Apparel_Outfit_Jumpsuit_Watoga",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_apparel_outfit_jumpsuit_watoga.webp",
       "description": "Experience the fashion of tomorrow, today with the Watoga jumpsuit.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -136,6 +199,7 @@
       "name": "Clean Blue Suit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Apparel_Outfit_SuitClean_Blue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_apparel_outfit_suitclean_blue.webp",
       "description": "A bold look for a bold person. Stand out from everyone in black suits with this classic blue look.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -144,6 +208,7 @@
       "name": "Dr. Zorbo Robes",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Apparel_Outfit_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_apparel_outfit_zorbo.webp",
       "description": "Deliver your revenge and finally conquer the galaxy with these Dr. Zorbo Robes! And do it with flair!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -152,6 +217,7 @@
       "name": "Dr. Zorbo Helmet",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Apparel_Headwear_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_apparel_headwear_zorbo.webp",
       "description": "Deliver your revenge and finally conquer the galaxy with this Dr. Zorbo Helmet!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -161,6 +227,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_PowerArmor_Model_Skellscream_Howling",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_powerarmor_model_skellscream_howling.webp",
       "description": "With the Howler by his side, Zorbo's Revenge is complete! No one can stop him in this galaxy!!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -170,6 +237,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_PowerArmor_Model_Skellscream",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_powerarmor_model_skellscream.webp",
       "description": "Leave the world Lifeless around you with this Skellscream Power Armor Paint!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -178,6 +246,7 @@
       "name": "Zorbo Power Armor T-45 Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_PowerArmor_Paint_T45_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_powerarmor_paint_t45_zorbo.webp",
       "description": "A patentend Zorbo invention for destruction!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -186,6 +255,7 @@
       "name": "Zorbo Power Armor T-51 Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_PowerArmor_Paint_T51_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_powerarmor_paint_t51_zorbo.webp",
       "description": "A patentend Zorbo invention for destruction!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -194,6 +264,7 @@
       "name": "Zorbo Power Armor Excavator Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_PowerArmor_Paint_Excavator_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_powerarmor_paint_excavator_zorbo.webp",
       "description": "A patentend Zorbo invention for destruction!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -202,6 +273,7 @@
       "name": "Zorbo Power Armor T-60 Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_PowerArmor_Paint_T60_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_powerarmor_paint_t60_zorbo.webp",
       "description": "A patentend Zorbo invention for destruction!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -210,6 +282,7 @@
       "name": "Zorbo Power Armor T-65 Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_PowerArmor_Paint_T65_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_powerarmor_paint_t65_zorbo.webp",
       "description": "A patentend Zorbo invention for destruction!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -218,6 +291,7 @@
       "name": "Zorbo Power Armor Ultracite Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_PowerArmor_Paint_Ultracite_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_powerarmor_paint_ultracite_zorbo.webp",
       "description": "A patentend Zorbo invention for destruction!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -226,6 +300,7 @@
       "name": "Zorbo Power Armor X-01 Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_PowerArmor_Paint_X01_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_powerarmor_paint_x01_zorbo.webp",
       "description": "A patented Zorbo invention for destruction!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -235,6 +310,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_WeaponSkin_Sword_Toshiro",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_weaponskin_sword_toshiro.webp",
       "description": "Strength and swiftness must be used when wielding the razor-sharp weapon of choice of the ancient samurai.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -  - Works with most 1h melee weapons. -"
     },
     {
@@ -244,6 +320,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_Kit_OrderOfMystery",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_kit_orderofmystery.webp",
       "description": "Build a Mysterious hideaway with the Order Of Mystery Kit!  - Includes a wall kit with rooftops. - - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -252,6 +329,7 @@
       "name": "Military Stars Floor and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_Floor_MilitaryStar",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_floor_militarystar.webp",
       "description": "Give your C.A.M.P. a militaristic look with the Military Stars Floor.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -260,6 +338,7 @@
       "name": "Starscape Floors and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_Floor_Starscape",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_floor_starscape.webp",
       "description": "Walk upon the sky with this dreamy Starscape Floor.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -269,6 +348,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "zzzSCORE_S7_ENTM_CAMP_Utility_Collectron_Zetan",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_utility_collectron_zetan.webp",
       "description": "The RobCo Faithful Electronic Trash Collection Hound collects electronic scrap and is programmed to always be happy to see you!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -278,6 +358,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_Utility_BubbleMachine",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_utility_bubblemachine.webp",
       "description": "Have some Wavy Willard's fun with the Wavy Willard's Bubble Machine!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -286,6 +367,7 @@
       "name": "Enclave Three-Laser Door",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_Door_Metal_Enclave_01",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_door_metal_enclave_01.webp",
       "description": "Add some variety to your Enclave C.A.M.P. with the Enclave Three-Laser Door.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -295,6 +377,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_Furniture_ShootingGallery_AlienInvasion",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_furniture_shootinggallery_alieninvasion.webp",
       "description": "Prepare yourself for an invasion with the Alien Invasion Shooting Gallery!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -304,6 +387,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_Furniture_PatioTable_UFO",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_furniture_patiotable_ufo.webp",
       "description": "Unidentified Friendly Object incoming! Have your friends over with this space themed patio table!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -313,6 +397,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_FloorDecor_Plushie_Octosaw",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_floordecor_plushie_octosaw.webp",
       "description": "Death by 8 thousand of the cutest cuts!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -321,6 +406,7 @@
       "name": "Floating Face Farrah's Flagon",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_FloorDecor_Stein_FloatingFace",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_floordecor_stein_floatingface.webp",
       "description": "What concoction has Floating Face Farrah fused  up on Ketson Prime?!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -330,6 +416,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_Utility_SlotMachine_WV",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_utility_slotmachine_wv.webp",
       "description": "Are you lucky enough to win the jackpot? Spin the reels of the West Virginia Slot Machine and find out!  Slot machines grant rewards only to players who spend Caps to use them.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -338,6 +425,7 @@
       "name": "Zorbo's Revenge Gameboard",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_WallDeco_Zorbo_Gameboard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_walldeco_zorbo_gameboard.webp",
       "description": "Zorbo's Revenge is complete! No one can stop him in this galaxy!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -347,6 +435,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_Ally_Xerxo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_ally_xerxo.webp",
       "description": "Xerxo is an alien from the proud Zebulon Empire. At least, that's what he thinks.  - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
     },
     {
@@ -355,6 +444,7 @@
       "name": "Alien Backpack Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_BackpackFlair_Alien",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_backpackflair_alien.webp",
       "description": "Be out of this world with this Alien Backpack Flair!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
     },
     {
@@ -363,6 +453,7 @@
       "name": "Alien Ship Backpack Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Skin_BackpackFlair_AlienShip",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_skin_backpackflair_alienship.webp",
       "description": "Fly away with this spaceship Backpack Flair!  Flairs can be applied to most Backpacks.  - FLAIRS ARE APPLIED AT ARMOR WORKBENCHES. -"
     },
     {
@@ -371,6 +462,7 @@
       "name": "Framed Dr. Zorbo Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_WallDeco_Poster_Zorbo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_walldeco_poster_zorbo.webp",
       "description": "Why are bad guys' Posters always the coolest Posters? Find out for yourself with the Framed Dr. Zorbo Poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -379,6 +471,7 @@
       "name": "Dr. Zorbo's Magic Pose",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Photomode_Pose_Zorbo_Magic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_photomode_pose_zorbo_magic.webp",
       "description": "Make your enemies disappear! Impress your friends and scare your enemies with the Dr. Zorbo's Magic Pose.  - UNLOCKS A PHOTOMODE POSE. -"
     },
     {
@@ -387,6 +480,7 @@
       "name": "Evil Doctor Pose",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_Photomode_Pose_Zorbo_EvilDoctor",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_photomode_pose_zorbo_evildoctor.webp",
       "description": "Why take over the world when you can take over the galaxy?!  - UNLOCKS A PHOTOMODE POSE. -"
     },
     {
@@ -396,6 +490,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_Ally_KatherineSwan",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_ally_katherineswan.webp",
       "description": "Reach for the stars with Katherine, an astronomer obsessed with the study of extraterrestrial life.  - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
     },
     {
@@ -404,6 +499,7 @@
       "name": "Starscape Wallpaper",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S7_ENTM_CAMP_WallPaper_Starscape",
+      "imageUrl": "/wp-content/uploads/season_images/score_s7_camp_wallpaper_starscape.webp",
       "description": "Make your room among the stars with this dreamy Starscape Wallpaper.  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
     }
   ]

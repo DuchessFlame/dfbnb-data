@@ -1,0 +1,125 @@
+name: Build Season Rewards Data
+
+# Regenerates the curated scoreboard data for every season from the master TSV.
+#
+# tsv/season_rewards.tsv is the single source of truth for seasons that have
+# shipped. build_pts_season_scoreboard.py fills in FUTURE seasons generatively
+# from the ENTM export and deliberately skips any season present in that TSV,
+# so the two builders never fight over the same file.
+#
+# Until this workflow existed, build_season_rewards.py was never run in CI:
+# dist/calculators/season_tickets_s1..s23.json were orphaned PTS output that got
+# overwritten on every patch build, which is why curated images and ticket costs
+# for those seasons never survived.
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/season_rewards.tsv'
+      - 'tsv/fallout76_seasons.tsv'
+      - 'tsv/ENTM_Export_*.tsv'
+      - 'src/build_season_rewards.py'
+      - 'src/build_season_image_manifests.py'
+      - '.github/workflows/build-season-rewards.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build season rewards JSON
+        run: |
+          mkdir -p dist/calculators
+          python src/build_season_rewards.py
+
+      # Joins each season's curated rewards against the ENTM export to produce the
+      # per-season texture extraction manifests (dist/season_images/season_{N}_images.json).
+      # These tell the local BAE/texconv/avifenc run exactly which .dds to pull and
+      # what to name the .avif, so back-filling art for an old season needs no hand-listing.
+      - name: Build season image manifests
+        run: python src/build_season_image_manifests.py
+
+      - name: Sanity check season rewards output
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+
+          dist = Path("dist/calculators")
+          tsv_seasons = set()
+          import csv
+          with open("tsv/season_rewards.tsv", encoding="utf-8-sig", newline="") as f:
+              for row in csv.DictReader(f, delimiter="\t"):
+                  n = (row.get("seasonNumber") or "").strip()
+                  if n.isdigit():
+                      tsv_seasons.add(int(n))
+
+          assert tsv_seasons, "season_rewards.tsv produced no seasons"
+          print(f"Seasons in master TSV: {len(tsv_seasons)} "
+                f"(S{min(tsv_seasons)}-S{max(tsv_seasons)})")
+
+          problems = []
+          for n in sorted(tsv_seasons):
+              p = dist / f"season_tickets_s{n}.json"
+              if not p.exists():
+                  problems.append(f"S{n}: missing {p.name}")
+                  continue
+              d = json.loads(p.read_text(encoding="utf-8"))
+              items = d.get("items") or []
+              if not items:
+                  problems.append(f"S{n}: zero items")
+                  continue
+              # Every curated item must be identifiable and placeable on a page.
+              no_id = sum(1 for i in items if not i.get("id"))
+              no_page = sum(1 for i in items if not str(i.get("page") or "").strip())
+              no_name = sum(1 for i in items if not (i.get("name") or "").strip())
+              if no_id or no_page or no_name:
+                  problems.append(
+                      f"S{n}: {no_id} without id, {no_page} without page, "
+                      f"{no_name} without name")
+              imgs = sum(1 for i in items if i.get("imageUrl"))
+              print(f"  S{n:<2} {len(items):>3} items | imageUrl {imgs:>3}")
+
+          allp = dist / "all_seasons.json"
+          assert allp.exists(), "missing all_seasons.json"
+          allj = json.loads(allp.read_text(encoding="utf-8"))
+          print(f"all_seasons.json: {len(allj.get('seasons') or [])} seasons")
+
+          if problems:
+              print("\nFAILED:")
+              for p in problems:
+                  print("  " + p)
+              sys.exit(1)
+          print("\nOK")
+          PY
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/calculators/season_tickets_s*.json \
+                  dist/calculators/all_seasons.json \
+                  dist/season_images/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Season Rewards data"
+            git fetch origin main
+            git pull --rebase origin main
+            git push
+          fi

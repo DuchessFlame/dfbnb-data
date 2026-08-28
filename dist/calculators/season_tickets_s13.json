@@ -1,8 +1,59 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 13,
   "seasonName": "Shoot for the Stars",
@@ -45,6 +96,7 @@
       "kind": "playerIcon",
       "value": "The Devil's Moon",
       "storefrontEntitlement": "SCORE_S13_ENTM_PlayerIcon_BlueDevil",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_playericon_bluedevil.webp",
       "description": "Once in a blue moon, the Devil comes for YOU!",
       "tallyCategory": "player_icon"
     },
@@ -56,6 +108,7 @@
       "kind": "playerIcon",
       "value": "Honk Honk Stab Stab",
       "storefrontEntitlement": "SCORE_S13_ENTM_PlayerIcon_HonkHonkStabStab",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s13_clown.avif",
       "description": "For when you want to \"put the laughter into slaughter!\"  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -67,6 +120,7 @@
       "kind": "playerIcon",
       "value": "Clapperboard",
       "storefrontEntitlement": "SCORE_S13_ENTM_PlayerIcon_MovieClapper",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s13_clapperboard.avif",
       "description": "Sound. Camera. Action!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -78,6 +132,7 @@
       "kind": "playerIcon",
       "value": "Empire on the Nile",
       "storefrontEntitlement": "SCORE_S13_ENTM_PlayerIcon_EmpireOntheNile",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_playericon_empireonthenile.webp",
       "description": "If you can't see she's dangerous Antony, then you're in denial.",
       "tallyCategory": "player_icon"
     },
@@ -89,6 +144,7 @@
       "kind": "playerIcon",
       "value": "Weapon of Mass Attraction",
       "storefrontEntitlement": "SCORE_S13_ENTM_PlayerIcon_MassAttraction",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_playericon_massattraction.webp",
       "description": "What happens when artificial intelligence leads to real feelings?",
       "tallyCategory": "player_icon"
     },
@@ -100,6 +156,7 @@
       "kind": "playerIcon",
       "value": "Motorcycle Stuntman",
       "storefrontEntitlement": "SCORE_S13_ENTM_PlayerIcon_NuclearStuntman",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s13_motorcycle.avif",
       "description": "Baby on board!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -111,6 +168,7 @@
       "kind": "playerIcon",
       "value": "Shoot for the Stars",
       "storefrontEntitlement": "SCORE_S13_ENTM_PlayerIcon_ShootForTheStars",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s13_shootforthestars.avif",
       "description": "Will you top the box office or produce a flop?  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -120,6 +178,7 @@
       "name": "Wait For Me Emote",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Emotes_WaitForMe",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_emotes_waitforme.webp",
       "description": "Tell your friends to hold up, you need a minute.  - UNLOCKS AN EMOTE OPTION. -"
     },
     {
@@ -128,6 +187,7 @@
       "name": "Popcorn Emote",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Emotes_EatingPopcorn",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_emotes_eatingpopcorn.webp",
       "description": "Grab a snack and enjoy the show.  - UNLOCKS AN EMOTE OPTION. -"
     },
     {
@@ -137,6 +197,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Apparel_Outfit_RacecarDriver",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_apparel_outfit_racecardriver.webp",
       "description": "Go for speed with this Racecar Driver Outfit!   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -146,6 +207,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Apparel_Underarmor_Luchador",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_apparel_underarmor_luchador.webp",
       "description": "Live out your Lucha Libre dreams with this Luchador outfit!  This item is worn under your armor and in the Casual mod group.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -155,6 +217,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Apparel_Outfit_CrystalGazer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_apparel_outfit_crystalgazer.webp",
       "description": "Gaze into your future with this all seeing Crystal-Gazer outfit and headwear.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -164,6 +227,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Apparel_Outfit_RubberMonster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_apparel_outfit_rubbermonster.webp",
       "description": "Wreak havoc on Appalachia in this one of a kind Rubber Monster Outfit.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -172,6 +236,7 @@
       "name": "Blue Ridge Scout Outfit",
       "cost": 0,
       "storefrontEntitlement": "zzzSCORE_S13_ENTM_Apparel_Outfit_BlueRidgeScout",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_apparel_outfit_blueridgescout.webp",
       "description": "Fit right in with the Blue Ridge Caravan Company with this Blue Ridge Scout outfit!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -181,6 +246,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_PowerArmor_Paint_Excavator_Golden",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_powerarmor_paint_excavator_golden.webp",
       "description": "Battle your enemies in style with this Hollywood styled Golden Power Armor!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -190,6 +256,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_PowerArmor_Paint_Hellcat_Golden",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_powerarmor_paint_hellcat_golden.webp",
       "description": "Battle your enemies in style with this Hollywood styled Golden Power Armor!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -199,6 +266,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_PowerArmor_Paint_Union_Golden",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_powerarmor_paint_union_golden.webp",
       "description": "Battle your enemies in style with this Hollywood styled Golden Power Armor!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -208,6 +276,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_PowerArmor_Paint_Ultracite_Golden",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_powerarmor_paint_ultracite_golden.webp",
       "description": "Battle your enemies in style with this Hollywood styled Golden Power Armor!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -217,6 +286,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_PowerArmor_Paint_T65_Golden",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_powerarmor_paint_t65_golden.webp",
       "description": "Battle your enemies in style with this Hollywood styled Golden Power Armor!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -226,6 +296,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_PowerArmor_Paint_X01_Golden",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_powerarmor_paint_x01_golden.webp",
       "description": "Battle your enemies in style with this Hollywood styled Golden Power Armor!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -235,6 +306,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_PowerArmor_Paint_T60_Golden",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_powerarmor_paint_t60_golden.webp",
       "description": "Battle your enemies in style with this Hollywood styled Golden Power Armor!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -244,6 +316,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_PowerArmor_Paint_T51_Golden",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_powerarmor_paint_t51_golden.webp",
       "description": "Battle your enemies in style with this Hollywood styled Golden Power Armor!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -253,6 +326,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_PowerArmor_Paint_T45_Golden",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_powerarmor_paint_t45_golden.webp",
       "description": "Battle your enemies in style with this Hollywood styled Golden Power Armor!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -262,6 +336,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_WeaponSkin_RailwayRifle_Gilded",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_weaponskin_railwayrifle_gilded.webp",
       "description": "Put the \"flash\" in \"muzzle flash\" with this Railway Rifle Gilded Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -271,6 +346,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_WeaponSkin_10mm_Gilded",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_weaponskin_10mm_gilded.webp",
       "description": "Put the \"flash\" in \"muzzle flash\" with this 10mm Gilded Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -280,6 +356,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_WeaponSkin_44_Gilded",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_weaponskin_44_gilded.webp",
       "description": "Put the \"flash\" in \"muzzle flash\" with this .44 Pistol Gilded Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -289,6 +366,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_WeaponSkin_GatlingGun_Gilded_Copy01",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_weaponskin_gatlinggun_gilded_copy01.webp",
       "description": "Put the \"flash\" in \"muzzle flash\" with this Gatling Gun Gilded Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -297,6 +375,7 @@
       "name": "Hollywood Stars Floor and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Floor_HollywoodStars",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floor_hollywoodstars.webp",
       "description": "Walk among the stars with this classy Hollywood Stars Floor!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -306,6 +385,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Utility_HollywoodPopcornMachine",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_utility_hollywoodpopcornmachine.webp",
       "description": "Fresh Popcorn, who wants some Popcorn?  - Collects Popcorn over time -  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -314,6 +394,7 @@
       "name": "Hollywood Vanity",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Utility_HollywoodVanity",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_utility_hollywoodvanity.webp",
       "description": "Better get ready for your close up!  - Using the Hollywood Vanity will grant a temporary Charisma stat Boost -  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -323,6 +404,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Utility_Gramophone_Hollywood",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_utility_gramophone_hollywood.webp",
       "description": "Give your C.A.M.P. a soundtrack with the Hollywood Gramophone!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -331,6 +413,7 @@
       "name": "Red Curtain Door",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Door_Curtain_RedCurtainDoor",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_door_curtain_redcurtaindoor.webp",
       "description": "Impress your guests as you usher them through this Red Curtain Door!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -339,6 +422,7 @@
       "name": "Theater Door",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Door_Wood_TheaterDoor",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_door_wood_theaterdoor.webp",
       "description": "What's a theater without a Theater Door? Drafty.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -347,6 +431,7 @@
       "name": "Theater Row Seating",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Furniture_TheaterRowSeating",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_furniture_theaterrowseating.webp",
       "description": "Grab some popcorn and kick up your heels in these comfy Theater Row Seats!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -355,6 +440,7 @@
       "name": "Director's Chair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Furniture_Chair_DirectorsChair",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_furniture_chair_directorschair.webp",
       "description": "It's your time to call the shots all from the comfort of your very own Director's Chair!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -363,6 +449,7 @@
       "name": "Sheepsquatch Rug",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_Rug_SheepsquatchRug",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floordecor_rug_sheepsquatchrug.webp",
       "description": "What better way to display your utter dominance over the legendary Sheepsquatch than to use it as a rug?  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -371,6 +458,7 @@
       "name": "Star-Studded Stein",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_Stein_StarStudded",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floordecor_stein_starstudded.webp",
       "description": "You'll be the toast of Hollywood with this Star-Studded Stein! (Champagne not included).  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -379,6 +467,7 @@
       "name": "Miniature City Set",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_MiniatureCity",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floordecor_miniaturecity.webp",
       "description": "Escape the big city life and make a mini city instead with the Miniature City Building Set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -388,6 +477,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_GoldenRopeBarrier",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floordecor_goldenropebarrier.webp",
       "description": "Make your C.A.M.P. feel exclusive AND keep the riffraff out with this Golden Rope Barrier.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -396,6 +486,7 @@
       "name": "Red Carpet Rug",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_Rug_RedCarpetRug",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floordecor_rug_redcarpetrug.webp",
       "description": "Walk with style on this luxurious Red Carpet!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -404,6 +495,7 @@
       "name": "The Devil's Moon",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_MovieProjector",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floordecor_movieprojector.webp",
       "description": "Movie Projector"
     },
     {
@@ -412,6 +504,7 @@
       "name": "Studio Camera",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_StudioCamera",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floordecor_studiocamera.webp",
       "description": "Lights, camera, and action! Go Hollywood with the Studio Camera for your C.A.M.P.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -421,6 +514,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_GoldiesAward_Small",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floordecor_goldiesaward_small.webp",
       "description": "And the Goldie goes to... You! Celebrate your greatness with this Goldie Award.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -430,6 +524,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_GoldiesAward_Large",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_floordecor_goldiesaward_large.webp",
       "description": "And the Goldie goes to... You! Celebrate your greatness with this lifesize Large Goldie Award!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -438,6 +533,7 @@
       "name": "Shoot For The Stars Gameboard",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_S13BoardHollywood",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_s13boardhollywood.webp",
       "description": "Celebrate your rise to stardom with the Shoot For The Stars Gameboard!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -446,6 +542,7 @@
       "name": "Theatre Signs",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_WallSigns_Theater",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_wallsigns_theater.webp",
       "description": "Display these Theatre Signs and give your personal theater that Hollywood touch!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -455,6 +552,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_TheaterMarquee",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_theatermarquee.webp",
       "description": "Show your friends what's playing with this classic Theater Marquee!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -463,6 +561,7 @@
       "name": "Concession Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_ConcessionSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_concessionsign.webp",
       "description": "Show your friends what's on the menu with this Concession Sign.   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -471,6 +570,7 @@
       "name": "The Devil's Moon Movie Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_MoviePoster_DevilMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_movieposter_devilmoon.webp",
       "description": "Showcase your love for horror films with this \"The Devil's Moon\" movie poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -480,6 +580,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_JerseyDevilCryptid_Poster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_jerseydevilcryptid_poster.webp",
       "description": "Display your love for the Jersey Devil with this collectable cryptid poster!   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -489,6 +590,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_MothmanCryptid_Poster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_mothmancryptid_poster.webp",
       "description": "Display your love for the Mothman with this collectable cryptid poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -498,6 +600,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_BlueDevilCryptid_Poster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_bluedevilcryptid_poster.webp",
       "description": "Display your love for the Blue Devil with this collectable cryptid poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -507,6 +610,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_GraftonMonsterCryptid_Poster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_graftonmonstercryptid_poster.webp",
       "description": "Display your love for the Grafton Monster with this collectable cryptid poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -516,6 +620,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_OguaCryptid_Poster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_oguacryptid_poster.webp",
       "description": "Display your love for the Ogua with this collectable cryptid poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -525,6 +630,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_FlatwoodsMonsterCryptid_Poster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_flatwoodsmonstercryptid_poster.webp",
       "description": "Display your love for the Flatwoods Monster with this collectable cryptid poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -534,6 +640,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_BeastofBeckleyCryptid_Poster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_beastofbeckleycryptid_poster.webp",
       "description": "Display your love for the Beast of Beckley with this collectable cryptid poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -542,6 +649,7 @@
       "name": "Honk Honk Stab Stab Movie Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_MoviePoster_HonkHonkStabStab",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_movieposter_honkhonkstabstab.webp",
       "description": "Put the laughter into slaughter"
     },
     {
@@ -550,6 +658,7 @@
       "name": "Weapon of Mass Attraction Movie Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_MoviePoster_MassAttraction",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_movieposter_massattraction.webp",
       "description": "Showcase your love for romantic comedies with this \"Weapon of Mass Attraction\" movie poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -558,6 +667,7 @@
       "name": "Spheksophobia Movie Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_MoviePoster_Spheksophobia",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_movieposter_spheksophobia.webp",
       "description": "Show everyone what all the buzz is about with this \"Spheksophobia\" movie poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -566,6 +676,7 @@
       "name": "The Egg Movie Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDecor_MoviePoster_TheEgg",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldecor_movieposter_theegg.webp",
       "description": "Showcase your love for \"The Egg\" with this movie poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -574,6 +685,7 @@
       "name": "The Bada-Boom (Super Sledge)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_WeaponModel_SuperSledge_BoomStick_Bada-Boom",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_weaponmodel_supersledge_boomstick_bada-boom.webp",
       "description": "Give your foes some direct feedback with the Bada-Boom!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -582,6 +694,7 @@
       "name": "Stuntman Secret Service Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_ArmorSkin_SecretService_Stuntman",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_armorskin_secretservice_stuntman.webp",
       "description": "Become the daredevil you were meant to be in this new Stuntman Secret Service Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -590,6 +703,7 @@
       "name": "Stuntman Combat Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_ArmorSkin_Combat_Stuntman",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_armorskin_combat_stuntman.webp",
       "description": "Become the daredevil you were meant to be in this new Stuntman Combat Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -598,6 +712,7 @@
       "name": "Stuntman Marine Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_ArmorSkin_Marine_Stuntman",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_armorskin_marine_stuntman.webp",
       "description": "Become the daredevil you were meant to be in this new Stuntman Marine Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -606,6 +721,7 @@
       "name": "Stuntman Robot Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_ArmorSkin_Robot_Stuntman",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_armorskin_robot_stuntman.webp",
       "description": "Become the daredevil you were meant to be in this new Stuntman Robot Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -614,6 +730,7 @@
       "name": "Stuntman Metal Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_ArmorSkin_Metal_Stuntman",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_armorskin_metal_stuntman.webp",
       "description": "Become the daredevil you were meant to be in this new Stuntman Metal Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -622,6 +739,7 @@
       "name": "Stuntman Leather Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_ArmorSkin_Leather_Stuntman",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_armorskin_leather_stuntman.webp",
       "description": "Become the daredevil you were meant to be in this new Stuntman Leather Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -630,6 +748,7 @@
       "name": "Stuntman Scout Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_ArmorSkin_Scout_Stuntman",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_armorskin_scout_stuntman.webp",
       "description": "Become the daredevil you were meant to be in this new Stuntman Scout Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -638,6 +757,7 @@
       "name": "Filmstrip Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Photomode_Frame_Filmstrip",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_photomode_frame_filmstrip.webp",
       "description": "Capture all your favorite moments on film with this Filmstrip Photomode Frame!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -646,6 +766,7 @@
       "name": "Movie Reel Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Photomode_Frame_MovieReel",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_photomode_frame_moviereel.webp",
       "description": "You'll be ready for your close up with this Movie Reel Photomode Frame.  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -655,6 +776,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallPaper_ArtDecoTheater",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_wallpaper_artdecotheater.webp",
       "description": "Decorate your home theater with this classy Art Deco Theater Wallpaper!  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
     },
     {
@@ -663,6 +785,7 @@
       "name": "Camera Pack Backpack",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_Backpack_CameraPack",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_backpack_camerapack.webp",
       "description": "Never be caught without your movie camera with the Camera Pack Backpack!  This skin can be applied to both the Small and Standard Backpack as a mod.   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -671,6 +794,7 @@
       "name": "Film Reel Backpack Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_BackpackFlair_FilmReel",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_backpackflair_filmreel.webp",
       "description": "You'll always have your favorite movie within arm's reach with this Film Reel Flair!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -680,6 +804,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Light_Floor_MovieBillboard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_light_floor_moviebillboard.webp",
       "description": "Show off your love for Attack of the Fishmen but maybe don't let the Mirelurks see...  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -688,6 +813,7 @@
       "name": "Western Movie Set Facade",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Misc_MovieSetFacade_Western",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_misc_moviesetfacade_western.webp",
       "description": "Create your own faux western town with the Movie Set Facade collection!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -697,6 +823,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_WallDeco_Letters_Marquee",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_walldeco_letters_marquee.webp",
       "description": "Let your friends know what's showing with the Marquee Letters Set!  This set includes a unique, placeable item for each letter of the alphabet, numbers, and some punctuation!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -706,6 +833,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Lights_Ceiling_StudioLights",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_lights_ceiling_studiolights.webp",
       "description": "Put your C.A.M.P. into the spotlight with the help of these Studio Lights!   Includes Blue, Green, Red, and White lights at both a high and low angle.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -715,6 +843,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Lights_NeonLightSet",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_lights_neonlightset.webp",
       "description": "Give your C.A.M.P. a moody ambiance and let your creativity run wild with the Neon Light set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -723,6 +852,7 @@
       "name": "Applause Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Lights_Wall_ApplauseSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_lights_wall_applausesign.webp",
       "description": "Put your hands together for this Applause Sign!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -732,6 +862,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_ArmorSkin_Chinese_Stealth_Armor_Camo_Woodland",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_armorskin_chinese_stealth_armor_camo_woodland.webp",
       "description": "Be extra stealthy with the Woodland Camouflage Paint for the Chinese Stealth Armor.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -741,6 +872,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Ally_JoeyBello",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_ally_joeybello.webp",
       "description": "Knock knock. Who's there? It's Joey Bello, wise cracking wise guy!  - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
     },
     {
@@ -750,6 +882,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_CAMP_Decor_PyrotechnicKit",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_camp_decor_pyrotechnickit.webp",
       "description": "Want to walk away from explosions and stay safe? Then add the Pyrotechnic Kit to your C.A.M.P. today!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -758,6 +891,7 @@
       "name": "Popcorn Loot Bag",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S13_ENTM_Skin_LootBag_Popcorn",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_skin_lootbag_popcorn.webp",
       "description": "Why don't you pop some of those items into this  popping Popcorn Loot Bag!  This item replaces the appearance of your dropped Paper Bag.  - UNLOCKS A PLAYER LOOT BAG SKIN FOR ALL CHARACTERS. -"
     },
     {
@@ -767,6 +901,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S13_ENTM_Display_FlairDisplay",
+      "imageUrl": "/wp-content/uploads/season_images/score_s13_display_flairdisplay.webp",
       "description": "Show off your backpack flair collection by hanging them on this Jewelry Stand Flair Display!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     }
   ]

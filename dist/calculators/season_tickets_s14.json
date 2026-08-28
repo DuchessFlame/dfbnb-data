@@ -1,8 +1,59 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 14,
   "seasonName": "Fight for Freedom",
@@ -45,6 +96,7 @@
       "kind": "playerIcon",
       "value": "Eagle Balloon",
       "storefrontEntitlement": "SCORE_S14_ENTM_PlayerIcon_EagleBalloon",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s14_eagleballoon.avif",
       "description": "There, up in the sky! Is it a bird? Is it a balloon? Yes.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -56,6 +108,7 @@
       "kind": "playerIcon",
       "value": "Presidential State Car",
       "storefrontEntitlement": "SCORE_S14_ENTM_PlayerIcon_StateCar",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s14_presidentialcar.avif",
       "description": "Ride with authority and style!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -67,6 +120,7 @@
       "kind": "playerIcon",
       "value": "Army Tank",
       "storefrontEntitlement": "SCORE_S14_ENTM_PlayerIcon_ArmyTank",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s14_tank.avif",
       "description": "The road to war is best driven in tanks!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -78,6 +132,7 @@
       "kind": "playerIcon",
       "value": "Presidential Seal",
       "storefrontEntitlement": "SCORE_S14_ENTM_PlayerIcon_PresidentialSeal",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_playericon_presidentialseal.webp",
       "description": "E pluribus unum",
       "tallyCategory": "player_icon"
     },
@@ -89,6 +144,7 @@
       "kind": "playerIcon",
       "value": "Deep Spacewalk Power Armor",
       "storefrontEntitlement": "SCORE_S14_ENTM_PlayerIcon_DeepSpacePA",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s14_spacepa.avif",
       "description": "Securing our nation's freedom among the stars.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -100,6 +156,7 @@
       "kind": "playerIcon",
       "value": "Liberty Prime Salute",
       "storefrontEntitlement": "SCORE_S14_ENTM_PlayerIcon_LibertyPrimeSalute",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_playericon_libertyprimesalute.webp",
       "description": "Alaska's liberation is imminent!",
       "tallyCategory": "player_icon"
     },
@@ -111,6 +168,7 @@
       "kind": "playerIcon",
       "value": "Fight For Freedom",
       "storefrontEntitlement": "SCORE_S14_ENTM_PlayerIcon_FightForFreedom",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_playericon_fightforfreedom.webp",
       "description": "The cost of freedom is blood. Let's make the enemy pay!",
       "tallyCategory": "player_icon"
     },
@@ -121,6 +179,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Apparel_Underarmor_AlaskanWinter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_apparel_underarmor_alaskanwinter.webp",
       "description": "Stay frosty with the Alaskan Winter Secret Service Underarmor.  (Requires the Secret Service Underarmor Plan to be learned.)  This item is worn under your armor and is in the Secret Service mod group."
     },
     {
@@ -129,6 +188,7 @@
       "name": "Deep Spacewalk Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Model_DeepSpace",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_model_deepspace.webp",
       "description": "Take a giant leap for mankind with the Deep Spacewalk Power Armor Paint!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -138,6 +198,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "ZZZSCORE_S14_ENTM_Skin_PowerArmor_Paint_DeepSpace",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_deepspace.webp",
       "description": "Take a giant leap for Mankind with the Deep Space Power Armor Paint!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on the Excavator, Raider, T-45, T-51, T-60, T-65, Ultracite, Union, and X-01 Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -147,6 +208,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Paint_X01_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_x01_presidential.webp",
       "description": "Defend your country while looking your best in this Presidential Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -156,6 +218,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Paint_Union_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_union_presidential.webp",
       "description": "Defend your country while looking your best in this Presidential Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -165,6 +228,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Paint_Ultracite_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_ultracite_presidential.webp",
       "description": "Defend your country while looking your best in this Presidential Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -174,6 +238,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Paint_T65_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_t65_presidential.webp",
       "description": "Defend your country while looking your best in this Presidential Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -183,6 +248,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Paint_T60_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_t60_presidential.webp",
       "description": "Defend your country while looking your best in this Presidential Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -192,6 +258,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Paint_T51_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_t51_presidential.webp",
       "description": "Defend your country while looking your best in this Presidential Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -201,6 +268,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Paint_T45_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_t45_presidential.webp",
       "description": "Defend your country while looking your best in this Presidential Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -210,6 +278,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Paint_Hellcat_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_hellcat_presidential.webp",
       "description": "Defend your country while looking your best in this Presidential Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -219,6 +288,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PowerArmor_Paint_Excavator_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_powerarmor_paint_excavator_presidential.webp",
       "description": "Defend your country while looking your best in this Presidential Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -228,6 +298,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_WeaponSkin_Camera_AmericanStripes",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_weaponskin_camera_americanstripes.webp",
       "description": "Take pictures like a patriot with this American Stripes Camera Paint!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -237,6 +308,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_WeaponSkin_CeremonialMace",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_weaponskin_ceremonialmace.webp",
       "description": "This ceremonial symbol of office can be used to command respect and as a weapon!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -  - Works with Lead Pipe, Tire Iron, Baton, Pipe Wrench and Revolutionary Sword. -"
     },
     {
@@ -246,6 +318,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_WeaponSkin_TeslaRifle_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_weaponskin_teslarifle_presidential.webp",
       "description": "Give your weapon a touch of class with this Presidential Tesla Rifle Paint!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -255,6 +328,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_WeaponSkin_50calMachineGun_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_weaponskin_50calmachinegun_presidential.webp",
       "description": "Give your weapon a touch of class with this Presidential .50 Cal Machine Gun Paint!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -264,6 +338,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_WeaponSkin_MG42_Presidential",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_weaponskin_mg42_presidential.webp",
       "description": "Give your weapon a touch of class with this Presidential Light Machine Gun Paint!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -272,6 +347,7 @@
       "name": "Army Base Kit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Kit_ArmyBase",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_kit_armybase.webp",
       "description": "Build up your base with this all new Army Base Kit!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -280,6 +356,7 @@
       "name": "Green Army Camo Carpet Floor and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Floor_GreenArmyCamoCarpet",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floor_greenarmycamocarpet.webp",
       "description": "Camoflauge your floors with this Green Army Camo Carpet.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -288,6 +365,7 @@
       "name": "Gray Army Camo Carpet Floor and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Floor_GrayArmyCamoCarpet",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floor_grayarmycamocarpet.webp",
       "description": "Camoflauge your floors with this Gray Army Camo Carpet.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -297,6 +375,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Machinery_PowerConnectors_TeslaCoil",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_machinery_powerconnectors_teslacoil.webp",
       "description": "Charge up your C.A.M.P with these Tesla Coil Power Connectors!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -305,6 +384,7 @@
       "name": "Brewery Fermenter",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Machinery_Workbench_BreweryFermenter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_machinery_workbench_breweryfermenter.webp",
       "description": "Transform your C.A.M.P. into the local brewery with this Brewery Fermenter!  Requires Fermenting Station to be learned.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -314,6 +394,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_utility_collectron_autominer.webp",
       "description": "Tired of mining all that ore by yourself? Well now you don't have to with the Auto-Miner Collectron!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -323,6 +404,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Bed_RaiderFourPoster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_bed_raiderfourposter.webp",
       "description": "Every morning there's a skull hanging from the corner of this Raider Four-Poster Bed.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -332,6 +414,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Furniture_Table_Presidential_Desk",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_furniture_table_presidential_desk.webp",
       "description": "Deck out your camp in presidential style with the Presidential Desk!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -340,6 +423,7 @@
       "name": "Oval Office Rug",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_FloorDecor_Rug_OvalOfficeRug",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floordecor_rug_ovalofficerug.webp",
       "description": "Place this Oval Office Rug to give any room that presidential feel.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -348,6 +432,7 @@
       "name": "Enclave Emblem Rug",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_FloorDecor_Rug_EnclaveOvalOfficeRug",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floordecor_rug_enclaveovalofficerug.webp",
       "description": "No more secrets. Show the world who's boss with this Enclave Emblem Rug  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -356,6 +441,7 @@
       "name": "Tricentennial Stein",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_FloorDecor_Stein_Tricentennial",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floordecor_stein_tricentennial.webp",
       "description": "Celebrate 300 years of America with this patriotic Tricentennial Stein.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -364,6 +450,7 @@
       "name": "Ground Military Vehicle Set",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_FloorDecor_MilitaryVehicles_JTA",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floordecor_militaryvehicles_jta.webp",
       "description": "Create your own mini battlefield with this Ground Military Vehicle Set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -372,6 +459,7 @@
       "name": "Shooting Target Stand",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_FloorDecor_ShootingTarget_Stand",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floordecor_shootingtarget_stand.webp",
       "description": "A classic shooting target, perfect for any firearms enthusiast.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -381,6 +469,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_FloorDecor_Trophys",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floordecor_trophys.webp",
       "description": "Celebrate your achievements with this set of trophies!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -389,6 +478,7 @@
       "name": "Undetonated Bomb",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_FloorDecor_UndetonatedBomb",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floordecor_undetonatedbomb.webp",
       "description": "Make your C.A.M.P. the ultimate hotspot when you add this Undetonated Bomb!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -398,6 +488,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_FloorDecor_Tricycle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floordecor_tricycle.webp",
       "description": "Show off your playful side with this Tricycle!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -406,6 +497,7 @@
       "name": "Air Military Vehicle Set",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_FloorDecor_MilitaryVehicles_PV",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_floordecor_militaryvehicles_pv.webp",
       "description": "Create your own mini fight for the skies with this Air Military Vehicle Set!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -415,6 +507,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_RecruitmentPoster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_recruitmentposter.webp",
       "description": "Support the troops with this set of Army Posters!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -423,6 +516,7 @@
       "name": "Birthday Banner",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_BirthdayBanner",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_birthdaybanner.webp",
       "description": "Throw yourself a party with this Birthday Banner!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -431,6 +525,7 @@
       "name": "Chems Signs",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_ChemsSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_chemssign.webp",
       "description": "Inform others of your stance on chem use with these helpful signs!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -439,6 +534,7 @@
       "name": "Beware of Deathclaw Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_BewareOfDeathclawSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_bewareofdeathclawsign.webp",
       "description": "Deathclaws in your backyard? Hang this sign to warn any couriers!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -447,6 +543,7 @@
       "name": "Fight For Freedom Gameboard",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_S14Board_Tricentennial",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_s14board_tricentennial.webp",
       "description": "Reminisce on past and future victories with this framed Fight For Freedom Gameboard.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -455,6 +552,7 @@
       "name": "Hanging Phone",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_HangingPhone",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_hangingphone.webp",
       "description": "Become the talk of the town when you display this decorative Hanging Phone.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -463,6 +561,7 @@
       "name": "Fight For Freedom: Revolution Painting",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_Painting_Freedom01",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_painting_freedom01.webp",
       "description": "Celebrate the long history of American victories with the Fight For Freedom: Revolution Painting!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -471,6 +570,7 @@
       "name": "Fight For Freedom: Storming the Beach Painting",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_Painting_Freedom02",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_painting_freedom02.webp",
       "description": "Celebrate the long history of American victories with the Fight For Freedom: Storming the Beach Painting!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -479,6 +579,7 @@
       "name": "Fight For Freedom: Moon Mission Painting",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_Painting_Freedom03",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_painting_freedom03.webp",
       "description": "Celebrate the long history of American victories with the Fight For Freedom: Moon Mission Painting!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -487,6 +588,7 @@
       "name": "Fight For Freedom: Alaska Liberation Painting",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_Painting_Freedom04",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_painting_freedom04.webp",
       "description": "Celebrate the long history of American victories with the Fight For Freedom: Alaska Liberation Painting!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -495,6 +597,7 @@
       "name": "Fight For Freedom: Assured Victory Painting",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDecor_Painting_Freedom05",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldecor_painting_freedom05.webp",
       "description": "Celebrate future American victories with the Fight For Freedom: Assured Victory!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -503,6 +606,7 @@
       "name": "Medical Backpack",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_Backpack_Box_Medical",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_backpack_box_medical.webp",
       "description": "Be ready for any medical emergency with this Medical Backpack.  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -511,6 +615,7 @@
       "name": "Patriotic Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Photomode_Frame_USAPatriot",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_photomode_frame_usapatriot.webp",
       "description": "Show off your love for America with this Patriotic Photomode frame!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -519,6 +624,7 @@
       "name": "Presidential Address Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Photomode_Frame_PresidentialAddress",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_photomode_frame_presidentialaddress.webp",
       "description": "Win the hearts and minds of America with this Presidential Address photoframe!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -527,6 +633,7 @@
       "name": "Enclave Case Loot Bag",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_LootBag_Enclave",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_lootbag_enclave.webp",
       "description": "Keep your secrets and junk tucked safely away within this Enclave Case Loot Bag!  This item replaces the appearance of your dropped Paper Bag.  - UNLOCKS A PLAYER LOOT BAG SKIN FOR ALL CHARACTERS. -"
     },
     {
@@ -535,6 +642,7 @@
       "name": "Ammo Cache Backpack",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_Backpack_AmmoBag",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_backpack_ammobag.webp",
       "description": "Carry your ammunition around Appalachia in this Ammo Cache Backpack!  This skin can be applied to both the Small and Standard Backpack as a mod.   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -543,6 +651,7 @@
       "name": "Birthday Cupcake Backpack Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_BackpackFlair_BirthdayCake",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_backpackflair_birthdaycake.webp",
       "description": "You'll always be ready to celebrate with this Birthday Cupcake Flair.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -551,6 +660,7 @@
       "name": "Alaskan Winter Leather Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_ArmorSkin_Leather_AlaskanWinter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_armorskin_leather_alaskanwinter.webp",
       "description": "Stay frosty with this stylish Alaskan Winter Leather Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -559,6 +669,7 @@
       "name": "Alaskan Winter Robot Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_ArmorSkin_Robot_AlaskanWinter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_armorskin_robot_alaskanwinter.webp",
       "description": "Stay frosty with this stylish Alaskan Winter Robot Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -567,6 +678,7 @@
       "name": "Alaskan Winter Marine Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_ArmorSkin_Marine_AlaskanWinter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_armorskin_marine_alaskanwinter.webp",
       "description": "Stay frosty with this stylish Alaskan Winter Marine Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -575,6 +687,7 @@
       "name": "Alaskan Winter Secret Service Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_ArmorSkin_SecretService_AlaskanWinter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_armorskin_secretservice_alaskanwinter.webp",
       "description": "Stay frosty with this stylish Alaskan Winter Secret Service Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -583,6 +696,7 @@
       "name": "Alaskan Winter Metal Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_ArmorSkin_Metal_AlaskanWinter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_armorskin_metal_alaskanwinter.webp",
       "description": "Stay frosty with this stylish Alaskan Winter Metal Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -591,6 +705,7 @@
       "name": "Alaskan Winter Combat Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_ArmorSkin_Combat_AlaskanWinter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_armorskin_combat_alaskanwinter.webp",
       "description": "Stay frosty with this stylish Alaskan Winter Combat Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -599,6 +714,7 @@
       "name": "Alaskan Winter Scout Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_ArmorSkin_Scout_AlaskanWinter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_armorskin_scout_alaskanwinter.webp",
       "description": "Stay frosty with this stylish Alaskan Winter Scout Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -607,6 +723,7 @@
       "name": "Oval Office Wallpaper",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallPaper_OvalOffice",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_wallpaper_ovaloffice.webp",
       "description": "Build your very own Oval Office with this new Wallpaper.  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
     },
     {
@@ -615,6 +732,7 @@
       "name": "Oval Office Long Curtains",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDeco_Curtain_Long_OvalOffice",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldeco_curtain_long_ovaloffice.webp",
       "description": "Drape your windows in presidential style with these Oval Office Long Curtains!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -624,6 +742,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_Utility_AmmoStorageBox_Enclave",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_utility_ammostoragebox_enclave.webp",
       "description": "Keep your secrets and ammunition safe within the Enclave Ammo Storage Box!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -632,6 +751,7 @@
       "name": "Red and White H&H Tools Scrapbox",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_ScrapBox_H&HTools01",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_scrapbox_h&htools01.webp",
       "description": "Keep your job site tidy and store your scrap inside the H&H Tools Scrapbox!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -641,6 +761,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_WallDeco_Display_GunRack_MountedEagle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_walldeco_display_gunrack_mountedeagle.webp",
       "description": "Proudly display your favorite weapon on this patriotic Carved Eagle Weapon Rack!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -649,6 +770,7 @@
       "name": "Wine Rack",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Display_WineRack",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_display_winerack.webp",
       "description": "Display your favorite drinks on this fine Wine Rack.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -658,6 +780,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Decor_PyrotechnicKit_FireworkLauncher",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_decor_pyrotechnickit_fireworklauncher.webp",
       "description": "Make every day feel like the 4th of July with the Firework Launcher!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -667,6 +790,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Lights_Ceiling_WhiteHousePorchLantern",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_lights_ceiling_whitehouseporchlantern.webp",
       "description": "Using a light fixture from the White House? What a \"Capital\" idea!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -675,6 +799,7 @@
       "name": "Nuka-Cola Pip-Boy Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_PipBoySkin_NukaCola",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_pipboyskin_nukacola.webp",
       "description": "Wear your favorite beverage brand with this Nuka-Cola Pip-Boy Paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -683,6 +808,7 @@
       "name": "Alaskan Winter Recon Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Skin_ArmorSkin_Recon_AlaskanWinter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_skin_armorskin_recon_alaskanwinter.webp",
       "description": "Stay frosty with this stylish Alaskan Winter Recon Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -692,6 +818,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S14_ENTM_CAMP_Ally_GrandmaJunko",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_camp_ally_grandmajunko.webp",
       "description": "Welcome this sweet old lady to your C.A.M.P.!  - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
     },
     {
@@ -700,6 +827,7 @@
       "name": "Birthday Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S14_ENTM_Photomode_Frame_BirthdayFrame",
+      "imageUrl": "/wp-content/uploads/season_images/score_s14_photomode_frame_birthdayframe.webp",
       "description": "Capture the moment and celebrate Fallout's birthday with us and your friends!  - UNLOCKS A PHOTOMODE FRAME. -"
     }
   ]

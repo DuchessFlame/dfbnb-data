@@ -1,6 +1,9 @@
 param(
     [Parameter(Mandatory=$true)]
-    [ValidateSet("titles-camp","titles-player")]
+    # player-icons holds the SHARED player icon art the scoreboard pages (and the
+    # planned player-icons page) read. Icons repeat across seasons, so they live in
+    # one folder named by source texture rather than being copied per season.
+    [ValidateSet("titles-camp","titles-player","player-icons")]
     [string]$Target
 )
 

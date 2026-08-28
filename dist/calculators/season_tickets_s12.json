@@ -1,8 +1,59 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 12,
   "seasonName": "Rip Daring and the Cryptid Hunt",
@@ -45,6 +96,7 @@
       "kind": "playerIcon",
       "value": "Percival",
       "storefrontEntitlement": "SCORE_S12_ENTM_PlayerIcon_PercivalIcon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_playericon_percivalicon.webp",
       "description": "Rip Daring's personal butler, tailor, navigator and monster lure!",
       "tallyCategory": "player_icon"
     },
@@ -56,6 +108,7 @@
       "kind": "playerIcon",
       "value": "Mothman Moon",
       "storefrontEntitlement": "SCORE_S12_ENTM_PlayerIcon_MothmanMoon",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s12_mothmanmoon.avif",
       "description": "The man. The moth. The legend.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -67,6 +120,7 @@
       "kind": "playerIcon",
       "value": "Grafton Fog Icon",
       "storefrontEntitlement": "SCORE_S12_ENTM_PlayerIcon_GraftonMonsterIcon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_playericon_graftonmonstericon.webp",
       "description": "There, in the fog! Could that be the Beast of Grafton!",
       "tallyCategory": "player_icon"
     },
@@ -78,6 +132,7 @@
       "kind": "playerIcon",
       "value": "Rip Daring",
       "storefrontEntitlement": "SCORE_S12_ENTM_PlayerIcon_RipDaringIcon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_playericon_ripdaringicon.webp",
       "description": "Rip is the deadliest predator - by land, sea, or air!",
       "tallyCategory": "player_icon"
     },
@@ -89,6 +144,7 @@
       "kind": "playerIcon",
       "value": "Bubblegum Guinevere",
       "storefrontEntitlement": "SCORE_S12_ENTM_PlayerIcon_GuinevereIcon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_playericon_guinevereicon.webp",
       "description": "As equally skilled at medicine as she is at deflecting Rip!",
       "tallyCategory": "player_icon"
     },
@@ -100,6 +156,7 @@
       "kind": "playerIcon",
       "value": "Rip Daring Logo",
       "storefrontEntitlement": "SCORE_S12_ENTM_PlayerIcon_RipDaringLogo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_playericon_ripdaringlogo.webp",
       "description": "It's time for another exciting journey with Rip Daring, Cryptid Hunter extraordinaire!",
       "tallyCategory": "player_icon"
     },
@@ -111,6 +168,7 @@
       "kind": "playerIcon",
       "value": "Sheepsquatch Icon",
       "storefrontEntitlement": "SCORE_S12_ENTM_PlayerIcon_SheepsquatchIcon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_playericon_sheepsquatchicon.webp",
       "description": "Shear terror: White, wooly, man-sheep spotted in West Virginia!",
       "tallyCategory": "player_icon"
     },
@@ -122,6 +180,7 @@
       "kind": "playerIcon",
       "value": "Laughing Guinevere",
       "storefrontEntitlement": "SCORE_S12_ENTM_PlayerIcon_LaughingGuinevereIcon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_playericon_laughingguinevereicon.webp",
       "description": "Time for your shots, Rip!",
       "tallyCategory": "player_icon"
     },
@@ -131,6 +190,7 @@
       "name": "One More Time Emote",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Emotes_OnceAgain",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_emotes_onceagain.webp",
       "description": "Let your friends know you're ready to go for another round.  - UNLOCKS AN EMOTE OPTION. -"
     },
     {
@@ -139,6 +199,7 @@
       "name": "Whirly Bird Hat",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Apparel_Headwear_WhirlyBirdHat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_apparel_headwear_whirlybirdhat.webp",
       "description": "Go ahead, take it for a spin!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -147,6 +208,7 @@
       "name": "Ripped Daring Outfit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Apparel_Outfit_RippedDaringOutfit",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_apparel_outfit_rippeddaringoutfit.webp",
       "description": "- APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -155,6 +217,7 @@
       "name": "Daring Adventure Secret Service Underarmor",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Apparel_Underarmor_DaringAdventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_apparel_underarmor_daringadventure.webp",
       "description": "Dress for the hunt with the Daring Adventure Secret Service Underarmor.  (Requires the Secret Service Underarmor Plan to be learned.)  This item is worn under your armor and is in the Secret Service mod group.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -163,6 +226,7 @@
       "name": "Smile Bandana Mask",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Apparel_Headwear_Mask_SmileBandana",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_apparel_headwear_mask_smilebandana.webp",
       "description": "Put on a happy face with the Smile Bandana Mask.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -172,6 +236,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_Apparel_Outfit_PioneerScoutsSquirrel",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_apparel_outfit_pioneerscoutssquirrel.webp",
       "description": "Live your best scout's life in this Pioneer Scout Squirrel Uniform Outfit!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -181,6 +246,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_Apparel_Outfit_HuntersPelts",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_apparel_outfit_hunterspelts.webp",
       "description": "Blend in with your surroundings and stalk your most elusive prey in these Hunter's Pelts.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -189,6 +255,7 @@
       "name": "Grease Goblin Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Model_GreaseGoblin",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_model_greasegoblin.webp",
       "description": "Grease your gears and activate goblin mode in the Grease Goblin Power Armor!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -197,6 +264,7 @@
       "name": "Sheepsquatch Hellcat Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Paint_Hellcat_Sheepsquatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_paint_hellcat_sheepsquatch.webp",
       "description": "Inspire shear terror in your enemies with this Sheepsquatch Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -205,6 +273,7 @@
       "name": "Sheepsquatch T-65 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Paint_T65_Sheepsquatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_paint_t65_sheepsquatch.webp",
       "description": "Inspire shear terror in your enemies with this Sheepsquatch Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -213,6 +282,7 @@
       "name": "Sheepsquatch X-01 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Paint_X01_Sheepsquatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_paint_x01_sheepsquatch.webp",
       "description": "Inspire shear terror in your enemies with this Sheepsquatch Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -221,6 +291,7 @@
       "name": "Sheepsquatch Ultracite Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Paint_Ultracite_Sheepsquatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_paint_ultracite_sheepsquatch.webp",
       "description": "Inspire shear terror in your enemies with this Sheepsquatch Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -230,6 +301,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Paint_T60_Sheepsquatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_paint_t60_sheepsquatch.webp",
       "description": "Inspire shear terror in your enemies with this Sheepsquatch Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -238,6 +310,7 @@
       "name": "Sheepsquatch Excavator Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Paint_Excavator_Sheepsquatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_paint_excavator_sheepsquatch.webp",
       "description": "Inspire shear terror in your enemies with this Sheepsquatch Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -246,6 +319,7 @@
       "name": "Sheepsquatch T-51 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Paint_T51_Sheepsquatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_paint_t51_sheepsquatch.webp",
       "description": "Inspire shear terror in your enemies with this Sheepsquatch Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -254,6 +328,7 @@
       "name": "Sheepsquatch T-45 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Paint_T45_Sheepsquatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_paint_t45_sheepsquatch.webp",
       "description": "Inspire shear terror in your enemies with this Sheepsquatch Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -262,6 +337,7 @@
       "name": "Sheepsquatch Union Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PowerArmor_Paint_Union_Sheepsquatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_powerarmor_paint_union_sheepsquatch.webp",
       "description": "Inspire shear terror in your enemies with this Sheepsquatch Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -270,6 +346,7 @@
       "name": "Smoked Bear Arm Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_WeaponSkin_BearArm_Smoked",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_weaponskin_beararm_smoked.webp",
       "description": "Take the second amendment literally with this Smoked Bear Arm Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -278,6 +355,7 @@
       "name": "Gold Paint (Cold Shoulder)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_WeaponSkin_ColdShoulder_Gold",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_weaponskin_coldshoulder_gold.webp",
       "description": "Be in a league of your own with this specialty  Gold paint for the Cold Shoulder.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -287,6 +365,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_Weapons_ColdShoulder",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_weapons_coldshoulder.webp",
       "description": "Rip Daring's signature weapon. Freeze cryptids in their tracks with this icy cold shotgun.  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -296,6 +375,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Structure_HuntersLodge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_structure_hunterslodge.webp",
       "description": "Where log cabin living meets luxury.   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -304,6 +384,7 @@
       "name": "Timber Carpet Floor and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Floor_TimberCarpet",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floor_timbercarpet.webp",
       "description": "Give your floors the rugged look of timber with the comforting softness of carpet.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -313,6 +394,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Machinery_Workbench_Tinker_Taxidermy",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_machinery_workbench_tinker_taxidermy.webp",
       "description": "For the tinkers who enjoy fur, leather, bones, and feathers.  Requires the Tinker's Workbench to be Learned.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -322,6 +404,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Utility_RadstagFieldDressingStation",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_utility_radstagfielddressingstation.webp",
       "description": "Meat's back on the menu with this Radstag Field Dressing Station!  - Collects Radstag Meat over time -  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -331,6 +414,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Utility_FirewoodPile",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_utility_firewoodpile.webp",
       "description": "When you need to throw another log on the fire just reach for this handy Firewood Pile!  - Collects Wood over time -  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -339,6 +423,7 @@
       "name": "Rustic Fur Bed",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Bed_RusticFurBed",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_bed_rusticfurbed.webp",
       "description": "Rest warm and well in this Rustic Fur Bed!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -347,6 +432,7 @@
       "name": "Hunter's Throne Chair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Furniture_Chair_HuntersThrone",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_furniture_chair_huntersthrone.webp",
       "description": "Sit down and relax after the hunt on the Hunter's Throne Chair!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -356,6 +442,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Furniture_Instrument_ViolinChair",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_furniture_instrument_violinchair.webp",
       "description": "I woke up today and chose violins.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -364,6 +451,7 @@
       "name": "Mothman Plushie",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_Plushie_Mothman",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_plushie_mothman.webp",
       "description": "No cryptid plushie collection is complete without this adorable Mothman Plushie!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -372,6 +460,7 @@
       "name": "Grafton Monster Plushie",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_Plushie_GraftonMonster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_plushie_graftonmonster.webp",
       "description": "No cryptid plushie collection is complete without this adorable Grafton Monster Plushie!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -380,6 +469,7 @@
       "name": "Flatwoods Monster Plushie",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_Plushie_FlatwoodsMonster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_plushie_flatwoodsmonster.webp",
       "description": "No cryptid plushie collection is complete without this adorable Flatwoods Monster Plushie!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -388,6 +478,7 @@
       "name": "Cryptid Hunt Stein",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_Stein_CryptidHunt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_stein_cryptidhunt.webp",
       "description": "Raise a toast and celebrate a successful hunt with this Cryptid Hunt Stein!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -397,6 +488,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_CleanBathtub",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_cleanbathtub.webp",
       "description": "Wash away the grime in this shiny new bathtub.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -405,6 +497,7 @@
       "name": "Toaster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_Toaster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_toaster.webp",
       "description": "Toast your bread like you toast your enemies with this trusty old Toaster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -413,6 +506,7 @@
       "name": "Typewriter",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_Typewriter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_typewriter.webp",
       "description": "A few missing keys never hurt anyone, skip some letters and type away with this Typewriter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -421,6 +515,7 @@
       "name": "Desk Fan",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_DeskFan",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_deskfan.webp",
       "description": "Cool your C.A.M.P. with this Desk Fan.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -429,6 +524,7 @@
       "name": "Pre-War Toaster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_PreWarToaster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_prewartoaster.webp",
       "description": "Let's get toasty with this \"brand new\" Pre-War Toaster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -437,6 +533,7 @@
       "name": "Pre-War Typewriter",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_PreWarTypewriter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_prewartypewriter.webp",
       "description": "Type your own manifestos with this Pre-War Typewriter!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -445,6 +542,7 @@
       "name": "Pre-War Desk Fan",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_PreWarDeskFan",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_floordecor_prewardeskfan.webp",
       "description": "Bring the cool breeze to your C.A.M.P. with this Pre-War Desk Fan!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -453,6 +551,7 @@
       "name": "Rip Daring's Cryptid Hunt Gameboard",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_S12Board_CryptidHunt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_s12board_cryptidhunt.webp",
       "description": "You've finished the Cryptid Hunt, now display it on your wall!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -461,6 +560,7 @@
       "name": "Rip Daring \"Deadliest Predator\" Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring04",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_poweredposter_ripdaring04.webp",
       "description": "Decorate your wall with this absolutely ripping Rip Daring powered poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -469,6 +569,7 @@
       "name": "Tales from the West Virginia Hills Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_TalesPoster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_talesposter.webp",
       "description": "Display your love for West Virginian folklore with this Tales from the West Virginia Hills poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -477,6 +578,7 @@
       "name": "Mounted Grafton Monster Arm",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_MountedGraftonMonsterArm",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_mountedgraftonmonsterarm.webp",
       "description": "Go ahead, give yourself a hand with this Mounted Grafton Monster Arm!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -485,6 +587,7 @@
       "name": "Flatwoods Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_HomeOfTheCryptidSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_homeofthecryptidsign.webp",
       "description": "Welcome to Flatwoods, home of the Green Monster.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -493,6 +596,7 @@
       "name": "Curios Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_CuriosSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_curiossign.webp",
       "description": "Display your passion for the strange and curious with this Curios Sign!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -501,6 +605,7 @@
       "name": "Rip Daring \"On The Hunt\" Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring01",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_poweredposter_ripdaring01.webp",
       "description": "Decorate your wall with this absolutely ripping Rip Daring powered poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -509,6 +614,7 @@
       "name": "Rip Daring \"The Chase\" Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring02",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_poweredposter_ripdaring02.webp",
       "description": "Decorate your wall with this absolutely ripping Rip Daring powered poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -517,6 +623,7 @@
       "name": "Rip Daring \"The Shot\" Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring03",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_poweredposter_ripdaring03.webp",
       "description": "Decorate your wall with this absolutely ripping Rip Daring powered poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -525,6 +632,7 @@
       "name": "Rip Daring \"Hunter's Trophy\" Poster",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring05",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_walldecor_poweredposter_ripdaring05.webp",
       "description": "Decorate your wall with this absolutely ripping Rip Daring powered poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -533,6 +641,7 @@
       "name": "On The Hunt Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Photomode_Frame_OnTheHunt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_photomode_frame_onthehunt.webp",
       "description": "Be very quiet. I'm hunting cryptids.  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -541,6 +650,7 @@
       "name": "Daring Adventure Leather Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_ArmorSkin_Leather_DaringAdventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_armorskin_leather_daringadventure.webp",
       "description": "Suit up for your next journey with the Daring Adventure Leather Armor Paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -549,6 +659,7 @@
       "name": "Daring Adventure Secret Service Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_ArmorSkin_SecretService_DaringAdventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_armorskin_secretservice_daringadventure.webp",
       "description": "Prepare to hunt cryptids with the Daring Adventure Secret Service Armor Paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -557,6 +668,7 @@
       "name": "Daring Adventure Combat Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_ArmorSkin_Combat_DaringAdventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_armorskin_combat_daringadventure.webp",
       "description": "Suit up for your next journey with the Daring Adventure Combat Armor Paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -565,6 +677,7 @@
       "name": "Daring Adventure Marine Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_ArmorSkin_Marine_DaringAdventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_armorskin_marine_daringadventure.webp",
       "description": "Suit up for your next journey with the Daring Adventure Marine Armor Paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -573,6 +686,7 @@
       "name": "Daring Adventure Robot Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_ArmorSkin_Robot_DaringAdventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_armorskin_robot_daringadventure.webp",
       "description": "Suit up for your next journey with the Daring Adventure Robot Armor Paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -581,6 +695,7 @@
       "name": "Daring Adventure Metal Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_ArmorSkin_Metal_DaringAdventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_armorskin_metal_daringadventure.webp",
       "description": "Suit up for your next journey with the Daring Adventure Metal Armor Paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -589,6 +704,7 @@
       "name": "Daring Adventure Scout Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_ArmorSkin_Scout_DaringAdventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_armorskin_scout_daringadventure.webp",
       "description": "Suit up for your next journey with the Daring Adventure Scout Armor Paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -597,6 +713,7 @@
       "name": "Moth Wing Chandelier",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Lights_Ceiling_MothwingChandelier",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_lights_ceiling_mothwingchandelier.webp",
       "description": "Give your C.A.M.P. an air of spooky elegance with the Moth Wing Chandelier!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -605,6 +722,7 @@
       "name": "Cryptid Teeth Backpack Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_BackpackFlair_CryptidTeeth",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_backpackflair_cryptidteeth.webp",
       "description": "You can handle the tooth with this Cryptid Teeth Backpack Flair!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -614,6 +732,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Lights_MothmanSculptureLamp",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_lights_mothmansculpturelamp.webp",
       "description": "Bring a little divine light into your C.A.M.P. with this Mothman Sculpture Lamp.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -622,6 +741,7 @@
       "name": "Stone Fireplace",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Lights_StoneFireplace",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_lights_stonefireplace.webp",
       "description": "Warm up from your Wasteland adventures next to your very own Stone Fireplace.  Includes optional extension piece to increase the height of the fireplace.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -631,6 +751,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_ArmorSkin_Jetpack_Daring",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_armorskin_jetpack_daring.webp",
       "description": "With the Daring Jetpack you will become the greatest hunter on land, sea, or SKY!   (Requires the Jetpack Plan for the Secret Service armor or the Brotherhood Recon armor to be learned.)  This item is a mod for your armor and can be applied to the Chest Piece of the Secret Service armor, or the Brotherhood Recon armor.  - SKIN IS CRAFTABLE AT ARMOR STATIONS. -"
     },
     {
@@ -640,6 +761,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_DisplayCase_BeerSteins_TaxidermiedBear",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_displaycase_beersteins_taxidermiedbear.webp",
       "description": "Go ahead and reach for that beer stein, he won't bite. Anymore.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -648,6 +770,7 @@
       "name": "Daring Heavy Cryo Turret",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Defense_Heavy_Cryo_Turret",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_defense_heavy_cryo_turret.webp",
       "description": "Freeze enemies in their tracks with this Rip Daring branded Heavy Cryo Turret!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -657,6 +780,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_Ally_Scarberry",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_ally_scarberry.webp",
       "description": "Welcome Brother Steven into your C.A.M.P. and may the blessings of the Mothman be upon you.   - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
     },
     {
@@ -665,6 +789,7 @@
       "name": "Mothman Hatchling Wallpaper",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_WallPaper_CryptidHunt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_wallpaper_cryptidhunt.webp",
       "description": "Who wouldn't want to have their walls covered in moths?  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
     },
     {
@@ -673,6 +798,7 @@
       "name": "Vault-Tec Tools Stash Box",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_CAMP_StashBox_VaultTecTools",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_camp_stashbox_vaulttectools.webp",
       "description": "An official Vault-Tec Tool Box Stash Box from your friends at Vault-Tec.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -681,6 +807,7 @@
       "name": "Scorchbeast Season Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Photomode_Frame_ScorchBeast",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_photomode_frame_scorchbeast.webp",
       "description": "Capture the thrill of hunting Scorchbeasts with this Scorchbeast Season frame!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -689,6 +816,7 @@
       "name": "Headhunter Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Photomode_Frame_Headhunter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_photomode_frame_headhunter.webp",
       "description": "It's important to never lose your head while hunting.  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -697,6 +825,7 @@
       "name": "Hogtied Hunter Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Photomode_Frame_Hogtied",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_photomode_frame_hogtied.webp",
       "description": "The perfect frame for those moments when the hunt doesn't go as planned.  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -705,6 +834,7 @@
       "name": "Daring Adventure Pip-Boy Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S12_ENTM_Skin_PipBoySkin_DaringAdventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s12_skin_pipboyskin_daringadventure.webp",
       "description": "Embrace adventure with this daring Pip-Boy style.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     }
   ]

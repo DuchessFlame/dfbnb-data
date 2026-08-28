@@ -1,8 +1,59 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 11,
   "seasonName": "Nuka-World",
@@ -45,6 +96,7 @@
       "kind": "playerIcon",
       "value": "Dancing Bottle and Cappy",
       "storefrontEntitlement": "SCORE_S11_ENTM_PlayerIcon_BottleandCappy",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_playericon_bottleandcappy.webp",
       "description": "Get your groove on with Bottle and Cappy!",
       "tallyCategory": "player_icon"
     },
@@ -56,6 +108,7 @@
       "kind": "playerIcon",
       "value": "Nuka-Twist",
       "storefrontEntitlement": "SCORE_S11_ENTM_PlayerIcon_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_playericon_nukatwist.webp",
       "description": "Proof that experimentation can create something mind-blowing!",
       "tallyCategory": "player_icon"
     },
@@ -67,6 +120,7 @@
       "kind": "playerIcon",
       "value": "Nuka-Cola",
       "storefrontEntitlement": "SCORE_S11_ENTM_PlayerIcon_NukaCola",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_playericon_nukacola.webp",
       "description": "Feel refreshed with every sip.",
       "tallyCategory": "player_icon"
     },
@@ -78,6 +132,7 @@
       "kind": "playerIcon",
       "value": "Nuka-Cola Quantum",
       "storefrontEntitlement": "SCORE_S11_ENTM_PlayerIcon_NukaQuantum",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_playericon_nukaquantum.webp",
       "description": "There is something just so glowing about you.",
       "tallyCategory": "player_icon"
     },
@@ -89,6 +144,7 @@
       "kind": "playerIcon",
       "value": "Nuka World",
       "storefrontEntitlement": "SCORE_S11_ENTM_PlayerIcon_NukaWorld",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_playericon_nukaworld.webp",
       "description": "Nuka World has never looked so poppin'!",
       "tallyCategory": "player_icon"
     },
@@ -100,6 +156,7 @@
       "kind": "playerIcon",
       "value": "Nuka-Cherry",
       "storefrontEntitlement": "SCORE_S11_ENTM_PlayerIcon_NukaCherry",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_playericon_nukacherry.webp",
       "description": "Nuka-Cola flavor with a cherry on top!",
       "tallyCategory": "player_icon"
     },
@@ -109,6 +166,7 @@
       "name": "Hills are Alive Emote",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Emotes_HillsAreAlive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_emotes_hillsarealive.webp",
       "description": "Find the music all across Appalachia!  - UNLOCKS AN EMOTE OPTION. -"
     },
     {
@@ -117,6 +175,7 @@
       "name": "Soda Jerk Uniform Outfit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Apparel_Outfit_SodaJerkUniform",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_apparel_outfit_sodajerkuniform.webp",
       "description": "- APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -125,6 +184,7 @@
       "name": "Soda Jerk Dress Outfit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Apparel_Outfit_SodaJerkDress",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_apparel_outfit_sodajerkdress.webp",
       "description": "- APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -133,6 +193,7 @@
       "name": "Soda Jerk Cap",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Apparel_Headwear_SodaJerkCap",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_apparel_headwear_sodajerkcap.webp",
       "description": "- APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -141,6 +202,7 @@
       "name": "Soda Jerk Hat",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Apparel_Headwear_SodaJerkHat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_apparel_headwear_sodajerkhat.webp",
       "description": "- APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -150,6 +212,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Apparel_Outfit_PipeIsLifeTshirtJeans",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_apparel_outfit_pipeislifetshirtjeans.webp",
       "description": "Show that you're high on life with this stylish outfit!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -158,6 +221,7 @@
       "name": "Nuka-Twist Secret Service Underarmor",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Apparel_Underarmor_SecretService_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_apparel_underarmor_secretservice_nukatwist.webp",
       "description": "Put a Twist on your wardrobe with the Nuka-Twist Secret Service Underarmor.  (Requires the Secret Service Underarmor Plan to be learned.)  This item is worn under your armor and is in the Secret Service mod group.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -167,6 +231,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Apparel_Outfit_NukaCowboyChaps",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_apparel_outfit_nukacowboychaps.webp",
       "description": "Wrangle up your favorite Nuka-Cola with these Nuka-World Cowboy Chaps!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -175,6 +240,7 @@
       "name": "Cappy Hat",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Apparel_Headwear_CappyHat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_apparel_headwear_cappyhat.webp",
       "description": "Cappy on a cap. Stylish and branded!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -184,6 +250,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_PowerArmor_Paint_Union_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_powerarmor_paint_union_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -193,6 +260,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_PowerArmor_Paint_T45_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_powerarmor_paint_t45_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -202,6 +270,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_PowerArmor_Paint_T51_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_powerarmor_paint_t51_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -211,6 +280,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_PowerArmor_Paint_Excavator_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_powerarmor_paint_excavator_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -220,6 +290,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_PowerArmor_Paint_T60_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_powerarmor_paint_t60_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -229,6 +300,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_PowerArmor_Paint_X01_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_powerarmor_paint_x01_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -238,6 +310,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_PowerArmor_Paint_Ultracite_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_powerarmor_paint_ultracite_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -247,6 +320,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_PowerArmor_Paint_T65_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_powerarmor_paint_t65_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -256,6 +330,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_PowerArmor_Paint_Hellcat_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_powerarmor_paint_hellcat_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -264,6 +339,7 @@
       "name": "Nuka-Cola Classic Hunting Rifle Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_WeaponSkin_HuntingRifle_NukaColaClassic",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_weaponskin_huntingrifle_nukacolaclassic.webp",
       "description": "Is there a more classic pairing than Nuka-Cola and the ol' Red, White, and Blue?  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -272,6 +348,7 @@
       "name": "Nuka-Twist Paint (Minigun)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_WeaponSkin_MiniGun_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_weaponskin_minigun_nukatwist.webp",
       "description": "Put a Twist on your weaponry with the Nuka-Twist Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -280,6 +357,7 @@
       "name": "Nuka-Twist Handmade Rifle Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_WeaponSkin_HMAR_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_weaponskin_hmar_nukatwist.webp",
       "description": "Put a Twist on your weaponry with the Nuka-Twist Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -288,6 +366,7 @@
       "name": "Nuka-Launcher Crafting",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Weapons_NukaLauncher",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_weapons_nukalauncher.webp",
       "description": "Make Nuka-Cola's explosion of flavors literal when you learn to craft the Nuka-Launcher!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -296,6 +375,7 @@
       "name": "Nuka-Cola Quantum Delivery Truck",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Structure_NukaQuantumDeliveryTruck",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_structure_nukaquantumdeliverytruck.webp",
       "description": "Why take a leap when you can instead take a break in the shade of this Nuka-Cola Quantum Delivery Truck?  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -304,6 +384,7 @@
       "name": "Herringbone Red Brick Floor and Foundations",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Floor_HerringboneRedBrick",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_floor_herringboneredbrick.webp",
       "description": "Give your floors a classic look with the Herringbone Red Brick Flooring and Foundations.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -313,6 +394,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Structure_PrisonCar",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_structure_prisoncar.webp",
       "description": "Live out your inmate life in this Prison Car! Prison Car door is included and built separately.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -321,6 +403,7 @@
       "name": "Nuka-Cola Candy Machine",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Utility_NukaColaCandyMachine",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_utility_nukacolacandymachine.webp",
       "description": "Nuka-Cola Candy right at your finger tips!  - Collects Candy over time -  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -329,6 +412,7 @@
       "name": "Nuka-Cola Quantum Candy Machine",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Utility_NukaQuantumCandyMachine",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_utility_nukaquantumcandymachine.webp",
       "description": "Enjoy Nuka-Cola Quantum Candy right in your very own C.A.M.P. with this Nuka-Cola Quantum Candy Machine.  - Collects Candy over time -  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -338,6 +422,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_utility_collectron_nukaquantum.webp",
       "description": "Take the leap... Enjoy a Quantum! Don't have any Nuka-Cola Quantum? Let this Collectron find some for you!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -346,6 +431,7 @@
       "name": "Rough Patch Planter Kit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Utility_PlanterFoundationKit",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_utility_planterfoundationkit.webp",
       "description": "Not enough space to plant your crops? Get over that rough patch with this Rough Patch!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -355,6 +441,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Furniture_TireSwingTree",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_furniture_tireswingtree.webp",
       "description": "Time to release your inner child with the Tire Swing Tree!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -363,6 +450,7 @@
       "name": "Nuka-Blitz Arcade Dart Machine",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Furniture_NukaColaArcadeDartMachine",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_furniture_nukacolaarcadedartmachine.webp",
       "description": "Practice your aim with the Nuka-Blitz Arcade Dart Machine!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -371,6 +459,7 @@
       "name": "Cappy Hot Tub",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Furniture_CappyHotTub",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_furniture_cappyhottub.webp",
       "description": "Jump inside this Cappy soaking tub and let your stress just melt away...  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -379,6 +468,7 @@
       "name": "Nuka-Cola Sleeping Bag",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Bed_SleepingBag_NukaCola",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_bed_sleepingbag_nukacola.webp",
       "description": "Snuggle up in this poppin' Nuka-Cola Sleeping Bag created by everyone's favorite beverage company!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -388,6 +478,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Bed_NukaCola",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_bed_nukacola.webp",
       "description": "Send your dreams blasting into space with this Nuka-Cola bed.   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -397,6 +488,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_FloorDecor_SodaFountainGlobe",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_floordecor_sodafountainglobe.webp",
       "description": "Light up your C.A.M.P in style with the Soda Fountain Globe.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -405,6 +497,7 @@
       "name": "Nuka-Cola Wagon",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_FloorDecor_NukaColaWagon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_floordecor_nukacolawagon.webp",
       "description": "Everyone needs something to carry their Nuka-Colas with... why not use the Nuka-Cola Wagon!?  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -413,6 +506,7 @@
       "name": "Nuka-Cola Mr. Fuzzy Plushie",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_FloorDecor_Plushie_NukaColaMrFuzzy",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_floordecor_plushie_nukacolamrfuzzy.webp",
       "description": "A Nuka-Cola fan's collection is not complete without the super cute Nuka-Cola Mr. Fuzzy Plushie in their C.A.M.P!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -421,6 +515,7 @@
       "name": "Factory Cable Spool",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_FloorDecor_FactoryCableSpool",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_floordecor_factorycablespool.webp",
       "description": "Add an industrial look to your C.A.M.P. with the Factory Cable Spool!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -429,6 +524,7 @@
       "name": "Nuka-Cola Quantum Mr. Fuzzy Plushie",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_FloorDecor_Plushie_NukaQuantumMrFuzzy",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_floordecor_plushie_nukaquantummrfuzzy.webp",
       "description": "Mr. Fuzzy took the leap and enjoyed a Quantum! Give your C.A.M.P an adorable addition, with the Nuka-Cola Quantum Mr Fuzzy Plushie!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -437,6 +533,7 @@
       "name": "Nuka-World on Tour Stein",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_FloorDecor_Stein_NukaWorld",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_floordecor_stein_nukaworld.webp",
       "description": "Send your taste buds on a trip to a World of Refreshment with the Nuka-World On Tour Stein.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -445,6 +542,7 @@
       "name": "Nuka-Twist Mr. Fuzzy Plushie",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_FloorDecor_Plushie_NukaTwistMrFuzzy",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_floordecor_plushie_nukatwistmrfuzzy.webp",
       "description": "Looks like Mr. Fuzzy is really into Nuka-Cola Twist! Give your C.A.M.P an adorable addition, with the Nuka-Twist Mr. Fuzzy Plushie!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -453,6 +551,7 @@
       "name": "Nuka-World on Tour Ticket Booth",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_FloorDecor_NWOT_TicketBooth",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_floordecor_nwot_ticketbooth.webp",
       "description": "Hand out your tickets for Nuka-fun with the Nuka-World on Tour Ticket Booth!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -462,6 +561,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_WallDecor_S11Board_NukaWorld",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_walldecor_s11board_nukaworld.webp",
       "description": "Crack open a Nuka Cola and reminisce over your adventures in Nuka World.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -470,6 +570,7 @@
       "name": "Painting Chryslus Cherry Bomb",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_WallDecor_PaintingChryslusCherryBomb",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_walldecor_paintingchrysluscherrybomb.webp",
       "description": "- C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -479,6 +580,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_WallDecor_NukaColaPlaque",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_walldecor_nukacolaplaque.webp",
       "description": "Show off your love of Nuka-Cola with this amazing plaque!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -488,6 +590,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Ally_NukaAgent_leo",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_ally_nukaagent_leo.webp",
       "description": "A Nuka-Cola company man through and through. Loyal to the end, and beyond.  - ALLIES  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
     },
     {
@@ -496,6 +599,7 @@
       "name": "Nuka-Twist Wood Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_ArmorSkin_Wood_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_armorskin_wood_nukatwist.webp",
       "description": "Put a Twist on your wardrobe with the Nuka-Twist Wood Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -505,6 +609,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_ArmorSkin_Leather_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_armorskin_leather_nukatwist.webp",
       "description": "Put a Twist on your wardrobe with the Nuka-Twist Leather Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -513,6 +618,7 @@
       "name": "Nuka-Twist Metal Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_ArmorSkin_Metal_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_armorskin_metal_nukatwist.webp",
       "description": "Put a Twist on your wardrobe with the Nuka-Twist Metal Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -521,6 +627,7 @@
       "name": "Nuka-Twist Robot Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_ArmorSkin_Robot_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_armorskin_robot_nukatwist.webp",
       "description": "Put a Twist on your wardrobe with the Nuka-Twist Robot Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -529,6 +636,7 @@
       "name": "Nuka-Twist Marine Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_ArmorSkin_Marine_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_armorskin_marine_nukatwist.webp",
       "description": "Put a Twist on your wardrobe with the Nuka-Twist Marine Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -537,6 +645,7 @@
       "name": "Nuka-Twist Combat Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_ArmorSkin_Combat_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_armorskin_combat_nukatwist.webp",
       "description": "Put a Twist on your wardrobe with the Nuka-Twist Combat Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -545,6 +654,7 @@
       "name": "Nuka-Twist Secret Service Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_ArmorSkin_SecretService_NukaTwist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_armorskin_secretservice_nukatwist.webp",
       "description": "Put a Twist on your wardrobe with the Nuka-Twist Secret Service Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -554,6 +664,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Lights_GreenNukaColaBillboard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_lights_greennukacolabillboard.webp",
       "description": "For when you really need to remind everyone of America's favorite soda.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -562,6 +673,7 @@
       "name": "Soda Fountain Wall Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Lights_Wall_SodaFountainWallSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_lights_wall_sodafountainwallsign.webp",
       "description": "Show off your Nuka-Cola collection with this one of a kind sign!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -570,6 +682,7 @@
       "name": "Nuka-Cola Bottle Opener Backpack Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_BackpackFlair_NukaColaBottleOpener",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_backpackflair_nukacolabottleopener.webp",
       "description": "Open Nuka-Cola bottles anywhere with the trusty bottle opener!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -578,6 +691,7 @@
       "name": "3 Ball Backpack Flair",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_BackpackFlair_3Ball",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_backpackflair_3ball.webp",
       "description": "Hit that corner pocket with this Red 3 Billard Ball flair!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -586,6 +700,7 @@
       "name": "Empty Case Backpack",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_Backpack_EmptyCase",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_backpack_emptycase.webp",
       "description": "This skin can be applied to both the Small and Standard Backpack as a mod.   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -594,6 +709,7 @@
       "name": "Jackhammer Drill (Chainsaw)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_WeaponModel_Chainsaw_JackhammerDrill",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_weaponmodel_chainsaw_jackhammerdrill.webp",
       "description": "For when you really need to tighten the screws.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -602,6 +718,7 @@
       "name": "Walnut Panel Wallpaper",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_WallPaper_WalnutPanel",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_wallpaper_walnutpanel.webp",
       "description": "This rich Walnut Panelled wallpaper is perfect for your C.A.M.P.  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
     },
     {
@@ -611,6 +728,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Defense_RedPicketFences",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_defense_redpicketfences.webp",
       "description": "Stand out in Suburbia with these Red Picket Fences.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -620,6 +738,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Utility_NukaColaMysteryMachine",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_utility_nukacolamysterymachine.webp",
       "description": "This marvelous Nuka-Cola Mystery Machine holds every Nuka-Cola variety you could ever want! But which one will you get?  Be warned, there is a 5 minute restocking period before you will be able to quench your thirst again.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -628,6 +747,7 @@
       "name": "More Pep to your Step Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Photomode_Frame_MorePeptoyourStep",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_photomode_frame_morepeptoyourstep.webp",
       "description": "Add some pep to your step with this frame!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -637,6 +757,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_Skin_Backpack_Bottle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_skin_backpack_bottle.webp",
       "description": "Show off your love for Bottle with this stylish new backpack!   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -645,6 +766,7 @@
       "name": "Nuka-World on Tour Garbage Bin",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S11_ENTM_Utility_Nuka_World_Garbage_Bin",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_utility_nuka_world_garbage_bin.webp",
       "description": "No one will expect you to hide your valuables in the Nuka-World on Tour Garbage Bin Stash Box!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -654,6 +776,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S11_ENTM_CAMP_Lights_BlueNukaColaBillboard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s11_camp_lights_bluenukacolabillboard.webp",
       "description": "For when you really need to remind everyone of America's favorite soda.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     }
   ]

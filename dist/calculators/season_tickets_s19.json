@@ -1,8 +1,59 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 19,
   "seasonName": "Gleaming Depths: The Scientific Forge",
@@ -38,14 +89,6 @@
       "tallyCategory": "score_booster"
     },
     {
-      "id": "S19_P1_account_premiumbattlepass",
-      "page": "1",
-      "name": "Season 19 Fallout First Season Pass",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S19_ENTM_Account_PremiumBattlePass",
-      "description": "Unlock access to all premium Fallout First locked rewards in Season 19.  - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -"
-    },
-    {
       "id": "S19_P2_playericon_playericon8",
       "page": "2",
       "name": "Player Icon: DNA Scientist",
@@ -54,6 +97,7 @@
       "kind": "playerIcon",
       "value": "DNA Scientist",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon8",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s19_dnalaurel.avif",
       "description": "Going around and around to understand the helix.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -66,6 +110,7 @@
       "kind": "playerIcon",
       "value": "Auger",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon7",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s19_drillaugerpa.avif",
       "description": "No need for introductions, you know the drill.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -78,6 +123,7 @@
       "kind": "playerIcon",
       "value": "Tesla Cannon",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon2",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s19_teslacannon.avif",
       "description": "For when Zeus is taking too long.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -90,6 +136,7 @@
       "kind": "playerIcon",
       "value": "Enclave Hellfire",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon5",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s19_enclavehellfirepa.avif",
       "description": "Specially forged for battle.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -101,6 +148,7 @@
       "kind": "playerIcon",
       "value": "Test Monkey",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon1",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s19_testmonkey.avif",
       "description": "He's just resting...  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -113,6 +161,7 @@
       "kind": "playerIcon",
       "value": "Enclave Scientist",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon4",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s19_enclavescientist.avif",
       "description": "Quenching his thirst for knowledge.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -125,6 +174,7 @@
       "kind": "playerIcon",
       "value": "Scientific Forge",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon9",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s19_bacteriophage.avif",
       "description": "A different type of anvil for a different type of world.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -137,6 +187,7 @@
       "kind": "playerIcon",
       "value": "Sugar Skull",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon3",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s19_sugarskull.avif",
       "description": "No bones about it, this is pretty sweet.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -149,6 +200,7 @@
       "kind": "playerIcon",
       "value": "Enclave Logo",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon10",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_factionenclave01.avif",
       "description": "For the preservation of what's right. For the preservation of America!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -161,6 +213,7 @@
       "kind": "playerIcon",
       "value": "Ultracite Terror",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerIcon_PlayerIcon6",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s19_scorchtongue.avif",
       "description": "A sssinissster sssserpent.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -172,6 +225,7 @@
       "kind": "playerTitleSuffix",
       "value": "Scientist",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_Scientist",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s19_playertitles_suffix_scientist.avif",
       "description": "Player Title Suffix",
       "tallyCategory": "camp_player_title"
     },
@@ -183,6 +237,7 @@
       "kind": "playerTitleSuffix",
       "value": "Experimenter",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_Experimenter",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s19_playertitles_suffix_experimenter.avif",
       "description": "Player Title Suffix",
       "tallyCategory": "camp_player_title"
     },
@@ -194,6 +249,7 @@
       "kind": "playerTitleSuffix",
       "value": "Delver",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_Delver",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s19_playertitles_suffix_delver.avif",
       "description": "Player Title Suffix",
       "tallyCategory": "camp_player_title"
     },
@@ -205,6 +261,7 @@
       "kind": "playerTitleSuffix",
       "value": "Trooper",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_Trooper",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s19_playertitles_suffix_trooper.avif",
       "description": "Player Title Suffix",
       "tallyCategory": "camp_player_title"
     },
@@ -216,6 +273,7 @@
       "kind": "playerTitleSuffix",
       "value": "ScienceOfficer",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_ScienceOfficer",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s19_playertitles_suffix_scienceofficer.avif",
       "description": "Player Title Suffix",
       "tallyCategory": "camp_player_title"
     },
@@ -227,6 +285,7 @@
       "kind": "playerTitlePrefix",
       "value": "Mad",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerTitles_Prefix_Mad",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s19_playertitles_prefix_mad.avif",
       "description": "Player Title Prefix",
       "tallyCategory": "camp_player_title"
     },
@@ -238,6 +297,7 @@
       "kind": "playerTitlePrefix",
       "value": "Hellfire",
       "storefrontEntitlement": "SCORE_S19_ENTM_PlayerTitles_Prefix_Hellfire",
+      "imageUrl": "/wp-content/uploads/storefront/titles-player/score_s19_playertitles_prefix_hellfire.avif",
       "description": "Player Title Prefix",
       "tallyCategory": "camp_player_title"
     },
@@ -248,6 +308,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Apparel_Clothes_EnclaveGoldenEnclaveOfficer_Outfit",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_apparel_clothes_enclavegoldenenclaveofficer_outfit.webp",
       "description": "Command and serve, member! In this Golden Enclave Officer Outfit it is your duty to save America!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -256,6 +317,7 @@
       "name": "Golden Skull Mask",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Apparel_Headwear_GoldenSkullMask",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_apparel_headwear_goldenskullmask.webp",
       "description": "Luxuriously spread terror and death with the Golden Skull Mask!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -265,6 +327,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Apparel_Headwear_GoldenEnclave_Eyepatch",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_apparel_headwear_goldenenclave_eyepatch.webp",
       "description": "The perfect accessory for when you've traded depth perception for knowledge.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -273,6 +336,7 @@
       "name": "Enclave Military Fatigues",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Apparel_Outfit_EnclaveFatigues",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_apparel_outfit_enclavefatigues.webp",
       "description": "Take the fight to Appalachia on behalf of the Enclave with these Military Fatigues!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -281,6 +345,7 @@
       "name": "Enclave Lab Coat",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Apparel_Outfit_EnclaveScientist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_apparel_outfit_enclavescientist.webp",
       "description": "Delve into mad science and unethical human experimentation with the Enclave Lab Coat. But be wary of unforeseen consequences!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -289,6 +354,7 @@
       "name": "Enclave Lab Coat (Bloody)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Apparel_Outfit_EnclaveScientist_Bloody",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_apparel_outfit_enclavescientist_bloody.webp",
       "description": "Get your hands dirty for knowledge, and for the Enclave.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -297,6 +363,7 @@
       "name": "Enclave Bandana",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Apparel_Headwear_BandanaEnclave",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_apparel_headwear_bandanaenclave.webp",
       "description": "Embrace the Enclave with this Enclave Bandana.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -305,6 +372,7 @@
       "name": "Enclave Scientist Goggles",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Apparel_Headwear_EnclaveScientistGoggles",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_apparel_headwear_enclavescientistgoggles.webp",
       "description": "Enhance your scientific vision with these Enclave Scientists Goggles, and see the wasteland like never before!   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -313,6 +381,7 @@
       "name": "Enclave Hellfire Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Model_EnclaveHellfire",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_model_enclavehellfire.webp",
       "description": "Be a true guardian of America's legacy with this Enclave Hellfire Power Armor Paint!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -321,6 +390,7 @@
       "name": "Auger Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Model_Auger",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_model_auger.webp",
       "description": "You know the drill, it's the Auger Power Armor Paint!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -329,6 +399,7 @@
       "name": "Enclave Officer T-45 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Paint_T45_EnclaveOfficer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_paint_t45_enclaveofficer.webp",
       "description": "Restore America's glory with this Enclave Officer Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -337,6 +408,7 @@
       "name": "Enclave Officer Hellcat Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Paint_Hellcat_EnclaveOfficer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_paint_hellcat_enclaveofficer.webp",
       "description": "Restore America's glory with this Enclave Officer Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -345,6 +417,7 @@
       "name": "Enclave Officer X-01 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Paint_X01_EnclaveOfficer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_paint_x01_enclaveofficer.webp",
       "description": "Restore America's glory with this Enclave Officer Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -353,6 +426,7 @@
       "name": "Enclave Officer Union Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Paint_Union_EnclaveOfficer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_paint_union_enclaveofficer.webp",
       "description": "Restore America's glory with this Enclave Officer Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -361,6 +435,7 @@
       "name": "Enclave Officer Ultracite Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Paint_Ultracite_EnclaveOfficer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_paint_ultracite_enclaveofficer.webp",
       "description": "Restore America's glory with this Enclave Officer Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -369,6 +444,7 @@
       "name": "Enclave Officer T-60 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Paint_T60_EnclaveOfficer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_paint_t60_enclaveofficer.webp",
       "description": "Restore America's glory with this Enclave Officer Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -377,6 +453,7 @@
       "name": "Enclave Officer Excavator Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Paint_Excavator_EnclaveOfficer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_paint_excavator_enclaveofficer.webp",
       "description": "Restore America's glory with this Enclave Officer Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -385,6 +462,7 @@
       "name": "Enclave Officer T-65 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Paint_T65_EnclaveOfficer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_paint_t65_enclaveofficer.webp",
       "description": "Restore America's glory with this Enclave Officer Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -393,6 +471,7 @@
       "name": "Enclave Officer T-51 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_PowerArmor_Paint_T51_EnclaveOfficer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_powerarmor_paint_t51_enclaveofficer.webp",
       "description": "Restore America's glory with this Enclave Officer Power Armor Paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -401,6 +480,7 @@
       "name": "Sigma Squad Paint (Gauss Shotgun)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_WeaponSkin_GaussShotgun_EnclaveSigmaSquad",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_weaponskin_gaussshotgun_enclavesigmasquad.webp",
       "description": "Show the wasteland what it means to be an elite Enclave soldier!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -410,6 +490,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_WeaponSkin_PlasmaSword_EnclaveSigmaSquad",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_weaponskin_plasmasword_enclavesigmasquad.webp",
       "description": "Show the wasteland what it means to be an elite Enclave soldier!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -418,6 +499,7 @@
       "name": "Sigma Squad Paint (Tesla Cannon)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_WeaponSkin_TeslaCannon_EnclaveSigmaSquad",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_weaponskin_teslacannon_enclavesigmasquad.webp",
       "description": "Show the wasteland what it means to be an elite Enclave soldier!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -427,6 +509,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_WeaponSkin_Cremator_EnclaveSigmaSquad",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_weaponskin_cremator_enclavesigmasquad.webp",
       "description": "Show the wasteland what it means to be an elite Enclave soldier!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES."
     },
     {
@@ -436,6 +519,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_WeaponSkin_GaussMinigun_EnclaveSigmaSquad",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_weaponskin_gaussminigun_enclavesigmasquad.webp",
       "description": "Show the wasteland what it means to be an elite Enclave soldier!   - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -445,6 +529,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_WeaponSkin_GatlingPlasma_EnclaveSigmaSquad",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_weaponskin_gatlingplasma_enclavesigmasquad.webp",
       "description": "Show the wasteland what it means to be an elite Enclave soldier!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -454,6 +539,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Weapons_TeslaCannon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_weapons_teslacannon.webp",
       "description": "Enclave lightning beams are supreme! Proven with the power of the Tesla Cannon!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -463,6 +549,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Weapons_TeslaCannon_Assembly_DirectCurrentMuzzle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_weapons_teslacannon_assembly_directcurrentmuzzle.webp",
       "description": "Temporarily weaken your opponent with each blast by applying this Direct Current Muzzle mod!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE TESLA CANNON. -"
     },
     {
@@ -472,6 +559,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Weapons_TeslaCannon_Receiver_Mods",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_weapons_teslacannon_receiver_mods.webp",
       "description": "Customize your Tesla Cannon the way you want with these Tesla Cannon Receivers!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE TESLA CANNON. -"
     },
     {
@@ -481,6 +569,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Weapons_TeslaCannon_Barrel_Mods",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_weapons_teslacannon_barrel_mods.webp",
       "description": "Customize your Tesla Cannon the way you want with these Tesla Cannon Barrels!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE TESLA CANNON. -"
     },
     {
@@ -490,6 +579,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Weapons_TeslaCannon_Assembly_AlternateCurrentMuzzle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_weapons_teslacannon_assembly_alternatecurrentmuzzle.webp",
       "description": "Chain away by adding this Alternate Current Muzzle mod to your Tesla Cannon!  Chains projectiles between nearby enemies.  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE TESLA CANNON. -"
     },
     {
@@ -499,6 +589,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Weapons_TeslaCannon_Sights_Mods",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_weapons_teslacannon_sights_mods.webp",
       "description": "Set yourself up for the perfect shot with these Tesla Cannon Sights!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES TESLA CANNON. -"
     },
     {
@@ -508,6 +599,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_Weapons_TeslaCannon_Magazine_Mods",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_weapons_teslacannon_magazine_mods.webp",
       "description": "Not enough lasers? Add some more to your mag with these Tesla Cannon Magazine mods!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES TESLA CANNON. -"
     },
     {
@@ -517,6 +609,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Machinery_Resource_Extractor_Enclave",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_machinery_resource_extractor_enclave.webp",
       "description": "Mine the world for the strength of the Enclave.  - Collects resources at designated Mineral Spots. Includes Acid, Aluminum, Coal, Concrete, Copper, Crystal, Fertilizer, Gold, Junk, Lead, Nuclear Material, Oil, Silver, Steel, and Titanium Spots -   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -526,6 +619,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Machinery_Workbench_Cooking_EnclaveGrill",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_machinery_workbench_cooking_enclavegrill.webp",
       "description": "Free the flavors of your favorite ingredients on the Enclave Grill!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -535,6 +629,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Machinery_Workbench_Armor_Enclave",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_machinery_workbench_armor_enclave.webp",
       "description": "Defend America by defending yourself with help from the Enclave Armor Workbench.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -544,6 +639,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Machinery_PowerSwitch_Plunger",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_machinery_powerswitch_plunger.webp",
       "description": "For when you want to turn on your lights in style!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -552,6 +648,7 @@
       "name": "Weather Control Station (Nuke Zone)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Utility_WeatherStation_NukeZone",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_utility_weatherstation_nukezone.webp",
       "description": "Boom.  Weather Control Station will change weather in the C.A.M.P. radius when connected to power.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -561,6 +658,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Collector_EnclaveWaterCooler",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_collector_enclavewatercooler.webp",
       "description": "Fuel your thirst to purify the wasteland with this Enclave Water Cooler!  Generates Purified Water.  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -569,6 +667,7 @@
       "name": "Plasma Core Recharger",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Utility_PlasmaCoreRecharger_Enclave",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_utility_plasmacorerecharger_enclave.webp",
       "description": "Revive your depleted plasma cores with the Plasma Core Recharger!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -577,6 +676,7 @@
       "name": "Lab Secret Door",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Door_Secret_Lab",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_door_secret_lab.webp",
       "description": "Keep your experiments hidden behind this Lab Secret Door!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -586,6 +686,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Bed_EnclaveCot",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_bed_enclavecot.webp",
       "description": "Recharge your fighting spirit in this Enclave Cot!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -595,6 +696,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_Plushie_MrFuzzyScientist",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_plushie_mrfuzzyscientist.webp",
       "description": "Science Rules! But first you need to understand the science rules. - Mr. Fuzzy, noted scientist.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -604,6 +706,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_DeathclawJar",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_deathclawjar.webp",
       "description": "For when your experiments need a hand. A big, deadly hand.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -613,6 +716,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_SuperMutantJar",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_supermutantjar.webp",
       "description": "Not looking so super now.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -622,6 +726,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_OperatingTable_SuperMutant",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_operatingtable_supermutant.webp",
       "description": "A strong table is required to hold such girth.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -631,6 +736,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_OperatingTable_Trog",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_operatingtable_trog.webp",
       "description": "A step up from frog dissection.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -640,6 +746,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_GlowingOneJar",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_glowingonejar.webp",
       "description": "For when you want natural lighting.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -649,6 +756,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_EnclaveFlag",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_enclaveflag.webp",
       "description": "It may not be the Red, White, and Blue, but it is equally as patriotic!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -658,6 +766,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_Radar",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_radar.webp",
       "description": "Sending out a call but can't quite reach who you're looking for? Well now you can by placing this Radar in your C.A.M.P.!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -667,6 +776,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_Stein_ScienceStein",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_stein_sciencestein.webp",
       "description": "Go ahead, take a sip. Nothing bad will happen... probably.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -676,6 +786,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_Beakers",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_beakers.webp",
       "description": "Show off your scientific flare with this Collection of Beakers.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -684,6 +795,7 @@
       "name": "Mole Miner Junk",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_MoleMinerJunk",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_moleminerjunk.webp",
       "description": "A stark reminder of suffering, now in clutter form!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -692,6 +804,7 @@
       "name": "Boxes of Paper",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_BoxofPapers",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_boxofpapers.webp",
       "description": "Organization is an important part of any reclamation project.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -701,6 +814,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_FloorDecor_EnclaveFlag_White",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_floordecor_enclaveflag_white.webp",
       "description": "It may not be the Red, White, and Blue, but it is equally as patriotic!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -709,6 +823,7 @@
       "name": "Taxidermy Mole Miner Head",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_WallDecor_TaxidermyMoleMinerHead",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_walldecor_taxidermymoleminerhead.webp",
       "description": "Show off your hunting spoils with this Taxidermy Mole Miner Head!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -718,6 +833,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_WallDecor_SmallIndustrialFan",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_walldecor_smallindustrialfan.webp",
       "description": "Bring the breeze to your C.A.M.P. with the Small Industrial Fan!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -726,6 +842,7 @@
       "name": "Vault-Boy Calendar",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_WallDecor_VaultBoyCalendar",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_walldecor_vaultboycalendar.webp",
       "description": "The perfect piece for when your days are numbered.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -735,6 +852,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_WallDecor_EndofSeasonArt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_walldecor_endofseasonart.webp",
       "description": "Innovation and beauty collide with the \"Scientific Forge\" commemorative wall art!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -744,6 +862,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Vendor_PlayerVendingMachine_MODUSTerminal",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_vendor_playervendingmachine_modusterminal.webp",
       "description": "Welcome, member, to our little vendor.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -752,6 +871,7 @@
       "name": "Enclave Hazmat Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_ArmorSkin_Hazmat_Enclave",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_armorskin_hazmat_enclave.webp",
       "description": "Survive the dangers of the lab with the Enclave Hazmat Paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -760,6 +880,7 @@
       "name": "Miner Filter Backpack",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Skin_Backpack_MinerFilterBackpack",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_skin_backpack_minerfilterbackpack.webp",
       "description": "The proper equipment necessary to survive in the mines.  This skin can be applied to both the Small and Standard Backpack as a mod.   - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -769,6 +890,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Stashbox_OrbitalDropCrate",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_stashbox_orbitaldropcrate.webp",
       "description": "Look out below!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -778,6 +900,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "zzzSCORE_S19_ENTM_CAMP_Misc_CryoTube_Deathclaw",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_misc_cryotube_deathclaw.webp",
       "description": "- C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -786,6 +909,7 @@
       "name": "White Shepherd",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_CAMPPets_Dog_WhiteGermanShepherd",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_camppets_dog_whitegermanshepherd.webp",
       "description": "Have yourself a brilliant time with this White Shepherd!   Generates 1, 2, or 3 Star Legendary Items  - C.A.M.P. PETS  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
     },
     {
@@ -794,6 +918,7 @@
       "name": "Bombay Cat",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_CAMPPets_Cat_BlackCat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_camppets_cat_blackcat.webp",
       "description": "Being superstitious does not detract from how cute this Bombay Cat truly is!  - C.A.M.P. PETS  APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -"
     },
     {
@@ -802,6 +927,7 @@
       "name": "Dog Leaf Pile",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_CAMPPets_IdleFurniture_DogLeafPile",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_camppets_idlefurniture_dogleafpile.webp",
       "description": "Man's best friend meets nature's pillow for children.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -811,6 +937,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_CAMPPets_IdleFurniture_CatcutsScratchingPost",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_camppets_idlefurniture_catcutsscratchingpost.webp",
       "description": "Have your feline pal test their claws against a notoriously prickly plant.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -820,6 +947,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Display_WeaponRack_EnclaveOval",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_display_weaponrack_enclaveoval.webp",
       "description": "Show your patriotism with pride with this Oval Enclave Weapon Rack!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -828,6 +956,7 @@
       "name": "Eyes On You Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Photomode_Frame_EyesOnYou",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_photomode_frame_eyesonyou.webp",
       "description": "Turn heads with the Eyes On You Photo Frame, where all eyes are sure to be on you!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -836,6 +965,7 @@
       "name": "Crystal Collector Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S19_ENTM_Photomode_Frame_CrystalCollector",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_photomode_frame_crystalcollector.webp",
       "description": "Show off your favorite rocks with this Crystal Collector Photo Frame!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -845,6 +975,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S19_ENTM_CAMP_Display_WeaponRack_EnclaveRectangular",
+      "imageUrl": "/wp-content/uploads/season_images/score_s19_camp_display_weaponrack_enclaverectangular.webp",
       "description": "Show your patriotism with pride with this Rectangular Enclave Weapon Rack!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     }
   ]

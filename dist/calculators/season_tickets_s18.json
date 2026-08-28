@@ -1,8 +1,59 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 18,
   "seasonName": "Milepost Zero: Country Road",
@@ -38,14 +89,6 @@
       "tallyCategory": "score_booster"
     },
     {
-      "id": "S18_P1_account_premiumbattlepass",
-      "page": "1",
-      "name": "Season 18 Fallout First Season Pass",
-      "cost": 0,
-      "storefrontEntitlement": "SCORE_S18_ENTM_Account_PremiumBattlePass",
-      "description": "Unlock access to all premium Fallout First locked rewards in Season 18.  - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -"
-    },
-    {
       "id": "S18_P2_playericon_playericon1",
       "page": "2",
       "name": "Player Icon: Eyebot Helmet",
@@ -53,6 +96,7 @@
       "kind": "playerIcon",
       "value": "Eyebot Helmet",
       "storefrontEntitlement": "SCORE_S18_ENTM_PlayerIcon_PlayerIcon1",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s18_blueridgeeyebothelmet.avif",
       "description": "You'd think an EYE bot would allow for better visibility.   - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -65,6 +109,7 @@
       "kind": "playerIcon",
       "value": "Gatling Gun",
       "storefrontEntitlement": "SCORE_S18_ENTM_PlayerIcon_PlayerIcon2",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s18_blueridgegatlinggun.avif",
       "description": "Take it for a spin!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -77,6 +122,7 @@
       "kind": "playerIcon",
       "value": "Blue Ridge Logo",
       "storefrontEntitlement": "SCORE_S18_ENTM_PlayerIcon_PlayerIcon3",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s18_blueridgelogo.avif",
       "description": "Proudly display the premier caravan company's logo.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -89,6 +135,7 @@
       "kind": "playerIcon",
       "value": "Blue Ridge Mr. Fuzzy",
       "storefrontEntitlement": "SCORE_S18_ENTM_PlayerIcon_PlayerIcon4",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s18_blueridgemrfuzzy.avif",
       "description": "Cute, cuddly, and capable of transporting goods.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -101,6 +148,7 @@
       "kind": "playerIcon",
       "value": "Wagon",
       "storefrontEntitlement": "SCORE_S18_ENTM_PlayerIcon_PlayerIcon5",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s18_caravan.avif",
       "description": "Ready to travel at any time of day.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -113,6 +161,7 @@
       "kind": "playerIcon",
       "value": "Desperado",
       "storefrontEntitlement": "SCORE_S18_ENTM_PlayerIcon_PlayerIcon6",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s18_desperado.avif",
       "description": "For when you have so much ammo you have to store some on your hat.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -125,6 +174,7 @@
       "kind": "playerIcon",
       "value": "Roadside Warrior",
       "storefrontEntitlement": "SCORE_S18_ENTM_PlayerIcon_PlayerIcon7",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s18_roadsidewarrior.avif",
       "description": "This is the time of the signs.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -137,6 +187,7 @@
       "kind": "playerIcon",
       "value": "Super Mutant Super Sledge",
       "storefrontEntitlement": "SCORE_S18_ENTM_PlayerIcon_PlayerIcon8",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_s18_supermutant.avif",
       "description": "A whole lot of \"super\".  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -146,6 +197,7 @@
       "name": "Blue Ridge Infantry Uniform and Hood",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Apparel_Underarmor_BlueRidge_BoS",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_apparel_underarmor_blueridge_bos.webp",
       "description": "Get your gear on and get ready to defend some caravans with the Blue Ridge Infantry Uniform and Hood   - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -154,6 +206,7 @@
       "name": "Blue Ridge Secret Service Underarmor",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Apparel_Underarmor_BlueRidge_SecretService",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_apparel_underarmor_blueridge_secretservice.webp",
       "description": "Get in uniform and get to work with the Blue Ridge Secret Service Uniform  (Requires the Secret Service Underarmor Plan to be learned.)  This item is worn under your armor and is in the Secret Service mod group.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -162,6 +215,7 @@
       "name": "Desperado Cowboy Hat",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Apparel_Headwear_DesperadoHat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_apparel_headwear_desperadohat.webp",
       "description": "Show them what it means to be a gunslinger, in style!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -170,6 +224,7 @@
       "name": "Roadside Warrior Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Model_RoadsideWarrior",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_model_roadsidewarrior.webp",
       "description": "Make your enemies clear a path while running at them with the Roadside Warrior Power Armor Equipped!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -178,6 +233,7 @@
       "name": "Rusted Hellcat Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Paint_Rusted_Hellcat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_paint_rusted_hellcat.webp",
       "description": "Embrace the beauty in decay with this new Power Armor paint.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -186,6 +242,7 @@
       "name": "Rusted Excavator Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Paint_Excavator_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_paint_excavator_rusted.webp",
       "description": "Battle through the wasteland in oxidized elegance with the Rusted Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -194,6 +251,7 @@
       "name": "Rusted X-01 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Paint_X01_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_paint_x01_rusted.webp",
       "description": "Battle through the wasteland in oxidized elegance with the Rusted Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -202,6 +260,7 @@
       "name": "Rusted Union Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Paint_Union_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_paint_union_rusted.webp",
       "description": "Battle through the wasteland in oxidized elegance with the Rusted Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -210,6 +269,7 @@
       "name": "Rusted Ultracite Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Paint_Ultracite_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_paint_ultracite_rusted.webp",
       "description": "Battle through the wasteland in oxidized elegance with the Rusted Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -218,6 +278,7 @@
       "name": "Rusted  T-65 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Paint_T65_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_paint_t65_rusted.webp",
       "description": "Battle through the wasteland in oxidized elegance with the Rusted Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -226,6 +287,7 @@
       "name": "Rusted T-60 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Paint_T60_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_paint_t60_rusted.webp",
       "description": "Battle through the wasteland in oxidized elegance with the Rusted Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -234,6 +296,7 @@
       "name": "Rusted T-51 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Paint_T51_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_paint_t51_rusted.webp",
       "description": "Battle through the wasteland in oxidized elegance with the Rusted Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -242,6 +305,7 @@
       "name": "Rusted T-45 Power Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Paint_T45_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_powerarmor_paint_t45_rusted.webp",
       "description": "Battle through the wasteland in oxidized elegance with the Rusted Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -250,6 +314,7 @@
       "name": "Rusted Paint (Handmade Rifle)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_HandmadeGun_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_handmadegun_rusted.webp",
       "description": "Time has passed in Appalachia, naturally weapons rust and here they are. No longer abandoned.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -259,6 +324,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_HuntingRifle_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_huntingrifle_rusted.webp",
       "description": "Time has passed in Appalachia, naturally weapons rust and here they are. No longer abandoned.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -268,6 +334,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_Minigun_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_minigun_rusted.webp",
       "description": "Time has passed in Appalachia, naturally weapons rust and here they are. No longer abandoned.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -277,6 +344,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_TeslaRifle_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_teslarifle_rusted.webp",
       "description": "Time has passed in Appalachia, naturally weapons rust and here they are. No longer abandoned.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -285,6 +353,7 @@
       "name": "Blue Ridge Paint (.44)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_44_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_44_blueridge.webp",
       "description": "Show the world your affiliation with the Blue Ridge Caravan Company!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -293,6 +362,7 @@
       "name": "Blue Ridge Paint (Gatling Gun)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_GatlingGun_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_gatlinggun_blueridge.webp",
       "description": "Show the world your affiliation with the Blue Ridge Caravan Company!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -301,14 +371,16 @@
       "name": "Blue Ridge Paint (Laser Rifle)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_LaserGun_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_lasergun_blueridge.webp",
       "description": "Show the world your affiliation with the Blue Ridge Caravan Company!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
       "id": "S18_P6_skin_weaponskin_railwayrifle_blueridge",
       "page": "6",
-      "name": "",
+      "name": "Weapon Skin Railway Rifle Blue Ridge",
       "cost": 0,
-      "storefrontEntitlement": "zzzSCORE_S18_ENTM_Skin_WeaponSkin_RailwayRifle_BlueRidge"
+      "storefrontEntitlement": "zzzSCORE_S18_ENTM_Skin_WeaponSkin_RailwayRifle_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_railwayrifle_blueridge.webp"
     },
     {
       "id": "S18_P6_skin_weaponskin_stopsign",
@@ -317,6 +389,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_StopSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_stopsign.webp",
       "description": "STOP! Your enemies right in their tracks with this Stop Sign!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -  - Works with Baseball Bat, Super Sledgehammer, War Glaive. -"
     },
     {
@@ -326,6 +399,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_GraffitiStopSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_weaponskin_graffitistopsign.webp",
       "description": "STOP! Your enemies right in their tracks with this Graffiti Stop Sign!  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -  - Works with Baseball Bat, Super Sledgehammer, War Glaive. -"
     },
     {
@@ -335,6 +409,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Kit_CorrodedConcrete",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_kit_corrodedconcrete.webp",
       "description": "For when you want shelter without hindering visibility.  Includes new Wall and Roof items.  This kit does not support wallpapers, and has a unique interior look.   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -344,6 +419,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Structure_BoxingRing_Raiders",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_structure_boxingring_raiders.webp",
       "description": "Raiding, pillaging... Boxing! That's what Raiders are known for!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -353,6 +429,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Structure_RaiderLodge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_structure_raiderlodge.webp",
       "description": "Keep your raiding spoils safe in your very own Raider Lodge!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -361,6 +438,7 @@
       "name": "Vault-Tec Train Car",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Structure_TrainBoxCarBlue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_structure_trainboxcarblue.webp",
       "description": "Somewhat derailed on its destination, this Vault-Tec Train Car is stopping at a C.A.M.P. near you!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -369,6 +447,7 @@
       "name": "Gangplank Ramp Stairs",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Structure_Stairs_GangplankRamp",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_structure_stairs_gangplankramp.webp",
       "description": "Ready to rock the boat? Then climb aboard using this new Gangplank Ramp!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -377,6 +456,7 @@
       "name": "Gas Awning",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Structure_GasAwning",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_structure_gasawning.webp",
       "description": "The awning to protect the cars you love while filling up.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -386,6 +466,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Structure_FlatbedSmall",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_structure_flatbedsmall.webp",
       "description": "Load your junk and scraps up on this Small Flatbed!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -394,6 +475,7 @@
       "name": "Watch Tower",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Structure_WatchTower",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_structure_watchtower.webp",
       "description": "It's time to watch out for your enemies and you can do just that with this Watch Tower.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -402,6 +484,7 @@
       "name": "Barn",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Structure_Barn",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_structure_barn.webp",
       "description": "Nothing like a Barn to hold you over this nuclear winter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -411,6 +494,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Machinery_Workbench_Armor_Raiders",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_machinery_workbench_armor_raiders.webp",
       "description": "Build and modify Armor for you and your fellow Raiders with this Raider Armor Workbench.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -420,6 +504,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Machinery_PowerConnectors_TelephonePole",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_machinery_powerconnectors_telephonepole.webp",
       "description": "Charge up your C.A.M.P with these Telephone Pole Power Connectors!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -429,6 +514,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Collector_Beehive",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_collector_beehive.webp",
       "description": "Honey! Honey! Honey! Come and get your Honey!  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -437,6 +523,7 @@
       "name": "The Sicilian Espresso Machine",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Utility_EspressoMachine",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_utility_espressomachine.webp",
       "description": "Some refined caffeine to your C.A.M.P. with the The Sicilian Espresso Machine!  The Sicilian Espresso Machine dispenses Canned Coffee.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -446,6 +533,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Collector_BrewingVat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_collector_brewingvat.webp",
       "description": "Get your fill of fermentable beer to start your own collection of alcohol-fueled goodness!  Generates various fermentable alcoholic drinks.  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -454,6 +542,7 @@
       "name": "Standing Windmill Generator",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Utility_StandingWindmillGenerator",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_utility_standingwindmillgenerator.webp",
       "description": "Harness the magic of the wind to generate power for your C.A.M.P. with the Standing Windmill Generator.  - Requires the base Windmill Generator or Large Generator to have been unlocked -  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -463,6 +552,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Utility_BlueRidgeBeerKeg",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_utility_blueridgebeerkeg.webp",
       "description": "Have an appropriately-sized Keg for any situation with the Blue Ridge Beer Keg Set! Each Blue Ridge Keg is a container which can dispense drinks  in your C.A.M.P.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -471,6 +561,7 @@
       "name": "Saloon Door Set",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Door_Recolored_Saloon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_door_recolored_saloon.webp",
       "description": "Mosey on through these Black, Blue, and Dark Wood Saloon Doors and welcome yourself in with a cold glass of whiskey.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -480,6 +571,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_FloorDecor_Stein_Mountain",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_floordecor_stein_mountain.webp",
       "description": "Enjoy a drink from this Mountain Stein.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -489,6 +581,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_FloorDecor_DestroyedWagon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_floordecor_destroyedwagon.webp",
       "description": "What once was a useful vehicle is now destroyed. Show off your recklessness with this Destroyed Wagon.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -498,6 +591,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_FloorDecor_FarmWagon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_floordecor_farmwagon.webp",
       "description": "Heard you're quite the farmer well here's another useful tool for y'all. A handy dandy Farm Wagon!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -507,6 +601,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_FloorDecor_ReinforcedWagon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_floordecor_reinforcedwagon.webp",
       "description": "Heard you drive the Farm Wagon? Perhaps it's time for you to kick it up a notch with the latest model. The new Reinforced Farm Wagon.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -516,6 +611,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_FloorDecor_Tractor",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_floordecor_tractor.webp",
       "description": "Don't forget to watch out for crops while driving your fresh new Tractor!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -525,6 +621,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_FloorDecor_Plushie_MrFuzzyBlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_floordecor_plushie_mrfuzzyblueridge.webp",
       "description": "How many jobs can one plushie have?  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -534,6 +631,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_FloorDecor_Cactus",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_floordecor_cactus.webp",
       "description": "Cactus a magnificent spiky plant!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -543,6 +641,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_FloorDecor_PersianRug_White",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_floordecor_persianrug_white.webp",
       "description": "This White Persian Rug must have perfect craftsmanship to hold up this well.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -551,6 +650,7 @@
       "name": "Wall-Mounted Walkway",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_WallDecor_WallWalkway",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_walldecor_wallwalkway.webp",
       "description": "When you want to forge your own path, use the Wall-Mounted Walkway!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -559,6 +659,7 @@
       "name": "Kill Or Be Killed Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_WallDecor_KillSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_walldecor_killsign.webp",
       "description": "Let visitors to your C.A.M.P. know you mean business with the Kill Or Be Killed Sign!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -567,6 +668,7 @@
       "name": "Wall Spikes",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_WallDecor_RaiderWallSpikes",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_walldecor_raiderwallspikes.webp",
       "description": "Watch yourself, they're sharp!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -576,6 +678,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_WallDecor_EndofSeasonArt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_walldecor_endofseasonart.webp",
       "description": "Reminisce on your trip down the \"Country Roads\" with this commemorative wall art!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -584,6 +687,7 @@
       "name": "Sheriff Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_WallDecor_SheriffSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_walldecor_sheriffsign.webp",
       "description": "Bring justice to your C.A.M.P. and the Wasteland with this Sheriff Sign.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -592,6 +696,7 @@
       "name": "Gunsmith Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_WallDecor_GunsmithSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_walldecor_gunsmithsign.webp",
       "description": "Make your C.A.M.P. Lock, Stock, and Barrel with this Gunsmith sign.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -600,6 +705,7 @@
       "name": "Blacksmith Sign",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_WallDecor_BlacksmithSign",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_walldecor_blacksmithsign.webp",
       "description": "Forge your C.A.M.P.'s own story with this Blacksmith Sign.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -608,6 +714,7 @@
       "name": "Blue Ridge Machine Gun Turret Set",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Defense_Turret_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_defense_turret_blueridge.webp",
       "description": "Let all know not to mess with the Blue Ridge Caravans with these new Blue Ridge Turrets!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -617,6 +724,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_ArmorSkin_Robot_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_armorskin_robot_blueridge.webp",
       "description": "Move with excellence and journey with care with the Blue Ridge Robot Armor paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -626,6 +734,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_ArmorSkin_SecretService_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_armorskin_secretservice_blueridge.webp",
       "description": "Move with excellence and journey with care with the Blue Ridge Secret Service Armor paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -635,6 +744,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_ArmorSkin_Scout_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_armorskin_scout_blueridge.webp",
       "description": "Move with excellence and journey with care with the Blue Ridge Scout Armor paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -644,6 +754,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_ArmorSkin_BOSInfantry_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_armorskin_bosinfantry_blueridge.webp",
       "description": "Move with excellence and journey with care with the Blue Ridge Recon Armor paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -652,6 +763,7 @@
       "name": "Blue Ridge Civil Engineer Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Skin_ArmorSkin_CivilEngineer_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_skin_armorskin_civilengineer_blueridge.webp",
       "description": "Move with excellence and journey with care with the Blue Ridge Civil Engineer Armor paint!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -661,6 +773,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Vendor_PlayerVendingMachine_BlueRidge",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_vendor_playervendingmachine_blueridge.webp",
       "description": "Share your wares with the Blue Ridge Vending Machine   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -670,6 +783,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_CeilingDecor_HangingCauldron",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_ceilingdecor_hangingcauldron.webp",
       "description": "Show off your wicked brews with these hanging Cauldrons.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -679,6 +793,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Defense_MetalSheetBarricade",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_defense_metalsheetbarricade.webp",
       "description": "Protect yourself with these Sheet Metal Barricades.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -687,6 +802,7 @@
       "name": "Backpack Display",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_WallDeco_Display_Backpack",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_walldeco_display_backpack.webp",
       "description": "Display the bags that always have your back!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -695,6 +811,7 @@
       "name": "Blue Ridge Pit Stop Guard Post",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Defense_GuardPost_BlueRidgePitStop",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_defense_guardpost_blueridgepitstop.webp",
       "description": "Add some defences to your pit stop with these Blue Ridge Pit Stop Defenses.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -703,6 +820,7 @@
       "name": "Rusted Machine Gun Turret Set",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Defense_Turret_Rusted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_defense_turret_rusted.webp",
       "description": "Still operational after all this time. It's time for you to put these Rusted Turrets to use.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -712,6 +830,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Displaycase_Pillar",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_displaycase_pillar.webp",
       "description": "What you've all been waiting for! A pillar display to show off whatever you want!   - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -720,6 +839,7 @@
       "name": "Blue Ridge Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Photomode_Frame_CountryRoads1",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_photomode_frame_countryroads1.webp",
       "description": "Show your support for the Blue Ridge Caravan Company with the Blue Ridge Photomode Frame!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -728,6 +848,7 @@
       "name": "Road Sign Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S18_ENTM_Photomode_Frame_CountryRoads2",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_photomode_frame_countryroads2.webp",
       "description": "Show your love for repurposed road signs with the Road Sign Photomode Frame!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -737,6 +858,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S18_ENTM_CAMP_Displaycase_SkylineSnowGlobes",
+      "imageUrl": "/wp-content/uploads/season_images/score_s18_camp_displaycase_skylinesnowglobes.webp",
       "description": "Those snow globes finally have a home to be displayed in your C.A.M.P.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     }
   ]

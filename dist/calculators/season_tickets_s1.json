@@ -1,8 +1,59 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 1,
   "seasonName": "The Legendary Run",
@@ -15,6 +66,7 @@
       "kind": "playerIcon",
       "value": "Captain Cosmos",
       "storefrontEntitlement": "SCORE_S1_ENTM_PlayerIcon_CaptainCosmos",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_score_01.avif",
       "description": "Only a true hero of the Cosmos should have the Captain Cosmos Player Icon.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -26,6 +78,7 @@
       "kind": "playerIcon",
       "value": "Blood Eagle",
       "storefrontEntitlement": "SCORE_S1_ENTM_PlayerIcon_BloodEagle",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_raider_04.avif",
       "description": "Represent the most ferocious faction in the Wasteland with this Blood Eagle Player Icon!  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -37,6 +90,7 @@
       "kind": "playerIcon",
       "value": "Secret Service Helmet",
       "storefrontEntitlement": "SCORE_S1_ENTM_PlayerIcon_SecretServiceHelmet",
+      "imageUrl": "/wp-content/uploads/storefront/player-icons/atx_playericon_secretservice_01.avif",
       "description": "Show the Wasteland where your true loyalties lie with the Secret Service Helmet Player Icon.  - UNLOCKS A PLAYER ICON. -",
       "tallyCategory": "player_icon"
     },
@@ -46,6 +100,7 @@
       "name": "White Raider Skull Gas Mask",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Apparel_Headwear_GasMaskRaiderSkull_White",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_apparel_headwear_gasmaskraiderskull_white.webp",
       "description": "Terrorize the Wasteland with the White Raider Skull Gas Mask.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -54,6 +109,7 @@
       "name": "Blue Captain Cosmos Suit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Apparel_Outfit_CaptainCosmos_Blue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_apparel_outfit_captaincosmos_blue.webp",
       "description": "Gear up for a new... Cosmic Adventure with this Blue Captain Cosmos Suit!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -62,6 +118,7 @@
       "name": "Green Captain Cosmos Suit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Apparel_Outfit_CaptainCosmos_Green",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_apparel_outfit_captaincosmos_green.webp",
       "description": "Gear up for a new... Cosmic Adventure with this Green Captain Cosmos Suit!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -70,6 +127,7 @@
       "name": "Pink Captain Cosmos Suit",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Apparel_Outfit_CaptainCosmos_Pink",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_apparel_outfit_captaincosmos_pink.webp",
       "description": "Gear up for a new... Cosmic Adventure with this Pink Captain Cosmos Suit!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -79,6 +137,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Model_CaptainCosmos",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_model_captaincosmos.webp",
       "description": "Blast off on adventure with the Captain Cosmos Power Armor Paint!  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -88,6 +147,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Model_Black_CaptainCosmos",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_model_black_captaincosmos.webp",
       "description": "Explore the furthest and darkest reaches of the Cosmos with the Captain Cosmos Dark Matter Power Armor Paint.  This is a unique skin that completely alters the appearance of your Power Armor. It can be equipped on all main Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -97,6 +157,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Jetpack_CaptainCosmos",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_jetpack_captaincosmos.webp",
       "description": "Don't forget to turn on Inertial Dampening with this Captain Cosmos Jetpack!  Requires a known Jetpack plan to craft.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -106,6 +167,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Jetpack_CaptainCosmos_Black",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_jetpack_captaincosmos_black.webp",
       "description": "Counteract any high G-force with the Dark Matter Jetpack Skin.  Requires a known Jetpack plan to craft.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -115,6 +177,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Paint_Excavator_AtomicOnslaught",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_paint_excavator_atomiconslaught.webp",
       "description": "Slaughter the Wasteland with the Atomic Onslaught Power Armor Paint.  Includes a unique paint for the Excavator Power Armor.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -124,6 +187,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Paint_T45_AtomicOnslaught",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_paint_t45_atomiconslaught.webp",
       "description": "Slaughter the Wasteland with the Atomic Onslaught Power Armor Paint.  Includes a unique paint for the T-45 Power Armor.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -133,6 +197,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Paint_T51_AtomicOnslaught",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_paint_t51_atomiconslaught.webp",
       "description": "Slaughter the Wasteland with the Atomic Onslaught Power Armor Paint.  Includes a unique paint for the T-51 Power Armor.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -142,6 +207,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Paint_T60_AtomicOnslaught",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_paint_t60_atomiconslaught.webp",
       "description": "Slaughter the Wasteland with the Atomic Onslaught Power Armor Paint.  Includes a unique paint for the T-60 Power Armor.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -151,6 +217,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Paint_T65_AtomicOnslaught",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_paint_t65_atomiconslaught.webp",
       "description": "Slaughter the Wasteland with the Atomic Onslaught Power Armor Paint.  Includes a unique paint for the Secret Service Power Armor.    - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -160,6 +227,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Paint_Ultracite_AtomicOnslaught",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_paint_ultracite_atomiconslaught.webp",
       "description": "Slaughter the Wasteland with the Atomic Onslaught Power Armor Paint.  Includes a unique paint for the Ultracite Power Armor.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -169,6 +237,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PowerArmor_Paint_X01_AtomicOnslaught",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_powerarmor_paint_x01_atomiconslaught.webp",
       "description": "Slaughter the Wasteland with the Atomic Onslaught Power Armor Paint.  Includes a unique paint for the X-01 Power Armor.   - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
     },
     {
@@ -177,6 +246,7 @@
       "name": "Ghillie Hunting Rifle Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_WeaponSkin_HuntingRifle_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_weaponskin_huntingrifle_ghillie.webp",
       "description": "Conceal your weapon from your prey with the Ghillie Hunting Rifle Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -186,6 +256,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_WeaponSkin_CombatRifle_Black",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_weaponskin_combatrifle_black.webp",
       "description": "Arm yourself to explore the darkest reaches of the Cosmos with the Dark Matter Combat Rifle Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -195,6 +266,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_WeaponSkin_SuperSledge_BloodEagle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_weaponskin_supersledge_bloodeagle.webp",
       "description": "Conquer the Wasteland with this Blood Eagle Paint for the Super Sledge.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -203,6 +275,7 @@
       "name": "Blood Eagle Paint (Handmade Rifle)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_WeaponSkin_HandmadeGun_BloodEagle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_weaponskin_handmadegun_bloodeagle.webp",
       "description": "Conquer the Wasteland with this Blood Eagle Paint for the Handmade Rifle.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -211,6 +284,7 @@
       "name": "Special Issue Gauss Pistol Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_WeaponSkin_GaussPistol_SpecialIssue",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_weaponskin_gausspistol_specialissue.webp",
       "description": "Only a select few are worthy of the Special Issue Gauss Pistol Paint.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -219,6 +293,7 @@
       "name": "Flying Saucer Playscape",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_Structure_UFOPlayscape",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_structure_ufoplayscape.webp",
       "description": "Decorate your C.A.M.P. with the possible remains of an extraterrestrial spacecraft.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -228,6 +303,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_Utility_Sink_Clean",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_utility_sink_clean.webp",
       "description": "Make it a clean scene with the Clean Sink. The Clean Sink will dispense water.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -237,6 +313,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_Collector_ChickenCoop",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_collector_chickencoop.webp",
       "description": "Set up this Chicken Coop and generate some fertilizer for your farm!  This item cannot be built inside of a Shelter.  - AVAILABLE FOR GOLD BULLION PER CHARACTER. C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -245,6 +322,7 @@
       "name": "Vault Door",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_Door_Vault",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_door_vault.webp",
       "description": "Put a piece of home in your C.A.M.P. with this Vault Door!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -253,6 +331,7 @@
       "name": "Fireplace Secret Door",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_Door_Secret_Fireplace",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_door_secret_fireplace.webp",
       "description": "Create a hidden room in your C.A.M.P with this Secret Door disguised as a Fireplace!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -262,6 +341,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_Furniture_Chair_ArmyTheater",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_furniture_chair_armytheater.webp",
       "description": "Turn your C.A.M.P into a stage with the Army Base Theater Chair.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -271,6 +351,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_FloorDecor_Plushie_SheepsquatchGiant",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_floordecor_plushie_sheepsquatchgiant.webp",
       "description": "Bring this adorable guy into your home today!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -279,6 +360,7 @@
       "name": "Jangles Beer Stein",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_FloorDecor_Stein_Jangles",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_floordecor_stein_jangles.webp",
       "description": "Have a drink and monkey around more with the Jangles Beer Stein!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -288,6 +370,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Utility_AmmoConverter",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_utility_ammoconverter.webp",
       "description": "Turn other people's trash fire into your firepower!   A terminal where you can convert unwanted ammo types into points. Then use those points to buy the ammo you need for your adventures in the wasteland.  This item cannot be built inside of a Shelter.  - AVAILABLE FOR GOLD BULLION PER CHARACTER. C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -296,6 +379,7 @@
       "name": "Ghillie Combat Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_ArmorSkin_Combat_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_armorskin_combat_ghillie.webp",
       "description": "Keep a low profile with the Ghillie Combat Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -304,6 +388,7 @@
       "name": "Ghillie Leather Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_ArmorSkin_Leather_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_armorskin_leather_ghillie.webp",
       "description": "Keep a low profile with the Ghillie Leather Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -312,6 +397,7 @@
       "name": "Ghillie Marine Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_ArmorSkin_Marine_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_armorskin_marine_ghillie.webp",
       "description": "Keep a low profile with the Ghillie Marine Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -320,6 +406,7 @@
       "name": "Ghillie Metal Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_ArmorSkin_Metal_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_armorskin_metal_ghillie.webp",
       "description": "Keep a low profile with the Ghillie Metal Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -328,6 +415,7 @@
       "name": "Ghillie Robot Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_ArmorSkin_Robot_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_armorskin_robot_ghillie.webp",
       "description": "Keep a low profile with the Ghillie Robot Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -336,6 +424,7 @@
       "name": "Ghillie Scout Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_ArmorSkin_Scout_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_armorskin_scout_ghillie.webp",
       "description": "Keep a low profile with the Ghillie Scout Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -344,6 +433,7 @@
       "name": "Ghillie Wood Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_ArmorSkin_Wood_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_armorskin_wood_ghillie.webp",
       "description": "Keep a low profile with the Ghillie Wood Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -353,6 +443,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_WeaponModel_Bow_FlatwoodsFletcher",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_weaponmodel_bow_flatwoodsfletcher.webp",
       "description": "Arm yourself to hunt down the Flatwoods monster with the Flatwoods Fletcher Skin.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -361,6 +452,7 @@
       "name": "Appalachian Thunder Pipe (Gatling Gun)",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_WeaponModel_GatlingGun_ThunderPipe",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_weaponmodel_gatlinggun_thunderpipe.webp",
       "description": "Add the ol' Appalachian Thunder Pipe to your arsenal with this skin for the Gatling gun.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     },
     {
@@ -369,6 +461,7 @@
       "name": "Glow in the Dark - Stars and Planets Wallpaper",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_WallPaper_GlowInTheDark_StarsAndPlanets",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_wallpaper_glowinthedark_starsandplanets.webp",
       "description": "Bring the night sky into your C.A.M.P. with this Glow in the Dark - Stars and Planets Wallpaper.  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
     },
     {
@@ -377,6 +470,7 @@
       "name": "Glow in the Dark - Stars Wallpaper",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_WallPaper_GlowInTheDark_Stars",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_wallpaper_glowinthedark_stars.webp",
       "description": "Bring the night sky into your C.A.M.P. with this Glow in the Dark - Stars Wallpaper.  - WALLPAPER ITEMS APPEAR WHILE IN C.A.M.P. EDIT MODE. -"
     },
     {
@@ -385,6 +479,7 @@
       "name": "Hanging Raider Cage",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_WallDeco_HangingRaiderCage",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_walldeco_hangingraidercage.webp",
       "description": "Show the Wasteland how you deal with trespassers.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -393,6 +488,7 @@
       "name": "Fireflies in a Jar Ceiling Lamp",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_Lights_Fireflies",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_lights_fireflies.webp",
       "description": "Catch some lightning in a jar and hang it in your C.A.M.P. with the Firefly Ceiling Lamp!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -401,6 +497,7 @@
       "name": "Ghillie Backpack",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_Backpack_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_backpack_ghillie.webp",
       "description": "Blend in with your surroundings with the Ghillie Backpack.  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. --"
     },
     {
@@ -409,6 +506,7 @@
       "name": "Space Explorer Jangles Backpack",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_Backpack_SpaceExplorerJangles",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_backpack_spaceexplorerjangles.webp",
       "description": "Blast off with the Space Explorer Jangles Backpack!  This skin can be applied to both the Small and Standard Backpack as a mod.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -417,6 +515,7 @@
       "name": "Welcome to Adventure Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Photomode_Frame_Adventure",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_photomode_frame_adventure.webp",
       "description": "Celebrate the spirit of adventure!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -425,6 +524,7 @@
       "name": "Clean Sweep Pose",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Photomode_Pose_Sweep",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_photomode_pose_sweep.webp",
       "description": "Show the Wasteland that you are cleaning up with the Clean Sweep Pose!   - UNLOCKS A PHOTOMODE POSE. -"
     },
     {
@@ -433,6 +533,7 @@
       "name": "Future-Tec C.A.M.P.",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_Deployable_FutureTec",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_deployable_futuretec.webp",
       "description": "Future-Tec brings you the latest in advanced C.A.M.P. technology. Build your home with the Future-Tec C.A.M.P. deployable!   - CHANGES THE LOOK OF YOUR C.A.M.P. DEPLOYABLE. APPLY IN THE ATOMIC SHOP. -"
     },
     {
@@ -441,6 +542,7 @@
       "name": "Atomic Onslaught Pip-Boy Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_PipBoySkin_AtomicOnslaught",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_pipboyskin_atomiconslaught.webp",
       "description": "Wear your true colors on your sleeve with this intimidating Atomic Onslaught Paint for your Pip-Boy!  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -449,6 +551,7 @@
       "name": "Wastelander Photomode Frame",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Photomode_Frame_Wastelander",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_photomode_frame_wastelander.webp",
       "description": "Welcome to the Wasteland!  - UNLOCKS A PHOTOMODE FRAME. -"
     },
     {
@@ -457,6 +560,7 @@
       "name": "Uncle Sam Pose",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Photomode_Pose_UncleSam",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_photomode_pose_unclesam.webp",
       "description": "Uncle Sam needs you!  - UNLOCKS A PHOTOMODE POSE. -"
     },
     {
@@ -466,6 +570,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_Lights_PlanetariumLamp",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_lights_planetariumlamp.webp",
       "description": "Turn your favorite room into a Planetarium with the Planetarium Lamp!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -474,6 +579,7 @@
       "name": "Ghillie Secret Service Armor Paint",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_ArmorSkin_SecretService_Ghillie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_armorskin_secretservice_ghillie.webp",
       "description": "Keep a low profile with the Ghillie Secret Service Armor Paint.  - SKIN IS CRAFTABLE AT ARMOR WORKBENCHES. -"
     },
     {
@@ -482,6 +588,7 @@
       "name": "Framed Captain Cosmos Gameboard",
       "cost": 0,
       "storefrontEntitlement": "SCORE_S1_ENTM_CAMP_WallDeco_CaptainCosmos_Gameboard",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_camp_walldeco_captaincosmos_gameboard.webp",
       "description": "Reminisce about all your intergalactic adventures with the Framed Captain Cosmos Gameboard.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
     },
     {
@@ -491,6 +598,7 @@
       "cost": 0,
       "isFirst": true,
       "storefrontEntitlement": "SCORE_S1_ENTM_Skin_WeaponModel_CompoundBow_FlatwoodsFletcher",
+      "imageUrl": "/wp-content/uploads/season_images/score_s1_skin_weaponmodel_compoundbow_flatwoodsfletcher.webp",
       "description": "Arm yourself to hunt down the Flatwoods monster with the Flatwoods Fletcher Skin.  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
     }
   ]
