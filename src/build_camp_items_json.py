@@ -1046,6 +1046,20 @@ def build_entitlement_only_items(entm_token_idx, covered_edids, today):
         if not name: continue
         fid = clean_str(r.get("FormID") or "")
         status = "cut" if starts_cut(edid) else "unreleased"
+        # Even entitlement-only (cut/unreleased) collectrons must carry the same
+        # obtainRoutes + buildInfo shape as the RESO-backed ones, or the camp-items
+        # JSON contract (verify_camp_items_json.py, which requires non-empty
+        # 'obtainRoutes' and 'buildInfo' on every collectron) fails the build.
+        # Derive them from the ENTM EDID we have; there is no RESO/container here,
+        # so buildInfo uses the standard defaults (1 per camp, non-powered, no
+        # flamingo cost) and the obtain routes come out all-N/A unless the EDID
+        # itself names an Atom Shop / F1 / scoreboard source.
+        _book_data = {"planName": None, "tradeable": None,
+                      "goldBullionPrice": None, "vendor": None}
+        _obtain = resolve_obtain(edid, _book_data)
+        _obtain_routes = build_obtain_routes(_obtain, _book_data)
+        _build_info = ("Build Limit per Camp: {}\nBuild Limit per Workshop: {}\n"
+                       "Power Required: {}\nFlamingo Units: {}").format(1, 0, "No", "—")
         out.append({
             "formId": fid, "edid": edid,
             "resoFormId": "", "contFormId": "", "entmFormId": fid,
@@ -1062,8 +1076,9 @@ def build_entitlement_only_items(entm_token_idx, covered_edids, today):
             "station": {"capacity": None, "powerRequired": False,
                         "flamingoUnits": None, "lockable": None},
             "crafting": {"components": []}, "craftingRequirements": [],
-            "howToObtain": {}, "obtainRoutes": [],
-            "buildInfo": "",
+            "howToObtain": _obtain, "obtainRoutes": _obtain_routes,
+            "buildInfo": _build_info,
+            "seasonNumber": _obtain.get("seasonNumber"),
             "cutContent": status == "cut",
             "status": status,
             "releaseDate": "",
