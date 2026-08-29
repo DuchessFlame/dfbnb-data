@@ -928,6 +928,17 @@ jobs:
       - name: Apply legacy re-release additions
         run: python src/apply_legacy_additions.py
 
+      # --- EXPORT INTEGRITY ---
+      # The xEdit export scripts used to round-trip each row through
+      # TStringList.DelimitedText without setting QuoteChar, so any value that
+      # STARTED with a double quote — `"Megasloth" Pelt Rug`, `"Improved" Slot
+      # Machine` — was split into two columns and shifted the rest of the row
+      # one place right. The .pas scripts are fixed, but this repairs anything
+      # exported with an older copy of them before it reaches a builder.
+      # Idempotent; a clean tree is a no-op. See tools/ and src/tsv_repair.py.
+      - name: Repair quote-split export rows
+        run: python tools/repair_export_quote_splits.py
+
       # --- ATOM SHOP ---
       - name: Build Atom Shop JSON
         run: python src/build_atom_shop_json.py
@@ -949,6 +960,24 @@ jobs:
       # family as Atom Shop / Tents so it runs alongside them.
       - name: Build Emotes JSON
         run: python src/build_emotes_json.py
+
+      # --- PLAYER ICONS ---
+      # Reads the newest tsv/ENTM_Export_*.tsv (+ season_rewards.tsv and
+      # CHAL for obtain routes) and emits dist/player_icons.json — consumed
+      # by the Player Icons page (df-bnb-atom-shop.js). Same page family as
+      # Atom Shop / Tents / Emotes, so it runs alongside them. Also writes
+      # tsv/player_icons_first_seen.json, which drives the 31-day NEW pill.
+      - name: Build Player Icons JSON
+        run: python src/build_player_icons_json.py
+
+      # Point every scoreboard playerIcon reward at the same folder the Player
+      # Icons page uses, and back-fill any blank storefrontEntitlement. Must run
+      # AFTER build_player_icons_json.py (it reads dist/player_icons.json).
+      # Committing season_rewards.tsv fires build-season-rewards.yml, which
+      # regenerates the per-season JSON so the new URLs reach the scoreboards.
+      # Never invents an image — unmatched rows are reported and left alone.
+      - name: Repoint scoreboard player-icon images
+        run: python src/apply_player_icon_images.py
 
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
@@ -992,6 +1021,7 @@ jobs:
           test -f dist/seasons.json                  && echo "OK seasons.json"                  || (echo "MISSING seasons.json" && exit 1)
           test -f dist/survival_tent_interiors.json  && echo "OK survival_tent_interiors.json"  || (echo "MISSING survival_tent_interiors.json" && exit 1)
           test -f dist/emotes.json                   && echo "OK emotes.json"                   || (echo "MISSING emotes.json" && exit 1)
+          test -f dist/player_icons.json            && echo "OK player_icons.json"            || (echo "MISSING player_icons.json" && exit 1)
           test -f dist/camp.json                     && echo "OK camp.json"                     || (echo "MISSING camp.json" && exit 1)
           test -f dist/cobj-recipes.json             && echo "OK cobj-recipes.json"             || (echo "MISSING cobj-recipes.json" && exit 1)
           test -f dist/menu-items.json               && echo "OK menu-items.json"               || (echo "MISSING menu-items.json" && exit 1)
@@ -1073,6 +1103,13 @@ jobs:
           # Pushing this fires build-season-rewards.yml, which rebuilds the
           # per-season JSON so the NEW pills actually reach the site.
           git add tsv/season_rewards.tsv 2>/dev/null || true
+          # First-seen ledgers behind the rolling NEW pills. If these are not
+          # committed, every CI run re-stamps today and the pill never expires.
+          git add tsv/*_first_seen.json 2>/dev/null || true
+          # Exports the repair step re-joined. Committing them means the fix
+          # lands once instead of being redone on every run, and the diff shows
+          # exactly which rows the export had broken.
+          git add tsv/*_Export_*.tsv 2>/dev/null || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

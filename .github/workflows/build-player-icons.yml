@@ -1,0 +1,48 @@
+name: Build Player Icons Data
+
+# Manual-only trigger.
+# The patch build (dfbnb-patch-build.yml) already runs this script on
+# every push to src/ or tsv/, so an automatic trigger here would cause
+# a double-build race condition. Use this workflow for quick one-off
+# rebuilds when you only need to update the Player Icons data.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Run build script
+        run: |
+          mkdir -p dist
+          python src/build_player_icons_json.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          # The first-seen ledger drives the 31-day NEW pill, so it is committed
+          # alongside the data — without it every rebuild would re-stamp today.
+          git add dist/player_icons.json tsv/player_icons_first_seen.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Player Icons data"
+            git fetch origin main
+            git pull --rebase origin main
+            git push
+          fi

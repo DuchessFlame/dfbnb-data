@@ -66,6 +66,16 @@ jobs:
       - name: Normalize PTS TSV into tsv/
         run: python src/normalize_pts_tsv.py --src tsv/pts --dst tsv --in-place
 
+      # Repair rows the xEdit export split in half — a value starting with a
+      # double quote used to be re-parsed as a quoted token by
+      # TStringList.DelimitedText, shifting every later column one place right.
+      # Runs AFTER the normalize so it covers the PTS pull that just landed in
+      # tsv/, and BEFORE every builder. The .pas scripts are fixed now, so on a
+      # fresh export this is a no-op; it protects the older pulls still in the
+      # repo. Nothing is committed — the tsv/ tree here is ephemeral.
+      - name: Repair quote-split export rows
+        run: python tools/repair_export_quote_splits.py
+
       - name: Clear dist for a clean PTS build
         run: rm -rf dist && mkdir -p dist
 
@@ -1057,6 +1067,17 @@ jobs:
       - name: Build Emotes JSON
         run: python src/build_emotes_json.py
 
+      # --- PLAYER ICONS ---
+      # Generative player_icons.json from the newest ENTM export. Mirrors the
+      # same step in dfbnb-patch-build.yml. No --pts flag: normalize_pts_tsv
+      # has already overwritten tsv/ with the PTS pull under live-style names,
+      # and the relocate step moves dist/ -> dist/pts/. The builder does write
+      # tsv/player_icons_first_seen.json here, but the commit step stages only
+      # dist/pts and then discards the rest of the tree, so the live NEW-pill
+      # ledger is never touched by a PTS run.
+      - name: Build Player Icons JSON
+        run: python src/build_player_icons_json.py
+
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |
@@ -1098,6 +1119,7 @@ jobs:
           test -f dist/atom_shop.json                && echo "OK atom_shop.json"                || (echo "MISSING atom_shop.json" && exit 1)
           test -f dist/seasons.json                  && echo "OK seasons.json"                  || (echo "MISSING seasons.json" && exit 1)
           test -f dist/survival_tent_interiors.json  && echo "OK survival_tent_interiors.json"  || (echo "MISSING survival_tent_interiors.json" && exit 1)
+          test -f dist/player_icons.json            && echo "OK player_icons.json"            || (echo "MISSING player_icons.json" && exit 1)
           test -f dist/emotes.json                   && echo "OK emotes.json"                   || (echo "MISSING emotes.json" && exit 1)
           test -f dist/camp.json                     && echo "OK camp.json"                     || (echo "MISSING camp.json" && exit 1)
           test -f dist/cobj-recipes.json             && echo "OK cobj-recipes.json"             || (echo "MISSING cobj-recipes.json" && exit 1)
