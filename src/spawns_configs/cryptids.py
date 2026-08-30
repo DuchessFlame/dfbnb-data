@@ -324,22 +324,18 @@ def _list_entry_rates(resolver, list_id):
         pw, cn = resolver._entry_pick_and_cn(math, e, list_id)
         conds = resolver._entry_conditions(e)
         if is_use_all and conds:
-            grp = resolver.extract_grp_threshold(conds)
+            grp = resolver.extract_grp_chance(conds)
             if grp is not None:
-                pw, cn = grp / 100.0, 1.0
+                pw, cn = grp, 1.0
         raw.append({"pw": pw, "cn": cn,
                     "sub": (math.get("SubLVLI_FormID") or "").strip(),
                     "ref": (e.get("LVLO_Reference") or "").strip(),
                     "qty": resolver._entry_qty(e), "conds": conds})
     if is_first:
-        thr = [resolver.extract_grp_threshold(r["conds"]) for r in raw]
-        if any(t is not None for t in thr):
-            prev = 0.0
+        _fm = resolver.first_match_rates([r["conds"] for r in raw])
+        if _fm is not None:
             for i, r in enumerate(raw):
-                if thr[i] is not None:
-                    r["rate"] = (thr[i] - prev) / 100.0; prev = thr[i]
-                else:
-                    r["rate"] = (100.0 - prev) / 100.0
+                r["rate"] = _fm[i]
         else:
             cum = 1.0
             for r in raw:

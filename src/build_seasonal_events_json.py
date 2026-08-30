@@ -2391,16 +2391,13 @@ def _build_flat_lvli_tiers(lvli_fid, data, resolver):
     is_first_match = flags["first_match"]
 
     if is_first_match:
-        # Cascading GetRandomPercent thresholds (drop-rate-engine §3f).
-        thresholds = [resolver.extract_grp_threshold(r["conds"]) for r in rows]
-        if any(t is not None for t in thresholds):
-            prev = 0.0
-            for i, t in enumerate(thresholds):
-                if t is not None:
-                    rates[i] = max((t - prev) / 100.0, 0.0)
-                    prev = t
-                else:
-                    rates[i] = max((100.0 - prev) / 100.0, 0.0)
+        # Cascading GetRandomPercent conditions (drop-rate-engine §3f).
+        # Operator-aware: handles ascending "<=" lists, descending ">=" lists
+        # and mixes of the two. See Rng76Resolver.first_match_rates().
+        _fm = resolver.first_match_rates([r["conds"] for r in rows])
+        if _fm is not None:
+            for i, _rate in enumerate(_fm):
+                rates[i] = _rate
         else:
             for i in range(len(rows)):
                 rates[i] = 1.0 / len(rows)

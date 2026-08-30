@@ -23,12 +23,12 @@ from patchlog_utils import write_patchlog_feed, diff_item_lists
 # its own standalone copy of the LVLI resolver; it now delegates to rng76.py
 # (the same engine build_drop_rates.py uses) so the two can never drift.
 try:
-    from rng76 import Rng76Data
+    from rng76 import Rng76Data, read_tsv_columns
 except ImportError:
     _SRC_DIR = Path(__file__).resolve().parent
     if str(_SRC_DIR) not in sys.path:
         sys.path.insert(0, str(_SRC_DIR))
-    from rng76 import Rng76Data
+    from rng76 import Rng76Data, read_tsv_columns
 
 import tsv_source          # one resolver for every export selection
 # Populated once in main() from the TSV root; resolve_drops_via_rng76() reads it.
@@ -323,15 +323,24 @@ def _find_latest_tsv(tsv_root, glob_pattern):
     if not hits: return None
     return sorted(hits, key=_tsv_date_key, reverse=True)[0]
 
-def load_latest_tsv(tsv_root, given, glob_pattern):
+def load_latest_tsv(tsv_root, given, glob_pattern, columns=None):
+    """Load the newest export matching *glob_pattern*.
+
+    *columns* narrows the read to the named columns. Use it on very wide
+    exports — GLOB carries one "RefN" back-reference column per referencing
+    record (5,500+ of them) and reading it whole costs ~1.6 GB, against a few
+    MB for the three columns this script actually uses.
+    """
+    def _read(path):
+        return read_tsv_columns(path, columns) if columns else read_tsv(path)
     if given:
         rows = []
         for p in given:
-            if os.path.isfile(p): rows.extend(read_tsv(p))
+            if os.path.isfile(p): rows.extend(_read(p))
         return rows
     if not tsv_root: return []
     path = _find_latest_tsv(tsv_root, glob_pattern)
-    return read_tsv(path) if path else []
+    return _read(path) if path else []
 
 # --- Index builders ---
 def build_index(rows, key_field):
@@ -1273,7 +1282,8 @@ def main():
     book_rows = load_latest_tsv(root, args.book, "**/BOOK_Export_*.tsv")
     lvli_list_rows = load_latest_tsv(root, args.lvli_list, "**/*LVLI*List*.tsv")
     lvli_entry_rows = load_latest_tsv(root, args.lvli_entries, "**/*LVLI*Entries*.tsv")
-    glob_rows = load_latest_tsv(root, args.glob, "**/GLOB_Export_*.tsv")
+    glob_rows = load_latest_tsv(root, args.glob, "**/GLOB_Export_*.tsv",
+                                columns=("FormID", "EDID", "FLTV"))
     avif_rows = load_latest_tsv(root, args.avif, "**/AVIF_Export_*.tsv")
     # AVIF FULL is the produced-resource label shown on the item head pill.
     global _AVIF_FULL_BY_EDID

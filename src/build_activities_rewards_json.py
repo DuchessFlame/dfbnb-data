@@ -1678,6 +1678,20 @@ def _extract_grp_threshold(raw_conds):
     return _get_resolver().extract_grp_threshold(raw_conds)
 
 
+def _extract_grp_chance(raw_conds):
+    """Probability (0-1) that an entry's GetRandomPercent gate passes.
+
+    Operator-aware — ``<= 40`` is a 40% gate but ``>= 40`` is a 60% gate. Use
+    this, never the bare threshold, whenever a condition becomes a RATE.
+    """
+    return _get_resolver().extract_grp_chance(raw_conds)
+
+
+def _first_match_rates_for(cond_lists):
+    """Thin wrapper → Rng76Resolver.first_match_rates (centralised GRP math)."""
+    return _get_resolver().first_match_rates(cond_lists)
+
+
 def resolve_lvli_items_deep(list_id, depth=0, seen=None):
     """
     Resolve an LVLI to leaf items with full quantity/probability tracking.
@@ -1704,7 +1718,8 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
     first_match_rates = {}  # EntryIndex -> net probability (0-1)
     if is_first_match:
         all_entries = lvli_entries_by_list.get(list_id, [])
-        thresholds = []
+        _idxs = []
+        _cond_lists = []
         for _e in all_entries:
             _idx = _e.get("EntryIndex")
             if _idx is None:
@@ -1714,15 +1729,12 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 _cv = (_e.get(f"Cond{_ci}") or "").strip()
                 if _cv:
                     _conds.append(_cv)
-            thresholds.append((_idx, _extract_grp_threshold(_conds)))
-        if any(t is not None for _, t in thresholds):
-            prev = 0.0
-            for _idx, thresh in thresholds:
-                if thresh is not None:
-                    first_match_rates[_idx] = max((thresh - prev) / 100.0, 0.0)
-                    prev = thresh
-                else:
-                    first_match_rates[_idx] = max((100.0 - prev) / 100.0, 0.0)
+            _idxs.append(_idx)
+            _cond_lists.append(_conds)
+        _fm = _first_match_rates_for(_cond_lists)
+        if _fm is not None:
+            for _idx, _rate in zip(_idxs, _fm):
+                first_match_rates[_idx] = _rate
 
     # Pre-scan for UseAll waterfall (rng-76 rules):
     # Only applies when UseAll AND max_count == 1.
@@ -2132,9 +2144,9 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # or literal threshold), use that as the effective entry rate.  xEdit can't
         # resolve GLOB-referenced conditions, leaving apriori=1.0 (100%).
         if is_use_all and conditions:
-            grp_thresh = _extract_grp_threshold(conditions)
-            if grp_thresh is not None:
-                entry_drop_rate = grp_thresh / 100.0
+            grp_chance = _extract_grp_chance(conditions)
+            if grp_chance is not None:
+                entry_drop_rate = grp_chance
 
         sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
         ref = (entry.get("LVLO_Reference") or "").strip()
@@ -2214,27 +2226,24 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
 
     # ── First-match cascading probability ──
     # When a list has the "Use first object that matches all conditions" flag,
-    # entries are checked IN ORDER. Each entry may have a GetRandomPercent <= X
+    # entries are checked IN ORDER. Each entry may have a GetRandomPercent
     # condition. The game rolls ONE random number (1-100) and picks the FIRST
-    # entry whose condition matches.  This means:
+    # entry whose condition matches, so each entry claims the slice of the roll
+    # range no earlier entry already took:
     #   Entry 1 (<= 20): net 20%
     #   Entry 2 (<= 38): net 18% (38 - 20, since <=20 already consumed)
     #   Entry 3 (none):  net 62% (100 - 38, catches everything else)
+    # The comparison direction matters — a descending ">=" list (the collectron
+    # produce lists) carves the same range from the top down. rng76's
+    # first_match_rates() handles both, and mixes of the two.
     # xEdit can't calculate this, so it gives all entries apriori=1.  We fix it here.
     if is_first_match and raw_entries:
-        thresholds = [_extract_grp_threshold(raw_conds) for (_, _, _, raw_conds, _, _) in raw_entries]
+        _fm = _first_match_rates_for([raw_conds for (_, _, _, raw_conds, _, _) in raw_entries])
         # Only apply cascading logic if at least one entry has a GetRandomPercent condition
-        if any(t is not None for t in thresholds):
-            prev_threshold = 0.0
+        if _fm is not None:
             new_entries = []
             for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
-                if thresholds[i] is not None:
-                    net_p = (thresholds[i] - prev_threshold) / 100.0
-                    prev_threshold = thresholds[i]
-                else:
-                    # No condition = catches everything remaining
-                    net_p = (100.0 - prev_threshold) / 100.0
-                new_entries.append((etype, max(net_p, 0.0), data, raw_conds, pw, gc))
+                new_entries.append((etype, _fm[i], data, raw_conds, pw, gc))
             raw_entries = new_entries
 
     # ── UseAll waterfall (rng-76: UseAll + max_count == 1) ──

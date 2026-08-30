@@ -440,23 +440,88 @@ def simplify_conditions(conditions):
                 result.append(s)
     return result
 
+# ---- GetRandomPercent operator decoding -------------------------------------
+# STANDALONE COPY of the logic in src/rng76.py. Keep the two in step (see the
+# drop-rate-engine skill, "The Standalone Copy Rule").
+#
+# The TSV writes the CTDA "Type" byte as an 8-char bit string, bit 0 FIRST. The
+# comparison operator is the low three bits, i.e. the first three characters:
+#   "101....." -> 5 -> <=    "110....." -> 3 -> >=    "010....." -> 2 -> >
+# Treating a ">=" condition as "<=" makes a First Match cascade subtract
+# downwards and go negative — that is what broke the collectron produce lists.
+GRP_OP_EQ, GRP_OP_NE, GRP_OP_GT, GRP_OP_GE, GRP_OP_LT, GRP_OP_LE = 0, 1, 2, 3, 4, 5
+
+_GRP_SYMBOL_OPS = {"<=": GRP_OP_LE, "<": GRP_OP_LT, ">=": GRP_OP_GE,
+                   ">": GRP_OP_GT, "==": GRP_OP_EQ, "=": GRP_OP_EQ,
+                   "!=": GRP_OP_NE, "<>": GRP_OP_NE}
+_RE_GRP_SYMBOL = re.compile(
+    r"GetRandomPercent\s*(<=|>=|<>|!=|==|<|>|=)\s*(\d+(?:\.\d+)?)", re.IGNORECASE)
+_RE_GRP_RAW = re.compile(r"GetRandomPercent[^)]*\)\s*([01]{8})\s*(.*)$", re.IGNORECASE)
+
+
+def parse_grp_condition(cond):
+    """Return (operator_code, value_token) for a GetRandomPercent condition."""
+    if not cond or "GetRandomPercent" not in cond:
+        return None
+    m = _RE_GRP_SYMBOL.search(cond)
+    if m:
+        return (_GRP_SYMBOL_OPS[m.group(1)], m.group(2))
+    m = _RE_GRP_RAW.search(cond)
+    if m:
+        bits = m.group(1)
+        return (int(bits[0]) + 2 * int(bits[1]) + 4 * int(bits[2]),
+                (m.group(2) or "").strip())
+    return None
+
+
+def grp_span_for_value(op, value):
+    """The slice of the 0-100 roll satisfying ``op value``, as (lo, hi)."""
+    v = max(0.0, min(100.0, float(value)))
+    if op in (GRP_OP_LE, GRP_OP_LT):
+        return (0.0, v)
+    if op in (GRP_OP_GE, GRP_OP_GT):
+        return (v, 100.0)
+    if op == GRP_OP_EQ:
+        return (v, min(100.0, v + 1.0))
+    return (0.0, 100.0)
+
+
+def _span_union(covered, span):
+    out = []
+    for lo, hi in sorted(list(covered) + [span]):
+        if out and lo <= out[-1][1]:
+            out[-1] = (out[-1][0], max(out[-1][1], hi))
+        else:
+            out.append((lo, hi))
+    return out
+
+
+def _span_uncovered_width(span, covered):
+    lo, hi = span
+    width = max(0.0, hi - lo)
+    for c_lo, c_hi in covered:
+        overlap = min(hi, c_hi) - max(lo, c_lo)
+        if overlap > 0:
+            width -= overlap
+    return max(0.0, width)
+
+
 def parse_randompercent_multiplier(conditions_text):
+    """Combined GetRandomPercent multiplier (0-1). Operator-aware: "<= 40" is a
+    40% gate, ">= 40" is a 60% gate."""
     mult = 1.0
-    # Match "GetRandomPercent <= N" (standard <= format)
-    for m in re.finditer(r"GetRandomPercent\s*<=\s*(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
+    for chunk in re.split(r"(?=GetRandomPercent)", conditions_text or ""):
+        parsed = parse_grp_condition(chunk)
+        if not parsed:
+            continue
+        op, tok = parsed
+        tok = tok.split()[0] if tok.split() else ""
         try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
+            value = float(tok)
         except ValueError:
-            pass
-    # Match raw GMRW Conditions format: "GetRandomPercent <flags> <value>"
-    # e.g. "GetRandomPercent 10100000 10.000000"
-    for m in re.finditer(r"GetRandomPercent\s+\d+\s+(\d+(?:\.\d+)?)", conditions_text or "", flags=re.IGNORECASE):
-        try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
-        except ValueError:
-            pass
+            continue
+        lo, hi = grp_span_for_value(op, value)
+        mult *= max(0.0, hi - lo) / 100.0
     return mult
 
 # --------------------------------------------------
@@ -1561,26 +1626,71 @@ def parse_lvlf_flags(flags_str):
         "first_match":  bit_set(6),
     }
 
-def _extract_grp_threshold(raw_conds):
-    """Extract the GetRandomPercent <= X threshold from raw condition strings.
-    Handles both literal numbers (e.g. 20.000000) and GLOB references ([GLOB:XXXXXXXX]).
-    Returns the threshold float (e.g. 20.0, 25.0) or None if no GRP condition found."""
-    for cond in raw_conds:
-        if "GetRandomPercent" not in cond:
+def _grp_value(token):
+    """Resolve a GetRandomPercent right-hand side: literal, or [GLOB:XXXXXXXX]."""
+    token = (token or "").strip()
+    if not token:
+        return None
+    glob_match = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', token)
+    if glob_match:
+        return glob_vals.get(glob_match.group(1))
+    try:
+        return float(token.split()[0])
+    except ValueError:
+        return None
+
+
+def _extract_grp_span(raw_conds):
+    """The (lo, hi) slice of the 0-100 roll the entry's GRP condition covers,
+    or None when there is no resolvable GetRandomPercent gate."""
+    span = None
+    for cond in raw_conds or []:
+        parsed = parse_grp_condition(cond)
+        if not parsed:
             continue
-        # Try GLOB reference first: [GLOB:XXXXXXXX]
-        glob_match = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', cond)
-        if glob_match:
-            glob_fid = glob_match.group(1)
-            if glob_fid in glob_vals:
-                return glob_vals[glob_fid]
-        # Try literal number (last number in the string)
-        parts = cond.strip().split()
-        for part in reversed(parts):
-            try:
-                return float(part)
-            except ValueError:
-                continue
+        value = _grp_value(parsed[1])
+        if value is None:
+            continue
+        lo, hi = grp_span_for_value(parsed[0], value)
+        span = (lo, hi) if span is None else (max(span[0], lo), min(span[1], hi))
+    if span is None:
+        return None
+    return (span[0], max(span[0], span[1]))
+
+
+def _extract_grp_chance(raw_conds):
+    """Probability (0-1) that the entry's GetRandomPercent gate passes."""
+    span = _extract_grp_span(raw_conds)
+    return None if span is None else max(0.0, span[1] - span[0]) / 100.0
+
+
+def _first_match_rates_for(cond_lists):
+    """Per-entry selection rates (0-1) for a First Match list. One roll is taken
+    and entries are checked in order, so each entry claims the part of the roll
+    range no earlier entry took. Works for ascending "<=" lists, descending ">="
+    lists and mixes. None when no entry has a resolvable GRP gate."""
+    spans = [_extract_grp_span(c) for c in cond_lists]
+    if not any(s is not None for s in spans):
+        return None
+    rates, covered = [], []
+    for span in spans:
+        eff = span if span is not None else (0.0, 100.0)
+        rates.append(_span_uncovered_width(eff, covered) / 100.0)
+        covered = _span_union(covered, eff)
+    return rates
+
+
+def _extract_grp_threshold(raw_conds):
+    """Raw GetRandomPercent threshold — the number on the right of the
+    comparison, ignoring direction. Never use this as a RATE; use
+    _extract_grp_chance()/_first_match_rates_for() for that."""
+    for cond in raw_conds or []:
+        parsed = parse_grp_condition(cond)
+        if not parsed:
+            continue
+        value = _grp_value(parsed[1])
+        if value is not None:
+            return value
     return None
 
 
@@ -1610,7 +1720,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
     first_match_rates = {}  # EntryIndex -> net probability (0-1)
     if is_first_match:
         all_entries = lvli_entries_by_list.get(list_id, [])
-        thresholds = []
+        _idxs, _cond_lists = [], []
         for _e in all_entries:
             _idx = _e.get("EntryIndex")
             if _idx is None:
@@ -1620,15 +1730,12 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 _cv = (_e.get(f"Cond{_ci}") or "").strip()
                 if _cv:
                     _conds.append(_cv)
-            thresholds.append((_idx, _extract_grp_threshold(_conds)))
-        if any(t is not None for _, t in thresholds):
-            prev = 0.0
-            for _idx, thresh in thresholds:
-                if thresh is not None:
-                    first_match_rates[_idx] = max((thresh - prev) / 100.0, 0.0)
-                    prev = thresh
-                else:
-                    first_match_rates[_idx] = max((100.0 - prev) / 100.0, 0.0)
+            _idxs.append(_idx)
+            _cond_lists.append(_conds)
+        _fm = _first_match_rates_for(_cond_lists)
+        if _fm is not None:
+            for _idx, _rate in zip(_idxs, _fm):
+                first_match_rates[_idx] = _rate
 
     # Collect list-level conditions from TSV (LVLI record-level CTDA)
     list_level_conds = simplify_conditions(LVLI_LIST_CONDITIONS.get(list_id, []))
@@ -1905,9 +2012,9 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
         # or literal threshold), use that as the effective entry rate.  xEdit can't
         # resolve GLOB-referenced conditions, leaving apriori=1.0 (100%).
         if is_use_all and conditions:
-            grp_thresh = _extract_grp_threshold(conditions)
-            if grp_thresh is not None:
-                entry_drop_rate = grp_thresh / 100.0
+            grp_chance = _extract_grp_chance(conditions)
+            if grp_chance is not None:
+                entry_drop_rate = grp_chance
 
         sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
         ref = (entry.get("LVLO_Reference") or "").strip()
@@ -1971,19 +2078,12 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     #   Entry 3 (none):  net 62% (100 - 38, catches everything else)
     # xEdit can't calculate this, so it gives all entries apriori=1.  We fix it here.
     if is_first_match and raw_entries:
-        thresholds = [_extract_grp_threshold(raw_conds) for (_, _, _, raw_conds, _, _) in raw_entries]
+        _fm = _first_match_rates_for([raw_conds for (_, _, _, raw_conds, _, _) in raw_entries])
         # Only apply cascading logic if at least one entry has a GetRandomPercent condition
-        if any(t is not None for t in thresholds):
-            prev_threshold = 0.0
+        if _fm is not None:
             new_entries = []
             for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
-                if thresholds[i] is not None:
-                    net_p = (thresholds[i] - prev_threshold) / 100.0
-                    prev_threshold = thresholds[i]
-                else:
-                    # No condition = catches everything remaining
-                    net_p = (100.0 - prev_threshold) / 100.0
-                new_entries.append((etype, max(net_p, 0.0), data, raw_conds, pw, gc))
+                new_entries.append((etype, _fm[i], data, raw_conds, pw, gc))
             raw_entries = new_entries
 
     # Normalize for pick-one lists using PICK WEIGHTS (not ChanceNone-adjusted rates).

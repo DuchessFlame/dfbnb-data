@@ -40,7 +40,7 @@ import glob as _glob
 import os
 import re
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 import tsv_source          # one resolver for every export selection
 
 
@@ -97,6 +97,38 @@ def read_tsv(path: str) -> List[Dict[str, str]]:
     except UnicodeDecodeError:
         with open(path, encoding="cp1252", errors="replace", newline="") as f:
             return list(csv.DictReader(f, delimiter="\t"))
+
+
+def read_tsv_columns(path: str, wanted: Iterable[str]) -> List[Dict[str, str]]:
+    """
+    Read a TSV keeping only the named columns.
+
+    Same as ``read_tsv`` but streams the file and drops every other column, so
+    a very wide export doesn't have to be held in memory in full. The GLOB
+    export is the reason this exists: it carries one "RefN" column per
+    referencing record (5,500+ columns), of which the engine needs exactly
+    three — reading it whole costs ~1.6 GB, reading these three costs a few MB.
+    """
+    keep = set(wanted)
+
+    def _rows(handle):
+        reader = csv.reader(handle, delimiter="\t")
+        try:
+            header = next(reader)
+        except StopIteration:
+            return []
+        idx = [(i, name) for i, name in enumerate(header) if name in keep]
+        out = []
+        for row in reader:
+            out.append({name: (row[i] if i < len(row) else "") for i, name in idx})
+        return out
+
+    try:
+        with open(path, encoding="utf-8-sig", newline="") as f:
+            return _rows(f)
+    except UnicodeDecodeError:
+        with open(path, encoding="cp1252", errors="replace", newline="") as f:
+            return _rows(f)
 
 
 def pick(row: Dict[str, str], *keys: str, default: str = "") -> str:
@@ -232,9 +264,22 @@ class ItemNameIndex:
 
     # -- convenience: load everything from a tsv/ folder -------------
 
+    @staticmethod
+    def _name_columns(sig: str) -> Tuple[str, ...]:
+        """Every column name the per-record loaders read, for one signature.
+
+        The name index only ever wants FormID / FULL / EDID, so the loaders
+        take those columns and skip the rest of the export. Several of these
+        tables are very wide (hundreds of stat and back-reference columns) and
+        reading them whole is what used to push the engine past 1.5 GB.
+        """
+        return (f"{sig}_FormID", "FormID", "FormId",
+                f"{sig}_FULL", "FULL - Name", "FULL", "Name",
+                f"{sig}_EDID", "EDID")
+
     def load_all_from_tsv_root(self, tsv_root: str) -> None:
         """Auto-discover and load all item-name TSVs from *tsv_root*."""
-        def _safe_load(pattern, loader, exclude_suffixes=None):
+        def _safe_load(pattern, loader, sig, exclude_suffixes=None):
             files = _glob.glob(os.path.join(tsv_root, pattern))
             if exclude_suffixes:
                 files = [f for f in files
@@ -243,21 +288,21 @@ class ItemNameIndex:
             if not files:
                 return
             files.sort(key=tsv_source.export_key)
-            loader(read_tsv(files[-1]))
+            loader(read_tsv_columns(files[-1], self._name_columns(sig)))
 
-        _safe_load("BOOK_Export_*.tsv", self.load_book,
+        _safe_load("BOOK_Export_*.tsv", self.load_book, "BOOK",
                    exclude_suffixes=["_Locations"])
-        _safe_load("MISC_Export_*.tsv", self.load_misc)
-        _safe_load("KEYM_Export_*.tsv", self.load_keym,
+        _safe_load("MISC_Export_*.tsv", self.load_misc, "MISC")
+        _safe_load("KEYM_Export_*.tsv", self.load_keym, "KEYM",
                    exclude_suffixes=["_Locations", "_Refs", "_KYWD"])
-        _safe_load("ARMO_Export_*.tsv", self.load_armo,
+        _safe_load("ARMO_Export_*.tsv", self.load_armo, "ARMO",
                    exclude_suffixes=["_SLOTS", "_ObjectTemplate"])
-        _safe_load("WEAP_Export_*.tsv", self.load_weap,
+        _safe_load("WEAP_Export_*.tsv", self.load_weap, "WEAP",
                    exclude_suffixes=["_ObjectTemplate", "_DNAM"])
-        _safe_load("ALCH_Export_*.tsv", self.load_alch,
+        _safe_load("ALCH_Export_*.tsv", self.load_alch, "ALCH",
                    exclude_suffixes=["_Effects"])
-        _safe_load("AMMO_Export_*.tsv", self.load_ammo)
-        _safe_load("CREA_Export_*.tsv", self.load_crea)
+        _safe_load("AMMO_Export_*.tsv", self.load_ammo, "AMMO")
+        _safe_load("CREA_Export_*.tsv", self.load_crea, "CREA")
 
     # -- public API ---------------------------------------------------
 
@@ -327,9 +372,15 @@ class GlobIndex:
             if fid and edid:
                 self.edids[fid] = edid
 
+    #: The only GLOB columns the engine reads. Everything else in that export
+    #: is a "RefN" back-reference column — thousands of them — so the loader
+    #: takes just these three rather than the whole (very wide) table.
+    COLUMNS = ("GLOB_FormID", "FormID", "GLOB_FLTV", "FLTV", "GLOB_EDID", "EDID")
+
     def load_from_tsv_root(self, tsv_root: str) -> None:
         try:
-            self.load(read_tsv(newest(os.path.join(tsv_root, "GLOB_Export_*.tsv"))))
+            self.load(read_tsv_columns(
+                newest(os.path.join(tsv_root, "GLOB_Export_*.tsv")), self.COLUMNS))
         except FileNotFoundError:
             pass
 
@@ -684,34 +735,142 @@ def parse_lvlf_flags(flags_str: str) -> Dict[str, bool]:
 # 6. GetRandomPercent CONDITION PARSING
 # ============================================================
 
+# ---- CTDA comparison operators -------------------------------------------
+# The TSV export writes the CTDA "Type" byte as an 8-character bit string with
+# bit 0 FIRST (left-most).  The comparison operator lives in the low three bits,
+# so the operator value is  bit0 + 2*bit1 + 4*bit2  — i.e. the first three
+# characters of the string.  Everything from bit 3 up is a flag (bit 5 = "use
+# global", which is why those rows carry a ``[GLOB:xxxxxxxx]`` instead of a
+# literal number).
+#
+#   "101....." → 5 → <=      "110....." → 3 → >=      "010....." → 2 → >
+#
+# Verified against known data: RA_LL_Rewards_LegendaryItems (0086A8BD) exports
+# "10100000 20.000000" and is documented as ``<= 20``; the Auto-Miner Collectron
+# (006C6DC3) exports "11000000 98.000000" and must mean ``>= 98`` (2% ultracite),
+# and GetActorValueForCurrentLocation "01000000 0.000000" is plainly ``> 0``.
+GRP_OP_EQ = 0
+GRP_OP_NE = 1
+GRP_OP_GT = 2
+GRP_OP_GE = 3
+GRP_OP_LT = 4
+GRP_OP_LE = 5
+
+_GRP_SYMBOL_OPS = {
+    "<=": GRP_OP_LE, "<": GRP_OP_LT, ">=": GRP_OP_GE, ">": GRP_OP_GT,
+    "==": GRP_OP_EQ, "=": GRP_OP_EQ, "!=": GRP_OP_NE, "<>": GRP_OP_NE,
+}
+
+_RE_GRP_SYMBOL = re.compile(
+    r"GetRandomPercent\s*(<=|>=|<>|!=|==|<|>|=)\s*(\d+(?:\.\d+)?)",
+    re.IGNORECASE,
+)
+_RE_GRP_RAW = re.compile(
+    r"GetRandomPercent[^)]*\)\s*([01]{8})\s*(.*)$",
+    re.IGNORECASE,
+)
+
+
+def parse_grp_condition(cond: str) -> Optional[Tuple[int, str]]:
+    """
+    Parse one ``GetRandomPercent`` condition string.
+
+    Returns ``(operator_code, value_token)`` or None when the string isn't a
+    GetRandomPercent condition.  ``value_token`` is the raw right-hand side —
+    either a literal number or an xEdit ``EDID [GLOB:xxxxxxxx]`` reference —
+    and is resolved by the caller (only the resolver has the GLOB table).
+
+    Handles both export formats:
+      - ``GetRandomPercent <= 50``                    (canonical / synthesised)
+      - ``GetRandomPercent(...) 10100000 50.000000``  (raw xEdit flags format)
+    """
+    if not cond or "GetRandomPercent" not in cond:
+        return None
+    m = _RE_GRP_SYMBOL.search(cond)
+    if m:
+        return (_GRP_SYMBOL_OPS[m.group(1)], m.group(2))
+    m = _RE_GRP_RAW.search(cond)
+    if m:
+        bits = m.group(1)
+        op = int(bits[0]) + 2 * int(bits[1]) + 4 * int(bits[2])
+        return (op, (m.group(2) or "").strip())
+    return None
+
+
+def grp_span_for_value(op: int, value: float) -> Tuple[float, float]:
+    """
+    The slice of the 0–100 GetRandomPercent roll that satisfies ``op value``.
+
+    ``<=`` / ``<``  → ``(0, N)``      ``>=`` / ``>`` → ``(N, 100)``
+    ``!=``          → ``(0, 100)``    ``==``         → a single 1-point slice
+
+    Keeping this as an interval (rather than a bare "threshold") is what makes
+    a First Match cascade work in either direction: the entries of an ascending
+    ``<=`` list and a descending ``>=`` list both carve non-overlapping slices
+    out of the same roll, and the slices still total 100%.
+    """
+    v = max(0.0, min(100.0, float(value)))
+    if op in (GRP_OP_LE, GRP_OP_LT):
+        return (0.0, v)
+    if op in (GRP_OP_GE, GRP_OP_GT):
+        return (v, 100.0)
+    if op == GRP_OP_NE:
+        return (0.0, 100.0)
+    if op == GRP_OP_EQ:
+        return (v, min(100.0, v + 1.0))
+    return (0.0, 100.0)
+
+
+def span_union(covered: List[Tuple[float, float]],
+               span: Tuple[float, float]) -> List[Tuple[float, float]]:
+    """Merge ``span`` into the sorted, disjoint interval list ``covered``."""
+    out: List[Tuple[float, float]] = []
+    lo, hi = span
+    for c_lo, c_hi in sorted(list(covered) + [(lo, hi)]):
+        if out and c_lo <= out[-1][1]:
+            out[-1] = (out[-1][0], max(out[-1][1], c_hi))
+        else:
+            out.append((c_lo, c_hi))
+    return out
+
+
+def span_uncovered_width(span: Tuple[float, float],
+                         covered: List[Tuple[float, float]]) -> float:
+    """Width (0–100) of ``span`` that is NOT already inside ``covered``."""
+    lo, hi = span
+    width = max(0.0, hi - lo)
+    for c_lo, c_hi in covered:
+        overlap = min(hi, c_hi) - max(lo, c_lo)
+        if overlap > 0:
+            width -= overlap
+    return max(0.0, width)
+
+
 def parse_randompercent_multiplier(conditions_text: str) -> float:
     """
-    Extract ``GetRandomPercent <= N`` from condition strings and return
-    the combined multiplier (0.0 – 1.0).
+    Combined ``GetRandomPercent`` multiplier (0.0 – 1.0) for a condition blob.
 
-    Handles two xEdit export formats:
-      - ``GetRandomPercent <= 50``   (standard)
-      - ``GetRandomPercent 10100000 50.000000``  (raw GMRW flags format)
+    Operator-aware: ``<= 40`` is a 40% gate, ``>= 40`` is a 60% gate. Literal
+    values only — GLOB-valued conditions need the resolver's GLOB table, so use
+    ``Rng76Resolver.extract_grp_chance()`` for those.
+
+    Handles both xEdit export formats:
+      - ``GetRandomPercent <= 50``                    (standard)
+      - ``GetRandomPercent(...) 10100000 50.000000``  (raw GMRW flags format)
     """
     mult = 1.0
-    for m in re.finditer(
-        r"GetRandomPercent\s*<=\s*(\d+(?:\.\d+)?)",
-        conditions_text or "", flags=re.IGNORECASE
-    ):
+    for chunk in re.split(r"(?=GetRandomPercent)", conditions_text or ""):
+        parsed = parse_grp_condition(chunk)
+        if not parsed:
+            continue
+        op, tok = parsed
+        tok = (tok or "").split()[0] if (tok or "").split() else ""
         try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
+            value = float(tok)
         except ValueError:
-            pass
-    for m in re.finditer(
-        r"GetRandomPercent\s+\d+\s+(\d+(?:\.\d+)?)",
-        conditions_text or "", flags=re.IGNORECASE
-    ):
-        try:
-            n = max(0, min(100, float(m.group(1))))
-            mult *= n / 100.0
-        except ValueError:
-            pass
+            continue
+        lo, hi = grp_span_for_value(op, value)
+        mult *= max(0.0, hi - lo) / 100.0
     return mult
 
 
@@ -876,9 +1035,9 @@ class Rng76Resolver:
 
             # UseAll + GetRandomPercent condition → use threshold as rate
             if is_use_all and conditions:
-                grp = self.extract_grp_threshold(conditions)
+                grp = self.extract_grp_chance(conditions)
                 if grp is not None:
-                    pw = grp / 100.0
+                    pw = grp
                     cn = 1.0
 
             raw.append({"pw": pw, "cn": cn, "sub": sub, "ref": ref,
@@ -888,17 +1047,10 @@ class Rng76Resolver:
         if is_first_match:
             # First Match (bit 6): cascading GetRandomPercent thresholds.
             # Entries checked in order, first match wins.
-            thresholds = [
-                self.extract_grp_threshold(r["conditions"]) for r in raw
-            ]
-            if any(t is not None for t in thresholds):
-                prev = 0.0
+            fm_rates = self.first_match_rates([r["conditions"] for r in raw])
+            if fm_rates is not None:
                 for i, r in enumerate(raw):
-                    if thresholds[i] is not None:
-                        r["rate"] = (thresholds[i] - prev) / 100.0
-                        prev = thresholds[i]
-                    else:
-                        r["rate"] = (100.0 - prev) / 100.0
+                    r["rate"] = fm_rates[i]
             else:
                 # Fallback: cascading with cn_factor
                 cum_fail = 1.0
@@ -1010,9 +1162,9 @@ class Rng76Resolver:
 
             # UseAll + GetRandomPercent condition → override with threshold
             if is_use_all and conditions:
-                grp = self.extract_grp_threshold(conditions)
+                grp = self.extract_grp_chance(conditions)
                 if grp is not None:
-                    pw = grp / 100.0
+                    pw = grp
                     cn = 1.0
 
             raw.append({
@@ -1028,17 +1180,10 @@ class Rng76Resolver:
         # ── compute per-entry drop rate based on mode ──
         if is_first_match:
             # First Match: cascading GetRandomPercent thresholds.
-            thresholds = [
-                self.extract_grp_threshold(r["conditions"]) for r in raw
-            ]
-            if any(t is not None for t in thresholds):
-                prev = 0.0
+            fm_rates = self.first_match_rates([r["conditions"] for r in raw])
+            if fm_rates is not None:
                 for i, r in enumerate(raw):
-                    if thresholds[i] is not None:
-                        r["rate"] = (thresholds[i] - prev) / 100.0
-                        prev = thresholds[i]
-                    else:
-                        r["rate"] = (100.0 - prev) / 100.0
+                    r["rate"] = fm_rates[i]
             else:
                 cum_fail = 1.0
                 for r in raw:
@@ -1189,9 +1334,9 @@ class Rng76Resolver:
             sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
             ref = (entry.get("LVLO_Reference") or "").strip()
             if is_use_all and conditions:
-                grp = self.extract_grp_threshold(conditions)
+                grp = self.extract_grp_chance(conditions)
                 if grp is not None:
-                    pw = grp / 100.0
+                    pw = grp
                     cn = 1.0
             raw.append({"pw": pw, "cn": cn, "qty": qty,
                         "sub": sub_lvli, "ref": ref, "conditions": conditions})
@@ -1201,15 +1346,10 @@ class Rng76Resolver:
 
         # ── per-entry SELECTION probability (same maths as resolve_deep) ──
         if is_first_match:
-            thresholds = [self.extract_grp_threshold(r["conditions"]) for r in raw]
-            if any(t is not None for t in thresholds):
-                prev = 0.0
+            fm_rates = self.first_match_rates([r["conditions"] for r in raw])
+            if fm_rates is not None:
                 for i, r in enumerate(raw):
-                    if thresholds[i] is not None:
-                        r["sel"] = (thresholds[i] - prev) / 100.0
-                        prev = thresholds[i]
-                    else:
-                        r["sel"] = (100.0 - prev) / 100.0
+                    r["sel"] = fm_rates[i]
             else:
                 cum_fail = 1.0
                 for r in raw:
@@ -1327,9 +1467,9 @@ class Rng76Resolver:
             sub_lvli = (math.get("SubLVLI_FormID") or "").strip()
             ref = (entry.get("LVLO_Reference") or "").strip()
             if is_use_all and conditions:
-                grp = self.extract_grp_threshold(conditions)
+                grp = self.extract_grp_chance(conditions)
                 if grp is not None:
-                    pw = grp / 100.0
+                    pw = grp
                     cn = 1.0
             raw.append({"pw": pw, "cn": cn, "qty": qty,
                         "sub": sub_lvli, "ref": ref, "conditions": conditions})
@@ -1339,15 +1479,10 @@ class Rng76Resolver:
 
         # ── per-entry selection probability ──
         if is_first_match:
-            thresholds = [self.extract_grp_threshold(r["conditions"]) for r in raw]
-            if any(t is not None for t in thresholds):
-                prev = 0.0
+            fm_rates = self.first_match_rates([r["conditions"] for r in raw])
+            if fm_rates is not None:
                 for i, r in enumerate(raw):
-                    if thresholds[i] is not None:
-                        r["sel"] = (thresholds[i] - prev) / 100.0
-                        prev = thresholds[i]
-                    else:
-                        r["sel"] = (100.0 - prev) / 100.0
+                    r["sel"] = fm_rates[i]
             else:
                 cum = 1.0
                 for r in raw:
@@ -1436,9 +1571,9 @@ class Rng76Resolver:
             conditions = self._entry_conditions(e)
 
             if is_use_all and conditions:
-                grp = self.extract_grp_threshold(conditions)
+                grp = self.extract_grp_chance(conditions)
                 if grp is not None:
-                    pw = grp / 100.0
+                    pw = grp
                     cn = 1.0
 
             raw.append({"pw": pw, "cn": cn, "sub": sub, "ref": ref,
@@ -1446,17 +1581,10 @@ class Rng76Resolver:
 
         # ── compute rates (same logic as resolve_simple) ──
         if is_first_match:
-            thresholds = [
-                self.extract_grp_threshold(r["conditions"]) for r in raw
-            ]
-            if any(t is not None for t in thresholds):
-                prev = 0.0
+            fm_rates = self.first_match_rates([r["conditions"] for r in raw])
+            if fm_rates is not None:
                 for i, r in enumerate(raw):
-                    if thresholds[i] is not None:
-                        r["rate"] = (thresholds[i] - prev) / 100.0
-                        prev = thresholds[i]
-                    else:
-                        r["rate"] = (100.0 - prev) / 100.0
+                    r["rate"] = fm_rates[i]
             else:
                 cum_fail = 1.0
                 for r in raw:
@@ -1684,32 +1812,108 @@ class Rng76Resolver:
 
         return 0.0
 
+    def _grp_value(self, token: str) -> Optional[float]:
+        """Resolve a GetRandomPercent right-hand side to a number.
+
+        Accepts a literal (``20.000000``) or an xEdit GLOB reference
+        (``EDID [GLOB:XXXXXXXX]``), whose FLTV is the threshold.
+        """
+        token = (token or "").strip()
+        if not token:
+            return None
+        gm = re.search(r"\[GLOB:([0-9A-Fa-f]+)\]", token)
+        if gm:
+            return self.globs.value(gm.group(1))
+        head = token.split()[0]
+        try:
+            return float(head)
+        except ValueError:
+            return None
+
+    def extract_grp_span(
+        self,
+        raw_conds: List[str],
+    ) -> Optional[Tuple[float, float]]:
+        """
+        The slice of the 0–100 roll satisfying the entry's GetRandomPercent
+        condition(s), as ``(lo, hi)``.  None when the entry has no resolvable
+        GetRandomPercent gate (which means "always passes").
+
+        Multiple GetRandomPercent conditions on one entry are intersected.
+        """
+        span: Optional[Tuple[float, float]] = None
+        for cond in raw_conds or []:
+            parsed = parse_grp_condition(cond)
+            if not parsed:
+                continue
+            op, token = parsed
+            value = self._grp_value(token)
+            if value is None:
+                continue
+            lo, hi = grp_span_for_value(op, value)
+            span = (lo, hi) if span is None else (max(span[0], lo), min(span[1], hi))
+        if span is None:
+            return None
+        return (span[0], max(span[0], span[1]))
+
+    def extract_grp_chance(self, raw_conds: List[str]) -> Optional[float]:
+        """Probability (0–1) that the entry's GetRandomPercent gate passes."""
+        span = self.extract_grp_span(raw_conds)
+        if span is None:
+            return None
+        return max(0.0, span[1] - span[0]) / 100.0
+
     def extract_grp_threshold(
         self,
         raw_conds: List[str],
     ) -> Optional[float]:
         """
-        Extract ``GetRandomPercent <= X`` threshold from raw condition strings.
+        Raw ``GetRandomPercent`` threshold from condition strings — the number
+        on the right of the comparison, ignoring which comparison it is.
 
-        Handles both literal numbers (``20.000000``) and GLOB references
-        (``[GLOB:XXXXXXXX]``).  Returns threshold float or None.
+        Kept for callers that only want to know "is there a GRP gate, and what
+        number is on it".  For anything that needs a PROBABILITY, use
+        ``extract_grp_chance()``/``extract_grp_span()`` instead: this value is
+        direction-blind and treating it as a rate is what produced negative
+        drop rates on the collectron lists (they compare with ``>=``).
         """
-        for cond in raw_conds:
-            if "GetRandomPercent" not in cond:
+        for cond in raw_conds or []:
+            parsed = parse_grp_condition(cond)
+            if not parsed:
                 continue
-            # Try GLOB reference: [GLOB:XXXXXXXX]
-            gm = re.search(r'\[GLOB:([0-9A-Fa-f]+)\]', cond)
-            if gm:
-                val = self.globs.value(gm.group(1))
-                if val is not None:
-                    return val
-            # Try literal number (last number in the string)
-            for part in reversed(cond.strip().split()):
-                try:
-                    return float(part)
-                except ValueError:
-                    continue
+            value = self._grp_value(parsed[1])
+            if value is not None:
+                return value
         return None
+
+    def first_match_rates(
+        self,
+        cond_lists: List[List[str]],
+    ) -> Optional[List[float]]:
+        """
+        Per-entry selection rates (0–1) for a First Match (bit 6) list.
+
+        One random roll is taken and entries are checked top-to-bottom; the
+        first entry whose condition matches wins.  Each entry therefore gets the
+        part of the roll range its condition covers that no earlier entry
+        already claimed, and an entry with no condition sweeps up everything
+        left.  Rates total 100%.
+
+        Works for ascending ``<=`` lists and descending ``>=`` lists alike, and
+        for lists that mix the two.  Returns None when no entry has a resolvable
+        GetRandomPercent gate, so the caller can fall back to the ChanceNone
+        cascade.
+        """
+        spans = [self.extract_grp_span(c) for c in cond_lists]
+        if not any(s is not None for s in spans):
+            return None
+        rates: List[float] = []
+        covered: List[Tuple[float, float]] = []
+        for span in spans:
+            eff = span if span is not None else (0.0, 100.0)
+            rates.append(span_uncovered_width(eff, covered) / 100.0)
+            covered = span_union(covered, eff)
+        return rates
 
     # ---- internal helpers ------------------------------------------
 
