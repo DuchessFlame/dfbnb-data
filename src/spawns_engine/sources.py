@@ -238,12 +238,21 @@ def get_sources(item_records, tables, classify, extra_closure_seeds=None,
 
     # inject extra world bases (harvestable ACTIs, LPI flora, …) not discoverable
     # through the LVLI closure or item refs.
+    #
+    # This is hand-curated, so it OVERRIDES anything the automatic passes above
+    # produced for the same base — a straight assignment, never setdefault.
+    # Reason: a harvestable ACTI reached through the item's own ReferencedBy column
+    # has no EDID keyword classify() recognises, so it falls through to "loot-list"
+    # and is then stripped from Fixed Spawn Locations by chem_loot_collapse. That is
+    # what deleted all 68 MirelurkEgg_Harvestable points while the (unharvestable)
+    # hatching ACTI, injected here, survived. If a base is listed here, the config
+    # author has already decided what it is — do not let the fallback win.
     if extra_world_bases:
         for eb in extra_world_bases:
             fid = eb["formid"].upper()
-            placed_bases.setdefault(fid, {
+            placed_bases[fid] = {
                 "sig": eb.get("sig", "ACTI"), "edid": eb.get("edid", ""),
                 "source_type": eb.get("source_type", "loot-list"),
-                "via": "extra_world_bases"})
+                "via": "extra_world_bases"}
 
     return {"lvli_closure": closure, "placed_bases": placed_bases, "direct_refrs": direct_refrs}

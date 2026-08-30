@@ -46,6 +46,49 @@ DOT_FILL = (255, 193, 7)       # #FFC107 amber, as used on the slasher masks map
 DOT_OUTLINE = (18, 18, 18)
 DOT_OUTLINE_W = 3
 
+# ── what actually goes on a spawn map ───────────────────────────────────────
+# A map answers "where do I walk to get this?", so it plots only the source types
+# you can physically go and take. Vendor stock, chance container loot and quest
+# hand-ins are real sources but they are NOT places to farm, and putting them on
+# the map inflates the dot count and misleads the reader — exactly the failure
+# that had the Mirelurk Egg map showing unharvestable clutches. They stay in the
+# JSON (Vendors / Containers / Events & Activities expands) and off the picture.
+EXCLUDE_TYPES = {"vendor", "container", "loot-list", "quest-reward",
+                 "collectron", "resource-generator", "dispenser"}
+
+# Friendly legend labels + a distinct dot colour per source type, so a Deathclaw
+# nest never reads as a loose egg. Anything unlisted falls back to amber.
+TYPE_LABELS = {
+    "direct": "Loose spawn",
+    "static": "Fixed spawn",
+    "static-raw": "Raw egg (fixed)",
+    "static-cracked": "Cracked egg (fixed)",
+    "nest": "Nest",
+    "harvestable": "Harvestable",
+    "flora": "Flora",
+    "enlightened-flora": "Enlightened flora",
+    "npc": "Creature",
+}
+TYPE_COLOURS = {
+    "direct": (255, 193, 7),            # amber
+    "static": (255, 193, 7),
+    "static-raw": (255, 193, 7),
+    "static-cracked": (255, 138, 30),   # orange
+    "nest": (139, 92, 246),             # violet
+    "harvestable": (255, 193, 7),
+    "flora": (76, 217, 100),            # green
+    "enlightened-flora": (0, 209, 255), # cyan
+    "npc": (244, 67, 54),               # red
+}
+
+
+def type_label(stype):
+    return TYPE_LABELS.get(stype, (stype or "Spawn").replace("-", " ").capitalize())
+
+
+def type_colour(stype):
+    return TYPE_COLOURS.get(stype, DOT_FILL)
+
 LEGEND_PAD = 40
 LEGEND_BG = (24, 24, 24)
 LEGEND_BORDER = (255, 255, 255)
@@ -148,13 +191,16 @@ def draw_outlined_text(d, xy, text, font, fill=(255, 255, 255), outline=(0, 0, 0
 
 
 def draw_legend(img, title, rows):
-    """rows = [(label, count)]. Black box, 3px white border, swatch + text per row."""
+    """rows = [(label, count)] or [(label, count, colour)]. Black box, 3px white
+    border, swatch + text per row. The swatch uses the row's own colour so the
+    legend and the dots on the map always agree."""
     d = ImageDraw.Draw(img)
     f_title = _font(96)
     f_row = _font(72)
 
+    rows = [(r[0], r[1], r[2] if len(r) > 2 else DOT_FILL) for r in rows]
     tw = d.textlength(title, font=f_title)
-    rw = max([d.textlength(f"{lbl}  ({cnt})", font=f_row) for lbl, cnt in rows] or [0])
+    rw = max([d.textlength(f"{lbl}  ({cnt})", font=f_row) for lbl, cnt, _ in rows] or [0])
     box_w = int(max(tw + 64, rw + 152) + 64)
     box_h = int(96 + 26 + len(rows) * 84 + 24)
 
@@ -165,8 +211,8 @@ def draw_legend(img, title, rows):
     d.text((x0 + 32, y0 + 6), title, font=f_title, fill=(255, 255, 255))
 
     y = y0 + 96 + 26
-    for lbl, cnt in rows:
-        draw_dot(d, x0 + 48, y + 30)
+    for lbl, cnt, colour in rows:
+        draw_dot(d, x0 + 48, y + 30, fill=colour)
         d.text((x0 + 88, y), f"{lbl}  ({cnt})", font=f_row, fill=(230, 230, 230))
         y += 84
     return img
@@ -213,8 +259,21 @@ def load_points(slug, source):
                     "region": reg.get("region", ""),
                     "marker": loc.get("marker", ""),
                     "label": sp.get("label", ""),
+                    "source_type": sp.get("source_type", ""),
                 })
     return data.get("name", slug), data.get("page_title", slug), pts
+
+
+def filter_mappable(pts):
+    """Drop the source types that are sources but not PLACES (see EXCLUDE_TYPES).
+    Returns (kept, {dropped_type: n})."""
+    kept, dropped = [], defaultdict(int)
+    for p in pts:
+        if p.get("source_type") in EXCLUDE_TYPES:
+            dropped[p["source_type"]] += 1
+            continue
+        kept.append(p)
+    return kept, dict(dropped)
 
 
 # Optional per-set base-form filter, slug -> {base formid ints}.
@@ -250,25 +309,38 @@ def apply_base_filter(slug, source, pts):
 # ---------------------------------------------------------------- renderers
 
 def cluster_by_marker(pts, to_px):
-    """Group exterior spawns by map marker so a dot = a location, not 3,000 overlaps."""
+    """Group exterior spawns by map marker AND source type, so a dot = one kind of
+    thing at one location. Splitting on source type is what lets a Deathclaw nest
+    carry its own colour and its own count instead of being averaged into the loose
+    eggs at the same POI."""
     groups = OrderedDict()
     for p in pts:
-        key = (p["region"], p["marker"] or "Unmarked")
+        key = (p["region"], p["marker"] or "Unmarked", p.get("source_type", ""))
         g = groups.setdefault(key, {"pts": [], "refs": []})
         g["pts"].append((p["x"], p["y"]))
         g["refs"].append(p["ref"])
     rows = []
-    for (region, marker), g in groups.items():
+    for (region, marker, stype), g in groups.items():
         xs = [a for a, _ in g["pts"]]
         ys = [b for _, b in g["pts"]]
         cx, cy = sum(xs) / len(xs), sum(ys) / len(ys)
         px, py = to_px(cx, cy)
-        rows.append({"region": region, "marker": marker, "count": len(g["pts"]),
-                     "x": cx, "y": cy, "px": px, "py": py, "refs": g["refs"]})
-    rows.sort(key=lambda r: (r["region"], r["marker"]))
+        rows.append({"region": region, "marker": marker, "source_type": stype,
+                     "count": len(g["pts"]), "x": cx, "y": cy, "px": px, "py": py,
+                     "refs": g["refs"]})
+    rows.sort(key=lambda r: (r["region"], r["marker"], r["source_type"]))
     for i, r in enumerate(rows, 1):
         r["n"] = i
     return rows
+
+
+def legend_rows(rows):
+    """Per-source-type totals for the legend, biggest bucket first."""
+    tally = defaultdict(int)
+    for r in rows:
+        tally[r.get("source_type", "")] += r["count"]
+    return [(type_label(t), n, type_colour(t))
+            for t, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))]
 
 
 def render_exterior(bg_path, rows, title, out_plain, out_numbered):
@@ -279,9 +351,8 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
     plain = base.copy()
     d = ImageDraw.Draw(plain)
     for r in rows:
-        draw_dot(d, r["px"], r["py"])
-    total = sum(r["count"] for r in rows)
-    draw_legend(plain, title, [(title, total)])
+        draw_dot(d, r["px"], r["py"], fill=type_colour(r.get("source_type", "")))
+    draw_legend(plain, title, legend_rows(rows))
     os.makedirs(os.path.dirname(out_plain), exist_ok=True)
     plain.save(out_plain, "JPEG", quality=88, optimize=True)
 
@@ -328,9 +399,11 @@ def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug):
         with open(os.path.join(out_dir, f"{rslug}_coords.csv"), "w",
                   newline="", encoding="utf-8") as fh:
             w_ = csv.writer(fh)
-            w_.writerow(["n", "region", "marker", "count", "game_x", "game_y", "refs"])
+            w_.writerow(["n", "region", "marker", "source_type", "count",
+                         "game_x", "game_y", "refs"])
             for r in rrows:
-                w_.writerow([r["n"], r["region"], r["marker"], r["count"],
+                w_.writerow([r["n"], r["region"], r["marker"],
+                             r.get("source_type", ""), r["count"],
                              round(r["x"], 1), round(r["y"], 1), " ".join(r["refs"])])
         made.append((region, path))
     return made
@@ -367,9 +440,14 @@ def render_interiors(pts, spaces, out_dir, slug, item_name):
         for p in ipts:
             px, py = to_px(p["x"], p["y"])
             if -DOT_D <= px <= S + DOT_D and -DOT_D <= py <= S + DOT_D:
-                draw_dot(d, px, py)
+                draw_dot(d, px, py, fill=type_colour(p.get("source_type", "")))
                 drawn += 1
-        draw_legend(img, f"{sp['name']}", [(item_name, len(ipts))])
+        tally = defaultdict(int)
+        for p in ipts:
+            tally[p.get("source_type", "")] += 1
+        draw_legend(img, f"{sp['name']}",
+                    [(f"{item_name} — {type_label(t)}", n, type_colour(t))
+                     for t, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))])
 
         path = os.path.join(out_dir, f"{sp['edid']}_{slug}.jpg")
         if INTERIOR_SIZE != S:
@@ -392,6 +470,7 @@ def render_interiors(pts, spaces, out_dir, slug, item_name):
 def render_set(slug, source, out_root, conn, spaces, boxes, verbose=True):
     name, page_title, pts = load_points(slug, source)
     pts, dropped = apply_base_filter(slug, source, pts)
+    pts, off_map = filter_mappable(pts)
 
     ext = [p for p in pts if p["space"] == APPALACHIA_SPACE]
     to_px = projector(spaces[APPALACHIA_SPACE])
@@ -411,17 +490,22 @@ def render_set(slug, source, out_root, conn, spaces, boxes, verbose=True):
     with open(os.path.join(out_root, f"{slug}_exterior_coords.csv"), "w",
               newline="", encoding="utf-8") as fh:
         w_ = csv.writer(fh)
-        w_.writerow(["n", "region", "marker", "count", "game_x", "game_y", "refs"])
+        w_.writerow(["n", "region", "marker", "source_type", "count",
+                     "game_x", "game_y", "refs"])
         for r in rows:
-            w_.writerow([r["n"], r["region"], r["marker"], r["count"],
-                         round(r["x"], 1), round(r["y"], 1), " ".join(r["refs"])])
+            w_.writerow([r["n"], r["region"], r["marker"], r.get("source_type", ""),
+                         r["count"], round(r["x"], 1), round(r["y"], 1),
+                         " ".join(r["refs"])])
 
     if verbose:
+        off = ("  off-map=" + ",".join(f"{k}:{v}" for k, v in sorted(off_map.items()))
+               if off_map else "")
         print(f"  {slug:28} ext={len(ext):5} markers={len(rows):4} "
               f"tiles={len(tiles):2} interiors={len(ints):3}"
-              + (f" dropped={dropped}" if dropped else ""))
+              + (f" dropped={dropped}" if dropped else "") + off)
     return {"slug": slug, "markers": len(rows), "ext": len(ext),
-            "tiles": len(tiles), "interiors": len(ints), "dropped": dropped}
+            "tiles": len(tiles), "interiors": len(ints), "dropped": dropped,
+            "off_map": off_map}
 
 
 def main():

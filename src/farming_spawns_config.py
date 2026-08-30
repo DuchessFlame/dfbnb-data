@@ -494,7 +494,7 @@ MIRELURK_EGG = {
     "slug": "mirelurk-egg",
     "name": "Mirelurk Egg",
     "page_title": "Mirelurk Egg Spawn Locations",
-    "blurb": "Every known world spawn for Mirelurk Eggs (harvestable and hatching), grouped by region. Directions and photos are added by hand.",
+    "blurb": "Every harvestable world spawn for Mirelurk Eggs, grouped by region. Hatching egg clutches are not mapped — they cannot be picked up. Directions and photos are added by hand.",
     "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
@@ -504,13 +504,34 @@ MIRELURK_EGG = {
             "sig": "ALCH",
         },
     ],
-    # Extra world bases: the harvestable ACTI is found through ALCH refs, but the
-    # hatching variant (0016579B) is not referenced by the ALCH record, so we inject
-    # it manually for Mappalachia Position lookup.
+    # Extra world bases.
+    #
+    # ONLY the harvestable ACTI is mapped. Verified against ACTI_Export_July_2026
+    # (VMAD_Scripts column):
+    #   001715CD MirelurkEgg_Harvestable  MirelurkHarvestableScript
+    #                                     property MirelurkEgg=0023E9D4:ALCH
+    #       -> activating it hands you the egg. This IS the farmable point.
+    #   0016579B MirelurkEgg_Hatching     MirelurkHatchableScript
+    #                                     property MirelurkSpawnHatchExpl=00169630:EXPL
+    #   00111573 DLC03REObjectKMKMirelurkEgg_Hatching   same hatchable script
+    #       -> NO item property. Activating one only fires the hatch explosion and
+    #          spawns a mirelurk hatchling; you get NO egg. These are NOT farmable
+    #          and must never be plotted. Mapping them (which this config used to do,
+    #          while dropping the harvestable ones) is what made the guide wrong.
+    #
+    # 001715CD is reachable through the ALCH ReferencedBy column, but classify()
+    # has no keyword for it and returns "loot-list", which chem_loot_collapse then
+    # strips out of Fixed Spawn Locations. Listing it here pins its source_type
+    # (extra_world_bases overrides the classify() fallback — see
+    # spawns_engine.sources.get_sources).
+    #
+    # Also decorative, no eggs, do not add: Mirelurk_NestPile01-03_ACT /
+    # Mirelurk_NestPile_Corner01_ACT (0007265E-00072661) run MirelurkNestScript
+    # with no properties at all.
     "extra_world_bases": [
         {
-            "formid": "0016579B",
-            "edid": "MirelurkEgg_Hatching",
+            "formid": "001715CD",
+            "edid": "MirelurkEgg_Harvestable",
             "sig": "ACTI",
             "source_type": "harvestable",
         },
@@ -518,10 +539,10 @@ MIRELURK_EGG = {
     # ── Drop rates (resolved from LVLI TSVs, August 2026) ──────────────────
     # Traced via the drop-rate-engine skill rules.
     #
-    # World spawns: MirelurkEgg_Harvestable (001715CD, ~95 ACTI REFRs) gives
-    # the egg directly via MirelurkHarvestableScript.  MirelurkEgg_Hatching
-    # (0016579B, ~79 REFRs) primarily spawns mirelurks but is also harvestable.
-    # Both are 100% guaranteed on activation.
+    # World spawns: MirelurkEgg_Harvestable (001715CD) gives the egg directly via
+    # MirelurkHarvestableScript (property MirelurkEgg=0023E9D4) — 100% guaranteed
+    # on activation. MirelurkEgg_Hatching (0016579B) runs MirelurkHatchableScript,
+    # whose only property is the hatch explosion; it yields NO egg and is excluded.
     #
     # Vendor: LLV_Vendor_Food_Whitespring_Rare (0037D966, UseAll 32 entries)
     #   entry 7: MirelurkEgg (CN=0, qty=1) → guaranteed 1 at Whitespring vendor.
@@ -534,9 +555,10 @@ MIRELURK_EGG = {
             "list_edid": "MirelurkEgg_Harvestable",
             "list_id": "001715CD",
             "note": (
-                "~95 harvestable egg ACTIs and ~79 hatching egg ACTIs in the world. "
-                "Each activation guarantees 1 mirelurk egg. Hatching eggs also "
-                "spawn a mirelurk hatchling."
+                "Harvestable mirelurk egg clutches are placed throughout the world; "
+                "each activation guarantees 1 mirelurk egg. The similar-looking "
+                "hatching egg clutches are a different activator — they only spawn a "
+                "mirelurk hatchling and give you no egg, so they are not mapped here."
             ),
         },
         "vendors": {
