@@ -71,13 +71,34 @@ def newest(pattern, exclude_substrings=None):
         raise FileNotFoundError(f"No files matching {pattern} in {TSV_DIR}")
     return hit
 
+# xEdit writes one "RefN" back-reference column per referencing record. The GLOB
+# export carries 5,577 of them against 5 real columns, so reading it whole costs
+# ~1.6 GB for data nothing here looks at. Dropping them on the way in is the
+# difference between the build running and being OOM-killed. Note the underscore:
+# the COBJ/BOOK exports use "Ref_1".."Ref_37" and those ARE read, so only the
+# unsuffixed "RefN" form is dropped.
+_RE_BACKREF_COL = re.compile(r"^Ref\d+$")
+
+
+def _rows_without_backrefs(handle):
+    reader = csv.reader(handle, delimiter="\t")
+    try:
+        header = next(reader)
+    except StopIteration:
+        return []
+    idx = [(i, name) for i, name in enumerate(header)
+           if not _RE_BACKREF_COL.match(name)]
+    return [{name: (row[i] if i < len(row) else "") for i, name in idx}
+            for row in reader]
+
+
 def read_tsv(path):
     try:
         with open(path, encoding="utf-8-sig", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+            return _rows_without_backrefs(f)
     except UnicodeDecodeError:
         with open(path, encoding="cp1252", errors="replace", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+            return _rows_without_backrefs(f)
 
 def pick(row, *keys, default=""):
     for k in keys:

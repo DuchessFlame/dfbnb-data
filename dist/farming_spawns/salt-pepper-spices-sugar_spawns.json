@@ -23,6 +23,80 @@
      "rate_display": "3%"
     }
    ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Mr. Farmhand Collectron Station",
+     "edid": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
+     "obtain": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Appalachia Under Siege Scoreboard (Season 25).",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar",
+       "form_id": "00118614",
+       "rate": 0.05,
+       "rate_display": "5%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Biv Bev Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_BivBev",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar",
+       "form_id": "00118614",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Spice Rack",
+     "edid": "SCORE_S22_ENTM_CAMP_Collector_SpiceRack",
+     "obtain": "Purchase with tickets from the Appalachian Modern Living Scoreboard (Season 22)",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Salt",
+       "form_id": "00118613",
+       "rate": 0.5,
+       "rate_display": "50%",
+       "rate_source": "computed"
+      },
+      {
+       "name": "Sugar",
+       "form_id": "00118614",
+       "rate": 0.25,
+       "rate_display": "25%",
+       "rate_source": "computed"
+      },
+      {
+       "name": "Spices",
+       "form_id": "0011863E",
+       "rate": 0.15,
+       "rate_display": "15%",
+       "rate_source": "computed"
+      },
+      {
+       "name": "Pepper",
+       "form_id": "00118617",
+       "rate": 0.1,
+       "rate_display": "10%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -20923,7 +20997,7 @@
    },
    {
     "region": "Savage Divide",
-    "count": 73,
+    "count": 72,
     "url": "/bnb/farming/non-perishable/salt-pepper-spices-sugar/location-guide/savage-divide/"
    },
    {

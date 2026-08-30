@@ -1069,12 +1069,13 @@ class Rng76Resolver:
                 list_id, self.globs, self.curvs
             )
             if max_count == 1:
-                # Waterfall: cascading ChanceNone
-                cum_fail = 1.0
-                for r in raw:
-                    drop = r["pw"] * r["cn"]
-                    r["rate"] = drop * cum_fail
-                    cum_fail *= (1.0 - drop)
+                # Waterfall: cascading ChanceNone, once per world-state context
+                wf = self.waterfall_rates(
+                    [r["pw"] * r["cn"] for r in raw],
+                    [r["conditions"] for r in raw],
+                )
+                for i, r in enumerate(raw):
+                    r["rate"] = wf[i]
             else:
                 # max=0 (independent) or max>1 (each entry fires on its own
                 # ChanceNone roll; max>1 just caps total results which we
@@ -1093,17 +1094,34 @@ class Rng76Resolver:
                     r["rate"] = 0.0
 
         # ── recurse / accumulate ──
+        # Contributions SUM across entries that can fire together — two roll
+        # slices landing on the same item really do add up. World-state branches
+        # never fire together though: only one region / weather / carried-weapon
+        # branch is live at a time, and the ungated fallback below them only
+        # fires when none matched. So resolve the list once per context and take
+        # each item's best context, rather than summing every branch (an
+        # 8-region mod list would otherwise report ~800%).
+        vectors = self.rate_vectors(
+            raw, is_first_match, is_use_all,
+            self.lvli.max_count_for(list_id, self.globs, self.curvs)
+            if is_use_all else 0,
+        )
         results: Dict[str, float] = {}
-        for r in raw:
-            rate = r["rate"]
-            if r["sub"]:
-                for k, v in self.resolve_simple(r["sub"]).items():
-                    results[k] = results.get(k, 0) + v * rate
-            else:
-                ref = r["ref"]
-                if ":" in ref:
-                    fid = ref.split(":")[0]
-                    results[fid] = results.get(fid, 0) + rate
+        for vec in vectors:
+            pass_map: Dict[str, float] = {}
+            for i, rate in vec.items():
+                r = raw[i]
+                if r["sub"]:
+                    for k, v in self.resolve_simple(r["sub"]).items():
+                        pass_map[k] = pass_map.get(k, 0) + v * rate
+                else:
+                    ref = r["ref"]
+                    if ":" in ref:
+                        fid = ref.split(":")[0]
+                        pass_map[fid] = pass_map.get(fid, 0) + rate
+            for k, v in pass_map.items():
+                if v > results.get(k, 0.0):
+                    results[k] = v
 
         self._cache[list_id] = results
         return results
@@ -1201,12 +1219,13 @@ class Rng76Resolver:
                 list_id, self.globs, self.curvs
             )
             if max_count == 1:
-                # Waterfall: cascading ChanceNone
-                cum_fail = 1.0
-                for r in raw:
-                    drop = r["pw"] * r["cn"]
-                    r["rate"] = drop * cum_fail
-                    cum_fail *= (1.0 - drop)
+                # Waterfall: cascading ChanceNone, once per world-state context
+                wf = self.waterfall_rates(
+                    [r["pw"] * r["cn"] for r in raw],
+                    [r["conditions"] for r in raw],
+                )
+                for i, r in enumerate(raw):
+                    r["rate"] = wf[i]
             else:
                 # max=0 (independent) or max>1
                 for r in raw:
@@ -1360,11 +1379,12 @@ class Rng76Resolver:
         elif is_use_all:
             max_count = self.lvli.max_count_for(list_id, self.globs, self.curvs)
             if max_count == 1:
-                cum_fail = 1.0
-                for r in raw:
-                    drop = r["pw"] * r["cn"]
-                    r["sel"] = drop * cum_fail
-                    cum_fail *= (1.0 - drop)
+                wf = self.waterfall_rates(
+                    [r["pw"] * r["cn"] for r in raw],
+                    [r["conditions"] for r in raw],
+                )
+                for i, r in enumerate(raw):
+                    r["sel"] = wf[i]
                 independent = False
             else:
                 for r in raw:
@@ -1396,7 +1416,17 @@ class Rng76Resolver:
             for c in contribs:
                 prod *= (1.0 - c)
             return 1.0 - prod
-        return sum(contribs)
+
+        # Same rule as resolve_simple: sum within a context, best across them.
+        passes, contexts = self.context_passes(
+            [r["conditions"] for r in raw]
+        )
+        if not any(c is not None for c in contexts):
+            return sum(contribs)
+        return max(
+            (sum(contribs[i] for i in active) for active in passes if active),
+            default=0.0,
+        )
 
     def pick_rate(self, list_id: str, target_formid) -> float:
         """Single per-roll pick rate for ``target_formid`` in ``list_id``.
@@ -1886,6 +1916,209 @@ class Rng76Resolver:
                 return value
         return None
 
+    def first_match_contexts(
+        self,
+        cond_lists: List[List[str]],
+    ) -> List[Optional[Tuple[str, ...]]]:
+        """
+        The world-state gate on each entry, or None when it has none.
+
+        A First Match entry can be gated two different ways, and they behave
+        nothing alike:
+
+        - **by the roll** — ``GetRandomPercent``. Entries compete for one shared
+          random number, so an earlier entry really does take range away from a
+          later one.
+        - **by world state** — ``GetInCurrentLocation``, a weather check, a
+          global flag, a carried-weapon keyword. Nothing is rolled. Exactly one
+          of these branches is live at a time, decided by where the player is
+          and what is happening, and *which* one is not a probability at all.
+
+        Treating the second kind as "no gate, always passes" is what made a
+        region-gated list collapse to its first branch: Forest took the whole
+        range and the other seven regions reported 0%.
+
+        The key is the tuple of non-GetRandomPercent conditions on the entry;
+        entries sharing a key are the same branch of the same choice.
+        """
+        keys: List[Optional[Tuple[str, ...]]] = []
+        for conds in cond_lists:
+            other = tuple(sorted(
+                c for c in (conds or []) if parse_grp_condition(c) is None
+            ))
+            keys.append(other or None)
+        return keys
+
+    def context_passes(
+        self,
+        cond_lists: List[List[str]],
+    ) -> Tuple[List[List[int]], List[Optional[Tuple[str, ...]]]]:
+        """
+        The entry-index groups to resolve a conditioned list once per context.
+
+        The first group is the ungated entries — the "nothing special is
+        happening" reading. After it comes one group per distinct world-state
+        gate, each holding the ungated entries plus that gate's branches, in
+        list order. Entries sharing a gate land in the same group and so still
+        compete with each other, which is what makes the two Fasnacht entries
+        behind ``Update01_Quest_Fasnacht`` cascade against one another instead
+        of both claiming the top of the range.
+
+        Returns ``(passes, contexts)``.
+        """
+        contexts = self.first_match_contexts(cond_lists)
+        n = len(cond_lists)
+        base = [i for i in range(n) if contexts[i] is None]
+        passes: List[List[int]] = [base]
+        seen: List[Tuple[str, ...]] = []
+        for ctx in contexts:
+            if ctx is not None and ctx not in seen:
+                seen.append(ctx)
+                passes.append(sorted(
+                    base + [i for i in range(n) if contexts[i] == ctx]
+                ))
+        return passes, contexts
+
+    def rate_vectors(
+        self,
+        raw: List[Dict[str, Any]],
+        is_first_match: bool,
+        is_use_all: bool,
+        max_count: int,
+    ) -> List[Dict[int, float]]:
+        """
+        Per-entry rates **per world-state context**, one dict per context.
+
+        ``first_match_rates`` and ``waterfall_rates`` collapse the contexts to a
+        single best-case number per entry, which is what a rate table wants to
+        show. Anything that ADDS contributions up needs them kept apart instead:
+        within one context the entries are competing outcomes of the same roll,
+        so their contributions sum, but across contexts they are alternatives
+        and must not.
+
+        A list with no world-state gate comes back as a single vector, so the
+        caller's arithmetic is unchanged.
+        """
+        cond_lists = [r["conditions"] for r in raw]
+        spans = [self.extract_grp_span(c) for c in cond_lists]
+        passes, contexts = self.context_passes(cond_lists)
+        if not any(c is not None for c in contexts):
+            passes = [list(range(len(raw)))]
+
+        out: List[Dict[int, float]] = []
+        for active in passes:
+            if not active:
+                continue
+            if is_first_match and any(spans[i] is not None for i in active):
+                out.append(self._first_match_pass(spans, active))
+            elif is_use_all and max_count == 1:
+                vec, cum_fail = {}, 1.0
+                for i in active:
+                    drop = raw[i]["pw"] * raw[i]["cn"]
+                    vec[i] = drop * cum_fail
+                    cum_fail *= (1.0 - drop)
+                out.append(vec)
+            elif is_use_all:
+                out.append({i: raw[i]["pw"] * raw[i]["cn"] for i in active})
+            elif is_first_match:
+                vec, cum_fail = {}, 1.0
+                for i in active:
+                    s = raw[i]["pw"] * raw[i]["cn"]
+                    vec[i] = s * cum_fail
+                    cum_fail *= (1.0 - s)
+                out.append(vec)
+            else:
+                total_pw = sum(raw[i]["pw"] for i in active)
+                out.append({
+                    i: (raw[i]["pw"] / total_pw) * raw[i]["cn"] if total_pw else 0.0
+                    for i in active
+                })
+        return out or [{}]
+
+    def waterfall_rates(
+        self,
+        drops: List[float],
+        cond_lists: Optional[List[List[str]]] = None,
+    ) -> List[float]:
+        """
+        UseAll + ``max_count == 1`` cascade (drop-rate-engine §3b).
+
+        Entries are checked in order and the first to pass its ChanceNone wins,
+        so the leftover probability spills down the list.
+
+        World-state branches are resolved per context, exactly as First Match is
+        (see ``context_passes``). Without that, a list whose entries are each
+        gated on a location theme or a carried ammo type — ``LPI_Clothes_LocTheme``,
+        ``CreatureOutfit_Scorched``, ``LLS_UseItem_Contextual_Ammo`` — collapses
+        to whichever branch is listed first, because every entry's ChanceNone is
+        0 and the first one therefore always wins the cascade. Those lists are
+        not degenerate; only one of their branches is ever live at a time.
+        """
+        n = len(drops)
+        if cond_lists is None:
+            passes: List[List[int]] = [list(range(n))]
+        else:
+            passes, contexts = self.context_passes(cond_lists)
+            if not any(c is not None for c in contexts):
+                passes = [list(range(n))]
+        rates = [0.0] * n
+        for active in passes:
+            if not active:
+                continue
+            cum_fail = 1.0
+            for i in active:
+                rate = drops[i] * cum_fail
+                if rate > rates[i]:
+                    rates[i] = rate
+                cum_fail *= (1.0 - drops[i])
+        return rates
+
+    def _first_match_pass(
+        self,
+        spans: List[Optional[Tuple[float, float]]],
+        active: List[int],
+    ) -> Dict[int, float]:
+        """
+        One First Match cascade over the entry indices in *active*, in order.
+
+        Entries whose GetRandomPercent gate is byte-for-byte the same claim that
+        gate's slice **together and split it evenly**. Bethesda authors these
+        lists in tiers — the Scoutmaster collectron has one entry at ``>= 98``,
+        three at ``>= 90``, four at ``>= 80`` — and a strict reading hands the
+        whole tier to whichever entry happens to be listed first, leaving its
+        siblings at 0%. Splitting is what the tier is plainly for, and it can't
+        disturb a list without ties: a group of one gets the whole slice, which
+        is the old behaviour exactly.
+
+        Only a real, shared gate groups. Entries with no GetRandomPercent at all
+        are catch-alls, not a tier — the first one genuinely does take the rest
+        of the range and the ones after it genuinely are unreachable, so each
+        gets its own group and the old sequential behaviour stands.
+        """
+        # Group by identical span, positioned at the group's first appearance.
+        # Ungated entries get a key unique to themselves so they never group.
+        order: List[Any] = []
+        members: Dict[Any, List[int]] = {}
+        group_span: Dict[Any, Tuple[float, float]] = {}
+        for i in active:
+            key = spans[i] if spans[i] is not None else ("ungated", i)
+            if key not in members:
+                members[key] = []
+                group_span[key] = spans[i] if spans[i] is not None else (0.0, 100.0)
+                order.append(key)
+            members[key].append(i)
+
+        rates: Dict[int, float] = {}
+        covered: List[Tuple[float, float]] = []
+        for key in order:
+            group = members[key]
+            eff = group_span[key]
+            share = span_uncovered_width(eff, covered) / 100.0 / len(group)
+            for i in group:
+                rates[i] = share
+            covered = span_union(covered, eff)
+        return rates
+
     def first_match_rates(
         self,
         cond_lists: List[List[str]],
@@ -1897,22 +2130,39 @@ class Rng76Resolver:
         first entry whose condition matches wins.  Each entry therefore gets the
         part of the roll range its condition covers that no earlier entry
         already claimed, and an entry with no condition sweeps up everything
-        left.  Rates total 100%.
+        left.
 
         Works for ascending ``<=`` lists and descending ``>=`` lists alike, and
-        for lists that mix the two.  Returns None when no entry has a resolvable
-        GetRandomPercent gate, so the caller can fall back to the ChanceNone
-        cascade.
+        for lists that mix the two.  Entries sharing a threshold split its slice
+        (see ``_first_match_pass``).
+
+        **World-state branches get their own cascade.** The list is resolved once
+        per context (see ``first_match_contexts``): each pass runs the ungated
+        entries plus the one branch belonging to that context, in list order, so
+        every region / weather / flag branch resolves against the same range
+        instead of the first one swallowing it. An entry's reported rate is its
+        best across the passes it takes part in — "when this branch is the live
+        one, this is the chance". Each individual pass totals 100%; the flat sum
+        across a multi-context list is therefore above 100% by design, because
+        those branches are alternatives, never simultaneous.
+
+        Returns None when no entry has a resolvable GetRandomPercent gate and
+        none has a world-state gate either, so the caller can fall back to the
+        ChanceNone cascade.
         """
         spans = [self.extract_grp_span(c) for c in cond_lists]
-        if not any(s is not None for s in spans):
+        passes, contexts = self.context_passes(cond_lists)
+        if not any(s is not None for s in spans) and \
+           not any(c is not None for c in contexts):
             return None
-        rates: List[float] = []
-        covered: List[Tuple[float, float]] = []
-        for span in spans:
-            eff = span if span is not None else (0.0, 100.0)
-            rates.append(span_uncovered_width(eff, covered) / 100.0)
-            covered = span_union(covered, eff)
+
+        rates = [0.0] * len(cond_lists)
+        for active in passes:
+            if not active:
+                continue
+            for i, rate in self._first_match_pass(spans, active).items():
+                if rate > rates[i]:
+                    rates[i] = rate
         return rates
 
     # ---- internal helpers ------------------------------------------

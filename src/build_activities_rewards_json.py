@@ -95,13 +95,34 @@ def newest(pattern, exclude_substrings=None):
     files.sort(key=lambda x: (_filename_date_key(x), os.path.basename(x)))
     return files[-1]
 
+# xEdit writes one "RefN" back-reference column per referencing record. The GLOB
+# export carries 5,577 of them against 5 real columns, so reading it whole costs
+# ~1.6 GB for data nothing here looks at. Dropping them on the way in is the
+# difference between the build running and being OOM-killed. Note the underscore:
+# the COBJ/BOOK exports use "Ref_1".."Ref_37" and those ARE read, so only the
+# unsuffixed "RefN" form is dropped.
+_RE_BACKREF_COL = re.compile(r"^Ref\d+$")
+
+
+def _rows_without_backrefs(handle):
+    reader = csv.reader(handle, delimiter="\t")
+    try:
+        header = next(reader)
+    except StopIteration:
+        return []
+    idx = [(i, name) for i, name in enumerate(header)
+           if not _RE_BACKREF_COL.match(name)]
+    return [{name: (row[i] if i < len(row) else "") for i, name in idx}
+            for row in reader]
+
+
 def read_tsv(path):
     try:
         with open(path, encoding="utf-8-sig", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+            return _rows_without_backrefs(f)
     except UnicodeDecodeError:
         with open(path, encoding="cp1252", errors="replace", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+            return _rows_without_backrefs(f)
 
 def pick(row, *keys, default=""):
     for k in keys:
@@ -1572,14 +1593,16 @@ def compute_lvli(list_id):
     results = {}
 
     if is_use_all and max_count == 1:
-        # Waterfall: entries checked in order, first that passes wins
-        cum_fail = 1.0
-        waterfall_chances = []
-        for sub, raw_weight, entry_none, e in raw_entries:
-            drop = raw_weight * (1 - entry_none)
-            chance = drop * cum_fail
-            cum_fail *= (1.0 - drop)
-            waterfall_chances.append((sub, chance, e))
+        # Waterfall: entries checked in order, first that passes wins —
+        # resolved once per world-state context (see _waterfall_rates_for).
+        _wf = _waterfall_rates_for(
+            [rw * (1 - en) for _, rw, en, _ in raw_entries],
+            [_conds_of(e) for _, _, _, e in raw_entries],
+        )
+        waterfall_chances = [
+            (sub, _wf[i], e)
+            for i, (sub, _rw, _en, e) in enumerate(raw_entries)
+        ]
         for sub, chance, e in waterfall_chances:
             if sub:
                 for k, v in compute_lvli(sub).items():
@@ -1692,6 +1715,25 @@ def _first_match_rates_for(cond_lists):
     return _get_resolver().first_match_rates(cond_lists)
 
 
+def _conds_of(entry):
+    """Cond1..Cond10 from an LVLI entry row, blanks dropped."""
+    return [
+        _cv for _ci in range(1, 11)
+        for _cv in [(entry.get(f"Cond{_ci}") or "").strip()] if _cv
+    ]
+
+
+def _waterfall_rates_for(drops, cond_lists=None):
+    """Thin wrapper → Rng76Resolver.waterfall_rates (centralised cascade).
+
+    Passing the per-entry conditions matters: a UseAll+max_count=1 list whose
+    entries are each gated on world state (location theme, carried ammo type)
+    must cascade once per context, or it collapses to whichever branch is
+    listed first.
+    """
+    return _get_resolver().waterfall_rates(drops, cond_lists)
+
+
 def resolve_lvli_items_deep(list_id, depth=0, seen=None):
     """
     Resolve an LVLI to leaf items with full quantity/probability tracking.
@@ -1745,6 +1787,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
         if _max_count == 1:
             _all_entries = lvli_entries_by_list.get(list_id, [])
             _raw_drops = []
+            _raw_conds = []
             for _e in _all_entries:
                 _idx = _e.get("EntryIndex")
                 if _idx is None:
@@ -1760,10 +1803,12 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 _cond_rand = float(_math.get("EntryCondChance_RandomPercent") or 1)
                 _drop = (1 - _list_none) * _entry_pres * (1 - _entry_none) * _cond_rand
                 _raw_drops.append((_idx, _drop))
-            _cum_fail = 1.0
-            for _idx, _drop in _raw_drops:
-                useall_waterfall_rates[_idx] = _drop * _cum_fail
-                _cum_fail *= (1.0 - _drop)
+                _raw_conds.append(_conds_of(_e))
+            _wf = _waterfall_rates_for(
+                [_d for _, _d in _raw_drops], _raw_conds,
+            )
+            for _n, (_idx, _drop) in enumerate(_raw_drops):
+                useall_waterfall_rates[_idx] = _wf[_n]
 
     # Collect list-level conditions from TSV (LVLI record-level CTDA)
     list_level_conds = simplify_conditions(LVLI_LIST_CONDITIONS.get(list_id, []))
@@ -2253,13 +2298,13 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     if is_use_all and not is_first_match and raw_entries:
         _max_count = _resolve_max_count(list_id)
         if _max_count == 1:
-            cum_fail = 1.0
+            _wf = _waterfall_rates_for(
+                [pw * gc for (_, _, _, _, pw, gc) in raw_entries],
+                [raw_conds for (_, _, _, raw_conds, _, _) in raw_entries],
+            )
             new_entries = []
-            for (etype, rate, data, raw_conds, pw, gc) in raw_entries:
-                drop = pw * gc
-                waterfall_rate = drop * cum_fail
-                cum_fail *= (1.0 - drop)
-                new_entries.append((etype, waterfall_rate, data, raw_conds, pw, gc))
+            for i, (etype, rate, data, raw_conds, pw, gc) in enumerate(raw_entries):
+                new_entries.append((etype, _wf[i], data, raw_conds, pw, gc))
             raw_entries = new_entries
 
     # ── Pick-one normalisation (non-UseAll, non-FirstMatch) ──

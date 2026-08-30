@@ -49,13 +49,34 @@ def newest(pattern):
     files.sort(key=tsv_source.export_key)
     return files[-1]
 
+# xEdit writes one "RefN" back-reference column per referencing record. The GLOB
+# export carries 5,577 of them against 5 real columns, so reading it whole costs
+# ~1.6 GB for data nothing here looks at. Dropping them on the way in is the
+# difference between the build running and being OOM-killed. Note the underscore:
+# the COBJ/BOOK exports use "Ref_1".."Ref_37" and those ARE read, so only the
+# unsuffixed "RefN" form is dropped.
+_RE_BACKREF_COL = re.compile(r"^Ref\d+$")
+
+
+def _rows_without_backrefs(handle):
+    reader = csv.reader(handle, delimiter="\t")
+    try:
+        header = next(reader)
+    except StopIteration:
+        return []
+    idx = [(i, name) for i, name in enumerate(header)
+           if not _RE_BACKREF_COL.match(name)]
+    return [{name: (row[i] if i < len(row) else "") for i, name in idx}
+            for row in reader]
+
+
 def read_tsv(path):
     try:
         with open(path, encoding="utf-8-sig", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+            return _rows_without_backrefs(f)
     except UnicodeDecodeError:
         with open(path, encoding="cp1252", errors="replace", newline="") as f:
-            return list(csv.DictReader(f, delimiter="\t"))
+            return _rows_without_backrefs(f)
 
 def pick(row, *keys, default=""):
     for k in keys:
@@ -1664,19 +1685,81 @@ def _extract_grp_chance(raw_conds):
     return None if span is None else max(0.0, span[1] - span[0]) / 100.0
 
 
+def _first_match_contexts(cond_lists):
+    """The world-state gate on each entry, or None when it has none.
+
+    A First Match entry is gated either by the roll (GetRandomPercent, where an
+    earlier entry really does take range from a later one) or by world state
+    (location, weather, a global flag) where nothing is rolled and exactly one
+    branch is live at a time. Treating the second kind as "always passes" makes
+    a region-gated list collapse to its first branch."""
+    keys = []
+    for conds in cond_lists:
+        other = tuple(sorted(c for c in (conds or [])
+                             if parse_grp_condition(c) is None))
+        keys.append(other or None)
+    return keys
+
+
+def _first_match_pass(spans, active):
+    """One First Match cascade over the entry indices in *active*, in order.
+
+    Entries sharing an identical GetRandomPercent gate claim that gate's slice
+    together and split it evenly — Bethesda authors these in tiers (one entry at
+    >= 98, three at >= 90, four at >= 80) and a strict reading would hand the
+    whole tier to whichever is listed first. Ungated entries are catch-alls, not
+    a tier, so they never group: the first takes the rest of the range."""
+    order, members, group_span = [], {}, {}
+    for i in active:
+        key = spans[i] if spans[i] is not None else ("ungated", i)
+        if key not in members:
+            members[key] = []
+            group_span[key] = spans[i] if spans[i] is not None else (0.0, 100.0)
+            order.append(key)
+        members[key].append(i)
+    rates, covered = {}, []
+    for key in order:
+        group = members[key]
+        eff = group_span[key]
+        share = _span_uncovered_width(eff, covered) / 100.0 / len(group)
+        for i in group:
+            rates[i] = share
+        covered = _span_union(covered, eff)
+    return rates
+
+
 def _first_match_rates_for(cond_lists):
     """Per-entry selection rates (0-1) for a First Match list. One roll is taken
     and entries are checked in order, so each entry claims the part of the roll
     range no earlier entry took. Works for ascending "<=" lists, descending ">="
-    lists and mixes. None when no entry has a resolvable GRP gate."""
+    lists and mixes; tied thresholds split their slice.
+
+    World-state branches get their own cascade: the list is resolved once per
+    context (ungated entries plus that context's branch, in list order), and an
+    entry reports its best rate across the passes it takes part in. Each pass
+    totals 100%, so a multi-context list sums above 100% by design — those
+    branches are alternatives, never simultaneous.
+
+    None when no entry has a resolvable GRP gate and none has a world-state gate."""
     spans = [_extract_grp_span(c) for c in cond_lists]
-    if not any(s is not None for s in spans):
+    contexts = _first_match_contexts(cond_lists)
+    if not any(s is not None for s in spans) and \
+       not any(c is not None for c in contexts):
         return None
-    rates, covered = [], []
-    for span in spans:
-        eff = span if span is not None else (0.0, 100.0)
-        rates.append(_span_uncovered_width(eff, covered) / 100.0)
-        covered = _span_union(covered, eff)
+    n = len(cond_lists)
+    base = [i for i in range(n) if contexts[i] is None]
+    rates = [0.0] * n
+    passes, seen = [base], []
+    for ctx in contexts:
+        if ctx is not None and ctx not in seen:
+            seen.append(ctx)
+            passes.append(sorted(base + [i for i in range(n) if contexts[i] == ctx]))
+    for active in passes:
+        if not active:
+            continue
+        for i, rate in _first_match_pass(spans, active).items():
+            if rate > rates[i]:
+                rates[i] = rate
     return rates
 
 
