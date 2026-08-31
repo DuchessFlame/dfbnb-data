@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-29",
+  "generated": "2026-08-31",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 569,
   "source_totals": {
@@ -592,89 +592,6 @@
   },
   "creatures": {
    "note": "Around 2,304 creatures can drop RadAway as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
-  },
-  "collectrons": {
-   "entries": [
-    {
-     "name": "Communist Collectron Station",
-     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "4 min 48 sec",
-     "items": [
-      {
-       "name": "RadAway",
-       "form_id": "00023742",
-       "rate": 0.033333,
-       "rate_display": "3.33%",
-       "rate_source": "computed"
-      }
-     ]
-    },
-    {
-     "name": "Raider Collectron Station",
-     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Raider",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "6 min",
-     "items": [
-      {
-       "name": "RadAway",
-       "form_id": "00023742",
-       "rate": 0.033333,
-       "rate_display": "3.33%",
-       "rate_source": "computed"
-      }
-     ]
-    },
-    {
-     "name": "BoS Collectron Station",
-     "edid": "ATX_Community2020_ATLAS_ENTM_CAMP_Utility_Collectron_BoS",
-     "obtain": "Awarded through a Bethesda community event or promotion.",
-     "interval": "7 min 12 sec",
-     "items": [
-      {
-       "name": "RadAway",
-       "form_id": "00023742",
-       "rate": 0.0,
-       "rate_display": "0%",
-       "rate_source": "computed_zero"
-      }
-     ]
-    },
-    {
-     "name": "Free States Collectron Station",
-     "edid": "ATX_ENTM_CAMP_Utility_Collectron_FreeStates",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "9 min",
-     "items": [
-      {
-       "name": "RadAway",
-       "form_id": "00023742",
-       "rate": 0.0,
-       "rate_display": "0%",
-       "rate_source": "computed_zero"
-      }
-     ]
-    }
-   ]
-  },
-  "resource_generators": {
-   "entries": [
-    {
-     "name": "Ashforge",
-     "edid": "AshResource",
-     "obtain": "Available in the base game.",
-     "interval": "3 min",
-     "items": [
-      {
-       "name": "RadAway",
-       "form_id": "00023742",
-       "rate": 0.009722,
-       "rate_display": "0.97%",
-       "rate_source": "computed"
-      }
-     ]
-    }
-   ]
   }
  },
  "farming_tips": {
@@ -3661,6 +3578,30 @@
    "rate_display": "0.45%",
    "rate_lines": [
     "0.45%"
+   ]
+  },
+  {
+   "list_id": "00893F72",
+   "edid": "HTO_crLLS_Rewards_Bespoke_Mob",
+   "name": "HTO cr LLS Rewards Bespoke Mob",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HTO cr LLS Rewards Bespoke Mob reward pool per event/activity payout.",
+   "rate_value": 0.0045,
+   "rate_display": "0.45%",
+   "rate_lines": [
+    "0.45%"
+   ]
+  },
+  {
+   "list_id": "0035D0C7",
+   "edid": "FF12_LL_QuestReward_Event_Basic",
+   "name": "Quest Reward Event Basic",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the Quest Reward Event Basic reward pool per event/activity payout.",
+   "rate_value": 0.004167,
+   "rate_display": "0.42%",
+   "rate_lines": [
+    "0.42%"
    ]
   }
  ],
